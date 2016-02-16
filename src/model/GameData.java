@@ -1,0 +1,270 @@
+package model;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Map.Entry;
+
+import model.map.GameMap;
+import model.map.MapBuilder;
+import model.map.Room;
+import model.modes.GameMode;
+import model.modes.HostGameMode;
+
+
+/**
+ * @author erini02
+ *
+ */
+/**
+ * @author erini02
+ *
+ */
+public class GameData {
+	private static HashMap<String, Client> clients = new HashMap<>();
+	private static GameMap map = MapBuilder.createMap();
+
+	private int gameState = 0;
+	private GameMode gameMode = new HostGameMode();
+	
+	public GameData() {
+		
+	}
+	
+	/**
+	 * Gets all the clients as a Map of clients as keys and booleans as values.
+	 * True indicating that the client is ready, false => not ready.
+	 * @return the map
+	 */
+	public Map<String, Boolean> getClientsAsMap() {
+		HashMap<String, Boolean> hm = new HashMap<>();
+		for (Entry<String, Client> e : clients.entrySet()) {
+			hm.put(e.getKey(), e.getValue().getReady());
+		}
+		return hm;
+	}
+	
+
+	/**
+	 * Makes a string representation of all the clients and whether they are ready or not.
+	 * @return the string representation
+	 */
+	public String makeStringFromReadyClients() {
+		return getClientsAsMap().toString();
+	}
+
+
+	/**
+	 * Gets all the rooms in the game as a list.
+	 * @return the list of rooms.
+	 */
+	public List<Room> getRooms() {
+		return map.getRooms();
+	}
+	
+	
+	/**
+	 * Prints the clients (and if they are ready or not) to the console
+	 */
+	public void printClients() {
+		for (Entry<String, Boolean> s : getClientsAsMap().entrySet()) {
+			System.out.println("  " + s.getKey() + " " + s.getValue());
+		}
+	}
+
+
+	/**
+	 * Gets the game state.
+	 * 1 = pre-game
+	 * 2 = movement
+	 * 3 = actions
+	 * @return the game state.
+	 */
+	public int getGameState() {
+		return gameState;
+	}
+
+
+	/**
+	 * Gets a client for a certain clid
+	 * @param clid the clid of the client we are looking for.
+	 * @return the searched for client.
+	 */
+	public Client getClient(String clid) {
+		return clients.get(clid);
+	}
+
+
+	/**
+	 * Creates a new client and adds it to the game.
+	 * The client gets a unique ID called a CLID.
+	 * @return the CLID of the new client.
+	 */
+	public String createNewClient() {
+		Random rand = new Random();
+		String clid = null;
+		do {
+			clid = new String("CL" + (rand.nextInt(900)+100));
+		} while (getClientsAsMap().containsKey(clid));
+		clients.put(clid, new Client());
+		
+		return clid;
+	}
+
+
+	/**
+	 * Removes a client from the game.
+	 * @param otherPlayer, the client to be removed.
+	 */
+	public void removeClient(String otherPlayer) {
+		clients.remove(otherPlayer);
+	}
+
+
+	/**
+	 * Finds a certain client and sets its ready status.
+	 * @param clid, the client whose status to set.
+	 * @param equals, the new ready status for the client.
+	 */
+	public void setCientReady(String clid, boolean equals) {
+		clients.get(clid).setReady(equals);
+		if (allClientsReadyOrDead()) {
+			increaseGameState();	
+		}
+		
+	}
+
+	/**
+	 * Creates a string with the player's data and selectable rooms.
+	 * @param clid the player to create the data for.
+	 * @return a string representation of the player data.
+	 */
+	public String createPlayerMovementData(String clid) {
+		Client cl = clients.get(clid);
+		String result =  Arrays.toString(cl.getSelectableLocations(this)) + ":" + createBasicPlayerData(cl);
+		return result;
+	}
+
+
+	/**
+	 * Create a string with the player's data and available actions.
+	 * @param clid the player to create the data for.
+	 * @return a string representation of the player data.
+	 */
+	public String createPlayerActionData(String clid) {
+		Client cl = clients.get(clid);
+		String result = cl.getActionTreeString(this) + ":" + createBasicPlayerData(cl);
+		return result;
+	}
+
+	
+	/**
+	 * Gets the clients as a collection.
+	 * @return the collection of clients.
+	 */
+	public Collection<Client> getClients() {
+		return clients.values();
+	}
+
+	
+	private void allClearReady() {
+		for (Client c : clients.values()) {
+			c.setReady(false);
+		}
+	}
+
+
+	private boolean allClientsReadyOrDead() {
+		for (Client c : clients.values()) {
+			if (!c.isReady() && !c.isDead()) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+
+	private void increaseGameState() {
+		if (gameState == 0) {
+			gameState = 1;
+			gameMode.setup(this);
+			allClearReady();
+		} else if (gameState == 1) {
+			moveAllPlayers();
+			allResetActionStrings();
+			allClearLastTurn();
+			allClearReady();
+			gameState = 2;
+		} else if (gameState == 2) {
+			actionsForAllPlayers();
+			if (allDead() || gameMode.gameOver(this)) {
+				gameState = 0;
+			} else {
+				gameState = 1;
+			}
+			allClearReady();
+		}
+		
+	}
+
+
+	private boolean allDead() {
+		for (Client cl : clients.values()) {
+			if (!cl.isDead()) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	private void allClearLastTurn() {
+		for (Client cl : clients.values()) {
+			cl.clearLastTurnInfo();
+		}
+	}
+
+	private void allResetActionStrings() {
+		for (Client cl : clients.values()) {
+			cl.setActionString("root,Do Nothing");
+		}
+	}
+
+	private void actionsForAllPlayers() {
+		for (Client cl : clients.values()) {
+			cl.applyAction(this);
+		}
+		
+	}
+
+	private void moveAllPlayers() {
+		for (Client cl : clients.values()) {
+			cl.moveIntoRoom(map.getRoomForID(cl.getNextMove()));
+		}
+	}
+	
+
+	private String createBasicPlayerData(Client cl) {		
+		String result = cl.getCharacterRealName() + 
+				       ":" + cl.getCurrentPositionID() + 
+					   ":" + cl.getCurrentHealth() + 
+					   ":" + cl.getSuit() +
+					   ":" + cl.getItems() + 
+					   ":" + cl.getRoomInfo() + 
+					   ":" + cl.getLastTurnInfo();
+		return result;	
+		
+	}
+
+
+	public Room getRoomForId(int ID) {
+		return map.getRoomForID(ID);
+	}
+
+}
