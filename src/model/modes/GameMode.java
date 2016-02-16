@@ -22,7 +22,7 @@ public abstract class GameMode {
 		  23, 8, 10, 26, 2};
 	
 	private HashMap<String, GameCharacter> availableChars;
-
+	
 	public GameMode() {
 		availableChars = new HashMap<>();
 		for (int i = 0; i < charNames.length; ++i ) {
@@ -34,6 +34,7 @@ public abstract class GameMode {
 	protected abstract void setUpOtherStuff(GameData gameData);
 	protected abstract void assignCharactersToPlayers(GameData gameData);
 	public abstract boolean gameOver(GameData gameData);
+	public abstract void setStartingLastTurnInfo();
 
 	
 
@@ -52,13 +53,15 @@ public abstract class GameMode {
 	
 		
 		for (Client c : gameData.getClients()) {
-			Room startRoom = gameData.getRoomForId(c.getStartingRoom());
+			Room startRoom = gameData.getRoomForId(c.getCharacter().getStartingRoom());
 			c.moveIntoRoom(startRoom);
 			c.setNextMove(c.getPosition().getID());
 		}
 		
 		setUpOtherStuff(gameData);
 	}
+
+
 
 
 

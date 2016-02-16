@@ -15,7 +15,7 @@ public class DoNothingAction extends Action {
 
 	@Override
 	public void execute(GameData gameData, Client performingClient) {
-		performingClient.addTolastTurnInfo("You're chilling out...");
+		//performingClient.addTolastTurnInfo("You're chilling out...");
 		
 	}
 

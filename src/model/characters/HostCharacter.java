@@ -8,7 +8,7 @@ public class HostCharacter extends InfectedCharacter {
 	}
 
 	@Override
-	public String getRealName() {
-		return getName() + " (host)";
+	public String getFullName() {
+		return getInner().getFullName() + " (host)";
 	}
 }

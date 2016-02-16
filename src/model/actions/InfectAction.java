@@ -29,7 +29,7 @@ public class InfectAction extends TargetingAction {
 		if (target instanceof Client) {
 			Client targetAsClient = (Client)target;
 			if (! targetAsClient.isInfected()) {
-				targetAsClient.setCharacter(new InfectedCharacter(targetAsClient.getCharacter()), targetAsClient);
+				targetAsClient.setCharacter(new InfectedCharacter(targetAsClient.getCharacter()));
 				targetAsClient.addTolastTurnInfo("You were infected by " + performingClient.getCharacterPublicName() + 
 						"! You are now on the Host team. Keep the humans from destroying the hive!");
 				performingClient.addTolastTurnInfo("You infected " + targetAsClient.getCharacterPublicName() + "!");

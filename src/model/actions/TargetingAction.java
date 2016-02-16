@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import model.Client;
 import model.GameData;
 import model.GameItem;
+import model.characters.GameCharacter;
 
 public abstract class TargetingAction extends Action {
 
@@ -29,10 +30,20 @@ public abstract class TargetingAction extends Action {
 
 	private void addTargetsToAction(Client client) {
 		for (Client cl: client.getPosition().getClients()) {
-			if (cl.getCharacter().isInteractable() && cl != client) {
-				this.addTarget((Target)cl);
+			Target target = (Target)cl;
+			if (isViableForThisAction(target) && cl != client) {
+				this.addTarget(target);
 			}
 		}
+		addMoreTargets(client);
+	}
+
+	protected void addMoreTargets(Client client) {
+		// Override this method if you want your targeting action to have more targets
+	}
+
+	protected boolean isViableForThisAction(Target target2) {
+		return true;
 	}
 
 	public void addItemsToAction(Client client) { }
@@ -81,5 +92,9 @@ public abstract class TargetingAction extends Action {
 			}
 		}
 		throw new NoSuchElementException("Did not find target client for this targeting action!");
+	}
+
+	public int getNoOfTargets() {
+		return targets.size();
 	}
 }

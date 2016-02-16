@@ -15,8 +15,7 @@ public class WatchAction extends TargetingAction {
 	@Override
 	protected void applyTargetingAction(GameData gameData,
 			Client performingClient, Target target, GameItem item) {
-		//target.beAttackedBy(performingClient, (Weapon)item);
-		//TODO: implement this correctly
+		performingClient.addTolastTurnInfo("You're watching " + target.getName() + ".");
 	}
 
 

@@ -11,5 +11,7 @@ public interface Target {
 	String getName();
 
 	void beAttackedBy(Client performingClient, Weapon item);
-
+	boolean isTargetable();
+//	boolean isInfected();
+//	boolean isInteractable();
 }

@@ -44,7 +44,7 @@ public class GameData {
 	public Map<String, Boolean> getClientsAsMap() {
 		HashMap<String, Boolean> hm = new HashMap<>();
 		for (Entry<String, Client> e : clients.entrySet()) {
-			hm.put(e.getKey(), e.getValue().getReady());
+			hm.put(e.getKey(), e.getValue().isReady());
 		}
 		return hm;
 	}
@@ -199,6 +199,7 @@ public class GameData {
 			moveAllPlayers();
 			allResetActionStrings();
 			allClearLastTurn();
+			gameMode.setStartingLastTurnInfo();
 			allClearReady();
 			gameState = 2;
 		} else if (gameState == 2) {
@@ -252,7 +253,7 @@ public class GameData {
 
 	private String createBasicPlayerData(Client cl) {		
 		String result = cl.getCharacterRealName() + 
-				       ":" + cl.getCurrentPositionID() + 
+				       ":" + cl.getPosition().getID() + 
 					   ":" + cl.getCurrentHealth() + 
 					   ":" + cl.getSuit() +
 					   ":" + cl.getItems() + 

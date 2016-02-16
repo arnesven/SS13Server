@@ -1,6 +1,7 @@
 package model.characters;
 
 import model.Client;
+import model.map.Room;
 
 
 public abstract class CharacterDecorator extends GameCharacter {
@@ -14,14 +15,23 @@ public abstract class CharacterDecorator extends GameCharacter {
 		innerChar = chara;
 	}
 
-	@Override
-	public String getName() {
-		return innerChar.getName();
+	protected GameCharacter getInner() {
+		return innerChar;
 	}
 	
 	@Override
-	public String getRealName() {
-		return innerChar.getName();
+	public String getBaseName() {
+		return innerChar.getBaseName();
+	}
+	
+	@Override
+	public String getPublicName() {
+		return innerChar.getPublicName();
+	}
+	
+	@Override
+	public String getFullName() {
+		return innerChar.getFullName();
 	}
 	
 	@Override
@@ -39,5 +49,20 @@ public abstract class CharacterDecorator extends GameCharacter {
 		innerChar.setClient(c);
 	}
 	
-
+	@Override
+	public Room getPosition() {
+		return innerChar.getPosition();
+	}
+	
+	@Override
+	public void setPosition(Room room) {
+		innerChar.setPosition(room);
+	}
+	
+	@Override
+	public boolean checkInstance(InstanceChecker infectChecker) {
+		return innerChar.checkInstance(infectChecker);
+	}
+	
+	
 }

@@ -17,6 +17,8 @@ import model.objects.HiveObject;
 public class HostGameMode extends GameMode {
 	
 	private Client hostClient;
+	private String hiveString;
+	private HiveObject hive;
 
 	@Override
 	protected void assignCharactersToPlayers(GameData gameData) {
@@ -31,8 +33,8 @@ public class HostGameMode extends GameMode {
 		Client capCl = listOfClients.remove(random.nextInt(listOfClients.size()));
 		GameCharacter gc = null;
 		for (GameCharacter ch : listOfCharacters) {
-			if (ch.getName().equals("Captain")) {
-				capCl.setCharacter(ch, capCl);
+			if (ch.getBaseName().equals("Captain")) {
+				capCl.setCharacter(ch);
 				gc = ch;
 				break;
 			}
@@ -41,7 +43,7 @@ public class HostGameMode extends GameMode {
 		
 		while (listOfClients.size() > 0) {
 			Client cl = listOfClients.remove(0);
-			cl.setCharacter(listOfCharacters.remove(random.nextInt(listOfCharacters.size())), cl);
+			cl.setCharacter(listOfCharacters.remove(random.nextInt(listOfCharacters.size())));
 		}
 	
 		ArrayList<Client> newList = new ArrayList<>();
@@ -52,7 +54,7 @@ public class HostGameMode extends GameMode {
 		
 		GameCharacter hostInner = hostClient.getCharacter();
 		CharacterDecorator host = new HostCharacter(hostInner);
-		hostClient.setCharacter(host, hostClient);
+		hostClient.setCharacter(host);
 	}
 
 	@Override
@@ -65,16 +67,17 @@ public class HostGameMode extends GameMode {
 			hiveRoom = gameData.getRooms().get(random.nextInt(gameData.getRooms().size()));
 			hiveInStartingRoom = false;
 			for (Client c : gameData.getClients()) {
-				if (c.getCurrentPositionID() == hiveRoom.getID()) {
+				if (c.getPosition().getID() == hiveRoom.getID()) {
 					hiveInStartingRoom = true;
 					break;
 				}
 			}
 			
 		} while (hiveInStartingRoom);
-	
-		hiveRoom.addObject(new HiveObject("Hive"));
-		hostClient.addTolastTurnInfo("You are the host! (Only you know this, so keep it a secret.) The hive is in " + hiveRoom.getName() + "." + " Protect it by killing humans or infecting them, turning them over to your side.");
+		hive = new HiveObject("Hive");
+		hiveRoom.addObject(hive);
+		hiveString = "The hive is in " + hiveRoom.getName() + ".";
+		hostClient.addTolastTurnInfo("You are the host! (Only you know this, so keep it a secret.) " + hiveString + " Protect it by killing humans or infecting them, turning them over to your side.");
 
 		for (Client c : gameData.getClients()) {
 			c.addItem(new Weapon("Laser pistol", 0.90, 1.0, false));
@@ -89,8 +92,12 @@ public class HostGameMode extends GameMode {
 
 	@Override
 	public boolean gameOver(GameData gameData) {
-		// TODO Implement this shit
-		return false;
+		return hive.isBroken();
+	}
+
+	@Override
+	public void setStartingLastTurnInfo() {
+		hostClient.addTolastTurnInfo(hiveString);
 	}
 
 

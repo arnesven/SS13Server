@@ -14,6 +14,7 @@ public class GameObject {
 	public String getName() {
 		return name;
 	}
+	
 
 	public void addYourselfToRoomInfo(ArrayList<String> info, Client whosAsking) {
 		info.add(this.name);

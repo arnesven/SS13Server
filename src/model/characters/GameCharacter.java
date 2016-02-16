@@ -6,6 +6,7 @@ import model.Client;
 import model.GameData;
 import model.actions.Action;
 import model.actions.Weapon;
+import model.map.Room;
 
 public class GameCharacter {
 	
@@ -13,6 +14,7 @@ public class GameCharacter {
 	private int startingRoom = 0;
 	private double health = 3.0;
 	private Client client = null;
+	private Room position = null;
 
 	public GameCharacter(String name) {
 		this.name = name;
@@ -26,8 +28,16 @@ public class GameCharacter {
 	/**
 	 * @return the name of the character as it appears publicly
 	 */
-	public String getName() {
+	public String getPublicName() {
 		return name + (isDead()?" (dead)":"");
+	}
+	
+	/**
+	 * Gets the name of this character, for instance "Captain" or "Doctor"
+	 * @return
+	 */
+	public String getBaseName() {
+		return name;
 	}
 
 	/**
@@ -40,8 +50,8 @@ public class GameCharacter {
 	/**
 	 * @return the name of the character as it appears for anyone knowing the TRUTH.
 	 */
-	public String getRealName() {
-		return getName();
+	public String getFullName() {
+		return getBaseName();
 	}
 
 	private boolean isDead() {
@@ -60,9 +70,9 @@ public class GameCharacter {
 		if (weapon.isAttackSuccessful()) {
 			health = Math.max(0.0, health - weapon.getDamage());
 			performingClient.addTolastTurnInfo("You " + weapon.getSuccessfulMessage() + "ed " + 
-											   getName() + " with " + weapon.getName() + ".");
+											   getBaseName() + " with " + weapon.getName() + ".");
 			if (thisClient != null) {
-				thisClient.addTolastTurnInfo(performingClient.getCharacterName() + " " + 
+				thisClient.addTolastTurnInfo(performingClient.getCharacterPublicName() + " " + 
 											 weapon.getSuccessfulMessage() + "ed you with " + 
 											 weapon.getName() + "."); 
 			}
@@ -70,7 +80,7 @@ public class GameCharacter {
 		} else {
 			performingClient.addTolastTurnInfo("Your attacked missed!");
 			if (thisClient != null) {
-				thisClient.addTolastTurnInfo(performingClient.getCharacterName() + " tried to " + 
+				thisClient.addTolastTurnInfo(performingClient.getCharacterPublicName() + " tried to " + 
 											 weapon.getSuccessfulMessage() + " you with " + 
 											 weapon.getName() + "."); 
 			}
@@ -98,5 +108,18 @@ public class GameCharacter {
 			ArrayList<Action> at) { 
 		// No specific actions for ordinary characters...
 	}
+
+	public Room getPosition() {
+		return position ;
+	}
+
+	public void setPosition(Room room) {
+		position = room;
+	}
+
+	public boolean checkInstance(InstanceChecker infectChecker) {
+		return infectChecker.checkInstanceOf(this);
+	}
+
 
 }

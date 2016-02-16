@@ -2,8 +2,10 @@ package model.characters;
 
 import java.util.ArrayList;
 
+import model.Client;
 import model.GameData;
 import model.actions.Action;
+import model.actions.InfectAction;
 
 
 public class InfectedCharacter extends CharacterDecorator {
@@ -13,14 +15,30 @@ public class InfectedCharacter extends CharacterDecorator {
 	}
 	
 	@Override
-	public String getRealName() {
-		return getName() + " (infected)";
+	public String getFullName() {
+		return super.getFullName() + " (infected)";
 	}
 
 	@Override
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {
-		at.add(new InfectAction(getClient()));
+		int noOfTargets = 0;
+		for (Client cl : getInner().getPosition().getClients()) {
+			if (!cl.isInfected()) {
+				noOfTargets++;
+			}
+		}
+		if (noOfTargets > 0) {
+			at.add(new InfectAction(getClient()));
+		}
+	}
+	
+	@Override
+	public boolean checkInstance(InstanceChecker infectChecker) {
+		if (infectChecker.checkInstanceOf(this)) {
+			return true;
+		}
+		return super.checkInstance(infectChecker);
 	}
 	
 }

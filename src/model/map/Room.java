@@ -87,4 +87,8 @@ public class Room implements Comparable {
 		return players;
 	}
 
+	public List<GameObject> getObjects() {
+		return objects;
+	}
+
 }
