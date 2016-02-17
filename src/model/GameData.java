@@ -10,11 +10,13 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Map.Entry;
 
+import model.actions.DoNothingAction;
 import model.map.GameMap;
 import model.map.MapBuilder;
 import model.map.Room;
 import model.modes.GameMode;
 import model.modes.HostGameMode;
+import model.npcs.NPC;
 
 
 
@@ -25,10 +27,10 @@ import model.modes.HostGameMode;
  * the game is in. The game also has a "mode".
  */
 public class GameData {
-	private static HashMap<String, Client> clients = new HashMap<>();
-	private static GameMap map = MapBuilder.createMap();
-
-	private int gameState = 0;
+	private HashMap<String, Client> clients = new HashMap<>();
+	private GameMap map = MapBuilder.createMap();
+	private List<NPC> npcs = new ArrayList<>();
+	private GameState gameState = GameState.PRE_GAME;
 	private GameMode gameMode = new HostGameMode();
 	
 	public GameData() {
@@ -84,7 +86,7 @@ public class GameData {
 	 * 3 = actions
 	 * @return the game state.
 	 */
-	public int getGameState() {
+	public GameState getGameState() {
 		return gameState;
 	}
 
@@ -190,28 +192,35 @@ public class GameData {
 
 
 	private void increaseGameState() {
-		if (gameState == 0) {
-			gameState = 1;
+		if (gameState == GameState.PRE_GAME) {
+			gameState = GameState.MOVEMENT;
 			gameMode.setup(this);
 			allClearReady();
-		} else if (gameState == 1) {
+			
+		} else if (gameState == GameState.MOVEMENT) {
 			moveAllPlayers();
+			moveAllNPCs();
 			allResetActionStrings();
 			allClearLastTurn();
 			gameMode.setStartingLastTurnInfo();
 			allClearReady();
-			gameState = 2;
-		} else if (gameState == 2) {
+			gameState = GameState.ACTIONS;
+			
+		} else if (gameState == GameState.ACTIONS) {
 			actionsForAllPlayers();
+			actionsForAllNPCs();
 			if (allDead() || gameMode.gameOver(this)) {
-				gameState = 0;
+				gameState = GameState.PRE_GAME;
 			} else {
-				gameState = 1;
+				gameState = GameState.MOVEMENT;
 			}
 			allClearReady();
 		}
 		
 	}
+
+
+
 
 
 	private boolean allDead() {
@@ -232,7 +241,7 @@ public class GameData {
 
 	private void allResetActionStrings() {
 		for (Client cl : clients.values()) {
-			cl.setActionString("root,Do Nothing");
+			cl.setNextAction(new DoNothingAction());
 		}
 	}
 
@@ -249,6 +258,20 @@ public class GameData {
 		}
 	}
 	
+	private void moveAllNPCs() {
+		for (NPC npc : npcs) {
+			System.out.println("Moving NPC " + npc.getName());
+			npc.moveAccordingToBehavior();
+		}
+	}
+	
+
+	private void actionsForAllNPCs() {
+		for (NPC npc : npcs) {
+			npc.actAccordingToBehavior(this);
+		}
+		
+	}
 
 	private String createBasicPlayerData(Client cl) {		
 		String result = cl.getCharacterRealName() + 
@@ -265,6 +288,14 @@ public class GameData {
 
 	public Room getRoomForId(int ID) {
 		return map.getRoomForID(ID);
+	}
+
+	/**
+	 * Adds an npc to the game
+	 * @param npc, the npc to be added to the game.
+	 */
+	public void addNPC(NPC npc) {
+		npcs.add(npc);
 	}
 
 }

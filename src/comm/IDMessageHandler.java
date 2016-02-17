@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.Random;
 
 import model.GameData;
+import model.GameState;
 
 
 public class IDMessageHandler implements MessageHandler {
@@ -18,7 +19,7 @@ public class IDMessageHandler implements MessageHandler {
 	@Override
 	public boolean handle(String message, ObjectOutputStream oos) throws IOException {
 		if (message.equals("IDENT ME")) {
-			if (gameData.getGameState() == 0) {
+			if (gameData.getGameState() == GameState.PRE_GAME) {
 				String clid = gameData.createNewClient();
 
 

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import model.Client;
+import model.npcs.NPC;
 import model.objects.GameObject;
 
 
@@ -25,7 +26,9 @@ public class Room {
 	private double[] doors;
 	
 	private List<Client> players = new ArrayList<>();
+	private List<NPC> npcs = new ArrayList<>();
 	private List<GameObject> objects = new ArrayList<>();
+	private List<Room> neighborList = new ArrayList<>();
 
 	/**
 	 * Constructor for a Room
@@ -84,7 +87,9 @@ public class Room {
 		ArrayList<String> info = new ArrayList<>();
 		for (Client cl : players) {
 			cl.addYourselfToRoomInfo(info);
-			
+		}
+		for (NPC npc : npcs) {
+			npc.addYourselfToRoomInfo(info);
 		}
 		for (GameObject ob : objects) {
 			ob.addYourselfToRoomInfo(info, whosAsking);	
@@ -143,6 +148,29 @@ public class Room {
 	 */
 	public List<GameObject> getObjects() {
 		return objects;
+	}
+
+	/**
+	 * Adds an NPC to this room.
+	 * @param npc, the NPC to be added to the room.
+	 */
+	public void addNPC(NPC npc) {
+		this.npcs.add(npc);
+	}
+
+	/**
+	 * Removes an NPC from this room.
+	 * @param npc, the NPC to remove from this room.
+	 */
+	public void removeNPC(NPC npc) {
+		if (!npcs.contains(npc)) {
+			throw new NoSuchElementException("Tried removing NPC " + npc + " from the room, but it wasn't there!");
+		}
+		this.npcs.remove(npc);
+	}
+
+	public List<Room> getNeighborList() {
+		return neighborList;
 	}
 
 }

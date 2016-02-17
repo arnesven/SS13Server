@@ -17,7 +17,7 @@ public class NextActionCommandHandler extends AbstractCommandHandler {
 		if (command.equals("NEXTACTION")) {
 			String actionStr = rest.substring(1, rest.length());
 			System.out.println(clid + "'s next action is " + actionStr);
-			gameData.getClient(clid).setActionString(actionStr);
+			gameData.getClient(clid).parseActionFromString(actionStr, gameData);
 			oos.writeObject("ACK");
 			return true;
 		}

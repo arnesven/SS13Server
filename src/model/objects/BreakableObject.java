@@ -1,8 +1,9 @@
 package model.objects;
 
 import model.Client;
+import model.actions.ActionPerformer;
 import model.actions.Target;
-import model.actions.Weapon;
+import model.items.Weapon;
 
 public class BreakableObject extends GameObject implements Target {
 
@@ -14,7 +15,7 @@ public class BreakableObject extends GameObject implements Target {
 	}
 
 	@Override
-	public void beAttackedBy(Client performingClient, Weapon item) {
+	public void beAttackedBy(ActionPerformer performingClient, Weapon item) {
 		
 		if (item.isAttackSuccessful()) {
 			hp = Math.max(0.0, hp - item.getDamage());

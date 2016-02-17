@@ -3,18 +3,22 @@ package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import model.actions.Action;
+import model.actions.ActionPerformer;
 import model.actions.AttackAction;
+import model.actions.ClientActionPerformer;
 import model.actions.WatchAction;
 import model.actions.DoNothingAction;
 import model.actions.SearchAction;
 import model.actions.Target;
 import model.actions.TargetingAction;
-import model.actions.Weapon;
 import model.characters.GameCharacter;
 import model.characters.InfectedCharacter;
 import model.characters.InstanceChecker;
+import model.items.GameItem;
+import model.items.Weapon;
 import model.map.Room;
 
 
@@ -32,11 +36,10 @@ public class Client implements Target {
 	//TODO : shouldn't items belong to the character?
 	private List<GameItem> items = new ArrayList<>();
 	private String suit = "clothes";
-	private String actionString;
-	private Action lastAction = null;
+	private Action nextAction;
+	
 
 	public Client() {
-		lastTurnInfo.add("Game started - good luck!");
 	}
 
 	/**
@@ -266,27 +269,55 @@ public class Client implements Target {
 	 * @param gameData the Game's data
 	 * @return the string representing the selectable actions.
 	 */
-	public String getActionTreeString(GameData gameData) {
-		
+	public String getActionTreeString(GameData gameData) {		
 		String result = "{";
 		for (Action a : getActionTree(gameData)) {
 			result += a.toString();
 		}
 		result += "}";
-		System.out.println(result);
 		return result;
+	}
 
+	
+	/**
+	 * Parses a action object from the action string sent by the
+	 * client gui.
+	 * @param actionString the string describing which action was selected
+	 * @param gameData the Game's data.
+	 */
+	public void parseActionFromString(String actionString, GameData gameData) {
+		ArrayList<Action> at = getActionTree(gameData);
+		String actionStr = actionString.replaceFirst("root,", "");
+
+		ArrayList<String> strings = new ArrayList<>();
+		strings.addAll(Arrays.asList(actionStr.split(",")));
+		for (Action a : at) {
+			if (a.getName().equals(strings.get(0))) {
+				List<String> args = strings.subList(1, strings.size());
+				a.setArguments(args);
+				this.nextAction = a;
+			}
+		}	
+		throw new NoSuchElementException("Could not find action for this action string " + actionString + ".");
 	}
 
 	/**
-	 * Sets the action string of this player. I.e. the string
-	 * representing what action this player will take next.
-	 * @param rest the string representing the selected action.
+	 * Applies the action previously selected in the action string.
+	 * This method finds the corresponding action in the action tree
+	 * and executes it.
+	 * @param gameData the Game's data.
 	 */
-	public void setActionString(String rest) {
-		this.actionString = rest;
-		
+	public void applyAction(GameData gameData) {
+		if (!isDead()) {
+			this.nextAction.printAndExecute(gameData, new ClientActionPerformer(this));
+		}
 	}
+	
+	public void setNextAction(Action nextAction) {
+		// TODO Auto-generated method stub
+		this.nextAction = nextAction;
+	}
+
 
 	/**
 	 * Adds a string to the last turn info.
@@ -314,29 +345,7 @@ public class Client implements Target {
 		info.add(this.getCharacterPublicName());
 	}
 
-	/**
-	 * Applies the action previously selected in the action string.
-	 * This method finds the corresponding action in the action tree
-	 * and executes it.
-	 * @param gameData the Game's data.
-	 */
-	public void applyAction(GameData gameData) {
-		if (!isDead()) {
-			ArrayList<Action> at = getActionTree(gameData);
-			String actionStr = actionString.replaceFirst("root,", "");
 
-			ArrayList<String> strings = new ArrayList<>();
-			strings.addAll(Arrays.asList(actionStr.split(",")));
-			for (Action a : at) {
-				if (a.getName().equals(strings.get(0))) {
-					List<String> args = strings.subList(1, strings.size());
-					a.setArguments(args);
-					a.execute(gameData, this);
-					this.lastAction = a;
-				}
-			}
-		}
-	}
 
 	@Override
 	public String getName() {
@@ -344,7 +353,7 @@ public class Client implements Target {
 	}
 
 	@Override
-	public void beAttackedBy(Client performingClient, Weapon weapon) {
+	public void beAttackedBy(ActionPerformer performingClient, Weapon weapon) {
 		getCharacter().beAttackedBy(performingClient, weapon);		
 	}
 
@@ -422,10 +431,11 @@ public class Client implements Target {
 	}
 	
 	private void addBasicActions(ArrayList<Action> at) {
-		at.add(new DoNothingAction("Do Nothing"));
+		at.add(new DoNothingAction());
 		if (!isDead()) {
-			at.add(new SearchAction("Search Room"));
+			at.add(new SearchAction());
 		}
 	}
 
+	
 }

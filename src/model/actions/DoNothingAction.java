@@ -8,13 +8,13 @@ import model.GameData;
 
 public class DoNothingAction extends Action {
 
-	public DoNothingAction(String name) {
-		super(name);
+	public DoNothingAction() {
+		super("Do Nothing", true);
 	}
 
 
 	@Override
-	public void execute(GameData gameData, Client performingClient) {
+	public void execute(GameData gameData, ActionPerformer performingClient) {
 		//performingClient.addTolastTurnInfo("You're chilling out...");
 		
 	}

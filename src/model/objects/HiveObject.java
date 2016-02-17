@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import model.Client;
 import model.actions.Target;
-import model.actions.Weapon;
 import model.characters.CharacterDecorator;
 import model.characters.InfectedCharacter;
+import model.items.Weapon;
 
 public class HiveObject extends BreakableObject {
 

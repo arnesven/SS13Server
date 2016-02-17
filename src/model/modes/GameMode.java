@@ -6,8 +6,13 @@ import java.util.List;
 
 import model.Client;
 import model.GameData;
+import model.actions.MeowingAction;
+import model.characters.CatCharacter;
 import model.characters.GameCharacter;
 import model.map.Room;
+import model.npcs.MeanderingMovement;
+import model.npcs.NPC;
+import model.npcs.SpontaneousAct;
 
 /**
  * @author erini02
@@ -73,7 +78,7 @@ public abstract class GameMode {
 	protected abstract void assignCharactersToPlayers(GameData gameData);
 	public abstract boolean gameOver(GameData gameData);
 	public abstract void setStartingLastTurnInfo();
-
+	protected abstract void addStartingMessages(GameData gameData);
 	
 
 	protected GameCharacter getCharacterForString(String string) {
@@ -96,8 +101,18 @@ public abstract class GameMode {
 			c.setNextMove(c.getPosition().getID());
 		}
 		
+		addNPCs(gameData);
+		
 		setUpOtherStuff(gameData);
+		addStartingMessages(gameData);
 	}
+
+	protected void addNPCs(GameData gameData) {
+		NPC cat = new NPC(new CatCharacter(), new MeanderingMovement(0.5),
+						  new SpontaneousAct(0.5, new MeowingAction()), gameData.getRoomForId(20));
+		gameData.addNPC(cat);
+	}
+
 
 
 

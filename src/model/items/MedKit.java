@@ -1,6 +1,5 @@
-package model.modes;
+package model.items;
 
-import model.GameItem;
 
 public class MedKit extends GameItem {
 

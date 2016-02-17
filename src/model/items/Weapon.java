@@ -1,8 +1,6 @@
-package model.actions;
+package model.items;
 
 import java.util.Random;
-
-import model.GameItem;
 
 public class Weapon extends GameItem {
 

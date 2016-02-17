@@ -13,9 +13,15 @@ import model.GameData;
 public abstract class Action {
 	
 	private String name;
+	private boolean isStealthy = false;
 	
 	public Action(String name) {
 		this.name = name;
+	}
+	
+	public Action(String name, boolean isStealthy) {
+		this(name);
+		this.isStealthy = isStealthy;
 	}
 
 	@Override
@@ -27,12 +33,24 @@ public abstract class Action {
 		return name;
 	}
 
+	public void printAndExecute(GameData gameData, ActionPerformer performingClient) {
+		if (!isStealthy) {
+			for (Client cl : performingClient.getPosition().getClients()) {
+				if (!performingClient.isClient(cl)) {
+					cl.addTolastTurnInfo(performingClient.getPublicName() + " " + this.getName().toLowerCase() + "ed.");
+				}
+			}
+
+		}
+		this.execute(gameData, performingClient);
+	}
+	
 	/**
-	 * Do not call this method before calling execute!
+	 * Do not call this method before calling setArguments!
 	 * @param gameData the game's data
 	 * @param performingClient who is performing this action
 	 */
-	public abstract void execute(GameData gameData, Client performingClient);
+	protected abstract void execute(GameData gameData, ActionPerformer performingClient);
 
 	/**
 	 * Sets the arguments with which this action was executed

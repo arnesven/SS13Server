@@ -48,14 +48,9 @@ public class MapBuilder {
 		result.add(new Room(26, "Generator"           , "Gen"    , 6,  5, 3, 3, new int[]{5}         ,         new double[]{}  ));
 		result.add(new Room(27, "Panorama Walkway"    , ""       , 1,  3, 1, 3, new int[]{1, 3}      ,         new double[]{} ));
 		
-		HashMap<Integer, Room> hm = new HashMap<>();
-		for (Room r : result) {
-			hm.put(r.getID(), r);
-		}
-		GameMap gm = new GameMap();
-		gm.setRoomsList(result);
-		gm.setRoomMap(hm);
+		GameMap gm = new GameMap(result);
 		
+
 		return gm;
 	}
 

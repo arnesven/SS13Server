@@ -4,14 +4,14 @@ import java.util.List;
 
 import model.Client;
 import model.GameData;
-import model.GameItem;
 import model.characters.GameCharacter;
 import model.characters.InfectedCharacter;
+import model.items.GameItem;
 
 public class InfectAction extends TargetingAction {
 
 	public InfectAction(Client cl) {
-		super("Infect", cl);
+		super("Infect", true, cl);
 	}
 
 	@Override
@@ -24,13 +24,13 @@ public class InfectAction extends TargetingAction {
 	
 	@Override
 	protected void applyTargetingAction(GameData gameData,
-			Client performingClient, Target target, GameItem item) {
+			ActionPerformer performingClient, Target target, GameItem item) {
 
 		if (target instanceof Client) {
 			Client targetAsClient = (Client)target;
 			if (! targetAsClient.isInfected()) {
 				targetAsClient.setCharacter(new InfectedCharacter(targetAsClient.getCharacter()));
-				targetAsClient.addTolastTurnInfo("You were infected by " + performingClient.getCharacterPublicName() + 
+				targetAsClient.addTolastTurnInfo("You were infected by " + performingClient.getPublicName() + 
 						"! You are now on the Host team. Keep the humans from destroying the hive!");
 				performingClient.addTolastTurnInfo("You infected " + targetAsClient.getCharacterPublicName() + "!");
 			} else {

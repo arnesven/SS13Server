@@ -7,10 +7,11 @@ import java.util.Random;
 
 import model.Client;
 import model.GameData;
-import model.actions.Weapon;
 import model.characters.CharacterDecorator;
 import model.characters.GameCharacter;
 import model.characters.HostCharacter;
+import model.items.MedKit;
+import model.items.Weapon;
 import model.map.Room;
 import model.objects.HiveObject;
 
@@ -19,6 +20,7 @@ public class HostGameMode extends GameMode {
 	private Client hostClient;
 	private String hiveString;
 	private HiveObject hive;
+	private Room hiveRoom;
 
 	@Override
 	protected void assignCharactersToPlayers(GameData gameData) {
@@ -39,6 +41,7 @@ public class HostGameMode extends GameMode {
 				break;
 			}
 		}
+	
 		listOfCharacters.remove(gc);
 		
 		while (listOfClients.size() > 0) {
@@ -55,13 +58,17 @@ public class HostGameMode extends GameMode {
 		GameCharacter hostInner = hostClient.getCharacter();
 		CharacterDecorator host = new HostCharacter(hostInner);
 		hostClient.setCharacter(host);
+		
+
 	}
+
+
 
 	@Override
 	protected void setUpOtherStuff(GameData gameData) {
 		Random random = new Random();
 		
-		Room hiveRoom = null;
+		hiveRoom = null;
 		boolean hiveInStartingRoom;
 		do {
 			hiveRoom = gameData.getRooms().get(random.nextInt(gameData.getRooms().size()));
@@ -76,9 +83,7 @@ public class HostGameMode extends GameMode {
 		} while (hiveInStartingRoom);
 		hive = new HiveObject("Hive");
 		hiveRoom.addObject(hive);
-		hiveString = "The hive is in " + hiveRoom.getName() + ".";
-		hostClient.addTolastTurnInfo("You are the host! (Only you know this, so keep it a secret.) " + hiveString + " Protect it by killing humans or infecting them, turning them over to your side.");
-
+		
 		for (Client c : gameData.getClients()) {
 			c.addItem(new Weapon("Laser pistol", 0.90, 1.0, false));
 			c.addItem(new Weapon("Shotgun", 0.90, 1.0, true));
@@ -86,10 +91,24 @@ public class HostGameMode extends GameMode {
 			c.addItem(new Weapon("Knife", 0.75, 1.0, false));
 			c.addItem(new Weapon("Flamer", 0.75, 0.5, false));
 			c.addItem(new MedKit("MedKit"));
+			
+
 		}
 		
 	}
+	
+	private void addHostStartingMessage(Client cl) {
+		hiveString = "The hive is in " + hiveRoom.getName() + ".";
+		hostClient.addTolastTurnInfo("You are the host! (Only you know this, so keep it a secret.) " + 
+									 hiveString + 
+									 " Protect it by killing humans or infecting them, turning them over to your side.");
+	}
 
+	
+	private void addCrewStartingMessage(Client c) {
+		c.addTolastTurnInfo("There is a hive somewhere on the station. You must search the rooms to find and destory it. Beware of the host, it will protect its hive by attacking and infecting the crew.");
+	}
+	
 	@Override
 	public boolean gameOver(GameData gameData) {
 		return hive.isBroken();
@@ -99,6 +118,23 @@ public class HostGameMode extends GameMode {
 	public void setStartingLastTurnInfo() {
 		hostClient.addTolastTurnInfo(hiveString);
 	}
+
+	
+
+	@Override
+	protected void addStartingMessages(GameData gameData) {
+		for (Client c : gameData.getClients()) {
+			if (c == hostClient) {
+				addHostStartingMessage(c);
+			} else {
+				addCrewStartingMessage(c);
+			}
+		}
+		
+	}
+
+
+
 
 
 

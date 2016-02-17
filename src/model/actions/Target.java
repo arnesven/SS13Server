@@ -1,6 +1,7 @@
 package model.actions;
 
 import model.Client;
+import model.items.Weapon;
 
 /**
  * @author erini02
@@ -16,8 +17,9 @@ public interface Target {
 	 */
 	String getName();
 
-	void beAttackedBy(Client performingClient, Weapon item);
 	boolean isTargetable();
 //	boolean isInfected();
 //	boolean isInteractable();
+
+	void beAttackedBy(ActionPerformer performingClient, Weapon item);
 }

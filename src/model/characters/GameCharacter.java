@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import model.Client;
 import model.GameData;
 import model.actions.Action;
-import model.actions.Weapon;
+import model.actions.ActionPerformer;
+import model.items.Weapon;
 import model.map.Room;
 
 /**
@@ -71,14 +72,14 @@ public class GameCharacter {
 	}
 
 	
-	public void beAttackedBy(Client performingClient, Weapon weapon) {
+	public void beAttackedBy(ActionPerformer performingClient, Weapon weapon) {
 		Client thisClient  = this.getClient();
 		if (weapon.isAttackSuccessful()) {
 			health = Math.max(0.0, health - weapon.getDamage());
 			performingClient.addTolastTurnInfo("You " + weapon.getSuccessfulMessage() + "ed " + 
 											   getBaseName() + " with " + weapon.getName() + ".");
 			if (thisClient != null) {
-				thisClient.addTolastTurnInfo(performingClient.getCharacterPublicName() + " " + 
+				thisClient.addTolastTurnInfo(performingClient.getPublicName() + " " + 
 											 weapon.getSuccessfulMessage() + "ed you with " + 
 											 weapon.getName() + "."); 
 			}
@@ -86,7 +87,7 @@ public class GameCharacter {
 		} else {
 			performingClient.addTolastTurnInfo("Your attacked missed!");
 			if (thisClient != null) {
-				thisClient.addTolastTurnInfo(performingClient.getCharacterPublicName() + " tried to " + 
+				thisClient.addTolastTurnInfo(performingClient.getPublicName() + " tried to " + 
 											 weapon.getSuccessfulMessage() + " you with " + 
 											 weapon.getName() + "."); 
 			}

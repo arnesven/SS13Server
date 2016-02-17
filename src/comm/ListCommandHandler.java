@@ -18,7 +18,7 @@ public class ListCommandHandler extends AbstractCommandHandler {
 		
 		// System.out.println("handling list command");
 		if (command.equals("LIST")) {
-			String mess = gameData.makeStringFromReadyClients() + ":" + gameData.getGameState();
+			String mess = gameData.makeStringFromReadyClients() + ":" + gameData.getGameState().val;
 		//	System.out.println(mess);
 			oos.writeObject(mess);
 			return true;

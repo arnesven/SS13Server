@@ -6,8 +6,8 @@ import java.util.NoSuchElementException;
 
 import model.Client;
 import model.GameData;
-import model.GameItem;
 import model.characters.GameCharacter;
+import model.items.GameItem;
 
 public abstract class TargetingAction extends Action {
 
@@ -16,13 +16,13 @@ public abstract class TargetingAction extends Action {
 	private Target target;
 	private GameItem item;
 	
-	public TargetingAction(String name, Client client) {
-		super(name);
+	public TargetingAction(String name, boolean b, Client client) {
+		super(name, b);
 		this.addTargetsToAction(client);
 	}
 	
 	protected abstract void applyTargetingAction(GameData gameData,
-			Client performingClient, Target target, GameItem item);
+			ActionPerformer performingClient, Target target, GameItem item);
 
 	public void addTarget(Target cl) {
 		targets.add(cl);
@@ -63,7 +63,7 @@ public abstract class TargetingAction extends Action {
 	}
 
 	@Override
-	public void execute(GameData gameData, Client performingClient) {
+	protected void execute(GameData gameData, ActionPerformer performingClient) {
 		applyTargetingAction(gameData, performingClient, target, item);
 	}
 

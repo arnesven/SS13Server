@@ -10,13 +10,13 @@ import model.objects.HiveObject;
 
 public class SearchAction extends Action {
 
-	public SearchAction(String name) {
-		super(name);
+	public SearchAction() {
+		super("Search Room");
 	}
 
 
 	@Override
-	public void execute(GameData gameData, Client performingClient) {
+	protected void execute(GameData gameData, ActionPerformer performingClient) {
 		boolean foundSomething = false;
 		for (GameObject o : performingClient.getPosition().getObjects()) {
 			if (o instanceof HiveObject) {

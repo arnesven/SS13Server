@@ -4,14 +4,15 @@ import java.util.List;
 
 import model.Client;
 import model.GameData;
-import model.GameItem;
+import model.items.GameItem;
+import model.items.Weapon;
 import model.objects.GameObject;
 
 
 public class AttackAction extends TargetingAction {
 	
 	public AttackAction(Client cl) {
-		super("Attack", cl);
+		super("Attack", false, cl);
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class AttackAction extends TargetingAction {
 
 	@Override
 	protected void applyTargetingAction(GameData gameData,
-			Client performingClient, Target target, GameItem item) {
+			ActionPerformer performingClient, Target target, GameItem item) {
 		target.beAttackedBy(performingClient, (Weapon)item);
 	}
 
