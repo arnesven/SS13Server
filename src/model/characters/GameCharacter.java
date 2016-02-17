@@ -8,6 +8,11 @@ import model.actions.Action;
 import model.actions.Weapon;
 import model.map.Room;
 
+/**
+ * @author erini02
+ * Class for representing a character in the game. I.e. the physical representation
+ * of a player or a NPC. 
+ */
 public class GameCharacter {
 	
 	private String name;
@@ -65,6 +70,7 @@ public class GameCharacter {
 		return !isDead();
 	}
 
+	
 	public void beAttackedBy(Client performingClient, Weapon weapon) {
 		Client thisClient  = this.getClient();
 		if (weapon.isAttackSuccessful()) {

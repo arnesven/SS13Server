@@ -29,6 +29,7 @@ public class Client implements Target {
 	private int nextMove = 0;
 	private GameCharacter character;
 	private List<String> lastTurnInfo = new ArrayList<>();
+	//TODO : shouldn't items belong to the character?
 	private List<GameItem> items = new ArrayList<>();
 	private String suit = "clothes";
 	private String actionString;

@@ -3,8 +3,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
+/**
+ * @author erini02
+ * Class which builds the game map.
+ * TODO: Make this into a class hierarchy and use polymorphism
+ * to enable easy extension of new maps.
+ */
 public class MapBuilder {
 
+	/**
+	 * Creates the map of the game and returns it.
+	 * TODO: The armory should not be connected to anything from the start. 
+	 * Only after using the keycard should it open.
+	 * @return the game's map.
+	 */
 	public static GameMap createMap() {
 		ArrayList<Room> result = new ArrayList<>();
 		//                   ID  Name                   shortname  x   y  w  h   neighbors

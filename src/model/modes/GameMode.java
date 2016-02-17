@@ -9,6 +9,44 @@ import model.GameData;
 import model.characters.GameCharacter;
 import model.map.Room;
 
+/**
+ * @author erini02
+ * Class for representing a GameMode, i.e. what a round of this game should
+ * be about, what antagonists are there, and what are the objectives for the
+ * teams.
+ * Ideas for GameModes (extending classes):
+ * 
+ * Host - A hive has spawned somewhere on the station and is spreading parasites
+ * and disease. One player (the host) has already been infected, and will protect
+ * the hive at all costs. The player will do this by attacking the crew, or infecting
+ * them, turning them over to his/her side. The humans must find the hive and destroy it
+ * before the time runs out.
+ * 
+ * Operation - A small team (2-3) of operatives starts the game off-station and must try to
+ * infiltrate the station through the airlocks and obtain the captain's security disk. 
+ * This is difficult however, since a crewmember will immediately recognize the operatives'
+ * spacesuits as different from the station's. Will the operatives stay together or will they
+ * spread out? Will they try to dispose of their spacesuit and get som SS13 clothes, or will 
+ * they try to make a quick smash and grab? The crew must prevent the operatives from
+ * obtaining the disk. If they can escape through one of the airlocks with the disk, they will
+ * be able to nuke the station! The operatives are assigned contacts at the beginning of the
+ * game, i.e. characters which they know are NPCs, but who they can pretend that they are playing
+ * in order to maintain the false pretence of who they are.
+ * 
+ * Traitors - Two of the crew's members are disgruntled and have contacted the
+ * evil syndicate. They have now been assigned special traitorous missions to be carried out
+ * on the station. E.g. assassinations or bombings. They can secretly order some traitor
+ * equipment, and need only wait until the right moment to strike. The crew's only objective
+ * is to survive the round, but who can be trusted and who is a traitor?
+ * 
+ * Xenomorph - A strange alien life form has gotten aboard the station. At the start of the game
+ * it is simply a small parasite, but once it attacks and sucs the life force out of a living
+ * creature it can take the form of that creature. Be aware! There is now a shape shifting
+ * alien on SS13. The objective of the Xenomorph is to kill as many humans as possible, via
+ * stealth or by ultimately turning in to the shambling abomination, a super-form of the
+ * xenomorph which is more powerful the more creatures it has sucked. The crew must kill the 
+ * xeno and survive the round to win the game.
+ */
 public abstract class GameMode {
 	
 	private static String[] charNames = 

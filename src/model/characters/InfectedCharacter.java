@@ -8,6 +8,12 @@ import model.actions.Action;
 import model.actions.InfectAction;
 
 
+/**
+ * @author erini02
+ * Decorator class for indicating that this character is
+ * infected. I.e. that player is an antagonist for the
+ * host game mode and can infect other players.
+ */
 public class InfectedCharacter extends CharacterDecorator {
 
 	public InfectedCharacter(GameCharacter chara) {

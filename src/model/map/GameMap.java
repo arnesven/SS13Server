@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @author erini02
+ * Class for representing the Game's map, i.e. the space station and its rooms.
+ * This is just a container class which has references to two underlying
+ * data structures with the rooms, a map and a list.
+ */
 public class GameMap {
 
 	private HashMap<Integer, Room> roomsMap;

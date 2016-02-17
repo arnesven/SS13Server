@@ -2,6 +2,12 @@ package model.actions;
 
 import model.Client;
 
+/**
+ * @author erini02
+ * Interface for targets. A target is an object which can be targeted
+ * by a targeting action, i.e. the attack action. Anything targetable
+ * should implement this interface, e.g. characters, gameobjects, items etc.
+ */
 public interface Target {
 
 	/**

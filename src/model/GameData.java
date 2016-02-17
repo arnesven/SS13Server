@@ -17,13 +17,12 @@ import model.modes.GameMode;
 import model.modes.HostGameMode;
 
 
+
 /**
  * @author erini02
- *
- */
-/**
- * @author erini02
- *
+ * Class for representing the Game's data, i.e. both the information about the
+ * players (the clients), the world (the rooms of the station) and what state
+ * the game is in. The game also has a "mode".
  */
 public class GameData {
 	private static HashMap<String, Client> clients = new HashMap<>();

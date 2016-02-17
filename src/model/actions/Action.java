@@ -5,6 +5,11 @@ import java.util.List;
 import model.Client;
 import model.GameData;
 
+/**
+ * @author erini02
+ * Represent an action which can be taken by a client.
+ * TODO: NPCs should also be able to take actions.
+ */
 public abstract class Action {
 	
 	private String name;

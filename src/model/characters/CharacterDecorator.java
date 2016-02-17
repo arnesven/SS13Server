@@ -4,6 +4,13 @@ import model.Client;
 import model.map.Room;
 
 
+/**
+ * @author erini02
+ * Superclass for character "decorators". A decorator is
+ * a class which envelopes the game character. E.g. the host
+ * decorator indicates that this character is a host. Other possible
+ * decorators could be: "invisible", "burning", "wearing clown clothes".
+ */
 public abstract class CharacterDecorator extends GameCharacter {
 
 
