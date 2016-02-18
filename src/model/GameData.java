@@ -32,6 +32,7 @@ public class GameData {
 	private List<NPC> npcs = new ArrayList<>();
 	private GameState gameState = GameState.PRE_GAME;
 	private GameMode gameMode = new HostGameMode();
+	private int round = 0;
 	
 	public GameData() {
 		
@@ -198,6 +199,7 @@ public class GameData {
 			allClearReady();
 			
 		} else if (gameState == GameState.MOVEMENT) {
+			round = round + 1;
 			moveAllPlayers();
 			moveAllNPCs();
 			allResetActionStrings();
@@ -296,6 +298,14 @@ public class GameData {
 	 */
 	public void addNPC(NPC npc) {
 		npcs.add(npc);
+	}
+
+	/**
+	 * Gets the round of the game;
+	 * @return
+	 */
+	public int getRound() {
+		return round ;
 	}
 
 }

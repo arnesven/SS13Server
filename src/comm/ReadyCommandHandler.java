@@ -22,7 +22,7 @@ public class ReadyCommandHandler extends AbstractCommandHandler {
 		if (command.equals("READY")) {
 			String yesNo = sc.next();
 			gameData.setCientReady(clid, yesNo.equals("YES"));	
-			oos.writeObject(gameData.makeStringFromReadyClients()+ ":" + gameData.getGameState());
+			oos.writeObject(gameData.makeStringFromReadyClients()+ ":" + gameData.getGameState().val);
 			sc.close();
 			return true;
 		} 

@@ -17,6 +17,7 @@ public class ReturningCommandHandler extends AbstractCommandHandler {
 	public boolean handleCommand(String command, String clid, String rest,
 			ObjectOutputStream oos) throws IOException {
 		if (command.equals("RETURNING")) {
+			System.out.println("This client returning: " + clid);
 			if (gameData.getClientsAsMap().containsKey(clid)) {
 				oos.writeObject(clid);
 			} else {
