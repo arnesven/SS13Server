@@ -92,7 +92,7 @@ public class GameData {
 
 
 	/**
-	 * Gets a client for a certain clid
+	 * Gets a client for a certain clid, or null if no such client was found.
 	 * @param clid the clid of the client we are looking for.
 	 * @return the searched for client.
 	 */

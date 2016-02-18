@@ -15,12 +15,14 @@ public abstract class Action {
 	private String name;
 	private boolean isStealthy = false;
 	
-	public Action(String name) {
-		this.name = name;
-	}
+
 	
+	/**
+	 * @param name the name of this action
+	 * @param isStealthy if the action is stealthy it will not be displayed to other players standing in that room.
+	 */
 	public Action(String name, boolean isStealthy) {
-		this(name);
+		this.name = name;
 		this.isStealthy = isStealthy;
 	}
 

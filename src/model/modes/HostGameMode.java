@@ -10,6 +10,7 @@ import model.GameData;
 import model.characters.CharacterDecorator;
 import model.characters.GameCharacter;
 import model.characters.HostCharacter;
+import model.items.KeyCard;
 import model.items.MedKit;
 import model.items.Weapon;
 import model.map.Room;
@@ -85,12 +86,14 @@ public class HostGameMode extends GameMode {
 		hiveRoom.addObject(hive);
 		
 		for (Client c : gameData.getClients()) {
+			c.addItem(new KeyCard());
 			c.addItem(new Weapon("Laser pistol", 0.90, 1.0, false));
 			c.addItem(new Weapon("Shotgun", 0.90, 1.0, true));
 			c.addItem(new Weapon("Revolver", 0.75, 1.0, true));
 			c.addItem(new Weapon("Knife", 0.75, 1.0, false));
 			c.addItem(new Weapon("Flamer", 0.75, 0.5, false));
 			c.addItem(new MedKit("MedKit"));
+			
 			
 
 		}

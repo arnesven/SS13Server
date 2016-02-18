@@ -11,7 +11,7 @@ import model.objects.HiveObject;
 public class SearchAction extends Action {
 
 	public SearchAction() {
-		super("Search Room");
+		super("Search", false);
 	}
 
 

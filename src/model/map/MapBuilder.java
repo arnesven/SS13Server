@@ -2,6 +2,8 @@ package model.map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import model.objects.KeyCardLock;
+
 
 /**
  * @author erini02
@@ -38,10 +40,13 @@ public class MapBuilder {
 		result.add(new Room(16, "Port Hall Front"     , ""       ,13,  3, 2, 3, new int[]{13, 17, 18, 19},     new double[]{15.0, 5.5, 15.0, 3.5} ));
 		result.add(new Room(17, "Bridge"              , "Brdg"   ,15,  5, 3, 3, new int[]{16, 20}    ,         new double[]{16.0, 8.0}  ));
 		result.add(new Room(18, "Security Station"    , "SS"     ,15,  2, 2, 2, new int[]{16}        ,         new double[]{}  ));
-		result.add(new Room(19, "Shuttle Gate"        , "Gate"   ,10,  2, 3, 2, new int[]{16, 21, 22, 23},     new double[]{10.0, 3.5, 13.0, 3.5} ));
+		Room gate =new Room(19, "Shuttle Gate"        , "Gate"   ,10,  2, 3, 2, new int[]{16, 21, 23},         new double[]{10.0, 3.5, 13.0, 3.5} );
+		result.add(gate);
 		result.add(new Room(20, "Captain's Quarters"  , "CQ"     ,15,  8, 2, 2, new int[]{17}        ,         new double[]{16.0, 8.0}  ));
 		result.add(new Room(21, "Air Lock #2"         , "2"      ,13,  2, 1, 1, new int[]{19}        ,         new double[]{13.0, 2.5} ));
-		result.add(new Room(22, "Armory"              , "Army"   ,10,  4, 3, 2, new int[]{19}        ,         new double[]{-11.0, 4.0} ));
+		Room army =new Room(22, "Armory"              , "Army"   ,10,  4, 3, 2, new int[]{19}        ,         new double[]{-11.0, 4.0} );
+		gate.addObject(new KeyCardLock(army, gate, true));
+		result.add(army);
 		result.add(new Room(23, "Port Hall Aft"       , ""       , 6,  3, 4, 2, new int[]{19, 24, 5} ,         new double[]{7.5, 3.0, } ));
 		result.add(new Room(24, "Sickbay"             , "Sick"   , 6,  0, 3, 3, new int[]{23, 25, 1} ,         new double[]{} ));
 		result.add(new Room(25, "Air Lock #3"         , "3"      , 5,  0, 1, 1, new int[]{24}        ,         new double[]{6.0, 0.5}  ));

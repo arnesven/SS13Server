@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import model.Client;
+import model.actions.Action;
+import model.actions.ClientActionPerformer;
 import model.npcs.NPC;
 import model.objects.GameObject;
 
@@ -28,7 +30,8 @@ public class Room {
 	private List<Client> players = new ArrayList<>();
 	private List<NPC> npcs = new ArrayList<>();
 	private List<GameObject> objects = new ArrayList<>();
-	private List<Room> neighborList = new ArrayList<>();
+	private GameMap map = null;
+//	private List<Room> neighborList = new ArrayList<>();
 
 	/**
 	 * Constructor for a Room
@@ -76,6 +79,11 @@ public class Room {
 	public int[] getNeighbors() {
 		return this.neighbors;
 	}
+	
+	public void setNeighbors(int[] newNArr) {
+		this.neighbors = newNArr;
+	}
+
 
 	/**
 	 * Gets the info about this room as it appears to anyone standing in it.
@@ -170,7 +178,22 @@ public class Room {
 	}
 
 	public List<Room> getNeighborList() {
-		return neighborList;
+		List<Room> list = new ArrayList<>();
+		for (int i = 0; i < neighbors.length; ++i) {
+			list.add(map.getRoomForID(getNeighbors()[i]));
+		}
+		return list;
 	}
+
+	public void addActionsFor(Client client, ArrayList<Action> at) {
+		for (GameObject ob : objects) {
+			ob.addSpecificActionsFor(client, at);
+		}
+	}
+
+	public void setMap(GameMap gameMap) {
+		this.map = gameMap;
+	}
+
 
 }

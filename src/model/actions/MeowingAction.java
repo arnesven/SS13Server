@@ -8,18 +8,16 @@ import model.GameData;
 public class MeowingAction extends Action {
 
 	public MeowingAction() {
-		super("Meow");
+		super("Meow", false);
 	}
 
 	@Override
 	protected void execute(GameData gameData, ActionPerformer performingClient) {
-		// TODO Auto-generated method stub
-		
+		performingClient.addTolastTurnInfo("You meowed.");
 	}
 
 	@Override
 	public void setArguments(List<String> args) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -19,12 +19,12 @@ public class GameMap {
 		HashMap<Integer, Room> hm = new HashMap<>();
 		for (Room r : result) {
 			hm.put(r.getID(), r);
+			r.setMap(this);
 		}
 		
 		this.setRoomsList(result);
 		this.setRoomMap(hm);
-		this.setConnectingRooms();
-		
+	
 	}
 
 	private void setRoomsList(ArrayList<Room> result) {
@@ -43,12 +43,6 @@ public class GameMap {
 		return roomsList.get(ID-1);
 	}
 
-	public void setConnectingRooms() {
-		for (Room r : roomsList) {	
-			for (int n : r.getNeighbors()) {
-				r.getNeighborList().add(getRoomForID(n));
-			}
-		}
-	}
+
 
 }

@@ -291,11 +291,13 @@ public class Client implements Target {
 
 		ArrayList<String> strings = new ArrayList<>();
 		strings.addAll(Arrays.asList(actionStr.split(",")));
+		System.out.println("Action tree: " + at.toString());
 		for (Action a : at) {
 			if (a.getName().equals(strings.get(0))) {
 				List<String> args = strings.subList(1, strings.size());
 				a.setArguments(args);
 				this.nextAction = a;
+				return;
 			}
 		}	
 		throw new NoSuchElementException("Could not find action for this action string " + actionString + ".");
@@ -407,14 +409,18 @@ public class Client implements Target {
 		if (!isDead()) {
 			addAttackActions(at);
 			addWatchAction(at);
-			
+			addRoomActions(at);
 			getCharacter().addCharacterSpecificActions(gameData, at);
-
+			
 		}
 		
 		return at;
 	}
 	
+	private void addRoomActions(ArrayList<Action> at) {
+		this.getPosition().addActionsFor(this, at);
+	}
+
 	private void addWatchAction(ArrayList<Action> at) {
 		TargetingAction watchAction = new WatchAction(this);
 		if (watchAction.getNoOfTargets() > 0) {
