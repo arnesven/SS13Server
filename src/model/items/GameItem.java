@@ -1,5 +1,9 @@
 package model.items;
 
+import java.util.ArrayList;
+
+import model.Client;
+
 /**
  * @author erini02
  * Class representing an Item in the game.
@@ -25,6 +29,10 @@ public class GameItem {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	public void addYourselfToRoomInfo(ArrayList<String> info, Client whosAsking) {
+		info.add(name);
 	}
 
 }

@@ -73,7 +73,7 @@ public abstract class TargetingAction extends Action {
 		super.printAndExecute(gameData, performer);
 	}
 
-	public void adddClientsItemsToAction(Client client) { }
+	public void addClientsItemsToAction(Client client) { }
 	
 	@Override
 	public String toString() {

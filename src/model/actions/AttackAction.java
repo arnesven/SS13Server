@@ -31,7 +31,7 @@ public class AttackAction extends TargetingAction {
 	}
 	
 	@Override
-	public void adddClientsItemsToAction(Client client) {
+	public void addClientsItemsToAction(Client client) {
 		withWhats.add(new Weapon("Fists", 0.5, 0.5, false));
 		for (GameItem it : client.getItems()) {
 			if (it instanceof Weapon) {

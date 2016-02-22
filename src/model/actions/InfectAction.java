@@ -51,7 +51,7 @@ public class InfectAction extends TargetingAction {
 							"! You are now on the Host team. Keep the humans from destroying the hive!");
 					performingClient.addTolastTurnInfo("You infected " + targetAsClient.getCharacterPublicName() + "!");
 				} else {
-					targetAsClient.addTolastTurnInfo("The " + performingClient.getPublicName() + "tried to infect you!");
+					targetAsClient.addTolastTurnInfo("The " + performingClient.getPublicName() + " tried to infect you!");
 					performingClient.addTolastTurnInfo("You failed to infect the " + targetAsClient.getCharacterPublicName() + "!");
 				}
 			} else {

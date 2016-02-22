@@ -9,6 +9,8 @@ import model.actions.Action;
 import model.actions.ActionPerformer;
 import model.actions.AttackAction;
 import model.actions.ClientActionPerformer;
+import model.actions.DropAction;
+import model.actions.PickUpAction;
 import model.actions.WatchAction;
 import model.actions.DoNothingAction;
 import model.actions.SearchAction;
@@ -408,9 +410,11 @@ public class Client implements Target {
 		ArrayList<Action> at = new ArrayList<Action>();
 		addBasicActions(at);
 		if (!isDead()) {
+			addRoomActions(at);
 			addAttackActions(at);
 			addWatchAction(at);
-			addRoomActions(at);
+			addDropActions(at);
+			addPickUpActions(at);
 			getCharacter().addCharacterSpecificActions(gameData, at);
 			
 		}
@@ -418,6 +422,20 @@ public class Client implements Target {
 		return at;
 	}
 	
+	private void addPickUpActions(ArrayList<Action> at) {
+		if (getCharacter().getPosition().getItems().size() > 0) {
+			PickUpAction pickUpAction = new PickUpAction(new ClientActionPerformer(this));
+			at.add(pickUpAction);
+		}
+	}
+
+	private void addDropActions(ArrayList<Action> at) {
+		if (items.size() > 0) {
+			DropAction dropAction = new DropAction(new ClientActionPerformer(this));
+			at.add(dropAction);
+		}
+	}
+
 	private void addRoomActions(ArrayList<Action> at) {
 		this.getPosition().addActionsFor(this, at);
 	}
@@ -432,7 +450,7 @@ public class Client implements Target {
 	private void addAttackActions(ArrayList<Action> at) {
 		TargetingAction attackAction = new AttackAction(new ClientActionPerformer(this));
 		if (attackAction.getNoOfTargets() > 0) {
-			attackAction.adddClientsItemsToAction(this);
+			attackAction.addClientsItemsToAction(this);
 			at.add(attackAction);
 		}
 	}

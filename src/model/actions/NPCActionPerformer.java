@@ -1,6 +1,10 @@
 package model.actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.Client;
+import model.items.GameItem;
 import model.map.Room;
 import model.npcs.NPC;
 
@@ -46,6 +50,12 @@ public class NPCActionPerformer implements ActionPerformer {
 	@Override
 	public Target getAsTarget() {
 		return npc;
+	}
+
+	@Override
+	public List<GameItem> getItems() {
+		// TODO: Connect this to the npc's items
+		return new ArrayList<GameItem>();
 	}
 
 }
