@@ -6,6 +6,7 @@ import model.Client;
 import model.GameData;
 import model.actions.Action;
 import model.actions.ActionPerformer;
+import model.actions.WatchAction;
 import model.items.Weapon;
 import model.map.Room;
 
@@ -60,8 +61,8 @@ public class GameCharacter {
 		return getBaseName();
 	}
 
-	private boolean isDead() {
-		return health == 0.0;
+	public boolean isDead() {
+		return health <= 0.0;
 	}
 
 	/**
@@ -74,13 +75,27 @@ public class GameCharacter {
 	
 	public void beAttackedBy(ActionPerformer performingClient, Weapon weapon) {
 		Client thisClient  = this.getClient();
-		if (weapon.isAttackSuccessful()) {
+		boolean reduced = false;
+		if (thisClient != null) {
+			if (thisClient.getNextAction() instanceof WatchAction) {
+				if (((WatchAction)thisClient.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
+					System.out.println("Attack chance reduced because of watching...");
+					reduced = true;
+				}
+			}
+		}
+		
+		if (weapon.isAttackSuccessful(reduced)) {
 			health = Math.max(0.0, health - weapon.getDamage());
-			performingClient.addTolastTurnInfo("You " + weapon.getSuccessfulMessage() + "ed " + 
+			String verb = weapon.getSuccessfulMessage();
+			if (this.isDead()) {
+				verb = "kill";
+			}
+			performingClient.addTolastTurnInfo("You " + verb + "ed " + 
 											   getBaseName() + " with " + weapon.getName() + ".");
 			if (thisClient != null) {
 				thisClient.addTolastTurnInfo(performingClient.getPublicName() + " " + 
-											 weapon.getSuccessfulMessage() + "ed you with " + 
+											 verb + "ed you with " + 
 											 weapon.getName() + "."); 
 			}
 			
@@ -128,5 +143,8 @@ public class GameCharacter {
 		return infectChecker.checkInstanceOf(this);
 	}
 
+	public void setHealth(double d) {
+		this.health = d;
+	}
 
 }

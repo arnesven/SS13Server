@@ -3,6 +3,7 @@ package model.actions;
 import model.Client;
 import model.GameData;
 import model.map.Room;
+import model.npcs.NPC;
 
 public interface ActionPerformer {
 
@@ -16,4 +17,7 @@ public interface ActionPerformer {
 
 	boolean isClient(Client cl);
 
+	boolean isNPC(NPC npc);
+
+	Target getAsTarget();
 }

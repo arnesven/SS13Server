@@ -3,6 +3,7 @@ package model.modes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import model.Client;
 import model.GameData;
@@ -10,6 +11,7 @@ import model.actions.MeowingAction;
 import model.characters.CatCharacter;
 import model.characters.GameCharacter;
 import model.map.Room;
+import model.npcs.CatNPC;
 import model.npcs.MeanderingMovement;
 import model.npcs.NPC;
 import model.npcs.SpontaneousAct;
@@ -52,6 +54,10 @@ import model.npcs.SpontaneousAct;
  * xenomorph which is more powerful the more creatures it has sucked. The crew must kill the 
  * xeno and survive the round to win the game.
  */
+/**
+ * @author erini02
+ *
+ */
 public abstract class GameMode {
 	
 	private static String[] charNames = 
@@ -66,6 +72,8 @@ public abstract class GameMode {
 	
 	private HashMap<String, GameCharacter> availableChars;
 	
+	protected Random random = new Random(System.currentTimeMillis());
+	
 	public GameMode() {
 		availableChars = new HashMap<>();
 		for (int i = 0; i < charNames.length; ++i ) {
@@ -74,11 +82,46 @@ public abstract class GameMode {
 		
 	}
 
+	
+
+	/**
+	 * This method is called as the last part of the setup.
+	 * In this step, the game mode can set up other things
+	 * which pertains to this game mode.
+	 * @param gameData
+	 */
 	protected abstract void setUpOtherStuff(GameData gameData);
+	
+	/**
+	 * this method is called as the first step of the setup
+	 * at the beginning of the game. Players should receive
+	 * their characters in this step.
+	 * @param gameData
+	 */
 	protected abstract void assignCharactersToPlayers(GameData gameData);
+	
+	
+	/**
+	 * Checks wether or not the game is over or not.
+	 * @param gameData
+	 * @return true if the game is over, false otherwise.
+	 */
 	public abstract boolean gameOver(GameData gameData);
+	
+	
+	
+	/**
+	 * This method will be called at the start of each turn,
+	 * to set the info for players.
+	 */
 	public abstract void setStartingLastTurnInfo();
+	
+	/**
+	 * This method sets the starting info for ALL the players
+	 */
 	protected abstract void addStartingMessages(GameData gameData);
+	public abstract void triggerEvents(GameData gameData);
+
 	
 
 	protected GameCharacter getCharacterForString(String string) {
@@ -108,12 +151,9 @@ public abstract class GameMode {
 	}
 
 	protected void addNPCs(GameData gameData) {
-		NPC cat = new NPC(new CatCharacter(), new MeanderingMovement(0.5),
-						  new SpontaneousAct(0.5, new MeowingAction()), gameData.getRoomForId(20));
+		NPC cat = new CatNPC(gameData.getRoomForId(20));
 		gameData.addNPC(cat);
 	}
-
-
 
 
 

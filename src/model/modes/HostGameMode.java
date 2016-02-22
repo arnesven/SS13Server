@@ -3,17 +3,21 @@ package model.modes;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 
 import model.Client;
 import model.GameData;
 import model.characters.CharacterDecorator;
 import model.characters.GameCharacter;
 import model.characters.HostCharacter;
+import model.characters.ParasiteCharacter;
 import model.items.KeyCard;
 import model.items.MedKit;
 import model.items.Weapon;
 import model.map.Room;
+import model.npcs.AttackIfPossibleBehavior;
+import model.npcs.MeanderingMovement;
+import model.npcs.NPC;
+import model.npcs.ParasiteNPC;
 import model.objects.HiveObject;
 
 public class HostGameMode extends GameMode {
@@ -30,8 +34,6 @@ public class HostGameMode extends GameMode {
 		
 		ArrayList<GameCharacter> listOfCharacters = new ArrayList<>();
 		listOfCharacters.addAll(getAllCharacters());
-		
-		Random random = new Random();
 		
 		Client capCl = listOfClients.remove(random.nextInt(listOfClients.size()));
 		GameCharacter gc = null;
@@ -67,8 +69,6 @@ public class HostGameMode extends GameMode {
 
 	@Override
 	protected void setUpOtherStuff(GameData gameData) {
-		Random random = new Random();
-		
 		hiveRoom = null;
 		boolean hiveInStartingRoom;
 		do {
@@ -134,6 +134,27 @@ public class HostGameMode extends GameMode {
 			}
 		}
 		
+	}
+
+
+
+	@Override
+	public void triggerEvents(GameData gameData) {
+		//possibly spawn some parasites
+		
+		double PARASITE_SPAWN_CHANCE = 0.75;
+		
+	
+		if (random.nextDouble() < PARASITE_SPAWN_CHANCE) {
+			List<Room> spawnPoints = hiveRoom.getNeighborList();
+			spawnPoints.add(hiveRoom);
+			
+			Room randomRoom = spawnPoints.get(random.nextInt(spawnPoints.size()));
+			
+			NPC parasite = new ParasiteNPC(randomRoom);
+			
+			gameData.addNPC(parasite);
+		}
 	}
 
 

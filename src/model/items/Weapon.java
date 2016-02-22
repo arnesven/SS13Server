@@ -16,7 +16,10 @@ public class Weapon extends GameItem {
 		makesBang = bang;
 	}
 
-	public boolean isAttackSuccessful() {
+	public boolean isAttackSuccessful(boolean reduced) {
+		if (reduced) {
+			return random.nextDouble() < getHitChance()*0.5;
+		}
 		return random.nextDouble() < getHitChance();
 	}
 

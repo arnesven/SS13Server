@@ -16,7 +16,7 @@ public class MapCommandHandler extends AbstractCommandHandler {
 	@Override
 	public boolean handleCommand(String command, String clid, String rest,
 			ObjectOutputStream oos) throws IOException {
-		System.out.println("handling map command");
+//		System.out.println("handling map command");
 		if (command.equals("MAP")) {
 			String result = gameData.getRooms().toString();
 			System.out.println(result);

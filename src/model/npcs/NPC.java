@@ -3,7 +3,10 @@ package model.npcs;
 import java.util.ArrayList;
 
 import model.GameData;
+import model.actions.ActionPerformer;
+import model.actions.Target;
 import model.characters.GameCharacter;
+import model.items.Weapon;
 import model.map.Room;
 
 /**
@@ -11,11 +14,12 @@ import model.map.Room;
  * Class representing NPCs on the station (non-player characters).
  * E.g. monsters, crewmembers not controlled by players. And other things.
  */
-public class NPC {
+public class NPC implements Target {
 	private GameCharacter chara;
 	private MovementBehavior moveBehavior;
 	private ActionBehavior actBehavior;
 	private Room position = null;
+	private double maxHealth;
 	
 	public NPC(GameCharacter chara, MovementBehavior m, ActionBehavior a, Room r) {
 		this.chara = chara;
@@ -33,12 +37,16 @@ public class NPC {
 	}
 
 	public void moveAccordingToBehavior() {
-		moveBehavior.move(this);
+		if (!isDead()) {
+			moveBehavior.move(this);
+		}
 	}
 
 
 	public void actAccordingToBehavior(GameData gameData) {
-		actBehavior.act(this, gameData);
+		if (!isDead()) {
+			actBehavior.act(this, gameData);
+		}
 	}
 
 	public void addYourselfToRoomInfo(ArrayList<String> info) {
@@ -54,9 +62,54 @@ public class NPC {
 		return chara.getFullName();
 	}
 
+	/**
+	 * Gets the character of this NPC.
+	 * @return the character of this NPC.
+	 */
+	public GameCharacter getCharacter() {
+		return chara;
+	}
+	
 	public boolean isInfected() {
-		// TODO implement this correctly
+		//TODO: NPCs should be able to be infected
 		return false;
+	}
+
+	@Override
+	public boolean isTargetable() {
+		return !isDead();
+	}
+
+	@Override
+	public void beAttackedBy(ActionPerformer performingClient, Weapon item) {
+		getCharacter().beAttackedBy(performingClient, item);
+	}
+
+	@Override
+	public boolean isDead() {
+		return getCharacter().isDead();
+	}
+
+	public boolean shouldBeCleanedUp() {
+		return false;
+	}
+
+	@Override
+	public double getHealth() {
+		return getCharacter().getHealth();
+	}
+
+	@Override
+	public double getMaxHealth() {
+		return this.maxHealth;
+	}
+	
+	public void setMaxHealth(double d) {
+		this.maxHealth = d;
+	}
+	
+	public void setHealth(double d) {
+		getCharacter().setHealth(d);
 	}
 	
 	

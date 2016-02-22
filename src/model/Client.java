@@ -29,6 +29,7 @@ import model.map.Room;
  */
 public class Client implements Target {
 	
+	private static final double MAX_HEALTH = 3.0;
 	private boolean ready = false;
 	private int nextMove = 0;
 	private GameCharacter character;
@@ -422,16 +423,16 @@ public class Client implements Target {
 	}
 
 	private void addWatchAction(ArrayList<Action> at) {
-		TargetingAction watchAction = new WatchAction(this);
+		TargetingAction watchAction = new WatchAction(new ClientActionPerformer(this));
 		if (watchAction.getNoOfTargets() > 0) {
 			at.add(watchAction);
 		}
 	}
 
 	private void addAttackActions(ArrayList<Action> at) {
-		TargetingAction attackAction = new AttackAction(this);
+		TargetingAction attackAction = new AttackAction(new ClientActionPerformer(this));
 		if (attackAction.getNoOfTargets() > 0) {
-			attackAction.addItemsToAction(this);
+			attackAction.adddClientsItemsToAction(this);
 			at.add(attackAction);
 		}
 	}
@@ -442,6 +443,20 @@ public class Client implements Target {
 			at.add(new SearchAction());
 		}
 	}
+
+	public Action getNextAction() {
+		return nextAction;
+	}
+
+	public double getMaxHealth() {
+		return MAX_HEALTH;
+	}
+
+	@Override
+	public double getHealth() {
+		return this.getCurrentHealth();
+	}
+
 
 	
 }

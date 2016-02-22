@@ -11,14 +11,14 @@ import model.objects.GameObject;
 
 public class AttackAction extends TargetingAction {
 	
-	public AttackAction(Client cl) {
-		super("Attack", false, cl);
+	public AttackAction(ActionPerformer ap) {
+		super("Attack", false, ap);
 	}
 
 	@Override
-	protected void addMoreTargets(Client client) {
-		System.out.println("Adding more targets to attack action");
-		for (GameObject ob : client.getPosition().getObjects()) {
+	protected void addMoreTargets(ActionPerformer ap) {
+//		System.out.println("Adding more targets to attack action");
+		for (GameObject ob : ap.getPosition().getObjects()) {
 			System.out.println("Handling " + ob.getName());
 			if (ob instanceof Target) {
 				Target objectAsTarget = (Target)ob;
@@ -31,7 +31,7 @@ public class AttackAction extends TargetingAction {
 	}
 	
 	@Override
-	public void addItemsToAction(Client client) {
+	public void adddClientsItemsToAction(Client client) {
 		withWhats.add(new Weapon("Fists", 0.5, 0.5, false));
 		for (GameItem it : client.getItems()) {
 			if (it instanceof Weapon) {
@@ -46,5 +46,11 @@ public class AttackAction extends TargetingAction {
 		target.beAttackedBy(performingClient, (Weapon)item);
 	}
 
-
+	@Override
+	protected String getVerb() {
+		if (target.isDead()) {
+			return "killed";
+		}
+		return getName().toLowerCase() + "ed";
+	}
 }

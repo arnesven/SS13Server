@@ -36,17 +36,50 @@ public abstract class Action {
 	}
 
 	public void printAndExecute(GameData gameData, ActionPerformer performingClient) {
+		this.execute(gameData, performingClient);
 		if (!isStealthy) {
 			for (Client cl : performingClient.getPosition().getClients()) {
-				if (!performingClient.isClient(cl)) {
-					cl.addTolastTurnInfo(performingClient.getPublicName() + " " + this.getName().toLowerCase() + "ed.");
+//				System.out.println("Broadcasting " + getName() + 
+//								   " ... performer=" + performingClient.getPublicName() + 
+//								   " cl=" + cl.getName());
+//				System.out.println("isclient = " + performingClient.isClient(cl) + " isargument= " + this.isArgumentOf(cl));
+				if (!performingClient.isClient(cl) && !this.isArgumentOf(cl)) {
+					String str = this.getPrintString(performingClient) + ".";
+//					System.out.println("This was added =>" + str);
+					cl.addTolastTurnInfo(str);
 				}
 			}
-
 		}
-		this.execute(gameData, performingClient);
 	}
 	
+	/**
+	 * Gets the string which is a textual description of the action to all
+	 * other clients in the same room.
+	 * @param performingClient the ActionPerformer who is performing the action
+	 * @return the textual description of the action (as seen by bystanders).
+	 */
+	protected String getPrintString(ActionPerformer performingClient) {
+		return performingClient.getPublicName() + " " + this.getVerb();
+	}
+
+	/**
+	 * Gets the name of the aciton as a verb, passed tense
+	 * @return the verb as a string.
+	 */
+	protected String getVerb() {
+		return getName().toLowerCase() + "ed";
+	}
+
+	/**
+	 * Returns true if cl is a argument for this action.
+	 * To be overloaded by specific actions.
+	 * @param cl, the client to check if it is an argument of this action
+	 * @return true if the client is an argument of this action, false otherwise.
+	 */
+	protected boolean isArgumentOf(Target t) {
+		return false;
+	}
+
 	/**
 	 * Do not call this method before calling setArguments!
 	 * @param gameData the game's data

@@ -2,6 +2,7 @@ package model.actions;
 
 import model.Client;
 import model.map.Room;
+import model.npcs.NPC;
 
 public class ClientActionPerformer implements ActionPerformer {
 
@@ -34,6 +35,16 @@ public class ClientActionPerformer implements ActionPerformer {
 	@Override
 	public boolean isClient(Client cl) {
 		return client == cl;
+	}
+
+	@Override
+	public boolean isNPC(NPC npc) {
+		return false;
+	}
+
+	@Override
+	public Target getAsTarget() {
+		return client;
 	}
 
 }

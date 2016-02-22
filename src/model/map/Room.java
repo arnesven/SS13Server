@@ -195,5 +195,13 @@ public class Room {
 		this.map = gameMap;
 	}
 
+	/**
+	 * Returns the npcs in this room.
+	 * @return
+	 */
+	public List<NPC> getNPCs() {
+		return npcs;
+	}
+
 
 }

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -206,11 +207,14 @@ public class GameData {
 			allClearLastTurn();
 			gameMode.setStartingLastTurnInfo();
 			allClearReady();
+			clearAllDeadNPCs();
 			gameState = GameState.ACTIONS;
 			
 		} else if (gameState == GameState.ACTIONS) {
 			actionsForAllPlayers();
 			actionsForAllNPCs();
+
+			gameMode.triggerEvents(this);
 			if (allDead() || gameMode.gameOver(this)) {
 				gameState = GameState.PRE_GAME;
 			} else {
@@ -224,6 +228,18 @@ public class GameData {
 
 
 
+
+	private void clearAllDeadNPCs() {
+		Iterator<NPC> it = npcs.iterator();
+		
+		while (it.hasNext()) {
+			NPC npc = it.next();
+			if (npc.shouldBeCleanedUp() && npc.isDead()) {
+				it.remove();
+				npc.getPosition().removeNPC(npc);
+			}
+		}
+	}
 
 	private boolean allDead() {
 		for (Client cl : clients.values()) {

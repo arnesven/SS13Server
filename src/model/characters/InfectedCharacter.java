@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import model.Client;
 import model.GameData;
 import model.actions.Action;
+import model.actions.ClientActionPerformer;
 import model.actions.InfectAction;
 
 
@@ -35,7 +36,7 @@ public class InfectedCharacter extends CharacterDecorator {
 			}
 		}
 		if (noOfTargets > 0) {
-			at.add(new InfectAction(getClient()));
+			at.add(new InfectAction(new ClientActionPerformer(getClient())));
 		}
 	}
 	

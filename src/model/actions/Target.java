@@ -18,8 +18,12 @@ public interface Target {
 	String getName();
 
 	boolean isTargetable();
-//	boolean isInfected();
-//	boolean isInteractable();
 
 	void beAttackedBy(ActionPerformer performingClient, Weapon item);
+
+	boolean isDead();
+
+	double getHealth();
+
+	double getMaxHealth();
 }

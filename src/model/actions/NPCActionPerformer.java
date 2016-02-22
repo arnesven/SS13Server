@@ -37,4 +37,15 @@ public class NPCActionPerformer implements ActionPerformer {
 		return false;
 	}
 
+	@Override
+	public boolean isNPC(NPC npc) {
+		return this.npc == npc;
+	}
+
+
+	@Override
+	public Target getAsTarget() {
+		return npc;
+	}
+
 }

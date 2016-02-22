@@ -8,17 +8,20 @@ import model.Client;
 import model.GameData;
 import model.characters.GameCharacter;
 import model.items.GameItem;
+import model.npcs.NPC;
 
 public abstract class TargetingAction extends Action {
 
 	private ArrayList<Target> targets = new ArrayList<>();
 	protected ArrayList<GameItem> withWhats = new ArrayList<>();
-	private Target target;
+	protected Target target;
 	private GameItem item;
+	private ActionPerformer performer;
 	
-	public TargetingAction(String name, boolean b, Client client) {
+	public TargetingAction(String name, boolean b, ActionPerformer ap) {
 		super(name, b);
-		this.addTargetsToAction(client);
+		this.performer = ap;
+		this.addTargetsToAction(ap);
 	}
 	
 	protected abstract void applyTargetingAction(GameData gameData,
@@ -28,25 +31,49 @@ public abstract class TargetingAction extends Action {
 		targets.add(cl);
 	}
 
-	private void addTargetsToAction(Client client) {
-		for (Client cl: client.getPosition().getClients()) {
+	@Override
+	public boolean isArgumentOf(Target t) {
+		return target == t;
+	}
+	
+	@Override
+	protected String getPrintString(ActionPerformer performingClient) {
+		return super.getPrintString(performingClient) + " " + target.getName() + 
+				(item==null?(" with " + item.getName()):"");
+	}
+	
+	private void addTargetsToAction(ActionPerformer ap) {
+		for (Client cl: ap.getPosition().getClients()) {
 			Target target = (Target)cl;
-			if (isViableForThisAction(target) && cl != client) {
+			if (isViableForThisAction(target) && !ap.isClient(cl)) {
 				this.addTarget(target);
 			}
 		}
-		addMoreTargets(client);
+		
+		for (NPC npc : ap.getPosition().getNPCs()) {
+			Target target = (Target)npc;
+			if (isViableForThisAction(target) && !ap.isNPC(npc)) {
+				this.addTarget(target);
+			}
+		}
+		
+		addMoreTargets(ap);
 	}
 
-	protected void addMoreTargets(Client client) {
+	protected void addMoreTargets(ActionPerformer ap) {
 		// Override this method if you want your targeting action to have more targets
 	}
 
 	protected boolean isViableForThisAction(Target target2) {
-		return true;
+		return target2.isTargetable();
+	}
+	
+	
+	public void printAndExecute(GameData gameData) {
+		super.printAndExecute(gameData, performer);
 	}
 
-	public void addItemsToAction(Client client) { }
+	public void adddClientsItemsToAction(Client client) { }
 	
 	@Override
 	public String toString() {
@@ -74,7 +101,14 @@ public abstract class TargetingAction extends Action {
 			this.item = findItem(args.get(1));
 		}
 	}
+	
+	public List<Target> getTargets() {
+		return targets;
+	}
 
+	public void addWithWhat(GameItem it) {
+		withWhats.add(it);
+	}
 
 	private GameItem findItem(String string) {
 		for (GameItem g : withWhats) {
