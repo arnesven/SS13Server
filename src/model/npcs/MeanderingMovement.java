@@ -1,15 +1,14 @@
 package model.npcs;
 
 import java.util.List;
-import java.util.Random;
 
+import util.MyRandom;
 import model.map.Room;
 
 
 public class MeanderingMovement implements MovementBehavior {
 
 	private double probability;
-	private static Random random = new Random();
 
 	/**
 	 * Constructor for this behavior.
@@ -21,9 +20,9 @@ public class MeanderingMovement implements MovementBehavior {
 
 	@Override
 	public void move(NPC npc) {
-		if (random.nextDouble() < probability) {
+		if (MyRandom.nextDouble() < probability) {
 			List<Room> listOfNeighboringRooms = npc.getPosition().getNeighborList();
-			Room dest = listOfNeighboringRooms.get(random.nextInt(listOfNeighboringRooms.size()));
+			Room dest = listOfNeighboringRooms.get(MyRandom.nextInt(listOfNeighboringRooms.size()));
 			npc.moveIntoRoom(dest);
 			System.out.println("Cat is now in " + dest.getName());
 		}

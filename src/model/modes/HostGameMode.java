@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import util.MyRandom;
 import model.Client;
 import model.GameData;
 import model.characters.CharacterDecorator;
@@ -35,7 +36,7 @@ public class HostGameMode extends GameMode {
 		ArrayList<GameCharacter> listOfCharacters = new ArrayList<>();
 		listOfCharacters.addAll(getAllCharacters());
 		
-		Client capCl = listOfClients.remove(random.nextInt(listOfClients.size()));
+		Client capCl = listOfClients.remove(MyRandom.nextInt(listOfClients.size()));
 		GameCharacter gc = null;
 		for (GameCharacter ch : listOfCharacters) {
 			if (ch.getBaseName().equals("Captain")) {
@@ -49,13 +50,13 @@ public class HostGameMode extends GameMode {
 		
 		while (listOfClients.size() > 0) {
 			Client cl = listOfClients.remove(0);
-			cl.setCharacter(listOfCharacters.remove(random.nextInt(listOfCharacters.size())));
+			cl.setCharacter(listOfCharacters.remove(MyRandom.nextInt(listOfCharacters.size())));
 		}
 	
 		ArrayList<Client> newList = new ArrayList<>();
 		newList.addAll(gameData.getClients());
 		
-		hostClient = newList.remove(random.nextInt(newList.size()));
+		hostClient = newList.remove(MyRandom.nextInt(newList.size()));
 		
 		
 		GameCharacter hostInner = hostClient.getCharacter();
@@ -72,7 +73,7 @@ public class HostGameMode extends GameMode {
 		hiveRoom = null;
 		boolean hiveInStartingRoom;
 		do {
-			hiveRoom = gameData.getRooms().get(random.nextInt(gameData.getRooms().size()));
+			hiveRoom = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
 			hiveInStartingRoom = false;
 			for (Client c : gameData.getClients()) {
 				if (c.getPosition().getID() == hiveRoom.getID()) {
@@ -145,11 +146,11 @@ public class HostGameMode extends GameMode {
 		double PARASITE_SPAWN_CHANCE = 0.75;
 		
 	
-		if (random.nextDouble() < PARASITE_SPAWN_CHANCE) {
+		if (MyRandom.nextDouble() < PARASITE_SPAWN_CHANCE) {
 			List<Room> spawnPoints = hiveRoom.getNeighborList();
 			spawnPoints.add(hiveRoom);
 			
-			Room randomRoom = spawnPoints.get(random.nextInt(spawnPoints.size()));
+			Room randomRoom = spawnPoints.get(MyRandom.nextInt(spawnPoints.size()));
 			
 			NPC parasite = new ParasiteNPC(randomRoom);
 			

@@ -1,10 +1,10 @@
 package model.items;
 
-import java.util.Random;
+import util.MyRandom;
+
 
 public class Weapon extends GameItem {
 
-	public static Random random = new Random();
 	private double hitChance;
 	private double damage;
 	private boolean makesBang;
@@ -18,9 +18,9 @@ public class Weapon extends GameItem {
 
 	public boolean isAttackSuccessful(boolean reduced) {
 		if (reduced) {
-			return random.nextDouble() < getHitChance()*0.5;
+			return MyRandom.nextDouble() < getHitChance()*0.5;
 		}
-		return random.nextDouble() < getHitChance();
+		return MyRandom.nextDouble() < getHitChance();
 	}
 
 	private double getHitChance() {

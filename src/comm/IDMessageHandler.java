@@ -1,8 +1,6 @@
 package comm;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.Random;
 
 import model.GameData;
 import model.GameState;

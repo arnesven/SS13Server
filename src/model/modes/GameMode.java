@@ -3,7 +3,6 @@ package model.modes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 import model.Client;
 import model.GameData;
@@ -71,8 +70,6 @@ public abstract class GameMode {
 		  23, 8, 10, 26, 2};
 	
 	private HashMap<String, GameCharacter> availableChars;
-	
-	protected Random random = new Random(System.currentTimeMillis());
 	
 	public GameMode() {
 		availableChars = new HashMap<>();

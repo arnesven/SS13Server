@@ -1,7 +1,7 @@
 package model.npcs;
 
-import java.util.Random;
 
+import util.MyRandom;
 import model.GameData;
 import model.actions.Action;
 import model.actions.MeowingAction;
@@ -12,7 +12,6 @@ public class SpontaneousAct implements ActionBehavior {
 
 	private double probability;
 	private Action action;
-	private static Random random = new Random();
 
 	public SpontaneousAct(double prob, Action act) {
 		this.probability = prob;
@@ -21,7 +20,7 @@ public class SpontaneousAct implements ActionBehavior {
 
 	@Override
 	public void act(NPC npc, GameData gameData) {
-		if (random.nextDouble() < probability) {
+		if (MyRandom.nextDouble() < probability) {
 			this.action.printAndExecute(gameData, new NPCActionPerformer(npc));
 		}
 	}

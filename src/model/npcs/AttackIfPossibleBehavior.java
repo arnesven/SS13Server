@@ -2,8 +2,8 @@ package model.npcs;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
+import util.MyRandom;
 import model.GameData;
 import model.actions.AttackAction;
 import model.actions.NPCActionPerformer;
@@ -29,10 +29,9 @@ public class AttackIfPossibleBehavior implements ActionBehavior {
 				targets.remove(t);
 			}
 		}
-		
-		Random random = new Random();
+
 		if (targets.size() > 0) {
-			Target randomTarget = targets.get(random.nextInt(targets.size()));
+			Target randomTarget = targets.get(MyRandom.nextInt(targets.size()));
 			List<String> args = new ArrayList<String>();
 			atk.addWithWhat(new Weapon("Claws", 0.75, 0.5, false));
 			args.add(randomTarget.getName());

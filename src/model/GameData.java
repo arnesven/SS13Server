@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Map.Entry;
 
+import util.MyRandom;
 import model.actions.DoNothingAction;
 import model.map.GameMap;
 import model.map.MapBuilder;
@@ -109,10 +109,9 @@ public class GameData {
 	 * @return the CLID of the new client.
 	 */
 	public String createNewClient() {
-		Random rand = new Random();
 		String clid = null;
 		do {
-			clid = new String("CL" + (rand.nextInt(900)+100));
+			clid = new String("CL" + (MyRandom.nextInt(900)+100));
 		} while (getClientsAsMap().containsKey(clid));
 		clients.put(clid, new Client());
 		
