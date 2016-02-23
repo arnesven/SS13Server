@@ -1,12 +1,13 @@
 package model.characters;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Client;
 import model.GameData;
 import model.actions.Action;
-import model.actions.ClientActionPerformer;
 import model.actions.InfectAction;
+import model.items.GameItem;
 
 
 /**
@@ -36,7 +37,7 @@ public class InfectedCharacter extends CharacterDecorator {
 			}
 		}
 		if (noOfTargets > 0) {
-			at.add(new InfectAction(new ClientActionPerformer(getClient())));
+			at.add(new InfectAction(this.getClient()));
 		}
 	}
 	
@@ -46,6 +47,11 @@ public class InfectedCharacter extends CharacterDecorator {
 			return true;
 		}
 		return super.checkInstance(infectChecker);
+	}
+
+	@Override
+	public List<GameItem> getStartingItems() {
+		return getInner().getStartingItems();
 	}
 	
 }

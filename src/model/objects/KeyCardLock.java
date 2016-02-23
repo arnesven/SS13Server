@@ -26,7 +26,7 @@ public class KeyCardLock extends GameObject {
 	public void addSpecificActionsFor(Client cl, ArrayList<Action> at) {
 		if (asKeyCard(cl)) {
 			if (locked) {
-				at.add(new UnlockRoomAction(to, from));
+				at.add(new UnlockRoomAction(to, from, this));
 			} else {
 				//TODO Add this action so you can lock again
 				//at.add(new LockRoomAction(to, from));
@@ -43,4 +43,9 @@ public class KeyCardLock extends GameObject {
 		return false;
 	}
 
+
+
+	public void setLocked(boolean b) {
+		this.locked = b;
+	}
 }

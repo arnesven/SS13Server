@@ -3,6 +3,7 @@ package model.map;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author erini02
@@ -41,6 +42,15 @@ public class GameMap {
 
 	public Room getRoomForID(int ID) {
 		return roomsList.get(ID-1);
+	}
+
+	public Room getRoom(String string) {
+		for (Room r : roomsList) {
+			if (r.getName().equals(string)) {
+				return r;
+			}
+		}
+		throw new NoSuchElementException("No room for given string " + string);
 	}
 
 

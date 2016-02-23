@@ -8,7 +8,6 @@ import java.util.NoSuchElementException;
 import model.actions.Action;
 import model.actions.ActionPerformer;
 import model.actions.AttackAction;
-import model.actions.ClientActionPerformer;
 import model.actions.DropAction;
 import model.actions.PickUpAction;
 import model.actions.WatchAction;
@@ -22,6 +21,7 @@ import model.characters.InstanceChecker;
 import model.items.GameItem;
 import model.items.Weapon;
 import model.map.Room;
+import model.npcs.NPC;
 
 
 /**
@@ -29,7 +29,7 @@ import model.map.Room;
  * Class for representing a client in the game. 
  * This means, a player, and the data pertaining to that player.
  */
-public class Client implements Target {
+public class Client implements Target, ActionPerformer {
 	
 	private static final double MAX_HEALTH = 3.0;
 	private boolean ready = false;
@@ -314,12 +314,11 @@ public class Client implements Target {
 	 */
 	public void applyAction(GameData gameData) {
 		if (!isDead()) {
-			this.nextAction.printAndExecute(gameData, new ClientActionPerformer(this));
+			this.nextAction.printAndExecute(gameData, this);
 		}
 	}
 	
 	public void setNextAction(Action nextAction) {
-		// TODO Auto-generated method stub
 		this.nextAction = nextAction;
 	}
 
@@ -424,14 +423,14 @@ public class Client implements Target {
 	
 	private void addPickUpActions(ArrayList<Action> at) {
 		if (getCharacter().getPosition().getItems().size() > 0) {
-			PickUpAction pickUpAction = new PickUpAction(new ClientActionPerformer(this));
+			PickUpAction pickUpAction = new PickUpAction(this);
 			at.add(pickUpAction);
 		}
 	}
 
 	private void addDropActions(ArrayList<Action> at) {
 		if (items.size() > 0) {
-			DropAction dropAction = new DropAction(new ClientActionPerformer(this));
+			DropAction dropAction = new DropAction(this);
 			at.add(dropAction);
 		}
 	}
@@ -441,14 +440,14 @@ public class Client implements Target {
 	}
 
 	private void addWatchAction(ArrayList<Action> at) {
-		TargetingAction watchAction = new WatchAction(new ClientActionPerformer(this));
+		TargetingAction watchAction = new WatchAction(this);
 		if (watchAction.getNoOfTargets() > 0) {
 			at.add(watchAction);
 		}
 	}
 
 	private void addAttackActions(ArrayList<Action> at) {
-		TargetingAction attackAction = new AttackAction(new ClientActionPerformer(this));
+		TargetingAction attackAction = new AttackAction(this);
 		if (attackAction.getNoOfTargets() > 0) {
 			attackAction.addClientsItemsToAction(this);
 			at.add(attackAction);
@@ -475,6 +474,26 @@ public class Client implements Target {
 		return this.getCurrentHealth();
 	}
 
+	@Override
+	public String getPublicName() {
+		return getCharacterPublicName();
+	}
 
+
+
+	@Override
+	public Target getAsTarget() {
+		return this;
+	}
+
+	@Override
+	public double getSpeed() {
+		return getCharacter().getSpeed();
+	}
+
+	@Override
+	public void action(GameData gameData) {
+		this.applyAction(gameData);
+	}
 	
 }

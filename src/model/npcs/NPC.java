@@ -1,11 +1,13 @@
 package model.npcs;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.GameData;
 import model.actions.ActionPerformer;
 import model.actions.Target;
 import model.characters.GameCharacter;
+import model.items.GameItem;
 import model.items.Weapon;
 import model.map.Room;
 
@@ -14,7 +16,7 @@ import model.map.Room;
  * Class representing NPCs on the station (non-player characters).
  * E.g. monsters, crewmembers not controlled by players. And other things.
  */
-public class NPC implements Target {
+public class NPC implements Target, ActionPerformer {
 	private GameCharacter chara;
 	private MovementBehavior moveBehavior;
 	private ActionBehavior actBehavior;
@@ -111,6 +113,35 @@ public class NPC implements Target {
 	public void setHealth(double d) {
 		getCharacter().setHealth(d);
 	}
+
+	@Override
+	public void addTolastTurnInfo(String string) {
+		// Not needed for NPCs
+	}
+
+	@Override
+	public String getPublicName() {
+		return getCharacter().getPublicName();
+	}
+
+	@Override
+	public Target getAsTarget() {
+		return this;
+	}
+
+	@Override
+	public List<GameItem> getItems() {
+		return new ArrayList<GameItem>();
+		// TODO Implement this correctly, NPCS should be able to have items.
+	}
 	
+	@Override
+	public double getSpeed(){
+		return getCharacter().getSpeed();
+	}
 	
+	@Override
+	public void action(GameData gameData) {
+		this.actAccordingToBehavior(gameData);
+	}
 }

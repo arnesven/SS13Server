@@ -1,12 +1,16 @@
 package model.characters;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Client;
 import model.GameData;
 import model.actions.Action;
 import model.actions.ActionPerformer;
 import model.actions.WatchAction;
+import model.items.GameItem;
+import model.items.KeyCard;
+import model.items.MedKit;
 import model.items.Weapon;
 import model.map.Room;
 
@@ -15,21 +19,20 @@ import model.map.Room;
  * Class for representing a character in the game. I.e. the physical representation
  * of a player or a NPC. 
  */
-public class GameCharacter {
+public abstract class GameCharacter {
 	
 	private String name;
 	private int startingRoom = 0;
 	private double health = 3.0;
 	private Client client = null;
 	private Room position = null;
+	private double speed;
 
-	public GameCharacter(String name) {
-		this.name = name;
-	}
 	
-	public GameCharacter(String name, int startRoom) {
-		this(name);
+	public GameCharacter(String name, int startRoom, double speed) {
+		this.name = name;
 		this.startingRoom = startRoom;
+		this.speed = speed;
 	}
 
 	/**
@@ -146,5 +149,11 @@ public class GameCharacter {
 	public void setHealth(double d) {
 		this.health = d;
 	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public abstract List<GameItem> getStartingItems();
 
 }

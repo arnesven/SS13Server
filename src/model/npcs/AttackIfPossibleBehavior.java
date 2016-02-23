@@ -6,7 +6,6 @@ import java.util.List;
 import util.MyRandom;
 import model.GameData;
 import model.actions.AttackAction;
-import model.actions.NPCActionPerformer;
 import model.actions.Target;
 import model.items.Weapon;
 import model.objects.GameObject;
@@ -15,7 +14,7 @@ public class AttackIfPossibleBehavior implements ActionBehavior {
 
 	@Override
 	public void act(NPC npc, GameData gameData) {
-		AttackAction atk = new AttackAction(new NPCActionPerformer(npc));
+		AttackAction atk = new AttackAction(npc);
 		List<Target> targets = new ArrayList<Target>();
 		targets.addAll(atk.getTargets());
 		

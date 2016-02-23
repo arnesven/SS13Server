@@ -44,7 +44,7 @@ public class MapBuilder {
 		result.add(gate);
 		result.add(new Room(20, "Captain's Quarters"  , "CQ"     ,15,  8, 2, 2, new int[]{17}        ,         new double[]{16.0, 8.0}  ));
 		result.add(new Room(21, "Air Lock #2"         , "2"      ,13,  2, 1, 1, new int[]{19}        ,         new double[]{13.0, 2.5} ));
-		Room army =new Room(22, "Armory"              , "Army"   ,10,  4, 3, 2, new int[]{19}        ,         new double[]{-11.0, 4.0} );
+		Room army =new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{19}        ,         new double[]{-11.0, 4.0} );
 		gate.addObject(new KeyCardLock(army, gate, true));
 		result.add(army);
 		result.add(new Room(23, "Port Hall Aft"       , ""       , 6,  3, 4, 2, new int[]{19, 24, 5} ,         new double[]{7.5, 3.0, } ));

@@ -4,16 +4,19 @@ import java.util.List;
 
 import model.GameData;
 import model.map.Room;
+import model.objects.KeyCardLock;
 
 public class UnlockRoomAction extends Action {
 
 	private Room to;
 	private Room from;
+	private KeyCardLock lock;
 
-	public UnlockRoomAction(Room to, Room from) {
+	public UnlockRoomAction(Room to, Room from, KeyCardLock keyCardLock) {
 		super("Unlock " + to.getName(), true);
 		this.to = to;
 		this.from = from;
+		this.lock = keyCardLock;
 	}
 
 	@Override
@@ -25,6 +28,7 @@ public class UnlockRoomAction extends Action {
 		newNArr[from.getNeighbors().length] = to.getID();
 		from.setNeighbors(newNArr);
 		performingClient.addTolastTurnInfo("You unlocked the " + to.getName() + ".");
+		lock.setLocked(false);
 	}
 
 	@Override

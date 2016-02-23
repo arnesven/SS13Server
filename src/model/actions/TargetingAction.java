@@ -45,14 +45,14 @@ public abstract class TargetingAction extends Action {
 	private void addTargetsToAction(ActionPerformer ap) {
 		for (Client cl: ap.getPosition().getClients()) {
 			Target target = (Target)cl;
-			if (isViableForThisAction(target) && !ap.isClient(cl)) {
+			if (isViableForThisAction(target) && !(ap == cl)) {
 				this.addTarget(target);
 			}
 		}
 		
 		for (NPC npc : ap.getPosition().getNPCs()) {
 			Target target = (Target)npc;
-			if (isViableForThisAction(target) && !ap.isNPC(npc)) {
+			if (isViableForThisAction(target) && !(ap == npc)) {
 				this.addTarget(target);
 			}
 		}

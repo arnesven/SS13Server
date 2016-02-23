@@ -5,7 +5,6 @@ import util.MyRandom;
 import model.GameData;
 import model.actions.Action;
 import model.actions.MeowingAction;
-import model.actions.NPCActionPerformer;
 
 
 public class SpontaneousAct implements ActionBehavior {
@@ -21,7 +20,7 @@ public class SpontaneousAct implements ActionBehavior {
 	@Override
 	public void act(NPC npc, GameData gameData) {
 		if (MyRandom.nextDouble() < probability) {
-			this.action.printAndExecute(gameData, new NPCActionPerformer(npc));
+			this.action.printAndExecute(gameData, npc);
 		}
 	}
 

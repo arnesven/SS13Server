@@ -11,6 +11,7 @@ import model.characters.CharacterDecorator;
 import model.characters.GameCharacter;
 import model.characters.HostCharacter;
 import model.characters.ParasiteCharacter;
+import model.items.Chemicals;
 import model.items.KeyCard;
 import model.items.MedKit;
 import model.items.Weapon;
@@ -86,21 +87,33 @@ public class HostGameMode extends GameMode {
 		hive = new HiveObject("Hive");
 		hiveRoom.addObject(hive);
 		
-		for (Client c : gameData.getClients()) {
-			c.addItem(new KeyCard());
-			c.addItem(new Weapon("Laser pistol", 0.90, 1.0, false));
-			c.addItem(new Weapon("Shotgun", 0.90, 1.0, true));
-			c.addItem(new Weapon("Revolver", 0.75, 1.0, true));
-			c.addItem(new Weapon("Knife", 0.75, 1.0, false));
-			c.addItem(new Weapon("Flamer", 0.75, 0.5, false));
-			c.addItem(new MedKit("MedKit"));
-			
-			
 
-		}
+		addItemsToRooms(gameData);
 		
+
 	}
 	
+	private void addItemsToRooms(GameData gameData) {
+
+		Room genRoom = gameData.getRoom("Generator");
+		genRoom.addItem(new Chemicals());
+		genRoom.addItem(new Chemicals());
+		
+		Room labRoom = gameData.getRoom("Lab");
+		labRoom.addItem(new Chemicals());
+		genRoom.addItem(new Chemicals());
+		
+		Room sickRoom = gameData.getRoom("Sickbay");
+		sickRoom.addItem(new MedKit());
+		sickRoom.addItem(new MedKit());
+		sickRoom.addItem(new MedKit());
+		
+		Room dormRoom = gameData.getRoom("Dorms");
+		dormRoom.addItem(new MedKit());
+	}
+
+
+
 	private void addHostStartingMessage(Client cl) {
 		hiveString = "The hive is in " + hiveRoom.getName() + ".";
 		hostClient.addTolastTurnInfo("You are the host! (Only you know this, so keep it a secret.) " + 

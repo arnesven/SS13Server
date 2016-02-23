@@ -43,7 +43,7 @@ public abstract class Action {
 //								   " ... performer=" + performingClient.getPublicName() + 
 //								   " cl=" + cl.getName());
 //				System.out.println("isclient = " + performingClient.isClient(cl) + " isargument= " + this.isArgumentOf(cl));
-				if (!performingClient.isClient(cl) && !this.isArgumentOf(cl)) {
+				if (!(performingClient == cl) && !this.isArgumentOf(cl)) {
 					String str = this.getPrintString(performingClient) + ".";
 //					System.out.println("This was added =>" + str);
 					cl.addTolastTurnInfo(str);

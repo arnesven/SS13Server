@@ -8,7 +8,7 @@ import model.items.GameItem;
 import model.map.Room;
 import model.npcs.NPC;
 
-public interface ActionPerformer {
+public interface ActionPerformer  {
 
 	Room getPosition();
 
@@ -18,11 +18,11 @@ public interface ActionPerformer {
 
 	String getPublicName();
 
-	boolean isClient(Client cl);
-
-	boolean isNPC(NPC npc);
-
 	Target getAsTarget();
 
 	List<GameItem> getItems();
+
+	double getSpeed();
+
+	void action(GameData gameData);
 }

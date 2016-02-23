@@ -11,7 +11,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import util.MyRandom;
+import model.actions.ActionPerformer;
 import model.actions.DoNothingAction;
+import model.actions.SpeedComparator;
 import model.map.GameMap;
 import model.map.MapBuilder;
 import model.map.Room;
@@ -210,9 +212,10 @@ public class GameData {
 			gameState = GameState.ACTIONS;
 			
 		} else if (gameState == GameState.ACTIONS) {
-			actionsForAllPlayers();
-			actionsForAllNPCs();
-
+			//actionsForAllPlayers();
+			//actionsForAllNPCs();
+			executeAllActions();
+			
 			gameMode.triggerEvents(this);
 			if (allDead() || gameMode.gameOver(this)) {
 				gameState = GameState.PRE_GAME;
@@ -223,7 +226,6 @@ public class GameData {
 		}
 		
 	}
-
 
 
 
@@ -262,12 +264,19 @@ public class GameData {
 		}
 	}
 
-	private void actionsForAllPlayers() {
-		for (Client cl : clients.values()) {
-			cl.applyAction(this);
+	private void executeAllActions() {
+		List<ActionPerformer> actionPerfs = new ArrayList<>();
+		actionPerfs.addAll(this.clients.values());
+		actionPerfs.addAll(this.npcs);
+		
+		Collections.sort(actionPerfs, new SpeedComparator());
+		for (ActionPerformer ap : actionPerfs) {
+			System.out.println("Action for " + ap.getPublicName());
+			ap.action(this);
 		}
 		
 	}
+
 
 	private void moveAllPlayers() {
 		for (Client cl : clients.values()) {
@@ -281,14 +290,7 @@ public class GameData {
 			npc.moveAccordingToBehavior();
 		}
 	}
-	
 
-	private void actionsForAllNPCs() {
-		for (NPC npc : npcs) {
-			npc.actAccordingToBehavior(this);
-		}
-		
-	}
 
 	private String createBasicPlayerData(Client cl) {		
 		String result = cl.getCharacterRealName() + 
@@ -321,6 +323,10 @@ public class GameData {
 	 */
 	public int getRound() {
 		return round ;
+	}
+
+	public Room getRoom(String string) {
+		return map.getRoom(string);
 	}
 
 }

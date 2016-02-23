@@ -7,8 +7,27 @@ import java.util.List;
 import model.Client;
 import model.GameData;
 import model.actions.MeowingAction;
+import model.characters.BartenderCharacter;
+import model.characters.BiologistCharacter;
+import model.characters.CaptainCharacter;
 import model.characters.CatCharacter;
+import model.characters.ChaplainCharacter;
+import model.characters.ChefCharacter;
+import model.characters.ChemistCharacter;
+import model.characters.DetectiveCharacter;
+import model.characters.DoctorCharacter;
+import model.characters.EngineerCharacter;
 import model.characters.GameCharacter;
+import model.characters.GenetecistCharacter;
+import model.characters.HeadOfStaffCharacter;
+import model.characters.JanitorCharacter;
+import model.characters.MechanicCharacter;
+import model.characters.RoboticistCharacter;
+import model.characters.SecurityOfficerCharacter;
+import model.items.GameItem;
+import model.items.KeyCard;
+import model.items.MedKit;
+import model.items.Weapon;
 import model.map.Room;
 import model.npcs.CatNPC;
 import model.npcs.MeanderingMovement;
@@ -69,14 +88,37 @@ public abstract class GameMode {
 		  3,  26, 1, 1, 1,
 		  23, 8, 10, 26, 2};
 	
+	private static double[] speeds = 
+		{16.0, 15.0, 14.0, 13.0, 12.0,
+		 11.0, 10.0,  9.0,  8.0,  7.0,
+		  6.0,  5.0,  4.0,  3.0,  2.0};
+	
 	private HashMap<String, GameCharacter> availableChars;
 	
 	public GameMode() {
 		availableChars = new HashMap<>();
-		for (int i = 0; i < charNames.length; ++i ) {
-			availableChars.put(charNames[i], new GameCharacter(charNames[i], startingLocations[i]));
-		}
-		
+		availableChars.put("Captain", new CaptainCharacter());
+		availableChars.put("Head of Staff", new HeadOfStaffCharacter());
+		availableChars.put("Security Officer", new SecurityOfficerCharacter());
+		availableChars.put("Detective", new DetectiveCharacter());
+		availableChars.put("Doctor", new DoctorCharacter());
+		availableChars.put("Biologist", new BiologistCharacter());
+		availableChars.put("Engineer", new EngineerCharacter());
+		availableChars.put("Chemist", new ChemistCharacter());
+		availableChars.put("Geneticist", new GenetecistCharacter());
+		availableChars.put("Roboticist", new RoboticistCharacter());
+		availableChars.put("Janitor", new JanitorCharacter());
+		availableChars.put("Chef", new ChefCharacter());
+		availableChars.put("Bartender", new BartenderCharacter());
+		availableChars.put("Mechanic", new MechanicCharacter());
+		availableChars.put("Chaplain", new ChaplainCharacter());
+//		for (int i = 0; i < charNames.length; ++i ) {
+//			availableChars.put(charNames[i], 
+//							   new GameCharacter(charNames[i], 
+//								 			     startingLocations[i], 
+//												 speeds[i]));
+//		}
+//		
 	}
 
 	
@@ -133,19 +175,40 @@ public abstract class GameMode {
 
 	public void setup(GameData gameData) {
 		assignCharactersToPlayers(gameData);
-	
+		giveCharactersStartingItems(gameData);
 		
-		for (Client c : gameData.getClients()) {
-			Room startRoom = gameData.getRoomForId(c.getCharacter().getStartingRoom());
-			c.moveIntoRoom(startRoom);
-			c.setNextMove(c.getPosition().getID());
-		}
+		moveCharactersIntoStartingRooms(gameData);
 		
 		addNPCs(gameData);
 		
 		setUpOtherStuff(gameData);
 		addStartingMessages(gameData);
 	}
+
+	private void moveCharactersIntoStartingRooms(GameData gameData) {
+		for (Client c : gameData.getClients()) {
+			Room startRoom = gameData.getRoomForId(c.getCharacter().getStartingRoom());
+			c.moveIntoRoom(startRoom);
+			c.setNextMove(c.getPosition().getID());
+		}
+	}
+
+
+
+	private void giveCharactersStartingItems(GameData gameData) {
+		for (Client c : gameData.getClients()) {
+			List<GameItem> startingItems = c.getCharacter().getStartingItems();
+			System.out.println("Giving starting items to " + c.getName());
+			for (GameItem it : startingItems) {
+				c.addItem(it);
+			}
+			
+			
+		}
+		
+	}
+
+
 
 	protected void addNPCs(GameData gameData) {
 		NPC cat = new CatNPC(gameData.getRoomForId(20));
