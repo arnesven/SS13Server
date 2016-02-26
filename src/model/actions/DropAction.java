@@ -3,22 +3,23 @@ package model.actions;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import model.Actor;
 import model.GameData;
 import model.items.GameItem;
 
 public class DropAction extends Action {
 
-	private ActionPerformer ap;
+	private Actor ap;
 	private GameItem item;
 
-	public DropAction(ActionPerformer clientActionPerformer) {
+	public DropAction(Actor clientActionPerformer) {
 		super("Drop", false);
 		ap = clientActionPerformer;
 		
 	}
 	
 	@Override
-	protected void execute(GameData gameData, ActionPerformer performingClient) {
+	protected void execute(GameData gameData, Actor performingClient) {
 		performingClient.addTolastTurnInfo("You dropped the " + item.getName() + ".");
 		performingClient.getItems().remove(item);
 		performingClient.getPosition().getItems().add(item);
@@ -31,7 +32,7 @@ public class DropAction extends Action {
 	}
 	
 	@Override
-	protected String getPrintString(ActionPerformer performingClient) {
+	protected String getPrintString(Actor performingClient) {
 		return super.getPrintString(performingClient) + " " + item.getName();
 	}
 	

@@ -2,7 +2,8 @@ package model.actions;
 
 import java.util.List;
 
-import model.Client;
+import model.Actor;
+import model.Player;
 import model.GameData;
 
 /**
@@ -35,10 +36,10 @@ public abstract class Action {
 		return name;
 	}
 
-	public void printAndExecute(GameData gameData, ActionPerformer performingClient) {
+	public void printAndExecute(GameData gameData, Actor performingClient) {
 		this.execute(gameData, performingClient);
 		if (!isStealthy) {
-			for (Client cl : performingClient.getPosition().getClients()) {
+			for (Player cl : performingClient.getPosition().getClients()) {
 //				System.out.println("Broadcasting " + getName() + 
 //								   " ... performer=" + performingClient.getPublicName() + 
 //								   " cl=" + cl.getName());
@@ -58,7 +59,7 @@ public abstract class Action {
 	 * @param performingClient the ActionPerformer who is performing the action
 	 * @return the textual description of the action (as seen by bystanders).
 	 */
-	protected String getPrintString(ActionPerformer performingClient) {
+	protected String getPrintString(Actor performingClient) {
 		return performingClient.getPublicName() + " " + this.getVerb();
 	}
 
@@ -85,7 +86,7 @@ public abstract class Action {
 	 * @param gameData the game's data
 	 * @param performingClient who is performing this action
 	 */
-	protected abstract void execute(GameData gameData, ActionPerformer performingClient);
+	protected abstract void execute(GameData gameData, Actor performingClient);
 
 	/**
 	 * Sets the arguments with which this action was executed

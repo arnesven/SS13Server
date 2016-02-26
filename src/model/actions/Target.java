@@ -1,6 +1,8 @@
 package model.actions;
 
-import model.Client;
+import model.Actor;
+import model.Player;
+import model.items.MedKit;
 import model.items.Weapon;
 
 /**
@@ -19,11 +21,17 @@ public interface Target {
 
 	boolean isTargetable();
 
-	void beAttackedBy(ActionPerformer performingClient, Weapon item);
+	void beAttackedBy(Actor performingClient, Weapon item);
 
 	boolean isDead();
 
 	double getHealth();
 
 	double getMaxHealth();
+
+	boolean isHuman();
+
+	boolean hasSpecificReaction(MedKit objectRef);
+
+	void addToHealth(double d);
 }

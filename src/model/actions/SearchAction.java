@@ -2,7 +2,8 @@ package model.actions;
 
 import java.util.List;
 
-import model.Client;
+import model.Actor;
+import model.Player;
 import model.GameData;
 import model.objects.GameObject;
 import model.objects.HiveObject;
@@ -16,7 +17,7 @@ public class SearchAction extends Action {
 
 
 	@Override
-	protected void execute(GameData gameData, ActionPerformer performingClient) {
+	protected void execute(GameData gameData, Actor performingClient) {
 		boolean foundSomething = false;
 		for (GameObject o : performingClient.getPosition().getObjects()) {
 			if (o instanceof HiveObject) {

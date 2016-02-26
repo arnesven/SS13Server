@@ -3,22 +3,23 @@ package model.actions;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import model.Actor;
 import model.GameData;
 import model.items.GameItem;
 
 public class PickUpAction extends Action {
 
-	private ActionPerformer ap;
+	private Actor ap;
 	private GameItem item;
 
-	public PickUpAction(ActionPerformer clientActionPerformer) {
+	public PickUpAction(Actor clientActionPerformer) {
 		super("Pick up", false);
 		ap = clientActionPerformer;
 	}
 
 	
 	@Override
-	protected void execute(GameData gameData, ActionPerformer performingClient) {
+	protected void execute(GameData gameData, Actor performingClient) {
 		if (performingClient.getPosition().getItems().contains(item)) {
 			performingClient.addTolastTurnInfo("You picked up the " + item.getName() + ".");
 			performingClient.getPosition().getItems().remove(item);
@@ -36,7 +37,7 @@ public class PickUpAction extends Action {
 	}
 	
 	@Override
-	protected String getPrintString(ActionPerformer performingClient) {
+	protected String getPrintString(Actor performingClient) {
 		return super.getPrintString(performingClient) + " the " + item.getName();
 	}
 	

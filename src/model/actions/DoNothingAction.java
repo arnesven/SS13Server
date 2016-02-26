@@ -2,7 +2,8 @@ package model.actions;
 
 import java.util.List;
 
-import model.Client;
+import model.Actor;
+import model.Player;
 import model.GameData;
 
 
@@ -14,7 +15,7 @@ public class DoNothingAction extends Action {
 
 
 	@Override
-	public void execute(GameData gameData, ActionPerformer performingClient) {
+	public void execute(GameData gameData, Actor performingClient) {
 		//performingClient.addTolastTurnInfo("You're chilling out...");
 		
 	}

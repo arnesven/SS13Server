@@ -2,7 +2,8 @@ package model.actions;
 
 import java.util.List;
 
-import model.Client;
+import model.Actor;
+import model.Player;
 import model.GameData;
 
 public class MeowingAction extends Action {
@@ -12,7 +13,7 @@ public class MeowingAction extends Action {
 	}
 
 	@Override
-	protected void execute(GameData gameData, ActionPerformer performingClient) {
+	protected void execute(GameData gameData, Actor performingClient) {
 		performingClient.addTolastTurnInfo("You meowed.");
 	}
 

@@ -2,7 +2,8 @@ package model.actions;
 
 import java.util.List;
 
-import model.Client;
+import model.Actor;
+import model.Player;
 import model.GameData;
 import model.items.GameItem;
 import model.items.Weapon;
@@ -11,12 +12,12 @@ import model.objects.GameObject;
 
 public class AttackAction extends TargetingAction {
 	
-	public AttackAction(ActionPerformer ap) {
+	public AttackAction(Actor ap) {
 		super("Attack", false, ap);
 	}
 
 	@Override
-	protected void addMoreTargets(ActionPerformer ap) {
+	protected void addMoreTargets(Actor ap) {
 //		System.out.println("Adding more targets to attack action");
 		for (GameObject ob : ap.getPosition().getObjects()) {
 			System.out.println("Handling " + ob.getName());
@@ -31,7 +32,7 @@ public class AttackAction extends TargetingAction {
 	}
 	
 	@Override
-	public void addClientsItemsToAction(Client client) {
+	public void addClientsItemsToAction(Player client) {
 		withWhats.add(new Weapon("Fists", 0.5, 0.5, false));
 		for (GameItem it : client.getItems()) {
 			if (it instanceof Weapon) {
@@ -42,7 +43,7 @@ public class AttackAction extends TargetingAction {
 
 	@Override
 	protected void applyTargetingAction(GameData gameData,
-			ActionPerformer performingClient, Target target, GameItem item) {
+			Actor performingClient, Target target, GameItem item) {
 		target.beAttackedBy(performingClient, (Weapon)item);
 	}
 

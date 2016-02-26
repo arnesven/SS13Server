@@ -2,6 +2,7 @@ package model.actions;
 
 import java.util.List;
 
+import model.Actor;
 import model.GameData;
 import model.map.Room;
 import model.objects.KeyCardLock;
@@ -20,7 +21,7 @@ public class UnlockRoomAction extends Action {
 	}
 
 	@Override
-	protected void execute(GameData gameData, ActionPerformer performingClient) {
+	protected void execute(GameData gameData, Actor performingClient) {
 		int[] newNArr = new int[from.getNeighbors().length+1];
 		for (int i = 0; i < from.getNeighbors().length; ++i) {
 			newNArr[i] = from.getNeighbors()[i];

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import model.Client;
+import model.Actor;
+import model.Player;
 import model.GameData;
 import model.characters.GameCharacter;
 import model.items.GameItem;
@@ -16,16 +17,16 @@ public abstract class TargetingAction extends Action {
 	protected ArrayList<GameItem> withWhats = new ArrayList<>();
 	protected Target target;
 	private GameItem item;
-	private ActionPerformer performer;
+	private Actor performer;
 	
-	public TargetingAction(String name, boolean b, ActionPerformer ap) {
+	public TargetingAction(String name, boolean b, Actor ap) {
 		super(name, b);
 		this.performer = ap;
 		this.addTargetsToAction(ap);
 	}
 	
 	protected abstract void applyTargetingAction(GameData gameData,
-			ActionPerformer performingClient, Target target, GameItem item);
+			Actor performingClient, Target target, GameItem item);
 
 	public void addTarget(Target cl) {
 		targets.add(cl);
@@ -37,13 +38,13 @@ public abstract class TargetingAction extends Action {
 	}
 	
 	@Override
-	protected String getPrintString(ActionPerformer performingClient) {
+	protected String getPrintString(Actor performingClient) {
 		return super.getPrintString(performingClient) + " " + target.getName() + 
-				(item==null?(" with " + item.getName()):"");
+				(item!=null?(" with " + item.getName()):"");
 	}
 	
-	private void addTargetsToAction(ActionPerformer ap) {
-		for (Client cl: ap.getPosition().getClients()) {
+	private void addTargetsToAction(Actor ap) {
+		for (Player cl: ap.getPosition().getClients()) {
 			Target target = (Target)cl;
 			if (isViableForThisAction(target) && !(ap == cl)) {
 				this.addTarget(target);
@@ -60,7 +61,7 @@ public abstract class TargetingAction extends Action {
 		addMoreTargets(ap);
 	}
 
-	protected void addMoreTargets(ActionPerformer ap) {
+	protected void addMoreTargets(Actor ap) {
 		// Override this method if you want your targeting action to have more targets
 	}
 
@@ -73,7 +74,7 @@ public abstract class TargetingAction extends Action {
 		super.printAndExecute(gameData, performer);
 	}
 
-	public void addClientsItemsToAction(Client client) { }
+	public void addClientsItemsToAction(Player client) { }
 	
 	@Override
 	public String toString() {
@@ -90,7 +91,7 @@ public abstract class TargetingAction extends Action {
 	}
 
 	@Override
-	protected void execute(GameData gameData, ActionPerformer performingClient) {
+	protected void execute(GameData gameData, Actor performingClient) {
 		applyTargetingAction(gameData, performingClient, target, item);
 	}
 

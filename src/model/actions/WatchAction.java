@@ -1,7 +1,8 @@
 package model.actions;
 
 import util.MyRandom;
-import model.Client;
+import model.Actor;
+import model.Player;
 import model.GameData;
 import model.items.GameItem;
 import model.npcs.NPC;
@@ -10,13 +11,13 @@ import model.npcs.NPC;
 public class WatchAction extends TargetingAction {
 
 
-	public WatchAction(ActionPerformer ap) {
+	public WatchAction(Actor ap) {
 		super("Watch", true, ap);
 	}
 
 	@Override
 	protected void applyTargetingAction(GameData gameData,
-			ActionPerformer performingClient, Target target, GameItem item) {
+			Actor performingClient, Target target, GameItem item) {
 		
 		
 		String healthStr = "healthy";
@@ -25,8 +26,8 @@ public class WatchAction extends TargetingAction {
 		}
 		
 		String itemStr = null;
-		if (target instanceof Client) {
-			Client cl = (Client)target;
+		if (target instanceof Player) {
+			Player cl = (Player)target;
 			if (cl.getItems().size() > 0) {
 				GameItem randomItem = cl.getItems().get(MyRandom.nextInt(cl.getItems().size()));
 				itemStr = " and is carrying a " + randomItem.getName();
@@ -44,7 +45,7 @@ public class WatchAction extends TargetingAction {
 
 	@Override
 	protected boolean isViableForThisAction(Target target2) {
-		return target2 instanceof Client || target2 instanceof NPC;
+		return target2 instanceof Player || target2 instanceof NPC;
 	}
 
 
