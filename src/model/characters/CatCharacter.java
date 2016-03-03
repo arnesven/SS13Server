@@ -17,4 +17,9 @@ public class CatCharacter extends GameCharacter {
 		return new ArrayList<>();
 	}
 
+	@Override
+	public boolean isHuman() {
+		return false;
+	}
+	
 }

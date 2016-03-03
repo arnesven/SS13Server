@@ -24,7 +24,7 @@ public class MeanderingMovement implements MovementBehavior {
 			List<Room> listOfNeighboringRooms = npc.getPosition().getNeighborList();
 			Room dest = listOfNeighboringRooms.get(MyRandom.nextInt(listOfNeighboringRooms.size()));
 			npc.moveIntoRoom(dest);
-			System.out.println("Cat is now in " + dest.getName());
+			System.out.println(npc.getName() + " is now in " + dest.getName());
 		}
 	}
 

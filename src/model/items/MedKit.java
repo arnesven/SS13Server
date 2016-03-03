@@ -1,10 +1,31 @@
 package model.items;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import model.Player;
+import model.actions.Action;
+import model.actions.HealWithMedKitAction;
+import model.actions.Target;
+import model.actions.TargetingAction;
+import model.map.Room;
+import model.npcs.NPC;
+
 
 public class MedKit extends GameItem {
 
+	
 	public MedKit() {
 		super("MedKit");
+	}
+
+	@Override
+	public void addYourActions(ArrayList<Action> at, Player cl) {
+		
+		TargetingAction act = new HealWithMedKitAction(cl, this);
+		if (act.getTargets().size() > 0) {
+			at.add(act);
+		}
 	}
 
 }

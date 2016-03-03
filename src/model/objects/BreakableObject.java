@@ -1,8 +1,9 @@
 package model.objects;
 
-import model.Client;
-import model.actions.ActionPerformer;
+import model.Actor;
+import model.Player;
 import model.actions.Target;
+import model.items.MedKit;
 import model.items.Weapon;
 
 public class BreakableObject extends GameObject implements Target {
@@ -17,7 +18,7 @@ public class BreakableObject extends GameObject implements Target {
 	}
 
 	@Override
-	public void beAttackedBy(ActionPerformer performingClient, Weapon item) {
+	public void beAttackedBy(Actor performingClient, Weapon item) {
 		
 		if (item.isAttackSuccessful(false)) {
 			hp = Math.max(0.0, hp - item.getDamage());
@@ -53,6 +54,27 @@ public class BreakableObject extends GameObject implements Target {
 	@Override
 	public double getMaxHealth() {
 		return maxHealth;
+	}
+	
+	public void setHealth(double d) {
+		hp = d;
+	}
+
+	@Override
+	public boolean isHuman() {
+		return false;
+	}
+
+	@Override
+	public boolean hasSpecificReaction(MedKit objectRef) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void addToHealth(double d) {
+		hp = Math.min(getMaxHealth(), hp + d);
+		
 	}
 	
 

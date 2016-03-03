@@ -38,6 +38,8 @@ public abstract class Actor  {
 
 	public abstract String getPublicName();
 
+	public abstract String getBaseName();
+	
 	public abstract Target getAsTarget();
 
 	public abstract List<GameItem> getItems();
@@ -45,4 +47,5 @@ public abstract class Actor  {
 	public abstract double getSpeed();
 
 	public abstract void action(GameData gameData);
+
 }

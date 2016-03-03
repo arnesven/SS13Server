@@ -3,7 +3,8 @@ package model.characters;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Client;
+import model.Actor;
+import model.Player;
 import model.GameData;
 import model.actions.Action;
 import model.actions.InfectAction;
@@ -18,8 +19,11 @@ import model.items.GameItem;
  */
 public class InfectedCharacter extends CharacterDecorator {
 
-	public InfectedCharacter(GameCharacter chara) {
+	private Actor infector;
+
+	public InfectedCharacter(GameCharacter chara, Actor performingClient) {
 		super(chara, "infected");
+		this.infector = performingClient;
 	}
 	
 	@Override
@@ -31,7 +35,7 @@ public class InfectedCharacter extends CharacterDecorator {
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {
 		int noOfTargets = 0;
-		for (Client cl : getInner().getPosition().getClients()) {
+		for (Player cl : getInner().getPosition().getClients()) {
 			if (!cl.isInfected()) {
 				noOfTargets++;
 			}
@@ -52,6 +56,10 @@ public class InfectedCharacter extends CharacterDecorator {
 	@Override
 	public List<GameItem> getStartingItems() {
 		return getInner().getStartingItems();
+	}
+
+	public Actor getInfector() {
+		return infector;
 	}
 	
 }

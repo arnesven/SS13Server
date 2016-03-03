@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import model.Client;
+import model.Player;
 import model.actions.Action;
 import model.items.GameItem;
 import model.npcs.NPC;
@@ -27,7 +27,7 @@ public class Room {
 	private int[] neighbors;
 	private double[] doors;
 	
-	private List<Client> players = new ArrayList<>();
+	private List<Player> players = new ArrayList<>();
 	private List<NPC> npcs = new ArrayList<>();
 	private List<GameObject> objects = new ArrayList<>();
 	private GameMap map = null;
@@ -91,9 +91,9 @@ public class Room {
 	 * different information depending who is asking.
 	 * @return the information as a list of strings.
 	 */
-	public List<String> getInfo(Client whosAsking) {
+	public List<String> getInfo(Player whosAsking) {
 		ArrayList<String> info = new ArrayList<>();
-		for (Client cl : players) {
+		for (Player cl : players) {
 			cl.addYourselfToRoomInfo(info);
 		}
 		for (NPC npc : npcs) {
@@ -113,7 +113,7 @@ public class Room {
 	 * Adds a player to this room.
 	 * @param client, the player to be added to the room.
 	 */
-	public void addPlayer(Client client) {
+	public void addPlayer(Player client) {
 		this.players.add(client);
 	}
 
@@ -122,7 +122,7 @@ public class Room {
 	 * @param client to be removed from this room.
 	 * @throws NoSuchElementException if the player is not in this room.
 	 */
-	public void removePlayer(Client client) {
+	public void removePlayer(Player client) {
 		if (! this.players.contains(client)) {
 			throw new NoSuchElementException("Tried to remove a player from a room who was not there!");
 		}
@@ -149,7 +149,7 @@ public class Room {
 	 * Gets a list of players who are currently in this room.
 	 * @return the list of players (clients)
 	 */
-	public List<Client> getClients() {
+	public List<Player> getClients() {
 		return players;
 	}
 
@@ -188,7 +188,7 @@ public class Room {
 		return list;
 	}
 
-	public void addActionsFor(Client client, ArrayList<Action> at) {
+	public void addActionsFor(Player client, ArrayList<Action> at) {
 		for (GameObject ob : objects) {
 			ob.addSpecificActionsFor(client, at);
 		}

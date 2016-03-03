@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import model.Client;
+import model.Player;
 import model.GameData;
 import model.actions.MeowingAction;
 import model.characters.BartenderCharacter;
@@ -78,20 +78,20 @@ import model.npcs.SpontaneousAct;
  */
 public abstract class GameMode {
 	
-	private static String[] charNames = 
-		{"Captain", "Head of Staff", "Security Officer", "Detective", "Doctor",
-		 "Biologist", "Engineer", "Chemist", "Geneticist", "Roboticist",
-		 "Janitor",   "Chef", "Bartender", "Mechanic", "Chaplain"};
-	
-	private static int[] startingLocations =
-		{ 20, 14, 18, 12, 24,
-		  3,  26, 1, 1, 1,
-		  23, 8, 10, 26, 2};
-	
-	private static double[] speeds = 
-		{16.0, 15.0, 14.0, 13.0, 12.0,
-		 11.0, 10.0,  9.0,  8.0,  7.0,
-		  6.0,  5.0,  4.0,  3.0,  2.0};
+//	private static String[] charNames = 
+//		{"Captain", "Head of Staff", "Security Officer", "Detective", "Doctor",
+//		 "Biologist", "Engineer", "Chemist", "Geneticist", "Roboticist",
+//		 "Janitor",   "Chef", "Bartender", "Mechanic", "Chaplain"};
+//	
+//	private static int[] startingLocations =
+//		{ 20, 14, 18, 12, 24,
+//		  3,  26, 1, 1, 1,
+//		  23, 8, 10, 26, 2};
+//	
+//	private static double[] speeds = 
+//		{16.0, 15.0, 14.0, 13.0, 12.0,
+//		 11.0, 10.0,  9.0,  8.0,  7.0,
+//		  6.0,  5.0,  4.0,  3.0,  2.0};
 	
 	private HashMap<String, GameCharacter> availableChars;
 	
@@ -112,13 +112,8 @@ public abstract class GameMode {
 		availableChars.put("Bartender", new BartenderCharacter());
 		availableChars.put("Mechanic", new MechanicCharacter());
 		availableChars.put("Chaplain", new ChaplainCharacter());
-//		for (int i = 0; i < charNames.length; ++i ) {
-//			availableChars.put(charNames[i], 
-//							   new GameCharacter(charNames[i], 
-//								 			     startingLocations[i], 
-//												 speeds[i]));
-//		}
-//		
+
+	
 	}
 
 	
@@ -161,6 +156,8 @@ public abstract class GameMode {
 	protected abstract void addStartingMessages(GameData gameData);
 	public abstract void triggerEvents(GameData gameData);
 
+	public abstract String getSummary(GameData gameData);
+
 	
 
 	protected GameCharacter getCharacterForString(String string) {
@@ -186,7 +183,7 @@ public abstract class GameMode {
 	}
 
 	private void moveCharactersIntoStartingRooms(GameData gameData) {
-		for (Client c : gameData.getClients()) {
+		for (Player c : gameData.getPlayersAsList()) {
 			Room startRoom = gameData.getRoomForId(c.getCharacter().getStartingRoom());
 			c.moveIntoRoom(startRoom);
 			c.setNextMove(c.getPosition().getID());
@@ -196,7 +193,7 @@ public abstract class GameMode {
 
 
 	private void giveCharactersStartingItems(GameData gameData) {
-		for (Client c : gameData.getClients()) {
+		for (Player c : gameData.getPlayersAsList()) {
 			List<GameItem> startingItems = c.getCharacter().getStartingItems();
 			System.out.println("Giving starting items to " + c.getName());
 			for (GameItem it : startingItems) {
@@ -214,6 +211,12 @@ public abstract class GameMode {
 		NPC cat = new CatNPC(gameData.getRoomForId(20));
 		gameData.addNPC(cat);
 	}
+
+
+
+
+
+	
 
 
 

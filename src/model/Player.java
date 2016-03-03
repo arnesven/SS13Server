@@ -354,6 +354,7 @@ public class Player extends Actor implements Target {
 	public void beAttackedBy(Actor performingClient, Weapon weapon) {
 		getCharacter().beAttackedBy(performingClient, weapon);
 		if (isDead()) { // You died, to bad!
+			getCharacter().setKiller(performingClient);
 			while (!getItems().isEmpty()) {
 				getPosition().addItem(getItems().remove(0));
 			}
@@ -521,6 +522,15 @@ public class Player extends Actor implements Target {
 	public void addToHealth(double d) {
 		getCharacter().setHealth(Math.min(getMaxHealth(), 
 								 getCharacter().getHealth() + d));
+	}
+
+	@Override
+	public String getBaseName() {
+		return getCharacterBaseName();
+	}
+
+	public Actor getKiller() {
+		return getCharacter().getKiller();
 	}
 	
 }

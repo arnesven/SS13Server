@@ -1,6 +1,9 @@
 package model.characters;
 
-import model.Client;
+import java.util.List;
+
+import model.Player;
+import model.items.GameItem;
 import model.map.Room;
 
 
@@ -47,12 +50,12 @@ public abstract class CharacterDecorator extends GameCharacter {
 	}
 	
 	@Override 
-	public Client getClient() {
+	public Player getClient() {
 		return innerChar.getClient();
 	}
 	
 	@Override
-	public void setClient(Client c) {
+	public void setClient(Player c) {
 		innerChar.setClient(c);
 	}
 	
@@ -71,5 +74,9 @@ public abstract class CharacterDecorator extends GameCharacter {
 		return innerChar.checkInstance(infectChecker);
 	}
 	
+	@Override
+	public List<GameItem> getItems() {
+		return innerChar.getItems();
+	}
 	
 }

@@ -2,7 +2,7 @@ package model.objects;
 
 import java.util.ArrayList;
 
-import model.Client;
+import model.Player;
 import model.actions.Action;
 import model.actions.UnlockRoomAction;
 import model.items.GameItem;
@@ -23,7 +23,7 @@ public class KeyCardLock extends GameObject {
 	}
 	
 	@Override
-	public void addSpecificActionsFor(Client cl, ArrayList<Action> at) {
+	public void addSpecificActionsFor(Player cl, ArrayList<Action> at) {
 		if (asKeyCard(cl)) {
 			if (locked) {
 				at.add(new UnlockRoomAction(to, from, this));
@@ -34,7 +34,7 @@ public class KeyCardLock extends GameObject {
 		}
 	}
 
-	private boolean asKeyCard(Client cl) {
+	private boolean asKeyCard(Player cl) {
 		for (GameItem it : cl.getItems()) {
 			if (it instanceof KeyCard) {
 				return true;

@@ -2,7 +2,7 @@ package model.objects;
 
 import java.util.ArrayList;
 
-import model.Client;
+import model.Player;
 import model.actions.Target;
 import model.characters.CharacterDecorator;
 import model.characters.InfectedCharacter;
@@ -17,7 +17,7 @@ public class HiveObject extends BreakableObject {
 	}
 	
 	@Override
-	public void addYourselfToRoomInfo(ArrayList<String> info, Client whosAsking) {
+	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
 		
 		if (whosAsking.getCharacter() instanceof InfectedCharacter) {
 			info.add(getName() + " (sensed)");

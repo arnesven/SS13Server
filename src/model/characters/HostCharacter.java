@@ -8,7 +8,7 @@ package model.characters;
 public class HostCharacter extends InfectedCharacter {
 
 	public HostCharacter(GameCharacter chara) {
-		super(chara);
+		super(chara, null);
 	}
 
 	@Override

@@ -9,9 +9,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import util.MyRandom;
-import model.actions.ActionPerformer;
 import model.actions.DoNothingAction;
 import model.actions.SpeedComparator;
 import model.map.GameMap;
@@ -30,7 +30,7 @@ import model.npcs.NPC;
  * the game is in. The game also has a "mode".
  */
 public class GameData {
-	private HashMap<String, Client> clients = new HashMap<>();
+	private HashMap<String, Player> players = new HashMap<>();
 	private GameMap map = MapBuilder.createMap();
 	private List<NPC> npcs = new ArrayList<>();
 	private GameState gameState = GameState.PRE_GAME;
@@ -48,7 +48,7 @@ public class GameData {
 	 */
 	public Map<String, Boolean> getClientsAsMap() {
 		HashMap<String, Boolean> hm = new HashMap<>();
-		for (Entry<String, Client> e : clients.entrySet()) {
+		for (Entry<String, Player> e : players.entrySet()) {
 			hm.put(e.getKey(), e.getValue().isReady());
 		}
 		return hm;
@@ -100,8 +100,8 @@ public class GameData {
 	 * @param clid the clid of the client we are looking for.
 	 * @return the searched for client.
 	 */
-	public Client getClient(String clid) {
-		return clients.get(clid);
+	public Player getPlayerForClid(String clid) {
+		return players.get(clid);
 	}
 
 
@@ -115,7 +115,7 @@ public class GameData {
 		do {
 			clid = new String("CL" + (MyRandom.nextInt(900)+100));
 		} while (getClientsAsMap().containsKey(clid));
-		clients.put(clid, new Client());
+		players.put(clid, new Player());
 		
 		return clid;
 	}
@@ -126,7 +126,7 @@ public class GameData {
 	 * @param otherPlayer, the client to be removed.
 	 */
 	public void removeClient(String otherPlayer) {
-		clients.remove(otherPlayer);
+		players.remove(otherPlayer);
 	}
 
 
@@ -136,7 +136,7 @@ public class GameData {
 	 * @param equals, the new ready status for the client.
 	 */
 	public void setCientReady(String clid, boolean equals) {
-		clients.get(clid).setReady(equals);
+		players.get(clid).setReady(equals);
 		if (allClientsReadyOrDead()) {
 			increaseGameState();	
 		}
@@ -149,7 +149,7 @@ public class GameData {
 	 * @return a string representation of the player data.
 	 */
 	public String createPlayerMovementData(String clid) {
-		Client cl = clients.get(clid);
+		Player cl = players.get(clid);
 		String result =  Arrays.toString(cl.getSelectableLocations(this)) + ":" + createBasicPlayerData(cl);
 		return result;
 	}
@@ -161,7 +161,7 @@ public class GameData {
 	 * @return a string representation of the player data.
 	 */
 	public String createPlayerActionData(String clid) {
-		Client cl = clients.get(clid);
+		Player cl = players.get(clid);
 		String result = cl.getActionTreeString(this) + ":" + createBasicPlayerData(cl);
 		return result;
 	}
@@ -171,20 +171,20 @@ public class GameData {
 	 * Gets the clients as a collection.
 	 * @return the collection of clients.
 	 */
-	public Collection<Client> getClients() {
-		return clients.values();
+	public Collection<Player> getPlayersAsList() {
+		return players.values();
 	}
 
 	
 	private void allClearReady() {
-		for (Client c : clients.values()) {
+		for (Player c : players.values()) {
 			c.setReady(false);
 		}
 	}
 
 
 	private boolean allClientsReadyOrDead() {
-		for (Client c : clients.values()) {
+		for (Player c : players.values()) {
 			if (!c.isReady() && !c.isDead()) {
 				return false;
 			}
@@ -201,7 +201,6 @@ public class GameData {
 			allClearReady();
 			
 		} else if (gameState == GameState.MOVEMENT) {
-			round = round + 1;
 			moveAllPlayers();
 			moveAllNPCs();
 			allResetActionStrings();
@@ -212,12 +211,11 @@ public class GameData {
 			gameState = GameState.ACTIONS;
 			
 		} else if (gameState == GameState.ACTIONS) {
-			//actionsForAllPlayers();
-			//actionsForAllNPCs();
 			executeAllActions();
+			round = round + 1;
 			
 			gameMode.triggerEvents(this);
-			if (allDead() || gameMode.gameOver(this)) {
+			if (gameMode.gameOver(this)) {
 				gameState = GameState.PRE_GAME;
 			} else {
 				gameState = GameState.MOVEMENT;
@@ -242,8 +240,8 @@ public class GameData {
 		}
 	}
 
-	private boolean allDead() {
-		for (Client cl : clients.values()) {
+	public boolean isAllDead() {
+		for (Player cl : players.values()) {
 			if (!cl.isDead()) {
 				return false;
 			}
@@ -253,24 +251,24 @@ public class GameData {
 	}
 
 	private void allClearLastTurn() {
-		for (Client cl : clients.values()) {
+		for (Player cl : players.values()) {
 			cl.clearLastTurnInfo();
 		}
 	}
 
 	private void allResetActionStrings() {
-		for (Client cl : clients.values()) {
+		for (Player cl : players.values()) {
 			cl.setNextAction(new DoNothingAction());
 		}
 	}
 
 	private void executeAllActions() {
-		List<ActionPerformer> actionPerfs = new ArrayList<>();
-		actionPerfs.addAll(this.clients.values());
+		List<Actor> actionPerfs = new ArrayList<>();
+		actionPerfs.addAll(this.players.values());
 		actionPerfs.addAll(this.npcs);
 		
 		Collections.sort(actionPerfs, new SpeedComparator());
-		for (ActionPerformer ap : actionPerfs) {
+		for (Actor ap : actionPerfs) {
 			System.out.println("Action for " + ap.getPublicName());
 			ap.action(this);
 		}
@@ -279,7 +277,7 @@ public class GameData {
 
 
 	private void moveAllPlayers() {
-		for (Client cl : clients.values()) {
+		for (Player cl : players.values()) {
 			cl.moveIntoRoom(map.getRoomForID(cl.getNextMove()));
 		}
 	}
@@ -292,7 +290,7 @@ public class GameData {
 	}
 
 
-	private String createBasicPlayerData(Client cl) {		
+	private String createBasicPlayerData(Player cl) {		
 		String result = cl.getCharacterRealName() + 
 				       ":" + cl.getPosition().getID() + 
 					   ":" + cl.getCurrentHealth() + 
@@ -327,6 +325,18 @@ public class GameData {
 
 	public Room getRoom(String string) {
 		return map.getRoom(string);
+	}
+
+	public String getSummary() {
+		return gameMode.getSummary(this);
+	}
+
+	public Set<Entry<String, Player>> getPlayersAsEntrySet() {
+		return players.entrySet();
+	}
+
+	public List<NPC> getNPCs() {
+		return npcs;
 	}
 
 }

@@ -38,6 +38,8 @@ public class ServiceHandler {
 		
 		handlers.add(new NextActionCommandHandler(gameData));
 		
+		handlers.add(new SummaryCommandHandler(gameData));
+		
 	}
 
 	public void serv(Socket socket) throws IOException, ClassNotFoundException {

@@ -9,6 +9,7 @@ import model.GameData;
 import model.characters.GameCharacter;
 import model.characters.InfectedCharacter;
 import model.items.GameItem;
+import model.npcs.CatNPC;
 import model.npcs.ParasiteNPC;
 
 public class InfectAction extends TargetingAction {
@@ -25,7 +26,7 @@ public class InfectAction extends TargetingAction {
 		if (target2 instanceof Player) {
 			return !((Player)target2).isInfected();
 		}
-		if (target2 instanceof ParasiteNPC) {
+		if (target2 instanceof ParasiteNPC || target2 instanceof CatNPC) {
 			return false;
 		}
 		return true;
@@ -39,15 +40,12 @@ public class InfectAction extends TargetingAction {
 			Player targetAsClient = (Player)target;
 			if (! targetAsClient.isInfected()) {
 				double infectChance = BASE_INFECT_CHANCE;
-				if (targetAsClient.getNextAction() instanceof WatchAction) {
-					if (((WatchAction)targetAsClient.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
-						infectChance = REDUCED_INFECT_CHANCE;
-						System.out.println("infect chance reduced because of watching...");
-						
-					}
+				if (isReducedChance(targetAsClient, performingClient)) {		
+					infectChance = REDUCED_INFECT_CHANCE;
+					
 				}
 				if (MyRandom.nextDouble() < infectChance) {
-					targetAsClient.setCharacter(new InfectedCharacter(targetAsClient.getCharacter()));
+					targetAsClient.setCharacter(new InfectedCharacter(targetAsClient.getCharacter(), performingClient));
 					targetAsClient.addTolastTurnInfo("You were infected by " + performingClient.getPublicName() + 
 							"! You are now on the Host team. Keep the humans from destroying the hive!");
 					performingClient.addTolastTurnInfo("You infected " + targetAsClient.getCharacterPublicName() + "!");
@@ -62,6 +60,25 @@ public class InfectAction extends TargetingAction {
 			performingClient.addTolastTurnInfo("You can not infect " + target.getName() + ".");
 		}
 		
+	}
+
+	private boolean isReducedChance(Player targetAsClient,
+			Actor performingClient) {
+		if (targetAsClient.getNextAction() instanceof WatchAction) {
+			if (((WatchAction)targetAsClient.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
+				System.out.println("infect chance reduced because of watching...");			
+				return true;
+			}
+		}
+		
+		if (targetAsClient.getNextAction() instanceof AttackAction) {
+			if (((AttackAction)targetAsClient.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
+				System.out.println("infect chance reduced because of attacking...");
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	

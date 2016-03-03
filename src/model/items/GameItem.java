@@ -2,7 +2,9 @@ package model.items;
 
 import java.util.ArrayList;
 
-import model.Client;
+import model.Actor;
+import model.Player;
+import model.actions.Action;
 
 /**
  * @author erini02
@@ -31,8 +33,17 @@ public class GameItem {
 		return name;
 	}
 
-	public void addYourselfToRoomInfo(ArrayList<String> info, Client whosAsking) {
+	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
 		info.add(name);
+	}
+
+	/**
+	 * Adds the items actions to the players list of actions.
+	 * Overload this method for specific items so they add their
+	 * actions.
+	 * @param at
+	 */
+	public void addYourActions(ArrayList<Action> at, Player cl) {
 	}
 
 }

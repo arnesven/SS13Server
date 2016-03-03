@@ -18,4 +18,10 @@ public class ParasiteCharacter extends GameCharacter {
 		return new ArrayList<>();
 	}
 
+	
+	@Override
+	public boolean isHuman() {
+		return false;
+	}
+	
 }

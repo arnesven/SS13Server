@@ -3,9 +3,10 @@ package model.modes;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import util.MyRandom;
-import model.Client;
+import model.Player;
 import model.GameData;
 import model.characters.CharacterDecorator;
 import model.characters.GameCharacter;
@@ -24,20 +25,27 @@ import model.objects.HiveObject;
 
 public class HostGameMode extends GameMode {
 	
-	private Client hostClient;
+	public HostGameMode() {
+	}
+
+
+
+	private static final int NO_OF_GAME_ROUNDS = 20;
+	private Player hostClient;
 	private String hiveString;
 	private HiveObject hive;
 	private Room hiveRoom;
+	private ArrayList<NPC> allParasites = new ArrayList<NPC>();
 
 	@Override
 	protected void assignCharactersToPlayers(GameData gameData) {
-		ArrayList<Client> listOfClients = new ArrayList<Client>();
-		listOfClients.addAll(gameData.getClients());
+		ArrayList<Player> listOfClients = new ArrayList<Player>();
+		listOfClients.addAll(gameData.getPlayersAsList());
 		
 		ArrayList<GameCharacter> listOfCharacters = new ArrayList<>();
 		listOfCharacters.addAll(getAllCharacters());
 		
-		Client capCl = listOfClients.remove(MyRandom.nextInt(listOfClients.size()));
+		Player capCl = listOfClients.remove(MyRandom.nextInt(listOfClients.size()));
 		GameCharacter gc = null;
 		for (GameCharacter ch : listOfCharacters) {
 			if (ch.getBaseName().equals("Captain")) {
@@ -50,12 +58,12 @@ public class HostGameMode extends GameMode {
 		listOfCharacters.remove(gc);
 		
 		while (listOfClients.size() > 0) {
-			Client cl = listOfClients.remove(0);
+			Player cl = listOfClients.remove(0);
 			cl.setCharacter(listOfCharacters.remove(MyRandom.nextInt(listOfCharacters.size())));
 		}
 	
-		ArrayList<Client> newList = new ArrayList<>();
-		newList.addAll(gameData.getClients());
+		ArrayList<Player> newList = new ArrayList<>();
+		newList.addAll(gameData.getPlayersAsList());
 		
 		hostClient = newList.remove(MyRandom.nextInt(newList.size()));
 		
@@ -64,7 +72,6 @@ public class HostGameMode extends GameMode {
 		CharacterDecorator host = new HostCharacter(hostInner);
 		hostClient.setCharacter(host);
 		
-
 	}
 
 
@@ -76,7 +83,7 @@ public class HostGameMode extends GameMode {
 		do {
 			hiveRoom = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
 			hiveInStartingRoom = false;
-			for (Client c : gameData.getClients()) {
+			for (Player c : gameData.getPlayersAsList()) {
 				if (c.getPosition().getID() == hiveRoom.getID()) {
 					hiveInStartingRoom = true;
 					break;
@@ -114,7 +121,7 @@ public class HostGameMode extends GameMode {
 
 
 
-	private void addHostStartingMessage(Client cl) {
+	private void addHostStartingMessage(Player cl) {
 		hiveString = "The hive is in " + hiveRoom.getName() + ".";
 		hostClient.addTolastTurnInfo("You are the host! (Only you know this, so keep it a secret.) " + 
 									 hiveString + 
@@ -122,14 +129,54 @@ public class HostGameMode extends GameMode {
 	}
 
 	
-	private void addCrewStartingMessage(Client c) {
+	private void addCrewStartingMessage(Player c) {
 		c.addTolastTurnInfo("There is a hive somewhere on the station. You must search the rooms to find and destory it. Beware of the host, it will protect its hive by attacking and infecting the crew.");
+	}
+	
+	public enum GameOver {
+		HIVE_BROKEN,
+		ALL_INFECTED,
+		TIME_IS_UP,
+		ALL_DEAD
+	}
+	
+	/**
+	 * Gets the way the game ended as a GameOver enum.
+	 * If the game is not over, null is returned.
+	 * @param gameData
+	 * @return
+	 */
+	public GameOver getGameResultType(GameData gameData) {
+		if (gameData.isAllDead()) {
+			return GameOver.ALL_DEAD;
+		}
+		if (hive.isBroken()) {
+			return GameOver.HIVE_BROKEN;
+		} 
+		if (allInfected(gameData)) {
+			return GameOver.ALL_INFECTED;
+		}
+		if (gameData.getRound() == NO_OF_GAME_ROUNDS) {
+			return GameOver.TIME_IS_UP;
+		}
+		return null;
 	}
 	
 	@Override
 	public boolean gameOver(GameData gameData) {
-		return hive.isBroken();
+		return getGameResultType(gameData) != null;
 	}
+
+	private boolean allInfected(GameData gameData) {
+		for (Player cl : gameData.getPlayersAsList()) {
+			if (!cl.isDead() && !cl.isInfected()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+
 
 	@Override
 	public void setStartingLastTurnInfo() {
@@ -140,7 +187,7 @@ public class HostGameMode extends GameMode {
 
 	@Override
 	protected void addStartingMessages(GameData gameData) {
-		for (Client c : gameData.getClients()) {
+		for (Player c : gameData.getPlayersAsList()) {
 			if (c == hostClient) {
 				addHostStartingMessage(c);
 			} else {
@@ -168,7 +215,39 @@ public class HostGameMode extends GameMode {
 			NPC parasite = new ParasiteNPC(randomRoom);
 			
 			gameData.addNPC(parasite);
+			allParasites.add(parasite);
 		}
+	}
+
+
+
+	@Override
+	public String getSummary(GameData gameData) {
+		return (new HostModeStats(gameData, this)).toString();
+	}
+
+
+
+	public Player getHostPlayer() {
+		return hostClient;
+	}
+
+
+
+	public Room getHiveRoom() {
+		return hiveRoom;
+	}
+
+
+
+	public List<NPC> getAllParasites() {
+		return allParasites;
+	}
+
+
+
+	public HiveObject getHive() {
+		return hive;
 	}
 
 

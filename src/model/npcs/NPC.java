@@ -3,11 +3,12 @@ package model.npcs;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Actor;
 import model.GameData;
-import model.actions.ActionPerformer;
 import model.actions.Target;
 import model.characters.GameCharacter;
 import model.items.GameItem;
+import model.items.MedKit;
 import model.items.Weapon;
 import model.map.Room;
 
@@ -16,11 +17,12 @@ import model.map.Room;
  * Class representing NPCs on the station (non-player characters).
  * E.g. monsters, crewmembers not controlled by players. And other things.
  */
-public class NPC implements Target, ActionPerformer {
+public class NPC extends Actor implements Target {
+	
 	private GameCharacter chara;
+	
 	private MovementBehavior moveBehavior;
 	private ActionBehavior actBehavior;
-	private Room position = null;
 	private double maxHealth;
 	
 	public NPC(GameCharacter chara, MovementBehavior m, ActionBehavior a, Room r) {
@@ -31,13 +33,21 @@ public class NPC implements Target, ActionPerformer {
 	}
 	
 	protected void moveIntoRoom(Room r) {
-		if (position != null) {
-			position.removeNPC(this);
+		if (getPosition() != null) {
+			getPosition().removeNPC(this);
 		}
 		r.addNPC(this);
-		position = r;
+		setPosition(r);
 	}
 
+	private void setPosition(Room r) {
+		chara.setPosition(r);
+	}
+	
+	public Room getPosition() {
+		return chara.getPosition();
+	}
+	
 	public void moveAccordingToBehavior() {
 		if (!isDead()) {
 			moveBehavior.move(this);
@@ -56,9 +66,7 @@ public class NPC implements Target, ActionPerformer {
 		
 	}
 
-	public Room getPosition() {
-		return position;
-	}
+
 
 	public String getName() {
 		return chara.getFullName();
@@ -83,7 +91,7 @@ public class NPC implements Target, ActionPerformer {
 	}
 
 	@Override
-	public void beAttackedBy(ActionPerformer performingClient, Weapon item) {
+	public void beAttackedBy(Actor performingClient, Weapon item) {
 		getCharacter().beAttackedBy(performingClient, item);
 	}
 
@@ -131,8 +139,7 @@ public class NPC implements Target, ActionPerformer {
 
 	@Override
 	public List<GameItem> getItems() {
-		return new ArrayList<GameItem>();
-		// TODO Implement this correctly, NPCS should be able to have items.
+		return chara.getItems();
 	}
 	
 	@Override
@@ -143,5 +150,27 @@ public class NPC implements Target, ActionPerformer {
 	@Override
 	public void action(GameData gameData) {
 		this.actAccordingToBehavior(gameData);
+	}
+
+	@Override
+	public boolean isHuman() {
+		return getCharacter().isHuman();
+	}
+
+	@Override
+	public boolean hasSpecificReaction(MedKit objectRef) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void addToHealth(double d) {
+		getCharacter().setHealth(Math.min(getMaxHealth(), 
+				 getCharacter().getHealth() + d));
+	}
+
+	@Override
+	public String getBaseName() {
+		return chara.getBaseName();
 	}
 }

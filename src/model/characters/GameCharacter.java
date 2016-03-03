@@ -3,10 +3,10 @@ package model.characters;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Client;
+import model.Actor;
+import model.Player;
 import model.GameData;
 import model.actions.Action;
-import model.actions.ActionPerformer;
 import model.actions.WatchAction;
 import model.items.GameItem;
 import model.items.KeyCard;
@@ -24,9 +24,11 @@ public abstract class GameCharacter {
 	private String name;
 	private int startingRoom = 0;
 	private double health = 3.0;
-	private Client client = null;
+	private Player client = null;
 	private Room position = null;
 	private double speed;
+	private List<GameItem> items = new ArrayList<>();
+	private Actor killer;
 
 	
 	public GameCharacter(String name, int startRoom, double speed) {
@@ -76,8 +78,8 @@ public abstract class GameCharacter {
 	}
 
 	
-	public void beAttackedBy(ActionPerformer performingClient, Weapon weapon) {
-		Client thisClient  = this.getClient();
+	public void beAttackedBy(Actor performingClient, Weapon weapon) {
+		Player thisClient  = this.getClient();
 		boolean reduced = false;
 		if (thisClient != null) {
 			if (thisClient.getNextAction() instanceof WatchAction) {
@@ -113,11 +115,11 @@ public abstract class GameCharacter {
 		
 	}
 
-	public Client getClient() {
+	public Player getClient() {
 		return client;
 	}
 	
-	public void setClient(Client c) {
+	public void setClient(Player c) {
 		this.client = c;
 	}
 
@@ -155,5 +157,30 @@ public abstract class GameCharacter {
 	}
 
 	public abstract List<GameItem> getStartingItems();
+
+	public boolean isHuman() {
+		return true;
+	}
+
+	/**
+	 * Overload this method if you want a character
+	 * to have specific reaction when interacted with a certain item.
+	 * @return true if the character had a specific reaction, false otherwise
+	 */
+	public boolean hasSpecificReaction() {
+		return false;
+	}
+
+	public List<GameItem> getItems() {
+		return items;
+	}
+
+	public Actor getKiller() {
+		return killer;
+	}
+	
+	public void setKiller(Actor a) {
+		this.killer = a;
+	}
 
 }
