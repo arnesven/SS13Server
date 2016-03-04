@@ -9,6 +9,7 @@ import model.items.MedKit;
 public class HealWithMedKitAction extends TargetingAction {
 
 	private MedKit objectRef;
+	private static final double HEAL_AMOUNT = 1.0;
 
 	public HealWithMedKitAction(Actor ap, MedKit objectRef) {
 		super("Heal", false, ap);
@@ -19,7 +20,7 @@ public class HealWithMedKitAction extends TargetingAction {
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
 		if (! target.hasSpecificReaction(objectRef)) {
-			target.addToHealth(1.5);
+			target.addToHealth(HEAL_AMOUNT);
 			performingClient.getItems().remove(objectRef);
 			if (target == performingClient) {
 				performingClient.addTolastTurnInfo("You " + getVerb() + " yourself with the " + objectRef.getName() + ".");

@@ -20,8 +20,12 @@ public class SpontaneousAct implements ActionBehavior {
 	@Override
 	public void act(NPC npc, GameData gameData) {
 		if (MyRandom.nextDouble() < probability) {
-			this.action.printAndExecute(gameData, npc);
+			doTheAction(gameData, npc);
 		}
+	}
+
+	protected void doTheAction(GameData gameData, NPC npc) {
+		this.action.printAndExecute(gameData, npc);		
 	}
 
 }

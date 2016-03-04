@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.actions.Target;
@@ -47,5 +48,7 @@ public abstract class Actor  {
 	public abstract double getSpeed();
 
 	public abstract void action(GameData gameData);
+
+	public abstract void addYourselfToRoomInfo(ArrayList<String> info);
 
 }

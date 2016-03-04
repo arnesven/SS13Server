@@ -2,6 +2,7 @@ package model.modes;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -41,11 +42,37 @@ public class HostGameMode extends GameMode {
 	protected void assignCharactersToPlayers(GameData gameData) {
 		ArrayList<Player> listOfClients = new ArrayList<Player>();
 		listOfClients.addAll(gameData.getPlayersAsList());
-		
 		ArrayList<GameCharacter> listOfCharacters = new ArrayList<>();
 		listOfCharacters.addAll(getAllCharacters());
 		
-		Player capCl = listOfClients.remove(MyRandom.nextInt(listOfClients.size()));
+		/// SELECT A CAPTAIN, SS13 MUST ALWAYS HAVE A CAPTAIN
+		selectCaptain(listOfClients, listOfCharacters);
+				
+		/// ASSIGN ROLES RANDOMLY
+		assignRestRoles(listOfClients, listOfCharacters);	
+		
+		// ASSIGN HOST
+		assignHost(gameData);
+		
+	}
+
+
+	private void selectCaptain(ArrayList<Player> clientsRemaining, 
+							   ArrayList<GameCharacter> listOfCharacters) {
+
+		ArrayList<Player> playersWhoSelectedCaptain = new ArrayList<>();
+		for (Player pl : clientsRemaining) {
+			if (pl.checkedJob("Captain")) {
+				playersWhoSelectedCaptain.add(pl);
+			}
+		}
+		
+		if (playersWhoSelectedCaptain.size() == 0) {
+			playersWhoSelectedCaptain.addAll(clientsRemaining);
+		}
+		
+		Player capCl = playersWhoSelectedCaptain.remove(MyRandom.nextInt(playersWhoSelectedCaptain.size()));
+		clientsRemaining.remove(capCl);
 		GameCharacter gc = null;
 		for (GameCharacter ch : listOfCharacters) {
 			if (ch.getBaseName().equals("Captain")) {
@@ -54,26 +81,51 @@ public class HostGameMode extends GameMode {
 				break;
 			}
 		}
-	
 		listOfCharacters.remove(gc);
+	}
+
+	private void assignRestRoles(ArrayList<Player> remainingPlayers,
+			ArrayList<GameCharacter> remainingCharacters) {
 		
-		while (listOfClients.size() > 0) {
-			Player cl = listOfClients.remove(0);
-			cl.setCharacter(listOfCharacters.remove(MyRandom.nextInt(listOfCharacters.size())));
+		Collections.shuffle(remainingPlayers);
+		
+		while (remainingPlayers.size() > 0) {
+			Player cl = remainingPlayers.remove(0);
+			
+			ArrayList<GameCharacter> candidates = new ArrayList<>();
+			for (GameCharacter gc : remainingCharacters) {
+				if (cl.checkedJob(gc.getBaseName())) {
+					candidates.add(gc);
+				}
+			}
+			if (candidates.size() == 0) {
+				candidates.addAll(remainingCharacters);
+			}
+			
+			GameCharacter selected = candidates.remove(MyRandom.nextInt(candidates.size()));
+			
+			cl.setCharacter(selected);
+			remainingCharacters.remove(selected);
 		}
-	
-		ArrayList<Player> newList = new ArrayList<>();
-		newList.addAll(gameData.getPlayersAsList());
+	}
+
+	private void assignHost(GameData gameData) {
+		ArrayList<Player> playersWhoSelectedHost = new ArrayList<>();
+		for (Player pl : gameData.getPlayersAsList()) {
+			if (pl.checkedJob("Host")) {
+				playersWhoSelectedHost.add(pl);
+			}
+		}
+
+		if (playersWhoSelectedHost.size() == 0) {
+			playersWhoSelectedHost.addAll(gameData.getPlayersAsList());
+		}
 		
-		hostClient = newList.remove(MyRandom.nextInt(newList.size()));
-		
-		
+		hostClient = playersWhoSelectedHost.remove(MyRandom.nextInt(playersWhoSelectedHost.size()));
 		GameCharacter hostInner = hostClient.getCharacter();
 		CharacterDecorator host = new HostCharacter(hostInner);
 		hostClient.setCharacter(host);
-		
 	}
-
 
 
 	@Override

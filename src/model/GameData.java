@@ -115,7 +115,7 @@ public class GameData {
 		do {
 			clid = new String("CL" + (MyRandom.nextInt(900)+100));
 		} while (getClientsAsMap().containsKey(clid));
-		players.put(clid, new Player());
+		players.put(clid, new Player(this));
 		
 		return clid;
 	}
@@ -337,6 +337,14 @@ public class GameData {
 
 	public List<NPC> getNPCs() {
 		return npcs;
+	}
+
+	public String getAvailableJobs() {
+		return gameMode.getAvailableJobs();
+	}
+
+	public Set<String> getAvailableJobsAsStrings() {
+		return gameMode.getAvailCharsAsStrings();
 	}
 
 }

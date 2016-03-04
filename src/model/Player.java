@@ -41,9 +41,14 @@ public class Player extends Actor implements Target {
 
 	private String suit = "clothes";
 	private Action nextAction;
+	private HashMap<String, Boolean> jobChoices = new HashMap<>();
 	
 
-	public Player() {
+	public Player(GameData gameData) {
+		for (String s : gameData.getAvailableJobsAsStrings() ) {
+			jobChoices.put(s, true);
+		}
+		jobChoices.put("Host", true);
 	}
 
 	/**
@@ -340,7 +345,7 @@ public class Player extends Actor implements Target {
 	 */
 	public void addYourselfToRoomInfo(ArrayList<String> info) {
 		//TODO: This function should probably be deferred to the character.
-		info.add(this.getCharacterPublicName());
+		info.add("a" + this.getCharacterPublicName());
 	}
 
 
@@ -531,6 +536,23 @@ public class Player extends Actor implements Target {
 
 	public Actor getKiller() {
 		return getCharacter().getKiller();
+	}
+
+	public void parseJobChoices(String rest) {
+		String withoutBraces = rest.substring(2, rest.length()-1);
+		System.out.println(withoutBraces);
+		String[] opts = withoutBraces.split(",");
+		for (String str : opts) {
+			String[] keyVal = str.split("=");
+			jobChoices.put(keyVal[0], Boolean.parseBoolean(keyVal[1]));
+		}
+		System.out.println("JobChoices " + jobChoices.toString());
+		
+	}
+
+	public boolean checkedJob(String string) {
+	//	System.out.println("Getting value for " + string + " = " + jobChoices.get(string));
+		return jobChoices.get(string);
 	}
 	
 }

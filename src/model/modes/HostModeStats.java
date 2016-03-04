@@ -72,7 +72,12 @@ public class HostModeStats extends GameStats {
 
 	private String getStatusStringForPlayer(Player value) {
 		if (value.isDead()) {
-			return "<span style='background-color: #AAAAAA'>Dead</span>";
+			String host = "";
+			if (value.isInfected() && value == hostMode.getHostPlayer()) {
+				host = " (Host)";
+			}
+			
+			return "<span style='background-color: #AAAAAA'>Dead" + host + "</span>";
 		}
 		if (value.isInfected()) {
 			String val = "Infected";

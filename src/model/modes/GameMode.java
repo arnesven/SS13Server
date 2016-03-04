@@ -3,6 +3,7 @@ package model.modes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import model.Player;
 import model.GameData;
@@ -18,7 +19,7 @@ import model.characters.DetectiveCharacter;
 import model.characters.DoctorCharacter;
 import model.characters.EngineerCharacter;
 import model.characters.GameCharacter;
-import model.characters.GenetecistCharacter;
+import model.characters.GeneticistCharacter;
 import model.characters.HeadOfStaffCharacter;
 import model.characters.JanitorCharacter;
 import model.characters.MechanicCharacter;
@@ -105,7 +106,7 @@ public abstract class GameMode {
 		availableChars.put("Biologist", new BiologistCharacter());
 		availableChars.put("Engineer", new EngineerCharacter());
 		availableChars.put("Chemist", new ChemistCharacter());
-		availableChars.put("Geneticist", new GenetecistCharacter());
+		availableChars.put("Geneticist", new GeneticistCharacter());
 		availableChars.put("Roboticist", new RoboticistCharacter());
 		availableChars.put("Janitor", new JanitorCharacter());
 		availableChars.put("Chef", new ChefCharacter());
@@ -214,8 +215,25 @@ public abstract class GameMode {
 
 
 
+	public String getAvailableJobs() {
+		StringBuffer res = new StringBuffer();
+		for (String s : availableChars.keySet()) {
+			res.append("p" + s + ":");
+		}
+		res.append("aTraitor:");
+		res.append("aHost:");
+		res.append("aChangeling:");
+		res.append("aOperative");
+		
+		return res.toString();
+	}
 
 
+
+
+	public Set<String> getAvailCharsAsStrings() {
+		return availableChars.keySet();
+	}
 	
 
 

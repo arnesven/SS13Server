@@ -1,9 +1,11 @@
 package model.map;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import model.Actor;
 import model.Player;
 import model.actions.Action;
 import model.items.GameItem;
@@ -93,12 +95,14 @@ public class Room {
 	 */
 	public List<String> getInfo(Player whosAsking) {
 		ArrayList<String> info = new ArrayList<>();
-		for (Player cl : players) {
-			cl.addYourselfToRoomInfo(info);
+		ArrayList<Actor> actors = new ArrayList<>();
+		actors.addAll(players);
+		actors.addAll(npcs);
+		Collections.shuffle(actors);
+		for (Actor a : actors) {
+			a.addYourselfToRoomInfo(info);
 		}
-		for (NPC npc : npcs) {
-			npc.addYourselfToRoomInfo(info);
-		}
+		
 		for (GameObject ob : objects) {
 			ob.addYourselfToRoomInfo(info, whosAsking);	
 		}

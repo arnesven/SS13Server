@@ -62,7 +62,7 @@ public class NPC extends Actor implements Target {
 	}
 
 	public void addYourselfToRoomInfo(ArrayList<String> info) {
-		info.add(chara.getPublicName());
+		info.add("a" + chara.getPublicName());
 		
 	}
 

@@ -34,7 +34,7 @@ public class GameItem {
 	}
 
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
-		info.add(name);
+		info.add("i" + name);
 	}
 
 	/**

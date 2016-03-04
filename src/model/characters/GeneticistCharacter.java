@@ -7,10 +7,10 @@ import model.items.Chemicals;
 import model.items.GameItem;
 import model.items.MedKit;
 
-public class GenetecistCharacter extends GameCharacter {
+public class GeneticistCharacter extends GameCharacter {
 
-	public GenetecistCharacter() {
-		super("Genetecist", 1, 8.0);
+	public GeneticistCharacter() {
+		super("Geneticist", 1, 8.0);
 	}
 	
 	@Override

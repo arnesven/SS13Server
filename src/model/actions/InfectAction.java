@@ -1,12 +1,9 @@
 package model.actions;
 
-import java.util.List;
-
 import util.MyRandom;
 import model.Actor;
 import model.Player;
 import model.GameData;
-import model.characters.GameCharacter;
 import model.characters.InfectedCharacter;
 import model.items.GameItem;
 import model.npcs.CatNPC;

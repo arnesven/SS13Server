@@ -18,7 +18,7 @@ public class GameObject {
 	
 
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
-		info.add(this.name);
+		info.add("o" + this.name);
 	}
 
 	
