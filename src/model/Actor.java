@@ -51,4 +51,8 @@ public abstract class Actor  {
 
 	public abstract void addYourselfToRoomInfo(ArrayList<String> info);
 
+	public abstract void beInfected(Actor performingClient);
+
+	public abstract void addItem(GameItem it);
+
 }

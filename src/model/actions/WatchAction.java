@@ -26,8 +26,8 @@ public class WatchAction extends TargetingAction {
 		}
 		
 		String itemStr = null;
-		if (target instanceof Player) {
-			Player cl = (Player)target;
+		if (target instanceof Actor) {
+			Actor cl = (Actor)target;
 			if (cl.getItems().size() > 0) {
 				GameItem randomItem = cl.getItems().get(MyRandom.nextInt(cl.getItems().size()));
 				itemStr = " and is carrying a " + randomItem.getName();

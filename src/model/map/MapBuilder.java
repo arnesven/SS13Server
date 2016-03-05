@@ -22,7 +22,7 @@ public class MapBuilder {
 	public static GameMap createMap() {
 		ArrayList<Room> result = new ArrayList<>();
 		//                   ID  Name                   shortname  x   y  w  h   neighbors
-		result.add(new Room( 1, "Lab"                 , "Lab"    , 2,  1, 4, 3, new int[]{27, 24, 5} ,         new double[]{5.0, 4.0, 2.0, 3.5, 6.0, 1.5} ));
+		result.add(new LabRoom( 1,                                 2,  1, 4, 3, new int[]{27, 24, 5} ,         new double[]{5.0, 4.0, 2.0, 3.5, 6.0, 1.5} ));
 		result.add(new Room( 2, "Chapel"              , "Chap"   , 2,  4, 2, 2, new int[]{5}         ,         new double[]{4.0, 5.0} ));
 		result.add(new Room( 3, "Greenhouse"          , "GH"     , 0,  6, 3, 4, new int[]{4, 6, 27}  ,         new double[]{1.5, 6.0}  ));
 		result.add(new Room( 4, "Airtunnel"           , ""       , 3,  7, 1, 1, new int[]{3, 5}      ,         new double[]{3.0, 7.5, 4.0, 7.5}  ));

@@ -7,6 +7,8 @@ import model.Actor;
 import model.GameData;
 import model.actions.Target;
 import model.characters.GameCharacter;
+import model.characters.InfectedCharacter;
+import model.characters.InstanceChecker;
 import model.items.GameItem;
 import model.items.MedKit;
 import model.items.Weapon;
@@ -29,6 +31,8 @@ public class NPC extends Actor implements Target {
 		this.chara = chara;
 		moveBehavior = m;
 		actBehavior = a;
+		this.setHealth(1.0);
+		this.setMaxHealth(1.0);
 		moveIntoRoom(r);
 	}
 	
@@ -81,9 +85,16 @@ public class NPC extends Actor implements Target {
 	}
 	
 	public boolean isInfected() {
-		//TODO: NPCs should be able to be infected
-		return false;
+		InstanceChecker infectChecker = new InstanceChecker() {
+			@Override
+			public boolean checkInstanceOf(GameCharacter ch) {
+				return ch instanceof InfectedCharacter;
+			}
+		};
+
+		return getCharacter().checkInstance(infectChecker);
 	}
+
 
 	@Override
 	public boolean isTargetable() {
@@ -172,5 +183,14 @@ public class NPC extends Actor implements Target {
 	@Override
 	public String getBaseName() {
 		return chara.getBaseName();
+	}
+	
+	public void beInfected(Actor performingClient) {
+		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
+		this.actBehavior = new AttackIfPossibleBehavior(new Weapon("Fists", 0.5, 0.5, false));
+	}
+	
+	public void addItem(GameItem it) {
+		getCharacter().getItems().add(it);
 	}
 }

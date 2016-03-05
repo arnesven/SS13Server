@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import util.MyRandom;
+import model.Actor;
 import model.Player;
 import model.GameData;
 import model.actions.MeowingAction;
@@ -31,6 +33,7 @@ import model.items.MedKit;
 import model.items.Weapon;
 import model.map.Room;
 import model.npcs.CatNPC;
+import model.npcs.HumanNPC;
 import model.npcs.MeanderingMovement;
 import model.npcs.NPC;
 import model.npcs.SpontaneousAct;
@@ -133,7 +136,7 @@ public abstract class GameMode {
 	 * their characters in this step.
 	 * @param gameData
 	 */
-	protected abstract void assignCharactersToPlayers(GameData gameData);
+	protected abstract List<GameCharacter> assignCharactersToPlayers(GameData gameData);
 	
 	
 	/**
@@ -172,12 +175,13 @@ public abstract class GameMode {
 	}
 
 	public void setup(GameData gameData) {
-		assignCharactersToPlayers(gameData);
-		giveCharactersStartingItems(gameData);
+		List<GameCharacter> remainingChars = assignCharactersToPlayers(gameData);
+		
 		
 		moveCharactersIntoStartingRooms(gameData);
 		
-		addNPCs(gameData);
+		addNPCs(gameData, remainingChars);
+		giveCharactersStartingItems(gameData);
 		
 		setUpOtherStuff(gameData);
 		addStartingMessages(gameData);
@@ -194,23 +198,36 @@ public abstract class GameMode {
 
 
 	private void giveCharactersStartingItems(GameData gameData) {
-		for (Player c : gameData.getPlayersAsList()) {
+		List<Actor> actors = new ArrayList<Actor>();
+		actors.addAll(gameData.getPlayersAsList());
+		actors.addAll(gameData.getNPCs());
+		
+		for (Actor c : actors) {
 			List<GameItem> startingItems = c.getCharacter().getStartingItems();
-			System.out.println("Giving starting items to " + c.getName());
+			System.out.println("Giving starting items to " + c.getPublicName());
 			for (GameItem it : startingItems) {
 				c.addItem(it);
-			}
-			
-			
+			}		
 		}
+		
 		
 	}
 
 
 
-	protected void addNPCs(GameData gameData) {
+	protected void addNPCs(GameData gameData, List<GameCharacter> remainingChars) {
 		NPC cat = new CatNPC(gameData.getRoomForId(20));
 		gameData.addNPC(cat);
+		
+		int noOfNPCs = Math.min(MyRandom.nextInt(3) + 4, remainingChars.size());
+		for ( ; noOfNPCs > 0 ; noOfNPCs--) {
+			GameCharacter gc = remainingChars.remove(MyRandom.nextInt(remainingChars.size()));
+			NPC human = new HumanNPC(gc, gameData.getRoomForId(gc.getStartingRoom()));
+			gameData.addNPC(human);
+			System.out.println("Adding npc " + gc.getBaseName());
+			
+		}
+		
 	}
 
 

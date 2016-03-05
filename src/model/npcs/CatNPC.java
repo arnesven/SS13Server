@@ -10,8 +10,6 @@ public class CatNPC extends NPC {
 	public CatNPC(Room startingRoom) {
 		super(new CatCharacter(), new MeanderingMovement(0.5),
 		  new MeowOrHissBehavior(0.5), startingRoom); 
-		this.setHealth(1.0);
-		this.setMaxHealth(1.0);
 	}
 
 }

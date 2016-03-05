@@ -7,11 +7,18 @@ import util.MyRandom;
 import model.GameData;
 import model.actions.AttackAction;
 import model.actions.Target;
+import model.items.GameItem;
 import model.items.Weapon;
 import model.objects.GameObject;
 
 public class AttackIfPossibleBehavior implements ActionBehavior {
 
+	private Weapon defaultWeapon;
+
+	public AttackIfPossibleBehavior(Weapon w) {
+		this.defaultWeapon = w;
+	}
+	
 	@Override
 	public void act(NPC npc, GameData gameData) {
 		AttackAction atk = new AttackAction(npc);
@@ -32,13 +39,24 @@ public class AttackIfPossibleBehavior implements ActionBehavior {
 		if (targets.size() > 0) {
 			Target randomTarget = targets.get(MyRandom.nextInt(targets.size()));
 			List<String> args = new ArrayList<String>();
-			atk.addWithWhat(new Weapon("Claws", 0.75, 0.5, false));
+			Weapon weaponToUse = getWeapon(npc);
+			atk.addWithWhat(weaponToUse);
 			args.add(randomTarget.getName());
-			args.add("Claws");
+			args.add(weaponToUse.getName());
 			atk.setArguments(args);
-			System.out.println("A parasite is attacking " + randomTarget.getName() + "!");
+			System.out.println(npc.getPublicName() + " is attacking " + randomTarget.getName() + "!");
 			atk.printAndExecute(gameData);
 		}
+	}
+
+	private Weapon getWeapon(NPC npc) {
+		for (GameItem it : npc.getItems()) {
+			if (it instanceof Weapon) {
+				return (Weapon)it;
+			}
+		}
+
+		return defaultWeapon;
 	}
 
 }

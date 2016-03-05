@@ -33,22 +33,20 @@ public class InfectAction extends TargetingAction {
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
 
-		if (target instanceof Player) {
-			Player targetAsClient = (Player)target;
-			if (! targetAsClient.isInfected()) {
+		if (target instanceof Actor) {
+			Actor targetAsActor = (Player)target;
+			if (! targetAsActor.isInfected()) {
 				double infectChance = BASE_INFECT_CHANCE;
-				if (isReducedChance(targetAsClient, performingClient)) {		
+				if (isReducedChance(targetAsActor, performingClient)) {		
 					infectChance = REDUCED_INFECT_CHANCE;
 					
 				}
 				if (MyRandom.nextDouble() < infectChance) {
-					targetAsClient.setCharacter(new InfectedCharacter(targetAsClient.getCharacter(), performingClient));
-					targetAsClient.addTolastTurnInfo("You were infected by " + performingClient.getPublicName() + 
-							"! You are now on the Host team. Keep the humans from destroying the hive!");
-					performingClient.addTolastTurnInfo("You infected " + targetAsClient.getCharacterPublicName() + "!");
+					targetAsActor.beInfected(performingClient);
+					performingClient.addTolastTurnInfo("You infected " + targetAsActor.getPublicName() + "!");
 				} else {
-					targetAsClient.addTolastTurnInfo("The " + performingClient.getPublicName() + " tried to infect you!");
-					performingClient.addTolastTurnInfo("You failed to infect the " + targetAsClient.getCharacterPublicName() + "!");
+					targetAsActor.addTolastTurnInfo("The " + performingClient.getPublicName() + " tried to infect you!");
+					performingClient.addTolastTurnInfo("You failed to infect the " + targetAsActor.getPublicName() + "!");
 				}
 			} else {
 				performingClient.addTolastTurnInfo(target.getName() + " was already infected.");
@@ -59,17 +57,22 @@ public class InfectAction extends TargetingAction {
 		
 	}
 
-	private boolean isReducedChance(Player targetAsClient,
+	private boolean isReducedChance(Actor actor,
 			Actor performingClient) {
-		if (targetAsClient.getNextAction() instanceof WatchAction) {
-			if (((WatchAction)targetAsClient.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
+		if (! (actor instanceof Player)) {
+			return false;
+		}
+		
+		Player actorAsPlayer = (Player)actor;
+		if (actorAsPlayer.getNextAction() instanceof WatchAction) {
+			if (((WatchAction)actorAsPlayer.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
 				System.out.println("infect chance reduced because of watching...");			
 				return true;
 			}
 		}
 		
-		if (targetAsClient.getNextAction() instanceof AttackAction) {
-			if (((AttackAction)targetAsClient.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
+		if (actorAsPlayer.getNextAction() instanceof AttackAction) {
+			if (((AttackAction)actorAsPlayer.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
 				System.out.println("infect chance reduced because of attacking...");
 				return true;
 			}

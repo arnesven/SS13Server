@@ -39,7 +39,7 @@ public class HostGameMode extends GameMode {
 	private ArrayList<NPC> allParasites = new ArrayList<NPC>();
 
 	@Override
-	protected void assignCharactersToPlayers(GameData gameData) {
+	protected List<GameCharacter> assignCharactersToPlayers(GameData gameData) {
 		ArrayList<Player> listOfClients = new ArrayList<Player>();
 		listOfClients.addAll(gameData.getPlayersAsList());
 		ArrayList<GameCharacter> listOfCharacters = new ArrayList<>();
@@ -53,6 +53,8 @@ public class HostGameMode extends GameMode {
 		
 		// ASSIGN HOST
 		assignHost(gameData);
+		
+		return listOfCharacters;
 		
 	}
 

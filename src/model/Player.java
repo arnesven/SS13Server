@@ -555,4 +555,11 @@ public class Player extends Actor implements Target {
 		return jobChoices.get(string);
 	}
 	
+	public void beInfected(Actor performingClient) {
+		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
+		this.addTolastTurnInfo("You were infected by " + performingClient.getPublicName() + 
+				"! You are now on the Host team. Keep the humans from destroying the hive!");
+		
+	}
+	
 }

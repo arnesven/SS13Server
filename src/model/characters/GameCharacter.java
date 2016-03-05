@@ -95,6 +95,7 @@ public abstract class GameCharacter {
 			String verb = weapon.getSuccessfulMessage();
 			if (this.isDead()) {
 				verb = "kill";
+				dropAllItems();
 			}
 			performingClient.addTolastTurnInfo("You " + verb + "ed " + 
 											   getBaseName() + " with " + weapon.getName() + ".");
@@ -113,6 +114,12 @@ public abstract class GameCharacter {
 			}
 		}
 		
+	}
+
+	private void dropAllItems() {
+		while (this.items.size() > 0) {
+			this.position.addItem(this.items.remove(0));
+		}
 	}
 
 	public Player getClient() {
