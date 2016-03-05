@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import comm.MapCommandHandler;
+
 import util.MyRandom;
 import model.actions.DoNothingAction;
 import model.actions.SpeedComparator;
@@ -30,12 +32,17 @@ import model.npcs.NPC;
  * the game is in. The game also has a "mode".
  */
 public class GameData {
+	// these fields should persist between games
 	private HashMap<String, Player> players = new HashMap<>();
-	private GameMap map = MapBuilder.createMap();
-	private List<NPC> npcs = new ArrayList<>();
-	private GameState gameState = GameState.PRE_GAME;
-	private GameMode gameMode = new HostGameMode();
+	private GameState gameState             = GameState.PRE_GAME;
+
+	// These should be set up anew for each game.
+	private List<NPC> npcs;
+	private GameMode gameMode;
 	private int round = 0;
+	// Map must be built before first game, client needs it.
+	private GameMap map                     = MapBuilder.createMap();
+
 	
 	public GameData() {
 		
@@ -197,7 +204,7 @@ public class GameData {
 	private void increaseGameState() {
 		if (gameState == GameState.PRE_GAME) {
 			gameState = GameState.MOVEMENT;
-			gameMode.setup(this);
+			doSetup();
 			allClearReady();
 			
 		} else if (gameState == GameState.MOVEMENT) {
@@ -225,8 +232,16 @@ public class GameData {
 		
 	}
 
-
-
+	private void doSetup() {
+		this.map = MapBuilder.createMap();
+		for (Player p : getPlayersAsList()) {
+			p.prepForNewGame();
+		}
+		this.npcs = new ArrayList<>();
+		this.gameMode = new HostGameMode();
+		this.round = 1;
+		gameMode.setup(this);
+	}
 
 	private void clearAllDeadNPCs() {
 		Iterator<NPC> it = npcs.iterator();
@@ -340,11 +355,11 @@ public class GameData {
 	}
 
 	public String getAvailableJobs() {
-		return gameMode.getAvailableJobs();
+		return GameMode.getAvailableJobs();
 	}
 
 	public Set<String> getAvailableJobsAsStrings() {
-		return gameMode.getAvailCharsAsStrings();
+		return GameMode.getAvailCharsAsStrings();
 	}
 
 }

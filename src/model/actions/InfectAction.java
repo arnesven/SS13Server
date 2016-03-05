@@ -34,7 +34,7 @@ public class InfectAction extends TargetingAction {
 			Actor performingClient, Target target, GameItem item) {
 
 		if (target instanceof Actor) {
-			Actor targetAsActor = (Player)target;
+			Actor targetAsActor = (Actor)target;
 			if (! targetAsActor.isInfected()) {
 				double infectChance = BASE_INFECT_CHANCE;
 				if (isReducedChance(targetAsActor, performingClient)) {		

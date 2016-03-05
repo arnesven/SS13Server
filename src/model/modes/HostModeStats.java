@@ -3,10 +3,12 @@ package model.modes;
 import java.util.List;
 import java.util.Map;
 
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.characters.InfectedCharacter;
 import model.modes.HostGameMode.GameOver;
+import model.npcs.HumanNPC;
 import model.npcs.NPC;
 
 public class HostModeStats extends GameStats {
@@ -31,7 +33,7 @@ public class HostModeStats extends GameStats {
 
 	private String generatePlayersTable() {
 		StringBuffer buf = new StringBuffer("<table>");
-		buf.append("<tr><td><b>Player     </b></td>");
+		buf.append("<tr><td><b>Crew      </b></td>");
 		buf.append(    "<td><b>Status     </b></td>");
 		buf.append(    "<td><b> </b></td></tr>");
 		for (Map.Entry<String, Player> entry : gameData.getPlayersAsEntrySet()) {
@@ -43,12 +45,24 @@ public class HostModeStats extends GameStats {
 			buf.append(getInfectedOrKilledBy(entry.getValue()));
 			buf.append("</td><td>");
 		}
+		for (NPC npc : gameData.getNPCs()) {
+			if (npc instanceof HumanNPC) {
+				buf.append("<tr><td>");
+				buf.append(npc.getBaseName());
+				buf.append("</td><td>");
+				buf.append(getStatusStringForPlayer(npc));
+				buf.append("</td><td>");
+				buf.append(getInfectedOrKilledBy(npc));
+				buf.append("</td><td>");
+			}
+		}
+		
 		buf.append("</table>");
 		
 		return buf.toString();
 	}
 
-	private String getInfectedOrKilledBy(Player value) {
+	private String getInfectedOrKilledBy(Actor value) {
 		String result = "";
 		
 		if (value.isInfected() && value != hostMode.getHostPlayer()) {
@@ -70,7 +84,7 @@ public class HostModeStats extends GameStats {
 		return result;
 	}
 
-	private String getStatusStringForPlayer(Player value) {
+	private String getStatusStringForPlayer(Actor value) {
 		if (value.isDead()) {
 			String host = "";
 			if (value.isInfected() && value == hostMode.getHostPlayer()) {

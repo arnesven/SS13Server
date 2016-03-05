@@ -56,7 +56,7 @@ public class NPC extends Actor implements Target {
 	}
 
 	public String getName() {
-		return getCharacter().getFullName();
+		return getBaseName();
 	}
 
 	@Override

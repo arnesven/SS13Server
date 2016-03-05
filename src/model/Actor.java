@@ -135,5 +135,9 @@ public abstract class Actor  {
 	public boolean isHuman() {
 		return getCharacter().isHuman();
 	}
+	
+	public boolean isDead() {
+		return getCharacter().isDead();
+	}
 
 }

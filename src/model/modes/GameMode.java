@@ -97,10 +97,14 @@ public abstract class GameMode {
 //		 11.0, 10.0,  9.0,  8.0,  7.0,
 //		  6.0,  5.0,  4.0,  3.0,  2.0};
 	
-	private HashMap<String, GameCharacter> availableChars;
+	//private HashMap<String, GameCharacter> availableChars;
 	
 	public GameMode() {
-		availableChars = new HashMap<>();
+	
+	}
+
+	private static HashMap<String, GameCharacter> availableChars() {
+		HashMap<String, GameCharacter> availableChars = new HashMap<>();
 		availableChars.put("Captain", new CaptainCharacter());
 		availableChars.put("Head of Staff", new HeadOfStaffCharacter());
 		availableChars.put("Security Officer", new SecurityOfficerCharacter());
@@ -116,10 +120,8 @@ public abstract class GameMode {
 		availableChars.put("Bartender", new BartenderCharacter());
 		availableChars.put("Mechanic", new MechanicCharacter());
 		availableChars.put("Chaplain", new ChaplainCharacter());
-
-	
+		return availableChars;
 	}
-
 	
 
 	/**
@@ -163,14 +165,9 @@ public abstract class GameMode {
 	public abstract String getSummary(GameData gameData);
 
 	
-
-	protected GameCharacter getCharacterForString(String string) {
-		return availableChars.get(string);
-	}
-	
 	protected List<GameCharacter> getAllCharacters() {
 		List<GameCharacter> list = new ArrayList<>();
-		list.addAll(availableChars.values());
+		list.addAll(availableChars().values());
 		return list;
 	}
 
@@ -232,9 +229,9 @@ public abstract class GameMode {
 
 
 
-	public String getAvailableJobs() {
+	public static String getAvailableJobs() {
 		StringBuffer res = new StringBuffer();
-		for (String s : availableChars.keySet()) {
+		for (String s : availableChars().keySet()) {
 			res.append("p" + s + ":");
 		}
 		res.append("aTraitor:");
@@ -248,8 +245,8 @@ public abstract class GameMode {
 
 
 
-	public Set<String> getAvailCharsAsStrings() {
-		return availableChars.keySet();
+	public static Set<String> getAvailCharsAsStrings() {
+		return availableChars().keySet();
 	}
 	
 

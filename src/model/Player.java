@@ -447,5 +447,12 @@ public class Player extends Actor implements Target {
 				"! You are now on the Host team. Keep the humans from destroying the hive!");
 		
 	}
+
+	public void prepForNewGame() {
+		this.nextMove = 0;
+		this.nextAction = null;
+		this.lastTurnInfo = new ArrayList<>();
+		
+	}
 	
 }

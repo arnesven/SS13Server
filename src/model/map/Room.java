@@ -218,5 +218,12 @@ public class Room {
 		return items;
 	}
 
+	public List<Actor> getActors() {
+		List<Actor> list = new ArrayList<>();
+		list.addAll(players);
+		list.addAll(npcs);
+		return list;
+	}
+
 
 }

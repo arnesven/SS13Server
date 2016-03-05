@@ -9,6 +9,8 @@ import model.GameData;
 import model.actions.Action;
 import model.actions.InfectAction;
 import model.items.GameItem;
+import model.npcs.CatNPC;
+import model.npcs.ParasiteNPC;
 
 
 /**
@@ -35,8 +37,8 @@ public class InfectedCharacter extends CharacterDecorator {
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {
 		int noOfTargets = 0;
-		for (Player cl : getInner().getPosition().getClients()) {
-			if (!cl.isInfected()) {
+		for (Actor cl : getInner().getPosition().getActors()) {
+			if (!cl.isDead() && !cl.isInfected() && !(cl instanceof ParasiteNPC) && !(cl instanceof CatNPC)) {
 				noOfTargets++;
 			}
 		}
