@@ -192,4 +192,8 @@ public abstract class GameCharacter {
 		this.killer = a;
 	}
 
+	public boolean isCrew() {
+		return true;
+	}
+
 }

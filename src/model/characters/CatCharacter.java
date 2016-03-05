@@ -22,4 +22,9 @@ public class CatCharacter extends GameCharacter {
 		return false;
 	}
 	
+	@Override
+	public boolean isCrew() {
+		return false;
+	}
+	
 }

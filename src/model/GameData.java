@@ -362,4 +362,11 @@ public class GameData {
 		return GameMode.getAvailCharsAsStrings();
 	}
 
+	public List<Actor> getActors() {
+		List<Actor> arr = new ArrayList<>();
+		arr.addAll(getPlayersAsList());
+		arr.addAll(getNPCs());
+		return arr;
+	}
+
 }

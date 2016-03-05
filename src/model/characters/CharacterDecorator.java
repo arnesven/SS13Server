@@ -79,4 +79,8 @@ public abstract class CharacterDecorator extends GameCharacter {
 		return innerChar.getItems();
 	}
 	
+	@Override
+	public boolean isCrew() {
+		return innerChar.isCrew();
+	}
 }

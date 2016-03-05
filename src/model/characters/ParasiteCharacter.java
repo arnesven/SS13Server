@@ -24,4 +24,9 @@ public class ParasiteCharacter extends GameCharacter {
 		return false;
 	}
 	
+	@Override
+	public boolean isCrew() {
+		return false;
+	}
+	
 }
