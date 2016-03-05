@@ -36,9 +36,7 @@ public class Player extends Actor implements Target {
 	private static final double MAX_HEALTH = 3.0;
 	private boolean ready = false;
 	private int nextMove = 0;
-	
 	private List<String> lastTurnInfo = new ArrayList<>();
-
 	private String suit = "clothes";
 	private Action nextAction;
 	private HashMap<String, Boolean> jobChoices = new HashMap<>();
@@ -94,17 +92,6 @@ public class Player extends Actor implements Target {
 	}
 
 	/**
-	 * Gets the base name of the character of this client.
-	 * The base name is the name of the character in its simplest
-	 * form, e.g. "Doctor" or "Chaplain".
-	 * @return
-	 */
-	public String getCharacterBaseName() {
-		return getCharacter().getBaseName();
-	}
-
-
-	/**
 	 * Gets the current health of the player.
 	 * This is a wrapper to the character's health.
 	 * @return the health of the character of this player.
@@ -126,23 +113,6 @@ public class Player extends Actor implements Target {
 	 */
 	public List<String> getLastTurnInfo() {
 		return this.lastTurnInfo ;
-	}
-
-	
-	/**
-	 * Gets the items of a player as a list
-	 * @return the list of game items.
-	 */
-	public List<GameItem> getItems() {
-		return this.getCharacter().getItems();
-	}
-	
-	/**
-	 * Adds an item to this player.
-	 * @param it the item to be added.
-	 */
-	public void addItem(GameItem it) {
-		getCharacter().getItems().add(it);
 	}
 
 	/**
@@ -181,15 +151,6 @@ public class Player extends Actor implements Target {
 	public List<String> getRoomInfo() {
 		return this.getPosition().getInfo(this);
 	}
-	
-	/**
-	 * Gets the current position of this player's character.
-	 * I.e. what room this player's character is currently in.
-	 * @return the room of the player's character.
-	 */
-	public Room getPosition() {
-		return getCharacter().getPosition();
-	}
 
 	/**
 	 * Gets this player's character's real name.
@@ -210,13 +171,13 @@ public class Player extends Actor implements Target {
 		return getCharacter().getPublicName();
 	}
 
-	
 	/**
 	 * Gets all locations which can be selected by the player
 	 * as potential destinations to which he/she can move to.
 	 * Currently, all clients can move two rooms at a time.
 	 * @param gameData the Game's data
-	 * @return the locations IDs as an array.
+	 * @return the locations IDs as an array
+	 * TODO: make this more general so it does not always go 2 steps
 	 */
 	public int[] getSelectableLocations(GameData gameData) {
 		
@@ -338,69 +299,20 @@ public class Player extends Actor implements Target {
 		lastTurnInfo.clear();
 	}
 
-
-	/**
-	 * Adds the player's character's public name to the room info.
-	 * @param info the info to be added to.
-	 */
-	public void addYourselfToRoomInfo(ArrayList<String> info) {
-		//TODO: This function should probably be deferred to the character.
-		info.add("a" + this.getCharacterPublicName());
-	}
-
-
-
 	@Override
 	public String getName() {
-		return getCharacterBaseName();
+		return getBaseName();
 	}
 
 	@Override
 	public void beAttackedBy(Actor performingClient, Weapon weapon) {
 		getCharacter().beAttackedBy(performingClient, weapon);
-		if (isDead()) { // You died, to bad!
-			getCharacter().setKiller(performingClient);
-			while (!getItems().isEmpty()) {
-				getPosition().addItem(getItems().remove(0));
-			}
-		}
-	}
-
-
-	/**
-	 * Returns wether or not this client has been infected.
-	 * This starts to check the instance of the character and
-	 * its inner characters.
-	 * @return true if this client's character is infected. False otherwise.
-	 * @throws IllegalStateException if the client's character has not yet been set.
-	 */
-	public boolean isInfected() {
-		if (getCharacter() == null) {
-			throw new IllegalStateException("This client's character has not yet been set.");
-		}
 		
-		InstanceChecker infectChecker = new InstanceChecker() {
-			@Override
-			public boolean checkInstanceOf(GameCharacter ch) {
-				return ch instanceof InfectedCharacter;
-			}
-		};
-		
-		return getCharacter().checkInstance(infectChecker);
 	}
 
 	@Override
 	public boolean isTargetable() {
 		return !isDead();
-	}
-	
-	
-	/**
-	 * Sets the current position (room) of this player's character
-	 * @param room the new position
-	 */
-	private void setPosition(Room room) {
-		getCharacter().setPosition(room);
 	}
 	
 	/**
@@ -492,30 +404,13 @@ public class Player extends Actor implements Target {
 	}
 
 	@Override
-	public String getPublicName() {
-		return getCharacterPublicName();
-	}
-
-
-
-	@Override
 	public Target getAsTarget() {
 		return this;
 	}
 
 	@Override
-	public double getSpeed() {
-		return getCharacter().getSpeed();
-	}
-
-	@Override
 	public void action(GameData gameData) {
 		this.applyAction(gameData);
-	}
-
-	@Override
-	public boolean isHuman() {
-		return getCharacter().isHuman();
 	}
 
 	@Override
@@ -527,15 +422,6 @@ public class Player extends Actor implements Target {
 	public void addToHealth(double d) {
 		getCharacter().setHealth(Math.min(getMaxHealth(), 
 								 getCharacter().getHealth() + d));
-	}
-
-	@Override
-	public String getBaseName() {
-		return getCharacterBaseName();
-	}
-
-	public Actor getKiller() {
-		return getCharacter().getKiller();
 	}
 
 	public void parseJobChoices(String rest) {

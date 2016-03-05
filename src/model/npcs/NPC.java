@@ -20,15 +20,13 @@ import model.map.Room;
  * E.g. monsters, crewmembers not controlled by players. And other things.
  */
 public class NPC extends Actor implements Target {
-	
-	private GameCharacter chara;
-	
+		
 	private MovementBehavior moveBehavior;
 	private ActionBehavior actBehavior;
 	private double maxHealth;
 	
 	public NPC(GameCharacter chara, MovementBehavior m, ActionBehavior a, Room r) {
-		this.chara = chara;
+		this.setCharacter(chara);
 		moveBehavior = m;
 		actBehavior = a;
 		this.setHealth(1.0);
@@ -42,14 +40,6 @@ public class NPC extends Actor implements Target {
 		}
 		r.addNPC(this);
 		setPosition(r);
-	}
-
-	private void setPosition(Room r) {
-		chara.setPosition(r);
-	}
-	
-	public Room getPosition() {
-		return chara.getPosition();
 	}
 	
 	public void moveAccordingToBehavior() {
@@ -65,36 +55,9 @@ public class NPC extends Actor implements Target {
 		}
 	}
 
-	public void addYourselfToRoomInfo(ArrayList<String> info) {
-		info.add("a" + chara.getPublicName());
-		
-	}
-
-
-
 	public String getName() {
-		return chara.getFullName();
+		return getCharacter().getFullName();
 	}
-
-	/**
-	 * Gets the character of this NPC.
-	 * @return the character of this NPC.
-	 */
-	public GameCharacter getCharacter() {
-		return chara;
-	}
-	
-	public boolean isInfected() {
-		InstanceChecker infectChecker = new InstanceChecker() {
-			@Override
-			public boolean checkInstanceOf(GameCharacter ch) {
-				return ch instanceof InfectedCharacter;
-			}
-		};
-
-		return getCharacter().checkInstance(infectChecker);
-	}
-
 
 	@Override
 	public boolean isTargetable() {
@@ -139,23 +102,8 @@ public class NPC extends Actor implements Target {
 	}
 
 	@Override
-	public String getPublicName() {
-		return getCharacter().getPublicName();
-	}
-
-	@Override
 	public Target getAsTarget() {
 		return this;
-	}
-
-	@Override
-	public List<GameItem> getItems() {
-		return chara.getItems();
-	}
-	
-	@Override
-	public double getSpeed(){
-		return getCharacter().getSpeed();
 	}
 	
 	@Override
@@ -163,10 +111,6 @@ public class NPC extends Actor implements Target {
 		this.actAccordingToBehavior(gameData);
 	}
 
-	@Override
-	public boolean isHuman() {
-		return getCharacter().isHuman();
-	}
 
 	@Override
 	public boolean hasSpecificReaction(MedKit objectRef) {
@@ -180,17 +124,12 @@ public class NPC extends Actor implements Target {
 				 getCharacter().getHealth() + d));
 	}
 
-	@Override
-	public String getBaseName() {
-		return chara.getBaseName();
-	}
-	
 	public void beInfected(Actor performingClient) {
 		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
 		this.actBehavior = new AttackIfPossibleBehavior(new Weapon("Fists", 0.5, 0.5, false));
+		this.moveBehavior = new MeanderingMovement(0.75);
 	}
 	
-	public void addItem(GameItem it) {
-		getCharacter().getItems().add(it);
-	}
+
+
 }

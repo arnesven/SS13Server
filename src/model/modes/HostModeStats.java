@@ -36,7 +36,7 @@ public class HostModeStats extends GameStats {
 		buf.append(    "<td><b> </b></td></tr>");
 		for (Map.Entry<String, Player> entry : gameData.getPlayersAsEntrySet()) {
 			buf.append("<tr><td>");
-			buf.append(entry.getValue().getCharacterBaseName() + " (" + entry.getKey() + ")");
+			buf.append(entry.getValue().getBaseName() + " (" + entry.getKey() + ")");
 			buf.append("</td><td>");
 			buf.append(getStatusStringForPlayer(entry.getValue()));
 			buf.append("</td><td>");
@@ -59,11 +59,11 @@ public class HostModeStats extends GameStats {
 		}
 		
 		if (value.isDead()) {
-			if (value.getKiller() != null) {
+			if (value.getCharacter().getKiller() != null) {
 				if (!result.equals("")) {
 					result += ", ";
 				}
-				result += "<i>Killed by " + value.getKiller().getBaseName() + "</i>";
+				result += "<i>Killed by " + value.getCharacter().getKiller().getBaseName() + "</i>";
 			}
 		}
 		

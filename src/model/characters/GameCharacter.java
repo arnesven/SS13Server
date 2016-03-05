@@ -93,10 +93,12 @@ public abstract class GameCharacter {
 		if (weapon.isAttackSuccessful(reduced)) {
 			health = Math.max(0.0, health - weapon.getDamage());
 			String verb = weapon.getSuccessfulMessage();
-			if (this.isDead()) {
+			if (this.isDead()) { // you died! Too bad!
 				verb = "kill";
 				dropAllItems();
+				setKiller(performingClient);
 			}
+			
 			performingClient.addTolastTurnInfo("You " + verb + "ed " + 
 											   getBaseName() + " with " + weapon.getName() + ".");
 			if (thisClient != null) {

@@ -5,6 +5,8 @@ import java.util.List;
 
 import model.actions.Target;
 import model.characters.GameCharacter;
+import model.characters.InfectedCharacter;
+import model.characters.InstanceChecker;
 import model.items.GameItem;
 import model.map.Room;
 import model.npcs.NPC;
@@ -12,6 +14,12 @@ import model.npcs.NPC;
 public abstract class Actor  {
 
 	private GameCharacter character = null;
+	
+	public abstract void addTolastTurnInfo(String string);
+	public abstract Target getAsTarget();
+	public abstract void action(GameData gameData);
+	public abstract void beInfected(Actor performingClient);
+	
 	
 	/**
 	 * Returns the character of this Actor,
@@ -31,28 +39,101 @@ public abstract class Actor  {
 		this.character = charr;
 	}
 	
-	public abstract Room getPosition();
+	/**
+	 * Gets the current position of this Actor's character.
+	 * I.e. what room this actor's character is currently in.
+	 * @return the room of the actor's character.
+	 */
+	public Room getPosition() {
+		return getCharacter().getPosition();
+	}
 
-	public abstract void addTolastTurnInfo(String string);
+	/**
+	 * Sets the current position (room) of this actor's character
+	 * @param room the new position
+	 */
+	public void setPosition(Room room) {
+		getCharacter().setPosition(room);
+	}
 	
-	public abstract boolean isInfected();
+	/**
+	 * Returns wether or not this client has been infected.
+	 * This starts to check the instance of the character and
+	 * its inner characters.
+	 * @return true if this client's character is infected. False otherwise.
+	 * @throws IllegalStateException if the client's character has not yet been set.
+	 */
+	public boolean isInfected() {
+		if (getCharacter() == null) {
+			throw new IllegalStateException("This actor's character has not yet been set.");
+		}
+		
+		InstanceChecker infectChecker = new InstanceChecker() {
+			@Override
+			public boolean checkInstanceOf(GameCharacter ch) {
+				return ch instanceof InfectedCharacter;
+			}
+		};
+		
+		return getCharacter().checkInstance(infectChecker);
+	}
 
-	public abstract String getPublicName();
+	public String getPublicName() {
+		return getCharacter().getPublicName();
+	}
 
-	public abstract String getBaseName();
+	/**
+	 * Gets the base name of the character of this actor.
+	 * The base name is the name of the character in its simplest
+	 * form, e.g. "Doctor" or "Chaplain".
+	 * @return
+	 */
+	public String getBaseName() {
+		return getCharacter().getBaseName();
+	}
 	
-	public abstract Target getAsTarget();
+	/**
+	 * Gets the items of an actor as a list
+	 * @return the list of game items.
+	 */
+	public List<GameItem> getItems() {
+		return getCharacter().getItems();
+	}
 
-	public abstract List<GameItem> getItems();
+	/**
+	 * Adds an item to this player.
+	 * @param it the item to be added.
+	 */
+	public void addItem(GameItem it) {
+		getCharacter().getItems().add(it);
+	}
 
-	public abstract double getSpeed();
+	/**
+	 * Gets the speed of this actor's character.
+	 * The speed determines in what order actions are executed.
+	 * @return the speed of the actor's character.
+	 */
+	public double getSpeed() {
+		return getCharacter().getSpeed();
+	}
+	
 
-	public abstract void action(GameData gameData);
-
-	public abstract void addYourselfToRoomInfo(ArrayList<String> info);
-
-	public abstract void beInfected(Actor performingClient);
-
-	public abstract void addItem(GameItem it);
+	/**
+	 * Adds the player's character's public name to the room info.
+	 * @param info the info to be added to.
+	 */
+	public void addYourselfToRoomInfo(ArrayList<String> info) {
+		//TODO: This function should probably be deferred to the character.
+		info.add("a" + this.getPublicName());
+	}
+	
+	
+	/**
+	 * Checks wether or not this actor is still human.
+	 * @return true if the actor is still human.
+	 */
+	public boolean isHuman() {
+		return getCharacter().isHuman();
+	}
 
 }
