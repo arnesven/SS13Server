@@ -7,6 +7,10 @@ import model.Actor;
 import model.Player;
 import model.GameData;
 import model.actions.Action;
+import model.actions.SensoryLevel;
+import model.actions.SensoryLevel.AudioLevel;
+import model.actions.SensoryLevel.OlfactoryLevel;
+import model.actions.SensoryLevel.VisualLevel;
 import model.actions.WatchAction;
 import model.items.GameItem;
 import model.items.KeyCard;
@@ -194,6 +198,21 @@ public abstract class GameCharacter {
 
 	public boolean isCrew() {
 		return true;
+	}
+
+	public boolean doesPerceive(Action a) {
+		SensoryLevel s = a.getSense();
+		if (s.sound == AudioLevel.SAME_ROOM || s.sound == AudioLevel.VERY_LOUD) {
+			return true;
+		}
+		if (s.visual == VisualLevel.CLEARLY_VISIBLE) {
+			return true;
+		}
+		if (s.smell != OlfactoryLevel.UNSMELLABLE) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }

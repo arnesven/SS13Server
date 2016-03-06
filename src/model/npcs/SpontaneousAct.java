@@ -25,7 +25,7 @@ public class SpontaneousAct implements ActionBehavior {
 	}
 
 	protected void doTheAction(GameData gameData, NPC npc) {
-		this.action.printAndExecute(gameData, npc);		
+		this.action.doTheAction(gameData, npc);		
 	}
 
 }

@@ -13,7 +13,7 @@ import model.objects.GameObject;
 public class AttackAction extends TargetingAction {
 	
 	public AttackAction(Actor ap) {
-		super("Attack", false, ap);
+		super("Attack", SensoryLevel.PHYSICAL_ACTIVITY, ap);
 	}
 
 	@Override
@@ -44,8 +44,11 @@ public class AttackAction extends TargetingAction {
 	@Override
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
+		Weapon w = (Weapon)item;
 		target.beAttackedBy(performingClient, (Weapon)item);
+		this.setSense(w.getSensedAs());
 	}
+
 
 	@Override
 	protected String getVerb() {
@@ -54,4 +57,10 @@ public class AttackAction extends TargetingAction {
 		}
 		return getName().toLowerCase() + "ed";
 	}
+	
+	@Override
+	public String getDistantDescription() {
+		return "You hear a loud bang.";
+	}
+	
 }

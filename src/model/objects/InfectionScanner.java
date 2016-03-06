@@ -8,6 +8,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
+import model.actions.SensoryLevel;
 import model.items.GameItem;
 import model.npcs.NPC;
 
@@ -24,7 +25,7 @@ public class InfectionScanner extends BreakableObject {
 	public void addSpecificActionsFor(Player cl, ArrayList<Action> at) {
 		if (!loaded) {
 			if (getChemicals(cl) != null) {
-				at.add(new Action("Load BioScanner", false) {
+				at.add(new Action("Load BioScanner", SensoryLevel.OPERATE_DEVICE) {
 					
 					@Override
 					public void setArguments(List<String> args) {	}
@@ -43,7 +44,7 @@ public class InfectionScanner extends BreakableObject {
 				});
 			}
 		} else {
-			at.add(new Action("Activate BioScanner", false) {
+			at.add(new Action("Activate BioScanner", SensoryLevel.OPERATE_DEVICE) {
 				
 				@Override
 				public void setArguments(List<String> args) {}

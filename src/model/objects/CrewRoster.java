@@ -7,6 +7,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
+import model.actions.SensoryLevel;
 
 public class CrewRoster extends GameObject {
 
@@ -16,7 +17,7 @@ public class CrewRoster extends GameObject {
 	
 	@Override
 	public void addSpecificActionsFor(Player cl, ArrayList<Action> at) {
-		at.add(new Action("Inspect Roster", false) {
+		at.add(new Action("Inspect Roster", SensoryLevel.OPERATE_DEVICE) {
 			
 			@Override
 			public void setArguments(List<String> args) { }

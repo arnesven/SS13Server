@@ -12,7 +12,7 @@ import model.objects.HiveObject;
 public class SearchAction extends Action {
 
 	public SearchAction() {
-		super("Search", false);
+		super("Search", SensoryLevel.PHYSICAL_ACTIVITY);
 	}
 
 

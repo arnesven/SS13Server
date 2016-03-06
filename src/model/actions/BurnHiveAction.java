@@ -6,6 +6,9 @@ import java.util.List;
 import model.Actor;
 import model.Player;
 import model.GameData;
+import model.actions.SensoryLevel.AudioLevel;
+import model.actions.SensoryLevel.OlfactoryLevel;
+import model.actions.SensoryLevel.VisualLevel;
 import model.items.Flamer;
 import model.items.GameItem;
 import model.objects.HiveObject;
@@ -15,7 +18,7 @@ public class BurnHiveAction extends Action {
 	private HiveObject hive;
 
 	public BurnHiveAction(HiveObject ob) {
-		super("Incinerate Hive", false);
+		super("Incinerate Hive", Flamer.SENSED_AS);
 		this.hive = ob;
 	}
 

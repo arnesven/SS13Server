@@ -8,6 +8,9 @@ import java.util.NoSuchElementException;
 import model.Actor;
 import model.Player;
 import model.actions.Action;
+import model.actions.SensoryLevel.AudioLevel;
+import model.actions.SensoryLevel.OlfactoryLevel;
+import model.actions.SensoryLevel.VisualLevel;
 import model.items.GameItem;
 import model.npcs.NPC;
 import model.objects.GameObject;
@@ -32,6 +35,7 @@ public class Room {
 	private List<Player> players = new ArrayList<>();
 	private List<NPC> npcs = new ArrayList<>();
 	private List<GameObject> objects = new ArrayList<>();
+	private List<Action> actionsHappened = new ArrayList<>();
 	private GameMap map = null;
 	private List<GameItem> items = new ArrayList<>();
 
@@ -223,6 +227,46 @@ public class Room {
 		list.addAll(players);
 		list.addAll(npcs);
 		return list;
+	}
+
+	public void addToActionsHappened(Action action) {
+		actionsHappened.add(action);
+	}
+
+	public void clearActionsHappened() {
+		actionsHappened.clear();		
+	}
+
+	public List<Action> getActionsHappened() {
+		return actionsHappened;
+	}
+
+	public void pushHappeningsToPlayers() {
+		for (Action a : getActionsHappened()) {
+			for (Player p : players) {
+				if (p.getCharacter().doesPerceive(a)) {
+					String text = a.getDescription();
+					if (!text.contains(p.getPublicName()) && !text.toLowerCase().contains("you")) {
+						p.addTolastTurnInfo(text);
+					}
+				}				
+			}
+			
+		}
+		
+		for (Action a : getActionsHappened()) {
+			if (a.getSense().sound == AudioLevel.VERY_LOUD || 
+				a.getSense().smell == OlfactoryLevel.SHARP) {
+				for (Room r : getNeighborList()) {
+					for (Player p : r.getClients()) {
+						if (p.getCharacter().doesPerceive(a)) {
+							String text = a.getDistantDescription();
+							p.addTolastTurnInfo(text);
+						}				
+					}
+				}
+			}
+		}
 	}
 
 

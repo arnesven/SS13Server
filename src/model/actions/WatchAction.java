@@ -4,6 +4,9 @@ import util.MyRandom;
 import model.Actor;
 import model.Player;
 import model.GameData;
+import model.actions.SensoryLevel.AudioLevel;
+import model.actions.SensoryLevel.OlfactoryLevel;
+import model.actions.SensoryLevel.VisualLevel;
 import model.items.GameItem;
 import model.npcs.NPC;
 
@@ -12,7 +15,9 @@ public class WatchAction extends TargetingAction {
 
 
 	public WatchAction(Actor ap) {
-		super("Watch", true, ap);
+		super("Watch", new SensoryLevel(VisualLevel.VISIBLE_IF_CLOSE, 
+										AudioLevel.INAUDIBLE, 
+										OlfactoryLevel.UNSMELLABLE), ap);
 	}
 
 	@Override

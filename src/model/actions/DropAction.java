@@ -5,6 +5,9 @@ import java.util.NoSuchElementException;
 
 import model.Actor;
 import model.GameData;
+import model.actions.SensoryLevel.AudioLevel;
+import model.actions.SensoryLevel.OlfactoryLevel;
+import model.actions.SensoryLevel.VisualLevel;
 import model.items.GameItem;
 
 public class DropAction extends Action {
@@ -13,7 +16,7 @@ public class DropAction extends Action {
 	private GameItem item;
 
 	public DropAction(Actor clientActionPerformer) {
-		super("Drop", false);
+		super("Drop", SensoryLevel.PHYSICAL_ACTIVITY);
 		ap = clientActionPerformer;
 		
 	}
@@ -32,8 +35,8 @@ public class DropAction extends Action {
 	}
 	
 	@Override
-	protected String getPrintString(Actor performingClient) {
-		return super.getPrintString(performingClient) + " " + item.getName();
+	public String getDescription() {
+		return super.getDescription() + " " + item.getName();
 	}
 	
 	@Override

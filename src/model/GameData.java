@@ -12,8 +12,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import comm.MapCommandHandler;
-
 import util.MyRandom;
+import util.Pair;
+import model.actions.Action;
 import model.actions.DoNothingAction;
 import model.actions.SpeedComparator;
 import model.map.GameMap;
@@ -40,6 +41,7 @@ public class GameData {
 	private List<NPC> npcs;
 	private GameMode gameMode;
 	private int round = 0;
+	private List<Pair<Actor, Action>> lateActions;
 	// Map must be built before first game, client needs it.
 	private GameMap map                     = MapBuilder.createMap();
 
@@ -222,6 +224,8 @@ public class GameData {
 			round = round + 1;
 			
 			gameMode.triggerEvents(this);
+			executeLateAction();
+			informPlayersOfRoomHappenings();
 			if (gameMode.gameOver(this)) {
 				gameState = GameState.PRE_GAME;
 			} else {
@@ -232,11 +236,14 @@ public class GameData {
 		
 	}
 
+
+
 	private void doSetup() {
 		this.map = MapBuilder.createMap();
 		for (Player p : getPlayersAsList()) {
 			p.prepForNewGame();
 		}
+		this.lateActions = new ArrayList<>();
 		this.npcs = new ArrayList<>();
 		this.gameMode = new HostGameMode();
 		this.round = 1;
@@ -269,6 +276,9 @@ public class GameData {
 		for (Player cl : players.values()) {
 			cl.clearLastTurnInfo();
 		}
+		for (Room r : map.getRooms()) {
+			r.clearActionsHappened();
+		}
 	}
 
 	private void allResetActionStrings() {
@@ -288,6 +298,21 @@ public class GameData {
 			ap.action(this);
 		}
 		
+	}
+
+	private void executeLateAction() {
+		for (Pair<Actor, Action> p : lateActions) {
+			if (!p.first.isDead()) {
+				p.second.lateExecution(this, p.first);
+			}
+		}
+		lateActions.clear();
+	}
+
+	private void informPlayersOfRoomHappenings() {
+		for (Room r : map.getRooms()) {
+			r.pushHappeningsToPlayers();
+		}
 	}
 
 
@@ -368,5 +393,13 @@ public class GameData {
 		arr.addAll(getNPCs());
 		return arr;
 	}
+
+	public void executeAtEndOfRound(Actor performingClient,
+			Action act) {
+		lateActions.add(new Pair<Actor, Action>(performingClient, act));
+	}
+
+
+
 
 }

@@ -10,6 +10,7 @@ import java.util.NoSuchElementException;
 import model.actions.Action;
 import model.actions.AttackAction;
 import model.actions.DropAction;
+import model.actions.GiveAction;
 import model.actions.PickUpAction;
 import model.actions.WatchAction;
 import model.actions.DoNothingAction;
@@ -36,7 +37,8 @@ public class Player extends Actor implements Target {
 	private static final double MAX_HEALTH = 3.0;
 	private boolean ready = false;
 	private int nextMove = 0;
-	private List<String> lastTurnInfo = new ArrayList<>();
+	//private List<String> lastTurnInfo = new ArrayList<>();
+	private List<String> personalHistory = new ArrayList<>();
 	private String suit = "clothes";
 	private Action nextAction;
 	private HashMap<String, Boolean> jobChoices = new HashMap<>();
@@ -112,7 +114,10 @@ public class Player extends Actor implements Target {
 	 * @return The information as a list of strings.
 	 */
 	public List<String> getLastTurnInfo() {
-		return this.lastTurnInfo ;
+		List<String> lastTurnInfo = new ArrayList<>();
+		lastTurnInfo.addAll(personalHistory);
+	
+		return lastTurnInfo ;
 	}
 
 	/**
@@ -274,7 +279,7 @@ public class Player extends Actor implements Target {
 	 */
 	public void applyAction(GameData gameData) {
 		if (!isDead()) {
-			this.nextAction.printAndExecute(gameData, this);
+			this.nextAction.doTheAction(gameData, this);
 		}
 	}
 	
@@ -288,7 +293,7 @@ public class Player extends Actor implements Target {
 	 * @param string the string to be added to the info.
 	 */
 	public void addTolastTurnInfo(String string) {
-		lastTurnInfo.add(string);
+		personalHistory.add(string);
 	}
 	
 	/**
@@ -296,7 +301,7 @@ public class Player extends Actor implements Target {
 	 * The last turn info is usually cleared between turns.
 	 */
 	public void clearLastTurnInfo() {
-		lastTurnInfo.clear();
+		personalHistory.clear();
 	}
 
 	@Override
@@ -329,6 +334,7 @@ public class Player extends Actor implements Target {
 			addRoomActions(at);
 			addAttackActions(at);
 			addWatchAction(at);
+			addGiveAction(at);
 			addDropActions(at);
 			addPickUpActions(at);
 			addItemActions(at);
@@ -339,6 +345,8 @@ public class Player extends Actor implements Target {
 		return at;
 	}
 	
+	
+
 	private void addItemActions(ArrayList<Action> at) {
 		Map<String, GameItem> map = new HashMap<String, GameItem>();
 		
@@ -363,6 +371,8 @@ public class Player extends Actor implements Target {
 			at.add(dropAction);
 		}
 	}
+	
+	
 
 	private void addRoomActions(ArrayList<Action> at) {
 		this.getPosition().addActionsFor(this, at);
@@ -375,6 +385,14 @@ public class Player extends Actor implements Target {
 		}
 	}
 
+	private void addGiveAction(ArrayList<Action> at) {
+		TargetingAction giveAction = new GiveAction(this);
+		giveAction.addClientsItemsToAction(this);
+		if (giveAction.getNoOfTargets() > 0 && giveAction.getWithWhats().size() > 0) {
+			at.add(giveAction);
+		}
+	}
+	
 	private void addAttackActions(ArrayList<Action> at) {
 		TargetingAction attackAction = new AttackAction(this);
 		if (attackAction.getNoOfTargets() > 0) {
@@ -451,7 +469,7 @@ public class Player extends Actor implements Target {
 	public void prepForNewGame() {
 		this.nextMove = 0;
 		this.nextAction = null;
-		this.lastTurnInfo = new ArrayList<>();
+		this.personalHistory = new ArrayList<>();
 		
 	}
 	

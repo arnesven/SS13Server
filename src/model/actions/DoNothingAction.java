@@ -10,7 +10,7 @@ import model.GameData;
 public class DoNothingAction extends Action {
 
 	public DoNothingAction() {
-		super("Do Nothing", true);
+		super("Do Nothing", SensoryLevel.NO_SENSE);
 	}
 
 

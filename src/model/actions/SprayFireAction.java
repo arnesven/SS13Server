@@ -13,7 +13,7 @@ import model.npcs.NPC;
 public class SprayFireAction extends Action {
 
 	public SprayFireAction() {
-		super("Spray Fire", false);
+		super("Spray Fire", Flamer.SENSED_AS);
 	}
 
 	@Override
@@ -47,4 +47,9 @@ public class SprayFireAction extends Action {
 
 	}
 
+	@Override
+	public String getDistantDescription() {
+		return "Something is burning...";
+	}
+	
 }

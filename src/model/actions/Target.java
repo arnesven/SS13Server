@@ -1,7 +1,10 @@
 package model.actions;
 
+import java.util.List;
+
 import model.Actor;
 import model.Player;
+import model.items.GameItem;
 import model.items.MedKit;
 import model.items.Weapon;
 
@@ -34,4 +37,6 @@ public interface Target {
 	boolean hasSpecificReaction(MedKit objectRef);
 
 	void addToHealth(double d);
+
+	List<GameItem> getItems();
 }

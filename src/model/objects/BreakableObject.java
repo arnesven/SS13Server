@@ -1,8 +1,11 @@
 package model.objects;
 
+import java.util.List;
+
 import model.Actor;
 import model.Player;
 import model.actions.Target;
+import model.items.GameItem;
 import model.items.MedKit;
 import model.items.Weapon;
 
@@ -75,6 +78,11 @@ public class BreakableObject extends GameObject implements Target {
 	public void addToHealth(double d) {
 		hp = Math.min(getMaxHealth(), hp + d);
 		
+	}
+
+	@Override
+	public List<GameItem> getItems() {
+		return null;
 	}
 	
 

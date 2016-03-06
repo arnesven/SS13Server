@@ -14,17 +14,18 @@ import model.GameData;
 public abstract class Action {
 	
 	private String name;
-	private boolean isStealthy = false;
+	private SensoryLevel senses;
+	private Actor performer;
 	
-
+	
 	
 	/**
 	 * @param name the name of this action
 	 * @param isStealthy if the action is stealthy it will not be displayed to other players standing in that room.
 	 */
-	public Action(String name, boolean isStealthy) {
+	public Action(String name, SensoryLevel senses) {
 		this.name = name;
-		this.isStealthy = isStealthy;
+		this.senses = senses;
 	}
 
 	@Override
@@ -36,31 +37,25 @@ public abstract class Action {
 		return name;
 	}
 
-	public void printAndExecute(GameData gameData, Actor performingClient) {
+	public void doTheAction(GameData gameData, Actor performingClient) {
 		this.execute(gameData, performingClient);
-		if (!isStealthy) {
-			for (Player cl : performingClient.getPosition().getClients()) {
-//				System.out.println("Broadcasting " + getName() + 
-//								   " ... performer=" + performingClient.getPublicName() + 
-//								   " cl=" + cl.getName());
-//				System.out.println("isclient = " + performingClient.isClient(cl) + " isargument= " + this.isArgumentOf(cl));
-				if (!(performingClient == cl) && !this.isArgumentOf(cl)) {
-					String str = this.getPrintString(performingClient) + ".";
-//					System.out.println("This was added =>" + str);
-					cl.addTolastTurnInfo(str);
-				}
-			}
-		}
+		this.performer = performingClient;
+		performingClient.getPosition().addToActionsHappened(this);
+
 	}
 	
 	/**
 	 * Gets the string which is a textual description of the action to all
 	 * other clients in the same room.
+	 * DoTheAction must have been called before!
 	 * @param performingClient the ActionPerformer who is performing the action
 	 * @return the textual description of the action (as seen by bystanders).
 	 */
-	protected String getPrintString(Actor performingClient) {
-		return performingClient.getPublicName() + " " + this.getVerb();
+	public String getDescription() {
+		if (performer == null) {
+			throw new IllegalStateException("doTheAction was not called before call to getDescription!");
+		}
+		return performer.getPublicName() + " " + this.getVerb().toLowerCase() + "";
 	}
 
 	/**
@@ -94,5 +89,20 @@ public abstract class Action {
 	 * @param args the arguments
 	 */
 	public abstract void setArguments(List<String> args);
+
+	public SensoryLevel getSense() {
+		return senses;
+	}
+
+	public void setSense(SensoryLevel sensedAs) {
+		this.senses = sensedAs;
+	}
+
+	public String getDistantDescription() {
+		return "";
+	}
+
+	public void lateExecution(GameData gameData, Actor performingClient) {	}
+
 
 }

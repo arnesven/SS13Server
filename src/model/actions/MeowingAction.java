@@ -9,7 +9,7 @@ import model.GameData;
 public class MeowingAction extends Action {
 
 	public MeowingAction() {
-		super("Meow", false);
+		super("Meow", SensoryLevel.SPEECH);
 	}
 
 	@Override

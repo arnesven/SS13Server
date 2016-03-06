@@ -12,7 +12,7 @@ public class HealWithMedKitAction extends TargetingAction {
 	private static final double HEAL_AMOUNT = 1.0;
 
 	public HealWithMedKitAction(Actor ap, MedKit objectRef) {
-		super("Heal", false, ap);
+		super("Heal", SensoryLevel.PHYSICAL_ACTIVITY, ap);
 		this.objectRef = objectRef;
 	}
 

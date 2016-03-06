@@ -15,7 +15,7 @@ public class MeowOrHissBehavior extends SpontaneousAct {
 	@Override
 	protected void doTheAction(GameData gameData, NPC npc) {
 		if (infectedOrParasiteInRoom(npc.getPosition())) {
-			(new HissAction()).printAndExecute(gameData, npc);
+			(new HissAction()).doTheAction(gameData, npc);
 		} else {
 			super.doTheAction(gameData, npc);
 		}

@@ -4,11 +4,14 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
+import model.actions.SensoryLevel.AudioLevel;
+import model.actions.SensoryLevel.OlfactoryLevel;
+import model.actions.SensoryLevel.VisualLevel;
 
 public class HissAction extends Action {
 
 	public HissAction() {
-		super("Hiss", false);
+		super("Hiss", SensoryLevel.SPEECH);
 	}
 
 	@Override

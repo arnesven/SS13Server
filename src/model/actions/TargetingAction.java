@@ -16,11 +16,11 @@ public abstract class TargetingAction extends Action {
 	private ArrayList<Target> targets = new ArrayList<>();
 	protected ArrayList<GameItem> withWhats = new ArrayList<>();
 	protected Target target;
-	private GameItem item;
-	private Actor performer;
+	protected GameItem item;
+	protected Actor performer;
 	
-	public TargetingAction(String name, boolean b, Actor ap) {
-		super(name, b);
+	public TargetingAction(String name, SensoryLevel s, Actor ap) {
+		super(name, s);
 		this.performer = ap;
 		this.addTargetsToAction(ap);
 	}
@@ -38,8 +38,8 @@ public abstract class TargetingAction extends Action {
 	}
 	
 	@Override
-	protected String getPrintString(Actor performingClient) {
-		return super.getPrintString(performingClient) + " " + target.getName() + 
+	public String getDescription() {
+		return super.getDescription() + " " + target.getName() + 
 				(item!=null?(" with " + item.getName()):"");
 	}
 	
@@ -71,7 +71,7 @@ public abstract class TargetingAction extends Action {
 	
 	
 	public void printAndExecute(GameData gameData) {
-		super.printAndExecute(gameData, performer);
+		super.doTheAction(gameData, performer);
 	}
 
 	public void addClientsItemsToAction(Player client) { }
@@ -131,5 +131,9 @@ public abstract class TargetingAction extends Action {
 
 	public int getNoOfTargets() {
 		return targets.size();
+	}
+
+	public List<GameItem> getWithWhats() {
+		return withWhats;
 	}
 }

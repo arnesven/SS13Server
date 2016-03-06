@@ -4,7 +4,11 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
+import model.actions.SensoryLevel.AudioLevel;
+import model.actions.SensoryLevel.OlfactoryLevel;
+import model.actions.SensoryLevel.VisualLevel;
 import model.modes.GameMode;
+import model.objects.GameObject;
 
 public class AIConsoleAction extends Action {
 
@@ -12,7 +16,7 @@ public class AIConsoleAction extends Action {
 	private String crew;
 
 	public AIConsoleAction() {
-		super("AI Console", false);
+		super("AI Console", SensoryLevel.OPERATE_DEVICE);
 	}
 	
 	@Override
@@ -24,6 +28,7 @@ public class AIConsoleAction extends Action {
 	protected void execute(GameData gameData, Actor performingClient) {
 		if (choice.equals("Check Alarms")) {
 			performingClient.addTolastTurnInfo("No alarms.");
+			//TODO: make this actually check for alarms
 		} else {
 			for (Actor a : gameData.getActors()) {
 				if (a.getBaseName().equals(crew)) {

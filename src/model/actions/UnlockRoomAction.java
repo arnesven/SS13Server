@@ -14,10 +14,15 @@ public class UnlockRoomAction extends Action {
 	private KeyCardLock lock;
 
 	public UnlockRoomAction(Room to, Room from, KeyCardLock keyCardLock) {
-		super("Unlock " + to.getName(), true);
+		super("Unlock " + to.getName(), SensoryLevel.OPERATE_DEVICE);
 		this.to = to;
 		this.from = from;
 		this.lock = keyCardLock;
+	}
+	
+	@Override
+	protected String getVerb() {
+		return "unlocked the armory";
 	}
 
 	@Override

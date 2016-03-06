@@ -7,11 +7,19 @@ import java.util.List;
 import model.Player;
 import model.actions.Action;
 import model.actions.BurnHiveAction;
+import model.actions.SensoryLevel;
 import model.actions.SprayFireAction;
+import model.actions.SensoryLevel.AudioLevel;
+import model.actions.SensoryLevel.OlfactoryLevel;
+import model.actions.SensoryLevel.VisualLevel;
 import model.objects.GameObject;
 import model.objects.HiveObject;
 
 public class Flamer extends Weapon {
+
+	public static final SensoryLevel SENSED_AS = new SensoryLevel(VisualLevel.CLEARLY_VISIBLE, 
+												  AudioLevel.SAME_ROOM, 
+												  OlfactoryLevel.SHARP);
 
 	public Flamer() {
 		super("Flamer", 0.75, 0.5, false);

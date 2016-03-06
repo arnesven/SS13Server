@@ -4,6 +4,9 @@ import util.MyRandom;
 import model.Actor;
 import model.Player;
 import model.GameData;
+import model.actions.SensoryLevel.AudioLevel;
+import model.actions.SensoryLevel.OlfactoryLevel;
+import model.actions.SensoryLevel.VisualLevel;
 import model.characters.InfectedCharacter;
 import model.items.GameItem;
 import model.npcs.CatNPC;
@@ -15,7 +18,9 @@ public class InfectAction extends TargetingAction {
 	private static final double REDUCED_INFECT_CHANCE = 0.25;
 
 	public InfectAction(Actor ap) {
-		super("Infect", true, ap);
+		super("Infect", new SensoryLevel(VisualLevel.STEALTHY, 
+										 AudioLevel.INAUDIBLE,
+										 OlfactoryLevel.UNSMELLABLE), ap);
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class PickUpAction extends Action {
 	private GameItem item;
 
 	public PickUpAction(Actor clientActionPerformer) {
-		super("Pick up", false);
+		super("Pick up", SensoryLevel.PHYSICAL_ACTIVITY);
 		ap = clientActionPerformer;
 	}
 
@@ -37,8 +37,8 @@ public class PickUpAction extends Action {
 	}
 	
 	@Override
-	protected String getPrintString(Actor performingClient) {
-		return super.getPrintString(performingClient) + " the " + item.getName();
+	public String getDescription() {
+		return super.getDescription() + " the " + item.getName();
 	}
 	
 	@Override

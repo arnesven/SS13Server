@@ -45,7 +45,10 @@ public class MapBuilder {
 		result.add(aiCore);
 		result.add(new Room(16, "Port Hall Front"     , ""       ,13,  3, 2, 3, new int[]{13, 17, 18, 19},     new double[]{15.0, 5.5, 15.0, 3.5} ));
 		result.add(new Room(17, "Bridge"              , "Brdg"   ,15,  5, 3, 3, new int[]{16, 20}    ,         new double[]{16.0, 8.0}  ));
-		result.add(new Room(18, "Security Station"    , "SS"     ,15,  2, 2, 2, new int[]{16}        ,         new double[]{}  ));
+		Room ss = new Room(18, "Security Station"    , "SS"     ,15,  2, 2, 2, new int[]{16}        ,         new double[]{}  );
+		ss.addObject(new SecurityCameraConsole());
+		result.add(ss);
+		
 		Room gate =new Room(19, "Shuttle Gate"        , "Gate"   ,10,  2, 3, 2, new int[]{16, 21, 23},         new double[]{10.0, 3.5, 13.0, 3.5} );
 		result.add(gate);
 		result.add(new Room(20, "Captain's Quarters"  , "CQ"     ,15,  8, 2, 2, new int[]{17}        ,         new double[]{16.0, 8.0}  ));
