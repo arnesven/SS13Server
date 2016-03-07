@@ -4,7 +4,9 @@ import java.util.List;
 
 import model.Actor;
 import model.Player;
+import model.items.Explosive;
 import model.items.GameItem;
+import model.items.Grenade;
 import model.items.MedKit;
 import model.items.Weapon;
 
@@ -39,4 +41,6 @@ public interface Target {
 	void addToHealth(double d);
 
 	List<GameItem> getItems();
+
+	void beExposedTo(Actor performingClient, Weapon weapon);
 }

@@ -41,9 +41,11 @@ public class GameData {
 	private List<NPC> npcs;
 	private GameMode gameMode;
 	private int round = 0;
+	private int noOfRounds = 20;
 	private List<Pair<Actor, Action>> lateActions;
 	// Map must be built before first game, client needs it.
 	private GameMap map                     = MapBuilder.createMap();
+	private String selectedMode = "Host";
 
 	
 	public GameData() {
@@ -135,6 +137,8 @@ public class GameData {
 	 * @param otherPlayer, the client to be removed.
 	 */
 	public void removeClient(String otherPlayer) {
+		Player p = players.get(otherPlayer);
+		p.getPosition().removePlayer(p);
 		players.remove(otherPlayer);
 	}
 
@@ -397,6 +401,33 @@ public class GameData {
 	public void executeAtEndOfRound(Actor performingClient,
 			Action act) {
 		lateActions.add(new Pair<Actor, Action>(performingClient, act));
+	}
+
+	public int getNoOfRounds() {
+		return noOfRounds;
+	}
+
+	public String getSelectedMode() {
+		return selectedMode ;
+	}
+
+	public String getPollData() {
+		return makeStringFromReadyClients()+ ":" + getGameState().val + ":" + getRound() +
+				 ":" + getNoOfRounds() + ":" + getSelectedMode() + ":" + GameMode.getAvailableModesAsString();
+	}
+
+	public void setSettings(String rest) {
+		if (gameState == GameState.PRE_GAME) { //can only change settings in pre game
+			String[] sets = rest.substring(1).split(":");
+			try {
+				noOfRounds = Integer.parseInt(sets[0]);
+				selectedMode = sets[1];
+				System.out.println("Set new settings");
+			} catch (NumberFormatException nfe) {
+
+			}
+		}
+		
 	}
 
 

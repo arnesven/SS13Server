@@ -84,6 +84,11 @@ public class BreakableObject extends GameObject implements Target {
 	public List<GameItem> getItems() {
 		return null;
 	}
+
+	@Override
+	public void beExposedTo(Actor performingClient, Weapon weapon) {
+		this.beAttackedBy(performingClient, weapon);
+	}
 	
 
 }

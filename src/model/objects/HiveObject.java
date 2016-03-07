@@ -19,11 +19,11 @@ public class HiveObject extends BreakableObject {
 	@Override
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
 		
-		if (whosAsking.getCharacter() instanceof InfectedCharacter) {
-			info.add("o" + getName() + " (sensed)");
-		} else if (isFound()){
+		if (isFound()){
 			super.addYourselfToRoomInfo(info, whosAsking);
-		}
+		} else if (whosAsking.getCharacter() instanceof InfectedCharacter) {
+			info.add("o" + getName() + " (sensed)");
+		} 
 	}
 
 	public void setFound(boolean b) {

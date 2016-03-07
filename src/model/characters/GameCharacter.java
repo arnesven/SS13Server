@@ -122,6 +122,23 @@ public abstract class GameCharacter {
 		
 	}
 
+	public void beExposedTo(Actor performingClient, Weapon weapon) {
+		boolean reduced = false;
+		if (getClient() != null) {
+			getClient().addTolastTurnInfo("A " + weapon.getName() + " exploded!");
+		}
+		if (weapon.isAttackSuccessful(reduced)) {
+			health = Math.max(0.0, health - weapon.getDamage());
+			String verb = weapon.getSuccessfulMessage();
+			if (this.isDead()) { // you died! Too bad!
+				verb = "kill";
+				dropAllItems();
+				setKiller(performingClient);
+			}
+			
+		}
+		
+	}
 	private void dropAllItems() {
 		while (this.items.size() > 0) {
 			this.position.addItem(this.items.remove(0));

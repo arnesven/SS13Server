@@ -3,8 +3,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.objects.AIConsole;
+import model.objects.ChemicalDispenser;
 import model.objects.CrewRoster;
 import model.objects.KeyCardLock;
+import model.objects.MedkitDispenser;
+import model.objects.SecurityCameraConsole;
 
 
 /**
@@ -53,13 +56,17 @@ public class MapBuilder {
 		result.add(gate);
 		result.add(new Room(20, "Captain's Quarters"  , "CQ"     ,15,  8, 2, 2, new int[]{17}        ,         new double[]{16.0, 8.0}  ));
 		result.add(new Room(21, "Air Lock #2"         , "2"      ,13,  2, 1, 1, new int[]{19}        ,         new double[]{13.0, 2.5} ));
-		Room army =new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{19}        ,         new double[]{-11.0, 4.0} );
+		Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{19}        ,         new double[]{-11.0, 4.0} );
 		gate.addObject(new KeyCardLock(army, gate, true));
 		result.add(army);
 		result.add(new Room(23, "Port Hall Aft"       , ""       , 6,  3, 4, 2, new int[]{19, 24, 5} ,         new double[]{7.5, 3.0, } ));
-		result.add(new Room(24, "Sickbay"             , "Sick"   , 6,  0, 3, 3, new int[]{23, 25, 1} ,         new double[]{} ));
+		Room sickbay = new Room(24, "Sickbay"             , "Sick"   , 6,  0, 3, 3, new int[]{23, 25, 1} ,         new double[]{} );
+		sickbay.addObject(new MedkitDispenser(3));
+		result.add(sickbay);
 		result.add(new Room(25, "Air Lock #3"         , "3"      , 5,  0, 1, 1, new int[]{24}        ,         new double[]{6.0, 0.5}  ));
-		result.add(new Room(26, "Generator"           , "Gen"    , 6,  5, 3, 3, new int[]{5}         ,         new double[]{}  ));
+		Room gen = new Room(26, "Generator"           , "Gen"    , 6,  5, 3, 3, new int[]{5}         ,         new double[]{}  );
+		gen.addObject(new ChemicalDispenser("Fuel Storage", 2));
+		result.add(gen);
 		result.add(new Room(27, "Panorama Walkway"    , ""       , 1,  3, 1, 3, new int[]{1, 3}      ,         new double[]{} ));
 		
 		GameMap gm = new GameMap(result);

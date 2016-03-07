@@ -31,7 +31,7 @@ public class HostGameMode extends GameMode {
 
 
 
-	private static final int NO_OF_GAME_ROUNDS = 20;
+	//private static final int NO_OF_GAME_ROUNDS = 20;
 	private Player hostClient;
 	private String hiveString;
 	private HiveObject hive;
@@ -156,18 +156,18 @@ public class HostGameMode extends GameMode {
 	
 	private void addItemsToRooms(GameData gameData) {
 
-		Room genRoom = gameData.getRoom("Generator");
-		genRoom.addItem(new Chemicals());
-		genRoom.addItem(new Chemicals());
+//		Room genRoom = gameData.getRoom("Generator");
+//		genRoom.addItem(new Chemicals());
+//		genRoom.addItem(new Chemicals());
 		
-		Room labRoom = gameData.getRoom("Lab");
-		labRoom.addItem(new Chemicals());
-		genRoom.addItem(new Chemicals());
+//		Room labRoom = gameData.getRoom("Lab");
+//		labRoom.addItem(new Chemicals());
+//		genRoom.addItem(new Chemicals());
 		
-		Room sickRoom = gameData.getRoom("Sickbay");
-		sickRoom.addItem(new MedKit());
-		sickRoom.addItem(new MedKit());
-		sickRoom.addItem(new MedKit());
+//		Room sickRoom = gameData.getRoom("Sickbay");
+//		sickRoom.addItem(new MedKit());
+//		sickRoom.addItem(new MedKit());
+//		sickRoom.addItem(new MedKit());
 		
 		Room dormRoom = gameData.getRoom("Dorms");
 		dormRoom.addItem(new MedKit());
@@ -210,7 +210,7 @@ public class HostGameMode extends GameMode {
 		if (allInfected(gameData)) {
 			return GameOver.ALL_INFECTED;
 		}
-		if (gameData.getRound() == NO_OF_GAME_ROUNDS) {
+		if (gameData.getRound() == gameData.getNoOfRounds()) {
 			return GameOver.TIME_IS_UP;
 		}
 		return null;

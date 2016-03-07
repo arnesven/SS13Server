@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 import model.GameData;
+import model.modes.GameMode;
 
 
 public class ReadyCommandHandler extends AbstractCommandHandler {
@@ -22,7 +23,7 @@ public class ReadyCommandHandler extends AbstractCommandHandler {
 		if (command.equals("READY")) {
 			String yesNo = sc.next();
 			gameData.setCientReady(clid, yesNo.equals("YES"));	
-			oos.writeObject(gameData.makeStringFromReadyClients()+ ":" + gameData.getGameState().val + ":" + gameData.getRound());
+			oos.writeObject(gameData.getPollData());
 			sc.close();
 			return true;
 		} 

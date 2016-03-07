@@ -104,7 +104,11 @@ public class Room {
 		actors.addAll(npcs);
 		Collections.shuffle(actors);
 		for (Actor a : actors) {
-			a.addYourselfToRoomInfo(info);
+			if (whosAsking != a) {
+				a.addYourselfToRoomInfo(info);
+			} else {
+				info.add("aYou");
+			}
 		}
 		
 		for (GameObject ob : objects) {
@@ -113,6 +117,8 @@ public class Room {
 		for (GameItem it : items) {
 			it.addYourselfToRoomInfo(info, whosAsking);
 		}
+		
+		Collections.sort(info);
 		
 		return info;
 	}

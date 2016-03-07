@@ -20,7 +20,9 @@ import model.actions.TargetingAction;
 import model.characters.GameCharacter;
 import model.characters.InfectedCharacter;
 import model.characters.InstanceChecker;
+import model.items.Explosive;
 import model.items.GameItem;
+import model.items.Grenade;
 import model.items.MedKit;
 import model.items.Weapon;
 import model.map.Room;
@@ -472,5 +474,11 @@ public class Player extends Actor implements Target {
 		this.personalHistory = new ArrayList<>();
 		
 	}
+
+	@Override
+	public void beExposedTo(Actor performingClient, Weapon weapon) {
+		getCharacter().beExposedTo(performingClient, weapon);
+	}
+
 	
 }

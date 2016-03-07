@@ -42,6 +42,8 @@ public class ServiceHandler {
 		
 		handlers.add(new JobsCommandHandler(gameData));
 		
+		handlers.add(new SettingsCommandHandler(gameData));
+		
 	}
 
 	public void serv(Socket socket) throws IOException, ClassNotFoundException {

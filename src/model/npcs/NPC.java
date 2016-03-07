@@ -129,6 +129,11 @@ public class NPC extends Actor implements Target {
 		this.actBehavior = new AttackIfPossibleBehavior(new Weapon("Fists", 0.5, 0.5, false));
 		this.moveBehavior = new MeanderingMovement(0.75);
 	}
+
+	@Override
+	public void beExposedTo(Actor performingClient, Weapon weapon) {
+		getCharacter().beExposedTo(performingClient, weapon);
+	}
 	
 
 

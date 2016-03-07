@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.items.GameItem;
+import model.items.Grenade;
 import model.items.KeyCard;
 
 public class CaptainCharacter extends GameCharacter {

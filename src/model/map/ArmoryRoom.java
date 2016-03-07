@@ -1,6 +1,7 @@
 package model.map;
 
 import model.items.Flamer;
+import model.items.Grenade;
 import model.items.LaserPistol;
 import model.items.Revolver;
 
@@ -13,6 +14,7 @@ public class ArmoryRoom extends Room {
 		this.addItem(new Flamer());
 		this.addItem(new Revolver());
 		this.addItem(new LaserPistol());
+		this.addItem(new Grenade());
 	}
 
 }

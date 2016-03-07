@@ -98,6 +98,7 @@ public abstract class GameMode {
 //		  6.0,  5.0,  4.0,  3.0,  2.0};
 	
 	//private HashMap<String, GameCharacter> availableChars;
+	private static String[] knownModes = {"Host", "Secret"};
 	
 	public GameMode() {
 	
@@ -247,6 +248,18 @@ public abstract class GameMode {
 
 	public static Set<String> getAvailCharsAsStrings() {
 		return availableChars().keySet();
+	}
+
+	public static String getAvailableModesAsString() {
+		StringBuffer res = new StringBuffer();
+		for (String s : knownModes) {
+			if (!s.equals(knownModes[0])) {
+				res.append(":");
+			}
+			res.append(s);
+			
+		}
+		return res.toString();
 	}
 	
 
