@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.items.Chemicals;
+import model.items.FireExtinguisher;
 import model.items.GameItem;
 import model.items.Knife;
 import model.items.MedKit;
@@ -18,7 +19,7 @@ public class JanitorCharacter extends GameCharacter {
 	public List<GameItem> getStartingItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Chemicals());
-		list.add(new Knife());
+		list.add(new FireExtinguisher());
 		return list;
 	}
 

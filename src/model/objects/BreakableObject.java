@@ -1,15 +1,18 @@
 package model.objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Actor;
 import model.Player;
+import model.actions.Action;
 import model.actions.Target;
+import model.events.Damager;
 import model.items.GameItem;
 import model.items.MedKit;
 import model.items.Weapon;
 
-public class BreakableObject extends GameObject implements Target {
+public abstract class BreakableObject extends GameObject implements Target {
 
 	private double hp;
 	private double maxHealth;
@@ -34,6 +37,25 @@ public class BreakableObject extends GameObject implements Target {
 					
 		}
 	}
+	
+	@Override
+	public String getName() {
+		if (isBroken()) {
+			return super.getName() + " (broken)";
+		} else if (hp < maxHealth) {
+			return super.getName() + " (damaged)";
+		}
+		return super.getName();
+	}
+	
+	@Override
+	public final void addSpecificActionsFor(Player cl, ArrayList<Action> at) {
+		if (!isBroken()) {
+			addActions(cl, at);
+		}
+	}
+	
+	protected abstract void addActions(Player cl, ArrayList<Action> at);
 
 	public boolean isBroken() {
 		return hp == 0.0;
@@ -86,9 +108,17 @@ public class BreakableObject extends GameObject implements Target {
 	}
 
 	@Override
-	public void beExposedTo(Actor performingClient, Weapon weapon) {
-		this.beAttackedBy(performingClient, weapon);
+	public void beExposedTo(Actor performingClient, Damager damage) {
+		if (damage.isDamageSuccessful(false)) {
+			hp = Math.max(0.0, hp - damage.getDamage());
+		}
 	}
+
+	public boolean isDamaged() {
+		return hp < maxHealth && hp > 0;
+	}
+
+	
 	
 
 }

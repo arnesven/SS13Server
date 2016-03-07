@@ -9,14 +9,14 @@ import model.Player;
 import model.actions.Action;
 import model.actions.SensoryLevel;
 
-public class CrewRoster extends GameObject {
+public class CrewRoster extends ElectricalMachinery {
 
 	public CrewRoster() {
 		super("Crew Roster");
 	}
 	
 	@Override
-	public void addSpecificActionsFor(Player cl, ArrayList<Action> at) {
+	public void addActions(Player cl, ArrayList<Action> at) {
 		at.add(new Action("Inspect Roster", SensoryLevel.OPERATE_DEVICE) {
 			
 			@Override

@@ -10,17 +10,17 @@ import model.actions.Action;
 import model.actions.SensoryLevel;
 import model.items.GameItem;
 
-public abstract class DispenserObject extends BreakableObject {
+public abstract class DispenserObject extends ElectricalMachinery {
 
 	private int itemsLeft;
 
 	public DispenserObject(String name, int i) {
-		super(name, 3.0);
+		super(name);
 		this.itemsLeft = i;
 	}
 	
 	@Override
-	public void addSpecificActionsFor(Player cl, ArrayList<Action> at) {
+	public void addActions(Player cl, ArrayList<Action> at) {
 		at.add(new Action(DispenserObject.this.getName(),
 				          SensoryLevel.OPERATE_DEVICE) {
 			

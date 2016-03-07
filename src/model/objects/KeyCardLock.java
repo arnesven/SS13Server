@@ -9,7 +9,7 @@ import model.items.GameItem;
 import model.items.KeyCard;
 import model.map.Room;
 
-public class KeyCardLock extends GameObject {
+public class KeyCardLock extends ElectricalMachinery {
 
 	private Room to;
 	private Room from;
@@ -23,7 +23,7 @@ public class KeyCardLock extends GameObject {
 	}
 	
 	@Override
-	public void addSpecificActionsFor(Player cl, ArrayList<Action> at) {
+	public void addActions(Player cl, ArrayList<Action> at) {
 		if (asKeyCard(cl)) {
 			if (locked) {
 				at.add(new UnlockRoomAction(to, from, this));

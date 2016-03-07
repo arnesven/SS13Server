@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.items.Chemicals;
+import model.items.FireExtinguisher;
 import model.items.Flamer;
 import model.items.GameItem;
 import model.items.Knife;
+import model.items.Tools;
 
 public class MechanicCharacter extends GameCharacter {
 
@@ -17,8 +19,8 @@ public class MechanicCharacter extends GameCharacter {
 	@Override
 	public List<GameItem> getStartingItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
-		list.add(new Flamer());
-		list.add(new Knife());
+		list.add(new FireExtinguisher());
+		list.add(new Tools());
 		return list;
 	}
 

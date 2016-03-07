@@ -3,6 +3,7 @@ package model.objects;
 import java.util.ArrayList;
 
 import model.Player;
+import model.actions.Action;
 import model.actions.Target;
 import model.characters.CharacterDecorator;
 import model.characters.InfectedCharacter;
@@ -38,6 +39,9 @@ public class HiveObject extends BreakableObject {
 	public boolean isTargetable() {
 		return isFound();
 	}
+
+	@Override
+	protected void addActions(Player cl, ArrayList<Action> at) {	}
 
 
 	

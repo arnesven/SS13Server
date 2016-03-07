@@ -8,6 +8,7 @@ import model.items.Flamer;
 import model.items.GameItem;
 import model.items.Knife;
 import model.items.MedKit;
+import model.items.Tools;
 
 public class EngineerCharacter extends GameCharacter {
 
@@ -20,7 +21,7 @@ public class EngineerCharacter extends GameCharacter {
 	public List<GameItem> getStartingItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Chemicals());
-		list.add(new Flamer());
+		list.add(new Tools());
 		return list;
 	}
 }

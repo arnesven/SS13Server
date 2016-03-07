@@ -7,6 +7,7 @@ import model.GameData;
 import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
+import model.map.Room;
 import model.modes.GameMode;
 import model.objects.GameObject;
 
@@ -27,12 +28,21 @@ public class AIConsoleAction extends Action {
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
 		if (choice.equals("Check Alarms")) {
-			performingClient.addTolastTurnInfo("No alarms.");
-			//TODO: make this actually check for alarms
+			boolean noAlarms = true;
+			for (Room r : gameData.getRooms()) {
+				if (r.hasFire()) {
+					performingClient.addTolastTurnInfo("-->Fire alarm in " + r.getName() + ".");
+					noAlarms = false;
+				}
+			}
+			if (noAlarms) {
+				performingClient.addTolastTurnInfo("No alarms.");
+			}
+			
 		} else {
 			for (Actor a : gameData.getActors()) {
 				if (a.getBaseName().equals(crew)) {
-					performingClient.addTolastTurnInfo(crew + " is in " + a.getPosition().getName() + ".");
+					performingClient.addTolastTurnInfo("-->" + crew + " is in " + a.getPosition().getName() + ".");
 					return;
 				}
 			}

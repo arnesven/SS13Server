@@ -49,5 +49,9 @@ public class Weapon extends GameItem {
 								OlfactoryLevel.UNSMELLABLE);
 	}
 
+	public boolean isReadyToUse() {
+		return true;
+	}
+
 
 }

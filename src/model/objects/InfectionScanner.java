@@ -13,16 +13,16 @@ import model.items.GameItem;
 import model.npcs.NPC;
 
 
-public class InfectionScanner extends BreakableObject {
+public class InfectionScanner extends ElectricalMachinery {
 
 	private boolean loaded = false;
 	
 	public InfectionScanner() {
-		super("BioScanner", 3.0);
+		super("BioScanner");
 	}
 	
 	@Override
-	public void addSpecificActionsFor(Player cl, ArrayList<Action> at) {
+	public void addActions(Player cl, ArrayList<Action> at) {
 		if (!loaded) {
 			if (getChemicals(cl) != null) {
 				at.add(new Action("Load BioScanner", SensoryLevel.OPERATE_DEVICE) {

@@ -6,14 +6,14 @@ import model.Player;
 import model.actions.Action;
 import model.actions.SecurityConsoleAction;
 
-public class SecurityCameraConsole extends BreakableObject {
+public class SecurityCameraConsole extends ElectricalMachinery {
 
 	public SecurityCameraConsole() {
-		super("Security Console", 1.5);
+		super("Security Console");
 	}
 	
 	@Override
-	public void addSpecificActionsFor(Player cl, ArrayList<Action> at) {
+	public void addActions(Player cl, ArrayList<Action> at) {
 		at.add(new SecurityConsoleAction());
 	}
 

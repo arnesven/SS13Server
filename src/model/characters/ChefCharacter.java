@@ -3,6 +3,7 @@ package model.characters;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.items.FireExtinguisher;
 import model.items.GameItem;
 import model.items.Knife;
 import model.items.MedKit;
@@ -16,7 +17,7 @@ public class ChefCharacter extends GameCharacter {
 	@Override
 	public List<GameItem> getStartingItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
-		list.add(new MedKit());
+		list.add(new FireExtinguisher());
 		list.add(new Knife());
 		return list;
 	}

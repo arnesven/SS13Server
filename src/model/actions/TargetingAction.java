@@ -10,6 +10,7 @@ import model.GameData;
 import model.characters.GameCharacter;
 import model.items.GameItem;
 import model.npcs.NPC;
+import model.objects.GameObject;
 
 public abstract class TargetingAction extends Action {
 
@@ -55,6 +56,15 @@ public abstract class TargetingAction extends Action {
 			Target target = (Target)npc;
 			if (isViableForThisAction(target) && !(ap == npc)) {
 				this.addTarget(target);
+			}
+		}
+		
+		for (GameObject ob : ap.getPosition().getObjects()) {
+			if (ob instanceof Target) {
+				Target objectAsTarget = (Target)ob;
+				if (((Target) ob).isTargetable() && isViableForThisAction(objectAsTarget)) {
+					this.addTarget((Target)ob);
+				}
 			}
 		}
 		

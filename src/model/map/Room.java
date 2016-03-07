@@ -11,6 +11,9 @@ import model.actions.Action;
 import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
+import model.actions.Target;
+import model.events.ElectricalFire;
+import model.events.Event;
 import model.items.GameItem;
 import model.npcs.NPC;
 import model.objects.GameObject;
@@ -38,6 +41,7 @@ public class Room {
 	private List<Action> actionsHappened = new ArrayList<>();
 	private GameMap map = null;
 	private List<GameItem> items = new ArrayList<>();
+	private List<Event> events = new ArrayList<>();
 
 	/**
 	 * Constructor for a Room
@@ -119,6 +123,9 @@ public class Room {
 		}
 		
 		Collections.sort(info);
+		for (Event event : events) {
+			info.add(0, "?" + event.howYouAppear(whosAsking));
+		}
 		
 		return info;
 	}
@@ -273,6 +280,38 @@ public class Room {
 				}
 			}
 		}
+	}
+
+	public void addEvent(Event e) {
+		this.events.add(e);
+	}
+
+	public List<Target> getTargets() {
+		List<Target> result = new ArrayList<>();
+		result.addAll(players);
+		for (GameObject o : objects) {
+			if (o instanceof Target) {
+				result.add((Target)o);
+			}
+		}
+		return result;
+	}
+
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void removeEvent(Event e) {
+		events.remove(e);		
+	}
+
+	public boolean hasFire() {
+		for (Event e : getEvents()) {
+			if (e instanceof ElectricalFire) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 

@@ -29,8 +29,6 @@ public class HostGameMode extends GameMode {
 	public HostGameMode() {
 	}
 
-
-
 	//private static final int NO_OF_GAME_ROUNDS = 20;
 	private Player hostClient;
 	private String hiveString;
@@ -254,25 +252,24 @@ public class HostGameMode extends GameMode {
 
 
 	@Override
-	public void triggerEvents(GameData gameData) {
+	protected void spawnParasites(GameData gameData) {
 		//possibly spawn some parasites
-		
+
 		double PARASITE_SPAWN_CHANCE = 0.75;
-		
-	
+
+
 		if (MyRandom.nextDouble() < PARASITE_SPAWN_CHANCE) {
 			List<Room> spawnPoints = hiveRoom.getNeighborList();
 			spawnPoints.add(hiveRoom);
-			
+
 			Room randomRoom = spawnPoints.get(MyRandom.nextInt(spawnPoints.size()));
-			
+
 			NPC parasite = new ParasiteNPC(randomRoom);
-			
+
 			gameData.addNPC(parasite);
 			allParasites.add(parasite);
 		}
 	}
-
 
 
 	@Override

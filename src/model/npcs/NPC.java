@@ -9,6 +9,7 @@ import model.actions.Target;
 import model.characters.GameCharacter;
 import model.characters.InfectedCharacter;
 import model.characters.InstanceChecker;
+import model.events.Damager;
 import model.items.GameItem;
 import model.items.MedKit;
 import model.items.Weapon;
@@ -131,8 +132,8 @@ public class NPC extends Actor implements Target {
 	}
 
 	@Override
-	public void beExposedTo(Actor performingClient, Weapon weapon) {
-		getCharacter().beExposedTo(performingClient, weapon);
+	public void beExposedTo(Actor performingClient, Damager damage) {
+		getCharacter().beExposedTo(performingClient, damage);
 	}
 	
 

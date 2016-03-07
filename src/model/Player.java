@@ -20,6 +20,7 @@ import model.actions.TargetingAction;
 import model.characters.GameCharacter;
 import model.characters.InfectedCharacter;
 import model.characters.InstanceChecker;
+import model.events.Damager;
 import model.items.Explosive;
 import model.items.GameItem;
 import model.items.Grenade;
@@ -334,12 +335,12 @@ public class Player extends Actor implements Target {
 		addBasicActions(at);
 		if (!isDead()) {
 			addRoomActions(at);
+			addItemActions(at);
 			addAttackActions(at);
 			addWatchAction(at);
 			addGiveAction(at);
 			addDropActions(at);
 			addPickUpActions(at);
-			addItemActions(at);
 			getCharacter().addCharacterSpecificActions(gameData, at);
 			
 		}
@@ -476,8 +477,8 @@ public class Player extends Actor implements Target {
 	}
 
 	@Override
-	public void beExposedTo(Actor performingClient, Weapon weapon) {
-		getCharacter().beExposedTo(performingClient, weapon);
+	public void beExposedTo(Actor performingClient, Damager damager) {
+		getCharacter().beExposedTo(performingClient, damager);
 	}
 
 	

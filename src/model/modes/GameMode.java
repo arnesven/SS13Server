@@ -27,6 +27,8 @@ import model.characters.JanitorCharacter;
 import model.characters.MechanicCharacter;
 import model.characters.RoboticistCharacter;
 import model.characters.SecurityOfficerCharacter;
+import model.events.ElectricalFire;
+import model.events.Event;
 import model.items.GameItem;
 import model.items.KeyCard;
 import model.items.MedKit;
@@ -36,6 +38,7 @@ import model.npcs.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.MeanderingMovement;
 import model.npcs.NPC;
+import model.npcs.ParasiteNPC;
 import model.npcs.SpontaneousAct;
 
 /**
@@ -99,9 +102,12 @@ public abstract class GameMode {
 	
 	//private HashMap<String, GameCharacter> availableChars;
 	private static String[] knownModes = {"Host", "Secret"};
+	private ArrayList<Event> events = new ArrayList<>();
 	
 	public GameMode() {
-	
+		events.add(new ElectricalFire());
+		//events.add(new HullBreach());
+	//	events.add()
 	}
 
 	private static HashMap<String, GameCharacter> availableChars() {
@@ -161,10 +167,10 @@ public abstract class GameMode {
 	 * This method sets the starting info for ALL the players
 	 */
 	protected abstract void addStartingMessages(GameData gameData);
-	public abstract void triggerEvents(GameData gameData);
+
 
 	public abstract String getSummary(GameData gameData);
-
+	
 	
 	protected List<GameCharacter> getAllCharacters() {
 		List<GameCharacter> list = new ArrayList<>();
@@ -174,8 +180,7 @@ public abstract class GameMode {
 
 	public void setup(GameData gameData) {
 		List<GameCharacter> remainingChars = assignCharactersToPlayers(gameData);
-		
-		
+			
 		moveCharactersIntoStartingRooms(gameData);
 		
 		addNPCs(gameData, remainingChars);
@@ -244,8 +249,6 @@ public abstract class GameMode {
 	}
 
 
-
-
 	public static Set<String> getAvailCharsAsStrings() {
 		return availableChars().keySet();
 	}
@@ -263,7 +266,32 @@ public abstract class GameMode {
 	}
 	
 
+	public void triggerEvents(GameData gameData) {
+		spawnParasites(gameData);
 
+		for (Event e : events) {
+			e.apply(gameData);
+		}
+
+		triggerModeSpecificEvents(gameData);
+	}
+
+	protected void triggerModeSpecificEvents(GameData gameData) { }
+
+	
+	protected void spawnParasites(GameData gameData) { 
+		//possibly spawn some parasites
+		double PARASITE_SPAWN_CHANCE = 0.33;
+
+		if (MyRandom.nextDouble() < PARASITE_SPAWN_CHANCE) {
+			Room randomRoom = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
+			NPC parasite = new ParasiteNPC(randomRoom);
+			gameData.addNPC(parasite);
+		}
+		
+	}
+
+	
 
 
 

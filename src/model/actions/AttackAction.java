@@ -19,16 +19,7 @@ public class AttackAction extends TargetingAction {
 	@Override
 	protected void addMoreTargets(Actor ap) {
 //		System.out.println("Adding more targets to attack action");
-		for (GameObject ob : ap.getPosition().getObjects()) {
-			System.out.println("Handling " + ob.getName());
-			if (ob instanceof Target) {
-				Target objectAsTarget = (Target)ob;
-				if (((Target) ob).isTargetable()) {
-					System.out.println("Adding " + ob.getName() + " as a target.");
-					this.addTarget((Target)ob);
-				}
-			}
-		}
+
 	}
 	
 	@Override
@@ -36,7 +27,9 @@ public class AttackAction extends TargetingAction {
 		withWhats.add(new Weapon("Fists", 0.5, 0.5, false));
 		for (GameItem it : client.getItems()) {
 			if (it instanceof Weapon) {
-				withWhats.add(it);
+				if (((Weapon)it).isReadyToUse()) {
+					withWhats.add(it);
+				}
 			}
 		}
 	}

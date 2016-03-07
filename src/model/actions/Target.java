@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.Actor;
 import model.Player;
+import model.events.Damager;
 import model.items.Explosive;
 import model.items.GameItem;
 import model.items.Grenade;
@@ -42,5 +43,5 @@ public interface Target {
 
 	List<GameItem> getItems();
 
-	void beExposedTo(Actor performingClient, Weapon weapon);
+	void beExposedTo(Actor performingClient, Damager damager);
 }

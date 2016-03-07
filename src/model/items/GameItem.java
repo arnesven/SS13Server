@@ -30,7 +30,7 @@ public class GameItem {
 	
 	@Override
 	public String toString() {
-		return name;
+		return getName();
 	}
 
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {

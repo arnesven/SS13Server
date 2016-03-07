@@ -12,6 +12,7 @@ import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
 import model.actions.WatchAction;
+import model.events.Damager;
 import model.items.GameItem;
 import model.items.KeyCard;
 import model.items.MedKit;
@@ -122,18 +123,18 @@ public abstract class GameCharacter {
 		
 	}
 
-	public void beExposedTo(Actor performingClient, Weapon weapon) {
+	public void beExposedTo(Actor something, Damager damager) {
 		boolean reduced = false;
 		if (getClient() != null) {
-			getClient().addTolastTurnInfo("A " + weapon.getName() + " exploded!");
+			getClient().addTolastTurnInfo(damager.getText());
 		}
-		if (weapon.isAttackSuccessful(reduced)) {
-			health = Math.max(0.0, health - weapon.getDamage());
-			String verb = weapon.getSuccessfulMessage();
+		if (damager.isDamageSuccessful(reduced)) {
+			health = Math.max(0.0, health - damager.getDamage());
 			if (this.isDead()) { // you died! Too bad!
-				verb = "kill";
 				dropAllItems();
-				setKiller(performingClient);
+				if (something != null) {
+					setKiller(something);
+				}
 			}
 			
 		}
