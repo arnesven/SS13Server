@@ -17,7 +17,7 @@ public class ChefCharacter extends GameCharacter {
 	@Override
 	public List<GameItem> getStartingItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
-		list.add(new FireExtinguisher());
+//		list.add(new FireExtinguisher());
 		list.add(new Knife());
 		return list;
 	}

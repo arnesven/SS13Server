@@ -14,8 +14,10 @@ import model.characters.GameCharacter;
 import model.characters.HostCharacter;
 import model.characters.ParasiteCharacter;
 import model.items.Chemicals;
+import model.items.FireExtinguisher;
 import model.items.KeyCard;
 import model.items.MedKit;
+import model.items.Tools;
 import model.items.Weapon;
 import model.map.Room;
 import model.npcs.AttackIfPossibleBehavior;
@@ -154,21 +156,29 @@ public class HostGameMode extends GameMode {
 	
 	private void addItemsToRooms(GameData gameData) {
 
-//		Room genRoom = gameData.getRoom("Generator");
-//		genRoom.addItem(new Chemicals());
-//		genRoom.addItem(new Chemicals());
-		
-//		Room labRoom = gameData.getRoom("Lab");
-//		labRoom.addItem(new Chemicals());
+		Room genRoom = gameData.getRoom("Generator");
+		genRoom.addItem(new FireExtinguisher());
+		genRoom.addItem(new Tools());
 //		genRoom.addItem(new Chemicals());
 		
-//		Room sickRoom = gameData.getRoom("Sickbay");
-//		sickRoom.addItem(new MedKit());
-//		sickRoom.addItem(new MedKit());
-//		sickRoom.addItem(new MedKit());
+		Room labRoom = gameData.getRoom("Lab");
+		labRoom.addItem(new FireExtinguisher());
+
 		
-		Room dormRoom = gameData.getRoom("Dorms");
+		Room bridge = gameData.getRoom("Bridge");
+		bridge.addItem(new FireExtinguisher());
+		
+		
+		Room kitchRoom = gameData.getRoom("Kitchen");
+		kitchRoom.addItem(new FireExtinguisher());
+		
+		Room dormRoom = gameData.getRoom("Doorms");
 		dormRoom.addItem(new MedKit());
+		
+		Room green = gameData.getRoom("Greenhouse");
+		green.addItem(new FireExtinguisher());
+		green.addItem(new Tools());
+
 	}
 
 
