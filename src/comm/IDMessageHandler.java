@@ -16,13 +16,10 @@ public class IDMessageHandler implements MessageHandler {
 
 	@Override
 	public boolean handle(String message, ObjectOutputStream oos) throws IOException {
-		if (message.equals("IDENT ME")) {
+		if (message.contains("IDENT ME")) {
 			if (gameData.getGameState() == GameState.PRE_GAME) {
-				String clid = gameData.createNewClient();
-
-
+				String clid = gameData.createNewClient(message.replace("IDENT ME", ""));
 				System.out.println("This new dude gets " + clid);
-
 				oos.writeObject(clid);
 			} else {
 				oos.writeObject("GAME ALREADY STARTED!");

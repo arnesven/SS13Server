@@ -1,6 +1,11 @@
 package model.modes;
 
+import java.util.List;
+
 import model.GameData;
+import model.events.ElectricalFire;
+import model.events.Event;
+import model.events.OngoingEvent;
 import model.npcs.CatNPC;
 import model.npcs.NPC;
 
@@ -29,9 +34,12 @@ public abstract class GameStats {
 	final private String getMiscStats() {
 		return "<br/> <table>" +
 		"<tr><td><b>Miscellaneous Stats</b></td><td></td></tr>" +
+		"<tr><td> Fires put out: </td><td>" + getFireString(gameData) + "</td></tr>" +				
 		"<tr><td> Cat survived: </td><td>" + isCatDead(gameData) + "</td></tr>" +
 				"</table>";
 	}
+
+	
 
 	public abstract String getContent();
 
@@ -48,6 +56,11 @@ public abstract class GameStats {
 		return "No";
 	}
 
+	private String getFireString(GameData gameData) {
+		OngoingEvent fire = (OngoingEvent) gameData.getGameMode().getEvents().get("fires");
+		return fire.noOfFixed() + "/" + fire.noOfOngoing();
+	}
+	
 	public abstract String getMode();
 	public abstract String getOutcome();
 	public abstract String getEnding();

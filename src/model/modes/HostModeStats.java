@@ -68,7 +68,7 @@ public class HostModeStats extends GameStats {
 		if (value.isInfected() && value != hostMode.getHostPlayer()) {
 			InfectedCharacter chara = (InfectedCharacter)value.getCharacter();
 			if (chara.getInfector() != null) {
-				result += "<i>Infected by " +  chara.getInfector().getBaseName() + "</i>";
+				result += "<i>Infected by " +  chara.getInfector().getBaseName() + " in round " + chara.getInfectedInRound() + "</i>";
 			}
 		}
 		

@@ -14,6 +14,7 @@ import model.actions.SensoryLevel.VisualLevel;
 import model.actions.Target;
 import model.events.ElectricalFire;
 import model.events.Event;
+import model.events.HullBreach;
 import model.items.GameItem;
 import model.npcs.NPC;
 import model.objects.GameObject;
@@ -124,7 +125,7 @@ public class Room {
 		
 		Collections.sort(info);
 		for (Event event : events) {
-			info.add(0, "?" + event.howYouAppear(whosAsking));
+			info.add(0, event.addYourselfToRoomInfo(whosAsking));
 		}
 		
 		return info;
@@ -313,6 +314,16 @@ public class Room {
 		}
 		return false;
 	}
+
+	public boolean hasHullBreach() {
+		for (Event e : getEvents()) {
+			if (e instanceof HullBreach) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 
 }

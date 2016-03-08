@@ -1,9 +1,5 @@
 package model.events;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import util.MyRandom;
 import model.GameData;
 import model.Player;
@@ -14,11 +10,16 @@ public class ElectricalFire extends OngoingEvent {
 
 	
 
+	private static final double SPREAD_CHANCE = 0.167;
+
+
+
+
 	@Override
 	public double getProbability() {
 		// TODO: Change this into something more reasonable
 		// like 0.2
-		return 1.0;
+		return 0.2;
 	}
 
 	
@@ -54,6 +55,26 @@ public class ElectricalFire extends OngoingEvent {
 				}
 			});
 		}
+		
+		for (Room neighbor : getRoom().getNeighborList()) {
+			if (MyRandom.nextDouble() < SPREAD_CHANCE) {
+				System.out.println("Fire spread to " + neighbor.getName() + "!");
+				startNewEvent(neighbor);
+			}
+		}
 	}
 
+
+
+
+	@Override
+	protected boolean hasThisEvent(Room randomRoom) {
+		return randomRoom.hasFire();
+	}
+
+	@Override
+	public String addYourselfToRoomInfo(Player whosAsking) {
+		return "f" + howYouAppear(whosAsking);
+	}
+	
 }

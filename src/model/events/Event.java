@@ -1,14 +1,20 @@
 package model.events;
 
+import java.util.List;
+
 import model.GameData;
 import model.Player;
 
-public interface Event {
+public abstract class Event {
 
-	double getProbability();
+	public abstract double getProbability();
 
-	void apply(GameData gameData);
+	public abstract void apply(GameData gameData);
 
-	String howYouAppear(Player whosAsking);
+	public abstract String howYouAppear(Player whosAsking);
+
+	public String addYourselfToRoomInfo(Player whosAsking) {
+		return "e" + howYouAppear(whosAsking);
+	}
 
 }

@@ -53,7 +53,7 @@ public class FireExtinguisher extends BluntWeapon {
 				@Override
 				protected void execute(GameData gameData, Actor performingClient) {
 					ElectricalFire fire = hasFire(performingClient.getPosition());
-					fire.putOut();
+					fire.fix();
 					level--;
 					performingClient.addTolastTurnInfo("You put out the fire.");
 				}

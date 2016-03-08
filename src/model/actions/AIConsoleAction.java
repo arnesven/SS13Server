@@ -34,6 +34,10 @@ public class AIConsoleAction extends Action {
 					performingClient.addTolastTurnInfo("-->Fire alarm in " + r.getName() + ".");
 					noAlarms = false;
 				}
+				if (r.hasHullBreach()) {
+					performingClient.addTolastTurnInfo("-->Low pressure in " + r.getName() + ".");
+					noAlarms = false;
+				}
 			}
 			if (noAlarms) {
 				performingClient.addTolastTurnInfo("No alarms.");

@@ -17,6 +17,7 @@ import util.Pair;
 import model.actions.Action;
 import model.actions.DoNothingAction;
 import model.actions.SpeedComparator;
+import model.events.ElectricalFire;
 import model.map.GameMap;
 import model.map.MapBuilder;
 import model.map.Room;
@@ -121,16 +122,28 @@ public class GameData {
 	 * The client gets a unique ID called a CLID.
 	 * @return the CLID of the new client.
 	 */
-	public String createNewClient() {
-		String clid = null;
-		do {
-			clid = new String("CL" + (MyRandom.nextInt(900)+100));
-		} while (getClientsAsMap().containsKey(clid));
+	public String createNewClient(String rest) {
+		String clid = rest;
+		int i = 2;
+		if (rest.equals("")) {
+			clid = getRandomClid();
+		} else {
+			while (getClientsAsMap().containsKey(clid)) {
+				clid = rest + i;
+			}
+		}
 		players.put(clid, new Player(this));
-		
 		return clid;
 	}
 
+
+	private String getRandomClid() {
+		String clid;
+		do {
+			clid = new String("CL" + (MyRandom.nextInt(900)+100));
+		} while (getClientsAsMap().containsKey(clid));
+		return clid;
+	}
 
 	/**
 	 * Removes a client from the game.
@@ -428,6 +441,10 @@ public class GameData {
 			}
 		}
 		
+	}
+
+	public GameMode getGameMode() {
+		return gameMode;
 	}
 
 

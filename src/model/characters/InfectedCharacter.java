@@ -22,10 +22,19 @@ import model.npcs.ParasiteNPC;
 public class InfectedCharacter extends CharacterDecorator {
 
 	private Actor infector;
+	private int infectedInRound;
 
 	public InfectedCharacter(GameCharacter chara, Actor performingClient) {
 		super(chara, "infected");
 		this.infector = performingClient;
+	}
+	
+	public void setInfectedInRound(int r) {
+		this.infectedInRound = r;
+	}
+	
+	public int getInfectedInRound() {
+		return infectedInRound;
 	}
 	
 	@Override

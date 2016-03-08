@@ -49,6 +49,7 @@ public class InfectAction extends TargetingAction {
 				if (MyRandom.nextDouble() < infectChance) {
 					targetAsActor.beInfected(performingClient);
 					performingClient.addTolastTurnInfo("You infected " + targetAsActor.getPublicName() + "!");
+					((InfectedCharacter)targetAsActor.getCharacter()).setInfectedInRound(gameData.getRound());
 				} else {
 					targetAsActor.addTolastTurnInfo("The " + performingClient.getPublicName() + " tried to infect you!");
 					performingClient.addTolastTurnInfo("You failed to infect the " + targetAsActor.getPublicName() + "!");

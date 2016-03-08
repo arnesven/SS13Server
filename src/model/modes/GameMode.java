@@ -3,6 +3,7 @@ package model.modes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import util.MyRandom;
@@ -29,6 +30,7 @@ import model.characters.RoboticistCharacter;
 import model.characters.SecurityOfficerCharacter;
 import model.events.ElectricalFire;
 import model.events.Event;
+import model.events.HullBreach;
 import model.items.GameItem;
 import model.items.KeyCard;
 import model.items.MedKit;
@@ -102,10 +104,11 @@ public abstract class GameMode {
 	
 	//private HashMap<String, GameCharacter> availableChars;
 	private static String[] knownModes = {"Host", "Secret"};
-	private ArrayList<Event> events = new ArrayList<>();
+	private Map<String,Event> events = new HashMap<>();
 	
 	public GameMode() {
-		events.add(new ElectricalFire());
+		events.put("fires", new ElectricalFire());
+		events.put("hull breach", new HullBreach());
 		//events.add(new HullBreach());
 	//	events.add()
 	}
@@ -269,7 +272,7 @@ public abstract class GameMode {
 	public void triggerEvents(GameData gameData) {
 		spawnParasites(gameData);
 
-		for (Event e : events) {
+		for (Event e : events.values()) {
 			e.apply(gameData);
 		}
 
@@ -289,6 +292,10 @@ public abstract class GameMode {
 			gameData.addNPC(parasite);
 		}
 		
+	}
+
+	public Map<String, Event> getEvents() {
+		return events;
 	}
 
 	
