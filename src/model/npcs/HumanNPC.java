@@ -11,4 +11,9 @@ public class HumanNPC extends NPC {
 
 	}
 
+	@Override
+	public boolean hasInventory() {
+		return true;
+	}
+
 }

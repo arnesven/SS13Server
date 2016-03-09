@@ -1,19 +1,16 @@
 package model.events;
 
 import util.MyRandom;
+import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.SensoryLevel;
 import model.actions.Target;
 import model.map.Room;
 
 public class ElectricalFire extends OngoingEvent {
 
-	
-
 	private static final double SPREAD_CHANCE = 0.167;
-
-
-
 
 	@Override
 	public double getProbability() {
@@ -22,11 +19,14 @@ public class ElectricalFire extends OngoingEvent {
 		return 0.2;
 	}
 
-	
-
-
 	@Override
-	public String howYouAppear(Player whosAsking) {
+	public SensoryLevel getSense() {
+		return SensoryLevel.FIRE;
+	}
+	
+	
+	@Override
+	public String howYouAppear(Actor whosAsking) {
 		return "Fire!";
 	}
 	
@@ -42,6 +42,11 @@ public class ElectricalFire extends OngoingEvent {
 				@Override
 				public boolean isDamageSuccessful(boolean reduced) {
 					return true;
+				}
+				
+				@Override
+				public String getName() {
+					return "fire";
 				}
 				
 				@Override
@@ -76,5 +81,6 @@ public class ElectricalFire extends OngoingEvent {
 	public String addYourselfToRoomInfo(Player whosAsking) {
 		return "f" + howYouAppear(whosAsking);
 	}
-	
+
+
 }

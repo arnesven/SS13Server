@@ -1,9 +1,15 @@
 package model.characters;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import model.Actor;
+import model.GameData;
 import model.Player;
+import model.actions.Action;
+import model.events.Damager;
 import model.items.GameItem;
+import model.items.Weapon;
 import model.map.Room;
 
 
@@ -45,8 +51,8 @@ public abstract class CharacterDecorator extends GameCharacter {
 	}
 	
 	@Override
-	public int getStartingRoom() {
-		return innerChar.getStartingRoom();
+	public Room getStartingRoom(GameData gameData) {
+		return innerChar.getStartingRoom(gameData);
 	}
 	
 	@Override 
@@ -83,4 +89,78 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public boolean isCrew() {
 		return innerChar.isCrew();
 	}
+	
+	@Override
+	public boolean isDead() {
+		return innerChar.isDead();
+	}
+	
+	@Override
+	public boolean isInteractable() {
+		return innerChar.isInteractable();
+	}
+	
+	@Override
+	public void beAttackedBy(Actor performingClient, Weapon weapon) {
+		innerChar.beAttackedBy(performingClient, weapon);
+	}
+	
+	@Override
+	public void beExposedTo(Actor something, Damager damager) {
+		innerChar.beExposedTo(something, damager);
+	}
+	
+	@Override
+	public double getHealth() {
+		return innerChar.getHealth();
+	}
+	
+	@Override
+	public List<GameItem> getStartingItems() {
+		return innerChar.getStartingItems();
+	}
+	
+	@Override
+	public void addCharacterSpecificActions(GameData gameData,
+			ArrayList<Action> at) {
+		innerChar.addCharacterSpecificActions(gameData, at);
+	}
+	
+	@Override
+	public boolean doesPerceive(Action a) {
+		return innerChar.doesPerceive(a);
+	}
+	
+	@Override
+	public String getKillerString() {
+		return innerChar.getKillerString();
+	}
+	
+	@Override
+	public double getSpeed() {
+		return innerChar.getSpeed();
+	}
+	
+	@Override
+	public boolean hasSpecificReaction(GameItem it) {
+		return innerChar.hasSpecificReaction(it);
+	}
+	
+	
+	@Override
+	public void setHealth(double d) {
+		innerChar.setHealth(d);
+	}
+	
+	@Override
+	public void setKiller(Actor a) {
+		innerChar.setKiller(a);
+	}
+	
+	@Override
+	public boolean isHealable() {
+		return innerChar.isHealable();
+	}
+	
+	
 }

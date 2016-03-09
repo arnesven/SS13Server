@@ -16,11 +16,6 @@ public class CatCharacter extends GameCharacter {
 	public List<GameItem> getStartingItems() {
 		return new ArrayList<>();
 	}
-
-	@Override
-	public boolean isHuman() {
-		return false;
-	}
 	
 	@Override
 	public boolean isCrew() {

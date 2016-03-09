@@ -12,4 +12,9 @@ public class CatNPC extends NPC {
 		  new MeowOrHissBehavior(0.5), startingRoom); 
 	}
 
+	@Override
+	public boolean hasInventory() {
+		return false;
+	}
+
 }

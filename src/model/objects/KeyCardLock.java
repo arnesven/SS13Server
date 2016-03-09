@@ -24,7 +24,7 @@ public class KeyCardLock extends ElectricalMachinery {
 	
 	@Override
 	public void addActions(Player cl, ArrayList<Action> at) {
-		if (asKeyCard(cl)) {
+		if (hasKeyCard(cl) && !isBroken()) {
 			if (locked) {
 				at.add(new UnlockRoomAction(to, from, this));
 			} else {
@@ -34,7 +34,7 @@ public class KeyCardLock extends ElectricalMachinery {
 		}
 	}
 
-	private boolean asKeyCard(Player cl) {
+	private boolean hasKeyCard(Player cl) {
 		for (GameItem it : cl.getItems()) {
 			if (it instanceof KeyCard) {
 				return true;

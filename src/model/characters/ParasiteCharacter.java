@@ -20,11 +20,6 @@ public class ParasiteCharacter extends GameCharacter {
 
 	
 	@Override
-	public boolean isHuman() {
-		return false;
-	}
-	
-	@Override
 	public boolean isCrew() {
 		return false;
 	}

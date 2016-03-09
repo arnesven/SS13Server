@@ -20,7 +20,7 @@ import model.map.Room;
  * Class representing NPCs on the station (non-player characters).
  * E.g. monsters, crewmembers not controlled by players. And other things.
  */
-public class NPC extends Actor implements Target {
+public abstract class NPC extends Actor implements Target {
 		
 	private MovementBehavior moveBehavior;
 	private ActionBehavior actBehavior;
@@ -115,7 +115,6 @@ public class NPC extends Actor implements Target {
 
 	@Override
 	public boolean hasSpecificReaction(MedKit objectRef) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -134,6 +133,14 @@ public class NPC extends Actor implements Target {
 	@Override
 	public void beExposedTo(Actor performingClient, Damager damage) {
 		getCharacter().beExposedTo(performingClient, damage);
+	}
+
+	@Override
+	public abstract boolean hasInventory();
+
+	@Override
+	public boolean isHealable() {
+		return getCharacter().isHealable();
 	}
 	
 

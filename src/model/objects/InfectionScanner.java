@@ -56,16 +56,26 @@ public class InfectionScanner extends ElectricalMachinery {
 				
 				@Override
 				protected void execute(GameData gameData, Actor performingClient) {
-					if (!loaded) {
+					if (!loaded || isInUse()) {
 						performingClient.addTolastTurnInfo("You failed to activate the BioScanner.");
+						
 					} else {
 						loaded = false;
+						setInUse(true);
 						giveBioScannerOutput(gameData, performingClient);
+						gameData.executeAtEndOfRound(performingClient, this);
 					}
+				}
+				
+				@Override
+				public void lateExecution(GameData gameData,
+						Actor performingClient) {
+					setInUse(false);
 				}
 			});
 		}
 	}
+
 
 	protected void giveBioScannerOutput(GameData gameData, Actor performingClient) {
 		int infected = 0;

@@ -14,7 +14,7 @@ public class AIConsole extends ElectricalMachinery {
 	
 	@Override
 	public void addActions(Player cl, ArrayList<Action> at) {
-		at.add(new AIConsoleAction());
+		at.add(new AIConsoleAction(this));
 	}
 
 }

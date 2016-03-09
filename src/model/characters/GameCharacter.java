@@ -34,6 +34,7 @@ public abstract class GameCharacter {
 	private double speed;
 	private List<GameItem> items = new ArrayList<>();
 	private Actor killer;
+	private String killString;
 
 	
 	public GameCharacter(String name, int startRoom, double speed) {
@@ -60,7 +61,7 @@ public abstract class GameCharacter {
 	/**
 	 * @return the room in which the character starts
 	 */
-	public int getStartingRoom() {
+	protected int getStartingRoom() {
 		return startingRoom;
 	}
 
@@ -134,12 +135,16 @@ public abstract class GameCharacter {
 				dropAllItems();
 				if (something != null) {
 					setKiller(something);
+				} else {
+					killString = damager.getName();
 				}
 			}
 			
 		}
 		
 	}
+
+
 	private void dropAllItems() {
 		while (this.items.size() > 0) {
 			this.position.addItem(this.items.remove(0));
@@ -189,16 +194,13 @@ public abstract class GameCharacter {
 
 	public abstract List<GameItem> getStartingItems();
 
-	public boolean isHuman() {
-		return true;
-	}
 
 	/**
 	 * Overload this method if you want a character
 	 * to have specific reaction when interacted with a certain item.
 	 * @return true if the character had a specific reaction, false otherwise
 	 */
-	public boolean hasSpecificReaction() {
+	public boolean hasSpecificReaction(GameItem it) {
 		return false;
 	}
 
@@ -206,8 +208,15 @@ public abstract class GameCharacter {
 		return items;
 	}
 
-	public Actor getKiller() {
+	private Actor getKiller() {
 		return killer;
+	}
+	
+	public String getKillerString() {
+		if (killer != null) {
+			return killer.getBaseName();
+		}
+		return killString;
 	}
 	
 	public void setKiller(Actor a) {
@@ -232,5 +241,15 @@ public abstract class GameCharacter {
 		
 		return false;
 	}
+
+	public boolean isHealable() {
+		return true;
+	}
+
+	public Room getStartingRoom(GameData gameData) {
+		return gameData.getRoomForId(startingRoom);
+	}
+
+	
 
 }

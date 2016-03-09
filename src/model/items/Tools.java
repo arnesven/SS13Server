@@ -9,12 +9,12 @@ import model.Player;
 import model.actions.Action;
 import model.actions.SensoryLevel;
 import model.actions.Target;
-import model.actions.TargetingAction;
 import model.events.Event;
 import model.events.HullBreach;
 import model.map.Room;
 import model.objects.BreakableObject;
 import model.objects.GameObject;
+import model.objects.Repairable;
 
 public class Tools extends BluntWeapon {
 
@@ -25,22 +25,7 @@ public class Tools extends BluntWeapon {
 	@Override
 	public void addYourActions(ArrayList<Action> at, Player cl) {
 		if (hasBrokenObjects(cl.getPosition())) {
-			at.add(new TargetingAction("Repair", 
-					SensoryLevel.PHYSICAL_ACTIVITY, cl) {
-				
-				@Override
-				protected void applyTargetingAction(GameData gameData,
-						Actor performingClient, Target target, GameItem item) {
-					((BreakableObject)target).addToHealth(1.0);
-					performingClient.addTolastTurnInfo("You repaired " + target.getName());
-				}
-				
-				@Override
-				protected boolean isViableForThisAction(Target target2) {
-					return isRepairable(target2);
-					
-				}
-			});
+			at.add(new RepairAction("Repair", SensoryLevel.PHYSICAL_ACTIVITY, cl));
 		}
 		if (cl.getPosition().hasHullBreach()) {
 			at.add(new Action("Seal hull breach", 
@@ -69,19 +54,14 @@ public class Tools extends BluntWeapon {
 		}
 	}
 
-	protected boolean isRepairable(Target target2) {
-		if (target2 instanceof BreakableObject) {
-			return ( ((BreakableObject)target2).isDamaged() || 
-					 ((BreakableObject)target2).isBroken() );
-		}
-		return false;
-	}
 
 	private boolean hasBrokenObjects(Room position) {
 		for (GameObject ob : position.getObjects()) {
 			if (ob instanceof Target) {
-				if (isRepairable((Target)ob)) {
-					return true;
+				if (ob instanceof Repairable) {
+					if (((Repairable)ob).isDamaged() || ((Repairable)ob).isBroken()) {
+						return true;
+					}
 				}
 			}
 		}

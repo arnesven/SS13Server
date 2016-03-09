@@ -17,9 +17,7 @@ import model.objects.HiveObject;
 
 public class Flamer extends Weapon {
 
-	public static final SensoryLevel SENSED_AS = new SensoryLevel(VisualLevel.CLEARLY_VISIBLE, 
-												  AudioLevel.SAME_ROOM, 
-												  OlfactoryLevel.SHARP);
+	public static final SensoryLevel SENSED_AS = SensoryLevel.FIRE;
 
 	public Flamer() {
 		super("Flamer", 0.75, 0.5, false);

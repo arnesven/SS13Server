@@ -2,6 +2,7 @@ package model.objects;
 
 import java.util.ArrayList;
 
+import model.Actor;
 import model.Player;
 import model.actions.Action;
 import model.actions.Target;
@@ -42,6 +43,9 @@ public class HiveObject extends BreakableObject {
 
 	@Override
 	protected void addActions(Player cl, ArrayList<Action> at) {	}
+
+
+
 
 
 	

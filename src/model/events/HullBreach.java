@@ -1,9 +1,15 @@
 package model.events;
 
+import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.SensoryLevel;
 import model.actions.Target;
+import model.actions.SensoryLevel.AudioLevel;
+import model.actions.SensoryLevel.OlfactoryLevel;
+import model.actions.SensoryLevel.VisualLevel;
 import model.map.Room;
+import model.objects.GameObject;
 
 public class HullBreach extends OngoingEvent {
 
@@ -13,30 +19,20 @@ public class HullBreach extends OngoingEvent {
 	}
 
 	@Override
-	public String howYouAppear(Player whosAsking) {
+	public SensoryLevel getSense() {
+		return new SensoryLevel(VisualLevel.INVISIBLE, 
+				AudioLevel.SAME_ROOM, OlfactoryLevel.UNSMELLABLE);
+	}
+
+	@Override
+	public String howYouAppear(Actor performingClient) {
 		return "Low Pressure!";
 	}
 
 	@Override
 	protected void maintain(GameData gameData) {
 		for (Target t : getRoom().getTargets()) {
-			t.beExposedTo(null, new Damager() {
-				
-				@Override
-				public boolean isDamageSuccessful(boolean reduced) {
-					return true;
-				}
-				
-				@Override
-				public String getText() {
-					return "You're gasping for air!";
-				}
-				
-				@Override
-				public double getDamage() {
-					return 0.5;
-				}
-			});
+			t.beExposedTo(null, new AsphyxiationDamage(t));
 		}
 	}
 
@@ -49,5 +45,7 @@ public class HullBreach extends OngoingEvent {
 	protected boolean hasThisEvent(Room randomRoom) {
 		return randomRoom.hasHullBreach();
 	}
+
+
 
 }

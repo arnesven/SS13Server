@@ -52,7 +52,9 @@ public class AttackIfPossibleBehavior implements ActionBehavior {
 	private Weapon getWeapon(NPC npc) {
 		for (GameItem it : npc.getItems()) {
 			if (it instanceof Weapon) {
-				return (Weapon)it;
+				if (((Weapon)it).isReadyToUse()) {
+					return (Weapon)it;
+				}
 			}
 		}
 

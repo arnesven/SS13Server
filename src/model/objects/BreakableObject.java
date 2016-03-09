@@ -16,6 +16,9 @@ public abstract class BreakableObject extends GameObject implements Target {
 
 	private double hp;
 	private double maxHealth;
+	private Actor breaker;
+	private Weapon brokenByWeapon;
+	private String breakString;
 	
 	public BreakableObject(String name, double starthp) {
 		super(name);
@@ -31,6 +34,8 @@ public abstract class BreakableObject extends GameObject implements Target {
 			performingClient.addTolastTurnInfo("You " + item.getSuccessfulMessage() + "ed the " + super.getName() + ".");
 			if (isBroken()) {
 				performingClient.addTolastTurnInfo("The " + super.getName() + " was destroyed!");				
+				this.breaker = performingClient;
+				this.brokenByWeapon = item;
 			}
 		} else {
 			performingClient.addTolastTurnInfo("You missed the " + super.getName() + ".");
@@ -86,11 +91,6 @@ public abstract class BreakableObject extends GameObject implements Target {
 	}
 
 	@Override
-	public boolean isHuman() {
-		return false;
-	}
-
-	@Override
 	public boolean hasSpecificReaction(MedKit objectRef) {
 		// TODO Auto-generated method stub
 		return false;
@@ -111,6 +111,13 @@ public abstract class BreakableObject extends GameObject implements Target {
 	public void beExposedTo(Actor performingClient, Damager damage) {
 		if (damage.isDamageSuccessful(false)) {
 			hp = Math.max(0.0, hp - damage.getDamage());
+			if (hp == 0) { // broken :-)
+				if (performingClient != null) {
+					breaker = performingClient;
+				} else {
+					breakString = damage.getName();
+				}
+			}
 		}
 	}
 
@@ -118,7 +125,25 @@ public abstract class BreakableObject extends GameObject implements Target {
 		return hp < maxHealth && hp > 0;
 	}
 
+	public Actor getBreaker() {
+		return breaker;
+	}
 	
-	
+	public String getBreakString() {
+		if (breaker != null) {
+			return breaker.getBaseName() + " with " + brokenByWeapon.getName();
+		} else {
+			return breakString;
+		}
+	}
 
+	@Override
+	public boolean hasInventory() {
+		return false;
+	}
+	
+	@Override
+	public boolean isHealable() {
+		return false;
+	}
 }

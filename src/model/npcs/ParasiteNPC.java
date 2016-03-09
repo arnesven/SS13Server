@@ -19,4 +19,9 @@ public class ParasiteNPC extends NPC {
 		return true;
 	}
 
+	@Override
+	public boolean hasInventory() {
+		return false;
+	}
+
 }
