@@ -37,6 +37,10 @@ public class SensoryLevel {
 	public static final SensoryLevel OPERATE_DEVICE = new SensoryLevel(VisualLevel.CLEARLY_VISIBLE, 
 			  														   AudioLevel.INAUDIBLE, 
 			  														   OlfactoryLevel.UNSMELLABLE);
+
+	public static final SensoryLevel FIRE =  new SensoryLevel(VisualLevel.CLEARLY_VISIBLE, 
+			  												  AudioLevel.SAME_ROOM, 
+			  												  OlfactoryLevel.SHARP);
 	
 	public VisualLevel visual;
 	public AudioLevel sound;

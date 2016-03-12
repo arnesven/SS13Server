@@ -1,9 +1,12 @@
 package model;
 import java.lang.reflect.Array;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +16,7 @@ import java.util.Set;
 
 import comm.MapCommandHandler;
 import util.MyRandom;
+import util.MyStrings;
 import util.Pair;
 import model.actions.Action;
 import model.actions.DoNothingAction;
@@ -34,6 +38,7 @@ import model.npcs.NPC;
  * the game is in. The game also has a "mode".
  */
 public class GameData {
+	private final Date startingTime = new Date();
 	// these fields should persist between games
 	private HashMap<String, Player> players = new HashMap<>();
 	private GameState gameState             = GameState.PRE_GAME;
@@ -151,7 +156,14 @@ public class GameData {
 	 */
 	public void removeClient(String otherPlayer) {
 		Player p = players.get(otherPlayer);
-		p.getPosition().removePlayer(p);
+		if (p == null) {
+			return; // player does not exist...
+		}
+		if (p.getCharacter() != null) {
+			if (p.getPosition() != null) {
+				p.getPosition().removePlayer(p);
+			}
+		}
 		players.remove(otherPlayer);
 	}
 
@@ -238,15 +250,17 @@ public class GameData {
 			
 		} else if (gameState == GameState.ACTIONS) {
 			executeAllActions();
-			round = round + 1;
+			
 			
 			gameMode.triggerEvents(this);
 			executeLateAction();
 			informPlayersOfRoomHappenings();
 			if (gameMode.gameOver(this)) {
 				gameState = GameState.PRE_GAME;
+				round = 0;
 			} else {
 				gameState = GameState.MOVEMENT;
+				round = round + 1;
 			}
 			allClearReady();
 		}
@@ -294,7 +308,7 @@ public class GameData {
 			cl.clearLastTurnInfo();
 		}
 		for (Room r : map.getRooms()) {
-			r.clearActionsHappened();
+			r.clearHappenings();
 		}
 	}
 
@@ -352,9 +366,9 @@ public class GameData {
 				       ":" + cl.getPosition().getID() + 
 					   ":" + cl.getCurrentHealth() + 
 					   ":" + cl.getSuit() +
-					   ":" + cl.getItems() + 
-					   ":" + cl.getRoomInfo() + 
-					   ":" + cl.getLastTurnInfo();
+					   ":" + MyStrings.join(cl.getItems(), "|") + 
+					   ":" + MyStrings.join(cl.getRoomInfo(), "|") + 
+					   ":" + MyStrings.join(cl.getLastTurnInfo(), "|");
 		return result;	
 		
 	}
@@ -431,11 +445,12 @@ public class GameData {
 
 	public void setSettings(String rest) {
 		if (gameState == GameState.PRE_GAME) { //can only change settings in pre game
+			System.out.println("Setting new settings: " + rest);
 			String[] sets = rest.substring(1).split(":");
 			try {
 				noOfRounds = Integer.parseInt(sets[0]);
 				selectedMode = sets[1];
-				System.out.println("Set new settings");
+				//System.out.println("Set new settings");
 			} catch (NumberFormatException nfe) {
 
 			}
@@ -445,6 +460,21 @@ public class GameData {
 
 	public GameMode getGameMode() {
 		return gameMode;
+	}
+
+	
+	/**
+	 * @return the info to be showed to the client when looking for available.
+	 * ss13 servers. Fields should be separated with ':'
+	 */
+	public String getInfo() {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH.mm EEE, MMM d, yyyy");
+		return getPlayersAsList().size() + ":" + gameState.toInfo() + ":" + this.getRound() + ":" + sdf.format(getStartingTime());
+	}
+
+	private Date getStartingTime() {
+		return startingTime;
+
 	}
 
 

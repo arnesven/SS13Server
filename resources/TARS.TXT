@@ -1,5 +1,5 @@
-Hello.
+Hello $r.
 How are you today?
 Hey there, I'm TARS.
-What's up?
-Hi.
+What's up $r?
+Hi $r.

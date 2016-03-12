@@ -48,5 +48,10 @@ public class BurnHiveAction extends Action {
 	public void setArguments(List<String> args) {
 
 	}
+	
+	@Override
+	public String getDistantDescription() {
+		return "Something is burning...";
+	}
 
 }

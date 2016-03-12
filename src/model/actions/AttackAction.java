@@ -38,8 +38,12 @@ public class AttackAction extends TargetingAction {
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
 		Weapon w = (Weapon)item;
-		target.beAttackedBy(performingClient, (Weapon)item);
-		this.setSense(w.getSensedAs());
+		if (w.isReadyToUse()) {
+			target.beAttackedBy(performingClient, (Weapon)item);
+			this.setSense(w.getSensedAs());
+		} else {
+			performingClient.addTolastTurnInfo(w.getName() + " isn't working."); 
+		}
 	}
 
 

@@ -29,5 +29,10 @@ public class TARSNPC extends NPC implements Repairable {
 	public boolean isBroken() {
 		return isDead();
 	}
+	
+	@Override
+	public boolean isHealable() {
+		return false;
+	}
 
 }

@@ -1,6 +1,8 @@
 package model.modes;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,11 +13,13 @@ import model.Actor;
 import model.Player;
 import model.GameData;
 import model.actions.MeowingAction;
+import model.actions.SpeedComparator;
 import model.characters.BartenderCharacter;
 import model.characters.BiologistCharacter;
 import model.characters.CaptainCharacter;
 import model.characters.CatCharacter;
 import model.characters.ChaplainCharacter;
+import model.characters.CharacterSpeedComparator;
 import model.characters.ChefCharacter;
 import model.characters.ChemistCharacter;
 import model.characters.DetectiveCharacter;
@@ -28,8 +32,11 @@ import model.characters.JanitorCharacter;
 import model.characters.MechanicCharacter;
 import model.characters.RoboticistCharacter;
 import model.characters.SecurityOfficerCharacter;
+import model.characters.TarsCharacter;
+import model.characters.TouristCharacter;
 import model.events.ElectricalFire;
 import model.events.Event;
+import model.events.Explosion;
 import model.events.HullBreach;
 import model.items.GameItem;
 import model.items.KeyCard;
@@ -42,6 +49,7 @@ import model.npcs.MeanderingMovement;
 import model.npcs.NPC;
 import model.npcs.ParasiteNPC;
 import model.npcs.SpontaneousAct;
+import model.npcs.TARSNPC;
 
 /**
  * @author erini02
@@ -108,7 +116,8 @@ public abstract class GameMode {
 	
 	public GameMode() {
 		events.put("fires", new ElectricalFire());
-		events.put("hull breach", new HullBreach());
+		events.put("hull breaches", new HullBreach());
+		events.put("explosion", new Explosion());
 		//events.add(new HullBreach());
 	//	events.add()
 	}
@@ -130,9 +139,18 @@ public abstract class GameMode {
 		availableChars.put("Bartender", new BartenderCharacter());
 		availableChars.put("Mechanic", new MechanicCharacter());
 		availableChars.put("Chaplain", new ChaplainCharacter());
+		availableChars.put("Tourist", new TouristCharacter());
 		return availableChars;
 	}
 	
+	public static List<String> getAllCharsAsStrings() {
+		List<String> gcs = new ArrayList<>();
+		gcs.addAll(availableChars().keySet());
+		Collections.sort(gcs);
+		gcs.add("TARS");
+		gcs.add("Cat");
+		return gcs;
+	}
 
 	/**
 	 * This method is called as the last part of the setup.
@@ -195,7 +213,7 @@ public abstract class GameMode {
 
 	private void moveCharactersIntoStartingRooms(GameData gameData) {
 		for (Player c : gameData.getPlayersAsList()) {
-			Room startRoom = gameData.getRoomForId(c.getCharacter().getStartingRoom());
+			Room startRoom = c.getCharacter().getStartingRoom(gameData);
 			c.moveIntoRoom(startRoom);
 			c.setNextMove(c.getPosition().getID());
 		}
@@ -225,10 +243,18 @@ public abstract class GameMode {
 		NPC cat = new CatNPC(gameData.getRoomForId(20));
 		gameData.addNPC(cat);
 		
+		NPC tars = new TARSNPC(gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size())));
+		gameData.addNPC(tars);
+		
 		int noOfNPCs = Math.min(MyRandom.nextInt(3) + 4, remainingChars.size());
 		for ( ; noOfNPCs > 0 ; noOfNPCs--) {
-			GameCharacter gc = remainingChars.remove(MyRandom.nextInt(remainingChars.size()));
-			NPC human = new HumanNPC(gc, gameData.getRoomForId(gc.getStartingRoom()));
+			GameCharacter gc;
+			if (remainingChars.size() == 0) {
+				gc = new TouristCharacter();
+			} else {
+				gc = remainingChars.remove(MyRandom.nextInt(remainingChars.size()));
+			}
+			NPC human = new HumanNPC(gc, gc.getStartingRoom(gameData));
 			gameData.addNPC(human);
 			System.out.println("Adding npc " + gc.getBaseName());
 			
@@ -240,8 +266,13 @@ public abstract class GameMode {
 
 	public static String getAvailableJobs() {
 		StringBuffer res = new StringBuffer();
-		for (String s : availableChars().keySet()) {
-			res.append("p" + s + ":");
+		List<GameCharacter> list = new ArrayList<>();
+		list.addAll(availableChars().values());
+		SpeedComparator s;
+		Collections.sort(list, new CharacterSpeedComparator());
+		
+		for (GameCharacter gc : list) {
+			res.append("p" + gc.getBaseName() + ":");
 		}
 		res.append("aTraitor:");
 		res.append("aHost:");
@@ -297,6 +328,7 @@ public abstract class GameMode {
 	public Map<String, Event> getEvents() {
 		return events;
 	}
+
 
 	
 

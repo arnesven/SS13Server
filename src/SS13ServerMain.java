@@ -16,20 +16,28 @@ import model.GameData;
 
 public class SS13ServerMain {
 
-	private static final int port = 55444;
+
 	
 	/**
 	 * @param args
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
+		int port = 55444;
+		String name = "SS13 Server";
 		ServerSocket listener = null;
+		if (args.length == 2) {
+			name = args[0];
+			port = Integer.parseInt(args[1]);
+		}
+		
 		GameData gameData = new GameData();
-		ServiceHandler serviceHandler = new ServiceHandler(gameData);
+		
+		ServiceHandler serviceHandler = new ServiceHandler(name, gameData, port);
 		do {
 			try {
 				listener = new ServerSocket(port);
-				System.out.println("SS13 server running...");
+				System.out.println("SS13 server \"" + name + "\" running on " + port  + "...");
 
 				do {
 					//System.out.println("Waiting for connection...");

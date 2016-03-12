@@ -37,13 +37,13 @@ public class HealWithMedKitAction extends TargetingAction {
 	}
 	
 	@Override
-	protected boolean isViableForThisAction(Target target2) {
-		return target2.isHuman() && !target2.isDead();
+	public boolean isViableForThisAction(Target target2) {
+		return target2.isHealable() && !target2.isDead();
 	}
 	
 	@Override
 	protected void addMoreTargets(Actor ap) {
-		if (ap.getAsTarget().isHuman() && 
+		if (ap.getAsTarget().isHealable() && 
 				ap.getAsTarget().getHealth() < ap.getAsTarget().getMaxHealth()) {
 			this.addTarget(ap.getAsTarget());
 		}

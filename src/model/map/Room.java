@@ -43,6 +43,7 @@ public class Room {
 	private GameMap map = null;
 	private List<GameItem> items = new ArrayList<>();
 	private List<Event> events = new ArrayList<>();
+	private List<Event> eventsHappened = new ArrayList<>();
 
 	/**
 	 * Constructor for a Room
@@ -247,8 +248,9 @@ public class Room {
 		actionsHappened.add(action);
 	}
 
-	public void clearActionsHappened() {
-		actionsHappened.clear();		
+	public void clearHappenings() {
+		actionsHappened.clear();	
+		eventsHappened.clear();
 	}
 
 	public List<Action> getActionsHappened() {
@@ -281,6 +283,22 @@ public class Room {
 				}
 			}
 		}
+		
+		for (Event a : getEventsHappened()) {
+			if (a.getSense().sound == AudioLevel.VERY_LOUD || 
+				a.getSense().smell == OlfactoryLevel.SHARP) {
+				for (Room r : getNeighborList()) {
+					for (Player p : r.getClients()) {
+						String text = a.getDistantDescription();
+						p.addTolastTurnInfo(text);
+					}
+				}
+			}
+		}
+	}
+
+	private List<Event> getEventsHappened() {
+		return eventsHappened;
 	}
 
 	public void addEvent(Event e) {
@@ -322,6 +340,11 @@ public class Room {
 			}
 		}
 		return false;
+	}
+
+	public void addToEventsHappened(Event e) {
+		this.eventsHappened.add(e);
+		
 	}
 
 

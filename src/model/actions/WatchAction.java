@@ -26,7 +26,9 @@ public class WatchAction extends TargetingAction {
 		
 		
 		String healthStr = "healthy";
-		if (target.getHealth() < target.getMaxHealth() ){
+		if (target.isDead()) {
+			healthStr = "dead";
+		} else if (target.getHealth() < target.getMaxHealth() ){
 			healthStr = "unhealthy";
 		}
 		
@@ -49,7 +51,7 @@ public class WatchAction extends TargetingAction {
 	}
 
 	@Override
-	protected boolean isViableForThisAction(Target target2) {
+	public boolean isViableForThisAction(Target target2) {
 		return target2 instanceof Player || target2 instanceof NPC;
 	}
 

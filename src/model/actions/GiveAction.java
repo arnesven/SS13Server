@@ -23,8 +23,8 @@ public class GiveAction extends TargetingAction {
 	}
 	
 	@Override
-	protected boolean isViableForThisAction(Target target2) {
-		return target2.isHuman() && !target2.isDead();
+	public boolean isViableForThisAction(Target target2) {
+		return target2.hasInventory() && !target2.isDead();
 	}
 	
 	@Override

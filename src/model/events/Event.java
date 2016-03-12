@@ -21,4 +21,8 @@ public abstract class Event {
 
 	public abstract SensoryLevel getSense();
 
+	public String getDistantDescription() {
+		return "";
+	}
+
 }

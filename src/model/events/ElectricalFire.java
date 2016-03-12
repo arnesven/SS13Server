@@ -67,6 +67,8 @@ public class ElectricalFire extends OngoingEvent {
 				startNewEvent(neighbor);
 			}
 		}
+		
+		getRoom().addToEventsHappened(this);
 	}
 
 
@@ -80,6 +82,11 @@ public class ElectricalFire extends OngoingEvent {
 	@Override
 	public String addYourselfToRoomInfo(Player whosAsking) {
 		return "f" + howYouAppear(whosAsking);
+	}
+
+	@Override
+	public String getDistantDescription() {
+		return "Something is burning...";
 	}
 
 

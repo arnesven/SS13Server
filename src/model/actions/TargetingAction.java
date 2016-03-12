@@ -75,7 +75,7 @@ public abstract class TargetingAction extends Action {
 		// Override this method if you want your targeting action to have more targets
 	}
 
-	protected boolean isViableForThisAction(Target target2) {
+	public boolean isViableForThisAction(Target target2) {
 		return target2.isTargetable();
 	}
 	

@@ -45,5 +45,5 @@ public class GameItem {
 	 */
 	public void addYourActions(ArrayList<Action> at, Player cl) {
 	}
-
+	
 }

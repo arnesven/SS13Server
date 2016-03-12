@@ -34,12 +34,15 @@ public abstract class GameStats {
 	final private String getMiscStats() {
 		return "<br/> <table>" +
 		"<tr><td><b>Miscellaneous Stats</b></td><td></td></tr>" +
-		"<tr><td> Fires put out: </td><td>" + getFireString(gameData) + "</td></tr>" +				
+		"<tr><td> Fires put out: </td><td>" + getFireString(gameData) + "</td></tr>" +
+		"<tr><td> Hull breaches fixed: </td><td>" + getHullString(gameData) + "</td></tr>" +	
 		"<tr><td> Cat survived: </td><td>" + isCatDead(gameData) + "</td></tr>" +
 				"</table>";
 	}
 
 	
+
+
 
 	public abstract String getContent();
 
@@ -60,6 +63,12 @@ public abstract class GameStats {
 		OngoingEvent fire = (OngoingEvent) gameData.getGameMode().getEvents().get("fires");
 		return fire.noOfFixed() + "/" + fire.noOfOngoing();
 	}
+	
+	private String getHullString(GameData gameData2) {
+		OngoingEvent hull = (OngoingEvent) gameData.getGameMode().getEvents().get("hull breaches");
+		return hull.noOfFixed() + "/" + hull.noOfOngoing();
+	}
+	
 	
 	public abstract String getMode();
 	public abstract String getOutcome();

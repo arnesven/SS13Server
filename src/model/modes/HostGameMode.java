@@ -172,7 +172,7 @@ public class HostGameMode extends GameMode {
 		Room kitchRoom = gameData.getRoom("Kitchen");
 		kitchRoom.addItem(new FireExtinguisher());
 		
-		Room dormRoom = gameData.getRoom("Doorms");
+		Room dormRoom = gameData.getRoom("Dorms");
 		dormRoom.addItem(new MedKit());
 		
 		Room green = gameData.getRoom("Greenhouse");
@@ -192,7 +192,7 @@ public class HostGameMode extends GameMode {
 
 	
 	private void addCrewStartingMessage(Player c) {
-		c.addTolastTurnInfo("There is a hive somewhere on the station. You must search the rooms to find and destory it. Beware of the host, it will protect its hive by attacking and infecting the crew.");
+		c.addTolastTurnInfo("There is a hive somewhere on the station. You must search the rooms to find and destroy it. Beware of the host, it will protect its hive by attacking and infecting the crew.");
 	}
 	
 	public enum GameOver {

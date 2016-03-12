@@ -11,13 +11,16 @@ import model.GameData;
 
 public class ServiceHandler {
 
-	private GameData gameData;
+//	private GameData gameData;
 	
 	private List<MessageHandler> handlers = new ArrayList<>();
+	private String name;
 
-	public ServiceHandler(GameData gameData) {
-		this.gameData = gameData;
-		
+	public ServiceHandler(String name, GameData gameData, int port) {
+		this.name = name;
+//		this.gameData = gameData;
+
+		handlers.add(new AliveHandler(gameData, name, port));
 		handlers.add(new IDMessageHandler(gameData));
 		
 		handlers.add(new ReadyCommandHandler(gameData));
@@ -43,6 +46,7 @@ public class ServiceHandler {
 		handlers.add(new JobsCommandHandler(gameData));
 		
 		handlers.add(new SettingsCommandHandler(gameData));
+		
 		
 	}
 

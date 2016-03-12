@@ -35,8 +35,6 @@ public interface Target {
 
 	double getMaxHealth();
 
-	boolean isHuman();
-
 	boolean hasSpecificReaction(MedKit objectRef);
 
 	void addToHealth(double d);
@@ -44,4 +42,8 @@ public interface Target {
 	List<GameItem> getItems();
 
 	void beExposedTo(Actor performingClient, Damager damager);
+
+	boolean hasInventory();
+
+	boolean isHealable();
 }

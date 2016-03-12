@@ -10,6 +10,7 @@ import model.actions.SensoryLevel.VisualLevel;
 import model.characters.InfectedCharacter;
 import model.items.GameItem;
 import model.npcs.CatNPC;
+import model.npcs.HumanNPC;
 import model.npcs.ParasiteNPC;
 
 public class InfectAction extends TargetingAction {
@@ -24,14 +25,18 @@ public class InfectAction extends TargetingAction {
 	}
 
 	@Override
-	protected boolean isViableForThisAction(Target target2) {
-		if (target2 instanceof Player) {
+	public boolean isViableForThisAction(Target target2) {
+		return canBeInfected(target2);
+	}
+	
+	public static boolean canBeInfected(Target target2) {
+		if (target2 instanceof Player && !target2.isDead()) {
 			return !((Player)target2).isInfected();
 		}
-		if (target2 instanceof ParasiteNPC || target2 instanceof CatNPC) {
-			return false;
+		if (target2 instanceof HumanNPC && !target2.isDead()) {
+			return !((HumanNPC)target2).isInfected();
 		}
-		return true;
+		return false;
 	}
 	
 	@Override

@@ -14,4 +14,10 @@ public enum GameState {
 	
 	public final int val;
 	public final String name;
+	public String toInfo() {
+		if (this.val == 0) {
+			return "Waiting for players";
+		}
+		return "Game in progress";
+	}
 }

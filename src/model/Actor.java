@@ -128,13 +128,6 @@ public abstract class Actor  {
 	}
 	
 	
-	/**
-	 * Checks wether or not this actor is still human.
-	 * @return true if the actor is still human.
-	 */
-	public boolean isHuman() {
-		return getCharacter().isHuman();
-	}
 	
 	public boolean isDead() {
 		return getCharacter().isDead();

@@ -9,15 +9,18 @@ import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
 import model.map.Room;
 import model.modes.GameMode;
+import model.objects.AIConsole;
 import model.objects.GameObject;
 
 public class AIConsoleAction extends Action {
 
 	private String choice;
 	private String crew;
+	private AIConsole console;
 
-	public AIConsoleAction() {
+	public AIConsoleAction(AIConsole console) {
 		super("AI Console", SensoryLevel.OPERATE_DEVICE);
+		this.console = console;
 	}
 	
 	@Override
@@ -27,6 +30,12 @@ public class AIConsoleAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
+		if (console.isInUse()) {
+			performingClient.addTolastTurnInfo("You failed to activate the AI console.");
+			return;
+		}
+		
+		console.setInUse(true);
 		if (choice.equals("Check Alarms")) {
 			boolean noAlarms = true;
 			for (Room r : gameData.getRooms()) {
@@ -44,21 +53,32 @@ public class AIConsoleAction extends Action {
 			}
 			
 		} else {
+			boolean found = false;
 			for (Actor a : gameData.getActors()) {
 				if (a.getBaseName().equals(crew)) {
 					performingClient.addTolastTurnInfo("-->" + crew + " is in " + a.getPosition().getName() + ".");
-					return;
+					found = true;
 				}
 			}
-			performingClient.addTolastTurnInfo(crew + " not found.");
+			if (! found) {
+				performingClient.addTolastTurnInfo(crew + " not found.");
+			}
 		}
+	
+	
+		gameData.executeAtEndOfRound(performingClient, this);
 	}
-		
+
+	@Override
+	public void lateExecution(GameData gameData, Actor performingClient) {
+		System.out.println("Executing late ai console...");
+		console.setInUse(false);
+	}
 
 	@Override
 	public String toString() {
 		StringBuffer crews = new StringBuffer();
-		for (String s : GameMode.getAvailCharsAsStrings()) {
+		for (String s : GameMode.getAllCharsAsStrings()) {
 			crews.append(s + "{}");
 		}
 		

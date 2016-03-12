@@ -436,7 +436,7 @@ public class Player extends Actor implements Target {
 
 	@Override
 	public boolean hasSpecificReaction(MedKit objectRef) {
-		return getCharacter().hasSpecificReaction();
+		return getCharacter().hasSpecificReaction(objectRef);
 	}
 
 	@Override
@@ -479,6 +479,16 @@ public class Player extends Actor implements Target {
 	@Override
 	public void beExposedTo(Actor performingClient, Damager damager) {
 		getCharacter().beExposedTo(performingClient, damager);
+	}
+
+	@Override
+	public boolean hasInventory() {
+		return true;
+	}
+
+	@Override
+	public boolean isHealable() {
+		return getCharacter().isHealable();
 	}
 
 	

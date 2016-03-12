@@ -1,11 +1,14 @@
 package model.modes;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.characters.GameCharacter;
 import model.characters.InfectedCharacter;
 import model.modes.HostGameMode.GameOver;
 import model.npcs.HumanNPC;
@@ -34,11 +37,14 @@ public class HostModeStats extends GameStats {
 	private String generatePlayersTable() {
 		StringBuffer buf = new StringBuffer("<table>");
 		buf.append("<tr><td><b>Crew      </b></td>");
+		buf.append(    "<td><b>HP         </b></td>");
 		buf.append(    "<td><b>Status     </b></td>");
 		buf.append(    "<td><b> </b></td></tr>");
 		for (Map.Entry<String, Player> entry : gameData.getPlayersAsEntrySet()) {
 			buf.append("<tr><td>");
 			buf.append(entry.getValue().getBaseName() + " (" + entry.getKey() + ")");
+			buf.append("</td><td>");
+			buf.append(entry.getValue().getHealth() + "");
 			buf.append("</td><td>");
 			buf.append(getStatusStringForPlayer(entry.getValue()));
 			buf.append("</td><td>");
@@ -49,6 +55,8 @@ public class HostModeStats extends GameStats {
 			if (npc instanceof HumanNPC) {
 				buf.append("<tr><td>");
 				buf.append(npc.getBaseName());
+				buf.append("</td><td>");
+				buf.append(npc.getHealth() + "");
 				buf.append("</td><td>");
 				buf.append(getStatusStringForPlayer(npc));
 				buf.append("</td><td>");
@@ -73,12 +81,12 @@ public class HostModeStats extends GameStats {
 		}
 		
 		if (value.isDead()) {
-			if (value.getCharacter().getKiller() != null) {
+			//if (value.getCharacter().getKillerString()) {
 				if (!result.equals("")) {
 					result += ", ";
 				}
-				result += "<i>Killed by " + value.getCharacter().getKiller().getBaseName() + "</i>";
-			}
+				result += "<i>Killed by " + value.getCharacter().getKillerString() + "</i>";
+		//	}
 		}
 		
 		return result;
@@ -108,15 +116,20 @@ public class HostModeStats extends GameStats {
 		StringBuffer buf = new StringBuffer("<table>");
 	
 		buf.append("<tr><td>Hive Location:</td><td>" + hostMode.getHiveRoom().getName() + "</td></tr>");
-		buf.append("<tr><td>Hive HP remaining:</td><td>" + hostMode.getHive().getHealth() + "</td></tr>");
+		if (hostMode.getHive().getHealth() > 0) {
+			buf.append("<tr><td>Hive HP remaining:</td><td>" + hostMode.getHive().getHealth() + "</td></tr>");
+		} else {
+			buf.append("<tr><td>Hive destroyed by:</td><td>" + hostMode.getHive().getBreakString() + "</td></tr>");
+			
+		}
 		buf.append("<tr><td>Parasites spawned: </td><td>" + hostMode.getAllParasites().size() + "</td></tr>");
 		buf.append("<tr><td>Parasites killed: </td><td>" + countDead(hostMode.getAllParasites()) + "</td></tr>");
+		buf.append("<tr><td>Parasite vanquisher: </td><td>" + findVanquisher(hostMode.getAllParasites())+ "</td></tr>");
 		buf.append("</table>");
 		
 		return buf.toString();
 	}
 
-	
 	private int countDead(List<NPC> allParasites) {
 		int sum = 0;
 		for (NPC para : allParasites) {
@@ -166,6 +179,32 @@ public class HostModeStats extends GameStats {
 		
 		
 		throw new IllegalStateException("Tried to get game outcome before game was over!");
+	}
+
+
+	
+	private String findVanquisher(List<NPC> allParasites) {
+		HashMap<String, Integer> map = new HashMap<>();
+		for (NPC n : allParasites) {
+			if (n.isDead()) {
+				String key = n.getCharacter().getKillerString();
+				if (map.containsKey(n.getCharacter().getKillerString())) {
+					map.put(key, map.get(key) + 1);
+				} else {
+					map.put(key, 1);
+				}
+			}
+		}
+		
+		int max = 0;
+		String maxName = "Nobody";
+		for (Entry<String, Integer> ent : map.entrySet()) {
+			if (ent.getValue() > max) {
+				maxName = ent.getKey();
+			}
+		}
+		
+		return maxName;
 	}
 
 }
