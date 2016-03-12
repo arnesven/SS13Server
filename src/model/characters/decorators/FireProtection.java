@@ -23,16 +23,16 @@ public class FireProtection extends CharacterDecorator {
 	}
 	
 	@Override
-	public void beAttackedBy(Actor performingClient, Weapon weapon) {
+	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
 		if (weapon instanceof Flamer) {
 			performingClient.addTolastTurnInfo(this.getPublicName() + " is unaffected by your attack!");
 			if (this.getClient() != null) {
 				this.getClient().addTolastTurnInfo(performingClient.getPublicName() + 
 						" tried to attack you with " + weapon.getName());;
 			}
-			return;
+			return false;
 		}
-		super.beAttackedBy(performingClient, weapon);
+		return super.beAttackedBy(performingClient, weapon);
 	}
 	
 	@Override

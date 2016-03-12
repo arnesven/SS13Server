@@ -28,9 +28,10 @@ public abstract class BreakableObject extends GameObject implements Target {
 	}
 
 	@Override
-	public void beAttackedBy(Actor performingClient, Weapon item) {
-		
+	public boolean beAttackedBy(Actor performingClient, Weapon item) {
+		boolean success;
 		if (item.isAttackSuccessful(false)) {
+			success = true;
 			hp = Math.max(0.0, hp - item.getDamage());
 			performingClient.addTolastTurnInfo("You " + item.getSuccessfulMessage() + "ed the " + super.getName() + ".");
 			if (isBroken()) {
@@ -40,8 +41,9 @@ public abstract class BreakableObject extends GameObject implements Target {
 			}
 		} else {
 			performingClient.addTolastTurnInfo("You missed the " + super.getName() + ".");
-					
+			success = false;
 		}
+		return success;
 	}
 	
 	@Override

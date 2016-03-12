@@ -40,7 +40,10 @@ public class AttackAction extends TargetingAction {
 			Actor performingClient, Target target, GameItem item) {
 		Weapon w = (Weapon)item;
 		if (w.isReadyToUse()) {
-			target.beAttackedBy(performingClient, (Weapon)item);
+			boolean success = target.beAttackedBy(performingClient, (Weapon)item);
+			if (success) {
+				w.usedOnBy(target, performingClient, gameData);
+			}
 			this.setSense(w.getSensedAs());
 		} else {
 			performingClient.addTolastTurnInfo(w.getName() + " isn't working."); 

@@ -26,7 +26,7 @@ public interface Target {
 
 	boolean isTargetable();
 
-	void beAttackedBy(Actor performingClient, Weapon item);
+	boolean beAttackedBy(Actor performingClient, Weapon item);
 
 	boolean isDead();
 

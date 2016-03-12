@@ -1,5 +1,8 @@
 package model.items.weapons;
 
+import model.Actor;
+import model.GameData;
+import model.Target;
 import model.actions.SensoryLevel;
 import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
@@ -53,6 +56,20 @@ public class Weapon extends GameItem {
 
 	public boolean isReadyToUse() {
 		return true;
+	}
+
+
+
+	
+
+	/**
+	 * This method is called when the weapon has
+	 * successfully hit the target.
+	 * @param performingClient
+	 */
+	public void usedOnBy(Target target, Actor performingClient,
+			GameData gameData) {
+		
 	}
 
 

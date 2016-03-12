@@ -6,6 +6,7 @@ import java.util.List;
 import model.characters.GameCharacter;
 import model.items.GameItem;
 import model.items.weapons.LaserPistol;
+import model.items.weapons.StunBaton;
 
 public class SecurityOfficerCharacter extends GameCharacter {
 
@@ -16,7 +17,7 @@ public class SecurityOfficerCharacter extends GameCharacter {
 	@Override
 	public List<GameItem> getStartingItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
-		list.add(new LaserPistol());
+		list.add(new StunBaton());
 		return list;
 	}
 

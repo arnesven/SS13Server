@@ -202,8 +202,8 @@ public class Player extends Actor implements Target {
 			for (int n : neigbors) {
 				addNeighborsRecursively(gameData, n, movablePlaces, steps-1);
 			}
-			movablePlaces.add(this.getPosition().getID());
 		}
+		movablePlaces.add(this.getPosition().getID());
 
 		int[] result = new int[movablePlaces.size()];
 		for (int i = 0; i < movablePlaces.size(); ++i) {
@@ -324,8 +324,8 @@ public class Player extends Actor implements Target {
 	}
 
 	@Override
-	public void beAttackedBy(Actor performingClient, Weapon weapon) {
-		getCharacter().beAttackedBy(performingClient, weapon);
+	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
+		return getCharacter().beAttackedBy(performingClient, weapon);
 
 	}
 

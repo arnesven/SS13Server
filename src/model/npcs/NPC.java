@@ -25,6 +25,7 @@ public abstract class NPC extends Actor implements Target {
 	private MovementBehavior moveBehavior;
 	private ActionBehavior actBehavior;
 	private double maxHealth;
+	private boolean cancel = false;
 	
 	public NPC(GameCharacter chara, MovementBehavior m, ActionBehavior a, Room r) {
 		this.setCharacter(chara);
@@ -49,10 +50,17 @@ public abstract class NPC extends Actor implements Target {
 		}
 	}
 
-
+	public void setCancelled(boolean b) {
+		this.cancel  = b;
+	}
+	
 	public void actAccordingToBehavior(GameData gameData) {
 		if (!isDead()) {
-			actBehavior.act(this, gameData);
+			if (cancel) {
+				cancel = false;
+			} else {
+				actBehavior.act(this, gameData);
+			}
 		}
 	}
 
@@ -66,8 +74,8 @@ public abstract class NPC extends Actor implements Target {
 	}
 
 	@Override
-	public void beAttackedBy(Actor performingClient, Weapon item) {
-		getCharacter().beAttackedBy(performingClient, item);
+	public boolean beAttackedBy(Actor performingClient, Weapon item) {
+		return getCharacter().beAttackedBy(performingClient, item);
 	}
 
 	@Override
@@ -142,6 +150,8 @@ public abstract class NPC extends Actor implements Target {
 	public boolean isHealable() {
 		return getCharacter().isHealable();
 	}
+
+
 	
 
 

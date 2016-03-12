@@ -25,4 +25,8 @@ public abstract class Event {
 		return "";
 	}
 
+	public boolean shouldBeRemoved(GameData gameData) {
+		return false;
+	}
+	
 }

@@ -22,6 +22,7 @@ import model.actions.Action;
 import model.actions.DoNothingAction;
 import model.actions.SpeedComparator;
 import model.events.ElectricalFire;
+import model.events.Event;
 import model.map.GameMap;
 import model.map.MapBuilder;
 import model.map.Room;
@@ -52,6 +53,7 @@ public class GameData {
 	// Map must be built before first game, client needs it.
 	private GameMap map                     = MapBuilder.createMap();
 	private String selectedMode = "Host";
+	private List<Event> events = new ArrayList<>();
 
 	
 	public GameData() {
@@ -251,8 +253,7 @@ public class GameData {
 		} else if (gameState == GameState.ACTIONS) {
 			executeAllActions();
 			
-			
-			gameMode.triggerEvents(this);
+			runEvents();
 			executeLateAction();
 			informPlayersOfRoomHappenings();
 			if (gameMode.gameOver(this)) {
@@ -271,11 +272,24 @@ public class GameData {
 
 
 
+	private void runEvents() {
+		Event e = null;
+		for (Iterator<Event> it = events.iterator() ; it.hasNext(); ) {
+			e = it.next();
+			e.apply(this);
+			if (e.shouldBeRemoved(this)) {
+				it.remove();
+			}
+		}
+		gameMode.triggerEvents(this);
+	}
+
 	private void doSetup() {
 		this.map = MapBuilder.createMap();
 		for (Player p : getPlayersAsList()) {
 			p.prepForNewGame();
 		}
+		this.events = new ArrayList<>();
 		this.lateActions = new ArrayList<>();
 		this.npcs = new ArrayList<>();
 		this.gameMode = new HostGameMode();
@@ -478,6 +492,10 @@ public class GameData {
 	private Date getStartingTime() {
 		return startingTime;
 
+	}
+
+	public void addEvent(Event event) {
+		events.add(event);
 	}
 
 

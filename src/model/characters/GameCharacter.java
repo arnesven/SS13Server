@@ -102,8 +102,9 @@ public abstract class GameCharacter {
 	}
 
 	
-	public void beAttackedBy(Actor performingClient, Weapon weapon) {
+	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
 		Player thisClient  = this.getClient();
+		boolean success = false;
 		boolean reduced = false;
 		if (thisClient != null) {
 			if (thisClient.getNextAction() instanceof WatchAction) {
@@ -115,7 +116,9 @@ public abstract class GameCharacter {
 		}
 		
 		if (weapon.isAttackSuccessful(reduced)) {
+			success = true;
 			health = Math.max(0.0, health - weapon.getDamage());
+			
 			String verb = weapon.getSuccessfulMessage();
 			if (this.isDead()) { // you died! Too bad!
 				verb = "kill";
@@ -139,6 +142,8 @@ public abstract class GameCharacter {
 											 weapon.getName() + "."); 
 			}
 		}
+		
+		return success;
 		
 	}
 

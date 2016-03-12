@@ -3,7 +3,7 @@ package model.items.weapons;
 
 public class AmmoWeapon extends Weapon {
 
-	private int shots;
+	protected int shots;
 
 	public AmmoWeapon(String string, double hitChance, double damage,
 			boolean bang, double weight, int shots) {

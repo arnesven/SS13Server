@@ -105,8 +105,8 @@ public abstract class CharacterDecorator extends GameCharacter {
 	}
 	
 	@Override
-	public void beAttackedBy(Actor performingClient, Weapon weapon) {
-		innerChar.beAttackedBy(performingClient, weapon);
+	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
+		return innerChar.beAttackedBy(performingClient, weapon);
 	}
 	
 	@Override
@@ -200,6 +200,5 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public String getGender() {
 		return innerChar.getGender();
 	}
-	
-	
+		
 }
