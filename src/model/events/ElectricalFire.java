@@ -4,8 +4,8 @@ import util.MyRandom;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.Target;
 import model.actions.SensoryLevel;
-import model.actions.Target;
 import model.map.Room;
 
 public class ElectricalFire extends OngoingEvent {
@@ -16,7 +16,7 @@ public class ElectricalFire extends OngoingEvent {
 	public double getProbability() {
 		// TODO: Change this into something more reasonable
 		// like 0.2
-		return 0.2;
+		return 0.15;
 	}
 
 	@Override
@@ -36,6 +36,7 @@ public class ElectricalFire extends OngoingEvent {
 	}
 
 	protected void maintain(GameData gameData) {
+		System.out.println("Maintaining fire in " + getRoom());
 		for (Target t : getRoom().getTargets()) {
 			t.beExposedTo(null, new Damager() {
 				

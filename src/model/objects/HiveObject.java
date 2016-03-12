@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.Target;
 import model.actions.Action;
-import model.actions.Target;
-import model.characters.CharacterDecorator;
-import model.characters.InfectedCharacter;
-import model.items.Weapon;
+import model.characters.decorators.CharacterDecorator;
+import model.characters.decorators.InfectedCharacter;
+import model.items.weapons.Weapon;
 
 public class HiveObject extends BreakableObject {
 

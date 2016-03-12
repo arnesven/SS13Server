@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.GameData;
+import model.items.suits.FireSuit;
 import model.objects.AIConsole;
 import model.objects.ChemicalDispenser;
 import model.objects.CrewRoster;
@@ -67,6 +68,7 @@ public class MapBuilder {
 		result.add(new Room(25, "Air Lock #3"         , "3"      , 5,  0, 1, 1, new int[]{24}        ,         new double[]{6.0, 0.5}  ));
 		Room gen = new Room(26, "Generator"           , "Gen"    , 6,  5, 3, 3, new int[]{5}         ,         new double[]{}  );
 		gen.addObject(new ChemicalDispenser("Fuel Storage", 2));
+		gen.addItem(new FireSuit());
 		result.add(gen);
 		result.add(new Room(27, "Panorama Walkway"    , ""       , 1,  3, 1, 3, new int[]{1, 3}      ,         new double[]{} ));
 		

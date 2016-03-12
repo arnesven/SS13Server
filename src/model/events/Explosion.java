@@ -3,11 +3,11 @@ package model.events;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
+import model.Target;
 import model.actions.SensoryLevel;
 import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
-import model.actions.Target;
 import model.map.Room;
 
 public class Explosion extends Event {
@@ -19,6 +19,9 @@ public class Explosion extends Event {
 
 	@Override
 	public void apply(GameData gameData) {
+		if (MyRandom.nextDouble() >= getProbability()) {
+			return;
+		}
 		Room room = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
 		
 		for (Target t : room.getTargets()) {

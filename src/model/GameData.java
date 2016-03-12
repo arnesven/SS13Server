@@ -257,7 +257,9 @@ public class GameData {
 			informPlayersOfRoomHappenings();
 			if (gameMode.gameOver(this)) {
 				gameState = GameState.PRE_GAME;
-				round = 0;
+				//round = 0; <-- Dont do this, if you do
+				//               the gamemode wont be able to
+				//               se that the game is over.
 			} else {
 				gameState = GameState.MOVEMENT;
 				round = round + 1;
@@ -365,7 +367,7 @@ public class GameData {
 		String result = cl.getCharacterRealName() + 
 				       ":" + cl.getPosition().getID() + 
 					   ":" + cl.getCurrentHealth() +
-					   ":" + cl.getCharacter().getTotalWeight() +
+					   ":" + String.format("%1$.1f", cl.getCharacter().getTotalWeight()) +
 					   ":" + cl.getSuit() +
 					   ":" + MyStrings.join(cl.getItems(), "|") + 
 					   ":" + MyStrings.join(cl.getRoomInfo(), "|") + 

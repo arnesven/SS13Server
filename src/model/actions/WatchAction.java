@@ -4,6 +4,7 @@ import util.MyRandom;
 import model.Actor;
 import model.Player;
 import model.GameData;
+import model.Target;
 import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
@@ -33,15 +34,17 @@ public class WatchAction extends TargetingAction {
 		}
 		
 		String itemStr = null;
+		String name = target.getName();
 		if (target instanceof Actor) {
 			Actor cl = (Actor)target;
+			name = cl.getBaseName();
 			if (cl.getItems().size() > 0) {
 				GameItem randomItem = cl.getItems().get(MyRandom.nextInt(cl.getItems().size()));
 				itemStr = " and is carrying a " + randomItem.getName();
 			}
-		}
+		}		
 		
-		performingClient.addTolastTurnInfo(target.getName() + " looks " + healthStr + (itemStr==null?"":itemStr) + ".");
+		performingClient.addTolastTurnInfo(name + " looks " + healthStr + (itemStr==null?"":itemStr) + ".");
 
 //		} else {
 //			performingClient.addTolastTurnInfo("You're watching " + target.getName() + ".");

@@ -9,7 +9,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.characters.GameCharacter;
-import model.characters.InfectedCharacter;
+import model.characters.decorators.InfectedCharacter;
 import model.modes.HostGameMode.GameOver;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;

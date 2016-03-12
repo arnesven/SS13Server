@@ -9,6 +9,7 @@ import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
 import model.items.GameItem;
+import model.items.suits.SuitItem;
 
 public class DropAction extends Action {
 
@@ -23,9 +24,15 @@ public class DropAction extends Action {
 	
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		performingClient.addTolastTurnInfo("You dropped the " + item.getName() + ".");
-		performingClient.getItems().remove(item);
+		SuitItem suit = performingClient.getCharacter().getSuit();
+		if (item == suit) {
+			suit.beingTakenOff(performingClient);
+			performingClient.getCharacter().removeSuit();
+		} else {
+			performingClient.getItems().remove(item);
+		}
 		performingClient.getPosition().getItems().add(item);
+		performingClient.addTolastTurnInfo("You dropped the " + item.getName() + ".");
 	}
 
 
@@ -45,12 +52,21 @@ public class DropAction extends Action {
 		for (GameItem gi : ap.getItems()) {
 			withWatString += gi.getName() + "{}";
 		}
+		if (ap.getCharacter().getSuit() != null) {
+			withWatString += ap.getCharacter().getSuit() + "{}";
+		}
 		
 		return getName() + "{" + withWatString + "}";
 	}
 	
 	@Override
 	public void setArguments(List<String> args) {
+		if (ap.getCharacter().getSuit() != null) {
+			if (args.get(0).equals(ap.getCharacter().getSuit().getName())) {
+				this.item = ap.getCharacter().getSuit();
+				return;
+			}
+		}
 		for (GameItem it : ap.getItems()){
 			if (args.get(0).equals(it.getName())) {
 				this.item = it;

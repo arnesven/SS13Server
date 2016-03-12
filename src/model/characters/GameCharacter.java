@@ -3,6 +3,7 @@ package model.characters;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.MyRandom;
 import model.Actor;
 import model.Player;
 import model.GameData;
@@ -12,12 +13,15 @@ import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
 import model.actions.WatchAction;
+import model.characters.decorators.InstanceChecker;
 import model.events.Damager;
-import model.items.Clothes;
 import model.items.GameItem;
 import model.items.KeyCard;
 import model.items.MedKit;
-import model.items.Weapon;
+import model.items.suits.Clothes;
+import model.items.suits.OutFit;
+import model.items.suits.SuitItem;
+import model.items.weapons.Weapon;
 import model.map.Room;
 
 /**
@@ -27,7 +31,7 @@ import model.map.Room;
  */
 public abstract class GameCharacter {
 	
-	private static final double ENCUMBERANCE_LEVEL = 4.0;
+	private static final double ENCUMBERANCE_LEVEL = 5.0;
 	private String name;
 	private int startingRoom = 0;
 	private double health = 3.0;
@@ -35,9 +39,10 @@ public abstract class GameCharacter {
 	private Room position = null;
 	private double speed;
 	private List<GameItem> items = new ArrayList<>();
-	private GameItem suit = new Clothes();
+	private SuitItem suit;
 	private Actor killer;
 	private String killString;
+	private String gender = MyRandom.randomGender();
 
 
 	
@@ -45,15 +50,24 @@ public abstract class GameCharacter {
 		this.name = name;
 		this.startingRoom = startRoom;
 		this.speed = speed;
+		suit = new OutFit(name);
 	}
 
 	/**
 	 * @return the name of the character as it appears publicly
 	 */
 	public String getPublicName() {
-		return name + (isDead()?" (dead)":"");
+		String res = name;
+		if (suit == null) {
+			res = "Naked " + getGender() ;
+		}
+		if (isDead()) {
+			return res + " (dead)";
+		}
+		return res;
 	}
 	
+
 	/**
 	 * Gets the name of this character, for instance "Captain" or "Doctor"
 	 * @return
@@ -65,7 +79,7 @@ public abstract class GameCharacter {
 	/**
 	 * @return the room in which the character starts
 	 */
-	protected int getStartingRoom() {
+	public int getStartingRoom() {
 		return startingRoom;
 	}
 
@@ -110,7 +124,7 @@ public abstract class GameCharacter {
 			}
 			
 			performingClient.addTolastTurnInfo("You " + verb + "ed " + 
-											   getBaseName() + " with " + weapon.getName() + ".");
+											   getPublicName() + " with " + weapon.getName() + ".");
 			if (thisClient != null) {
 				thisClient.addTolastTurnInfo(performingClient.getPublicName() + " " + 
 											 verb + "ed you with " + 
@@ -264,11 +278,15 @@ public abstract class GameCharacter {
 	}
 
 	public boolean isEncumbered() {
-		if (getTotalWeight() >= ENCUMBERANCE_LEVEL) {
+		if (getTotalWeight() >= getEncumberenceLevel()) {
 			return true;
 		}
 		
 		return false;
+	}
+
+	private double getEncumberenceLevel() {
+		return ENCUMBERANCE_LEVEL;
 	}
 
 	public double getTotalWeight() {
@@ -276,11 +294,31 @@ public abstract class GameCharacter {
 		for (GameItem it : getItems()) {
 			totalWeight += it.getWeight();
 		}
+		if (getSuit() != null) {
+			totalWeight += suit.getWeight();
+		}
 		return totalWeight;
 	}
 
-	public GameItem getSuit() {
+	public SuitItem getSuit() {
 		return suit;
+	}
+
+	public void putOnSuit(SuitItem gameItem) {
+		gameItem.setUnder(this.suit);
+		this.suit = gameItem;
+	}
+
+	public void removeSuit() {
+		if (this.suit != null) {
+			SuitItem underSuit = suit.getUnder();
+			this.suit.setUnder(null);
+			this.suit = underSuit;
+		}
+	}
+
+	public String getGender() {
+		return gender;
 	}
 
 	

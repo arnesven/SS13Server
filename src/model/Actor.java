@@ -3,10 +3,10 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.actions.Target;
 import model.characters.GameCharacter;
-import model.characters.InfectedCharacter;
-import model.characters.InstanceChecker;
+import model.characters.decorators.InfectedCharacter;
+import model.characters.decorators.InstanceChecker;
+import model.characters.decorators.InstanceRemover;
 import model.items.GameItem;
 import model.map.Room;
 import model.npcs.NPC;
@@ -131,6 +131,11 @@ public abstract class Actor  {
 	
 	public boolean isDead() {
 		return getCharacter().isDead();
+	}
+
+	public void removeInstance(InstanceRemover fireProtectionRemover) {
+		System.out.println("Removing an instance..");
+		this.setCharacter(fireProtectionRemover.removeInstance(getCharacter()));
 	}
 
 }

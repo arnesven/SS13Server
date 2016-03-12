@@ -5,14 +5,14 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.actions.Target;
+import model.Target;
 import model.characters.GameCharacter;
-import model.characters.InfectedCharacter;
-import model.characters.InstanceChecker;
+import model.characters.decorators.InfectedCharacter;
+import model.characters.decorators.InstanceChecker;
 import model.events.Damager;
 import model.items.GameItem;
 import model.items.MedKit;
-import model.items.Weapon;
+import model.items.weapons.Weapon;
 import model.map.Room;
 
 /**
@@ -57,7 +57,7 @@ public abstract class NPC extends Actor implements Target {
 	}
 
 	public String getName() {
-		return getBaseName();
+		return getPublicName();
 	}
 
 	@Override

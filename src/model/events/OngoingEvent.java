@@ -36,14 +36,16 @@ public abstract class OngoingEvent extends Event {
 	@Override
 	public void apply(GameData gameData) {
 		handleAllMaintainables(gameData);
-		if (MyRandom.nextDouble() < getProbability()) {
+		if (MyRandom.nextDouble() < getProbability() && !allRoomsBurning(gameData)) {
 			Room randomRoom;
 			do {
+				System.out.println("Finding a room for a fire..");
 				randomRoom = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
 			} while (hasThisEvent(randomRoom));
 			startNewEvent(randomRoom);
 		}
 	}
+	
 	
 	protected void startNewEvent(Room randomRoom) {
 		if (!hasThisEvent(randomRoom)) {
@@ -61,10 +63,12 @@ public abstract class OngoingEvent extends Event {
 		thisTurnsEvents.addAll(eventsToMaintain);
 		Iterator<OngoingEvent> it = thisTurnsEvents.iterator();
 		while (it.hasNext()) {
+			System.out.println("In handling loop");
 			OngoingEvent ev = it.next();
 			if (ev.isFixed) {
 				//it.remove();
 			} else {
+				ev.handleAllMaintainables(gameData);
 				ev.maintain(gameData);
 			}
 		}
@@ -82,6 +86,13 @@ public abstract class OngoingEvent extends Event {
 		return eventsToMaintain.size();
 	}
 	
-
+	private boolean allRoomsBurning(GameData gameData) {
+		for (Room r : gameData.getRooms()) {
+			if (!hasThisEvent(r)) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 }

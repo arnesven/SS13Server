@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import model.GameData;
 import model.Player;
-import model.actions.AIConsoleAction;
+import model.actions.objectactions.AIConsoleAction;
 import model.actions.Action;
 
 public class AIConsole extends ElectricalMachinery {

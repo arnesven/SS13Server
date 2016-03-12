@@ -3,8 +3,9 @@ package model.actions;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.Target;
 import model.items.GameItem;
-import model.items.Weapon;
+import model.items.weapons.Weapon;
 
 public class GiveAction extends TargetingAction {
 

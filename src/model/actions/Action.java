@@ -5,6 +5,7 @@ import java.util.List;
 import model.Actor;
 import model.Player;
 import model.GameData;
+import model.Target;
 
 /**
  * @author erini02
@@ -15,7 +16,7 @@ public abstract class Action {
 	
 	private String name;
 	private SensoryLevel senses;
-	private Actor performer;
+	protected Actor performer;
 	
 	
 	

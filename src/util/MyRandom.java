@@ -62,4 +62,11 @@ public class MyRandom {
 		scanner.close();
 		return line;
 	}
+
+	public static String randomGender() {
+		if (random.nextDouble() <= 0.5) {
+			return "woman";
+		}
+		return "man";
+	}
 }

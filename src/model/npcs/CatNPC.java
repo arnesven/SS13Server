@@ -1,6 +1,6 @@
 package model.npcs;
 
-import model.actions.MeowingAction;
+import model.actions.characteractions.MeowingAction;
 import model.characters.CatCharacter;
 import model.characters.GameCharacter;
 import model.map.Room;

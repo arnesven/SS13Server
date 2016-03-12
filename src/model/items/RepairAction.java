@@ -2,8 +2,8 @@ package model.items;
 
 import model.Actor;
 import model.GameData;
+import model.Target;
 import model.actions.SensoryLevel;
-import model.actions.Target;
 import model.actions.TargetingAction;
 import model.objects.BreakableObject;
 import model.objects.Repairable;

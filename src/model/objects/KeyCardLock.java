@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
-import model.actions.UnlockRoomAction;
+import model.actions.objectactions.UnlockRoomAction;
 import model.items.GameItem;
 import model.items.KeyCard;
 import model.map.Room;

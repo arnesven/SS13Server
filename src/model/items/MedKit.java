@@ -5,9 +5,9 @@ import java.util.List;
 
 import model.GameData;
 import model.Player;
+import model.Target;
 import model.actions.Action;
-import model.actions.HealWithMedKitAction;
-import model.actions.Target;
+import model.actions.itemactions.HealWithMedKitAction;
 import model.actions.TargetingAction;
 import model.map.Room;
 import model.npcs.NPC;

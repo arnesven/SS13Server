@@ -13,6 +13,7 @@ import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
 import model.events.ElectricalFire;
 import model.events.Event;
+import model.items.weapons.BluntWeapon;
 import model.map.Room;
 
 public class FireExtinguisher extends BluntWeapon {

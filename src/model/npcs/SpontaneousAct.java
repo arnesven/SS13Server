@@ -4,7 +4,7 @@ package model.npcs;
 import util.MyRandom;
 import model.GameData;
 import model.actions.Action;
-import model.actions.MeowingAction;
+import model.actions.characteractions.MeowingAction;
 
 
 public class SpontaneousAct implements ActionBehavior {

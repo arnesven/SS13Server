@@ -5,10 +5,10 @@ import java.util.List;
 
 import util.MyRandom;
 import model.GameData;
+import model.Target;
 import model.actions.AttackAction;
-import model.actions.Target;
 import model.items.GameItem;
-import model.items.Weapon;
+import model.items.weapons.Weapon;
 import model.objects.GameObject;
 
 public class AttackIfPossibleBehavior implements ActionBehavior {

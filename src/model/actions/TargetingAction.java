@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import model.Actor;
 import model.Player;
 import model.GameData;
+import model.Target;
 import model.characters.GameCharacter;
 import model.items.GameItem;
 import model.npcs.NPC;
@@ -101,7 +102,11 @@ public abstract class TargetingAction extends Action {
 		
 		String resultStr = "";
 		for (Target t : targets) {
-			resultStr += t.getName() + "{" + withWatString + "}";
+			if (performer == t) {
+				resultStr += "Yourself{}";
+			} else {
+				resultStr += t.getName() + "{" + withWatString + "}";
+			}
 		}
 		return getName() + "{" + resultStr + "}";
 	}
@@ -142,6 +147,10 @@ public abstract class TargetingAction extends Action {
 				return c;
 			}
 		}
+		if (name.equals("Yourself")) {
+			return performer.getAsTarget();
+		}
+		
 		throw new NoSuchElementException("Did not find target client for this targeting action!");
 	}
 

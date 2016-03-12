@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
-import model.actions.SecurityConsoleAction;
+import model.actions.objectactions.SecurityConsoleAction;
 
 public class SecurityCameraConsole extends ElectricalMachinery {
 	

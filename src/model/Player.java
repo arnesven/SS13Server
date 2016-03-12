@@ -12,20 +12,20 @@ import model.actions.AttackAction;
 import model.actions.DropAction;
 import model.actions.GiveAction;
 import model.actions.PickUpAction;
+import model.actions.PutOnAction;
 import model.actions.WatchAction;
 import model.actions.DoNothingAction;
 import model.actions.SearchAction;
-import model.actions.Target;
 import model.actions.TargetingAction;
 import model.characters.GameCharacter;
-import model.characters.InfectedCharacter;
-import model.characters.InstanceChecker;
+import model.characters.decorators.InfectedCharacter;
+import model.characters.decorators.InstanceChecker;
 import model.events.Damager;
 import model.items.Explosive;
 import model.items.GameItem;
-import model.items.Grenade;
 import model.items.MedKit;
-import model.items.Weapon;
+import model.items.weapons.Grenade;
+import model.items.weapons.Weapon;
 import model.map.Room;
 import model.npcs.NPC;
 
@@ -127,6 +127,9 @@ public class Player extends Actor implements Target {
 	 * @return the suit of the player
 	 */
 	public String getSuit() {
+		if (this.getCharacter().getSuit() == null) {
+			return "*None*";
+		}
 		return this.getCharacter().getSuit().getName();
 	}
 
@@ -187,6 +190,10 @@ public class Player extends Actor implements Target {
 	 */
 	public int[] getSelectableLocations(GameData gameData) {
 		int steps = getCharacter().getMovementSteps();
+		if (getCharacter().isEncumbered()) {
+			addTolastTurnInfo("You are carrying to much to be able to run!");
+		}
+		
 		ArrayList<Integer> movablePlaces = new ArrayList<>();
 
 		if (steps > 0) {
@@ -313,7 +320,7 @@ public class Player extends Actor implements Target {
 
 	@Override
 	public String getName() {
-		return getBaseName();
+		return getPublicName();
 	}
 
 	@Override
@@ -345,6 +352,7 @@ public class Player extends Actor implements Target {
 			addGiveAction(at);
 			addDropActions(at);
 			addPickUpActions(at);
+			addPutOnActions(at);
 			getCharacter().addCharacterSpecificActions(gameData, at);
 
 		}
@@ -353,6 +361,8 @@ public class Player extends Actor implements Target {
 	}
 
 
+
+	
 
 	private void addItemActions(GameData gameData, ArrayList<Action> at) {
 		Map<String, GameItem> map = new HashMap<String, GameItem>();
@@ -400,6 +410,13 @@ public class Player extends Actor implements Target {
 		}
 	}
 
+	private void addPutOnActions(ArrayList<Action> at) {
+		PutOnAction act = new PutOnAction(this);
+		if (act.getNoOfOptions() > 0) {
+			at.add(act);
+		}
+	}
+	
 	private void addAttackActions(ArrayList<Action> at) {
 		TargetingAction attackAction = new AttackAction(this);
 		if (attackAction.getNoOfTargets() > 0) {

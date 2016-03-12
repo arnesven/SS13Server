@@ -8,9 +8,9 @@ import java.util.Scanner;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
+import model.Target;
 import model.actions.Action;
 import model.actions.SensoryLevel;
-import model.actions.Target;
 
 public class RandomSpeechBehavior extends SpontaneousAct {
 
@@ -32,7 +32,7 @@ public class RandomSpeechBehavior extends SpontaneousAct {
 				if (performingClient.getPosition().getActors().size() > 1) {
 					int lines = 0;
 					try {
-						String talkString = MyRandom.getRandomLineFromFile(filename);
+						talkString = MyRandom.getRandomLineFromFile(filename);
 						System.out.println("Talkstring is " + talkString);
 						talkString = replaceMarkers(gameData, performingClient, talkString);
 						
@@ -47,10 +47,11 @@ public class RandomSpeechBehavior extends SpontaneousAct {
 				if (talkString2.contains("$r")) {
 					String person = "";
 					
+					List<Actor> targets = performingClient.getPosition().getActors();
+					
 					do {
-						List<Target> targets = performingClient.getPosition().getTargets();
 						//System.out.println("TARS targets: " + targets.toString());
-						person = targets.get(MyRandom.nextInt(targets.size())).getName();
+						person = targets.get(MyRandom.nextInt(targets.size())).getBaseName();
 						System.out.println("TARS wants to talkt to " + person);
 					} while (person.equals("TARS"));
 					

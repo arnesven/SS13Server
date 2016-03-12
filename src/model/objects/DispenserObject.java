@@ -12,11 +12,14 @@ import model.items.GameItem;
 
 public abstract class DispenserObject extends ElectricalMachinery {
 
-	private int itemsLeft;
-
-	public DispenserObject(String name, int i) {
+	private List<GameItem> inventory = new ArrayList<>();
+	
+	public DispenserObject(String name) {
 		super(name);
-		this.itemsLeft = i;
+	}
+	
+	public void addItem(GameItem it) {
+		inventory.add(it);
 	}
 	
 	@Override
@@ -34,10 +37,9 @@ public abstract class DispenserObject extends ElectricalMachinery {
 			
 			@Override
 			protected void execute(GameData gameData, Actor performingClient) {
-				if (itemsLeft > 0) {
-					GameItem it = DispenserObject.this.dispensedItem();
+				if (inventory.size() > 0) {
+					GameItem it = inventory.remove(0);
 					performingClient.addItem(it);
-					itemsLeft--;
 					performingClient.addTolastTurnInfo("You got " + it.getName() + ".");
 				} else {
 					performingClient.addTolastTurnInfo("The dispenser is empty.");

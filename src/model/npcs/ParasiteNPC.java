@@ -2,7 +2,7 @@ package model.npcs;
 
 import model.characters.GameCharacter;
 import model.characters.ParasiteCharacter;
-import model.items.Weapon;
+import model.items.weapons.Weapon;
 import model.map.Room;
 
 public class ParasiteNPC extends NPC {

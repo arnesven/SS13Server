@@ -2,8 +2,8 @@ package model.npcs;
 
 import model.GameData;
 import model.Player;
-import model.actions.HissAction;
-import model.actions.MeowingAction;
+import model.actions.characteractions.HissAction;
+import model.actions.characteractions.MeowingAction;
 import model.map.Room;
 
 public class MeowOrHissBehavior extends SpontaneousAct {

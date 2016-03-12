@@ -5,8 +5,9 @@ import java.util.List;
 import model.Actor;
 import model.Player;
 import model.GameData;
+import model.Target;
 import model.items.GameItem;
-import model.items.Weapon;
+import model.items.weapons.Weapon;
 import model.objects.GameObject;
 
 

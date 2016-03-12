@@ -1,9 +1,9 @@
 package model.map;
 
-import model.items.Flamer;
-import model.items.Grenade;
-import model.items.LaserPistol;
-import model.items.Revolver;
+import model.items.weapons.Flamer;
+import model.items.weapons.Grenade;
+import model.items.weapons.LaserPistol;
+import model.items.weapons.Revolver;
 
 public class ArmoryRoom extends Room {
 
