@@ -87,7 +87,7 @@ public abstract class GameCharacter {
 	 * @return the name of the character as it appears for anyone knowing the TRUTH.
 	 */
 	public String getFullName() {
-		return getBaseName();
+		return getBaseName() + (isDead()?" (dead)":"");
 	}
 
 	public boolean isDead() {

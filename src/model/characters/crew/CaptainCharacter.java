@@ -19,7 +19,6 @@ public class CaptainCharacter extends GameCharacter {
 	public List<GameItem> getStartingItems(){
 		ArrayList<GameItem> list = new ArrayList<GameItem>();
 		list.add(new KeyCard());
-		list.add(new FireSuit());
 		return list;
 	}
 

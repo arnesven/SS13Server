@@ -13,6 +13,7 @@ public class PutOnAction extends Action {
 	private List<SuitItem> options = new ArrayList<>();
 	private SuitItem selectedItem;
 	private Actor putOnner;
+	private Actor lootVictim = null;
 
 	public PutOnAction(Actor ap) {
 		super("Put on", SensoryLevel.PHYSICAL_ACTIVITY);
@@ -35,6 +36,12 @@ public class PutOnAction extends Action {
 				options.add((SuitItem)it);
 			}
 		}
+		
+		for (Actor actor : ap.getPosition().getActors()) {
+			if (actor.isDead() && actor.getCharacter().getSuit() != null) {
+				options.add(actor.getCharacter().getSuit());
+			}
+		}
 	}
 
 	@Override
@@ -51,32 +58,49 @@ public class PutOnAction extends Action {
 			performingClient.addTolastTurnInfo("Your action failed!");
 			return;
 		}
-		performingClient.getCharacter().putOnSuit(selectedItem);
-		selectedItem.beingPutOn(performingClient);
+		
 		if (performingClient.getItems().contains(selectedItem)) {
 			performingClient.getItems().remove(selectedItem);
 		} else if (performingClient.getPosition().getItems().contains(selectedItem)) {
 			performingClient.getPosition().getItems().remove(selectedItem);
+		} else if (lootVictim != null) {
+			lootVictim.getCharacter().removeSuit();
 		} else {
 			performingClient.addTolastTurnInfo("The " + selectedItem.getName() + " is gone!");
 			return;
 		}
+		
+		performingClient.getCharacter().putOnSuit(selectedItem);
+		selectedItem.beingPutOn(performingClient);
+	
 		performingClient.addTolastTurnInfo("You put on the " + selectedItem.getName() + ".");
-		
-		
 		
 	}
 
 	@Override
 	public void setArguments(List<String> args) {
+		System.out.println("Setting arg for put on" + args.get(0));
 		for (GameItem it : putOnner.getItems()) {
 			if (it.getName().equals(args.get(0))) {
 				selectedItem = (SuitItem)it;
+				return;
 			}
 		}
 		for (GameItem it : putOnner.getPosition().getItems()) {
 			if (it.getName().equals(args.get(0))) {
 				selectedItem = (SuitItem)it;
+				return;
+			}
+		}
+		for (Actor actor : putOnner.getPosition().getActors()) {
+			if (actor.isDead()) {
+				System.out.println("Dead guys suit: " + actor.getCharacter().getSuit());
+				if (actor.getCharacter().getSuit().getName().equals(args.get(0))) {
+					selectedItem = (SuitItem)(actor.getCharacter().getSuit());
+					System.out.println("Looting a suit of a dead body " + selectedItem.getName());
+					lootVictim  = actor;
+					return;
+				}
 			}
 		}
 		
