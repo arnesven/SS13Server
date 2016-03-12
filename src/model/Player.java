@@ -334,8 +334,8 @@ public class Player extends Actor implements Target {
 		ArrayList<Action> at = new ArrayList<Action>();
 		addBasicActions(at);
 		if (!isDead()) {
-			addRoomActions(at);
-			addItemActions(at);
+			addRoomActions(gameData, at);
+			addItemActions(gameData, at);
 			addAttackActions(at);
 			addWatchAction(at);
 			addGiveAction(at);
@@ -350,12 +350,12 @@ public class Player extends Actor implements Target {
 	
 	
 
-	private void addItemActions(ArrayList<Action> at) {
+	private void addItemActions(GameData gameData, ArrayList<Action> at) {
 		Map<String, GameItem> map = new HashMap<String, GameItem>();
 		
 		for (GameItem it : getItems()) {
 			if (!map.containsKey(it.getName())) {
-				it.addYourActions(at, this);
+				it.addYourActions(gameData, at, this);
 				map.put(it.getName(), it);
 			}
 		}
@@ -377,8 +377,8 @@ public class Player extends Actor implements Target {
 	
 	
 
-	private void addRoomActions(ArrayList<Action> at) {
-		this.getPosition().addActionsFor(this, at);
+	private void addRoomActions(GameData gameData, ArrayList<Action> at) {
+		this.getPosition().addActionsFor(gameData, this, at);
 	}
 
 	private void addWatchAction(ArrayList<Action> at) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Actor;
+import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.actions.Target;
@@ -54,13 +55,13 @@ public abstract class BreakableObject extends GameObject implements Target {
 	}
 	
 	@Override
-	public final void addSpecificActionsFor(Player cl, ArrayList<Action> at) {
+	public final void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
 		if (!isBroken()) {
-			addActions(cl, at);
+			addActions(gameData, cl, at);
 		}
 	}
 	
-	protected abstract void addActions(Player cl, ArrayList<Action> at);
+	protected abstract void addActions(GameData gameData, Player cl, ArrayList<Action> at);
 
 	public boolean isBroken() {
 		return hp == 0.0;

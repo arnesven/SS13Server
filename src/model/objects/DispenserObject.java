@@ -20,7 +20,7 @@ public abstract class DispenserObject extends ElectricalMachinery {
 	}
 	
 	@Override
-	public void addActions(Player cl, ArrayList<Action> at) {
+	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
 		at.add(new Action(DispenserObject.this.getName(),
 				          SensoryLevel.OPERATE_DEVICE) {
 			

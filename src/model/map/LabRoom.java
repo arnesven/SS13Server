@@ -1,5 +1,6 @@
 package model.map;
 
+import model.GameData;
 import model.objects.ChemicalDispenser;
 import model.objects.InfectionScanner;
 

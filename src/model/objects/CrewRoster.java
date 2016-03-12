@@ -16,7 +16,7 @@ public class CrewRoster extends ElectricalMachinery {
 	}
 	
 	@Override
-	public void addActions(Player cl, ArrayList<Action> at) {
+	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
 		at.add(new Action("Inspect Roster", SensoryLevel.OPERATE_DEVICE) {
 			
 			@Override

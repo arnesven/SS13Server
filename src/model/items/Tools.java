@@ -23,7 +23,7 @@ public class Tools extends BluntWeapon {
 	}
 	
 	@Override
-	public void addYourActions(ArrayList<Action> at, Player cl) {
+	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
 		if (hasBrokenObjects(cl.getPosition())) {
 			at.add(new RepairAction("Repair", SensoryLevel.PHYSICAL_ACTIVITY, cl));
 		}

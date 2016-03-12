@@ -3,6 +3,9 @@ package model.actions;
 import model.Actor;
 import model.Player;
 import model.GameData;
+import model.characters.DoctorCharacter;
+import model.characters.GameCharacter;
+import model.characters.InstanceChecker;
 import model.items.GameItem;
 import model.items.MedKit;
 
@@ -14,7 +17,25 @@ public class HealWithMedKitAction extends TargetingAction {
 	public HealWithMedKitAction(Actor ap, MedKit objectRef) {
 		super("Heal", SensoryLevel.PHYSICAL_ACTIVITY, ap);
 		this.objectRef = objectRef;
+		this.performer = ap;
 	}
+	
+//	@Override
+//	public void addTarget(Target cl) {
+//		InstanceChecker doctorChecker = new InstanceChecker() {
+//			
+//			@Override
+//			public boolean checkInstanceOf(GameCharacter ch) {
+//				if (ch instanceof DoctorCharacter) {
+//					return true;
+//				}
+//				return false;
+//			}
+//		};
+//		if (performer.getCharacter().checkInstance(doctorChecker)) {
+//			return cl.getName() + ((cl.getHealth() == cl.getMaxHealth())?" (healthy)":" (unhealthy");			
+//		}
+//	}
 
 	@Override
 	protected void applyTargetingAction(GameData gameData,

@@ -29,6 +29,12 @@ public abstract class TargetingAction extends Action {
 	protected abstract void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item);
 
+	/**
+	 * When a target has been deemed viable for this action,
+	 * this method is called to actually add that target to this
+	 * action's targets.
+	 * @param cl
+	 */
 	public void addTarget(Target cl) {
 		targets.add(cl);
 	}

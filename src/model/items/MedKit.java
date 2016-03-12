@@ -3,6 +3,7 @@ package model.items;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.actions.HealWithMedKitAction;
@@ -20,8 +21,7 @@ public class MedKit extends GameItem {
 	}
 
 	@Override
-	public void addYourActions(ArrayList<Action> at, Player cl) {
-		
+	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {	
 		TargetingAction act = new HealWithMedKitAction(cl, this);
 		if (act.getTargets().size() > 0) {
 			at.add(act);

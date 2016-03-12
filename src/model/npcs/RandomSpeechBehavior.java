@@ -32,18 +32,10 @@ public class RandomSpeechBehavior extends SpontaneousAct {
 				if (performingClient.getPosition().getActors().size() > 1) {
 					int lines = 0;
 					try {
-						for (Scanner scanner = new Scanner(new File(filename)) ; 
-								scanner.hasNext(); scanner.nextLine() ) {
-							lines++;
-						}
-						System.out.println("TARS-file hade " + lines + " lines");
-						Scanner scanner = new Scanner(new File(filename));
-						for (int i = 0; i < MyRandom.nextInt(lines)+1 ; ++i) {
-							talkString = scanner.nextLine();
-						}
+						String talkString = MyRandom.getRandomLineFromFile(filename);
 						System.out.println("Talkstring is " + talkString);
 						talkString = replaceMarkers(gameData, performingClient, talkString);
-						scanner.close();
+						
 						System.out.println("TARS next line: " + talkString);
 					} catch (IOException ioe) {
 						ioe.printStackTrace();

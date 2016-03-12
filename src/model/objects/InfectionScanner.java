@@ -16,13 +16,22 @@ import model.npcs.NPC;
 public class InfectionScanner extends ElectricalMachinery {
 
 	private boolean loaded = false;
+	private GameData gameData;
 	
 	public InfectionScanner() {
 		super("BioScanner");
 	}
 	
 	@Override
-	public void addActions(Player cl, ArrayList<Action> at) {
+	public String getName() {
+		if (loaded && gameData.getRound() < 5) {
+			return super.getName() + " (warming up)";
+		}
+		return super.getName();
+	}
+	
+	@Override
+	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
 		if (!loaded) {
 			if (getChemicals(cl) != null) {
 				at.add(new Action("Load BioScanner", SensoryLevel.OPERATE_DEVICE) {
@@ -39,11 +48,12 @@ public class InfectionScanner extends ElectricalMachinery {
 					protected void execute(GameData gameData, Actor performingClient) {
 						removeAChemicals(performingClient);
 						loaded = true;
-						performingClient.addTolastTurnInfo("You loaded the BioScanner with chemicals.");
+						performingClient.addTolastTurnInfo("You loaded the BioScanner with chemicals. The machine is warming up...");
 					}
 				});
 			}
-		} else {
+		} else if (5 <=  gameData.getRound()) {
+			
 			at.add(new Action("Activate BioScanner", SensoryLevel.OPERATE_DEVICE) {
 				
 				@Override

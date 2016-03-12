@@ -2,6 +2,7 @@ package model.objects;
 
 import java.util.ArrayList;
 
+import model.GameData;
 import model.Player;
 import model.actions.Action;
 
@@ -22,7 +23,9 @@ public class GameObject {
 	}
 
 	
-	public void addSpecificActionsFor(Player cl, ArrayList<Action> at) {
+	public void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
 	}
+
+
 
 }

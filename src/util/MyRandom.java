@@ -1,8 +1,10 @@
 package util;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
+import java.util.Scanner;
 
 
 public class MyRandom {
@@ -43,5 +45,21 @@ public class MyRandom {
 		int i = random.nextInt(size);
 		write_to_file("random_ints", i + " (0 to " + size + "), ");
 		return i;
+	}
+
+	public static String getRandomLineFromFile(String filename) throws FileNotFoundException {
+		int lines = 0;
+		String line = "";
+		for (Scanner scanner = new Scanner(new File(filename)) ; 
+				scanner.hasNext(); scanner.nextLine() ) {
+			lines++;
+		}
+		System.out.println("TARS-file hade " + lines + " lines");
+		Scanner scanner = new Scanner(new File(filename));
+		for (int i = 0; i < MyRandom.nextInt(lines)+1 ; ++i) {
+			line = scanner.nextLine();
+		}
+		scanner.close();
+		return line;
 	}
 }

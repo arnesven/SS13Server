@@ -76,8 +76,11 @@ public abstract class CharacterDecorator extends GameCharacter {
 	}
 	
 	@Override
-	public boolean checkInstance(InstanceChecker infectChecker) {
-		return innerChar.checkInstance(infectChecker);
+	public boolean checkInstance(InstanceChecker instanceChecker) {
+		if (instanceChecker.checkInstanceOf(this)) {
+			return true;
+		}
+		return innerChar.checkInstance(instanceChecker);
 	}
 	
 	@Override

@@ -35,7 +35,7 @@ public class FireExtinguisher extends BluntWeapon {
 	}
 
 	@Override
-	public void addYourActions(ArrayList<Action> at, Player cl) {
+	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
 		if (hasFire(cl.getPosition()) != null && level > 0) {
 			at.add(new Action("Put out fire", 
 					new SensoryLevel(VisualLevel.CLEARLY_VISIBLE,

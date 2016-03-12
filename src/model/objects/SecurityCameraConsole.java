@@ -2,6 +2,7 @@ package model.objects;
 
 import java.util.ArrayList;
 
+import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.actions.SecurityConsoleAction;
@@ -15,7 +16,7 @@ public class SecurityCameraConsole extends ElectricalMachinery {
 	}
 	
 	@Override
-	public void addActions(Player cl, ArrayList<Action> at) {
+	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
 		at.add(new SecurityConsoleAction(this));
 	}
 

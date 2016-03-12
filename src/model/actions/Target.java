@@ -1,8 +1,10 @@
 package model.actions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Actor;
+import model.GameData;
 import model.Player;
 import model.events.Damager;
 import model.items.Explosive;
@@ -46,4 +48,5 @@ public interface Target {
 	boolean hasInventory();
 
 	boolean isHealable();
+
 }

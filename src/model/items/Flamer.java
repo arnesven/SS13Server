@@ -4,6 +4,7 @@ package model.items;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.actions.BurnHiveAction;
@@ -24,7 +25,7 @@ public class Flamer extends Weapon {
 	}
 	
 	@Override
-	public void addYourActions(ArrayList<Action> at, Player cl) {
+	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
 		
 		List<Chemicals> chem = getChemicalsFromClient(cl);
 		if (chem.size() >= 3) {

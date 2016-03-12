@@ -3,6 +3,7 @@ package model.items;
 import java.util.ArrayList;
 
 import model.Actor;
+import model.GameData;
 import model.Player;
 import model.actions.Action;
 
@@ -43,7 +44,7 @@ public class GameItem {
 	 * actions.
 	 * @param at
 	 */
-	public void addYourActions(ArrayList<Action> at, Player cl) {
+	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
 	}
 	
 }

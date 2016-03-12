@@ -2,6 +2,7 @@ package model.items;
 
 import java.util.ArrayList;
 
+import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.actions.ThrowGrenadeAction;
@@ -14,7 +15,7 @@ public class Grenade extends Weapon implements Damager {
 	}
 	
 	@Override
-	public void addYourActions(ArrayList<Action> at, Player cl) {
+	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
 		at.add(new ThrowGrenadeAction(cl));
 	}
 

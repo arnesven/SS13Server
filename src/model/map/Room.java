@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import model.Actor;
+import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.actions.SensoryLevel.AudioLevel;
@@ -211,9 +212,9 @@ public class Room {
 		return list;
 	}
 
-	public void addActionsFor(Player client, ArrayList<Action> at) {
+	public void addActionsFor(GameData gameData, Player client, ArrayList<Action> at) {
 		for (GameObject ob : objects) {
-			ob.addSpecificActionsFor(client, at);
+			ob.addSpecificActionsFor(gameData, client, at);
 		}
 	}
 
