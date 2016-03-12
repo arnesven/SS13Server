@@ -44,7 +44,7 @@ public class RandomSpeechBehavior extends SpontaneousAct {
 			}
 
 			private String replaceMarkers(GameData gameData, Actor performingClient, String talkString2) {
-				if (talkString.contains("$r")) {
+				if (talkString2.contains("$r")) {
 					String person = "";
 					
 					do {
@@ -54,9 +54,9 @@ public class RandomSpeechBehavior extends SpontaneousAct {
 						System.out.println("TARS wants to talkt to " + person);
 					} while (person.equals("TARS"));
 					
-					talkString = talkString.replace("$r", person);
+					talkString2 = talkString2.replace("$r", person);
 				}
-				return talkString;
+				return talkString2;
 			}
 		});
 	}

@@ -364,7 +364,8 @@ public class GameData {
 	private String createBasicPlayerData(Player cl) {		
 		String result = cl.getCharacterRealName() + 
 				       ":" + cl.getPosition().getID() + 
-					   ":" + cl.getCurrentHealth() + 
+					   ":" + cl.getCurrentHealth() +
+					   ":" + cl.getCharacter().getTotalWeight() +
 					   ":" + cl.getSuit() +
 					   ":" + MyStrings.join(cl.getItems(), "|") + 
 					   ":" + MyStrings.join(cl.getRoomInfo(), "|") + 

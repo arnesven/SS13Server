@@ -17,7 +17,7 @@ public class MedKit extends GameItem {
 
 	
 	public MedKit() {
-		super("MedKit");
+		super("MedKit", 1.0);
 	}
 
 	@Override

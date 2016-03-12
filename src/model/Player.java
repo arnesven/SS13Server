@@ -36,16 +36,15 @@ import model.npcs.NPC;
  * This means, a player, and the data pertaining to that player.
  */
 public class Player extends Actor implements Target {
-	
+
 	private static final double MAX_HEALTH = 3.0;
 	private boolean ready = false;
 	private int nextMove = 0;
 	//private List<String> lastTurnInfo = new ArrayList<>();
 	private List<String> personalHistory = new ArrayList<>();
-	private String suit = "clothes";
 	private Action nextAction;
 	private HashMap<String, Boolean> jobChoices = new HashMap<>();
-	
+
 
 	public Player(GameData gameData) {
 		for (String s : gameData.getAvailableJobsAsStrings() ) {
@@ -63,7 +62,7 @@ public class Player extends Actor implements Target {
 		this.ready = ready;
 	}
 
-	
+
 	/**
 	 * Gets wether or not the client is ready to continue or not
 	 * @return true if the client is ready, false otherwise
@@ -71,7 +70,7 @@ public class Player extends Actor implements Target {
 	public boolean isReady() {
 		return ready;
 	}
-	
+
 	/**
 	 * Returns wether or not the player is dead or not
 	 * @return true if the client is dead
@@ -80,7 +79,7 @@ public class Player extends Actor implements Target {
 		if (getCharacter() == null) {
 			return false;
 		}
-		
+
 		return getCharacter().getHealth() == 0.0;
 	}
 
@@ -108,7 +107,7 @@ public class Player extends Actor implements Target {
 		}
 		return getCharacter().getHealth();
 	}
-	
+
 	/**
 	 * Gets the Last turn info for this client.
 	 * The last turn info is a collection of strings
@@ -119,7 +118,7 @@ public class Player extends Actor implements Target {
 	public List<String> getLastTurnInfo() {
 		List<String> lastTurnInfo = new ArrayList<>();
 		lastTurnInfo.addAll(personalHistory);
-	
+
 		return lastTurnInfo ;
 	}
 
@@ -128,10 +127,9 @@ public class Player extends Actor implements Target {
 	 * @return the suit of the player
 	 */
 	public String getSuit() {
-		// TODO: This method will later return the name of game item representing that player's suit.
-		return this.suit;
+		return this.getCharacter().getSuit().getName();
 	}
-	
+
 	/**
 	 * Sets the ID of the next move which the player will make.
 	 * The GUI will send an ID of the room which the player has selected.
@@ -169,7 +167,7 @@ public class Player extends Actor implements Target {
 	public String getCharacterRealName() {
 		return getCharacter().getFullName();
 	}
-	
+
 	/**
 	 * Get's the client's characters public name, i.e. as it appears to
 	 * anyone else on the station.
@@ -188,32 +186,37 @@ public class Player extends Actor implements Target {
 	 * TODO: make this more general so it does not always go 2 steps
 	 */
 	public int[] getSelectableLocations(GameData gameData) {
-		
-		int[] neigbors = this.getPosition().getNeighbors();
+		int steps = getCharacter().getMovementSteps();
 		ArrayList<Integer> movablePlaces = new ArrayList<>();
-		
-		for (int n : neigbors) {
-			for (int n2 : gameData.getRoomForId(n).getNeighbors()) {
-				if (! movablePlaces.contains(n2) ) {
-					movablePlaces.add(n2);
-				}
+
+		if (steps > 0) {
+			int[] neigbors = this.getPosition().getNeighbors();
+
+			for (int n : neigbors) {
+				addNeighborsRecursively(gameData, n, movablePlaces, steps-1);
 			}
-			if (! movablePlaces.contains(n) ) {
-				movablePlaces.add(n);
-			}
+			movablePlaces.add(this.getPosition().getID());
 		}
-		movablePlaces.add(this.getPosition().getID());
-		
+
 		int[] result = new int[movablePlaces.size()];
-		
-		if (! this.isDead()) {
-			for (int i = 0; i < movablePlaces.size(); ++i) {
-				result[i] = movablePlaces.get(i);
-			}
+		for (int i = 0; i < movablePlaces.size(); ++i) {
+			result[i] = movablePlaces.get(i);
 		}
 		return result;
 	}
 
+
+	private void addNeighborsRecursively(GameData gameData, int n,
+			ArrayList<Integer> movablePlaces, int steps) {
+		if (! movablePlaces.contains(n) ) {
+			movablePlaces.add(n);
+		}
+		if (steps > 0) {
+			for (int n2 : gameData.getRoomForId(n).getNeighbors()) {
+				addNeighborsRecursively(gameData, n2, movablePlaces, steps-1);
+			}
+		}
+	}
 
 	/**
 	 * Moves the player into another room
@@ -224,14 +227,15 @@ public class Player extends Actor implements Target {
 			if (this.getPosition() != null) {
 				this.getPosition().removePlayer(this);
 			}
-			System.out.println("Moving player inte room");
+			System.out.println("Moving player " + this.getCharacterRealName() + 
+					" into room " + room.getName());
 			this.setPosition(room);
 			room.addPlayer(this);
 		}
 	}
 
 
-	
+
 	/**
 	 * Gets the string representation of this players
 	 * current action tree. I.e. the actions which this player can
@@ -249,7 +253,7 @@ public class Player extends Actor implements Target {
 		return result;
 	}
 
-	
+
 	/**
 	 * Parses a action object from the action string sent by the
 	 * client gui.
@@ -285,7 +289,7 @@ public class Player extends Actor implements Target {
 			this.nextAction.doTheAction(gameData, this);
 		}
 	}
-	
+
 	public void setNextAction(Action nextAction) {
 		this.nextAction = nextAction;
 	}
@@ -298,7 +302,7 @@ public class Player extends Actor implements Target {
 	public void addTolastTurnInfo(String string) {
 		personalHistory.add(string);
 	}
-	
+
 	/**
 	 * Clears the last turn info of this client.
 	 * The last turn info is usually cleared between turns.
@@ -315,14 +319,14 @@ public class Player extends Actor implements Target {
 	@Override
 	public void beAttackedBy(Actor performingClient, Weapon weapon) {
 		getCharacter().beAttackedBy(performingClient, weapon);
-		
+
 	}
 
 	@Override
 	public boolean isTargetable() {
 		return !isDead();
 	}
-	
+
 	/**
 	 * Gets the tree structure of selectable actions from which the player
 	 * can select one. Some actions require subinformation, which is why this
@@ -342,17 +346,17 @@ public class Player extends Actor implements Target {
 			addDropActions(at);
 			addPickUpActions(at);
 			getCharacter().addCharacterSpecificActions(gameData, at);
-			
+
 		}
-		
+
 		return at;
 	}
-	
-	
+
+
 
 	private void addItemActions(GameData gameData, ArrayList<Action> at) {
 		Map<String, GameItem> map = new HashMap<String, GameItem>();
-		
+
 		for (GameItem it : getItems()) {
 			if (!map.containsKey(it.getName())) {
 				it.addYourActions(gameData, at, this);
@@ -374,8 +378,8 @@ public class Player extends Actor implements Target {
 			at.add(dropAction);
 		}
 	}
-	
-	
+
+
 
 	private void addRoomActions(GameData gameData, ArrayList<Action> at) {
 		this.getPosition().addActionsFor(gameData, this, at);
@@ -395,7 +399,7 @@ public class Player extends Actor implements Target {
 			at.add(giveAction);
 		}
 	}
-	
+
 	private void addAttackActions(ArrayList<Action> at) {
 		TargetingAction attackAction = new AttackAction(this);
 		if (attackAction.getNoOfTargets() > 0) {
@@ -403,7 +407,7 @@ public class Player extends Actor implements Target {
 			at.add(attackAction);
 		}
 	}
-	
+
 	private void addBasicActions(ArrayList<Action> at) {
 		at.add(new DoNothingAction());
 		if (!isDead()) {
@@ -442,7 +446,7 @@ public class Player extends Actor implements Target {
 	@Override
 	public void addToHealth(double d) {
 		getCharacter().setHealth(Math.min(getMaxHealth(), 
-								 getCharacter().getHealth() + d));
+				getCharacter().getHealth() + d));
 	}
 
 	public void parseJobChoices(String rest) {
@@ -454,26 +458,26 @@ public class Player extends Actor implements Target {
 			jobChoices.put(keyVal[0], Boolean.parseBoolean(keyVal[1]));
 		}
 		System.out.println("JobChoices " + jobChoices.toString());
-		
+
 	}
 
 	public boolean checkedJob(String string) {
-	//	System.out.println("Getting value for " + string + " = " + jobChoices.get(string));
+		//	System.out.println("Getting value for " + string + " = " + jobChoices.get(string));
 		return jobChoices.get(string);
 	}
-	
+
 	public void beInfected(Actor performingClient) {
 		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
 		this.addTolastTurnInfo("You were infected by " + performingClient.getPublicName() + 
 				"! You are now on the Host team. Keep the humans from destroying the hive!");
-		
+
 	}
 
 	public void prepForNewGame() {
 		this.nextMove = 0;
 		this.nextAction = null;
 		this.personalHistory = new ArrayList<>();
-		
+
 	}
 
 	@Override
@@ -491,5 +495,5 @@ public class Player extends Actor implements Target {
 		return getCharacter().isHealable();
 	}
 
-	
+
 }

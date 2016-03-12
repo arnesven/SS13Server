@@ -21,7 +21,7 @@ public class Flamer extends Weapon {
 	public static final SensoryLevel SENSED_AS = SensoryLevel.FIRE;
 
 	public Flamer() {
-		super("Flamer", 0.75, 0.5, false);
+		super("Flamer", 0.75, 0.5, false, 2.0);
 	}
 	
 	@Override

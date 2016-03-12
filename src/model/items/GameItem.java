@@ -16,9 +16,11 @@ import model.actions.Action;
 public class GameItem {
 
 	private String name;
+	private double weight;
 	
-	public GameItem(String string) {
-		name = string;
+	public GameItem(String string, double weight) {
+		this.name = string;
+		this.weight = weight;
 	}
 
 	/**
@@ -45,6 +47,10 @@ public class GameItem {
 	 * @param at
 	 */
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
+	}
+
+	public double getWeight() {
+		return weight;
 	}
 	
 }

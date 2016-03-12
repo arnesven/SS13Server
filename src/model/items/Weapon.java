@@ -13,8 +13,9 @@ public class Weapon extends GameItem {
 	private double damage;
 	private boolean makesBang;
 	
-	public Weapon(String string, double hitChance, double damage, boolean bang) {
-		super(string);
+	public Weapon(String string, double hitChance, double damage,
+				  boolean bang, double weight) {
+		super(string, weight);
 		this.hitChance = hitChance;
 		this.damage = damage;
 		makesBang = bang;

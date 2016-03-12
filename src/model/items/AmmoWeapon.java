@@ -5,8 +5,8 @@ public class AmmoWeapon extends Weapon {
 	private int shots;
 
 	public AmmoWeapon(String string, double hitChance, double damage,
-			boolean bang, int shots) {
-		super(string, hitChance, damage, bang);
+			boolean bang, double weight, int shots) {
+		super(string, hitChance, damage, bang, weight);
 		this.shots = shots;
 	}
 	

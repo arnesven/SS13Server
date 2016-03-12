@@ -11,7 +11,7 @@ import model.events.Damager;
 public class Grenade extends Weapon implements Damager {
 
 	public Grenade() {
-		super("Grenade", 0.75, 1.0, true);
+		super("Grenade", 0.75, 1.0, true, 0.5);
 	}
 	
 	@Override

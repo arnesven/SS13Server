@@ -13,6 +13,7 @@ import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
 import model.actions.WatchAction;
 import model.events.Damager;
+import model.items.Clothes;
 import model.items.GameItem;
 import model.items.KeyCard;
 import model.items.MedKit;
@@ -26,6 +27,7 @@ import model.map.Room;
  */
 public abstract class GameCharacter {
 	
+	private static final double ENCUMBERANCE_LEVEL = 4.0;
 	private String name;
 	private int startingRoom = 0;
 	private double health = 3.0;
@@ -33,8 +35,10 @@ public abstract class GameCharacter {
 	private Room position = null;
 	private double speed;
 	private List<GameItem> items = new ArrayList<>();
+	private GameItem suit = new Clothes();
 	private Actor killer;
 	private String killString;
+
 
 	
 	public GameCharacter(String name, int startRoom, double speed) {
@@ -248,6 +252,35 @@ public abstract class GameCharacter {
 
 	public Room getStartingRoom(GameData gameData) {
 		return gameData.getRoomForId(startingRoom);
+	}
+
+	public int getMovementSteps() {
+		if (isDead()) {
+			return 0;
+		} else if (isEncumbered() || getHealth() <= 1.0) {
+			return 1;
+		}
+		return 2;
+	}
+
+	public boolean isEncumbered() {
+		if (getTotalWeight() >= ENCUMBERANCE_LEVEL) {
+			return true;
+		}
+		
+		return false;
+	}
+
+	public double getTotalWeight() {
+		double totalWeight = 0.0;
+		for (GameItem it : getItems()) {
+			totalWeight += it.getWeight();
+		}
+		return totalWeight;
+	}
+
+	public GameItem getSuit() {
+		return suit;
 	}
 
 	

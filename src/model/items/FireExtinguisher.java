@@ -20,7 +20,7 @@ public class FireExtinguisher extends BluntWeapon {
 	private int level = 2;
 	
 	public FireExtinguisher() {
-		super("Fire ext.");
+		super("Fire ext.", 1.0);
 	}
 	
 	@Override
