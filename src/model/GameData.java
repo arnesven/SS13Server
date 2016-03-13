@@ -28,6 +28,7 @@ import model.map.MapBuilder;
 import model.map.Room;
 import model.modes.GameMode;
 import model.modes.HostGameMode;
+import model.modes.TraitorGameMode;
 import model.npcs.NPC;
 
 
@@ -52,7 +53,7 @@ public class GameData {
 	private List<Pair<Actor, Action>> lateActions;
 	// Map must be built before first game, client needs it.
 	private GameMap map                     = MapBuilder.createMap();
-	private String selectedMode = "Host";
+	private String selectedMode = "Traitor";
 	private List<Event> events = new ArrayList<>();
 
 	
@@ -225,11 +226,14 @@ public class GameData {
 
 	private boolean allClientsReadyOrDead() {
 		for (Player c : players.values()) {
-			if (!c.isReady() && !c.isDead()) {
-				return false;
+			if (!c.isReady()) {
+				if (gameState == GameState.PRE_GAME) {
+					return false;
+				} else if (!c.isDead()) {
+					return false;
+				}
 			}
-		}
-		
+		}		
 		return true;
 	}
 
@@ -292,9 +296,17 @@ public class GameData {
 		this.events = new ArrayList<>();
 		this.lateActions = new ArrayList<>();
 		this.npcs = new ArrayList<>();
-		this.gameMode = new HostGameMode();
+		this.gameMode = getSelectedModeFromSetting();
 		this.round = 1;
 		gameMode.setup(this);
+	}
+
+	private GameMode getSelectedModeFromSetting() {
+		if (selectedMode.toLowerCase().equals("host")) {
+			return new HostGameMode();
+		}
+
+		return new TraitorGameMode();
 	}
 
 	private void clearAllDeadNPCs() {

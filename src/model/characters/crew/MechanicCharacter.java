@@ -20,7 +20,7 @@ public class MechanicCharacter extends GameCharacter {
 	@Override
 	public List<GameItem> getStartingItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
-		list.add(new FireExtinguisher());
+		list.add(new Flamer());
 		list.add(new Tools());
 		return list;
 	}

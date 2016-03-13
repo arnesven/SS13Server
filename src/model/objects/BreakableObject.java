@@ -71,7 +71,7 @@ public abstract class BreakableObject extends GameObject implements Target {
 
 	@Override
 	public boolean isTargetable() {
-		return true;
+		return !isBroken();
 	}
 
 	@Override
@@ -92,10 +92,13 @@ public abstract class BreakableObject extends GameObject implements Target {
 	public void setHealth(double d) {
 		hp = d;
 	}
+	
+	protected void setMaxHealth(double d) {
+		this.maxHealth = d;
+	}
 
 	@Override
 	public boolean hasSpecificReaction(MedKit objectRef) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -149,4 +152,6 @@ public abstract class BreakableObject extends GameObject implements Target {
 	public boolean isHealable() {
 		return false;
 	}
+	
+	
 }

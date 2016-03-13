@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
+import model.actions.objectactions.LockRoomAction;
 import model.actions.objectactions.UnlockRoomAction;
 import model.items.GameItem;
 import model.items.KeyCard;
@@ -25,12 +26,11 @@ public class KeyCardLock extends ElectricalMachinery {
 	
 	@Override
 	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
-		if (hasKeyCard(cl) && !isBroken()) {
+		if (hasKeyCard(cl)) {
 			if (locked) {
 				at.add(new UnlockRoomAction(to, from, this));
 			} else {
-				//TODO Add this action so you can lock again
-				//at.add(new LockRoomAction(to, from));
+				at.add(new LockRoomAction(to, from, this));
 			}
 		}
 	}

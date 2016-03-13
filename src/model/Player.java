@@ -47,10 +47,10 @@ public class Player extends Actor implements Target {
 
 
 	public Player(GameData gameData) {
-		for (String s : gameData.getAvailableJobsAsStrings() ) {
-			jobChoices.put(s, true);
-		}
-		jobChoices.put("Host", true);
+//		for (String s : gameData.getAvailableJobsAsStrings() ) {
+//			jobChoices.put(s, true);
+//		}
+		//jobChoices.put("Host", true);
 	}
 
 	/**
@@ -186,7 +186,6 @@ public class Player extends Actor implements Target {
 	 * Currently, all clients can move two rooms at a time.
 	 * @param gameData the Game's data
 	 * @return the locations IDs as an array
-	 * TODO: make this more general so it does not always go 2 steps
 	 */
 	public int[] getSelectableLocations(GameData gameData) {
 		int steps = getCharacter().getMovementSteps();
@@ -479,7 +478,9 @@ public class Player extends Actor implements Target {
 	}
 
 	public boolean checkedJob(String string) {
-		//	System.out.println("Getting value for " + string + " = " + jobChoices.get(string));
+		if (jobChoices.get(string) == null) {
+			return true;
+		}
 		return jobChoices.get(string);
 	}
 

@@ -14,6 +14,8 @@ public abstract class OngoingEvent extends Event {
 
 	private boolean isFixed = false;
 	private Room room;
+
+	private boolean shouldBeRemoved = false;
 	
 	protected abstract void maintain(GameData gameData);
 	protected abstract OngoingEvent clone();
@@ -47,8 +49,8 @@ public abstract class OngoingEvent extends Event {
 	}
 	
 	
-	protected void startNewEvent(Room randomRoom) {
-		if (!hasThisEvent(randomRoom)) {
+	public void startNewEvent(Room randomRoom) {
+		if (!hasThisEvent(randomRoom) && isApplicable(randomRoom)) {
 			OngoingEvent e = this.clone();
 			e.setRoom(randomRoom);
 			randomRoom.addEvent(e);
@@ -57,6 +59,14 @@ public abstract class OngoingEvent extends Event {
 		}
 	}
 	
+	private boolean isApplicable(Room randomRoom) {
+		for (Event e : randomRoom.getEvents()) {
+			if (e instanceof NoPressureEvent) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	private void handleAllMaintainables(GameData gameData) {
 		List<OngoingEvent> thisTurnsEvents = new ArrayList<>();
@@ -65,8 +75,11 @@ public abstract class OngoingEvent extends Event {
 		while (it.hasNext()) {
 			System.out.println("In handling loop");
 			OngoingEvent ev = it.next();
-			if (ev.isFixed) {
-				//it.remove();
+			if (ev.shouldBeRemoved(gameData)) {
+				it.remove();
+				ev.getRoom().removeEvent(ev);
+			} else if (ev.isFixed) {
+				//it.remove(); // keep it for stats
 			} else {
 				ev.handleAllMaintainables(gameData);
 				ev.maintain(gameData);
@@ -83,7 +96,14 @@ public abstract class OngoingEvent extends Event {
 		return res;
 	}
 	public int noOfOngoing() {
-		return eventsToMaintain.size();
+		if (eventsToMaintain.size() == 0) {
+			return 0;
+		}
+		int sum = 0;
+		for (OngoingEvent e : eventsToMaintain) {
+			sum += (1 + e.noOfOngoing());
+		}
+		return sum;
 	}
 	
 	private boolean allRoomsBurning(GameData gameData) {
@@ -93,6 +113,16 @@ public abstract class OngoingEvent extends Event {
 			}
 		}
 		return true;
+	}
+	
+	@Override
+	public boolean shouldBeRemoved(GameData gameData) {
+		return shouldBeRemoved;
+	}
+	
+	@Override
+	public void setShouldBeRemoved(boolean b) {
+		shouldBeRemoved = b;
 	}
 	
 }

@@ -193,6 +193,7 @@ public abstract class CharacterDecorator extends GameCharacter {
 	
 	@Override
 	public boolean isEncumbered() {
+		System.out.println("is encumbered in decorator");
 		return innerChar.isEncumbered();
 	}
 	
@@ -200,5 +201,12 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public String getGender() {
 		return innerChar.getGender();
 	}
+	
+	@Override
+	public double getEncumberenceLevel() {
+		System.out.println("Encumberance in decorator");
+		return innerChar.getEncumberenceLevel();
+	}
+	
 		
 }

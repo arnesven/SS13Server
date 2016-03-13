@@ -24,7 +24,7 @@ public class UnlockRoomAction extends Action {
 	
 	@Override
 	protected String getVerb() {
-		return "unlocked the armory";
+		return "unlocked the " + to.getName();
 	}
 
 	@Override
@@ -40,9 +40,6 @@ public class UnlockRoomAction extends Action {
 	}
 
 	@Override
-	public void setArguments(List<String> args) {
-		// TODO Auto-generated method stub
-
-	}
+	public void setArguments(List<String> args) {}
 
 }

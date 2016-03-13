@@ -38,9 +38,12 @@ import model.events.ElectricalFire;
 import model.events.Event;
 import model.events.Explosion;
 import model.events.HullBreach;
+import model.events.OngoingEvent;
+import model.items.FireExtinguisher;
 import model.items.GameItem;
 import model.items.KeyCard;
 import model.items.MedKit;
+import model.items.Tools;
 import model.items.weapons.Weapon;
 import model.map.Room;
 import model.npcs.CatNPC;
@@ -94,55 +97,40 @@ import model.npcs.TARSNPC;
  *
  */
 public abstract class GameMode {
-	
-//	private static String[] charNames = 
-//		{"Captain", "Head of Staff", "Security Officer", "Detective", "Doctor",
-//		 "Biologist", "Engineer", "Chemist", "Geneticist", "Roboticist",
-//		 "Janitor",   "Chef", "Bartender", "Mechanic", "Chaplain"};
-//	
-//	private static int[] startingLocations =
-//		{ 20, 14, 18, 12, 24,
-//		  3,  26, 1, 1, 1,
-//		  23, 8, 10, 26, 2};
-//	
-//	private static double[] speeds = 
-//		{16.0, 15.0, 14.0, 13.0, 12.0,
-//		 11.0, 10.0,  9.0,  8.0,  7.0,
-//		  6.0,  5.0,  4.0,  3.0,  2.0};
-	
-	//private HashMap<String, GameCharacter> availableChars;
-	private static String[] knownModes = {"Host", "Secret"};
+
+
+	private static String[] knownModes = {"Host", "Traitor"};
 	private Map<String,Event> events = new HashMap<>();
-	
+	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
+
 	public GameMode() {
 		events.put("fires", new ElectricalFire());
 		events.put("hull breaches", new HullBreach());
 		events.put("explosion", new Explosion());
-		//events.add(new HullBreach());
-	//	events.add()
+
 	}
 
 	private static HashMap<String, GameCharacter> availableChars() {
 		HashMap<String, GameCharacter> availableChars = new HashMap<>();
-		availableChars.put("Captain", new CaptainCharacter());
-		availableChars.put("Head of Staff", new HeadOfStaffCharacter());
+		availableChars.put("Captain",          new CaptainCharacter());
+		availableChars.put("Head of Staff",    new HeadOfStaffCharacter());
 		availableChars.put("Security Officer", new SecurityOfficerCharacter());
-		availableChars.put("Detective", new DetectiveCharacter());
-		availableChars.put("Doctor", new DoctorCharacter());
-		availableChars.put("Biologist", new BiologistCharacter());
-		availableChars.put("Engineer", new EngineerCharacter());
-		availableChars.put("Chemist", new ChemistCharacter());
-		availableChars.put("Geneticist", new GeneticistCharacter());
-		availableChars.put("Roboticist", new RoboticistCharacter());
-		availableChars.put("Janitor", new JanitorCharacter());
-		availableChars.put("Chef", new ChefCharacter());
-		availableChars.put("Bartender", new BartenderCharacter());
-		availableChars.put("Mechanic", new MechanicCharacter());
-		availableChars.put("Chaplain", new ChaplainCharacter());
-		availableChars.put("Tourist", new TouristCharacter());
+		availableChars.put("Detective",        new DetectiveCharacter());
+		availableChars.put("Doctor",           new DoctorCharacter());
+		availableChars.put("Biologist",        new BiologistCharacter());
+		availableChars.put("Engineer",         new EngineerCharacter());
+		availableChars.put("Chemist",          new ChemistCharacter());
+		availableChars.put("Geneticist",       new GeneticistCharacter());
+		availableChars.put("Roboticist",       new RoboticistCharacter());
+		availableChars.put("Janitor",          new JanitorCharacter());
+		availableChars.put("Chef",             new ChefCharacter());
+		availableChars.put("Bartender",        new BartenderCharacter());
+		availableChars.put("Mechanic",         new MechanicCharacter());
+		availableChars.put("Chaplain",         new ChaplainCharacter());
+		availableChars.put("Tourist",          new TouristCharacter());
 		return availableChars;
 	}
-	
+
 	public static List<String> getAllCharsAsStrings() {
 		List<String> gcs = new ArrayList<>();
 		gcs.addAll(availableChars().keySet());
@@ -161,38 +149,47 @@ public abstract class GameMode {
 	protected abstract void setUpOtherStuff(GameData gameData);
 	
 	/**
-	 * this method is called as the first step of the setup
-	 * at the beginning of the game. Players should receive
-	 * their characters in this step.
+	 * Overload this method to add roles "ontop" of existing ones.
+	 * E.g. the host role is assigned in this method. 
+	 * Or traitors in traitor-mode.
+	 * @param listOfCharacters
 	 * @param gameData
 	 */
-	protected abstract List<GameCharacter> assignCharactersToPlayers(GameData gameData);
-	
-	
+	protected abstract void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters, GameData gameData);
+
+
+
 	/**
 	 * Checks wether or not the game is over or not.
 	 * @param gameData
 	 * @return true if the game is over, false otherwise.
 	 */
 	public abstract boolean gameOver(GameData gameData);
-	
-	
-	
+
+
+
 	/**
 	 * This method will be called at the start of each turn,
 	 * to set the info for players.
 	 */
 	public abstract void setStartingLastTurnInfo();
-	
+
 	/**
 	 * This method sets the starting info for ALL the players
 	 */
 	protected abstract void addStartingMessages(GameData gameData);
 
 
+	/**
+	 * This method gets the game summary which is displayed
+	 * to the clients after the game is over. The summary
+	 * can look very different depending on the game mode.
+	 * @param gameData
+	 * @return
+	 */
 	public abstract String getSummary(GameData gameData);
-	
-	
+
+
 	protected List<GameCharacter> getAllCharacters() {
 		List<GameCharacter> list = new ArrayList<>();
 		list.addAll(availableChars().values());
@@ -201,14 +198,95 @@ public abstract class GameMode {
 
 	public void setup(GameData gameData) {
 		List<GameCharacter> remainingChars = assignCharactersToPlayers(gameData);
-			
+
 		moveCharactersIntoStartingRooms(gameData);
-		
+
 		addNPCs(gameData, remainingChars);
 		giveCharactersStartingItems(gameData);
-		
+
 		setUpOtherStuff(gameData);
+		addItemsToRooms(gameData);
+
 		addStartingMessages(gameData);
+	}
+
+
+
+	/**
+	 * this method is called as the first step of the setup
+	 * at the beginning of the game. Players should receive
+	 * their characters in this step.
+	 * @param gameData
+	 */
+	protected List<GameCharacter> assignCharactersToPlayers(GameData gameData) {
+		ArrayList<Player> listOfClients = new ArrayList<Player>();
+		listOfClients.addAll(gameData.getPlayersAsList());
+		ArrayList<GameCharacter> listOfCharacters = new ArrayList<>();
+		listOfCharacters.addAll(getAllCharacters());
+
+		/// SELECT A CAPTAIN, SS13 MUST ALWAYS HAVE A CAPTAIN
+		selectCaptain(listOfClients, listOfCharacters);
+
+		/// ASSIGN ROLES RANDOMLY
+		assignRestRoles(listOfClients, listOfCharacters, gameData);	
+		assignOtherRoles(listOfCharacters, gameData);
+
+		return listOfCharacters;
+	}
+
+
+	
+	
+	protected void selectCaptain(ArrayList<Player> clientsRemaining, 
+			ArrayList<GameCharacter> listOfCharacters) {
+
+		ArrayList<Player> playersWhoSelectedCaptain = new ArrayList<>();
+		for (Player pl : clientsRemaining) {
+			if (pl.checkedJob("Captain")) {
+				playersWhoSelectedCaptain.add(pl);
+			}
+		}
+
+		if (playersWhoSelectedCaptain.size() == 0) {
+			playersWhoSelectedCaptain.addAll(clientsRemaining);
+		}
+
+		Player capCl = playersWhoSelectedCaptain.remove(MyRandom.nextInt(playersWhoSelectedCaptain.size()));
+		clientsRemaining.remove(capCl);
+		GameCharacter gc = null;
+		for (GameCharacter ch : listOfCharacters) {
+			if (ch.getBaseName().equals("Captain")) {
+				capCl.setCharacter(ch);
+				gc = ch;
+				break;
+			}
+		}
+		listOfCharacters.remove(gc);
+	}
+
+	protected void assignRestRoles(ArrayList<Player> remainingPlayers,
+			ArrayList<GameCharacter> remainingCharacters, GameData gameData) {
+
+		Collections.shuffle(remainingPlayers);
+
+		while (remainingPlayers.size() > 0) {
+			Player cl = remainingPlayers.remove(0);
+
+			ArrayList<GameCharacter> candidates = new ArrayList<>();
+			for (GameCharacter gc : remainingCharacters) {
+				if (cl.checkedJob(gc.getBaseName())) {
+					candidates.add(gc);
+				}
+			}
+			if (candidates.size() == 0) {
+				candidates.addAll(remainingCharacters);
+			}
+
+			GameCharacter selected = candidates.remove(MyRandom.nextInt(candidates.size()));
+
+			cl.setCharacter(selected);
+			remainingCharacters.remove(selected);
+		}
 	}
 
 	private void moveCharactersIntoStartingRooms(GameData gameData) {
@@ -219,33 +297,13 @@ public abstract class GameMode {
 		}
 	}
 
-
-
-	private void giveCharactersStartingItems(GameData gameData) {
-		List<Actor> actors = new ArrayList<Actor>();
-		actors.addAll(gameData.getPlayersAsList());
-		actors.addAll(gameData.getNPCs());
-		
-		for (Actor c : actors) {
-			List<GameItem> startingItems = c.getCharacter().getStartingItems();
-			System.out.println("Giving starting items to " + c.getPublicName());
-			for (GameItem it : startingItems) {
-				c.addItem(it);
-			}		
-		}
-		
-		
-	}
-
-
-
-	protected void addNPCs(GameData gameData, List<GameCharacter> remainingChars) {
+	private void addNPCs(GameData gameData, List<GameCharacter> remainingChars) {
 		NPC cat = new CatNPC(gameData.getRoomForId(20));
 		gameData.addNPC(cat);
-		
+
 		NPC tars = new TARSNPC(gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size())));
 		gameData.addNPC(tars);
-		
+
 		int noOfNPCs = Math.min(MyRandom.nextInt(3) + 4, remainingChars.size());
 		for ( ; noOfNPCs > 0 ; noOfNPCs--) {
 			GameCharacter gc;
@@ -257,12 +315,49 @@ public abstract class GameMode {
 			NPC human = new HumanNPC(gc, gc.getStartingRoom(gameData));
 			gameData.addNPC(human);
 			System.out.println("Adding npc " + gc.getBaseName());
-			
+
 		}
-		
+	}
+	
+	private void giveCharactersStartingItems(GameData gameData) {
+		List<Actor> actors = new ArrayList<Actor>();
+		actors.addAll(gameData.getPlayersAsList());
+		actors.addAll(gameData.getNPCs());
+
+		for (Actor c : actors) {
+			List<GameItem> startingItems = c.getCharacter().getStartingItems();
+			System.out.println("Giving starting items to " + c.getPublicName());
+			for (GameItem it : startingItems) {
+				c.addItem(it);
+			}		
+		}
 	}
 
+	private void addItemsToRooms(GameData gameData) {
 
+		Room genRoom = gameData.getRoom("Generator");
+		genRoom.addItem(new FireExtinguisher());
+		genRoom.addItem(new Tools());
+
+		Room labRoom = gameData.getRoom("Lab");
+		labRoom.addItem(new FireExtinguisher());
+
+
+		Room bridge = gameData.getRoom("Bridge");
+		bridge.addItem(new FireExtinguisher());
+
+
+		Room kitchRoom = gameData.getRoom("Kitchen");
+		kitchRoom.addItem(new FireExtinguisher());
+
+		Room dormRoom = gameData.getRoom("Dorms");
+		dormRoom.addItem(new MedKit());
+
+		Room green = gameData.getRoom("Greenhouse");
+		green.addItem(new FireExtinguisher());
+		green.addItem(new Tools());
+
+	}
 
 	public static String getAvailableJobs() {
 		StringBuffer res = new StringBuffer();
@@ -270,7 +365,7 @@ public abstract class GameMode {
 		list.addAll(availableChars().values());
 		SpeedComparator s;
 		Collections.sort(list, new CharacterSpeedComparator());
-		
+
 		for (GameCharacter gc : list) {
 			res.append("p" + gc.getBaseName() + ":");
 		}
@@ -278,7 +373,7 @@ public abstract class GameMode {
 		res.append("aHost:");
 		res.append("aChangeling:");
 		res.append("aOperative");
-		
+
 		return res.toString();
 	}
 
@@ -294,11 +389,11 @@ public abstract class GameMode {
 				res.append(":");
 			}
 			res.append(s);
-			
+
 		}
 		return res.toString();
 	}
-	
+
 
 	public void triggerEvents(GameData gameData) {
 		spawnParasites(gameData);
@@ -312,7 +407,7 @@ public abstract class GameMode {
 
 	protected void triggerModeSpecificEvents(GameData gameData) { }
 
-	
+
 	protected void spawnParasites(GameData gameData) { 
 		//possibly spawn some parasites
 		double PARASITE_SPAWN_CHANCE = 0.33;
@@ -321,17 +416,23 @@ public abstract class GameMode {
 			Room randomRoom = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
 			NPC parasite = new ParasiteNPC(randomRoom);
 			gameData.addNPC(parasite);
+			allParasites.add(parasite);
 		}
-		
+
 	}
 
 	public Map<String, Event> getEvents() {
 		return events;
 	}
 
+	protected List<NPC> getAllParasites() {
+		return allParasites;
+	}
 
-	
-
+	public void addFire(Room position) {
+		OngoingEvent fires = (OngoingEvent)events.get("fires");
+		fires.startNewEvent(position);
+	}
 
 
 }

@@ -10,9 +10,10 @@ import model.actions.SensoryLevel;
 import model.actions.itemactions.CancelAction;
 import model.characters.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
-import model.characters.decorators.InpededMovement;
+import model.characters.decorators.AlterMovement;
 import model.characters.decorators.InstanceRemover;
 import model.events.Event;
+import model.events.RemoveInstanceLaterEvent;
 import model.npcs.NPC;
 
 public class StunBaton extends AmmoWeapon {
@@ -53,53 +54,23 @@ public class StunBaton extends AmmoWeapon {
 	}
 
 	private void reduceMovement(final GameData gameData, final Actor victim) {
-		victim.setCharacter(new InpededMovement(victim.getCharacter(), 
-								"Stunned", 0));
+		victim.setCharacter(new AlterMovement(victim.getCharacter(), 
+								"Stunned", true, 0));
 		
-		gameData.addEvent(new Event() {
-			int roundHappened = gameData.getRound();
-			@Override
-			public String howYouAppear(Actor performingClient) {
-				return "";
-			}
+		gameData.addEvent(new RemoveInstanceLaterEvent(victim, gameData.getRound(), 
+				1, new InstanceRemover() {
 
 			@Override
-			public SensoryLevel getSense() {
-				return SensoryLevel.NO_SENSE;
-			}
-
-			@Override
-			public double getProbability() {
-				return 1.0;
-			}
-
-			@Override
-			public void apply(GameData gameData) {
-				if (gameData.getRound() == roundHappened+1) {
-					InstanceRemover inpedeRemover = new InstanceRemover() {
-
-						@Override
-						public GameCharacter removeInstance(GameCharacter ch) {
-							if (ch instanceof InpededMovement) {
-								return ((CharacterDecorator)ch).getInner();
-							} else if (ch instanceof CharacterDecorator) {
-								return removeInstance(((CharacterDecorator)ch).getInner());
-							}
-							throw new NoSuchElementException("Did not find that instance!");
-						}
-					};
-
-					victim.removeInstance(inpedeRemover);
+			public GameCharacter removeInstance(GameCharacter ch) {
+				if (ch instanceof AlterMovement) {
+					return ((CharacterDecorator)ch).getInner();
+				} else if (ch instanceof CharacterDecorator) {
+					return removeInstance(((CharacterDecorator)ch).getInner());
 				}
+				throw new NoSuchElementException("Did not find that instance!");
 			}
-			
-			@Override
-			public boolean shouldBeRemoved(GameData gameData) {
-				if (gameData.getRound() == roundHappened+1) {
-					return true;
-				}
-				return false;
-			}
-		});
+		}));
+		
 	}
+
 }

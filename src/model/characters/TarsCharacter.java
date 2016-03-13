@@ -15,5 +15,9 @@ public class TarsCharacter extends GameCharacter {
 	public List<GameItem> getStartingItems() {
 		return new ArrayList<GameItem>();
 	}
-
+	
+	@Override
+	public boolean isHealable() {
+		return false;
+	}
 }

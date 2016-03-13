@@ -11,6 +11,7 @@ import model.Player;
 import model.actions.Action;
 import model.events.Event;
 import model.events.NoPressureDamage;
+import model.events.NoPressureEvent;
 import model.map.AirLockRoom;
 
 public class PressurePanel extends ElectricalMachinery {
@@ -63,43 +64,9 @@ public class PressurePanel extends ElectricalMachinery {
 			public void setArguments(List<String> args) { }
 
 			@Override
-			protected void execute(GameData gameData, Actor performingClient) {
+			protected void execute(GameData gameData, final Actor performingClient) {
 				PressurePanel.this.hasPressure = false;
-				Event e = new Event(){
-
-					private PressurePanel panelRef = PressurePanel.this;
-
-					@Override
-					public double getProbability() {
-						return 0;
-					}
-
-					@Override
-					public void apply(GameData gameData) {
-						if (!shouldBeRemoved(gameData)) {
-							for (Target t : roomRef.getTargets()) {
-								t.beExposedTo(null, new NoPressureDamage(t));
-							}
-						}
-
-					}
-
-					@Override
-					public String howYouAppear(Actor performingClient) {
-						return "No Pressure!";
-					}
-
-					@Override
-					public SensoryLevel getSense() {
-						return SensoryLevel.NO_SENSE;
-					}
-
-					@Override
-					public boolean shouldBeRemoved(GameData gameData) {
-						return panelRef.getPressure();
-					}
-
-				};
+				Event e = new NoPressureEvent(PressurePanel.this, roomRef, performingClient);
 				gameData.addEvent(e);
 				roomRef.addEvent(e);
 				PressurePanel.this.noPressureEvent = e;

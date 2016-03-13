@@ -290,7 +290,8 @@ public abstract class GameCharacter {
 		return false;
 	}
 
-	private double getEncumberenceLevel() {
+	public double getEncumberenceLevel() {
+		System.out.println("Running encumberence for " + getBaseName());
 		return ENCUMBERANCE_LEVEL;
 	}
 

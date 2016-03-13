@@ -3,8 +3,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import model.Player;
 
 
 public class MyRandom {
@@ -68,5 +71,9 @@ public class MyRandom {
 			return "woman";
 		}
 		return "man";
+	}
+
+	public static <T> T sample(List<? extends T> list) {
+		return list.get(nextInt(list.size()));
 	}
 }

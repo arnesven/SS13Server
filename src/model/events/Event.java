@@ -28,5 +28,7 @@ public abstract class Event {
 	public boolean shouldBeRemoved(GameData gameData) {
 		return false;
 	}
+
+	public void setShouldBeRemoved(boolean b) { }
 	
 }

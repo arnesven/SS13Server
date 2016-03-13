@@ -39,7 +39,8 @@ public class MapBuilder {
 		result.add(new Room( 6, "Aft Walkway"         , ""       , 2, 10, 2, 1, new int[]{3, 7, 8}   ,         new double[]{2.5, 10.0, 4.0, 10.5} ));
 		result.add(new AirLockRoom( 7,  1, 2, 11, 1, 1, new int[]{6}         ,         new double[]{2.5, 11.0} ));
 		
-		result.add(new Room( 8, "Kitchen"             , "Cook"   , 4, 10, 2, 3, new int[]{6, 9, 10}  ,         new double[]{6.0, 11.5, 5.5, 10.0} ));
+		KitchenRoom kitch = new KitchenRoom(8,  4, 10, 2, 3, new int[]{6, 9, 10}  ,         new double[]{6.0, 11.5, 5.5, 10.0} );
+		result.add(kitch); 
 		result.add(new Room( 9, "Starboard Hall Aft"  , ""       , 5,  8, 4, 2, new int[]{5, 8, 10, 11},       new double[]{9.0, 9.5} ));
 		result.add(new Room(10, "Bar"                 , "Bar"    , 6, 10, 3, 2, new int[]{8, 9, 12}  ,         new double[]{7.5, 10.0, 9.0, 11.5}));
 		result.add(new Room(11, "Starboard Hall Front", ""       , 9,  9, 3, 2, new int[]{9, 12, 13} ,         new double[]{12.0, 9.5} ));

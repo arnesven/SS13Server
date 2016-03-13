@@ -31,85 +31,17 @@ public class HostGameMode extends GameMode {
 	public HostGameMode() {
 	}
 
-	//private static final int NO_OF_GAME_ROUNDS = 20;
 	private Player hostClient;
 	private String hiveString;
 	private HiveObject hive;
 	private Room hiveRoom;
-	private ArrayList<NPC> allParasites = new ArrayList<NPC>();
+
 
 	@Override
-	protected List<GameCharacter> assignCharactersToPlayers(GameData gameData) {
-		ArrayList<Player> listOfClients = new ArrayList<Player>();
-		listOfClients.addAll(gameData.getPlayersAsList());
-		ArrayList<GameCharacter> listOfCharacters = new ArrayList<>();
-		listOfCharacters.addAll(getAllCharacters());
-		
-		/// SELECT A CAPTAIN, SS13 MUST ALWAYS HAVE A CAPTAIN
-		selectCaptain(listOfClients, listOfCharacters);
-				
-		/// ASSIGN ROLES RANDOMLY
-		assignRestRoles(listOfClients, listOfCharacters);	
-		
-		// ASSIGN HOST
+	protected void assignOtherRoles(ArrayList<GameCharacter> remainingCharacters, GameData gameData) {
 		assignHost(gameData);
-		
-		return listOfCharacters;
-		
 	}
 
-
-	private void selectCaptain(ArrayList<Player> clientsRemaining, 
-							   ArrayList<GameCharacter> listOfCharacters) {
-
-		ArrayList<Player> playersWhoSelectedCaptain = new ArrayList<>();
-		for (Player pl : clientsRemaining) {
-			if (pl.checkedJob("Captain")) {
-				playersWhoSelectedCaptain.add(pl);
-			}
-		}
-		
-		if (playersWhoSelectedCaptain.size() == 0) {
-			playersWhoSelectedCaptain.addAll(clientsRemaining);
-		}
-		
-		Player capCl = playersWhoSelectedCaptain.remove(MyRandom.nextInt(playersWhoSelectedCaptain.size()));
-		clientsRemaining.remove(capCl);
-		GameCharacter gc = null;
-		for (GameCharacter ch : listOfCharacters) {
-			if (ch.getBaseName().equals("Captain")) {
-				capCl.setCharacter(ch);
-				gc = ch;
-				break;
-			}
-		}
-		listOfCharacters.remove(gc);
-	}
-
-	private void assignRestRoles(ArrayList<Player> remainingPlayers,
-			ArrayList<GameCharacter> remainingCharacters) {
-		
-		Collections.shuffle(remainingPlayers);
-		
-		while (remainingPlayers.size() > 0) {
-			Player cl = remainingPlayers.remove(0);
-			
-			ArrayList<GameCharacter> candidates = new ArrayList<>();
-			for (GameCharacter gc : remainingCharacters) {
-				if (cl.checkedJob(gc.getBaseName())) {
-					candidates.add(gc);
-				}
-			}
-			if (candidates.size() == 0) {
-				candidates.addAll(remainingCharacters);
-			}
-			
-			GameCharacter selected = candidates.remove(MyRandom.nextInt(candidates.size()));
-			
-			cl.setCharacter(selected);
-			remainingCharacters.remove(selected);
-		}
-	}
 
 	private void assignHost(GameData gameData) {
 		ArrayList<Player> playersWhoSelectedHost = new ArrayList<>();
@@ -147,39 +79,10 @@ public class HostGameMode extends GameMode {
 		} while (hiveInStartingRoom);
 		hive = new HiveObject("Hive");
 		hiveRoom.addObject(hive);
-		
-
-		addItemsToRooms(gameData);
-		
-
 	}
-	
-	private void addItemsToRooms(GameData gameData) {
 
-		Room genRoom = gameData.getRoom("Generator");
-		genRoom.addItem(new FireExtinguisher());
-		genRoom.addItem(new Tools());
-//		genRoom.addItem(new Chemicals());
-		
-		Room labRoom = gameData.getRoom("Lab");
-		labRoom.addItem(new FireExtinguisher());
 
-		
-		Room bridge = gameData.getRoom("Bridge");
-		bridge.addItem(new FireExtinguisher());
-		
-		
-		Room kitchRoom = gameData.getRoom("Kitchen");
-		kitchRoom.addItem(new FireExtinguisher());
-		
-		Room dormRoom = gameData.getRoom("Dorms");
-		dormRoom.addItem(new MedKit());
-		
-		Room green = gameData.getRoom("Greenhouse");
-		green.addItem(new FireExtinguisher());
-		green.addItem(new Tools());
 
-	}
 
 
 
@@ -193,13 +96,6 @@ public class HostGameMode extends GameMode {
 	
 	private void addCrewStartingMessage(Player c) {
 		c.addTolastTurnInfo("There is a hive somewhere on the station. You must search the rooms to find and destroy it. Beware of the host, it will protect its hive by attacking and infecting the crew.");
-	}
-	
-	public enum GameOver {
-		HIVE_BROKEN,
-		ALL_INFECTED,
-		TIME_IS_UP,
-		ALL_DEAD
 	}
 	
 	/**
@@ -256,7 +152,6 @@ public class HostGameMode extends GameMode {
 				addCrewStartingMessage(c);
 			}
 		}
-		
 	}
 
 
@@ -300,10 +195,6 @@ public class HostGameMode extends GameMode {
 	}
 
 
-
-	public List<NPC> getAllParasites() {
-		return allParasites;
-	}
 
 
 

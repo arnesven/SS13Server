@@ -1,6 +1,7 @@
 package model.objects;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import model.Actor;
@@ -32,10 +33,11 @@ public class CrewRoster extends ElectricalMachinery {
 				List<Actor> acts = new ArrayList<>();
 				acts.addAll(gameData.getPlayersAsList());
 				acts.addAll(gameData.getNPCs());
+				Collections.shuffle(acts);
 				performingClient.addTolastTurnInfo("Crew Roster;");
 				for (Actor a : acts) {
 					if (a.getCharacter().isCrew()) {
-						performingClient.addTolastTurnInfo(a.getPublicName());
+						performingClient.addTolastTurnInfo(a.getBaseName());
 					}
 				}
 			}

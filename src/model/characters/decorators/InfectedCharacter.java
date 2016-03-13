@@ -40,7 +40,7 @@ public class InfectedCharacter extends CharacterDecorator {
 	
 	@Override
 	public String getFullName() {
-		return super.getFullName() + " (infected)";
+		return super.getFullName() + " (Infected)";
 	}
 
 	@Override
