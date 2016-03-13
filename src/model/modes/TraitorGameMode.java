@@ -18,6 +18,7 @@ import model.items.PDA;
 import model.npcs.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
+import model.npcs.TARSNPC;
 
 public class TraitorGameMode extends GameMode {
 
@@ -180,6 +181,7 @@ public class TraitorGameMode extends GameMode {
 		result += pointsFromBreaches(gameData);
 		result += pointsFromParasites(gameData);
 		result += pointsFromCat(gameData);
+		result += pointsFromTARS(gameData);
 		return result;
 	}
 
@@ -242,6 +244,18 @@ public class TraitorGameMode extends GameMode {
 		}
 		
 		return (int)(stillAlive * ((double)POINTS_FOR_CREW)/shouldBeSaved.size());
+	}
+
+	public int pointsFromTARS(GameData gameData) {
+		for (NPC npc : gameData.getNPCs()) {
+			if (npc instanceof TARSNPC) {
+				if (npc.isDead()) {
+					return -200;
+				}
+			}
+		}
+
+		return 0;
 	}
 
 	

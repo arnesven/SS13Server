@@ -63,6 +63,7 @@ public class TraitorModeStats extends GameStats {
 		buf.append("<tr><td>Hull Breaches</td><td " + style +">"      + traitorMode.pointsFromBreaches(gameData)       + "</td></tr>");		
 		buf.append("<tr><td>Parasites killed</td><td " + style +">"   + traitorMode.pointsFromParasites(gameData)       + "</td></tr>");		
 		buf.append("<tr><td>Cat </td><td " + style +">"               + traitorMode.pointsFromCat(gameData)       + "</td></tr>");		
+		buf.append("<tr><td>TARS </td><td " + style +">"              + traitorMode.pointsFromTARS(gameData)       + "</td></tr>");		
 		
 		buf.append("</table>");
 		return buf.toString();
