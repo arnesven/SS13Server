@@ -14,8 +14,8 @@ import model.events.Explosion;
 
 public class BombItem extends GameItem {
 
-	public BombItem(String string, double weight) {
-		super(string, weight);
+	public BombItem(String string) {
+		super(string, 2.0);
 	}
 
 	public static String getOperationString() {

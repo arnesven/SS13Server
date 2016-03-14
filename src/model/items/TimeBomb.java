@@ -18,7 +18,7 @@ public class TimeBomb extends BombItem {
 	private boolean timeSet;
 
 	public TimeBomb() {
-		super("Time Bomb", 2.0);
+		super("Time Bomb");
 		this.timeSet = false;
 	}
 

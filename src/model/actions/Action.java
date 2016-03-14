@@ -42,7 +42,6 @@ public abstract class Action {
 		this.execute(gameData, performingClient);
 		this.performer = performingClient;
 		performingClient.getPosition().addToActionsHappened(this);
-
 	}
 	
 	/**

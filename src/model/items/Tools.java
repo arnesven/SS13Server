@@ -9,6 +9,7 @@ import model.Player;
 import model.Target;
 import model.actions.Action;
 import model.actions.SensoryLevel;
+import model.actions.itemactions.RepairAction;
 import model.events.Event;
 import model.events.HullBreach;
 import model.items.weapons.BluntWeapon;
@@ -16,6 +17,7 @@ import model.map.Room;
 import model.objects.BreakableObject;
 import model.objects.GameObject;
 import model.objects.Repairable;
+
 
 public class Tools extends BluntWeapon {
 
@@ -26,7 +28,7 @@ public class Tools extends BluntWeapon {
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
 		if (hasBrokenObjects(cl.getPosition())) {
-			at.add(new RepairAction("Repair", SensoryLevel.PHYSICAL_ACTIVITY, cl));
+			at.add(new RepairAction(cl));
 		}
 		if (cl.getPosition().hasHullBreach()) {
 			at.add(new Action("Seal hull breach", 

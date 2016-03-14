@@ -1,17 +1,18 @@
-package model.items;
+package model.actions.itemactions;
 
 import model.Actor;
 import model.GameData;
 import model.Target;
 import model.actions.SensoryLevel;
 import model.actions.TargetingAction;
+import model.items.GameItem;
 import model.objects.BreakableObject;
 import model.objects.Repairable;
 
-class RepairAction extends TargetingAction {
+public class RepairAction extends TargetingAction {
 
-	public RepairAction(String name, SensoryLevel s, Actor ap) {
-		super(name, s, ap);
+	public RepairAction(Actor ap) {
+		super("Repair", SensoryLevel.PHYSICAL_ACTIVITY, ap);
 	}
 
 	@Override

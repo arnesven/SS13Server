@@ -45,6 +45,7 @@ public class PDA extends GameItem {
 		items.add(new DummyHivePlacer());
 		items.add(new TimeBomb());
 		items.add(new RemoteBomb());
+		items.add(new BoobyTrapBomb());
 		return items;
 	}
 }
