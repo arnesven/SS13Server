@@ -143,16 +143,7 @@ public class HostGameMode extends GameMode {
 
 	
 
-	@Override
-	protected void addStartingMessages(GameData gameData) {
-		for (Player c : gameData.getPlayersAsList()) {
-			if (c == hostClient) {
-				addHostStartingMessage(c);
-			} else {
-				addCrewStartingMessage(c);
-			}
-		}
-	}
+
 
 
 
@@ -200,6 +191,24 @@ public class HostGameMode extends GameMode {
 
 	public HiveObject getHive() {
 		return hive;
+	}
+
+
+	@Override
+	protected void addAntagonistStartingMessage(Player c) {
+		addHostStartingMessage(c);
+	}
+
+
+	@Override
+	protected void addProtagonistStartingMessage(Player c) {
+		addCrewStartingMessage(c);
+	}
+
+
+	@Override
+	protected boolean isAntagonist(Player c) {
+		return c == hostClient;
 	}
 
 

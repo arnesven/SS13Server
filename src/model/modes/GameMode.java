@@ -99,7 +99,7 @@ import model.npcs.TARSNPC;
 public abstract class GameMode {
 
 
-	private static String[] knownModes = {"Host", "Traitor"};
+	private static String[] knownModes = {"Host", "Traitor", "Secret"};
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
 
@@ -175,9 +175,25 @@ public abstract class GameMode {
 	public abstract void setStartingLastTurnInfo();
 
 	/**
-	 * This method sets the starting info for ALL the players
+	 * This method should send a starting message to the antagonist c
+	 * at the start of the game
+	 * @param c
 	 */
-	protected abstract void addStartingMessages(GameData gameData);
+	protected abstract void addAntagonistStartingMessage(Player c);
+	
+	/**
+	 * This method should send a starting message to the protagonist c
+	 * at the start of the game.
+	 * @param c
+	 */
+	protected abstract void addProtagonistStartingMessage(Player c);
+	
+	/**
+	 * This method checks if this player is a antagonist or not.
+	 * @param c
+	 * @return
+	 */
+	protected abstract boolean isAntagonist(Player c);
 
 
 	/**
@@ -209,6 +225,17 @@ public abstract class GameMode {
 
 		addStartingMessages(gameData);
 	}
+
+	private void addStartingMessages(GameData gameData) {
+		for (Player c : gameData.getPlayersAsList()) {
+			if (isAntagonist(c)) {
+				addAntagonistStartingMessage(c);
+			} else {
+				addProtagonistStartingMessage(c);
+			}
+		}
+	}
+	
 
 
 

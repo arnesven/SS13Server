@@ -15,17 +15,17 @@ import model.npcs.NPC;
 
 public class InfectionScanner extends ElectricalMachinery {
 
-	private boolean loaded = false;
-	private GameData gameData;
-	
+	private boolean loaded;
+
 	public InfectionScanner() {
 		super("BioScanner");
+		loaded = false;
 	}
 	
 	@Override
 	public String getName() {
-		if (loaded && gameData.getRound() < 5) {
-			return super.getName() + " (warming up)";
+		if (!loaded) {
+			return super.getName() + " (empty)";
 		}
 		return super.getName();
 	}

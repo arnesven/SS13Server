@@ -13,18 +13,23 @@ import model.GameData;
 import model.Player;
 import model.characters.GameCharacter;
 import model.characters.decorators.TraitorCharacter;
+import model.events.ElectricalFire;
 import model.events.OngoingEvent;
 import model.items.PDA;
+import model.map.Room;
 import model.npcs.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
 import model.npcs.TARSNPC;
+import model.objects.GameObject;
+import model.objects.ElectricalMachinery;
 
 public class TraitorGameMode extends GameMode {
 
 	private static final double TRAITOR_FACTOR = 1.0/3.0;
-	private static final int POINTS_FOR_CREW = 1200;
+	private static final int POINTS_FOR_CREW_PER_TRATIOR = 600;
 	private static final int EVENT_FIX_POINTS = 20;
+	private static final int POINTS_FOR_BROKEN_OBJECTS = 50;
 	private List<Player> traitors = new ArrayList<>();
 	private HashMap<Player, TraitorObjective> objectives = new HashMap<>();
 	private String TRAITOR_START_STRING = "You are a traitor!";
@@ -140,17 +145,7 @@ public class TraitorGameMode extends GameMode {
 		return "Objective; \"" + objectives.get(traitor).getText() + "\"";
 	}
 
-	@Override
-	protected void addStartingMessages(GameData gameData) {
-		for (Player c : gameData.getPlayersAsList()) {
-			if (traitors.contains(c)) {
-				c.addTolastTurnInfo(TRAITOR_START_STRING );
-				c.addTolastTurnInfo(getObjectiveText(c));
-			} else {
-				c.addTolastTurnInfo(CREW_START_STRING);
-			}
-		}
-	}
+
 	
 	@Override
 	protected void triggerModeSpecificEvents(GameData gameData) {
@@ -177,11 +172,26 @@ public class TraitorGameMode extends GameMode {
 		
 		result += pointsFromObjectives(gameData);
 		result += pointsFromSavedCrew(gameData);
+		result += pointsFromBrokenObjects(gameData);
 		result += pointsFromFires(gameData);
 		result += pointsFromBreaches(gameData);
 		result += pointsFromParasites(gameData);
 		result += pointsFromCat(gameData);
 		result += pointsFromTARS(gameData);
+		return result;
+	}
+
+	public int pointsFromBrokenObjects(GameData gameData) {
+		int result = 0;
+		for (Room r : gameData.getRooms()) {
+			for (GameObject obj : r.getObjects()) {
+				if (obj instanceof ElectricalMachinery) {
+					if (((ElectricalMachinery)obj).isBroken()) {
+						result -= POINTS_FOR_BROKEN_OBJECTS;
+					}
+				}
+			}
+		}
 		return result;
 	}
 
@@ -243,7 +253,12 @@ public class TraitorGameMode extends GameMode {
 			}
 		}
 		
-		return (int)(stillAlive * ((double)POINTS_FOR_CREW)/shouldBeSaved.size());
+		return (int)( stillAlive * ((double)getTotalPointsForCrew(gameData))
+					 / shouldBeSaved.size()   );
+	}
+
+	private double getTotalPointsForCrew(GameData gameData) {
+		return getNoOfTraitors(gameData)*POINTS_FOR_CREW_PER_TRATIOR;
 	}
 
 	public int pointsFromTARS(GameData gameData) {
@@ -256,6 +271,23 @@ public class TraitorGameMode extends GameMode {
 		}
 
 		return 0;
+	}
+
+	@Override
+	protected void addAntagonistStartingMessage(Player c) {
+		c.addTolastTurnInfo(TRAITOR_START_STRING);
+		c.addTolastTurnInfo(getObjectiveText(c));
+	}
+
+	@Override
+	protected void addProtagonistStartingMessage(Player c) {
+		c.addTolastTurnInfo(CREW_START_STRING);
+		
+	}
+
+	@Override
+	protected boolean isAntagonist(Player c) {
+		return traitors.contains(c);
 	}
 
 	

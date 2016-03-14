@@ -23,10 +23,12 @@ import model.actions.DoNothingAction;
 import model.actions.SpeedComparator;
 import model.events.ElectricalFire;
 import model.events.Event;
+import model.items.GameItem;
 import model.map.GameMap;
 import model.map.MapBuilder;
 import model.map.Room;
 import model.modes.GameMode;
+import model.modes.GameModeFactory;
 import model.modes.HostGameMode;
 import model.modes.TraitorGameMode;
 import model.npcs.NPC;
@@ -282,6 +284,7 @@ public class GameData {
 			e = it.next();
 			e.apply(this);
 			if (e.shouldBeRemoved(this)) {
+				System.out.println("Removing an event.");
 				it.remove();
 			}
 		}
@@ -296,18 +299,13 @@ public class GameData {
 		this.events = new ArrayList<>();
 		this.lateActions = new ArrayList<>();
 		this.npcs = new ArrayList<>();
-		this.gameMode = getSelectedModeFromSetting();
+		this.gameMode = GameModeFactory.create(selectedMode);
 		this.round = 1;
 		gameMode.setup(this);
 	}
 
-	private GameMode getSelectedModeFromSetting() {
-		if (selectedMode.toLowerCase().equals("host")) {
-			return new HostGameMode();
-		}
+	
 
-		return new TraitorGameMode();
-	}
 
 	private void clearAllDeadNPCs() {
 		Iterator<NPC> it = npcs.iterator();
@@ -508,6 +506,29 @@ public class GameData {
 
 	public void addEvent(Event event) {
 		events.add(event);
+	}
+
+	public Room findRoomForItem(GameItem searchedItem) {
+		for (Room r : getRooms()) {
+			for (GameItem it : r.getItems()) {
+				if (it == searchedItem) {
+					return r;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	public Actor findActorForItem(GameItem searchedItem) {
+		for (Actor a : getActors()) {
+			for (GameItem it : a.getItems()) {
+				if (searchedItem == it) {
+					return a;
+				}
+			}
+		}
+		return null;
 	}
 
 

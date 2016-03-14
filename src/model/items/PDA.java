@@ -43,6 +43,7 @@ public class PDA extends GameItem {
 		items.add(new Revolver());
 		items.add(new StunBaton());
 		items.add(new DummyHivePlacer());
+		items.add(new TimeBomb());
 		return items;
 	}
 }
