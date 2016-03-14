@@ -27,7 +27,12 @@ public class ExplodingFood extends FoodItem {
 	@Override
 	protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
 		innerItem.triggerSpecificReaction(eatenBy, gameData);
-		eatenBy.getAsTarget().beExposedTo(maker, new ExplosiveDamage(3.0));
+		eatenBy.getAsTarget().beExposedTo(maker, new ExplosiveDamage(3.0){
+			@Override
+			public String getText() {
+				return "You exploded!";
+			}
+		});
 		eatenBy.getPosition().addToEventsHappened(new Explosion());
 	}
 

@@ -52,5 +52,9 @@ public class GameItem {
 	public double getWeight() {
 		return weight;
 	}
-	
+
+	protected void setWeight(double weight) {
+		this.weight = weight;
+	}
+
 }

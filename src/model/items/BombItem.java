@@ -18,6 +18,10 @@ public class BombItem extends GameItem {
 		super(string, weight);
 	}
 
+	public static String getOperationString() {
+		return "fiddled with bomb";
+	}
+	
 	@Override
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
 		if (isDemolitionsExpert(whosAsking)) {

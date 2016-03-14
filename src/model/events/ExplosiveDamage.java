@@ -10,7 +10,7 @@ public class ExplosiveDamage implements Damager {
 
 	@Override
 	public String getText() {
-		return "You exploded!";
+		return "You were hit by an explosion!";
 	}
 
 	@Override

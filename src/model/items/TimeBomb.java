@@ -34,7 +34,7 @@ public class TimeBomb extends BombItem {
 
 				@Override
 				protected String getVerb() {
-					return "fiddled with bomb";
+					return BombItem.getOperationString();
 				}
 
 				@Override

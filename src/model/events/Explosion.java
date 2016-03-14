@@ -25,28 +25,7 @@ public class Explosion extends Event {
 		Room room = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
 		
 		for (Target t : room.getTargets()) {
-			t.beExposedTo(null, new Damager() {
-				
-				@Override
-				public boolean isDamageSuccessful(boolean reduced) {
-					return true;
-				}
-				
-				@Override
-				public String getText() {
-					return "You were struck down by a violent explosion!";
-				}
-				
-				@Override
-				public String getName() {
-					return "explosion";
-				}
-				
-				@Override
-				public double getDamage() {
-					return 1.0;
-				}
-			});
+			t.beExposedTo(null, new ExplosiveDamage(1.0));
 		}
 		room.addToEventsHappened(this);
 	}
