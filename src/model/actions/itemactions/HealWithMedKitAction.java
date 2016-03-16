@@ -22,23 +22,6 @@ public class HealWithMedKitAction extends TargetingAction {
 		this.objectRef = objectRef;
 		this.performer = ap;
 	}
-	
-//	@Override
-//	public void addTarget(Target cl) {
-//		InstanceChecker doctorChecker = new InstanceChecker() {
-//			
-//			@Override
-//			public boolean checkInstanceOf(GameCharacter ch) {
-//				if (ch instanceof DoctorCharacter) {
-//					return true;
-//				}
-//				return false;
-//			}
-//		};
-//		if (performer.getCharacter().checkInstance(doctorChecker)) {
-//			return cl.getName() + ((cl.getHealth() == cl.getMaxHealth())?" (healthy)":" (unhealthy");			
-//		}
-//	}
 
 	@Override
 	protected void applyTargetingAction(GameData gameData,
@@ -52,12 +35,12 @@ public class HealWithMedKitAction extends TargetingAction {
 			target.addToHealth(HEAL_AMOUNT);
 			performingClient.getItems().remove(objectRef);
 			if (target == performingClient) {
-				performingClient.addTolastTurnInfo("You " + getVerb() + " yourself with the " + objectRef.getName() + ".");
+				performingClient.addTolastTurnInfo("You " + getVerb(performingClient) + " yourself with the " + objectRef.getPublicName(performingClient) + ".");
 			} else {
-				performingClient.addTolastTurnInfo("You " + getVerb() + " " + target.getName() + " with the " + objectRef.getName() + ".");
+				performingClient.addTolastTurnInfo("You " + getVerb(performingClient) + " " + target.getName() + " with the " + objectRef.getPublicName(performingClient) + ".");
 				if (target instanceof Player) {
-					((Player)target).addTolastTurnInfo(performingClient.getPublicName() + " " + getVerb() + 
-												       " you with a " + objectRef.getName() + ".");
+					((Player)target).addTolastTurnInfo(performingClient.getPublicName() + " " + getVerb((Player)target) + 
+												       " you with a " + objectRef.getPublicName(((Player)target)) + ".");
 				}
 				
 			}

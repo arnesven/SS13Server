@@ -6,6 +6,7 @@ import util.MyRandom;
 import model.Actor;
 import model.GameData;
 import model.actions.Action;
+import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.characters.GameCharacter;
 import model.characters.crew.ChefCharacter;
@@ -26,19 +27,17 @@ public class CookFoodAction extends Action {
 	}
 	
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		return "cooked food";
 	}
 	
 	@Override
-	public String toString() {
-		String res = "Cook Food{";
-		
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		ActionOption res = new ActionOption("Cook Food");
 		for (FoodItem gi : CookOMatic.getCookableFood()) {
-			res += gi.getName() + "{}";
+			res.addOption(gi.getBaseName());
 		}
-		
-		return res + "}";
+		return res;
 	}
 
 	@Override
@@ -53,7 +52,7 @@ public class CookFoodAction extends Action {
 		if (MyRandom.nextDouble() > selectedItem.getFireRisk()*factor) {
 			performingClient.addItem(selectedItem);
 			performingClient.addTolastTurnInfo("You successfully cooked a " + 
-												selectedItem.getName());
+												selectedItem.getPublicName(performingClient));
 		} else {
 			gameData.getGameMode().addFire(performingClient.getPosition());
 			performingClient.addTolastTurnInfo("You accidentally started a fire while cooking!");
@@ -79,9 +78,9 @@ public class CookFoodAction extends Action {
 	}
 
 	@Override
-	public void setArguments(List<String> args) {
+	public void setArguments(List<String> args, Actor p) {
 		for (FoodItem it : CookOMatic.getCookableFood()) {
-			if (it.getName().equals(args.get(0))) {
+			if (it.getBaseName().equals(args.get(0))) {
 				selectedItem = it;
 			}
 		}

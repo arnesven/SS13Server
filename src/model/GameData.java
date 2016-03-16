@@ -205,7 +205,7 @@ public class GameData {
 	 */
 	public String createPlayerActionData(String clid) {
 		Player cl = players.get(clid);
-		String result = cl.getActionTreeString(this) + ":" + createBasicPlayerData(cl);
+		String result = cl.getActionListString(this) + ":" + createBasicPlayerData(cl);
 		return result;
 	}
 
@@ -393,7 +393,7 @@ public class GameData {
 					   ":" + cl.getCurrentHealth() +
 					   ":" + String.format("%1$.1f", cl.getCharacter().getTotalWeight()) +
 					   ":" + cl.getSuit() +
-					   ":" + MyStrings.join(cl.getItems(), "|") + 
+					   ":" + MyStrings.join(cl.getItemsAsFullNameList(), "|") + 
 					   ":" + MyStrings.join(cl.getRoomInfo(), "|") + 
 					   ":" + MyStrings.join(cl.getLastTurnInfo(), "|");
 		return result;	

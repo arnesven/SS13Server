@@ -46,13 +46,14 @@ public class AttackAction extends TargetingAction {
 			}
 			this.setSense(w.getSensedAs());
 		} else {
-			performingClient.addTolastTurnInfo(w.getName() + " isn't working."); 
+			performingClient.addTolastTurnInfo(w.getPublicName(performingClient) + 
+												" isn't working."); 
 		}
 	}
 
 
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		if (target.isDead()) {
 			return "killed";
 		}
@@ -60,7 +61,7 @@ public class AttackAction extends TargetingAction {
 	}
 	
 	@Override
-	public String getDistantDescription() {
+	public String getDistantDescription(Actor whosAsking) {
 		return "You hear a loud bang.";
 	}
 	

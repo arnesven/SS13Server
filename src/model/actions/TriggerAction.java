@@ -15,13 +15,13 @@ public class TriggerAction extends Action {
 	}
 
 	@Override
-	public String getDescription() {
-		return innerAction.getDescription();
+	public String getDescription(Actor whosAsking) {
+		return innerAction.getDescription(whosAsking);
 	}
 
 	@Override
-	public String getDistantDescription() {
-		return innerAction.getDistantDescription();
+	public String getDistantDescription(Actor whosAsking) {
+		return innerAction.getDistantDescription(whosAsking);
 	}
 
 	@Override
@@ -36,8 +36,8 @@ public class TriggerAction extends Action {
 	}
 
 	@Override
-	protected String getVerb() {
-		return innerAction.getVerb();
+	protected String getVerb(Actor whosAsking) {
+		return innerAction.getVerb(whosAsking);
 	}
 
 	@Override
@@ -56,13 +56,13 @@ public class TriggerAction extends Action {
 	}
 
 	@Override
-	public void setArguments(List<String> args) {
-		innerAction.setArguments(args);					
+	public void setArguments(List<String> args, Actor performingClient) {
+		innerAction.setArguments(args, performingClient);					
 	}
 
 	@Override
-	public String toString() {
-		return innerAction.toString();
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		return innerAction.getOptions(gameData, whosAsking);
 	}
 	
 

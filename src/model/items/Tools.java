@@ -22,7 +22,7 @@ import model.objects.Repairable;
 public class Tools extends BluntWeapon {
 
 	public Tools() {
-		super("Tools", 2.0);
+		super("Tools", 1.0);
 	}
 	
 	@Override
@@ -35,10 +35,10 @@ public class Tools extends BluntWeapon {
 						SensoryLevel.PHYSICAL_ACTIVITY) {
 				
 				@Override
-				public void setArguments(List<String> args) { }
+				public void setArguments(List<String> args, Actor p) { }
 				
 				@Override
-				protected String getVerb() {
+				protected String getVerb(Actor whosAsking) {
 					return "sealed the breach";
 				}
 				

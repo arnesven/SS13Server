@@ -45,11 +45,11 @@ public class PutOnAction extends Action {
 	}
 
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		if (selectedItem == null) {
 			return "failed";
 		}
-		return "put on the " + selectedItem.getName();
+		return "put on the " + selectedItem.getPublicName(whosAsking);
 	}
 	
 	@Override
@@ -66,28 +66,28 @@ public class PutOnAction extends Action {
 		} else if (lootVictim != null) {
 			lootVictim.getCharacter().removeSuit();
 		} else {
-			performingClient.addTolastTurnInfo("The " + selectedItem.getName() + " is gone!");
+			performingClient.addTolastTurnInfo("The " + selectedItem.getPublicName(performingClient) + " is gone!");
 			return;
 		}
 		
 		performingClient.getCharacter().putOnSuit(selectedItem);
 		selectedItem.beingPutOn(performingClient);
 	
-		performingClient.addTolastTurnInfo("You put on the " + selectedItem.getName() + ".");
+		performingClient.addTolastTurnInfo("You put on the " + selectedItem.getPublicName(performingClient) + ".");
 		
 	}
 
 	@Override
-	public void setArguments(List<String> args) {
+	public void setArguments(List<String> args, Actor performingClient) {
 		System.out.println("Setting arg for put on" + args.get(0));
 		for (GameItem it : putOnner.getItems()) {
-			if (it.getName().equals(args.get(0))) {
+			if (it.getPublicName(performingClient).equals(args.get(0))) {
 				selectedItem = (SuitItem)it;
 				return;
 			}
 		}
 		for (GameItem it : putOnner.getPosition().getItems()) {
-			if (it.getName().equals(args.get(0))) {
+			if (it.getPublicName(performingClient).equals(args.get(0))) {
 				selectedItem = (SuitItem)it;
 				return;
 			}
@@ -95,9 +95,9 @@ public class PutOnAction extends Action {
 		for (Actor actor : putOnner.getPosition().getActors()) {
 			if (actor.isDead()) {
 				System.out.println("Dead guys suit: " + actor.getCharacter().getSuit());
-				if (actor.getCharacter().getSuit().getName().equals(args.get(0))) {
+				if (actor.getCharacter().getSuit().getPublicName(performingClient).equals(args.get(0))) {
 					selectedItem = (SuitItem)(actor.getCharacter().getSuit());
-					System.out.println("Looting a suit of a dead body " + selectedItem.getName());
+					System.out.println("Looting a suit of a dead body " + selectedItem.getPublicName(performingClient));
 					lootVictim  = actor;
 					return;
 				}
@@ -112,12 +112,12 @@ public class PutOnAction extends Action {
 	}
 
 	@Override
-	public String toString() {
-		StringBuffer buf = new StringBuffer();
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		ActionOption opt = new ActionOption(this.getName());
 		for (GameItem it : options) {
-			buf.append(it.getName() + "{}");
+			opt.addOption(it.getPublicName(whosAsking));
 		}
-		return getName() + "{" + buf.toString() + "}";
+		return opt;
 	}
 	
 }

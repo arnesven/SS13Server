@@ -5,6 +5,7 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.actions.Action;
+import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
@@ -26,7 +27,7 @@ public class AIConsoleAction extends Action {
 	}
 	
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		return "used the AI Console";
 	}
 
@@ -78,17 +79,20 @@ public class AIConsoleAction extends Action {
 	}
 
 	@Override
-	public String toString() {
-		StringBuffer crews = new StringBuffer();
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		ActionOption top = new ActionOption(this.getName());
+		top.addOption("Check Alarms");
+		ActionOption locate = new ActionOption("Locate Crew Member");
 		for (String s : GameMode.getAllCharsAsStrings()) {
-			crews.append(s + "{}");
+			locate.addOption(s);
 		}
+		top.addOption(locate);
 		
-		return getName() + "{Check Alarms{}Locate Crew Member{" + crews.toString() + "}}";
+		return top;
 	}
 	
 	@Override
-	public void setArguments(List<String> args) {
+	public void setArguments(List<String> args, Actor p) {
 		choice = args.get(0);
 		if (choice.equals("Locate Crew Member")) {
 			crew = args.get(1);

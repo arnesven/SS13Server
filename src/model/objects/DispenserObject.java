@@ -28,10 +28,10 @@ public abstract class DispenserObject extends ElectricalMachinery {
 				          SensoryLevel.OPERATE_DEVICE) {
 			
 			@Override
-			public void setArguments(List<String> args) { }
+			public void setArguments(List<String> args, Actor p) { }
 			
 			@Override
-			protected String getVerb() {
+			protected String getVerb(Actor whosAsking) {
 				return "used " + DispenserObject.this.getName();
 			}
 			
@@ -40,7 +40,7 @@ public abstract class DispenserObject extends ElectricalMachinery {
 				if (inventory.size() > 0) {
 					GameItem it = inventory.remove(0);
 					performingClient.addItem(it);
-					performingClient.addTolastTurnInfo("You got " + it.getName() + ".");
+					performingClient.addTolastTurnInfo("You got " + it.getPublicName(performingClient) + ".");
 				} else {
 					performingClient.addTolastTurnInfo("The dispenser is empty.");
 				}

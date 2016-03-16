@@ -20,7 +20,7 @@ public class MeowingAction extends Action {
 	}
 
 	@Override
-	public void setArguments(List<String> args) {
+	public void setArguments(List<String> args, Actor p) {
 		
 	}
 

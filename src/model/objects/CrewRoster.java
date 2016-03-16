@@ -21,10 +21,10 @@ public class CrewRoster extends ElectricalMachinery {
 		at.add(new Action("Inspect Roster", SensoryLevel.OPERATE_DEVICE) {
 			
 			@Override
-			public void setArguments(List<String> args) { }
+			public void setArguments(List<String> args, Actor p) { }
 			
 			@Override
-			protected String getVerb() {
+			protected String getVerb(Actor whosAsking) {
 				return "inspected crew roster";
 			};
 			

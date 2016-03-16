@@ -24,20 +24,42 @@ public class GameItem {
 	}
 
 	/**
-	 * Gets the name of this item
-	 * @return the item's name
+	 * Gets the name of this item as it appears to a person
+	 * who knows everything about it (for instance someone owning it).
+	 * @param whosAsking, can be null, check before using!
+	 * @return
 	 */
-	public String getName() {
+	public String getFullName(Actor whosAsking) {
 		return name;
 	}
 	
+
+	/**
+	 * Gets the name of this item as it appears from a distance.
+	 * @param whosAsking, can be null! check before using!
+	 * @return
+	 */
+	public String getPublicName(Actor whosAsking) {
+		return name;
+	}
+	
+	/**
+	 * Gets the true name of this item, as it was instanciated.
+	 * @return
+	 */
+	public String getBaseName() {
+		return name;
+	}
+	
+	
+	
 	@Override
-	public String toString() {
-		return getName();
+	public final String toString() {
+		return super.toString();
 	}
 
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
-		info.add("i" + name);
+		info.add("i" + getPublicName(whosAsking));
 	}
 
 	/**

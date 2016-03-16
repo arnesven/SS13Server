@@ -5,6 +5,7 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.actions.Action;
+import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.items.GameItem;
 import model.items.weapons.Grenade;
@@ -21,7 +22,7 @@ public class ThrowGrenadeAction extends Action {
 	}
 
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		return "threw a grenade";
 	}
 	
@@ -30,7 +31,7 @@ public class ThrowGrenadeAction extends Action {
 
 		Grenade grenade = null;
 		for (GameItem gi : performingClient.getItems()) {
-			if (gi.getName().equals("Grenade")) {
+			if (gi instanceof Grenade) {
 				grenade = (Grenade)gi;
 			}
 		}
@@ -48,18 +49,18 @@ public class ThrowGrenadeAction extends Action {
 	}
 
 	@Override
-	public String toString() {
-		StringBuffer locs = new StringBuffer();
-		locs.append(thrower.getPosition().getName() + "{}");
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		ActionOption opt = new ActionOption(this.getName());
+		
 		for (Room r : thrower.getPosition().getNeighborList()) {
-			locs.append(r.getName() + "{}");
+			opt.addOption(r.getName());
 		}
 		
-		return this.getName() + "{"+ locs.toString() + "}";
+		return opt;
 	}
 
 	@Override
-	public void setArguments(List<String> args) {	
+	public void setArguments(List<String> args, Actor p) {	
 		location = args.get(0);
 	}
 

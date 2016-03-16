@@ -29,4 +29,9 @@ public class Grenade extends Weapon implements Damager {
 		return isAttackSuccessful(reduced);
 	}
 
+	@Override
+	public String getName() {
+		return getBaseName();
+	}
+
 }

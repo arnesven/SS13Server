@@ -21,40 +21,39 @@ public class PickUpAction extends Action {
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
 		if (performingClient.getPosition().getItems().contains(item)) {
-			performingClient.addTolastTurnInfo("You picked up the " + item.getName() + ".");
+			performingClient.addTolastTurnInfo("You picked up the " + item.getPublicName(performingClient) + ".");
 			performingClient.getPosition().getItems().remove(item);
 			performingClient.getItems().add(item);
 		} else {
-			performingClient.addTolastTurnInfo("You failed to pick up the " + item.getName() + "!");
+			performingClient.addTolastTurnInfo("You failed to pick up the " + item.getPublicName(performingClient) + "!");
 			
 		}
 		
 	}
 
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		return "picked up";
 	}
 	
 	@Override
-	public String getDescription() {
-		return super.getDescription() + " the " + item.getName();
+	public String getDescription(Actor whosAsking) {
+		return super.getDescription(whosAsking) + " the " + item.getPublicName(whosAsking);
 	}
 	
 	@Override
-	public String toString() {
-		String withWatString = "";
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		ActionOption opt = new ActionOption(this.getName());
 		for (GameItem gi : ap.getPosition().getItems()) {
-			withWatString += gi.getName() + "{}";
+			opt.addOption(gi.getPublicName(whosAsking));
 		}
-		
-		return getName() + "{" + withWatString + "}";
+		return opt;
 	}
 	
 	@Override
-	public void setArguments(List<String> args) {
+	public void setArguments(List<String> args, Actor performingClient) {
 		for (GameItem it : ap.getPosition().getItems()){
-			if (args.get(0).equals(it.getName())) {
+			if (args.get(0).equals(it.getPublicName(performer))) {
 				this.item = it;
 				return;
 			}

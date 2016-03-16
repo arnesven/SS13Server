@@ -6,6 +6,7 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.actions.Action;
+import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.map.Room;
 import model.objects.GameObject;
@@ -32,7 +33,7 @@ public class AirlockOverrideAction extends Action {
 
 
 	@Override
-	public void setArguments(List<String> args) {
+	public void setArguments(List<String> args, Actor p) {
 		for (int i = 0 ; i < rooms.size() ; ++i) {
 			if (args.get(0).contains(rooms.get(i).getName())) {
 				selected = panels.get(i);
@@ -42,16 +43,15 @@ public class AirlockOverrideAction extends Action {
 	}
 	
 	@Override
-	public String toString() {
-		String res = "Airlock Override{";
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		ActionOption res = new ActionOption("Airlock Override");
 		for (int i = 0; i < rooms.size() ; ++i) {
 			if (panels.get(i).getPressure()) {
-				res += "Depressurize " + rooms.get(i).getName() + "{}";
+				res.addOption("Depressurize " + rooms.get(i).getName());
 			} else {
-				res += "Pressurize " + rooms.get(i).getName() + "{}";
+				res.addOption("Pressurize " + rooms.get(i).getName());
 			}
 		}
-		res += "}";
 		return res;
 	}
 

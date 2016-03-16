@@ -1,5 +1,7 @@
 package model.items.weapons;
 
+import model.Actor;
+
 
 public class AmmoWeapon extends Weapon {
 
@@ -13,8 +15,8 @@ public class AmmoWeapon extends Weapon {
 	
 	
 	@Override
-	public String getName() {
-		return super.getName() + "(" + shots + ")";
+	public String getFullName(Actor whosAsking) {
+		return super.getFullName(whosAsking) + "(" + shots + ")";
 	}
 	
 	@Override

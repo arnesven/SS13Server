@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.swing.text.html.Option;
+
 import model.Actor;
 import model.Player;
 import model.GameData;
@@ -46,9 +48,9 @@ public abstract class TargetingAction extends Action {
 	}
 	
 	@Override
-	public String getDescription() {
-		return super.getDescription() + " " + target.getName() + 
-				(item!=null?(" with " + item.getName()):"");
+	public String getDescription(Actor whosAsking) {
+		return super.getDescription(whosAsking) + " " + target.getName() + 
+				(item!=null?(" with " + item.getPublicName(whosAsking)):"");
 	}
 	
 	private void addTargetsToAction(Actor ap) {
@@ -94,21 +96,23 @@ public abstract class TargetingAction extends Action {
 	public void addClientsItemsToAction(Player client) { }
 	
 	@Override
-	public String toString() {
-		String withWatString = "";
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		List<ActionOption> optlist = new ArrayList<>();
 		for (GameItem gi : withWhats) {
-			withWatString += gi.getName() + "{}";
+			optlist.add(new ActionOption(gi.getPublicName(whosAsking)));
 		}
 		
-		String resultStr = "";
+		ActionOption root = super.getOptions(gameData, whosAsking);
 		for (Target t : targets) {
 			if (performer == t) {
-				resultStr += "Yourself{}";
+				root.addOption("Yourself");
 			} else {
-				resultStr += t.getName() + "{" + withWatString + "}";
+				ActionOption opt = new ActionOption(t.getName());
+				opt.addAll(optlist);
+				root.addOption(opt);
 			}
 		}
-		return getName() + "{" + resultStr + "}";
+		return root;
 	}
 
 	@Override
@@ -117,10 +121,10 @@ public abstract class TargetingAction extends Action {
 	}
 
 	@Override
-	public void setArguments(java.util.List<String> args) {
+	public void setArguments(List<String> args, Actor performingClient) {
 		this.target = findTarget(args.get(0));
 		if (args.size() > 1) {
-			this.item = findItem(args.get(1));
+			this.item = findItem(args.get(1), performingClient);
 		}
 	}
 	
@@ -132,9 +136,9 @@ public abstract class TargetingAction extends Action {
 		withWhats.add(it);
 	}
 
-	private GameItem findItem(String string) {
+	private GameItem findItem(String string, Actor whosAsking) {
 		for (GameItem g : withWhats) {
-			if (g.getName().equals(string)) {
+			if (g.getPublicName(whosAsking).equals(string)) {
 				return g;
 			}
 		}

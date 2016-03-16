@@ -25,12 +25,12 @@ public class RemoteBomb extends BombItem {
 					SensoryLevel.OPERATE_DEVICE) {
 				
 				@Override
-				protected String getVerb() {
+				protected String getVerb(Actor whosAsking) {
 					return BombItem.getOperationString();
 				}
 				
 				@Override
-				public void setArguments(List<String> args) { }
+				public void setArguments(List<String> args, Actor p) { }
 				
 				
 				@Override

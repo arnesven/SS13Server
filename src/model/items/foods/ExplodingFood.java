@@ -12,7 +12,7 @@ public class ExplodingFood extends FoodItem {
 	private Actor maker;
 
 	public ExplodingFood(FoodItem selectedItem, Actor maker) {
-		super(selectedItem.getName(), selectedItem.getWeight());
+		super(selectedItem.getBaseName(), selectedItem.getWeight());
 		this.innerItem = selectedItem;
 		this.maker = maker;
 	}

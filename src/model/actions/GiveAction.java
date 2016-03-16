@@ -14,12 +14,12 @@ public class GiveAction extends TargetingAction {
 	}
 
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		return "gave";
 	};
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(Actor whosAsking) {
 		return performer.getPublicName() + " gave something to " + target.getName() + ".";
 	}
 	
@@ -34,9 +34,9 @@ public class GiveAction extends TargetingAction {
 		
 		target.getItems().add(item);
 		performingClient.getItems().remove(item);
-		performingClient.addTolastTurnInfo("You gave a " + item.getName() + " to " + target.getName() + ".");
+		performingClient.addTolastTurnInfo("You gave a " + item.getPublicName(performingClient) + " to " + target.getName() + ".");
 		Actor targetAsActor = (Actor)target;
-		targetAsActor.addTolastTurnInfo("You got a " + item.getName() + " from " + performingClient.getPublicName() + ".");
+		targetAsActor.addTolastTurnInfo("You got a " + item.getPublicName(targetAsActor) + " from " + performingClient.getPublicName() + ".");
 		
 	}
 	

@@ -28,7 +28,7 @@ public class FireProtection extends CharacterDecorator {
 			performingClient.addTolastTurnInfo(this.getPublicName() + " is unaffected by your attack!");
 			if (this.getClient() != null) {
 				this.getClient().addTolastTurnInfo(performingClient.getPublicName() + 
-						" tried to attack you with " + weapon.getName());;
+						" tried to attack you with " + weapon.getPublicName(this.getClient()));
 			}
 			return false;
 		}

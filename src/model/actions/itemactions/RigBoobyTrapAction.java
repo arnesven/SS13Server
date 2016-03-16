@@ -5,6 +5,7 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.actions.Action;
+import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.items.BombItem;
 import model.items.BoobyTrapBomb;
@@ -27,25 +28,23 @@ public class RigBoobyTrapAction extends Action {
 
 
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		return "tinkered with " + selectedObject.getName();
 	}
 	
 	@Override
-	public String toString() {
-		StringBuffer buf = new StringBuffer("Rig Booby Trap{");
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		ActionOption opt = new ActionOption("Rig Booby Trap");
 		for (GameObject obj : performer.getPosition().getObjects()) {
 			if (obj instanceof ElectricalMachinery) {
-				buf.append(obj.getName() + "{}");
+				opt.addOption(new ActionOption(obj.getName()));
 			}
 		}
-		
-		buf.append("}");
-		return buf.toString();
+		return opt;
 	}
 
 	@Override
-	public void setArguments(List<String> args) {
+	public void setArguments(List<String> args, Actor p) {
 		for (GameObject obj : performer.getPosition().getObjects()) {
 			if (obj instanceof ElectricalMachinery) {
 				if (obj.getName().equals(args.get(0))) {

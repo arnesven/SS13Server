@@ -130,7 +130,7 @@ public class Player extends Actor implements Target {
 		if (this.getCharacter().getSuit() == null) {
 			return "*None*";
 		}
-		return this.getCharacter().getSuit().getName();
+		return this.getCharacter().getSuit().getFullName(this);
 	}
 
 	/**
@@ -250,10 +250,10 @@ public class Player extends Actor implements Target {
 	 * @param gameData the Game's data
 	 * @return the string representing the selectable actions.
 	 */
-	public String getActionTreeString(GameData gameData) {		
+	public String getActionListString(GameData gameData) {		
 		String result = "{";
-		for (Action a : getActionTree(gameData)) {
-			result += a.toString();
+		for (Action a : getActionList(gameData)) {
+			result += a.getOptions(gameData, this).makeBracketedString();
 		}
 		result += "}";
 		return result;
@@ -267,16 +267,16 @@ public class Player extends Actor implements Target {
 	 * @param gameData the Game's data.
 	 */
 	public void parseActionFromString(String actionString, GameData gameData) {
-		ArrayList<Action> at = getActionTree(gameData);
+		ArrayList<Action> at = getActionList(gameData);
 		String actionStr = actionString.replaceFirst("root,", "");
 
 		ArrayList<String> strings = new ArrayList<>();
 		strings.addAll(Arrays.asList(actionStr.split(",")));
-		System.out.println("Action tree: " + at.toString());
+		//System.out.println("Action tree: " + at.toString());
 		for (Action a : at) {
 			if (a.getName().equals(strings.get(0))) {
 				List<String> args = strings.subList(1, strings.size());
-				a.setArguments(args);
+				a.setArguments(args, this);
 				this.nextAction = a;
 				return;
 			}
@@ -340,7 +340,7 @@ public class Player extends Actor implements Target {
 	 * @param gameData the Game's data
 	 * @return the tree of actions.
 	 */
-	private ArrayList<Action> getActionTree(GameData gameData) {
+	private ArrayList<Action> getActionList(GameData gameData) {
 		ArrayList<Action> at = new ArrayList<Action>();
 		addBasicActions(at);
 		if (!isDead()) {
@@ -367,9 +367,9 @@ public class Player extends Actor implements Target {
 		Map<String, GameItem> map = new HashMap<String, GameItem>();
 
 		for (GameItem it : getItems()) {
-			if (!map.containsKey(it.getName())) {
+			if (!map.containsKey(it.getBaseName())) {
 				it.addYourActions(gameData, at, this);
-				map.put(it.getName(), it);
+				map.put(it.getBaseName(), it);
 			}
 		}
 	}
@@ -511,6 +511,14 @@ public class Player extends Actor implements Target {
 	@Override
 	public boolean isHealable() {
 		return getCharacter().isHealable();
+	}
+
+	public List<String> getItemsAsFullNameList() {
+		List<String> strs = new ArrayList<>();
+		for (GameItem gi : getItems()) {
+			strs.add(gi.getFullName(this));
+		}
+		return strs;
 	}
 
 

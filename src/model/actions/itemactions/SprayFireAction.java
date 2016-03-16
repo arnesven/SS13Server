@@ -10,6 +10,7 @@ import model.actions.Action;
 import model.items.GameItem;
 import model.items.weapons.Flamer;
 import model.npcs.NPC;
+import model.items.Chemicals;
 
 public class SprayFireAction extends Action {
 
@@ -18,7 +19,7 @@ public class SprayFireAction extends Action {
 	}
 
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		return "Sprayed fire";
 	}
 	
@@ -35,7 +36,7 @@ public class SprayFireAction extends Action {
 		
 		Iterator<GameItem> it = performingClient.getItems().iterator();
 		while (it.hasNext()) {
-			if (it.next().getName().equals("Chemicals")) {
+			if (it.next() instanceof Chemicals){
 				it.remove();
 				break;
 			}
@@ -43,13 +44,10 @@ public class SprayFireAction extends Action {
 	}
 
 	@Override
-	public void setArguments(List<String> args) {
-		// TODO Auto-generated method stub
-
-	}
+	public void setArguments(List<String> args, Actor p) { 	}
 
 	@Override
-	public String getDistantDescription() {
+	public String getDistantDescription(Actor whosAsking) {
 		return "Something is burning...";
 	}
 	

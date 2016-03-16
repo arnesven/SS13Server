@@ -14,7 +14,7 @@ public class CancelAction extends Action {
 	}
 	
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		return "'s action was cancelled.";
 	}
 
@@ -24,6 +24,6 @@ public class CancelAction extends Action {
 	}
 
 	@Override
-	public void setArguments(List<String> args) { }
+	public void setArguments(List<String> args, Actor p) { }
 
 }

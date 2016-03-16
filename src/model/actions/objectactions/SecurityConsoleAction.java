@@ -7,6 +7,7 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.actions.Action;
+import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
 import model.events.Event;
@@ -26,7 +27,7 @@ public class SecurityConsoleAction extends Action {
 	}
 
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		return "checked the security cams";
 	}
 	
@@ -62,29 +63,29 @@ public class SecurityConsoleAction extends Action {
 		
 		for (Action a : viewdRoom.getActionsHappened()) {
 			if (a.getSense().visual == VisualLevel.CLEARLY_VISIBLE) {
-				performingClient.addTolastTurnInfo("-->" + a.getDescription());
+				performingClient.addTolastTurnInfo("-->" + a.getDescription(performingClient));
 			}
 		}
 		console.setInUse(false);
 	}
 	
 	@Override
-	public String toString() {
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		ActionOption opt = new ActionOption(this.getName());
 		GameMap gm = MapBuilder.createMap();
-		StringBuffer rooms = new StringBuffer();
 		List<String> names = new ArrayList<>();
 		for (Room r : gm.getRooms()) {
 			names.add(r.getName());
 		}
 		Collections.sort(names);
 		for (String s : names) {
-			rooms.append(s + "{}");
+			opt.addOption(s);
 		}
-		return getName() + "{"+ rooms.toString() + "}";
+		return opt;
 	}
 
 	@Override
-	public void setArguments(List<String> args) {
+	public void setArguments(List<String> args, Actor p) {
 		chosen = args.get(0);
 
 	}

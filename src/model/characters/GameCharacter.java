@@ -127,11 +127,11 @@ public abstract class GameCharacter {
 			}
 			
 			performingClient.addTolastTurnInfo("You " + verb + "ed " + 
-											   getPublicName() + " with " + weapon.getName() + ".");
+											   getPublicName() + " with " + weapon.getPublicName(performingClient) + ".");
 			if (thisClient != null) {
 				thisClient.addTolastTurnInfo(performingClient.getPublicName() + " " + 
 											 verb + "ed you with " + 
-											 weapon.getName() + "."); 
+											 weapon.getPublicName(thisClient) + "."); 
 			}
 			
 		} else {
@@ -139,7 +139,7 @@ public abstract class GameCharacter {
 			if (thisClient != null) {
 				thisClient.addTolastTurnInfo(performingClient.getPublicName() + " tried to " + 
 											 weapon.getSuccessfulMessage() + " you with " + 
-											 weapon.getName() + "."); 
+											 weapon.getPublicName(thisClient) + "."); 
 			}
 		}
 		

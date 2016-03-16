@@ -68,7 +68,7 @@ public abstract class GameStats {
 				"<tr><td> Ending: </td><td>" + getEnding() + "</td></tr>" +
 				"</table> <br/>" + 
 				generatePlayersTable() + "<br/>" + 
-				getContent() +
+				getContent() + "<br/>" + 
 				getMiscStats();
 	}
 
@@ -153,9 +153,9 @@ public abstract class GameStats {
 		"<tr><td> Fires put out: </td><td>"       + getFireString(gameData) + "</td></tr>" +
 		"<tr><td> Hull breaches fixed: </td><td>" + getHullString(gameData) + "</td></tr>" +	
 		"<tr><td> Cat survived: </td><td>"        + isCatDead(gameData) + "</td></tr>" +
-		"<tr><td>Parasites spawned: </td><td>"    + mode.getAllParasites().size() + "</td></tr>" +
-		"<tr><td>Parasites killed: </td><td>"     + countDead(mode.getAllParasites()) + "</td></tr>" +
-		"<tr><td>Parasite vanquisher: </td><td>"  + findVanquisher(mode.getAllParasites())+ "</td></tr>"+
+		"<tr><td> Parasites spawned: </td><td>"    + mode.getAllParasites().size() + "</td></tr>" +
+		"<tr><td> Parasites killed: </td><td>"     + countDead(mode.getAllParasites()) + "</td></tr>" +
+		"<tr><td> Parasite vanquisher: </td><td>"  + findVanquisher(mode.getAllParasites())+ "</td></tr>"+
 		"</table>";
 	}
 

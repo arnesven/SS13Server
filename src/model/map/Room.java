@@ -262,7 +262,7 @@ public class Room {
 		for (Action a : getActionsHappened()) {
 			for (Player p : players) {
 				if (p.getCharacter().doesPerceive(a)) {
-					String text = a.getDescription();
+					String text = a.getDescription(p);
 					if (!text.contains(p.getPublicName()) && !text.toLowerCase().contains("you")) {
 						p.addTolastTurnInfo(text);
 					}
@@ -277,7 +277,7 @@ public class Room {
 				for (Room r : getNeighborList()) {
 					for (Player p : r.getClients()) {
 						if (p.getCharacter().doesPerceive(a)) {
-							String text = a.getDistantDescription();
+							String text = a.getDistantDescription(p);
 							p.addTolastTurnInfo(text);
 						}				
 					}

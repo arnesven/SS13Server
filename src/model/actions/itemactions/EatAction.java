@@ -5,6 +5,7 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.actions.Action;
+import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.items.foods.FoodItem;
 
@@ -13,13 +14,19 @@ public class EatAction extends Action {
 	private FoodItem food;
 
 	public EatAction(FoodItem food) {
-		super("Eat " + food.getName(), SensoryLevel.PHYSICAL_ACTIVITY);
+		super("Eat " + food.getBaseName(), SensoryLevel.PHYSICAL_ACTIVITY);
 		this.food = food;
 	}
 	
 	@Override
-	protected String getVerb() {
-		return "ate " + food.getName();
+	protected String getVerb(Actor whosAsking) {
+		return "ate some food.";
+	}
+	
+	@Override
+	public ActionOption getOptions(GameData gameData, 
+			Actor whosAsking) {
+		return new ActionOption("Eat " + food.getPublicName(whosAsking));
 	}
 
 	@Override
@@ -28,6 +35,6 @@ public class EatAction extends Action {
 	}
 
 	@Override
-	public void setArguments(List<String> args) { 	}
+	public void setArguments(List<String> args, Actor p) { 	}
 
 }

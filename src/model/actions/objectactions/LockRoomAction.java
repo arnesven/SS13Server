@@ -23,7 +23,7 @@ public class LockRoomAction extends Action {
 	}
 
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		return "locked the " + to.getName();
 	}
 	
@@ -44,6 +44,6 @@ public class LockRoomAction extends Action {
 	}
 
 	@Override
-	public void setArguments(List<String> args) { }
+	public void setArguments(List<String> args, Actor p) { }
 
 }

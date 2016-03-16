@@ -20,11 +20,11 @@ public abstract class SuitItem extends GameItem {
 	}
 	
 	@Override
-	public String getName() {
+	public String getFullName(Actor whosAsking) {
 		if (under == null) {
-			return super.getName();
+			return super.getFullName(whosAsking);
 		}
-		return super.getName() + " (on " + under.getName() + ")";
+		return super.getFullName(whosAsking) + " (on " + under.getFullName(whosAsking) + ")";
 	}
 	
 	public double getWeight() {

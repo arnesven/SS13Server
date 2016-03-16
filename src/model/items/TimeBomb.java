@@ -8,6 +8,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
+import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.events.Event;
 
@@ -33,22 +34,21 @@ public class TimeBomb extends BombItem {
 				private int selectedTime;
 
 				@Override
-				protected String getVerb() {
+				protected String getVerb(Actor whosAsking) {
 					return BombItem.getOperationString();
 				}
 
 				@Override
-				public String toString() {
-					StringBuffer buf = new StringBuffer("Set Time Bomb{");
+				public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+					ActionOption buf = new ActionOption("Set Time Bomb");
 					for (int i = 0; i < 16; i++) {
-						buf.append(i + " Rounds{}");
+						buf.addOption(i + " Rounds");
 					}
-					buf.append("}");
-					return buf.toString();
+					return buf;
 				}
 
 				@Override
-				public void setArguments(List<String> args) {
+				public void setArguments(List<String> args, Actor p) {
 					Scanner scan = new Scanner(args.get(0));
 					selectedTime = scan.nextInt();
 					scan.close();

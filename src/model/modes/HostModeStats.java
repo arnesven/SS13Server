@@ -26,9 +26,9 @@ public class HostModeStats extends GameStats {
 	public String getContent() {
 		String content = "";
 		
-		content += "<br/>" + generateMiscStatstable();
+		content += generateMiscStatstable();
 		
-		return "<br/>" + content;
+		return content;
 	}
 
 	@Override

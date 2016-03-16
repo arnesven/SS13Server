@@ -22,18 +22,18 @@ public class BombDetonator extends GameItem {
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
 			Player cl) {
-		at.add(new Action("Detonate " + bomb.getName(),
+		at.add(new Action("Detonate " + bomb.getPublicName(cl),
 				new SensoryLevel(VisualLevel.STEALTHY, 
 								 AudioLevel.ALMOST_QUIET, 
 								 OlfactoryLevel.UNSMELLABLE)) {
 			
 			@Override
-			protected String getVerb() {
+			protected String getVerb(Actor performingClient) {
 				return "used the detonator";
 			}
 			
 			@Override
-			public void setArguments(List<String> args) { }
+			public void setArguments(List<String> args, Actor p) { }
 			
 			@Override
 			protected void execute(GameData gameData, Actor performingClient) {

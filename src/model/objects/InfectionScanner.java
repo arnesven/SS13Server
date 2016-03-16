@@ -11,7 +11,7 @@ import model.actions.Action;
 import model.actions.SensoryLevel;
 import model.items.GameItem;
 import model.npcs.NPC;
-
+import model.items.Chemicals;
 
 public class InfectionScanner extends ElectricalMachinery {
 
@@ -37,10 +37,10 @@ public class InfectionScanner extends ElectricalMachinery {
 				at.add(new Action("Load BioScanner", SensoryLevel.OPERATE_DEVICE) {
 					
 					@Override
-					public void setArguments(List<String> args) {	}
+					public void setArguments(List<String> args, Actor p) {	}
 					
 					@Override
-					protected String getVerb() {
+					protected String getVerb(Actor whosAsking) {
 						return "loaded the BioScanner with chemicals";
 					}
 					
@@ -57,10 +57,10 @@ public class InfectionScanner extends ElectricalMachinery {
 			at.add(new Action("Activate BioScanner", SensoryLevel.OPERATE_DEVICE) {
 				
 				@Override
-				public void setArguments(List<String> args) {}
+				public void setArguments(List<String> args, Actor p) {}
 				
 				@Override
-				protected String getVerb() {
+				protected String getVerb(Actor whosAsking) {
 					return "activated the BioScanner";
 				}
 				
@@ -115,7 +115,7 @@ public class InfectionScanner extends ElectricalMachinery {
 
 	private GameItem getChemicals(Actor cl) {
 		for (GameItem gi : cl.getItems()) {
-			if (gi.getName().equals("Chemicals")) {
+			if (gi instanceof Chemicals) {
 				return gi;
 			}
 		}

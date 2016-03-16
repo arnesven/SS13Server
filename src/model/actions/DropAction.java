@@ -32,43 +32,44 @@ public class DropAction extends Action {
 			performingClient.getItems().remove(item);
 		}
 		performingClient.getPosition().getItems().add(item);
-		performingClient.addTolastTurnInfo("You dropped the " + item.getName() + ".");
+		performingClient.addTolastTurnInfo("You dropped the " + item.getPublicName(performingClient) + ".");
 	}
 
 
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		return "Dropped";
 	}
 	
 	@Override
-	public String getDescription() {
-		return super.getDescription() + " " + item.getName();
+	public String getDescription(Actor whosAsking) {
+		return super.getDescription(whosAsking) + " " + item.getPublicName(whosAsking);
 	}
 	
 	@Override
-	public String toString() {
-		String withWatString = "";
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		ActionOption opt = super.getOptions(gameData, whosAsking);
 		for (GameItem gi : ap.getItems()) {
-			withWatString += gi.getName() + "{}";
-		}
-		if (ap.getCharacter().getSuit() != null) {
-			withWatString += ap.getCharacter().getSuit() + "{}";
+			opt.addOption(gi.getPublicName(whosAsking));
 		}
 		
-		return getName() + "{" + withWatString + "}";
+		if (ap.getCharacter().getSuit() != null) {
+			opt.addOption(ap.getCharacter().getSuit().getPublicName(whosAsking));
+		}
+		return opt;
 	}
 	
+	
 	@Override
-	public void setArguments(List<String> args) {
+	public void setArguments(List<String> args, Actor performingClient) {
 		if (ap.getCharacter().getSuit() != null) {
-			if (args.get(0).equals(ap.getCharacter().getSuit().getName())) {
+			if (args.get(0).equals(ap.getCharacter().getSuit().getPublicName(performingClient))) {
 				this.item = ap.getCharacter().getSuit();
 				return;
 			}
 		}
 		for (GameItem it : ap.getItems()){
-			if (args.get(0).equals(it.getName())) {
+			if (args.get(0).equals(it.getPublicName(performingClient))) {
 				this.item = it;
 				return;
 			}

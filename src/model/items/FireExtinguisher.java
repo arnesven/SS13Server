@@ -25,16 +25,16 @@ public class FireExtinguisher extends BluntWeapon {
 	}
 	
 	@Override
-	public String getName() {
+	public String getFullName(Actor whosAsking) {
 		if (level == 2) {
-			return super.getName() + "(full)";
+			return super.getBaseName() + "(full)";
 		} else if (level == 1) {
-			return super.getName() + "(half)";
+			return super.getBaseName() + "(half)";
 		} 
 		
-		return super.getName() + "(empty)";
+		return super.getBaseName() + "(empty)";
 	}
-
+	
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
 		if (hasFire(cl.getPosition()) != null && level > 0) {
@@ -44,12 +44,12 @@ public class FireExtinguisher extends BluntWeapon {
 							OlfactoryLevel.WHIFF)) {
 
 				@Override
-				protected String getVerb() {
+				protected String getVerb(Actor whosAsking) {
 					return "put out the fire";
 				}
 				
 				@Override
-				public void setArguments(List<String> args) { }
+				public void setArguments(List<String> args, Actor p) { }
 
 				@Override
 				protected void execute(GameData gameData, Actor performingClient) {

@@ -22,7 +22,7 @@ public class HissAction extends Action {
 	}
 
 	@Override
-	public void setArguments(List<String> args) {
+	public void setArguments(List<String> args, Actor p) {
 		
 	}
 	

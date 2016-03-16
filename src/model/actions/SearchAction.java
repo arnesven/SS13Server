@@ -38,7 +38,7 @@ public class SearchAction extends Action {
 	}
 
 	@Override
-	public void setArguments(List<String> args) { // Not needed	
+	public void setArguments(List<String> args, Actor p) { // Not needed	
 	}
 
 }

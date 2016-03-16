@@ -44,7 +44,7 @@ public class PressurePanel extends ElectricalMachinery {
 		return new Action("Pressurize", SensoryLevel.OPERATE_DEVICE) {
 
 			@Override
-			public void setArguments(List<String> args) { }
+			public void setArguments(List<String> args, Actor p) { }
 
 			@Override
 			protected void execute(GameData gameData, Actor performingClient) {
@@ -61,7 +61,7 @@ public class PressurePanel extends ElectricalMachinery {
 		return new Action("Depressurize", SensoryLevel.OPERATE_DEVICE) {
 
 			@Override
-			public void setArguments(List<String> args) { }
+			public void setArguments(List<String> args, Actor p) { }
 
 			@Override
 			protected void execute(GameData gameData, final Actor performingClient) {

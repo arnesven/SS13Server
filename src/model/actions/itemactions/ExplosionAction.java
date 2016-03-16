@@ -22,12 +22,12 @@ public class ExplosionAction extends Action {
 	}
 
 	@Override
-	public String getDescription() {
+	public String getDescription(Actor whosAsking) {
 		return "There was a violent explosion.";
 	}
 	
 	@Override
-	public String getDistantDescription() {
+	public String getDistantDescription(Actor whosAsking) {
 		return "You hear a loud explosion.";
 	}
 	
@@ -40,6 +40,6 @@ public class ExplosionAction extends Action {
 	}
 
 	@Override
-	public void setArguments(List<String> args) { }
+	public void setArguments(List<String> args, Actor p) { }
 
 }

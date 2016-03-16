@@ -20,12 +20,12 @@ public class RandomSpeechBehavior extends SpontaneousAct {
 			private String talkString;
 			
 			@Override
-			public String getDescription() {
+			public String getDescription(Actor whosAsking) {
 				return "TARS said \"" + talkString + "\"";
 			}
 			
 			@Override
-			public void setArguments(List<String> args) { }
+			public void setArguments(List<String> args, Actor p) { }
 			
 			@Override
 			protected void execute(GameData gameData, Actor performingClient) {

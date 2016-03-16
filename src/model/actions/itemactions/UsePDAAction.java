@@ -6,6 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
+import model.actions.ActionOption;
 import model.items.GameItem;
 import model.items.PDA;
 import model.modes.TraitorGameMode;
@@ -25,9 +26,9 @@ public class UsePDAAction extends Action {
 	}
 	
 	@Override
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		if (orderedItem != null) {
-			return "ordered " + orderedItem.getName() + " with a PDA";
+			return "ordered " + orderedItem.getPublicName(whosAsking) + " with a PDA";
 		}
 		return "used a PDA";
 	}
@@ -49,34 +50,35 @@ public class UsePDAAction extends Action {
 		} else {
 			performingClient.addItem(orderedItem);
 			pda.decrementUses();
-			performingClient.addTolastTurnInfo(orderedItem.getName() + 
+			performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) + 
 					" appeared! You put it in your inventory.");
 		}
 
 	}
 	
 	@Override
-	public String toString() {
-		String result = "Use PDA{Request Info{}";
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		ActionOption opt = new ActionOption("Use PDA");
+		opt.addOption("Request Info");
 		if (pda.getUsesLeft() > 0) {
-			result += "Order Item (" + pda.getUsesLeft() +" left){";
+			ActionOption order = new ActionOption("Order Item (" + pda.getUsesLeft() + " left)");
 			for (GameItem it : PDA.getOrderableItems()) {
-				result += it.getName() + "{}";
+				order.addOption(it.getBaseName());
 			}
-			
-			result += "}";
+			opt.addOption(order);
 		} 
-		return result + "}";
+		
+		return opt;
 	}
 	
 
 	@Override
-	public void setArguments(List<String> args) {
+	public void setArguments(List<String> args, Actor p) {
 		if (args.get(0).equals("Request Info")) {
 			order = false;
 		} else {
 			for (GameItem it : PDA.getOrderableItems()) {
-				if (it.getName().equals(args.get(1))) {
+				if (it.getBaseName().equals(args.get(1))) {
 					orderedItem = it;
 				}
 			}

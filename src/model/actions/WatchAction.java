@@ -40,7 +40,7 @@ public class WatchAction extends TargetingAction {
 			name = cl.getBaseName();
 			if (cl.getItems().size() > 0) {
 				GameItem randomItem = cl.getItems().get(MyRandom.nextInt(cl.getItems().size()));
-				itemStr = " and is carrying a " + randomItem.getName();
+				itemStr = " and is carrying a " + randomItem.getPublicName(performingClient);
 			}
 		}		
 		

@@ -1,64 +1,45 @@
 package model.modes;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import util.MyRandom;
 import model.GameData;
 import model.Player;
 import model.characters.GameCharacter;
+import model.events.Event;
+import model.map.Room;
+import model.npcs.NPC;
 
-public class SecretGameMode extends GameMode {
+public class SecretGameMode  {
 	
 	private GameMode innerMode;
 
-	public SecretGameMode() {
+	public static GameMode getNewInstance() {
+		GameMode result;
 		double d = MyRandom.nextDouble();
 		if (d < 0.5) {
-			this.innerMode = new HostGameMode();
+			result = new HostGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					protMessage(c);
+				}
+			};
 		} else {
-			this.innerMode = new TraitorGameMode();
+			result = new TraitorGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					protMessage(c);
+				}
+			};
 		}
+		return result;
 	}
 
-	@Override
-	protected void setUpOtherStuff(GameData gameData) {
-		innerMode.setUpOtherStuff(gameData);
-	}
-
-	@Override
-	protected void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters,
-			GameData gameData) {
-		innerMode.assignOtherRoles(listOfCharacters, gameData);
-	}
-
-	@Override
-	public boolean gameOver(GameData gameData) {
-		return innerMode.gameOver(gameData);
-	}
-
-	@Override
-	public void setStartingLastTurnInfo() {
-		innerMode.setStartingLastTurnInfo();
-	}
-
-	@Override
-	public String getSummary(GameData gameData) {
-		return innerMode.getSummary(gameData);
-	}
-
-	@Override
-	protected void addAntagonistStartingMessage(Player c) {
-		innerMode.addAntagonistStartingMessage(c);
-	}
-
-	@Override
-	protected void addProtagonistStartingMessage(Player c) {
+	private static void protMessage(Player c) {
 		c.addTolastTurnInfo("Just another day on SS13. What will happen today?");
 	}
 
-	@Override
-	protected boolean isAntagonist(Player c) {
-		return innerMode.isAntagonist(c);
-	}
-
+	
 }

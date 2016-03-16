@@ -137,7 +137,7 @@ public abstract class BreakableObject extends GameObject implements Target {
 	
 	public String getBreakString() {
 		if (breaker != null) {
-			return breaker.getBaseName() + " with " + brokenByWeapon.getName();
+			return breaker.getBaseName() + " with " + brokenByWeapon.getBaseName();
 		} else {
 			return breakString;
 		}

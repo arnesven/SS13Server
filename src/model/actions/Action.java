@@ -19,7 +19,6 @@ public abstract class Action {
 	protected Actor performer;
 	
 	
-	
 	/**
 	 * @param name the name of this action
 	 * @param isStealthy if the action is stealthy it will not be displayed to other players standing in that room.
@@ -30,8 +29,9 @@ public abstract class Action {
 	}
 
 	@Override
-	public String toString() {
-		return name + "{}";
+	final public String toString() {
+		throw new UnsupportedOperationException("toString() should not be called on Actions!");
+		//return name + "{}";
 	}
 	
 	public String getName() {
@@ -51,18 +51,18 @@ public abstract class Action {
 	 * @param performingClient the ActionPerformer who is performing the action
 	 * @return the textual description of the action (as seen by bystanders).
 	 */
-	public String getDescription() {
+	public String getDescription(Actor whosAsking) {
 		if (performer == null) {
 			throw new IllegalStateException("doTheAction was not called before call to getDescription!");
 		}
-		return performer.getPublicName() + " " + this.getVerb().toLowerCase() + "";
+		return performer.getPublicName() + " " + this.getVerb(whosAsking).toLowerCase() + "";
 	}
 
 	/**
 	 * Gets the name of the aciton as a verb, passed tense
 	 * @return the verb as a string.
 	 */
-	protected String getVerb() {
+	protected String getVerb(Actor whosAsking) {
 		return getName().toLowerCase() + "ed";
 	}
 
@@ -88,7 +88,7 @@ public abstract class Action {
 	 * MUST be called before execute
 	 * @param args the arguments
 	 */
-	public abstract void setArguments(List<String> args);
+	public abstract void setArguments(List<String> args, Actor performingClient);
 
 	public SensoryLevel getSense() {
 		return senses;
@@ -98,11 +98,15 @@ public abstract class Action {
 		this.senses = sensedAs;
 	}
 
-	public String getDistantDescription() {
+	public String getDistantDescription(Actor whosAsking) {
 		return "";
 	}
 
 	public void lateExecution(GameData gameData, Actor performingClient) {	}
+
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		return new ActionOption(getName());
+	}
 
 
 

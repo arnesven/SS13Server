@@ -5,6 +5,7 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.actions.Action;
+import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.items.GameItem;
 import model.items.foods.ExplodingFood;
@@ -27,14 +28,14 @@ public class CookGrenadeIntoFoodAction extends Action {
 	}
 	
 	@Override
-	protected String getVerb() {
-		return innerAction.getVerb();
+	protected String getVerb(Actor whosAsking) {
+		return innerAction.getVerb(whosAsking);
 	}
 	
 	@Override
-	public String toString() {
-		String inner = innerAction.toString();
-		inner = inner.replace("Cook Food", "Cook Grenade Into Food");
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		ActionOption inner = innerAction.getOptions(gameData, whosAsking);
+		inner.setName("Cook Grenade Into Food");
 		return inner;
 	}
 	
@@ -56,8 +57,8 @@ public class CookGrenadeIntoFoodAction extends Action {
 	}
 
 	@Override
-	public void setArguments(List<String> args) {
-		innerAction.setArguments(args);
+	public void setArguments(List<String> args, Actor p) {
+		innerAction.setArguments(args, p);
 	}
 
 }

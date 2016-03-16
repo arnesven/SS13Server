@@ -226,7 +226,7 @@ public abstract class GameMode {
 		addStartingMessages(gameData);
 	}
 
-	private void addStartingMessages(GameData gameData) {
+	protected void addStartingMessages(GameData gameData) {
 		for (Player c : gameData.getPlayersAsList()) {
 			if (isAntagonist(c)) {
 				addAntagonistStartingMessage(c);
