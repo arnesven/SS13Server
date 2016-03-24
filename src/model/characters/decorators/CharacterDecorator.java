@@ -6,6 +6,7 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.Target;
 import model.actions.Action;
 import model.characters.GameCharacter;
 import model.events.Damager;
@@ -208,5 +209,8 @@ public abstract class CharacterDecorator extends GameCharacter {
 		return innerChar.getEncumberenceLevel();
 	}
 	
+	public void giveItem(GameItem it, Target giver) {
+		innerChar.giveItem(it, giver);
+	}
 		
 }

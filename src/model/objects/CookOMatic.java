@@ -9,11 +9,11 @@ import model.actions.Action;
 import model.actions.objectactions.CookFoodAction;
 import model.actions.objectactions.CookGrenadeIntoFoodAction;
 import model.items.GameItem;
+import model.items.Grenade;
 import model.items.foods.ApplePie;
 import model.items.foods.DoubleFlambeSteakDiane;
 import model.items.foods.FoodItem;
 import model.items.foods.SpinachSoup;
-import model.items.weapons.Grenade;
 
 public class CookOMatic extends ElectricalMachinery {
 

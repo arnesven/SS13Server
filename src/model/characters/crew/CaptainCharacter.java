@@ -5,9 +5,9 @@ import java.util.List;
 
 import model.characters.GameCharacter;
 import model.items.GameItem;
+import model.items.Grenade;
 import model.items.KeyCard;
 import model.items.suits.FireSuit;
-import model.items.weapons.Grenade;
 
 public class CaptainCharacter extends GameCharacter {
 

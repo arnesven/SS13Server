@@ -29,6 +29,5 @@ public abstract class FoodItem extends GameItem {
 		triggerSpecificReaction(eatenBy, gameData);
 	}
 
-
 	
 }

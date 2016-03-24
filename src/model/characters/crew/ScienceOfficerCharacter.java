@@ -9,10 +9,10 @@ import model.items.GameItem;
 import model.items.MedKit;
 import model.items.weapons.Knife;
 
-public class ChemistCharacter extends GameCharacter {
+public class ScienceOfficerCharacter extends GameCharacter {
 
-	public ChemistCharacter() {
-		super("Chemist", 1, 9.0);
+	public ScienceOfficerCharacter() {
+		super("Science Officer", 1, 9.0);
 	}
 	
 	@Override

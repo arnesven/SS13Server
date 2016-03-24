@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.characters.GameCharacter;
+import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InfectedCharacter;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
@@ -47,7 +49,7 @@ public class HostModeStats extends GameStats {
 	@Override
 	protected String modeSpecificExtraInfo(Actor value) {
 		if (value.isInfected() && value != hostMode.getHostPlayer()) {
-			InfectedCharacter chara = (InfectedCharacter)value.getCharacter();
+			InfectedCharacter chara = getInfectCharacter(value.getCharacter());
 			if (chara.getInfector() != null) {
 				return "<i>Infected by " +  chara.getInfector().getBaseName() + " in round " + chara.getInfectedInRound() + "</i>";
 			}
@@ -55,6 +57,16 @@ public class HostModeStats extends GameStats {
 		return "";
 	}
 	
+	private InfectedCharacter getInfectCharacter(GameCharacter character) {
+		if (character instanceof InfectedCharacter) {
+			return (InfectedCharacter)character;
+		} else if (character instanceof CharacterDecorator) {
+			return getInfectCharacter( ((CharacterDecorator)character).getInner());
+		}
+		
+		throw new IllegalStateException("Tried to find inner char where none existed");
+	}
+
 	@Override
 	protected String getExtraDeadInfo(Actor value) { 
 		String host = "";

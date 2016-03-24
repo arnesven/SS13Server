@@ -37,7 +37,7 @@ public class RemoteBomb extends BombItem {
 				protected void execute(GameData gameData, Actor performingClient) {
 					remoteGotten = true;
 					GameItem det = new BombDetonator(RemoteBomb.this);
-					performingClient.addItem(det);
+					performingClient.addItem(det, null);
 					performingClient.addTolastTurnInfo("You separated the detonator from the bomb.");
 					RemoteBomb.this.setWeight(RemoteBomb.this.getWeight() - det.getWeight());
 				}

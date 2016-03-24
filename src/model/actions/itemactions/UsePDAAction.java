@@ -40,7 +40,7 @@ public class UsePDAAction extends Action {
 				String others = "The other traitors are; ";
 				for (Player p : traitorMode.getTraitors()) {
 					if (performingClient != p) {
-						others += p.getBaseName() + " (obj; \"" + traitorMode.getObjectives().get(p) + "\")";
+						others += p.getBaseName() + " (obj; \"" + traitorMode.getObjectives().get(p).getText() + "\")";
 					}
 				}
 				performingClient.addTolastTurnInfo(others);
@@ -48,7 +48,7 @@ public class UsePDAAction extends Action {
 				performingClient.addTolastTurnInfo("You are the only traitor.");
 			}
 		} else {
-			performingClient.addItem(orderedItem);
+			performingClient.addItem(orderedItem, null);
 			pda.decrementUses();
 			performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) + 
 					" appeared! You put it in your inventory.");

@@ -10,6 +10,7 @@ import model.characters.decorators.InstanceRemover;
 import model.items.GameItem;
 import model.map.Room;
 import model.npcs.NPC;
+import model.objects.CookOMatic;
 
 public abstract class Actor  {
 
@@ -103,9 +104,10 @@ public abstract class Actor  {
 	/**
 	 * Adds an item to this player.
 	 * @param it the item to be added.
+	 * @param giver 
 	 */
-	public void addItem(GameItem it) {
-		getCharacter().getItems().add(it);
+	public void addItem(GameItem it, Target giver) {
+		getCharacter().giveItem(it, giver);
 	}
 
 	/**

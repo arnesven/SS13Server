@@ -8,9 +8,9 @@ import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.items.GameItem;
+import model.items.Grenade;
 import model.items.foods.ExplodingFood;
 import model.items.foods.FoodItem;
-import model.items.weapons.Grenade;
 import model.objects.CookOMatic;
 
 public class CookGrenadeIntoFoodAction extends Action {
@@ -50,7 +50,7 @@ public class CookGrenadeIntoFoodAction extends Action {
 		FoodItem food = new ExplodingFood(innerAction.getSelectedItem(), 
 				performingClient);
 		performingClient.getItems().remove(grenade);
-		performingClient.addItem(food);
+		performingClient.addItem(food, cooker);
 		performingClient.addTolastTurnInfo("You cooked the grenade into " + 
 						innerAction.getSelectedItem());
 		

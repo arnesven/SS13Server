@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
+import model.items.BombItem;
 import model.items.GameItem;
 import model.items.weapons.Weapon;
 
@@ -43,7 +44,9 @@ public class GiveAction extends TargetingAction {
 	@Override
 	public void addClientsItemsToAction(Player client) {
 		for (GameItem it : client.getItems()) {
-			withWhats.add(it);
+			if (! (it instanceof BombItem)) {
+				withWhats.add(it);
+			}
 		}
 	}
 

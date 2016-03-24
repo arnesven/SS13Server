@@ -23,7 +23,7 @@ import model.characters.crew.BiologistCharacter;
 import model.characters.crew.CaptainCharacter;
 import model.characters.crew.ChaplainCharacter;
 import model.characters.crew.ChefCharacter;
-import model.characters.crew.ChemistCharacter;
+import model.characters.crew.ScienceOfficerCharacter;
 import model.characters.crew.DetectiveCharacter;
 import model.characters.crew.DoctorCharacter;
 import model.characters.crew.EngineerCharacter;
@@ -119,7 +119,7 @@ public abstract class GameMode {
 		availableChars.put("Doctor",           new DoctorCharacter());
 		availableChars.put("Biologist",        new BiologistCharacter());
 		availableChars.put("Engineer",         new EngineerCharacter());
-		availableChars.put("Chemist",          new ChemistCharacter());
+		availableChars.put("Science Officer",  new ScienceOfficerCharacter());
 		availableChars.put("Geneticist",       new GeneticistCharacter());
 		availableChars.put("Roboticist",       new RoboticistCharacter());
 		availableChars.put("Janitor",          new JanitorCharacter());
@@ -355,7 +355,7 @@ public abstract class GameMode {
 			List<GameItem> startingItems = c.getCharacter().getStartingItems();
 			System.out.println("Giving starting items to " + c.getPublicName());
 			for (GameItem it : startingItems) {
-				c.addItem(it);
+				c.addItem(it, null);
 			}		
 		}
 	}

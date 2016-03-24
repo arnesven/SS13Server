@@ -8,7 +8,7 @@ import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.items.GameItem;
-import model.items.weapons.Grenade;
+import model.items.Grenade;
 import model.map.Room;
 
 public class ThrowGrenadeAction extends Action {
@@ -55,13 +55,18 @@ public class ThrowGrenadeAction extends Action {
 		for (Room r : thrower.getPosition().getNeighborList()) {
 			opt.addOption(r.getName());
 		}
+		opt.addOption("This room");
 		
 		return opt;
 	}
 
 	@Override
-	public void setArguments(List<String> args, Actor p) {	
-		location = args.get(0);
+	public void setArguments(List<String> args, Actor p) {
+		if (args.get(0).equals("This room")) {
+			location = p.getPosition().getName();
+		} else {
+			location = args.get(0);
+		}
 	}
 
 }

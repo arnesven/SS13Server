@@ -55,7 +55,7 @@ public class GameData {
 	private List<Pair<Actor, Action>> lateActions;
 	// Map must be built before first game, client needs it.
 	private GameMap map                     = MapBuilder.createMap();
-	private String selectedMode = "Traitor";
+	private String selectedMode = "Secret";
 	private List<Event> events = new ArrayList<>();
 
 	

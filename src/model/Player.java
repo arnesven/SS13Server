@@ -1,5 +1,6 @@
 package model;
 
+import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -23,8 +24,8 @@ import model.characters.decorators.InstanceChecker;
 import model.events.Damager;
 import model.items.Explosive;
 import model.items.GameItem;
+import model.items.Grenade;
 import model.items.MedKit;
-import model.items.weapons.Grenade;
 import model.items.weapons.Weapon;
 import model.map.Room;
 import model.npcs.NPC;
@@ -369,7 +370,7 @@ public class Player extends Actor implements Target {
 		for (GameItem it : getItems()) {
 			if (!map.containsKey(it.getBaseName())) {
 				it.addYourActions(gameData, at, this);
-				map.put(it.getBaseName(), it);
+				map.put(it.getFullName(this), it);
 			}
 		}
 	}
@@ -519,6 +520,15 @@ public class Player extends Actor implements Target {
 			strs.add(gi.getFullName(this));
 		}
 		return strs;
+	}
+
+	public void addUniquelyTolastTurnInfo(String text) {
+		for (String s : this.getLastTurnInfo()) {
+			if (s.equals(text)) {
+				return;
+			}
+		}
+		this.addTolastTurnInfo(text);
 	}
 
 

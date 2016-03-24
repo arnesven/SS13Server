@@ -14,6 +14,7 @@ import model.characters.decorators.InstanceChecker;
 import model.events.Event;
 import model.items.GameItem;
 import model.items.foods.FoodItem;
+import model.items.suits.ChefsHat;
 import model.objects.CookOMatic;
 
 public class CookFoodAction extends Action {
@@ -44,13 +45,13 @@ public class CookFoodAction extends Action {
 	protected void execute(GameData gameData, Actor performingClient) {
 		double factor = 1.0;
 		
-		if (isAChef(performingClient)) {
+		if (hasAChefsHatOn(performingClient)) {
 			factor = 0.25;
 			performingClient.addTolastTurnInfo("You are a master in the kitchen!");
 		}
 		
 		if (MyRandom.nextDouble() > selectedItem.getFireRisk()*factor) {
-			performingClient.addItem(selectedItem);
+			performingClient.addItem(selectedItem, cooker);
 			performingClient.addTolastTurnInfo("You successfully cooked a " + 
 												selectedItem.getPublicName(performingClient));
 		} else {
@@ -61,6 +62,10 @@ public class CookFoodAction extends Action {
 	}
 	
 	
+	private boolean hasAChefsHatOn(Actor performingClient) {
+		return performingClient.getCharacter().getSuit() instanceof ChefsHat;
+	}
+
 	public FoodItem getSelectedItem() {
 		return selectedItem;
 	}

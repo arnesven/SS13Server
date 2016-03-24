@@ -77,7 +77,7 @@ public class TraitorGameMode extends GameMode {
 			TraitorObjective obj = createRandomObjective(traitor, gameData);
 			traitor.setCharacter(new TraitorCharacter(traitor.getCharacter()));
 			objectives.put(traitor, obj);
-			traitor.addItem(new PDA(this));
+			traitor.addItem(new PDA(this), null);
 		}
 	}
 

@@ -7,7 +7,7 @@ import model.GameData;
 import model.actions.Action;
 import model.items.Explosive;
 import model.items.GameItem;
-import model.items.weapons.Grenade;
+import model.items.Grenade;
 import model.map.Room;
 
 public class ExplosionAction extends Action {

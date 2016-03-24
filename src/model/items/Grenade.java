@@ -1,17 +1,18 @@
-package model.items.weapons;
+package model.items;
 
 import java.util.ArrayList;
 
+import util.MyRandom;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.actions.itemactions.ThrowGrenadeAction;
 import model.events.Damager;
 
-public class Grenade extends Weapon implements Damager {
+public class Grenade extends GameItem implements Damager {
 
 	public Grenade() {
-		super("Grenade", 0.75, 1.0, true, 0.5);
+		super("grenade", 0.5);
 	}
 	
 	@Override
@@ -26,12 +27,17 @@ public class Grenade extends Weapon implements Damager {
 
 	@Override
 	public boolean isDamageSuccessful(boolean reduced) {
-		return isAttackSuccessful(reduced);
+		return MyRandom.nextDouble() < 0.75;
 	}
 
 	@Override
 	public String getName() {
 		return getBaseName();
+	}
+
+	@Override
+	public double getDamage() {
+		return 1.0;
 	}
 
 }

@@ -7,6 +7,7 @@ import util.MyRandom;
 import model.Actor;
 import model.Player;
 import model.GameData;
+import model.Target;
 import model.actions.Action;
 import model.actions.SensoryLevel;
 import model.actions.SensoryLevel.AudioLevel;
@@ -114,13 +115,13 @@ public abstract class GameCharacter {
 				}
 			}
 		}
-		
+		boolean wasDeadAlready = isDead();
 		if (weapon.isAttackSuccessful(reduced)) {
 			success = true;
 			health = Math.max(0.0, health - weapon.getDamage());
 			
 			String verb = weapon.getSuccessfulMessage();
-			if (this.isDead()) { // you died! Too bad!
+			if (this.isDead() && !wasDeadAlready) { // you died! Too bad!
 				verb = "kill";
 				dropAllItems();
 				setKiller(performingClient);
@@ -153,8 +154,9 @@ public abstract class GameCharacter {
 			getClient().addTolastTurnInfo(damager.getText());
 		}
 		if (damager.isDamageSuccessful(reduced)) {
+			boolean wasDeadAlready = isDead();
 			health = Math.max(0.0, health - damager.getDamage());
-			if (this.isDead()) { // you died! Too bad!
+			if (this.isDead() && !wasDeadAlready) { // you died! Too bad!
 				dropAllItems();
 				if (something != null) {
 					setKiller(something);
@@ -325,6 +327,14 @@ public abstract class GameCharacter {
 
 	public String getGender() {
 		return gender;
+	}
+
+	/**
+	 * @param it the item being given
+	 * @param giver, can be null be careful
+	 */
+	public void giveItem(GameItem it, Target giver) {
+		this.getItems().add(it);
 	}
 
 	

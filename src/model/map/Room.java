@@ -291,7 +291,7 @@ public class Room {
 				for (Room r : getNeighborList()) {
 					for (Player p : r.getClients()) {
 						String text = a.getDistantDescription();
-						p.addTolastTurnInfo(text);
+						p.addUniquelyTolastTurnInfo(text);
 					}
 				}
 			}

@@ -6,8 +6,8 @@ import java.util.List;
 import model.events.Damager;
 import model.items.Explosive;
 import model.items.GameItem;
+import model.items.Grenade;
 import model.items.MedKit;
-import model.items.weapons.Grenade;
 import model.items.weapons.Weapon;
 
 /**

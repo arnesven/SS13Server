@@ -30,8 +30,16 @@ public class BombItem extends GameItem {
 			info.add("i" + "Bomb");
 		}
 	}
+	
+	@Override
+	public String getPublicName(Actor whosAsking) {
+		if (isDemolitionsExpert(whosAsking)) {
+			return getFullName(whosAsking);
+		}
+		return "Bomb";
+	}
 
-	private boolean isDemolitionsExpert(Player whosAsking) {
+	private boolean isDemolitionsExpert(Actor whosAsking) {
 		GameCharacter chara = whosAsking.getCharacter();
 		return chara instanceof DetectiveCharacter ||
 				chara instanceof EngineerCharacter;

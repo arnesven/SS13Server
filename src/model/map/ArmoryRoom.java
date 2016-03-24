@@ -1,7 +1,7 @@
 package model.map;
 
 import model.items.weapons.Flamer;
-import model.items.weapons.Grenade;
+import model.items.Grenade;
 import model.items.weapons.LaserPistol;
 import model.items.weapons.Revolver;
 

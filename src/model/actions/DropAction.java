@@ -50,7 +50,7 @@ public class DropAction extends Action {
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = super.getOptions(gameData, whosAsking);
 		for (GameItem gi : ap.getItems()) {
-			opt.addOption(gi.getPublicName(whosAsking));
+			opt.addOption(gi.getFullName(whosAsking));
 		}
 		
 		if (ap.getCharacter().getSuit() != null) {
@@ -69,7 +69,7 @@ public class DropAction extends Action {
 			}
 		}
 		for (GameItem it : ap.getItems()){
-			if (args.get(0).equals(it.getPublicName(performingClient))) {
+			if (args.get(0).equals(it.getFullName(performingClient))) {
 				this.item = it;
 				return;
 			}

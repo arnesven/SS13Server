@@ -79,7 +79,7 @@ public abstract class OngoingEvent extends Event {
 				it.remove();
 				ev.getRoom().removeEvent(ev);
 			} else if (ev.isFixed) {
-				//it.remove(); // keep it for stats
+				ev.handleAllMaintainables(gameData);
 			} else {
 				ev.handleAllMaintainables(gameData);
 				ev.maintain(gameData);
@@ -88,11 +88,14 @@ public abstract class OngoingEvent extends Event {
 	}
 	public int noOfFixed() {
 		int res = 0;
+		if (this.isFixed) {
+			res = 1;
+		} 
+		
 		for (OngoingEvent oe : eventsToMaintain) {
-			if (oe.isFixed) {
-				res++;
-			}
+			res += oe.noOfFixed();
 		}
+
 		return res;
 	}
 	public int noOfOngoing() {

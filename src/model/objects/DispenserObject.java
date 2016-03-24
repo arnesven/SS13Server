@@ -39,7 +39,7 @@ public abstract class DispenserObject extends ElectricalMachinery {
 			protected void execute(GameData gameData, Actor performingClient) {
 				if (inventory.size() > 0) {
 					GameItem it = inventory.remove(0);
-					performingClient.addItem(it);
+					performingClient.addItem(it, DispenserObject.this);
 					performingClient.addTolastTurnInfo("You got " + it.getPublicName(performingClient) + ".");
 				} else {
 					performingClient.addTolastTurnInfo("The dispenser is empty.");
