@@ -52,7 +52,7 @@ public class CookGrenadeIntoFoodAction extends Action {
 		performingClient.getItems().remove(grenade);
 		performingClient.addItem(food, cooker);
 		performingClient.addTolastTurnInfo("You cooked the grenade into " + 
-						innerAction.getSelectedItem());
+						innerAction.getSelectedItem().getPublicName(performingClient));
 		
 	}
 
