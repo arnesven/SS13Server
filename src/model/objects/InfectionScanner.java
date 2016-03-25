@@ -10,6 +10,7 @@ import model.Player;
 import model.actions.Action;
 import model.actions.SensoryLevel;
 import model.items.GameItem;
+import model.map.Room;
 import model.npcs.NPC;
 import model.items.Chemicals;
 
@@ -17,8 +18,8 @@ public class InfectionScanner extends ElectricalMachinery {
 
 	private boolean loaded;
 
-	public InfectionScanner() {
-		super("BioScanner");
+	public InfectionScanner(Room pos) {
+		super("BioScanner", pos);
 		loaded = false;
 	}
 	

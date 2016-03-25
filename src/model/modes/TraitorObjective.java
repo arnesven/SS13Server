@@ -1,6 +1,7 @@
 package model.modes;
 
 import model.GameData;
+import model.items.Locatable;
 
 public interface TraitorObjective {
 
@@ -17,5 +18,7 @@ public interface TraitorObjective {
 	boolean wasCompleted();
 	
 	int getPoints();
+	
+	Locatable getLocatable();
 	
 }

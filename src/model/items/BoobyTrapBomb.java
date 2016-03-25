@@ -40,4 +40,9 @@ public class BoobyTrapBomb extends BombItem {
 		return false;
 	}
 
+	@Override
+	public BoobyTrapBomb clone() {
+		return new BoobyTrapBomb();
+	}
+
 }

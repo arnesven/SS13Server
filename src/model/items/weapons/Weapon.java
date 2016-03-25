@@ -72,5 +72,11 @@ public class Weapon extends GameItem {
 		
 	}
 
+	@Override
+	public Weapon clone() {
+		return new Weapon(this.getBaseName(), this.getHitChance(), 
+						  this.getDamage(), this.makesBang, this.getWeight());
+	}
+
 
 }

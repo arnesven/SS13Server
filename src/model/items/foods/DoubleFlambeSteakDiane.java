@@ -9,6 +9,7 @@ import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.AlterMovement;
 import model.characters.decorators.InstanceRemover;
 import model.events.RemoveInstanceLaterEvent;
+import model.items.GameItem;
 
 public class DoubleFlambeSteakDiane extends FoodItem {
 
@@ -41,6 +42,11 @@ public class DoubleFlambeSteakDiane extends FoodItem {
 			}
 		}));
 
+	}
+
+	@Override
+	public DoubleFlambeSteakDiane clone() {
+		return new DoubleFlambeSteakDiane();
 	}
 
 }

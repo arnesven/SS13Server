@@ -3,6 +3,10 @@ package model.items.suits;
 import model.Actor;
 
 
+/**
+ * @author erini02
+ * This class is no longer in use as far as I know...
+ */
 public class Clothes extends SuitItem {
 
 	public Clothes() {
@@ -18,6 +22,11 @@ public class Clothes extends SuitItem {
 	@Override
 	public boolean permitsOver() {
 		return true;
+	}
+
+	@Override
+	public Clothes clone() {
+		return new Clothes();
 	}
 
 }

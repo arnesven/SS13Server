@@ -47,19 +47,19 @@ public class MapBuilder {
 		result.add(new Room(12, "Dorms"               , "Dorm"   , 9, 11, 4, 3, new int[]{10, 11, 14},         new double[]{10.5, 11.0, 13.0, 11.5} ));
 		result.add(new Room(13, "Front Hall"          , ""       ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{13.5, 10.0, 12.0, 8.0, 13.5, 6.0} ));
 		Room office = new Room(14, "Office"              , "Offc"   ,13, 10, 2, 2, new int[]{12, 13}    ,         new double[]{} );
-		office.addObject(new CrewRoster());
+		office.addObject(new CrewRoster(office));
 		result.add(office);
 		Room aiCore = new Room(15, "AI Core"             , "AI"     ,10,  7, 2, 2, new int[]{13}        ,         new double[]{} ); 
-		aiCore.addObject(new AIConsole());
+		aiCore.addObject(new AIConsole(aiCore));
 		result.add(aiCore);
 		result.add(new Room(16, "Port Hall Front"     , ""       ,13,  3, 2, 3, new int[]{13, 17, 18, 19},     new double[]{15.0, 5.5, 15.0, 3.5} ));
 		
 		Room bridge = new Room(17, "Bridge"              , "Brdg"   ,15,  5, 3, 3, new int[]{16, 20}    ,         new double[]{16.0, 8.0}  ); 
 		bridge.addItem(new SpaceSuit());
-		bridge.addObject(new AirLockControl());
+		bridge.addObject(new AirLockControl(bridge));
 		result.add(bridge);
 		Room ss = new Room(18, "Security Station"    , "SS"     ,15,  2, 2, 2, new int[]{16}        ,         new double[]{}  );
-		ss.addObject(new SecurityCameraConsole());
+		ss.addObject(new SecurityCameraConsole(ss));
 		result.add(ss);
 		
 		Room gate =new Room(19, "Shuttle Gate"        , "Gate"   ,10,  2, 3, 2, new int[]{16, 21, 23},         new double[]{10.0, 3.5, 13.0, 3.5} );
@@ -71,11 +71,11 @@ public class MapBuilder {
 		result.add(army);
 		result.add(new Room(23, "Port Hall Aft"       , ""       , 6,  3, 4, 2, new int[]{19, 24, 5} ,         new double[]{7.5, 3.0, } ));
 		Room sickbay = new Room(24, "Sickbay"             , "Sick"   , 6,  0, 3, 3, new int[]{23, 25, 1} ,         new double[]{} );
-		sickbay.addObject(new MedkitDispenser(3));
+		sickbay.addObject(new MedkitDispenser(3, sickbay));
 		result.add(sickbay);
 		result.add(new AirLockRoom(25, 3    , 5,  0, 1, 1, new int[]{24}        ,         new double[]{6.0, 0.5}  ));
 		Room gen = new Room(26, "Generator"           , "Gen"    , 6,  5, 3, 3, new int[]{5}         ,         new double[]{}  );
-		gen.addObject(new ChemicalDispenser("Fuel Storage", 2));
+		gen.addObject(new ChemicalDispenser("Fuel Storage", 2, gen));
 		gen.addItem(new FireSuit());
 		result.add(gen);
 		result.add(new Room(27, "Panorama Walkway"    , ""       , 1,  3, 1, 3, new int[]{1, 3}      ,         new double[]{} ));

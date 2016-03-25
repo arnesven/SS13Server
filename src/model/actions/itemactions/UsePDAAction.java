@@ -8,8 +8,10 @@ import model.Player;
 import model.actions.Action;
 import model.actions.ActionOption;
 import model.items.GameItem;
+import model.items.Locator;
 import model.items.PDA;
 import model.modes.TraitorGameMode;
+import model.modes.TraitorObjective;
 import model.actions.SensoryLevel;
 
 public class UsePDAAction extends Action {
@@ -48,14 +50,27 @@ public class UsePDAAction extends Action {
 				performingClient.addTolastTurnInfo("You are the only traitor.");
 			}
 		} else {
-			performingClient.addItem(orderedItem, null);
+			GameItem gi = orderedItem.clone();
+			performingClient.addItem(gi, null);
 			pda.decrementUses();
 			performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) + 
 					" appeared! You put it in your inventory.");
+			
+			if (gi instanceof Locator) {
+				setTargetFromObjective(gameData, performingClient, gi);
+			}
 		}
 
 	}
 	
+	private void setTargetFromObjective(GameData gameData,
+			Actor performingClient, GameItem gi) {
+		TraitorObjective obj = traitorMode.getObjectives().get(performingClient);
+		if (obj != null) {
+			((Locator)gi).setTarget(obj.getLocatable());
+		}
+	}
+
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = new ActionOption("Use PDA");

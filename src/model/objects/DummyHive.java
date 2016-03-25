@@ -7,11 +7,12 @@ import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.items.weapons.Weapon;
+import model.map.Room;
 
 public class DummyHive extends HiveObject {
 
-	public DummyHive(boolean found) {
-		super("Hive");
+	public DummyHive(boolean found, Room pos) {
+		super("Hive", pos);
 		this.setHealth(1.5);
 		this.setFound(found);
 		this.setMaxHealth(1.5);

@@ -20,6 +20,9 @@ public abstract class SuitItem extends GameItem {
 	}
 	
 	@Override
+	public abstract SuitItem clone();
+	
+	@Override
 	public String getFullName(Actor whosAsking) {
 		if (under == null) {
 			return super.getFullName(whosAsking);

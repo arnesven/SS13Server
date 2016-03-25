@@ -10,13 +10,14 @@ import model.actions.Action;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InfectedCharacter;
 import model.items.weapons.Weapon;
+import model.map.Room;
 
 public class HiveObject extends BreakableObject {
 
 	private boolean foundByHumanTeam = false;
 	
-	public HiveObject(String name) {
-		super(name, 3.0);
+	public HiveObject(String name, Room pos) {
+		super(name, 3.0, pos);
 	}
 	
 	@Override

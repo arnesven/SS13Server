@@ -5,16 +5,23 @@ import java.util.ArrayList;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
+import model.map.Room;
 
 public class GameObject {
 	private String name;
+	private Room position;
 	
-	public GameObject(String name) {
+	public GameObject(String name, Room position) {
 		this.name = name;
+		this.position = position;
 	}
 
 	public String getName() {
 		return name;
+	}
+	
+	public Room getPosition() {
+		return position;
 	}
 	
 

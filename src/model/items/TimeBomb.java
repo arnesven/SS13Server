@@ -102,5 +102,10 @@ public class TimeBomb extends BombItem {
 
 	}
 
+	@Override
+	public TimeBomb clone() {
+		return new TimeBomb();
+	}
+
 
 }

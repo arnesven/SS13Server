@@ -6,13 +6,14 @@ import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.actions.objectactions.SecurityConsoleAction;
+import model.map.Room;
 
 public class SecurityCameraConsole extends ElectricalMachinery {
 	
 	private String chosen;
 
-	public SecurityCameraConsole() {
-		super("Security Console");
+	public SecurityCameraConsole(Room pos) {
+		super("Security Console", pos);
 	}
 	
 	@Override

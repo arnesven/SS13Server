@@ -18,7 +18,7 @@ public class KeyCardLock extends ElectricalMachinery {
 	boolean locked;
 
 	public KeyCardLock(Room to, Room from, boolean isLocked) {
-		super(to.getName() + " Lock");
+		super(to.getName() + " Lock", from);
 		this.to = to;
 		this.from = from;
 		locked = isLocked;

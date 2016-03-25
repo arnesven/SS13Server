@@ -29,4 +29,10 @@ public class OutFit extends SuitItem {
 		actionPerformer.setCharacter(new DisguisedAs(actionPerformer.getCharacter(), type));
 	}
 
+
+	@Override
+	public OutFit clone() {
+		return new OutFit(this.type);
+	}
+
 }

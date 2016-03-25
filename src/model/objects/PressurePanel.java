@@ -13,6 +13,7 @@ import model.events.Event;
 import model.events.NoPressureDamage;
 import model.events.NoPressureEvent;
 import model.map.AirLockRoom;
+import model.map.Room;
 
 public class PressurePanel extends ElectricalMachinery {
 
@@ -21,7 +22,7 @@ public class PressurePanel extends ElectricalMachinery {
 	protected Event noPressureEvent = null;
 
 	public PressurePanel(AirLockRoom roomRef) {
-		super("Pressure control");
+		super("Pressure control", roomRef);
 		this.roomRef = roomRef;
 		this.hasPressure = true;
 	}

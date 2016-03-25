@@ -22,6 +22,7 @@ public abstract class FoodItem extends GameItem {
 	}
 	
 	public abstract double getFireRisk();
+	public abstract FoodItem clone();
 	protected abstract void triggerSpecificReaction(Actor eatenBy, GameData gameData);
 	
 	public void beEaten(Actor eatenBy, GameData gameData) {

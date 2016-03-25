@@ -9,13 +9,14 @@ import model.Player;
 import model.actions.Action;
 import model.actions.SensoryLevel;
 import model.items.GameItem;
+import model.map.Room;
 
 public abstract class DispenserObject extends ElectricalMachinery {
 
 	private List<GameItem> inventory = new ArrayList<>();
 	
-	public DispenserObject(String name) {
-		super(name);
+	public DispenserObject(String name, Room pos) {
+		super(name, pos);
 	}
 	
 	public void addItem(GameItem it) {

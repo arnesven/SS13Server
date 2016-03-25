@@ -46,4 +46,9 @@ public class SpaceSuit extends SuitItem {
 		return false;
 	}
 
+	@Override
+	public SpaceSuit clone() {
+		return new SpaceSuit();
+	}
+
 }

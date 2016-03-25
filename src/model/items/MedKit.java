@@ -28,4 +28,9 @@ public class MedKit extends GameItem {
 		}
 	}
 
+	@Override
+	public MedKit clone() {
+		return new MedKit();
+	}
+
 }

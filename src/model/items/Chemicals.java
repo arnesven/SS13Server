@@ -6,4 +6,9 @@ public class Chemicals extends GameItem {
 		super("Chemicals", 1.0);
 	}
 
+	@Override
+	public Chemicals clone() {
+		return new Chemicals();
+	}
+
 }

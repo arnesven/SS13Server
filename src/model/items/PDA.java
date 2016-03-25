@@ -39,12 +39,18 @@ public class PDA extends GameItem {
 		List<GameItem> items = new ArrayList<>();
 		items.add(new LaserPistol());
 		items.add(new Grenade());
-		items.add(new Revolver());
+	//	items.add(new Revolver()); // who wants a revolver when you can have a laser pistol?
 		items.add(new StunBaton());
 		items.add(new DummyHivePlacer());
 		items.add(new TimeBomb());
 		items.add(new RemoteBomb());
 		items.add(new BoobyTrapBomb());
+		items.add(new Locator());
 		return items;
+	}
+
+	@Override
+	public PDA clone() {
+		return new PDA(this.traitorMode);
 	}
 }

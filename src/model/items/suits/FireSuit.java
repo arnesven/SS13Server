@@ -46,6 +46,11 @@ public class FireSuit extends SuitItem {
 	public boolean permitsOver() {
 		return false;
 	}
+
+	@Override
+	public FireSuit clone() {
+		return new FireSuit();
+	}
 	
 
 }

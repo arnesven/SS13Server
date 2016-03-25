@@ -10,8 +10,8 @@ public class LabRoom extends Room {
 			int width, int height, int[] neighbors, double[] doors) {
 		super(ID, "Lab", "Lab", x, y, width, height, neighbors, doors);
 		
-		this.addObject(new InfectionScanner());
-		this.addObject(new ChemicalDispenser("Lab Storage", 2));
+		this.addObject(new InfectionScanner(this));
+		this.addObject(new ChemicalDispenser("Lab Storage", 2, this));
 	}
 
 }

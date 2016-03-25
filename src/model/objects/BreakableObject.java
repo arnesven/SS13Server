@@ -12,6 +12,7 @@ import model.events.Damager;
 import model.items.GameItem;
 import model.items.MedKit;
 import model.items.weapons.Weapon;
+import model.map.Room;
 
 public abstract class BreakableObject extends GameObject implements Target {
 
@@ -21,8 +22,8 @@ public abstract class BreakableObject extends GameObject implements Target {
 	private Weapon brokenByWeapon;
 	private String breakString;
 	
-	public BreakableObject(String name, double starthp) {
-		super(name);
+	public BreakableObject(String name, double starthp, Room r) {
+		super(name, r);
 		this.hp = starthp;
 		maxHealth = starthp;
 	}

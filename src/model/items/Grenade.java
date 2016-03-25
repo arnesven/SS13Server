@@ -12,7 +12,7 @@ import model.events.Damager;
 public class Grenade extends GameItem implements Damager {
 
 	public Grenade() {
-		super("grenade", 0.5);
+		super("Grenade", 0.5);
 	}
 	
 	@Override
@@ -38,6 +38,11 @@ public class Grenade extends GameItem implements Damager {
 	@Override
 	public double getDamage() {
 		return 1.0;
+	}
+
+	@Override
+	public Grenade clone() {
+		return new Grenade();
 	}
 
 }

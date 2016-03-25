@@ -47,5 +47,10 @@ public class RemoteBomb extends BombItem {
 		
 	}
 
+	@Override
+	public RemoteBomb clone() {
+		return new RemoteBomb();
+	}
+
 
 }

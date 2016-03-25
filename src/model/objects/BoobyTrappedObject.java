@@ -21,7 +21,7 @@ public class BoobyTrappedObject extends GameObject {
 
 	public BoobyTrappedObject(GameObject selectedObject,
 			BombItem bomb, Actor performingClient, Room room) {
-		super(selectedObject.getName());
+		super(selectedObject.getName(), room);
 		this.rigger = performingClient;
 		this.innerObject = selectedObject;
 		this.bomb = bomb;

@@ -52,11 +52,19 @@ public class DummyHivePlacer extends GameItem {
 			@Override
 			protected void execute(GameData gameData, Actor performingClient) {
 				performingClient.getItems().remove(DummyHivePlacer.this);
-				performingClient.getPosition().addObject(new DummyHive(placeAsFound));
+				performingClient.getPosition().addObject(new DummyHive(placeAsFound, 
+														 performingClient.getPosition()));
 				
 			}
 			
 		});
+	}
+
+
+
+	@Override
+	public DummyHivePlacer clone() {
+		return new DummyHivePlacer();
 	}
 
 }

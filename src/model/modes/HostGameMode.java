@@ -77,7 +77,7 @@ public class HostGameMode extends GameMode {
 			}
 			
 		} while (hiveInStartingRoom);
-		hive = new HiveObject("Hive");
+		hive = new HiveObject("Hive", hiveRoom);
 		hiveRoom.addObject(hive);
 	}
 

@@ -2,6 +2,7 @@ package model.modes;
 
 import model.GameData;
 import model.Player;
+import model.items.Locatable;
 
 public class AssassinateObjective implements TraitorObjective {
 
@@ -37,6 +38,11 @@ public class AssassinateObjective implements TraitorObjective {
 	@Override
 	public boolean wasCompleted() {
 		return completed;
+	}
+
+	@Override
+	public Locatable getLocatable() {
+		return target;
 	}
 
 }

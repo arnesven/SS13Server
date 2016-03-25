@@ -5,6 +5,7 @@ import model.GameData;
 import model.actions.itemactions.ExplosionAction;
 import model.events.ExplosiveDamage;
 import model.events.Explosion;
+import model.items.GameItem;
 
 public class ExplodingFood extends FoodItem {
 
@@ -34,6 +35,13 @@ public class ExplodingFood extends FoodItem {
 			}
 		});
 		eatenBy.getPosition().addToEventsHappened(new Explosion());
+	}
+
+
+
+	@Override
+	public ExplodingFood clone() {
+		return new ExplodingFood(innerItem.clone(), this.maker);
 	}
 
 }

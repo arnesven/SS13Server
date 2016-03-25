@@ -12,7 +12,7 @@ import model.events.ExplosiveDamage;
 import model.map.Room;
 import model.events.Explosion;
 
-public class BombItem extends GameItem {
+public abstract class BombItem extends GameItem {
 
 	public BombItem(String string) {
 		super(string, 2.0);

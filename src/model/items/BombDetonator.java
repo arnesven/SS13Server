@@ -48,4 +48,9 @@ public class BombDetonator extends GameItem {
 		
 	}
 
+	@Override
+	public BombDetonator clone() {
+		return new BombDetonator(this.bomb);
+	}
+
 }

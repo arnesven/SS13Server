@@ -45,4 +45,9 @@ public class SpinachSoup extends FoodItem {
 
 	}
 
+	@Override
+	public SpinachSoup clone() {
+		return new SpinachSoup();
+	}
+
 }

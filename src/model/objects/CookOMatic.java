@@ -14,11 +14,12 @@ import model.items.foods.ApplePie;
 import model.items.foods.DoubleFlambeSteakDiane;
 import model.items.foods.FoodItem;
 import model.items.foods.SpinachSoup;
+import model.map.Room;
 
 public class CookOMatic extends ElectricalMachinery {
 
-	public CookOMatic() {
-		super("Cook-O-Matic");
+	public CookOMatic(Room pos) {
+		super("Cook-O-Matic", pos);
 	}
 
 	@Override

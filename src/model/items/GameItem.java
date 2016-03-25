@@ -13,7 +13,7 @@ import model.actions.Action;
  * An item is an object which can be held, dropped, picked up or used
  * by a character.
  */
-public class GameItem {
+public abstract class GameItem {
 
 	private String name;
 	private double weight;
@@ -22,6 +22,8 @@ public class GameItem {
 		this.name = string;
 		this.weight = weight;
 	}
+	
+	public abstract GameItem clone();
 
 	/**
 	 * Gets the name of this item as it appears to a person

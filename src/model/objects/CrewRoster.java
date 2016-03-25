@@ -9,11 +9,12 @@ import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.actions.SensoryLevel;
+import model.map.Room;
 
 public class CrewRoster extends ElectricalMachinery {
 
-	public CrewRoster() {
-		super("Crew Roster");
+	public CrewRoster(Room pos) {
+		super("Crew Roster", pos);
 	}
 	
 	@Override

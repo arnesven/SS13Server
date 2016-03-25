@@ -13,8 +13,8 @@ import model.actions.objectactions.AirlockOverrideAction;
 
 public class AirLockControl extends ElectricalMachinery {
 
-	public AirLockControl() {
-		super("Airlock Override");
+	public AirLockControl(Room pos) {
+		super("Airlock Override", pos);
 	}
 
 	@Override

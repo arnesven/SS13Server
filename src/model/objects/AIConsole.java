@@ -6,11 +6,12 @@ import model.GameData;
 import model.Player;
 import model.actions.objectactions.AIConsoleAction;
 import model.actions.Action;
+import model.map.Room;
 
 public class AIConsole extends ElectricalMachinery {
 
-	public AIConsole() {
-		super("AI Console");
+	public AIConsole(Room pos) {
+		super("AI Console", pos);
 	}
 	
 	@Override

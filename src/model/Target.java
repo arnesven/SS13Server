@@ -7,6 +7,7 @@ import model.events.Damager;
 import model.items.Explosive;
 import model.items.GameItem;
 import model.items.Grenade;
+import model.items.Locatable;
 import model.items.MedKit;
 import model.items.weapons.Weapon;
 
@@ -16,7 +17,7 @@ import model.items.weapons.Weapon;
  * by a targeting action, i.e. the attack action. Anything targetable
  * should implement this interface, e.g. characters, gameobjects, items etc.
  */
-public interface Target {
+public interface Target extends Locatable {
 
 	/**
 	 * Gets the name of this target is it appears when being targeted
