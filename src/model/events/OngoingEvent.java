@@ -20,6 +20,7 @@ public abstract class OngoingEvent extends Event {
 	protected abstract void maintain(GameData gameData);
 	protected abstract OngoingEvent clone();
 	protected abstract boolean hasThisEvent(Room randomRoom);
+	public abstract double getProbability();
 	
 	public Room getRoom() {
 		return room;
@@ -34,7 +35,7 @@ public abstract class OngoingEvent extends Event {
 		room.removeEvent(this);
 	}
 
-
+	
 	@Override
 	public void apply(GameData gameData) {
 		handleAllMaintainables(gameData);

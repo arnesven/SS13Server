@@ -9,8 +9,6 @@ import model.actions.SensoryLevel;
 
 public abstract class Event {
 
-	public abstract double getProbability();
-
 	public abstract void apply(GameData gameData);
 
 	public abstract String howYouAppear(Actor performingClient);

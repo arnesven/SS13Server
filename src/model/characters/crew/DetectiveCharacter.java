@@ -3,6 +3,10 @@ package model.characters.crew;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.GameData;
+import model.actions.Action;
+import model.actions.TargetingAction;
+import model.actions.characteractions.ShadowAction;
 import model.characters.GameCharacter;
 import model.items.GameItem;
 import model.items.suits.SunGlasses;
@@ -21,6 +25,17 @@ public class DetectiveCharacter extends GameCharacter {
 		list.add(new Revolver());
 		list.add(new SunGlasses());
 		return list;
+	}
+	
+	@Override
+	public void addCharacterSpecificActions(GameData gameData,
+			ArrayList<Action> at) {
+		super.addCharacterSpecificActions(gameData, at);
+	
+		TargetingAction act = new ShadowAction(this.getClient()); 
+		if (act.getNoOfTargets() > 0) {
+			at.add(act);
+		}
 	}
 
 }

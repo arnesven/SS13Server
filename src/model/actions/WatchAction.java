@@ -58,5 +58,7 @@ public class WatchAction extends TargetingAction {
 		return target2 instanceof Player || target2 instanceof NPC;
 	}
 
+	
+
 
 }

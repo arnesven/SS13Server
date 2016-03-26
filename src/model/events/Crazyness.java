@@ -16,7 +16,6 @@ public class Crazyness extends Event {
 
 	private List<NPC> crazyPeople = new ArrayList<>();
 
-	@Override
 	public double getProbability() {
 		return 0.01;
 	}

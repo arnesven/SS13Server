@@ -28,11 +28,14 @@ public abstract class Action {
 		this.name = name;
 		this.senses = senses;
 	}
+	
+	public void setName(String string) {
+		this.name = string;
+	}
 
 	@Override
 	final public String toString() {
 		throw new UnsupportedOperationException("toString() should not be called on Actions!");
-		//return name + "{}";
 	}
 	
 	public String getName() {

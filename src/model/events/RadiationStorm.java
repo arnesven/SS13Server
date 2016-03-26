@@ -21,9 +21,8 @@ public class RadiationStorm extends Event {
 	private double damage;
 	private int side;
 
-	@Override
 	public double getProbability() {
-		return 1.03;
+		return 0.03;
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package model;
-import java.lang.reflect.Array;
-import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,14 +13,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import comm.MapCommandHandler;
 import util.MyRandom;
 import util.MyStrings;
 import util.Pair;
 import model.actions.Action;
 import model.actions.DoNothingAction;
 import model.actions.SpeedComparator;
-import model.events.ElectricalFire;
 import model.events.Event;
 import model.items.GameItem;
 import model.map.GameMap;
@@ -29,8 +26,6 @@ import model.map.MapBuilder;
 import model.map.Room;
 import model.modes.GameMode;
 import model.modes.GameModeFactory;
-import model.modes.HostGameMode;
-import model.modes.TraitorGameMode;
 import model.npcs.NPC;
 
 
@@ -57,6 +52,7 @@ public class GameData {
 	private GameMap map                     = MapBuilder.createMap();
 	private String selectedMode = "Secret";
 	private List<Event> events = new ArrayList<>();
+	private List<Event> moveEvents = new ArrayList<>();
 
 	
 	public GameData() {
@@ -249,8 +245,12 @@ public class GameData {
 		} else if (gameState == GameState.MOVEMENT) {
 			moveAllPlayers();
 			moveAllNPCs();
+			
+			
 			allResetActionStrings();
 			allClearLastTurn();
+			runMovementEvents();
+			
 			gameMode.setStartingLastTurnInfo();
 			allClearReady();
 			clearAllDeadNPCs();
@@ -278,6 +278,7 @@ public class GameData {
 
 
 
+
 	private void runEvents() {
 		Event e = null;
 		for (Iterator<Event> it = events.iterator() ; it.hasNext(); ) {
@@ -291,12 +292,25 @@ public class GameData {
 		gameMode.triggerEvents(this);
 	}
 
+	private void runMovementEvents() {
+		Event e = null;
+		for (Iterator<Event> it = moveEvents .iterator(); it.hasNext(); ) {
+			e = it.next();
+			e.apply(this);
+			if (e.shouldBeRemoved(this)) {
+				it.remove();
+			}
+		}
+	}
+
+	
 	private void doSetup() {
 		this.map = MapBuilder.createMap();
 		for (Player p : getPlayersAsList()) {
 			p.prepForNewGame();
 		}
 		this.events = new ArrayList<>();
+		this.moveEvents = new ArrayList<>();
 		this.lateActions = new ArrayList<>();
 		this.npcs = new ArrayList<>();
 		this.gameMode = GameModeFactory.create(selectedMode);
@@ -533,6 +547,10 @@ public class GameData {
 
 	public GameMap getMap() {
 		return map;
+	}
+
+	public void addMovementEvent(Event event) {
+		moveEvents.add(event);
 	}
 
 

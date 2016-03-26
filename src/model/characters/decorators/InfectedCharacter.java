@@ -46,19 +46,12 @@ public class InfectedCharacter extends CharacterDecorator {
 	@Override
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {
-//		int noOfTargets = 0;
-//		
-//		for (Actor cl : getInner().getPosition().getActors()) {
-//			if (!cl.isInfected() && inf.isViableForThisAction(cl.getAsTarget())) {
-//				noOfTargets++;
-//			}
-//		}
-//		if (noOfTargets > 0) {
+
 		InfectAction infect = new InfectAction(this.getClient());	
 		if (infect.getTargets().size() > 0) {
 			at.add(infect);
 		}
-		//}
+		getInner().addCharacterSpecificActions(gameData, at);
 	}
 	
 	@Override

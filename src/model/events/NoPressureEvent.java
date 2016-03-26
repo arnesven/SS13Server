@@ -36,11 +36,6 @@ public class NoPressureEvent extends Event {
 
 
 	@Override
-	public double getProbability() {
-		return 0;
-	}
-
-	@Override
 	public void apply(GameData gameData) {
 		if (!shouldBeRemoved(gameData)) {
 			for (Target t : roomRef.getTargets()) {

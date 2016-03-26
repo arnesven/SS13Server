@@ -63,10 +63,6 @@ public class TimeBomb extends BombItem {
 
 						private int timeLeft = selectedTime;
 
-						@Override
-						public double getProbability() {
-							return 0;
-						}
 
 						@Override
 						public void apply(GameData gameData) {

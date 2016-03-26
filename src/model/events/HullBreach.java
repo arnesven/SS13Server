@@ -13,7 +13,6 @@ import model.objects.GameObject;
 
 public class HullBreach extends OngoingEvent {
 
-	@Override
 	public double getProbability() {
 		return 0.1;
 	}

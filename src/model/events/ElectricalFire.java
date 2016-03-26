@@ -13,7 +13,6 @@ public class ElectricalFire extends OngoingEvent {
 	private static final double SPREAD_CHANCE = 0.1;
 	//private static final double SPREAD_CHANCE = 0.1;
 
-	@Override
 	public double getProbability() {
 		// TODO: Change this into something more reasonable
 		// like 0.2

@@ -15,6 +15,12 @@ public class RemoveInstanceLaterEvent extends Event {
 	private int duration;
 
 
+	/**
+	 * @param victim from who an instance should be removed
+	 * @param round the round in which this instance was applied
+	 * @param duration the number of rounds in which the instance should be removed
+	 * @param instRem the instanceremover
+	 */
 	public RemoveInstanceLaterEvent(Actor victim, int round, int duration,
 			InstanceRemover instRem) {
 		this.victim = victim;
@@ -31,11 +37,6 @@ public class RemoveInstanceLaterEvent extends Event {
 	@Override
 	public SensoryLevel getSense() {
 		return SensoryLevel.NO_SENSE;
-	}
-
-	@Override
-	public double getProbability() {
-		return 1.0;
 	}
 
 	@Override
