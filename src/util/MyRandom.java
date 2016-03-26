@@ -3,12 +3,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import model.Player;
-
+import model.items.*;
+import model.items.foods.*;
+import model.items.suits.*;
+import model.items.weapons.*;
 
 public class MyRandom {
 	public static Random random = new Random();
@@ -57,9 +60,10 @@ public class MyRandom {
 				scanner.hasNext(); scanner.nextLine() ) {
 			lines++;
 		}
-		System.out.println("TARS-file hade " + lines + " lines");
+		System.out.println("file hade " + lines + " lines");
 		Scanner scanner = new Scanner(new File(filename));
-		for (int i = 0; i < MyRandom.nextInt(lines)+1 ; ++i) {
+		int j = MyRandom.nextInt(lines) + 1;
+		for (int i = 0; i < j ; ++i) {
 			line = scanner.nextLine();
 		}
 		scanner.close();
@@ -75,5 +79,34 @@ public class MyRandom {
 
 	public static <T> T sample(List<? extends T> list) {
 		return list.get(nextInt(list.size()));
+	}
+
+	public static List<GameItem> getItemsWhichAppearRandomly() {
+		List<GameItem> list = new ArrayList<>();
+		list.add(new Chemicals());
+		list.add(new FireExtinguisher());
+		list.add(new Grenade());
+		list.add(new KeyCard());
+		list.add(new MedKit());
+		list.add(new TimeBomb());
+		list.add(new RemoteBomb());
+		list.add(new Tools());
+		list.add(new Bible());
+		list.add(new ApplePie());
+		list.add(new DoubleFlambeSteakDiane());
+		list.add(new SpinachSoup());
+		list.add(new ChefsHat());
+		list.add(new FancyClothes());
+		list.add(new FireSuit());
+		list.add(new SpaceSuit());
+		list.add(new SunGlasses());
+		list.add(new Flamer());
+		list.add(new Knife());
+		list.add(new LaserPistol());
+		list.add(new Revolver());
+		list.add(new Shotgun());
+		list.add(new StunBaton());
+		
+		return list;
 	}
 }

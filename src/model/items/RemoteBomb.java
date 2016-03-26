@@ -20,6 +20,7 @@ public class RemoteBomb extends BombItem {
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
 			Player cl) {
+		super.addYourActions(gameData, at, cl);
 		if (!remoteGotten) {
 			at.add(new Action("Separate Bomb Detonator",
 					SensoryLevel.OPERATE_DEVICE) {

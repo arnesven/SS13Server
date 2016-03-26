@@ -2,14 +2,9 @@ package model.objects;
 
 import java.util.ArrayList;
 
-import model.Actor;
 import model.GameData;
 import model.Player;
-import model.Target;
 import model.actions.Action;
-import model.characters.decorators.CharacterDecorator;
-import model.characters.decorators.InfectedCharacter;
-import model.items.weapons.Weapon;
 import model.map.Room;
 
 public class HiveObject extends BreakableObject {
@@ -25,7 +20,7 @@ public class HiveObject extends BreakableObject {
 		
 		if (isFound()){
 			super.addYourselfToRoomInfo(info, whosAsking);
-		} else if (whosAsking.getCharacter() instanceof InfectedCharacter) {
+		} else if (whosAsking.isInfected()) {
 			info.add("o" + getName() + " (sensed)");
 		} 
 	}

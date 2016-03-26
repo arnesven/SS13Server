@@ -7,6 +7,7 @@ import util.MyRandom;
 import model.GameData;
 import model.characters.GameCharacter;
 import model.items.GameItem;
+import model.items.suits.FancyClothes;
 import model.map.Room;
 
 public class TouristCharacter extends GameCharacter {
@@ -17,7 +18,9 @@ public class TouristCharacter extends GameCharacter {
 
 	@Override
 	public List<GameItem> getStartingItems() {
-		return new ArrayList<GameItem>();
+		List<GameItem> l = new ArrayList<GameItem>();
+		l.add(new FancyClothes());
+		return l;
 	}
 	
 	@Override

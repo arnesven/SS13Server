@@ -23,7 +23,7 @@ public class BoobyTrapBomb extends BombItem {
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
 			Player cl) {
-		
+		super.addYourActions(gameData, at, cl);
 		if (hasRiggableObjects(cl.getPosition())) {
 			at.add(new RigBoobyTrapAction(this, cl));
 			

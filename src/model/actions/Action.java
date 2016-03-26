@@ -14,6 +14,7 @@ import model.Target;
  */
 public abstract class Action {
 	
+	public static final String FAILED_STRING = "Your action failed.";
 	private String name;
 	private SensoryLevel senses;
 	protected Actor performer;

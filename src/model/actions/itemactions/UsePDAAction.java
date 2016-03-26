@@ -58,6 +58,7 @@ public class UsePDAAction extends Action {
 			
 			if (gi instanceof Locator) {
 				setTargetFromObjective(gameData, performingClient, gi);
+				performingClient.addTolastTurnInfo("The locator is set to your objective target.");
 			}
 		}
 

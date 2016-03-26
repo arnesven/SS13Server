@@ -26,6 +26,7 @@ public class TimeBomb extends BombItem {
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
 			Player cl) {
+		super.addYourActions(gameData, at, cl);
 		if (!timeSet) {
 		
 			at.add(new Action("Set Time Bomb", 

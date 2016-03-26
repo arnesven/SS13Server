@@ -107,7 +107,7 @@ public abstract class GameMode {
 		events.put("fires", new ElectricalFire());
 		events.put("hull breaches", new HullBreach());
 		events.put("explosion", new Explosion());
-
+//		events.put("crazyness", new Crazyness());
 	}
 
 	private static HashMap<String, GameCharacter> availableChars() {
@@ -131,9 +131,15 @@ public abstract class GameMode {
 		return availableChars;
 	}
 
-	public static List<String> getAllCharsAsStrings() {
+	public static List<String> getAllCrewAsStrings() {
 		List<String> gcs = new ArrayList<>();
 		gcs.addAll(availableChars().keySet());
+		return gcs;
+	}
+	
+	public static List<String> getAllCharsAsStrings() {
+		List<String> gcs = new ArrayList<>();
+		gcs.addAll(getAllCrewAsStrings());
 		Collections.sort(gcs);
 		gcs.add("TARS");
 		gcs.add("Cat");
@@ -222,9 +228,11 @@ public abstract class GameMode {
 
 		setUpOtherStuff(gameData);
 		addItemsToRooms(gameData);
-
+		addRandomItemsToRooms(gameData);
+		
 		addStartingMessages(gameData);
 	}
+
 
 	protected void addStartingMessages(GameData gameData) {
 		for (Player c : gameData.getPlayersAsList()) {
@@ -377,8 +385,6 @@ public abstract class GameMode {
 		Room kitchRoom = gameData.getRoom("Kitchen");
 		kitchRoom.addItem(new FireExtinguisher());
 
-		Room dormRoom = gameData.getRoom("Dorms");
-		dormRoom.addItem(new MedKit());
 
 		Room green = gameData.getRoom("Greenhouse");
 		green.addItem(new FireExtinguisher());
@@ -386,6 +392,15 @@ public abstract class GameMode {
 
 	}
 
+	private void addRandomItemsToRooms(GameData gameData) {
+		while (MyRandom.nextDouble() < 0.5) {
+			Room aRoom = MyRandom.sample(gameData.getRooms());
+			aRoom.addItem(MyRandom.sample(MyRandom.getItemsWhichAppearRandomly()).clone());
+			System.out.println("Added a suprise in " + aRoom.getName());
+		}
+	}
+
+	
 	public static String getAvailableJobs() {
 		StringBuffer res = new StringBuffer();
 		List<GameCharacter> list = new ArrayList<>();

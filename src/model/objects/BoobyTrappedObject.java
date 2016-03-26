@@ -47,7 +47,7 @@ public class BoobyTrappedObject extends GameObject {
 				
 				@Override
 				protected void execute(GameData gameData, Actor performingClient) {
-					performingClient.addTolastTurnInfo("What's this... a bomb!?");
+					performingClient.addTolastTurnInfo(BombItem.FOUND_A_BOMB_STRING);
 					room.getObjects().remove(BoobyTrappedObject.this);
 					room.addObject(innerObject);
 					room.addItem(bomb);

@@ -2,17 +2,19 @@ package model.items;
 
 import java.util.ArrayList;
 
-
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.Target;
 import model.characters.GameCharacter;
 import model.characters.crew.*;
 import model.events.ExplosiveDamage;
 import model.map.Room;
 import model.events.Explosion;
 
-public abstract class BombItem extends GameItem {
+public abstract class BombItem extends HidableItem {
+
+	public static final String FOUND_A_BOMB_STRING = "What's this... a bomb!?";
 
 	public BombItem(String string) {
 		super(string, 2.0);
@@ -22,12 +24,16 @@ public abstract class BombItem extends GameItem {
 		return "fiddled with bomb";
 	}
 	
+	
+	
 	@Override
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
-		if (isDemolitionsExpert(whosAsking)) {
-			super.addYourselfToRoomInfo(info, whosAsking);
-		} else {
-			info.add("i" + "Bomb");
+		if (!this.isHidden()) {
+			if (isDemolitionsExpert(whosAsking)) {
+				super.addYourselfToRoomInfo(info, whosAsking);
+			} else {
+				info.add("i" + "Bomb");
+			}
 		}
 	}
 	
@@ -62,6 +68,13 @@ public abstract class BombItem extends GameItem {
 		for (Actor a : bombRoom.getActors()) {
 			if (a != currentCarrier) {
 				a.getCharacter().beExposedTo(performingClient, 
+						new ExplosiveDamage(2.0));
+			}
+		}
+		
+		for (Object o : bombRoom.getObjects()) {
+			if (o instanceof Target) {
+				((Target)o).beExposedTo(performingClient, 
 						new ExplosiveDamage(2.0));
 			}
 		}

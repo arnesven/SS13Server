@@ -10,6 +10,7 @@ import model.objects.AirLockControl;
 import model.objects.ChemicalDispenser;
 import model.objects.CrewRoster;
 import model.objects.KeyCardLock;
+import model.objects.Lockers;
 import model.objects.MedkitDispenser;
 import model.objects.SecurityCameraConsole;
 
@@ -44,7 +45,9 @@ public class MapBuilder {
 		result.add(new Room( 9, "Starboard Hall Aft"  , ""       , 5,  8, 4, 2, new int[]{5, 8, 10, 11},       new double[]{9.0, 9.5} ));
 		result.add(new Room(10, "Bar"                 , "Bar"    , 6, 10, 3, 2, new int[]{8, 9, 12}  ,         new double[]{7.5, 10.0, 9.0, 11.5}));
 		result.add(new Room(11, "Starboard Hall Front", ""       , 9,  9, 3, 2, new int[]{9, 12, 13} ,         new double[]{12.0, 9.5} ));
-		result.add(new Room(12, "Dorms"               , "Dorm"   , 9, 11, 4, 3, new int[]{10, 11, 14},         new double[]{10.5, 11.0, 13.0, 11.5} ));
+		Room dorms = new Room(12, "Dorms"               , "Dorm"   , 9, 11, 4, 3, new int[]{10, 11, 14},         new double[]{10.5, 11.0, 13.0, 11.5} );
+		dorms.addObject(new Lockers(dorms));
+		result.add(dorms);
 		result.add(new Room(13, "Front Hall"          , ""       ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{13.5, 10.0, 12.0, 8.0, 13.5, 6.0} ));
 		Room office = new Room(14, "Office"              , "Offc"   ,13, 10, 2, 2, new int[]{12, 13}    ,         new double[]{} );
 		office.addObject(new CrewRoster(office));
