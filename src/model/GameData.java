@@ -531,6 +531,10 @@ public class GameData {
 		return null;
 	}
 
+	public GameMap getMap() {
+		return map;
+	}
+
 
 
 

@@ -159,6 +159,10 @@ public abstract class NPC extends Actor implements Target {
 		this.moveBehavior = behavior;
 	}
 
+	public MovementBehavior getMovementBehavior() {
+		return this.moveBehavior;
+	}
+
 
 	
 

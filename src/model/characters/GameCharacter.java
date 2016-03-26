@@ -16,6 +16,8 @@ import model.actions.SensoryLevel.VisualLevel;
 import model.actions.WatchAction;
 import model.characters.decorators.InstanceChecker;
 import model.events.Damager;
+import model.events.Event;
+import model.events.RadiationStorm;
 import model.items.GameItem;
 import model.items.KeyCard;
 import model.items.MedKit;
@@ -336,6 +338,7 @@ public abstract class GameCharacter {
 	public void giveItem(GameItem it, Target giver) {
 		this.getItems().add(it);
 	}
+
 
 	
 

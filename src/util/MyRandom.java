@@ -87,6 +87,7 @@ public class MyRandom {
 		list.add(new FireExtinguisher());
 		list.add(new Grenade());
 		list.add(new KeyCard());
+		list.add(new GeigerMeter());
 		list.add(new MedKit());
 		list.add(new TimeBomb());
 		list.add(new RemoteBomb());
@@ -98,6 +99,7 @@ public class MyRandom {
 		list.add(new ChefsHat());
 		list.add(new FancyClothes());
 		list.add(new FireSuit());
+		list.add(new RadiationSuit());
 		list.add(new SpaceSuit());
 		list.add(new SunGlasses());
 		list.add(new Flamer());

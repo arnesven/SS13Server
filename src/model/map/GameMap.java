@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import model.GameData;
+
 /**
  * @author erini02
  * Class for representing the Game's map, i.e. the space station and its rooms.
@@ -53,6 +55,61 @@ public class GameMap {
 		throw new NoSuchElementException("No room for given string " + string);
 	}
 
+	/**
+	 * Gets the location for a particular side.
+	 * 0 => aft side
+	 * 1 => port side
+	 * 2 => front side
+	 * 3 => starboard side
+	 * @return A list of lists of rooms.
+	 */
+	public List<List<Room>> getSideLocations() {
+		List<List<Room>> list = new ArrayList<>();
+		List<Room> aftSide = new ArrayList<>();
+		aftSide.add(this.getRoom("Greenhouse"));
+		aftSide.add(this.getRoom("Panorama Walkway"));
+		aftSide.add(this.getRoom("Aft Walkway"));
+		aftSide.add(this.getRoom("Airtunnel"));
+		aftSide.add(this.getRoom("Chapel"));
+		aftSide.add(this.getRoom("Aft Hall"));
+		aftSide.add(this.getRoom("Lab"));
+		aftSide.add(this.getRoom("Air Lock #1"));	
+		list.add(aftSide);
+		
+		List<Room> portSide = new ArrayList<>();
+		portSide.add(this.getRoom("Lab"));
+		portSide.add(this.getRoom("Sickbay"));
+		portSide.add(this.getRoom("Air Lock #3"));
+		portSide.add(this.getRoom("Port Hall Aft"));
+		portSide.add(this.getRoom("Shuttle Gate"));
+		portSide.add(this.getRoom("Port Hall Front"));
+		portSide.add(this.getRoom("Security Station"));
+		portSide.add(this.getRoom("Air Lock #2"));
+		list.add(portSide);
+		
+		List<Room> frontSide = new ArrayList<>();
+		frontSide.add(this.getRoom("Security Station"));
+		frontSide.add(this.getRoom("Port Hall Front"));
+		frontSide.add(this.getRoom("Air Lock #2"));
+		frontSide.add(this.getRoom("Bridge"));
+		frontSide.add(this.getRoom("Captain's Quarters"));
+		frontSide.add(this.getRoom("Front Hall"));
+		frontSide.add(this.getRoom("Office"));
+		list.add(frontSide);
+		
+		List<Room> starboardSide = new ArrayList<>();
+		starboardSide.add(this.getRoom("Office"));
+		starboardSide.add(this.getRoom("Starboard Hall Front"));
+		starboardSide.add(this.getRoom("Dorms"));
+		starboardSide.add(this.getRoom("Bar"));
+		starboardSide.add(this.getRoom("Kitchen"));
+		starboardSide.add(this.getRoom("Starboard Hall Aft"));
+		starboardSide.add(this.getRoom("Aft Walkway"));
+		starboardSide.add(this.getRoom("Air Lock #1"));
+		list.add(starboardSide);
+		
+		return list;
+	}
 
 
 }

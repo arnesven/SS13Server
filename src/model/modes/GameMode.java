@@ -40,11 +40,13 @@ import model.events.Event;
 import model.events.Explosion;
 import model.events.HullBreach;
 import model.events.OngoingEvent;
+import model.events.RadiationStorm;
 import model.items.FireExtinguisher;
 import model.items.GameItem;
 import model.items.KeyCard;
 import model.items.MedKit;
 import model.items.Tools;
+import model.items.suits.RadiationSuit;
 import model.items.weapons.Weapon;
 import model.map.Room;
 import model.npcs.CatNPC;
@@ -109,6 +111,7 @@ public abstract class GameMode {
 		events.put("hull breaches", new HullBreach());
 		events.put("explosion", new Explosion());
 		events.put("crazyness", new Crazyness());
+		events.put("radiation storms", new RadiationStorm());
 	}
 
 	private static HashMap<String, GameCharacter> availableChars() {
@@ -377,7 +380,7 @@ public abstract class GameMode {
 
 		Room labRoom = gameData.getRoom("Lab");
 		labRoom.addItem(new FireExtinguisher());
-
+		labRoom.addItem(new RadiationSuit());
 
 		Room bridge = gameData.getRoom("Bridge");
 		bridge.addItem(new FireExtinguisher());

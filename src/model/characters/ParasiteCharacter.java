@@ -3,6 +3,9 @@ package model.characters;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Actor;
+import model.events.Damager;
+import model.events.RadiationDamage;
 import model.items.GameItem;
 
 
@@ -27,6 +30,13 @@ public class ParasiteCharacter extends GameCharacter {
 	@Override
 	public boolean isHealable() {
 		return false;
+	}
+	
+	@Override
+	public void beExposedTo(Actor something, Damager damager) {
+		if (!(damager instanceof RadiationDamage)) {
+			super.beExposedTo(something, damager);
+		}
 	}
 	
 }
