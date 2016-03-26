@@ -13,6 +13,7 @@ import util.MyRandom;
 
 public class Weapon extends GameItem {
 
+	public static final Weapon FISTS = new Weapon("Fists", 0.5, 0.5, false, 0.0);
 	private double hitChance;
 	private double damage;
 	private boolean makesBang;

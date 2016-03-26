@@ -151,6 +151,14 @@ public abstract class NPC extends Actor implements Target {
 		return getCharacter().isHealable();
 	}
 
+	public void setActionBehavior(ActionBehavior behavior) {
+		this.actBehavior = behavior;
+	}
+	
+	public void setMoveBehavior(MovementBehavior behavior) {
+		this.moveBehavior = behavior;
+	}
+
 
 	
 

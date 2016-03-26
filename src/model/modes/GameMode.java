@@ -34,6 +34,7 @@ import model.characters.crew.MechanicCharacter;
 import model.characters.crew.RoboticistCharacter;
 import model.characters.crew.SecurityOfficerCharacter;
 import model.characters.crew.TouristCharacter;
+import model.events.Crazyness;
 import model.events.ElectricalFire;
 import model.events.Event;
 import model.events.Explosion;
@@ -107,7 +108,7 @@ public abstract class GameMode {
 		events.put("fires", new ElectricalFire());
 		events.put("hull breaches", new HullBreach());
 		events.put("explosion", new Explosion());
-//		events.put("crazyness", new Crazyness());
+		events.put("crazyness", new Crazyness());
 	}
 
 	private static HashMap<String, GameCharacter> availableChars() {

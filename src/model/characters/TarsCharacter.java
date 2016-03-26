@@ -20,4 +20,9 @@ public class TarsCharacter extends GameCharacter {
 	public boolean isHealable() {
 		return false;
 	}
+	
+	@Override
+	public boolean isCrew() {
+		return false;
+	}
 }

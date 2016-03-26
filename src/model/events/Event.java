@@ -30,5 +30,7 @@ public abstract class Event {
 	}
 
 	public void setShouldBeRemoved(boolean b) { }
+
+
 	
 }

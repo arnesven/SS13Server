@@ -9,6 +9,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.characters.decorators.InfectedCharacter;
+import model.events.Crazyness;
 import model.events.ElectricalFire;
 import model.events.Event;
 import model.events.OngoingEvent;
@@ -148,20 +149,37 @@ public abstract class GameStats {
 
 
 	final private String getMiscStats() {
-		return "<br/> <table>" +
+		String res = "<br/> <table>" +
 		"<tr><td><b>Miscellaneous Stats</b></td><td></td></tr>" +
 		"<tr><td> Fires put out: </td><td>"       + getFireString(gameData) + "</td></tr>" +
 		"<tr><td> Hull breaches fixed: </td><td>" + getHullString(gameData) + "</td></tr>" +	
 		"<tr><td> Cat survived: </td><td>"        + isCatDead(gameData) + "</td></tr>" +
 		"<tr><td> Parasites spawned: </td><td>"    + mode.getAllParasites().size() + "</td></tr>" +
 		"<tr><td> Parasites killed: </td><td>"     + countDead(mode.getAllParasites()) + "</td></tr>" +
-		"<tr><td> Parasite vanquisher: </td><td>"  + findVanquisher(mode.getAllParasites())+ "</td></tr>"+
-		"</table>";
+		"<tr><td> Parasite vanquisher: </td><td>"  + findVanquisher(mode.getAllParasites())+ "</td></tr>";
+		String crazyPeople = crazyPeopleString();
+		if (! crazyPeople.equals("")) {
+			res += "<tr><td colspan=\"2\"> "  + crazyPeopleString() + " went crazy. </td>";
+		}
+		res += "</table>";
+		 
+		return res;
 	}
 
 	
 
 
+
+	private String crazyPeopleString() {
+		String res = "";
+		for (NPC npc : ((Crazyness)mode.getEvents().get("crazyness")).getCrazyPeople()) {
+			if (!res.equals("")) {
+				res += ", ";
+			}
+			res += npc.getBaseName();
+		}
+		return res;
+	}
 
 	public abstract String getContent();
 
