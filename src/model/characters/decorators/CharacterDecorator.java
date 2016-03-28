@@ -209,8 +209,15 @@ public abstract class CharacterDecorator extends GameCharacter {
 		return innerChar.getEncumberenceLevel();
 	}
 	
+	@Override
 	public void giveItem(GameItem it, Target giver) {
 		innerChar.giveItem(it, giver);
 	}
+	
+	@Override
+	public String getHowPerceived(Actor actor) {
+		return innerChar.getHowPerceived(actor);
+	}
+	
 		
 }

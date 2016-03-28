@@ -2,6 +2,7 @@ package model.objects;
 
 import java.util.ArrayList;
 
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
@@ -16,8 +17,12 @@ public class GameObject {
 		this.position = position;
 	}
 
-	public String getName() {
+	public String getBaseName() {
 		return name;
+	}
+	
+	public String getPublicName(Actor whosAsking) {
+		return getBaseName();
 	}
 	
 	public Room getPosition() {
@@ -26,7 +31,7 @@ public class GameObject {
 	
 
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
-		info.add("o" + this.getName());
+		info.add("o" + this.getPublicName(whosAsking));
 	}
 
 	

@@ -27,6 +27,7 @@ import model.map.Room;
 import model.modes.GameMode;
 import model.modes.GameModeFactory;
 import model.npcs.NPC;
+import model.objects.GameObject;
 
 
 
@@ -551,6 +552,19 @@ public class GameData {
 
 	public void addMovementEvent(Event event) {
 		moveEvents.add(event);
+	}
+
+	/**
+	 * Gets all game objects in all the rooms.
+	 * @return all objects as a list.
+	 */
+	public List<GameObject> getObjects() {
+		List<GameObject> obj = new ArrayList<>();
+		for (Room r : getRooms()) {
+			obj.addAll(r.getObjects());
+		}
+
+		return obj;
 	}
 
 

@@ -339,6 +339,10 @@ public abstract class GameCharacter {
 		this.getItems().add(it);
 	}
 
+	public String getHowPerceived(Actor actor) {
+		return actor.getPublicName();
+	}
+
 
 	
 

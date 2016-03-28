@@ -15,7 +15,6 @@ public class SunGlasses extends SuitItem {
 
 	@Override
 	public void beingPutOn(Actor actionPerformer) {
-		actionPerformer.addTolastTurnInfo("You put on the sun glasses.");
 		for (Actor a : actionPerformer.getPosition().getActors()) {
 			if (a != actionPerformer) {
 				a.addTolastTurnInfo("The " + actionPerformer.getPublicName() + " is a cool dude" + 

@@ -1,5 +1,6 @@
 package model.actions.itemactions;
 
+import util.MyRandom;
 import model.Actor;
 import model.Player;
 import model.GameData;
@@ -33,7 +34,14 @@ public class HealWithMedKitAction extends TargetingAction {
 		
 		if (! target.hasSpecificReaction(objectRef)) {
 			target.addToHealth(HEAL_AMOUNT);
-			performingClient.getItems().remove(objectRef);
+			
+			if ((!(performingClient.getCharacter() instanceof DoctorCharacter)) ||
+					MyRandom.nextDouble() < 0.5) {
+				performingClient.getItems().remove(objectRef);
+			} else {
+				performingClient.addTolastTurnInfo("The MedKit wasn't used up.");
+			}
+			
 			if (target == performingClient) {
 				performingClient.addTolastTurnInfo("You " + getVerb(performingClient) + " yourself with the " + objectRef.getPublicName(performingClient) + ".");
 			} else {

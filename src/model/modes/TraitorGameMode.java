@@ -21,6 +21,7 @@ import model.npcs.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
 import model.npcs.TARSNPC;
+import model.objects.BreakableObject;
 import model.objects.GameObject;
 import model.objects.ElectricalMachinery;
 
@@ -82,7 +83,7 @@ public class TraitorGameMode extends GameMode {
 	}
 
 	private TraitorObjective createRandomObjective(Player traitor, GameData gameData) {
-		int val = MyRandom.nextInt(1);
+		int val = MyRandom.nextInt(2);
 		if (val == 0) {
 			List<Player> targets = new ArrayList<>();
 			targets.addAll(gameData.getPlayersAsList());
@@ -90,8 +91,22 @@ public class TraitorGameMode extends GameMode {
 			if (targets.size() > 0) { 
 				return new AssassinateObjective(traitor, MyRandom.sample(targets));
 			} else {
+				// KILL YOURSELF!
 				return new AssassinateObjective(traitor, traitor);
 			}
+		} else if (val == 1) {
+			List<BreakableObject> objects = SabotageObjective.getBreakableObjects(gameData);
+			List<BreakableObject> sabObjects = new ArrayList<>();
+			
+			for (int i = 2; i > 0; ) {
+				BreakableObject ob = MyRandom.sample(objects);
+				if (!sabObjects.contains(ob)) {
+					sabObjects.add(ob);
+					i--;
+				}
+			}
+			
+			return new SabotageObjective(gameData, sabObjects);
 		}
 		
 		return null;

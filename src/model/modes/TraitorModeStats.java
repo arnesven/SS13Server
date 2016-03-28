@@ -56,7 +56,7 @@ public class TraitorModeStats extends GameStats {
 		String style = "style='text-align:right'";
 		
 		StringBuffer buf = new StringBuffer("<table>");
-		buf.append("<tr><td><b>Total Score</b></td><td style='text-align:right;color"+color+"'><b>" + score              + "</b></td></tr>");
+		buf.append("<tr><td><b>Total Score</b></td><td style='text-align:right;color:"+color+"'><b>" + score              + "</b></td></tr>");
 		buf.append("<tr><td>Traitor Objectives</td><td " + style + ">" + traitorMode.pointsFromObjectives(gameData)      + "</td></tr>");
 		buf.append("<tr><td>Crew Survived</td><td " + style +">"        + traitorMode.pointsFromSavedCrew(gameData)        + "</td></tr>");
 		buf.append("<tr><td>Equipment Destroyed</td><td " + style +">"+ traitorMode.pointsFromBrokenObjects(gameData)    + "</td></tr>");

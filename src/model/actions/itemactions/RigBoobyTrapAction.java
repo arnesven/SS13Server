@@ -37,7 +37,7 @@ public class RigBoobyTrapAction extends Action {
 		ActionOption opt = new ActionOption("Rig Booby Trap");
 		for (GameObject obj : performer.getPosition().getObjects()) {
 			if (obj instanceof ElectricalMachinery) {
-				opt.addOption(new ActionOption(obj.getName()));
+				opt.addOption(new ActionOption(obj.getPublicName(whosAsking)));
 			}
 		}
 		return opt;
@@ -47,7 +47,7 @@ public class RigBoobyTrapAction extends Action {
 	public void setArguments(List<String> args, Actor p) {
 		for (GameObject obj : performer.getPosition().getObjects()) {
 			if (obj instanceof ElectricalMachinery) {
-				if (obj.getName().equals(args.get(0))) {
+				if (obj.getPublicName(p).equals(args.get(0))) {
 					selectedObject = (ElectricalMachinery)obj;
 				}
 			}

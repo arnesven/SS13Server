@@ -13,7 +13,10 @@ public class Locator extends GameItem {
 	
 	@Override
 	public String getFullName(Actor whosAsking) {
-		return super.getFullName(whosAsking) + " (" + target.getPosition().getName() + ")";
+		if (target != null) {
+			return super.getFullName(whosAsking) + " (" + target.getPosition().getName() + ")";
+		}
+		return super.getFullName(whosAsking) + " (not found)";
 	}
 
 	@Override

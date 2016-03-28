@@ -29,32 +29,37 @@ public abstract class BreakableObject extends GameObject implements Target {
 	}
 
 	@Override
+	public String getName() {
+		return getBaseName();
+	}
+	
+	@Override
 	public boolean beAttackedBy(Actor performingClient, Weapon item) {
 		boolean success;
 		if (item.isAttackSuccessful(false)) {
 			success = true;
 			hp = Math.max(0.0, hp - item.getDamage());
-			performingClient.addTolastTurnInfo("You " + item.getSuccessfulMessage() + "ed the " + super.getName() + ".");
+			performingClient.addTolastTurnInfo("You " + item.getSuccessfulMessage() + "ed the " + super.getPublicName(performingClient) + ".");
 			if (isBroken()) {
-				performingClient.addTolastTurnInfo("The " + super.getName() + " was destroyed!");				
+				performingClient.addTolastTurnInfo("The " + super.getPublicName(performingClient) + " was destroyed!");				
 				this.breaker = performingClient;
 				this.brokenByWeapon = item;
 			}
 		} else {
-			performingClient.addTolastTurnInfo("You missed the " + super.getName() + ".");
+			performingClient.addTolastTurnInfo("You missed the " + super.getPublicName(performingClient) + ".");
 			success = false;
 		}
 		return success;
 	}
 	
 	@Override
-	public String getName() {
+	public String getPublicName(Actor whosAsking) {
 		if (isBroken()) {
-			return super.getName() + " (broken)";
+			return super.getPublicName(whosAsking) + " (broken)";
 		} else if (hp < maxHealth) {
-			return super.getName() + " (damaged)";
+			return super.getPublicName(whosAsking) + " (damaged)";
 		}
-		return super.getName();
+		return super.getPublicName(whosAsking);
 	}
 	
 	@Override

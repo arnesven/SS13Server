@@ -123,10 +123,10 @@ public abstract class Actor  {
 	/**
 	 * Adds the player's character's public name to the room info.
 	 * @param info the info to be added to.
+	 * @param whosAsking 
 	 */
-	public void addYourselfToRoomInfo(ArrayList<String> info) {
-		//TODO: This function should probably be deferred to the character.
-		info.add("a" + this.getPublicName());
+	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
+		info.add("a" + whosAsking.getCharacter().getHowPerceived(this));
 	}
 	
 	

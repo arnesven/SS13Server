@@ -3,6 +3,8 @@ package model.characters.crew;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Actor;
+import model.Target;
 import model.characters.GameCharacter;
 import model.items.GameItem;
 import model.items.MedKit;
@@ -23,4 +25,14 @@ public class DoctorCharacter extends GameCharacter {
 		return list;
 	}
 
+	@Override
+	public String getHowPerceived(Actor actor) {
+		String usually = super.getHowPerceived(actor);
+		Target t = actor.getAsTarget();
+		if (t.getHealth() < t.getMaxHealth()) {
+			usually += " (unhealthy)";
+		}
+		
+		return usually;
+	}
 }

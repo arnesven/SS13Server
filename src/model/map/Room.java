@@ -112,7 +112,7 @@ public class Room {
 		Collections.shuffle(actors);
 		for (Actor a : actors) {
 			if (whosAsking != a) {
-				a.addYourselfToRoomInfo(info);
+				a.addYourselfToRoomInfo(info, whosAsking);
 			} else {
 				info.add("aYou");
 			}
