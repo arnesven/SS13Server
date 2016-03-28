@@ -6,6 +6,8 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
+import model.characters.GameCharacter;
+import model.map.Room;
 
 /**
  * @author erini02
@@ -13,10 +15,12 @@ import model.actions.Action;
  * An item is an object which can be held, dropped, picked up or used
  * by a character.
  */
-public abstract class GameItem {
+public abstract class GameItem implements Locatable {
 
 	private String name;
 	private double weight;
+	private Room position;
+	private GameCharacter holder = null;
 	
 	public GameItem(String string, double weight) {
 		this.name = string;
@@ -80,5 +84,24 @@ public abstract class GameItem {
 	protected void setWeight(double weight) {
 		this.weight = weight;
 	}
+	
+	@Override
+	public Room getPosition() {
+		if (holder != null) {
+			return holder.getPosition();
+		}
+		return position;
+	}
+	
+	public void setPosition(Room p) {
+		position = p;
+	}
+
+	public void setHolder(GameCharacter gameCharacter) {
+		this.holder = gameCharacter;
+		
+	}
+	
+	
 
 }

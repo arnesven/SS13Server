@@ -8,6 +8,7 @@ import model.characters.decorators.InfectedCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.InstanceRemover;
 import model.items.GameItem;
+import model.items.suits.SuitItem;
 import model.map.Room;
 import model.npcs.NPC;
 import model.objects.CookOMatic;
@@ -138,6 +139,17 @@ public abstract class Actor  {
 	public void removeInstance(InstanceRemover fireProtectionRemover) {
 		System.out.println("Removing an instance..");
 		this.setCharacter(fireProtectionRemover.removeInstance(getCharacter()));
+	}
+	
+	public void putOnSuit(SuitItem selectedItem) {
+		this.getCharacter().putOnSuit(selectedItem);
+		selectedItem.beingPutOn(this);	
+	}
+	
+	public void takeOffSuit() {
+		SuitItem item = getCharacter().getSuit();
+		this.getCharacter().removeSuit();
+		item.beingTakenOff(this);
 	}
 
 }

@@ -337,6 +337,7 @@ public abstract class GameCharacter {
 	 */
 	public void giveItem(GameItem it, Target giver) {
 		this.getItems().add(it);
+		it.setHolder(this);
 	}
 
 	public String getHowPerceived(Actor actor) {

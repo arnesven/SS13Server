@@ -26,12 +26,11 @@ public class DropAction extends Action {
 	protected void execute(GameData gameData, Actor performingClient) {
 		SuitItem suit = performingClient.getCharacter().getSuit();
 		if (item == suit) {
-			suit.beingTakenOff(performingClient);
-			performingClient.getCharacter().removeSuit();
+			performingClient.takeOffSuit();
 		} else {
 			performingClient.getItems().remove(item);
 		}
-		performingClient.getPosition().getItems().add(item);
+		performingClient.getPosition().addItem(item);
 		performingClient.addTolastTurnInfo("You dropped the " + item.getPublicName(performingClient) + ".");
 	}
 

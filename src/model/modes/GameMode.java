@@ -102,7 +102,7 @@ import model.npcs.TARSNPC;
 public abstract class GameMode {
 
 
-	private static String[] knownModes = {"Host", "Traitor", "Secret"};
+	private static String[] knownModes = {"Host", "Traitor", "Secret", "Infiltration"};
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
 

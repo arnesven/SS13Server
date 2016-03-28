@@ -70,8 +70,7 @@ public class PutOnAction extends Action {
 			return;
 		}
 		
-		performingClient.getCharacter().putOnSuit(selectedItem);
-		selectedItem.beingPutOn(performingClient);
+		performingClient.putOnSuit(selectedItem);
 	
 		performingClient.addTolastTurnInfo("You put on the " + selectedItem.getPublicName(performingClient) + ".");
 		

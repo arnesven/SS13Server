@@ -30,6 +30,11 @@ public class GameMap {
 	
 	}
 
+	public void addRoom(Room room) {
+		roomsList.add(room);
+		roomsMap.put(room.getID(), room);
+	}
+	
 	private void setRoomsList(ArrayList<Room> result) {
 		roomsList = result;
 	}
@@ -110,6 +115,31 @@ public class GameMap {
 		
 		return list;
 	}
+
+	
+	public static void connectRooms(Room to, Room from) {
+		int[] newNArr = new int[from.getNeighbors().length+1];
+		for (int i = 0; i < from.getNeighbors().length; ++i) {
+			newNArr[i] = from.getNeighbors()[i];
+		}
+		newNArr[from.getNeighbors().length] = to.getID();
+		from.setNeighbors(newNArr);
+	}
+
+	public static void disconnect(Room to, Room from) {
+		int[] newNArr = new int[from.getNeighbors().length-1];
+		int x = 0;
+		for (int i = 0; i < from.getNeighbors().length; ++i) {
+			if (from.getNeighbors()[i] != to.getID()) {
+				newNArr[x] = from.getNeighbors()[i];
+				x++;
+			}
+		}
+	
+		from.setNeighbors(newNArr);
+	}
+
+
 
 
 }

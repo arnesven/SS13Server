@@ -83,6 +83,10 @@ public class MapBuilder {
 		result.add(gen);
 		result.add(new Room(27, "Panorama Walkway"    , ""       , 1,  3, 1, 3, new int[]{1, 3}      ,         new double[]{} ));
 		
+		Room nukieShip = new NukieShipRoom(28, new int[]{7, 21, 25}, new double[]{-1.0, -1.0});
+		
+		result.add(nukieShip);
+		
 		GameMap gm = new GameMap(result);
 		
 

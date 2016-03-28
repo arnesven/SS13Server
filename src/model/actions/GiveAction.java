@@ -33,7 +33,7 @@ public class GiveAction extends TargetingAction {
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
 		
-		target.getItems().add(item);
+		((Actor)target).getCharacter().giveItem(item, performingClient.getAsTarget());
 		performingClient.getItems().remove(item);
 		performingClient.addTolastTurnInfo("You gave a " + item.getPublicName(performingClient) + " to " + target.getName() + ".");
 		Actor targetAsActor = (Actor)target;

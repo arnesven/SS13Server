@@ -37,10 +37,7 @@ public class TraitorGameMode extends GameMode {
 	private String CREW_START_STRING = "There are traitors on the station. Find them and stop them before they ruin everything!";
 
 	@Override
-	protected void setUpOtherStuff(GameData gameData) {
-		// TODO Auto-generated method stub
-
-	}
+	protected void setUpOtherStuff(GameData gameData) { }
 
 	@Override
 	protected void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters, GameData gameData) {

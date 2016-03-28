@@ -232,6 +232,8 @@ public class Room {
 
 	public void addItem(GameItem item) {
 		this.items.add(item);
+		item.setHolder(null);
+		item.setPosition(this);
 	}
 
 	public List<GameItem> getItems() {

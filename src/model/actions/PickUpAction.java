@@ -23,7 +23,7 @@ public class PickUpAction extends Action {
 		if (performingClient.getPosition().getItems().contains(item)) {
 			performingClient.addTolastTurnInfo("You picked up the " + item.getPublicName(performingClient) + ".");
 			performingClient.getPosition().getItems().remove(item);
-			performingClient.getItems().add(item);
+			performingClient.getCharacter().giveItem(item, null);
 		} else {
 			performingClient.addTolastTurnInfo("You failed to pick up the " + item.getPublicName(performingClient) + "!");
 			

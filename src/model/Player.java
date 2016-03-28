@@ -383,7 +383,7 @@ public class Player extends Actor implements Target {
 	}
 
 	private void addDropActions(ArrayList<Action> at) {
-		if (getItems().size() > 0) {
+		if (getItems().size() > 0 || this.getSuit() != null) {
 			DropAction dropAction = new DropAction(this);
 			at.add(dropAction);
 		}
