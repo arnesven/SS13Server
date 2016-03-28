@@ -1,6 +1,7 @@
 package model.modes;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import model.GameData;
 import model.Player;
 import model.characters.GameCharacter;
 import model.characters.OperativeCharacter;
+import model.items.GameItem;
 import model.items.NuclearDisc;
 import model.items.suits.JumpSuit;
 import model.items.suits.OperativeSpaceSuit;
@@ -20,6 +22,7 @@ import model.map.Room;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
 import model.items.weapons.Revolver;
+import model.items.NuclearDisc;
 
 public class InfiltrationGameMode extends GameMode {
 
@@ -32,6 +35,14 @@ public class InfiltrationGameMode extends GameMode {
 	
 	@Override
 	protected void setUpOtherStuff(GameData gameData) {
+		for (Actor a : gameData.getActors()) {
+			for (GameItem it : a.getItems()) {
+				if (it instanceof NuclearDisc) {
+					nukieDisk = (NuclearDisc)it;
+					break;
+				}
+			}
+		}
 		Locator loc = new Locator();
 		loc.setTarget(nukieDisk);
 		nukieShip.addItem(loc);
@@ -87,11 +98,6 @@ public class InfiltrationGameMode extends GameMode {
 
 			operatives.add(p);
 		}
-		
-		nukieDisk = new NuclearDisc();
-		gameData.getRoom("Captain's Quarters").addItem(nukieDisk);
-		
-	
 	}
 
 	private int getNoOfOperatives(GameData gameData) {
