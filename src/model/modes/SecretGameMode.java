@@ -19,15 +19,22 @@ public class SecretGameMode  {
 	public static GameMode getNewInstance() {
 		GameMode result;
 		double d = MyRandom.nextDouble();
-		if (d < 0.5) {
+		if (d < 0.45) {
 			result = new HostGameMode() {
 				@Override
 				protected void addProtagonistStartingMessage(Player c) {
 					protMessage(c);
 				}
 			};
-		} else {
+		} else if (d < 0.9) {
 			result = new TraitorGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					protMessage(c);
+				}
+			};
+		} else {
+			result = new InfiltrationGameMode() {
 				@Override
 				protected void addProtagonistStartingMessage(Player c) {
 					protMessage(c);

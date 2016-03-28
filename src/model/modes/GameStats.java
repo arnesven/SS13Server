@@ -60,7 +60,7 @@ public abstract class GameStats {
 	
 	@Override
 	public String toString() {
-		return "<h3>Game is over!</h3><p><i>Hopefully it didn't suck too badly!</i></p>"+
+		return "<h3>Game is over!</h3>" + getTopContent() +
 				"<table>" +
 				"<tr><td> Mode: </td><td>" + getMode() + "</td></tr>" +
 				"<tr><td> Players: </td><td>" + gameData.getPlayersAsList().size() + "</td></tr>" + 
@@ -71,6 +71,10 @@ public abstract class GameStats {
 				generatePlayersTable() + "<br/>" + 
 				getContent() + "<br/>" + 
 				getMiscStats();
+	}
+
+	protected String getTopContent() {
+		return "<p><i>Hopefully it didn't suck too badly!</i></p>";
 	}
 
 	private String generatePlayersTable() {

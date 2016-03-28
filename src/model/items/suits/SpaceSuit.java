@@ -12,7 +12,7 @@ import model.characters.decorators.SpaceProtection;
 public class SpaceSuit extends SuitItem {
 
 	public SpaceSuit() {
-		super("Space suit", 5.0);
+		super("Space suit", 4.0);
 	}
 
 	@Override

@@ -48,6 +48,7 @@ import model.items.MedKit;
 import model.items.Tools;
 import model.items.suits.RadiationSuit;
 import model.items.weapons.Weapon;
+import model.map.NukieShipRoom;
 import model.map.Room;
 import model.npcs.CatNPC;
 import model.npcs.HumanNPC;
@@ -140,7 +141,7 @@ public abstract class GameMode {
 		gcs.addAll(availableChars().keySet());
 		return gcs;
 	}
-	
+
 	public static List<String> getAllCharsAsStrings() {
 		List<String> gcs = new ArrayList<>();
 		gcs.addAll(getAllCrewAsStrings());
@@ -157,7 +158,7 @@ public abstract class GameMode {
 	 * @param gameData
 	 */
 	protected abstract void setUpOtherStuff(GameData gameData);
-	
+
 	/**
 	 * Overload this method to add roles "ontop" of existing ones.
 	 * E.g. the host role is assigned in this method. 
@@ -190,14 +191,14 @@ public abstract class GameMode {
 	 * @param c
 	 */
 	protected abstract void addAntagonistStartingMessage(Player c);
-	
+
 	/**
 	 * This method should send a starting message to the protagonist c
 	 * at the start of the game.
 	 * @param c
 	 */
 	protected abstract void addProtagonistStartingMessage(Player c);
-	
+
 	/**
 	 * This method checks if this player is a antagonist or not.
 	 * @param c
@@ -233,7 +234,7 @@ public abstract class GameMode {
 		setUpOtherStuff(gameData);
 		addItemsToRooms(gameData);
 		addRandomItemsToRooms(gameData);
-		
+
 		addStartingMessages(gameData);
 	}
 
@@ -247,7 +248,7 @@ public abstract class GameMode {
 			}
 		}
 	}
-	
+
 
 
 
@@ -274,8 +275,8 @@ public abstract class GameMode {
 	}
 
 
-	
-	
+
+
 	protected void selectCaptain(ArrayList<Player> clientsRemaining, 
 			ArrayList<GameCharacter> listOfCharacters) {
 
@@ -340,7 +341,12 @@ public abstract class GameMode {
 		NPC cat = new CatNPC(gameData.getRoomForId(20));
 		gameData.addNPC(cat);
 
-		NPC tars = new TARSNPC(gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size())));
+		Room TARSRoom;
+		do {
+			TARSRoom = MyRandom.sample(gameData.getRooms());
+		} while (TARSRoom instanceof NukieShipRoom);
+
+		NPC tars = new TARSNPC(TARSRoom);
 		gameData.addNPC(tars);
 
 		int noOfNPCs = Math.min(MyRandom.nextInt(3) + 4, remainingChars.size());
@@ -357,7 +363,7 @@ public abstract class GameMode {
 
 		}
 	}
-	
+
 	private void giveCharactersStartingItems(GameData gameData) {
 		List<Actor> actors = new ArrayList<Actor>();
 		actors.addAll(gameData.getPlayersAsList());
@@ -404,7 +410,7 @@ public abstract class GameMode {
 		}
 	}
 
-	
+
 	public static String getAvailableJobs() {
 		StringBuffer res = new StringBuffer();
 		List<GameCharacter> list = new ArrayList<>();
@@ -417,8 +423,9 @@ public abstract class GameMode {
 		}
 		res.append("aTraitor:");
 		res.append("aHost:");
-		res.append("aChangeling:");
 		res.append("aOperative");
+		//	res.append("aChangeling:");
+
 
 		return res.toString();
 	}

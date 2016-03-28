@@ -8,6 +8,7 @@ import model.GameData;
 import model.characters.GameCharacter;
 import model.items.GameItem;
 import model.items.suits.FancyClothes;
+import model.map.NukieShipRoom;
 import model.map.Room;
 
 public class TouristCharacter extends GameCharacter {
@@ -25,7 +26,12 @@ public class TouristCharacter extends GameCharacter {
 	
 	@Override
 	public Room getStartingRoom(GameData gameData) {
-		return gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
+		Room room;
+		do {
+			room = MyRandom.sample(gameData.getRooms());
+		} while (room instanceof NukieShipRoom);
+		
+		return room;
 	}
 	
 }

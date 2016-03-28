@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import util.MyRandom;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -18,6 +19,7 @@ import model.items.Locator;
 import model.map.Room;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
+import model.items.weapons.Revolver;
 
 public class InfiltrationGameMode extends GameMode {
 
@@ -33,6 +35,9 @@ public class InfiltrationGameMode extends GameMode {
 		Locator loc = new Locator();
 		loc.setTarget(nukieDisk);
 		nukieShip.addItem(loc);
+		for (int i = 0; i < getNoOfOperatives(gameData); ++i) {
+			nukieShip.addItem(new Revolver());
+		}
 	}
 
 
@@ -43,11 +48,31 @@ public class InfiltrationGameMode extends GameMode {
 		nukieShip = gameData.getRoom("Nuclear Ship");
 		int num = 1;
 		
-		List<Player> players = new ArrayList<>();
-		players.addAll(gameData.getPlayersAsList());
-		Collections.shuffle(players);
+		List<Player> opPlayers = new ArrayList<>();
+		
+		for (Player p : gameData.getPlayersAsList()) {
+			if (p.checkedJob("Operative")) {
+				opPlayers.add(p);
+			}
+		}
+		
+		while (opPlayers.size() > getNoOfOperatives(gameData)) {
+			// Too many operatives, remove some.
+			opPlayers.remove(MyRandom.sample(opPlayers));
+		}
+	
+		List<Player> allPlayers = new ArrayList<>();
+		allPlayers.addAll(gameData.getPlayersAsList());
+		while (opPlayers.size() < getNoOfOperatives(gameData)) {
+			// Too few checked operatives add some.
+			Player p = MyRandom.sample(allPlayers);
+			if (!opPlayers.contains(p)) {
+				opPlayers.add(p);
+			}
+		}
+
 		for (int i = 0; i < getNoOfOperatives(gameData); ++i) {
-			Player p = players.get(i);
+			Player p = opPlayers.get(i);
 			
 			// Turn Character into decoy-npc
 			NPC npc = new HumanNPC(p.getCharacter(), p.getCharacter().getStartingRoom(gameData));
@@ -62,8 +87,11 @@ public class InfiltrationGameMode extends GameMode {
 
 			operatives.add(p);
 		}
+		
 		nukieDisk = new NuclearDisc();
 		gameData.getRoom("Captain's Quarters").addItem(nukieDisk);
+		
+	
 	}
 
 	private int getNoOfOperatives(GameData gameData) {
@@ -138,21 +166,35 @@ public class InfiltrationGameMode extends GameMode {
 	protected boolean isAntagonist(Player c) {
 		return operatives.contains(c);
 	}
-
+	
 	@Override
 	public String getSummary(GameData gameData) {
-		if (getGameResult(gameData) == GameOver.SHIP_NUKED) {
-			return "Operatives nuked the station!<br/><img src='http://stream1.gifsoup.com/view3/1611505/nuclear-explosion-o.gif'></img>";
-		}
-		
-		return "Operatives failed!";
+		return (new InfiltrationModeStats(gameData, this)).toString();
 	}
-
-
 
 
 	public void setNuked(boolean b) {
 		this.nuked  = b;
+	}
+
+
+
+	public boolean isOperative(Actor value) {
+		if (value instanceof Player) {
+			if (operatives.contains((Player)value)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+
+	public NPC getDecoy(Actor value) {
+		if (value instanceof Player) {
+			return decoys.get((Player)value);
+		}
+		return null;
 	}
 	
 
