@@ -66,9 +66,7 @@ public abstract class Action {
 	 * Gets the name of the aciton as a verb, passed tense
 	 * @return the verb as a string.
 	 */
-	protected String getVerb(Actor whosAsking) {
-		return getName().toLowerCase() + "ed";
-	}
+	protected abstract String getVerb(Actor whosAsking);
 
 	/**
 	 * Returns true if cl is a argument for this action.

@@ -24,4 +24,9 @@ public class MeowingAction extends Action {
 		
 	}
 
+	@Override
+	protected String getVerb(Actor whosAsking) {
+		return "meowed";
+	}
+
 }

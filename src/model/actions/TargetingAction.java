@@ -49,7 +49,12 @@ public abstract class TargetingAction extends Action {
 	
 	@Override
 	public String getDescription(Actor whosAsking) {
-		return super.getDescription(whosAsking) + " " + target.getName() + 
+		String name = target.getName();
+		if (performer.getAsTarget() == target) {
+			name = (performer.getCharacter().getGender().equals("man")?"him":"her") + "self";
+		}
+		
+		return super.getDescription(whosAsking) + " " + name + 
 				(item!=null?(" with " + item.getPublicName(whosAsking)):"");
 	}
 	

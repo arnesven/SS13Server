@@ -42,4 +42,9 @@ public class ExplosionAction extends Action {
 	@Override
 	public void setArguments(List<String> args, Actor p) { }
 
+	@Override
+	protected String getVerb(Actor whosAsking) {
+		return "exploded";
+	}
+
 }

@@ -490,14 +490,21 @@ public class GameData {
 			System.out.println("Setting new settings: " + rest);
 			String[] sets = rest.substring(1).split(":");
 			try {
-				noOfRounds = Integer.parseInt(sets[0]);
+				setNumberOfRounds(Integer.parseInt(sets[0]));
 				selectedMode = sets[1];
 				//System.out.println("Set new settings");
 			} catch (NumberFormatException nfe) {
 
 			}
 		}
-		
+	}
+	
+	public int getNumberOfRounds() {
+		return noOfRounds;
+	}
+	
+	public void setNumberOfRounds(int i) {
+		noOfRounds = i;
 	}
 
 	public GameMode getGameMode() {

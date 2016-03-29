@@ -327,6 +327,10 @@ public abstract class GameCharacter {
 		}
 	}
 
+	/**
+	 * Either "man" or "woman"
+	 * @return the characters gender
+	 */
 	public String getGender() {
 		return gender;
 	}

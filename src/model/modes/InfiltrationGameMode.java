@@ -1,7 +1,6 @@
 package model.modes;
 
 import java.util.ArrayList;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +12,8 @@ import model.GameData;
 import model.Player;
 import model.characters.GameCharacter;
 import model.characters.OperativeCharacter;
+import model.events.Event;
+import model.events.NoPressureEvent;
 import model.items.GameItem;
 import model.items.NuclearDisc;
 import model.items.suits.JumpSuit;
@@ -21,6 +22,7 @@ import model.items.Locator;
 import model.map.Room;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
+import model.objects.PressurePanel;
 import model.items.weapons.Revolver;
 import model.items.NuclearDisc;
 
@@ -45,10 +47,16 @@ public class InfiltrationGameMode extends GameMode {
 		}
 		Locator loc = new Locator();
 		loc.setTarget(nukieDisk);
-		nukieShip.addItem(loc);
-		for (int i = 0; i < getNoOfOperatives(gameData); ++i) {
-			nukieShip.addItem(new Revolver());
+		
+		if (operatives.size() > 0) {
+			MyRandom.sample(operatives).addItem(loc, null);
 		}
+		
+		nukieShip.addObject(new NuclearBomb(nukieShip));
+		Event e = new NoPressureEverEvent(nukieShip);
+		gameData.addEvent(e);
+		nukieShip.addEvent(e);
+		
 	}
 
 
@@ -86,9 +94,10 @@ public class InfiltrationGameMode extends GameMode {
 			Player p = opPlayers.get(i);
 			
 			// Turn Character into decoy-npc
+			p.getCharacter().setClient(null);
 			NPC npc = new HumanNPC(p.getCharacter(), p.getCharacter().getStartingRoom(gameData));
 			gameData.addNPC(npc);
-			decoys .put(p, npc);
+			decoys.put(p, npc);
 			GameCharacter opChar = new OperativeCharacter(num++, nukieShip.getID());
 			
 			p.setCharacter(opChar);
@@ -182,7 +191,10 @@ public class InfiltrationGameMode extends GameMode {
 	public void setNuked(boolean b) {
 		this.nuked  = b;
 	}
-
+	
+	public boolean isNuked() {
+		return this.nuked;
+	}
 
 
 	public boolean isOperative(Actor value) {
@@ -202,6 +214,10 @@ public class InfiltrationGameMode extends GameMode {
 		}
 		return null;
 	}
+
+
+
+	
 	
 
 }

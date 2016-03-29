@@ -13,17 +13,20 @@ import model.items.suits.SpaceSuit;
 import model.map.AirLockRoom;
 import model.npcs.NPC;
 import model.actions.SensoryLevel;
+import model.actions.characteractions.EscapeAndSetNukeAction;
 import model.modes.InfiltrationGameMode;
+import model.items.weapons.Revolver;
 
 public class OperativeCharacter extends GameCharacter {
 
 	public OperativeCharacter(int num, int startRoom) {
-		super("Operative #" + num, startRoom, 12.5);
+		super("Operative #" + num, startRoom, 17.0);
 	}
 
 	@Override
 	public List<GameItem> getStartingItems() {
 		List<GameItem> gi = new ArrayList<>();
+		gi.add(new Revolver());
 		return gi;
 	}
 	
@@ -32,30 +35,10 @@ public class OperativeCharacter extends GameCharacter {
 			ArrayList<Action> at) {
 		super.addCharacterSpecificActions(gameData, at);
 		if (getPosition() instanceof AirLockRoom && hasASpaceSuitOn()) {
-			at.add(new Action("Leave SS13", SensoryLevel.PHYSICAL_ACTIVITY) {
-				
-				@Override
-				public void setArguments(List<String> args, Actor performingClient) { }
-				
-				@Override
-				protected void execute(GameData gameData, Actor performingClient) {
-					((Player)performingClient).moveIntoRoom(gameData.getRoom("Nuclear Ship"));
-					if (hasTheDisk(performingClient)) {
-						((InfiltrationGameMode)gameData.getGameMode()).setNuked(true);
-					}
-				}
-			});
+			at.add(new EscapeAndSetNukeAction());
 		}
 	}
 
-	protected boolean hasTheDisk(Actor performingClient) {
-		for (GameItem it : performingClient.getItems()) {
-			if (it instanceof NuclearDisc) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	private boolean hasASpaceSuitOn() {
 		return getSuit() instanceof SpaceSuit;

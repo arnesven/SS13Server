@@ -52,4 +52,10 @@ public class SearchAction extends Action {
 	public void setArguments(List<String> args, Actor p) { // Not needed	
 	}
 
+
+	@Override
+	protected String getVerb(Actor whosAsking) {
+		return "searched";
+	}
+
 }

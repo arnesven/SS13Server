@@ -69,4 +69,9 @@ public class HealWithMedKitAction extends TargetingAction {
 		}
 	}
 
+	@Override
+	protected String getVerb(Actor whosAsking) {
+		return "healed";
+	}
+
 }

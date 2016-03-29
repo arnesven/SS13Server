@@ -13,6 +13,10 @@ public class DoNothingAction extends Action {
 		super("Do Nothing", SensoryLevel.NO_SENSE);
 	}
 
+	@Override
+	protected String getVerb(Actor whosAsking) {
+		return "Idled";
+	}
 
 	@Override
 	public void execute(GameData gameData, Actor performingClient) {

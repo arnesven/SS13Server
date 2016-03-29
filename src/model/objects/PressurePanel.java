@@ -55,6 +55,11 @@ public class PressurePanel extends ElectricalMachinery {
 				}
 				performingClient.addTolastTurnInfo("Pressurized " + roomRef.getName());
 			}
+
+			@Override
+			protected String getVerb(Actor whosAsking) {
+				return "Pressurized an airlock";
+			}
 		};
 	}
 
@@ -72,6 +77,11 @@ public class PressurePanel extends ElectricalMachinery {
 				roomRef.addEvent(e);
 				PressurePanel.this.noPressureEvent = e;
 				performingClient.addTolastTurnInfo("Depressurized " + roomRef.getName());
+			}
+
+			@Override
+			protected String getVerb(Actor whosAsking) {
+				return "Depressurized an airlock";
 			}
 		};
 		

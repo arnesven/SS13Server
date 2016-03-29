@@ -70,7 +70,7 @@ public class InfiltrationModeStats extends GameStats {
 
 	@Override
 	protected String getTopContent() {
-		if (mode.getGameResult(gameData) == GameOver.SHIP_NUKED) {
+		if (mode.isNuked()) {
 			return "<img src='http://stream1.gifsoup.com/view3/1611505/nuclear-explosion-o.gif'></img>";
 		}
 		return super.getTopContent();

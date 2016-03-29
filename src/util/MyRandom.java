@@ -102,6 +102,7 @@ public class MyRandom {
 		list.add(new RadiationSuit());
 		list.add(new SpaceSuit());
 		list.add(new SunGlasses());
+		list.add(new Saxophone());
 		list.add(new Flamer());
 		list.add(new Knife());
 		list.add(new LaserPistol());

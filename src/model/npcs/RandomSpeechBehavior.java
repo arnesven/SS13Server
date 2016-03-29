@@ -25,6 +25,11 @@ public class RandomSpeechBehavior extends SpontaneousAct {
 			}
 			
 			@Override
+			protected String getVerb(Actor whosAsking) {
+				return "talked";
+			}
+			
+			@Override
 			public void setArguments(List<String> args, Actor p) { }
 			
 			@Override
@@ -59,6 +64,8 @@ public class RandomSpeechBehavior extends SpontaneousAct {
 				}
 				return talkString2;
 			}
+
+			
 		});
 	}
 

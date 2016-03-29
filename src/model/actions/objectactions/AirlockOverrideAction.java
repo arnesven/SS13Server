@@ -60,4 +60,10 @@ public class AirlockOverrideAction extends Action {
 		selected.makeApplicableAction(gameData).doTheAction(gameData, performingClient);
 	}
 
+
+	@Override
+	protected String getVerb(Actor whosAsking) {
+		return "Fiddeled with the Airlock Override";
+	}
+
 }

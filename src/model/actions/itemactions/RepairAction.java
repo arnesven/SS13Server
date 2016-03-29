@@ -28,4 +28,9 @@ public class RepairAction extends TargetingAction {
 				( ((Repairable)target2).isDamaged() || ((Repairable)target2).isBroken() );
 		
 	}
+
+	@Override
+	protected String getVerb(Actor whosAsking) {
+		return "repaired";
+	}
 }

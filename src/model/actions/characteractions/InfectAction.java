@@ -97,5 +97,10 @@ public class InfectAction extends TargetingAction {
 		return false;
 	}
 
+	@Override
+	protected String getVerb(Actor whosAsking) {
+		return "infected";
+	}
+
 	
 }
