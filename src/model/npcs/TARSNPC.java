@@ -21,7 +21,7 @@ public class TARSNPC extends NPC implements Repairable {
 
 	@Override
 	public boolean hasInventory() {
-		return true;
+		return false;
 	}
 
 	@Override

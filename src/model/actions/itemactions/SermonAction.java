@@ -8,6 +8,8 @@ import model.Actor;
 import model.GameData;
 import model.actions.Action;
 import model.actions.SensoryLevel;
+import model.items.Bible;
+import model.items.GameItem;
 
 public class SermonAction extends Action {
 
@@ -22,6 +24,7 @@ public class SermonAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
+		if (GameItem.hasAnItem(performingClient, new Bible())) {
 		String sermon = null;
 		try {
 			sermon = MyRandom.getRandomLineFromFile("resources/BIBLE.TXT");
@@ -35,6 +38,9 @@ public class SermonAction extends Action {
 			}
 		} catch (FileNotFoundException e) {
 			
+		}
+		} else {
+			performingClient.addTolastTurnInfo("What? The Holy Bible is gone! Your action failed!");
 		}
 		
 	}

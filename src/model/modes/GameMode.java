@@ -292,6 +292,7 @@ public abstract class GameMode {
 		}
 
 		Player capCl = playersWhoSelectedCaptain.remove(MyRandom.nextInt(playersWhoSelectedCaptain.size()));
+		
 		clientsRemaining.remove(capCl);
 		GameCharacter gc = null;
 		for (GameCharacter ch : listOfCharacters) {
@@ -301,6 +302,7 @@ public abstract class GameMode {
 				break;
 			}
 		}
+		
 		listOfCharacters.remove(gc);
 	}
 

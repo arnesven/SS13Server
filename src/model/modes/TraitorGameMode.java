@@ -1,6 +1,8 @@
 package model.modes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,10 +14,18 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.characters.GameCharacter;
+import model.characters.crew.CaptainCharacter;
 import model.characters.decorators.TraitorCharacter;
 import model.events.ElectricalFire;
 import model.events.OngoingEvent;
+import model.items.Bible;
+import model.items.GameItem;
+import model.items.GeigerMeter;
+import model.items.KeyCard;
+import model.items.NuclearDisc;
 import model.items.PDA;
+import model.items.suits.ChefsHat;
+import model.items.suits.SunGlasses;
 import model.map.Room;
 import model.npcs.CatNPC;
 import model.npcs.HumanNPC;
@@ -80,8 +90,24 @@ public class TraitorGameMode extends GameMode {
 	}
 
 	private TraitorObjective createRandomObjective(Player traitor, GameData gameData) {
-		int val = MyRandom.nextInt(2);
-		if (val == 0) {
+		GameItem it = MyRandom.sample(stealableItems(gameData));
+		System.out.println("Steal-item is " + it.getBaseName());
+		for (Player p : gameData.getPlayersAsList()) {
+			if (GameItem.containsItem(p.getCharacter().getStartingItems(), it)) {
+				System.out.print(" " + p.getBaseName() + " has a " + it.getBaseName());
+				if (p != traitor) {
+					System.out.println(" match!.");
+					return new LarcenyObjective(gameData, traitor, p, it);
+				} else {
+					System.out.println(" but he was the traitor...");
+				}
+			}
+		}
+		System.out.println("Did not find player for steal-item");
+
+		
+		double val = MyRandom.nextDouble();
+		if (val < 0.5 ) {
 			List<Player> targets = new ArrayList<>();
 			targets.addAll(gameData.getPlayersAsList());
 			targets.remove(traitor);
@@ -91,7 +117,7 @@ public class TraitorGameMode extends GameMode {
 				// KILL YOURSELF!
 				return new AssassinateObjective(traitor, traitor);
 			}
-		} else if (val == 1) {
+		} else  {
 			List<BreakableObject> objects = SabotageObjective.getBreakableObjects(gameData);
 			List<BreakableObject> sabObjects = new ArrayList<>();
 			
@@ -102,11 +128,18 @@ public class TraitorGameMode extends GameMode {
 					i--;
 				}
 			}
-			
 			return new SabotageObjective(gameData, sabObjects);
-		}
+		} 
+
+			
 		
-		return null;
+		//return null;
+	}
+
+	private List<GameItem> stealableItems(GameData gameData) {
+		GameItem[] stealables = new GameItem[]{new ChefsHat(), new Bible(), new SunGlasses(), new GeigerMeter(), new KeyCard()};
+		List<GameItem> list = Arrays.asList(stealables);
+		return list;
 	}
 
 	private int getNoOfTraitors(GameData gameData) {

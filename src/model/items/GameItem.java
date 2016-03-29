@@ -1,6 +1,8 @@
 package model.items;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 import model.Actor;
 import model.GameData;
@@ -109,6 +111,24 @@ public abstract class GameItem implements Locatable {
 			}
 		}
 		return false;
+	}
+
+	public static <E> boolean containsItem(List<GameItem> startingItems, E obj) {
+		for (GameItem it : startingItems) {
+			if (it.getClass() == obj.getClass()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static Locatable getItem(Player victim, GameItem item) {
+		for (GameItem it : victim.getItems()) {
+			if (it.getClass() == item.getClass()) {
+				return it;
+			}
+		}
+		throw new NoSuchElementException("Did not find a " + item.getBaseName());
 	}
 	
 
