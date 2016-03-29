@@ -32,7 +32,11 @@ public class Saxophone extends BluntWeapon {
 			
 			@Override
 			protected void execute(GameData gameData, Actor performingClient) {
-				performingClient.addTolastTurnInfo("You play a cool jazz tune.");
+				if (GameItem.hasAnItem(performingClient, new Saxophone())) {
+					performingClient.addTolastTurnInfo("You play a cool jazz tune.");
+				} else {
+					performingClient.addTolastTurnInfo("What? The saxophone is gone! Your action failed.");
+				}
 			}
 		});
 	}

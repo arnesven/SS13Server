@@ -17,7 +17,7 @@ public class CookGrenadeIntoFoodAction extends Action {
 
 	private CookFoodAction innerAction;
 	private CookOMatic cooker;
-	private Grenade grenade;
+	private Grenade grenade = null;
 
 	public CookGrenadeIntoFoodAction(CookOMatic cookOMatic,
 			CookFoodAction cookFoodAction) {
@@ -47,13 +47,16 @@ public class CookGrenadeIntoFoodAction extends Action {
 				break;
 			}
 		}
-		FoodItem food = new ExplodingFood(innerAction.getSelectedItem(), 
-				performingClient);
-		performingClient.getItems().remove(grenade);
-		performingClient.addItem(food, cooker);
-		performingClient.addTolastTurnInfo("You cooked the grenade into " + 
-						innerAction.getSelectedItem().getPublicName(performingClient));
-		
+		if (grenade != null) {
+			FoodItem food = new ExplodingFood(innerAction.getSelectedItem(), 
+					performingClient);
+			performingClient.getItems().remove(grenade);
+			performingClient.addItem(food, cooker);
+			performingClient.addTolastTurnInfo("You cooked the grenade into " + 
+					innerAction.getSelectedItem().getPublicName(performingClient));
+		} else {
+			performingClient.addTolastTurnInfo("What? The grenade is gone! Your action failed.");
+		}
 	}
 
 	@Override

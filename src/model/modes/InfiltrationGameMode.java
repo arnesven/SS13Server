@@ -12,6 +12,7 @@ import model.GameData;
 import model.Player;
 import model.characters.GameCharacter;
 import model.characters.OperativeCharacter;
+import model.characters.crew.CaptainCharacter;
 import model.events.Event;
 import model.events.NoPressureEvent;
 import model.items.GameItem;
@@ -70,7 +71,8 @@ public class InfiltrationGameMode extends GameMode {
 		List<Player> opPlayers = new ArrayList<>();
 		
 		for (Player p : gameData.getPlayersAsList()) {
-			if (p.checkedJob("Operative")) {
+			if (p.checkedJob("Operative") && 
+					!(p.getCharacter() instanceof CaptainCharacter)) {
 				opPlayers.add(p);
 			}
 		}
@@ -89,6 +91,7 @@ public class InfiltrationGameMode extends GameMode {
 				opPlayers.add(p);
 			}
 		}
+		
 
 		for (int i = 0; i < getNoOfOperatives(gameData); ++i) {
 			Player p = opPlayers.get(i);

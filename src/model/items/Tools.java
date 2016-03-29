@@ -44,14 +44,18 @@ public class Tools extends BluntWeapon {
 				
 				@Override
 				protected void execute(GameData gameData, Actor performingClient) {
-					List<Event> evs = performingClient.getPosition().getEvents();
-					for (Event e : evs) {
-						if (e instanceof HullBreach) {
-							((HullBreach)e).fix();
-							break;
+					if (GameItem.hasAnItem(performingClient, new Tools())) {
+						List<Event> evs = performingClient.getPosition().getEvents();
+						for (Event e : evs) {
+							if (e instanceof HullBreach) {
+								((HullBreach)e).fix();
+								break;
+							}
 						}
+						performingClient.addTolastTurnInfo("You sealed the breach.");
+					} else {
+						performingClient.addTolastTurnInfo("What? The tools are gone! Your action failed.");
 					}
-					performingClient.addTolastTurnInfo("You sealed the breach.");
 				}
 			});
 		}

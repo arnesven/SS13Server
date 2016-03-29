@@ -30,7 +30,9 @@ public class EscapeAndSetNukeAction extends Action {
 		final Room nukieShip = gameData.getRoom("Nuclear Ship");
 		((Player)performingClient).moveIntoRoom(nukieShip);
 		((Player)performingClient).setNextMove(nukieShip.getID());
-		if (hasTheDisk(performingClient)) {
+		if (hasTheDisk(performingClient) != null) {
+			performingClient.getItems().remove(hasTheDisk(performingClient));
+			
 			gameData.addEvent(new Event() {
 				
 				private int roundsLeft = 2;
@@ -78,16 +80,18 @@ public class EscapeAndSetNukeAction extends Action {
 			});
 			
 			
+		} else {
+			performingClient.addTolastTurnInfo("What? The nuclear disk is gone! Your action failed.");
 		}
 	}
 
-	private boolean hasTheDisk(Actor performingClient) {
+	private NuclearDisc hasTheDisk(Actor performingClient) {
 		for (GameItem it : performingClient.getItems()) {
 			if (it instanceof NuclearDisc) {
-				return true;
+				return (NuclearDisc) it;
 			}
 		}
-		return false;
+		return null;
 	}
 
 

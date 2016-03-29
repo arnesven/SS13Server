@@ -6,6 +6,8 @@ import model.Actor;
 import model.GameData;
 import model.actions.Action;
 import model.actions.SensoryLevel;
+import model.items.GameItem;
+import model.items.KeyCard;
 import model.map.GameMap;
 import model.map.Room;
 import model.objects.KeyCardLock;
@@ -30,9 +32,13 @@ public class UnlockRoomAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		GameMap.connectRooms(to, from);
-		performingClient.addTolastTurnInfo("You unlocked the " + to.getName() + ".");
-		lock.setLocked(false);
+		if (GameItem.hasAnItem(performingClient, new KeyCard())) {
+			GameMap.connectRooms(to, from);
+			performingClient.addTolastTurnInfo("You unlocked the " + to.getName() + ".");
+			lock.setLocked(false);
+		} else {
+			performingClient.addTolastTurnInfo("What? The key card is gone! Your action failed.");
+		}
 	}
 
 	@Override

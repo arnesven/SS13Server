@@ -102,6 +102,14 @@ public abstract class GameItem implements Locatable {
 		
 	}
 	
+	public static <E> boolean hasAnItem(Actor act, E obj) {
+		for (GameItem it : act.getItems()) {
+			if (it.getClass() == obj.getClass()) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 
 }

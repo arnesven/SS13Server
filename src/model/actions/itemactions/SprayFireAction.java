@@ -25,21 +25,27 @@ public class SprayFireAction extends Action {
 	
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		for (Player cl : performingClient.getPosition().getClients()) {
-			if (cl != performingClient) {
-				cl.beAttackedBy(performingClient, new Flamer());
+		if (GameItem.hasAnItem(performingClient, new Flamer()) && Chemicals.hasNChemicals(performingClient, 1)) {
+			for (Player cl : performingClient.getPosition().getClients()) {
+				if (cl != performingClient) {
+					cl.beAttackedBy(performingClient, new Flamer());
+				}
 			}
-		}
-		for (NPC npc : performingClient.getPosition().getNPCs()) {
-			npc.beAttackedBy(performingClient, new Flamer());
-		}
-		
-		Iterator<GameItem> it = performingClient.getItems().iterator();
-		while (it.hasNext()) {
-			if (it.next() instanceof Chemicals){
-				it.remove();
-				break;
+			for (NPC npc : performingClient.getPosition().getNPCs()) {
+				npc.beAttackedBy(performingClient, new Flamer());
 			}
+
+			Iterator<GameItem> it = performingClient.getItems().iterator();
+			while (it.hasNext()) {
+				if (it.next() instanceof Chemicals){
+					it.remove();
+					break;
+				}
+			}
+		} else if (!GameItem.hasAnItem(performingClient, new Flamer())) {
+			performingClient.addTolastTurnInfo("What? The flamer is missing! Your action failed.");
+		} else {
+			performingClient.addTolastTurnInfo("What? Chemicals are missing! Your action failed.");
 		}
 	}
 

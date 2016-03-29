@@ -51,9 +51,13 @@ public class DummyHivePlacer extends GameItem {
 			
 			@Override
 			protected void execute(GameData gameData, Actor performingClient) {
-				performingClient.getItems().remove(DummyHivePlacer.this);
-				performingClient.getPosition().addObject(new DummyHive(placeAsFound, 
-														 performingClient.getPosition()));
+				if (GameItem.hasAnItem(performingClient, new DummyHivePlacer())) {
+					performingClient.getItems().remove(DummyHivePlacer.this);
+					performingClient.getPosition().addObject(new DummyHive(placeAsFound, 
+							performingClient.getPosition()));
+				} else {
+					performingClient.addTolastTurnInfo("What? the dummy hive is gone! Your action failed.");
+				}
 				
 			}
 			

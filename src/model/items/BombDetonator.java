@@ -39,9 +39,14 @@ public class BombDetonator extends GameItem {
 
 				@Override
 				protected void execute(GameData gameData, Actor performingClient) {
-					performingClient.addTolastTurnInfo("You pressed the detonator.");
-					bomb.explode(gameData, performingClient);
-					BombDetonator.this.detonated = true;
+					
+					if (GameItem.hasAnItem(performingClient, new BombDetonator(bomb))) {
+						performingClient.addTolastTurnInfo("You pressed the detonator.");
+						bomb.explode(gameData, performingClient);
+						BombDetonator.this.detonated = true;
+					} else {
+						performingClient.addTolastTurnInfo("What? The detonator is gone! Your action failed.");
+					}
 				}
 			});
 		}

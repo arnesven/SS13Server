@@ -9,6 +9,7 @@ import model.map.GameMap;
 import model.map.Room;
 import model.objects.KeyCardLock;
 import model.actions.SensoryLevel;
+import model.items.KeyCard;
 
 public class LockRoomAction extends Action {
 
@@ -30,9 +31,13 @@ public class LockRoomAction extends Action {
 	
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		GameMap.disconnect(to, from);
-		performingClient.addTolastTurnInfo("You locked the " + to.getName() + ".");
-		lock.setLocked(true);
+		if (KeyCard.hasAnItem(performingClient, new KeyCard())) {
+			GameMap.disconnect(to, from);
+			performingClient.addTolastTurnInfo("You locked the " + to.getName() + ".");
+			lock.setLocked(true);
+		} else {
+			performingClient.addTolastTurnInfo("What? The Key Card is gone! Your action failed.");
+		}
 	}
 
 	@Override

@@ -66,7 +66,7 @@ public class PutOnAction extends Action {
 		} else if (lootVictim != null) {
 			lootVictim.getCharacter().removeSuit();
 		} else {
-			performingClient.addTolastTurnInfo("The " + selectedItem.getPublicName(performingClient) + " is gone!");
+			performingClient.addTolastTurnInfo("The " + selectedItem.getPublicName(performingClient) + " is gone! Your action failed.");
 			return;
 		}
 		

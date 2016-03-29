@@ -58,11 +58,14 @@ public class RigBoobyTrapAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		performingClient.getItems().remove(bomb);
-		performingClient.getPosition().getObjects().remove(selectedObject);
-		performingClient.getPosition().addObject(new BoobyTrappedObject(selectedObject, bomb, 
-				performingClient, performingClient.getPosition()));
-		performingClient.addTolastTurnInfo("You booby-trapped the " + selectedObject.getName());
-
+		if (performingClient.getItems().contains(bomb)) {
+			performingClient.getItems().remove(bomb);
+			performingClient.getPosition().getObjects().remove(selectedObject);
+			performingClient.getPosition().addObject(new BoobyTrappedObject(selectedObject, bomb, 
+					performingClient, performingClient.getPosition()));
+			performingClient.addTolastTurnInfo("You booby-trapped the " + selectedObject.getName());
+		} else {
+			performingClient.addTolastTurnInfo("What? the " + bomb.getPublicName(performingClient) + " is missing! Your action failed.");
+		}
 	}
 }

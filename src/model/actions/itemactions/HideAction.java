@@ -32,10 +32,14 @@ public class HideAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		hidableItem.setHidden(true);
-		performingClient.addTolastTurnInfo("You hid the " + hidableItem.getPublicName(performingClient));
-		performingClient.getCharacter().getItems().remove(hidableItem);
-		performingClient.getPosition().addItem(hidableItem);
+		if (performingClient.getItems().contains(hidableItem)) {
+			hidableItem.setHidden(true);
+			performingClient.addTolastTurnInfo("You hid the " + hidableItem.getPublicName(performingClient));
+			performingClient.getCharacter().getItems().remove(hidableItem);
+			performingClient.getPosition().addItem(hidableItem);
+		} else {
+			performingClient.addTolastTurnInfo("What? the item was missing! Your action failed.");
+		}
 	}
 
 	@Override

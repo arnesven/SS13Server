@@ -57,6 +57,11 @@ public class TimeBomb extends BombItem {
 
 				@Override
 				protected void execute(GameData gameData, final Actor performingClient) {
+					if (!GameItem.hasAnItem(performingClient, new TimeBomb())) {
+						performingClient.addTolastTurnInfo("What? The bomb is gone! Your action failed.");
+						return;
+					}
+					
 					timeSet = true;
 					performingClient.addTolastTurnInfo("You set the time on the bomb");
 					Event e = new Event() {

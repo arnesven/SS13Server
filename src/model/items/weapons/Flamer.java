@@ -4,6 +4,7 @@ package model.items.weapons;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.Action;

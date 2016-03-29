@@ -36,7 +36,7 @@ public class ThrowGrenadeAction extends Action {
 			}
 		}
 		if (grenade == null) {
-			performingClient.addTolastTurnInfo("Your grenade is gone!");
+			performingClient.addTolastTurnInfo("What? The grenade is gone! Your action failed.");
 		} else {
 			performingClient.getItems().remove(grenade);
 			performingClient.addTolastTurnInfo("You threw the grenade into " + location + ".");

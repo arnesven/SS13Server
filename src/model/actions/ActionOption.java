@@ -39,6 +39,10 @@ public class ActionOption {
 		return buf.toString();
 	}
 
+	public int numberOfSuboptions() {
+		return suboptions.size();
+	}
+
 
 
 

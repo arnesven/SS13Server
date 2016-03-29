@@ -46,6 +46,7 @@ public class PDA extends GameItem {
 		items.add(new RemoteBomb());
 		items.add(new BoobyTrapBomb());
 		items.add(new Locator());
+		items.add(new LarcenyGloves());
 		return items;
 	}
 

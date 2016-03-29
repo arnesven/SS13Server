@@ -31,20 +31,29 @@ public class BurnHiveAction extends Action {
 	
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		hive.setHealth(0.0);
-		performingClient.addTolastTurnInfo("You destroyed the hive with the flamer!");
-		
-		for (int i = 3; i > 0; --i) {
-			Iterator<GameItem> it = performingClient.getItems().iterator();
-			while (it.hasNext()) {
-				if (it.next() instanceof Chemicals) {
-					it.remove();
-					break;
+		if (GameItem.hasAnItem(performingClient, new Flamer()) && Chemicals.hasNChemicals(performingClient, 3)) {	
+			for (int i = 3; i > 0; --i) {
+				Iterator<GameItem> it = performingClient.getItems().iterator();
+				while (it.hasNext()) {
+					if (it.next() instanceof Chemicals) {
+						it.remove();
+						break;
+					}
 				}
+
 			}
-			
+
+			hive.setHealth(0.0);
+			performingClient.addTolastTurnInfo("You destroyed the hive with the flamer!");
+		} else if (!GameItem.hasAnItem(performingClient, new Flamer())) {
+			performingClient.addTolastTurnInfo("What? The flamer is gone. Your action failed.");
+		} else {
+			performingClient.addTolastTurnInfo("What? Some chemicals are missing. Your action failed.");
 		}
 	}
+
+	
+	
 
 	@Override
 	public void setArguments(List<String> args, Actor p) { }

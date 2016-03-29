@@ -79,6 +79,9 @@ public abstract class Action {
 	}
 
 	/**
+	 * This puts the selected action into effect. Remember, if
+	 * this action uses an item, it may be gone before this action
+	 * executes, in which case the action will fail.
 	 * Do not call this method before calling setArguments!
 	 * @param gameData the game's data
 	 * @param performingClient who is performing this action

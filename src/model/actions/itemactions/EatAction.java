@@ -31,7 +31,11 @@ public class EatAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		food.beEaten(performingClient, gameData);
+		if (performingClient.getItems().contains(food)) {
+			food.beEaten(performingClient, gameData);			
+		} else {
+			performingClient.addTolastTurnInfo("What? The " + food.getPublicName(performingClient) + " is missing! Your action failed.");
+		}
 	}
 
 	@Override

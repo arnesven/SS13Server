@@ -122,7 +122,15 @@ public abstract class TargetingAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
+		if (target.getPosition() != performingClient.getPosition()) {
+			performingClient.addTolastTurnInfo("What? " + target.getName() + " wasn't there! Your action failed.");
+			
+		} else if (item != null && !performingClient.getItems().contains(item)) {
+			performingClient.addTolastTurnInfo("What? the " + item.getPublicName(performingClient) + " was no longer there! Your action failed.");
+		
+		} else {
 		applyTargetingAction(gameData, performingClient, target, item);
+		}
 	}
 
 	@Override
@@ -147,6 +155,7 @@ public abstract class TargetingAction extends Action {
 				return g;
 			}
 		}
+		
 		throw new NoSuchElementException("Did not find object for this targeting action.");
 	}
 
@@ -159,7 +168,6 @@ public abstract class TargetingAction extends Action {
 		if (name.equals("Yourself")) {
 			return performer.getAsTarget();
 		}
-		
 		throw new NoSuchElementException("Did not find target client for this targeting action!");
 	}
 
