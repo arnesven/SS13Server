@@ -47,15 +47,17 @@ public class TraitorGameMode extends GameMode {
 	private String CREW_START_STRING = "There are traitors on the station. Find them and stop them before they ruin everything!";
 
 	@Override
-	protected void setUpOtherStuff(GameData gameData) { }
+	protected void setUpOtherStuff(GameData gameData) { 
+		assignTraitors(gameData);
+	}
 
 	@Override
 	protected void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters, GameData gameData) {
-		assignTraitors(listOfCharacters, gameData);
+		
 
 	}
 
-	private void assignTraitors(ArrayList<GameCharacter> listOfCharacters, GameData gameData) {
+	private void assignTraitors(GameData gameData) {
 		traitors = new ArrayList<>();
 		for (Player p : gameData.getPlayersAsList()) {
 			if (p.checkedJob("Traitor")) {

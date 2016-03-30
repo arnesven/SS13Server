@@ -16,7 +16,12 @@ public class LarcenyObjective implements TraitorObjective {
 		this.gameData = gameData;
 		this.victim = victim;
 		this.traitor = traitor;
-		this.item = it;
+		for (GameItem it2 : victim.getItems()) {
+			if (it2.getClass() == it.getClass()) {
+				this.item = it2;
+				break;
+			}
+		}
 	}
 
 	@Override
@@ -26,7 +31,7 @@ public class LarcenyObjective implements TraitorObjective {
 
 	@Override
 	public boolean isCompleted(GameData gameData) {
-		return GameItem.hasAnItem(traitor, item);
+		return traitor.getItems().contains(item);
 	}
 
 	@Override
@@ -41,7 +46,7 @@ public class LarcenyObjective implements TraitorObjective {
 
 	@Override
 	public Locatable getLocatable() {
-		return GameItem.getItem(victim, item);
+		return item;
 	}
 
 }
