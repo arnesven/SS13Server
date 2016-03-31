@@ -16,5 +16,7 @@ public class CatNPC extends NPC {
 	public boolean hasInventory() {
 		return false;
 	}
+	
+	
 
 }
