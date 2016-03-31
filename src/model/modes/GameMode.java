@@ -51,6 +51,7 @@ import model.items.weapons.Weapon;
 import model.map.NukieShipRoom;
 import model.map.Room;
 import model.npcs.CatNPC;
+import model.npcs.ChimpNPC;
 import model.npcs.HumanNPC;
 import model.npcs.MeanderingMovement;
 import model.npcs.NPC;
@@ -225,9 +226,9 @@ public abstract class GameMode {
 
 	public void setup(GameData gameData) {
 		List<GameCharacter> remainingChars = assignCharactersToPlayers(gameData);
-
+		
 		moveCharactersIntoStartingRooms(gameData);
-
+		
 		addNPCs(gameData, remainingChars);
 		giveCharactersStartingItems(gameData);
 
@@ -344,12 +345,16 @@ public abstract class GameMode {
 	private void addNPCs(GameData gameData, List<GameCharacter> remainingChars) {
 		NPC cat = new CatNPC(gameData.getRoomForId(20));
 		gameData.addNPC(cat);
+		
+		NPC chimp = new ChimpNPC(gameData.getRoom("Greenhouse"));
+		gameData.addNPC(chimp);
 
 		Room TARSRoom;
 		do {
 			TARSRoom = MyRandom.sample(gameData.getRooms());
 		} while (TARSRoom instanceof NukieShipRoom);
 
+		
 		NPC tars = new TARSNPC(TARSRoom);
 		gameData.addNPC(tars);
 
