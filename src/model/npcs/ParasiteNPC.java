@@ -9,7 +9,7 @@ public class ParasiteNPC extends NPC {
 
 	public ParasiteNPC(Room startRoom) {
 		super(new ParasiteCharacter(), new MeanderingMovement(0.75),
-		   new AttackIfPossibleBehavior(new Weapon("Claws", 0.75, 0.5, false, 0.0)), startRoom);
+		   new AttackIfPossibleBehavior(), startRoom);
 		this.setHealth(0.5);
 		this.setMaxHealth(0.5);
 	}

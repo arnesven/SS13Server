@@ -3,6 +3,8 @@ package model.actions;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Actor;
+
 public class ActionOption {
 	
 	private List<ActionOption> suboptions = new ArrayList<>();
@@ -43,8 +45,7 @@ public class ActionOption {
 		return suboptions.size();
 	}
 
-
-
+	
 
 	
 

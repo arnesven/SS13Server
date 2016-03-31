@@ -7,6 +7,7 @@ import model.Actor;
 import model.events.Damager;
 import model.events.RadiationDamage;
 import model.items.GameItem;
+import model.items.weapons.Weapon;
 
 
 public class ParasiteCharacter extends GameCharacter {
@@ -37,6 +38,11 @@ public class ParasiteCharacter extends GameCharacter {
 		if (!(damager instanceof RadiationDamage)) {
 			super.beExposedTo(something, damager);
 		}
+	}
+	
+	@Override
+	public Weapon getDefaultWeapon() {
+		return Weapon.CLAWS;
 	}
 	
 }

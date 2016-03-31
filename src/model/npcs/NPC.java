@@ -134,7 +134,7 @@ public abstract class NPC extends Actor implements Target {
 
 	public void beInfected(Actor performingClient) {
 		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
-		this.actBehavior = new AttackIfPossibleBehavior(new Weapon("Fists", 0.5, 0.5, false, 0.0));
+		this.actBehavior = new AttackIfPossibleBehavior();
 		this.moveBehavior = new MeanderingMovement(0.75);
 	}
 

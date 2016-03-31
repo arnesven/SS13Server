@@ -261,6 +261,8 @@ public abstract class GameMode {
 	protected List<GameCharacter> assignCharactersToPlayers(GameData gameData) {
 		ArrayList<Player> listOfClients = new ArrayList<Player>();
 		listOfClients.addAll(gameData.getPlayersAsList());
+		Collections.shuffle(listOfClients);
+		
 		ArrayList<GameCharacter> listOfCharacters = new ArrayList<>();
 		listOfCharacters.addAll(getAllCharacters());
 

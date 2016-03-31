@@ -6,11 +6,13 @@ import model.Actor;
 public class AmmoWeapon extends Weapon {
 
 	protected int shots;
+	private int maxshots;
 
 	public AmmoWeapon(String string, double hitChance, double damage,
 			boolean bang, double weight, int shots) {
 		super(string, hitChance, damage, bang, weight);
 		this.shots = shots;
+		this.maxshots = shots;
 	}
 	
 	
@@ -30,4 +32,10 @@ public class AmmoWeapon extends Weapon {
 		return shots > 0;
 	}
 
+	@Override
+	public AmmoWeapon clone() {
+		return new AmmoWeapon(this.getBaseName(), super.getHitChance(), 
+				this.getDamage(), this.makesBang(), this.getWeight(), maxshots);
+	}
+	
 }

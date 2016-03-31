@@ -13,10 +13,10 @@ import model.objects.GameObject;
 
 public class AttackIfPossibleBehavior implements ActionBehavior {
 
-	private Weapon defaultWeapon;
+	
 
-	public AttackIfPossibleBehavior(Weapon w) {
-		this.defaultWeapon = w;
+	public AttackIfPossibleBehavior() {
+
 	}
 	
 	@Override
@@ -58,7 +58,7 @@ public class AttackIfPossibleBehavior implements ActionBehavior {
 			}
 		}
 
-		return defaultWeapon;
+		return npc.getCharacter().getDefaultWeapon();
 	}
 
 }

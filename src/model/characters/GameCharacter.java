@@ -348,6 +348,10 @@ public abstract class GameCharacter {
 		return actor.getPublicName();
 	}
 
+	public Weapon getDefaultWeapon() {
+		return Weapon.FISTS;
+	}
+
 
 	
 

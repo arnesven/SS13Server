@@ -8,7 +8,7 @@ import model.items.weapons.Weapon;
 public class CrazyBehavior implements ActionBehavior {
 
 	private AttackIfPossibleBehavior atkBehavior = 
-						new AttackIfPossibleBehavior(Weapon.FISTS);
+						new AttackIfPossibleBehavior();
 	
 	private SpontaneousAct gibberish = new SpontaneousAct(0.5, new SpeechAction("Aaaaargh!"));
 	

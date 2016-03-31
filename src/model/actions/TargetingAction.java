@@ -125,12 +125,19 @@ public abstract class TargetingAction extends Action {
 		if (target.getPosition() != performingClient.getPosition()) {
 			performingClient.addTolastTurnInfo("What? " + target.getName() + " wasn't there! Your action failed.");
 			
-		} else if (item != null && !performingClient.getItems().contains(item)) {
+		} else if (item != null && !itemAvailable(performingClient, item)) {
 			performingClient.addTolastTurnInfo("What? the " + item.getPublicName(performingClient) + " was no longer there! Your action failed.");
 		
 		} else {
 		applyTargetingAction(gameData, performingClient, target, item);
 		}
+	}
+
+	protected boolean itemAvailable(Actor performingClient, GameItem it) {
+		if (performingClient.getItems().contains(it)) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

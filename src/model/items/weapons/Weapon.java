@@ -14,6 +14,7 @@ import util.MyRandom;
 public class Weapon extends GameItem {
 
 	public static final Weapon FISTS = new Weapon("Fists", 0.5, 0.5, false, 0.0);
+	public static Weapon CLAWS = new Weapon("Claws", 0.75, 0.5, false, 0.0);
 	private double hitChance;
 	private double damage;
 	private boolean makesBang;
@@ -33,7 +34,7 @@ public class Weapon extends GameItem {
 		return MyRandom.nextDouble() < getHitChance();
 	}
 
-	private double getHitChance() {
+	protected double getHitChance() {
 		return hitChance;
 	}
 	
@@ -61,7 +62,9 @@ public class Weapon extends GameItem {
 
 
 
-	
+	protected boolean makesBang() {
+		return makesBang;
+	}
 
 	/**
 	 * This method is called when the weapon has

@@ -25,7 +25,7 @@ public class AttackAction extends TargetingAction {
 	
 	@Override
 	public void addClientsItemsToAction(Player client) {
-		withWhats.add(Weapon.FISTS);
+		withWhats.add(client.getCharacter().getDefaultWeapon());
 		for (GameItem it : client.getItems()) {
 			if (it instanceof Weapon) {
 				if (((Weapon)it).isReadyToUse()) {
@@ -64,5 +64,13 @@ public class AttackAction extends TargetingAction {
 	public String getDistantDescription(Actor whosAsking) {
 		return "You hear a loud bang.";
 	}
+	
+	@Override
+	protected boolean itemAvailable(Actor performingClient, GameItem it) {
+		return super.itemAvailable(performingClient, it) || 
+				it == performingClient.getCharacter().getDefaultWeapon();
+	}
+
+
 	
 }

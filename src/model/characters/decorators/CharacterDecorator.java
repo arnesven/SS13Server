@@ -219,5 +219,10 @@ public abstract class CharacterDecorator extends GameCharacter {
 		return innerChar.getHowPerceived(actor);
 	}
 	
+	@Override
+	public Weapon getDefaultWeapon() {
+		return innerChar.getDefaultWeapon();
+	}
+	
 		
 }
