@@ -18,7 +18,7 @@ public class MapCommandHandler extends AbstractCommandHandler {
 			ObjectOutputStream oos) throws IOException {
 //		System.out.println("handling map command");
 		if (command.equals("MAP")) {
-			String result = gameData.getRooms().toString();
+			String result = gameData.getAllRooms().toString();
 			System.out.println(result);
 			oos.writeObject(result);
 			return true;

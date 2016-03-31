@@ -3,7 +3,6 @@ package model.npcs;
 import util.MyRandom;
 import model.GameData;
 import model.actions.SpeechAction;
-import model.items.weapons.Weapon;
 
 public class CrazyBehavior implements ActionBehavior {
 

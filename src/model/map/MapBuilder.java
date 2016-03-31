@@ -80,6 +80,8 @@ public class MapBuilder {
 		Room gen = new Room(26, "Generator"           , "Gen"    , 6,  5, 3, 3, new int[]{5}         ,         new double[]{}  );
 		gen.addObject(new ChemicalDispenser("Fuel Storage", 2, gen));
 		gen.addItem(new FireSuit());
+		
+		
 		result.add(gen);
 		result.add(new Room(27, "Panorama Walkway"    , ""       , 1,  3, 1, 3, new int[]{1, 3}      ,         new double[]{} ));
 		

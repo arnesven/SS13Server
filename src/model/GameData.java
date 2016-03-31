@@ -84,11 +84,13 @@ public class GameData {
 
 
 	/**
-	 * Gets all the rooms in the game as a list.
+	 * Gets all the rooms on SS13 as a list.
 	 * @return the list of rooms.
 	 */
 	public List<Room> getRooms() {
-		return map.getRooms();
+		List<Room> list = getAllRooms();
+		list.remove(map.getRoom("Nuclear Ship"));
+		return list;
 	}
 	
 	
@@ -531,7 +533,7 @@ public class GameData {
 	}
 
 	public Room findRoomForItem(GameItem searchedItem) {
-		for (Room r : getRooms()) {
+		for (Room r : getAllRooms()) {
 			for (GameItem it : r.getItems()) {
 				if (it == searchedItem) {
 					return r;
@@ -540,6 +542,14 @@ public class GameData {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Gets all rooms that exist in the game.
+	 * @return
+	 */
+	public List<Room> getAllRooms() {
+		return map.getRooms();
 	}
 
 	public Actor findActorForItem(GameItem searchedItem) {
@@ -567,7 +577,7 @@ public class GameData {
 	 */
 	public List<GameObject> getObjects() {
 		List<GameObject> obj = new ArrayList<>();
-		for (Room r : getRooms()) {
+		for (Room r : getAllRooms()) {
 			obj.addAll(r.getObjects());
 		}
 
