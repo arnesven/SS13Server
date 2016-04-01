@@ -77,12 +77,11 @@ public class MapBuilder {
 		sickbay.addObject(new MedkitDispenser(3, sickbay));
 		result.add(sickbay);
 		result.add(new AirLockRoom(25, 3    , 5,  0, 1, 1, new int[]{24}        ,         new double[]{6.0, 0.5}  ));
-		Room gen = new Room(26, "Generator"           , "Gen"    , 6,  5, 3, 3, new int[]{5}         ,         new double[]{}  );
-		gen.addObject(new ChemicalDispenser("Fuel Storage", 2, gen));
-		gen.addItem(new FireSuit());
 		
 		
-		result.add(gen);
+		
+		
+		result.add(new GeneratorRoom(26, 6,  5, 3, 3, new int[]{5}         ,         new double[]{} ));
 		result.add(new Room(27, "Panorama Walkway"    , ""       , 1,  3, 1, 3, new int[]{1, 3}      ,         new double[]{} ));
 		
 		Room nukieShip = new NukieShipRoom(28, new int[]{7, 21, 25}, new double[]{-1.0, -1.0});

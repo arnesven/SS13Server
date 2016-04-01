@@ -41,6 +41,7 @@ import model.events.Explosion;
 import model.events.HullBreach;
 import model.events.OngoingEvent;
 import model.events.RadiationStorm;
+import model.events.SimulatePower;
 import model.items.FireExtinguisher;
 import model.items.GameItem;
 import model.items.KeyCard;
@@ -114,6 +115,7 @@ public abstract class GameMode {
 		events.put("explosion", new Explosion());
 		events.put("crazyness", new Crazyness());
 		events.put("radiation storms", new RadiationStorm());
+		events.put("simulate power", new SimulatePower());
 	}
 
 	private static HashMap<String, GameCharacter> availableChars() {

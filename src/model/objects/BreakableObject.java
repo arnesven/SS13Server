@@ -63,7 +63,7 @@ public abstract class BreakableObject extends GameObject implements Target {
 	}
 	
 	@Override
-	public final void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
+	public void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
 		if (!isBroken()) {
 			addActions(gameData, cl, at);
 		}

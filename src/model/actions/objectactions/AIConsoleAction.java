@@ -14,6 +14,7 @@ import model.map.Room;
 import model.modes.GameMode;
 import model.objects.AIConsole;
 import model.objects.GameObject;
+import model.objects.GeneratorConsole;
 
 public class AIConsoleAction extends Action {
 
@@ -49,6 +50,15 @@ public class AIConsoleAction extends Action {
 				if (r.hasHullBreach()) {
 					performingClient.addTolastTurnInfo("-->Low pressure in " + r.getName() + ".");
 					noAlarms = false;
+				}
+			}
+			for (Object ob : gameData.getObjects()) {
+				if (ob instanceof GeneratorConsole) {
+					GeneratorConsole gc = (GeneratorConsole) ob;
+					if (Math.abs(gc.getPowerOutput() - 1.0) > 0.2) {
+						performingClient.addTolastTurnInfo("-->Power output anomalous " + (int)(100.0*gc.getPowerOutput()) + "%");
+					}
+					break;
 				}
 			}
 			if (noAlarms) {

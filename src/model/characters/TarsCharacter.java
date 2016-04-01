@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.items.GameItem;
+import model.items.weapons.BluntWeapon;
+import model.items.weapons.Weapon;
 
 public class TarsCharacter extends GameCharacter {
 
@@ -24,5 +26,10 @@ public class TarsCharacter extends GameCharacter {
 	@Override
 	public boolean isCrew() {
 		return false;
+	}
+
+	@Override
+	public Weapon getDefaultWeapon() {
+		return new BluntWeapon("Steel Prod", 0.5){};
 	}
 }

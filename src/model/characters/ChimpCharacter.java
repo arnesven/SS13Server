@@ -10,7 +10,7 @@ import model.map.Room;
 public class ChimpCharacter extends GameCharacter {
 
 	public ChimpCharacter(Room r) {
-		super("I want to Kill Erik", r.getID(), 24.0);
+		super("Chimp", r.getID(), -2.0);
 		
 	}
 
@@ -18,7 +18,7 @@ public class ChimpCharacter extends GameCharacter {
 	public List<GameItem> getStartingItems() {
 		
 		ArrayList<GameItem> arr = new ArrayList<>();
-		arr.add(new LaserPistol());
+	//	arr.add(new LaserPistol());
 		return arr;
 		
 	}

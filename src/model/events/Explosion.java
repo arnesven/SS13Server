@@ -22,16 +22,20 @@ public class Explosion extends Event {
 			return;
 		}
 		Room room = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
-		
-		for (Target t : room.getTargets()) {
-			t.beExposedTo(null, new ExplosiveDamage(1.0));
-		}
-		room.addToEventsHappened(this);
+		this.explode(room);
+
 	}
 
 	@Override
 	public String howYouAppear(Actor performingClient) {
 		return "Explosion!";
+	}
+	
+	public void explode(Room room) {
+		for (Target t : room.getTargets()) {
+			t.beExposedTo(null, new ExplosiveDamage(1.0));
+		}
+		room.addToEventsHappened(this);
 	}
 
 	@Override

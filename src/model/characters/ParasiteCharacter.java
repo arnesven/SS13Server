@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Actor;
+import model.events.ColdDamage;
 import model.events.Damager;
 import model.events.RadiationDamage;
 import model.items.GameItem;
@@ -35,7 +36,7 @@ public class ParasiteCharacter extends GameCharacter {
 	
 	@Override
 	public void beExposedTo(Actor something, Damager damager) {
-		if (!(damager instanceof RadiationDamage)) {
+		if (!(damager instanceof RadiationDamage) && !(damager instanceof ColdDamage)) {
 			super.beExposedTo(something, damager);
 		}
 	}

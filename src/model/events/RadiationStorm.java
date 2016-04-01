@@ -41,15 +41,18 @@ public class RadiationStorm extends Event {
 	private void maintainStorm(GameData gameData) {
 		roundsLeft--;
 		for (Room r : gameData.getMap().getSideLocations().get(side)) {
-			for (Actor a : r.getActors()) {
-				a.getAsTarget().beExposedTo(null, new RadiationDamage(this.damage));
-			}
+			hurtActorsInRoom(r, this.damage);
 		}
 		this.damage = randomDamage();
 		
 	}
 
 
+	public void hurtActorsInRoom(Room r, double damage2) {
+		for (Actor a : r.getActors()) {
+			a.getAsTarget().beExposedTo(null, new RadiationDamage(damage2));
+		}
+	}
 
 	private void endRadiationstorm(GameData gameData) {
 		for (Player p : gameData.getPlayersAsList()) {

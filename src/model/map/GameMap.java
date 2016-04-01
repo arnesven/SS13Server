@@ -24,7 +24,6 @@ public class GameMap {
 			hm.put(r.getID(), r);
 			r.setMap(this);
 		}
-		
 		this.setRoomsList(result);
 		this.setRoomMap(hm);
 	

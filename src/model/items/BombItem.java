@@ -46,9 +46,12 @@ public abstract class BombItem extends HidableItem {
 	}
 
 	private boolean isDemolitionsExpert(Actor whosAsking) {
-		GameCharacter chara = whosAsking.getCharacter();
-		return chara instanceof DetectiveCharacter ||
-				chara instanceof EngineerCharacter;
+		if (whosAsking != null) { 
+			GameCharacter chara = whosAsking.getCharacter();
+			return chara instanceof DetectiveCharacter ||
+					chara instanceof EngineerCharacter;
+		}
+		return false;
 	}
 	
 	public void explode(GameData gameData, Actor performingClient) {

@@ -65,5 +65,14 @@ public class TriggerAction extends Action {
 		return innerAction.getOptions(gameData, whosAsking);
 	}
 	
-
+	@Override
+	public void setName(String string) {
+		innerAction.setName(string);
+	}
+	
+	@Override
+	public void setSense(SensoryLevel sensedAs) {
+		innerAction.setSense(sensedAs);
+	}
+	
 }

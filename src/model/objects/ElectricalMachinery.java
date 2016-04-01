@@ -1,5 +1,12 @@
 package model.objects;
 
+import java.util.ArrayList;
+
+import model.GameData;
+import model.Player;
+import model.actions.Action;
+import model.actions.NoPowerAction;
+import model.actions.objectactions.PowerConsoleAction;
 import model.map.Room;
 
 
@@ -18,6 +25,35 @@ public abstract class ElectricalMachinery extends BreakableObject implements Rep
 	
 	public boolean isInUse() {
 		return inUse;
+	}
+	
+	
+	@Override
+	public void addSpecificActionsFor(GameData gameData, Player cl,
+			ArrayList<Action> at) {
+		System.out.println("## adding specific action for electrical");
+		ArrayList<Action> at2 = new ArrayList<>();
+		if (!isPowered(gameData)) {
+			System.out.println("####" + this.getName() + " isn't powered! no power actions!");
+			super.addSpecificActionsFor(gameData, cl, at2);
+			for (Action a : at2) {
+				NoPowerAction npa = new NoPowerAction(a);
+				at.add(npa);
+			}
+		} else {
+			super.addSpecificActionsFor(gameData, cl, at);
+		}
+	}
+
+	private boolean isPowered(GameData gameData) {
+		for (GameObject obj : gameData.getObjects()) {
+			if (obj instanceof GeneratorConsole) {
+				if (((GeneratorConsole)obj).getNoPowerObjects().contains(this)) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	
 }

@@ -88,7 +88,8 @@ public class GameData {
 	 * @return the list of rooms.
 	 */
 	public List<Room> getRooms() {
-		List<Room> list = getAllRooms();
+		List<Room> list = new ArrayList<>();
+		list.addAll(getAllRooms());
 		list.remove(map.getRoom("Nuclear Ship"));
 		return list;
 	}
