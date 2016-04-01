@@ -20,7 +20,7 @@ public class SimulatePower extends Event {
 
 	@Override
 	public void apply(GameData gameData) {
-		GeneratorConsole gc = findConsole(gameData);
+		GeneratorConsole gc = GeneratorConsole.find(gameData);
 		if (gc != null) {
 			gc.updateYourself(gameData);
 			handleLifeSupport(gameData, gc);
@@ -94,18 +94,7 @@ public class SimulatePower extends Event {
 
 
 
-	private GeneratorConsole findConsole(GameData gameData) {
-		GeneratorConsole gc = null;
-		for (GameObject o : gameData.getObjects()) {
-			if (gc != null) {
-				throw new IllegalStateException("More than one GeneratorConsole found!");
-			} else if (o instanceof GeneratorConsole) {
-				gc = (GeneratorConsole) o;
-				break;
-			}
-		}
-		return gc;
-	}
+
 
 	@Override
 	public String howYouAppear(Actor performingClient) {

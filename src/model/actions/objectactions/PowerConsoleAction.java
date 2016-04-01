@@ -15,6 +15,7 @@ public class PowerConsoleAction extends Action {
 	private PowerPrioAction powerPrioAction;
 	private boolean prioSelected = false;
 	private GeneratorConsole genRef;
+	private boolean levelSelected;
 	
 	public PowerConsoleAction(GeneratorConsole generatorConsole) {
 		super("Power Console", SensoryLevel.OPERATE_DEVICE);
@@ -31,6 +32,7 @@ public class PowerConsoleAction extends Action {
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = super.getOptions(gameData, whosAsking);
+		opt.addOption("Power Status");
 		opt.addOption(powerLevelAction.getOptions(gameData, whosAsking));
 		opt.addOption(powerPrioAction.getOptions(gameData, whosAsking));
 		return opt;
@@ -46,9 +48,14 @@ public class PowerConsoleAction extends Action {
 		if (prioSelected) {
 			System.out.println("Prio changed!");
 			powerPrioAction.execute(gameData, performingClient);
-		} else {
+		} else if (levelSelected) {
 			System.out.println("Level changed!");
 			powerLevelAction.execute(gameData, performingClient);
+		} else {
+			performingClient.addTolastTurnInfo("STATION POWER; " + (int)(genRef.getPowerOutput()*100) + "% of demand.");
+			performingClient.addTolastTurnInfo("-> " + genRef.getLSString());
+			performingClient.addTolastTurnInfo("-> " + genRef.getLightString());
+			performingClient.addTolastTurnInfo("-> " + genRef.getEquipmentString());
 		}
 		
 		genRef.setInUse(true);
@@ -62,11 +69,12 @@ public class PowerConsoleAction extends Action {
 
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
-	//	System.out.println(args.get(0) + " =? " + powerLevelAction.getName());
+		prioSelected = false;
+		levelSelected = false;
 		if (args.get(0).contains(powerLevelAction.getName())) {
 			powerLevelAction.setArguments(args.subList(1, args.size()), performingClient);
 			prioSelected = false;
-		} else {
+		} else if (args.get(0).contains(powerPrioAction.getName())){
 			powerPrioAction.setArguments(args.subList(1, args.size()), performingClient);
 			prioSelected = true;
 		}

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import model.GameData;
 import model.Player;
@@ -20,7 +21,7 @@ public class GeneratorConsole extends ElectricalMachinery {
 				List<Room> ls, List<Room> lights, List<ElectricalMachinery> eq);
 	}
 	
-	private static final double STARTING_POWER = 45.0;
+	public static final double STARTING_POWER = 45.0;
 	private static final double FIXED_INCREASE = STARTING_POWER * 0.15;
 	private static final double ONGOING_INCREASE = STARTING_POWER * 0.08;
 	
@@ -36,6 +37,9 @@ public class GeneratorConsole extends ElectricalMachinery {
 	private ArrayList<Room> noLifeSupport = new ArrayList<>();
 	private ArrayList<Room> noLight = new ArrayList<>();
 	private ArrayList<ElectricalMachinery> noPower = new ArrayList<>();
+	private int lightBefore;
+	private int lsBefore;
+	private int eqBefore;
 	
 
 	public GeneratorConsole(Room r) {
@@ -162,28 +166,28 @@ public class GeneratorConsole extends ElectricalMachinery {
 		noLifeSupport.addAll(gameData.getRooms());
 		Collections.shuffle(noLifeSupport);
 
-		int lightBefore = noLight.size();
-		int lsBefore = noLifeSupport.size();
-		int eqBefore = noPower.size();
+		lightBefore = noLight.size();
+		lsBefore = noLifeSupport.size();
+		eqBefore = noPower.size();
 		
-		double currentPower = this.level;
+		double currentPower = this.level + STARTING_POWER*0.01;
 		for (String type : prios) {
 			currentPower = updaters.get(type).update(currentPower, 
 					lsPowerPerRoom, lightPowerPerRoom, eqPowerPer, 
 					noLifeSupport, noLight, noPower);
 		}
 		
-		System.out.println(" POWER: Rooms without life support (" + noLifeSupport.size() + "/" + lsBefore + "):");
+		System.out.println(getLSString());
 		for (Room r : noLifeSupport) {
 			System.out.println("     " + r.getName());
 		}
 		
-		System.out.println(" POWER: Rooms without lighting (" + noLight.size() + "/" + lightBefore + "):");
+		System.out.println(getLightString());
 //		for (Room r : noLight) {
 //			System.out.println("     " + r.getName());
 //		}
 		
-		System.out.println(" POWER: Machines without power (" + noPower.size() + "/" + eqBefore + "):");
+		System.out.println(getEquipmentString());
 //		for (ElectricalMachinery r : noPower) {
 //			System.out.println("     " + r.getName());
 //		}
@@ -199,6 +203,38 @@ public class GeneratorConsole extends ElectricalMachinery {
 
 	public List<ElectricalMachinery> getNoPowerObjects() {
 		return noPower;
+	}
+
+	public static GeneratorConsole find(GameData gameData) {
+		GeneratorConsole gc = null;
+		for (GameObject o : gameData.getObjects()) {
+			if (gc != null) {
+				throw new IllegalStateException("More than one GeneratorConsole found!");
+			} else if (o instanceof GeneratorConsole) {
+				gc = (GeneratorConsole) o;
+				break;
+			}
+		}
+		if (gc == null) {
+			throw new NoSuchElementException("Could not find a generator console on station!");
+		}
+		return gc;
+	}
+
+	public void addToLevel(double d) {
+		level = Math.max(0.0, level + d);
+	}
+
+	public String getLSString() {
+		return "Life support units (" + (lsBefore - noLifeSupport.size()) + "/" + lsBefore + ")";
+	}
+
+	public String getLightString() {
+		return "Lights (" + (lightBefore - noLight.size()) + "/" + lightBefore + ")";
+	}
+
+	public String getEquipmentString() {
+		return "Electrical equipment (" + (eqBefore - noPower.size()) + "/" + eqBefore + ")";
 	}
 
 }

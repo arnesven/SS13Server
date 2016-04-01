@@ -46,14 +46,7 @@ public abstract class ElectricalMachinery extends BreakableObject implements Rep
 	}
 
 	private boolean isPowered(GameData gameData) {
-		for (GameObject obj : gameData.getObjects()) {
-			if (obj instanceof GeneratorConsole) {
-				if (((GeneratorConsole)obj).getNoPowerObjects().contains(this)) {
-					return false;
-				}
-			}
-		}
-		return true;
+		return !(GeneratorConsole.find(gameData).getNoPowerObjects().contains(this));
 	}
 	
 }

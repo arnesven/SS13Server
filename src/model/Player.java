@@ -3,6 +3,8 @@ package model;
 import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -356,6 +358,13 @@ public class Player extends Actor implements Target {
 			getCharacter().addCharacterSpecificActions(gameData, at);
 
 		}
+//		Collections.sort(at, new Comparator<Action>() {
+//
+//			@Override
+//			public int compare(Action o1, Action o2) {
+//				return o1.getName().compareTo(o2.getName());
+//			}
+//		});
 
 		return at;
 	}
