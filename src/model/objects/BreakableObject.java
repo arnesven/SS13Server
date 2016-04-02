@@ -77,7 +77,7 @@ public abstract class BreakableObject extends GameObject implements Target {
 
 	@Override
 	public boolean isTargetable() {
-		return !isBroken();
+		return true; //!isBroken();
 	}
 
 	@Override
