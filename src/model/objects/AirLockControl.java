@@ -11,7 +11,7 @@ import model.map.Room;
 import model.actions.SensoryLevel;
 import model.actions.objectactions.AirlockOverrideAction;
 
-public class AirLockControl extends ElectricalMachinery {
+public class AirLockControl extends Console {
 
 	public AirLockControl(Room pos) {
 		super("Airlock Override", pos);
@@ -22,9 +22,5 @@ public class AirLockControl extends ElectricalMachinery {
 		at.add(new AirlockOverrideAction(gameData));
 	}
 	
-	@Override
-	protected char getIcon(Player whosAsking) {
-		return ')';
-	}
 
 }

@@ -6,11 +6,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import model.actions.Action;
+import model.actions.ActionGroup;
 import model.actions.AttackAction;
 import model.actions.DropAction;
 import model.actions.GiveAction;
@@ -277,7 +281,16 @@ public class Player extends Actor implements Target {
 		strings.addAll(Arrays.asList(actionStr.split(",")));
 		//System.out.println("Action tree: " + at.toString());
 		for (Action a : at) {
-			if (a.getName().equals(strings.get(0))) {
+			if (a instanceof ActionGroup) {
+				for (Action a2 : ((ActionGroup)a).getActions()) {
+					if (a2.getName().equals(strings.get(1))) {
+						List<String> args = strings.subList(2, strings.size());
+						a2.setArguments(args, this);
+						this.nextAction = a2;
+						return;
+					}
+				}
+			} else if (a.getName().equals(strings.get(0))) {
 				List<String> args = strings.subList(1, strings.size());
 				a.setArguments(args, this);
 				this.nextAction = a;
@@ -349,23 +362,15 @@ public class Player extends Actor implements Target {
 		if (!isDead()) {
 			addRoomActions(gameData, at);
 			addItemActions(gameData, at);
-			addAttackActions(at);
+			addAttackActions(at);			
 			addWatchAction(at);
-			addGiveAction(at);
-			addDropActions(at);
-			addPickUpActions(at);
-			addPutOnActions(at);
+			addManageItemActions(at);
+			
 			getCharacter().addCharacterSpecificActions(gameData, at);
 
 		}
-		Collections.sort(at, new Comparator<Action>() {
-
-			@Override
-			public int compare(Action o1, Action o2) {
-				return o1.getName().compareTo(o2.getName());
-			}
-		});
 		
+		groupTargetingActions(at);
 		at.add(0, new DoNothingAction());
 
 		return at;
@@ -375,14 +380,50 @@ public class Player extends Actor implements Target {
 
 	
 
-	private void addItemActions(GameData gameData, ArrayList<Action> at) {
-		Map<String, GameItem> map = new HashMap<String, GameItem>();
-
-		for (GameItem it : getItems()) {
-			if (!map.containsKey(it.getBaseName())) {
-				it.addYourActions(gameData, at, this);
-				map.put(it.getFullName(this), it);
+	private void groupTargetingActions(ArrayList<Action> at) {
+		List<Action> targetingActions = new ArrayList<>();
+		Iterator<Action> it = at.iterator();
+		while (it.hasNext()) {
+			Action a = it.next();
+			if (a instanceof TargetingAction) {
+				targetingActions.add(a);
+				it.remove();
 			}
+		}
+		if (targetingActions.size() > 0) {
+			ActionGroup ag = new ActionGroup("Interaction");
+			ag.addAll(targetingActions);
+			at.add(ag);
+		}
+	}
+
+	private void addManageItemActions(ArrayList<Action> at2) {
+		ArrayList<Action> at = new ArrayList<>();
+		addGiveAction(at);
+		addDropActions(at);
+		addPickUpActions(at);
+		addPutOnActions(at);
+		if (at.size() > 0) {
+			ActionGroup manageItems = new ActionGroup("Manage Items");
+			manageItems.addAll(at);
+			at2.add(manageItems);
+		}
+	}
+
+	private void addItemActions(GameData gameData, ArrayList<Action> at) {
+		Set<String> set = new HashSet<>();
+		ArrayList<Action> itActions = new ArrayList<>();
+		for (GameItem it : getItems()) {
+			if (!set.contains(it.getBaseName())) {
+				it.addYourActions(gameData, itActions, this);
+				set.add(it.getFullName(this));
+			}
+		}
+		
+		if (itActions.size() > 0) {
+			ActionGroup ag = new ActionGroup("Use Items");
+			ag.addAll(itActions);
+			at.add(ag);
 		}
 	}
 

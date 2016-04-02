@@ -45,7 +45,7 @@ public class PickUpAction extends Action {
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = new ActionOption(this.getName());
 		for (GameItem gi : ap.getPosition().getItems()) {
-			opt.addOption(gi.getPublicName(whosAsking));
+			opt.addOption(gi.getPublicName(whosAsking) + String.format(" (%.1f kg)", gi.getWeight()));
 		}
 		return opt;
 	}
@@ -53,7 +53,7 @@ public class PickUpAction extends Action {
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
 		for (GameItem it : ap.getPosition().getItems()){
-			if (args.get(0).equals(it.getPublicName(performer))) {
+			if (args.get(0).contains(it.getPublicName(performer))) {
 				this.item = it;
 				return;
 			}
