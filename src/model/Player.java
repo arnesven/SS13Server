@@ -358,13 +358,15 @@ public class Player extends Actor implements Target {
 			getCharacter().addCharacterSpecificActions(gameData, at);
 
 		}
-//		Collections.sort(at, new Comparator<Action>() {
-//
-//			@Override
-//			public int compare(Action o1, Action o2) {
-//				return o1.getName().compareTo(o2.getName());
-//			}
-//		});
+		Collections.sort(at, new Comparator<Action>() {
+
+			@Override
+			public int compare(Action o1, Action o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
+		
+		at.add(0, new DoNothingAction());
 
 		return at;
 	}
@@ -435,7 +437,6 @@ public class Player extends Actor implements Target {
 	}
 
 	private void addBasicActions(ArrayList<Action> at) {
-		at.add(new DoNothingAction());
 		if (!isDead()) {
 			at.add(new SearchAction());
 		}
@@ -526,7 +527,7 @@ public class Player extends Actor implements Target {
 	public List<String> getItemsAsFullNameList() {
 		List<String> strs = new ArrayList<>();
 		for (GameItem gi : getItems()) {
-			strs.add(gi.getFullName(this));
+			strs.add(gi.howDoYouAppearInGUI(this));
 		}
 		return strs;
 	}

@@ -31,6 +31,11 @@ public class Lockers extends GameObject {
 	}
 	
 	@Override
+	protected char getIcon(Player whosAsking) {
+		return 'l';
+	}
+	
+	@Override
 	public void addSpecificActionsFor(GameData gameData, Player cl,
 			ArrayList<Action> at) {
 		super.addSpecificActionsFor(gameData, cl, at);

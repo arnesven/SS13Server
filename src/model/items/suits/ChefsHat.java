@@ -8,6 +8,11 @@ public class ChefsHat extends SuitItem {
 	public ChefsHat() {
 		super("Chef's Hat", 0.2);
 	}
+	
+	@Override
+	protected char getIcon() {
+		return 'z';
+	}
 
 	@Override
 	public void beingPutOn(Actor actionPerformer) {

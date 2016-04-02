@@ -54,4 +54,9 @@ public class PDA extends GameItem {
 	public PDA clone() {
 		return new PDA(this.traitorMode);
 	}
+	
+	@Override
+	protected char getIcon() {
+		return 'd';
+	}
 }

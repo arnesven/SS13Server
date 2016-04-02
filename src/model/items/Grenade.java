@@ -25,6 +25,8 @@ public class Grenade extends GameItem implements Damager {
 		return "A grenade exploaded!";
 	}
 
+
+	
 	@Override
 	public boolean isDamageSuccessful(boolean reduced) {
 		return MyRandom.nextDouble() < 0.75;
@@ -43,6 +45,11 @@ public class Grenade extends GameItem implements Damager {
 	@Override
 	public Grenade clone() {
 		return new Grenade();
+	}
+	
+	@Override
+	protected char getIcon() {
+		return '}';
 	}
 
 }

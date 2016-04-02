@@ -224,5 +224,9 @@ public abstract class CharacterDecorator extends GameCharacter {
 		return innerChar.getDefaultWeapon();
 	}
 	
-		
+	@Override
+	public char getIcon(Player whosAsking) {
+		return innerChar.getIcon(whosAsking);
+	}
+	
 }

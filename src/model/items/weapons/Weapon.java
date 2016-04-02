@@ -26,6 +26,11 @@ public class Weapon extends GameItem {
 		this.damage = damage;
 		makesBang = bang;
 	}
+	
+	@Override
+	protected char getIcon() {
+		return 'w';
+	}
 
 	public boolean isAttackSuccessful(boolean reduced) {
 		if (reduced) {

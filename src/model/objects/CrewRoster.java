@@ -11,7 +11,7 @@ import model.actions.Action;
 import model.actions.SensoryLevel;
 import model.map.Room;
 
-public class CrewRoster extends ElectricalMachinery {
+public class CrewRoster extends Console {
 
 	public CrewRoster(Room pos) {
 		super("Crew Roster", pos);

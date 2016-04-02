@@ -14,7 +14,7 @@ import model.actions.Action;
 import model.actions.objectactions.PowerConsoleAction;
 import model.map.Room;
 
-public class GeneratorConsole extends ElectricalMachinery {
+public class GeneratorConsole extends Console {
 
 	private interface PowerUpdater {
 		double update(double currentPower, double lsPer, double liPer, double eqPer, 

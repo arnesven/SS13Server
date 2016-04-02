@@ -18,6 +18,11 @@ public class SunGlasses extends SuitItem {
 	public SunGlasses clone() {
 		return new SunGlasses();
 	}
+	
+	@Override
+	protected char getIcon() {
+		return 'Z';
+	}
 
 	@Override
 	public void beingPutOn(Actor actionPerformer) {

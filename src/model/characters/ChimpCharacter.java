@@ -3,6 +3,7 @@ package model.characters;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Player;
 import model.items.GameItem;
 import model.items.weapons.LaserPistol;
 import model.map.Room;
@@ -23,6 +24,9 @@ public class ChimpCharacter extends GameCharacter {
 		
 	}
 	
-	
+	@Override
+	public char getIcon(Player whosAsking) {
+		return ']';
+	}
 
 }

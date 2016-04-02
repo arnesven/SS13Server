@@ -54,5 +54,10 @@ public class LarcenyGloves extends SuitItem {
 	public boolean permitsOver() {
 		return true;
 	}
+	
+	@Override
+	protected char getIcon() {
+		return '2';
+	}
 
 }

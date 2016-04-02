@@ -31,10 +31,14 @@ public class GameObject {
 	
 
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
-		info.add("o" + this.getPublicName(whosAsking));
+		info.add(getIcon(whosAsking) + this.getPublicName(whosAsking));
 	}
 
 	
+	protected char getIcon(Player whosAsking) {
+		return 'o';
+	}
+
 	public void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
 	}
 

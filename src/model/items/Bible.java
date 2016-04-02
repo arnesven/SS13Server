@@ -40,5 +40,10 @@ public class Bible extends GameItem {
 		return character.checkInstance(check);
 	}
 	
+	@Override
+	protected char getIcon() {
+		return '+';
+	}
+	
 
 }

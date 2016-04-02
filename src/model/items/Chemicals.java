@@ -27,5 +27,10 @@ public class Chemicals extends GameItem {
 		}
 		return false;
 	}
+	
+	@Override
+	protected char getIcon() {
+		return 'C';
+	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Actor;
+import model.Player;
 import model.events.ColdDamage;
 import model.events.Damager;
 import model.events.RadiationDamage;
@@ -16,6 +17,11 @@ public class ParasiteCharacter extends GameCharacter {
 	public ParasiteCharacter() {
 		super("Parasite", 0, -1.0);
 
+	}
+	
+	@Override
+	public char getIcon(Player whosAsking) {
+		return isDead()?'P':'p';
 	}
 
 	@Override

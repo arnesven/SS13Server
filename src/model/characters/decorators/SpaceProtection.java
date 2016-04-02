@@ -1,6 +1,7 @@
 package model.characters.decorators;
 
 import model.Actor;
+import model.Player;
 import model.events.AsphyxiationDamage;
 import model.characters.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
@@ -19,6 +20,11 @@ public class SpaceProtection extends CharacterDecorator {
 			res += " (dead)";
 		}
 		return res;
+	}
+	
+	@Override
+	public char getIcon(Player whosAsking) {
+		return 'S';
 	}
 	
 	@Override

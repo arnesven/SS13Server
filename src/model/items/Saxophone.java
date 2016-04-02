@@ -17,6 +17,11 @@ public class Saxophone extends BluntWeapon {
 	}
 
 	@Override
+	protected char getIcon() {
+		return 'X';
+	}
+	
+	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
 			Player cl) {
 		super.addYourActions(gameData, at, cl);

@@ -15,6 +15,11 @@ public abstract class SuitItem extends GameItem {
 		return under;
 	}
 	
+	@Override
+	protected char getIcon() {
+		return 'U';
+	}
+	
 	public void setUnder(SuitItem it) {
 		under = it;
 	}

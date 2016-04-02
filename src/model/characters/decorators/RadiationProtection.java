@@ -1,6 +1,7 @@
 package model.characters.decorators;
 
 import model.Actor;
+import model.Player;
 import model.characters.GameCharacter;
 import model.events.Damager;
 import model.events.RadiationDamage;
@@ -20,6 +21,10 @@ public class RadiationProtection extends CharacterDecorator {
 		return res;
 	}
 	
+	@Override
+	public char getIcon(Player whosAsking) {
+		return 'Q';
+	}
 	
 	@Override
 	public void beExposedTo(Actor something, Damager damager) {

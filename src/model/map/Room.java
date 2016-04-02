@@ -114,7 +114,7 @@ public class Room {
 			if (whosAsking != a) {
 				a.addYourselfToRoomInfo(info, whosAsking);
 			} else {
-				info.add("aYou");
+				info.add(a.getCharacter().getIcon(whosAsking) + "You");
 			}
 		}
 		
@@ -125,7 +125,7 @@ public class Room {
 			it.addYourselfToRoomInfo(info, whosAsking);
 		}
 		
-		Collections.sort(info);
+		//Collections.sort(info);
 		for (Event event : events) {
 			info.add(0, event.addYourselfToRoomInfo(whosAsking));
 		}

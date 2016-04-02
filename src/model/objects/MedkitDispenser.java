@@ -1,5 +1,6 @@
 package model.objects;
 
+import model.Player;
 import model.items.Chemicals;
 import model.items.GameItem;
 import model.items.MedKit;
@@ -13,6 +14,11 @@ public class MedkitDispenser extends DispenserObject {
 		this.addItem(new MedKit());
 		this.addItem(new MedKit());
 		
+	}
+	
+	@Override
+	protected char getIcon(Player whosAsking) {
+		return 'm';
 	}
 
 	@Override

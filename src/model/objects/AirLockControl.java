@@ -20,9 +20,11 @@ public class AirLockControl extends ElectricalMachinery {
 	@Override
 	protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
 		at.add(new AirlockOverrideAction(gameData));
-		
-
-		
+	}
+	
+	@Override
+	protected char getIcon(Player whosAsking) {
+		return ')';
 	}
 
 }

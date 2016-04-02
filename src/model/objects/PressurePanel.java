@@ -32,6 +32,11 @@ public class PressurePanel extends ElectricalMachinery {
 		at.add(makeApplicableAction(gameData));
 		
 	}
+	
+	@Override
+	protected char getIcon(Player whosAsking) {
+		return ')';
+	}
 
 	public Action makeApplicableAction(GameData gameData) {
 		if (hasPressure) {

@@ -8,7 +8,7 @@ import model.actions.Action;
 import model.actions.objectactions.SecurityConsoleAction;
 import model.map.Room;
 
-public class SecurityCameraConsole extends ElectricalMachinery {
+public class SecurityCameraConsole extends Console {
 	
 	private String chosen;
 

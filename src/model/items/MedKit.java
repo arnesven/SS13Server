@@ -32,5 +32,10 @@ public class MedKit extends GameItem {
 	public MedKit clone() {
 		return new MedKit();
 	}
+	
+	@Override
+	protected char getIcon() {
+		return 'M';
+	}
 
 }

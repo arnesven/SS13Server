@@ -127,9 +127,8 @@ public abstract class Actor  {
 	 * @param whosAsking 
 	 */
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
-		info.add("a" + whosAsking.getCharacter().getHowPerceived(this));
+		info.add(getCharacter().getIcon(whosAsking) + whosAsking.getCharacter().getHowPerceived(this));
 	}
-	
 	
 	
 	public boolean isDead() {

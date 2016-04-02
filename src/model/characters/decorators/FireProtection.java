@@ -1,6 +1,7 @@
 package model.characters.decorators;
 
 import model.Actor;
+import model.Player;
 import model.characters.GameCharacter;
 import model.events.Damager;
 import model.items.weapons.Flamer;
@@ -20,6 +21,11 @@ public class FireProtection extends CharacterDecorator {
 			res += " (dead)";
 		}
 		return res;
+	}
+	
+	@Override
+	public char getIcon(Player whosAsking) {
+		return 'q';
 	}
 	
 	@Override

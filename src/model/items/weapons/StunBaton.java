@@ -23,6 +23,11 @@ public class StunBaton extends AmmoWeapon {
 	}
 
 	@Override
+	protected char getIcon() {
+		return '!';
+	}
+	
+	@Override
 	public boolean isAttackSuccessful(boolean reduced) {
 		boolean success = super.isAttackSuccessful(reduced);
 		if (!success) {

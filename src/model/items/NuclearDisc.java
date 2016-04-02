@@ -10,5 +10,10 @@ public class NuclearDisc extends GameItem {
 	public NuclearDisc clone() {
 		return new NuclearDisc();
 	}
+	
+	@Override
+	protected char getIcon() {
+		return 'n';
+	}
 
 }

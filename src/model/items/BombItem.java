@@ -86,5 +86,10 @@ public abstract class BombItem extends HidableItem {
 
 	}
 	
+	@Override
+	protected char getIcon() {
+		return 'N';
+	}
+	
 	
 }

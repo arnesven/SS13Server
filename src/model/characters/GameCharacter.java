@@ -352,6 +352,17 @@ public abstract class GameCharacter {
 		return Weapon.FISTS;
 	}
 
+	public char getIcon(Player whosAsking) {
+		if (suit == null) {
+			if (this.getGender().equals("man")) {
+				return '%';
+			} else {
+				return '8';
+			}
+		}
+		return 'a';
+	}
+
 
 	
 

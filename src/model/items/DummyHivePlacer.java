@@ -71,4 +71,9 @@ public class DummyHivePlacer extends GameItem {
 		return new DummyHivePlacer();
 	}
 
+	@Override
+	protected char getIcon() {
+		return 'H';
+	}
+	
 }

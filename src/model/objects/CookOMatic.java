@@ -23,6 +23,11 @@ public class CookOMatic extends ElectricalMachinery {
 	}
 
 	@Override
+	protected char getIcon(Player whosAsking) {
+		return 'O';
+	}
+	
+	@Override
 	protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
 		at.add(new CookFoodAction(this));
 		if (hasGrenade(cl) != null) {

@@ -8,7 +8,7 @@ import model.actions.objectactions.AIConsoleAction;
 import model.actions.Action;
 import model.map.Room;
 
-public class AIConsole extends ElectricalMachinery {
+public class AIConsole extends Console {
 
 	public AIConsole(Room pos) {
 		super("AI Console", pos);

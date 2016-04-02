@@ -11,5 +11,10 @@ public class GeigerMeter extends GameItem {
 	public GeigerMeter clone() {
 		return new GeigerMeter();
 	}
+	
+	@Override
+	protected char getIcon() {
+		return 'd';
+	}
 
 }

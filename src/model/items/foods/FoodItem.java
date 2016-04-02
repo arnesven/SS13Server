@@ -15,6 +15,11 @@ public abstract class FoodItem extends GameItem {
 	}
 	
 	@Override
+	protected char getIcon() {
+		return 'F';
+	}
+	
+	@Override
 	public void addYourActions(GameData gameData, 
 			ArrayList<model.actions.Action> at, 
 			Player cl) {

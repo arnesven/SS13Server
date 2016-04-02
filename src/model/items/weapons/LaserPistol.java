@@ -7,4 +7,9 @@ public class LaserPistol extends AmmoWeapon {
 		super("Laser pistol", 0.90, 1.0, false, 1.0, 4);
 	}
 
+	@Override
+	protected char getIcon() {
+		return 'L';
+	}
+	
 }

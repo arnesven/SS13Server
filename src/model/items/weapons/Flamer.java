@@ -25,6 +25,11 @@ public class Flamer extends Weapon {
 	}
 	
 	@Override
+	protected char getIcon() {
+		return '{';
+	}
+	
+	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
 		
 		List<Chemicals> chem = getChemicalsFromClient(cl);

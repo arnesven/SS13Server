@@ -16,6 +16,11 @@ public class HiveObject extends BreakableObject {
 	}
 	
 	@Override
+	protected char getIcon(Player whosAsking) {
+		return 'H';
+	}
+	
+	@Override
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
 		
 		if (isFound()){

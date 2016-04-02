@@ -28,5 +28,10 @@ public class Locator extends GameItem {
 	public void setTarget(Locatable locatable) {
 		this.target = locatable;
 	}
+	
+	@Override
+	protected char getIcon() {
+		return 'd';
+	}
 
 }

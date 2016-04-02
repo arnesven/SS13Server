@@ -75,5 +75,10 @@ public class FireExtinguisher extends BluntWeapon {
 		}
 		return null;
 	}
+	
+	@Override
+	protected char getIcon() {
+		return 'x';
+	}
 
 }

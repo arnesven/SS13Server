@@ -67,7 +67,75 @@ public abstract class GameItem implements Locatable {
 	}
 
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
-		info.add("i" + getPublicName(whosAsking));
+		info.add(getIcon() + getPublicName(whosAsking));
+	}
+
+	public String howDoYouAppearInGUI(Player whosAsking) {
+		return getIcon() + getFullName(whosAsking);
+	}
+
+
+	/**
+	 * This is from the GUI-project:"a" - "actor.png"
+	 * a - actor.png
+	 * i - item.png
+	 * o - object.png
+	 * f - fire.png
+	 * e -  event.png
+	 * r - radioactive.png
+	 * c - cold.png
+	 * ? - unknown.png
+	 * p - parasite.png
+	 * P - parasite_dead.png
+	 * A - alien.png
+	 * ( - snake.png
+	 * C - checmicals.png
+	 * n - nuclear_disc.png
+	 * l - locker.png
+	 * m - med_storage.png
+	 * u - fuel_storage.png
+	 * \@ - computer.png
+	 * B - bioscanner.png
+	 * [ - applepie.png
+	 * F - food.png
+	 * w - weapon.png
+	 * L - laserpistol.png
+	 * g - shotgun.png
+	 * x - fireext.png
+	 * b - banana.png
+	 * O - cookomatic.png
+	 * k - knife.png
+	 * ] - chimp.png
+	 * I - aicore.png
+	 * ) - pressurepanel.png
+	 * d - device.png
+	 * T - tars.png
+	 * N - nuke.png
+	 * M - medkit.png
+	 * # - crate.png
+	 * + - bible.png
+	 * { - flamer.png
+	 * ! - stunbaton.png
+	 * y - keycard.png
+	 * & - cat.png
+	 * H - hive.png
+	 * h - husk.png
+	 * % - naked_man.png
+	 * 8 - naked_woman.png
+	 * U - suit.png
+	 * } - grenade.png
+	 * 2 - gloves.png
+	 * X - saxophone.png
+	 * q - firesuit.png
+	 * Q - radsuit.png
+	 * S - spacesuit.png
+	 * 0 - opspacesuit.png
+	 * z - chefshat.png
+	 * Z - sunglasses.png
+	 * @return the character representing what icon should be displayed to the user.
+	 */
+	protected char getIcon() {
+		return 'i';
 	}
 
 	/**

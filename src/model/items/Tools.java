@@ -26,6 +26,11 @@ public class Tools extends BluntWeapon {
 	}
 	
 	@Override
+	protected char getIcon() {
+		return 'i';
+	}
+	
+	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
 		if (hasBrokenObjects(cl.getPosition())) {
 			at.add(new RepairAction(cl));

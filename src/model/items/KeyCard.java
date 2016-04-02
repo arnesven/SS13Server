@@ -15,4 +15,8 @@ public class KeyCard extends GameItem {
 		return new KeyCard();
 	}
 
+	@Override
+	protected char getIcon() {
+		return 'y';
+	}
 }

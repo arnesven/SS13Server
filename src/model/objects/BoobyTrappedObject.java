@@ -29,6 +29,11 @@ public class BoobyTrappedObject extends GameObject {
 	}
 	
 	@Override
+	protected char getIcon(Player whosAsking) {
+		return innerObject.getIcon(whosAsking);
+	}
+	
+	@Override
 	public void addSpecificActionsFor(GameData gameData, Player cl,
 			ArrayList<Action> at) {
 		

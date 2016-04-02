@@ -11,7 +11,7 @@ import model.items.GameItem;
 import model.items.KeyCard;
 import model.map.Room;
 
-public class KeyCardLock extends ElectricalMachinery {
+public class KeyCardLock extends Console {
 
 	private Room to;
 	private Room from;
@@ -23,6 +23,7 @@ public class KeyCardLock extends ElectricalMachinery {
 		this.from = from;
 		locked = isLocked;
 	}
+	
 	
 	@Override
 	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {

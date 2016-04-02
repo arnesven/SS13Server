@@ -19,6 +19,10 @@ public class ApplePie extends FoodItem  {
 		return 0.1;
 	}
 
+	@Override
+	protected char getIcon() {
+		return '[';
+	}
 	
 	
 	@Override

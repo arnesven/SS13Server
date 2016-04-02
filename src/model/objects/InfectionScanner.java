@@ -24,6 +24,11 @@ public class InfectionScanner extends ElectricalMachinery {
 	}
 	
 	@Override
+	protected char getIcon(Player whosAsking) {
+		return 'B';
+	}
+	
+	@Override
 	public String getName() {
 		if (!loaded) {
 			return super.getName() + " (empty)";

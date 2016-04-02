@@ -57,5 +57,10 @@ public class BombDetonator extends GameItem {
 	public BombDetonator clone() {
 		return new BombDetonator(this.bomb);
 	}
+	
+	@Override
+	protected char getIcon() {
+		return 'd';
+	}
 
 }
