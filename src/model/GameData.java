@@ -137,11 +137,12 @@ public class GameData {
 		int i = 2;
 		if (rest.equals("")) {
 			clid = getRandomClid();
-		} else {
-			while (getClientsAsMap().containsKey(clid)) {
-				clid = rest + i;
-			}
 		}
+		
+		if (getClientsAsMap().containsKey(clid)) {
+			throw new IllegalStateException("THAT USER NAME ALREADY TAKEN!");
+		}
+		
 		players.put(clid, new Player(this));
 		return clid;
 	}

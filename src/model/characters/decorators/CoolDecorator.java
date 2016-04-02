@@ -18,7 +18,7 @@ public class CoolDecorator extends CharacterDecorator {
 		if (suit.getUnder() == null) {
 			res += "Naked " + getGender() ;
 		} else {
-			res += this.getBaseName();
+			res += getInner().getPublicName();
 		}
 		if (isDead()) {
 			return res + " (dead)";

@@ -73,7 +73,7 @@ public class PowerConsoleAction extends Action {
 		levelSelected = false;
 		if (args.get(0).contains(powerLevelAction.getName())) {
 			powerLevelAction.setArguments(args.subList(1, args.size()), performingClient);
-			prioSelected = false;
+			levelSelected = true;
 		} else if (args.get(0).contains(powerPrioAction.getName())){
 			powerPrioAction.setArguments(args.subList(1, args.size()), performingClient);
 			prioSelected = true;

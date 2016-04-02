@@ -18,11 +18,18 @@ public class IDMessageHandler implements MessageHandler {
 	public boolean handle(String message, ObjectOutputStream oos) throws IOException {
 		if (message.contains("IDENT ME")) {
 			if (gameData.getGameState() == GameState.PRE_GAME) {
-				String clid = gameData.createNewClient(message.replace("IDENT ME", ""));
-				System.out.println("This new dude gets " + clid);
-				oos.writeObject(clid);
+				try {
+					
+					String clid = gameData.createNewClient(message.replace("IDENT ME", ""));
+					System.out.println("This new dude gets " + clid);
+					oos.writeObject(clid);
+				} catch (IllegalStateException ise) {
+					System.out.println("That ID already existed!");
+					oos.writeObject("ERROR" + ise.getMessage());
+					return true;
+				}
 			} else {
-				oos.writeObject("GAME ALREADY STARTED!");
+				oos.writeObject("ERROR" + "GAME ALREADY STARTED!");
 			}
 			return true;	
 
