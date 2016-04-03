@@ -281,20 +281,23 @@ public class Player extends Actor implements Target {
 		strings.addAll(Arrays.asList(actionStr.split(",")));
 		//System.out.println("Action tree: " + at.toString());
 		for (Action a : at) {
-			if (a instanceof ActionGroup) {
-				for (Action a2 : ((ActionGroup)a).getActions()) {
-					if (a2.getName().equals(strings.get(1))) {
-						List<String> args = strings.subList(2, strings.size());
-						a2.setArguments(args, this);
-						this.nextAction = a2;
-						return;
+			if (a.getName().equals(strings.get(0))) {
+				if (a instanceof ActionGroup) {
+					for (Action a2 : ((ActionGroup)a).getActions()) {
+						System.out.println("Parsing for " +  a2.getName() + ", strings is: " + strings.toString());
+						if (a2.getName().equals(strings.get(1))) {
+							List<String> args = strings.subList(2, strings.size());
+							a2.setArguments(args, this);
+							this.nextAction = a2;
+							return;
+						}
 					}
+				} else {
+					List<String> args = strings.subList(1, strings.size());
+					a.setArguments(args, this);
+					this.nextAction = a;
+					return;
 				}
-			} else if (a.getName().equals(strings.get(0))) {
-				List<String> args = strings.subList(1, strings.size());
-				a.setArguments(args, this);
-				this.nextAction = a;
-				return;
 			}
 		}	
 		throw new NoSuchElementException("Could not find action for this action string " + actionString + ".");

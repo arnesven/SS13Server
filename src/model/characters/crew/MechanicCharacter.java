@@ -14,7 +14,7 @@ import model.items.weapons.Knife;
 public class MechanicCharacter extends GameCharacter {
 
 	public MechanicCharacter() {
-		super("Mechanic", 26, 3.0);
+		super("Mechanic", 26, 6.0);
 	}
 	
 	@Override
