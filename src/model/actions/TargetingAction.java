@@ -129,7 +129,7 @@ public abstract class TargetingAction extends Action {
 			performingClient.addTolastTurnInfo("What? the " + item.getPublicName(performingClient) + " was no longer there! Your action failed.");
 		
 		} else {
-		applyTargetingAction(gameData, performingClient, target, item);
+			applyTargetingAction(gameData, performingClient, target, item);
 		}
 	}
 

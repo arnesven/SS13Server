@@ -8,5 +8,6 @@ public class Pair<T1, T2> {
 		first = t1;
 		second = t2;
 	}
+	
 
 }

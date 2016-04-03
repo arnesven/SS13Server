@@ -313,7 +313,7 @@ public abstract class GameCharacter {
 	public SuitItem getSuit() {
 		return suit;
 	}
-
+	
 	public void putOnSuit(SuitItem gameItem) {
 		gameItem.setUnder(this.suit);
 		this.suit = gameItem;

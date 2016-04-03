@@ -285,14 +285,19 @@ public class GameData {
 
 
 	private void runEvents() {
-		Event e = null;
-		for (Iterator<Event> it = events.iterator() ; it.hasNext(); ) {
-			e = it.next();
+		List<Event> eventsToRemove = new ArrayList<>();
+		List<Event> eventsToExecute = new ArrayList<>();
+		eventsToExecute.addAll(events);
+		
+		for (Event e : eventsToExecute) {
 			e.apply(this);
 			if (e.shouldBeRemoved(this)) {
-				System.out.println("Removing an event.");
-				it.remove();
+				eventsToRemove.add(e);
 			}
+		}
+		
+		for (Event e2 : eventsToRemove) {
+			events.remove(e2);
 		}
 		gameMode.triggerEvents(this);
 	}

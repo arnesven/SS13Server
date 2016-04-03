@@ -50,11 +50,15 @@ public class PickUpAction extends Action {
 		return opt;
 	}
 	
+	public void setItem(GameItem it) {
+		this.item = it;
+	}
+	
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
 		for (GameItem it : ap.getPosition().getItems()){
 			if (args.get(0).contains(it.getPublicName(performer))) {
-				this.item = it;
+				setItem(it);
 				return;
 			}
 		}

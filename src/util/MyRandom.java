@@ -94,6 +94,7 @@ public class MyRandom {
 		list.add(new Tools());
 		list.add(new Bible());
 		list.add(new ApplePie());
+		list.add(new Banana());
 		list.add(new DoubleFlambeSteakDiane());
 		list.add(new SpinachSoup());
 		list.add(new ChefsHat());

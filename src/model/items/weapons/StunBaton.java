@@ -9,6 +9,7 @@ import model.Target;
 import model.actions.SensoryLevel;
 import model.actions.itemactions.CancelAction;
 import model.characters.GameCharacter;
+import model.characters.decorators.AlterMovementRemover;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.AlterMovement;
 import model.characters.decorators.InstanceRemover;
@@ -63,18 +64,7 @@ public class StunBaton extends AmmoWeapon {
 								"Stunned", true, 0));
 		
 		gameData.addEvent(new RemoveInstanceLaterEvent(victim, gameData.getRound(), 
-				1, new InstanceRemover() {
-
-			@Override
-			public GameCharacter removeInstance(GameCharacter ch) {
-				if (ch instanceof AlterMovement) {
-					return ((CharacterDecorator)ch).getInner();
-				} else if (ch instanceof CharacterDecorator) {
-					return removeInstance(((CharacterDecorator)ch).getInner());
-				}
-				throw new NoSuchElementException("Did not find that instance!");
-			}
-		}));
+				1, new AlterMovementRemover()));
 		
 	}
 

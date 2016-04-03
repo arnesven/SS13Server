@@ -36,11 +36,12 @@ public abstract class BreakableObject extends GameObject implements Target {
 	@Override
 	public boolean beAttackedBy(Actor performingClient, Weapon item) {
 		boolean success;
+		boolean alreadyBroken = isBroken();
 		if (item.isAttackSuccessful(false)) {
 			success = true;
 			hp = Math.max(0.0, hp - item.getDamage());
 			performingClient.addTolastTurnInfo("You " + item.getSuccessfulMessage() + "ed the " + super.getPublicName(performingClient) + ".");
-			if (isBroken()) {
+			if (isBroken() && !alreadyBroken) {
 				performingClient.addTolastTurnInfo("The " + super.getPublicName(performingClient) + " was destroyed!");				
 				this.breaker = performingClient;
 				this.brokenByWeapon = item;
@@ -121,10 +122,11 @@ public abstract class BreakableObject extends GameObject implements Target {
 
 	@Override
 	public void beExposedTo(Actor performingClient, Damager damage) {
+		boolean alreadyBroken = isBroken();
 		if (damage.isDamageSuccessful(false)) {
 			hp = Math.max(0.0, hp - damage.getDamage());
 			if (hp == 0) { // broken :-)
-				if (performingClient != null) {
+				if (performingClient != null && !alreadyBroken) {
 					breaker = performingClient;
 				} else {
 					breakString = damage.getName();

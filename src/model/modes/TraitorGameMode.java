@@ -13,6 +13,7 @@ import util.MyRandom;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.objectactions.PowerConsoleAction;
 import model.characters.GameCharacter;
 import model.characters.crew.CaptainCharacter;
 import model.characters.decorators.TraitorCharacter;
@@ -28,12 +29,14 @@ import model.items.suits.ChefsHat;
 import model.items.suits.SunGlasses;
 import model.map.Room;
 import model.npcs.CatNPC;
+import model.npcs.ChimpNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
 import model.npcs.TARSNPC;
 import model.objects.BreakableObject;
 import model.objects.GameObject;
 import model.objects.ElectricalMachinery;
+import model.objects.GeneratorConsole;
 
 public class TraitorGameMode extends GameMode {
 
@@ -225,7 +228,18 @@ public class TraitorGameMode extends GameMode {
 		result += pointsFromParasites(gameData);
 		result += pointsFromCat(gameData);
 		result += pointsFromTARS(gameData);
+		result += pointsFromChimp(gameData);
+		result += pointsFromPower(gameData);
 		return result;
+	}
+
+
+
+	public int pointsFromPower(GameData gameData) {
+		if (GeneratorConsole.find(gameData).getPowerOutput() > 0.99) {
+			return 200;
+		}
+		return 0;
 	}
 
 	public int pointsFromBrokenObjects(GameData gameData) {
@@ -317,6 +331,17 @@ public class TraitorGameMode extends GameMode {
 			}
 		}
 
+		return 0;
+	}
+	
+	protected int pointsFromChimp(GameData gameData) {
+		for (NPC npc : gameData.getNPCs()) {
+			if (npc instanceof ChimpNPC) {
+				if (npc.isDead()) {
+					return -50;
+				}
+			}
+		}
 		return 0;
 	}
 

@@ -15,7 +15,7 @@ import model.actions.SensoryLevel;
 public class RandomSpeechBehavior extends SpontaneousAct {
 
 	public RandomSpeechBehavior(final String filename) {
-		super(100.0, new Action("Talk", SensoryLevel.SPEECH) {
+		super(1.0, new Action("Talk", SensoryLevel.SPEECH) {
 			
 			private String talkString;
 			
@@ -50,18 +50,20 @@ public class RandomSpeechBehavior extends SpontaneousAct {
 
 			private String replaceMarkers(GameData gameData, Actor performingClient, String talkString2) {
 				if (talkString2.contains("$r")) {
-					String person = "";
+					Actor person = null;
 					
 					List<Actor> targets = performingClient.getPosition().getActors();
 					
 					do {
 						//System.out.println("TARS targets: " + targets.toString());
-						person = targets.get(MyRandom.nextInt(targets.size())).getBaseName();
-						System.out.println("TARS wants to talkt to " + person);
+						person = targets.get(MyRandom.nextInt(targets.size()));
+						System.out.println("TARS wants to talkt to " + person.getBaseName());
 					} while (person.equals("TARS"));
 					
-					talkString2 = talkString2.replace("$r", person);
+					talkString2 = talkString2.replace("$r", person.getBaseName());
+					person.addTolastTurnInfo("TARS said \""+talkString2 + "\"");
 				}
+				
 				return talkString2;
 			}
 

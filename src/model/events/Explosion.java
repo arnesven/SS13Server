@@ -13,7 +13,7 @@ import model.map.Room;
 public class Explosion extends Event {
 
 	public double getProbability() {
-		return 0.05;
+		return 0.02;
 	}
 
 	@Override

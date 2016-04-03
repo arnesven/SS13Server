@@ -8,7 +8,7 @@ import model.Player;
 import model.actions.itemactions.EatAction;
 import model.items.GameItem;
 
-public class ApplePie extends FoodItem  {
+public class ApplePie extends HealingFood {
 
 	public ApplePie() {
 		super("Apple Pie", 0.5);
@@ -25,11 +25,6 @@ public class ApplePie extends FoodItem  {
 	}
 	
 	
-	@Override
-	public void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
-		eatenBy.getAsTarget().addToHealth(0.5);
-		eatenBy.addTolastTurnInfo("Mmm, tastes good!");
-	}
 
 	@Override
 	public ApplePie clone() {

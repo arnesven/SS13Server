@@ -58,6 +58,7 @@ import model.npcs.HumanNPC;
 import model.npcs.MeanderingMovement;
 import model.npcs.NPC;
 import model.npcs.ParasiteNPC;
+import model.npcs.SnakeNPC;
 import model.npcs.SpontaneousAct;
 import model.npcs.TARSNPC;
 
@@ -153,6 +154,7 @@ public abstract class GameMode {
 		Collections.sort(gcs);
 		gcs.add("TARS");
 		gcs.add("Cat");
+		gcs.add("Chimp");
 		return gcs;
 	}
 
@@ -352,6 +354,9 @@ public abstract class GameMode {
 		
 		NPC chimp = new ChimpNPC(gameData.getRoom("Greenhouse"));
 		gameData.addNPC(chimp);
+		while (MyRandom.nextDouble() < 0.66) {
+			gameData.addNPC(new SnakeNPC(gameData.getRoom("Greenhouse")));
+		}
 
 		Room TARSRoom;
 		do {
@@ -408,10 +413,6 @@ public abstract class GameMode {
 		Room kitchRoom = gameData.getRoom("Kitchen");
 		kitchRoom.addItem(new FireExtinguisher());
 
-
-		Room green = gameData.getRoom("Greenhouse");
-		green.addItem(new FireExtinguisher());
-		green.addItem(new Tools());
 
 	}
 

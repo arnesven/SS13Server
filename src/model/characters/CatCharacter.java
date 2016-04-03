@@ -5,9 +5,10 @@ import java.util.List;
 
 import model.Player;
 import model.items.GameItem;
+import model.items.weapons.Weapon;
 
 
-public class CatCharacter extends GameCharacter {
+public class CatCharacter extends AnimalCharacter {
 
 	public CatCharacter() {
 		super("Cat", 20, -5.0);
@@ -23,9 +24,11 @@ public class CatCharacter extends GameCharacter {
 		return new ArrayList<>();
 	}
 	
+	
+	
 	@Override
-	public boolean isCrew() {
-		return false;
+	public Weapon getDefaultWeapon() {
+		return Weapon.CLAWS;
 	}
 	
 }

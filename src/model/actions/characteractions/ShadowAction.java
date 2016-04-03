@@ -13,6 +13,7 @@ import model.characters.decorators.AlterMovement;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InstanceRemover;
 import model.events.Event;
+import model.events.FollowMovementEvent;
 import model.events.RemoveInstanceLaterEvent;
 import model.items.GameItem;
 import model.map.Room;
@@ -39,36 +40,7 @@ public class ShadowAction extends WatchAction {
 		performingClient.addTolastTurnInfo("You are shadowing " + target.getName());
 		this.shadowedInRoom = performingClient.getPosition();
 				
-		gameData.addMovementEvent(new Event() {
-			
-			@Override
-			public String howYouAppear(Actor performingClient) {
-				return "";
-			}
-			
-			@Override
-			public SensoryLevel getSense() {
-				return SensoryLevel.NO_SENSE;
-			}
-			
-			@Override
-			public void apply(GameData gameData) {
-				if (shadowedInRoom == performingClient.getPosition()) {
-					Player pl = (Player)performingClient;
-					pl.setNextMove(target.getPosition().getID());
-					pl.moveIntoRoom(target.getPosition());
-					performingClient.addTolastTurnInfo("You followed " + target.getName() + " to " +target.getPosition().getName() + ".");
-				} else {
-					performingClient.addTolastTurnInfo("You stopped shadowing " + target.getName() + ".");
-					
-				}
-			}
-			
-			@Override
-			public boolean shouldBeRemoved(GameData gameData) {
-				return true;
-			}
-		});
+		gameData.addMovementEvent(new FollowMovementEvent(shadowedInRoom, performingClient, target));
 	}
 
 

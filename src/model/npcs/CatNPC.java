@@ -1,11 +1,9 @@
 package model.npcs;
 
-import model.actions.characteractions.MeowingAction;
 import model.characters.CatCharacter;
-import model.characters.GameCharacter;
 import model.map.Room;
 
-public class CatNPC extends NPC {
+public class CatNPC extends NPC implements Trainable {
 
 	public CatNPC(Room startingRoom) {
 		super(new CatCharacter(), new MeanderingMovement(0.5),

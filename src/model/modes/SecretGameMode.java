@@ -14,8 +14,6 @@ import model.npcs.NPC;
 
 public class SecretGameMode  {
 	
-	private GameMode innerMode;
-
 	public static GameMode getNewInstance() {
 		GameMode result;
 		double d = MyRandom.nextDouble();

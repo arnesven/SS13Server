@@ -36,7 +36,7 @@ public abstract class NPC extends Actor implements Target {
 		moveIntoRoom(r);
 	}
 	
-	protected void moveIntoRoom(Room r) {
+	public void moveIntoRoom(Room r) {
 		if (getPosition() != null) {
 			getPosition().removeNPC(this);
 		}
