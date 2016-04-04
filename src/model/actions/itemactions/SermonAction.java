@@ -13,8 +13,11 @@ import model.items.GameItem;
 
 public class SermonAction extends Action {
 
-	public SermonAction() {
+	private Bible bible;
+
+	public SermonAction(Bible bible) {
 		super("Sing Sermon", SensoryLevel.NO_SENSE);
+		this.bible = bible;
 	}
 	
 	@Override
@@ -35,6 +38,7 @@ public class SermonAction extends Action {
 					a.addTolastTurnInfo(performingClient.getPublicName() + 
 							" said \"" + sermon + "\".");
 				}
+				bible.addGodPoints(1);
 			}
 		} catch (FileNotFoundException e) {
 			

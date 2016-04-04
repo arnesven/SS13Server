@@ -12,6 +12,8 @@ import model.characters.decorators.InstanceChecker;
 
 public class Bible extends GameItem {
 
+	private int godPoints = 0;
+
 	public Bible() {
 		super("Holy Bible", 1.0);
 	}
@@ -25,7 +27,7 @@ public class Bible extends GameItem {
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
 			Player cl) {
 		if (isAGodlyMan(cl.getCharacter())) {
-			at.add(new SermonAction());
+			at.add(new SermonAction(this));
 		}
 	}
 
@@ -43,6 +45,14 @@ public class Bible extends GameItem {
 	@Override
 	protected char getIcon() {
 		return '+';
+	}
+
+	public void addGodPoints(int i) {
+		this.godPoints  += i;
+	}
+
+	public int getGodPoints() {
+		return godPoints;
 	}
 	
 

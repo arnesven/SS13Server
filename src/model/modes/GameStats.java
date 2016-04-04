@@ -16,6 +16,8 @@ import model.events.OngoingEvent;
 import model.npcs.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
+import model.objects.GameObject;
+import model.objects.GeneratorConsole;
 
 public abstract class GameStats {
 	
@@ -157,6 +159,7 @@ public abstract class GameStats {
 		"<tr><td><b>Miscellaneous Stats</b></td><td></td></tr>" +
 		"<tr><td> Fires put out: </td><td>"       + getFireString(gameData) + "</td></tr>" +
 		"<tr><td> Hull breaches fixed: </td><td>" + getHullString(gameData) + "</td></tr>" +	
+		"<tr><td> Station power output: </td><td>" + String.format("%.1f", GeneratorConsole.find(gameData).getPowerOutput()*100.0) + "%</td></tr>" +		
 		"<tr><td> Cat survived: </td><td>"        + isCatDead(gameData) + "</td></tr>" +
 		"<tr><td> Parasites spawned: </td><td>"    + mode.getAllParasites().size() + "</td></tr>" +
 		"<tr><td> Parasites killed: </td><td>"     + countDead(mode.getAllParasites()) + "</td></tr>" +
@@ -171,7 +174,6 @@ public abstract class GameStats {
 	}
 
 	
-
 
 
 	private String crazyPeopleString() {

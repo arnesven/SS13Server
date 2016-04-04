@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import util.MyRandom;
 import model.Actor;
@@ -230,10 +231,42 @@ public class TraitorGameMode extends GameMode {
 		result += pointsFromTARS(gameData);
 		result += pointsFromChimp(gameData);
 		result += pointsFromPower(gameData);
+		result += pointsFromGod(gameData);
 		return result;
 	}
 
 
+
+	public int pointsFromGod(GameData gameData) {
+		Bible b = getBible(gameData);
+		if (b == null) {
+			System.out.println("Bible not found");
+			return 0;
+		}
+		return b.getGodPoints();
+	}
+	
+	private Bible getBible(GameData gameData) {
+		for (Actor a : gameData.getActors()) {
+			try {
+				Bible b = (Bible)GameItem.getItem(a, new Bible());
+				return b;
+			} catch (NoSuchElementException nse) {
+				// not found
+			}
+			
+		}
+		
+		for (Room r : gameData.getRooms()) {
+			for (GameItem it : r.getItems()) {
+				if (it instanceof Bible) {
+					System.out.println("Found bible in room " + r.getName());
+					return (Bible)it;
+				}
+			}
+		}
+		return null;
+	}
 
 	public int pointsFromPower(GameData gameData) {
 		if (GeneratorConsole.find(gameData).getPowerOutput() > 0.99) {

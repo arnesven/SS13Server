@@ -190,7 +190,7 @@ public abstract class GameItem implements Locatable {
 		return false;
 	}
 
-	public static Locatable getItem(Player victim, GameItem item) {
+	public static Locatable getItem(Actor victim, GameItem item) {
 		for (GameItem it : victim.getItems()) {
 			if (it.getClass() == item.getClass()) {
 				return it;
