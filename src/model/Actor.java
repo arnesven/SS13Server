@@ -136,7 +136,6 @@ public abstract class Actor  {
 	}
 
 	public void removeInstance(InstanceRemover fireProtectionRemover) {
-		System.out.println("Removing an instance..");
 		this.setCharacter(fireProtectionRemover.removeInstance(getCharacter()));
 	}
 	
@@ -151,4 +150,6 @@ public abstract class Actor  {
 		item.beingTakenOff(this);
 	}
 
+	
+	public abstract double getMaxHealth();
 }

@@ -16,10 +16,12 @@ public class SimulatePower extends Event {
 
 	private Map<Room, Integer> roundsWithoutLS = new HashMap<>();
 	private Map<Room, ColdEvent> lsMap = new HashMap<>();
+	private boolean alreadyAddedDarkness = false;
 	
 
 	@Override
 	public void apply(GameData gameData) {
+		addDarknessEvent(gameData);
 		GeneratorConsole gc = GeneratorConsole.find(gameData);
 		if (gc != null) {
 			gc.updateYourself(gameData);
@@ -29,6 +31,15 @@ public class SimulatePower extends Event {
 	}
 
 	
+
+	private void addDarknessEvent(GameData gameData) {
+		if (!alreadyAddedDarkness) {
+			gameData.addMovementEvent(new DarknessEvent(gameData));
+			alreadyAddedDarkness  = true;
+		}
+	}
+
+
 
 	private void handleOvercharge(GameData gameData, GeneratorConsole gc) {
 		double level = gc.getPowerLevel();

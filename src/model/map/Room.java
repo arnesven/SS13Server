@@ -28,15 +28,7 @@ import model.objects.GameObject;
 public class Room {
 
 	private String name;
-	private String shortname;
-	private int x;
-	private int y;
-	private int width;
-	private int height;
-	private int ID;
 	private int[] neighbors;
-	private double[] doors;
-	
 	private List<Player> players = new ArrayList<>();
 	private List<NPC> npcs = new ArrayList<>();
 	private List<GameObject> objects = new ArrayList<>();
@@ -46,6 +38,18 @@ public class Room {
 	private List<Event> events = new ArrayList<>();
 	private List<Event> eventsHappened = new ArrayList<>();
 
+	/**
+	 * These fields are purely for the GUI.
+	 */
+	protected String shortname;
+	protected int x;
+	protected int y;
+	protected int width;
+	protected int height;
+	private int ID;
+	protected double[] doors;
+
+	
 	/**
 	 * Constructor for a Room
 	 * @param ID, the numeric ID of the room. This is used for the most part when identifying it
@@ -350,6 +354,29 @@ public class Room {
 		
 	}
 
+	public String getShortname() {
+		return shortname;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public double[] getDoors() {
+		return doors;
+	}
 
 
 }

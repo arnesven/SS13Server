@@ -24,7 +24,6 @@ public abstract class NPC extends Actor implements Target {
 		
 	private MovementBehavior moveBehavior;
 	private ActionBehavior actBehavior;
-	private double maxHealth;
 	private boolean cancel = false;
 	
 	public NPC(GameCharacter chara, MovementBehavior m, ActionBehavior a, Room r) {
@@ -94,11 +93,11 @@ public abstract class NPC extends Actor implements Target {
 
 	@Override
 	public double getMaxHealth() {
-		return this.maxHealth;
+		return this.getCharacter().getMaxHealth();
 	}
 	
 	public void setMaxHealth(double d) {
-		this.maxHealth = d;
+		this.getCharacter().setMaxHealth(d);
 	}
 	
 	public void setHealth(double d) {

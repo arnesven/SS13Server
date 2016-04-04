@@ -44,7 +44,6 @@ import model.npcs.NPC;
  */
 public class Player extends Actor implements Target {
 
-	public static final double MAX_HEALTH = 3.0;
 	private boolean ready = false;
 	private int nextMove = 0;
 	//private List<String> lastTurnInfo = new ArrayList<>();
@@ -491,7 +490,7 @@ public class Player extends Actor implements Target {
 	}
 
 	public double getMaxHealth() {
-		return MAX_HEALTH;
+		return getCharacter().getMaxHealth();
 	}
 
 	@Override

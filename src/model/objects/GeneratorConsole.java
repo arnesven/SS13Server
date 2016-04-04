@@ -33,7 +33,6 @@ public class GeneratorConsole extends Console {
 	private double level = STARTING_POWER;
 	private double dlevel = 0.0;
 	private List<String> prios;
-	private boolean stateChanged = false;
 	private ArrayList<Room> noLifeSupport = new ArrayList<>();
 	private ArrayList<Room> noLight = new ArrayList<>();
 	private ArrayList<ElectricalMachinery> noPower = new ArrayList<>();
@@ -108,7 +107,6 @@ public class GeneratorConsole extends Console {
 		} else {
 			dlevel = ONGOING_INCREASE * (increase?+1.0:-1.0);
 		}
-		stateChanged = true;
 		System.out.println("Powerlevel is now " + level);
 	}
 
@@ -124,7 +122,6 @@ public class GeneratorConsole extends Console {
 			}
 		}
 		prios.add(0, selected);
-		stateChanged = true;
 		System.out.println("Prios are now: " + prios);
 	}
 
@@ -183,14 +180,8 @@ public class GeneratorConsole extends Console {
 		}
 		
 		System.out.println(getLightString());
-//		for (Room r : noLight) {
-//			System.out.println("     " + r.getName());
-//		}
 		
 		System.out.println(getEquipmentString());
-//		for (ElectricalMachinery r : noPower) {
-//			System.out.println("     " + r.getName());
-//		}
 	}
 
 	public List<Room> getNoLifeSupportRooms() {
@@ -205,6 +196,10 @@ public class GeneratorConsole extends Console {
 		return noPower;
 	}
 
+	public List<Room> getNoLightRooms() {
+		return noLight;
+	}
+	
 	public static GeneratorConsole find(GameData gameData) {
 		GeneratorConsole gc = null;
 		for (GameObject o : gameData.getObjects()) {
@@ -236,5 +231,7 @@ public class GeneratorConsole extends Console {
 	public String getEquipmentString() {
 		return "Electrical equipment (" + (eqBefore - noPower.size()) + "/" + eqBefore + ")";
 	}
+
+	
 
 }

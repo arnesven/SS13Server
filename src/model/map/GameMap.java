@@ -15,33 +15,20 @@ import model.GameData;
  */
 public class GameMap {
 
-	private HashMap<Integer, Room> roomsMap;
 	private List<Room> roomsList;
 
 	public GameMap(ArrayList<Room> result) {
-		HashMap<Integer, Room> hm = new HashMap<>();
 		for (Room r : result) {
-			hm.put(r.getID(), r);
 			r.setMap(this);
 		}
 		this.setRoomsList(result);
-		this.setRoomMap(hm);
 	
 	}
 
 	public void addRoom(Room room) {
 		roomsList.add(room);
-		roomsMap.put(room.getID(), room);
 	}
 	
-	private void setRoomsList(ArrayList<Room> result) {
-		roomsList = result;
-	}
-
-	private void setRoomMap(HashMap<Integer, Room> hm) {
-		roomsMap = hm;
-	}
-
 	public List<Room> getRooms() {
 		return roomsList;
 	}
@@ -115,6 +102,11 @@ public class GameMap {
 		return list;
 	}
 
+
+	private void setRoomsList(ArrayList<Room> result) {
+		roomsList = result;
+	}
+
 	
 	public static void connectRooms(Room to, Room from) {
 		int[] newNArr = new int[from.getNeighbors().length+1];
@@ -137,7 +129,6 @@ public class GameMap {
 	
 		from.setNeighbors(newNArr);
 	}
-
 
 
 

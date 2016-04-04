@@ -34,6 +34,8 @@ import model.map.Room;
  */
 public abstract class GameCharacter {
 	
+	public double maxHealth = 3.0;
+	
 	private static final double ENCUMBERANCE_LEVEL = 5.0;
 	private String name;
 	private int startingRoom = 0;
@@ -363,7 +365,34 @@ public abstract class GameCharacter {
 		return 'a';
 	}
 
+	public String getWatchString(Actor whosAsking) {
+		String healthStr = "healthy";
+		if (this.isDead()) {
+			healthStr = "dead";
+		} else if (this.getHealth() < this.getMaxHealth() ){
+			healthStr = "unhealthy";
+		}
+		
+		String itemStr = null;
+		String name = this.getPublicName();
 
+		if (this.getItems().size() > 0) {
+			GameItem randomItem = MyRandom.sample(getItems());
+			itemStr = " and is carrying a " + randomItem.getPublicName(whosAsking);
+		}
+
+		return name + " looks " + healthStr + (itemStr==null?"":itemStr) + ".";
+	}
+
+
+	public double getMaxHealth() {
+		return maxHealth;
+	}
+	
+	public void setMaxHealth(double d) {
+		maxHealth = d;
+	}
+	
 	
 
 }

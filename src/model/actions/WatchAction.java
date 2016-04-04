@@ -26,30 +26,8 @@ public class WatchAction extends TargetingAction {
 			Actor performingClient, Target target, GameItem item) {
 		
 		
-		String healthStr = "healthy";
-		if (target.isDead()) {
-			healthStr = "dead";
-		} else if (target.getHealth() < target.getMaxHealth() ){
-			healthStr = "unhealthy";
-		}
-		
-		String itemStr = null;
-		String name = target.getName();
-		if (target instanceof Actor) {
-			Actor cl = (Actor)target;
-			name = cl.getBaseName();
-			if (cl.getItems().size() > 0) {
-				GameItem randomItem = cl.getItems().get(MyRandom.nextInt(cl.getItems().size()));
-				itemStr = " and is carrying a " + randomItem.getPublicName(performingClient);
-			}
-		}		
-		
-		performingClient.addTolastTurnInfo(name + " looks " + healthStr + (itemStr==null?"":itemStr) + ".");
 
-//		} else {
-//			performingClient.addTolastTurnInfo("You're watching " + target.getName() + ".");
-//			
-//		}
+		performingClient.addTolastTurnInfo(((Actor)target).getCharacter().getWatchString(performingClient));
 	
 	}
 

@@ -229,4 +229,24 @@ public abstract class CharacterDecorator extends GameCharacter {
 		return innerChar.getIcon(whosAsking);
 	}
 	
+	@Override
+	public double getMaxHealth() {
+		return innerChar.getMaxHealth();
+	}
+	
+	@Override
+	public String getWatchString(Actor whosAsking) {
+		return innerChar.getWatchString(whosAsking);
+	}
+	
+	@Override
+	public void setMaxHealth(double d) {
+		innerChar.setMaxHealth(d);
+	}
+	
+	@Override
+	public int getStartingRoom() {
+		return innerChar.getStartingRoom();
+	}
+	
 }
