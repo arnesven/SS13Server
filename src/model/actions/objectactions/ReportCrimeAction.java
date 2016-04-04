@@ -1,0 +1,66 @@
+package model.actions.objectactions;
+
+
+import java.util.List;
+
+import model.Actor;
+import model.GameData;
+import model.actions.Action;
+import model.actions.ActionOption;
+import model.objects.CrimeRecordsConsole;
+import model.actions.SensoryLevel;
+
+public class ReportCrimeAction extends Action {
+
+
+	private CrimeRecordsConsole console;
+	private String selectedGuy;
+	private String selectedCrime;
+
+	public ReportCrimeAction(CrimeRecordsConsole crimeRecordsConsole) {
+		super("Report Crime", SensoryLevel.NO_SENSE);
+		this.console = crimeRecordsConsole;
+	}
+
+	@Override
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		ActionOption opt = super.getOptions(gameData, whosAsking);
+		for (Actor a : gameData.getActors()) {
+			if (a.getCharacter().isCrew()) {
+				ActionOption guy = new ActionOption(a.getCharacter().getBaseName());
+				for (int i = 0; i < CrimeRecordsConsole.crimes.length; ++i) {
+					guy.addOption(CrimeRecordsConsole.crimes[i] + 
+							" (" + CrimeRecordsConsole.sentenceLengths[i] + ")");
+				}
+				opt.addOption(guy);
+			}
+		}
+		return opt;
+	}
+	
+	@Override
+	protected void execute(GameData gameData, Actor performingClient) {
+		Actor guy = null;
+		for (Actor a : gameData.getActors()) {
+			if (selectedGuy.contains(a.getBaseName())) {
+				guy = a;
+				break;
+			}
+		}
+		console.addReport(guy, selectedCrime, performingClient);
+		performingClient.addTolastTurnInfo("You reported " + guy.getBaseName() + " for \"" + selectedCrime + "\".");
+	}
+
+	@Override
+	public void setArguments(List<String> args, Actor performingClient) {
+		selectedGuy = args.get(0);
+		selectedCrime = args.get(1).replaceAll(" \\(\\d\\)", "");
+	}
+
+	@Override
+	protected String getVerb(Actor whosAsking) {
+		return "Reported crime";
+	}
+	
+
+}

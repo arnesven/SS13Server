@@ -24,6 +24,12 @@ public class StunBaton extends AmmoWeapon {
 	}
 
 	@Override
+	public StunBaton clone() {
+		return new StunBaton();
+	}
+	
+	
+	@Override
 	protected char getIcon() {
 		return '!';
 	}

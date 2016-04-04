@@ -8,6 +8,11 @@ public class LaserPistol extends AmmoWeapon {
 	}
 
 	@Override
+	public LaserPistol clone() {
+		return new LaserPistol();
+	}
+	
+	@Override
 	protected char getIcon() {
 		return 'L';
 	}

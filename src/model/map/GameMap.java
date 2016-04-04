@@ -2,6 +2,7 @@ package model.map;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -130,6 +131,29 @@ public class GameMap {
 		from.setNeighbors(newNArr);
 	}
 
+	
+	public static int shortestDistance(Room from, Room to) {
+		return recursiveShortest(from, to, new HashSet<Room>());
+	}
+
+	private static int recursiveShortest(Room from, Room to,
+			HashSet<Room> visited) {
+		if (from == to) {
+			return 0;
+		}
+		visited.add(from);
+		
+		int least = 100000;
+		for (Room inter : from.getNeighborList()) {
+			if (!visited.contains(inter)) {
+				HashSet<Room> newVisited = new HashSet<>();
+				newVisited.addAll(visited);
+				least = Math.min(least, recursiveShortest(inter, to, newVisited));
+			}
+		}
+		return 1 + least;
+		
+	}
 
 
 }

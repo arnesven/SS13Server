@@ -8,6 +8,11 @@ public class Shotgun extends AmmoWeapon {
 	}
 	
 	@Override
+	public Shotgun clone() {
+		return new Shotgun();
+	}
+	
+	@Override
 	protected char getIcon() {
 		return 'g';
 	}

@@ -8,6 +8,11 @@ public class Knife extends Weapon {
 	}
 
 	@Override
+	public Knife clone() {
+		return new Knife();
+	}
+	
+	@Override
 	protected char getIcon() {
 		return 'k';
 	}

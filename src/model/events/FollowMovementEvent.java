@@ -35,7 +35,7 @@ public class FollowMovementEvent extends Event {
 		if (shadowedInRoom == performingClient.getPosition()) {
 			if (performingClient instanceof Player) {
 				Player pl = (Player)performingClient;
-				pl.setNextMove(target.getPosition().getID());
+				
 				pl.moveIntoRoom(target.getPosition());
 				performingClient.addTolastTurnInfo("You followed " + target.getName() + " to " +target.getPosition().getName() + ".");
 			} else {

@@ -152,4 +152,6 @@ public abstract class Actor  {
 
 	
 	public abstract double getMaxHealth();
+	
+	public abstract void moveIntoRoom(Room brig);
 }

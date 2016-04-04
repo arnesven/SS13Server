@@ -9,6 +9,7 @@ import model.objects.AIConsole;
 import model.objects.AirLockControl;
 import model.objects.ChemicalDispenser;
 import model.objects.CrewRoster;
+import model.objects.CrimeRecordsConsole;
 import model.objects.KeyCardLock;
 import model.objects.Lockers;
 import model.objects.MedkitDispenser;
@@ -60,9 +61,11 @@ public class MapBuilder {
 		Room bridge = new Room(17, "Bridge"              , "Brdg"   ,15,  5, 3, 3, new int[]{16, 20}    ,         new double[]{16.0, 8.0}  ); 
 		bridge.addItem(new SpaceSuit());
 		bridge.addObject(new AirLockControl(bridge));
+		bridge.addObject(new SecurityCameraConsole(bridge));
 		result.add(bridge);
+	
 		Room ss = new Room(18, "Security Station"    , "SS"     ,15,  2, 2, 2, new int[]{16}        ,         new double[]{}  );
-		ss.addObject(new SecurityCameraConsole(ss));
+		ss.addObject(new CrimeRecordsConsole(ss));
 		result.add(ss);
 		
 		Room gate =new Room(19, "Shuttle Gate"        , "Gate"   ,10,  2, 3, 2, new int[]{16, 21, 23},         new double[]{10.0, 3.5, 13.0, 3.5} );
@@ -77,16 +80,14 @@ public class MapBuilder {
 		sickbay.addObject(new MedkitDispenser(3, sickbay));
 		result.add(sickbay);
 		result.add(new AirLockRoom(25, 3    , 5,  0, 1, 1, new int[]{24}        ,         new double[]{6.0, 0.5}  ));
-		
-		
-		
-		
+
 		result.add(new GeneratorRoom(26, 6,  5, 3, 3, new int[]{5}         ,         new double[]{} ));
 		result.add(new Room(27, "Panorama Walkway"    , ""       , 1,  3, 1, 3, new int[]{1, 3}      ,         new double[]{} ));
 		
 		Room nukieShip = new NukieShipRoom(28, new int[]{7, 21, 25}, new double[]{-1.0, -1.0});
-		
 		result.add(nukieShip);
+		
+		result.add(new Room(29, "Brig", "", 15, 4, 1, 1, new int[]{29}, new double[]{-1.0, -10}));
 		
 		GameMap gm = new GameMap(result);
 		

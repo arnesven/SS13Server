@@ -50,6 +50,7 @@ import model.items.MedKit;
 import model.items.Tools;
 import model.items.suits.RadiationSuit;
 import model.items.weapons.Weapon;
+import model.map.GameMap;
 import model.map.NukieShipRoom;
 import model.map.Room;
 import model.npcs.CatNPC;
@@ -58,6 +59,7 @@ import model.npcs.HumanNPC;
 import model.npcs.MeanderingMovement;
 import model.npcs.NPC;
 import model.npcs.ParasiteNPC;
+import model.npcs.SecuritronNPC;
 import model.npcs.SnakeNPC;
 import model.npcs.SpontaneousAct;
 import model.npcs.TARSNPC;
@@ -354,7 +356,7 @@ public abstract class GameMode {
 		
 		NPC chimp = new ChimpNPC(gameData.getRoom("Greenhouse"));
 		gameData.addNPC(chimp);
-		while (MyRandom.nextDouble() < 0.66) {
+		while (MyRandom.nextDouble() < 0.5) {
 			gameData.addNPC(new SnakeNPC(gameData.getRoom("Greenhouse")));
 		}
 
@@ -362,10 +364,14 @@ public abstract class GameMode {
 		do {
 			TARSRoom = MyRandom.sample(gameData.getRooms());
 		} while (TARSRoom instanceof NukieShipRoom);
-
 		
 		NPC tars = new TARSNPC(TARSRoom);
 		gameData.addNPC(tars);
+		
+		NPC securitron = new SecuritronNPC(gameData.getRoom("Security Station"), gameData);
+		gameData.addNPC(securitron);
+		
+	//	testShortestDistance(gameData);
 
 		int noOfNPCs = Math.min(MyRandom.nextInt(3) + 4, remainingChars.size());
 		for ( ; noOfNPCs > 0 ; noOfNPCs--) {
@@ -379,6 +385,24 @@ public abstract class GameMode {
 			gameData.addNPC(human);
 			System.out.println("Adding npc " + gc.getBaseName());
 
+		}
+	}
+
+	private void testShortestDistance(GameData gameData) {
+		// TODO Auto-generated method stub
+		List<String> places = new ArrayList<>();
+		places.add("Greenhouse");
+		places.add("Dorms");
+		places.add("Office");
+		places.add("Bridge");
+		places.add("Generator");
+		places.add("Air Lock #2");
+		for (String place1 : places) {
+			for (String place2 : places) {
+			System.out.println("Shortest distance between " + place1 + 
+								" and " + place2 + ": " + 
+								GameMap.shortestDistance(gameData.getRoom(place1), gameData.getRoom(place2)));
+			}
 		}
 	}
 

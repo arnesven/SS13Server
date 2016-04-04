@@ -235,6 +235,7 @@ public class Player extends Actor implements Target {
 	 * @param room the room to be moved into.
 	 */
 	public void moveIntoRoom(Room room) {
+		setNextMove(room.getID());
 		if (!isDead()) {
 			if (this.getPosition() != null) {
 				this.getPosition().removePlayer(this);
