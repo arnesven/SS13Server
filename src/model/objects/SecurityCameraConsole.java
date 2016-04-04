@@ -13,7 +13,7 @@ public class SecurityCameraConsole extends Console {
 	private String chosen;
 
 	public SecurityCameraConsole(Room pos) {
-		super("Security Console", pos);
+		super("Security Cameras", pos);
 	}
 	
 	@Override

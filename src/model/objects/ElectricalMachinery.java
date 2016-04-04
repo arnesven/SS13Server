@@ -33,7 +33,7 @@ public abstract class ElectricalMachinery extends BreakableObject implements Rep
 			ArrayList<Action> at) {
 		System.out.println("## adding specific action for electrical");
 		ArrayList<Action> at2 = new ArrayList<>();
-		if (!isPowered(gameData)) {
+		if (!isPowered(gameData, this)) {
 			System.out.println("####" + this.getName() + " isn't powered! no power actions!");
 			super.addSpecificActionsFor(gameData, cl, at2);
 			for (Action a : at2) {
@@ -45,8 +45,8 @@ public abstract class ElectricalMachinery extends BreakableObject implements Rep
 		}
 	}
 
-	private boolean isPowered(GameData gameData) {
-		return !(GeneratorConsole.find(gameData).getNoPowerObjects().contains(this));
+	public static boolean isPowered(GameData gameData, ElectricalMachinery machine) {
+		return !(GeneratorConsole.find(gameData).getNoPowerObjects().contains(machine));
 	}
 	
 }

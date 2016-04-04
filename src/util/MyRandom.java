@@ -89,6 +89,7 @@ public class MyRandom {
 		list.add(new KeyCard());
 		list.add(new GeigerMeter());
 		list.add(new MedKit());
+		list.add(new Laptop());
 		list.add(new TimeBomb());
 		list.add(new RemoteBomb());
 		list.add(new Tools());

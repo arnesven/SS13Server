@@ -30,7 +30,7 @@ import model.characters.crew.EngineerCharacter;
 import model.characters.crew.GeneticistCharacter;
 import model.characters.crew.HeadOfStaffCharacter;
 import model.characters.crew.JanitorCharacter;
-import model.characters.crew.MechanicCharacter;
+import model.characters.crew.TechnicianCharacter;
 import model.characters.crew.RoboticistCharacter;
 import model.characters.crew.SecurityOfficerCharacter;
 import model.characters.crew.TouristCharacter;
@@ -136,7 +136,7 @@ public abstract class GameMode {
 		availableChars.put("Janitor",          new JanitorCharacter());
 		availableChars.put("Chef",             new ChefCharacter());
 		availableChars.put("Bartender",        new BartenderCharacter());
-		availableChars.put("Mechanic",         new MechanicCharacter());
+		availableChars.put("Technician",       new TechnicianCharacter());
 		availableChars.put("Chaplain",         new ChaplainCharacter());
 		availableChars.put("Tourist",          new TouristCharacter());
 		return availableChars;

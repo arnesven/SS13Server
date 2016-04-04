@@ -23,7 +23,7 @@ public class SecurityConsoleAction extends Action {
 	private SecurityCameraConsole console;
 
 	public SecurityConsoleAction(SecurityCameraConsole securityCameraConsole) {
-		super("Security Console", SensoryLevel.OPERATE_DEVICE);
+		super("Security Cameras", SensoryLevel.OPERATE_DEVICE);
 		this.console = securityCameraConsole;
 	}
 
