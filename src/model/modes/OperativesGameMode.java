@@ -27,7 +27,7 @@ import model.objects.PressurePanel;
 import model.items.weapons.Revolver;
 import model.items.NuclearDisc;
 
-public class InfiltrationGameMode extends GameMode {
+public class OperativesGameMode extends GameMode {
 
 	private static final double OPERATIVE_FACTOR = 1.0/2.0;
 	private Room nukieShip;
@@ -187,7 +187,7 @@ public class InfiltrationGameMode extends GameMode {
 	
 	@Override
 	public String getSummary(GameData gameData) {
-		return (new InfiltrationModeStats(gameData, this)).toString();
+		return (new OperativesModeStats(gameData, this)).toString();
 	}
 
 

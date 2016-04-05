@@ -20,16 +20,22 @@ public class SentenceCountdownEvent extends Event {
 
 	@Override
 	public void apply(GameData gameData) {
-		int remaining = console.getSentenceMap().get(inmate);
-		if (remaining == 0) {
-			remove = true;
+		if (!gameData.getRoom("Brig").getActors().contains(inmate)) {
+			System.out.println(inmate.getBaseName() + " has been sprung!");
 			console.getSentenceMap().remove(inmate);
-			inmate.moveIntoRoom(gameData.getRoom("Port Hall Front"));
-			inmate.addTolastTurnInfo("You were released from the brig.");
+			remove = true;
 		} else {
-			remaining--;
-			console.getSentenceMap().put(inmate, remaining);
-			inmate.addTolastTurnInfo("You have " + remaining + " more round(s) on your sentance.");
+
+			int remaining = console.getSentenceMap().get(inmate);
+			if (remaining == 0) {
+				remove = true;
+				console.release(gameData, inmate);
+			} else {
+				inmate.addTolastTurnInfo("You have " + remaining + " more round(s) on your sentance.");
+				remaining--;
+				console.getSentenceMap().put(inmate, remaining);
+				
+			}
 		}
 	}
 

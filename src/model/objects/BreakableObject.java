@@ -45,6 +45,7 @@ public abstract class BreakableObject extends GameObject implements Target {
 				performingClient.addTolastTurnInfo("The " + super.getPublicName(performingClient) + " was destroyed!");				
 				this.breaker = performingClient;
 				this.brokenByWeapon = item;
+				thisJustBroke();
 			}
 		} else {
 			performingClient.addTolastTurnInfo("You missed the " + super.getPublicName(performingClient) + ".");
@@ -53,6 +54,10 @@ public abstract class BreakableObject extends GameObject implements Target {
 		return success;
 	}
 	
+	public void thisJustBroke() {
+		// can be overridden for fun
+	}
+
 	@Override
 	public String getPublicName(Actor whosAsking) {
 		if (isBroken()) {
@@ -128,6 +133,7 @@ public abstract class BreakableObject extends GameObject implements Target {
 			if (hp == 0) { // broken :-)
 				if (performingClient != null && !alreadyBroken) {
 					breaker = performingClient;
+					thisJustBroke();
 				} else {
 					breakString = damage.getName();
 				}

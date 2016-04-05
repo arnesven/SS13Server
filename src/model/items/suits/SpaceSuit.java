@@ -27,6 +27,7 @@ public class SpaceSuit extends SuitItem {
 
 			@Override
 			public GameCharacter removeInstance(GameCharacter ch) {
+				System.out.println("In remover: " + ch.getClass().getName());
 				if (ch instanceof SpaceProtection) {
 					return ((CharacterDecorator)ch).getInner();
 				}
@@ -38,6 +39,8 @@ public class SpaceSuit extends SuitItem {
 			}
 		};
 		
+		System.out.println(" -= being taken off =-");
+		actionPerformer.getCharacter().printInstances();
 		actionPerformer.removeInstance(spaceProtectionRemover);
 	}
 

@@ -7,12 +7,13 @@ import model.items.suits.FireSuit;
 import model.items.suits.SpaceSuit;
 import model.objects.AirLockControl;
 import model.objects.ChemicalDispenser;
-import model.objects.KeyCardLock;
+import model.objects.EvidenceBox;
 import model.objects.Lockers;
 import model.objects.MedkitDispenser;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.AdministrationConsole;
 import model.objects.consoles.CrimeRecordsConsole;
+import model.objects.consoles.KeyCardLock;
 import model.objects.consoles.SecurityCameraConsole;
 
 
@@ -56,7 +57,8 @@ public class MapBuilder {
 		Room aiCore = new Room(15, "AI Core"             , "AI"     ,10,  7, 2, 2, new int[]{13}        ,         new double[]{} ); 
 		aiCore.addObject(new AIConsole(aiCore));
 		result.add(aiCore);
-		result.add(new Room(16, "Port Hall Front"     , ""       ,13,  3, 2, 3, new int[]{13, 17, 18, 19},     new double[]{15.0, 5.5, 15.0, 3.5} ));
+		Room portHallFront = new Room(16, "Port Hall Front"     , ""       ,13,  3, 2, 3, new int[]{13, 17, 18, 19},     new double[]{15.0, 5.5, 15.0, 3.5} );
+		result.add(portHallFront);
 		
 		Room bridge = new Room(17, "Bridge"              , "Brdg"   ,15,  5, 3, 3, new int[]{16, 20}    ,         new double[]{16.0, 8.0}  ); 
 		bridge.addItem(new SpaceSuit());
@@ -66,14 +68,23 @@ public class MapBuilder {
 	
 		Room ss = new Room(18, "Security Station"    , "SS"     ,15,  2, 2, 2, new int[]{16}        ,         new double[]{}  );
 		ss.addObject(new CrimeRecordsConsole(ss));
+		ss.addObject(new EvidenceBox(ss));
 		result.add(ss);
 		
 		Room gate =new Room(19, "Shuttle Gate"        , "Gate"   ,10,  2, 3, 2, new int[]{16, 21, 23},         new double[]{10.0, 3.5, 13.0, 3.5} );
 		result.add(gate);
 		result.add(new Room(20, "Captain's Quarters"  , "CQ"     ,15,  8, 2, 2, new int[]{17}        ,         new double[]{16.0, 8.0}  ));
 		result.add(new AirLockRoom(21, 2   ,13,  2, 1, 1, new int[]{19}        ,         new double[]{13.0, 2.5} ));
-		Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{19}        ,         new double[]{-11.0, 4.0} );
-		gate.addObject(new KeyCardLock(army, gate, true));
+		Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{22}        ,         new double[]{-11.0, 4.0} );
+		{
+			KeyCardLock l1 = new KeyCardLock(army, gate, true, 4.0);
+			KeyCardLock l2 = new KeyCardLock(army, gate, true, 4.0);
+			l1.setLinkedLock(l2);
+			l2.setLinkedLock(l1);
+			gate.addObject(l1);
+			army.addObject(l2);
+		}
+
 		result.add(army);
 		result.add(new Room(23, "Port Hall Aft"       , ""       , 6,  3, 4, 2, new int[]{19, 24, 5} ,         new double[]{7.5, 3.0, } ));
 		Room sickbay = new Room(24, "Sickbay"             , "Sick"   , 6,  0, 3, 3, new int[]{23, 25, 1} ,         new double[]{} );
@@ -87,8 +98,17 @@ public class MapBuilder {
 		Room nukieShip = new NukieShipRoom(28, new int[]{7, 21, 25}, new double[]{-1.0, -1.0});
 		result.add(nukieShip);
 		
-		result.add(new Room(29, "Brig", "", 15, 4, 1, 1, new int[]{29}, new double[]{-1.0, -10}));
-		
+		Room brig = new Room(29, "Brig", "", 15, 4, 1, 1, new int[]{29}, new double[]{-14.65, 4.5});
+		result.add(brig);
+		{
+			KeyCardLock l1 = new KeyCardLock(brig, portHallFront, true, 3.0);
+			KeyCardLock l2 = new KeyCardLock(brig, portHallFront, true, 3.0);
+			l1.setLinkedLock(l2);
+			l2.setLinkedLock(l1);
+			brig.addObject(l1);
+			portHallFront.addObject(l2);
+		}
+
 		GameMap gm = new GameMap(result);
 		
 

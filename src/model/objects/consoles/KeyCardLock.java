@@ -1,0 +1,109 @@
+package model.objects.consoles;
+
+import java.util.ArrayList;
+
+import model.Actor;
+import model.GameData;
+import model.Player;
+import model.actions.Action;
+import model.actions.objectactions.LockRoomAction;
+import model.actions.objectactions.UnlockRoomAction;
+import model.items.GameItem;
+import model.items.KeyCard;
+import model.map.GameMap;
+import model.map.Room;
+
+public class KeyCardLock extends Console {
+
+	private Room to;
+	private Room from;
+	boolean locked;
+	private KeyCardLock linkedLock;
+
+	public KeyCardLock(Room to, Room from, boolean isLocked, double hp) {
+		super(to.getName() + " Lock", from);
+		this.to = to;
+		this.from = from;
+		locked = isLocked;
+		this.setMaxHealth(hp);
+		this.setHealth(hp);
+	}
+	
+	
+	@Override
+	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+		if (hasKeyCard(cl)) {
+			if (locked) {
+				at.add(new UnlockRoomAction(to, from, this));
+			} else {
+				at.add(new LockRoomAction(to, from, this));
+			}
+		}
+	}
+
+	private boolean hasKeyCard(Player cl) {
+		for (GameItem it : cl.getItems()) {
+			if (it instanceof KeyCard) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+
+	public void setLocked(boolean b) {
+		this.locked = b;
+		if (hasLinkedLock()) {
+			getLinkedLock().locked = b;
+		}
+	}
+
+
+	public boolean hasLinkedLock() {
+		return linkedLock != null;
+	}
+
+	public void setLinkedLock(KeyCardLock lock) {
+		linkedLock = lock;
+	}
+
+
+	public KeyCardLock getLinkedLock() {
+		return linkedLock;
+	}
+
+
+	public void lockRooms() {
+		if (isBroken() || (hasLinkedLock() && getLinkedLock().isBroken())) {
+			return;
+		}
+		GameMap.separateRooms(to, from);
+		setLocked(true);
+	}
+
+
+	public void unlockRooms() {
+		if (isBroken() || (hasLinkedLock() && getLinkedLock().isBroken())) {
+			return;
+		}
+		GameMap.joinRooms(to, from);
+		setLocked(false);
+	}
+	
+	@Override
+	public void thisJustBroke() {
+		System.out.println(" room unlocked because of lock broke!");
+		unlockRooms();
+	}
+	
+	@Override
+	public void onPowerOff(GameData gameData) {
+		for (Actor a : gameData.getActors()) {
+			a.addTolastTurnInfo("AI; Attention, " + to.getName() + " unlocked because of power failure!");
+		}
+		System.out.println(" room unlocked because of power failure!");
+		unlockRooms();
+	}
+	
+}

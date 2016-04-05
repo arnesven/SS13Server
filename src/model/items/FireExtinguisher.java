@@ -14,6 +14,7 @@ import model.actions.SensoryLevel.VisualLevel;
 import model.events.ElectricalFire;
 import model.events.Event;
 import model.items.weapons.BluntWeapon;
+import model.items.weapons.Weapon;
 import model.map.Room;
 
 public class FireExtinguisher extends BluntWeapon {
@@ -22,6 +23,11 @@ public class FireExtinguisher extends BluntWeapon {
 	
 	public FireExtinguisher() {
 		super("Fire ext.", 1.0);
+	}
+	
+	@Override
+	public FireExtinguisher clone() {
+		return new FireExtinguisher();
 	}
 	
 	@Override

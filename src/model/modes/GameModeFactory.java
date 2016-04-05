@@ -11,9 +11,9 @@ public class GameModeFactory {
 		} else if (selectedMode.toLowerCase().equals("traitor")) {
 			System.out.println("Mode is traitor");
 			return new TraitorGameMode();			
-		} else if (selectedMode.toLowerCase().equals("infiltration")) {
-			System.out.println("Mode is infiltration");
-			return new InfiltrationGameMode();
+		} else if (selectedMode.toLowerCase().equals("operatives")) {
+			System.out.println("Mode is operatives");
+			return new OperativesGameMode();
 		}
 		
 		System.out.println("Mode is secret");

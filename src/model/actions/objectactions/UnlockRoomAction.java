@@ -10,7 +10,7 @@ import model.items.GameItem;
 import model.items.KeyCard;
 import model.map.GameMap;
 import model.map.Room;
-import model.objects.KeyCardLock;
+import model.objects.consoles.KeyCardLock;
 
 public class UnlockRoomAction extends Action {
 
@@ -33,9 +33,9 @@ public class UnlockRoomAction extends Action {
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
 		if (GameItem.hasAnItem(performingClient, new KeyCard())) {
-			GameMap.connectRooms(to, from);
+			lock.unlockRooms();
 			performingClient.addTolastTurnInfo("You unlocked the " + to.getName() + ".");
-			lock.setLocked(false);
+			
 		} else {
 			performingClient.addTolastTurnInfo("What? The key card is gone! Your action failed.");
 		}

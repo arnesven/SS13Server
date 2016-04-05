@@ -11,7 +11,7 @@ import model.events.Event;
 import model.items.GameItem;
 import model.items.NuclearDisc;
 import model.map.Room;
-import model.modes.InfiltrationGameMode;
+import model.modes.OperativesGameMode;
 
 public class EscapeAndSetNukeAction extends Action {
 
@@ -66,7 +66,7 @@ public class EscapeAndSetNukeAction extends Action {
 								a.getCharacter().beExposedTo(null, new NuclearExplosiveDamage());
 							}
 						}
-						((InfiltrationGameMode)gameData.getGameMode()).setNuked(true);
+						((OperativesGameMode)gameData.getGameMode()).setNuked(true);
 						gameData.setNumberOfRounds(gameData.getNoOfRounds() - 2);
 					}
 					

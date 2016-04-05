@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.GameCharacter;
+import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InfectedCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.InstanceRemover;
@@ -39,6 +40,9 @@ public abstract class Actor  {
 	 */
 	public void setCharacter(GameCharacter charr) {
 		this.character = charr;
+		if (charr instanceof CharacterDecorator) {
+			((CharacterDecorator)charr).printInstances();
+		}
 	}
 	
 	/**
@@ -135,8 +139,8 @@ public abstract class Actor  {
 		return getCharacter().isDead();
 	}
 
-	public void removeInstance(InstanceRemover fireProtectionRemover) {
-		this.setCharacter(fireProtectionRemover.removeInstance(getCharacter()));
+	public void removeInstance(InstanceRemover remover) {
+		this.setCharacter(remover.removeInstance(getCharacter()));
 	}
 	
 	public void putOnSuit(SuitItem selectedItem) {

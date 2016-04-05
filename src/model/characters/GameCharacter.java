@@ -393,6 +393,9 @@ public abstract class GameCharacter {
 		maxHealth = d;
 	}
 	
+	public void printInstances() {
+		System.out.println(this.getClass().getName());
+	}
 	
 
 }

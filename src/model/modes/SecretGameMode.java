@@ -32,7 +32,7 @@ public class SecretGameMode  {
 				}
 			};
 		} else {
-			result = new InfiltrationGameMode() {
+			result = new OperativesGameMode() {
 				@Override
 				protected void addProtagonistStartingMessage(Player c) {
 					protMessage(c);

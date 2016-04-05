@@ -50,4 +50,12 @@ public abstract class ElectricalMachinery extends BreakableObject implements Rep
 		return !(GeneratorConsole.find(gameData).getNoPowerObjects().contains(machine));
 	}
 	
+	public boolean isPowered(GameData gameData) {
+		return isPowered(gameData, this);
+	}
+	
+	public void onPowerOn(GameData gameData) {  }
+	
+	public void onPowerOff(GameData gameData) {  }
+	
 }

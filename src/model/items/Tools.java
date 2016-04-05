@@ -13,6 +13,7 @@ import model.actions.itemactions.RepairAction;
 import model.events.Event;
 import model.events.HullBreach;
 import model.items.weapons.BluntWeapon;
+import model.items.weapons.Weapon;
 import model.map.Room;
 import model.objects.BreakableObject;
 import model.objects.GameObject;
@@ -24,6 +25,12 @@ public class Tools extends BluntWeapon {
 	public Tools() {
 		super("Tools", 1.0);
 	}
+	
+	@Override
+	public Tools clone() {
+		return new Tools();
+	}
+	
 	
 	@Override
 	protected char getIcon() {

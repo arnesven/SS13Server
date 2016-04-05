@@ -59,17 +59,22 @@ public class DarknessEvent extends Event {
 	}
 
 	private void addDarkness(Actor a) {
+		if (!isDarkened(a)) {
+			a.setCharacter(new DarknessShroudDecorator(a.getCharacter()));			
+		}
+	}
+	
+	private boolean isDarkened(Actor a) {
 		InstanceChecker check = new InstanceChecker(){
 			@Override
 			public boolean checkInstanceOf(GameCharacter ch) {
 				return ch instanceof DarknessShroudDecorator;
 			}	
 		};
-		if (!a.getCharacter().checkInstance(check)) { 
-			a.setCharacter(new DarknessShroudDecorator(a.getCharacter()));
-		}
+		
+		return a.getCharacter().checkInstance(check);
 	}
-	
+
 	private void removeDarkness(Actor a) {
 		InstanceRemover instRem = new InstanceRemover() {
 			
@@ -80,10 +85,12 @@ public class DarknessEvent extends Event {
 				} else if (ch instanceof CharacterDecorator) {
 					return removeInstance(((CharacterDecorator) ch).getInner());
 				}
-				return ch; // if not found, do nothing
+				throw new NoSuchElementException("Did not find DarknessShroudDecorator");
 			}
 		};
-		a.removeInstance(instRem);
+		if (isDarkened(a)) {
+			a.removeInstance(instRem);
+		}
 	}
 
 	@Override

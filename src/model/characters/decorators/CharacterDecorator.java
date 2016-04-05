@@ -249,4 +249,8 @@ public abstract class CharacterDecorator extends GameCharacter {
 		return innerChar.getStartingRoom();
 	}
 	
+	public void printInstances() {
+		System.out.print(this.getClass().getName() + "->");
+		getInner().printInstances();
+	}
 }

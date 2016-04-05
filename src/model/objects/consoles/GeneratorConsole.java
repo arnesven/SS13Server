@@ -137,7 +137,9 @@ public class GeneratorConsole extends Console {
 		
 		noLifeSupport = new ArrayList<Room>();
 		noLight       = new ArrayList<Room>();
+		List<ElectricalMachinery> oldNoPower = noPower;
 		noPower       = new ArrayList<ElectricalMachinery>();
+		
 		
 		List<Room> allRooms = new ArrayList<>();
 		allRooms.addAll(gameData.getRooms());
@@ -184,6 +186,21 @@ public class GeneratorConsole extends Console {
 		System.out.println(getLightString());
 		
 		System.out.println(getEquipmentString());
+		runPowerOnOrOffFunctions(gameData, oldNoPower);
+	}
+
+	private void runPowerOnOrOffFunctions(GameData gameData,
+			List<ElectricalMachinery> oldNoPower) {
+		for (GameObject obj : gameData.getObjects()) {
+			if (obj instanceof ElectricalMachinery) {
+				ElectricalMachinery em = (ElectricalMachinery) obj;
+				if (oldNoPower.contains(em) && ! getNoPowerObjects().contains(em)) {
+					em.onPowerOn(gameData);
+				} else if (!oldNoPower.contains(em) && getNoPowerObjects().contains(em)) {
+					em.onPowerOff(gameData);
+				}
+			}
+		}
 	}
 
 	public List<Room> getNoLifeSupportRooms() {

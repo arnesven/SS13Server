@@ -12,8 +12,11 @@ import model.Player;
 import model.actions.Action;
 import model.actions.objectactions.CrimeRecordsAction;
 import model.events.SentenceCountdownEvent;
+import model.items.GameItem;
+import model.items.suits.PrisonerSuit;
 import model.map.Room;
 import model.npcs.NPC;
+import model.objects.EvidenceBox;
 import model.objects.GameObject;
 import util.Pair;
 
@@ -25,6 +28,7 @@ public class CrimeRecordsConsole extends Console {
 	
 	private Map<Actor, Integer> sentences = new HashMap<>();
 	private Map<Actor, List<Pair<String, Actor>>> reportMap = new HashMap<>();
+	private int noOfSentenced = 1;
 	
 	public CrimeRecordsConsole(Room r) {
 		super("Crime Records", r);
@@ -107,6 +111,21 @@ public class CrimeRecordsConsole extends Console {
 	public void teleBrig(Actor worst, GameData gameData) {
 		Room brig = gameData.getRoom("Brig");
 		worst.moveIntoRoom(brig);
+		try {
+			EvidenceBox ev = EvidenceBox.find(gameData);
+			ev.addAffects(worst, worst.getItems());
+			worst.getItems().removeAll(worst.getItems());
+			System.out.println("Prisoners affects were stored in the evidence box");
+			if (worst.getCharacter().getSuit() != null && 
+					!worst.getCharacter().getSuit().permitsOver()) {
+				ev.addAffect(worst, worst.getCharacter().getSuit());
+				worst.getCharacter().removeSuit();
+				System.out.println("Suit was removed from prisoner so prison clothes could be put over");
+			}
+			worst.putOnSuit(new PrisonerSuit(noOfSentenced++));
+		} catch (NoSuchElementException nse) {
+			
+		}
 		
 		int duration = sumCrimesFor(worst);
 		worst.addTolastTurnInfo("You were auto-sentenced by JudgeBot to " + duration + " rounds in the brig.");
@@ -117,6 +136,25 @@ public class CrimeRecordsConsole extends Console {
 
 	public Map<Actor, Integer> getSentenceMap() {
 		return sentences;
+	}
+
+	public void release(GameData gameData, Actor inmate) {
+		getSentenceMap().remove(inmate);
+		inmate.moveIntoRoom(gameData.getRoom("Port Hall Front"));
+		try {
+			EvidenceBox ev = EvidenceBox.find(gameData);
+			for (GameItem it : ev.removeAffects(inmate)) {
+				inmate.addItem(it, null);
+			}
+			if (inmate.getCharacter().getSuit() instanceof PrisonerSuit) {
+				inmate.takeOffSuit();
+			}
+		} catch (NoSuchElementException nse) {
+			
+		}
+		
+		inmate.addTolastTurnInfo("You were released from the brig.");
+		
 	}
 
 }

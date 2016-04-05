@@ -1,6 +1,9 @@
 package model.actions.objectactions;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import model.Actor;
@@ -25,7 +28,16 @@ public class ReportCrimeAction extends Action {
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = super.getOptions(gameData, whosAsking);
-		for (Actor a : gameData.getActors()) {
+		List<Actor> acts = new ArrayList<>();
+		acts.addAll(gameData.getActors());
+		Collections.sort(acts, new Comparator<Actor>() {
+			@Override
+			public int compare(Actor o1, Actor o2) {
+				return o1.getPublicName().compareTo(o2.getPublicName());
+			}
+		});
+		
+		for (Actor a : acts) {
 			if (a.getCharacter().isCrew()) {
 				ActionOption guy = new ActionOption(a.getCharacter().getBaseName());
 				for (int i = 0; i < CrimeRecordsConsole.crimes.length; ++i) {

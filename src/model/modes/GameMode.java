@@ -109,7 +109,7 @@ import model.npcs.behaviors.SpontaneousAct;
 public abstract class GameMode {
 
 
-	private static String[] knownModes = {"Host", "Traitor", "Secret", "Infiltration"};
+	private static String[] knownModes = {"Host", "Traitor", "Operatives", "Secret"};
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
 

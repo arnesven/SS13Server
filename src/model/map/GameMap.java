@@ -108,27 +108,48 @@ public class GameMap {
 		roomsList = result;
 	}
 
-	
-	public static void connectRooms(Room to, Room from) {
-		int[] newNArr = new int[from.getNeighbors().length+1];
-		for (int i = 0; i < from.getNeighbors().length; ++i) {
-			newNArr[i] = from.getNeighbors()[i];
+	public static boolean areJoined(Room a, Room b) {
+		if (a.getNeighborList().contains(b) &&
+				b.getNeighborList().contains(a)) {
+			return true;
 		}
-		newNArr[from.getNeighbors().length] = to.getID();
-		from.setNeighbors(newNArr);
+		return false;
+	}
+	
+	public static void joinRooms(Room a, Room b) {
+		if (!areJoined(a, b)) {
+			connectAToB(a, b);
+			connectAToB(b, a);
+		}
+	}
+	
+	public static void separateRooms(Room a, Room b) {
+		if (areJoined(a,b)) {
+			disconnectAFromB(a, b);
+			disconnectAFromB(b, a);
+		}
+	}
+	
+	private static void connectAToB(Room a, Room b) {
+		int[] newNArr = new int[a.getNeighbors().length+1];
+		for (int i = 0; i < a.getNeighbors().length; ++i) {
+			newNArr[i] = a.getNeighbors()[i];
+		}
+		newNArr[a.getNeighbors().length] = b.getID();
+		a.setNeighbors(newNArr);
 	}
 
-	public static void disconnect(Room to, Room from) {
-		int[] newNArr = new int[from.getNeighbors().length-1];
+	private static void disconnectAFromB(Room a, Room b) {
+		int[] newNArr = new int[a.getNeighbors().length-1];
 		int x = 0;
-		for (int i = 0; i < from.getNeighbors().length; ++i) {
-			if (from.getNeighbors()[i] != to.getID()) {
-				newNArr[x] = from.getNeighbors()[i];
+		for (int i = 0; i < a.getNeighbors().length; ++i) {
+			if (a.getNeighbors()[i] != b.getID()) {
+				newNArr[x] = a.getNeighbors()[i];
 				x++;
 			}
 		}
 	
-		from.setNeighbors(newNArr);
+		a.setNeighbors(newNArr);
 	}
 
 	

@@ -16,7 +16,7 @@ import model.npcs.NPC;
 import model.actions.SensoryLevel;
 import model.actions.characteractions.EscapeAndSetNukeAction;
 import model.actions.characteractions.StealAction;
-import model.modes.InfiltrationGameMode;
+import model.modes.OperativesGameMode;
 import model.items.weapons.Revolver;
 
 public class OperativeCharacter extends GameCharacter {

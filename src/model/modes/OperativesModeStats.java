@@ -3,11 +3,11 @@ package model.modes;
 import model.Actor;
 import model.GameData;
 
-public class InfiltrationModeStats extends GameStats {
+public class OperativesModeStats extends GameStats {
 
-	private InfiltrationGameMode mode;
+	private OperativesGameMode mode;
 
-	public InfiltrationModeStats(GameData gameData, InfiltrationGameMode mode) {
+	public OperativesModeStats(GameData gameData, OperativesGameMode mode) {
 		super(gameData, mode);
 		this.mode = mode;
 		
