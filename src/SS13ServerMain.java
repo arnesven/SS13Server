@@ -34,30 +34,28 @@ public class SS13ServerMain {
 		GameData gameData = new GameData();
 		
 		ServiceHandler serviceHandler = new ServiceHandler(name, gameData, port);
-		do {
-			try {
-				listener = new ServerSocket(port);
-				System.out.println("SS13 server \"" + name + "\" running on " + port  + "...");
 
-				do {
-					//System.out.println("Waiting for connection...");
-					Socket socket = listener.accept();
-					//System.out.println("someone connected...");
+		try {
+			listener = new ServerSocket(port);
+			System.out.println("SS13 server \"" + name + "\" running on " + port  + "...");
 
-					serviceHandler.serv(socket);
+			do {
+				//System.out.println("Waiting for connection...");
+				Socket socket = listener.accept();
+				//System.out.println("someone connected...");
 
-					socket.close();
-					
-					//gameData.printClients();
-				} while (true);
+				serviceHandler.serv(socket);
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				listener.close();
-			}
-		} while (true);
+				socket.close();
 
+				//gameData.printClients();
+			} while (true);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			listener.close();
+		}
 	}
 	
 
