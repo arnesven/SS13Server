@@ -1,4 +1,4 @@
-package model.npcs;
+package model.npcs.behaviors;
 
 import java.io.File;
 import java.io.IOException;

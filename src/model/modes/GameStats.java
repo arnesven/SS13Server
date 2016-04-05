@@ -17,7 +17,7 @@ import model.npcs.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
 import model.objects.GameObject;
-import model.objects.GeneratorConsole;
+import model.objects.consoles.GeneratorConsole;
 
 public abstract class GameStats {
 	

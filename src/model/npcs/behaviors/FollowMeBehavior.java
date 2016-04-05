@@ -1,9 +1,10 @@
-package model.npcs;
+package model.npcs.behaviors;
 
 import model.Actor;
 import model.GameData;
 import model.Target;
 import model.events.FollowMovementEvent;
+import model.npcs.NPC;
 
 public class FollowMeBehavior implements MovementBehavior {
 

@@ -1,4 +1,4 @@
-package model.objects;
+package model.objects.consoles;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +13,8 @@ import model.Player;
 import model.actions.Action;
 import model.actions.objectactions.PowerConsoleAction;
 import model.map.Room;
+import model.objects.ElectricalMachinery;
+import model.objects.GameObject;
 
 public class GeneratorConsole extends Console {
 

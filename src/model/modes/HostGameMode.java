@@ -20,10 +20,10 @@ import model.items.MedKit;
 import model.items.Tools;
 import model.items.weapons.Weapon;
 import model.map.Room;
-import model.npcs.AttackIfPossibleBehavior;
-import model.npcs.MeanderingMovement;
 import model.npcs.NPC;
 import model.npcs.ParasiteNPC;
+import model.npcs.behaviors.AttackIfPossibleBehavior;
+import model.npcs.behaviors.MeanderingMovement;
 import model.objects.HiveObject;
 
 public class HostGameMode extends GameMode {

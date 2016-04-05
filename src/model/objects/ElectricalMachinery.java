@@ -8,6 +8,7 @@ import model.actions.Action;
 import model.actions.NoPowerAction;
 import model.actions.objectactions.PowerConsoleAction;
 import model.map.Room;
+import model.objects.consoles.GeneratorConsole;
 
 
 public abstract class ElectricalMachinery extends BreakableObject implements Repairable {

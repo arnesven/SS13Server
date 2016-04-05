@@ -3,6 +3,8 @@ package model.npcs;
 import model.characters.ChimpCharacter;
 import model.characters.GameCharacter;
 import model.map.Room;
+import model.npcs.behaviors.ChimpBehavior;
+import model.npcs.behaviors.MeanderingMovement;
 
 public class ChimpNPC extends NPC implements Trainable {
 

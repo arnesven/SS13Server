@@ -3,6 +3,8 @@ package model.npcs;
 import model.actions.characteractions.HissAction;
 import model.characters.SnakeCharacter;
 import model.map.Room;
+import model.npcs.behaviors.MeanderingMovement;
+import model.npcs.behaviors.SpontaneousAct;
 
 public class SnakeNPC extends NPC implements Trainable {
 

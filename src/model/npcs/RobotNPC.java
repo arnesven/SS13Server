@@ -7,6 +7,8 @@ import model.events.ColdDamage;
 import model.events.Damager;
 import model.events.RadiationDamage;
 import model.map.Room;
+import model.npcs.behaviors.ActionBehavior;
+import model.npcs.behaviors.MovementBehavior;
 import model.objects.Repairable;
 
 public abstract class RobotNPC extends NPC implements Repairable {

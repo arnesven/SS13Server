@@ -10,7 +10,8 @@ import model.GameData;
 import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
-import model.objects.CrimeRecordsConsole;
+import model.characters.crew.CaptainCharacter;
+import model.objects.consoles.CrimeRecordsConsole;
 
 public class PardonAction extends Action {
 
@@ -57,7 +58,7 @@ public class PardonAction extends Action {
 		Iterator<Pair<String, Actor>> iter = record.iterator();
 		while (iter.hasNext()) {
 			Pair<String, Actor> pair = iter.next();
-			if (pair.second.getSpeed() > performingClient.getSpeed()) {
+			if ((new CaptainCharacter()).getSpeed() >= pair.second.getSpeed() && pair.second.getSpeed() > performingClient.getSpeed()) {
 				performingClient.addTolastTurnInfo("Cannot pardon \"" + pair.first + "\". " + pair.second.getBaseName() + " outranks you!");
 			} else {
 				iter.remove();

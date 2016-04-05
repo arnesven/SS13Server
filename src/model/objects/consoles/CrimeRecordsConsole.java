@@ -1,4 +1,4 @@
-package model.objects;
+package model.objects.consoles;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +14,7 @@ import model.actions.objectactions.CrimeRecordsAction;
 import model.events.SentenceCountdownEvent;
 import model.map.Room;
 import model.npcs.NPC;
+import model.objects.GameObject;
 import util.Pair;
 
 public class CrimeRecordsConsole extends Console {

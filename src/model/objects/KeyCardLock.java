@@ -10,6 +10,7 @@ import model.actions.objectactions.UnlockRoomAction;
 import model.items.GameItem;
 import model.items.KeyCard;
 import model.map.Room;
+import model.objects.consoles.Console;
 
 public class KeyCardLock extends Console {
 

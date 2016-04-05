@@ -2,6 +2,8 @@ package model.npcs;
 
 import model.characters.GameCharacter;
 import model.map.Room;
+import model.npcs.behaviors.DoNothingBehavior;
+import model.npcs.behaviors.MeanderingHumanMovement;
 
 public class HumanNPC extends NPC {
 

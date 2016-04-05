@@ -1,11 +1,12 @@
-package model.npcs;
+package model.npcs.behaviors;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.objects.CrimeRecordsConsole;
+import model.npcs.NPC;
+import model.objects.consoles.CrimeRecordsConsole;
 
 public class ArrestCriminalBehavior implements ActionBehavior {
 

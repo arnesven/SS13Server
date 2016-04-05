@@ -1,4 +1,4 @@
-package model.objects;
+package model.objects.consoles;
 
 import java.util.ArrayList;
 

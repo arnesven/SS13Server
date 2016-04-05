@@ -1,7 +1,9 @@
-package model.objects;
+package model.objects.consoles;
 
 import model.Player;
 import model.map.Room;
+import model.objects.ElectricalMachinery;
+import model.objects.RemotelyOperateable;
 
 public abstract class Console extends ElectricalMachinery implements RemotelyOperateable {
 	

@@ -1,4 +1,4 @@
-package model.npcs;
+package model.npcs.behaviors;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import util.MyRandom;
 import model.GameData;
 import model.actions.PickUpAction;
 import model.items.GameItem;
+import model.npcs.NPC;
 
 public class PickUpIfPossibleBehavior implements ActionBehavior {
 

@@ -31,7 +31,7 @@ public class InfectionScanner extends ElectricalMachinery {
 	@Override
 	public String getName() {
 		if (!loaded) {
-			return super.getName() + " (empty)";
+			return super.getName() + " (off)";
 		}
 		return super.getName();
 	}
@@ -39,8 +39,8 @@ public class InfectionScanner extends ElectricalMachinery {
 	@Override
 	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
 		if (!loaded) {
-			if (getChemicals(cl) != null) {
-				at.add(new Action("Load BioScanner", SensoryLevel.OPERATE_DEVICE) {
+	//		if (getChemicals(cl) != null) {
+				at.add(new Action("Turn On BioScanner", SensoryLevel.OPERATE_DEVICE) {
 					
 					@Override
 					public void setArguments(List<String> args, Actor p) {	}
@@ -57,7 +57,7 @@ public class InfectionScanner extends ElectricalMachinery {
 						performingClient.addTolastTurnInfo("You loaded the BioScanner with chemicals. The machine is warming up...");
 					}
 				});
-			}
+			//}
 		} else if (5 <=  gameData.getRound()) {
 			
 			at.add(new Action("Activate BioScanner", SensoryLevel.OPERATE_DEVICE) {

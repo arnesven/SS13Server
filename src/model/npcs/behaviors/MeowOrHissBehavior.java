@@ -1,10 +1,12 @@
-package model.npcs;
+package model.npcs.behaviors;
 
 import model.GameData;
 import model.Player;
 import model.actions.characteractions.HissAction;
 import model.actions.characteractions.MeowingAction;
 import model.map.Room;
+import model.npcs.NPC;
+import model.npcs.ParasiteNPC;
 
 public class MeowOrHissBehavior extends SpontaneousAct {
 

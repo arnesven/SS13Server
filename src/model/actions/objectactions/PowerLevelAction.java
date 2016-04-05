@@ -8,7 +8,7 @@ import model.GameData;
 import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
-import model.objects.GeneratorConsole;
+import model.objects.consoles.GeneratorConsole;
 
 public class PowerLevelAction extends Action {
 

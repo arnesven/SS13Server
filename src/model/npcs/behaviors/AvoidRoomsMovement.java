@@ -1,10 +1,11 @@
-package model.npcs;
+package model.npcs.behaviors;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import model.map.Room;
+import model.npcs.NPC;
 
 public class AvoidRoomsMovement implements MovementBehavior {
 

@@ -8,9 +8,9 @@ import util.MyRandom;
 import model.Actor;
 import model.GameData;
 import model.actions.SensoryLevel;
-import model.npcs.CrazyBehavior;
-import model.npcs.MeanderingMovement;
 import model.npcs.NPC;
+import model.npcs.behaviors.CrazyBehavior;
+import model.npcs.behaviors.MeanderingMovement;
 
 public class Crazyness extends Event {
 

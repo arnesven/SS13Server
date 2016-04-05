@@ -8,6 +8,7 @@ import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.map.Room;
+import model.objects.consoles.Console;
 import model.actions.SensoryLevel;
 import model.actions.objectactions.AirlockOverrideAction;
 

@@ -2,6 +2,8 @@ package model.npcs;
 
 import model.characters.TarsCharacter;
 import model.map.Room;
+import model.npcs.behaviors.MeanderingMovement;
+import model.npcs.behaviors.RandomSpeechBehavior;
 
 
 public class TARSNPC extends RobotNPC {

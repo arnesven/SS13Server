@@ -3,7 +3,7 @@ package model.events;
 import model.Actor;
 import model.GameData;
 import model.actions.SensoryLevel;
-import model.objects.CrimeRecordsConsole;
+import model.objects.consoles.CrimeRecordsConsole;
 
 public class SentenceCountdownEvent extends Event {
 
@@ -24,7 +24,7 @@ public class SentenceCountdownEvent extends Event {
 		if (remaining == 0) {
 			remove = true;
 			console.getSentenceMap().remove(inmate);
-			inmate.moveIntoRoom(gameData.getRoom("Front Hall"));
+			inmate.moveIntoRoom(gameData.getRoom("Port Hall Front"));
 			inmate.addTolastTurnInfo("You were released from the brig.");
 		} else {
 			remaining--;

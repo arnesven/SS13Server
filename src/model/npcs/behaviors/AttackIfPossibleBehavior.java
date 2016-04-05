@@ -1,4 +1,4 @@
-package model.npcs;
+package model.npcs.behaviors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import model.Target;
 import model.actions.AttackAction;
 import model.items.GameItem;
 import model.items.weapons.Weapon;
+import model.npcs.NPC;
 import model.objects.GameObject;
 
 public class AttackIfPossibleBehavior implements ActionBehavior {

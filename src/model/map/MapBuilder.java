@@ -5,15 +5,15 @@ import java.util.HashMap;
 import model.GameData;
 import model.items.suits.FireSuit;
 import model.items.suits.SpaceSuit;
-import model.objects.AIConsole;
 import model.objects.AirLockControl;
 import model.objects.ChemicalDispenser;
-import model.objects.CrewRoster;
-import model.objects.CrimeRecordsConsole;
 import model.objects.KeyCardLock;
 import model.objects.Lockers;
 import model.objects.MedkitDispenser;
-import model.objects.SecurityCameraConsole;
+import model.objects.consoles.AIConsole;
+import model.objects.consoles.AdministrationConsole;
+import model.objects.consoles.CrimeRecordsConsole;
+import model.objects.consoles.SecurityCameraConsole;
 
 
 /**
@@ -51,7 +51,7 @@ public class MapBuilder {
 		result.add(dorms);
 		result.add(new Room(13, "Front Hall"          , ""       ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{13.5, 10.0, 12.0, 8.0, 13.5, 6.0} ));
 		Room office = new Room(14, "Office"              , "Offc"   ,13, 10, 2, 2, new int[]{12, 13}    ,         new double[]{} );
-		office.addObject(new CrewRoster(office));
+		office.addObject(new AdministrationConsole(office));
 		result.add(office);
 		Room aiCore = new Room(15, "AI Core"             , "AI"     ,10,  7, 2, 2, new int[]{13}        ,         new double[]{} ); 
 		aiCore.addObject(new AIConsole(aiCore));

@@ -12,9 +12,9 @@ import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
 import model.map.Room;
 import model.modes.GameMode;
-import model.objects.AIConsole;
 import model.objects.GameObject;
-import model.objects.GeneratorConsole;
+import model.objects.consoles.AIConsole;
+import model.objects.consoles.GeneratorConsole;
 
 public class AIConsoleAction extends Action {
 

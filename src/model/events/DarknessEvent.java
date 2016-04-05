@@ -11,7 +11,7 @@ import model.characters.GameCharacter;
 import model.characters.decorators.DarknessShroudDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.map.Room;
-import model.objects.GeneratorConsole;
+import model.objects.consoles.GeneratorConsole;
 import model.characters.decorators.InstanceRemover;
 
 public class DarknessEvent extends Event {

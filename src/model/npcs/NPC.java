@@ -14,6 +14,10 @@ import model.items.GameItem;
 import model.items.MedKit;
 import model.items.weapons.Weapon;
 import model.map.Room;
+import model.npcs.behaviors.ActionBehavior;
+import model.npcs.behaviors.AttackIfPossibleBehavior;
+import model.npcs.behaviors.MeanderingMovement;
+import model.npcs.behaviors.MovementBehavior;
 
 /**
  * @author erini02

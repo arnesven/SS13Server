@@ -1,4 +1,4 @@
-package model.npcs;
+package model.npcs.behaviors;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,7 +7,8 @@ import model.Actor;
 import model.GameData;
 import model.map.GameMap;
 import model.map.Room;
-import model.objects.CrimeRecordsConsole;
+import model.npcs.NPC;
+import model.objects.consoles.CrimeRecordsConsole;
 
 public class FollowCriminalBehavior implements MovementBehavior {
 

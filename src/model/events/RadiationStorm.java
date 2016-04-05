@@ -11,9 +11,9 @@ import model.actions.SensoryLevel;
 import model.items.GameItem;
 import model.items.GeigerMeter;
 import model.map.Room;
-import model.npcs.AvoidRoomsMovement;
-import model.npcs.MeanderingHumanMovement;
 import model.npcs.NPC;
+import model.npcs.behaviors.AvoidRoomsMovement;
+import model.npcs.behaviors.MeanderingHumanMovement;
 
 public class RadiationStorm extends Event {
 

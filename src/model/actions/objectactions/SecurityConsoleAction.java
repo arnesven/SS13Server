@@ -15,7 +15,7 @@ import model.map.GameMap;
 import model.map.MapBuilder;
 import model.map.NukieShipRoom;
 import model.map.Room;
-import model.objects.SecurityCameraConsole;
+import model.objects.consoles.SecurityCameraConsole;
 
 public class SecurityConsoleAction extends Action {
 

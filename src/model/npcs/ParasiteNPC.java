@@ -4,6 +4,8 @@ import model.characters.GameCharacter;
 import model.characters.ParasiteCharacter;
 import model.items.weapons.Weapon;
 import model.map.Room;
+import model.npcs.behaviors.AttackIfPossibleBehavior;
+import model.npcs.behaviors.MeanderingMovement;
 
 public class ParasiteNPC extends NPC {
 

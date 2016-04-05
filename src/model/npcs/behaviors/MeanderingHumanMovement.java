@@ -1,4 +1,6 @@
-package model.npcs;
+package model.npcs.behaviors;
+
+import model.npcs.NPC;
 
 public class MeanderingHumanMovement extends MeanderingMovement {
 

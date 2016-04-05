@@ -9,7 +9,7 @@ import model.GameData;
 import model.actions.SensoryLevel;
 import model.map.Room;
 import model.objects.GameObject;
-import model.objects.GeneratorConsole;
+import model.objects.consoles.GeneratorConsole;
 import util.MyRandom;
 
 public class SimulatePower extends Event {

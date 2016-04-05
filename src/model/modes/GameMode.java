@@ -56,13 +56,13 @@ import model.map.Room;
 import model.npcs.CatNPC;
 import model.npcs.ChimpNPC;
 import model.npcs.HumanNPC;
-import model.npcs.MeanderingMovement;
 import model.npcs.NPC;
 import model.npcs.ParasiteNPC;
 import model.npcs.SecuritronNPC;
 import model.npcs.SnakeNPC;
-import model.npcs.SpontaneousAct;
 import model.npcs.TARSNPC;
+import model.npcs.behaviors.MeanderingMovement;
+import model.npcs.behaviors.SpontaneousAct;
 
 /**
  * @author erini02

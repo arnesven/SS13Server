@@ -7,7 +7,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.Action;
 import model.actions.ActionOption;
-import model.objects.CrimeRecordsConsole;
+import model.objects.consoles.CrimeRecordsConsole;
 import model.actions.SensoryLevel;
 
 public class ReportCrimeAction extends Action {

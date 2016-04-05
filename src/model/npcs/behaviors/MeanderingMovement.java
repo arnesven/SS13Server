@@ -1,9 +1,10 @@
-package model.npcs;
+package model.npcs.behaviors;
 
 import java.util.List;
 
 import util.MyRandom;
 import model.map.Room;
+import model.npcs.NPC;
 
 
 public class MeanderingMovement implements MovementBehavior {

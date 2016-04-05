@@ -37,7 +37,7 @@ import model.npcs.TARSNPC;
 import model.objects.BreakableObject;
 import model.objects.GameObject;
 import model.objects.ElectricalMachinery;
-import model.objects.GeneratorConsole;
+import model.objects.consoles.GeneratorConsole;
 
 public class TraitorGameMode extends GameMode {
 

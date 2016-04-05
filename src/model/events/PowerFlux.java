@@ -4,7 +4,7 @@ import util.MyRandom;
 import model.Actor;
 import model.GameData;
 import model.actions.SensoryLevel;
-import model.objects.GeneratorConsole;
+import model.objects.consoles.GeneratorConsole;
 
 public class PowerFlux extends Event {
 
