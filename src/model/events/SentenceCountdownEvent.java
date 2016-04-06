@@ -10,12 +10,14 @@ public class SentenceCountdownEvent extends Event {
 	private Actor inmate;
 	private CrimeRecordsConsole console;
 	private boolean remove;
+	private boolean firstTime;
 
 	public SentenceCountdownEvent(GameData gameData, Actor worst,
 			CrimeRecordsConsole crimeRecordsConsole) {
 		this.inmate = worst;
 		this.console = crimeRecordsConsole;
 		this.remove = false;
+		this.firstTime = true;
 	}
 
 	@Override
@@ -31,7 +33,10 @@ public class SentenceCountdownEvent extends Event {
 				remove = true;
 				console.release(gameData, inmate);
 			} else {
-				inmate.addTolastTurnInfo("You have " + remaining + " more round(s) on your sentance.");
+				if (!firstTime) {
+					inmate.addTolastTurnInfo("You have " + remaining + " more round(s) on your sentance.");
+				}
+				firstTime = false;
 				remaining--;
 				console.getSentenceMap().put(inmate, remaining);
 				

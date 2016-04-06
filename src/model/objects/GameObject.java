@@ -42,6 +42,7 @@ public class GameObject {
 	public void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
 	}
 
+	
 
 
 }

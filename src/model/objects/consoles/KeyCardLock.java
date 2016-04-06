@@ -18,7 +18,6 @@ public class KeyCardLock extends Console {
 	private Room to;
 	private Room from;
 	boolean locked;
-	private KeyCardLock linkedLock;
 
 	public KeyCardLock(Room to, Room from, boolean isLocked, double hp) {
 		super(to.getName() + " Lock", from);
@@ -29,6 +28,10 @@ public class KeyCardLock extends Console {
 		this.setHealth(hp);
 	}
 	
+	@Override
+	public boolean canBeInteractedBy(Actor performingClient) {
+		return performingClient.getPosition() == to || performingClient.getPosition() == from;
+	}
 	
 	@Override
 	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
@@ -54,28 +57,11 @@ public class KeyCardLock extends Console {
 
 	public void setLocked(boolean b) {
 		this.locked = b;
-		if (hasLinkedLock()) {
-			getLinkedLock().locked = b;
-		}
-	}
-
-
-	public boolean hasLinkedLock() {
-		return linkedLock != null;
-	}
-
-	public void setLinkedLock(KeyCardLock lock) {
-		linkedLock = lock;
-	}
-
-
-	public KeyCardLock getLinkedLock() {
-		return linkedLock;
 	}
 
 
 	public void lockRooms() {
-		if (isBroken() || (hasLinkedLock() && getLinkedLock().isBroken())) {
+		if (isBroken()) {
 			return;
 		}
 		GameMap.separateRooms(to, from);
@@ -84,7 +70,7 @@ public class KeyCardLock extends Console {
 
 
 	public void unlockRooms() {
-		if (isBroken() || (hasLinkedLock() && getLinkedLock().isBroken())) {
+		if (isBroken()) {
 			return;
 		}
 		GameMap.joinRooms(to, from);

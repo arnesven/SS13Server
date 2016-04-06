@@ -128,7 +128,7 @@ public class CrimeRecordsConsole extends Console {
 		}
 		
 		int duration = sumCrimesFor(worst);
-		worst.addTolastTurnInfo("You were auto-sentenced by JudgeBot to " + duration + " rounds in the brig.");
+		worst.addTolastTurnInfo("You were auto-sentenced by JudgeBot to " + duration + " rounds in the brig. Your personal affects will be returned to you upon release.");
 		getReportedActors().remove(worst);
 		sentences.put(worst, duration);
 		gameData.addEvent(new SentenceCountdownEvent(gameData, worst, this));

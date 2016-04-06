@@ -167,7 +167,12 @@ public abstract class NPC extends Actor implements Target {
 	}
 
 
-	
+	@Override
+	public boolean canBeInteractedBy(Actor performingClient) {
+		return this.getPosition() == performingClient.getPosition();
+		
+	}
+
 
 
 }

@@ -78,11 +78,8 @@ public class MapBuilder {
 		Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{22}        ,         new double[]{-11.0, 4.0} );
 		{
 			KeyCardLock l1 = new KeyCardLock(army, gate, true, 4.0);
-			KeyCardLock l2 = new KeyCardLock(army, gate, true, 4.0);
-			l1.setLinkedLock(l2);
-			l2.setLinkedLock(l1);
 			gate.addObject(l1);
-			army.addObject(l2);
+			army.addObject(l1);
 		}
 
 		result.add(army);
@@ -102,11 +99,8 @@ public class MapBuilder {
 		result.add(brig);
 		{
 			KeyCardLock l1 = new KeyCardLock(brig, portHallFront, true, 3.0);
-			KeyCardLock l2 = new KeyCardLock(brig, portHallFront, true, 3.0);
-			l1.setLinkedLock(l2);
-			l2.setLinkedLock(l1);
 			brig.addObject(l1);
-			portHallFront.addObject(l2);
+			portHallFront.addObject(l1);
 		}
 
 		GameMap gm = new GameMap(result);

@@ -47,4 +47,13 @@ public interface Target extends Locatable {
 
 	boolean isHealable();
 
+	/**
+	 * True if this target can be interacted 
+	 * (watched, attacked, infected et.c (targeting action)
+	 * by a actor.
+	 * @param performingClient an actor.
+	 * @return True if this target can be interacted by the actor
+	 */
+	boolean canBeInteractedBy(Actor performingClient);
+
 }

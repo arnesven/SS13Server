@@ -53,11 +53,13 @@ public class DropAction extends Action {
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = super.getOptions(gameData, whosAsking);
 		for (GameItem gi : ap.getItems()) {
-			opt.addOption(gi.getFullName(whosAsking));
+			opt.addOption(gi.getFullName(whosAsking) 
+					+ " ("+ String.format("%.1f", gi.getWeight()) + " kg)");
 		}
 		
 		if (ap.getCharacter().getSuit() != null) {
-			opt.addOption(ap.getCharacter().getSuit().getPublicName(whosAsking));
+			opt.addOption(ap.getCharacter().getSuit().getPublicName(whosAsking)  
+					+ " ("+ String.format("%.1f", ap.getCharacter().getSuit().getWeight()) + " kg)");
 		}
 		return opt;
 	}
@@ -66,13 +68,13 @@ public class DropAction extends Action {
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
 		if (ap.getCharacter().getSuit() != null) {
-			if (args.get(0).equals(ap.getCharacter().getSuit().getPublicName(performingClient))) {
+			if (args.get(0).contains(ap.getCharacter().getSuit().getPublicName(performingClient))) {
 				this.item = ap.getCharacter().getSuit();
 				return;
 			}
 		}
 		for (GameItem it : ap.getItems()){
-			if (args.get(0).equals(it.getFullName(performingClient))) {
+			if (args.get(0).contains(it.getFullName(performingClient))) {
 				this.item = it;
 				return;
 			}

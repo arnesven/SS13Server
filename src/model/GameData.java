@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -583,11 +584,12 @@ public class GameData {
 	 * @return all objects as a list.
 	 */
 	public List<GameObject> getObjects() {
+		Set<GameObject> set = new HashSet<>();
 		List<GameObject> obj = new ArrayList<>();
 		for (Room r : getAllRooms()) {
-			obj.addAll(r.getObjects());
+			set.addAll(r.getObjects());
 		}
-
+		obj.addAll(set);
 		return obj;
 	}
 

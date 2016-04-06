@@ -59,8 +59,12 @@ public class ReportCrimeAction extends Action {
 				break;
 			}
 		}
-		console.addReport(guy, selectedCrime, performingClient);
-		performingClient.addTolastTurnInfo("You reported " + guy.getBaseName() + " for \"" + selectedCrime + "\".");
+		if (console.isPowered(gameData) && !console.isBroken()) {
+			console.addReport(guy, selectedCrime, performingClient);
+			performingClient.addTolastTurnInfo("You reported " + guy.getBaseName() + " for \"" + selectedCrime + "\".");
+		} else {
+			performingClient.addTolastTurnInfo("Something is wrong with the console...");
+		}
 	}
 
 	@Override

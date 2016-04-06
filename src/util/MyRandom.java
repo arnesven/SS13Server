@@ -23,7 +23,7 @@ public class MyRandom {
 		return d;
 	}
 
-	private static void write_to_file(String filename, String data) {
+	public static void write_to_file(String filename, String data) {
 		File f = new File(filename);
 		if (!f.exists()) {
 			try {
@@ -41,10 +41,7 @@ public class MyRandom {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		
-		
+		}	
 	}
 
 	public static int nextInt(int size) {

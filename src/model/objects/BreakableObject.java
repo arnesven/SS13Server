@@ -32,7 +32,13 @@ public abstract class BreakableObject extends GameObject implements Target {
 	public String getName() {
 		return getBaseName();
 	}
-	
+
+	@Override
+	public boolean canBeInteractedBy(Actor performingClient) {
+		return this.getPosition() == performingClient.getPosition();
+		
+	}
+
 	@Override
 	public boolean beAttackedBy(Actor performingClient, Weapon item) {
 		boolean success;

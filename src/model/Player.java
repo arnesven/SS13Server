@@ -585,5 +585,11 @@ public class Player extends Actor implements Target {
 		this.addTolastTurnInfo(text);
 	}
 
+	@Override
+	public boolean canBeInteractedBy(Actor performingClient) {
+		return this.getPosition() == performingClient.getPosition();
+		
+	}
+
 
 }

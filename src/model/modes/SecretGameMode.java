@@ -14,10 +14,13 @@ import model.npcs.NPC;
 
 public class SecretGameMode  {
 	
+	private static final String filename = "random_modes";
+
 	public static GameMode getNewInstance() {
 		GameMode result;
 		double d = MyRandom.nextDouble();
 		if (d < 0.40) {
+			MyRandom.write_to_file(filename, "Host");
 			result = new HostGameMode() {
 				@Override
 				protected void addProtagonistStartingMessage(Player c) {
@@ -25,6 +28,7 @@ public class SecretGameMode  {
 				}
 			};
 		} else if (d < 0.80) {
+			MyRandom.write_to_file(filename, "Traitor");
 			result = new TraitorGameMode() {
 				@Override
 				protected void addProtagonistStartingMessage(Player c) {
@@ -32,6 +36,7 @@ public class SecretGameMode  {
 				}
 			};
 		} else {
+			MyRandom.write_to_file(filename, "Operatives");
 			result = new OperativesGameMode() {
 				@Override
 				protected void addProtagonistStartingMessage(Player c) {

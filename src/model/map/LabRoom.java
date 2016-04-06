@@ -2,7 +2,7 @@ package model.map;
 
 import model.GameData;
 import model.objects.ChemicalDispenser;
-import model.objects.InfectionScanner;
+import model.objects.BioScanner;
 
 public class LabRoom extends Room {
 
@@ -10,7 +10,7 @@ public class LabRoom extends Room {
 			int width, int height, int[] neighbors, double[] doors) {
 		super(ID, "Lab", "Lab", x, y, width, height, neighbors, doors);
 		
-		this.addObject(new InfectionScanner(this));
+		this.addObject(new BioScanner(this));
 		this.addObject(new ChemicalDispenser("Lab Storage", 2, this));
 	}
 

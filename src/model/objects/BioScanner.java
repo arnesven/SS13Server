@@ -14,11 +14,11 @@ import model.map.Room;
 import model.npcs.NPC;
 import model.items.Chemicals;
 
-public class InfectionScanner extends ElectricalMachinery {
+public class BioScanner extends ElectricalMachinery {
 
 	private boolean loaded;
 
-	public InfectionScanner(Room pos) {
+	public BioScanner(Room pos) {
 		super("BioScanner", pos);
 		loaded = false;
 	}
@@ -54,7 +54,7 @@ public class InfectionScanner extends ElectricalMachinery {
 					protected void execute(GameData gameData, Actor performingClient) {
 						removeAChemicals(performingClient);
 						loaded = true;
-						performingClient.addTolastTurnInfo("You loaded the BioScanner with chemicals. The machine is warming up...");
+						performingClient.addTolastTurnInfo("The BioScanner is warming up...");
 					}
 				});
 			//}
