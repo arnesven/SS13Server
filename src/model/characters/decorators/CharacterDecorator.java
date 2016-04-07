@@ -85,6 +85,20 @@ public abstract class CharacterDecorator extends GameCharacter {
 		return innerChar.checkInstance(instanceChecker);
 	}
 	
+	
+	public void removeInstance(InstanceChecker check) {
+		if (getInner() instanceof CharacterDecorator) {
+			CharacterDecorator decor = (CharacterDecorator)getInner();
+			if (check.checkInstanceOf(decor)) {
+				innerChar = decor.getInner();
+			} else {
+				decor.removeInstance(check);
+			}
+		} else {
+			throw new NoSuchInstanceException("Could not remove instance!");
+		}
+	}
+	
 	@Override
 	public List<GameItem> getItems() {
 		return innerChar.getItems();

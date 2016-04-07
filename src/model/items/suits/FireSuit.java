@@ -8,7 +8,6 @@ import model.characters.decorators.CharacterDecorator;
 import model.characters.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.FireProtection;
-import model.characters.decorators.InstanceRemover;
 
 public class FireSuit extends SuitItem {
 
@@ -23,22 +22,13 @@ public class FireSuit extends SuitItem {
 
 	@Override
 	public void beingTakenOff(Actor actionPerformer) {
-		InstanceRemover fireProtectionRemover = new InstanceRemover() {
+		actionPerformer.removeInstance(new InstanceChecker() {
 			
 			@Override
-			public GameCharacter removeInstance(GameCharacter ch) {
-				if (ch instanceof FireProtection) {
-					return ((CharacterDecorator)ch).getInner();
-				}
-				if (ch instanceof CharacterDecorator) {
-					return removeInstance(((CharacterDecorator)ch).getInner());
-				}
-				
-				throw new NoSuchElementException("Did not find that instance!");
+			public boolean checkInstanceOf(GameCharacter ch) {
+				return ch instanceof FireProtection;
 			}
-		};
-		
-		actionPerformer.removeInstance(fireProtectionRemover);
+		});
 		
 	}
 

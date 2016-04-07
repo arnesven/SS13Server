@@ -2,7 +2,6 @@ package model.items.suits;
 
 import model.Actor;
 import model.characters.GameCharacter;
-import model.characters.decorators.InstanceRemoverAdapter;
 import model.characters.decorators.InstanceChecker;
 
 public class PrisonerSuit extends SuitItem {
@@ -27,12 +26,13 @@ public class PrisonerSuit extends SuitItem {
 
 	@Override
 	public void beingTakenOff(Actor actionPerformer) { 
-		actionPerformer.removeInstance(new InstanceRemoverAdapter(new InstanceChecker() {
+		actionPerformer.removeInstance(new InstanceChecker() {
+			
 			@Override
 			public boolean checkInstanceOf(GameCharacter ch) {
 				return ch instanceof PrisonerDecorator;
 			}
-		}));
+		});
 	}
 
 	@Override

@@ -1,18 +1,15 @@
 package model.events;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 import model.Actor;
 import model.GameData;
 import model.actions.SensoryLevel;
-import model.characters.decorators.CharacterDecorator;
 import model.characters.GameCharacter;
 import model.characters.decorators.DarknessShroudDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.map.Room;
 import model.objects.consoles.GeneratorConsole;
-import model.characters.decorators.InstanceRemover;
 
 public class DarknessEvent extends Event {
 
@@ -76,20 +73,14 @@ public class DarknessEvent extends Event {
 	}
 
 	private void removeDarkness(Actor a) {
-		InstanceRemover instRem = new InstanceRemover() {
-			
-			@Override
-			public GameCharacter removeInstance(GameCharacter ch) {
-				if (ch instanceof DarknessShroudDecorator) {
-					return ((DarknessShroudDecorator) ch).getInner();
-				} else if (ch instanceof CharacterDecorator) {
-					return removeInstance(((CharacterDecorator) ch).getInner());
-				}
-				throw new NoSuchElementException("Did not find DarknessShroudDecorator");
-			}
-		};
 		if (isDarkened(a)) {
-			a.removeInstance(instRem);
+			a.removeInstance(new InstanceChecker() {
+				
+				@Override
+				public boolean checkInstanceOf(GameCharacter ch) {
+					return ch instanceof DarknessShroudDecorator;
+				}
+			});
 		}
 	}
 

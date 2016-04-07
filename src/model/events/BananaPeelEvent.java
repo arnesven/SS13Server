@@ -13,7 +13,7 @@ import model.characters.CatCharacter;
 import model.characters.GameCharacter;
 import model.characters.ParasiteCharacter;
 import model.characters.decorators.AlterMovement;
-import model.characters.decorators.AlterMovementRemover;
+import model.characters.decorators.InstanceChecker;
 import model.map.Room;
 
 public class BananaPeelEvent extends Event {
@@ -60,7 +60,14 @@ public class BananaPeelEvent extends Event {
 		}
 		
 		gameData.addEvent(new RemoveInstanceLaterEvent(victim, gameData.getRound()+1, 
-										0, new AlterMovementRemover()));
+										0, new InstanceChecker() {
+											
+											@Override
+											public boolean checkInstanceOf(GameCharacter ch) {
+												// TODO Auto-generated method stub
+												return ch instanceof AlterMovement;
+											}
+										}));
 		room.removeEvent(this);
 		this.remove = true;
 

@@ -1,19 +1,14 @@
 package model.items.weapons;
 
-import java.util.NoSuchElementException;
 
 import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
-import model.actions.SensoryLevel;
 import model.actions.itemactions.CancelAction;
 import model.characters.GameCharacter;
-import model.characters.decorators.AlterMovementRemover;
-import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.AlterMovement;
-import model.characters.decorators.InstanceRemover;
-import model.events.Event;
+import model.characters.decorators.InstanceChecker;
 import model.events.RemoveInstanceLaterEvent;
 import model.npcs.NPC;
 
@@ -70,7 +65,13 @@ public class StunBaton extends AmmoWeapon {
 								"Stunned", true, 0));
 		
 		gameData.addEvent(new RemoveInstanceLaterEvent(victim, gameData.getRound(), 
-				1, new AlterMovementRemover()));
+				1, new InstanceChecker() {
+					
+					@Override
+					public boolean checkInstanceOf(GameCharacter ch) {
+						return ch instanceof AlterMovement;
+					}
+				}));
 		
 	}
 

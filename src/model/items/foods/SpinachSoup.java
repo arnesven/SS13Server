@@ -8,7 +8,7 @@ import model.characters.GameCharacter;
 import model.characters.decorators.AlterMovement;
 import model.characters.decorators.AlterStrength;
 import model.characters.decorators.CharacterDecorator;
-import model.characters.decorators.InstanceRemover;
+import model.characters.decorators.InstanceChecker;
 import model.events.RemoveInstanceLaterEvent;
 
 public class SpinachSoup extends FoodItem {
@@ -30,18 +30,14 @@ public class SpinachSoup extends FoodItem {
 				"Spinach Soup", false, 10.0));
 		
 		gameData.addEvent(new RemoveInstanceLaterEvent(eatenBy, gameData.getRound(), 
-				6, new InstanceRemover() {
-
-			@Override
-			public GameCharacter removeInstance(GameCharacter ch) {
-				if (ch instanceof AlterStrength) {
-					return ((CharacterDecorator)ch).getInner();
-				} else if (ch instanceof CharacterDecorator) {
-					return removeInstance(((CharacterDecorator)ch).getInner());
-				}
-				throw new NoSuchElementException("Did not find that instance!");
-			}
-		}));
+				6, new InstanceChecker() {
+					
+					@Override
+					public boolean checkInstanceOf(GameCharacter ch) {
+						// TODO Auto-generated method stub
+						return ch instanceof AlterStrength;
+					}
+				}));
 
 	}
 
