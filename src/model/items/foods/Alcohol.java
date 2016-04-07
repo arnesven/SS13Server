@@ -2,6 +2,9 @@ package model.items.foods;
 
 import model.Actor;
 import model.GameData;
+import model.characters.GameCharacter;
+import model.characters.decorators.CharacterDecorator;
+import model.characters.decorators.DrunkDecorator;
 import model.events.DrunkTimerEvent;
 /**
  * @author chrho686
@@ -23,9 +26,22 @@ public abstract class Alcohol extends FoodItem {
 
 	@Override
 	protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
-		// TODO if eatenBy already is drunk, add the drunkness to its timer
-		// already present timer
-		gameData.addEvent(new DrunkTimerEvent(eatenBy, potency));
+		if (isDrunk(eatenBy.getCharacter())) {
+			
+		} else {
+			DrunkTimerEvent timer = new DrunkTimerEvent(eatenBy, potency);
+			eatenBy.setCharacter(new DrunkDecorator(eatenBy.getCharacter(), timer));
+			gameData.addEvent(timer);
+		}
+	}
+	
+	protected Boolean isDrunk(GameCharacter ch) {
+		if (ch instanceof DrunkDecorator) {
+			return true;
+		} else if (ch instanceof CharacterDecorator) {
+			return isDrunk((CharacterDecorator)ch);
+		}
+		return false;
 	}
 	
 }

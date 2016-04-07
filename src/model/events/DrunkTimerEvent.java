@@ -1,8 +1,14 @@
 package model.events;
 
+import java.util.NoSuchElementException;
+
 import model.Actor;
 import model.GameData;
 import model.actions.SensoryLevel;
+import model.characters.GameCharacter;
+import model.characters.decorators.AlterMovement;
+import model.characters.decorators.CharacterDecorator;
+import model.characters.decorators.DrunkDecorator;
 import util.MyRandom;
 
 /**
@@ -12,13 +18,21 @@ import util.MyRandom;
 public class DrunkTimerEvent extends Event {
 
 	private Actor target;
-	private int countdown;
+	private int counter;
 	
+	public int getCounter() {
+		return counter;
+	}
+
+	public void setCounter(int counter) {
+		this.counter = counter;
+	}
+
 	public DrunkTimerEvent(Actor target, int countdown) {
 		// TODO make target character drunk
 		
 		this.target = target;
-		this.countdown = countdown;
+		this.counter = countdown;
 		
 		System.out.println(target.getBaseName() + " is drunk for " + countdown + " rounds.");
 	}
@@ -27,20 +41,33 @@ public class DrunkTimerEvent extends Event {
 	@Override
 	public void apply(GameData gameData) {
 		if (target.isDead()) {
-			countdown = 0;
+			counter = 0;
 		} else {
 			
 			target.addTolastTurnInfo("You feel " + getDrunkness() + ".");
 			
-			countdown--;
+			counter--;
 			
 			// TODO play with the chance
 			// 25% chance that the character lose one extra drunkness level
-			if (countdown > 0 && MyRandom.nextDouble() < 0.25) {
-				countdown--;
+			if (counter > 0 && MyRandom.nextDouble() < 0.25) {
+				counter--;
 			}
 		}
 		
+		if (shouldBeRemoved(gameData)) {
+			target.setCharacter(makeSober(target.getCharacter()));
+		}
+		
+	}
+	
+	// TODO fix this mess, so that it actually removes
+	// the drunk decorator wherever it may be in the line
+	private GameCharacter makeSober(GameCharacter ch) {
+		if (ch instanceof DrunkDecorator) {
+			return ((CharacterDecorator)ch).getInner();
+		}
+		return ch;
 	}
 
 	@Override
@@ -55,11 +82,11 @@ public class DrunkTimerEvent extends Event {
 	
 	@Override
 	public boolean shouldBeRemoved(GameData gameData) {
-		return countdown <= 0;
+		return counter <= 0;
 	}
 	
 	public String getDrunkness() {
-		switch(countdown) {
+		switch(counter) {
 		case 0: return "sober";
 		case 1: return "tipsy";
 		case 2: return "drunk";
