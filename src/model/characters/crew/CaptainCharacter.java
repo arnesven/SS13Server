@@ -8,6 +8,7 @@ import model.items.GameItem;
 import model.items.Grenade;
 import model.items.KeyCard;
 import model.items.NuclearDisc;
+import model.items.foods.Beer;
 import model.items.suits.FireSuit;
 
 public class CaptainCharacter extends GameCharacter {
@@ -21,6 +22,16 @@ public class CaptainCharacter extends GameCharacter {
 		ArrayList<GameItem> list = new ArrayList<GameItem>();
 		list.add(new NuclearDisc());
 		list.add(new KeyCard());
+		list.add(new Beer()); // TODO remove, debugging
+		list.add(new Beer()); // TODO remove, debugging
+		list.add(new Beer()); // TODO remove, debugging
+		list.add(new Beer()); // TODO remove, debugging
+		list.add(new Beer()); // TODO remove, debugging
+		list.add(new Beer()); // TODO remove, debugging
+		list.add(new Beer()); // TODO remove, debugging
+		list.add(new Beer()); // TODO remove, debugging
+		list.add(new Beer()); // TODO remove, debugging
+		list.add(new Beer()); // TODO remove, debugging
 		return list;
 	}
 

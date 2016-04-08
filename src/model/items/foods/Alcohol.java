@@ -27,7 +27,7 @@ public abstract class Alcohol extends FoodItem {
 	@Override
 	protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
 		if (isDrunk(eatenBy.getCharacter())) {
-			
+			((DrunkDecorator)eatenBy.getCharacter()).addDrunkness(potency);
 		} else {
 			DrunkTimerEvent timer = new DrunkTimerEvent(eatenBy, potency);
 			eatenBy.setCharacter(new DrunkDecorator(eatenBy.getCharacter(), timer));
@@ -39,7 +39,7 @@ public abstract class Alcohol extends FoodItem {
 		if (ch instanceof DrunkDecorator) {
 			return true;
 		} else if (ch instanceof CharacterDecorator) {
-			return isDrunk((CharacterDecorator)ch);
+			return isDrunk(((CharacterDecorator)ch).getInner());
 		}
 		return false;
 	}

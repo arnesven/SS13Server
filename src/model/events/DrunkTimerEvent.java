@@ -1,12 +1,9 @@
 package model.events;
 
-import java.util.NoSuchElementException;
-
 import model.Actor;
 import model.GameData;
 import model.actions.SensoryLevel;
 import model.characters.GameCharacter;
-import model.characters.decorators.AlterMovement;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.DrunkDecorator;
 import util.MyRandom;
@@ -20,11 +17,14 @@ public class DrunkTimerEvent extends Event {
 	private Actor target;
 	private int counter;
 	
+	private Boolean firstTime;
+	
 	public int getCounter() {
 		return counter;
 	}
 
 	public void setCounter(int counter) {
+		firstTime = true;
 		this.counter = counter;
 	}
 
@@ -33,6 +33,8 @@ public class DrunkTimerEvent extends Event {
 		
 		this.target = target;
 		this.counter = countdown;
+		
+		this.firstTime = true;
 		
 		System.out.println(target.getBaseName() + " is drunk for " + countdown + " rounds.");
 	}
@@ -46,12 +48,16 @@ public class DrunkTimerEvent extends Event {
 			
 			target.addTolastTurnInfo("You feel " + getDrunkness() + ".");
 			
-			counter--;
-			
-			// TODO play with the chance
-			// 25% chance that the character lose one extra drunkness level
-			if (counter > 0 && MyRandom.nextDouble() < 0.25) {
+			if (!firstTime) {
 				counter--;
+
+				// TODO play with the chance
+				// 25% chance that the character lose one extra drunkness level
+				if (counter > 0 && MyRandom.nextDouble() < 0.25) {
+					//counter--;
+				}
+			} else {
+				firstTime = false;
 			}
 		}
 		
@@ -84,7 +90,7 @@ public class DrunkTimerEvent extends Event {
 	public boolean shouldBeRemoved(GameData gameData) {
 		return counter <= 0;
 	}
-	
+		
 	public String getDrunkness() {
 		switch(counter) {
 		case 0: return "sober";
@@ -96,6 +102,5 @@ public class DrunkTimerEvent extends Event {
 		case 6: return "drunk beyond help";
 		default: return "like you should be dead";
 		}
-	}
-	
+	}	
 }
