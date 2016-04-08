@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.characters.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
+import model.characters.decorators.DrunkChecker;
 import model.characters.decorators.DrunkDecorator;
 import model.events.DrunkTimerEvent;
 /**
@@ -24,24 +25,27 @@ public abstract class Alcohol extends FoodItem {
 		return 1.0;
 	}
 
+	// TODO this is chaos, please fix this
 	@Override
 	protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
-		if (isDrunk(eatenBy.getCharacter())) {
-			((DrunkDecorator)eatenBy.getCharacter()).addDrunkness(potency);
+		
+		// if character already is drunk
+		if((new DrunkChecker()).checkInstanceOf(eatenBy.getCharacter())) {
+			
+			System.out.println(eatenBy.getPublicName() + " is already drunk.");
+			
+			// TODO make this more general, this finds the DrunkDecorator
+			GameCharacter ch = eatenBy.getCharacter();
+			while (ch instanceof CharacterDecorator) {
+				if (ch instanceof DrunkDecorator) {
+					((DrunkDecorator) ch).addDrunkness(potency);
+					break;
+				}
+				ch = ((CharacterDecorator)ch).getInner();
+			}
 		} else {
 			DrunkTimerEvent timer = new DrunkTimerEvent(eatenBy, potency);
-			eatenBy.setCharacter(new DrunkDecorator(eatenBy.getCharacter(), timer));
 			gameData.addEvent(timer);
 		}
 	}
-	
-	protected Boolean isDrunk(GameCharacter ch) {
-		if (ch instanceof DrunkDecorator) {
-			return true;
-		} else if (ch instanceof CharacterDecorator) {
-			return isDrunk(((CharacterDecorator)ch).getInner());
-		}
-		return false;
-	}
-	
 }

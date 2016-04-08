@@ -3,8 +3,7 @@ package model.events;
 import model.Actor;
 import model.GameData;
 import model.actions.SensoryLevel;
-import model.characters.GameCharacter;
-import model.characters.decorators.CharacterDecorator;
+import model.characters.decorators.DrunkChecker;
 import model.characters.decorators.DrunkDecorator;
 import util.MyRandom;
 
@@ -17,63 +16,56 @@ public class DrunkTimerEvent extends Event {
 	private Actor target;
 	private int counter;
 	
-	private Boolean firstTime;
+	private Boolean drinkRound;
 	
 	public int getCounter() {
 		return counter;
 	}
 
 	public void setCounter(int counter) {
-		firstTime = true;
+		drinkRound = true;
 		this.counter = counter;
 	}
 
-	public DrunkTimerEvent(Actor target, int countdown) {
-		// TODO make target character drunk
+	public DrunkTimerEvent(Actor target, int counter) {
 		
 		this.target = target;
-		this.counter = countdown;
+		this.counter = counter;
 		
-		this.firstTime = true;
-		
-		System.out.println(target.getBaseName() + " is drunk for " + countdown + " rounds.");
+		target.setCharacter(new DrunkDecorator(target.getCharacter(), this));		
+		this.drinkRound = true;
 	}
 	
-	// TODO this should also actually do things
 	@Override
 	public void apply(GameData gameData) {
 		if (target.isDead()) {
 			counter = 0;
 		} else {
 			
-			target.addTolastTurnInfo("You feel " + getDrunkness() + ".");
+			target.addTolastTurnInfo("You feel " + getDrunkness() + " (" + counter + ").");
 			
-			if (!firstTime) {
+			// only decrease drunkness level during rounds in which the actor hasn't consumed alcohol
+			if (!drinkRound) {
 				counter--;
 
 				// TODO play with the chance
 				// 25% chance that the character lose one extra drunkness level
 				if (counter > 0 && MyRandom.nextDouble() < 0.25) {
-					//counter--;
+					counter--;
 				}
 			} else {
-				firstTime = false;
+				drinkRound = false;
 			}
 		}
 		
 		if (shouldBeRemoved(gameData)) {
-			target.setCharacter(makeSober(target.getCharacter()));
+			makeSober();
 		}
 		
 	}
 	
-	// TODO fix this mess, so that it actually removes
-	// the drunk decorator wherever it may be in the line
-	private GameCharacter makeSober(GameCharacter ch) {
-		if (ch instanceof DrunkDecorator) {
-			return ((CharacterDecorator)ch).getInner();
-		}
-		return ch;
+	private void makeSober() {
+		target.removeInstance(new DrunkChecker());
 	}
 
 	@Override
