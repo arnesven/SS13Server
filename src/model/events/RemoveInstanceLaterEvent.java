@@ -3,14 +3,13 @@ package model.events;
 import model.Actor;
 import model.GameData;
 import model.actions.SensoryLevel;
-import model.characters.GameCharacter;
-import model.characters.decorators.InstanceRemover;
+import model.characters.decorators.InstanceChecker;
 
 public class RemoveInstanceLaterEvent extends Event {
 
 
 	private int roundHappened;
-	private InstanceRemover remover;
+	private InstanceChecker checker;
 	private Actor victim;
 	private int duration;
 
@@ -22,10 +21,10 @@ public class RemoveInstanceLaterEvent extends Event {
 	 * @param instRem the instanceremover
 	 */
 	public RemoveInstanceLaterEvent(Actor victim, int round, int duration,
-			InstanceRemover instRem) {
+			InstanceChecker instRem) {
 		this.victim = victim;
 		roundHappened = round;
-		this.remover = instRem;
+		this.checker = instRem;
 		this.duration = duration;
 	}
 
@@ -42,7 +41,7 @@ public class RemoveInstanceLaterEvent extends Event {
 	@Override
 	public void apply(GameData gameData) {
 		if (gameData.getRound() == roundHappened+duration) {
-			victim.removeInstance(remover);
+			victim.removeInstance(checker);
 		}
 	}
 

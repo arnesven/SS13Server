@@ -1,12 +1,9 @@
 package model.items.suits;
 
-import java.util.NoSuchElementException;
-
 import model.Actor;
 import model.characters.GameCharacter;
-import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.FancyClothesDecorator;
-import model.characters.decorators.InstanceRemover;
+import model.characters.decorators.InstanceChecker;
 
 public class FancyClothes extends SuitItem {
 
@@ -21,34 +18,16 @@ public class FancyClothes extends SuitItem {
 		actionPerformer.setCharacter(new FancyClothesDecorator(actionPerformer.getCharacter()));
 	}
 	
-//	@Override
-//	public String getPublicName(Actor whosAsking) {
-//		return "Fancy Clothes";
-//	}
-	
-//	@Override
-//	public String getFullName(Actor whosAsking) {
-//		return super.getFullName(whosAsking)"Fancy Clothes";
-//	}
 
 	@Override
 	public void beingTakenOff(Actor actionPerformer) {
-		InstanceRemover fancyRemover = new InstanceRemover() {
+		actionPerformer.removeInstance(new InstanceChecker() {
 			
 			@Override
-			public GameCharacter removeInstance(GameCharacter ch) {
-				if (ch instanceof FancyClothesDecorator) {
-					return ((CharacterDecorator)ch).getInner();
-				}
-				if (ch instanceof CharacterDecorator) {
-					return removeInstance(((CharacterDecorator)ch).getInner());
-				}
-				
-				throw new NoSuchElementException("Did not find that instance!");
+			public boolean checkInstanceOf(GameCharacter ch) {
+				return ch instanceof FancyClothesDecorator;
 			}
-		};
-		
-		actionPerformer.removeInstance(fancyRemover);
+		});
 		
 	}
 	

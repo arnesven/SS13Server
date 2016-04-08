@@ -1,20 +1,11 @@
 package model.actions.characteractions;
 
-import java.util.NoSuchElementException;
-
 import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
-import model.actions.SensoryLevel;
 import model.actions.WatchAction;
-import model.characters.GameCharacter;
-import model.characters.decorators.AlterMovement;
-import model.characters.decorators.CharacterDecorator;
-import model.characters.decorators.InstanceRemover;
-import model.events.Event;
 import model.events.FollowMovementEvent;
-import model.events.RemoveInstanceLaterEvent;
 import model.items.GameItem;
 import model.map.Room;
 

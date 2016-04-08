@@ -1,12 +1,9 @@
 package model.items.suits;
 
-import java.util.NoSuchElementException;
 
 import model.Actor;
 import model.characters.GameCharacter;
-import model.characters.decorators.CharacterDecorator;
-import model.characters.decorators.FireProtection;
-import model.characters.decorators.InstanceRemover;
+import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.SpaceProtection;
 
 public class SpaceSuit extends SuitItem {
@@ -23,25 +20,15 @@ public class SpaceSuit extends SuitItem {
 
 	@Override
 	public void beingTakenOff(Actor actionPerformer) {
-		InstanceRemover spaceProtectionRemover = new InstanceRemover() {
-
+		System.out.println("In being taken off.");
+//		actionPerformer.getCharacter().printInstances();
+		actionPerformer.removeInstance(new InstanceChecker() {
+			
 			@Override
-			public GameCharacter removeInstance(GameCharacter ch) {
-				System.out.println("In remover: " + ch.getClass().getName());
-				if (ch instanceof SpaceProtection) {
-					return ((CharacterDecorator)ch).getInner();
-				}
-				if (ch instanceof CharacterDecorator) {
-					return removeInstance(((CharacterDecorator)ch).getInner());
-				}
-
-				throw new NoSuchElementException("Did not find that instance!");
+			public boolean checkInstanceOf(GameCharacter ch) {
+				return ch instanceof SpaceProtection;
 			}
-		};
-		
-		System.out.println(" -= being taken off =-");
-		actionPerformer.getCharacter().printInstances();
-		actionPerformer.removeInstance(spaceProtectionRemover);
+		});
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import model.characters.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InfectedCharacter;
 import model.characters.decorators.InstanceChecker;
-import model.characters.decorators.InstanceRemover;
+import model.characters.decorators.NoSuchInstanceException;
 import model.items.GameItem;
 import model.items.suits.SuitItem;
 import model.map.Room;
@@ -139,8 +139,18 @@ public abstract class Actor  {
 		return getCharacter().isDead();
 	}
 
-	public void removeInstance(InstanceRemover remover) {
-		this.setCharacter(remover.removeInstance(getCharacter()));
+	public void removeInstance(InstanceChecker check) {
+		if (getCharacter() instanceof CharacterDecorator) {
+			CharacterDecorator decor = (CharacterDecorator)getCharacter();
+			if (check.checkInstanceOf(decor)) {
+				this.setCharacter(decor.getInner());
+			} else {
+				decor.removeInstance(check);
+			}
+			
+		} else {
+		throw new NoSuchInstanceException("Could not remove instance!");
+		}
 	}
 	
 	public void putOnSuit(SuitItem selectedItem) {

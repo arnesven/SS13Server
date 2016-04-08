@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import model.Actor;
 import model.characters.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
-import model.characters.decorators.InstanceRemover;
+import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.LarcenistCharacter;
 import model.items.suits.SuitItem;
 
@@ -33,19 +33,13 @@ public class LarcenyGloves extends SuitItem {
 
 	@Override
 	public void beingTakenOff(Actor actionPerformer) {
-		InstanceRemover rem = new InstanceRemover() {
+		actionPerformer.removeInstance(new InstanceChecker() {
 			
 			@Override
-			public GameCharacter removeInstance(GameCharacter ch) {
-				if (ch instanceof LarcenistCharacter) {
-					return ((LarcenistCharacter)ch).getInner();
-				} else if (ch instanceof CharacterDecorator) {
-					return removeInstance(((CharacterDecorator)ch).getInner());
-				}
-				throw new NoSuchElementException("Tried to remove instance of LarcenistCharacter but found none!");
+			public boolean checkInstanceOf(GameCharacter ch) {
+				return ch instanceof LarcenistCharacter;
 			}
-		};
-		actionPerformer.removeInstance(rem);
+		});
 	}
 
 

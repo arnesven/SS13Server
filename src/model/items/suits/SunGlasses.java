@@ -1,12 +1,9 @@
 package model.items.suits;
 
-import java.util.NoSuchElementException;
-
 import model.Actor;
 import model.characters.GameCharacter;
-import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.CoolDecorator;
-import model.characters.decorators.InstanceRemover;
+import model.characters.decorators.InstanceChecker;
 
 public class SunGlasses extends SuitItem {
 
@@ -38,20 +35,13 @@ public class SunGlasses extends SuitItem {
 
 	@Override
 	public void beingTakenOff(Actor actionPerformer) {
-		InstanceRemover instRem = new InstanceRemover() {
+		actionPerformer.removeInstance(new InstanceChecker() {
 			
 			@Override
-			public GameCharacter removeInstance(GameCharacter ch) {
-				if (ch instanceof CoolDecorator) {
-					return ((CoolDecorator) ch).getInner();
-				} else if (ch instanceof CharacterDecorator) {
-					return removeInstance(((CharacterDecorator) ch).getInner());
-				}
-				throw new NoSuchElementException("Did not find an instance of CoolDecorator");
+			public boolean checkInstanceOf(GameCharacter ch) {
+				return ch instanceof CoolDecorator;
 			}
-		};
-		
-		actionPerformer.removeInstance(instRem);
+		});
 	}
 
 	@Override
