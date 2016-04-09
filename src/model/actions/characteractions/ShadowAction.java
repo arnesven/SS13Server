@@ -31,9 +31,7 @@ public class ShadowAction extends WatchAction {
 		performingClient.addTolastTurnInfo("You are shadowing " + target.getName());
 		this.shadowedInRoom = performingClient.getPosition();
 				
-		gameData.addMovementEvent(new FollowMovementEvent(shadowedInRoom, performingClient, target));
+		gameData.addMovementEvent(new FollowMovementEvent(shadowedInRoom, performingClient, target, true));
 	}
-
-
-
+	
 }

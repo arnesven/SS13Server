@@ -218,7 +218,9 @@ public class Room {
 
 	public void addActionsFor(GameData gameData, Player client, ArrayList<Action> at) {
 		for (GameObject ob : objects) {
-			ob.addSpecificActionsFor(gameData, client, at);
+			if (client.getCharacter().canUseObjects()) {
+				ob.addSpecificActionsFor(gameData, client, at);
+			}
 		}
 	}
 

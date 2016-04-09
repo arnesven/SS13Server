@@ -12,7 +12,7 @@ import model.items.suits.FireSuit;
 import model.items.weapons.Flamer;
 import model.items.weapons.Knife;
 
-public class EngineerCharacter extends GameCharacter {
+public class EngineerCharacter extends CrewCharacter {
 
 	public EngineerCharacter() {
 		super("Engineer", 26, 10.0);
@@ -25,5 +25,11 @@ public class EngineerCharacter extends GameCharacter {
 		list.add(new FireSuit());
 		list.add(new Tools());
 		return list;
+	}
+
+
+	@Override
+	public GameCharacter clone() {
+		return new EngineerCharacter();
 	}
 }

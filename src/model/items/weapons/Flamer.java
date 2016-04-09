@@ -66,5 +66,10 @@ public class Flamer extends Weapon {
 		}
 		return list;
 	}
+	
+	@Override
+	public Weapon clone() {
+		return new Flamer();
+	}
 
 }

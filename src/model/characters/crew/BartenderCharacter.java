@@ -7,7 +7,7 @@ import model.characters.GameCharacter;
 import model.items.GameItem;
 import model.items.weapons.Shotgun;
 
-public class BartenderCharacter extends GameCharacter {
+public class BartenderCharacter extends CrewCharacter {
 
 	public BartenderCharacter() {
 		super("Bartender", 10, 4.0);
@@ -18,6 +18,11 @@ public class BartenderCharacter extends GameCharacter {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Shotgun());
 		return list;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new BartenderCharacter();
 	}
 
 }

@@ -28,8 +28,6 @@ import model.objects.HiveObject;
 
 public class HostGameMode extends GameMode {
 	
-	public HostGameMode() {
-	}
 
 	private Player hostClient;
 	private String hiveString;

@@ -10,7 +10,7 @@ import model.items.GeigerMeter;
 import model.items.MedKit;
 import model.items.weapons.Knife;
 
-public class ScienceOfficerCharacter extends GameCharacter {
+public class ScienceOfficerCharacter extends CrewCharacter {
 
 	public ScienceOfficerCharacter() {
 		super("Science Officer", 1, 9.0);
@@ -22,6 +22,11 @@ public class ScienceOfficerCharacter extends GameCharacter {
 		list.add(new Chemicals());
 		list.add(new GeigerMeter());
 		return list;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new ScienceOfficerCharacter();
 	}
 
 }

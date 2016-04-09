@@ -14,6 +14,9 @@ public class GameModeFactory {
 		} else if (selectedMode.toLowerCase().equals("operatives")) {
 			System.out.println("Mode is operatives");
 			return new OperativesGameMode();
+		} else if (selectedMode.toLowerCase().equals("changeling")) {
+			System.out.println("Mode is changeling");
+			return new ChangelingGameMode();
 		}
 		
 		System.out.println("Mode is secret");

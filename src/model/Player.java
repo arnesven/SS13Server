@@ -363,11 +363,18 @@ public class Player extends Actor implements Target {
 		ArrayList<Action> at = new ArrayList<Action>();
 		addBasicActions(at);
 		if (!isDead()) {
+			
+			
 			addRoomActions(gameData, at);
-			addItemActions(gameData, at);
+			
+			if (this.hasInventory()) {
+				addItemActions(gameData, at);
+			}
 			addAttackActions(at);			
 			addWatchAction(at);
-			addManageItemActions(gameData, at);
+			if (this.hasInventory()) {
+				addManageItemActions(gameData, at);
+			}
 			
 			getCharacter().addCharacterSpecificActions(gameData, at);
 
@@ -558,10 +565,6 @@ public class Player extends Actor implements Target {
 		getCharacter().beExposedTo(performingClient, damager);
 	}
 
-	@Override
-	public boolean hasInventory() {
-		return true;
-	}
 
 	@Override
 	public boolean isHealable() {
@@ -589,6 +592,11 @@ public class Player extends Actor implements Target {
 	public boolean canBeInteractedBy(Actor performingClient) {
 		return this.getPosition() == performingClient.getPosition();
 		
+	}
+
+	@Override
+	public boolean hasInventory() {
+		return getCharacter().hasInventory();
 	}
 
 

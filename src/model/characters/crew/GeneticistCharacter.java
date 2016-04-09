@@ -8,7 +8,7 @@ import model.items.Chemicals;
 import model.items.GameItem;
 import model.items.MedKit;
 
-public class GeneticistCharacter extends GameCharacter {
+public class GeneticistCharacter extends CrewCharacter {
 
 	public GeneticistCharacter() {
 		super("Geneticist", 1, 8.0);
@@ -20,6 +20,11 @@ public class GeneticistCharacter extends GameCharacter {
 		list.add(new MedKit());
 		list.add(new Chemicals());
 		return list;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new GeneticistCharacter();
 	}
 
 }

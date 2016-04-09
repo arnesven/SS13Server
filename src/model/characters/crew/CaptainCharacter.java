@@ -10,7 +10,7 @@ import model.items.KeyCard;
 import model.items.NuclearDisc;
 import model.items.suits.FireSuit;
 
-public class CaptainCharacter extends GameCharacter {
+public class CaptainCharacter extends CrewCharacter {
 
 	public CaptainCharacter() {
 		super("Captain", 20, 16.0);
@@ -22,6 +22,11 @@ public class CaptainCharacter extends GameCharacter {
 		list.add(new NuclearDisc());
 		list.add(new KeyCard());
 		return list;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new CaptainCharacter();
 	}
 
 }

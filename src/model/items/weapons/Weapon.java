@@ -87,5 +87,9 @@ public class Weapon extends GameItem {
 						  this.getDamage(), this.makesBang, this.getWeight());
 	}
 
+	public void setDamage(double d) {
+		this.damage = d;
+	}
+
 
 }

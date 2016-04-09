@@ -28,6 +28,11 @@ public class ParasiteCharacter extends GameCharacter {
 	public List<GameItem> getStartingItems() {
 		return new ArrayList<>();
 	}
+	
+	@Override
+	public String getPublicName() {
+		return getBaseName();
+	}
 
 	
 	@Override
@@ -51,5 +56,21 @@ public class ParasiteCharacter extends GameCharacter {
 	public Weapon getDefaultWeapon() {
 		return Weapon.CLAWS;
 	}
+
+	@Override
+	public GameCharacter clone() {
+		return new ParasiteCharacter();
+	}
 	
+	@Override
+	public boolean hasInventory() {
+		return false;
+	}
+	
+	@Override
+	public boolean canUseObjects() {
+		return false;
+	}
+	
+
 }

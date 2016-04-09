@@ -14,5 +14,12 @@ public class TarsCharacter extends RobotCharacter {
 		super("TARS", 0, 20.0);
 	}
 
+	@Override
+	public GameCharacter clone() {
+		return new TarsCharacter();
+	}
+	
+	
+
 	
 }

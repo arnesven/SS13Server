@@ -165,7 +165,6 @@ public abstract class Actor  {
 		item.beingTakenOff(this);
 	}
 
-	
 	public abstract double getMaxHealth();
 	
 	public abstract void moveIntoRoom(Room brig);

@@ -8,7 +8,7 @@ import model.items.Bible;
 import model.items.GameItem;
 import model.items.MedKit;
 
-public class ChaplainCharacter extends GameCharacter {
+public class ChaplainCharacter extends CrewCharacter {
 
 	public ChaplainCharacter() {
 		super("Chaplain", 2, 2.0);
@@ -20,6 +20,11 @@ public class ChaplainCharacter extends GameCharacter {
 		list.add(new MedKit());
 		list.add(new Bible());
 		return list;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new ChaplainCharacter();
 	}
 
 }

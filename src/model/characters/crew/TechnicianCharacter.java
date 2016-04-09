@@ -15,7 +15,7 @@ import model.items.Tools;
 import model.items.weapons.Flamer;
 import model.items.weapons.Knife;
 
-public class TechnicianCharacter extends GameCharacter {
+public class TechnicianCharacter extends CrewCharacter {
 
 	public TechnicianCharacter() {
 		super("Technician", 26, 6.0);
@@ -43,6 +43,11 @@ public class TechnicianCharacter extends GameCharacter {
 		list.add(new Laptop());
 		list.add(new Tools());
 		return list;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new TechnicianCharacter();
 	}
 
 }

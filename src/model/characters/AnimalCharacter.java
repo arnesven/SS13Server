@@ -10,7 +10,6 @@ public abstract class AnimalCharacter extends GameCharacter implements Trainable
 
 	public AnimalCharacter(String name, int startRoom, double speed) {
 		super(name, startRoom, speed);
-		this.removeSuit();
 	}
 	
 	@Override
@@ -28,6 +27,11 @@ public abstract class AnimalCharacter extends GameCharacter implements Trainable
 	
 	@Override
 	public boolean isCrew() {
+		return false;
+	}
+	
+	@Override
+	public boolean hasInventory() {
 		return false;
 	}
 

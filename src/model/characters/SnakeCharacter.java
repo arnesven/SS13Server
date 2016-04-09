@@ -1,13 +1,17 @@
 package model.characters;
 
+import java.util.ArrayList;
+
+import model.GameData;
 import model.Player;
+import model.actions.Action;
+import model.actions.characteractions.HissAction;
 import model.items.weapons.Weapon;
 
 public class SnakeCharacter extends AnimalCharacter {
 
 	public SnakeCharacter(int startRoom) {
 		super("Snake", startRoom, 0.0);
-		this.removeSuit();
 	}
 
 	private static Weapon fangs = new Weapon("Fangs", 0.75, 0.5, false, 0.0);
@@ -18,8 +22,20 @@ public class SnakeCharacter extends AnimalCharacter {
 	}
 	
 	@Override
+	public void addCharacterSpecificActions(GameData gameData,
+			ArrayList<Action> at) {
+		super.addCharacterSpecificActions(gameData, at);
+		at.add(new HissAction());
+	}
+	
+	@Override
 	public Weapon getDefaultWeapon() {
 		return fangs;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new SnakeCharacter(this.getStartingRoom());
 	}
 
 }

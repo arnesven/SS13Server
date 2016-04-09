@@ -55,21 +55,14 @@ public abstract class GameCharacter {
 		this.name = name;
 		this.startingRoom = startRoom;
 		this.speed = speed;
-		suit = new OutFit(name);
+
 	}
 
 	/**
 	 * @return the name of the character as it appears publicly
 	 */
 	public String getPublicName() {
-		String res = name;
-		if (suit == null) {
-			res = "Naked " + getGender() ;
-		}
-		if (isDead()) {
-			return res + " (dead)";
-		}
-		return res;
+		return getBaseName();
 	}
 	
 
@@ -108,20 +101,11 @@ public abstract class GameCharacter {
 
 	
 	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
-		Actor thisActor  = this.getActor();
 		boolean success = false;
-		boolean reduced = false;
-		if (thisActor instanceof Player) {
-			Player thisClient = (Player) thisActor;
-			if (thisClient.getNextAction() instanceof WatchAction) {
-				if (((WatchAction)thisClient.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
-					System.out.println("Attack chance reduced because of watching...");
-					reduced = true;
-				}
-			}
-		}
+		Actor thisActor  = this.getActor();
+		
 		boolean wasDeadAlready = isDead();
-		if (weapon.isAttackSuccessful(reduced)) {
+		if (weapon.isAttackSuccessful(isReduced(thisActor, performingClient))) {
 			success = true;
 			health = Math.max(0.0, health - weapon.getDamage());
 			
@@ -147,6 +131,19 @@ public abstract class GameCharacter {
 		
 		return success;
 		
+	}
+
+	public boolean isReduced(Actor thisActor, Actor performingClient) {
+		if (thisActor instanceof Player) {
+			Player thisClient = (Player) thisActor;
+			if (thisClient.getNextAction() instanceof WatchAction) {
+				if (((WatchAction)thisClient.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
+					System.out.println("Attack chance reduced because of watching...");
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public void beExposedTo(Actor something, Damager damager) {
@@ -332,6 +329,10 @@ public abstract class GameCharacter {
 	public String getGender() {
 		return gender;
 	}
+	
+	public void setGender(String gen) {
+		this.gender = gen;
+	}
 
 	/**
 	 * @param it the item being given
@@ -350,6 +351,11 @@ public abstract class GameCharacter {
 		return Weapon.FISTS;
 	}
 
+	/**
+	 * @see GameItem.getIcon
+	 * @param whosAsking
+	 * @return
+	 */
 	public char getIcon(Player whosAsking) {
 		if (suit == null) {
 			if (this.getGender().equals("man")) {
@@ -393,5 +399,14 @@ public abstract class GameCharacter {
 		System.out.println(this.getClass().getName());
 	}
 	
+	public abstract GameCharacter clone();
 
+	public boolean hasInventory() {
+		return true;
+	}
+
+	public boolean canUseObjects() {
+		return true;
+	}
+	
 }

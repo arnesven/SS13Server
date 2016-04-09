@@ -13,7 +13,7 @@ import model.items.suits.SunGlasses;
 import model.items.weapons.Revolver;
 
 
-public class DetectiveCharacter extends GameCharacter {
+public class DetectiveCharacter extends CrewCharacter {
 
 	public DetectiveCharacter() {
 		super("Detective", 12, 13.0);
@@ -36,6 +36,11 @@ public class DetectiveCharacter extends GameCharacter {
 		if (act.getNoOfTargets() > 0) {
 			at.add(act);
 		}
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new DetectiveCharacter();
 	}
 
 }
