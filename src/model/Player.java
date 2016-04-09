@@ -98,7 +98,7 @@ public class Player extends Actor implements Target {
 	@Override
 	public void setCharacter(GameCharacter charr) {
 		super.setCharacter(charr);
-		getCharacter().setClient(this);
+
 	}
 
 	/**
@@ -367,7 +367,7 @@ public class Player extends Actor implements Target {
 			addItemActions(gameData, at);
 			addAttackActions(at);			
 			addWatchAction(at);
-			addManageItemActions(at);
+			addManageItemActions(gameData, at);
 			
 			getCharacter().addCharacterSpecificActions(gameData, at);
 
@@ -400,10 +400,10 @@ public class Player extends Actor implements Target {
 		}
 	}
 
-	private void addManageItemActions(ArrayList<Action> at2) {
+	private void addManageItemActions(GameData gameData, ArrayList<Action> at2) {
 		ArrayList<Action> at = new ArrayList<>();
 		addGiveAction(at);
-		addDropActions(at);
+		addDropActions(gameData, at);
 		addPickUpActions(at);
 		addPutOnActions(at);
 		if (at.size() > 0) {
@@ -437,9 +437,9 @@ public class Player extends Actor implements Target {
 		}
 	}
 
-	private void addDropActions(ArrayList<Action> at) {
-		if (getItems().size() > 0 || this.getSuit() != null) {
-			DropAction dropAction = new DropAction(this);
+	private void addDropActions(GameData gameData, ArrayList<Action> at) {
+		DropAction dropAction = new DropAction(this);
+		if (dropAction.getOptions(gameData, this).numberOfSuboptions() > 0) {
 			at.add(dropAction);
 		}
 	}

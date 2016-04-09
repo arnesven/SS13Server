@@ -23,8 +23,8 @@ public class TechnicianCharacter extends GameCharacter {
 	
 	@Override
 	public void addCharacterSpecificActions(GameData gameData, ArrayList<model.actions.Action> at) {
-		if (GameItem.hasAnItem(this.getClient(), new Laptop())) {
-			Laptop pc = (Laptop)GameItem.getItem(this.getClient(), new Laptop());
+		if (GameItem.hasAnItem(this.getActor(), new Laptop())) {
+			Laptop pc = (Laptop)GameItem.getItem(this.getActor(), new Laptop());
 			if (pc.isJackedIn() && pc.getJackRoom() != this.getPosition()) {
 				pc.setNotJackedIn();
 			}

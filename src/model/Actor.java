@@ -40,6 +40,7 @@ public abstract class Actor  {
 	 */
 	public void setCharacter(GameCharacter charr) {
 		this.character = charr;
+		getCharacter().setActor(this);
 		if (charr instanceof CharacterDecorator) {
 			((CharacterDecorator)charr).printInstances();
 		}

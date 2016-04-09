@@ -97,8 +97,9 @@ public class OperativesGameMode extends GameMode {
 			Player p = opPlayers.get(i);
 			
 			// Turn Character into decoy-npc
-			p.getCharacter().setClient(null);
+			//p.getCharacter().setClient(null);
 			NPC npc = new HumanNPC(p.getCharacter(), p.getCharacter().getStartingRoom(gameData));
+			p.getCharacter().setActor(npc);
 			gameData.addNPC(npc);
 			decoys.put(p, npc);
 			GameCharacter opChar = new OperativeCharacter(num++, nukieShip.getID());

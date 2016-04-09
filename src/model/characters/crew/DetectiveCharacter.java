@@ -32,7 +32,7 @@ public class DetectiveCharacter extends GameCharacter {
 			ArrayList<Action> at) {
 		super.addCharacterSpecificActions(gameData, at);
 	
-		TargetingAction act = new ShadowAction(this.getClient()); 
+		TargetingAction act = new ShadowAction(this.getActor()); 
 		if (act.getNoOfTargets() > 0) {
 			at.add(act);
 		}

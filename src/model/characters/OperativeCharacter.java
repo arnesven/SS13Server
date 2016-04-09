@@ -44,8 +44,8 @@ public class OperativeCharacter extends GameCharacter {
 		if (getPosition() instanceof AirLockRoom && hasASpaceSuitOn()) {
 			at.add(new EscapeAndSetNukeAction());
 		}
-		Action stealAction = new StealAction(this.getClient());
-		if (stealAction.getOptions(gameData, this.getClient()).numberOfSuboptions() > 0) {
+		Action stealAction = new StealAction(this.getActor());
+		if (stealAction.getOptions(gameData, this.getActor()).numberOfSuboptions() > 0) {
 			at.add(stealAction);
 		}
 	}

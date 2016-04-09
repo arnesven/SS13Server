@@ -13,8 +13,8 @@ public class ShadowAction extends WatchAction {
 
 	private Room shadowedInRoom;
 
-	public ShadowAction(Player player) {
-		super(player);
+	public ShadowAction(Actor actor) {
+		super(actor);
 		super.setName("Shadow");
 	}
 	

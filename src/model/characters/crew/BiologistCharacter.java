@@ -36,7 +36,7 @@ public class BiologistCharacter extends GameCharacter {
 		super.addCharacterSpecificActions(gameData, at);
 		Trainable train = getTrainableInRoom(this.getPosition());
 		if (train != null) {
-			at.add(new TrainNPCAction(this.getClient(), gameData));
+			at.add(new TrainNPCAction(this.getActor(), gameData));
 		}
 	}
 

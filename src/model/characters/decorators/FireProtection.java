@@ -32,10 +32,8 @@ public class FireProtection extends CharacterDecorator {
 	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
 		if (weapon instanceof Flamer) {
 			performingClient.addTolastTurnInfo(this.getPublicName() + " is unaffected by your attack!");
-			if (this.getClient() != null) {
-				this.getClient().addTolastTurnInfo(performingClient.getPublicName() + 
-						" tried to attack you with " + weapon.getPublicName(this.getClient()));
-			}
+			this.getActor().addTolastTurnInfo(performingClient.getPublicName() + 
+					" tried to attack you with " + weapon.getPublicName(this.getActor()));
 			return false;
 		}
 		return super.beAttackedBy(performingClient, weapon);
@@ -44,9 +42,7 @@ public class FireProtection extends CharacterDecorator {
 	@Override
 	public void beExposedTo(Actor something, Damager damager) {
 		if (damager.getName().equals("fire")) {
-			if (this.getClient() != null) {
-				this.getClient().addTolastTurnInfo("Fire is raging around you.");
-			}
+			this.getActor().addTolastTurnInfo("Fire is raging around you.");
 			return;
 		}
 		super.beExposedTo(something, damager);

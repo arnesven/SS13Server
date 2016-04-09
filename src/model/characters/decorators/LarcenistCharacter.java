@@ -17,8 +17,8 @@ public class LarcenistCharacter extends CharacterDecorator {
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {
 		super.addCharacterSpecificActions(gameData, at);
-		Action stealAction = new StealAction(this.getClient());
-		if (stealAction.getOptions(gameData, this.getClient()).numberOfSuboptions() > 0) {
+		Action stealAction = new StealAction(this.getActor());
+		if (stealAction.getOptions(gameData, this.getActor()).numberOfSuboptions() > 0) {
 			at.add(stealAction);
 		}
 	}

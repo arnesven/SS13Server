@@ -33,6 +33,13 @@ public class FollowCriminalBehavior implements MovementBehavior {
 		if (npc.getPosition() != closerRoom) {
 			npc.moveIntoRoom(closerRoom);
 		}
+		if (closerRoom == mostWanted.getPosition()) {
+			for (Actor a : closerRoom.getActors()) {
+				if (a != npc) {
+					a.addTolastTurnInfo(npc.getPublicName() + "; " + mostWanted.getBaseName() + " You're going down!");
+				}
+			}
+		}
 	}
 
 	private Room findCloserRoom(NPC npc, Room r) {

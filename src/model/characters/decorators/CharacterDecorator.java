@@ -58,13 +58,13 @@ public abstract class CharacterDecorator extends GameCharacter {
 	}
 	
 	@Override 
-	public Player getClient() {
-		return innerChar.getClient();
+	public Actor getActor() {
+		return innerChar.getActor();
 	}
 	
 	@Override
-	public void setClient(Player c) {
-		innerChar.setClient(c);
+	public void setActor(Actor c) {
+		innerChar.setActor(c);
 	}
 	
 	@Override
