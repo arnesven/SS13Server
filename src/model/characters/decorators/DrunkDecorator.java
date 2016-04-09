@@ -3,20 +3,21 @@ package model.characters.decorators;
 import model.characters.GameCharacter;
 import model.events.DrunkTimerEvent;
 
-public class DrunkDecorator extends AttributeChangeDecorator {
+public class DrunkDecorator extends CharacterDecorator {
 
-	private DrunkTimerEvent timer;
+	private DrunkTimerEvent drunkTimer;
 	
-	public DrunkDecorator(GameCharacter chara, DrunkTimerEvent timer) {
-		super(chara, "Drunk", false);
-		this.timer = timer;
+	public DrunkDecorator(GameCharacter chara, DrunkTimerEvent drunkTimer) {
+		super(chara, "Drunk");
+		this.drunkTimer = drunkTimer;
 	}
 	
-	public void soberUp() {
-		timer.setCounter(0);
+	public DrunkTimerEvent getTimer() {
+		return drunkTimer;
 	}
 	
-	public void addDrunkness(int addition) {
-		timer.setCounter(timer.getCounter() + addition);
+	public void setTimer(DrunkTimerEvent drunkTimer) {
+		this.drunkTimer = drunkTimer;
 	}
+	
 }

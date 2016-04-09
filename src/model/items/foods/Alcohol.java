@@ -25,27 +25,8 @@ public abstract class Alcohol extends FoodItem {
 		return 1.0;
 	}
 
-	// TODO this is chaos, please fix this
 	@Override
 	protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
-		
-		// if character already is drunk
-		if((new DrunkChecker()).checkInstanceOf(eatenBy.getCharacter())) {
-			
-			System.out.println(eatenBy.getPublicName() + " is already drunk.");
-			
-			// TODO make this more general, this finds the DrunkDecorator
-			GameCharacter ch = eatenBy.getCharacter();
-			while (ch instanceof CharacterDecorator) {
-				if (ch instanceof DrunkDecorator) {
-					((DrunkDecorator) ch).addDrunkness(potency);
-					break;
-				}
-				ch = ((CharacterDecorator)ch).getInner();
-			}
-		} else {
-			DrunkTimerEvent timer = new DrunkTimerEvent(eatenBy, potency);
-			gameData.addEvent(timer);
-		}
+		gameData.addEvent(new DrunkTimerEvent(eatenBy, potency, new DrunkChecker()));
 	}
 }

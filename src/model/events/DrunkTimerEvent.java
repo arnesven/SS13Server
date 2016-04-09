@@ -3,8 +3,11 @@ package model.events;
 import model.Actor;
 import model.GameData;
 import model.actions.SensoryLevel;
+import model.characters.GameCharacter;
+import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.DrunkChecker;
 import model.characters.decorators.DrunkDecorator;
+import model.characters.decorators.InstanceChecker;
 import util.MyRandom;
 
 /**
@@ -14,63 +17,51 @@ import util.MyRandom;
 public class DrunkTimerEvent extends Event {
 
 	private Actor target;
-	private int counter;
+	private int level;
+	private InstanceChecker checker;
 	
-	private Boolean drinkRound;
+	private Boolean firstTime = true;
+	private Boolean remove = false;
 	
-	public int getCounter() {
-		return counter;
-	}
-
-	public void setCounter(int counter) {
-		drinkRound = true;
-		this.counter = counter;
-	}
-
-	public DrunkTimerEvent(Actor target, int counter) {
-		
+	public DrunkTimerEvent(Actor target, int level, InstanceChecker checker) {
 		this.target = target;
-		this.counter = counter;
+		this.level = level;
+		this.checker = checker;
 		
-		target.setCharacter(new DrunkDecorator(target.getCharacter(), this));		
-		this.drinkRound = true;
+		updatePreviousTimer();
 	}
 	
 	@Override
 	public void apply(GameData gameData) {
-		if (target.isDead()) {
-			counter = 0;
-		} else {
+		if (remove) {
+			return;
+		}
+		
+		// wait for one round before decreasing drunk level
+		if(!firstTime) {
+			level--;
 			
-			target.addTolastTurnInfo("You feel " + getDrunkness() + " (" + counter + ").");
-			
-			// only decrease drunkness level during rounds in which the actor hasn't consumed alcohol
-			if (!drinkRound) {
-				counter--;
-
-				// TODO play with the chance
-				// 25% chance that the character lose one extra drunkness level
-				if (counter > 0 && MyRandom.nextDouble() < 0.25) {
-					counter--;
-				}
-			} else {
-				drinkRound = false;
+			// 25% chance to decrease another drunk level each round
+			if(MyRandom.nextDouble() < 0.25) {
+				level--;
 			}
+			
+		} else {
+			firstTime = false;
 		}
+			
+		target.addTolastTurnInfo("You feel " + getDrunkLevelName() + ".");
 		
-		if (shouldBeRemoved(gameData)) {
-			makeSober();
+		if (level <= 0 || target.isDead()) {
+			// character is now sober so remove drunk decorator
+			target.removeInstance(checker);
+			markForRemoval();
 		}
-		
-	}
-	
-	private void makeSober() {
-		target.removeInstance(new DrunkChecker());
 	}
 
 	@Override
 	public String howYouAppear(Actor performingClient) {
-		return "";
+		return getDrunkLevelName();
 	}
 
 	@Override
@@ -80,19 +71,66 @@ public class DrunkTimerEvent extends Event {
 	
 	@Override
 	public boolean shouldBeRemoved(GameData gameData) {
-		return counter <= 0;
+		return remove;
 	}
-		
-	public String getDrunkness() {
-		switch(counter) {
-		case 0: return "sober";
-		case 1: return "tipsy";
-		case 2: return "drunk";
-		case 3: return "hammered";
-		case 4: return "smashed";
-		case 5: return "like a trainwreck";
-		case 6: return "drunk beyond help";
-		default: return "like you should be dead";
+	
+	public void markForRemoval() {
+		remove = true;
+	}
+	
+	/**
+	 * @return if the target is drunk return its decorator, else return null
+	 */
+	private DrunkDecorator getDrunkDecorator() {
+		GameCharacter ch = target.getCharacter();
+		while(ch instanceof CharacterDecorator) {
+			if (ch instanceof DrunkDecorator) {
+				return ((DrunkDecorator)ch);
+			}
+			ch = ((CharacterDecorator)ch);
 		}
-	}	
+		return null;
+	}
+	
+	/**
+	 * If the target is drunk, remove the old timer and update this one
+	 */
+	private void updatePreviousTimer() {
+		DrunkDecorator decorator = getDrunkDecorator();
+		
+		// if the character wasn't drunk before then do nothing
+		if(decorator == null) {
+			System.out.println(target.getBaseName() + " became drunk.");
+			return;
+		}
+		
+		System.out.println(target.getBaseName() + " became even drunker!");
+		
+		// remove the previous timer and
+		// take whatever was left and add it
+		// to this timer instead
+		level += decorator.getTimer().getDrunkLevel();
+		decorator.getTimer().markForRemoval();
+		
+		decorator.setTimer(this);
+	}
+	
+	private int getDrunkLevel() {
+		return level;
+	}
+	
+	private String getDrunkLevelName() {
+		if (level <= 0) {
+			return "sober";
+		}
+		switch(level) {
+		case 1: return "buzzed";
+		case 2: return "tipsy";
+		case 3: return "drunk";
+		case 4: return "hammered";
+		case 5: return "smashed";
+		case 6: return "blackout-drunk";
+		default: return "out-of-control";
+		}
+	}
 }
