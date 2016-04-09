@@ -93,30 +93,26 @@ public class DrunkTimerEvent extends Event {
 	}
 	
 	/**
-	 * If the target is drunk, remove the old timer and update this one
+	 * If the target is drunk, remove this and update previous timer
 	 */
 	private void updatePreviousTimer() {
 		DrunkDecorator decorator = getDrunkDecorator();
 		
-		// if the character wasn't drunk before then do nothing
+		// if the character wasn't drunk before then make them drunk
 		if(decorator == null) {
+			target.setCharacter(new DrunkDecorator(target.getCharacter(), this));
 			System.out.println(target.getBaseName() + " became drunk.");
 			return;
 		}
 		
 		System.out.println(target.getBaseName() + " became even drunker!");
 		
-		// remove the previous timer and
-		// take whatever was left and add it
-		// to this timer instead
-		level += decorator.getTimer().getDrunkLevel();
-		decorator.getTimer().markForRemoval();
-		
-		decorator.setTimer(this);
+		decorator.getTimer().addDrunkLevel(level); // update previous timer
+		markForRemoval(); // remove this
 	}
 	
-	private int getDrunkLevel() {
-		return level;
+	public void addDrunkLevel(int addition) {
+		level += addition;
 	}
 	
 	private String getDrunkLevelName() {
