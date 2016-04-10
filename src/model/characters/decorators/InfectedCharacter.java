@@ -47,7 +47,7 @@ public class InfectedCharacter extends CharacterDecorator {
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {
 
-		InfectAction infect = new InfectAction(this.getClient());	
+		InfectAction infect = new InfectAction(this.getActor());	
 		if (infect.getTargets().size() > 0) {
 			at.add(infect);
 		}

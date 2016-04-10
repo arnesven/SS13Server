@@ -40,7 +40,7 @@ public abstract class GameCharacter {
 	private String name;
 	private int startingRoom = 0;
 	private double health = 3.0;
-	private Player client = null;
+	private Actor actor = null;
 	private Room position = null;
 	private double speed;
 	private List<GameItem> items = new ArrayList<>();
@@ -55,21 +55,14 @@ public abstract class GameCharacter {
 		this.name = name;
 		this.startingRoom = startRoom;
 		this.speed = speed;
-		suit = new OutFit(name);
+
 	}
 
 	/**
 	 * @return the name of the character as it appears publicly
 	 */
 	public String getPublicName() {
-		String res = name;
-		if (suit == null) {
-			res = "Naked " + getGender() ;
-		}
-		if (isDead()) {
-			return res + " (dead)";
-		}
-		return res;
+		return getBaseName();
 	}
 	
 
@@ -108,19 +101,11 @@ public abstract class GameCharacter {
 
 	
 	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
-		Player thisClient  = this.getClient();
 		boolean success = false;
-		boolean reduced = false;
-		if (thisClient != null) {
-			if (thisClient.getNextAction() instanceof WatchAction) {
-				if (((WatchAction)thisClient.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
-					System.out.println("Attack chance reduced because of watching...");
-					reduced = true;
-				}
-			}
-		}
+		Actor thisActor  = this.getActor();
+		
 		boolean wasDeadAlready = isDead();
-		if (weapon.isAttackSuccessful(reduced)) {
+		if (weapon.isAttackSuccessful(isReduced(thisActor, performingClient))) {
 			success = true;
 			health = Math.max(0.0, health - weapon.getDamage());
 			
@@ -132,31 +117,39 @@ public abstract class GameCharacter {
 			}
 			
 			performingClient.addTolastTurnInfo("You " + verb + "ed " + 
-											   getPublicName() + " with " + weapon.getPublicName(performingClient) + ".");
-			if (thisClient != null) {
-				thisClient.addTolastTurnInfo(performingClient.getPublicName() + " " + 
-											 verb + "ed you with " + 
-											 weapon.getPublicName(thisClient) + "."); 
-			}
+											   getActor().getPublicName() + " with " + weapon.getPublicName(performingClient) + ".");
+			thisActor.addTolastTurnInfo(performingClient.getPublicName() + " " + 
+					verb + "ed you with " + 
+					weapon.getPublicName(thisActor) + "."); 
 			
 		} else {
 			performingClient.addTolastTurnInfo("Your attacked missed!");
-			if (thisClient != null) {
-				thisClient.addTolastTurnInfo(performingClient.getPublicName() + " tried to " + 
-											 weapon.getSuccessfulMessage() + " you with " + 
-											 weapon.getPublicName(thisClient) + "."); 
-			}
+			thisActor.addTolastTurnInfo(performingClient.getPublicName() + " tried to " + 
+					weapon.getSuccessfulMessage() + " you with " + 
+					weapon.getPublicName(thisActor) + "."); 
 		}
 		
 		return success;
 		
 	}
 
+	public boolean isReduced(Actor thisActor, Actor performingClient) {
+		if (thisActor instanceof Player) {
+			Player thisClient = (Player) thisActor;
+			if (thisClient.getNextAction() instanceof WatchAction) {
+				if (((WatchAction)thisClient.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
+					System.out.println("Attack chance reduced because of watching...");
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	public void beExposedTo(Actor something, Damager damager) {
 		boolean reduced = false;
-		if (getClient() != null) {
-			getClient().addTolastTurnInfo(damager.getText());
-		}
+		getActor().addTolastTurnInfo(damager.getText());
+
 		if (damager.isDamageSuccessful(reduced)) {
 			boolean wasDeadAlready = isDead();
 			health = Math.max(0.0, health - damager.getDamage());
@@ -168,9 +161,9 @@ public abstract class GameCharacter {
 					killString = damager.getName();
 				}
 			}
-			
+
 		}
-		
+
 	}
 
 
@@ -180,12 +173,12 @@ public abstract class GameCharacter {
 		}
 	}
 
-	public Player getClient() {
-		return client;
+	public Actor getActor() {
+		return actor;
 	}
 	
-	public void setClient(Player c) {
-		this.client = c;
+	public void setActor(Actor c) {
+		this.actor = c;
 	}
 
 	/**
@@ -336,6 +329,10 @@ public abstract class GameCharacter {
 	public String getGender() {
 		return gender;
 	}
+	
+	public void setGender(String gen) {
+		this.gender = gen;
+	}
 
 	/**
 	 * @param it the item being given
@@ -354,6 +351,11 @@ public abstract class GameCharacter {
 		return Weapon.FISTS;
 	}
 
+	/**
+	 * @see GameItem.getIcon
+	 * @param whosAsking
+	 * @return
+	 */
 	public char getIcon(Player whosAsking) {
 		if (suit == null) {
 			if (this.getGender().equals("man")) {
@@ -374,7 +376,7 @@ public abstract class GameCharacter {
 		}
 		
 		String itemStr = null;
-		String name = this.getPublicName();
+		String name = this.getActor().getBaseName();
 
 		if (this.getItems().size() > 0) {
 			GameItem randomItem = MyRandom.sample(getItems());
@@ -397,5 +399,14 @@ public abstract class GameCharacter {
 		System.out.println(this.getClass().getName());
 	}
 	
+	public abstract GameCharacter clone();
 
+	public boolean hasInventory() {
+		return true;
+	}
+
+	public boolean canUseObjects() {
+		return true;
+	}
+	
 }

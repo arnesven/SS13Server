@@ -4,7 +4,7 @@ public class ColdDamage implements Damager {
 
 	@Override
 	public String getText() {
-		return "You're feel a painful shivering in your body.";
+		return "You feel a painful shivering in your body.";
 	}
 
 	@Override

@@ -42,6 +42,7 @@ import model.events.HullBreach;
 import model.events.OngoingEvent;
 import model.events.PowerFlux;
 import model.events.RadiationStorm;
+import model.events.RandomHuskEvent;
 import model.events.SimulatePower;
 import model.items.FireExtinguisher;
 import model.items.GameItem;
@@ -109,7 +110,7 @@ import model.npcs.behaviors.SpontaneousAct;
 public abstract class GameMode {
 
 
-	private static String[] knownModes = {"Host", "Traitor", "Operatives", "Secret"};
+	private static String[] knownModes = {"Host", "Traitor", "Operatives", "Changeling", "Secret"};
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
 
@@ -121,6 +122,7 @@ public abstract class GameMode {
 		events.put("radiation storms", new RadiationStorm());
 		events.put("simulate power", new SimulatePower());
 		events.put("Power flux", new PowerFlux());
+		events.put("random husk", new RandomHuskEvent());
 	}
 
 	private static HashMap<String, GameCharacter> availableChars() {
@@ -461,8 +463,8 @@ public abstract class GameMode {
 		}
 		res.append("aTraitor:");
 		res.append("aHost:");
-		res.append("aOperative");
-		//	res.append("aChangeling:");
+		res.append("aOperative:");
+		res.append("aChangeling");
 
 
 		return res.toString();

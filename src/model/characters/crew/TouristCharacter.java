@@ -11,7 +11,7 @@ import model.items.suits.FancyClothes;
 import model.map.NukieShipRoom;
 import model.map.Room;
 
-public class TouristCharacter extends GameCharacter {
+public class TouristCharacter extends CrewCharacter {
 
 	public TouristCharacter() {
 		super("Tourist", 0, 1.0);
@@ -32,6 +32,11 @@ public class TouristCharacter extends GameCharacter {
 		} while (room instanceof NukieShipRoom);
 		
 		return room;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new TouristCharacter();
 	}
 	
 }

@@ -40,5 +40,11 @@ public abstract class RobotCharacter extends GameCharacter {
 	public Weapon getDefaultWeapon() {
 		return new BluntWeapon("Steel Prod", 0.5){};
 	}
+	
+	@Override
+	public boolean hasInventory() {
+		return false;
+	}
+
 
 }

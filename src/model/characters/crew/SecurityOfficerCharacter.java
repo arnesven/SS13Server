@@ -9,7 +9,7 @@ import model.items.SecurityRadio;
 import model.items.weapons.LaserPistol;
 import model.items.weapons.StunBaton;
 
-public class SecurityOfficerCharacter extends GameCharacter {
+public class SecurityOfficerCharacter extends CrewCharacter {
 
 	public SecurityOfficerCharacter() {
 		super("Security Officer", 18, 14.0);
@@ -21,6 +21,11 @@ public class SecurityOfficerCharacter extends GameCharacter {
 		list.add(new StunBaton());
 		list.add(new SecurityRadio());
 		return list;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new SecurityOfficerCharacter();
 	}
 
 }

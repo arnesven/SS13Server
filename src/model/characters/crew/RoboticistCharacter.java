@@ -9,7 +9,7 @@ import model.items.GameItem;
 import model.items.Tools;
 import model.items.FireExtinguisher;
 
-public class RoboticistCharacter extends GameCharacter {
+public class RoboticistCharacter extends CrewCharacter {
 
 	public RoboticistCharacter() {
 		super("Roboticist", 1, 7.0);
@@ -21,6 +21,11 @@ public class RoboticistCharacter extends GameCharacter {
 		list.add(new Tools());
 		list.add(new FireExtinguisher());
 		return list;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new RoboticistCharacter();
 	}
 
 }

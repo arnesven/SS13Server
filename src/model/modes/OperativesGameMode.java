@@ -87,7 +87,8 @@ public class OperativesGameMode extends GameMode {
 		while (opPlayers.size() < getNoOfOperatives(gameData)) {
 			// Too few checked operatives add some.
 			Player p = MyRandom.sample(allPlayers);
-			if (!opPlayers.contains(p)) {
+			if (!opPlayers.contains(p) &&
+					!(p.getCharacter() instanceof CaptainCharacter)) {
 				opPlayers.add(p);
 			}
 		}
@@ -97,16 +98,15 @@ public class OperativesGameMode extends GameMode {
 			Player p = opPlayers.get(i);
 			
 			// Turn Character into decoy-npc
-			p.getCharacter().setClient(null);
+			//p.getCharacter().setClient(null);
 			NPC npc = new HumanNPC(p.getCharacter(), p.getCharacter().getStartingRoom(gameData));
+			p.getCharacter().setActor(npc);
 			gameData.addNPC(npc);
 			decoys.put(p, npc);
 			GameCharacter opChar = new OperativeCharacter(num++, nukieShip.getID());
 			
 			p.setCharacter(opChar);
-			p.takeOffSuit(); // removes default outfit
-			p.putOnSuit(new JumpSuit());
-			p.putOnSuit(new OperativeSpaceSuit());
+
 
 			operatives.add(p);
 		}

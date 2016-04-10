@@ -13,7 +13,7 @@ import model.items.GameItem;
 import model.items.MedKit;
 import model.items.weapons.Knife;
 
-public class JanitorCharacter extends GameCharacter {
+public class JanitorCharacter extends CrewCharacter {
 
 	public JanitorCharacter() {
 		super("Janitor", 23, 3.0);
@@ -25,7 +25,7 @@ public class JanitorCharacter extends GameCharacter {
 			ArrayList<Action> at) {
 		super.addCharacterSpecificActions(gameData, at);
 		PickUpAllAction pua = new PickUpAllAction();
-		if (this.getPosition().getItems().size() > 0) {
+		if (getActor().getPosition().getItems().size() > 0) {
 			at.add(pua);
 		}
 	}
@@ -44,6 +44,11 @@ public class JanitorCharacter extends GameCharacter {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new JanitorCharacter();
 	}
 
 }
