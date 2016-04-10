@@ -56,6 +56,11 @@ public class DrunkTimerEvent extends Event {
 			// character is now sober so remove drunk decorator
 			target.removeInstance(checker);
 			markForRemoval();
+		} else if (!target.isDead()) {
+			// TODO balance the probability
+			if(MyRandom.nextDouble() < level) {
+				gameData.addEvent(new FallDownEvent(target));
+			}
 		}
 	}
 
@@ -112,6 +117,7 @@ public class DrunkTimerEvent extends Event {
 	}
 	
 	public void addDrunkLevel(int addition) {
+		firstTime = true; // do not decrease the drunk level this round
 		level += addition;
 	}
 	
