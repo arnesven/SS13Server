@@ -16,7 +16,7 @@ import model.map.Room;
 import model.npcs.ChimpNPC;
 import model.npcs.Trainable;
 
-public class BiologistCharacter extends GameCharacter {
+public class BiologistCharacter extends CrewCharacter {
 
 	public BiologistCharacter() {
 		super("Biologist", 3, 11.0);
@@ -36,7 +36,7 @@ public class BiologistCharacter extends GameCharacter {
 		super.addCharacterSpecificActions(gameData, at);
 		Trainable train = getTrainableInRoom(this.getPosition());
 		if (train != null) {
-			at.add(new TrainNPCAction(this.getClient(), gameData));
+			at.add(new TrainNPCAction(this.getActor(), gameData));
 		}
 	}
 
@@ -47,6 +47,11 @@ public class BiologistCharacter extends GameCharacter {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new BiologistCharacter();
 	}
 
 }

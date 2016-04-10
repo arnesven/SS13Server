@@ -13,8 +13,8 @@ public class ShadowAction extends WatchAction {
 
 	private Room shadowedInRoom;
 
-	public ShadowAction(Player player) {
-		super(player);
+	public ShadowAction(Actor actor) {
+		super(actor);
 		super.setName("Shadow");
 	}
 	
@@ -31,9 +31,7 @@ public class ShadowAction extends WatchAction {
 		performingClient.addTolastTurnInfo("You are shadowing " + target.getName());
 		this.shadowedInRoom = performingClient.getPosition();
 				
-		gameData.addMovementEvent(new FollowMovementEvent(shadowedInRoom, performingClient, target));
+		gameData.addMovementEvent(new FollowMovementEvent(shadowedInRoom, performingClient, target, true));
 	}
-
-
-
+	
 }

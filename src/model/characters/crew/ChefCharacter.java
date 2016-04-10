@@ -12,7 +12,7 @@ import model.items.suits.ChefsHat;
 import model.items.weapons.Knife;
 import model.objects.CookOMatic;
 
-public class ChefCharacter extends GameCharacter {
+public class ChefCharacter extends CrewCharacter {
 
 	public ChefCharacter() {
 		super("Chef", 8, 5.0);
@@ -33,6 +33,11 @@ public class ChefCharacter extends GameCharacter {
 			super.giveItem(it, giver);
 		}
 		super.giveItem(it, giver);
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new ChefCharacter();
 	}
 
 }

@@ -29,9 +29,9 @@ public class RadiationProtection extends CharacterDecorator {
 	@Override
 	public void beExposedTo(Actor something, Damager damager) {
 		if (damager instanceof RadiationDamage) {
-			if (this.getClient() != null) {
-				this.getClient().addTolastTurnInfo("The rad suit protected you.");
-			}
+			
+			this.getActor().addTolastTurnInfo("The rad suit protected you.");
+			
 			return;
 		}
 		super.beExposedTo(something, damager);

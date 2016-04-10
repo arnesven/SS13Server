@@ -40,6 +40,7 @@ public abstract class Actor  {
 	 */
 	public void setCharacter(GameCharacter charr) {
 		this.character = charr;
+		getCharacter().setActor(this);
 		if (charr instanceof CharacterDecorator) {
 			((CharacterDecorator)charr).printInstances();
 		}
@@ -164,7 +165,6 @@ public abstract class Actor  {
 		item.beingTakenOff(this);
 	}
 
-	
 	public abstract double getMaxHealth();
 	
 	public abstract void moveIntoRoom(Room brig);

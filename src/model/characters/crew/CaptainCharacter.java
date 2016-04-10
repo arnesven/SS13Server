@@ -11,7 +11,7 @@ import model.items.NuclearDisc;
 import model.items.foods.Beer;
 import model.items.suits.FireSuit;
 
-public class CaptainCharacter extends GameCharacter {
+public class CaptainCharacter extends CrewCharacter {
 
 	public CaptainCharacter() {
 		super("Captain", 20, 16.0);
@@ -33,6 +33,11 @@ public class CaptainCharacter extends GameCharacter {
 		list.add(new Beer()); // TODO remove, debugging
 		list.add(new Beer()); // TODO remove, debugging
 		return list;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new CaptainCharacter();
 	}
 
 }

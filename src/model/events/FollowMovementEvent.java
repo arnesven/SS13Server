@@ -13,11 +13,13 @@ public class FollowMovementEvent extends Event {
 	private Room shadowedInRoom;
 	private Actor performingClient;
 	private Target target;
+	private boolean remove;
 
-	public FollowMovementEvent(Room room, Actor performer, Target target) {
+	public FollowMovementEvent(Room room, Actor performer, Target target, boolean remove) {
 		this.shadowedInRoom = room;
 		this.performingClient = performer;
 		this.target = target;
+		this.remove = remove;
 	}
 
 	@Override
@@ -38,6 +40,7 @@ public class FollowMovementEvent extends Event {
 				
 				pl.moveIntoRoom(target.getPosition());
 				performingClient.addTolastTurnInfo("You followed " + target.getName() + " to " +target.getPosition().getName() + ".");
+				shadowedInRoom = target.getPosition();
 			} else {
 				NPC npc = ((NPC)performingClient);
 				npc.moveIntoRoom(target.getPosition());
@@ -50,7 +53,11 @@ public class FollowMovementEvent extends Event {
 
 	@Override
 	public boolean shouldBeRemoved(GameData gameData) {
-		return true;
+		return remove || target.isDead();
+	}
+	
+	public void setShouldBeRemoved(boolean b) {
+		remove = b;
 	}
 
 

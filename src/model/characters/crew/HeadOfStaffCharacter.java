@@ -9,7 +9,7 @@ import model.items.KeyCard;
 import model.items.MedKit;
 import model.items.weapons.LaserPistol;
 
-public class HeadOfStaffCharacter extends GameCharacter {
+public class HeadOfStaffCharacter extends CrewCharacter {
 
 	public HeadOfStaffCharacter() {
 		super("Head of Staff", 14, 15.0);
@@ -21,6 +21,11 @@ public class HeadOfStaffCharacter extends GameCharacter {
 		list.add(new MedKit());
 		list.add(new KeyCard());
 		return list;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new HeadOfStaffCharacter();
 	}
 
 }

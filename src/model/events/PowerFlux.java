@@ -23,7 +23,7 @@ public class PowerFlux extends Event {
 		if (sustaining ) {
 			
 			gc.addToLevel(randomAmount(FLUX_SUSTAIN_FACTOR) * (increasing ?1.0:-1.0));
-			if (MyRandom.nextDouble() < 0.2 || gc.getPowerLevel() == 0.0) {
+			if (MyRandom.nextDouble() < 0.33 || gc.getPowerLevel() == 0.0) {
 				System.out.println("Sustained power flux over");
 				sustaining = false;
 			}

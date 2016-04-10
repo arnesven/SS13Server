@@ -146,9 +146,7 @@ public abstract class NPC extends Actor implements Target {
 		getCharacter().beExposedTo(performingClient, damage);
 	}
 
-	@Override
-	public abstract boolean hasInventory();
-
+	
 	@Override
 	public boolean isHealable() {
 		return getCharacter().isHealable();

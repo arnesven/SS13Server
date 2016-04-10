@@ -10,6 +10,8 @@ import model.actions.Action;
 import model.actions.TargetingAction;
 import model.items.GameItem;
 import model.items.NuclearDisc;
+import model.items.suits.JumpSuit;
+import model.items.suits.OperativeSpaceSuit;
 import model.items.suits.SpaceSuit;
 import model.map.AirLockRoom;
 import model.npcs.NPC;
@@ -19,10 +21,15 @@ import model.actions.characteractions.StealAction;
 import model.modes.OperativesGameMode;
 import model.items.weapons.Revolver;
 
-public class OperativeCharacter extends GameCharacter {
+public class OperativeCharacter extends HumanCharacter {
+
+	private int num;
 
 	public OperativeCharacter(int num, int startRoom) {
 		super("Operative #" + num, startRoom, 17.0);
+		this.num = num;
+		putOnSuit(new JumpSuit());
+		putOnSuit(new OperativeSpaceSuit());
 	}
 
 	@Override
@@ -44,8 +51,8 @@ public class OperativeCharacter extends GameCharacter {
 		if (getPosition() instanceof AirLockRoom && hasASpaceSuitOn()) {
 			at.add(new EscapeAndSetNukeAction());
 		}
-		Action stealAction = new StealAction(this.getClient());
-		if (stealAction.getOptions(gameData, this.getClient()).numberOfSuboptions() > 0) {
+		Action stealAction = new StealAction(this.getActor());
+		if (stealAction.getOptions(gameData, this.getActor()).numberOfSuboptions() > 0) {
 			at.add(stealAction);
 		}
 	}
@@ -53,6 +60,11 @@ public class OperativeCharacter extends GameCharacter {
 
 	private boolean hasASpaceSuitOn() {
 		return getSuit() instanceof SpaceSuit;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new OperativeCharacter(num, this.getStartingRoom());
 	}
 
 

@@ -11,7 +11,7 @@ import model.items.MedKit;
 import model.items.weapons.Knife;
 import model.items.weapons.LaserPistol;
 
-public class DoctorCharacter extends GameCharacter {
+public class DoctorCharacter extends CrewCharacter {
 
 	public DoctorCharacter() {
 		super("Doctor", 24, 12.0);
@@ -34,5 +34,10 @@ public class DoctorCharacter extends GameCharacter {
 		}
 		
 		return usually;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new DoctorCharacter();
 	}
 }

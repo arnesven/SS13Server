@@ -98,7 +98,7 @@ public class Player extends Actor implements Target {
 	@Override
 	public void setCharacter(GameCharacter charr) {
 		super.setCharacter(charr);
-		getCharacter().setClient(this);
+
 	}
 
 	/**
@@ -363,11 +363,18 @@ public class Player extends Actor implements Target {
 		ArrayList<Action> at = new ArrayList<Action>();
 		addBasicActions(at);
 		if (!isDead()) {
+			
+			
 			addRoomActions(gameData, at);
-			addItemActions(gameData, at);
+			
+			if (this.hasInventory()) {
+				addItemActions(gameData, at);
+			}
 			addAttackActions(at);			
 			addWatchAction(at);
-			addManageItemActions(at);
+			if (this.hasInventory()) {
+				addManageItemActions(gameData, at);
+			}
 			
 			getCharacter().addCharacterSpecificActions(gameData, at);
 
@@ -400,10 +407,10 @@ public class Player extends Actor implements Target {
 		}
 	}
 
-	private void addManageItemActions(ArrayList<Action> at2) {
+	private void addManageItemActions(GameData gameData, ArrayList<Action> at2) {
 		ArrayList<Action> at = new ArrayList<>();
 		addGiveAction(at);
-		addDropActions(at);
+		addDropActions(gameData, at);
 		addPickUpActions(at);
 		addPutOnActions(at);
 		if (at.size() > 0) {
@@ -437,9 +444,9 @@ public class Player extends Actor implements Target {
 		}
 	}
 
-	private void addDropActions(ArrayList<Action> at) {
-		if (getItems().size() > 0 || this.getSuit() != null) {
-			DropAction dropAction = new DropAction(this);
+	private void addDropActions(GameData gameData, ArrayList<Action> at) {
+		DropAction dropAction = new DropAction(this);
+		if (dropAction.getOptions(gameData, this).numberOfSuboptions() > 0) {
 			at.add(dropAction);
 		}
 	}
@@ -558,10 +565,6 @@ public class Player extends Actor implements Target {
 		getCharacter().beExposedTo(performingClient, damager);
 	}
 
-	@Override
-	public boolean hasInventory() {
-		return true;
-	}
 
 	@Override
 	public boolean isHealable() {
@@ -589,6 +592,11 @@ public class Player extends Actor implements Target {
 	public boolean canBeInteractedBy(Actor performingClient) {
 		return this.getPosition() == performingClient.getPosition();
 		
+	}
+
+	@Override
+	public boolean hasInventory() {
+		return getCharacter().hasInventory();
 	}
 
 

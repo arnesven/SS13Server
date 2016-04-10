@@ -15,7 +15,7 @@ import model.items.Tools;
 import model.items.weapons.Flamer;
 import model.items.weapons.Knife;
 
-public class TechnicianCharacter extends GameCharacter {
+public class TechnicianCharacter extends CrewCharacter {
 
 	public TechnicianCharacter() {
 		super("Technician", 26, 6.0);
@@ -23,8 +23,8 @@ public class TechnicianCharacter extends GameCharacter {
 	
 	@Override
 	public void addCharacterSpecificActions(GameData gameData, ArrayList<model.actions.Action> at) {
-		if (GameItem.hasAnItem(this.getClient(), new Laptop())) {
-			Laptop pc = (Laptop)GameItem.getItem(this.getClient(), new Laptop());
+		if (GameItem.hasAnItem(this.getActor(), new Laptop())) {
+			Laptop pc = (Laptop)GameItem.getItem(this.getActor(), new Laptop());
 			if (pc.isJackedIn() && pc.getJackRoom() != this.getPosition()) {
 				pc.setNotJackedIn();
 			}
@@ -43,6 +43,11 @@ public class TechnicianCharacter extends GameCharacter {
 		list.add(new Laptop());
 		list.add(new Tools());
 		return list;
+	}
+
+	@Override
+	public GameCharacter clone() {
+		return new TechnicianCharacter();
 	}
 
 }

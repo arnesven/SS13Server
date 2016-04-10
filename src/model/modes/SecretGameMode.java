@@ -35,9 +35,17 @@ public class SecretGameMode  {
 					protMessage(c);
 				}
 			};
-		} else {
+		} else if (d < 0.95){
 			MyRandom.write_to_file(filename, "Operatives");
 			result = new OperativesGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					protMessage(c);
+				}
+			};
+		} else {
+			MyRandom.write_to_file(filename, "Changeling");
+			result = new ChangelingGameMode() {
 				@Override
 				protected void addProtagonistStartingMessage(Player c) {
 					protMessage(c);

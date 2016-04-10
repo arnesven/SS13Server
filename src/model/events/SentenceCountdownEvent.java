@@ -31,7 +31,29 @@ public class SentenceCountdownEvent extends Event {
 			int remaining = console.getSentenceMap().get(inmate);
 			if (remaining == 0) {
 				remove = true;
-				console.release(gameData, inmate);
+				gameData.addEvent(new Event() {
+					
+					@Override
+					public String howYouAppear(Actor performingClient) {
+						return "";
+					}
+					
+					@Override
+					public SensoryLevel getSense() {
+						return SensoryLevel.NO_SENSE;
+					}
+					
+					@Override
+					public void apply(GameData gameData) {
+						console.release(gameData, inmate);
+						inmate.addTolastTurnInfo("JudgeBot; I believe these were your personal affects.");
+					}
+					
+					@Override
+					public boolean shouldBeRemoved(GameData gameData) {
+						return true;
+					}
+				});
 			} else {
 				if (!firstTime) {
 					inmate.addTolastTurnInfo("You have " + remaining + " more round(s) on your sentance.");

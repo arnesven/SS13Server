@@ -58,13 +58,13 @@ public abstract class CharacterDecorator extends GameCharacter {
 	}
 	
 	@Override 
-	public Player getClient() {
-		return innerChar.getClient();
+	public Actor getActor() {
+		return innerChar.getActor();
 	}
 	
 	@Override
-	public void setClient(Player c) {
-		innerChar.setClient(c);
+	public void setActor(Actor c) {
+		innerChar.setActor(c);
 	}
 	
 	@Override
@@ -123,6 +123,12 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
 		return innerChar.beAttackedBy(performingClient, weapon);
 	}
+	
+	@Override
+	public boolean isReduced(Actor thisActor, Actor performingClient) {
+		return innerChar.isReduced(thisActor, performingClient);
+	}
+		
 	
 	@Override
 	public void beExposedTo(Actor something, Damager damager) {
@@ -218,6 +224,12 @@ public abstract class CharacterDecorator extends GameCharacter {
 	}
 	
 	@Override
+	public void setGender(String gen) {
+		innerChar.setGender(gen);
+	}
+
+	
+	@Override
 	public double getEncumberenceLevel() {
 		System.out.println("Encumberance in decorator");
 		return innerChar.getEncumberenceLevel();
@@ -263,8 +275,18 @@ public abstract class CharacterDecorator extends GameCharacter {
 		return innerChar.getStartingRoom();
 	}
 	
+	@Override
+	public GameCharacter clone() {
+		return innerChar.clone();
+	}
+	
 	public void printInstances() {
 		System.out.print(this.getClass().getName() + "->");
 		getInner().printInstances();
 	}
+	
+	public boolean canUseObjects() {
+		return innerChar.canUseObjects();
+	}
+	
 }
