@@ -58,7 +58,7 @@ public class DrunkTimerEvent extends Event {
 			markForRemoval();
 		} else if (!target.isDead()) {
 			// TODO balance the probability
-			if(MyRandom.nextDouble() < level) {
+			if(MyRandom.nextDouble() < Math.min(0.1*level, 0.9)) {
 				gameData.addEvent(new FallDownEvent(target));
 			}
 		}
