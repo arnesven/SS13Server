@@ -1,7 +1,10 @@
 package model.characters.decorators;
 
+import model.Actor;
 import model.characters.GameCharacter;
+import model.events.Damager;
 import model.events.DrunkTimerEvent;
+import util.MyRandom;
 
 public class DrunkDecorator extends CharacterDecorator {
 
@@ -16,8 +19,31 @@ public class DrunkDecorator extends CharacterDecorator {
 		return drunkTimer;
 	}
 	
+	// TODO balance these probabilities
+	private double getColdProbability(int level) {
+		if (level <= 0) return 0;
+		switch(level) {
+		case 1: return 0.2;
+		case 2: return 0.4;
+		case 3: return 0.65;
+		case 4: return 0.75;
+		case 5: return 0.78;
+		default: return 0.80;
+		}
+	}
+	
 	public void setTimer(DrunkTimerEvent drunkTimer) {
 		this.drunkTimer = drunkTimer;
+	}
+	
+	@Override
+	public void beExposedTo(Actor something, Damager damager) {
+		if (damager.getName().equals("hypothermia") &&
+				MyRandom.nextDouble() < getColdProbability(drunkTimer.getLevel())) {
+			this.getActor().addTolastTurnInfo("You are to drunk to feel the cold.");
+			return;
+		}
+		super.beExposedTo(something, damager);
 	}
 	
 }

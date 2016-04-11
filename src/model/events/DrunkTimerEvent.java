@@ -135,4 +135,8 @@ public class DrunkTimerEvent extends Event {
 		default: return "out-of-control";
 		}
 	}
+	
+	public int getLevel() {
+		return level;
+	}
 }
