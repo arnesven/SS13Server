@@ -310,8 +310,12 @@ public abstract class GameCharacter {
 	}
 	
 	public void putOnSuit(SuitItem gameItem) {
+//		if (getActor() == null) {
+//			System.out.println("WARNING: putOnSuit was called while Actor was null! Possible that beingPutOn wasn't ever called!");
+//		}
 		gameItem.setUnder(this.suit);
 		this.suit = gameItem;
+
 	}
 
 	public void removeSuit() {

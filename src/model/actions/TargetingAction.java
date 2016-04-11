@@ -123,7 +123,7 @@ public abstract class TargetingAction extends Action {
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
 		if (!target.canBeInteractedBy(performingClient)) {
-			performingClient.addTolastTurnInfo("What? " + target.getName() + " cant be targeted! Your action failed.");
+			performingClient.addTolastTurnInfo("What? " + target.getName() + " can't be targeted! Your action failed.");
 			
 		} else if (item != null && !itemAvailable(performingClient, item)) {
 			performingClient.addTolastTurnInfo("What? the " + item.getPublicName(performingClient) + " was no longer there! Your action failed.");

@@ -32,6 +32,10 @@ public abstract class CharacterDecorator extends GameCharacter {
 		super("name", chara.getStartingRoom(), chara.getSpeed());
 		innerChar = chara;
 	}
+	
+	public void setInner(GameCharacter in) {
+		this.innerChar = in;
+	}
 
 	public GameCharacter getInner() {
 		return innerChar;

@@ -167,6 +167,8 @@ public class GeneratorConsole extends Console {
 		noLifeSupport.addAll(gameData.getRooms());
 		Collections.shuffle(noLifeSupport);
 
+		Collections.sort(noPower);
+		
 		lightBefore = noLight.size();
 		lsBefore = noLifeSupport.size();
 		eqBefore = noPower.size();

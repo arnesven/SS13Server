@@ -28,8 +28,6 @@ public class OperativeCharacter extends HumanCharacter {
 	public OperativeCharacter(int num, int startRoom) {
 		super("Operative #" + num, startRoom, 17.0);
 		this.num = num;
-		putOnSuit(new JumpSuit());
-		putOnSuit(new OperativeSpaceSuit());
 	}
 
 	@Override

@@ -1,0 +1,67 @@
+package model.actions.objectactions;
+
+import java.util.List;
+
+import model.Actor;
+import model.GameData;
+import model.actions.ActionOption;
+import model.actions.SensoryLevel;
+import model.items.GameItem;
+import model.items.Syringe;
+import model.mutations.Mutation;
+import model.objects.consoles.GeneticsConsole;
+
+public class FillWithKnownMutationAction extends ConsoleAction {
+
+	
+
+	private GeneticsConsole console;
+	private Mutation selected;
+
+	public FillWithKnownMutationAction(GeneticsConsole console2) {
+		super("Mutate Genes", SensoryLevel.OPERATE_DEVICE);
+		this.console = console2;
+	}
+
+	@Override
+	protected void execute(GameData gameData, Actor performingClient) {
+		Syringe s = (Syringe) GameItem.getItem(performingClient, new Syringe());
+		if (s != null) {
+			performingClient.addTolastTurnInfo(GeneticsConsole.BLAST_STRING);
+			s.setBloodFrom(performingClient, gameData);
+			s.setMutation(selected);
+		} else {
+			performingClient.addTolastTurnInfo("What? The syringe is gone! Your action failed.");
+		}
+	}
+
+	@Override
+	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+		ActionOption opt = super.getOptions(gameData, whosAsking);
+		if (GameItem.hasAnItem(whosAsking, new Syringe()) && 
+				console.getKnownMutations().size() > 0) {
+			for (Mutation m : console.getKnownMutations()) {
+				opt.addOption(m.getName());
+			}
+		}
+		return opt;	
+	}
+	
+	@Override
+	protected String getVerb(Actor whosAsking) {
+		return "Fiddled with GeneTIX";
+	}
+
+	@Override
+	public void setArguments(List<String> args, Actor performingClient) {
+		selected = null;
+		for (Mutation m : console.getKnownMutations()) {
+			if (args.get(0).equals(m.getName())) {
+				this.selected = m;
+				break;
+			}
+		}
+
+	}
+
+}

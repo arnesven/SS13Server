@@ -71,7 +71,7 @@ class ChangelingModeStats extends GameStats {
 	@Override
 	public String getContent() {
 		String s = "Changeling sucked life from; ";
-		ChangelingCharacter chara = (ChangelingCharacter) mode.getChangeling().getCharacter();
+		ChangelingCharacter chara = mode.getChangelingChar();
 		for (GameCharacter chars : chara.getForms()) {
 			if (!(chars instanceof ParasiteCharacter || 
 					chars instanceof HorrorCharacter)) {

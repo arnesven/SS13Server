@@ -19,7 +19,7 @@ public class SecretGameMode  {
 	public static GameMode getNewInstance() {
 		GameMode result;
 		double d = MyRandom.nextDouble();
-		if (d < 0.40) {
+		if (d < 0.35) {
 			MyRandom.write_to_file(filename, "Host");
 			result = new HostGameMode() {
 				@Override
@@ -27,7 +27,7 @@ public class SecretGameMode  {
 					protMessage(c);
 				}
 			};
-		} else if (d < 0.80) {
+		} else if (d < 0.70) {
 			MyRandom.write_to_file(filename, "Traitor");
 			result = new TraitorGameMode() {
 				@Override
@@ -35,7 +35,7 @@ public class SecretGameMode  {
 					protMessage(c);
 				}
 			};
-		} else if (d < 0.95){
+		} else if (d < 0.85){
 			MyRandom.write_to_file(filename, "Operatives");
 			result = new OperativesGameMode() {
 				@Override

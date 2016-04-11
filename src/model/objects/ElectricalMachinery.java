@@ -11,9 +11,11 @@ import model.map.Room;
 import model.objects.consoles.GeneratorConsole;
 
 
-public abstract class ElectricalMachinery extends BreakableObject implements Repairable {
+public abstract class ElectricalMachinery extends BreakableObject 
+			implements Repairable, Comparable<ElectricalMachinery> {
 
 	private boolean inUse = false;
+	private int powerPriority = 5; // lowest priority
 
 	public ElectricalMachinery(String name, Room r) {
 		super(name, 1.5, r);
@@ -26,6 +28,15 @@ public abstract class ElectricalMachinery extends BreakableObject implements Rep
 	
 	public boolean isInUse() {
 		return inUse;
+	}
+	
+	@Override
+	public int compareTo(ElectricalMachinery arg0) {
+		return this.powerPriority - arg0.powerPriority;
+	}
+	
+	protected void setPowerPriority(int i) {
+		this.powerPriority = i;
 	}
 	
 	

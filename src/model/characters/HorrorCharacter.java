@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Player;
 import model.items.GameItem;
+import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
 
 public class HorrorCharacter extends GameCharacter {
@@ -28,7 +29,7 @@ public class HorrorCharacter extends GameCharacter {
 		return new HorrorCharacter();
 	}
 	
-	private Weapon hugeClaw = new Weapon("Impaler", 0.9, 1.0, false, 0.0);
+	private Weapon hugeClaw = new Weapon("Impaler", 0.75, 1.0, false, 0.0);
 	
 	@Override
 	public Weapon getDefaultWeapon() {
@@ -38,6 +39,11 @@ public class HorrorCharacter extends GameCharacter {
 	public void setImpalerDamage(List<GameCharacter> forms) {
 		double d = forms.size() / 2.0 - 0.5;
 		hugeClaw.setDamage(d);		
+	}
+	
+	@Override
+	public void putOnSuit(SuitItem gameItem) {
+		//Do nothing 
 	}
 
 }

@@ -32,6 +32,7 @@ public class RandomHuskEvent extends Event {
 		} while (!isOk(roomToAddAHuskIn));
 		HumanNPC npc = new HumanNPC(new NobodyCharacter(roomToAddAHuskIn.getID()), 
 				roomToAddAHuskIn);
+		npc.setHealth(0.0);
 		npc.moveIntoRoom(roomToAddAHuskIn);
 		npc.setCharacter(new HuskDecorator(npc.getCharacter()));
 		System.out.println("Added a husk in " + roomToAddAHuskIn.getName());

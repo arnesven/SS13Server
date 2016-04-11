@@ -7,6 +7,7 @@ import model.characters.GameCharacter;
 import model.items.Chemicals;
 import model.items.GameItem;
 import model.items.MedKit;
+import model.items.Syringe;
 
 public class GeneticistCharacter extends CrewCharacter {
 
@@ -17,6 +18,7 @@ public class GeneticistCharacter extends CrewCharacter {
 	@Override
 	public List<GameItem> getStartingItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
+		list.add(new Syringe());
 		list.add(new MedKit());
 		list.add(new Chemicals());
 		return list;

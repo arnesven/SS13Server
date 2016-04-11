@@ -22,11 +22,13 @@ public class ChangelingGameMode extends GameMode {
 
 	private static final String LING_START_STRING = "Kill everyone!";
 	private Player ling;
+	private ChangelingCharacter lingChar;
 	private NPC decoy;
 
 	@Override
 	protected void setUpOtherStuff(GameData gameData) { 
 		gameData.addEvent(new ChangelingSensesEvent(ling));
+		getEvents().remove("random husks");
 	}
 
 	@Override
@@ -68,7 +70,7 @@ public class ChangelingGameMode extends GameMode {
 			startRoom = MyRandom.sample(gameData.getRooms());
 		} while (isAStartingRoom(startRoom, gameData) || lockedRoom(startRoom, gameData));
 		
-		GameCharacter lingChar = new ChangelingCharacter(startRoom);
+		lingChar = new ChangelingCharacter(startRoom);
 		ling.setCharacter(lingChar);
 		lingChar.removeSuit();
 		
@@ -145,6 +147,10 @@ public class ChangelingGameMode extends GameMode {
 
 	public Actor getChangeling() {
 		return ling;
+	}
+
+	public ChangelingCharacter getChangelingChar() {
+		return lingChar;
 	}
 
 }

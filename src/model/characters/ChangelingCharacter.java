@@ -20,6 +20,7 @@ import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.NoSuchInstanceException;
 import model.items.GameItem;
+import model.items.TornClothes;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
 import model.map.Room;
@@ -103,8 +104,9 @@ public class ChangelingCharacter extends GameCharacter {
 	}
 
 	private void addHunt(GameData gameData, ArrayList<Action> at) {
-		if (getPosition().getActors().size() > 1) {
-			at.add(new HuntAction(getActor()));
+		HuntAction ac = new HuntAction(getActor());
+		if (ac.getOptions(gameData, getActor()).numberOfSuboptions() > 0) {
+			at.add(ac);
 		}
 	}
 
@@ -240,10 +242,19 @@ public class ChangelingCharacter extends GameCharacter {
 			suits.add(0, current.getSuit());
 			current.removeSuit();
 		}
+		
 		while (suits.size() > 0) {
-			gc.putOnSuit(suits.get(0));
+			if (gc instanceof ParasiteCharacter) {
+				this.getPosition().addItem(suits.get(0));
+			} else if (gc instanceof HorrorCharacter) {
+				this.getPosition().addItem(new TornClothes());
+			} else { 
+				gc.putOnSuit(suits.get(0));
+			}
 			suits.remove(0);
 		}
+
+		
 	}
 
 	public static boolean isDetectable(Target target2) {
@@ -256,16 +267,12 @@ public class ChangelingCharacter extends GameCharacter {
 		
 		Actor actor = (Actor)target2;
 		if (actor instanceof HumanNPC || 
-				actor.getCharacter() instanceof AnimalCharacter) {
+				actor.getCharacter() instanceof AnimalCharacter ||
+				actor.getCharacter() instanceof HumanCharacter) {
 			return true;
 		}
 		
-		if (actor.getCharacter() instanceof RobotCharacter ||
-				actor.getCharacter() instanceof ParasiteCharacter) {
-			return false;
-		}
-
-		return true;
+		return false;
 	}
 
 	@Override
@@ -278,5 +285,8 @@ public class ChangelingCharacter extends GameCharacter {
 		return super.checkInstance(infectChecker);
 	}
 	
-	
+	@Override
+	public boolean isCrew() {
+		return false;
+	}
 }

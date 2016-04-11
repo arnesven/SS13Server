@@ -122,7 +122,7 @@ public abstract class GameMode {
 		events.put("radiation storms", new RadiationStorm());
 		events.put("simulate power", new SimulatePower());
 		events.put("Power flux", new PowerFlux());
-		events.put("random husk", new RandomHuskEvent());
+		events.put("random husks", new RandomHuskEvent());
 	}
 
 	private static HashMap<String, GameCharacter> availableChars() {

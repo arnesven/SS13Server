@@ -26,6 +26,7 @@ public class KeyCardLock extends Console {
 		locked = isLocked;
 		this.setMaxHealth(hp);
 		this.setHealth(hp);
+		this.setPowerPriority(1);
 	}
 	
 	@Override

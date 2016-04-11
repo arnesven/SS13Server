@@ -12,6 +12,7 @@ import model.characters.ChangelingCharacter;
 import model.events.FollowMovementEvent;
 import model.items.GameItem;
 import model.items.weapons.Weapon;
+import model.map.Room;
 
 public class HuntAction extends TargetingAction {
 
@@ -39,6 +40,22 @@ public class HuntAction extends TargetingAction {
 	@Override
 	public boolean isViableForThisAction(Target target2) {
 		return ChangelingCharacter.isDetectable(target2);
+	}
+	
+	@Override
+	protected void execute(GameData gameData, Actor performingClient) {
+		applyTargetingAction(gameData, performingClient, target, item);
+	}
+	
+	@Override
+	protected void addMoreTargets(Actor ap) {
+		for (Room r : ap.getPosition().getNeighborList()) {
+			for (Actor a : r.getActors()) {
+				if (ChangelingCharacter.isDetectable(a.getAsTarget())) {
+					addTarget(a.getAsTarget());
+				}
+			}
+		}
 	}
 	
 	@Override
