@@ -48,7 +48,7 @@ public class FollowCriminalBehavior implements MovementBehavior {
 		System.out.println(" SecuriTRON: my move steps are " + npc.getCharacter().getMovementSteps());
 		recursivelyGetAccissibleRooms(npc.getPosition(), rooms, npc.getCharacter().getMovementSteps());
 		
-		Room best = null;
+		Room best = npc.getPosition();
 		int least = 10000;
 		for (Room r2 : rooms) {
 			int dist = GameMap.shortestDistance(r2, r);

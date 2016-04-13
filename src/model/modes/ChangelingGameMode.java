@@ -34,6 +34,7 @@ public class ChangelingGameMode extends GameMode {
 	@Override
 	protected void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters,
 			GameData gameData) {
+		
 		List<Player> lingPlayers = new ArrayList<>();
 		
 		for (Player p : gameData.getPlayersAsList()) {

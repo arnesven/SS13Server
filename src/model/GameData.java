@@ -249,8 +249,8 @@ public class GameData {
 			allClearReady();
 			
 		} else if (gameState == GameState.MOVEMENT) {
-			moveAllPlayers();
 			moveAllNPCs();
+			moveAllPlayers();
 			
 			
 			allResetActionStrings();
@@ -316,17 +316,22 @@ public class GameData {
 
 	
 	private void doSetup() {
+		System.out.println("Doing setup:");
 		this.map = MapBuilder.createMap();
+		System.out.println("Map built");
 		for (Player p : getPlayersAsList()) {
 			p.prepForNewGame();
 		}
+		System.out.println("Players prepped");
 		this.events = new ArrayList<>();
 		this.moveEvents = new ArrayList<>();
 		this.lateActions = new ArrayList<>();
 		this.npcs = new ArrayList<>();
 		this.gameMode = GameModeFactory.create(selectedMode);
+		System.out.println("Got game mode from factory.");
 		this.round = 1;
 		gameMode.setup(this);
+		System.out.println("Game mode set-upped!");
 	}
 
 	

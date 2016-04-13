@@ -235,17 +235,26 @@ public abstract class GameMode {
 	}
 
 	public void setup(GameData gameData) {
+		System.out.println("Game Modes: Going to assign roles");
 		List<GameCharacter> remainingChars = assignCharactersToPlayers(gameData);
-		
+		System.out.println(" Game Mode: Setup: Characters assigned");
 		moveCharactersIntoStartingRooms(gameData);
-		
+		System.out.println(" Game Mode: Setup: Characters moved into starting rooms");
+			
 		addNPCs(gameData, remainingChars);
+		System.out.println(" Game Mode: Setup: NPCs added");
+		
 		giveCharactersStartingItems(gameData);
-
+		System.out.println(" Game Mode: Setup: Chars got starting items");
+		
 		setUpOtherStuff(gameData);
+		System.out.println(" Game Mode: Other stuff setupped");
+		
 		addItemsToRooms(gameData);
+		
 		addRandomItemsToRooms(gameData);
-
+		System.out.println(" Game Mode: Items added to rooms");
+		
 		addStartingMessages(gameData);
 	}
 
