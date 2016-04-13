@@ -51,8 +51,8 @@ public class MutateSyringeAction extends ConsoleAction {
 	protected void execute(GameData gameData, Actor performingClient) {
 		if (performingClient.getItems().contains(syringe)) {
 			performingClient.addTolastTurnInfo(GeneticsConsole.BLAST_STRING);
-			console.getKnownMutations().add(syringe.getMutation());
-			syringe.setMutation(MutationFactory.getRandomMutation());
+			console.addKnownMutation(syringe.getMutation());
+			syringe.setMutation(MutationFactory.getRandomMutation(gameData));
 		} else {
 			performingClient.addTolastTurnInfo("What? The syringe is gone! Your action failed!");
 		}

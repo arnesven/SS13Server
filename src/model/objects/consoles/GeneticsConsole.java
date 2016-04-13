@@ -1,6 +1,7 @@
 package model.objects.consoles;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import model.GameData;
@@ -31,8 +32,25 @@ public class GeneticsConsole extends Console {
 		}
 	}
 
-	public List<Mutation> getKnownMutations() {
-		return knownMutations;
+//	public List<Mutation> getKnownMutations() {
+//		return knownMutations;
+//	}
+	
+	public void addKnownMutation(Mutation known) {
+		for (Mutation m : knownMutations) {
+			if (m.getClass() == known.getClass()) {
+				return;
+			}
+		}
+		knownMutations.add(known);
+	}
+	
+	public Iterator<Mutation> getKwonMutationsIterator() {
+		return knownMutations.iterator();
+	}
+
+	public int nuOfKnown() {
+		return knownMutations.size();
 	}
 
 }

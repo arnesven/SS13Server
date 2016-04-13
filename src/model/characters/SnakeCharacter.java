@@ -11,7 +11,7 @@ import model.items.weapons.Weapon;
 public class SnakeCharacter extends AnimalCharacter {
 
 	public SnakeCharacter(int startRoom) {
-		super("Snake", startRoom, 0.0);
+		super("Snake", startRoom, -3.0);
 	}
 
 	private static Weapon fangs = new Weapon("Fangs", 0.75, 0.5, false, 0.0);

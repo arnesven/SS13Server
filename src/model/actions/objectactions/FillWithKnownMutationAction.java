@@ -1,5 +1,6 @@
 package model.actions.objectactions;
 
+import java.util.Iterator;
 import java.util.List;
 
 import model.Actor;
@@ -39,8 +40,10 @@ public class FillWithKnownMutationAction extends ConsoleAction {
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = super.getOptions(gameData, whosAsking);
 		if (GameItem.hasAnItem(whosAsking, new Syringe()) && 
-				console.getKnownMutations().size() > 0) {
-			for (Mutation m : console.getKnownMutations()) {
+				console.nuOfKnown() > 0) {
+			Mutation m;
+			for (Iterator<Mutation> it = console.getKwonMutationsIterator() ; it.hasNext() ; ) {
+				m = it.next();
 				opt.addOption(m.getName());
 			}
 		}
@@ -55,7 +58,9 @@ public class FillWithKnownMutationAction extends ConsoleAction {
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
 		selected = null;
-		for (Mutation m : console.getKnownMutations()) {
+		Mutation m;
+		for (Iterator<Mutation> it = console.getKwonMutationsIterator() ; it.hasNext() ; ) {
+			m = it.next();
 			if (args.get(0).equals(m.getName())) {
 				this.selected = m;
 				break;

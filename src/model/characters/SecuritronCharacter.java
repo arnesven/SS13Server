@@ -6,7 +6,7 @@ public class SecuritronCharacter extends RobotCharacter {
 	private int startRoom;
 
 	public SecuritronCharacter(int i) {
-		super("SecuriTRON", i, 0.5);
+		super("SecuriTRON", i, 0.0);
 		this.startRoom = i;
 	}
 

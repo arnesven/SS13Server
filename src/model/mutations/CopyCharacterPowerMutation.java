@@ -7,6 +7,7 @@ import model.GameData;
 import model.actions.Action;
 import model.characters.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
+import model.characters.decorators.InstanceChecker;
 
 public class CopyCharacterPowerMutation extends Mutation {
 
@@ -18,20 +19,34 @@ public class CopyCharacterPowerMutation extends Mutation {
 	}
 
 	@Override
-	public CharacterDecorator getDecorator(Actor forWhom) {
+	public CharacterDecorator getDecorator(final Actor forWhom) {
 		return new CharacterDecorator(forWhom.getCharacter(), this.getName()) {
-			
+
 			@Override
 			public void addCharacterSpecificActions(GameData gameData,
 					ArrayList<Action> at) {
 				super.addCharacterSpecificActions(gameData, at);
 				source.setPosition(this.getPosition());
+				source.setActor(forWhom);
 				source.addCharacterSpecificActions(gameData, at);
 			}
-			
+
+			@Override
+			public boolean checkInstance(InstanceChecker infectChecker) {
+
+				if (infectChecker.checkInstanceOf(source)) {
+					return true;
+				}
+
+				return super.checkInstance(infectChecker);
+			}
+
 		};
+
+
 	}
 
-	
+
+
 
 }

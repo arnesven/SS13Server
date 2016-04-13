@@ -3,6 +3,7 @@ package model.characters.decorators;
 import model.Actor;
 import model.Player;
 import model.events.AsphyxiationDamage;
+import model.events.ColdDamage;
 import model.characters.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.events.Damager;
@@ -29,7 +30,8 @@ public class SpaceProtection extends CharacterDecorator {
 	
 	@Override
 	public void beExposedTo(Actor something, Damager damager) {
-		if (damager instanceof AsphyxiationDamage) {
+		if (damager instanceof AsphyxiationDamage ||
+				damager instanceof ColdDamage) {
 			return;
 		}
 		super.beExposedTo(something, damager);
