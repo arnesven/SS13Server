@@ -7,6 +7,7 @@ import model.characters.GameCharacter;
 import model.items.GameItem;
 import model.items.KeyCard;
 import model.items.MedKit;
+import model.items.suits.Sweater;
 import model.items.weapons.LaserPistol;
 
 public class HeadOfStaffCharacter extends CrewCharacter {
@@ -20,6 +21,7 @@ public class HeadOfStaffCharacter extends CrewCharacter {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new MedKit());
 		list.add(new KeyCard());
+		list.add(new Sweater());
 		return list;
 	}
 
