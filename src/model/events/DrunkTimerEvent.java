@@ -5,7 +5,6 @@ import model.GameData;
 import model.actions.SensoryLevel;
 import model.characters.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
-import model.characters.decorators.DrunkChecker;
 import model.characters.decorators.DrunkDecorator;
 import model.characters.decorators.InstanceChecker;
 import util.MyRandom;
@@ -113,7 +112,7 @@ public class DrunkTimerEvent extends Event {
 		System.out.println(target.getBaseName() + " became even drunker!");
 		
 		decorator.getTimer().addDrunkLevel(level); // update previous timer
-		markForRemoval(); // remove this
+		markForRemoval(); // remove "this"
 	}
 	
 	public void addDrunkLevel(int addition) {
