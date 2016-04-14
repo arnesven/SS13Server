@@ -7,7 +7,7 @@ import model.GameData;
 import model.Target;
 import model.actions.SensoryLevel;
 import model.map.Room;
-import model.objects.PressurePanel;
+import model.objects.general.PressurePanel;
 
 public class NoPressureEvent extends Event {
 

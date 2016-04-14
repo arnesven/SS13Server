@@ -2,16 +2,12 @@ package model.actions.itemactions;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.Target;
 import model.actions.SensoryLevel;
 import model.actions.TargetingAction;
-import model.items.GameItem;
-import model.items.Syringe;
-import model.npcs.NPC;
+import model.items.general.GameItem;
+import model.items.general.Syringe;
 import model.actions.SensoryLevel.*;
-import model.characters.RobotCharacter;
-import model.characters.crew.RoboticistCharacter;
 
 public class DrawBloodAction extends TargetingAction {
 

@@ -2,14 +2,12 @@ package model.events;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.Target;
 import model.actions.SensoryLevel;
 import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
 import model.map.Room;
-import model.objects.GameObject;
 
 public class HullBreach extends OngoingEvent {
 

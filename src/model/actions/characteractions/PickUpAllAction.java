@@ -6,7 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.Action;
 import model.actions.SensoryLevel;
-import model.items.GameItem;
+import model.items.general.GameItem;
 
 public class PickUpAllAction extends Action {
 

@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 import model.Actor;
 import model.GameData;
-import model.items.GameItem;
+import model.items.general.GameItem;
 
 public class PickUpAction extends Action {
 

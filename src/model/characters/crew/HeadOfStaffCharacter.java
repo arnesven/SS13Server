@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.GameCharacter;
-import model.items.GameItem;
-import model.items.KeyCard;
-import model.items.MedKit;
+import model.items.general.GameItem;
+import model.items.general.KeyCard;
+import model.items.general.MedKit;
 import model.items.suits.Sweater;
-import model.items.weapons.LaserPistol;
 
 public class HeadOfStaffCharacter extends CrewCharacter {
 

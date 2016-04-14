@@ -16,13 +16,7 @@ import model.actions.SensoryLevel.VisualLevel;
 import model.actions.WatchAction;
 import model.characters.decorators.InstanceChecker;
 import model.events.Damager;
-import model.events.Event;
-import model.events.RadiationStorm;
-import model.items.GameItem;
-import model.items.KeyCard;
-import model.items.MedKit;
-import model.items.suits.Clothes;
-import model.items.suits.OutFit;
+import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
 import model.map.Room;
@@ -356,7 +350,6 @@ public abstract class GameCharacter {
 	}
 
 	/**
-	 * @see GameItem.getIcon
 	 * @param whosAsking
 	 * @return
 	 */

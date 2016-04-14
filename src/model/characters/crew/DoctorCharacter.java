@@ -6,10 +6,9 @@ import java.util.List;
 import model.Actor;
 import model.Target;
 import model.characters.GameCharacter;
-import model.items.GameItem;
-import model.items.MedKit;
+import model.items.general.GameItem;
+import model.items.general.MedKit;
 import model.items.weapons.Knife;
-import model.items.weapons.LaserPistol;
 
 public class DoctorCharacter extends CrewCharacter {
 

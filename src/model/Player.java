@@ -1,15 +1,11 @@
 package model;
 
-import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -26,15 +22,11 @@ import model.actions.SearchAction;
 import model.actions.TargetingAction;
 import model.characters.GameCharacter;
 import model.characters.decorators.InfectedCharacter;
-import model.characters.decorators.InstanceChecker;
 import model.events.Damager;
-import model.items.Explosive;
-import model.items.GameItem;
-import model.items.Grenade;
-import model.items.MedKit;
+import model.items.general.GameItem;
+import model.items.general.MedKit;
 import model.items.weapons.Weapon;
 import model.map.Room;
-import model.npcs.NPC;
 
 
 /**

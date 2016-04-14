@@ -8,8 +8,8 @@ import model.Player;
 import model.actions.Action;
 import model.actions.SensoryLevel;
 import model.events.Event;
-import model.items.GameItem;
-import model.items.NuclearDisc;
+import model.items.general.GameItem;
+import model.items.general.NuclearDisc;
 import model.map.Room;
 import model.modes.OperativesGameMode;
 

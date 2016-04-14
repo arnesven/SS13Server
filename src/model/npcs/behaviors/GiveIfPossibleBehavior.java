@@ -7,8 +7,7 @@ import util.MyRandom;
 import model.GameData;
 import model.Target;
 import model.actions.GiveAction;
-import model.items.GameItem;
-import model.items.weapons.Weapon;
+import model.items.general.GameItem;
 import model.npcs.NPC;
 
 public class GiveIfPossibleBehavior {

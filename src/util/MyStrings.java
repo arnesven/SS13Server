@@ -2,8 +2,6 @@ package util;
 
 import java.util.List;
 
-import model.items.GameItem;
-
 public class MyStrings {
 
 	public static String join(List<?> items, String delimiter) {

@@ -1,7 +1,7 @@
 package model.map;
 
-import model.items.FireExtinguisher;
-import model.items.Tools;
+import model.items.general.FireExtinguisher;
+import model.items.general.Tools;
 
 public class GreenhouseRoom extends Room {
 

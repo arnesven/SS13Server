@@ -7,11 +7,11 @@ import model.GameData;
 import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
-import model.items.GameItem;
-import model.items.Grenade;
+import model.items.general.GameItem;
+import model.items.general.Grenade;
 import model.items.foods.ExplodingFood;
 import model.items.foods.FoodItem;
-import model.objects.CookOMatic;
+import model.objects.general.CookOMatic;
 
 public class CookGrenadeIntoFoodAction extends Action {
 

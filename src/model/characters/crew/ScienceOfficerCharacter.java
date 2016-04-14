@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.GameCharacter;
-import model.items.Chemicals;
-import model.items.GameItem;
-import model.items.GeigerMeter;
-import model.items.MedKit;
-import model.items.weapons.Knife;
+import model.items.general.Chemicals;
+import model.items.general.GameItem;
+import model.items.general.GeigerMeter;
 
 public class ScienceOfficerCharacter extends CrewCharacter {
 

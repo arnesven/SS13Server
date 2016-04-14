@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import model.items.*;
 import model.items.foods.*;
+import model.items.general.*;
 import model.items.suits.*;
 import model.items.weapons.*;
 

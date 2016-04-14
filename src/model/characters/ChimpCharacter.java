@@ -7,9 +7,8 @@ import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.actions.SpeechAction;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.items.foods.Banana;
-import model.items.weapons.LaserPistol;
 import model.items.weapons.Weapon;
 import model.map.Room;
 

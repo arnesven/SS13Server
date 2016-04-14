@@ -1,6 +1,6 @@
 package model.map;
 
-import model.objects.PressurePanel;
+import model.objects.general.PressurePanel;
 
 public class AirLockRoom extends Room {
 

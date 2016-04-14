@@ -8,8 +8,8 @@ import model.Player;
 import model.actions.Action;
 import model.actions.objectactions.LockRoomAction;
 import model.actions.objectactions.UnlockRoomAction;
-import model.items.GameItem;
-import model.items.KeyCard;
+import model.items.general.GameItem;
+import model.items.general.KeyCard;
 import model.map.GameMap;
 import model.map.Room;
 

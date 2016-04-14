@@ -7,8 +7,8 @@ import model.GameData;
 import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
-import model.items.GameItem;
-import model.items.Grenade;
+import model.items.general.GameItem;
+import model.items.general.Grenade;
 import model.map.Room;
 
 public class ThrowGrenadeAction extends Action {

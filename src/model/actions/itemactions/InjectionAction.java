@@ -6,8 +6,8 @@ import model.Target;
 import model.actions.SensoryLevel;
 import model.actions.TargetingAction;
 import model.characters.decorators.CharacterDecorator;
-import model.items.GameItem;
-import model.items.Syringe;
+import model.items.general.GameItem;
+import model.items.general.Syringe;
 
 public class InjectionAction extends TargetingAction {
 

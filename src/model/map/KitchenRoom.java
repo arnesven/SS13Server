@@ -1,6 +1,6 @@
 package model.map;
 
-import model.objects.CookOMatic;
+import model.objects.general.CookOMatic;
 
 public class KitchenRoom extends Room{
 

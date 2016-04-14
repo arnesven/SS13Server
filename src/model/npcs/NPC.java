@@ -1,17 +1,12 @@
 package model.npcs;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import model.Actor;
 import model.GameData;
 import model.Target;
 import model.characters.GameCharacter;
 import model.characters.decorators.InfectedCharacter;
-import model.characters.decorators.InstanceChecker;
 import model.events.Damager;
-import model.items.GameItem;
-import model.items.MedKit;
+import model.items.general.MedKit;
 import model.items.weapons.Weapon;
 import model.map.Room;
 import model.npcs.behaviors.ActionBehavior;

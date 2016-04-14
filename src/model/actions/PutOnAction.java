@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 
 public class PutOnAction extends Action {

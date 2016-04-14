@@ -10,7 +10,7 @@ import model.Target;
 import model.actions.Action;
 import model.characters.GameCharacter;
 import model.events.Damager;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
 import model.map.Room;

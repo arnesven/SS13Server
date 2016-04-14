@@ -1,7 +1,7 @@
 package model.modes;
 
 import model.GameData;
-import model.items.Locatable;
+import model.items.general.Locatable;
 
 public interface TraitorObjective {
 

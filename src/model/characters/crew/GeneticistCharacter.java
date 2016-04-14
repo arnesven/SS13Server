@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.GameCharacter;
-import model.items.Chemicals;
-import model.items.GameItem;
-import model.items.MedKit;
-import model.items.Syringe;
+import model.items.general.Chemicals;
+import model.items.general.GameItem;
+import model.items.general.MedKit;
+import model.items.general.Syringe;
 
 public class GeneticistCharacter extends CrewCharacter {
 

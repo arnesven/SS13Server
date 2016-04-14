@@ -3,7 +3,7 @@ package model.characters;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.npcs.Trainable;
 
 public abstract class AnimalCharacter extends GameCharacter implements Trainable {

@@ -9,11 +9,11 @@ import model.Player;
 import model.Target;
 import model.actions.Action;
 import model.events.Event;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.map.GameMap;
 import model.map.Room;
 import model.npcs.NPC;
-import model.objects.GameObject;
+import model.objects.general.GameObject;
 
 public class RoomDecorator extends Room {
 

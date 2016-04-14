@@ -7,14 +7,9 @@ import java.util.Map;
 
 import model.Actor;
 import model.GameData;
-import model.Target;
 import model.actions.Action;
 import model.actions.ActionOption;
-import model.actions.DoNothingAction;
 import model.actions.SensoryLevel;
-import model.actions.TargetingAction;
-import model.items.GameItem;
-import model.npcs.ChimpNPC;
 import model.npcs.NPC;
 import model.npcs.Trainable;
 import model.npcs.behaviors.ActionBehavior;
@@ -24,7 +19,6 @@ import model.npcs.behaviors.FollowMeBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.MovementBehavior;
 import util.MyRandom;
-import util.Pair;
 
 public class TrainNPCAction extends Action {
 

@@ -8,12 +8,10 @@ import model.GameData;
 import model.actions.Action;
 import model.actions.characteractions.TrainNPCAction;
 import model.characters.GameCharacter;
-import model.items.GameItem;
-import model.items.MedKit;
+import model.items.general.GameItem;
+import model.items.general.MedKit;
 import model.items.weapons.Flamer;
-import model.items.weapons.Knife;
 import model.map.Room;
-import model.npcs.ChimpNPC;
 import model.npcs.Trainable;
 
 public class BiologistCharacter extends CrewCharacter {

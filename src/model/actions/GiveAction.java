@@ -4,9 +4,8 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
-import model.items.BombItem;
-import model.items.GameItem;
-import model.items.weapons.Weapon;
+import model.items.general.BombItem;
+import model.items.general.GameItem;
 
 public class GiveAction extends TargetingAction {
 

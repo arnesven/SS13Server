@@ -1,22 +1,14 @@
 package model.actions.characteractions;
 
-import java.util.List;
-
 import model.Actor;
 import model.GameData;
 import model.Target;
-import model.actions.Action;
 import model.actions.SensoryLevel;
 import model.actions.TargetingAction;
-import model.characters.AnimalCharacter;
 import model.characters.ChangelingCharacter;
-import model.characters.GameCharacter;
-import model.characters.RobotCharacter;
 import model.characters.decorators.HuskDecorator;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.items.weapons.Weapon;
-import model.npcs.HumanNPC;
-import model.objects.GameObject;
 
 public class SuctionAttackAction extends TargetingAction {
 

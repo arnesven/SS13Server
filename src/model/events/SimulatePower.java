@@ -8,7 +8,6 @@ import model.Actor;
 import model.GameData;
 import model.actions.SensoryLevel;
 import model.map.Room;
-import model.objects.GameObject;
 import model.objects.consoles.GeneratorConsole;
 import util.MyRandom;
 

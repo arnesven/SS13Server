@@ -9,7 +9,7 @@ import model.events.RadiationDamage;
 import model.map.Room;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.MovementBehavior;
-import model.objects.Repairable;
+import model.objects.general.Repairable;
 
 public abstract class RobotNPC extends NPC implements Repairable {
 

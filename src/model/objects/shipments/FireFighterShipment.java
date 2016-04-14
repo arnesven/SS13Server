@@ -1,6 +1,6 @@
 package model.objects.shipments;
 
-import model.items.FireExtinguisher;
+import model.items.general.FireExtinguisher;
 import model.items.suits.FireSuit;
 
 public class FireFighterShipment extends Shipment {

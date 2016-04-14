@@ -3,7 +3,7 @@ package model.objects.shipments;
 import java.util.HashSet;
 
 import model.Actor;
-import model.items.GameItem;
+import model.items.general.GameItem;
 
 public abstract class Shipment extends HashSet<GameItem> {
 	

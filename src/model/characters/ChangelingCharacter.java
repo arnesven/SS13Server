@@ -3,29 +3,25 @@ package model.characters;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.InstanceNotFoundException;
-
 import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.Action;
-import model.actions.DropAction;
 import model.actions.characteractions.ChangeFormAction;
 import model.actions.characteractions.DevourCorpseAction;
 import model.actions.characteractions.HuntAction;
 import model.actions.characteractions.SuctionAndTransformAttackAction;
 import model.actions.characteractions.SuctionAttackAction;
-import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.NoSuchInstanceException;
-import model.items.GameItem;
-import model.items.TornClothes;
+import model.items.general.GameItem;
+import model.items.general.TornClothes;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
 import model.map.Room;
 import model.npcs.HumanNPC;
-import model.objects.GameObject;
+import model.objects.general.GameObject;
 
 public class ChangelingCharacter extends GameCharacter {
 	

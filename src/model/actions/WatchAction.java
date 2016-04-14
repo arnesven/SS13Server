@@ -1,6 +1,5 @@
 package model.actions;
 
-import util.MyRandom;
 import model.Actor;
 import model.Player;
 import model.GameData;
@@ -8,7 +7,7 @@ import model.Target;
 import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.npcs.NPC;
 
 

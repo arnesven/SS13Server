@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.GameData;
-import model.items.Locatable;
-import model.objects.BreakableObject;
-import model.objects.GameObject;
+import model.items.general.Locatable;
+import model.objects.general.BreakableObject;
+import model.objects.general.GameObject;
 
 public class SabotageObjective implements TraitorObjective {
 

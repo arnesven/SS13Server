@@ -1,7 +1,7 @@
 package model.items.suits;
 
 import model.Actor;
-import model.items.GameItem;
+import model.items.general.GameItem;
 
 public abstract class SuitItem extends GameItem {
 

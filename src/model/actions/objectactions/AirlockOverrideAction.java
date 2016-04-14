@@ -9,8 +9,8 @@ import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.map.Room;
-import model.objects.GameObject;
-import model.objects.PressurePanel;
+import model.objects.general.GameObject;
+import model.objects.general.PressurePanel;
 
 public class AirlockOverrideAction extends Action {
 

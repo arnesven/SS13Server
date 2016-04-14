@@ -2,11 +2,10 @@ package model.actions.characteractions;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.Target;
 import model.actions.WatchAction;
 import model.events.FollowMovementEvent;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.map.Room;
 
 public class ShadowAction extends WatchAction {

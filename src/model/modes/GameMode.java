@@ -2,7 +2,6 @@ package model.modes;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +12,8 @@ import model.Actor;
 import model.Player;
 import model.GameData;
 import model.actions.SpeedComparator;
-import model.actions.characteractions.MeowingAction;
-import model.characters.CatCharacter;
 import model.characters.CharacterSpeedComparator;
 import model.characters.GameCharacter;
-import model.characters.TarsCharacter;
 import model.characters.crew.BartenderCharacter;
 import model.characters.crew.BiologistCharacter;
 import model.characters.crew.CaptainCharacter;
@@ -44,13 +40,10 @@ import model.events.PowerFlux;
 import model.events.RadiationStorm;
 import model.events.RandomHuskEvent;
 import model.events.SimulatePower;
-import model.items.FireExtinguisher;
-import model.items.GameItem;
-import model.items.KeyCard;
-import model.items.MedKit;
-import model.items.Tools;
+import model.items.general.FireExtinguisher;
+import model.items.general.GameItem;
+import model.items.general.Tools;
 import model.items.suits.RadiationSuit;
-import model.items.weapons.Weapon;
 import model.map.GameMap;
 import model.map.NukieShipRoom;
 import model.map.Room;
@@ -62,8 +55,6 @@ import model.npcs.ParasiteNPC;
 import model.npcs.SecuritronNPC;
 import model.npcs.SnakeNPC;
 import model.npcs.TARSNPC;
-import model.npcs.behaviors.MeanderingMovement;
-import model.npcs.behaviors.SpontaneousAct;
 
 /**
  * @author erini02

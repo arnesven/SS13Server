@@ -1,30 +1,18 @@
 package model.modes;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import util.MyRandom;
 import model.Player;
 import model.GameData;
 import model.characters.GameCharacter;
-import model.characters.ParasiteCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.HostCharacter;
-import model.items.Chemicals;
-import model.items.FireExtinguisher;
-import model.items.KeyCard;
-import model.items.MedKit;
-import model.items.Tools;
-import model.items.weapons.Weapon;
 import model.map.Room;
 import model.npcs.NPC;
 import model.npcs.ParasiteNPC;
-import model.npcs.behaviors.AttackIfPossibleBehavior;
-import model.npcs.behaviors.MeanderingMovement;
-import model.objects.HiveObject;
+import model.objects.general.HiveObject;
 
 public class HostGameMode extends GameMode {
 	

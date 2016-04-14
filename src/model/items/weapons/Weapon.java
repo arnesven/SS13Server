@@ -7,7 +7,7 @@ import model.actions.SensoryLevel;
 import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import util.MyRandom;
 
 

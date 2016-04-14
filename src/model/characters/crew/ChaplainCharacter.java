@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.GameCharacter;
-import model.items.Bible;
-import model.items.GameItem;
-import model.items.MedKit;
+import model.items.general.Bible;
+import model.items.general.GameItem;
+import model.items.general.MedKit;
 
 public class ChaplainCharacter extends CrewCharacter {
 

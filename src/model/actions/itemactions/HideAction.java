@@ -6,7 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.Action;
 import model.actions.ActionOption;
-import model.items.HidableItem;
+import model.items.general.HidableItem;
 import model.actions.SensoryLevel;
 
 public class HideAction extends Action {

@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.swing.text.html.Option;
-
 import model.Actor;
 import model.Player;
 import model.GameData;
 import model.Target;
-import model.characters.GameCharacter;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.npcs.NPC;
-import model.objects.GameObject;
+import model.objects.general.GameObject;
 
 public abstract class TargetingAction extends Action {
 

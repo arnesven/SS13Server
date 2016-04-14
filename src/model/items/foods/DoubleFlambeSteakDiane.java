@@ -1,15 +1,11 @@
 package model.items.foods;
 
-import java.util.NoSuchElementException;
-
 import model.Actor;
 import model.GameData;
 import model.characters.GameCharacter;
-import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.AlterMovement;
 import model.characters.decorators.InstanceChecker;
 import model.events.RemoveInstanceLaterEvent;
-import model.items.GameItem;
 
 public class DoubleFlambeSteakDiane extends FoodItem {
 

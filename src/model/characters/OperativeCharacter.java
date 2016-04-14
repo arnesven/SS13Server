@@ -3,22 +3,13 @@ package model.characters;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.Action;
-import model.actions.TargetingAction;
-import model.items.GameItem;
-import model.items.NuclearDisc;
-import model.items.suits.JumpSuit;
-import model.items.suits.OperativeSpaceSuit;
+import model.items.general.GameItem;
 import model.items.suits.SpaceSuit;
 import model.map.AirLockRoom;
-import model.npcs.NPC;
-import model.actions.SensoryLevel;
 import model.actions.characteractions.EscapeAndSetNukeAction;
 import model.actions.characteractions.StealAction;
-import model.modes.OperativesGameMode;
 import model.items.weapons.Revolver;
 
 public class OperativeCharacter extends HumanCharacter {

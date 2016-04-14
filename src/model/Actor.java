@@ -8,11 +8,9 @@ import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InfectedCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.NoSuchInstanceException;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.map.Room;
-import model.npcs.NPC;
-import model.objects.CookOMatic;
 
 public abstract class Actor  {
 

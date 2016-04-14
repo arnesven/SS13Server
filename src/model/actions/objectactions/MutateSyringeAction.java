@@ -4,11 +4,9 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.actions.Action;
 import model.actions.ActionOption;
-import model.events.SentenceCountdownEvent;
-import model.items.GameItem;
-import model.items.Syringe;
+import model.items.general.GameItem;
+import model.items.general.Syringe;
 import model.mutations.MutationFactory;
 import model.objects.consoles.GeneticsConsole;
 import model.actions.SensoryLevel;

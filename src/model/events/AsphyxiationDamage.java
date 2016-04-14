@@ -1,7 +1,7 @@
 package model.events;
 
 import model.Target;
-import model.objects.GameObject;
+import model.objects.general.GameObject;
 
 public class AsphyxiationDamage implements Damager {
 

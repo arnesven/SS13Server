@@ -6,7 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.itemactions.EatAction;
-import model.items.GameItem;
+import model.items.general.GameItem;
 
 public abstract class FoodItem extends GameItem {
 

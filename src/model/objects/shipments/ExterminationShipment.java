@@ -1,6 +1,6 @@
 package model.objects.shipments;
 
-import model.items.Chemicals;
+import model.items.general.Chemicals;
 import model.items.weapons.Flamer;
 
 public class ExterminationShipment extends Shipment {

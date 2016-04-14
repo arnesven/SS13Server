@@ -1,14 +1,11 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.events.Damager;
-import model.items.Explosive;
-import model.items.GameItem;
-import model.items.Grenade;
-import model.items.Locatable;
-import model.items.MedKit;
+import model.items.general.GameItem;
+import model.items.general.Locatable;
+import model.items.general.MedKit;
 import model.items.weapons.Weapon;
 
 /**

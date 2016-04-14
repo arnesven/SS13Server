@@ -1,9 +1,5 @@
 package model.characters;
 
-import java.util.List;
-
-import model.items.GameItem;
-
 public abstract class HumanCharacter extends GameCharacter {
 	
 	public HumanCharacter(String name, int startRoom, double speed) {

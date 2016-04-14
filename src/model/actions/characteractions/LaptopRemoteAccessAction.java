@@ -9,10 +9,10 @@ import model.Player;
 import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
-import model.items.Laptop;
-import model.objects.ElectricalMachinery;
-import model.objects.GameObject;
-import model.objects.RemotelyOperateable;
+import model.items.general.Laptop;
+import model.objects.general.ElectricalMachinery;
+import model.objects.general.GameObject;
+import model.objects.general.RemotelyOperateable;
 
 public class LaptopRemoteAccessAction extends Action {
 

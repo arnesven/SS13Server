@@ -8,15 +8,11 @@ import java.util.Map.Entry;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.characters.decorators.InfectedCharacter;
 import model.events.Crazyness;
-import model.events.ElectricalFire;
-import model.events.Event;
 import model.events.OngoingEvent;
 import model.npcs.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
-import model.objects.GameObject;
 import model.objects.consoles.GeneratorConsole;
 
 public abstract class GameStats {

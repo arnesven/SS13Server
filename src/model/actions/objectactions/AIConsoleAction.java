@@ -7,12 +7,8 @@ import model.GameData;
 import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
-import model.actions.SensoryLevel.AudioLevel;
-import model.actions.SensoryLevel.OlfactoryLevel;
-import model.actions.SensoryLevel.VisualLevel;
 import model.map.Room;
 import model.modes.GameMode;
-import model.objects.GameObject;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.GeneratorConsole;
 

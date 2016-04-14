@@ -1,7 +1,7 @@
 package model.map;
 
 import model.items.suits.FireSuit;
-import model.objects.ChemicalDispenser;
+import model.objects.general.ChemicalDispenser;
 import model.objects.consoles.GeneratorConsole;
 
 public class GeneratorRoom extends Room {

@@ -11,11 +11,9 @@ import model.actions.SensoryLevel;
 import model.characters.GameCharacter;
 import model.characters.crew.ChefCharacter;
 import model.characters.decorators.InstanceChecker;
-import model.events.Event;
-import model.items.GameItem;
 import model.items.foods.FoodItem;
 import model.items.suits.ChefsHat;
-import model.objects.CookOMatic;
+import model.objects.general.CookOMatic;
 
 public class CookFoodAction extends Action {
 

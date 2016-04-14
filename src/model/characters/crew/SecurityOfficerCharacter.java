@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.GameCharacter;
-import model.items.GameItem;
-import model.items.SecurityRadio;
-import model.items.weapons.LaserPistol;
+import model.items.general.GameItem;
+import model.items.general.SecurityRadio;
 import model.items.weapons.StunBaton;
 
 public class SecurityOfficerCharacter extends CrewCharacter {

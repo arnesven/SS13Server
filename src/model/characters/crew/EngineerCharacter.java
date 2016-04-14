@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.GameCharacter;
-import model.items.Chemicals;
-import model.items.GameItem;
-import model.items.MedKit;
-import model.items.Tools;
+import model.items.general.GameItem;
+import model.items.general.PowerRadio;
+import model.items.general.Tools;
 import model.items.suits.FireSuit;
-import model.items.weapons.Flamer;
-import model.items.weapons.Knife;
 
 public class EngineerCharacter extends CrewCharacter {
 
@@ -24,7 +21,8 @@ public class EngineerCharacter extends CrewCharacter {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new FireSuit());
 		list.add(new Tools());
-		return list;
+		list.add(new PowerRadio());
+        return list;
 	}
 
 

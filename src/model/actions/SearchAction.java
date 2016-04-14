@@ -3,13 +3,12 @@ package model.actions;
 import java.util.List;
 
 import model.Actor;
-import model.Player;
 import model.GameData;
-import model.items.BombItem;
-import model.items.GameItem;
-import model.objects.GameObject;
-import model.objects.HiveObject;
-import model.items.HidableItem;
+import model.items.general.BombItem;
+import model.items.general.GameItem;
+import model.objects.general.GameObject;
+import model.objects.general.HiveObject;
+import model.items.general.HidableItem;
 
 
 public class SearchAction extends Action {

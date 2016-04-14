@@ -1,15 +1,11 @@
 package model.map;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import model.GameData;
-import model.items.suits.FireSuit;
 import model.items.suits.SpaceSuit;
-import model.objects.AirLockControl;
-import model.objects.ChemicalDispenser;
-import model.objects.EvidenceBox;
-import model.objects.Lockers;
-import model.objects.MedkitDispenser;
+import model.objects.general.AirLockControl;
+import model.objects.general.EvidenceBox;
+import model.objects.general.Lockers;
+import model.objects.general.MedkitDispenser;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.AdministrationConsole;
 import model.objects.consoles.CrimeRecordsConsole;

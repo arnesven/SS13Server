@@ -12,12 +12,11 @@ import model.Player;
 import model.actions.Action;
 import model.actions.objectactions.CrimeRecordsAction;
 import model.events.SentenceCountdownEvent;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.items.suits.PrisonerSuit;
 import model.map.Room;
-import model.npcs.NPC;
-import model.objects.EvidenceBox;
-import model.objects.GameObject;
+import model.objects.general.EvidenceBox;
+import model.objects.general.GameObject;
 import util.Pair;
 
 public class CrimeRecordsConsole extends Console {

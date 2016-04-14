@@ -5,10 +5,7 @@ import java.util.NoSuchElementException;
 
 import model.Actor;
 import model.GameData;
-import model.actions.SensoryLevel.AudioLevel;
-import model.actions.SensoryLevel.OlfactoryLevel;
-import model.actions.SensoryLevel.VisualLevel;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 
 public class DropAction extends Action {

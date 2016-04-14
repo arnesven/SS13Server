@@ -1,7 +1,5 @@
 package model.actions.objectactions;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import model.Actor;
@@ -11,7 +9,7 @@ import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.characters.crew.CaptainCharacter;
 import model.map.Room;
-import model.objects.CrateObject;
+import model.objects.general.CrateObject;
 import model.objects.consoles.AdministrationConsole;
 import model.objects.shipments.Shipment;
 

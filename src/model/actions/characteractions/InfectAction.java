@@ -13,10 +13,8 @@ import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
 import model.actions.SensoryLevel.VisualLevel;
 import model.characters.decorators.InfectedCharacter;
-import model.items.GameItem;
-import model.npcs.CatNPC;
+import model.items.general.GameItem;
 import model.npcs.HumanNPC;
-import model.npcs.ParasiteNPC;
 
 public class InfectAction extends TargetingAction {
 

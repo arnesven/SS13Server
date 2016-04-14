@@ -1,15 +1,12 @@
 package model.events;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.SensoryLevel;
-import model.items.GameItem;
-import model.items.GeigerMeter;
+import model.items.general.GameItem;
+import model.items.general.GeigerMeter;
 import model.map.Room;
 import model.npcs.NPC;
 import model.npcs.behaviors.AvoidRoomsMovement;

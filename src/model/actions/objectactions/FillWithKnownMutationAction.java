@@ -7,8 +7,8 @@ import model.Actor;
 import model.GameData;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
-import model.items.GameItem;
-import model.items.Syringe;
+import model.items.general.GameItem;
+import model.items.general.Syringe;
 import model.mutations.Mutation;
 import model.objects.consoles.GeneticsConsole;
 

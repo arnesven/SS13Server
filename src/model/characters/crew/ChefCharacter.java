@@ -5,12 +5,10 @@ import java.util.List;
 
 import model.Target;
 import model.characters.GameCharacter;
-import model.items.FireExtinguisher;
-import model.items.GameItem;
-import model.items.MedKit;
+import model.items.general.GameItem;
 import model.items.suits.ChefsHat;
 import model.items.weapons.Knife;
-import model.objects.CookOMatic;
+import model.objects.general.CookOMatic;
 
 public class ChefCharacter extends CrewCharacter {
 

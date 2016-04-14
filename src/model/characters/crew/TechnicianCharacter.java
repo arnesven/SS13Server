@@ -7,13 +7,9 @@ import model.GameData;
 import model.actions.characteractions.JackInAction;
 import model.actions.characteractions.LaptopRemoteAccessAction;
 import model.characters.GameCharacter;
-import model.items.Chemicals;
-import model.items.FireExtinguisher;
-import model.items.GameItem;
-import model.items.Laptop;
-import model.items.Tools;
-import model.items.weapons.Flamer;
-import model.items.weapons.Knife;
+import model.items.general.GameItem;
+import model.items.general.Laptop;
+import model.items.general.Tools;
 
 public class TechnicianCharacter extends CrewCharacter {
 

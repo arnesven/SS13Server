@@ -7,10 +7,10 @@ import util.MyRandom;
 import model.GameData;
 import model.Target;
 import model.actions.AttackAction;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 import model.npcs.NPC;
-import model.objects.GameObject;
+import model.objects.general.GameObject;
 
 public class AttackIfPossibleBehavior implements ActionBehavior {
 

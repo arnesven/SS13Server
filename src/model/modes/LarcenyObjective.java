@@ -2,8 +2,8 @@ package model.modes;
 
 import model.GameData;
 import model.Player;
-import model.items.GameItem;
-import model.items.Locatable;
+import model.items.general.GameItem;
+import model.items.general.Locatable;
 
 public class LarcenyObjective implements TraitorObjective {
 

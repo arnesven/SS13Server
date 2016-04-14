@@ -21,14 +21,14 @@ import model.actions.Action;
 import model.actions.DoNothingAction;
 import model.actions.SpeedComparator;
 import model.events.Event;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.map.GameMap;
 import model.map.MapBuilder;
 import model.map.Room;
 import model.modes.GameMode;
 import model.modes.GameModeFactory;
 import model.npcs.NPC;
-import model.objects.GameObject;
+import model.objects.general.GameObject;
 
 
 

@@ -1,11 +1,11 @@
 package model.modes;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.objects.general.NuclearBomb;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -14,18 +14,14 @@ import model.characters.GameCharacter;
 import model.characters.OperativeCharacter;
 import model.characters.crew.CaptainCharacter;
 import model.events.Event;
-import model.events.NoPressureEvent;
-import model.items.GameItem;
-import model.items.NuclearDisc;
+import model.items.general.GameItem;
+import model.items.general.NuclearDisc;
 import model.items.suits.JumpSuit;
 import model.items.suits.OperativeSpaceSuit;
-import model.items.Locator;
+import model.items.general.Locator;
 import model.map.Room;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
-import model.objects.PressurePanel;
-import model.items.weapons.Revolver;
-import model.items.NuclearDisc;
 
 public class OperativesGameMode extends GameMode {
 

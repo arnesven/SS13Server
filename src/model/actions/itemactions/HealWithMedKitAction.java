@@ -7,11 +7,9 @@ import model.GameData;
 import model.Target;
 import model.actions.SensoryLevel;
 import model.actions.TargetingAction;
-import model.characters.GameCharacter;
 import model.characters.crew.DoctorCharacter;
-import model.characters.decorators.InstanceChecker;
-import model.items.GameItem;
-import model.items.MedKit;
+import model.items.general.GameItem;
+import model.items.general.MedKit;
 
 public class HealWithMedKitAction extends TargetingAction {
 

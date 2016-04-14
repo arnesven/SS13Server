@@ -2,7 +2,7 @@ package model.modes;
 
 import model.GameData;
 import model.Player;
-import model.items.Locatable;
+import model.items.general.Locatable;
 
 public class AssassinateObjective implements TraitorObjective {
 

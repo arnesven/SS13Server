@@ -4,17 +4,16 @@ package model.items.weapons;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.actions.itemactions.BurnHiveAction;
 import model.actions.SensoryLevel;
 import model.actions.itemactions.SprayFireAction;
-import model.items.Chemicals;
-import model.items.GameItem;
-import model.objects.GameObject;
-import model.objects.HiveObject;
+import model.items.general.Chemicals;
+import model.items.general.GameItem;
+import model.objects.general.GameObject;
+import model.objects.general.HiveObject;
 
 public class Flamer extends Weapon {
 

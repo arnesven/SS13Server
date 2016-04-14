@@ -1,16 +1,13 @@
 package model.actions.characteractions;
 
-import java.util.List;
-
 import model.Actor;
 import model.GameData;
 import model.Target;
-import model.actions.Action;
 import model.actions.SensoryLevel;
 import model.actions.TargetingAction;
 import model.characters.ChangelingCharacter;
 import model.events.FollowMovementEvent;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 import model.map.Room;
 

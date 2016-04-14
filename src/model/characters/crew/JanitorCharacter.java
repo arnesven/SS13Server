@@ -7,11 +7,9 @@ import model.GameData;
 import model.actions.Action;
 import model.actions.characteractions.PickUpAllAction;
 import model.characters.GameCharacter;
-import model.items.Chemicals;
-import model.items.FireExtinguisher;
-import model.items.GameItem;
-import model.items.MedKit;
-import model.items.weapons.Knife;
+import model.items.general.Chemicals;
+import model.items.general.FireExtinguisher;
+import model.items.general.GameItem;
 
 public class JanitorCharacter extends CrewCharacter {
 

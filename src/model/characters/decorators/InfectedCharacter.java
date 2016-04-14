@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Actor;
-import model.Player;
 import model.GameData;
 import model.actions.Action;
 import model.actions.characteractions.InfectAction;
 import model.characters.GameCharacter;
-import model.items.GameItem;
-import model.npcs.CatNPC;
-import model.npcs.ParasiteNPC;
+import model.items.general.GameItem;
 
 
 /**

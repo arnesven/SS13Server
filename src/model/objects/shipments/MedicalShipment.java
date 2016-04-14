@@ -1,6 +1,6 @@
 package model.objects.shipments;
 
-import model.items.MedKit;
+import model.items.general.MedKit;
 
 public class MedicalShipment extends Shipment {
 

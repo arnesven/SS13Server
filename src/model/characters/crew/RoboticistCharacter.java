@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.GameCharacter;
-import model.items.GameItem;
-import model.items.Tools;
-import model.items.FireExtinguisher;
+import model.items.general.GameItem;
+import model.items.general.Tools;
+import model.items.general.FireExtinguisher;
 
 public class RoboticistCharacter extends CrewCharacter {
 

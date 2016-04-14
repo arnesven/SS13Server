@@ -7,10 +7,10 @@ import model.Actor;
 import model.Player;
 import model.GameData;
 import model.actions.Action;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.items.weapons.Flamer;
 import model.npcs.NPC;
-import model.items.Chemicals;
+import model.items.general.Chemicals;
 
 public class SprayFireAction extends Action {
 

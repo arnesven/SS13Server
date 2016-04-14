@@ -13,8 +13,8 @@ import model.Player;
 import model.actions.Action;
 import model.actions.objectactions.PowerConsoleAction;
 import model.map.Room;
-import model.objects.ElectricalMachinery;
-import model.objects.GameObject;
+import model.objects.general.ElectricalMachinery;
+import model.objects.general.GameObject;
 
 public class GeneratorConsole extends Console {
 

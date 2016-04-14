@@ -7,11 +7,11 @@ import model.GameData;
 import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
-import model.items.BombItem;
-import model.items.BoobyTrapBomb;
-import model.objects.BoobyTrappedObject;
-import model.objects.ElectricalMachinery;
-import model.objects.GameObject;
+import model.items.general.BombItem;
+import model.items.general.BoobyTrapBomb;
+import model.objects.general.BoobyTrappedObject;
+import model.objects.general.ElectricalMachinery;
+import model.objects.general.GameObject;
 
 public class RigBoobyTrapAction extends Action {
 

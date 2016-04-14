@@ -1,6 +1,6 @@
 package model.objects.shipments;
 
-import model.items.Grenade;
+import model.items.general.Grenade;
 import model.items.weapons.LaserPistol;
 import model.characters.crew.HeadOfStaffCharacter;
 

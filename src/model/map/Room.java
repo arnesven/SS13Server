@@ -12,13 +12,12 @@ import model.Target;
 import model.actions.Action;
 import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
-import model.actions.SensoryLevel.VisualLevel;
 import model.events.ElectricalFire;
 import model.events.Event;
 import model.events.HullBreach;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.npcs.NPC;
-import model.objects.GameObject;
+import model.objects.general.GameObject;
 
 
 /**

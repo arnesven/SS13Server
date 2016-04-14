@@ -5,9 +5,8 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.actions.Action;
-import model.items.Explosive;
-import model.items.GameItem;
-import model.items.Grenade;
+import model.items.general.Explosive;
+import model.items.general.Grenade;
 import model.map.Room;
 
 public class ExplosionAction extends Action {

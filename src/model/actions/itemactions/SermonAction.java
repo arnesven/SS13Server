@@ -8,8 +8,8 @@ import model.Actor;
 import model.GameData;
 import model.actions.Action;
 import model.actions.SensoryLevel;
-import model.items.Bible;
-import model.items.GameItem;
+import model.items.general.Bible;
+import model.items.general.GameItem;
 
 public class SermonAction extends Action {
 

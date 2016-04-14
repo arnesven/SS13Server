@@ -1,6 +1,6 @@
 package model.objects.shipments;
 
-import model.items.Saxophone;
+import model.items.general.Saxophone;
 import model.items.foods.ApplePie;
 import model.items.suits.FancyClothes;
 

@@ -1,8 +1,7 @@
 package model.map;
 
-import model.GameData;
-import model.objects.ChemicalDispenser;
-import model.objects.BioScanner;
+import model.objects.general.ChemicalDispenser;
+import model.objects.general.BioScanner;
 import model.objects.consoles.GeneticsConsole;
 
 public class LabRoom extends Room {

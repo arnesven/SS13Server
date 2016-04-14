@@ -5,9 +5,9 @@ import model.GameData;
 import model.Target;
 import model.actions.SensoryLevel;
 import model.actions.TargetingAction;
-import model.items.GameItem;
-import model.objects.BreakableObject;
-import model.objects.Repairable;
+import model.items.general.GameItem;
+import model.objects.general.BreakableObject;
+import model.objects.general.Repairable;
 
 public class RepairAction extends TargetingAction {
 

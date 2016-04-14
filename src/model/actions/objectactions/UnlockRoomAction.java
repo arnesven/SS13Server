@@ -6,9 +6,8 @@ import model.Actor;
 import model.GameData;
 import model.actions.Action;
 import model.actions.SensoryLevel;
-import model.items.GameItem;
-import model.items.KeyCard;
-import model.map.GameMap;
+import model.items.general.GameItem;
+import model.items.general.KeyCard;
 import model.map.Room;
 import model.objects.consoles.KeyCardLock;
 

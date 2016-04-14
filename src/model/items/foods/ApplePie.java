@@ -1,13 +1,5 @@
 package model.items.foods;
 
-import java.util.ArrayList;
-
-import model.Actor;
-import model.GameData;
-import model.Player;
-import model.actions.itemactions.EatAction;
-import model.items.GameItem;
-
 public class ApplePie extends HealingFood {
 
 	public ApplePie() {

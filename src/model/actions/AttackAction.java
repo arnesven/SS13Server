@@ -1,14 +1,11 @@
 package model.actions;
 
-import java.util.List;
-
 import model.Actor;
 import model.Player;
 import model.GameData;
 import model.Target;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.items.weapons.Weapon;
-import model.objects.GameObject;
 
 
 public class AttackAction extends TargetingAction {

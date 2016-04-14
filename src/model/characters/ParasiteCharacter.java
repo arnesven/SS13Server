@@ -8,7 +8,7 @@ import model.Player;
 import model.events.ColdDamage;
 import model.events.Damager;
 import model.events.RadiationDamage;
-import model.items.GameItem;
+import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 
 

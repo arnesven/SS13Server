@@ -5,11 +5,10 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.actions.Action;
-import model.map.GameMap;
 import model.map.Room;
 import model.objects.consoles.KeyCardLock;
 import model.actions.SensoryLevel;
-import model.items.KeyCard;
+import model.items.general.KeyCard;
 
 public class LockRoomAction extends Action {
 
