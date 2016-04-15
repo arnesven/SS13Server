@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InfectedCharacter;
 import model.characters.decorators.InstanceChecker;
@@ -162,6 +162,11 @@ public abstract class Actor  {
 		this.getCharacter().removeSuit();
 		item.beingTakenOff(this);
 	}
+
+    public void addToHealth(double d) {
+        getCharacter().setHealth(Math.min(getMaxHealth(),
+                getCharacter().getHealth() + d));
+    }
 
 	public abstract double getMaxHealth();
 	

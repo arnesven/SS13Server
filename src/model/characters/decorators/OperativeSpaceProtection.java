@@ -1,7 +1,7 @@
 package model.characters.decorators;
 
 import model.Player;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 
 public class OperativeSpaceProtection extends SpaceProtection {
 

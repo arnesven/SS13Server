@@ -4,8 +4,7 @@ import model.Actor;
 import model.Player;
 import model.events.AsphyxiationDamage;
 import model.events.ColdDamage;
-import model.characters.GameCharacter;
-import model.characters.decorators.CharacterDecorator;
+import model.characters.general.GameCharacter;
 import model.events.Damager;
 
 public class SpaceProtection extends CharacterDecorator {

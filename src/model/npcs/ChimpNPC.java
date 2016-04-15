@@ -1,7 +1,6 @@
 package model.npcs;
 
-import model.characters.ChimpCharacter;
-import model.characters.GameCharacter;
+import model.characters.general.ChimpCharacter;
 import model.map.Room;
 import model.npcs.behaviors.ChimpBehavior;
 import model.npcs.behaviors.MeanderingMovement;

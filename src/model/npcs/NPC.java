@@ -3,7 +3,7 @@ package model.npcs;
 import model.Actor;
 import model.GameData;
 import model.Target;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.decorators.InfectedCharacter;
 import model.events.Damager;
 import model.items.general.MedKit;
@@ -124,11 +124,7 @@ public abstract class NPC extends Actor implements Target {
 		return false;
 	}
 
-	@Override
-	public void addToHealth(double d) {
-		getCharacter().setHealth(Math.min(getMaxHealth(), 
-				 getCharacter().getHealth() + d));
-	}
+
 
 	public void beInfected(Actor performingClient) {
 		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));

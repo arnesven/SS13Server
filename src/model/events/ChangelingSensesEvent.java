@@ -4,7 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.SensoryLevel;
-import model.characters.ChangelingCharacter;
+import model.characters.general.ChangelingCharacter;
 import model.map.Room;
 
 public class ChangelingSensesEvent extends Event {

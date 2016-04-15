@@ -8,7 +8,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.map.Room;
 
 /**

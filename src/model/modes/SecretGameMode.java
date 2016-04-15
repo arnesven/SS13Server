@@ -1,16 +1,7 @@
 package model.modes;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import util.MyRandom;
-import model.GameData;
 import model.Player;
-import model.characters.GameCharacter;
-import model.events.Event;
-import model.map.Room;
-import model.npcs.NPC;
 
 public class SecretGameMode  {
 	

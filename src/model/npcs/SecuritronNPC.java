@@ -2,7 +2,7 @@ package model.npcs;
 
 
 import model.GameData;
-import model.characters.SecuritronCharacter;
+import model.characters.general.SecuritronCharacter;
 import model.map.Room;
 import model.npcs.behaviors.ArrestCriminalBehavior;
 import model.npcs.behaviors.FollowCriminalBehavior;

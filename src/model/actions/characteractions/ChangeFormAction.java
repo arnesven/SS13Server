@@ -7,9 +7,9 @@ import model.GameData;
 import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
-import model.characters.ChangelingCharacter;
-import model.characters.GameCharacter;
-import model.characters.HorrorCharacter;
+import model.characters.general.ChangelingCharacter;
+import model.characters.general.GameCharacter;
+import model.characters.general.HorrorCharacter;
 import model.characters.decorators.NoSuchInstanceException;
 
 public class ChangeFormAction extends Action {

@@ -1,6 +1,6 @@
 package model.items.suits;
 
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
 
 class PrisonerDecorator extends CharacterDecorator {

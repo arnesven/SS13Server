@@ -61,7 +61,7 @@ public class RandomSpeechBehavior extends SpontaneousAct {
 					} while (person.equals("TARS"));
 					
 					talkString2 = talkString2.replace("$r", person.getBaseName());
-					person.addTolastTurnInfo("TARS said \""+talkString2 + "\"");
+					person.addTolastTurnInfo(performingClient.getPublicName() + " said \""+talkString2 + "\"");
 				}
 				
 				return talkString2;

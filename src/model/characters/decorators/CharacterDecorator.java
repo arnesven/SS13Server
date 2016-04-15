@@ -8,7 +8,7 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.Action;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.events.Damager;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;

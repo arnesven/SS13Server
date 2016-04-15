@@ -1,7 +1,7 @@
 package model.items.general;
 
 import model.Actor;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.LarcenistCharacter;
 import model.items.suits.SuitItem;

@@ -1,7 +1,7 @@
 package model.characters.decorators;
 
 import model.Actor;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.events.ColdDamage;
 import model.events.Damager;
 import model.events.DrunkTimerEvent;

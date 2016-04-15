@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.Actor;
 import model.GameData;
 import model.actions.Action;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InstanceChecker;
 

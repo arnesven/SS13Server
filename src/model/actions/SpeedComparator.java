@@ -3,7 +3,7 @@ package model.actions;
 import java.util.Comparator;
 
 import model.Actor;
-import model.characters.CharacterSpeedComparator;
+import model.characters.general.CharacterSpeedComparator;
 
 public class SpeedComparator implements Comparator<Actor> {
 

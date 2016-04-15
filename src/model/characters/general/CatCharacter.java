@@ -1,41 +1,50 @@
-package model.characters;
+package model.characters.general;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.actions.characteractions.HissAction;
+import model.actions.characteractions.MeowingAction;
+import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 
-public class SnakeCharacter extends AnimalCharacter {
 
-	public SnakeCharacter(int startRoom) {
-		super("Snake", startRoom, -3.0);
+public class CatCharacter extends AnimalCharacter {
+
+	public CatCharacter() {
+		super("Cat", 20, -5.0);
 	}
-
-	private static Weapon fangs = new Weapon("Fangs", 0.75, 0.5, false, 0.0);
 	
 	@Override
 	public char getIcon(Player whosAsking) {
-		return '(';
+		return '&';
+	}
+
+	@Override
+	public List<GameItem> getStartingItems() {
+		return new ArrayList<>();
 	}
 	
 	@Override
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {
 		super.addCharacterSpecificActions(gameData, at);
+		at.add(new MeowingAction());
 		at.add(new HissAction());
 	}
 	
+	
 	@Override
 	public Weapon getDefaultWeapon() {
-		return fangs;
+		return Weapon.CLAWS;
 	}
 
 	@Override
 	public GameCharacter clone() {
-		return new SnakeCharacter(this.getStartingRoom());
+		return new CatCharacter();
 	}
-
+	
 }

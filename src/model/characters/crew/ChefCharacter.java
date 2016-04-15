@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Target;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.suits.ChefsHat;
 import model.items.weapons.Knife;

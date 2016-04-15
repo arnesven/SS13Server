@@ -1,6 +1,6 @@
 package model.characters.decorators;
 
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 
 public class AttributeChangeDecorator extends CharacterDecorator {
 

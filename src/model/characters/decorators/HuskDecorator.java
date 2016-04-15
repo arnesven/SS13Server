@@ -2,8 +2,7 @@ package model.characters.decorators;
 
 import model.Actor;
 import model.Player;
-import model.characters.decorators.CharacterDecorator;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 
 public class HuskDecorator extends CharacterDecorator {
 

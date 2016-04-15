@@ -20,7 +20,7 @@ import model.actions.WatchAction;
 import model.actions.DoNothingAction;
 import model.actions.SearchAction;
 import model.actions.TargetingAction;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.decorators.InfectedCharacter;
 import model.events.Damager;
 import model.items.general.GameItem;
@@ -511,12 +511,6 @@ public class Player extends Actor implements Target {
 	@Override
 	public boolean hasSpecificReaction(MedKit objectRef) {
 		return getCharacter().hasSpecificReaction(objectRef);
-	}
-
-	@Override
-	public void addToHealth(double d) {
-		getCharacter().setHealth(Math.min(getMaxHealth(), 
-				getCharacter().getHealth() + d));
 	}
 
 	public void parseJobChoices(String rest) {

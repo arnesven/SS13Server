@@ -6,7 +6,7 @@ import java.util.List;
 import util.MyRandom;
 import model.Player;
 import model.GameData;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.HostCharacter;
 import model.map.Room;

@@ -8,7 +8,7 @@ import model.GameData;
 import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.crew.ChefCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.items.foods.FoodItem;

@@ -11,12 +11,7 @@ import model.actions.Action;
 import model.actions.SensoryLevel;
 import model.actions.objectactions.AdminConsoleAction;
 import model.map.Room;
-import model.objects.shipments.ExterminationShipment;
-import model.objects.shipments.FireFighterShipment;
-import model.objects.shipments.MedicalShipment;
-import model.objects.shipments.MilitaryShipment;
-import model.objects.shipments.PartyShipment;
-import model.objects.shipments.Shipment;
+import model.objects.shipments.*;
 
 public class AdministrationConsole extends Console {
 
@@ -29,6 +24,7 @@ public class AdministrationConsole extends Console {
 		shipments.add(new MedicalShipment());
 		shipments.add(new ExterminationShipment());
 		shipments.add(new PartyShipment());
+        shipments.add(new RobotPartsShipment());
 		shipments.add(new MilitaryShipment());
 	}
 	

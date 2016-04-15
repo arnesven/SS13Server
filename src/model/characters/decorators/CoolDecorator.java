@@ -1,6 +1,6 @@
 package model.characters.decorators;
 
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.items.suits.SuitItem;
 
 public class CoolDecorator extends CharacterDecorator {

@@ -1,4 +1,4 @@
-package model.characters;
+package model.characters.general;
 
 public abstract class HumanCharacter extends GameCharacter {
 	

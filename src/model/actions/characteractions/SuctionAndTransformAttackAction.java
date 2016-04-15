@@ -2,8 +2,7 @@ package model.actions.characteractions;
 
 import model.Actor;
 import model.GameData;
-import model.characters.ChangelingCharacter;
-import model.characters.GameCharacter;
+import model.characters.general.ChangelingCharacter;
 
 public class SuctionAndTransformAttackAction extends SuctionAttackAction {
 

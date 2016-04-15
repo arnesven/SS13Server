@@ -9,8 +9,10 @@ import model.Target;
 import model.actions.Action;
 import model.actions.TargetingAction;
 import model.actions.itemactions.DrawBloodAction;
-import model.characters.GameCharacter;
-import model.characters.RobotCharacter;
+import model.characters.crew.GeneticistCharacter;
+import model.characters.decorators.InstanceChecker;
+import model.characters.general.GameCharacter;
+import model.characters.general.RobotCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.mutations.Mutation;
 import model.mutations.MutationFactory;
@@ -28,11 +30,11 @@ public class Syringe extends GameItem {
 	}
 	
 	@Override
-	public String getFullName(Actor whosAsking) {
-		return super.getFullName(whosAsking) + (filled?" (" + bloodFrom.getBaseName() + ")":"");
-	}
-	
-	@Override
+    public String getFullName(Actor whosAsking) {
+        return  super.getFullName(whosAsking) + (filled ? " (filled)" : "");
+    }
+
+    @Override
 	protected char getIcon() {
 		return 'C';
 	}

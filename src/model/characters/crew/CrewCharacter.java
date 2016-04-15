@@ -1,7 +1,6 @@
 package model.characters.crew;
 
-import model.characters.GameCharacter;
-import model.characters.HumanCharacter;
+import model.characters.general.HumanCharacter;
 import model.items.suits.OutFit;
 
 public abstract class CrewCharacter extends HumanCharacter {

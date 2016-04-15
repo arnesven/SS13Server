@@ -1,18 +1,10 @@
 package model.modes;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import model.Actor;
 import model.GameData;
-import model.Player;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InfectedCharacter;
-import model.npcs.HumanNPC;
-import model.npcs.NPC;
 
 public class HostModeStats extends GameStats {
 

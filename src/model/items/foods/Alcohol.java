@@ -2,10 +2,7 @@ package model.items.foods;
 
 import model.Actor;
 import model.GameData;
-import model.characters.GameCharacter;
-import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.DrunkChecker;
-import model.characters.decorators.DrunkDecorator;
 import model.events.DrunkTimerEvent;
 /**
  * @author chrho686

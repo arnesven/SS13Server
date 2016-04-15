@@ -7,7 +7,7 @@ import model.GameData;
 import model.actions.Action;
 import model.actions.TargetingAction;
 import model.actions.characteractions.ShadowAction;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.suits.SunGlasses;
 import model.items.weapons.Revolver;

@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.MyRandom;
-import model.Actor;
 import model.GameData;
-import model.actions.Action;
-import model.characters.GameCharacter;
-import model.characters.decorators.FireProtection;
+import model.characters.general.GameCharacter;
 
 public class MutationFactory {
 
@@ -28,6 +25,7 @@ public class MutationFactory {
 		mutes.add(new SuperSprint());
 		mutes.add(new HorrorAppearance());
 		mutes.add(new ChimpAppearance());
+        mutes.add(new ExtraHealthMutation());
 		
 		return mutes;
 	}
@@ -36,4 +34,7 @@ public class MutationFactory {
 		return MyRandom.sample(randMutes(gameData));
 	}
 
+    public static List<Mutation> getAllMutations(GameData gameData) {
+        return randMutes(gameData);
+    }
 }

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import model.Actor;
 import model.GameData;
 import model.actions.SensoryLevel;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.decorators.DarknessShroudDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.map.Room;

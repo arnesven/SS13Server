@@ -12,7 +12,7 @@ import util.MyRandom;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.decorators.TraitorCharacter;
 import model.events.OngoingEvent;
 import model.items.general.Bible;

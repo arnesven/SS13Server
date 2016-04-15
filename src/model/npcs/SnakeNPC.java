@@ -1,7 +1,7 @@
 package model.npcs;
 
 import model.actions.characteractions.HissAction;
-import model.characters.SnakeCharacter;
+import model.characters.general.SnakeCharacter;
 import model.map.Room;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.SpontaneousAct;

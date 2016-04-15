@@ -3,7 +3,7 @@ package model.events;
 import model.Actor;
 import model.GameData;
 import model.actions.SensoryLevel;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.DrunkDecorator;
 import model.characters.decorators.InstanceChecker;

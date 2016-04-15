@@ -3,7 +3,7 @@ package model.characters.crew;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.items.general.Chemicals;
 import model.items.general.GameItem;
 import model.items.general.MedKit;

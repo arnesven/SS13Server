@@ -1,13 +1,9 @@
 package model.items.foods;
 
-import java.util.NoSuchElementException;
-
 import model.Actor;
 import model.GameData;
-import model.characters.GameCharacter;
-import model.characters.decorators.AlterMovement;
+import model.characters.general.GameCharacter;
 import model.characters.decorators.AlterStrength;
-import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.events.RemoveInstanceLaterEvent;
 

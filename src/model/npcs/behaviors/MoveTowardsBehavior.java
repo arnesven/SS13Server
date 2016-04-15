@@ -3,7 +3,7 @@ package model.npcs.behaviors;
 import model.map.Room;
 import model.npcs.NPC;
 
-public class MoveTowardsBehavior extends PathFinding {
+public class MoveTowardsBehavior implements MovementBehavior {
 
 	private Room target;
 	private MovementBehavior nextMovement;
@@ -29,7 +29,7 @@ public class MoveTowardsBehavior extends PathFinding {
 			return;
 		}
 		
-		Room closerRoom = findCloserRoom(npc, target);
+		Room closerRoom = PathFinding.findCloserRoom(npc, target);
 		npc.moveIntoRoom(closerRoom);
 	}
 }

@@ -6,7 +6,7 @@ import model.GameData;
 import model.Player;
 import model.actions.Action;
 import model.actions.itemactions.SermonAction;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.crew.ChaplainCharacter;
 import model.characters.decorators.InstanceChecker;
 

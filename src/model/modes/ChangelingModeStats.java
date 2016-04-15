@@ -2,10 +2,10 @@ package model.modes;
 
 import model.Actor;
 import model.GameData;
-import model.characters.ChangelingCharacter;
-import model.characters.GameCharacter;
-import model.characters.HorrorCharacter;
-import model.characters.ParasiteCharacter;
+import model.characters.general.ChangelingCharacter;
+import model.characters.general.GameCharacter;
+import model.characters.general.HorrorCharacter;
+import model.characters.general.ParasiteCharacter;
 
 class ChangelingModeStats extends GameStats {
 

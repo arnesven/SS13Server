@@ -1,8 +1,6 @@
 package model.npcs;
 
-import model.characters.GameCharacter;
-import model.characters.ParasiteCharacter;
-import model.items.weapons.Weapon;
+import model.characters.general.ParasiteCharacter;
 import model.map.Room;
 import model.npcs.behaviors.AttackIfPossibleBehavior;
 import model.npcs.behaviors.MeanderingMovement;

@@ -14,8 +14,6 @@ import model.objects.consoles.GeneticsConsole;
 
 public class FillWithKnownMutationAction extends ConsoleAction {
 
-	
-
 	private GeneticsConsole console;
 	private Mutation selected;
 

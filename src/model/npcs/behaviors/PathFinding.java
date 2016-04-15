@@ -3,36 +3,37 @@ package model.npcs.behaviors;
 import java.util.HashSet;
 import java.util.Set;
 
+import model.Actor;
 import model.map.GameMap;
 import model.map.Room;
 import model.npcs.NPC;
 
-public abstract class PathFinding implements MovementBehavior {
+public class PathFinding {
 	
-	public Room findCloserRoom(NPC npc, Room r) {
-		System.out.println(" "  + npc.getBaseName() + ": Finding closest room to " + r.getName());
+	public static Room findCloserRoom(Actor fromWhom, Room r) {
+		System.out.println(" "  + fromWhom.getBaseName() + ": Finding closest room to " + r.getName());
 		Set<Room> rooms = new HashSet<>();
-		System.out.println(" "  + npc.getBaseName() + ": my move steps are " + npc.getCharacter().getMovementSteps());
-		recursivelyGetAccissibleRooms(npc.getPosition(), rooms, npc.getCharacter().getMovementSteps());
+		System.out.println(" "  + fromWhom.getBaseName() + ": my move steps are " + fromWhom.getCharacter().getMovementSteps());
+		recursivelyGetAccissibleRooms(fromWhom.getPosition(), rooms, fromWhom.getCharacter().getMovementSteps());
 
-		Room best = npc.getPosition();
+		Room best = fromWhom.getPosition();
 		int least = 10000;
 		for (Room r2 : rooms) {
 			int dist = GameMap.shortestDistance(r2, r);
-			System.out.println(" "  + npc.getBaseName() + ": a room I can go to: " + r2.getName());
-			System.out.println(" "  + npc.getBaseName() + ": it's " + dist + " rooms away");
+			System.out.println(" "  + fromWhom.getBaseName() + ": a room I can go to: " + r2.getName());
+			System.out.println(" "  + fromWhom.getBaseName() + ": it's " + dist + " rooms away");
 
 			if (dist < least) {
 				least = dist;
 				best = r2;
 			}
 		}
-		System.out.println(" "  + npc.getBaseName() + ": Best room to go to is " + best.getName());
+		System.out.println(" "  + fromWhom.getBaseName() + ": Best room to go to is " + best.getName());
 
 		return best;
 	}
 
-	public void recursivelyGetAccissibleRooms(Room position, Set<Room> rooms, int steps) {
+	public static void recursivelyGetAccissibleRooms(Room position, Set<Room> rooms, int steps) {
 
 		rooms.add(position);
 		if (steps == 0) {

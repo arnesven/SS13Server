@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.Actor;
 import model.Target;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.weapons.Knife;

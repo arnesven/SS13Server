@@ -5,7 +5,7 @@ import model.GameData;
 import model.Target;
 import model.actions.SensoryLevel;
 import model.actions.TargetingAction;
-import model.characters.ChangelingCharacter;
+import model.characters.general.ChangelingCharacter;
 import model.events.FollowMovementEvent;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;

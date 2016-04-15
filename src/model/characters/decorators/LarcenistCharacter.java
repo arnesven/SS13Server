@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.GameData;
 import model.actions.Action;
 import model.actions.characteractions.StealAction;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 
 public class LarcenistCharacter extends CharacterDecorator {
 

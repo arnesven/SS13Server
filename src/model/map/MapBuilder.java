@@ -2,15 +2,11 @@ package model.map;
 import java.util.ArrayList;
 
 import model.items.suits.SpaceSuit;
+import model.objects.consoles.*;
 import model.objects.general.AirLockControl;
 import model.objects.general.EvidenceBox;
 import model.objects.general.Lockers;
 import model.objects.general.MedkitDispenser;
-import model.objects.consoles.AIConsole;
-import model.objects.consoles.AdministrationConsole;
-import model.objects.consoles.CrimeRecordsConsole;
-import model.objects.consoles.KeyCardLock;
-import model.objects.consoles.SecurityCameraConsole;
 
 
 /**
@@ -52,7 +48,8 @@ public class MapBuilder {
 		result.add(office);
 		Room aiCore = new Room(15, "AI Core"             , "AI"     ,10,  7, 2, 2, new int[]{13}        ,         new double[]{} ); 
 		aiCore.addObject(new AIConsole(aiCore));
-		result.add(aiCore);
+        aiCore.addObject(new BotConsole(aiCore));
+        result.add(aiCore);
 		Room portHallFront = new Room(16, "Port Hall Front"     , ""       ,13,  3, 2, 3, new int[]{13, 17, 18, 19},     new double[]{15.0, 5.5, 15.0, 3.5} );
 		result.add(portHallFront);
 		

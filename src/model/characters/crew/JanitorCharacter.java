@@ -6,7 +6,7 @@ import java.util.List;
 import model.GameData;
 import model.actions.Action;
 import model.actions.characteractions.PickUpAllAction;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.items.general.Chemicals;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;

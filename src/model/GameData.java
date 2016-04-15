@@ -1,19 +1,12 @@
 package model;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
+import model.items.NoSuchItemException;
+import model.objects.general.ContainerObject;
+import model.objects.general.DispenserObject;
 import util.MyRandom;
 import util.MyStrings;
 import util.Pair;
@@ -545,16 +538,27 @@ public class GameData {
 		events.add(event);
 	}
 
-	public Room findRoomForItem(GameItem searchedItem) {
+	public Room findRoomForItem(GameItem searchedItem) throws NoSuchItemException {
 		for (Room r : getAllRooms()) {
 			for (GameItem it : r.getItems()) {
 				if (it == searchedItem) {
 					return r;
 				}
 			}
+            for (GameObject ob : r.getObjects()) {
+                if (ob instanceof ContainerObject) {
+                    if (((ContainerObject)ob).getInventory().contains(ob)) {
+                        return r;
+                    }
+                } else if (ob instanceof DispenserObject) {
+                    if (((DispenserObject)ob).getItems().contains(ob)) {
+                        return r;
+                    }
+                }
+            }
 		}
 
-		return null;
+		throw new NoSuchItemException("Room for searched item " + searchedItem.getBaseName() + " not found");
 	}
 
 	/**
@@ -565,7 +569,7 @@ public class GameData {
 		return map.getRooms();
 	}
 
-	public Actor findActorForItem(GameItem searchedItem) {
+	public Actor findActorForItem(GameItem searchedItem) throws NoSuchItemException {
 		for (Actor a : getActors()) {
 			for (GameItem it : a.getItems()) {
 				if (searchedItem == it) {
@@ -573,7 +577,7 @@ public class GameData {
 				}
 			}
 		}
-		return null;
+        throw new NoSuchItemException("Could not find actor for searched item " + searchedItem.getBaseName());
 	}
 
 	public GameMap getMap() {

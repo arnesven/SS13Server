@@ -1,4 +1,4 @@
-package model.characters;
+package model.characters.general;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import model.items.general.GameItem;
 import model.items.weapons.BluntWeapon;
 import model.items.weapons.Weapon;
 
-public abstract class RobotCharacter extends GameCharacter {
+public class RobotCharacter extends GameCharacter {
 
 	public RobotCharacter(String string, int i, double d) {
 		super(string, i ,d);
@@ -20,8 +20,13 @@ public abstract class RobotCharacter extends GameCharacter {
 	public char getIcon(Player whosAsking) {
 		return 'T';
 	}
-	
-	@Override
+
+    @Override
+    public GameCharacter clone() {
+        return new RobotCharacter(getPublicName(), getStartingRoom(), getSpeed());
+    }
+
+    @Override
 	public List<GameItem> getStartingItems() {
 		return new ArrayList<GameItem>();
 	}

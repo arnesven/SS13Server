@@ -6,7 +6,7 @@ import model.map.Room;
 import model.npcs.NPC;
 import model.objects.consoles.CrimeRecordsConsole;
 
-public class FollowCriminalBehavior extends PathFinding {
+public class FollowCriminalBehavior implements MovementBehavior {
 
 	private CrimeRecordsConsole console;
 
@@ -25,7 +25,7 @@ public class FollowCriminalBehavior extends PathFinding {
 		
 		System.out.println("SecuriTRON: Most wanted criminal is " + mostWanted.getBaseName() +", you're going down!");
 		
-		Room closerRoom = findCloserRoom(npc, mostWanted.getPosition());
+		Room closerRoom = PathFinding.findCloserRoom(npc, mostWanted.getPosition());
 		if (npc.getPosition() != closerRoom) {
 			npc.moveIntoRoom(closerRoom);
 		}

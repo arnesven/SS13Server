@@ -2,7 +2,7 @@ package model.characters.decorators;
 
 import model.Actor;
 import model.Player;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.events.Damager;
 import model.events.RadiationDamage;
 

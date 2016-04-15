@@ -2,7 +2,7 @@ package model.items.suits;
 
 
 import model.Actor;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.SpaceProtection;
 

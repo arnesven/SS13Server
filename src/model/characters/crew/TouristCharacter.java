@@ -5,7 +5,7 @@ import java.util.List;
 
 import util.MyRandom;
 import model.GameData;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.suits.FancyClothes;
 import model.map.NukieShipRoom;

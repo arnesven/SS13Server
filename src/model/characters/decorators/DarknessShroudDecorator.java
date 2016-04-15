@@ -5,7 +5,7 @@ import model.actions.Action;
 import model.actions.SensoryLevel;
 import model.actions.SensoryLevel.AudioLevel;
 import model.actions.SensoryLevel.OlfactoryLevel;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 
 public class DarknessShroudDecorator extends CharacterDecorator {
 

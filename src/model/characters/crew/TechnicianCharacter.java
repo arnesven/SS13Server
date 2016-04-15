@@ -6,7 +6,7 @@ import java.util.List;
 import model.GameData;
 import model.actions.characteractions.JackInAction;
 import model.actions.characteractions.LaptopRemoteAccessAction;
-import model.characters.GameCharacter;
+import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.Laptop;
 import model.items.general.Tools;
