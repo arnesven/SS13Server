@@ -3,7 +3,6 @@ package model.actions;
 import java.util.List;
 
 import model.Actor;
-import model.Player;
 import model.GameData;
 
 

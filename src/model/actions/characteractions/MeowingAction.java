@@ -3,7 +3,6 @@ package model.actions.characteractions;
 import java.util.List;
 
 import model.Actor;
-import model.Player;
 import model.GameData;
 import model.actions.Action;
 import model.actions.SensoryLevel;

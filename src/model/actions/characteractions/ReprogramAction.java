@@ -5,13 +5,11 @@ import model.GameData;
 import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
-import model.characters.general.RobotCharacter;
 import model.npcs.RobotNPC;
 import model.objects.consoles.BotConsole;
 import model.programs.BotProgram;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 

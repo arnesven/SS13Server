@@ -13,7 +13,6 @@ import model.actions.SensoryLevel.VisualLevel;
 import model.events.Event;
 import model.map.GameMap;
 import model.map.MapBuilder;
-import model.map.NukieShipRoom;
 import model.map.Room;
 import model.objects.consoles.SecurityCameraConsole;
 

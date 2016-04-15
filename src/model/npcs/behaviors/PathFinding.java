@@ -6,7 +6,6 @@ import java.util.Set;
 import model.Actor;
 import model.map.GameMap;
 import model.map.Room;
-import model.npcs.NPC;
 
 public class PathFinding {
 	

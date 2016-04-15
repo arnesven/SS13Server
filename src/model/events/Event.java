@@ -1,6 +1,5 @@
 package model.events;
 
-import java.util.List;
 
 import model.Actor;
 import model.GameData;

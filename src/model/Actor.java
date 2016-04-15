@@ -91,7 +91,7 @@ public abstract class Actor  {
 	 * Gets the base name of the character of this actor.
 	 * The base name is the name of the character in its simplest
 	 * form, e.g. "Doctor" or "Chaplain".
-	 * @return
+	 * @return the base name of the Actor.
 	 */
 	public String getBaseName() {
 		return getCharacter().getBaseName();

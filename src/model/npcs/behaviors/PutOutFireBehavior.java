@@ -3,7 +3,6 @@ package model.npcs.behaviors;
 import model.Actor;
 import model.GameData;
 import model.events.ElectricalFire;
-import model.events.Event;
 import model.items.general.FireExtinguisher;
 import model.npcs.NPC;
 

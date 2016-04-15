@@ -9,8 +9,6 @@ import model.Target;
 import model.actions.Action;
 import model.actions.TargetingAction;
 import model.actions.itemactions.DrawBloodAction;
-import model.characters.crew.GeneticistCharacter;
-import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
 import model.characters.general.RobotCharacter;
 import model.characters.decorators.CharacterDecorator;

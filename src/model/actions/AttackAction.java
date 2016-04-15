@@ -14,11 +14,7 @@ public class AttackAction extends TargetingAction {
 		super("Attack", SensoryLevel.PHYSICAL_ACTIVITY, ap);
 	}
 
-	@Override
-	protected void addMoreTargets(Actor ap) {
-//		System.out.println("Adding more targets to attack action");
 
-	}
 	
 	@Override
 	public void addClientsItemsToAction(Player client) {

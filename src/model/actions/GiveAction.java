@@ -16,7 +16,7 @@ public class GiveAction extends TargetingAction {
 	@Override
 	protected String getVerb(Actor whosAsking) {
 		return "gave";
-	};
+	}
 	
 	@Override
 	public String getDescription(Actor whosAsking) {

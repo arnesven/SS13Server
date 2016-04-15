@@ -1,6 +1,5 @@
 package model.map;
 
-import model.objects.consoles.BotConsole;
 import model.objects.general.ChemicalDispenser;
 import model.objects.general.BioScanner;
 import model.objects.consoles.GeneticsConsole;

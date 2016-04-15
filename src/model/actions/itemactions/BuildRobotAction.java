@@ -6,7 +6,6 @@ import model.actions.Action;
 import model.actions.ActionOption;
 import model.actions.SensoryLevel;
 import model.characters.general.RobotCharacter;
-import model.items.general.GameItem;
 import model.items.general.RobotParts;
 import model.npcs.RobotNPC;
 import model.npcs.behaviors.DoNothingBehavior;

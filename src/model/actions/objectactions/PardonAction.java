@@ -2,7 +2,6 @@ package model.actions.objectactions;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import util.Pair;
 import model.Actor;

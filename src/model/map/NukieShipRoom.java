@@ -1,6 +1,5 @@
 package model.map;
 
-import model.items.weapons.Revolver;
 
 public class NukieShipRoom extends Room {
 

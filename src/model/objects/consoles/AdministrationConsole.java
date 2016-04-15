@@ -1,14 +1,11 @@
 package model.objects.consoles;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.Action;
-import model.actions.SensoryLevel;
 import model.actions.objectactions.AdminConsoleAction;
 import model.map.Room;
 import model.objects.shipments.*;

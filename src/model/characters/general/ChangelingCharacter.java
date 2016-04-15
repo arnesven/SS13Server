@@ -262,13 +262,10 @@ public class ChangelingCharacter extends GameCharacter {
 		}
 		
 		Actor actor = (Actor)target2;
-		if (actor instanceof HumanNPC || 
+
+        return (actor instanceof HumanNPC ||
 				actor.getCharacter() instanceof AnimalCharacter ||
-				actor.getCharacter() instanceof HumanCharacter) {
-			return true;
-		}
-		
-		return false;
+				actor.getCharacter() instanceof HumanCharacter);
 	}
 
 	@Override

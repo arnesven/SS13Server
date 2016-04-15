@@ -4,7 +4,6 @@ package model.npcs.behaviors;
 import util.MyRandom;
 import model.GameData;
 import model.actions.Action;
-import model.actions.characteractions.MeowingAction;
 import model.npcs.NPC;
 
 

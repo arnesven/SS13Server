@@ -1,8 +1,6 @@
 package model.npcs.behaviors;
 
 import model.GameData;
-import model.events.ElectricalFire;
-import model.events.OngoingEvent;
 import model.map.GameMap;
 import model.map.Room;
 import model.npcs.NPC;

@@ -1,14 +1,11 @@
 package model.npcs.behaviors;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
-import model.Target;
 import model.actions.Action;
 import model.actions.SensoryLevel;
 

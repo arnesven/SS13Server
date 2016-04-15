@@ -1,7 +1,5 @@
 package model.modes;
 
-import util.MyRandom;
-
 public class GameModeFactory {
 	
 	public static GameMode create(String selectedMode) {

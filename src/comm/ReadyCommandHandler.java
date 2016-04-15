@@ -1,11 +1,9 @@
 package comm;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.util.Scanner;
 
 import model.GameData;
-import model.modes.GameMode;
 
 
 public class ReadyCommandHandler extends AbstractCommandHandler {
