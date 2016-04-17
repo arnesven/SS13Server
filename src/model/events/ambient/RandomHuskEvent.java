@@ -27,7 +27,7 @@ public class RandomHuskEvent extends Event {
 	}
 
 	private void addAHusk(GameData gameData) {
-		Room roomToAddAHuskIn = null;
+		Room roomToAddAHuskIn;
 		do {
 			roomToAddAHuskIn = MyRandom.sample(gameData.getRooms());
 		} while (!isOk(roomToAddAHuskIn));

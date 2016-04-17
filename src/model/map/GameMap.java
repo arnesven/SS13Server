@@ -107,12 +107,9 @@ public class GameMap {
 	}
 
 	public static boolean areJoined(Room a, Room b) {
-		if (a.getNeighborList().contains(b) &&
-				b.getNeighborList().contains(a)) {
-			return true;
-		}
-		return false;
-	}
+        return a.getNeighborList().contains(b) &&
+                b.getNeighborList().contains(a);
+    }
 	
 	public static void joinRooms(Room a, Room b) {
 		if (!areJoined(a, b)) {

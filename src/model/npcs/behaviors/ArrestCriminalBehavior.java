@@ -30,8 +30,8 @@ public class ArrestCriminalBehavior implements ActionBehavior {
 			return; // nobody to arrest
 		}
 		
-		Actor worst = null;
-		int points = -1;
+		Actor worst = acts.get(0);
+		int points = console.sumCrimesFor(acts.get(0));
 		for (Actor a : acts) {
 			int sent = console.sumCrimesFor(a);
 			if (sent > points) {

@@ -37,12 +37,9 @@ public class JanitorCharacter extends CrewCharacter {
 	}
 	
 	public boolean isEncumbered() {
-		if (getTotalWeight() >= 8.0) {
-			return true;
-		}
-		
-		return false;
-	}
+        return getTotalWeight() >= 8.0;
+
+    }
 
 	@Override
 	public GameCharacter clone() {

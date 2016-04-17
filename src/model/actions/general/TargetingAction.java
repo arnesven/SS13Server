@@ -57,14 +57,14 @@ public abstract class TargetingAction extends Action {
 	
 	private void addTargetsToAction(Actor ap) {
 		for (Player cl: ap.getPosition().getClients()) {
-			Target target = (Target)cl;
+			Target target = cl;
 			if (isViableForThisAction(target) && !(ap == cl)) {
 				this.addTarget(target);
 			}
 		}
 		
 		for (NPC npc : ap.getPosition().getNPCs()) {
-			Target target = (Target)npc;
+			Target target = npc;
 			if (isViableForThisAction(target) && !(ap == npc)) {
 				this.addTarget(target);
 			}
@@ -131,11 +131,8 @@ public abstract class TargetingAction extends Action {
 	}
 
 	protected boolean itemAvailable(Actor performingClient, GameItem it) {
-		if (performingClient.getItems().contains(it)) {
-			return true;
-		}
-		return false;
-	}
+        return performingClient.getItems().contains(it);
+    }
 
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {

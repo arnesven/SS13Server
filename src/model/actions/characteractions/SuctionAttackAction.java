@@ -25,8 +25,8 @@ public class SuctionAttackAction extends TargetingAction {
 		boolean succ = target.beAttackedBy(performingClient, new Weapon("Proboscis", 0.95, 1.0, false, 0.0));
 		if (succ) {
 			Actor targetAsActor = ((Actor) target);
-			ling.addToSucked(((Actor) targetAsActor));
-			afterSucking(ling, ((Actor) targetAsActor), gameData);
+			ling.addToSucked(targetAsActor);
+			afterSucking(ling, targetAsActor, gameData);
 			if (target.isDead()) {
 				targetAsActor.setCharacter(new HuskDecorator(targetAsActor.getCharacter()));
 			}

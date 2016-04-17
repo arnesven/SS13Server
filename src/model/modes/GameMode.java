@@ -455,7 +455,6 @@ public abstract class GameMode {
 		StringBuffer res = new StringBuffer();
 		List<GameCharacter> list = new ArrayList<>();
 		list.addAll(availableChars().values());
-		SpeedComparator s;
 		Collections.sort(list, new CharacterSpeedComparator());
 
 		for (GameCharacter gc : list) {

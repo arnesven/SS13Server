@@ -95,7 +95,7 @@ public class PutOnAction extends Action {
 			if (actor.isDead()) {
 				System.out.println("Dead guys suit: " + actor.getCharacter().getSuit());
 				if (actor.getCharacter().getSuit().getPublicName(performingClient).equals(args.get(0))) {
-					selectedItem = (SuitItem)(actor.getCharacter().getSuit());
+					selectedItem = actor.getCharacter().getSuit();
 					System.out.println("Looting a suit of a dead body " + selectedItem.getPublicName(performingClient));
 					lootVictim  = actor;
 					return;

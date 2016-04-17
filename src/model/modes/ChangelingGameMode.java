@@ -63,7 +63,7 @@ public class ChangelingGameMode extends GameMode {
 		gameData.addNPC(npc);
 		decoy = npc;
 		
-		Room startRoom = null;
+		Room startRoom;
 		do {
 			startRoom = MyRandom.sample(gameData.getRooms());
 		} while (isAStartingRoom(startRoom, gameData) || lockedRoom(startRoom, gameData));

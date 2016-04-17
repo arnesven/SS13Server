@@ -1,6 +1,7 @@
 package model.items.general;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import model.Actor;
 import model.GameData;
@@ -50,7 +51,7 @@ public class FireExtinguisher extends BluntWeapon {
                 return (ElectricalFire)e;
             }
         }
-        return null;
+        throw new NoSuchElementException("No fire where one should be!");
     }
 	
 	@Override

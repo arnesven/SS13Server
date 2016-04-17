@@ -28,7 +28,7 @@ public class EscapeAndSetNukeAction extends Action {
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
 		final Room nukieShip = gameData.getRoom("Nuclear Ship");
-		((Player)performingClient).moveIntoRoom(nukieShip);
+		performingClient.moveIntoRoom(nukieShip);
 		((Player)performingClient).setNextMove(nukieShip.getID());
 		if (hasTheDisk(performingClient) != null) {
 			performingClient.getItems().remove(hasTheDisk(performingClient));

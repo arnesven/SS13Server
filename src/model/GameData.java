@@ -129,7 +129,6 @@ public class GameData {
 	 */
 	public String createNewClient(String rest) {
 		String clid = rest;
-		int i = 2;
 		if (rest.equals("")) {
 			clid = getRandomClid();
 		}
@@ -298,9 +297,8 @@ public class GameData {
 	}
 
 	private void runMovementEvents() {
-		Event e = null;
 		for (Iterator<Event> it = moveEvents .iterator(); it.hasNext(); ) {
-			e = it.next();
+			Event e = it.next();
 			e.apply(this);
 			if (e.shouldBeRemoved(this)) {
 				it.remove();

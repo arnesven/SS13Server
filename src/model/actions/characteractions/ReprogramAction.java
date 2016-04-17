@@ -18,7 +18,6 @@ import java.util.List;
  */
 public class ReprogramAction extends Action {
 
-    private List<Actor> botsInRoom = new ArrayList<>();
     private RobotNPC selectedBot;
     private String progString;
 
@@ -31,7 +30,6 @@ public class ReprogramAction extends Action {
         ActionOption option = super.getOptions(gameData, whosAsking);
         for (Actor a : whosAsking.getPosition().getActors()) {
             if (a instanceof RobotNPC) {
-                this.botsInRoom.add(a);
                 ActionOption sub = new ActionOption(a.getPublicName());
                 addProgramOpts(gameData, sub);
                 option.addOption(sub);

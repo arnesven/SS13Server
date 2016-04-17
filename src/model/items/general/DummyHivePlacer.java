@@ -42,11 +42,7 @@ public class DummyHivePlacer extends GameItem {
 			
 			@Override
 			public void setArguments(List<String> args, Actor p) {
-				if (args.get(0).equals("As Found")) {
-					placeAsFound = true;
-				} else {
-					placeAsFound = false;
-				}
+                placeAsFound = args.get(0).equals("As Found");
 			}
 			
 			@Override

@@ -47,11 +47,8 @@ public class RemoveInstanceLaterEvent extends Event {
 
 	@Override
 	public boolean shouldBeRemoved(GameData gameData) {
-		if (gameData.getRound() == roundHappened+duration) {
-			return true;
-		}
-		return false;
-	}
+        return gameData.getRound() == roundHappened + duration;
+    }
 
 
 }

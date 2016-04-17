@@ -89,11 +89,8 @@ public class Syringe extends GameItem {
 	public static boolean hasBloodToDraw(Target target2) {
 		if (target2 instanceof Player || target2 instanceof NPC) {
 			Actor targetAsActor = (Actor)target2;
-			if (targetAsActor.getCharacter() instanceof RobotCharacter) {
-				return false;
-			}
-			return true;
-		}
+            return !(targetAsActor.getCharacter() instanceof RobotCharacter);
+        }
 		return false;
 	}
 

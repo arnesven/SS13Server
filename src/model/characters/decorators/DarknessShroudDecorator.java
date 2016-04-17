@@ -24,11 +24,8 @@ public class DarknessShroudDecorator extends CharacterDecorator {
 		if (s.sound == AudioLevel.SAME_ROOM || s.sound == AudioLevel.VERY_LOUD) {
 			return true;
 		}
-		if (s.smell != OlfactoryLevel.UNSMELLABLE) {
-			return true;
-		}
-		
-		return false;
-	}
+        return s.smell != OlfactoryLevel.UNSMELLABLE;
+
+    }
 
 }

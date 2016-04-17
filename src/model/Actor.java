@@ -40,7 +40,7 @@ public abstract class Actor  {
 		this.character = charr;
 		getCharacter().setActor(this);
 		if (charr instanceof CharacterDecorator) {
-			((CharacterDecorator)charr).printInstances();
+			charr.printInstances();
 		}
 	}
 	

@@ -201,7 +201,7 @@ public class OperativesGameMode extends GameMode {
 
 	public boolean isOperative(Actor value) {
 		if (value instanceof Player) {
-			if (operatives.contains((Player)value)) {
+			if (operatives.contains(value)) {
 				return true;
 			}
 		}
@@ -212,7 +212,7 @@ public class OperativesGameMode extends GameMode {
 
 	public NPC getDecoy(Actor value) {
 		if (value instanceof Player) {
-			return decoys.get((Player)value);
+			return decoys.get(value);
 		}
 		return null;
 	}

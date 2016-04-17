@@ -18,7 +18,7 @@ public class RepairAction extends TargetingAction {
 	@Override
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
-		((BreakableObject)target).addToHealth(1.0);
+		target.addToHealth(1.0);
 		performingClient.addTolastTurnInfo("You repaired " + target.getName());
 	}
 

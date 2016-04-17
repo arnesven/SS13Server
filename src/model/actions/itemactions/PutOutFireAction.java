@@ -9,6 +9,7 @@ import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by erini02 on 15/04/16.
@@ -36,10 +37,14 @@ public class PutOutFireAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (GameItem.hasAnItem(performingClient, new FireExtinguisher())) {
-            ElectricalFire fire = FireExtinguisher.getFire(performingClient.getPosition());
-            fire.fix();
-            fireExtinguisher.decrementLevel();
-            performingClient.addTolastTurnInfo("You put out the fire.");
+            try {
+                ElectricalFire fire = FireExtinguisher.getFire(performingClient.getPosition());
+                fire.fix();
+                fireExtinguisher.decrementLevel();
+                performingClient.addTolastTurnInfo("You put out the fire.");
+            } catch (NoSuchElementException nse) {
+                performingClient.addTolastTurnInfo("No fire to put out.");
+            }
         } else {
             performingClient.addTolastTurnInfo("What the fire extinguisher is gone! Your action failed.");
         }

@@ -22,7 +22,8 @@ public class DrawBloodAction extends TargetingAction {
 		Syringe syringe = Syringe.findSyringe(performingClient);
 		if (syringe == null) {
 			performingClient.addTolastTurnInfo("What? The Syringe is gone! Your action failed.");
-		}
+		    return;
+        }
 		performingClient.addTolastTurnInfo("You drew blood from " + target.getName() + ".");
 		syringe.setBloodFrom((Actor)target, gameData);
 	}

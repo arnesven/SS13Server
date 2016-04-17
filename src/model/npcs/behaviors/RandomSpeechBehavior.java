@@ -32,7 +32,6 @@ public class RandomSpeechBehavior extends SpontaneousAct {
 			@Override
 			protected void execute(GameData gameData, Actor performingClient) {
 				if (performingClient.getPosition().getActors().size() > 1) {
-					int lines = 0;
 					try {
 						talkString = MyRandom.getRandomLineFromFile(filename);
 						System.out.println("Talkstring is " + talkString);
@@ -47,15 +46,14 @@ public class RandomSpeechBehavior extends SpontaneousAct {
 
 			private String replaceMarkers(GameData gameData, Actor performingClient, String talkString2) {
 				if (talkString2.contains("$r")) {
-					Actor person = null;
-					
+					Actor person;
 					List<Actor> targets = performingClient.getPosition().getActors();
 					
 					do {
 						//System.out.println("TARS targets: " + targets.toString());
 						person = targets.get(MyRandom.nextInt(targets.size()));
 						System.out.println("TARS wants to talkt to " + person.getBaseName());
-					} while (person.equals("TARS"));
+					} while (person.getBaseName().equals("TARS"));
 					
 					talkString2 = talkString2.replace("$r", person.getBaseName());
 					person.addTolastTurnInfo(performingClient.getPublicName() + " said \""+talkString2 + "\"");

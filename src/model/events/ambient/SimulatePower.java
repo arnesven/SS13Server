@@ -43,7 +43,6 @@ public class SimulatePower extends Event {
 
 
 	private void handleOvercharge(GameData gameData, GeneratorConsole gc) {
-		double level = gc.getPowerLevel();
 		double outputPct = gc.getPowerOutput();
 		
 		if (MyRandom.nextDouble() < outputPct - 1.0) {

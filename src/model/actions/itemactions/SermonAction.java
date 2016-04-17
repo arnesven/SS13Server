@@ -28,7 +28,7 @@ public class SermonAction extends Action {
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
 		if (GameItem.hasAnItem(performingClient, new Bible())) {
-		String sermon = null;
+		String sermon;
 		try {
 			sermon = MyRandom.getRandomLineFromFile("resources/BIBLE.TXT");
 			performingClient.addTolastTurnInfo("You say \"" + sermon +"\".");

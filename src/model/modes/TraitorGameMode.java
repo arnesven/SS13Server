@@ -341,7 +341,7 @@ public class TraitorGameMode extends GameMode {
 			}
 		}
 		
-		return (int)( stillAlive * ((double)getTotalPointsForCrew(gameData))
+		return (int)( stillAlive * getTotalPointsForCrew(gameData)
 					 / shouldBeSaved.size()   );
 	}
 
