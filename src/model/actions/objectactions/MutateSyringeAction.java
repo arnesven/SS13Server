@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.actions.ActionOption;
+import model.actions.general.ActionOption;
 import model.characters.crew.GeneticistCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
@@ -14,7 +14,7 @@ import model.items.general.Syringe;
 import model.mutations.Mutation;
 import model.mutations.MutationFactory;
 import model.objects.consoles.GeneticsConsole;
-import model.actions.SensoryLevel;
+import model.actions.general.SensoryLevel;
 
 public class MutateSyringeAction extends ConsoleAction {
 

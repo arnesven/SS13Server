@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.actions.objectactions.LockRoomAction;
 import model.actions.objectactions.UnlockRoomAction;
 import model.items.general.GameItem;
@@ -81,8 +81,9 @@ public class KeyCardLock extends Console {
 	@Override
 	public void thisJustBroke() {
 		System.out.println(" room unlocked because of lock broke!");
-		unlockRooms();
-	}
+        GameMap.joinRooms(to, from);
+        setLocked(false);
+    }
 	
 	@Override
 	public void onPowerOff(GameData gameData) {

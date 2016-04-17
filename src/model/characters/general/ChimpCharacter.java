@@ -5,8 +5,8 @@ import java.util.List;
 
 import model.GameData;
 import model.Player;
-import model.actions.Action;
-import model.actions.SpeechAction;
+import model.actions.general.Action;
+import model.actions.general.SpeechAction;
 import model.items.general.GameItem;
 import model.items.foods.Banana;
 import model.items.weapons.Weapon;

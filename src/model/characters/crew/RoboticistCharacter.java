@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.GameData;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.actions.characteractions.ReprogramAction;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;

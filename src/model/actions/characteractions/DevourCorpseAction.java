@@ -5,13 +5,13 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.characters.general.ChangelingCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.HuskDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.npcs.NPC;
-import model.actions.SensoryLevel;
+import model.actions.general.SensoryLevel;
 
 public class DevourCorpseAction extends Action {
 

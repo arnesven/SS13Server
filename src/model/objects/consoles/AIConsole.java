@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.GameData;
 import model.Player;
 import model.actions.objectactions.AIConsoleAction;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.map.Room;
 
 public class AIConsole extends Console {

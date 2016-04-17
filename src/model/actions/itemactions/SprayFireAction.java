@@ -6,7 +6,7 @@ import java.util.List;
 import model.Actor;
 import model.Player;
 import model.GameData;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.items.general.GameItem;
 import model.items.weapons.Flamer;
 import model.npcs.NPC;

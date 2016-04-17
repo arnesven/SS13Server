@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.GameData;
-import model.actions.Action;
-import model.actions.TargetingAction;
+import model.actions.general.Action;
+import model.actions.general.TargetingAction;
 import model.actions.characteractions.ShadowAction;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;

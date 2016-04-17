@@ -4,8 +4,8 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.actions.Action;
-import model.actions.SensoryLevel;
+import model.actions.general.Action;
+import model.actions.general.SensoryLevel;
 
 public class CancelAction extends Action {
 

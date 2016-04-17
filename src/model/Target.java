@@ -2,7 +2,7 @@ package model;
 
 import java.util.List;
 
-import model.events.Damager;
+import model.events.damage.Damager;
 import model.items.general.GameItem;
 import model.items.general.Locatable;
 import model.items.general.MedKit;

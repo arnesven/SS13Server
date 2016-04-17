@@ -9,14 +9,15 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
-import model.actions.Action;
-import model.actions.SensoryLevel.AudioLevel;
-import model.actions.SensoryLevel.OlfactoryLevel;
-import model.events.ElectricalFire;
+import model.actions.general.Action;
+import model.actions.general.SensoryLevel.AudioLevel;
+import model.actions.general.SensoryLevel.OlfactoryLevel;
+import model.events.ambient.ElectricalFire;
 import model.events.Event;
-import model.events.HullBreach;
+import model.events.ambient.HullBreach;
 import model.items.general.GameItem;
 import model.npcs.NPC;
+import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 
 
@@ -380,4 +381,18 @@ public class Room {
 	}
 
 
+    public void removeFromRoom(GameItem searched) {
+        if (items.contains(searched)) {
+            items.remove(searched);
+        } else {
+            for (GameObject ob : getObjects()) {
+                if (ob instanceof ContainerObject) {
+                    if (((ContainerObject)ob).getInventory().contains(searched)) {
+                        ((ContainerObject)ob).getInventory().remove(searched);
+                        return;
+                    }
+                }
+            }
+        }
+    }
 }

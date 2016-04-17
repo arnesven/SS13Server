@@ -2,10 +2,10 @@ package model.npcs;
 
 import model.Actor;
 import model.characters.general.GameCharacter;
-import model.events.AsphyxiationDamage;
-import model.events.ColdDamage;
-import model.events.Damager;
-import model.events.RadiationDamage;
+import model.events.damage.AsphyxiationDamage;
+import model.events.damage.ColdDamage;
+import model.events.damage.Damager;
+import model.events.damage.RadiationDamage;
 import model.map.Room;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.MovementBehavior;

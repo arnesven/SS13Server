@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.GameData;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.items.general.GameItem;
 import model.items.suits.SpaceSuit;
 import model.map.AirLockRoom;

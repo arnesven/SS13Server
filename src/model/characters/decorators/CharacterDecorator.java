@@ -7,9 +7,9 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.characters.general.GameCharacter;
-import model.events.Damager;
+import model.events.damage.Damager;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
@@ -283,14 +283,40 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public GameCharacter clone() {
 		return innerChar.clone();
 	}
-	
+
+    @Override
 	public void printInstances() {
 		System.out.print(this.getClass().getName() + "->");
 		getInner().printInstances();
 	}
-	
+
+	@Override
 	public boolean canUseObjects() {
 		return innerChar.canUseObjects();
 	}
-	
+
+    @Override
+    public boolean hasInventory() {
+        return innerChar.hasInventory();
+    }
+
+    @Override
+    public boolean isAttackerSuccessful(Actor performingClient, Weapon weapon) {
+        return innerChar.isAttackerSuccessful(performingClient, weapon);
+    }
+
+    @Override
+    public boolean doDamageOnSelfWith(Weapon weapon) {
+        return innerChar.doDamageOnSelfWith(weapon);
+    }
+
+    @Override
+    public void doUponDeath(Actor killer) {
+        innerChar.doUponDeath(killer);
+    }
+
+    @Override
+    public boolean wasCriticalHit(Weapon weapon) {
+        return innerChar.wasCriticalHit(weapon);
+    }
 }

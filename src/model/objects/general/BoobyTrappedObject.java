@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.Action;
-import model.actions.TriggerAction;
+import model.actions.general.Action;
+import model.actions.general.TriggerAction;
 import model.items.general.BombItem;
 import model.map.Room;
 

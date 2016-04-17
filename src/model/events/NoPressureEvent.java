@@ -5,7 +5,9 @@ import java.util.Iterator;
 import model.Actor;
 import model.GameData;
 import model.Target;
-import model.actions.SensoryLevel;
+import model.actions.general.SensoryLevel;
+import model.events.ambient.ElectricalFire;
+import model.events.damage.NoPressureDamage;
 import model.map.Room;
 import model.objects.general.PressurePanel;
 

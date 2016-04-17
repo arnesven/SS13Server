@@ -1,6 +1,6 @@
 package model.actions.characteractions;
 
-import model.events.ExplosiveDamage;
+import model.events.damage.ExplosiveDamage;
 
 public class NuclearExplosiveDamage extends ExplosiveDamage {
 

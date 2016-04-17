@@ -3,7 +3,7 @@ package model.characters.decorators;
 import java.util.ArrayList;
 
 import model.GameData;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.actions.characteractions.StealAction;
 import model.characters.general.GameCharacter;
 

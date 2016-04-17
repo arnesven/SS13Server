@@ -2,7 +2,7 @@ package model.items.foods;
 
 import model.Actor;
 import model.GameData;
-import model.events.ExplosiveDamage;
+import model.events.damage.ExplosiveDamage;
 import model.events.Explosion;
 
 public class ExplodingFood extends FoodItem {

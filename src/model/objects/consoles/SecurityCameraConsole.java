@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import model.GameData;
 import model.Player;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.actions.objectactions.SecurityConsoleAction;
 import model.map.Room;
 

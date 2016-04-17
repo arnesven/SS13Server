@@ -3,11 +3,11 @@ package model.actions.itemactions;
 import model.Actor;
 import model.GameData;
 import model.Target;
-import model.actions.SensoryLevel;
-import model.actions.TargetingAction;
+import model.actions.general.SensoryLevel;
+import model.actions.general.TargetingAction;
 import model.items.general.GameItem;
 import model.items.general.Syringe;
-import model.actions.SensoryLevel.*;
+import model.actions.general.SensoryLevel.*;
 
 public class DrawBloodAction extends TargetingAction {
 

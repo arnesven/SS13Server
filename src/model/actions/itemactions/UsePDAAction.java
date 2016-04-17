@@ -5,14 +5,14 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.Action;
-import model.actions.ActionOption;
+import model.actions.general.Action;
+import model.actions.general.ActionOption;
 import model.items.general.GameItem;
 import model.items.general.Locator;
 import model.items.general.PDA;
 import model.modes.TraitorGameMode;
 import model.modes.TraitorObjective;
-import model.actions.SensoryLevel;
+import model.actions.general.SensoryLevel;
 
 public class UsePDAAction extends Action {
 

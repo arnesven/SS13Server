@@ -2,8 +2,8 @@ package model.characters.decorators;
 
 import model.Actor;
 import model.characters.general.GameCharacter;
-import model.events.ColdDamage;
-import model.events.Damager;
+import model.events.damage.ColdDamage;
+import model.events.damage.Damager;
 import model.events.DrunkTimerEvent;
 import util.MyRandom;
 

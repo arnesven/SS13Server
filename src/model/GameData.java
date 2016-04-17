@@ -6,13 +6,12 @@ import java.util.Map.Entry;
 
 import model.items.NoSuchItemException;
 import model.objects.general.ContainerObject;
-import model.objects.general.DispenserObject;
 import util.MyRandom;
 import util.MyStrings;
 import util.Pair;
-import model.actions.Action;
-import model.actions.DoNothingAction;
-import model.actions.SpeedComparator;
+import model.actions.general.Action;
+import model.actions.general.DoNothingAction;
+import model.actions.general.SpeedComparator;
 import model.events.Event;
 import model.items.general.GameItem;
 import model.map.GameMap;
@@ -547,11 +546,7 @@ public class GameData {
 			}
             for (GameObject ob : r.getObjects()) {
                 if (ob instanceof ContainerObject) {
-                    if (((ContainerObject)ob).getInventory().contains(ob)) {
-                        return r;
-                    }
-                } else if (ob instanceof DispenserObject) {
-                    if (((DispenserObject)ob).getItems().contains(ob)) {
+                    if (((ContainerObject)ob).getInventory().contains(searchedItem)) {
                         return r;
                     }
                 }

@@ -5,7 +5,7 @@ import model.GameData;
 import model.Target;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InfectedCharacter;
-import model.events.Damager;
+import model.events.damage.Damager;
 import model.items.general.MedKit;
 import model.items.weapons.Weapon;
 import model.map.Room;

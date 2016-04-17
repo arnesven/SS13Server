@@ -2,9 +2,9 @@ package model.actions.itemactions;
 
 import model.Actor;
 import model.GameData;
-import model.actions.Action;
-import model.actions.SensoryLevel;
-import model.events.ElectricalFire;
+import model.actions.general.Action;
+import model.actions.general.SensoryLevel;
+import model.events.ambient.ElectricalFire;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
 

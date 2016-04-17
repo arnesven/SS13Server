@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.items.weapons.Weapon;
 import model.map.Room;
 

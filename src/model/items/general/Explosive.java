@@ -1,9 +1,9 @@
 package model.items.general;
 
-import model.actions.SensoryLevel;
-import model.actions.SensoryLevel.AudioLevel;
-import model.actions.SensoryLevel.OlfactoryLevel;
-import model.actions.SensoryLevel.VisualLevel;
+import model.actions.general.SensoryLevel;
+import model.actions.general.SensoryLevel.AudioLevel;
+import model.actions.general.SensoryLevel.OlfactoryLevel;
+import model.actions.general.SensoryLevel.VisualLevel;
 
 public interface Explosive {
 

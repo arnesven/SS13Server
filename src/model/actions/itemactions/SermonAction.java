@@ -6,8 +6,8 @@ import java.util.List;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
-import model.actions.Action;
-import model.actions.SensoryLevel;
+import model.actions.general.Action;
+import model.actions.general.SensoryLevel;
 import model.items.general.Bible;
 import model.items.general.GameItem;
 

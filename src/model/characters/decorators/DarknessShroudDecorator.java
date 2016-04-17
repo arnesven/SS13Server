@@ -1,10 +1,10 @@
 package model.characters.decorators;
 
 import model.Actor;
-import model.actions.Action;
-import model.actions.SensoryLevel;
-import model.actions.SensoryLevel.AudioLevel;
-import model.actions.SensoryLevel.OlfactoryLevel;
+import model.actions.general.Action;
+import model.actions.general.SensoryLevel;
+import model.actions.general.SensoryLevel.AudioLevel;
+import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.characters.general.GameCharacter;
 
 public class DarknessShroudDecorator extends CharacterDecorator {

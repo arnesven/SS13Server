@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.general.Action;
 import model.actions.itemactions.EatAction;
 import model.items.general.GameItem;
 
@@ -21,7 +22,7 @@ public abstract class FoodItem extends GameItem {
 	
 	@Override
 	public void addYourActions(GameData gameData, 
-			ArrayList<model.actions.Action> at, 
+			ArrayList<Action> at,
 			Player cl) {
 		at.add(new EatAction(this));
 	}

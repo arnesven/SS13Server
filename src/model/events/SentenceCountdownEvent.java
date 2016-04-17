@@ -2,7 +2,7 @@ package model.events;
 
 import model.Actor;
 import model.GameData;
-import model.actions.SensoryLevel;
+import model.actions.general.SensoryLevel;
 import model.objects.consoles.CrimeRecordsConsole;
 
 public class SentenceCountdownEvent extends Event {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.items.general.Explosive;
 import model.items.general.Grenade;
 import model.map.Room;

@@ -8,7 +8,7 @@ import model.Player;
 import model.Target;
 import model.characters.general.GameCharacter;
 import model.characters.crew.*;
-import model.events.ExplosiveDamage;
+import model.events.damage.ExplosiveDamage;
 import model.items.NoSuchItemException;
 import model.map.Room;
 import model.events.Explosion;
@@ -61,6 +61,7 @@ public abstract class BombItem extends HidableItem {
         try {
             bombRoom = gameData.findRoomForItem(this);
         } catch (NoSuchItemException e) {
+            System.out.println("Bomb was not found in a room.");
            // bombRoom continues to be null;
         }
 
@@ -76,7 +77,7 @@ public abstract class BombItem extends HidableItem {
 			currentCarrier.getCharacter().beExposedTo(performingClient, new ExplosiveDamage(3.0));
 			bombRoom = currentCarrier.getPosition();
 		} else {
-			bombRoom.getItems().remove(this);
+			bombRoom.removeFromRoom(this);
 		}
 		
 		for (Actor a : bombRoom.getActors()) {

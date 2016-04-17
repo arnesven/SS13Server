@@ -7,7 +7,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.events.Event;
 import model.items.general.GameItem;
 import model.map.GameMap;

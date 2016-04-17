@@ -14,11 +14,6 @@ public class ChemicalDispenser extends DispenserObject {
 	}
 
 	@Override
-	protected GameItem dispensedItem() {
-		return new Chemicals();
-	}
-	
-	@Override
 	protected char getIcon(Player whosAsking) {
 		return 'u';
 	}

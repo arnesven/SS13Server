@@ -3,28 +3,41 @@ package model.items.weapons;
 import model.Actor;
 import model.GameData;
 import model.Target;
-import model.actions.SensoryLevel;
-import model.actions.SensoryLevel.AudioLevel;
-import model.actions.SensoryLevel.OlfactoryLevel;
-import model.actions.SensoryLevel.VisualLevel;
+import model.actions.general.SensoryLevel;
+import model.actions.general.SensoryLevel.AudioLevel;
+import model.actions.general.SensoryLevel.OlfactoryLevel;
+import model.actions.general.SensoryLevel.VisualLevel;
 import model.items.general.GameItem;
 import util.MyRandom;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Weapon extends GameItem {
 
-	public static final Weapon FISTS = new Weapon("Fists", 0.5, 0.5, false, 0.0);
-	public static Weapon CLAWS = new Weapon("Claws", 0.75, 0.5, false, 0.0);
-	private double hitChance;
+	public static final Weapon FISTS = new Weapon("Fists", 0.5, 0.5, false, 0.0, true);
+	public static Weapon CLAWS = new Weapon("Claws", 0.75, 0.5, false, 0.0, true);
+
+    private double criticalChance = 0.05;
+    private double hitChance;
 	private double damage;
 	private boolean makesBang;
-	
-	public Weapon(String string, double hitChance, double damage,
+    private double lastRoll;
+    private boolean attackOfOpportunity;
+
+    public Weapon(String string, double hitChance, double damage,
+                  boolean bang, double weight, boolean attackOfOp) {
+        super(string, weight);
+        this.hitChance = hitChance;
+        this.damage = damage;
+        makesBang = bang;
+        attackOfOpportunity = attackOfOp;
+    }
+
+    public Weapon(String string, double hitChance, double damage,
 				  boolean bang, double weight) {
-		super(string, weight);
-		this.hitChance = hitChance;
-		this.damage = damage;
-		makesBang = bang;
+        this(string, hitChance, damage, bang, weight, false);
 	}
 	
 	@Override
@@ -33,10 +46,11 @@ public class Weapon extends GameItem {
 	}
 
 	public boolean isAttackSuccessful(boolean reduced) {
-		if (reduced) {
-			return MyRandom.nextDouble() < getHitChance()*0.5;
+        lastRoll = MyRandom.nextDouble();
+        if (reduced) {
+       		return lastRoll < getHitChance()*0.5;
 		}
-		return MyRandom.nextDouble() < getHitChance();
+		return lastRoll < getHitChance();
 	}
 
 	protected double getHitChance() {
@@ -90,6 +104,56 @@ public class Weapon extends GameItem {
 	public void setDamage(double d) {
 		this.damage = d;
 	}
+
+
+    public boolean wasCriticalHit() {
+        return lastRoll <= criticalChance;
+    }
+
+    protected void setCriticalChance(double newChance) {
+        this.criticalChance = newChance;
+    }
+
+    public void dealDamageOnMe(Actor actor) {
+        actor.subtractFromHealth(this.getDamage());
+    }
+
+    public void dealCriticalDamageOnMe(Actor actor) {
+        actor.subtractFromHealth((this.getDamage()*2));
+    }
+
+
+    public boolean givesAttackOfOpportunity() {
+        return attackOfOpportunity;
+    }
+
+    public void doAttack(Actor performingClient, Target target, GameData gameData) {
+        boolean success = target.beAttackedBy(performingClient, this);
+        if (success) {
+            usedOnBy(target, performingClient, gameData);
+        }
+    }
+
+    public String getCriticalMessage() {
+        List<String> messages = new ArrayList<>();
+        messages.add("Took out an eye");
+        messages.add("Cut an artery");
+        messages.add("Broke a nose");
+        messages.add("Broke a rib");
+        messages.add("Hit the skull");
+        messages.add("Splintered a jaw");
+        messages.add("Pierced a lung");
+        messages.add("Struck the groin");
+        messages.add("Some guts came out");
+        messages.add("Blood shoots out");
+        messages.add("Severed an arm");
+        messages.add("Broke an arm");
+        messages.add("Hit the head");
+        messages.add("Crushed an elbow");
+        messages.add("Crushed a hand");
+        messages.add("Right in the mouth");
+        return MyRandom.sample(messages);
+    }
 
 
 }

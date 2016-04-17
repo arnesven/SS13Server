@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.actions.characteractions.TrainNPCAction;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;

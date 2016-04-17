@@ -1,13 +1,14 @@
 package model.events;
 
+import model.events.damage.ExplosiveDamage;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
 import model.Target;
-import model.actions.SensoryLevel;
-import model.actions.SensoryLevel.AudioLevel;
-import model.actions.SensoryLevel.OlfactoryLevel;
-import model.actions.SensoryLevel.VisualLevel;
+import model.actions.general.SensoryLevel;
+import model.actions.general.SensoryLevel.AudioLevel;
+import model.actions.general.SensoryLevel.OlfactoryLevel;
+import model.actions.general.SensoryLevel.VisualLevel;
 import model.map.Room;
 
 public class Explosion extends Event {

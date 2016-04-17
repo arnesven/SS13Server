@@ -4,7 +4,7 @@ package model.events;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.SensoryLevel;
+import model.actions.general.SensoryLevel;
 
 public abstract class Event {
 

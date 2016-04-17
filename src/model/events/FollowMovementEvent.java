@@ -4,7 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
-import model.actions.SensoryLevel;
+import model.actions.general.SensoryLevel;
 import model.map.Room;
 import model.npcs.NPC;
 

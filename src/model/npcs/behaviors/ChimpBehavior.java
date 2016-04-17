@@ -2,7 +2,7 @@ package model.npcs.behaviors;
 
 import util.MyRandom;
 import model.GameData;
-import model.actions.SpeechAction;
+import model.actions.general.SpeechAction;
 import model.npcs.NPC;
 
 public class ChimpBehavior implements ActionBehavior {

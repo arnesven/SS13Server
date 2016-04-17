@@ -168,6 +168,11 @@ public abstract class Actor  {
                 getCharacter().getHealth() + d));
     }
 
+    public void subtractFromHealth(double d) {
+        getCharacter().setHealth(Math.max(0.0,
+                getCharacter().getHealth() - d));
+    }
+
 	public abstract double getMaxHealth();
 	
 	public abstract void moveIntoRoom(Room brig);

@@ -5,9 +5,9 @@ import java.util.List;
 
 import model.Actor;
 import model.Player;
-import model.events.ColdDamage;
-import model.events.Damager;
-import model.events.RadiationDamage;
+import model.events.damage.ColdDamage;
+import model.events.damage.Damager;
+import model.events.damage.RadiationDamage;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 
@@ -71,6 +71,10 @@ public class ParasiteCharacter extends GameCharacter {
 	public boolean canUseObjects() {
 		return false;
 	}
-	
 
+
+    @Override
+    public boolean getsAttackOfOpportunity(Weapon w) {
+        return false;
+    }
 }

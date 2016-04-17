@@ -2,7 +2,7 @@ package model.items.general;
 
 import model.GameData;
 import model.Player;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.actions.itemactions.BuildRobotAction;
 import model.characters.crew.RoboticistCharacter;
 import model.characters.decorators.InstanceChecker;

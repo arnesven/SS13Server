@@ -7,8 +7,8 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
-import model.actions.Action;
-import model.events.Damager;
+import model.actions.general.Action;
+import model.events.damage.Damager;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.weapons.Weapon;
@@ -122,8 +122,11 @@ public abstract class BreakableObject extends GameObject implements Target {
 
 	@Override
 	public void addToHealth(double d) {
-		hp = Math.min(getMaxHealth(), hp + d);
-		
+        if (d > 0) {
+            hp = Math.min(getMaxHealth(), hp + d);
+        } else {
+            hp = Math.max(0.0, hp + d);
+        }
 	}
 
 	@Override
@@ -135,8 +138,8 @@ public abstract class BreakableObject extends GameObject implements Target {
 	public void beExposedTo(Actor performingClient, Damager damage) {
 		boolean alreadyBroken = isBroken();
 		if (damage.isDamageSuccessful(false)) {
-			hp = Math.max(0.0, hp - damage.getDamage());
-			if (hp == 0) { // broken :-)
+            damage.doDamageOnMe(this);
+        	if (hp == 0) { // broken :-)
 				if (performingClient != null && !alreadyBroken) {
 					breaker = performingClient;
 					thisJustBroke();

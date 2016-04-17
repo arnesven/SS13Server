@@ -3,7 +3,7 @@ package model.characters.decorators;
 import model.Actor;
 import model.Player;
 import model.characters.general.GameCharacter;
-import model.events.Damager;
+import model.events.damage.Damager;
 import model.items.weapons.Flamer;
 import model.items.weapons.Weapon;
 

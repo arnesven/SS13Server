@@ -6,6 +6,7 @@ import java.util.List;
 import model.GameData;
 import model.actions.characteractions.JackInAction;
 import model.actions.characteractions.LaptopRemoteAccessAction;
+import model.actions.general.Action;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.Laptop;
@@ -18,7 +19,7 @@ public class TechnicianCharacter extends CrewCharacter {
 	}
 	
 	@Override
-	public void addCharacterSpecificActions(GameData gameData, ArrayList<model.actions.Action> at) {
+	public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
 		if (GameItem.hasAnItem(this.getActor(), new Laptop())) {
 			Laptop pc = (Laptop)GameItem.getItem(this.getActor(), new Laptop());
 			if (pc.isJackedIn() && pc.getJackRoom() != this.getPosition()) {

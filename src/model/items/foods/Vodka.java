@@ -3,7 +3,7 @@ package model.items.foods;
 public class Vodka extends Alcohol {
 
 	public Vodka() {
-		super("5", 0.8, 4);
+		super("Vodka", 0.8, 4);
 	}
 
 	@Override

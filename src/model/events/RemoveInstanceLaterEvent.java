@@ -2,7 +2,7 @@ package model.events;
 
 import model.Actor;
 import model.GameData;
-import model.actions.SensoryLevel;
+import model.actions.general.SensoryLevel;
 import model.characters.decorators.InstanceChecker;
 
 public class RemoveInstanceLaterEvent extends Event {

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import model.GameData;
 import model.Player;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.actions.itemactions.HealWithMedKitAction;
-import model.actions.TargetingAction;
+import model.actions.general.TargetingAction;
 
 
 public class MedKit extends GameItem {

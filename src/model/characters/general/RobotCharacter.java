@@ -15,8 +15,13 @@ public class RobotCharacter extends GameCharacter {
 		this.setMaxHealth(4.0);
 		this.setHealth(4.0);
 	}
-	
-	@Override
+
+    @Override
+    public boolean wasCriticalHit(Weapon weapon) {
+        return false;
+    }
+
+    @Override
 	public char getIcon(Player whosAsking) {
 		return 'T';
 	}

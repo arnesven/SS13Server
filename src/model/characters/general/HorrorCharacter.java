@@ -10,7 +10,10 @@ import model.items.weapons.Weapon;
 
 public class HorrorCharacter extends GameCharacter {
 
-	public HorrorCharacter() {
+    private Weapon hugeClaw = new Weapon("Impaler", 0.75, 1.0, false, 0.0, true);
+
+
+    public HorrorCharacter() {
 		super("Stalking Horror", 0, 21.0);
 	}
 
@@ -29,8 +32,7 @@ public class HorrorCharacter extends GameCharacter {
 		return new HorrorCharacter();
 	}
 	
-	private Weapon hugeClaw = new Weapon("Impaler", 0.75, 1.0, false, 0.0);
-	
+
 	@Override
 	public Weapon getDefaultWeapon() {
 		return hugeClaw;

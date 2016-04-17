@@ -6,9 +6,9 @@ import java.util.List;
 
 import model.GameData;
 import model.Player;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.actions.itemactions.BurnHiveAction;
-import model.actions.SensoryLevel;
+import model.actions.general.SensoryLevel;
 import model.actions.itemactions.SprayFireAction;
 import model.items.general.Chemicals;
 import model.items.general.GameItem;

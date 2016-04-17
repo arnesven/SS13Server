@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.actions.objectactions.CrimeRecordsAction;
 import model.events.SentenceCountdownEvent;
 import model.items.general.GameItem;

@@ -3,7 +3,7 @@ package model.events;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.SensoryLevel;
+import model.actions.general.SensoryLevel;
 import model.characters.general.ChangelingCharacter;
 import model.map.Room;
 

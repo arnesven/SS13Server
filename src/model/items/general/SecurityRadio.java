@@ -1,7 +1,7 @@
 package model.items.general;
 
 import model.GameData;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.actions.objectactions.ReportCrimeAction;
 import model.objects.consoles.CrimeRecordsConsole;
 

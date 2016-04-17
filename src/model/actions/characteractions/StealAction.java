@@ -6,11 +6,11 @@ import util.MyRandom;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.Action;
-import model.actions.ActionOption;
-import model.actions.AttackAction;
-import model.actions.SensoryLevel;
-import model.actions.WatchAction;
+import model.actions.general.Action;
+import model.actions.general.ActionOption;
+import model.actions.general.AttackAction;
+import model.actions.general.SensoryLevel;
+import model.actions.general.WatchAction;
 import model.items.general.GameItem;
 
 public class StealAction extends Action {

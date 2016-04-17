@@ -8,14 +8,14 @@ import model.Actor;
 import model.Player;
 import model.GameData;
 import model.Target;
-import model.actions.Action;
-import model.actions.SensoryLevel;
-import model.actions.SensoryLevel.AudioLevel;
-import model.actions.SensoryLevel.OlfactoryLevel;
-import model.actions.SensoryLevel.VisualLevel;
-import model.actions.WatchAction;
+import model.actions.general.Action;
+import model.actions.general.SensoryLevel;
+import model.actions.general.SensoryLevel.AudioLevel;
+import model.actions.general.SensoryLevel.OlfactoryLevel;
+import model.actions.general.SensoryLevel.VisualLevel;
+import model.actions.general.WatchAction;
 import model.characters.decorators.InstanceChecker;
-import model.events.Damager;
+import model.events.damage.Damager;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
@@ -28,7 +28,7 @@ import model.map.Room;
  */
 public abstract class GameCharacter {
 	
-	public double maxHealth = 3.0;
+	private double maxHealth = 3.0;
 	
 	private static final double ENCUMBERANCE_LEVEL = 5.0;
 	private String name;
@@ -62,7 +62,7 @@ public abstract class GameCharacter {
 
 	/**
 	 * Gets the name of this character, for instance "Captain" or "Doctor"
-	 * @return
+	 * @return the base name of the character
 	 */
 	public String getBaseName() {
 		return name;
@@ -95,39 +95,88 @@ public abstract class GameCharacter {
 
 	
 	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
-		boolean success = false;
-		Actor thisActor  = this.getActor();
-		
 		boolean wasDeadAlready = isDead();
-		if (weapon.isAttackSuccessful(isReduced(thisActor, performingClient))) {
-			success = true;
-			health = Math.max(0.0, health - weapon.getDamage());
-			
-			String verb = weapon.getSuccessfulMessage();
-			if (this.isDead() && !wasDeadAlready) { // you died! Too bad!
-				verb = "kill";
-				dropAllItems();
-				setKiller(performingClient);
-			}
-			
-			performingClient.addTolastTurnInfo("You " + verb + "ed " + 
-											   getActor().getPublicName() + " with " + weapon.getPublicName(performingClient) + ".");
-			thisActor.addTolastTurnInfo(performingClient.getPublicName() + " " + 
-					verb + "ed you with " + 
-					weapon.getPublicName(thisActor) + "."); 
-			
-		} else {
-			performingClient.addTolastTurnInfo("Your attacked missed!");
-			thisActor.addTolastTurnInfo(performingClient.getPublicName() + " tried to " + 
-					weapon.getSuccessfulMessage() + " you with " + 
-					weapon.getPublicName(thisActor) + "."); 
-		}
-		
-		return success;
-		
-	}
+		boolean success = getActor().getCharacter().isAttackerSuccessful(performingClient, weapon);
+        boolean frag = false;
+        boolean critical = false;
+        if (success) {
+			critical = getActor().getCharacter().doDamageOnSelfWith(weapon);
 
-	public boolean isReduced(Actor thisActor, Actor performingClient) {
+			if (this.isDead() && !wasDeadAlready) { // you died! Too bad!
+				frag = true;
+                getActor().getCharacter().doUponDeath(performingClient);
+			}
+
+        }
+        informAttackerOfAttack(success, performingClient, weapon, frag, critical);
+        informActorOfAttack(success, performingClient, weapon, frag, critical);
+        return success;
+    }
+
+    public void doUponDeath(Actor killer) {
+        dropAllItems();
+        if (killer != null) {
+            setKiller(killer);
+        }
+    }
+
+    private void internalAttackSuccess(Actor whom,
+                                       Weapon weapon, boolean frag, boolean crit,
+                                       String first, String second) {
+        String verb = weapon.getSuccessfulMessage();
+        if (frag) {
+            verb = "kill";
+            second = second.replace(" (dead)", "");
+        }
+        whom.addTolastTurnInfo(first + " " +
+                verb + "ed " + second + " with " +
+                weapon.getPublicName(getActor()) + ".");
+        if (weapon.wasCriticalHit()) {
+            whom.addTolastTurnInfo(weapon.getCriticalMessage() + "!");
+        }
+
+    }
+
+    private void informActorOfAttack(boolean success, Actor performingClient, Weapon weapon, boolean frag, boolean crit) {
+        if (success) {
+            internalAttackSuccess(getActor(), weapon, frag, crit, performingClient.getPublicName(), "you");
+        } else {
+            getActor().addTolastTurnInfo(performingClient.getPublicName() + " tried to " +
+                    weapon.getSuccessfulMessage() + " you with " +
+                    weapon.getPublicName(getActor()) + ".");
+        }
+    }
+
+    private void informAttackerOfAttack(boolean success, Actor performingClient, Weapon weapon, boolean frag, boolean crit) {
+        if (success) {
+            internalAttackSuccess(performingClient, weapon, frag, crit, "You", getActor().getPublicName());
+        } else {
+            performingClient.addTolastTurnInfo("Your attacked missed!");
+        }
+    }
+
+
+    public boolean doDamageOnSelfWith(Weapon weapon) {
+        if (!getActor().getCharacter().wasCriticalHit(weapon)) {
+            System.out.println(" ... not a critical hit. Doing damage..");
+            weapon.dealDamageOnMe(getActor());
+            return false;
+        }
+        System.out.println(" --> Critical Hit!");
+        weapon.dealCriticalDamageOnMe(getActor());
+        return true;
+    }
+
+    public boolean wasCriticalHit(Weapon weapon) {
+        return weapon.wasCriticalHit();
+    }
+
+
+    public boolean isAttackerSuccessful(Actor performingClient, Weapon weapon) {
+       return  weapon.isAttackSuccessful(isReduced(getActor(), performingClient));
+    }
+
+    public boolean isReduced(Actor thisActor, Actor performingClient) {
 		if (thisActor instanceof Player) {
 			Player thisClient = (Player) thisActor;
 			if (thisClient.getNextAction() instanceof WatchAction) {
@@ -146,14 +195,12 @@ public abstract class GameCharacter {
 
 		if (damager.isDamageSuccessful(reduced)) {
 			boolean wasDeadAlready = isDead();
-			health = Math.max(0.0, health - damager.getDamage());
+            damager.doDamageOnMe(getActor().getAsTarget());
 			if (this.isDead() && !wasDeadAlready) { // you died! Too bad!
-				dropAllItems();
-				if (something != null) {
-					setKiller(something);
-				} else {
-					killString = damager.getName();
-				}
+                getActor().getCharacter().doUponDeath(something);
+                if (something == null) {
+                    killString = damager.getName();
+                }
 			}
 
 		}
@@ -223,10 +270,6 @@ public abstract class GameCharacter {
 	public List<GameItem> getItems() {
 		return items;
 	}
-
-	private Actor getKiller() {
-		return killer;
-	}
 	
 	public String getKillerString() {
 		if (killer != null) {
@@ -245,17 +288,13 @@ public abstract class GameCharacter {
 
 	public boolean doesPerceive(Action a) {
 		SensoryLevel s = a.getSense();
-		if (s.sound == AudioLevel.SAME_ROOM || s.sound == AudioLevel.VERY_LOUD) {
+		if (s.sound == AudioLevel.SAME_ROOM ||
+                s.sound == AudioLevel.VERY_LOUD ||
+                s.visual == VisualLevel.CLEARLY_VISIBLE) {
 			return true;
 		}
-		if (s.visual == VisualLevel.CLEARLY_VISIBLE) {
-			return true;
-		}
-		if (s.smell != OlfactoryLevel.UNSMELLABLE) {
-			return true;
-		}
-		
-		return false;
+
+        return (s.smell != OlfactoryLevel.UNSMELLABLE);
 	}
 
 	public boolean isHealable() {
@@ -276,11 +315,7 @@ public abstract class GameCharacter {
 	}
 
 	public boolean isEncumbered() {
-		if (getTotalWeight() >= getEncumberenceLevel()) {
-			return true;
-		}
-		
-		return false;
+		 return getTotalWeight() >= getEncumberenceLevel();
 	}
 
 	public double getEncumberenceLevel() {
@@ -304,9 +339,6 @@ public abstract class GameCharacter {
 	}
 	
 	public void putOnSuit(SuitItem gameItem) {
-//		if (getActor() == null) {
-//			System.out.println("WARNING: putOnSuit was called while Actor was null! Possible that beingPutOn wasn't ever called!");
-//		}
 		gameItem.setUnder(this.suit);
 		this.suit = gameItem;
 
@@ -350,8 +382,8 @@ public abstract class GameCharacter {
 	}
 
 	/**
-	 * @param whosAsking
-	 * @return
+	 * @param whosAsking the actor calling this method
+	 * @return the character representing the icon
 	 */
 	public char getIcon(Player whosAsking) {
 		if (suit == null) {
@@ -405,5 +437,8 @@ public abstract class GameCharacter {
 	public boolean canUseObjects() {
 		return true;
 	}
-	
+
+    public boolean getsAttackOfOpportunity(Weapon w) {
+        return w.givesAttackOfOpportunity();
+    }
 }

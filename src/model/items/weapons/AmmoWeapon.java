@@ -13,6 +13,7 @@ public class AmmoWeapon extends Weapon {
 		super(string, hitChance, damage, bang, weight);
 		this.shots = shots;
 		this.maxshots = shots;
+        this.setCriticalChance(0.10);
 	}
 	
 	

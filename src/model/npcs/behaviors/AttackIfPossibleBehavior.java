@@ -6,7 +6,7 @@ import java.util.List;
 import util.MyRandom;
 import model.GameData;
 import model.Target;
-import model.actions.AttackAction;
+import model.actions.general.AttackAction;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 import model.npcs.NPC;

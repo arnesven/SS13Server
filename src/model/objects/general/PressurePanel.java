@@ -3,11 +3,11 @@ package model.objects.general;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.actions.SensoryLevel;
+import model.actions.general.SensoryLevel;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.events.Event;
 import model.events.NoPressureEvent;
 import model.map.AirLockRoom;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import util.MyRandom;
 import model.GameData;
-import model.actions.PickUpAction;
+import model.actions.general.PickUpAction;
 import model.items.general.GameItem;
 import model.npcs.NPC;
 

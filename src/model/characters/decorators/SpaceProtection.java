@@ -2,10 +2,10 @@ package model.characters.decorators;
 
 import model.Actor;
 import model.Player;
-import model.events.AsphyxiationDamage;
-import model.events.ColdDamage;
+import model.events.damage.AsphyxiationDamage;
+import model.events.damage.ColdDamage;
 import model.characters.general.GameCharacter;
-import model.events.Damager;
+import model.events.damage.Damager;
 
 public class SpaceProtection extends CharacterDecorator {
 

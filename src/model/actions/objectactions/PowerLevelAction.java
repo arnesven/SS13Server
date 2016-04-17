@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 import model.Actor;
 import model.GameData;
-import model.actions.Action;
-import model.actions.ActionOption;
-import model.actions.SensoryLevel;
+import model.actions.general.Action;
+import model.actions.general.ActionOption;
+import model.actions.general.SensoryLevel;
 import model.objects.consoles.GeneratorConsole;
 
 public class PowerLevelAction extends Action {

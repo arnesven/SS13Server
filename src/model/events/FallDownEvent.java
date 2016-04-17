@@ -2,7 +2,7 @@ package model.events;
 
 import model.Actor;
 import model.GameData;
-import model.actions.SensoryLevel;
+import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.AlterMovement;
 import model.characters.decorators.InstanceChecker;

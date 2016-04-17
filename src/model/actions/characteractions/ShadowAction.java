@@ -3,7 +3,7 @@ package model.actions.characteractions;
 import model.Actor;
 import model.GameData;
 import model.Target;
-import model.actions.WatchAction;
+import model.actions.general.WatchAction;
 import model.events.FollowMovementEvent;
 import model.items.general.GameItem;
 import model.map.Room;

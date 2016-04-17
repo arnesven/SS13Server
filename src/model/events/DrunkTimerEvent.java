@@ -2,7 +2,7 @@ package model.events;
 
 import model.Actor;
 import model.GameData;
-import model.actions.SensoryLevel;
+import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.DrunkDecorator;
@@ -41,7 +41,7 @@ public class DrunkTimerEvent extends Event {
 			level--;
 			
 			// 25% chance to decrease another drunk level each round
-			if(MyRandom.nextDouble() < 0.25) {
+			if(MyRandom.nextDouble() < 0.50) {
 				level--;
 			}
 			
@@ -55,11 +55,6 @@ public class DrunkTimerEvent extends Event {
 			// character is now sober so remove drunk decorator
 			target.removeInstance(checker);
 			markForRemoval();
-		} else if (!target.isDead()) {
-			// TODO balance the probability
-			if(MyRandom.nextDouble() < Math.min(0.1*level, 0.9)) {
-				gameData.addEvent(new FallDownEvent(target));
-			}
 		}
 	}
 
@@ -91,7 +86,7 @@ public class DrunkTimerEvent extends Event {
 			if (ch instanceof DrunkDecorator) {
 				return ((DrunkDecorator)ch);
 			}
-			ch = ((CharacterDecorator)ch);
+			ch = (((CharacterDecorator) ch).getInner());
 		}
 		return null;
 	}

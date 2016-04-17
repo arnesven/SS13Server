@@ -2,12 +2,14 @@ package model.items.general;
 
 import java.util.ArrayList;
 
+import model.Actor;
+import model.Target;
 import util.MyRandom;
 import model.GameData;
 import model.Player;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.actions.itemactions.ThrowGrenadeAction;
-import model.events.Damager;
+import model.events.damage.Damager;
 
 public class Grenade extends GameItem implements Damager {
 
@@ -25,7 +27,6 @@ public class Grenade extends GameItem implements Damager {
 		return "A grenade exploaded!";
 	}
 
-
 	
 	@Override
 	public boolean isDamageSuccessful(boolean reduced) {
@@ -37,7 +38,15 @@ public class Grenade extends GameItem implements Damager {
 		return getBaseName();
 	}
 
-	@Override
+    @Override
+    public void doDamageOnMe(Target target) {
+        if (target instanceof Actor) {
+            ((Actor)target).subtractFromHealth(this.getDamage());
+        } else {
+            target.addToHealth(-getDamage());
+        }
+    }
+
 	public double getDamage() {
 		return 1.0;
 	}

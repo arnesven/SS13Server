@@ -14,7 +14,7 @@ import model.GameData;
 import model.Player;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.TraitorCharacter;
-import model.events.OngoingEvent;
+import model.events.ambient.OngoingEvent;
 import model.items.general.Bible;
 import model.items.general.GameItem;
 import model.items.general.GeigerMeter;

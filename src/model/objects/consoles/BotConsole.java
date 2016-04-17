@@ -2,7 +2,7 @@ package model.objects.consoles;
 
 import model.GameData;
 import model.Player;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.map.Room;
 import model.npcs.behaviors.*;
 import model.objects.general.GameObject;

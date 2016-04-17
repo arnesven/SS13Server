@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 
 import model.GameData;
 import model.Player;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.actions.objectactions.PowerConsoleAction;
 import model.map.Room;
 import model.objects.general.ElectricalMachinery;

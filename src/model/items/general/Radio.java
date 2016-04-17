@@ -2,7 +2,7 @@ package model.items.general;
 
 import model.Actor;
 import model.GameData;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.objects.consoles.CrimeRecordsConsole;
 
 import java.util.ArrayList;

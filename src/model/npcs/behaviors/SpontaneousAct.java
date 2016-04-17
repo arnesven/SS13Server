@@ -3,7 +3,7 @@ package model.npcs.behaviors;
 
 import util.MyRandom;
 import model.GameData;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.npcs.NPC;
 
 

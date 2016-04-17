@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.GameData;
 import model.Player;
-import model.actions.Action;
+import model.actions.general.Action;
 import model.actions.objectactions.AdminConsoleAction;
 import model.map.Room;
 import model.objects.shipments.*;
