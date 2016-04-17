@@ -90,12 +90,16 @@ public class Weapon extends GameItem {
 	 * successfully hit the target.
 	 * @param performingClient
 	 */
-	public void usedOnBy(Target target, Actor performingClient,
-			GameData gameData) {
-		
-	}
+	protected void usedOnBy(Target target, Actor performingClient,
+			GameData gameData) { }
 
-	@Override
+
+    protected void checkHazard(Actor performingClient, GameData gameData) { }
+
+    protected void checkOnlyMissHazard(Actor performingClient, GameData gameData) { }
+
+
+    @Override
 	public Weapon clone() {
 		return new Weapon(this.getBaseName(), this.getHitChance(), 
 						  this.getDamage(), this.makesBang, this.getWeight());
@@ -131,7 +135,10 @@ public class Weapon extends GameItem {
         boolean success = target.beAttackedBy(performingClient, this);
         if (success) {
             usedOnBy(target, performingClient, gameData);
+        } else {
+            checkOnlyMissHazard(performingClient, gameData);
         }
+        checkHazard(performingClient, gameData);
     }
 
     public String getCriticalMessage() {

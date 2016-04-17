@@ -5,9 +5,13 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
+import model.events.ambient.HullBreach;
 import model.items.general.Explosive;
 import model.items.general.Grenade;
 import model.map.Room;
+import model.objects.general.BreakableObject;
+import model.objects.general.GameObject;
+import util.MyRandom;
 
 public class ExplosionAction extends Action {
 
@@ -36,9 +40,23 @@ public class ExplosionAction extends Action {
 			a.getAsTarget().beExposedTo(performingClient, grenade);
 			location.getItems().remove(grenade);
 		}
-	}
+        for (GameObject o : location.getObjects()) {
+            ((BreakableObject)o).beExposedTo(performingClient, grenade);
+        }
 
-	@Override
+        gameData.executeAtEndOfRound(this);
+    }
+
+    @Override
+    public void lateExecution(GameData gameData, Actor performingClient) {
+        if (MyRandom.nextDouble() < 0.20) {
+            HullBreach hull = ((HullBreach)gameData.getGameMode().getEvents().get("hull breaches"));
+            hull.startNewEvent(performingClient.getPosition());
+            System.out.println(performingClient.getBaseName() + " breacehd the hull with grenade!");
+        }
+    }
+
+    @Override
 	public void setArguments(List<String> args, Actor p) { }
 
 	@Override

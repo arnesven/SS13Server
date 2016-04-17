@@ -21,7 +21,8 @@ public class InjectionAction extends TargetingAction {
 		Syringe s = Syringe.findSyringe(performingClient);
 		if (s == null) {
 			performingClient.addTolastTurnInfo("What? The Syringe is gone! Your action failed.");
-		}
+		    return;
+        }
 		performingClient.addTolastTurnInfo("You injected " + nameOrSelf(performingClient, target) + " with the syringe.");
 		if (performingClient.getAsTarget() != target) {
 			((Actor)target).addTolastTurnInfo("Ouch! " + performingClient.getPublicName() + " injected you with a syringe!");

@@ -28,8 +28,13 @@ public class StunBaton extends AmmoWeapon {
 	protected char getIcon() {
 		return '!';
 	}
-	
-	@Override
+
+    @Override
+    public boolean wasCriticalHit() {
+        return false; // stun baton never crits.
+    }
+
+    @Override
 	public boolean isAttackSuccessful(boolean reduced) {
 		boolean success = super.isAttackSuccessful(reduced);
 		if (!success) {

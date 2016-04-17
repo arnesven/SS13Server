@@ -11,6 +11,7 @@ import model.items.general.GameItem;
 import model.items.weapons.Flamer;
 import model.npcs.NPC;
 import model.items.general.Chemicals;
+import model.objects.general.BreakableObject;
 
 public class SprayFireAction extends Action {
 
@@ -25,27 +26,19 @@ public class SprayFireAction extends Action {
 	
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		if (GameItem.hasAnItem(performingClient, new Flamer()) && Chemicals.hasNChemicals(performingClient, 1)) {
-			for (Player cl : performingClient.getPosition().getClients()) {
-				if (cl != performingClient) {
-					cl.beAttackedBy(performingClient, new Flamer());
+		if (GameItem.hasAnItem(performingClient, new Flamer())) {
+            for (Actor a : performingClient.getPosition().getActors()) {
+				if (a != performingClient) {
+                    (new Flamer()).doAttack(performingClient, a.getAsTarget(), gameData);
 				}
 			}
-			for (NPC npc : performingClient.getPosition().getNPCs()) {
-				npc.beAttackedBy(performingClient, new Flamer());
-			}
-
-			Iterator<GameItem> it = performingClient.getItems().iterator();
-			while (it.hasNext()) {
-				if (it.next() instanceof Chemicals){
-					it.remove();
-					break;
-				}
+			for (Object o : performingClient.getPosition().getObjects()) {
+                if (o instanceof BreakableObject) {
+                    (new Flamer()).doAttack(performingClient, ((BreakableObject)o), gameData);
+                }
 			}
 		} else if (!GameItem.hasAnItem(performingClient, new Flamer())) {
 			performingClient.addTolastTurnInfo("What? The flamer is missing! Your action failed.");
-		} else {
-			performingClient.addTolastTurnInfo("What? Chemicals are missing! Your action failed.");
 		}
 	}
 

@@ -4,7 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Map.Entry;
 
+import model.characters.general.NobodyCharacter;
 import model.items.NoSuchItemException;
+import model.npcs.HumanNPC;
 import model.objects.general.ContainerObject;
 import util.MyRandom;
 import util.MyStrings;
@@ -479,6 +481,11 @@ public class GameData {
 		lateActions.add(new Pair<Actor, Action>(performingClient, act));
 	}
 
+    public void executeAtEndOfRound(Action act) {
+        this.executeAtEndOfRound(new HumanNPC(new NobodyCharacter(0), getRoomForId(1)),
+                act);
+    }
+
 	public int getNoOfRounds() {
 		return noOfRounds;
 	}
@@ -596,7 +603,6 @@ public class GameData {
 		obj.addAll(set);
 		return obj;
 	}
-
 
 
 
