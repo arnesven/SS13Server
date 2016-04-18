@@ -76,7 +76,6 @@ public abstract class OngoingEvent extends Event {
 		thisTurnsEvents.addAll(eventsToMaintain);
 		Iterator<OngoingEvent> it = thisTurnsEvents.iterator();
 		while (it.hasNext()) {
-			System.out.println("In handling loop");
 			OngoingEvent ev = it.next();
 			if (ev.shouldBeRemoved(gameData)) {
 				it.remove();

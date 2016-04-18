@@ -37,14 +37,14 @@ public class ElectricalFire extends OngoingEvent {
 	}
 
 	protected void maintain(GameData gameData) {
-		System.out.println("Maintaining fire in " + getRoom());
+		System.out.println("Maintaining fire in " + getRoom().getName());
 		for (Target t : getRoom().getTargets()) {
 			t.beExposedTo(null, new FireDamage());
 		}
 		
 		for (Room neighbor : getRoom().getNeighborList()) {
 			if (MyRandom.nextDouble() < SPREAD_CHANCE) {
-				System.out.println("Fire spread to " + neighbor.getName() + "!");
+				System.out.println("  Fire spread to " + neighbor.getName() + "!");
 				startNewEvent(neighbor);
 			}
 		}

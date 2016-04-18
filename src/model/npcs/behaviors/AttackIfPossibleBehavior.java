@@ -23,19 +23,7 @@ public class AttackIfPossibleBehavior implements ActionBehavior {
 	@Override
 	public void act(NPC npc, GameData gameData) {
 		AttackAction atk = new AttackAction(npc);
-		List<Target> targets = new ArrayList<Target>();
-		targets.addAll(atk.getTargets());
-		
-		for (Target t : atk.getTargets()) {
-			if (t instanceof NPC) {
-				NPC targetAsNPC = (NPC)t;
-				if (targetAsNPC.getName().equals(t.getName())) {
-					targets.remove(t);
-				}
-			} else if (t instanceof GameObject) {
-				targets.remove(t);
-			}
-		}
+		List<Target> targets = getTargets(npc, gameData, atk);
 
 		if (targets.size() > 0) {
 			Target randomTarget = targets.get(MyRandom.nextInt(targets.size()));
@@ -50,7 +38,24 @@ public class AttackIfPossibleBehavior implements ActionBehavior {
 		}
 	}
 
-	private Weapon getWeapon(NPC npc) {
+    protected List<Target> getTargets(NPC npc, GameData gameData, AttackAction atk) {
+        List<Target> targets = new ArrayList<Target>();
+        targets.addAll(atk.getTargets());
+
+        for (Target t : atk.getTargets()) {
+            if (t instanceof NPC) {
+                NPC targetAsNPC = (NPC)t;
+                if (targetAsNPC.getName().equals(t.getName())) {
+                    targets.remove(t);
+                }
+            } else if (t instanceof GameObject) {
+                targets.remove(t);
+            }
+        }
+        return targets;
+    }
+
+    private Weapon getWeapon(NPC npc) {
 		for (GameItem it : npc.getItems()) {
 			if (it instanceof Weapon) {
 				if (((Weapon)it).isReadyToUse()) {

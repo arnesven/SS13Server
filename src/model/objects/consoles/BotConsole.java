@@ -32,28 +32,27 @@ public class BotConsole extends Console {
 
     private static List<BotProgram> loadDefaultPrograms(GameData gameData) {
         ArrayList<BotProgram> bp = new ArrayList<>();
-        bp.add(new BotProgram("Security",
-                                new FollowCriminalBehavior(gameData),
-                                new ArrestCriminalBehavior(gameData)));
 
-        bp.add(new BotProgram("Nurse",
-                new MeanderingMovement(1.0),
-                new HealOtherBehavior()));
-
-//        bp.add(new BotProgram("Hostile",
-//                new MoveTowardsClosestActorMovement(),
-//                new AttackIfPossibleBehavior());
-//
         bp.add(new BotProgram("Anti-Fire",
                 new GoTowardsFireMovement(gameData),
                 new PutOutFireBehavior(gameData)));
-//
-//        bp.add(new BotProgram("Repair",
-//                new GoTowardsBrokenMovement(gameData),
-//                new RepairStuffBehavior(gameData)));
-
         bp.add(new BotProgram("Friendly", new MeanderingMovement(0.5),
                 new RandomSpeechBehavior("resources/CHITCHAT.TXT")));
+        bp.add(new BotProgram("Hostile",
+                new MoveTowardsClosestActorMovement(gameData),
+                new AttackIfPossibleBehavior()));
+        bp.add(new BotProgram("Nurse",
+                new MeanderingMovement(1.0),
+                new HealOtherBehavior()));
+        bp.add(new BotProgram("Bodyguard",
+                new FollowMostWoundedActor(gameData),
+                new AttackBaddiesBehavior()));
+        bp.add(new BotProgram("Repair",
+                new GoTowardsBrokenMovement(gameData),
+                new RepairStuffBehavior(gameData)));
+        bp.add(new BotProgram("Security",
+                new FollowCriminalBehavior(gameData),
+                new ArrestCriminalBehavior(gameData)));
 
         return bp;
     }

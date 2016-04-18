@@ -13,36 +13,22 @@ import java.util.List;
 /**
  * Created by erini02 on 15/04/16.
  */
-public class GoTowardsFireMovement implements MovementBehavior {
+public class GoTowardsFireMovement extends GoTowardsRoomMovement {
     private final GameData gameData;
 
     public GoTowardsFireMovement(GameData gameData) {
+        super(gameData);
         this.gameData = gameData;
     }
 
     @Override
-    public void move(final NPC npc) {
-       List<Room> fireRooms = new ArrayList<>();
+    protected List<Room> getEligableRooms(NPC npc, GameData gameData) {
+        List<Room> list = new ArrayList<>();
         for ( Room r : gameData.getRooms()) {
             if (r.hasFire()) {
-                fireRooms.add(r);
+                list.add(r);
             }
         }
-        if (fireRooms.size() == 0) {
-            System.out.println("No fires... standing still");
-        }
-
-        Collections.sort(fireRooms, new Comparator<Room>() {
-            @Override
-            public int compare(Room room, Room t1) {
-                return GameMap.shortestDistance(npc.getPosition(), room) -
-                        GameMap.shortestDistance(npc.getPosition(), t1);
-            }
-        });
-
-        Room closerRoom = PathFinding.findCloserRoom(npc, fireRooms.get(0));
-        if (npc.getPosition() != closerRoom) {
-            npc.moveIntoRoom(closerRoom);
-        }
+        return list;
     }
 }

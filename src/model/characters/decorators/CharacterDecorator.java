@@ -218,7 +218,6 @@ public abstract class CharacterDecorator extends GameCharacter {
 	
 	@Override
 	public boolean isEncumbered() {
-		System.out.println("is encumbered in decorator");
 		return innerChar.isEncumbered();
 	}
 	
