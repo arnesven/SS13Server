@@ -5,8 +5,10 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.general.SensoryLevel;
+import model.map.GameMap;
 import model.map.Room;
 import model.npcs.NPC;
+import model.npcs.behaviors.PathFinding;
 
 public class FollowMovementEvent extends Event {
 
@@ -35,16 +37,22 @@ public class FollowMovementEvent extends Event {
 	@Override
 	public void apply(GameData gameData) {
 		if (shadowedInRoom == performingClient.getPosition()) {
-			if (performingClient instanceof Player) {
-				Player pl = (Player)performingClient;
-				
-				pl.moveIntoRoom(target.getPosition());
-				performingClient.addTolastTurnInfo("You followed " + target.getName() + " to " +target.getPosition().getName() + ".");
-				shadowedInRoom = target.getPosition();
-			} else {
-				NPC npc = ((NPC)performingClient);
-				npc.moveIntoRoom(target.getPosition());
-			}
+            if (GameMap.shortestDistance(target.getPosition(), performingClient.getPosition()) <=
+                    performingClient.getCharacter().getMovementSteps()) {
+
+                if (performingClient instanceof Player) {
+                    Player pl = (Player) performingClient;
+
+                    pl.moveIntoRoom(target.getPosition());
+                    performingClient.addTolastTurnInfo("You followed " + target.getName() + " to " + target.getPosition().getName() + ".");
+                    shadowedInRoom = target.getPosition();
+                } else {
+                    NPC npc = ((NPC) performingClient);
+                    npc.moveIntoRoom(target.getPosition());
+                }
+            } else {
+                performingClient.addTolastTurnInfo("You couldn't follow " + target.getName() + "!");
+            }
 		} else {
 			performingClient.addTolastTurnInfo("You stopped shadowing " + target.getName() + ".");
 
