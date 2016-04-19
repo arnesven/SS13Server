@@ -5,6 +5,7 @@ import model.Actor;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.SpaceProtection;
+import util.Logger;
 
 public class SpaceSuit extends SuitItem {
 
@@ -20,8 +21,7 @@ public class SpaceSuit extends SuitItem {
 
 	@Override
 	public void beingTakenOff(Actor actionPerformer) {
-		System.out.println("In being taken off.");
-//		actionPerformer.getCharacter().printInstances();
+		Logger.log("In being taken off.");
 		actionPerformer.removeInstance(new InstanceChecker() {
 			
 			@Override

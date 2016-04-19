@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.events.Event;
 import model.events.NoPressureEvent;
+import util.Logger;
 import util.MyRandom;
 import model.GameData;
 import model.map.Room;
@@ -44,7 +45,7 @@ public abstract class OngoingEvent extends Event {
 		if (MyRandom.nextDouble() < getProbability() && !allRoomsBurning(gameData)) {
 			Room randomRoom;
 			do {
-				System.out.println("Finding a room for a fire..");
+				Logger.log("Finding a room for a fire..");
 				randomRoom = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
 			} while (hasThisEvent(randomRoom));
 			startNewEvent(randomRoom);
@@ -57,7 +58,8 @@ public abstract class OngoingEvent extends Event {
 			OngoingEvent e = this.clone();
 			e.setRoom(randomRoom);
 			randomRoom.addEvent(e);
-			System.out.println("New " + howYouAppear(null) + " started in " + randomRoom.getName());
+			Logger.log(Logger.INTERESTING,
+                    "New " + howYouAppear(null) + " started in " + randomRoom.getName());
 			eventsToMaintain.add(e);
 		}
 	}

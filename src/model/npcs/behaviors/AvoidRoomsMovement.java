@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.map.Room;
 import model.npcs.NPC;
+import util.Logger;
 
 public class AvoidRoomsMovement implements MovementBehavior {
 
@@ -19,18 +20,18 @@ public class AvoidRoomsMovement implements MovementBehavior {
 	@Override
 	public void move(NPC npc) {
 		if (avoidRooms.contains(npc.getPosition())) {
-			System.out.print(npc.getBaseName() + " trying to avoid radiation ");
+			Logger.log(npc.getBaseName() + " trying to avoid radiation ");
 			List<Room> legalRooms = new ArrayList<>();
 			legalRooms.addAll(npc.getPosition().getNeighborList());
 			Collections.shuffle(legalRooms);
 			for (Room r : legalRooms) {
 				if (!avoidRooms.contains(r)) {
-					System.out.println(" found refuge in " + r.getName());
+					Logger.log(" found refuge in " + r.getName());
 					npc.moveIntoRoom(r);
 					return;
 				}
 			}
-			System.out.println("but couldn't, moving npc to another room.");
+			Logger.log("but couldn't, moving npc to another room.");
 			meander.move(npc);
 		} else {
 			// do not move, we are safe from radiation here..

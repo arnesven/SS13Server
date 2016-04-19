@@ -17,6 +17,7 @@ import model.items.suits.PrisonerSuit;
 import model.map.Room;
 import model.objects.general.EvidenceBox;
 import model.objects.general.GameObject;
+import util.Logger;
 import util.Pair;
 
 public class CrimeRecordsConsole extends Console {
@@ -114,12 +115,12 @@ public class CrimeRecordsConsole extends Console {
 			EvidenceBox ev = EvidenceBox.find(gameData);
 			ev.addAffects(worst, worst.getItems());
 			worst.getItems().removeAll(worst.getItems());
-			System.out.println("Prisoners affects were stored in the evidence box");
+			Logger.log("Prisoners affects were stored in the evidence box");
 			if (worst.getCharacter().getSuit() != null && 
 					!worst.getCharacter().getSuit().permitsOver()) {
 				ev.addAffect(worst, worst.getCharacter().getSuit());
 				worst.getCharacter().removeSuit();
-				System.out.println("Suit was removed from prisoner so prison clothes could be put over");
+				Logger.log("Suit was removed from prisoner so prison clothes could be put over");
 			}
 			worst.putOnSuit(new PrisonerSuit(noOfSentenced++));
 		} catch (NoSuchElementException nse) {

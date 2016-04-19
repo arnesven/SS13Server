@@ -4,6 +4,7 @@ import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 import model.GameData;
+import util.Logger;
 
 
 public class KickCommandHandler extends AbstractCommandHandler{
@@ -25,7 +26,8 @@ public class KickCommandHandler extends AbstractCommandHandler{
 			String otherPlayer = sc.next();
 			if (! otherPlayer.equals(clid)) {
 				gameData.removeClient(otherPlayer);
-				System.out.println(clid + " kicked " + otherPlayer + " from the game!");
+				Logger.log(Logger.INTERESTING,
+                        clid + " kicked " + otherPlayer + " from the game!");
 				oos.writeObject("KICKED");
 			} else {
 				oos.writeObject("SELF-KICK ERROR"); // may not kick yourself

@@ -3,6 +3,9 @@ package model.characters.crew;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.GameData;
+import model.actions.characteractions.SendATextAction;
+import model.actions.general.Action;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
@@ -29,4 +32,9 @@ public class HeadOfStaffCharacter extends CrewCharacter {
 		return new HeadOfStaffCharacter();
 	}
 
+    @Override
+    public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
+        super.addCharacterSpecificActions(gameData, at);
+        at.add(new SendATextAction(gameData));
+    }
 }

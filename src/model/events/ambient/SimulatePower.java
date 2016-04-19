@@ -11,6 +11,7 @@ import model.events.Event;
 import model.events.Explosion;
 import model.map.Room;
 import model.objects.consoles.GeneratorConsole;
+import util.Logger;
 import util.MyRandom;
 
 public class SimulatePower extends Event {
@@ -46,18 +47,21 @@ public class SimulatePower extends Event {
 		double outputPct = gc.getPowerOutput();
 		
 		if (MyRandom.nextDouble() < outputPct - 1.0) {
-			System.out.println("Increased power output (>100%) caused fire in generator room");
+            Logger.log(Logger.INTERESTING,
+                    "Increased power output (>100%) caused fire in generator room");
 			gameData.getGameMode().addFire(gc.getPosition());
 		}
 		
 		if (MyRandom.nextDouble() < outputPct - 1.5) {
-			System.out.println("High  power output (>150%) caused fire in room adjacent to generator room");
+            Logger.log(Logger.INTERESTING,
+                    "High power output (>150%) caused fire in room adjacent to generator room");
 			Room r = MyRandom.sample(gc.getPosition().getNeighborList());
 			gameData.getGameMode().addFire(r);
 		}
 		
 		if (MyRandom.nextDouble() < outputPct - 1.5) {
-			System.out.println("High  power output (>150%) caused explosion in generator room");
+            Logger.log(Logger.INTERESTING,
+                      "High power output (>150%) caused explosion in generator room");
 			Explosion exp = new Explosion();
 			exp.explode(gc.getPosition());
 		}

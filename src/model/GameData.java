@@ -8,6 +8,7 @@ import model.characters.general.NobodyCharacter;
 import model.items.NoSuchItemException;
 import model.npcs.HumanNPC;
 import model.objects.general.ContainerObject;
+import util.Logger;
 import util.MyRandom;
 import util.MyStrings;
 import util.Pair;
@@ -174,7 +175,7 @@ public class GameData {
 	 * @param clid, the client whose status to set.
 	 * @param equals, the new ready status for the client.
 	 */
-	public void setCientReady(String clid, boolean equals) {
+	public void setPlayerReady(String clid, boolean equals) {
 		players.get(clid).setReady(equals);
 		if (allClientsReadyOrDead()) {
 			increaseGameState();	
@@ -312,23 +313,23 @@ public class GameData {
 
 	
 	private void doSetup() {
-		System.out.println("Doing setup:");
+		Logger.log("Doing setup:");
 		this.map = MapBuilder.createMap();
-		System.out.println("Map built");
+		Logger.log("Map built");
 		for (Player p : getPlayersAsList()) {
 			p.prepForNewGame();
 		}
-		System.out.println("Players prepped");
+		Logger.log("Players prepped");
 		this.events = new ArrayList<>();
 		this.moveEvents = new ArrayList<>();
 		this.lateActions = new ArrayList<>();
 		this.npcs = new ArrayList<>();
 		this.gameMode = GameModeFactory.create(selectedMode);
-		System.out.println("Got game mode from factory.");
+		Logger.log("Got game mode from factory.");
 		this.round = 1;
         this.runningEvents = false;
 		gameMode.setup(this);
-		System.out.println("Game mode set-upped!");
+		Logger.log("Game mode set-upped!");
 	}
 
 	
@@ -378,7 +379,7 @@ public class GameData {
 		
 		Collections.sort(actionPerfs, new SpeedComparator());
 		for (Actor ap : actionPerfs) {
-			System.out.println("Action for " + ap.getPublicName());
+			Logger.log("Action for " + ap.getPublicName());
 			ap.action(this);
 		}
 		
@@ -408,7 +409,7 @@ public class GameData {
 	
 	private void moveAllNPCs() {
 		for (NPC npc : npcs) {
-			System.out.println("Moving NPC " + npc.getName());
+			Logger.log("Moving NPC " + npc.getName());
 			npc.moveAccordingToBehavior();
 		}
 	}
@@ -499,12 +500,12 @@ public class GameData {
 
 	public void setSettings(String rest) {
 		if (gameState == GameState.PRE_GAME) { //can only change settings in pre game
-			System.out.println("Setting new settings: " + rest);
+			Logger.log("Setting new settings: " + rest);
 			String[] sets = rest.substring(1).split(":");
 			try {
 				setNumberOfRounds(Integer.parseInt(sets[0]));
 				selectedMode = sets[1];
-				//System.out.println("Set new settings");
+				//Logger.log("Set new settings");
 			} catch (NumberFormatException nfe) {
 
 			}

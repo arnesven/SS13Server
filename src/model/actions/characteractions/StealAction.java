@@ -2,6 +2,7 @@ package model.actions.characteractions;
 
 import java.util.List;
 
+import util.Logger;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -83,7 +84,8 @@ public class StealAction extends Action {
 	private boolean victimIsAttacking(Actor performingClient) {
 		if (((Player)performingClient).getNextAction() instanceof AttackAction) {
 			if (((AttackAction)((Player)performingClient).getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
-				System.out.println("Steal chance reduced because of attacking...");
+                Logger.log(Logger.INTERESTING,
+                        "Steal chance reduced because of attacking...");
 				return true;
 			}
 		}
@@ -96,7 +98,8 @@ public class StealAction extends Action {
 		if (victim instanceof Player) {
 			if (((Player)victim).getNextAction() instanceof WatchAction) {
 				if (((WatchAction)((Player)victim).getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
-					System.out.println("Steal chance reduced because of watching...");
+                    Logger.log(Logger.INTERESTING,
+                            "Steal chance reduced because of watching...");
 					return true;
 				}
 			}

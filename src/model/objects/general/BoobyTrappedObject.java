@@ -36,7 +36,6 @@ public class BoobyTrappedObject extends GameObject {
 			ArrayList<Action> at) {
 		
 		ArrayList<Action> innerActions = new ArrayList<>();
-		System.out.println("Gettng inner actions " + innerActions.size());
 		innerObject.addSpecificActionsFor(gameData, cl, innerActions);
 		
 		for (final Action a : innerActions) {

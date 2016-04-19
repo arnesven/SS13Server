@@ -1,6 +1,7 @@
 package model.events.ambient;
 
 import model.events.damage.FireDamage;
+import util.Logger;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -37,14 +38,15 @@ public class ElectricalFire extends OngoingEvent {
 	}
 
 	protected void maintain(GameData gameData) {
-		System.out.println("Maintaining fire in " + getRoom().getName());
+        Logger.log("Maintaining fire in " + getRoom().getName());
 		for (Target t : getRoom().getTargets()) {
 			t.beExposedTo(null, new FireDamage());
 		}
 		
 		for (Room neighbor : getRoom().getNeighborList()) {
 			if (MyRandom.nextDouble() < SPREAD_CHANCE) {
-				System.out.println("  Fire spread to " + neighbor.getName() + "!");
+				Logger.log(Logger.INTERESTING,
+                        "  Fire spread to " + neighbor.getName() + "!");
 				startNewEvent(neighbor);
 			}
 		}

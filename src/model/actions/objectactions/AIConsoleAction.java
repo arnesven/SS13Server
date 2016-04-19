@@ -11,6 +11,7 @@ import model.map.Room;
 import model.modes.GameMode;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.GeneratorConsole;
+import util.Logger;
 
 public class AIConsoleAction extends Action {
 
@@ -80,7 +81,7 @@ public class AIConsoleAction extends Action {
 
 	@Override
 	public void lateExecution(GameData gameData, Actor performingClient) {
-		System.out.println("Executing late ai console...");
+		Logger.log("Executing late ai console...");
 		console.setInUse(false);
 	}
 

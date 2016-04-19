@@ -12,6 +12,7 @@ import model.items.general.Grenade;
 import model.map.Room;
 import model.objects.general.BreakableObject;
 import model.objects.general.GameObject;
+import util.Logger;
 import util.MyRandom;
 
 public class ExplosionAction extends Action {
@@ -51,7 +52,8 @@ public class ExplosionAction extends Action {
                 if (MyRandom.nextDouble() < 0.20) {
                     HullBreach hull = ((HullBreach)gameData.getGameMode().getEvents().get("hull breaches"));
                     hull.startNewEvent(location);
-                    System.out.println(location.getName() + " got hull brech from grenade!");
+                    Logger.log(Logger.INTERESTING,
+                            location.getName() + " got hull brech from grenade!");
                 }
             }
         };

@@ -31,8 +31,13 @@ public class OperativesGameMode extends GameMode {
 	private List<Player> operatives = new ArrayList<>();
 	private Map<Player, NPC> decoys = new HashMap<>();
 	private boolean nuked = false;
-	
-	@Override
+
+    @Override
+    public String getName() {
+        return "Operatives";
+    }
+
+    @Override
 	protected void setUpOtherStuff(GameData gameData) {
 		for (Actor a : gameData.getActors()) {
 			for (GameItem it : a.getItems()) {

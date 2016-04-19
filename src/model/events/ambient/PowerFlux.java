@@ -1,6 +1,7 @@
 package model.events.ambient;
 
 import model.events.Event;
+import util.Logger;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -25,7 +26,8 @@ public class PowerFlux extends Event {
 			
 			gc.addToLevel(randomAmount(FLUX_SUSTAIN_FACTOR) * (increasing ?1.0:-1.0));
 			if (MyRandom.nextDouble() < 0.33 || gc.getPowerLevel() == 0.0) {
-				System.out.println("Sustained power flux over");
+				Logger.log(Logger.INTERESTING,
+                        "Sustained power flux over");
 				sustaining = false;
 			}
 			
@@ -33,16 +35,19 @@ public class PowerFlux extends Event {
 			if (MyRandom.nextDouble() < 0.5) {
 				sustaining = true;
 				increasing = MyRandom.nextDouble() < 0.2;
-				System.out.println("Sustained " + (increasing?"positive":"negative") + 
+                Logger.log(Logger.INTERESTING,
+                        "Sustained " + (increasing?"positive":"negative") +
 								   "power flux began");
 			} else {
 				double amount;
 				if (MyRandom.nextDouble() < 0.3) {
 					amount = randomAmount((FLUX_FIXED_FACTOR));
-					System.out.println("Power spike of " + String.format("%.1f", amount) + "!");
+                    Logger.log(Logger.INTERESTING,
+                            "Power spike of " + String.format("%.1f", amount) + "!");
 				} else {
 					amount = -randomAmount((FLUX_FIXED_FACTOR));
-					System.out.println("Power drain of " + String.format("%.1f", amount) + "!");				
+                    Logger.log(Logger.INTERESTING,
+                            "Power drain of " + String.format("%.1f", amount) + "!");
 				}
 				gc.addToLevel(amount);
 			}

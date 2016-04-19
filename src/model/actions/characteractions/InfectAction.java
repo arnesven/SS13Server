@@ -1,5 +1,6 @@
 package model.actions.characteractions;
 
+import util.Logger;
 import util.MyRandom;
 import model.Actor;
 import model.Player;
@@ -80,14 +81,16 @@ public class InfectAction extends TargetingAction {
 		Player actorAsPlayer = (Player)actor;
 		if (actorAsPlayer.getNextAction() instanceof WatchAction) {
 			if (((WatchAction)actorAsPlayer.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
-				System.out.println("infect chance reduced because of watching...");			
+				Logger.log(Logger.INTERESTING,
+                        "infect chance reduced because of watching...");
 				return true;
 			}
 		}
 		
 		if (actorAsPlayer.getNextAction() instanceof AttackAction) {
 			if (((AttackAction)actorAsPlayer.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
-				System.out.println("infect chance reduced because of attacking...");
+                Logger.log(Logger.INTERESTING,
+                        "infect chance reduced because of attacking...");
 				return true;
 			}
 		}

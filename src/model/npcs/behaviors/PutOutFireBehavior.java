@@ -6,6 +6,7 @@ import model.events.NoSuchEventException;
 import model.events.ambient.ElectricalFire;
 import model.items.general.FireExtinguisher;
 import model.npcs.NPC;
+import util.Logger;
 
 /**
  * Created by erini02 on 15/04/16.
@@ -23,12 +24,12 @@ public class PutOutFireBehavior implements ActionBehavior {
             ElectricalFire fire = FireExtinguisher.getFire(npc.getPosition());
 
             if (fire == null) {
-                System.out.println("What, no fire?");
+                Logger.log(Logger.INTERESTING, "What, no fire?");
                 return;
             }
             fire.fix();
         } catch (NoSuchEventException nse) {
-            System.out.println("What, no fire?");
+            Logger.log(Logger.INTERESTING, "What, no fire?");
             return;
         }
 

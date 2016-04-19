@@ -12,6 +12,7 @@ import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.GameMap;
 import model.map.Room;
+import util.Logger;
 
 public class KeyCardLock extends Console {
 
@@ -80,7 +81,7 @@ public class KeyCardLock extends Console {
 	
 	@Override
 	public void thisJustBroke() {
-		System.out.println(" room unlocked because of lock broke!");
+		Logger.log(Logger.INTERESTING, " room unlocked because of lock broke!");
         GameMap.joinRooms(to, from);
         setLocked(false);
     }
@@ -90,7 +91,7 @@ public class KeyCardLock extends Console {
 		for (Actor a : gameData.getActors()) {
 			a.addTolastTurnInfo("AI; Attention, " + to.getName() + " unlocked because of power failure!");
 		}
-		System.out.println(" room unlocked because of power failure!");
+		Logger.log(Logger.INTERESTING, " room unlocked because of power failure!");
 		unlockRooms();
 	}
 	

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import model.GameData;
+import util.Logger;
 
 public class AliveHandler implements MessageHandler {
 
@@ -21,7 +22,7 @@ public class AliveHandler implements MessageHandler {
 	public boolean handle(String message, ObjectOutputStream oos)
 			throws IOException {
 		if (message.contains("ALIVE")) {
-			System.out.println("Someone is pinging me...");
+            Logger.log("Someone is pinging me...");
 			oos.writeObject(this.name + ":" + gameData.getInfo());
 			return true;
 		}

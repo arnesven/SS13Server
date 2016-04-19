@@ -20,7 +20,7 @@ public class ReadyCommandHandler extends AbstractCommandHandler {
 		Scanner sc = new Scanner(rest);
 		if (command.equals("READY")) {
 			String yesNo = sc.next();
-			gameData.setCientReady(clid, yesNo.equals("YES"));	
+			gameData.setPlayerReady(clid, yesNo.equals("YES"));
 			oos.writeObject(gameData.getPollData());
 			sc.close();
 			return true;

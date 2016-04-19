@@ -5,6 +5,7 @@ import java.net.Socket;
 import comm.ServiceHandler;
 
 import model.GameData;
+import util.Logger;
 
 
 public class SS13ServerMain {
@@ -30,7 +31,7 @@ public class SS13ServerMain {
 
 		try {
 			listener = new ServerSocket(port);
-			System.out.println("SS13 server \"" + name + "\" running on " + port  + "...");
+			Logger.log("SS13 server \"" + name + "\" running on " + port  + "...");
 
 			do {
 				//System.out.println("Waiting for connection...");

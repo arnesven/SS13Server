@@ -3,6 +3,7 @@ package model.characters.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.Logger;
 import util.MyRandom;
 import model.Actor;
 import model.Player;
@@ -158,11 +159,11 @@ public abstract class GameCharacter {
 
     public boolean doDamageOnSelfWith(Weapon weapon) {
         if (!getActor().getCharacter().wasCriticalHit(weapon)) {
-            System.out.println(" ... not a critical hit. Doing damage..");
+            Logger.log(" ... not a critical hit. Doing damage..");
             weapon.dealDamageOnMe(getActor());
             return false;
         }
-        System.out.println(" --> Critical Hit!");
+        Logger.log(Logger.INTERESTING, " --> Critical Hit!");
         weapon.dealCriticalDamageOnMe(getActor());
         return true;
     }
@@ -181,7 +182,8 @@ public abstract class GameCharacter {
 			Player thisClient = (Player) thisActor;
 			if (thisClient.getNextAction() instanceof WatchAction) {
 				if (((WatchAction)thisClient.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
-					System.out.println("Attack chance reduced because of watching...");
+					Logger.log(Logger.INTERESTING,
+                            "Attack chance reduced because of watching...");
 					return true;
 				}
 			}
@@ -425,7 +427,8 @@ public abstract class GameCharacter {
 	}
 	
 	public void printInstances() {
-		System.out.println(this.getClass().getName());
+		Logger.log(Logger.CRITICAL,
+                this.getClass().getName());
 	}
 	
 	public abstract GameCharacter clone();

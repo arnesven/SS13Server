@@ -3,6 +3,7 @@ package model.items.suits;
 import model.Actor;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
+import util.Logger;
 
 public class PrisonerSuit extends SuitItem {
 
@@ -19,8 +20,8 @@ public class PrisonerSuit extends SuitItem {
 	}
 
 	@Override
-	public void beingPutOn(Actor actionPerformer) { 
-		System.out.println(actionPerformer.getBaseName() + " put on the prisoner clothes.");
+	public void beingPutOn(Actor actionPerformer) {
+        Logger.log(actionPerformer.getBaseName() + " put on the prisoner clothes.");
 		actionPerformer.setCharacter(new PrisonerDecorator(actionPerformer.getCharacter(), this.number));
 	}
 

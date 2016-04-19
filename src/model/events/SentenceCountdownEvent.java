@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.objects.consoles.CrimeRecordsConsole;
+import util.Logger;
 
 public class SentenceCountdownEvent extends Event {
 
@@ -23,7 +24,7 @@ public class SentenceCountdownEvent extends Event {
 	@Override
 	public void apply(GameData gameData) {
 		if (!gameData.getRoom("Brig").getActors().contains(inmate)) {
-			System.out.println(inmate.getBaseName() + " has been sprung!");
+			Logger.log(Logger.INTERESTING, inmate.getBaseName() + " has been sprung!");
 			console.getSentenceMap().remove(inmate);
 			remove = true;
 		} else {

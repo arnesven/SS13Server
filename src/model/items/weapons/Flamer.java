@@ -17,6 +17,7 @@ import model.items.general.Chemicals;
 import model.items.general.GameItem;
 import model.objects.general.GameObject;
 import model.objects.general.HiveObject;
+import util.Logger;
 import util.MyRandom;
 
 public class Flamer extends Weapon {
@@ -79,14 +80,18 @@ public class Flamer extends Weapon {
 
             @Override
             public void doHazard(GameData gameData) {
-                System.out.print("Will flamer start a fire?...");
+                Logger.log(Logger.INTERESTING,
+                        "Will flamer start a fire?...", false);
                 if (MyRandom.nextDouble() < 0.10) {
-                    System.out.print("Yes! ");
+                    Logger.log(Logger.INTERESTING,
+                            "Yes! ");
                     ElectricalFire fire = ((ElectricalFire)gameData.getGameMode().getEvents().get("fires"));
                     fire.startNewEvent(performingClient.getPosition());
-                    System.out.println(performingClient.getBaseName() + " started a fire!");
+                    Logger.log(Logger.INTERESTING,
+                            performingClient.getBaseName() + " started a fire!");
                 } else {
-                    System.out.println("no");
+                    Logger.log(Logger.INTERESTING,
+                            "no", false);
                 }
             }
         };

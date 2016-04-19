@@ -15,10 +15,12 @@ import model.actions.objectactions.PowerConsoleAction;
 import model.map.Room;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
+import util.Logger;
 
 public class GeneratorConsole extends Console {
 
-	private interface PowerUpdater {
+
+    private interface PowerUpdater {
 		double update(double currentPower, double lsPer, double liPer, double eqPer, 
 				List<Room> ls, List<Room> lights, List<ElectricalMachinery> eq);
 	}
@@ -38,6 +40,7 @@ public class GeneratorConsole extends Console {
 	private ArrayList<Room> noLifeSupport = new ArrayList<>();
 	private ArrayList<Room> noLight = new ArrayList<>();
 	private ArrayList<ElectricalMachinery> noPower = new ArrayList<>();
+    private ArrayList<Double> history = new ArrayList<>();
 	private int lightBefore;
 	private int lsBefore;
 	private int eqBefore;
@@ -109,7 +112,7 @@ public class GeneratorConsole extends Console {
 		} else {
 			dlevel = ONGOING_INCREASE * (increase?+1.0:-1.0);
 		}
-		System.out.println("Powerlevel is now " + level);
+		Logger.log("Powerlevel is now " + level);
 	}
 
 	public List<String> getPrios() {
@@ -124,7 +127,7 @@ public class GeneratorConsole extends Console {
 			}
 		}
 		prios.add(0, selected);
-		System.out.println("Prios are now: " + prios);
+		Logger.log("Prios are now: " + prios);
 	}
 
 	public double getPowerLevel() {
@@ -132,8 +135,9 @@ public class GeneratorConsole extends Console {
 	}
 
 	public void updateYourself(GameData gameData) {
+        history.add(level);
 		level = Math.max(0.0, level+dlevel);
-		System.out.println("Current power: " + level);
+		Logger.log("Current power: " + level);
 		
 		noLifeSupport = new ArrayList<Room>();
 		noLight       = new ArrayList<Room>();
@@ -157,10 +161,10 @@ public class GeneratorConsole extends Console {
 		Collections.shuffle(noPower);
 
 		double eqPowerPer = STARTING_POWER * EQUIPMENT_POWER_USE_PCT / (double)(noPower.size());
-		System.out.println(" POWER: Priority is " + prios);
-		System.out.println(" POWER: Life support (MW per room): " + lsPowerPerRoom);
-		System.out.println(" POWER: Lighting (MW per room)    : " + lightPowerPerRoom);
-		System.out.println(" POWER: Equipment (MW per machine): " + eqPowerPer);
+		Logger.log(" POWER: Priority is " + prios);
+		Logger.log(" POWER: Life support (MW per room): " + lsPowerPerRoom);
+		Logger.log(" POWER: Lighting (MW per room)    : " + lightPowerPerRoom);
+		Logger.log(" POWER: Equipment (MW per machine): " + eqPowerPer);
 		
 		noLight.addAll(gameData.getRooms());
 		Collections.shuffle(noLight);
@@ -180,14 +184,14 @@ public class GeneratorConsole extends Console {
 					noLifeSupport, noLight, noPower);
 		}
 		
-		System.out.println(getLSString());
+		Logger.log(getLSString());
 		for (Room r : noLifeSupport) {
-			System.out.println("     " + r.getName());
+			Logger.log("     " + r.getName());
 		}
 		
-		System.out.println(getLightString());
+		Logger.log(getLightString());
 		
-		System.out.println(getEquipmentString());
+		Logger.log(getEquipmentString());
 		runPowerOnOrOffFunctions(gameData, oldNoPower);
 	}
 
@@ -253,6 +257,9 @@ public class GeneratorConsole extends Console {
 		return "Electrical equipment (" + (eqBefore - noPower.size()) + "/" + eqBefore + ")";
 	}
 
-	
+    public ArrayList<Double> getHistory() {
+        return history;
+    }
+
 
 }

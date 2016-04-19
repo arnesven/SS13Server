@@ -57,7 +57,7 @@ public class MyRandom {
 				scanner.hasNext(); scanner.nextLine() ) {
 			lines++;
 		}
-		System.out.println("file hade " + lines + " lines");
+		Logger.log("file hade " + lines + " lines");
 		Scanner scanner = new Scanner(new File(filename));
 		int j = MyRandom.nextInt(lines) + 1;
 		for (int i = 0; i < j ; ++i) {

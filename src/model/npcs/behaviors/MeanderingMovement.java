@@ -2,6 +2,7 @@ package model.npcs.behaviors;
 
 import java.util.List;
 
+import util.Logger;
 import util.MyRandom;
 import model.map.Room;
 import model.npcs.NPC;
@@ -25,7 +26,7 @@ public class MeanderingMovement implements MovementBehavior {
 			List<Room> listOfNeighboringRooms = npc.getPosition().getNeighborList();
 			Room dest = MyRandom.sample(listOfNeighboringRooms);
 			npc.moveIntoRoom(dest);
-			System.out.println(npc.getName() + " is now in " + dest.getName());
+			Logger.log(npc.getName() + " is now in " + dest.getName());
 		}
 	}
 	

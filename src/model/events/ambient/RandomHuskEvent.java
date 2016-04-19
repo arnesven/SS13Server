@@ -1,6 +1,7 @@
 package model.events.ambient;
 
 import model.events.Event;
+import util.Logger;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -36,7 +37,8 @@ public class RandomHuskEvent extends Event {
 		npc.setHealth(0.0);
 		npc.moveIntoRoom(roomToAddAHuskIn);
 		npc.setCharacter(new HuskDecorator(npc.getCharacter()));
-		System.out.println("Added a husk in " + roomToAddAHuskIn.getName());
+        Logger.log(Logger.INTERESTING,
+                "Added a husk in " + roomToAddAHuskIn.getName());
 	}
 
 	private boolean isOk(Room roomToAddAHuskIn) {

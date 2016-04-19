@@ -11,6 +11,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
+import util.Logger;
 
 
 public class TimeBomb extends BombItem {
@@ -71,7 +72,8 @@ public class TimeBomb extends BombItem {
 
 						@Override
 						public void apply(GameData gameData) {
-							System.out.println("Time left on bomb " + timeLeft);
+                            Logger.log(Logger.INTERESTING,
+                                    "Time left on bomb " + timeLeft);
 							if (timeLeft == 0) {
 								explode(gameData, performingClient);
 

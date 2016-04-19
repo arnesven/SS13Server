@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import model.GameData;
+import util.Logger;
 
 
 public class MapCommandHandler extends AbstractCommandHandler {
@@ -18,7 +19,7 @@ public class MapCommandHandler extends AbstractCommandHandler {
 //		System.out.println("handling map command");
 		if (command.equals("MAP")) {
 			String result = gameData.getAllRooms().toString();
-			System.out.println(result);
+			Logger.log(result);
 			oos.writeObject(result);
 			return true;
 		}

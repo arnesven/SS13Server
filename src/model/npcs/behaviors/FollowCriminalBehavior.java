@@ -5,6 +5,7 @@ import model.GameData;
 import model.map.Room;
 import model.npcs.NPC;
 import model.objects.consoles.CrimeRecordsConsole;
+import util.Logger;
 
 public class FollowCriminalBehavior implements MovementBehavior {
 
@@ -19,11 +20,11 @@ public class FollowCriminalBehavior implements MovementBehavior {
 	public void move(NPC npc) {
 		Actor mostWanted = console.getMostWanted();
 		if (mostWanted == null) {
-			System.out.println("SecuriTRON: no bad guys right now, guess I'll go back to sleep.");
+			Logger.log("SecuriTRON: no bad guys right now, guess I'll go back to sleep.");
 			return;
 		}
 		
-		System.out.println("SecuriTRON: Most wanted criminal is " + mostWanted.getBaseName() +", you're going down!");
+		Logger.log(Logger.INTERESTING, "SecuriTRON: Most wanted criminal is " + mostWanted.getBaseName() +", you're going down!");
 		
 		Room closerRoom = PathFinding.findCloserRoom(npc, mostWanted.getPosition());
 		if (npc.getPosition() != closerRoom) {

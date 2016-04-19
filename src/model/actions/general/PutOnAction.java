@@ -7,6 +7,7 @@ import model.Actor;
 import model.GameData;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
+import util.Logger;
 
 public class PutOnAction extends Action {
 
@@ -78,7 +79,7 @@ public class PutOnAction extends Action {
 
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
-		System.out.println("Setting arg for put on" + args.get(0));
+        Logger.log("Setting arg for put on" + args.get(0));
 		for (GameItem it : putOnner.getItems()) {
 			if (it.getPublicName(performingClient).equals(args.get(0))) {
 				selectedItem = (SuitItem)it;
@@ -93,10 +94,10 @@ public class PutOnAction extends Action {
 		}
 		for (Actor actor : putOnner.getPosition().getActors()) {
 			if (actor.isDead()) {
-				System.out.println("Dead guys suit: " + actor.getCharacter().getSuit());
+				Logger.log("Dead guys suit: " + actor.getCharacter().getSuit());
 				if (actor.getCharacter().getSuit().getPublicName(performingClient).equals(args.get(0))) {
 					selectedItem = actor.getCharacter().getSuit();
-					System.out.println("Looting a suit of a dead body " + selectedItem.getPublicName(performingClient));
+					Logger.log("Looting a suit of a dead body " + selectedItem.getPublicName(performingClient));
 					lootVictim  = actor;
 					return;
 				}

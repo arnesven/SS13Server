@@ -3,6 +3,7 @@ package model.npcs.behaviors;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.Logger;
 import util.MyRandom;
 import model.GameData;
 import model.Target;
@@ -33,7 +34,7 @@ public class AttackIfPossibleBehavior implements ActionBehavior {
 			args.add(randomTarget.getName());
 			args.add(weaponToUse.getPublicName(npc));
 			atk.setArguments(args, npc);
-			System.out.println(npc.getPublicName() + " is attacking " + randomTarget.getName() + "!");
+			Logger.log(npc.getPublicName() + " is attacking " + randomTarget.getName() + "!");
 			atk.printAndExecute(gameData);
 		}
 	}

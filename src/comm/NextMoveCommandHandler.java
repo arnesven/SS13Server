@@ -4,6 +4,7 @@ import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 import model.GameData;
+import util.Logger;
 
 
 public class NextMoveCommandHandler extends AbstractCommandHandler {
@@ -17,7 +18,7 @@ public class NextMoveCommandHandler extends AbstractCommandHandler {
 			ObjectOutputStream oos) throws IOException {
 		if (command.equals("NEXTMOVE")) {
 			Scanner sc = new Scanner(rest);
-			System.out.println(rest);
+			Logger.log(rest);
 			gameData.getPlayerForClid(clid).setNextMove(sc.nextInt());
 			oos.writeObject("ACK");
 			return true;

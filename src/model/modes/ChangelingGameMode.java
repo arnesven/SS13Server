@@ -22,7 +22,12 @@ public class ChangelingGameMode extends GameMode {
 	private ChangelingCharacter lingChar;
 	private NPC decoy;
 
-	@Override
+    @Override
+    public String getName() {
+        return "Changeling";
+    }
+
+    @Override
 	protected void setUpOtherStuff(GameData gameData) { 
 		gameData.addEvent(new ChangelingSensesEvent(ling));
 		getEvents().remove("random husks");

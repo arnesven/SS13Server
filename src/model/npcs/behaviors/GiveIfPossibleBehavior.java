@@ -3,6 +3,7 @@ package model.npcs.behaviors;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.Logger;
 import util.MyRandom;
 import model.GameData;
 import model.Target;
@@ -23,7 +24,7 @@ public class GiveIfPossibleBehavior {
 			args.add(randomTarget.getName());
 			args.add(itemToGive.getPublicName(npc));
 			give.setArguments(args, npc);
-			System.out.println(npc.getPublicName() + " is giving to " + randomTarget.getName() + "!");
+			Logger.log(npc.getPublicName() + " is giving to " + randomTarget.getName() + "!");
 			give.printAndExecute(gameData);
 		}
 		

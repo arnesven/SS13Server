@@ -8,6 +8,7 @@ import model.actions.general.Action;
 import model.actions.general.NoPowerAction;
 import model.map.Room;
 import model.objects.consoles.GeneratorConsole;
+import util.Logger;
 
 
 public abstract class ElectricalMachinery extends BreakableObject 
@@ -21,7 +22,6 @@ public abstract class ElectricalMachinery extends BreakableObject
 	}
 
 	public void setInUse(boolean b) {
-		System.out.println("in use = " + b);
 		this.inUse = b;
 	}
 	
@@ -42,10 +42,10 @@ public abstract class ElectricalMachinery extends BreakableObject
 	@Override
 	public void addSpecificActionsFor(GameData gameData, Player cl,
 			ArrayList<Action> at) {
-		System.out.println("## adding specific action for electrical");
+		Logger.log("## adding specific action for electrical");
 		ArrayList<Action> at2 = new ArrayList<>();
 		if (!isPowered(gameData, this)) {
-			System.out.println("####" + this.getName() + " isn't powered! no power actions!");
+			Logger.log("####" + this.getName() + " isn't powered! no power actions!");
 			super.addSpecificActionsFor(gameData, cl, at2);
 			for (Action a : at2) {
 				NoPowerAction npa = new NoPowerAction(a);

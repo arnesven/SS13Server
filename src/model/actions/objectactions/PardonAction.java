@@ -3,6 +3,7 @@ package model.actions.objectactions;
 import java.util.Iterator;
 import java.util.List;
 
+import util.Logger;
 import util.Pair;
 import model.Actor;
 import model.GameData;
@@ -46,7 +47,7 @@ public class PardonAction extends Action {
 	protected void execute(GameData gameData, Actor performingClient) {
 		Actor guy = null;
 		for (Actor a : console.getReportedActors().keySet()) {
-			System.out.println("Selected guy: " + selectedGuy + " a: " + a);
+			Logger.log("Selected guy: " + selectedGuy + " a: " + a);
 			if (selectedGuy.contains(a.getBaseName())) {
 				guy = a;
 				break;

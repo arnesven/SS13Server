@@ -4,6 +4,7 @@ import java.io.ObjectOutputStream;
 
 import model.GameData;
 import model.GameState;
+import util.Logger;
 
 
 public class IDMessageHandler implements MessageHandler {
@@ -21,10 +22,10 @@ public class IDMessageHandler implements MessageHandler {
 				try {
 					
 					String clid = gameData.createNewClient(message.replace("IDENT ME", ""));
-					System.out.println("This new dude gets " + clid);
+					Logger.log("This new dude gets " + clid);
 					oos.writeObject(clid);
 				} catch (IllegalStateException ise) {
-					System.out.println("That ID already existed!");
+					Logger.log("That ID already existed!");
 					oos.writeObject("ERROR" + ise.getMessage());
 					return true;
 				}

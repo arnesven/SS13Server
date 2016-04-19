@@ -55,13 +55,11 @@ public class ChangeFormAction extends Action {
 	public void setArguments(List<String> args, Actor performingClient) {
 		for (GameCharacter c : ling.getForms()) {
 			if (c instanceof HorrorCharacter) {
-				System.out.println("Found an ultimate");
 				if (args.get(0).equals("Ultimate Form")) {
 					selected = c;
 					return;
 				}
 			} else {
-				System.out.println("Found a regular");
 				if (args.get(0).equals(c.getBaseName())) {
 					selected = c;
 					return;

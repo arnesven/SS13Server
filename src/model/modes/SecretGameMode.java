@@ -1,5 +1,6 @@
 package model.modes;
 
+import util.Logger;
 import util.MyRandom;
 import model.Player;
 
@@ -11,17 +12,17 @@ public class SecretGameMode  {
 		GameMode result;
 		double d = MyRandom.nextDouble();
 		if (d < 0.35) {
-			MyRandom.write_to_file(filename, "Host");
+			MyRandom.write_to_file(filename, d + " Host");
 			result = new HostGameMode() {
 				@Override
 				protected void addProtagonistStartingMessage(Player c) {
 					protMessage(c);
 				}
 			};
-			System.out.println("...... but secretly its host");
+			Logger.log("...... but secretly it's host");
 		} else if (d < 0.70) {
-			System.out.println("...... but secretly its traitor");
-			MyRandom.write_to_file(filename, "Traitor");
+			Logger.log("...... but secretly it's traitor");
+			MyRandom.write_to_file(filename, d + " Traitor");
 			result = new TraitorGameMode() {
 				@Override
 				protected void addProtagonistStartingMessage(Player c) {
@@ -29,9 +30,9 @@ public class SecretGameMode  {
 				}
 
 			};
-		} else if (d < 0.85){
-			MyRandom.write_to_file(filename, "Operatives");
-			System.out.println("...... but secretly it's operatives");
+		} else if (d < 0.85) {
+			MyRandom.write_to_file(filename, d + " Operatives");
+			Logger.log("...... but secretly it's operatives");
 			result = new OperativesGameMode() {
 				@Override
 				protected void addProtagonistStartingMessage(Player c) {
@@ -39,8 +40,8 @@ public class SecretGameMode  {
 				}
 			};
 		} else {
-			System.out.println("...... but secretly its changeling");
-			MyRandom.write_to_file(filename, "Changeling");
+			Logger.log("...... but secretly it's changeling");
+			MyRandom.write_to_file(filename, d + " Changeling");
 			result = new ChangelingGameMode() {
 				@Override
 				protected void addProtagonistStartingMessage(Player c) {

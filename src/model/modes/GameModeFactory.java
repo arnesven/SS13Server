@@ -1,23 +1,25 @@
 package model.modes;
 
+import util.Logger;
+
 public class GameModeFactory {
 	
 	public static GameMode create(String selectedMode) {
 		if (selectedMode.toLowerCase().equals("host")) {
-			System.out.println("Mode is host");
+			Logger.log(Logger.INTERESTING, "Mode is host");
 			return new HostGameMode();
 		} else if (selectedMode.toLowerCase().equals("traitor")) {
-			System.out.println("Mode is traitor");
+			Logger.log(Logger.INTERESTING, "Mode is traitor");
 			return new TraitorGameMode();			
 		} else if (selectedMode.toLowerCase().equals("operatives")) {
-			System.out.println("Mode is operatives");
+			Logger.log(Logger.INTERESTING, "Mode is operatives");
 			return new OperativesGameMode();
 		} else if (selectedMode.toLowerCase().equals("changeling")) {
-			System.out.println("Mode is changeling");
+			Logger.log(Logger.INTERESTING, "Mode is changeling");
 			return new ChangelingGameMode();
 		}
 		
-		System.out.println("Mode is secret");
+		Logger.log(Logger.INTERESTING, "Mode is secret");
 		return SecretGameMode.getNewInstance();
 
 	}

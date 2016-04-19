@@ -48,7 +48,12 @@ public class HostGameMode extends GameMode {
 	}
 
 
-	@Override
+    @Override
+    public String getName() {
+        return "Host";
+    }
+
+    @Override
 	protected void setUpOtherStuff(GameData gameData) {
 		hiveRoom = null;
 		boolean hiveInStartingRoom;

@@ -5,6 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.Hazard;
 import model.events.ambient.ElectricalFire;
+import util.Logger;
 import util.MyRandom;
 
 public class LaserPistol extends AmmoWeapon {
@@ -32,7 +33,8 @@ public class LaserPistol extends AmmoWeapon {
                 if (MyRandom.nextDouble() < 0.05) {
                     ElectricalFire fire = ((ElectricalFire)gameData.getGameMode().getEvents().get("fires"));
                     fire.startNewEvent(performingClient.getPosition());
-                    System.out.println(performingClient.getBaseName() + " started a fire!");
+                    Logger.log(Logger.INTERESTING,
+                            performingClient.getBaseName() + " started a fire!");
                 }
             }
         };

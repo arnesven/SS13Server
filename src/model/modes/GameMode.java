@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import util.Logger;
 import util.MyRandom;
 import model.Actor;
 import model.Player;
@@ -115,6 +116,8 @@ public abstract class GameMode {
 		events.put("Power flux", new PowerFlux());
 		events.put("random husks", new RandomHuskEvent());
 	}
+
+    public abstract String getName();
 
 	private static HashMap<String, GameCharacter> availableChars() {
 		HashMap<String, GameCharacter> availableChars = new HashMap<>();
@@ -226,25 +229,25 @@ public abstract class GameMode {
 	}
 
 	public void setup(GameData gameData) {
-		System.out.println("Game Modes: Going to assign roles");
+		Logger.log("Game Modes: Going to assign roles");
 		List<GameCharacter> remainingChars = assignCharactersToPlayers(gameData);
-		System.out.println(" Game Mode: Setup: Characters assigned");
+		Logger.log(" Game Mode: Setup: Characters assigned");
 		moveCharactersIntoStartingRooms(gameData);
-		System.out.println(" Game Mode: Setup: Characters moved into starting rooms");
+		Logger.log(" Game Mode: Setup: Characters moved into starting rooms");
 			
 		addNPCs(gameData, remainingChars);
-		System.out.println(" Game Mode: Setup: NPCs added");
+		Logger.log(" Game Mode: Setup: NPCs added");
 		
 		giveCharactersStartingItems(gameData);
-		System.out.println(" Game Mode: Setup: Chars got starting items");
+		Logger.log(" Game Mode: Setup: Chars got starting items");
 		
 		setUpOtherStuff(gameData);
-		System.out.println(" Game Mode: Other stuff setupped");
+		Logger.log(" Game Mode: Other stuff setupped");
 		
 		addItemsToRooms(gameData);
 		
 		addRandomItemsToRooms(gameData);
-		System.out.println(" Game Mode: Items added to rooms");
+		Logger.log(" Game Mode: Items added to rooms");
 		
 		addStartingMessages(gameData);
 	}
@@ -385,7 +388,7 @@ public abstract class GameMode {
 			}
 			NPC human = new HumanNPC(gc, gc.getStartingRoom(gameData));
 			gameData.addNPC(human);
-			System.out.println("Adding npc " + gc.getBaseName());
+			Logger.log("Adding npc " + gc.getBaseName());
 
 		}
 	}
@@ -401,7 +404,7 @@ public abstract class GameMode {
 		places.add("Air Lock #2");
 		for (String place1 : places) {
 			for (String place2 : places) {
-			System.out.println("Shortest distance between " + place1 + 
+			Logger.log("Shortest distance between " + place1 + 
 								" and " + place2 + ": " + 
 								GameMap.shortestDistance(gameData.getRoom(place1), gameData.getRoom(place2)));
 			}
@@ -415,7 +418,7 @@ public abstract class GameMode {
 
 		for (Actor c : actors) {
 			List<GameItem> startingItems = c.getCharacter().getStartingItems();
-			System.out.println("Giving starting items to " + c.getPublicName());
+			Logger.log("Giving starting items to " + c.getPublicName());
 			for (GameItem it : startingItems) {
 				c.addItem(it, null);
 			}		
@@ -446,7 +449,7 @@ public abstract class GameMode {
 		while (MyRandom.nextDouble() < 0.5) {
 			Room aRoom = MyRandom.sample(gameData.getRooms());
 			aRoom.addItem(MyRandom.sample(MyRandom.getItemsWhichAppearRandomly()).clone());
-			System.out.println("Added a suprise in " + aRoom.getName());
+			Logger.log("Added a suprise in " + aRoom.getName());
 		}
 	}
 

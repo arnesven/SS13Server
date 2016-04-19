@@ -14,6 +14,7 @@ import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
 import model.map.Room;
+import util.Logger;
 
 
 /**
@@ -234,7 +235,6 @@ public abstract class CharacterDecorator extends GameCharacter {
 	
 	@Override
 	public double getEncumberenceLevel() {
-		System.out.println("Encumberance in decorator");
 		return innerChar.getEncumberenceLevel();
 	}
 	
@@ -285,7 +285,8 @@ public abstract class CharacterDecorator extends GameCharacter {
 
     @Override
 	public void printInstances() {
-		System.out.print(this.getClass().getName() + "->");
+		Logger.log(Logger.CRITICAL,
+                this.getClass().getName() + "->");
 		getInner().printInstances();
 	}
 

@@ -8,6 +8,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.objects.consoles.GeneratorConsole;
+import util.Logger;
 
 public class PowerConsoleAction extends Action {
 
@@ -46,10 +47,10 @@ public class PowerConsoleAction extends Action {
 		}
 		
 		if (prioSelected) {
-			System.out.println("Prio changed!");
+			Logger.log("Prio changed!");
 			powerPrioAction.execute(gameData, performingClient);
 		} else if (levelSelected) {
-			System.out.println("Level changed!");
+			Logger.log("Level changed!");
 			powerLevelAction.execute(gameData, performingClient);
 		} else {
 			performingClient.addTolastTurnInfo("STATION POWER; " + (int)(genRef.getPowerOutput()*100) + "% of demand.");

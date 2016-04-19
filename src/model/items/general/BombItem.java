@@ -15,6 +15,7 @@ import model.events.damage.ExplosiveDamage;
 import model.items.NoSuchItemException;
 import model.map.Room;
 import model.events.Explosion;
+import util.Logger;
 import util.MyRandom;
 
 public abstract class BombItem extends HidableItem {
@@ -60,12 +61,14 @@ public abstract class BombItem extends HidableItem {
 	}
 	
 	public void explode(final GameData gameData, final Actor performingClient) {
-		System.out.println("Exploding bomb.");
+        Logger.log(Logger.INTERESTING,
+                    "Exploding bomb.");
         Room bombRoom = null;
         try {
             bombRoom = gameData.findRoomForItem(this);
         } catch (NoSuchItemException e) {
-            System.out.println("Bomb was not found in a room.");
+            Logger.log(Logger.INTERESTING,
+                    "Bomb was not found in a room.");
            // bombRoom continues to be null;
         }
 
@@ -74,7 +77,8 @@ public abstract class BombItem extends HidableItem {
             try {
                 currentCarrier = gameData.findActorForItem(this);
             } catch (NoSuchItemException e) {
-                System.out.println(" COULD NOT FIND BOMB, WHERE DID IT GO?!");
+                Logger.log(Logger.CRITICAL,
+                        " COULD NOT FIND BOMB, WHERE DID IT GO?!");
                 return;
             }
             currentCarrier.getItems().remove(this);
@@ -112,14 +116,16 @@ public abstract class BombItem extends HidableItem {
                 if (MyRandom.nextDouble() < 0.75) {
                     HullBreach hull = ((HullBreach) gameData.getGameMode().getEvents().get("hull breaches"));
                     hull.startNewEvent(bombRoom);
-                    System.out.println("breached the hull with bomb!");
+                    Logger.log(Logger.INTERESTING,
+                            "breached the hull with bomb!");
                 }
 
                 // start a fire?
                 if (MyRandom.nextDouble() < 0.25) {
                     ElectricalFire fire = ((ElectricalFire) gameData.getGameMode().getEvents().get("fires"));
                     fire.startNewEvent(bombRoom);
-                    System.out.println("started a fire with bomb!");
+                    Logger.log(Logger.INTERESTING,
+                            "started a fire with bomb!");
                 }
             }
 

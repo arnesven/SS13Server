@@ -4,6 +4,7 @@ import model.GameData;
 import model.map.GameMap;
 import model.map.Room;
 import model.npcs.NPC;
+import util.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +26,7 @@ public abstract class GoTowardsRoomMovement implements MovementBehavior{
     public void move(final NPC npc) {
         List<Room> fireRooms = getEligableRooms(npc, gameData);
         if (fireRooms.size() == 0) {
-            System.out.println("No fires... standing still");
+            Logger.log("No fires... standing still");
         }
 
         Collections.sort(fireRooms, new Comparator<Room>() {

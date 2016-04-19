@@ -7,6 +7,7 @@ import model.characters.general.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.DrunkDecorator;
 import model.characters.decorators.InstanceChecker;
+import util.Logger;
 import util.MyRandom;
 
 /**
@@ -100,11 +101,11 @@ public class DrunkTimerEvent extends Event {
         // if the character wasn't drunk before then make them drunk
         if (decorator == null) {
             target.setCharacter(new DrunkDecorator(target.getCharacter(), this));
-            System.out.println(target.getBaseName() + " became drunk.");
+            Logger.log(target.getBaseName() + " became drunk.");
             return;
         }
 
-        System.out.println(target.getBaseName() + " became even drunker!");
+        Logger.log(target.getBaseName() + " became even drunker!");
 
         decorator.getTimer().addDrunkLevel(level); // update previous timer
         markForRemoval(); // remove "this"

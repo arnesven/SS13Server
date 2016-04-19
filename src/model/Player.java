@@ -27,6 +27,7 @@ import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.weapons.Weapon;
 import model.map.Room;
+import util.Logger;
 
 
 /**
@@ -232,7 +233,7 @@ public class Player extends Actor implements Target {
 			if (this.getPosition() != null) {
 				this.getPosition().removePlayer(this);
 			}
-			System.out.println("Moving player " + this.getCharacterRealName() + 
+			Logger.log("Moving player " + this.getCharacterRealName() +
 					" into room " + room.getName());
 			this.setPosition(room);
 			room.addPlayer(this);
@@ -271,12 +272,12 @@ public class Player extends Actor implements Target {
 
 		ArrayList<String> strings = new ArrayList<>();
 		strings.addAll(Arrays.asList(actionStr.split(",")));
-		//System.out.println("Action tree: " + at.toString());
+		//Logger.log("Action tree: " + at.toString());
 		for (Action a : at) {
 			if (a.getName().equals(strings.get(0))) {
 				if (a instanceof ActionGroup) {
 					for (Action a2 : ((ActionGroup)a).getActions()) {
-						System.out.println("Parsing for " +  a2.getName() + ", strings is: " + strings.toString());
+						Logger.log("Parsing for " +  a2.getName() + ", strings is: " + strings.toString());
 						if (a2.getName().equals(strings.get(1))) {
 							List<String> args = strings.subList(2, strings.size());
 							a2.setArguments(args, this);
@@ -515,13 +516,13 @@ public class Player extends Actor implements Target {
 
 	public void parseJobChoices(String rest) {
 		String withoutBraces = rest.substring(2, rest.length()-1);
-		System.out.println(withoutBraces);
+		Logger.log(withoutBraces);
 		String[] opts = withoutBraces.split(",");
 		for (String str : opts) {
 			String[] keyVal = str.split("=");
 			jobChoices.put(keyVal[0], Boolean.parseBoolean(keyVal[1]));
 		}
-		System.out.println("JobChoices " + jobChoices.toString());
+		Logger.log("JobChoices " + jobChoices.toString());
 
 	}
 

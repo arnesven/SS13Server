@@ -1,5 +1,6 @@
 package model.npcs.behaviors;
 
+import util.Logger;
 import util.MyRandom;
 import model.GameData;
 import model.actions.general.SpeechAction;
@@ -23,22 +24,22 @@ public class ChimpBehavior implements ActionBehavior {
 		if (MyRandom.nextDouble() < 0.5) {
 			pickUpBehavior.act(npc, gameData);
 			if (pickUpBehavior.didHappen()) {
-				System.out.println("Chimp picked up");
+				Logger.log("Chimp picked up");
 				return;
 			}
 		}
 		
 		double d = MyRandom.nextDouble();
-		System.out.println("chimp random = " + d);
+		Logger.log("chimp random = " + d);
 		if (d < 0.2) {
 			gibberish.act(npc, gameData);
-			System.out.println("Chimp said ooo");
+			Logger.log("Chimp said ooo");
 		} else if (d < 0.70) {
 			giveBehavior.act(npc, gameData);
-			System.out.println("Chimp gave something");
+			Logger.log("Chimp gave something");
 		} else {
 			atkBehavior.act(npc, gameData);
-			System.out.println("chimp attacked");
+			Logger.log("chimp attacked");
 		}
 	}
 

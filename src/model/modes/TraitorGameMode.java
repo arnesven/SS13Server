@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import util.Logger;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -44,7 +45,12 @@ public class TraitorGameMode extends GameMode {
 	private String TRAITOR_START_STRING = "You are a traitor!";
 	private String CREW_START_STRING = "There are traitors on the station. Find them and stop them before they ruin everything!";
 
-	@Override
+    @Override
+    public String getName() {
+        return "Traitor";
+    }
+
+    @Override
 	protected void setUpOtherStuff(GameData gameData) { 
 		assignTraitors(gameData);
 	}
@@ -66,7 +72,7 @@ public class TraitorGameMode extends GameMode {
 		// TO Few checked traitor, add som more randomly until we have
 		// enough
 		while (traitors.size() < getNoOfTraitors(gameData)) {
-			System.out.println("Still to few traitors, adding one");
+			Logger.log("Still to few traitors, adding one");
 			List<Player> otherPlayers = new ArrayList<>();
 			otherPlayers.addAll(gameData.getPlayersAsList());
 			otherPlayers.removeAll(traitors);
@@ -76,7 +82,7 @@ public class TraitorGameMode extends GameMode {
 		// To Many checked traitor, removing some randomly until we have
 		// just the right amount
 		while (traitors.size() > getNoOfTraitors(gameData)) {
-			System.out.println("Still to many traitors, removing one");
+			Logger.log("Still to many traitors, removing one");
 			Player notATraitor = MyRandom.sample(traitors);
 			traitors.remove(notATraitor);
 		}
@@ -91,19 +97,19 @@ public class TraitorGameMode extends GameMode {
 
 	private TraitorObjective createRandomObjective(Player traitor, GameData gameData) {
 		GameItem it = MyRandom.sample(stealableItems(gameData));
-		System.out.println("Steal-item is " + it.getBaseName());
+		Logger.log("Steal-item is " + it.getBaseName());
 		for (Player p : gameData.getPlayersAsList()) {
 			if (GameItem.containsItem(p.getCharacter().getStartingItems(), it)) {
-				System.out.print(" " + p.getBaseName() + " has a " + it.getBaseName());
+				Logger.log(" " + p.getBaseName() + " has a " + it.getBaseName());
 				if (p != traitor) {
-					System.out.println(" match!.");
+					Logger.log(" match!.");
 					return new LarcenyObjective(gameData, traitor, p, it);
 				} else {
-					System.out.println(" but he was the traitor...");
+					Logger.log(" but he was the traitor...");
 				}
 			}
 		}
-		System.out.println("Did not find player for steal-item");
+		Logger.log("Did not find player for steal-item");
 
 		
 		double val = MyRandom.nextDouble();
@@ -145,7 +151,7 @@ public class TraitorGameMode extends GameMode {
 	private int getNoOfTraitors(GameData gameData) {
 		double d = gameData.getPlayersAsList().size() * TRAITOR_FACTOR;
 		int traitors = Math.max(1, (int)Math.round(d));
-		System.out.println("No of traitors " + traitors);
+		Logger.log("No of traitors " + traitors);
 		return traitors;
 	}
 
@@ -234,7 +240,7 @@ public class TraitorGameMode extends GameMode {
 	public int pointsFromGod(GameData gameData) {
 		Bible b = getBible(gameData);
 		if (b == null) {
-			System.out.println("Bible not found");
+			Logger.log("Bible not found");
 			return 0;
 		}
 		return b.getGodPoints();
@@ -254,7 +260,7 @@ public class TraitorGameMode extends GameMode {
 		for (Room r : gameData.getRooms()) {
 			for (GameItem it : r.getItems()) {
 				if (it instanceof Bible) {
-					System.out.println("Found bible in room " + r.getName());
+					Logger.log("Found bible in room " + r.getName());
 					return (Bible)it;
 				}
 			}

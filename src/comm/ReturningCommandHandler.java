@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import model.GameData;
+import util.Logger;
 
 
 public class ReturningCommandHandler extends AbstractCommandHandler {
@@ -16,7 +17,7 @@ public class ReturningCommandHandler extends AbstractCommandHandler {
 	public boolean handleCommand(String command, String clid, String rest,
 			ObjectOutputStream oos) throws IOException {
 		if (command.equals("RETURNING")) {
-			System.out.println("This client returning: " + clid);
+			Logger.log("This client returning: " + clid);
 			if (gameData.getClientsAsMap().containsKey(clid)) {
 				oos.writeObject(clid);
 			} else {
