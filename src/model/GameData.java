@@ -49,9 +49,10 @@ public class GameData {
 	private String selectedMode = "Secret";
 	private List<Event> events = new ArrayList<>();
 	private List<Event> moveEvents = new ArrayList<>();
+    private boolean runningEvents;
 
-	
-	public GameData() {
+
+    public GameData() {
 		
 	}
 	
@@ -279,7 +280,10 @@ public class GameData {
 
 
 	private void runEvents() {
-		List<Event> eventsToRemove = new ArrayList<>();
+        this.runningEvents = true;
+        gameMode.triggerEvents(this);
+
+        List<Event> eventsToRemove = new ArrayList<>();
 		List<Event> eventsToExecute = new ArrayList<>();
 		eventsToExecute.addAll(events);
 		
@@ -293,7 +297,7 @@ public class GameData {
 		for (Event e2 : eventsToRemove) {
 			events.remove(e2);
 		}
-		gameMode.triggerEvents(this);
+	    this.runningEvents = false;
 	}
 
 	private void runMovementEvents() {
@@ -322,6 +326,7 @@ public class GameData {
 		this.gameMode = GameModeFactory.create(selectedMode);
 		System.out.println("Got game mode from factory.");
 		this.round = 1;
+        this.runningEvents = false;
 		gameMode.setup(this);
 		System.out.println("Game mode set-upped!");
 	}
@@ -479,11 +484,6 @@ public class GameData {
 		lateActions.add(new Pair<Actor, Action>(performingClient, act));
 	}
 
-    public void executeAtEndOfRound(Action act) {
-        this.executeAtEndOfRound(new HumanNPC(new NobodyCharacter(0), getRoomForId(1)),
-                act);
-    }
-
 	public int getNoOfRounds() {
 		return noOfRounds;
 	}
@@ -603,5 +603,7 @@ public class GameData {
 	}
 
 
-
+    public boolean isRunningEvents() {
+        return runningEvents;
+    }
 }

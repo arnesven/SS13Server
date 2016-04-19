@@ -34,7 +34,7 @@ public class Syringe extends GameItem {
 
     @Override
 	protected char getIcon() {
-		return 'C';
+		return 'G';
 	}
 	
 	public Mutation getMutation() {

@@ -7,6 +7,7 @@ import model.characters.general.GameCharacter;
 import model.items.general.Chemicals;
 import model.items.general.GameItem;
 import model.items.general.GeigerMeter;
+import model.items.general.Teleporter;
 
 public class ScienceOfficerCharacter extends CrewCharacter {
 
@@ -19,6 +20,7 @@ public class ScienceOfficerCharacter extends CrewCharacter {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Chemicals());
 		list.add(new GeigerMeter());
+        list.add(new Teleporter());
 		return list;
 	}
 

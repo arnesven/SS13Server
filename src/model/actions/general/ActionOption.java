@@ -43,8 +43,8 @@ public class ActionOption {
 		return suboptions.size();
 	}
 
-	
 
-	
-
+    public String getName() {
+        return name;
+    }
 }

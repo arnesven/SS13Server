@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.events.NoSuchEventException;
 import model.events.ambient.ElectricalFire;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
@@ -38,7 +39,13 @@ public class PutOutFireAction extends Action {
     protected void execute(GameData gameData, Actor performingClient) {
         if (GameItem.hasAnItem(performingClient, new FireExtinguisher())) {
             try {
-                ElectricalFire fire = FireExtinguisher.getFire(performingClient.getPosition());
+                ElectricalFire fire = null;
+                try {
+                    fire = FireExtinguisher.getFire(performingClient.getPosition());
+                } catch (NoSuchEventException e) {
+                    performingClient.addTolastTurnInfo("What, no fire? Your action failed.");
+                    return;
+                }
                 fire.fix();
                 fireExtinguisher.decrementLevel();
                 performingClient.addTolastTurnInfo("You put out the fire.");

@@ -308,7 +308,8 @@ public abstract class GameCharacter {
 	public int getMovementSteps() {
 		if (isDead()) {
 			return 0;
-		} else if (isEncumbered() || getHealth() <= 1.0) {
+		} else if (getActor().getCharacter().isEncumbered() ||
+                getActor().getCharacter().getHealth() <= 1.0) {
 			return 1;
 		}
 		return 2;

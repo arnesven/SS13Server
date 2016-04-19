@@ -8,7 +8,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
-import model.actions.general.HazardAction;
+import model.Hazard;
 import model.actions.itemactions.BurnHiveAction;
 import model.actions.general.SensoryLevel;
 import model.actions.itemactions.SprayFireAction;
@@ -24,7 +24,7 @@ public class Flamer extends Weapon {
 	public static final SensoryLevel SENSED_AS = SensoryLevel.FIRE;
 
 	public Flamer() {
-		super("Flamer", 0.75, 0.5, false, 2.0);
+		super("Flamer", 0.75, 0.5, false, 1.5);
 	}
 	
 	@Override
@@ -75,7 +75,7 @@ public class Flamer extends Weapon {
 
     @Override
     protected void checkHazard(final Actor performingClient, GameData gameData) {
-        gameData.executeAtEndOfRound(new HazardAction() {
+        new Hazard(gameData) {
 
             @Override
             public void doHazard(GameData gameData) {
@@ -89,7 +89,7 @@ public class Flamer extends Weapon {
                     System.out.println("no");
                 }
             }
-        });
+        };
     }
 
 }

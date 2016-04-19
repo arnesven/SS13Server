@@ -10,6 +10,7 @@ import model.characters.general.GameCharacter;
 import model.items.general.Chemicals;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
+import model.items.general.Tools;
 
 public class JanitorCharacter extends CrewCharacter {
 
@@ -33,6 +34,7 @@ public class JanitorCharacter extends CrewCharacter {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Chemicals());
 		list.add(new FireExtinguisher());
+        list.add(new Tools());
 		return list;
 	}
 	

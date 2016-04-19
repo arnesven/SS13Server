@@ -3,7 +3,7 @@ package model.items.weapons;
 
 import model.Actor;
 import model.GameData;
-import model.actions.general.HazardAction;
+import model.Hazard;
 import model.events.ambient.ElectricalFire;
 import util.MyRandom;
 
@@ -26,7 +26,7 @@ public class LaserPistol extends AmmoWeapon {
 
     @Override
     protected void checkOnlyMissHazard(final Actor performingClient, GameData gameData) {
-        gameData.executeAtEndOfRound(new HazardAction() {
+        new Hazard(gameData) {
             @Override
             public void doHazard(GameData gameData) {
                 if (MyRandom.nextDouble() < 0.05) {
@@ -35,7 +35,7 @@ public class LaserPistol extends AmmoWeapon {
                     System.out.println(performingClient.getBaseName() + " started a fire!");
                 }
             }
-        });
+        };
 
     }
 }

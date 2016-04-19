@@ -3,6 +3,7 @@ package model.characters.crew;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.items.suits.SunGlasses;
 import util.MyRandom;
 import model.GameData;
 import model.characters.general.GameCharacter;
@@ -21,6 +22,7 @@ public class TouristCharacter extends CrewCharacter {
 	public List<GameItem> getStartingItems() {
 		List<GameItem> l = new ArrayList<GameItem>();
 		l.add(new FancyClothes());
+        l.add(new SunGlasses());
 		return l;
 	}
 	

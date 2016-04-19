@@ -2,6 +2,7 @@ package model.npcs.behaviors;
 
 import model.Actor;
 import model.GameData;
+import model.events.NoSuchEventException;
 import model.events.ambient.ElectricalFire;
 import model.items.general.FireExtinguisher;
 import model.npcs.NPC;
@@ -18,14 +19,18 @@ public class PutOutFireBehavior implements ActionBehavior {
 
     @Override
     public void act(NPC npc, GameData gameData) {
+        try {
+            ElectricalFire fire = FireExtinguisher.getFire(npc.getPosition());
 
-        ElectricalFire fire = FireExtinguisher.getFire(npc.getPosition());
-
-        if (fire == null) {
+            if (fire == null) {
+                System.out.println("What, no fire?");
+                return;
+            }
+            fire.fix();
+        } catch (NoSuchEventException nse) {
             System.out.println("What, no fire?");
             return;
         }
-        fire.fix();
 
         for (Actor a : npc.getPosition().getActors()) {
             if (a != npc) {

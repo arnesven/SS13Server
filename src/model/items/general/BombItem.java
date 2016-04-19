@@ -1,25 +1,20 @@
 package model.items.general;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
-import model.actions.general.Action;
-import model.actions.general.HazardAction;
-import model.actions.general.SensoryLevel;
+import model.Hazard;
 import model.characters.general.GameCharacter;
 import model.characters.crew.*;
-import model.characters.general.NobodyCharacter;
 import model.events.ambient.ElectricalFire;
 import model.events.ambient.HullBreach;
 import model.events.damage.ExplosiveDamage;
 import model.items.NoSuchItemException;
 import model.map.Room;
 import model.events.Explosion;
-import model.npcs.HumanNPC;
 import util.MyRandom;
 
 public abstract class BombItem extends HidableItem {
@@ -109,7 +104,7 @@ public abstract class BombItem extends HidableItem {
 	}
 
     private void possiblyAddHazards(GameData gameData, final Room bombRoom) {
-        gameData.executeAtEndOfRound(new HazardAction() {
+        new Hazard(gameData) {
 
             @Override
             public void doHazard(GameData gameData) {
@@ -128,7 +123,7 @@ public abstract class BombItem extends HidableItem {
                 }
             }
 
-        });
+        };
     }
 
     @Override

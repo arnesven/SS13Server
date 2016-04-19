@@ -26,4 +26,9 @@ public abstract class Alcohol extends FoodItem {
 	protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
 		gameData.addEvent(new DrunkTimerEvent(eatenBy, potency, new DrunkChecker()));
 	}
+
+    @Override
+    protected char getIcon() {
+        return '7';
+    }
 }
