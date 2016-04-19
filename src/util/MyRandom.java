@@ -105,10 +105,18 @@ public class MyRandom {
         list.add(new Syringe());
 		list.add(new Flamer());
 		list.add(new Knife());
+        list.add(new Teleporter());
+        list.add(new Beer());
+        list.add(new Vodka());
+        list.add(new Wine());
+        list.add(new LarcenyGloves());
 		list.add(new LaserPistol());
 		list.add(new Revolver());
 		list.add(new Shotgun());
 		list.add(new StunBaton());
+        list.add(new SecurityRadio());
+        list.add(new PowerRadio());
+        list.add(new RobotParts());
 		
 		return list;
 	}
