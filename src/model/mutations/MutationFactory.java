@@ -26,6 +26,7 @@ public class MutationFactory {
 		mutes.add(new HorrorAppearance());
 		mutes.add(new ChimpAppearance());
         mutes.add(new ExtraHealthMutation());
+        mutes.add(new RadioActiveMutation());
 		
 		return mutes;
 	}

@@ -22,6 +22,7 @@ import model.items.weapons.Weapon;
 import model.map.Room;
 import model.npcs.HumanNPC;
 import model.objects.general.GameObject;
+import util.Logger;
 
 public class ChangelingCharacter extends GameCharacter {
 	
@@ -142,6 +143,7 @@ public class ChangelingCharacter extends GameCharacter {
 
 	public void addToSucked(Actor other) {
 		if (alreadySucked(other.getCharacter())) {
+            Logger.log(Logger.INTERESTING, "Already sucked that char!" + other.getCharacter().getBaseName());
 			return;
 		}
 		GameCharacter copy = other.getCharacter().clone();
@@ -171,7 +173,7 @@ public class ChangelingCharacter extends GameCharacter {
 
 	public void changeInto(GameCharacter target) {
 		for (GameCharacter gc : forms) {
-			if (gc.getClass() == target.getClass()) {
+			if (gc.getBaseName().equals(target.getBaseName())) {
 				transferClothes(gc);
 				this.current = gc;
 				if (isAlien()) {
@@ -235,6 +237,7 @@ public class ChangelingCharacter extends GameCharacter {
 	private void transferClothes(GameCharacter gc) {
 		List<SuitItem> suits = new ArrayList<>();
 		while (current.getSuit() != null) {
+            current.getSuit().beingTakenOff(getActor());
 			suits.add(0, current.getSuit());
 			current.removeSuit();
 		}

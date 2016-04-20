@@ -156,7 +156,7 @@ public abstract class GameStats {
 		"<tr><td> Fires put out: </td><td>"       + getFireString(gameData) + "</td></tr>" +
 		"<tr><td> Hull breaches fixed: </td><td>" + getHullString(gameData) + "</td></tr>" +	
 		"<tr><td> Station power output: </td><td>" + String.format("%.1f", GeneratorConsole.find(gameData).getPowerOutput()*100.0) +
-                "%  <a target='_blank' href='m.wolframalpha.com/input/?i=plot" + powerHistoryString() + "'>graph</a></td></tr>" +
+                "%  <a target='_blank' href='https://www.wolframalpha.com/input/?i=plot" + powerHistoryString() + "'>graph</a></td></tr>" +
 		"<tr><td> Cat survived: </td><td>"        + isCatDead(gameData) + "</td></tr>" +
 		"<tr><td> Parasites spawned: </td><td>"    + mode.getAllParasites().size() + "</td></tr>" +
 		"<tr><td> Parasites killed: </td><td>"     + countDead(mode.getAllParasites()) + "</td></tr>" +
@@ -175,6 +175,7 @@ public abstract class GameStats {
         for (Double d : GeneratorConsole.find(gameData).getHistory()) {
             res += String.format("+%.1f", d.doubleValue());
         }
+        System.out.println("Power history is: " + res);
         return res;
     }
 

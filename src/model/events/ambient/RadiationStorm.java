@@ -20,6 +20,7 @@ public class RadiationStorm extends Event {
 	private double damage;
 	private int side;
 
+
 	public double getProbability() {
 		return 0.03;
 	}

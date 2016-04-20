@@ -34,16 +34,12 @@ public class SS13ServerMain {
 			Logger.log("SS13 server \"" + name + "\" running on " + port  + "...");
 
 			do {
-				//System.out.println("Waiting for connection...");
 				Socket socket = listener.accept();
-				//System.out.println("someone connected...");
 
 				serviceHandler.serv(socket);
 
 				socket.close();
-
-				//gameData.printClients();
-			} while (true);
+    		} while (true);
 
 		} catch (Exception e) {
 			e.printStackTrace();
