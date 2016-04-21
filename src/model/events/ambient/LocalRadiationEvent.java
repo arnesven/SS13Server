@@ -2,7 +2,6 @@ package model.events.ambient;
 
 import model.Actor;
 import model.GameData;
-import model.actions.general.SensoryLevel;
 import model.events.damage.RadiationDamage;
 import model.map.Room;
 

@@ -26,6 +26,9 @@ public class HuntAction extends TargetingAction {
 		if (followEvent != null) {
 			followEvent.setShouldBeRemoved(true);
 		}
+        if (performingClient.getPosition() != target.getPosition()) {
+            performingClient.moveIntoRoom(target.getPosition());
+        }
 		followEvent = new FollowMovementEvent(performingClient.getPosition(), 
 				performingClient, target, false);
 		((Actor)target).addTolastTurnInfo(performingClient.getPublicName() + 

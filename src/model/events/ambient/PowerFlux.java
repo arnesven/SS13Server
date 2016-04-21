@@ -1,6 +1,7 @@
 package model.events.ambient;
 
 import model.events.Event;
+import model.items.NoSuchThingException;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -21,8 +22,14 @@ public class PowerFlux extends Event {
 	
 	@Override
 	public void apply(GameData gameData) {
-		GeneratorConsole gc = GeneratorConsole.find(gameData);
-		if (sustaining ) {
+        GeneratorConsole gc;
+        try {
+            gc = GeneratorConsole.find(gameData);
+        } catch (NoSuchThingException e) {
+            Logger.log("Cannot find generator, PowerFlux has no effect.");
+            return;
+        }
+        if (sustaining ) {
 			
 			gc.addToLevel(randomAmount(FLUX_SUSTAIN_FACTOR) * (increasing ?1.0:-1.0));
 			if (MyRandom.nextDouble() < 0.33 || gc.getPowerLevel() == 0.0) {

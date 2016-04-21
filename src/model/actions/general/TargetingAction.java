@@ -2,15 +2,16 @@ package model.actions.general;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import model.Actor;
 import model.Player;
 import model.GameData;
 import model.Target;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.npcs.NPC;
 import model.objects.general.GameObject;
+import util.Logger;
 
 public abstract class TargetingAction extends Action {
 
@@ -136,10 +137,20 @@ public abstract class TargetingAction extends Action {
 
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
-		this.target = findTarget(args.get(0));
-		if (args.size() > 1) {
-			this.item = findItem(args.get(1), performingClient);
-		}
+        try {
+            this.target = findTarget(args.get(0));
+        } catch (NoSuchThingException e) {
+            Logger.log(Logger.CRITICAL, "What, target wasn't there?");
+            return;
+        }
+        if (args.size() > 1) {
+            try {
+                this.item = findItem(args.get(1), performingClient);
+            } catch (NoSuchThingException e) {
+                Logger.log(Logger.CRITICAL, "What, item wasn't there?");
+                return;
+            }
+        }
 	}
 	
 	public List<Target> getTargets() {
@@ -150,17 +161,17 @@ public abstract class TargetingAction extends Action {
 		withWhats.add(it);
 	}
 
-	private GameItem findItem(String string, Actor whosAsking) {
+	private GameItem findItem(String string, Actor whosAsking) throws NoSuchThingException {
 		for (GameItem g : withWhats) {
 			if (g.getPublicName(whosAsking).equals(string)) {
 				return g;
 			}
 		}
 		
-		throw new NoSuchElementException("Did not find object for this targeting action.");
+		throw new NoSuchThingException("Did not find object for this targeting action.");
 	}
 
-	private Target findTarget(String name) {
+	private Target findTarget(String name) throws NoSuchThingException {
 		for (Target c : targets) {
 			if (c.getName().equals(name)) {
 				return c;
@@ -169,7 +180,7 @@ public abstract class TargetingAction extends Action {
 		if (name.equals("Yourself")) {
 			return performer.getAsTarget();
 		}
-		throw new NoSuchElementException("Did not find target client for this targeting action!");
+		throw new NoSuchThingException("Did not find target client for this targeting action!");
 	}
 
 	public int getNoOfTargets() {

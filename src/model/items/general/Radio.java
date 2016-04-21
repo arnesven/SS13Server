@@ -3,7 +3,10 @@ package model.items.general;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
+import model.items.NoSuchThingException;
+import model.objects.consoles.Console;
 import model.objects.consoles.CrimeRecordsConsole;
+import util.Logger;
 
 import java.util.ArrayList;
 
@@ -28,15 +31,24 @@ public abstract class Radio extends GameItem {
 
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, model.Player cl) {
-        CrimeRecordsConsole console = CrimeRecordsConsole.find(gameData);
-        if (console.isPowered(gameData) && !console.isBroken()) {
-            noConnect = false;
-            at.add(getSpecificAction(gameData));
+        Console console;
+        try {
+            console = getSpecificConsole(gameData);
+            if (console.isPowered(gameData) && !console.isBroken()) {
+                noConnect = false;
+                at.add(getSpecificAction(gameData));
 
-        } else {
+            } else {
+                noConnect = true;
+            }
+        } catch (NoSuchThingException e) {
             noConnect = true;
+            Logger.log(Logger.CRITICAL, "console not found on station, not adding radio.");
         }
+
     }
+
+    protected abstract Console getSpecificConsole(GameData gameData) throws NoSuchThingException;
 
     protected abstract Action getSpecificAction(GameData gameData);
 

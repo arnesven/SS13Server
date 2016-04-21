@@ -23,6 +23,7 @@ import model.actions.general.TargetingAction;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InfectedCharacter;
 import model.events.damage.Damager;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.weapons.Weapon;
@@ -231,8 +232,12 @@ public class Player extends Actor implements Target {
 		setNextMove(room.getID());
 		if (!isDead()) {
 			if (this.getPosition() != null) {
-				this.getPosition().removePlayer(this);
-			}
+                try {
+                    this.getPosition().removePlayer(this);
+                } catch (NoSuchThingException e) {
+                    Logger.log(Logger.CRITICAL, "Tried removing player from room, but it wasn't there!");
+                }
+            }
 			Logger.log("Moving player " + this.getCharacterRealName() +
 					" into room " + room.getName());
 			this.setPosition(room);
@@ -293,7 +298,7 @@ public class Player extends Actor implements Target {
 				}
 			}
 		}	
-		throw new NoSuchElementException("Could not find action for this action string " + actionString + ".");
+		throw new IllegalStateException("Could not find action for this action string " + actionString + ".");
 	}
 
 	/**

@@ -6,6 +6,7 @@ import model.Target;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InfectedCharacter;
 import model.events.damage.Damager;
+import model.items.NoSuchThingException;
 import model.items.general.MedKit;
 import model.items.weapons.Weapon;
 import model.map.Room;
@@ -13,6 +14,7 @@ import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.AttackIfPossibleBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.MovementBehavior;
+import util.Logger;
 
 /**
  * @author erini02
@@ -36,8 +38,12 @@ public abstract class NPC extends Actor implements Target {
 	
 	public void moveIntoRoom(Room r) {
 		if (getPosition() != null) {
-			getPosition().removeNPC(this);
-		}
+            try {
+                getPosition().removeNPC(this);
+            } catch (NoSuchThingException e) {
+                Logger.log(Logger.CRITICAL, "Tried removing NPC from room but it wasn't there!");
+            }
+        }
 		r.addNPC(this);
 		setPosition(r);
 	}

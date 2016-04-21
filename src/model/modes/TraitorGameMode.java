@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import model.items.NoSuchThingException;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -251,8 +252,8 @@ public class TraitorGameMode extends GameMode {
 			try {
 				Bible b = (Bible)GameItem.getItem(a, new Bible());
 				return b;
-			} catch (NoSuchElementException nse) {
-				// not found
+			} catch (NoSuchThingException nse) {
+				Logger.log(Logger.CRITICAL, "Bible not found!");
 			}
 			
 		}
@@ -269,10 +270,14 @@ public class TraitorGameMode extends GameMode {
 	}
 
 	public int pointsFromPower(GameData gameData) {
-		if (GeneratorConsole.find(gameData).getPowerOutput() > 0.99) {
-			return 200;
-		}
-		return 0;
+        try {
+            if (GeneratorConsole.find(gameData).getPowerOutput() > 0.99) {
+                return 200;
+            }
+        } catch (NoSuchThingException e) {
+            Logger.log(Logger.CRITICAL, "Generator console not found!");
+        }
+        return 0;
 	}
 
 	public int pointsFromBrokenObjects(GameData gameData) {

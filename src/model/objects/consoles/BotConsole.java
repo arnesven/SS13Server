@@ -3,10 +3,12 @@ package model.objects.consoles;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.items.NoSuchThingException;
 import model.map.Room;
 import model.npcs.behaviors.*;
 import model.objects.general.GameObject;
 import model.programs.BotProgram;
+import util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,9 +52,13 @@ public class BotConsole extends Console {
         bp.add(new BotProgram("Repair",
                 new GoTowardsBrokenMovement(gameData),
                 new RepairStuffBehavior(gameData)));
-        bp.add(new BotProgram("Security",
-                new FollowCriminalBehavior(gameData),
-                new ArrestCriminalBehavior(gameData)));
+        try {
+            bp.add(new BotProgram("Security",
+                    new FollowCriminalBehavior(gameData),
+                    new ArrestCriminalBehavior(gameData)));
+        } catch (NoSuchThingException e) {
+            Logger.log(Logger.CRITICAL, "No crime console on statin. Not adding security bot program.");
+        }
 
         return bp;
     }
@@ -62,12 +68,12 @@ public class BotConsole extends Console {
 
     }
 
-    public static BotConsole find(GameData gameData) {
+    public static BotConsole find(GameData gameData) throws NoSuchThingException {
         for (GameObject o : gameData.getObjects()) {
             if (o instanceof BotConsole) {
                 return (BotConsole) o;
             }
         }
-        throw new NoSuchElementException("Could not find a bot console on the station");
+        throw new NoSuchThingException("Could not find a bot console on the station");
     }
 }

@@ -3,6 +3,7 @@ package model.actions.objectactions;
 import java.util.Iterator;
 import java.util.List;
 
+import model.items.NoSuchThingException;
 import util.Logger;
 import util.Pair;
 import model.Actor;
@@ -33,11 +34,15 @@ public class PardonAction extends Action {
 		ActionOption opt = super.getOptions(gameData, whosAsking);
 		
 		for (Actor a : console.getReportedActors().keySet()) {
-			String entry = a.getBaseName();
-			
-			entry += " (" + console.getCrimeStringFor(a) + ")";
-			
-			opt.addOption(entry);
+
+            try {
+                String entry = a.getBaseName();
+                entry += " (" + console.getCrimeStringFor(a) + ")";
+                opt.addOption(entry);
+            } catch (NoSuchThingException e) {
+                Logger.log(Logger.CRITICAL, "What? Criminal did not have any criminal records?");
+            }
+
 		}
 		
 		return opt;

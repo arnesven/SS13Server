@@ -50,7 +50,7 @@ public class ServiceHandler {
 		
 	}
 
-	public void serv(Socket socket) throws IOException, ClassNotFoundException {
+	public void serv(Socket socket) throws IOException, ClassNotFoundException, UnknownMessageException {
 		ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 		
 		String message = (String)ois.readObject();
@@ -62,7 +62,7 @@ public class ServiceHandler {
 		}
 		
 		oos.writeObject("ERROR");
-		throw new RuntimeException("Unknown message" + message);
+		throw new UnknownMessageException("Unknown message" + message);
 	}
 
 

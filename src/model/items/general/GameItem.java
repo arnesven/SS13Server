@@ -9,6 +9,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;
+import model.items.NoSuchThingException;
 import model.map.Room;
 
 /**
@@ -190,13 +191,13 @@ public abstract class GameItem implements Locatable {
 		return false;
 	}
 
-	public static Locatable getItem(Actor victim, GameItem item) {
+	public static Locatable getItem(Actor victim, GameItem item) throws NoSuchThingException {
 		for (GameItem it : victim.getItems()) {
 			if (it.getClass() == item.getClass()) {
 				return it;
 			}
 		}
-		throw new NoSuchElementException("Did not find a " + item.getBaseName());
+		throw new NoSuchThingException("Did not find a " + item.getBaseName());
 	}
 	
 

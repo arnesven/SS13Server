@@ -15,6 +15,7 @@ import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.events.ambient.ElectricalFire;
 import model.events.Event;
 import model.events.ambient.HullBreach;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.npcs.NPC;
 import model.objects.general.ContainerObject;
@@ -150,9 +151,9 @@ public class Room {
 	 * @param client to be removed from this room.
 	 * @throws NoSuchElementException if the player is not in this room.
 	 */
-	public void removePlayer(Player client) {
+	public void removePlayer(Player client) throws NoSuchThingException {
 		if (! this.players.contains(client)) {
-			throw new NoSuchElementException("Tried to remove a player from a room who was not there!");
+			throw new NoSuchThingException("Tried to remove a player from a room who was not there!");
 		}
 		this.players.remove(client);
 	}
@@ -201,9 +202,9 @@ public class Room {
 	 * Removes an NPC from this room.
 	 * @param npc, the NPC to remove from this room.
 	 */
-	public void removeNPC(NPC npc) {
+	public void removeNPC(NPC npc) throws NoSuchThingException {
 		if (!npcs.contains(npc)) {
-			throw new NoSuchElementException("Tried removing NPC " + npc + " from the room, but it wasn't there!");
+			throw new NoSuchThingException("Tried removing NPC " + npc + " from the room, but it wasn't there!");
 		}
 		this.npcs.remove(npc);
 	}

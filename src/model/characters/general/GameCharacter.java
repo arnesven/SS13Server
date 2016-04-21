@@ -109,8 +109,9 @@ public abstract class GameCharacter {
 			}
 
         }
-        informAttackerOfAttack(success, performingClient, weapon, frag, critical);
-        informActorOfAttack(success, performingClient, weapon, frag, critical);
+        String critMess = weapon.getCriticalMessage();
+        informAttackerOfAttack(success, performingClient, weapon, frag, critical, critMess);
+        informActorOfAttack(success, performingClient, weapon, frag, critical, critMess);
         return success;
     }
 
@@ -123,7 +124,7 @@ public abstract class GameCharacter {
 
     private void internalAttackSuccess(Actor whom,
                                        Weapon weapon, boolean frag, boolean crit,
-                                       String first, String second) {
+                                       String first, String second, String critMess) {
         String verb = weapon.getSuccessfulMessage();
         if (frag) {
             verb = "kill";
@@ -138,9 +139,9 @@ public abstract class GameCharacter {
 
     }
 
-    private void informActorOfAttack(boolean success, Actor performingClient, Weapon weapon, boolean frag, boolean crit) {
+    private void informActorOfAttack(boolean success, Actor performingClient, Weapon weapon, boolean frag, boolean crit, String critMess) {
         if (success) {
-            internalAttackSuccess(getActor(), weapon, frag, crit, performingClient.getPublicName(), "you");
+            internalAttackSuccess(getActor(), weapon, frag, crit, performingClient.getPublicName(), "you", critMess);
         } else {
             getActor().addTolastTurnInfo(performingClient.getPublicName() + " tried to " +
                     weapon.getSuccessfulMessage() + " you with " +
@@ -148,9 +149,9 @@ public abstract class GameCharacter {
         }
     }
 
-    private void informAttackerOfAttack(boolean success, Actor performingClient, Weapon weapon, boolean frag, boolean crit) {
+    private void informAttackerOfAttack(boolean success, Actor performingClient, Weapon weapon, boolean frag, boolean crit, String critMess) {
         if (success) {
-            internalAttackSuccess(performingClient, weapon, frag, crit, "You", getActor().getPublicName());
+            internalAttackSuccess(performingClient, weapon, frag, crit, "You", getActor().getPublicName(), critMess);
         } else {
             performingClient.addTolastTurnInfo("Your attacked missed!");
         }

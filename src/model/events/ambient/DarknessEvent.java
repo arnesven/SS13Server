@@ -9,6 +9,7 @@ import model.characters.general.GameCharacter;
 import model.characters.decorators.DarknessShroudDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.events.Event;
+import model.items.NoSuchThingException;
 import model.map.Room;
 import model.objects.consoles.GeneratorConsole;
 
@@ -17,8 +18,12 @@ public class DarknessEvent extends Event {
 	private GeneratorConsole gc;
 
 	public DarknessEvent(GameData gameData) {
-		this.gc = GeneratorConsole.find(gameData);
-	}
+        try {
+            this.gc = GeneratorConsole.find(gameData);
+        } catch (NoSuchThingException e) {
+            throw new IllegalStateException("Should not get any darkness if there is no generator!");
+        }
+    }
 
 	@Override
 	public void apply(GameData gameData) {

@@ -12,6 +12,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.PowerConsoleAction;
+import model.items.NoSuchThingException;
 import model.map.Room;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
@@ -225,7 +226,7 @@ public class GeneratorConsole extends Console {
 		return noLight;
 	}
 	
-	public static GeneratorConsole find(GameData gameData) {
+	public static GeneratorConsole find(GameData gameData) throws NoSuchThingException {
 		GeneratorConsole gc = null;
 		for (GameObject o : gameData.getObjects()) {
 			if (gc != null) {
@@ -236,7 +237,7 @@ public class GeneratorConsole extends Console {
 			}
 		}
 		if (gc == null) {
-			throw new NoSuchElementException("Could not find a generator console on station!");
+			throw new NoSuchThingException("Could not find a generator console on station!");
 		}
 		return gc;
 	}

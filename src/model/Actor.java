@@ -148,7 +148,7 @@ public abstract class Actor  {
 			}
 			
 		} else {
-		throw new NoSuchInstanceException("Could not remove instance!");
+		    throw new NoSuchInstanceException("Could not remove instance!");
 		}
 	}
 	

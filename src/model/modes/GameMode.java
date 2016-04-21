@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import model.items.NoSuchThingException;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -372,10 +373,15 @@ public abstract class GameMode {
 		
 		NPC tars = new TARSNPC(TARSRoom);
 		gameData.addNPC(tars);
-		
-		NPC securitron = new SecuritronNPC(gameData.getRoom("Security Station"), gameData);
-		gameData.addNPC(securitron);
-		
+
+        NPC securitron = null;
+        try {
+            securitron = new SecuritronNPC(gameData.getRoom("Security Station"), gameData);
+            gameData.addNPC(securitron);
+        } catch (NoSuchThingException e) {
+            Logger.log("No crime console found, not adding securitron to station");
+        }
+
 	//	testShortestDistance(gameData);
 
 		int noOfNPCs = Math.min(MyRandom.nextInt(3) + 4, remainingChars.size());

@@ -12,7 +12,7 @@ import model.characters.crew.*;
 import model.events.ambient.ElectricalFire;
 import model.events.ambient.HullBreach;
 import model.events.damage.ExplosiveDamage;
-import model.items.NoSuchItemException;
+import model.items.NoSuchThingException;
 import model.map.Room;
 import model.events.Explosion;
 import util.Logger;
@@ -66,7 +66,7 @@ public abstract class BombItem extends HidableItem {
         Room bombRoom = null;
         try {
             bombRoom = gameData.findRoomForItem(this);
-        } catch (NoSuchItemException e) {
+        } catch (NoSuchThingException e) {
             Logger.log(Logger.INTERESTING,
                     "Bomb was not found in a room.");
            // bombRoom continues to be null;
@@ -76,7 +76,7 @@ public abstract class BombItem extends HidableItem {
 		if (bombRoom == null) {
             try {
                 currentCarrier = gameData.findActorForItem(this);
-            } catch (NoSuchItemException e) {
+            } catch (NoSuchThingException e) {
                 Logger.log(Logger.CRITICAL,
                         " COULD NOT FIND BOMB, WHERE DID IT GO?!");
                 return;

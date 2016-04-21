@@ -33,12 +33,12 @@ public class ActionGroup extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		throw new IllegalStateException("This action should never be executed!");
+		throw new UnsupportedOperationException("This action should never be executed!");
 	}
 
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
-		throw new IllegalStateException("This action should never be executed!");
+		throw new UnsupportedOperationException("This action should never be executed!");
 	}
 
 	public List<Action> getActions() {

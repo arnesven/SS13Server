@@ -6,6 +6,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.NoPowerAction;
+import model.items.NoSuchThingException;
 import model.map.Room;
 import model.objects.consoles.GeneratorConsole;
 import util.Logger;
@@ -57,8 +58,13 @@ public abstract class ElectricalMachinery extends BreakableObject
 	}
 
 	public static boolean isPowered(GameData gameData, ElectricalMachinery machine) {
-		return !(GeneratorConsole.find(gameData).getNoPowerObjects().contains(machine));
-	}
+        try {
+            return !(GeneratorConsole.find(gameData).getNoPowerObjects().contains(machine));
+        } catch (NoSuchThingException e) {
+            Logger.log(Logger.CRITICAL, "No power console found. Electrical machinery has power.");
+            return true;
+        }
+    }
 	
 	public boolean isPowered(GameData gameData) {
 		return isPowered(gameData, this);

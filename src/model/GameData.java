@@ -4,9 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Map.Entry;
 
-import model.characters.general.NobodyCharacter;
-import model.items.NoSuchItemException;
-import model.npcs.HumanNPC;
+import model.items.NoSuchThingException;
 import model.objects.general.ContainerObject;
 import util.Logger;
 import util.MyRandom;
@@ -163,8 +161,12 @@ public class GameData {
 		}
 		if (p.getCharacter() != null) {
 			if (p.getPosition() != null) {
-				p.getPosition().removePlayer(p);
-			}
+                try {
+                    p.getPosition().removePlayer(p);
+                } catch (NoSuchThingException e) {
+                    Logger.log(Logger.CRITICAL, "Tried to remove a person from room that wasn't there!");
+                }
+            }
 		}
 		players.remove(otherPlayer);
 	}
@@ -342,8 +344,12 @@ public class GameData {
 			NPC npc = it.next();
 			if (npc.shouldBeCleanedUp() && npc.isDead()) {
 				it.remove();
-				npc.getPosition().removeNPC(npc);
-			}
+                try {
+                    npc.getPosition().removeNPC(npc);
+                } catch (NoSuchThingException e) {
+                    Logger.log(Logger.CRITICAL, "Tried removing dead npc but it was not found in room.");
+                }
+            }
 		}
 	}
 
@@ -543,7 +549,7 @@ public class GameData {
 		events.add(event);
 	}
 
-	public Room findRoomForItem(GameItem searchedItem) throws NoSuchItemException {
+	public Room findRoomForItem(GameItem searchedItem) throws NoSuchThingException {
 		for (Room r : getAllRooms()) {
 			for (GameItem it : r.getItems()) {
 				if (it == searchedItem) {
@@ -559,7 +565,7 @@ public class GameData {
             }
 		}
 
-		throw new NoSuchItemException("Room for searched item " + searchedItem.getBaseName() + " not found");
+		throw new NoSuchThingException("Room for searched item " + searchedItem.getBaseName() + " not found");
 	}
 
 	/**
@@ -570,7 +576,7 @@ public class GameData {
 		return map.getRooms();
 	}
 
-	public Actor findActorForItem(GameItem searchedItem) throws NoSuchItemException {
+	public Actor findActorForItem(GameItem searchedItem) throws NoSuchThingException {
 		for (Actor a : getActors()) {
 			for (GameItem it : a.getItems()) {
 				if (searchedItem == it) {
@@ -578,7 +584,7 @@ public class GameData {
 				}
 			}
 		}
-        throw new NoSuchItemException("Could not find actor for searched item " + searchedItem.getBaseName());
+        throw new NoSuchThingException("Could not find actor for searched item " + searchedItem.getBaseName());
 	}
 
 	public GameMap getMap() {

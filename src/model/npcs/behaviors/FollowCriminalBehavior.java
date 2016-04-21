@@ -2,6 +2,7 @@ package model.npcs.behaviors;
 
 import model.Actor;
 import model.GameData;
+import model.items.NoSuchThingException;
 import model.map.Room;
 import model.npcs.NPC;
 import model.objects.consoles.CrimeRecordsConsole;
@@ -11,7 +12,7 @@ public class FollowCriminalBehavior implements MovementBehavior {
 
 	private CrimeRecordsConsole console;
 
-	public FollowCriminalBehavior(GameData gameData) {
+	public FollowCriminalBehavior(GameData gameData) throws NoSuchThingException {
 		console = CrimeRecordsConsole.find(gameData);
 		
 	}

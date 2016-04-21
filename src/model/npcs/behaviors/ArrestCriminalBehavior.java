@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
+import model.items.NoSuchThingException;
 import model.npcs.NPC;
 import model.objects.consoles.CrimeRecordsConsole;
 
@@ -12,7 +13,7 @@ public class ArrestCriminalBehavior implements ActionBehavior {
 
 	private CrimeRecordsConsole console;
 
-	public ArrestCriminalBehavior(GameData gameData) {
+	public ArrestCriminalBehavior(GameData gameData) throws NoSuchThingException {
 		this.console = CrimeRecordsConsole.find(gameData);
 	}
 
@@ -41,9 +42,13 @@ public class ArrestCriminalBehavior implements ActionBehavior {
 		}
 		
 		for (Actor a : npc.getPosition().getActors()) {
-			a.addTolastTurnInfo("SecuriTRON; \"" + worst.getBaseName() + 
-								" you are arrested for " + console.getCrimeStringFor(worst) + ".\"");
-			if (a != worst) {
+            try {
+                a.addTolastTurnInfo("SecuriTRON; \"" + worst.getBaseName() +
+                                    " you are arrested for " + console.getCrimeStringFor(worst) + ".\"");
+            } catch (NoSuchThingException e) {
+                throw new IllegalStateException("Can not arrest anybody if there is no crime console on the station");
+            }
+            if (a != worst) {
 				a.addTolastTurnInfo(worst.getPublicName() + " was telebrigged by SecuriTRON!");
 			}
 		}

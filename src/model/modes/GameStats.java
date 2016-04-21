@@ -10,10 +10,12 @@ import model.GameData;
 import model.Player;
 import model.events.ambient.Crazyness;
 import model.events.ambient.OngoingEvent;
+import model.items.NoSuchThingException;
 import model.npcs.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
 import model.objects.consoles.GeneratorConsole;
+import util.Logger;
 
 public abstract class GameStats {
 	
@@ -154,10 +156,15 @@ public abstract class GameStats {
 		String res = "<br/> <table>" +
 		"<tr><td><b>Miscellaneous Stats</b></td><td></td></tr>" +
 		"<tr><td> Fires put out: </td><td>"       + getFireString(gameData) + "</td></tr>" +
-		"<tr><td> Hull breaches fixed: </td><td>" + getHullString(gameData) + "</td></tr>" +	
-		"<tr><td> Station power output: </td><td>" + String.format("%.1f", GeneratorConsole.find(gameData).getPowerOutput()*100.0) +
-                "%  <a target='_blank' href='https://www.wolframalpha.com/input/?i=plot" + powerHistoryString() + "'>graph</a></td></tr>" +
-		"<tr><td> Cat survived: </td><td>"        + isCatDead(gameData) + "</td></tr>" +
+		"<tr><td> Hull breaches fixed: </td><td>" + getHullString(gameData) + "</td></tr>";
+        try {
+            res +=
+            "<tr><td> Station power output: </td><td>" + String.format("%.1f", GeneratorConsole.find(gameData).getPowerOutput()*100.0) +
+                    "%  <a target='_blank' href='https://m.wolframalpha.com/input/?i=plot" + powerHistoryString() + "'>graph</a></td></tr>";
+        } catch (NoSuchThingException e) {
+            Logger.log(Logger.CRITICAL, "What? no generator on station?");
+        }
+        res += "<tr><td> Cat survived: </td><td>"        + isCatDead(gameData) + "</td></tr>" +
 		"<tr><td> Parasites spawned: </td><td>"    + mode.getAllParasites().size() + "</td></tr>" +
 		"<tr><td> Parasites killed: </td><td>"     + countDead(mode.getAllParasites()) + "</td></tr>" +
 		"<tr><td> Parasite vanquisher: </td><td>"  + findVanquisher(mode.getAllParasites())+ "</td></tr>";
@@ -170,7 +177,7 @@ public abstract class GameStats {
 		return res;
 	}
 
-    private String powerHistoryString() {
+    private String powerHistoryString() throws NoSuchThingException {
         String res = "";
         for (Double d : GeneratorConsole.find(gameData).getHistory()) {
             res += String.format("+%.1f", d.doubleValue());

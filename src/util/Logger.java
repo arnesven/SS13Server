@@ -16,6 +16,9 @@ public class Logger {
     private static PrintStream out = System.out;
 
     public static void log(int level, String mess, boolean newline) {
+        if (level == CRITICAL) {
+            mess += "CRITICAL: ";
+        }
         if (level <= currentLevel) {
             if (newline) {
                 out.println(mess);

@@ -9,6 +9,7 @@ import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
 import model.events.Explosion;
+import model.items.NoSuchThingException;
 import model.map.Room;
 import model.objects.consoles.GeneratorConsole;
 import util.Logger;
@@ -24,8 +25,14 @@ public class SimulatePower extends Event {
 	@Override
 	public void apply(GameData gameData) {
 		addDarknessEvent(gameData);
-		GeneratorConsole gc = GeneratorConsole.find(gameData);
-		if (gc != null) {
+        GeneratorConsole gc;
+        try {
+            gc = GeneratorConsole.find(gameData);
+        } catch (NoSuchThingException e) {
+            Logger.log(Logger.CRITICAL, "No need to simulate power, no power console on station.");
+            return;
+        }
+        if (gc != null) {
 			gc.updateYourself(gameData);
 			handleLifeSupport(gameData, gc);
 			handleOvercharge(gameData, gc);

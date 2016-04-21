@@ -7,10 +7,12 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Syringe;
 import model.mutations.Mutation;
 import model.objects.consoles.GeneticsConsole;
+import util.Logger;
 
 public class FillWithKnownMutationAction extends ConsoleAction {
 
@@ -24,8 +26,16 @@ public class FillWithKnownMutationAction extends ConsoleAction {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		Syringe s = (Syringe) GameItem.getItem(performingClient, new Syringe());
-		if (s != null) {
+        Syringe s = null;
+        try {
+            s = (Syringe) GameItem.getItem(performingClient, new Syringe());
+        } catch (NoSuchThingException e) {
+            Logger.log(Logger.CRITICAL, "What, no syringe found?");
+            performingClient.addTolastTurnInfo("What, the syringe is missing! Your action failed.");
+            return;
+        }
+
+        if (s != null) {
 			performingClient.addTolastTurnInfo(GeneticsConsole.BLAST_STRING);
 			s.setBloodFrom(performingClient, gameData);
 			s.setMutation(selected);

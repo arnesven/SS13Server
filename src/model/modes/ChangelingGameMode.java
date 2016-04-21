@@ -3,6 +3,7 @@ package model.modes;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.events.Event;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -28,8 +29,10 @@ public class ChangelingGameMode extends GameMode {
     }
 
     @Override
-	protected void setUpOtherStuff(GameData gameData) { 
-		gameData.addEvent(new ChangelingSensesEvent(ling));
+	protected void setUpOtherStuff(GameData gameData) {
+        Event e = new ChangelingSensesEvent(ling);
+		gameData.addMovementEvent(e);
+        gameData.addEvent(e);
 		getEvents().remove("random husks");
 	}
 

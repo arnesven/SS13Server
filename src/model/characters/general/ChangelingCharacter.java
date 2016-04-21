@@ -7,12 +7,9 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
+import model.actions.characteractions.*;
 import model.actions.general.Action;
-import model.actions.characteractions.ChangeFormAction;
-import model.actions.characteractions.DevourCorpseAction;
-import model.actions.characteractions.HuntAction;
-import model.actions.characteractions.SuctionAndTransformAttackAction;
-import model.actions.characteractions.SuctionAttackAction;
+import model.actions.general.TargetingAction;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.NoSuchInstanceException;
 import model.items.general.GameItem;
@@ -30,8 +27,9 @@ public class ChangelingCharacter extends GameCharacter {
 	private GameCharacter current;
 	private Room startRoom;
 	private HorrorCharacter ultimate = new HorrorCharacter();
-	
-	public ChangelingCharacter(Room startRoom) {
+    private boolean acidSprayed = false;
+
+    public ChangelingCharacter(Room startRoom) {
 		super("Changeling", startRoom.getID(), 21.0);
 		this.startRoom = startRoom;
 		setMaxHealth(2.0);
@@ -97,10 +95,19 @@ public class ChangelingCharacter extends GameCharacter {
 		} else {
 			addHunt(gameData, at);
 		}
+        addSprayAcid(gameData, at);
 		getForm().addCharacterSpecificActions(gameData, at);
 	}
 
-	private void addHunt(GameData gameData, ArrayList<Action> at) {
+    private void addSprayAcid(GameData gameData, ArrayList<Action> at) {
+        if (getPosition().getActors().size() > 1 && !acidSprayed) {
+            Action acid = new SprayAcidAction(this);
+            at.add(acid);
+        }
+
+    }
+
+    private void addHunt(GameData gameData, ArrayList<Action> at) {
 		HuntAction ac = new HuntAction(getActor());
 		if (ac.getOptions(gameData, getActor()).numberOfSuboptions() > 0) {
 			at.add(ac);
@@ -267,8 +274,18 @@ public class ChangelingCharacter extends GameCharacter {
 		Actor actor = (Actor)target2;
 
         return (actor instanceof HumanNPC ||
-				actor.getCharacter() instanceof AnimalCharacter ||
-				actor.getCharacter() instanceof HumanCharacter);
+				actor.getCharacter().checkInstance(new InstanceChecker() {
+                    @Override
+                    public boolean checkInstanceOf(GameCharacter ch) {
+                        return ch instanceof AnimalCharacter;
+                    }
+                }) ||
+				actor.getCharacter().checkInstance(new InstanceChecker() {
+                    @Override
+                    public boolean checkInstanceOf(GameCharacter ch) {
+                        return ch instanceof HumanCharacter;
+                    }
+                }));
 	}
 
 	@Override
@@ -285,4 +302,8 @@ public class ChangelingCharacter extends GameCharacter {
 	public boolean isCrew() {
 		return false;
 	}
+
+    public void setAcidSprayed(boolean acidSprayed) {
+        this.acidSprayed = acidSprayed;
+    }
 }

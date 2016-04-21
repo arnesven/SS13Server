@@ -9,6 +9,7 @@ import model.Player;
 import model.Target;
 import model.actions.general.Action;
 import model.events.Event;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.map.GameMap;
 import model.map.Room;
@@ -45,7 +46,7 @@ public class RoomDecorator extends Room {
 		innerRoom.addPlayer(client);
 	}
 
-	public void removePlayer(Player client) {
+	public void removePlayer(Player client) throws NoSuchThingException {
 		innerRoom.removePlayer(client);
 	}
 
@@ -69,7 +70,7 @@ public class RoomDecorator extends Room {
 		innerRoom.addNPC(npc);
 	}
 
-	public void removeNPC(NPC npc) {
+	public void removeNPC(NPC npc) throws NoSuchThingException {
 		innerRoom.removeNPC(npc);
 	}
 

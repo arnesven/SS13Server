@@ -2,6 +2,7 @@ package model.modes;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.characters.general.ChangelingCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.HorrorCharacter;
@@ -18,7 +19,11 @@ class ChangelingModeStats extends GameStats {
 
 	@Override
 	protected String modeSpecificExtraInfo(Actor value) {
-		return "";
+		if (value instanceof Player &&
+                mode.isAntagonist((Player) value)) {
+            return " (Changeling)";
+        }
+        return "";
 	}
 
 

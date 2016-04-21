@@ -8,9 +8,11 @@ import model.actions.characteractions.JackInAction;
 import model.actions.characteractions.LaptopRemoteAccessAction;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Laptop;
 import model.items.general.Tools;
+import util.Logger;
 
 public class TechnicianCharacter extends CrewCharacter {
 
@@ -21,8 +23,14 @@ public class TechnicianCharacter extends CrewCharacter {
 	@Override
 	public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
 		if (GameItem.hasAnItem(this.getActor(), new Laptop())) {
-			Laptop pc = (Laptop)GameItem.getItem(this.getActor(), new Laptop());
-			if (pc.isJackedIn() && pc.getJackRoom() != this.getPosition()) {
+            Laptop pc = null;
+            try {
+                pc = (Laptop) GameItem.getItem(this.getActor(), new Laptop());
+            } catch (NoSuchThingException e) {
+                Logger.log(Logger.CRITICAL, "No Laptop found. Abandoning Technicians special action.");
+                return;
+            }
+            if (pc.isJackedIn() && pc.getJackRoom() != this.getPosition()) {
 				pc.setNotJackedIn();
 			}
 			

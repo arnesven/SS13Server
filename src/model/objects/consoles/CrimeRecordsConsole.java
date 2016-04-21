@@ -12,6 +12,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.CrimeRecordsAction;
 import model.events.SentenceCountdownEvent;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.suits.PrisonerSuit;
 import model.map.Room;
@@ -53,7 +54,7 @@ public class CrimeRecordsConsole extends Console {
 		return reportMap;
 	}
 
-	public static CrimeRecordsConsole find(GameData gameData) {
+	public static CrimeRecordsConsole find(GameData gameData) throws NoSuchThingException {
 		for (Room r : gameData.getRooms()) {
 			for (GameObject o : r.getObjects()) {
 				if (o instanceof CrimeRecordsConsole) {
@@ -62,7 +63,7 @@ public class CrimeRecordsConsole extends Console {
 			}
 		}
 		
-		throw new NoSuchElementException("Could not find CrimeRecordsConsole!");
+		throw new NoSuchThingException("Could not find CrimeRecordsConsole!");
 	}
 
 	public Actor getMostWanted() {
@@ -92,9 +93,9 @@ public class CrimeRecordsConsole extends Console {
 		return sumSent;
 	}
 
-	public String getCrimeStringFor(Actor a) {
+	public String getCrimeStringFor(Actor a) throws NoSuchThingException {
 		if (getReportedActors().get(a) == null) {
-			throw new NoSuchElementException("No crimes for actor " + a.getBaseName());
+			throw new NoSuchThingException("No crimes for actor " + a.getBaseName());
 		}
 		String entry = "";
 		boolean commasNeeded = false;
@@ -123,8 +124,8 @@ public class CrimeRecordsConsole extends Console {
 				Logger.log("Suit was removed from prisoner so prison clothes could be put over");
 			}
 			worst.putOnSuit(new PrisonerSuit(noOfSentenced++));
-		} catch (NoSuchElementException nse) {
-			
+		} catch (NoSuchThingException nse) {
+			Logger.log(Logger.CRITICAL, "No evidence box found on station. Prisoner keeps items.");
 		}
 		
 		int duration = sumCrimesFor(worst);
@@ -149,8 +150,8 @@ public class CrimeRecordsConsole extends Console {
 			if (inmate.getCharacter().getSuit() instanceof PrisonerSuit) {
 				inmate.takeOffSuit();
 			}
-		} catch (NoSuchElementException nse) {
-			
+		} catch (NoSuchThingException nse) {
+			Logger.log(Logger.CRITICAL, "No evindencebox found on station, nothing to retrieve.");
 		}
 		
 		inmate.addTolastTurnInfo("You were released from the brig.");

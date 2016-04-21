@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.map.Room;
@@ -58,13 +59,13 @@ public class EvidenceBox extends ContainerObject {
 		return itemsToReturn;
 	}
 	
-	public static EvidenceBox find(GameData gameData) {
+	public static EvidenceBox find(GameData gameData) throws NoSuchThingException {
 		for (GameObject o : gameData.getObjects()) {
 			if (o instanceof EvidenceBox) {
 				return (EvidenceBox) o;
 			}
 		}
-		throw new NoSuchElementException("Did not find EvidenceBox on station!");
+		throw new NoSuchThingException("Did not find EvidenceBox on station!");
 	}
 
 	

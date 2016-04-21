@@ -3,6 +3,8 @@ package model.items.general;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.objectactions.ReportCrimeAction;
+import model.items.NoSuchThingException;
+import model.objects.consoles.Console;
 import model.objects.consoles.CrimeRecordsConsole;
 
 public class SecurityRadio extends Radio {
@@ -19,7 +21,16 @@ public class SecurityRadio extends Radio {
 	}
 
     @Override
+    protected Console getSpecificConsole(GameData gameData) throws NoSuchThingException {
+        return CrimeRecordsConsole.find(gameData);
+    }
+
+    @Override
     protected Action getSpecificAction(GameData gameData) {
-        return new ReportCrimeAction(CrimeRecordsConsole.find(gameData));
+        try {
+            return new ReportCrimeAction(CrimeRecordsConsole.find(gameData));
+        } catch (NoSuchThingException e) {
+            throw new IllegalStateException("Cannot get specific action for security radio, no crime console found.");
+        }
     }
 }
