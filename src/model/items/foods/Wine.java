@@ -1,5 +1,8 @@
 package model.items.foods;
 
+import graphics.Sprite;
+import model.Actor;
+
 public class Wine extends Alcohol {
 
 	public Wine() {
@@ -10,5 +13,9 @@ public class Wine extends Alcohol {
 	public FoodItem clone() {
 		return new Wine();
 	}
-	
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("wine", "drinks.png", 7, 10);
+    }
 }

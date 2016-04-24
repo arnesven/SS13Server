@@ -17,7 +17,7 @@ public class Logger {
 
     public static void log(int level, String mess, boolean newline) {
         if (level == CRITICAL) {
-            mess += "CRITICAL: ";
+            mess = "CRITICAL: " + mess;
         }
         if (level <= currentLevel) {
             if (newline) {

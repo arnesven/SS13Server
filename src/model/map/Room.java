@@ -116,11 +116,7 @@ public class Room {
 		actors.addAll(npcs);
 		Collections.shuffle(actors);
 		for (Actor a : actors) {
-			if (whosAsking != a) {
-				a.addYourselfToRoomInfo(info, whosAsking);
-			} else {
-				info.add(a.getCharacter().getIcon(whosAsking) + "You");
-			}
+            a.addYourselfToRoomInfo(info, whosAsking);
 		}
 		
 		for (GameObject ob : objects) {

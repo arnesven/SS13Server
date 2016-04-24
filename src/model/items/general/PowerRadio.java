@@ -32,13 +32,6 @@ public class PowerRadio extends Radio {
     }
 
     @Override
-    protected char getIcon() {
-        return 'd';
-    }
-
-
-
-    @Override
     public GameItem clone() {
         return new PowerRadio();
     }

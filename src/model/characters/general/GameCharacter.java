@@ -3,6 +3,7 @@ package model.characters.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -43,10 +44,10 @@ public abstract class GameCharacter {
 	private Actor killer;
 	private String killString;
 	private String gender = MyRandom.randomGender();
+    private Sprite sprite = new Sprite("character", "character.png", 0);
 
 
-	
-	public GameCharacter(String name, int startRoom, double speed) {
+    public GameCharacter(String name, int startRoom, double speed) {
 		this.name = name;
 		this.startingRoom = startRoom;
 		this.speed = speed;
@@ -388,16 +389,16 @@ public abstract class GameCharacter {
 	 * @param whosAsking the actor calling this method
 	 * @return the character representing the icon
 	 */
-	public char getIcon(Player whosAsking) {
-		if (suit == null) {
-			if (this.getGender().equals("man")) {
-				return '%';
-			} else {
-				return '8';
-			}
-		}
-		return 'a';
-	}
+//	public char getIcon(Player whosAsking) {
+//		if (suit == null) {
+//			if (this.getGender().equals("man")) {
+//				return '%';
+//			} else {
+//				return '8';
+//			}
+//		}
+//		return 'a';
+//	}
 
 	public String getWatchString(Actor whosAsking) {
 		String healthStr = "healthy";
@@ -444,5 +445,20 @@ public abstract class GameCharacter {
 
     public boolean getsAttackOfOpportunity(Weapon w) {
         return w.givesAttackOfOpportunity();
+    }
+
+    public Sprite getSprite(Actor whosAsking) {
+        if (suit == null) {
+			if (this.getGender().equals("man")) {
+				return new Sprite("nakedman", "naked.png", 0);
+			} else {
+                return new Sprite("nakedwoman", "naked.png", 2);
+			}
+		}
+        return sprite;
+    }
+
+    public char getIcon(Player whosAsking) {
+        return 'c';
     }
 }

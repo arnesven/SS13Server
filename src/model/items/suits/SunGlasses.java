@@ -1,5 +1,6 @@
 package model.items.suits;
 
+import graphics.Sprite;
 import model.Actor;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.CoolDecorator;
@@ -15,13 +16,13 @@ public class SunGlasses extends SuitItem {
 	public SunGlasses clone() {
 		return new SunGlasses();
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'Z';
-	}
 
-	@Override
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("sunglasses", "glasses.png", 1);
+    }
+
+    @Override
 	public void beingPutOn(Actor actionPerformer) {
 		actionPerformer.setCharacter(new CoolDecorator(actionPerformer.getCharacter(), this));
 		for (Actor a : actionPerformer.getPosition().getActors()) {

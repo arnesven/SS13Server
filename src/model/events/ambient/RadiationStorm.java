@@ -1,5 +1,6 @@
 package model.events.ambient;
 
+import graphics.Sprite;
 import model.events.Event;
 import model.events.damage.RadiationDamage;
 import util.MyRandom;
@@ -25,7 +26,12 @@ public class RadiationStorm extends Event {
 		return 0.03;
 	}
 
-	@Override
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("radiationstorm", "decals.png", 1, 2);
+    }
+
+    @Override
 	public void apply(GameData gameData) {
 		if (roundsLeft > 0) {
 			maintainStorm(gameData);

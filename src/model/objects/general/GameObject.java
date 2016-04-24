@@ -1,7 +1,9 @@
 package model.objects.general;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -11,8 +13,9 @@ import model.map.Room;
 public class GameObject {
 	private String name;
 	private Room position;
-	
-	public GameObject(String name, Room position) {
+    private Sprite sprite = new Sprite("gameobject", "computer.png", 0);
+
+    public GameObject(String name, Room position) {
 		this.name = name;
 		this.position = position;
 	}
@@ -31,13 +34,17 @@ public class GameObject {
 	
 
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
-		info.add(getIcon(whosAsking) + this.getPublicName(whosAsking));
+		info.add(getSprite(whosAsking).getName() + "<img>" + this.getPublicName(whosAsking));
 	}
 
-	
-	protected char getIcon(Player whosAsking) {
-		return 'o';
-	}
+    public Sprite getSprite(Player whosAsking) {
+        return sprite;
+    }
+
+
+//    protected char getIcon(Player whosAsking) {
+//		return 'o';
+//	}
 
 	public void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
 	}

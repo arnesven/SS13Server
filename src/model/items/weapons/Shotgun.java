@@ -1,6 +1,9 @@
 package model.items.weapons;
 
 
+import graphics.Sprite;
+import model.Actor;
+
 public class Shotgun extends AmmoWeapon {
 
 	public Shotgun() {
@@ -11,10 +14,9 @@ public class Shotgun extends AmmoWeapon {
 	public Shotgun clone() {
 		return new Shotgun();
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'g';
-	}
 
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("shotgun", "gun.png", 7);
+    }
 }

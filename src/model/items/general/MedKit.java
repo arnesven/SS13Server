@@ -2,6 +2,8 @@ package model.items.general;
 
 import java.util.ArrayList;
 
+import graphics.Sprite;
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -28,10 +30,9 @@ public class MedKit extends GameItem {
 	public MedKit clone() {
 		return new MedKit();
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'M';
-	}
 
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("medkit", "storage.png", 4);
+    }
 }

@@ -1,5 +1,6 @@
 package model.characters.decorators;
 
+import graphics.Sprite;
 import model.Actor;
 import model.Player;
 import model.characters.general.GameCharacter;
@@ -10,12 +11,12 @@ public class HuskDecorator extends CharacterDecorator {
 		super(chara, "Husk");
 	}
 
-	@Override
-	public char getIcon(Player whosAsking) {
-		return 'h';
-	}
-	
-	@Override
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("husk", "human.png", 137);
+    }
+
+    @Override
 	public String getPublicName() {
 		return "Husk";
 	}

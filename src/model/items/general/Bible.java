@@ -2,6 +2,8 @@ package model.items.general;
 
 import java.util.ArrayList;
 
+import graphics.Sprite;
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -41,13 +43,13 @@ public class Bible extends GameItem {
 		};
 		return character.checkInstance(check);
 	}
-	
-	@Override
-	protected char getIcon() {
-		return '+';
-	}
 
-	public void addGodPoints(int i) {
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("bible", "bible.png", 0);
+    }
+
+    public void addGodPoints(int i) {
 		this.godPoints  += i;
 	}
 

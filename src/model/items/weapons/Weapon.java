@@ -1,5 +1,6 @@
 package model.items.weapons;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Target;
@@ -39,13 +40,13 @@ public class Weapon extends GameItem {
 				  boolean bang, double weight) {
         this(string, hitChance, damage, bang, weight, false);
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'w';
-	}
 
-	public boolean isAttackSuccessful(boolean reduced) {
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("weapon", "gun.png", 0);
+    }
+
+    public boolean isAttackSuccessful(boolean reduced) {
         lastRoll = MyRandom.nextDouble();
         if (reduced) {
        		return lastRoll < getHitChance()*0.5;

@@ -3,7 +3,9 @@ package model.items.general;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.logging.Logger;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -24,8 +26,9 @@ public abstract class GameItem implements Locatable {
 	private double weight;
 	private Room position;
 	private GameCharacter holder = null;
-	
-	public GameItem(String string, double weight) {
+    private Sprite sprite = new Sprite("keycard", "card.png", 1);
+
+    public GameItem(String string, double weight) {
 		this.name = string;
 		this.weight = weight;
 	}
@@ -67,12 +70,12 @@ public abstract class GameItem implements Locatable {
 		return super.toString();
 	}
 
-	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
-		info.add(getIcon() + getPublicName(whosAsking));
-	}
+    public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
+        info.add(getSprite(whosAsking).getName() + "<img>" + getPublicName(whosAsking));
+    }
 
 	public String howDoYouAppearInGUI(Player whosAsking) {
-		return getIcon() + getFullName(whosAsking);
+		return getSprite(whosAsking).getName() + "<img>" + getFullName(whosAsking);
 	}
 
 
@@ -135,9 +138,9 @@ public abstract class GameItem implements Locatable {
 	 * Z - sunglasses.png
 	 * @return the character representing what icon should be displayed to the user.
 	 */
-	protected char getIcon() {
-		return 'i';
-	}
+//	protected char getIcon() {
+//		return 'i';
+//	}
 
 	/**
 	 * Adds the items actions to the players list of actions.
@@ -199,6 +202,10 @@ public abstract class GameItem implements Locatable {
 		}
 		throw new NoSuchThingException("Did not find a " + item.getBaseName());
 	}
-	
 
+
+    // TODO: make abstract..?
+    public Sprite getSprite(Actor whosAsking) {
+        return sprite;
+    }
 }

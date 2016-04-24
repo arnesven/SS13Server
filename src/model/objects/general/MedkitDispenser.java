@@ -1,5 +1,6 @@
 package model.objects.general;
 
+import graphics.Sprite;
 import model.Player;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
@@ -15,10 +16,9 @@ public class MedkitDispenser extends DispenserObject {
 		this.addItem(new MedKit());
 		this.addItem(new Syringe());
 	}
-	
-	@Override
-	protected char getIcon(Player whosAsking) {
-		return 'm';
-	}
 
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("medkitdispenser", "closet.png", 30);
+    }
 }

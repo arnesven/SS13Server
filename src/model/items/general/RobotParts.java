@@ -1,5 +1,7 @@
 package model.items.general;
 
+import graphics.Sprite;
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -21,8 +23,8 @@ public class RobotParts extends GameItem {
     }
 
     @Override
-    protected char getIcon() {
-        return 'T';
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("robotparts", "robots.png", 61);
     }
 
     @Override

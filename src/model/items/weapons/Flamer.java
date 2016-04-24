@@ -4,6 +4,7 @@ package model.items.weapons;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -27,13 +28,13 @@ public class Flamer extends Weapon {
 	public Flamer() {
 		super("Flamer", 0.75, 0.5, false, 1.5);
 	}
-	
-	@Override
-	protected char getIcon() {
-		return '{';
-	}
-	
-	@Override
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("flamer", "weapons.png", 14);
+    }
+
+    @Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
 
         List<Chemicals> chem = getChemicalsFromClient(cl);

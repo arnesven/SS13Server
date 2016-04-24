@@ -1,5 +1,6 @@
 package model.items.general;
 
+import graphics.Sprite;
 import model.Actor;
 
 public class Chemicals extends GameItem {
@@ -27,10 +28,9 @@ public class Chemicals extends GameItem {
 		}
 		return false;
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'C';
-	}
 
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("chemicals", "chemical.png", 25);
+    }
 }

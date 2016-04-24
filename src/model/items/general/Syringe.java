@@ -2,6 +2,7 @@ package model.items.general;
 
 import java.util.ArrayList;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -33,11 +34,11 @@ public class Syringe extends GameItem {
     }
 
     @Override
-	protected char getIcon() {
-		return 'G';
-	}
-	
-	public Mutation getMutation() {
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("syringe", "items.png", 55);
+    }
+
+    public Mutation getMutation() {
 		if (!filled) {
 			throw new IllegalStateException("Tried to get mutation but syringe is not filled!");
 		}

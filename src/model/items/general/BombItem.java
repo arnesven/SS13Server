@@ -2,6 +2,7 @@ package model.items.general;
 
 import java.util.ArrayList;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -133,9 +134,7 @@ public abstract class BombItem extends HidableItem {
     }
 
     @Override
-	protected char getIcon() {
-		return 'N';
-	}
-	
-	
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("bombitem", "assemblies.png", 43);
+    }
 }

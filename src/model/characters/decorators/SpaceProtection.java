@@ -1,5 +1,6 @@
 package model.characters.decorators;
 
+import graphics.Sprite;
 import model.Actor;
 import model.Player;
 import model.events.damage.AsphyxiationDamage;
@@ -21,13 +22,8 @@ public class SpaceProtection extends CharacterDecorator {
 		}
 		return res;
 	}
-	
-	@Override
-	public char getIcon(Player whosAsking) {
-		return 'S';
-	}
-	
-	@Override
+
+    @Override
 	public void beExposedTo(Actor something, Damager damager) {
 		if (damager instanceof AsphyxiationDamage ||
 				damager instanceof ColdDamage) {

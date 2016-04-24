@@ -1,5 +1,6 @@
 package model.items.general;
 
+import graphics.Sprite;
 import model.Actor;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
@@ -45,10 +46,9 @@ public class LarcenyGloves extends SuitItem {
 	public boolean permitsOver() {
 		return true;
 	}
-	
-	@Override
-	protected char getIcon() {
-		return '2';
-	}
 
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("larcenygloves", "gloves.png", 0);
+    }
 }

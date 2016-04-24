@@ -1,5 +1,6 @@
 package model.events.ambient;
 
+import graphics.Sprite;
 import model.events.damage.FireDamage;
 import util.Logger;
 import util.MyRandom;
@@ -55,17 +56,16 @@ public class ElectricalFire extends OngoingEvent {
 	}
 
 
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("electricalfire", "decals.png", 0, 2, 32, 32);
+    }
 
-
-	@Override
+    @Override
 	protected boolean hasThisEvent(Room randomRoom) {
 		return randomRoom.hasFire();
 	}
 
-	@Override
-	public String addYourselfToRoomInfo(Player whosAsking) {
-		return "f" + howYouAppear(whosAsking);
-	}
 
 	@Override
 	public String getDistantDescription() {

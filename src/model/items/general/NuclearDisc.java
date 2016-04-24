@@ -1,5 +1,8 @@
 package model.items.general;
 
+import graphics.Sprite;
+import model.Actor;
+
 public class NuclearDisc extends GameItem {
 
 	public NuclearDisc() {
@@ -10,10 +13,11 @@ public class NuclearDisc extends GameItem {
 	public NuclearDisc clone() {
 		return new NuclearDisc();
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'n';
-	}
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("nucleardisc","cloning.png", 9);
+    }
+
 
 }

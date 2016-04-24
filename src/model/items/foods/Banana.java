@@ -1,5 +1,6 @@
 package model.items.foods;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.events.BananaPeelEvent;
@@ -15,12 +16,13 @@ public class Banana extends HealingFood {
 		return 0.0;
 	}
 
-	@Override
-	protected char getIcon() {
-		return 'b';
-	}
-	
-	@Override
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("banana", "items.png", 62);
+    }
+
+    @Override
 	public Banana clone() {
 		return new Banana();
 	}

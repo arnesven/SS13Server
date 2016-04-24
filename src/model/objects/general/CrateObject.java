@@ -1,5 +1,6 @@
 package model.objects.general;
 
+import graphics.Sprite;
 import model.Player;
 import model.items.general.GameItem;
 import model.map.Room;
@@ -15,8 +16,8 @@ public class CrateObject extends ContainerObject {
 		}
 	}
 
-	@Override
-	protected char getIcon(Player whosAsking) {
-		return '#';
-	}
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("crate", "storage.png", 39);
+    }
 }

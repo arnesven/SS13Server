@@ -130,8 +130,12 @@ public abstract class Actor  {
 	 * @param whosAsking 
 	 */
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
-		info.add(getCharacter().getIcon(whosAsking) + whosAsking.getCharacter().getHowPerceived(this));
-	}
+		if ( whosAsking == this) {
+            info.add(getCharacter().getSprite(whosAsking).getName() + "<img>" + "You");
+        } else {
+            info.add(getCharacter().getSprite(whosAsking).getName() + "<img>" + whosAsking.getCharacter().getHowPerceived(this));
+        }
+    }
 	
 	
 	public boolean isDead() {

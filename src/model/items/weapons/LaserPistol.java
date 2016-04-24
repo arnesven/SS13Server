@@ -1,6 +1,7 @@
 package model.items.weapons;
 
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Hazard;
@@ -19,11 +20,11 @@ public class LaserPistol extends AmmoWeapon {
 	public LaserPistol clone() {
 		return new LaserPistol();
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'L';
-	}
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("laserpistol", "gun.png", 8);
+    }
 
     @Override
     protected void checkOnlyMissHazard(final Actor performingClient, GameData gameData) {

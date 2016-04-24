@@ -1,5 +1,6 @@
 package model.items.general;
 
+import graphics.Sprite;
 import model.Actor;
 
 public class Locator extends GameItem {
@@ -29,9 +30,9 @@ public class Locator extends GameItem {
 		this.target = locatable;
 	}
 	
-	@Override
-	protected char getIcon() {
-		return 'd';
-	}
 
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("locator", "device.png", 68);
+    }
 }

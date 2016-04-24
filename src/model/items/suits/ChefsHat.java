@@ -1,5 +1,6 @@
 package model.items.suits;
 
+import graphics.Sprite;
 import model.Actor;
 import model.items.suits.SuitItem;
 
@@ -8,13 +9,14 @@ public class ChefsHat extends SuitItem {
 	public ChefsHat() {
 		super("Chef's Hat", 0.2);
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'z';
-	}
 
-	@Override
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("chefshat", "hats.png", 14);
+    }
+
+    @Override
 	public void beingPutOn(Actor actionPerformer) {
 		// TODO Auto-generated method stub
 

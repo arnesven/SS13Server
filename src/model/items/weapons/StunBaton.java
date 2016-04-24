@@ -1,6 +1,7 @@
 package model.items.weapons;
 
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -22,12 +23,11 @@ public class StunBaton extends AmmoWeapon {
 	public StunBaton clone() {
 		return new StunBaton();
 	}
-	
-	
-	@Override
-	protected char getIcon() {
-		return '!';
-	}
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("stunbaton", "weapons.png", 4);
+    }
 
     @Override
     public boolean wasCriticalHit() {

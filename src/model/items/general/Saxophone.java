@@ -3,6 +3,7 @@ package model.items.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -17,12 +18,12 @@ public class Saxophone extends BluntWeapon {
 		super("Saxophone", 1.5);
 	}
 
-	@Override
-	protected char getIcon() {
-		return 'X';
-	}
-	
-	@Override
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("saxophone", "saxophone.png", 0);
+    }
+
+    @Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
 			Player cl) {
 		super.addYourActions(gameData, at, cl);

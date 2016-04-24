@@ -2,6 +2,8 @@ package model.items.general;
 
 import java.util.ArrayList;
 
+import graphics.Sprite;
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
@@ -24,14 +26,14 @@ public class Tools extends BluntWeapon {
 	public Tools clone() {
 		return new Tools();
 	}
-	
-	
-	@Override
-	protected char getIcon() {
-		return 'i';
-	}
-	
-	@Override
+
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("tools", "storage.png", 15);
+    }
+
+    @Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
 		if (hasBrokenObjects(cl.getPosition())) {
 			at.add(new RepairAction(cl));

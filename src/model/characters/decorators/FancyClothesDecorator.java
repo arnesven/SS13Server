@@ -7,7 +7,5 @@ public class FancyClothesDecorator extends NameAddDecorator {
 	public FancyClothesDecorator(GameCharacter chara) {
 		super(chara, "Fancy");
 	}
-	
-	
 
 }

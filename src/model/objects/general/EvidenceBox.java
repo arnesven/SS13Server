@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -21,13 +22,13 @@ public class EvidenceBox extends ContainerObject {
 	public EvidenceBox(Room position) {
 		super("Evidence Box", position);
 	}
-	
-	@Override
-	protected char getIcon(Player whosAsking) {
-		return '#';
-	}
-	
-	public void addAffects(Actor owner, List<GameItem> affs) {
+
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("evidencebox", "storage.png", 42);
+    }
+
+    public void addAffects(Actor owner, List<GameItem> affs) {
 		for (GameItem it : affs) {
 			affects.put(it, owner);
 		}

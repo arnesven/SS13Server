@@ -3,6 +3,8 @@ package model.characters.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
+import model.Actor;
 import model.Player;
 import model.items.general.GameItem;
 import model.items.weapons.BluntWeapon;
@@ -22,9 +24,9 @@ public class RobotCharacter extends GameCharacter {
     }
 
     @Override
-	public char getIcon(Player whosAsking) {
-		return 'T';
-	}
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("robot", "robots.png", 51);
+    }
 
     @Override
     public GameCharacter clone() {

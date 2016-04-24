@@ -1,5 +1,8 @@
 package model.items.foods;
 
+import graphics.Sprite;
+import model.Actor;
+
 public class ApplePie extends HealingFood {
 
 	public ApplePie() {
@@ -11,14 +14,12 @@ public class ApplePie extends HealingFood {
 		return 0.1;
 	}
 
-	@Override
-	protected char getIcon() {
-		return '[';
-	}
-	
-	
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("applepie", "food.png", 0);
+    }
 
-	@Override
+    @Override
 	public ApplePie clone() {
 		return new ApplePie();
 	}

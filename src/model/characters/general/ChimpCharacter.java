@@ -3,6 +3,8 @@ package model.characters.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -39,13 +41,13 @@ public class ChimpCharacter extends AnimalCharacter {
 		super.addCharacterSpecificActions(gameData, at);
 		at.add(new SpeechAction("Oooh oooh  ah!"));
 	}
-	
-	@Override
-	public char getIcon(Player whosAsking) {
-		return ']';
-	}
 
-	private static Weapon feces = new Weapon("Feces", 1.0, 0.0, false, 0.0);
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("chimp", "monkey.png", 0);
+    }
+
+    private static Weapon feces = new Weapon("Feces", 1.0, 0.0, false, 0.0);
 	
 	@Override
 	public Weapon getDefaultWeapon() {

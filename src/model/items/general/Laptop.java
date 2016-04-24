@@ -3,6 +3,7 @@ package model.items.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -41,13 +42,13 @@ public class Laptop extends GameItem {
 			protected void execute(GameData gameData, Actor performingClient) {}
 		});
 	}
-	
-	@Override
-	protected char getIcon() {
-		return '@';
-	}
-	
-	@Override
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("laptop", "computer2.png", 0, 18, 32, 32);
+    }
+
+    @Override
 	public Laptop clone() {
 		return new Laptop();
 	}

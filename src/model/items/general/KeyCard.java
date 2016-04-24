@@ -1,5 +1,8 @@
 package model.items.general;
 
+import graphics.Sprite;
+import model.Actor;
+
 public class KeyCard extends GameItem {
 
 
@@ -13,8 +16,9 @@ public class KeyCard extends GameItem {
 		return new KeyCard();
 	}
 
-	@Override
-	protected char getIcon() {
-		return 'y';
-	}
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("keycard", "card.png", 1);
+    }
 }

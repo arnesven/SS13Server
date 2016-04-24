@@ -3,6 +3,7 @@ package model.items.general;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -62,11 +63,11 @@ public class FireExtinguisher extends BluntWeapon {
         }
         throw new NoSuchEventException("No fire where one should be!");
     }
-	
-	@Override
-	protected char getIcon() {
-		return 'x';
-	}
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("fireext", "items.png", 40);
+    }
 
     public void decrementLevel() {
         level--;

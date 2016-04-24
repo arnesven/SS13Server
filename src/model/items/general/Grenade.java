@@ -2,6 +2,7 @@ package model.items.general;
 
 import java.util.ArrayList;
 
+import graphics.Sprite;
 import model.Actor;
 import model.Target;
 import util.MyRandom;
@@ -55,10 +56,9 @@ public class Grenade extends GameItem implements Damager {
 	public Grenade clone() {
 		return new Grenade();
 	}
-	
-	@Override
-	protected char getIcon() {
-		return '}';
-	}
 
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("grenade", "grenade.png", 0);
+    }
 }

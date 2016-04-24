@@ -1,5 +1,6 @@
 package model.mutations;
 
+import graphics.Sprite;
 import model.Actor;
 import model.Player;
 import model.characters.decorators.CharacterDecorator;
@@ -13,11 +14,11 @@ public class ChimpAppearance extends Mutation {
 	@Override
 	public CharacterDecorator getDecorator(Actor forWhom) {
 		return new CharacterDecorator(forWhom.getCharacter(), "Chimp Appearance") {
-			@Override
-			public char getIcon(Player whosAsking) {
-				return ']';
-			}
-		};
+            @Override
+            public Sprite getSprite(Actor whosAsking) {
+                return new Sprite("chimpappearance", "monkey.png", 0);
+            }
+        };
 	}
 
 }

@@ -1,5 +1,6 @@
 package model.objects.general;
 
+import graphics.Sprite;
 import util.MyRandom;
 import model.Player;
 import model.items.general.MedKit;
@@ -18,12 +19,9 @@ public class Lockers extends ContainerObject {
 		} while (MyRandom.nextDouble() < 0.33);
 		
 	}
-	
-	@Override
-	protected char getIcon(Player whosAsking) {
-		return 'l';
-	}
 
-	
-
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("lockers", "closet.png", 0);
+    }
 }

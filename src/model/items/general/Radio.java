@@ -1,5 +1,6 @@
 package model.items.general;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -53,8 +54,7 @@ public abstract class Radio extends GameItem {
     protected abstract Action getSpecificAction(GameData gameData);
 
     @Override
-    protected char getIcon() {
-        return 'd';
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("radio", "device.png", 52);
     }
-
 }

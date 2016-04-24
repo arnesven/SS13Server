@@ -1,5 +1,8 @@
 package model.items.general;
 
+import graphics.Sprite;
+import model.Actor;
+
 public class GeigerMeter extends GameItem {
 
 	
@@ -11,10 +14,9 @@ public class GeigerMeter extends GameItem {
 	public GeigerMeter clone() {
 		return new GeigerMeter();
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'd';
-	}
 
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("geigermeter", "device.png", 0);
+    }
 }

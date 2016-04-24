@@ -1,9 +1,11 @@
 package model.events;
 
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.Target;
 import model.actions.general.SensoryLevel;
 
 public abstract class Event {
@@ -13,7 +15,7 @@ public abstract class Event {
 	public abstract String howYouAppear(Actor performingClient);
 
 	public String addYourselfToRoomInfo(Player whosAsking) {
-		return "e" + howYouAppear(whosAsking);
+		return getSprite(whosAsking).getName() + "<img>" + howYouAppear(whosAsking);
 	}
 
 	public abstract SensoryLevel getSense();
@@ -29,5 +31,7 @@ public abstract class Event {
 	public void setShouldBeRemoved(boolean b) { }
 
 
-	
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("event", "decals.png", 0, 1, 32, 32);
+    }
 }

@@ -3,6 +3,7 @@ package model.items.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -57,10 +58,9 @@ public class BombDetonator extends GameItem {
 	public BombDetonator clone() {
 		return new BombDetonator(this.bomb);
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'd';
-	}
 
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("bombdetonator", "device.png", 16);
+    }
 }

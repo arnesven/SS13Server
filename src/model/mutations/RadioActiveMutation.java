@@ -1,5 +1,6 @@
 package model.mutations;
 
+import graphics.Sprite;
 import model.Actor;
 import model.Player;
 import model.characters.decorators.CharacterDecorator;
@@ -23,8 +24,8 @@ public class RadioActiveMutation extends Mutation {
             private Event ev;
 
             @Override
-            public char getIcon(Player whosAsking) {
-                return ',';
+            public Sprite getSprite(Actor whosAsking) {
+                return new Sprite("radioactiveguy", "genetics.png", 12);
             }
 
             @Override

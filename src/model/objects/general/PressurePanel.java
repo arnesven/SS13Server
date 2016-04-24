@@ -3,6 +3,7 @@ package model.objects.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
 import model.actions.general.SensoryLevel;
 import model.Actor;
 import model.GameData;
@@ -29,13 +30,13 @@ public class PressurePanel extends ElectricalMachinery {
 		at.add(makeApplicableAction(gameData));
 		
 	}
-	
-	@Override
-	protected char getIcon(Player whosAsking) {
-		return ')';
-	}
 
-	public Action makeApplicableAction(GameData gameData) {
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("pressurepanel", "monitors.png", 0);
+    }
+
+    public Action makeApplicableAction(GameData gameData) {
 		if (hasPressure) {
 			return makeDepressurizeAction(gameData);		
 		} else {

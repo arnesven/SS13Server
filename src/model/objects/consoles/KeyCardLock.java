@@ -2,6 +2,7 @@ package model.objects.consoles;
 
 import java.util.ArrayList;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -94,5 +95,9 @@ public class KeyCardLock extends Console {
 		Logger.log(Logger.INTERESTING, " room unlocked because of power failure!");
 		unlockRooms();
 	}
-	
+
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("keycardlock", "computer_complaints.png", 1, 0);
+    }
 }

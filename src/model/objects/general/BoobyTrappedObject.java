@@ -2,6 +2,7 @@ package model.objects.general;
 
 import java.util.ArrayList;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -25,13 +26,13 @@ public class BoobyTrappedObject extends GameObject {
 		this.bomb = bomb;
 		this.room = room;
 	}
-	
-	@Override
-	protected char getIcon(Player whosAsking) {
-		return innerObject.getIcon(whosAsking);
-	}
-	
-	@Override
+
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return innerObject.getSprite(whosAsking);
+    }
+
+    @Override
 	public void addSpecificActionsFor(GameData gameData, Player cl,
 			ArrayList<Action> at) {
 		

@@ -160,7 +160,7 @@ public abstract class GameStats {
         try {
             res +=
             "<tr><td> Station power output: </td><td>" + String.format("%.1f", GeneratorConsole.find(gameData).getPowerOutput()*100.0) +
-                    "%  <a target='_blank' href='https://m.wolframalpha.com/input/?i=plot" + powerHistoryString() + "'>graph</a></td></tr>";
+                    "%  <a target='_blank' href='https://www.wolframalpha.com/input/?i=plot" + powerHistoryString() + "'>graph</a></td></tr>";
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "What? no generator on station?");
         }

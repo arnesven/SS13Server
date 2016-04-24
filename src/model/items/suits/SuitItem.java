@@ -1,5 +1,6 @@
 package model.items.suits;
 
+import graphics.Sprite;
 import model.Actor;
 import model.items.general.GameItem;
 
@@ -14,13 +15,13 @@ public abstract class SuitItem extends GameItem {
 	public SuitItem getUnder() {
 		return under;
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'U';
-	}
-	
-	public void setUnder(SuitItem it) {
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("suititem", "suit.png", 70);
+    }
+
+    public void setUnder(SuitItem it) {
 		under = it;
 	}
 	

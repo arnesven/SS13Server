@@ -3,6 +3,7 @@ package model.items.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -67,9 +68,8 @@ public class DummyHivePlacer extends GameItem {
 		return new DummyHivePlacer();
 	}
 
-	@Override
-	protected char getIcon() {
-		return 'H';
-	}
-	
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("keycard", "card.png", 1);
+    }
 }

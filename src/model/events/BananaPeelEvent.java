@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import graphics.Sprite;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -26,6 +27,8 @@ public class BananaPeelEvent extends Event {
 		this.leftBy = leftBy;
 		this.room = leftBy.getPosition();
 	}
+
+
 
 	@Override
 	public void apply(GameData gameData) {
@@ -83,16 +86,14 @@ public class BananaPeelEvent extends Event {
 		return "Peel";
 	}
 	
-	@Override
-	public String addYourselfToRoomInfo(Player whosAsking) {
-		return "bPeel";
-	}
-	
 	
 	@Override
 	public SensoryLevel getSense() {
 		return SensoryLevel.PHYSICAL_ACTIVITY;
 	}
 
-	
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("bananapeel", "items.png", 63);
+    }
 }

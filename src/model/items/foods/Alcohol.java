@@ -27,8 +27,5 @@ public abstract class Alcohol extends FoodItem {
 		gameData.addEvent(new DrunkTimerEvent(eatenBy, potency, new DrunkChecker()));
 	}
 
-    @Override
-    protected char getIcon() {
-        return '7';
-    }
+
 }

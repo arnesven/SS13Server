@@ -2,6 +2,7 @@ package model.events;
 
 import java.util.Iterator;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Target;
@@ -24,8 +25,12 @@ public class NoPressureEvent extends Event {
 		removeFires(roomRef);
 	}
 
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("nopressure", "decals.png", 1, 1, 32, 32);
+    }
 
-	private void removeFires(Room roomRef2) {
+    private void removeFires(Room roomRef2) {
 		// TODO Auto-generated method stub
 		for (Iterator<Event> it = roomRef2.getEvents().iterator(); it.hasNext(); ) {
 			Event e = it.next();

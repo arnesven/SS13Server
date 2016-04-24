@@ -1,5 +1,6 @@
 package model.objects.general;
 
+import graphics.Sprite;
 import model.Player;
 import model.items.general.Chemicals;
 import model.items.general.GameItem;
@@ -13,9 +14,8 @@ public class ChemicalDispenser extends DispenserObject {
 		this.addItem(new Chemicals());
 	}
 
-	@Override
-	protected char getIcon(Player whosAsking) {
-		return 'u';
-	}
-
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("chemdispenser", "closet.png", 5);
+    }
 }

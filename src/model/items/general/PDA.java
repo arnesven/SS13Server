@@ -3,6 +3,8 @@ package model.items.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -53,9 +55,9 @@ public class PDA extends GameItem {
 	public PDA clone() {
 		return new PDA(this.traitorMode);
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'd';
-	}
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("PDA", "pda.png", 24);
+    }
 }

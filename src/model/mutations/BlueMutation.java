@@ -1,5 +1,6 @@
 package model.mutations;
 
+import graphics.Sprite;
 import model.Actor;
 import model.Player;
 import model.characters.decorators.CharacterDecorator;
@@ -15,8 +16,8 @@ public class BlueMutation extends Mutation {
 	public CharacterDecorator getDecorator(Actor forWhom) {
 		return new NameAddDecorator(forWhom.getCharacter(), "Blue") {
             @Override
-            public char getIcon(Player whosAsking) {
-                return '_';
+            public Sprite getSprite(Actor whosAsking) {
+                return new Sprite("blueguy", "genetics.png", 4);
             }
         };
 	}

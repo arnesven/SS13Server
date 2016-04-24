@@ -1,5 +1,6 @@
 package model.objects.consoles;
 
+import graphics.Sprite;
 import model.Player;
 import model.map.Room;
 import model.objects.general.ElectricalMachinery;
@@ -12,8 +13,8 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
 	}
 
 	@Override
-	protected char getIcon(Player whosAsking) {
-		return '@';
+	public Sprite getSprite(Player whosAsking) {
+		return new Sprite("console", "computer2.png", 10);
 	}
 
 }

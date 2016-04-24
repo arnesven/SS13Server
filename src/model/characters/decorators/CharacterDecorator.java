@@ -3,6 +3,7 @@ package model.characters.decorators;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -252,13 +253,13 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public Weapon getDefaultWeapon() {
 		return innerChar.getDefaultWeapon();
 	}
-	
-	@Override
-	public char getIcon(Player whosAsking) {
-		return innerChar.getIcon(whosAsking);
-	}
-	
-	@Override
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return innerChar.getSprite(whosAsking);
+    }
+
+    @Override
 	public double getMaxHealth() {
 		return innerChar.getMaxHealth();
 	}
@@ -318,5 +319,10 @@ public abstract class CharacterDecorator extends GameCharacter {
     @Override
     public boolean wasCriticalHit(Weapon weapon) {
         return innerChar.wasCriticalHit(weapon);
+    }
+
+    @Override
+    public char getIcon(Player whosAsking) {
+        return innerChar.getIcon(whosAsking);
     }
 }

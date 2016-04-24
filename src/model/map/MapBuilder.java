@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 import model.items.suits.SpaceSuit;
 import model.objects.consoles.*;
-import model.objects.general.AirLockControl;
+import model.objects.consoles.AirLockControl;
 import model.objects.general.EvidenceBox;
 import model.objects.general.Lockers;
 import model.objects.general.MedkitDispenser;

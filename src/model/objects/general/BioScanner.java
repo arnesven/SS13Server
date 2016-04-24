@@ -3,6 +3,7 @@ package model.objects.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -22,13 +23,13 @@ public class BioScanner extends ElectricalMachinery {
 		super("BioScanner", pos);
 		loaded = false;
 	}
-	
-	@Override
-	protected char getIcon(Player whosAsking) {
-		return 'B';
-	}
-	
-	@Override
+
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("bioscanner", "cryogenic.png", 104);
+    }
+
+    @Override
 	public String getName() {
 		if (!loaded) {
 			return super.getName() + " (off)";

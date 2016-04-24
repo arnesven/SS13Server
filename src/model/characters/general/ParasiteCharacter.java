@@ -3,6 +3,7 @@ package model.characters.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
 import model.Actor;
 import model.Player;
 import model.events.damage.ColdDamage;
@@ -18,13 +19,16 @@ public class ParasiteCharacter extends GameCharacter {
 		super("Parasite", 0, -1.0);
 
 	}
-	
-	@Override
-	public char getIcon(Player whosAsking) {
-		return isDead()?'P':'p';
-	}
 
-	@Override
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        if (isDead()) {
+            return new Sprite("parasitedead", "alien.png", 25);
+        }
+        return new Sprite("parasite", "alien.png", 11);
+    }
+
+    @Override
 	public List<GameItem> getStartingItems() {
 		return new ArrayList<>();
 	}

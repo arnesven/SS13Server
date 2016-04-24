@@ -46,7 +46,8 @@ public class ServiceHandler {
 		handlers.add(new JobsCommandHandler(gameData));
 		
 		handlers.add(new SettingsCommandHandler(gameData));
-		
+
+		handlers.add(new ResourceCommandHandler(gameData));
 		
 	}
 

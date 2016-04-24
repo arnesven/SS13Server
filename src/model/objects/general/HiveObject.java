@@ -2,6 +2,7 @@ package model.objects.general;
 
 import java.util.ArrayList;
 
+import graphics.Sprite;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -14,13 +15,13 @@ public class HiveObject extends BreakableObject {
 	public HiveObject(String name, Room pos) {
 		super(name, 3.0, pos);
 	}
-	
-	@Override
-	protected char getIcon(Player whosAsking) {
-		return 'H';
-	}
-	
-	@Override
+
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("hive", "alien.png", 25);
+    }
+
+    @Override
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
 		
 		if (isFound()){

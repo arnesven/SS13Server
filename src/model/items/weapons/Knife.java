@@ -1,6 +1,9 @@
 package model.items.weapons;
 
 
+import graphics.Sprite;
+import model.Actor;
+
 public class Knife extends Weapon {
 
 	public Knife() {
@@ -11,10 +14,9 @@ public class Knife extends Weapon {
 	public Knife clone() {
 		return new Knife();
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'k';
-	}
-	
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("knife", "kitchen.png", 6);
+    }
 }

@@ -3,6 +3,7 @@ package model.objects.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -22,12 +23,12 @@ public class CookOMatic extends ElectricalMachinery {
 		super("Cook-O-Matic", pos);
 	}
 
-	@Override
-	protected char getIcon(Player whosAsking) {
-		return 'O';
-	}
-	
-	@Override
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("cookomatic", "kitchen.png", 8);
+    }
+
+    @Override
 	protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
 		at.add(new CookFoodAction(this));
 		if (hasGrenade(cl) != null) {

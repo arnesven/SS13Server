@@ -2,6 +2,7 @@ package model.items.foods;
 
 import java.util.ArrayList;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -14,13 +15,13 @@ public abstract class FoodItem extends GameItem {
 	public FoodItem(String string, double weight) {
 		super(string, weight);
 	}
-	
-	@Override
-	protected char getIcon() {
-		return 'F';
-	}
-	
-	@Override
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("fooditem", "food.png", 2);
+    }
+
+    @Override
 	public void addYourActions(GameData gameData, 
 			ArrayList<Action> at,
 			Player cl) {

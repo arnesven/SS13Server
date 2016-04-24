@@ -3,13 +3,13 @@ package model.characters.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.characteractions.*;
 import model.actions.general.Action;
-import model.actions.general.TargetingAction;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.NoSuchInstanceException;
 import model.items.general.GameItem;
@@ -61,11 +61,11 @@ public class ChangelingCharacter extends GameCharacter {
 	public String getFullName() {
 		return "Changeling " + "(as " + getForm().getBaseName() + ")";
 	}
-	
-	@Override
-	public char getIcon(Player whosAsking) {
-		return getForm().getIcon(whosAsking);
-	}
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return getForm().getSprite(whosAsking);
+    }
 	
 	@Override
 	public boolean isReduced(Actor thisActor, Actor performingClient) {

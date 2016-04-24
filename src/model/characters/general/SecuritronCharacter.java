@@ -1,6 +1,9 @@
 package model.characters.general;
 
 
+import graphics.Sprite;
+import model.Actor;
+
 public class SecuritronCharacter extends RobotCharacter {
 
 	private int startRoom;
@@ -10,7 +13,12 @@ public class SecuritronCharacter extends RobotCharacter {
 		this.startRoom = i;
 	}
 
-	@Override
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("securitron", "aibots.png", 51);
+    }
+
+    @Override
 	public GameCharacter clone() {
 		return new SecuritronCharacter(startRoom);
 	}
