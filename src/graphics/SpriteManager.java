@@ -17,7 +17,7 @@ import java.util.Map;
  * Created by erini02 on 24/04/16.
  */
 public class SpriteManager {
-    private static final boolean TEST_GRAPHICS = false;
+    private static final boolean TEST_GRAPHICS = true;
     private static Map<String, Sprite> nameMap = new HashMap<>();
     private static JFrame frame;
     private static JLabel label;
@@ -38,9 +38,6 @@ public class SpriteManager {
             if (sprite != null) {
            //     Logger.log(" found!");
                 BufferedImage img = sprite.getImage();
-                if (TEST_GRAPHICS) {
-                    label.setIcon(new ImageIcon(img));
-                }
                 ByteArrayOutputStream bto = new ByteArrayOutputStream();
                 ImageIO.write(img, "png", bto);
 
@@ -63,6 +60,14 @@ public class SpriteManager {
             frame.setVisible(true);
             label = new JLabel();
             frame.getContentPane().add(label);
+        }
+    }
+
+    public static void testSprite(Sprite sp) {
+        try {
+            label.setIcon(new ImageIcon(sp.getImage()));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

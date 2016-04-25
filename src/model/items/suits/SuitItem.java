@@ -4,6 +4,9 @@ import graphics.Sprite;
 import model.Actor;
 import model.items.general.GameItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class SuitItem extends GameItem {
 
 	private SuitItem under = null;
@@ -18,8 +21,33 @@ public abstract class SuitItem extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("suititem", "suit.png", 70);
+        return new Sprite("suititem", "uniforms.png", 0);
     }
+
+    protected Sprite getWornSprite(Actor whosAsking) {
+        List<Sprite> list = new ArrayList<>();
+        list.add(new Sprite("standardshoes", "feet.png", 0));
+        return new Sprite("suititemworn", "uniform.png", 0, list);
+    }
+
+    public Sprite getGetup(Actor whosWearing, Actor whosAsking) {
+            List<Sprite> list = new ArrayList<>();
+            StringBuffer buf = new StringBuffer();
+            getupRecursive(list, buf, whosWearing, whosAsking);
+            return new Sprite(buf.toString(), list);
+    }
+
+    private void getupRecursive(List<Sprite> list, StringBuffer buf, Actor whosWearing, Actor whosAsking) {
+        list.add(0, getWornSprite(whosAsking));
+        buf.append(this.getBaseName());
+        if (under == null) {
+            list.add(0, whosWearing.getCharacter().getNakedSprite());
+            buf.append(whosWearing.getBaseName());
+        } else {
+            under.getupRecursive(list, buf, whosWearing, whosAsking);
+        }
+    }
+
 
     public void setUnder(SuitItem it) {
 		under = it;
@@ -46,5 +74,6 @@ public abstract class SuitItem extends GameItem {
 	public abstract void beingPutOn(Actor actionPerformer);
 	public abstract void beingTakenOff(Actor actionPerformer);
 	public abstract boolean permitsOver();
-	
+
+
 }

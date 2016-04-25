@@ -1,9 +1,7 @@
 package model.characters.decorators;
 
-import graphics.MultipleLayerSprite;
-import graphics.Sprite;
+
 import model.Actor;
-import model.Player;
 import model.characters.general.GameCharacter;
 import model.events.damage.Damager;
 import model.items.weapons.Flamer;
@@ -25,18 +23,18 @@ public class FireProtection extends CharacterDecorator {
 		return res;
 	}
 
-    @Override
-    public Sprite getSprite(Actor whosAsking) {
-        MultipleLayerSprite mult;
-        if (getGender().equals("man")) {
-            mult = new MultipleLayerSprite("manfireprotection", "naked.png", 0);
-        } else {
-            mult = new MultipleLayerSprite("womanfireprotection", "naked.png", 2);
-        }
-        mult.addOntop(new Sprite("body", "suit.png", 0));
-       // mult.addOntop(new Sprite("feet", "shoes.png", 7));
-        return mult;
-    }
+//    @Override
+//    public Sprite getSprite(Actor whosAsking) {
+//        MultipleLayerSprite mult;
+//        if (getGender().equals("man")) {
+//            mult = new MultipleLayerSprite("manfireprotection", "naked.png", 0);
+//        } else {
+//            mult = new MultipleLayerSprite("womanfireprotection", "naked.png", 2);
+//        }
+//        mult.addOntop(new Sprite("body", "suit.png", 0));
+//       // mult.addOntop(new Sprite("feet", "shoes.png", 7));
+//        return mult;
+//    }
 
     @Override
 	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {

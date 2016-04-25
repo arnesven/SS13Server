@@ -1,12 +1,14 @@
 package model.characters.decorators;
 
 import graphics.Sprite;
+import graphics.SpriteManager;
 import model.Actor;
-import model.Player;
 import model.events.damage.AsphyxiationDamage;
 import model.events.damage.ColdDamage;
 import model.characters.general.GameCharacter;
 import model.events.damage.Damager;
+
+import java.util.ArrayList;
 
 public class SpaceProtection extends CharacterDecorator {
 
@@ -22,6 +24,15 @@ public class SpaceProtection extends CharacterDecorator {
 		}
 		return res;
 	}
+
+//    @Override
+//    public Sprite getSprite(Actor whosAsking) {
+//        Sprite mult;
+//        ArrayList<Sprite> ontops = new ArrayList<>();
+//       mult = new Sprite("spaceprotection", "naked.png", 0, 0, 32, 32, ontops);
+//        SpriteManager.testSprite(mult);
+//        return mult;
+//    }
 
     @Override
 	public void beExposedTo(Actor something, Damager damager) {

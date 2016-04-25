@@ -1,11 +1,15 @@
 package model.items.suits;
 
 
+import graphics.Sprite;
 import model.Actor;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.SpaceProtection;
 import util.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpaceSuit extends SuitItem {
 
@@ -19,7 +23,19 @@ public class SpaceSuit extends SuitItem {
 		
 	}
 
-	@Override
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("spacesuit", "suits.png", 4);
+    }
+
+    @Override
+    protected Sprite getWornSprite(Actor whosAsking) {
+        List<Sprite> list = new ArrayList<>();
+        list.add(new Sprite("spacesuithelmet", "head.png", 10));
+        return new Sprite("spacesuitworn", "suit.png", 20, list);
+    }
+
+    @Override
 	public void beingTakenOff(Actor actionPerformer) {
 		Logger.log("In being taken off.");
 		actionPerformer.removeInstance(new InstanceChecker() {

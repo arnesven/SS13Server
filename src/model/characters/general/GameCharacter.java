@@ -449,16 +449,22 @@ public abstract class GameCharacter {
 
     public Sprite getSprite(Actor whosAsking) {
         if (suit == null) {
-			if (this.getGender().equals("man")) {
-				return new Sprite("nakedman", "naked.png", 0);
-			} else {
-                return new Sprite("nakedwoman", "naked.png", 2);
-			}
-		}
-        return sprite;
+
+            return getNakedSprite();
+		} else {
+            return suit.getGetup(getActor(), whosAsking);
+        }
     }
 
     public char getIcon(Player whosAsking) {
         return 'c';
+    }
+
+    public Sprite getNakedSprite() {
+        if (this.getGender().equals("man")) {
+            return new Sprite("nakedman", "naked.png", 0);
+        } else {
+            return new Sprite("nakedwoman", "naked.png", 2);
+        }
     }
 }
