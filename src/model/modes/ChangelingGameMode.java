@@ -98,13 +98,13 @@ public class ChangelingGameMode extends GameMode {
 	protected GameOver getGameResult(GameData gameData) {
 		if (gameData.isAllDead()) {
 			return GameOver.ALL_DEAD;
-		} else if (gameData.getRound() == gameData.getNoOfRounds()) {
-			return GameOver.TIME_IS_UP;
 		} else if (allCrewDead(gameData)) {
 			return GameOver.PROTAGONISTS_DEAD;
 		} else if (ling.isDead()) {
 			return GameOver.ANTAGONISTS_DEAD;
-		}
+		} else if (gameData.getRound() == gameData.getNoOfRounds()) {
+            return GameOver.TIME_IS_UP;
+        }
 		return null;
 	}
 	
