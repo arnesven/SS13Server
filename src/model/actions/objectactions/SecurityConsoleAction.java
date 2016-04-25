@@ -72,9 +72,9 @@ public class SecurityConsoleAction extends Action {
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = new ActionOption(this.getName());
-		GameMap gm = MapBuilder.createMap();
+		//GameMap gm = MapBuilder.createMap();
 		List<String> names = new ArrayList<>();
-		for (Room r : gm.getRooms()) {
+		for (Room r : gameData.getRooms()) {
 			names.add(r.getName());
 		}
 		Collections.sort(names);
