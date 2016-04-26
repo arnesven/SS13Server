@@ -17,6 +17,11 @@ public class ChefsHat extends SuitItem {
     }
 
     @Override
+    protected Sprite getWornSprite(Actor whosAsking) {
+        return new Sprite("chefshatworn", "head.png", 1, 8);
+    }
+
+    @Override
 	public void beingPutOn(Actor actionPerformer) {
 		// TODO Auto-generated method stub
 

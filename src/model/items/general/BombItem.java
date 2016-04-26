@@ -30,8 +30,11 @@ public abstract class BombItem extends HidableItem {
 	public static String getOperationString() {
 		return "fiddled with bomb";
 	}
-	
-	
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("bombitem", "assemblies.png", 43);
+    }
 	
 	@Override
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
@@ -39,7 +42,7 @@ public abstract class BombItem extends HidableItem {
 			if (isDemolitionsExpert(whosAsking)) {
 				super.addYourselfToRoomInfo(info, whosAsking);
 			} else {
-				info.add("i" + "Bomb");
+				info.add(getSprite(whosAsking).getName() + "<img>" + "Bomb");
 			}
 		}
 	}
@@ -133,8 +136,5 @@ public abstract class BombItem extends HidableItem {
         };
     }
 
-    @Override
-    public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("bombitem", "assemblies.png", 43);
-    }
+
 }

@@ -15,7 +15,7 @@ public class Lockers extends ContainerObject {
 		getInventory().add(new MedKit());
 		//add some random outfits.
 		do {
-			getInventory().add(new OutFit(MyRandom.sample(GameMode.getAllCrewAsStrings())));
+			getInventory().add(new OutFit(MyRandom.sample(GameMode.getAllCrew())));
 		} while (MyRandom.nextDouble() < 0.33);
 		
 	}

@@ -1,5 +1,6 @@
 package model.items.suits;
 
+import graphics.RegularBlackShoesSprite;
 import graphics.Sprite;
 import model.Actor;
 import model.items.general.GameItem;
@@ -26,11 +27,11 @@ public abstract class SuitItem extends GameItem {
 
     protected Sprite getWornSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
-        list.add(new Sprite("standardshoes", "feet.png", 0));
+        list.add(new RegularBlackShoesSprite());
         return new Sprite("suititemworn", "uniform.png", 0, list);
     }
 
-    public Sprite getGetup(Actor whosWearing, Actor whosAsking) {
+    public final Sprite getGetup(Actor whosWearing, Actor whosAsking) {
             List<Sprite> list = new ArrayList<>();
             StringBuffer buf = new StringBuffer();
             getupRecursive(list, buf, whosWearing, whosAsking);

@@ -1,5 +1,6 @@
 package model.items.general;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -20,6 +21,11 @@ public class Teleporter extends GameItem {
 
     public Teleporter() {
         super("Teleporter", 1.0);
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("teleporter", "device.png", 4);
     }
 
     @Override

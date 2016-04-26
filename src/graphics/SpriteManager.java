@@ -17,7 +17,7 @@ import java.util.Map;
  * Created by erini02 on 24/04/16.
  */
 public class SpriteManager {
-    private static final boolean TEST_GRAPHICS = true;
+    private static final boolean TEST_GRAPHICS = false;
     private static Map<String, Sprite> nameMap = new HashMap<>();
     private static JFrame frame;
     private static JLabel label;

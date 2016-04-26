@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import model.items.NoSuchThingException;
+import model.items.suits.CaptainsHat;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -140,6 +141,12 @@ public abstract class GameMode {
 		availableChars.put("Tourist",          new TouristCharacter());
 		return availableChars;
 	}
+
+    public static List<GameCharacter> getAllCrew() {
+        List<GameCharacter> gcs = new ArrayList<>();
+        gcs.addAll(availableChars().values());
+        return gcs;
+    }
 
 	public static List<String> getAllCrewAsStrings() {
 		List<String> gcs = new ArrayList<>();
@@ -319,7 +326,7 @@ public abstract class GameMode {
 				break;
 			}
 		}
-		
+		capCl.putOnSuit(new CaptainsHat());
 		listOfCharacters.remove(gc);
 	}
 
