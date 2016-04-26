@@ -9,11 +9,14 @@ import model.items.general.GameItem;
 import model.objects.general.GameObject;
 import model.objects.general.HiveObject;
 import model.items.general.HidableItem;
+import util.MyRandom;
 
 
 public class SearchAction extends Action {
 
-	public SearchAction() {
+    private static final double RANDOM_ITEM_CHANCE = 0.05;
+
+    public SearchAction() {
 		super("Search", SensoryLevel.PHYSICAL_ACTIVITY);
 	}
 
@@ -41,6 +44,13 @@ public class SearchAction extends Action {
 				foundSomething = true;
 			}
 		}
+
+        if (MyRandom.nextDouble() <= RANDOM_ITEM_CHANCE) {
+            GameItem it = MyRandom.sample(MyRandom.getItemsWhichAppearRandomly());
+            performingClient.addTolastTurnInfo("You found a " + it.getBaseName() + ".");
+            performingClient.getCharacter().giveItem(it, null);
+            foundSomething = true;
+        }
 		
 		if (!foundSomething) {
 			performingClient.addTolastTurnInfo("Nothing of interest here...");

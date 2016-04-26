@@ -117,6 +117,9 @@ public class MyRandom {
         list.add(new SecurityRadio());
         list.add(new PowerRadio());
         list.add(new RobotParts());
+        list.add(new SecOffsHelmet());
+        list.add(new SecOffsVest());
+        list.add(new Sweater());
 		
 		return list;
 	}

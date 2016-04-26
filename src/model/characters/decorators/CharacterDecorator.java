@@ -325,4 +325,15 @@ public abstract class CharacterDecorator extends GameCharacter {
     public char getIcon(Player whosAsking) {
         return innerChar.getIcon(whosAsking);
     }
+
+    @Override
+    public boolean getsAttackOfOpportunity(Weapon w) {
+        return innerChar.getsAttackOfOpportunity(w);
+    }
+
+    @Override
+    public Sprite getNakedSprite() {
+        return innerChar.getNakedSprite();
+    }
+
 }
