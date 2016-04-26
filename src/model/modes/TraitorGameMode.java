@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import model.items.NoSuchThingException;
+import model.items.suits.CaptainsHat;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;

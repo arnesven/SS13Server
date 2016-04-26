@@ -43,6 +43,7 @@ public abstract class SuitItem extends GameItem {
         buf.append(this.getBaseName());
         if (under == null) {
             list.add(0, whosWearing.getCharacter().getNakedSprite());
+            list.add(0, new Sprite("getupbase", "human.png", 0));
             buf.append(whosWearing.getBaseName());
         } else {
             under.getupRecursive(list, buf, whosWearing, whosAsking);

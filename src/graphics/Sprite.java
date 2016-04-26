@@ -22,6 +22,7 @@ public class Sprite {
     private int width;
     private int height;
     private BufferedImage image;
+    private Color color;
 
 
     public Sprite(String name, String mapPath, int column, int row, int width, int height,
@@ -88,7 +89,23 @@ public class Sprite {
             g.drawImage(s.internalGetImage(), 0, 0, null);
         }
 
+        if (color != null) {
+            result = colorize(result, color);
+        }
+
         return result;
+    }
+
+    private static BufferedImage colorize(BufferedImage original, Color color) {
+        BufferedImage redVersion = new BufferedImage(original.getWidth(), original.getHeight(),
+                BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = (Graphics2D) redVersion.getGraphics();
+        g.setColor(color);
+        g.fillRect(0, 0, original.getWidth(), original.getHeight());
+
+        g.setComposite(AlphaComposite.DstIn);
+        g.drawImage(original, 0, 0, null);
+        return redVersion;
     }
 
 
@@ -110,5 +127,9 @@ public class Sprite {
 
     public int getHeight() {
         return height;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

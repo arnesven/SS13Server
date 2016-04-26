@@ -22,7 +22,7 @@ public class PrisonerSuit extends SuitItem {
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        return new Sprite("prisonersuitworn", "uniform.png", 2, 12);
+        return new Sprite("prisonersuitworn", "uniform.png", 12, 2);
     }
 
     @Override

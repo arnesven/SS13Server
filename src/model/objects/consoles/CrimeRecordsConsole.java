@@ -120,7 +120,7 @@ public class CrimeRecordsConsole extends Console {
 			if (worst.getCharacter().getSuit() != null && 
 					!worst.getCharacter().getSuit().permitsOver()) {
 				ev.addAffect(worst, worst.getCharacter().getSuit());
-				worst.getCharacter().removeSuit();
+				worst.takeOffSuit();
 				Logger.log("Suit was removed from prisoner so prison clothes could be put over");
 			}
 			worst.putOnSuit(new PrisonerSuit(noOfSentenced++));
