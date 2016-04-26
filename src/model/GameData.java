@@ -267,7 +267,7 @@ public class GameData {
 			informPlayersOfRoomHappenings();
 			if (gameMode.gameOver(this)) {
 				gameState = GameState.PRE_GAME;
-				//round = 0; <-- Dont do this, if you do
+				//round = 0; <-- Don't do this, if you do
 				//               the gamemode wont be able to
 				//               se that the game is over.
 			} else {

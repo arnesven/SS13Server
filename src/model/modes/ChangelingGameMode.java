@@ -3,6 +3,7 @@ package model.modes;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.characters.decorators.CharacterDecorator;
 import model.events.Event;
 import util.MyRandom;
 import model.Actor;
@@ -22,6 +23,7 @@ public class ChangelingGameMode extends GameMode {
 	private Player ling;
 	private ChangelingCharacter lingChar;
 	private NPC decoy;
+    private boolean changelingExposed = false;
 
     @Override
     public String getName() {
@@ -119,10 +121,27 @@ public class ChangelingGameMode extends GameMode {
 
 	@Override
 	public boolean gameOver(GameData gameData) {
-		return getGameResult(gameData) != null;
+        GameOver over = getGameResult(gameData);
+        if (over != null) {
+            exposeChangeling();
+        }
+
+		return over != null;
 	}
 
-	@Override
+    private void exposeChangeling() {
+        if (!changelingExposed) {
+            ling.setCharacter(new CharacterDecorator(ling.getCharacter(), "Exposed Changeling") {
+                                  @Override
+                                  public String getBaseName() {
+                                      return "Changeling";
+                                  }
+                              });
+            changelingExposed = true;
+        }
+    }
+
+    @Override
 	public void setStartingLastTurnInfo() {
 		ling.addTolastTurnInfo(LING_START_STRING + decoyString());
 	}

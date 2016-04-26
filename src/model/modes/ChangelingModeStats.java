@@ -19,10 +19,6 @@ class ChangelingModeStats extends GameStats {
 
 	@Override
 	protected String modeSpecificExtraInfo(Actor value) {
-		if (value instanceof Player &&
-                mode.isAntagonist((Player) value)) {
-            return " (Changeling)";
-        }
         return "";
 	}
 
