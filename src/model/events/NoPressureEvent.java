@@ -1,6 +1,8 @@
 package model.events;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import graphics.Sprite;
 import model.Actor;
@@ -8,6 +10,8 @@ import model.GameData;
 import model.Target;
 import model.actions.general.SensoryLevel;
 import model.events.ambient.ElectricalFire;
+import model.events.ambient.HullBreach;
+import model.events.ambient.LowPressureEvent;
 import model.events.damage.NoPressureDamage;
 import model.map.Room;
 import model.objects.general.PressurePanel;
@@ -17,8 +21,9 @@ public class NoPressureEvent extends Event {
 	private PressurePanel panelRef;
 	private Room roomRef;
 	private Actor performingClient;
+    private List<LowPressureEvent> adjacentRoomEvents = new ArrayList<>();
 
-	public NoPressureEvent(PressurePanel panelRef, Room roomRef, Actor performingClient) {
+    public NoPressureEvent(PressurePanel panelRef, Room roomRef, Actor performingClient) {
 		this.panelRef = panelRef;
 		this.roomRef = roomRef;
 		this.performingClient = performingClient;
@@ -44,6 +49,9 @@ public class NoPressureEvent extends Event {
 
 	@Override
 	public void apply(GameData gameData) {
+        applyLowPressureInAdjacentRooms(gameData);
+        addLowPressureToAdjacentRooms(gameData);
+
 		if (!shouldBeRemoved(gameData)) {
 			for (Target t : roomRef.getTargets()) {
 				t.beExposedTo(performingClient, new NoPressureDamage(t));
@@ -52,7 +60,32 @@ public class NoPressureEvent extends Event {
 
 	}
 
-	@Override
+    private void addLowPressureToAdjacentRooms(GameData gameData) {
+        if (adjacentRoomEvents.isEmpty()) {
+            for (Room r : roomRef.getNeighborList()) {
+                LowPressureEvent e = new LowPressureEvent(r);
+                adjacentRoomEvents.add(e);
+                r.addEvent(e);
+            }
+        }
+    }
+
+    private void applyLowPressureInAdjacentRooms(GameData gameData) {
+        for (LowPressureEvent e: adjacentRoomEvents) {
+            e.apply(gameData);
+        }
+    }
+
+    private void removeAdjacentEvents() {
+        Iterator<LowPressureEvent> it = adjacentRoomEvents.iterator();
+        while (it.hasNext()) {
+            LowPressureEvent ev = it.next();
+            ev.getRoom().removeEvent(ev);
+            it.remove();
+        }
+    }
+
+    @Override
 	public String howYouAppear(Actor performingClient) {
 		return "No Pressure!";
 	}
@@ -64,10 +97,27 @@ public class NoPressureEvent extends Event {
 
 	@Override
 	public boolean shouldBeRemoved(GameData gameData) {
-		return panelRef.getPressure();
+        if (panelRef != null) {
+            boolean res = panelRef.getPressure();
+            if (res == true) {
+                removeAdjacentEvents();
+            }
+            return res;
+        } else {
+            return false;
+        }
 	}
 
 
+
+    public static boolean hasNoPressureEvent(Room r) {
+        for (Event e : r.getEvents()) {
+            if (e instanceof NoPressureEvent) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 }

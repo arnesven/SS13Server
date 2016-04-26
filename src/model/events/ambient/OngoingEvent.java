@@ -29,7 +29,7 @@ public abstract class OngoingEvent extends Event {
 		return room;
 	}
 
-	protected void setRoom(Room randomRoom) {
+	public void setRoom(Room randomRoom) {
 		this.room = randomRoom;
 	}
 
@@ -45,7 +45,7 @@ public abstract class OngoingEvent extends Event {
 		if (MyRandom.nextDouble() < getProbability() && !allRoomsBurning(gameData)) {
 			Room randomRoom;
 			do {
-				Logger.log("Finding a room for a fire..");
+				Logger.log("Finding a room for a ongoing event..");
 				randomRoom = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
 			} while (hasThisEvent(randomRoom));
 			startNewEvent(randomRoom);

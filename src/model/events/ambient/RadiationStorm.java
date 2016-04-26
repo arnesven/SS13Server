@@ -132,11 +132,6 @@ public class RadiationStorm extends Event {
 		return SensoryLevel.NO_SENSE;
 	}
 	
-	@Override
-	public String addYourselfToRoomInfo(Player whosAsking) {
-		return "r" + howYouAppear(whosAsking);
-	}
-	
 	private static double randomDamage() {
 		return ((MyRandom.nextInt(4)<3)?0.5:0) + ((MyRandom.nextInt(4)==3)?0.5:0.0);
 	}
