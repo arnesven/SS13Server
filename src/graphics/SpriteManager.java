@@ -19,6 +19,7 @@ import java.util.Map;
 public class SpriteManager {
     private static final boolean TEST_GRAPHICS = false;
     private static Map<String, Sprite> nameMap = new HashMap<>();
+    private static Map<String, BufferedImage> filemap = new HashMap<>();
     private static JFrame frame;
     private static JLabel label;
 
@@ -69,5 +70,14 @@ public class SpriteManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static BufferedImage getFile(String s) throws IOException {
+        BufferedImage img = filemap.get(s);
+        if (img == null) {
+            img = ImageIO.read(new File(s));
+            filemap.put(s, img);
+        }
+        return img;
     }
 }

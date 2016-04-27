@@ -164,4 +164,7 @@ public class Weapon extends GameItem {
     }
 
 
+    public Sprite getHandHeldSprite() {
+        return new Sprite("weaponinhand", "items_righthand.png", 0, 4);
+    }
 }

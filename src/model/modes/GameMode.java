@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import model.events.PirateAttackEvent;
 import model.items.NoSuchThingException;
 import model.items.suits.CaptainsHat;
+import model.npcs.*;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -50,14 +52,6 @@ import model.items.suits.RadiationSuit;
 import model.map.GameMap;
 import model.map.NukieShipRoom;
 import model.map.Room;
-import model.npcs.CatNPC;
-import model.npcs.ChimpNPC;
-import model.npcs.HumanNPC;
-import model.npcs.NPC;
-import model.npcs.ParasiteNPC;
-import model.npcs.SecuritronNPC;
-import model.npcs.SnakeNPC;
-import model.npcs.TARSNPC;
 
 /**
  * @author erini02
@@ -117,6 +111,7 @@ public abstract class GameMode {
 		events.put("simulate power", new SimulatePower());
 		events.put("Power flux", new PowerFlux());
 		events.put("random husks", new RandomHuskEvent());
+        events.put("pirate attack", new PirateAttackEvent());
 	}
 
     public abstract String getName();
@@ -364,7 +359,7 @@ public abstract class GameMode {
 	}
 
 	private void addNPCs(GameData gameData, List<GameCharacter> remainingChars) {
-		NPC cat = new CatNPC(gameData.getRoomForId(20));
+        NPC cat = new CatNPC(gameData.getRoomForId(20));
 		gameData.addNPC(cat);
 		
 		NPC chimp = new ChimpNPC(gameData.getRoom("Greenhouse"));

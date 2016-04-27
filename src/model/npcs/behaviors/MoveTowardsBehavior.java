@@ -15,7 +15,7 @@ public class MoveTowardsBehavior implements MovementBehavior {
 	 * @param nextMovement : what movement behavior the NPC will adopt as soon as it has reached the target
 	 * @param nextAction : what action behavior the NPC will adopt as soon as it has reached the target
 	 */
-	MoveTowardsBehavior(Room target, MovementBehavior nextMovement, ActionBehavior nextAction) {
+	public MoveTowardsBehavior(Room target, MovementBehavior nextMovement, ActionBehavior nextAction) {
 		this.target = target;
 		this.nextMovement = nextMovement;
 		this.nextAction = nextAction;

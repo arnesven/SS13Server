@@ -23,6 +23,11 @@ public class SunGlasses extends SuitItem {
     }
 
     @Override
+    protected Sprite getWornSprite(Actor whosAsking) {
+        return new Sprite("sunglassesworn", "eyes.png", 4);
+    }
+
+    @Override
 	public void beingPutOn(Actor actionPerformer) {
 		actionPerformer.setCharacter(new CoolDecorator(actionPerformer.getCharacter(), this));
 		for (Actor a : actionPerformer.getPosition().getActors()) {

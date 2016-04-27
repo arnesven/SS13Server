@@ -35,6 +35,11 @@ public class Flamer extends Weapon {
     }
 
     @Override
+    public Sprite getHandHeldSprite() {
+        return new Sprite("flamerhandheld", "items_righthand.png", 16, 18);
+    }
+
+    @Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
 
         List<Chemicals> chem = getChemicalsFromClient(cl);

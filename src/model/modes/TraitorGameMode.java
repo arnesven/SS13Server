@@ -10,6 +10,7 @@ import java.util.NoSuchElementException;
 
 import model.items.NoSuchThingException;
 import model.items.suits.CaptainsHat;
+import model.npcs.*;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -26,11 +27,6 @@ import model.items.general.PDA;
 import model.items.suits.ChefsHat;
 import model.items.suits.SunGlasses;
 import model.map.Room;
-import model.npcs.CatNPC;
-import model.npcs.ChimpNPC;
-import model.npcs.HumanNPC;
-import model.npcs.NPC;
-import model.npcs.TARSNPC;
 import model.objects.general.BreakableObject;
 import model.objects.general.GameObject;
 import model.objects.general.ElectricalMachinery;
@@ -41,8 +37,9 @@ public class TraitorGameMode extends GameMode {
 	private static final double TRAITOR_FACTOR = 1.0/3.0;
 	private static final int POINTS_FOR_CREW_PER_TRATIOR = 600;
 	private static final int EVENT_FIX_POINTS = 20;
-	private static final int POINTS_FOR_BROKEN_OBJECTS = 50;
-	private List<Player> traitors = new ArrayList<>();
+	private static final int POINTS_FOR_BROKEN_OBJECTS = 25;
+    private static final int POINTS_FROM_DEAD_PIRATES = 50;
+    private List<Player> traitors = new ArrayList<>();
 	private HashMap<Player, TraitorObjective> objectives = new HashMap<>();
 	private String TRAITOR_START_STRING = "You are a traitor!";
 	private String CREW_START_STRING = "There are traitors on the station. Find them and stop them before they ruin everything!";
@@ -234,12 +231,22 @@ public class TraitorGameMode extends GameMode {
 		result += pointsFromChimp(gameData);
 		result += pointsFromPower(gameData);
 		result += pointsFromGod(gameData);
+        result += pointsFromPirates(gameData);
 		return result;
 	}
 
+    public int pointsFromPirates(GameData gameData) {
+        int res = 0;
+        for (Actor a : gameData.getActors()) {
+            if (a instanceof PirateNPC && a.isDead()) {
+                res += POINTS_FROM_DEAD_PIRATES;
+            }
+        }
+        return res;
+    }
 
 
-	public int pointsFromGod(GameData gameData) {
+    public int pointsFromGod(GameData gameData) {
 		Bible b = getBible(gameData);
 		if (b == null) {
 			Logger.log("Bible not found");

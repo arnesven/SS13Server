@@ -81,7 +81,7 @@ public class Sprite {
         BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         Graphics g = result.getGraphics();
-        BufferedImage img = ImageIO.read(new File("resources/sprites/" + mapPath));
+        BufferedImage img = SpriteManager.getFile("resources/sprites/" + mapPath);
         img = img.getSubimage(column * width, row * height, width, height);
         g.drawImage(img, 0, 0, null);
 
@@ -131,5 +131,9 @@ public class Sprite {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public void addToOver(Sprite piratemask) {
+        layers.add(piratemask);
     }
 }

@@ -28,7 +28,7 @@ public class HullBreach extends OngoingEvent {
 	@Override
 	public String howYouAppear(Actor performingClient) {
         if (lowPressureInAllAdjacent()) {
-            return new NoPressureEvent(null, getRoom(), null).howYouAppear(performingClient);
+            return new NoPressureEvent(null, getRoom(), null, false).howYouAppear(performingClient);
         }
 		return "Low Pressure!";
 	}
@@ -38,7 +38,7 @@ public class HullBreach extends OngoingEvent {
     @Override
 	public void maintain(GameData gameData) {
         if (lowPressureInAllAdjacent()) {
-            new NoPressureEvent(null, getRoom(), null).apply(gameData);
+            new NoPressureEvent(null, getRoom(), null, false).apply(gameData);
         } else {
             for (Target t : getRoom().getTargets()) {
                 t.beExposedTo(null, new AsphyxiationDamage(t));
@@ -49,7 +49,7 @@ public class HullBreach extends OngoingEvent {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (lowPressureInAllAdjacent()) {
-            return new NoPressureEvent(null, getRoom(), null).getSprite(whosAsking);
+            return new NoPressureEvent(null, getRoom(), null, false).getSprite(whosAsking);
 
         }
         return super.getSprite(whosAsking);

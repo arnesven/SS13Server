@@ -1,6 +1,7 @@
 package model.items.weapons;
 
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Hazard;
@@ -18,6 +19,13 @@ public class Revolver extends AmmoWeapon {
 	public Revolver clone() {
 		return new Revolver();
 	}
+
+
+    @Override
+    public Sprite getHandHeldSprite() {
+        return new Sprite("revolverinhand", "items_righthand.png", 12, 20);
+    }
+
 
     @Override
     protected void checkOnlyMissHazard(final Actor performingClient, GameData gameData) {

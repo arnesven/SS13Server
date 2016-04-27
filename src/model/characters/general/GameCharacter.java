@@ -54,7 +54,6 @@ public abstract class GameCharacter {
 		this.speed = speed;
         gender = MyRandom.randomGender();
         nakedSprite = new NakedHumanSprite(gender.equals("man"));
-
 	}
 
 	/**
@@ -450,11 +449,6 @@ public abstract class GameCharacter {
     }
 
     public Sprite getNakedSprite() {
-      //  if (this.getGender().equals("man")) {
             return nakedSprite;
-
-     //   } else {
-     //       return new Sprite("nakedwoman", "naked.png", 2);
-     //   }
     }
 }

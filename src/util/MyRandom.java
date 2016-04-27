@@ -123,4 +123,13 @@ public class MyRandom {
 		
 		return list;
 	}
+
+    public static Weapon getRandomPirateWeapon() {
+        List<Weapon> randWeapons = new ArrayList<>();
+        randWeapons.add(new LaserPistol());
+        randWeapons.add(new Flamer());
+        randWeapons.add(new Revolver());
+        randWeapons.add(new LaserSword());
+        return sample(randWeapons);
+    }
 }

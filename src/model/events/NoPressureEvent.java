@@ -18,15 +18,18 @@ import model.objects.general.PressurePanel;
 
 public class NoPressureEvent extends Event {
 
-	private PressurePanel panelRef;
+    private final boolean affectsAdjacent;
+    private PressurePanel panelRef;
 	private Room roomRef;
 	private Actor performingClient;
     private List<LowPressureEvent> adjacentRoomEvents = new ArrayList<>();
 
-    public NoPressureEvent(PressurePanel panelRef, Room roomRef, Actor performingClient) {
+    public NoPressureEvent(PressurePanel panelRef, Room roomRef,
+                           Actor performingClient, boolean adjacent) {
 		this.panelRef = panelRef;
 		this.roomRef = roomRef;
 		this.performingClient = performingClient;
+        this.affectsAdjacent = adjacent;
 		removeFires(roomRef);
 	}
 
@@ -49,8 +52,10 @@ public class NoPressureEvent extends Event {
 
 	@Override
 	public void apply(GameData gameData) {
-        applyLowPressureInAdjacentRooms(gameData);
-        addLowPressureToAdjacentRooms(gameData);
+        if (affectsAdjacent) {
+            applyLowPressureInAdjacentRooms(gameData);
+            addLowPressureToAdjacentRooms(gameData);
+        }
 
 		if (!shouldBeRemoved(gameData)) {
 			for (Target t : roomRef.getTargets()) {

@@ -75,7 +75,7 @@ public class PressurePanel extends ElectricalMachinery {
 			@Override
 			protected void execute(GameData gameData, final Actor performingClient) {
 				PressurePanel.this.hasPressure = false;
-				Event e = new NoPressureEvent(PressurePanel.this, roomRef, performingClient);
+				Event e = new NoPressureEvent(PressurePanel.this, roomRef, performingClient, true);
 				gameData.addEvent(e);
 				roomRef.addEvent(e);
 				PressurePanel.this.noPressureEvent = e;

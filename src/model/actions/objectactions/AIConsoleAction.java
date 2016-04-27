@@ -7,8 +7,10 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.characters.general.HorrorCharacter;
 import model.map.Room;
 import model.modes.GameMode;
+import model.npcs.PirateNPC;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.GeneratorConsole;
 import util.Logger;
@@ -48,6 +50,20 @@ public class AIConsoleAction extends Action {
 					performingClient.addTolastTurnInfo("-->Low pressure in " + r.getName() + ".");
 					noAlarms = false;
 				}
+                for (Actor a : r.getActors()) {
+                    if (a instanceof PirateNPC) {
+                        performingClient.addTolastTurnInfo("-->Pirate in " + r.getName() + ".");
+                        noAlarms = false;
+                        break;
+                    }
+                }
+                for (Actor a : r.getActors()) {
+                    if (a.getCharacter() instanceof HorrorCharacter) {
+                        performingClient.addTolastTurnInfo("-->Stalking Horror in " + r.getName() + ".");
+                        noAlarms = false;
+                        break;
+                    }
+                }
 			}
 			for (Object ob : gameData.getObjects()) {
 				if (ob instanceof GeneratorConsole) {

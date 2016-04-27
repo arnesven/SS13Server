@@ -5,7 +5,9 @@ import graphics.Sprite;
 import model.Actor;
 import model.characters.crew.*;
 import model.characters.decorators.DisguisedAs;
+import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
+import model.objects.general.DispenserObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +90,7 @@ public class OutFit extends SuitItem {
         return super.getWornSprite(whosAsking);
     }
 
-    private static Sprite makeOutfit(String outfitname, String map, int i, int i1) {
+    public static Sprite makeOutfit(String outfitname, String map, int i, int i1) {
         List<Sprite> list = new ArrayList<>();
         list.add(new RegularBlackShoesSprite());
         return new Sprite(outfitname, map, i, i1, 32, 32, list);
@@ -96,8 +98,12 @@ public class OutFit extends SuitItem {
 
     @Override
 	public void beingTakenOff(Actor actionPerformer) {
-		// TODO Auto-generated method stub
-		
+		actionPerformer.removeInstance(new InstanceChecker() {
+            @Override
+            public boolean checkInstanceOf(GameCharacter ch) {
+                return ch instanceof DisguisedAs;
+            }
+        });
 	}
 
 	@Override

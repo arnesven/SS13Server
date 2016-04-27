@@ -93,7 +93,7 @@ public class PutOnAction extends Action {
 			}
 		}
 		for (Actor actor : putOnner.getPosition().getActors()) {
-			if (actor.isDead()) {
+			if (actor.isDead() && actor.getCharacter().getSuit() != null) {
 				Logger.log("Dead guys suit: " + actor.getCharacter().getSuit());
 				if (actor.getCharacter().getSuit().getPublicName(performingClient).equals(args.get(0))) {
 					selectedItem = actor.getCharacter().getSuit();

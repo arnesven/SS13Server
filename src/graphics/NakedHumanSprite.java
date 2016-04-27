@@ -12,13 +12,22 @@ import java.util.List;
  */
 public class NakedHumanSprite extends Sprite {
 
-    private static List<Sprite> hair = getRandomHair();
+    private static List<Sprite> hairSprites = makeHairSpriteList();
+
 
     public NakedHumanSprite(boolean gender) {
-        super("nakedman", "naked.png", (gender?0:2), hair);
+        super("nakedman", "naked.png", (gender?0:2), getRandomHair());
     }
 
-    public static List<Sprite> getRandomHair() {
+    private static List<Sprite> getRandomHair() {
+        List<Sprite> res = new ArrayList<>();
+        res.add(MyRandom.sample(hairSprites));
+        Logger.log("Ran Random Hair");
+        res.get(0).setColor(new Color(MyRandom.nextInt(256), MyRandom.nextInt(256), MyRandom.nextInt(256)));
+        return res;
+    }
+
+    private static List<Sprite> makeHairSpriteList() {
         List<Sprite> list = new ArrayList<>();
 
         List<Integer> col = new ArrayList<>();
@@ -26,18 +35,14 @@ public class NakedHumanSprite extends Sprite {
         for (int i = 5; i < 310; i +=4) {
             col.add(i % 31);
             row.add(i / 31);
-         //   Logger.log("Hair [col, row]=[" + col.get(col.size()-1) + "," + row.get(row.size()-1) + "]");
+            //   Logger.log("Hair [col, row]=[" + col.get(col.size()-1) + "," + row.get(row.size()-1) + "]");
         }
 
         for (int i = 0; i < col.size(); ++i) {
             list.add(new Sprite("hair1", "human_face.png", col.get(i), row.get(i)));
         }
-
-        List<Sprite> res = new ArrayList<>();
-        res.add(MyRandom.sample(list));
-        Logger.log("Ran Random Hair");
-        res.get(0).setColor(new Color(MyRandom.nextInt(256), MyRandom.nextInt(256), MyRandom.nextInt(256)));
-        return res;
+        return list;
     }
+
 
 }

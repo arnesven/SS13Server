@@ -27,6 +27,11 @@ public class LaserPistol extends AmmoWeapon {
     }
 
     @Override
+    public Sprite getHandHeldSprite() {
+        return new Sprite("laserpistolinhand", "items_righthand.png", 0, 16);
+    }
+
+    @Override
     protected void checkOnlyMissHazard(final Actor performingClient, GameData gameData) {
         new Hazard(gameData) {
             @Override

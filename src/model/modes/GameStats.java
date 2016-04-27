@@ -1,5 +1,6 @@
 package model.modes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import model.items.NoSuchThingException;
 import model.npcs.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
+import model.npcs.PirateNPC;
 import model.objects.consoles.GeneratorConsole;
 import util.Logger;
 
@@ -168,6 +170,10 @@ public abstract class GameStats {
 		"<tr><td> Parasites spawned: </td><td>"    + mode.getAllParasites().size() + "</td></tr>" +
 		"<tr><td> Parasites killed: </td><td>"     + countDead(mode.getAllParasites()) + "</td></tr>" +
 		"<tr><td> Parasite vanquisher: </td><td>"  + findVanquisher(mode.getAllParasites())+ "</td></tr>";
+        String pirateKiller = findPirateKiller(gameData);
+        if (pirateKiller != null) {
+            res += "<tr><td> Pirate Killer: </td><td>"  + pirateKiller+ "</td></tr>";
+        }
 		String crazyPeople = crazyPeopleString();
 		if (! crazyPeople.equals("")) {
 			res += "<tr><td colspan=\"2\"> "  + crazyPeopleString() + " went crazy. </td>";
@@ -176,6 +182,40 @@ public abstract class GameStats {
 		 
 		return res;
 	}
+
+    private String findPirateKiller(GameData gameData) {
+        List<Actor> pirates = new ArrayList<>();
+        Map<String, Integer> killMap = new HashMap<>();
+        for (Actor a : gameData.getActors()) {
+            if (a instanceof PirateNPC) {
+                if (a.isDead()) {
+                    if (a.getCharacter().getKillerString() != null) {
+                        if (killMap.containsKey(a.getCharacter().getKillerString())) {
+                            killMap.put(a.getCharacter().getKillerString(),
+                                    killMap.get(a.getCharacter().getKillerString() + 1));
+                        } else {
+                            killMap.put(a.getCharacter().getKillerString(), 1);
+                        }
+                    }
+                }
+            }
+        }
+        if (killMap.size() == 0) {
+            return null;
+        }
+
+        int maxkill = 0;
+        String maxkillName = null;
+        for (Entry<String, Integer> entry : killMap.entrySet()) {
+            if (entry.getValue() > maxkill) {
+                maxkill = entry.getValue();
+                maxkillName = entry.getKey();
+            }
+        }
+
+        return maxkillName;
+
+    }
 
     private String powerHistoryString() throws NoSuchThingException {
         String res = "";
