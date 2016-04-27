@@ -1,5 +1,6 @@
 package model.events.ambient;
 
+import graphics.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -52,13 +53,13 @@ public class ColdEvent extends Event {
 	public String howYouAppear(Actor performingClient) {
 		return "Cold";
 	}
-	
-	@Override
-	public String addYourselfToRoomInfo(Player whosAsking) {
-		return "cCold";
-	}
 
-	@Override
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return super.getSprite(whosAsking);
+    }
+
+    @Override
 	public SensoryLevel getSense() {
 		return SensoryLevel.NO_SENSE;
 	}

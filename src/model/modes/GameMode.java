@@ -321,7 +321,6 @@ public abstract class GameMode {
 				break;
 			}
 		}
-		capCl.putOnSuit(new CaptainsHat());
 		listOfCharacters.remove(gc);
 	}
 

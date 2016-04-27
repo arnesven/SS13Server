@@ -20,9 +20,12 @@ public class LarcenyGloves extends SuitItem {
 		return new LarcenyGloves();
 	}
 
+    @Override
+    protected Sprite getWornSprite(Actor whosAsking) {
+        return new Sprite("glovesworn", "human.png", 0);
+    }
 
-
-	@Override
+    @Override
 	public void beingPutOn(Actor actionPerformer) {
 		actionPerformer.setCharacter(new LarcenistCharacter(actionPerformer.getCharacter()));
 	}

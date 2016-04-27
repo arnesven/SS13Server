@@ -451,4 +451,8 @@ public abstract class GameCharacter {
     public Sprite getNakedSprite() {
             return nakedSprite;
     }
+
+    public void setNakedSprite(Sprite nakedSprite) {
+        this.nakedSprite = nakedSprite;
+    }
 }

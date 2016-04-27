@@ -9,6 +9,7 @@ import model.Actor;
 public class LaserSword extends Weapon {
     public LaserSword() {
         super("Laser Sword", 0.9, 1.0, false, 0.5, true);
+        this.setCriticalChance(0.15);
     }
 
     @Override

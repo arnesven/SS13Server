@@ -10,6 +10,7 @@ import model.actions.general.SensoryLevel;
 import model.characters.general.HorrorCharacter;
 import model.map.Room;
 import model.modes.GameMode;
+import model.npcs.ParasiteNPC;
 import model.npcs.PirateNPC;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.GeneratorConsole;
@@ -63,6 +64,15 @@ public class AIConsoleAction extends Action {
                         noAlarms = false;
                         break;
                     }
+                }
+                int parCount = 0;
+                for (Actor a : r.getActors()) {
+                    if (a instanceof ParasiteNPC) {
+                        parCount++;
+                    }
+                }
+                if (parCount > 4) {
+                    performingClient.addTolastTurnInfo("-->Parasite infestation in " + r.getName() + ".");
                 }
 			}
 			for (Object ob : gameData.getObjects()) {

@@ -5,10 +5,7 @@ import model.GameData;
 import model.Target;
 import model.actions.general.AttackAction;
 import model.characters.decorators.InstanceChecker;
-import model.characters.general.GameCharacter;
-import model.characters.general.HorrorCharacter;
-import model.characters.general.OperativeCharacter;
-import model.characters.general.ParasiteCharacter;
+import model.characters.general.*;
 import model.npcs.NPC;
 import model.objects.general.GameObject;
 
@@ -53,7 +50,12 @@ public class AttackBaddiesBehavior extends AttackIfPossibleBehavior {
             public boolean checkInstanceOf(GameCharacter ch) {
                 return ch instanceof HorrorCharacter;
             }
-        });
+        }) || t.getCharacter().checkInstance((new InstanceChecker() {
+            @Override
+            public boolean checkInstanceOf(GameCharacter ch) {
+                return ch instanceof PirateCharacter;
+            }
+        }));
     }
 
 }
