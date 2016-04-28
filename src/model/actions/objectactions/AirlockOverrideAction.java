@@ -12,7 +12,7 @@ import model.map.Room;
 import model.objects.general.GameObject;
 import model.objects.general.PressurePanel;
 
-public class AirlockOverrideAction extends Action {
+public class AirlockOverrideAction extends ConsoleAction {
 
 	private List<Room> rooms = new ArrayList<>();
 	private List<PressurePanel> panels = new ArrayList<>();

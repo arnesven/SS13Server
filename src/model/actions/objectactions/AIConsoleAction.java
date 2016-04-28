@@ -8,15 +8,17 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.general.HorrorCharacter;
+import model.items.NoSuchThingException;
 import model.map.Room;
 import model.modes.GameMode;
 import model.npcs.ParasiteNPC;
 import model.npcs.PirateNPC;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.GeneratorConsole;
+import model.objects.general.GameObject;
 import util.Logger;
 
-public class AIConsoleAction extends Action {
+public class AIConsoleAction extends ConsoleAction {
 
 	private String choice;
 	private String crew;
@@ -42,49 +44,18 @@ public class AIConsoleAction extends Action {
 		console.setInUse(true);
 		if (choice.equals("Check Alarms")) {
 			boolean noAlarms = true;
-			for (Room r : gameData.getRooms()) {
-				if (r.hasFire()) {
-					performingClient.addTolastTurnInfo("-->Fire alarm in " + r.getName() + ".");
-					noAlarms = false;
-				}
-				if (r.hasHullBreach()) {
-					performingClient.addTolastTurnInfo("-->Low pressure in " + r.getName() + ".");
-					noAlarms = false;
-				}
-                for (Actor a : r.getActors()) {
-                    if (a instanceof PirateNPC) {
-                        performingClient.addTolastTurnInfo("-->Pirate in " + r.getName() + ".");
-                        noAlarms = false;
-                        break;
-                    }
+            List<String> alarms = null;
+            try {
+                alarms = AIConsole.find(gameData).getAlarms(gameData);
+
+                for (String alarm : alarms) {
+                    performingClient.addTolastTurnInfo(alarm);
                 }
-                for (Actor a : r.getActors()) {
-                    if (a.getCharacter() instanceof HorrorCharacter) {
-                        performingClient.addTolastTurnInfo("-->Stalking Horror in " + r.getName() + ".");
-                        noAlarms = false;
-                        break;
-                    }
-                }
-                int parCount = 0;
-                for (Actor a : r.getActors()) {
-                    if (a instanceof ParasiteNPC) {
-                        parCount++;
-                    }
-                }
-                if (parCount > 4) {
-                    performingClient.addTolastTurnInfo("-->Parasite infestation in " + r.getName() + ".");
-                }
-			}
-			for (Object ob : gameData.getObjects()) {
-				if (ob instanceof GeneratorConsole) {
-					GeneratorConsole gc = (GeneratorConsole) ob;
-					if (Math.abs(gc.getPowerOutput() - 1.0) > 0.2) {
-						performingClient.addTolastTurnInfo("-->Power output anomalous " + (int)(100.0*gc.getPowerOutput()) + "%");
-					}
-					break;
-				}
-			}
-			if (noAlarms) {
+            } catch (NoSuchThingException nste) {
+                Logger.log(Logger.CRITICAL, "NO AI CONSOLE FOUND!");
+            }
+
+			if (alarms == null || alarms.size() == 0) {
 				performingClient.addTolastTurnInfo("No alarms.");
 			}
 			

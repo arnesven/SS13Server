@@ -1,11 +1,10 @@
 package model.events;
 
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.Target;
 import model.actions.general.SensoryLevel;
 
 public abstract class Event {

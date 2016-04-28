@@ -1,13 +1,12 @@
 package model.items.suits;
 
-import graphics.RegularBlackShoesSprite;
-import graphics.Sprite;
+import graphics.sprites.RegularBlackShoesSprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.characters.crew.*;
 import model.characters.decorators.DisguisedAs;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
-import model.objects.general.DispenserObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,12 +99,16 @@ public class OutFit extends SuitItem {
 
     @Override
 	public void beingTakenOff(Actor actionPerformer) {
-		actionPerformer.removeInstance(new InstanceChecker() {
+        InstanceChecker disguiesCheck = new InstanceChecker() {
             @Override
             public boolean checkInstanceOf(GameCharacter ch) {
                 return ch instanceof DisguisedAs;
             }
-        });
+        };
+
+        if (actionPerformer.getCharacter().checkInstance(disguiesCheck)) {
+            actionPerformer.removeInstance(disguiesCheck);
+        }
 	}
 
 	@Override

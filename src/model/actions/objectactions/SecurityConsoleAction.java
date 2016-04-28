@@ -16,7 +16,7 @@ import model.map.MapBuilder;
 import model.map.Room;
 import model.objects.consoles.SecurityCameraConsole;
 
-public class SecurityConsoleAction extends Action {
+public class SecurityConsoleAction extends ConsoleAction {
 
 	private String chosen;
 	private SecurityCameraConsole console;

@@ -13,7 +13,7 @@ import model.objects.general.CrateObject;
 import model.objects.consoles.AdministrationConsole;
 import model.objects.shipments.Shipment;
 
-public class AdminConsoleAction extends Action {
+public class AdminConsoleAction extends ConsoleAction {
 
 
 	private AdministrationConsole pc;

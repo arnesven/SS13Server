@@ -1,12 +1,11 @@
 package model.events.ambient;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.events.damage.FireDamage;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.Target;
 import model.actions.general.SensoryLevel;
 import model.map.Room;

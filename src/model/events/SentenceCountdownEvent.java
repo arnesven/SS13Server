@@ -57,8 +57,14 @@ public class SentenceCountdownEvent extends Event {
 				});
 			} else {
 				if (!firstTime) {
-					inmate.addTolastTurnInfo("You have " + remaining + " more round(s) on your sentance.");
-				}
+                    inmate.addTolastTurnInfo("You have " + remaining + " more round(s) on your sentence.");
+                }
+
+                for (Actor a : gameData.getRoom("Port Hall Front").getActors()) {
+                     a.addTolastTurnInfo(inmate.getPublicName() + " looks unhappy in the brig.");
+                }
+
+
 				firstTime = false;
 				remaining--;
 				console.getSentenceMap().put(inmate, remaining);

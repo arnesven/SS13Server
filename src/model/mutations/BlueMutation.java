@@ -1,8 +1,7 @@
 package model.mutations;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
-import model.Player;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.NameAddDecorator;
 

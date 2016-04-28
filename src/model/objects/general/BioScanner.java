@@ -3,7 +3,7 @@ package model.objects.general;
 import java.util.ArrayList;
 import java.util.List;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;

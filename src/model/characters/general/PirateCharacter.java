@@ -1,6 +1,6 @@
 package model.characters.general;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.items.foods.SpaceRum;
 import model.items.general.GameItem;

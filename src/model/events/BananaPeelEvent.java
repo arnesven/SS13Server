@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.SensoryLevel;
 import model.characters.general.CatCharacter;
 import model.characters.general.GameCharacter;

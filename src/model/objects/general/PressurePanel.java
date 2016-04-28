@@ -3,7 +3,7 @@ package model.objects.general;
 import java.util.ArrayList;
 import java.util.List;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.actions.general.SensoryLevel;
 import model.Actor;
 import model.GameData;

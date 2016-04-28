@@ -1,6 +1,6 @@
 package model.events.ambient;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.events.Event;
 import model.events.damage.RadiationDamage;
 import util.MyRandom;

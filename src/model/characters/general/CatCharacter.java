@@ -3,10 +3,9 @@ package model.characters.general;
 import java.util.ArrayList;
 import java.util.List;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.characteractions.HissAction;
 import model.actions.characteractions.MeowingAction;

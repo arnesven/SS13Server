@@ -3,8 +3,8 @@ package model.characters.general;
 import java.util.ArrayList;
 import java.util.List;
 
-import graphics.NakedHumanSprite;
-import graphics.Sprite;
+import graphics.sprites.NakedHumanSprite;
+import graphics.sprites.Sprite;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;

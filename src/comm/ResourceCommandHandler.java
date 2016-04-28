@@ -1,6 +1,6 @@
 package comm;
 
-import graphics.SpriteManager;
+import graphics.sprites.SpriteManager;
 import model.GameData;
 
 import java.io.IOException;

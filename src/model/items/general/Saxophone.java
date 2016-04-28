@@ -3,14 +3,13 @@ package model.items.general;
 import java.util.ArrayList;
 import java.util.List;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.items.weapons.BluntWeapon;
 import model.actions.general.SensoryLevel;
-import model.items.weapons.Weapon;
 
 public class Saxophone extends BluntWeapon {
 

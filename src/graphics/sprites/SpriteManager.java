@@ -1,4 +1,4 @@
-package graphics;
+package graphics.sprites;
 
 import util.Logger;
 

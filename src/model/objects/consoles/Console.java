@@ -1,6 +1,6 @@
 package model.objects.consoles;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Player;
 import model.map.Room;
 import model.objects.general.ElectricalMachinery;

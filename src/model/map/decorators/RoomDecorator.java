@@ -22,7 +22,7 @@ public class RoomDecorator extends Room {
 	
 	public RoomDecorator(Room inner) {
 		super(inner.getID(), inner.getName(), inner.getShortname(), inner.getX(), inner.getY(), 
-				inner.getWidth(), inner.getHeight(), inner.getNeighbors(), inner.getDoors());
+				inner.getWidth(), inner.getHeight(), inner.getNeighbors(), inner.getDoors(), inner.getType());
 		innerRoom = inner;
 	}
 

@@ -38,13 +38,13 @@ public class GameData {
 	private GameState gameState             = GameState.PRE_GAME;
 
 	// These should be set up anew for each game.
-	private List<NPC> npcs;
+	private List<NPC> npcs = new ArrayList<>();
 	private GameMode gameMode;
 	private int round = 0;
 	private int noOfRounds = 20;
 	private List<Pair<Actor, Action>> lateActions;
 	// Map must be built before first game, client needs it.
-	private GameMap map                     = MapBuilder.createMap();
+	private GameMap map = MapBuilder.createMap(this);
 	private String selectedMode = "Secret";
 	private List<Event> events = new ArrayList<>();
 	private List<Event> moveEvents = new ArrayList<>();
@@ -52,7 +52,7 @@ public class GameData {
 
 
     public GameData() {
-		
+
 	}
 	
 	/**
@@ -85,7 +85,11 @@ public class GameData {
 	public List<Room> getRooms() {
 		List<Room> list = new ArrayList<>();
 		list.addAll(getAllRooms());
-		list.remove(map.getRoom("Nuclear Ship"));
+        try {
+            list.remove(map.getRoom("Nuclear Ship"));
+        } catch (NoSuchElementException nse) {
+            Logger.log("CRITICAL: No Nuclear ship found");
+        }
 		return list;
 	}
 	
@@ -316,7 +320,8 @@ public class GameData {
 	
 	private void doSetup() {
 		Logger.log("Doing setup:");
-		this.map = MapBuilder.createMap();
+        this.npcs = new ArrayList<>();
+		this.map = MapBuilder.createMap(this);
 		Logger.log("Map built");
 		for (Player p : getPlayersAsList()) {
 			p.prepForNewGame();
@@ -325,7 +330,7 @@ public class GameData {
 		this.events = new ArrayList<>();
 		this.moveEvents = new ArrayList<>();
 		this.lateActions = new ArrayList<>();
-		this.npcs = new ArrayList<>();
+
 		this.gameMode = GameModeFactory.create(selectedMode);
 		Logger.log("Got game mode from factory.");
 		this.round = 1;

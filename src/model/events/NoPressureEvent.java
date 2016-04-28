@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Target;
 import model.actions.general.SensoryLevel;
 import model.events.ambient.ElectricalFire;
-import model.events.ambient.HullBreach;
 import model.events.ambient.LowPressureEvent;
 import model.events.damage.NoPressureDamage;
 import model.map.Room;

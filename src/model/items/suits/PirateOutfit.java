@@ -1,13 +1,10 @@
 package model.items.suits;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.characters.decorators.DisguisedAs;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by erini02 on 26/04/16.

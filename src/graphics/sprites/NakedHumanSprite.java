@@ -1,4 +1,4 @@
-package graphics;
+package graphics.sprites;
 
 import util.Logger;
 import util.MyRandom;
@@ -22,8 +22,8 @@ public class NakedHumanSprite extends Sprite {
     private static List<Sprite> getRandomHair() {
         List<Sprite> res = new ArrayList<>();
         res.add(MyRandom.sample(hairSprites));
-        Logger.log("Ran Random Hair");
-        res.get(0).setColor(new Color(MyRandom.nextInt(256), MyRandom.nextInt(256), MyRandom.nextInt(256)));
+       // Logger.log("Ran Random Hair");
+        res.get(0).setColor(new Color(MyRandom.nextInt(156), MyRandom.nextInt(156), MyRandom.nextInt(156)));
         return res;
     }
 

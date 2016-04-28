@@ -1,14 +1,10 @@
 package model.characters.decorators;
 
-import graphics.Sprite;
-import graphics.SpriteManager;
 import model.Actor;
 import model.events.damage.AsphyxiationDamage;
 import model.events.damage.ColdDamage;
 import model.characters.general.GameCharacter;
 import model.events.damage.Damager;
-
-import java.util.ArrayList;
 
 public class SpaceProtection extends CharacterDecorator {
 

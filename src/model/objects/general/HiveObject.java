@@ -2,7 +2,7 @@ package model.objects.general;
 
 import java.util.ArrayList;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;

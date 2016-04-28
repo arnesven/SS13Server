@@ -54,8 +54,8 @@ public class BotConsole extends Console {
                 new RepairStuffBehavior(gameData)));
         try {
             bp.add(new BotProgram("Security",
-                    new FollowCriminalBehavior(gameData),
-                    new ArrestCriminalBehavior(gameData)));
+                    new FollowCriminalBehavior(CrimeRecordsConsole.find(gameData)),
+                    new ArrestCriminalBehavior(CrimeRecordsConsole.find(gameData))));
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "No crime console on statin. Not adding security bot program.");
         }

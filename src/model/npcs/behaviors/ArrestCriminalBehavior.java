@@ -13,8 +13,8 @@ public class ArrestCriminalBehavior implements ActionBehavior {
 
 	private CrimeRecordsConsole console;
 
-	public ArrestCriminalBehavior(GameData gameData) throws NoSuchThingException {
-		this.console = CrimeRecordsConsole.find(gameData);
+	public ArrestCriminalBehavior(CrimeRecordsConsole console) throws NoSuchThingException {
+		this.console = console;
 	}
 
 	@Override

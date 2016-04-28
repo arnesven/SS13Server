@@ -1,7 +1,7 @@
 package model.items.suits;
 
-import graphics.RegularBlackShoesSprite;
-import graphics.Sprite;
+import graphics.sprites.RegularBlackShoesSprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 
 import java.util.ArrayList;

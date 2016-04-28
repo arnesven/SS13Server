@@ -1,8 +1,7 @@
 package model.objects.general;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Player;
-import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.general.Syringe;
 import model.map.Room;

@@ -4,6 +4,7 @@ import java.net.Socket;
 
 import comm.ServiceHandler;
 
+import graphics.pdf.MapPDFMaker;
 import model.GameData;
 import util.Logger;
 
@@ -28,8 +29,11 @@ public class SS13ServerMain {
 		GameData gameData = new GameData();
 		
 		ServiceHandler serviceHandler = new ServiceHandler(name, gameData, port);
+        if (args.length == 3 && args[2].equals("pdf")) {
+            MapPDFMaker.generate(gameData);
+        }
 
-		try {
+        try {
 			listener = new ServerSocket(port);
 			Logger.log("SS13 server \"" + name + "\" running on " + port  + "...");
 

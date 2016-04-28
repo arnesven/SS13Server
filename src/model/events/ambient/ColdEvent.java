@@ -1,9 +1,8 @@
 package model.events.ambient;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;

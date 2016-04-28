@@ -10,7 +10,7 @@ import model.actions.general.SensoryLevel;
 import model.objects.consoles.GeneratorConsole;
 import util.Logger;
 
-public class PowerConsoleAction extends Action {
+public class PowerConsoleAction extends ConsoleAction {
 
 	private PowerLevelAction powerLevelAction;
 	private PowerPrioAction powerPrioAction;

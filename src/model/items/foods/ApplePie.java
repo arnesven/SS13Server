@@ -1,6 +1,6 @@
 package model.items.foods;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 
 public class ApplePie extends HealingFood {

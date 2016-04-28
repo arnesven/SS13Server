@@ -1,7 +1,7 @@
 package model.items.suits;
 
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;

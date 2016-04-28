@@ -16,6 +16,10 @@ public class GameMap {
 
 	private List<Room> roomsList;
 
+    private  GameMap() {
+       // should not instanciate like this
+    }
+
 	public GameMap(ArrayList<Room> result) {
 		for (Room r : result) {
 			r.setMap(this);
@@ -172,4 +176,24 @@ public class GameMap {
 	}
 
 
+    public int totalWidth() {
+        int maxX = 0;
+        for (Room r : roomsList) {
+            if (r.getX() + r.getWidth() > maxX) {
+                maxX = r.getX() + r.getWidth();
+            }
+        }
+        return maxX;
+
+    }
+
+    public int getTotalHeight() {
+        int maxY = 0;
+        for (Room r : roomsList) {
+            if (r.getY() + r.getHeight() > maxY) {
+                maxY = r.getY() + r.getHeight();
+            }
+        }
+        return maxY;
+    }
 }

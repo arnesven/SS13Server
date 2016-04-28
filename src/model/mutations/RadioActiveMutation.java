@@ -1,13 +1,10 @@
 package model.mutations;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
-import model.Player;
 import model.characters.decorators.CharacterDecorator;
-import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.events.ambient.LocalRadiationEvent;
-import model.events.ambient.RadiationStorm;
 import model.map.Room;
 
 /**

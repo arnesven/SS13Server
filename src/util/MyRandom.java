@@ -132,4 +132,15 @@ public class MyRandom {
         randWeapons.add(new LaserSword());
         return sample(randWeapons);
     }
+
+    public static Alcohol getRandomAlcohol() {
+        List<Alcohol> randDrinks = new ArrayList<>();
+        randDrinks.add(new Beer());
+        randDrinks.add(new Beer());
+        randDrinks.add(new Wine());
+        randDrinks.add(new Vodka());
+        randDrinks.add(new SpaceRum());
+
+        return sample(randDrinks);
+    }
 }

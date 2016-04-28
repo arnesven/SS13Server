@@ -16,6 +16,8 @@ import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.suits.PrisonerSuit;
 import model.map.Room;
+import model.npcs.NPC;
+import model.npcs.SecuritronNPC;
 import model.objects.general.EvidenceBox;
 import model.objects.general.GameObject;
 import util.Logger;
@@ -31,8 +33,16 @@ public class CrimeRecordsConsole extends Console {
 	private Map<Actor, List<Pair<String, Actor>>> reportMap = new HashMap<>();
 	private int noOfSentenced = 1;
 	
-	public CrimeRecordsConsole(Room r) {
+	public CrimeRecordsConsole(Room r, GameData gameData) {
 		super("Crime Records", r);
+        NPC securitron = null;
+        try {
+            securitron = new SecuritronNPC(r, gameData, this);
+            gameData.addNPC(securitron);
+        } catch (NoSuchThingException e) {
+            Logger.log("No crime console found, not adding securitron to station");
+        }
+
 	}
 
 	@Override

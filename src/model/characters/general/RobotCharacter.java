@@ -3,9 +3,8 @@ package model.characters.general;
 import java.util.ArrayList;
 import java.util.List;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
-import model.Player;
 import model.items.general.GameItem;
 import model.items.weapons.BluntWeapon;
 import model.items.weapons.Weapon;

@@ -7,9 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import model.characters.decorators.HuskDecorator;
+import model.characters.general.HorrorCharacter;
+import model.characters.general.OperativeCharacter;
 import model.events.PirateAttackEvent;
+import model.events.ambient.*;
 import model.items.NoSuchThingException;
 import model.items.suits.CaptainsHat;
+import model.items.suits.OperativeSpaceSuit;
 import model.npcs.*;
 import util.Logger;
 import util.MyRandom;
@@ -35,16 +40,8 @@ import model.characters.crew.TechnicianCharacter;
 import model.characters.crew.RoboticistCharacter;
 import model.characters.crew.SecurityOfficerCharacter;
 import model.characters.crew.TouristCharacter;
-import model.events.ambient.Crazyness;
-import model.events.ambient.ElectricalFire;
 import model.events.Event;
 import model.events.Explosion;
-import model.events.ambient.HullBreach;
-import model.events.ambient.OngoingEvent;
-import model.events.ambient.PowerFlux;
-import model.events.ambient.RadiationStorm;
-import model.events.ambient.RandomHuskEvent;
-import model.events.ambient.SimulatePower;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
 import model.items.general.Tools;
@@ -358,11 +355,8 @@ public abstract class GameMode {
 	}
 
 	private void addNPCs(GameData gameData, List<GameCharacter> remainingChars) {
-        NPC cat = new CatNPC(gameData.getRoomForId(20));
-		gameData.addNPC(cat);
-		
-		NPC chimp = new ChimpNPC(gameData.getRoom("Greenhouse"));
-		gameData.addNPC(chimp);
+
+
 		while (MyRandom.nextDouble() < 0.5) {
 			gameData.addNPC(new SnakeNPC(gameData.getRoom("Greenhouse")));
 		}
@@ -375,13 +369,7 @@ public abstract class GameMode {
 		NPC tars = new TARSNPC(TARSRoom);
 		gameData.addNPC(tars);
 
-        NPC securitron = null;
-        try {
-            securitron = new SecuritronNPC(gameData.getRoom("Security Station"), gameData);
-            gameData.addNPC(securitron);
-        } catch (NoSuchThingException e) {
-            Logger.log("No crime console found, not adding securitron to station");
-        }
+
 
 	//	testShortestDistance(gameData);
 
@@ -434,20 +422,18 @@ public abstract class GameMode {
 
 	private void addItemsToRooms(GameData gameData) {
 
-		Room genRoom = gameData.getRoom("Generator");
-		genRoom.addItem(new FireExtinguisher());
-		genRoom.addItem(new Tools());
-
-		Room labRoom = gameData.getRoom("Lab");
-		labRoom.addItem(new FireExtinguisher());
-		labRoom.addItem(new RadiationSuit());
-
-		Room bridge = gameData.getRoom("Bridge");
-		bridge.addItem(new FireExtinguisher());
+	//	Room genRoom = gameData.getRoom("Generator");
 
 
-		Room kitchRoom = gameData.getRoom("Kitchen");
-		kitchRoom.addItem(new FireExtinguisher());
+	//	Room labRoom = gameData.getRoom("Lab");
+
+
+		//Room bridge = gameData.getRoom("Bridge");
+
+
+
+		//Room kitchRoom = gameData.getRoom("Kitchen");
+
 
 
 	}

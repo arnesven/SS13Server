@@ -12,8 +12,8 @@ public class FollowCriminalBehavior implements MovementBehavior {
 
 	private CrimeRecordsConsole console;
 
-	public FollowCriminalBehavior(GameData gameData) throws NoSuchThingException {
-		console = CrimeRecordsConsole.find(gameData);
+	public FollowCriminalBehavior(CrimeRecordsConsole console) throws NoSuchThingException {
+		this.console = console;
 		
 	}
 

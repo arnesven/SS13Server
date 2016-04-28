@@ -1,7 +1,7 @@
 package model.characters.general;
 
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 
 public class SecuritronCharacter extends RobotCharacter {

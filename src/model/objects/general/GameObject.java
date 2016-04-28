@@ -1,9 +1,8 @@
 package model.objects.general;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;

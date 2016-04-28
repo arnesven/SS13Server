@@ -1,6 +1,4 @@
-package graphics;
-
-import java.util.List;
+package graphics.sprites;
 
 /**
  * Created by erini02 on 26/04/16.

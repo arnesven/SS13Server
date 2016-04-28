@@ -39,7 +39,7 @@ public class OperativesModeStats extends GameStats {
 
 	@Override
 	public String getMode() {
-		return "Infiltration";
+		return "Operatives";
 	}
 
 	@Override

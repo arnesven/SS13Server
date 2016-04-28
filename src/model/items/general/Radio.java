@@ -1,12 +1,11 @@
 package model.items.general;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.items.NoSuchThingException;
 import model.objects.consoles.Console;
-import model.objects.consoles.CrimeRecordsConsole;
 import util.Logger;
 
 import java.util.ArrayList;

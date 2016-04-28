@@ -1,8 +1,7 @@
 package model.items.suits;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
-import model.items.suits.SuitItem;
 
 public class ChefsHat extends SuitItem {
 

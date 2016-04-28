@@ -9,7 +9,7 @@ public class ArmoryRoom extends Room {
 
 	public ArmoryRoom(int ID, int x, int y,
 			int width, int height, int[] neighbors, double[] doors) {
-		super(ID, "Armory", "Army", x, y, width, height, neighbors, doors);
+		super(ID, "Armory", "Army", x, y, width, height, neighbors, doors, RoomType.security);
 		this.addItem(new Flamer());
 		this.addItem(new Flamer());
 		this.addItem(new Revolver());

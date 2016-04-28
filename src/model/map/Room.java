@@ -28,7 +28,8 @@ import model.objects.general.GameObject;
  */
 public class Room {
 
-	private String name;
+    private final RoomType roomType;
+    private String name;
 	private int[] neighbors;
 	private List<Player> players = new ArrayList<>();
 	private List<NPC> npcs = new ArrayList<>();
@@ -50,7 +51,7 @@ public class Room {
 	private int ID;
 	protected double[] doors;
 
-	
+
 	/**
 	 * Constructor for a Room
 	 * @param ID, the numeric ID of the room. This is used for the most part when identifying it
@@ -63,7 +64,7 @@ public class Room {
 	 * @param neighbors what other rooms (their IDs) are connected to this room by doors.
 	 * @param doors where doors should show up visually on the map (no game effect) 
 	 */
-	public Room(int ID, String name, String shortname, int x, int y, int width, int height, int[] neighbors, double[] doors) {
+	public Room(int ID, String name, String shortname, int x, int y, int width, int height, int[] neighbors, double[] doors, RoomType roomType) {
 		this.name = name;
 		this.shortname = shortname;
 		this.x = x;
@@ -73,6 +74,7 @@ public class Room {
 		this.ID = ID;
 		this.neighbors = neighbors;
 		this.doors=doors;
+        this.roomType = roomType;
 	}
 	
 	@Override
@@ -391,5 +393,9 @@ public class Room {
                 }
             }
         }
+    }
+
+    public RoomType getType() {
+        return roomType;
     }
 }

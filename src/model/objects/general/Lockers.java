@@ -1,6 +1,6 @@
 package model.objects.general;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import util.MyRandom;
 import model.Player;
 import model.items.general.MedKit;

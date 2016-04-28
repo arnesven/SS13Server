@@ -13,7 +13,7 @@ import model.actions.general.ActionOption;
 import model.objects.consoles.CrimeRecordsConsole;
 import model.actions.general.SensoryLevel;
 
-public class ReportCrimeAction extends Action {
+public class ReportCrimeAction extends ConsoleAction {
 
 
 	private CrimeRecordsConsole console;

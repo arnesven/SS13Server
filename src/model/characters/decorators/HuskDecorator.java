@@ -1,8 +1,7 @@
 package model.characters.decorators;
 
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import model.Actor;
-import model.Player;
 import model.characters.general.GameCharacter;
 
 public class HuskDecorator extends CharacterDecorator {

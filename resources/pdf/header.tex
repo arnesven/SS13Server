@@ -1,0 +1,68 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[paperwidth=621mm,paperheight=591mm]{geometry}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{xspace}
+\usepackage{array}
+\usepackage{setspace}
+\usepackage{ragged2e}
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{contour}
+\usepackage{fetamont}
+\usepackage[T1]{fontenc}
+\usepackage[parfill]{parskip}
+\usepackage{marvosym}
+\usepackage{pifont}
+\usepackage[none]{hyphenat}
+
+\usetikzlibrary{shapes,patterns}
+\usepackage{varwidth}
+\pagestyle{empty}
+
+\addtolength{\oddsidemargin}{-93.5mm}
+\addtolength{\topmargin}{-73mm}
+
+
+\newcommand{\baseroomnode}[7]{
+  \draw (#1mm, #2mm) node[minimum width=#5mm, 
+    anchor=center,
+    minimum height=#7mm,
+    thick, 
+    fill=#4,
+    rotate=#6,
+    align=center,
+    postaction = {draw=Black, 
+      double=White, 
+      double distance=3pt}, 
+    rounded corners=3pt] {
+%    \begin{minipage}{#5mm}
+%      \begin{center}
+      \textsf{\textbf{#3}}
+%      \end{center}
+%  \end{minipage}
+};
+}
+
+\newcommand{\roombox}[5]{
+  \draw (#1mm, #2mm) node[minimum width=#3mm,
+    minimum height=#4mm,fill=#5, draw=black,
+  anchor=north west] {};
+}
+
+\newcommand{\roomnode}[6]{\baseroomnode{#1}{#2}{#3}{#4}{#5}{0}{#6}}
+\newcommand{\rotroomnode}[6]{\baseroomnode{#1}{#2}{#3}{#4}{#5}{90}{#6}}
+
+\newcommand{\iconnode}[5]{   \roomnode{#1}{#2}{\begin{minipage}[T]{16mm}\includegraphics[width=16mm]{#3}\end{minipage}\begin{minipage}[T]{30mm}\Large{#4}\end{minipage}}{#5} }
+
+\newcommand{\firextnode}[3]{\iconnode{#1}{#2}{images/firext.png}{Fire\\Exting.}{#3}}
+
+\begin{document}
+\fcolorbox{Black}{White}{
+  \hskip -2.3mm
+      % background
+      % Picture
+
+
