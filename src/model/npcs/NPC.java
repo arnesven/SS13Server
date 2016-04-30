@@ -16,12 +16,14 @@ import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.MovementBehavior;
 import util.Logger;
 
+import java.io.Serializable;
+
 /**
  * @author erini02
  * Class representing NPCs on the station (non-player characters).
  * E.g. monsters, crewmembers not controlled by players. And other things.
  */
-public abstract class NPC extends Actor implements Target {
+public abstract class NPC extends Actor implements Target, Serializable {
 		
 	private MovementBehavior moveBehavior;
 	private ActionBehavior actBehavior;

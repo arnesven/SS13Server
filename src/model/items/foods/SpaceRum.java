@@ -13,7 +13,7 @@ public class SpaceRum extends Alcohol {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("spacerum", "drinks.png", 17);
+        return new Sprite("spacerum", "drinks.png", 0, 14);
     }
 
     @Override

@@ -34,6 +34,7 @@ public class HideAction extends Action {
 	protected void execute(GameData gameData, Actor performingClient) {
 		if (performingClient.getItems().contains(hidableItem)) {
 			hidableItem.setHidden(true);
+            hidableItem.setHolder(null);
 			performingClient.addTolastTurnInfo("You hid the " + hidableItem.getPublicName(performingClient));
 			performingClient.getCharacter().getItems().remove(hidableItem);
 			performingClient.getPosition().addItem(hidableItem);

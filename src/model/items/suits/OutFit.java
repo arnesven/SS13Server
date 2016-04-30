@@ -57,7 +57,7 @@ public class OutFit extends SuitItem {
     protected Sprite getWornSprite(Actor whosAsking) {
         if (type instanceof CaptainCharacter) {
             List<Sprite> list = new ArrayList<>();
-            list.add(makeOutfit("capclothesandshoes", "uniform.png", 11, 5));
+            list.add(makeOutfit("capclothesandshoes", "suit.png", 101, 0));
             return new Sprite("captainsuniformworn", "head.png", 8, 6, 32, 32, list);
         } else if (type instanceof HeadOfStaffCharacter) {
             return makeOutfit("hosuniformworn", "uniform2.png", 23, 18);

@@ -140,9 +140,12 @@ public abstract class BreakableObject extends GameObject implements Target {
 		if (damage.isDamageSuccessful(false)) {
             damage.doDamageOnMe(this);
         	if (hp == 0) { // broken :-)
+                if (!alreadyBroken) {
+                    thisJustBroke();
+                }
 				if (performingClient != null && !alreadyBroken) {
 					breaker = performingClient;
-					thisJustBroke();
+
 				} else {
 					breakString = damage.getName();
 				}

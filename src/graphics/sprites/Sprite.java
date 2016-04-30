@@ -3,13 +3,14 @@ package graphics.sprites;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by erini02 on 24/04/16.
  */
-public class Sprite {
+public class Sprite implements Serializable {
     private List<Sprite> layers;
     private String name;
     private String mapPath;
@@ -17,7 +18,7 @@ public class Sprite {
     private int column;
     private int width;
     private int height;
-    private BufferedImage image;
+ //   private BufferedImage image;
     private Color color;
 
 
@@ -38,6 +39,31 @@ public class Sprite {
         }
     }
 
+//    private void writeObject(java.io.ObjectOutputStream out)
+//            throws IOException{
+//        out.writeObject(layers);
+//        out.writeObject(name);
+//        out.writeObject(mapPath);
+//        out.writeInt(row);
+//        out.writeInt(column);
+//        out.writeInt(width);
+//        out.write(height);
+//        out.writeObject(color);
+//    }
+//
+//    private void readObject(java.io.ObjectInputStream in)
+//            throws IOException, ClassNotFoundException {
+//            layers  = (List<Sprite>)in.readObject();
+//            name    = (String)in.readObject();
+//            mapPath = (String)in.readObject();
+//            row     = in.readInt();
+//            column  = in.readInt();
+//            width   = in.readInt();
+//            height  = in.readInt();
+//            color   = (Color)in.readObject();
+//            SpriteManager.register(this);
+//       }
+
     public Sprite(String name, String mapPath, int column, int row, int width, int height){
         this(name, mapPath, column, row, width, height, new ArrayList<>());
     }
@@ -54,7 +80,7 @@ public class Sprite {
     public Sprite(String name, List<Sprite> list) {
         this(name, list.get(0).getMap(), list.get(0).getColumn(),
                 list.get(0).getRow(), list.get(0).getWidth(),
-                list.get(0).getHeight(), list.subList(1, list.size()));
+                list.get(0).getHeight(), new ArrayList<Sprite>(list.subList(1, list.size())));
     }
 
     public Sprite(String name, String mapPath, int column, List<Sprite> list) {
@@ -69,10 +95,11 @@ public class Sprite {
     }
 
     public BufferedImage getImage() throws IOException {
-        if (this.image == null) {
-            this.image = internalGetImage();
-        }
-        return this.image;
+   //     if (this.image == null) {
+      //      this.image = internalGetImage();
+    //    }
+      //  return this.image;
+        return internalGetImage();
      }
 
     protected BufferedImage internalGetImage() throws IOException {

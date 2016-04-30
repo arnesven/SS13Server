@@ -1,5 +1,6 @@
 package model.actions.general;
 
+import java.io.Serializable;
 import java.util.List;
 
 import model.Actor;
@@ -11,7 +12,7 @@ import model.Target;
  * Represent an action which can be taken by a client.
  * TODO: NPCs should also be able to take actions.
  */
-public abstract class Action {
+public abstract class Action implements Serializable {
 	
 	public static final String FAILED_STRING = "Your action failed.";
 	private String name;

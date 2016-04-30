@@ -91,10 +91,10 @@ public class MyRandom {
 		list.add(new RemoteBomb());
 		list.add(new Tools());
 		list.add(new Bible());
-		list.add(new ApplePie());
-		list.add(new Banana());
-		list.add(new DoubleFlambeSteakDiane());
-		list.add(new SpinachSoup());
+		list.add(new ApplePie(null));
+		list.add(new Banana(null));
+		list.add(new DoubleFlambeSteakDiane(null));
+		list.add(new SpinachSoup(null));
 		list.add(new ChefsHat());
 		list.add(new FancyClothes());
 		list.add(new FireSuit());

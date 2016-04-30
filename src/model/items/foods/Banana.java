@@ -7,8 +7,8 @@ import model.events.BananaPeelEvent;
 
 public class Banana extends HealingFood {
 
-	public Banana() {
-		super("Banana", 0.3);
+	public Banana(Actor maker) {
+		super("Banana", 0.3, maker);
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class Banana extends HealingFood {
 
     @Override
 	public Banana clone() {
-		return new Banana();
+		return new Banana(getMaker());
 	}
 
 	@Override

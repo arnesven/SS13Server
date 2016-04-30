@@ -3,7 +3,9 @@ package model.mutations;
 import model.Actor;
 import model.characters.decorators.CharacterDecorator;
 
-public abstract class Mutation {
+import java.io.Serializable;
+
+public abstract class Mutation implements Serializable {
 	
 	private String name;
 

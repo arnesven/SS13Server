@@ -1,5 +1,6 @@
 package model.modes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -92,7 +93,7 @@ import model.map.Room;
  * @author erini02
  *
  */
-public abstract class GameMode {
+public abstract class GameMode implements Serializable {
 
 
 	private static String[] knownModes = {"Host", "Traitor", "Operatives", "Changeling", "Secret"};

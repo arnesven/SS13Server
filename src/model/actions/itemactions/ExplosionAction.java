@@ -43,7 +43,9 @@ public class ExplosionAction extends Action {
 			location.getItems().remove(grenade);
 		}
         for (GameObject o : location.getObjects()) {
-            ((BreakableObject)o).beExposedTo(performingClient, grenade);
+            if (o instanceof BreakableObject) {
+                ((BreakableObject) o).beExposedTo(performingClient, grenade);
+            }
         }
 
         new Hazard(gameData) {

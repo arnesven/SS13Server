@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.map.Room;
 
-public abstract class Actor  {
+public abstract class Actor  implements Serializable {
 
 	private GameCharacter character = null;
 	

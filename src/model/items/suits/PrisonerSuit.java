@@ -37,14 +37,18 @@ public class PrisonerSuit extends SuitItem {
 	}
 
 	@Override
-	public void beingTakenOff(Actor actionPerformer) { 
-		actionPerformer.removeInstance(new InstanceChecker() {
-			
-			@Override
-			public boolean checkInstanceOf(GameCharacter ch) {
-				return ch instanceof PrisonerDecorator;
-			}
-		});
+	public void beingTakenOff(Actor actionPerformer) {
+        InstanceChecker check = new InstanceChecker() {
+
+            @Override
+            public boolean checkInstanceOf(GameCharacter ch) {
+                return ch instanceof PrisonerDecorator;
+            }
+        };
+
+        if (actionPerformer.getCharacter().checkInstance(check)) {
+            actionPerformer.removeInstance(check);
+        }
 	}
 
 	@Override

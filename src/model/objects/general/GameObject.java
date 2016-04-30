@@ -1,5 +1,6 @@
 package model.objects.general;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import graphics.sprites.Sprite;
@@ -9,7 +10,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.map.Room;
 
-public class GameObject {
+public class GameObject implements Serializable {
 	private String name;
 	private Room position;
     private Sprite sprite = new Sprite("gameobject", "computer.png", 0);

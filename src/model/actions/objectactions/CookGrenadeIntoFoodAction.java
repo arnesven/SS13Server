@@ -7,8 +7,8 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.items.general.ExplodableItem;
 import model.items.general.GameItem;
-import model.items.general.Grenade;
 import model.items.foods.ExplodingFood;
 import model.items.foods.FoodItem;
 import model.objects.general.CookOMatic;
@@ -17,11 +17,11 @@ public class CookGrenadeIntoFoodAction extends Action {
 
 	private CookFoodAction innerAction;
 	private CookOMatic cooker;
-	private Grenade grenade = null;
+	private ExplodableItem explosive = null;
 
 	public CookGrenadeIntoFoodAction(CookOMatic cookOMatic,
 			CookFoodAction cookFoodAction) {
-		super("Cook Grenade Into Food", SensoryLevel.PHYSICAL_ACTIVITY);
+		super("Cook Explosives Into Food", SensoryLevel.PHYSICAL_ACTIVITY);
 		this.cooker = cookOMatic;
 		this.innerAction = cookFoodAction;
 		
@@ -35,27 +35,28 @@ public class CookGrenadeIntoFoodAction extends Action {
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption inner = innerAction.getOptions(gameData, whosAsking);
-		inner.setName("Cook Grenade Into Food");
+		inner.setName("Cook Explosives Into Food");
 		return inner;
 	}
 	
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
 		for (GameItem gi : performingClient.getItems()) {
-			if (gi instanceof Grenade) {
-				grenade = (Grenade)gi;
+			if (gi instanceof ExplodableItem) {
+				explosive = (ExplodableItem) gi;
 				break;
 			}
 		}
-		if (grenade != null) {
+		if (explosive != null) {
 			FoodItem food = new ExplodingFood(innerAction.getSelectedItem(), 
-					performingClient);
-			performingClient.getItems().remove(grenade);
+					                          performingClient, explosive);
+			performingClient.getItems().remove(explosive);
+
 			performingClient.addItem(food, cooker);
-			performingClient.addTolastTurnInfo("You cooked the grenade into " + 
+			performingClient.addTolastTurnInfo("You cooked the explosive into " +
 					innerAction.getSelectedItem().getPublicName(performingClient));
 		} else {
-			performingClient.addTolastTurnInfo("What? The grenade is gone! Your action failed.");
+			performingClient.addTolastTurnInfo("What? The explosive is gone! Your action failed.");
 		}
 	}
 

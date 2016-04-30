@@ -1,11 +1,23 @@
 package model.events.damage;
 
+import model.Actor;
+import model.GameData;
+import model.Target;
+import model.mutations.Mutation;
+import model.mutations.MutationFactory;
+import util.Logger;
+import util.MyRandom;
+
 public class RadiationDamage extends DamagerImpl {
 
-	private double damage;
+    private static final double CHANCE_OF_RANDOM_MUTATION = 0.05;
+    private final GameData gameData;
+    private double damage;
+    
 
-	public RadiationDamage(double damage) {
+	public RadiationDamage(double damage, GameData gameData) {
 		this.damage = damage;
+        this.gameData = gameData;
 	}
 
 	@Override
@@ -28,4 +40,17 @@ public class RadiationDamage extends DamagerImpl {
 		return "Acute radiation sickness";
 	}
 
+    @Override
+    public void doDamageOnMe(Target target) {
+        super.doDamageOnMe(target);
+        
+        if (target instanceof  Actor) {
+            Actor a = (Actor)target;
+            if (MyRandom.nextDouble() < CHANCE_OF_RANDOM_MUTATION) {
+                Logger.log(Logger.INTERESTING, a.getBaseName() + " was randomly mutated by radiation!");
+                Mutation mut = MutationFactory.getRandomMutation(gameData);
+                a.setCharacter(mut.getDecorator(a));
+            }
+        }
+    }
 }

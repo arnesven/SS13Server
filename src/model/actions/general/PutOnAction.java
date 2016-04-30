@@ -7,6 +7,8 @@ import model.Actor;
 import model.GameData;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
+import model.objects.general.ContainerObject;
+import model.objects.general.GameObject;
 import util.Logger;
 
 public class PutOnAction extends Action {
@@ -15,8 +17,9 @@ public class PutOnAction extends Action {
 	private SuitItem selectedItem;
 	private Actor putOnner;
 	private Actor lootVictim = null;
+    private ContainerObject lootObject;
 
-	public PutOnAction(Actor ap) {
+    public PutOnAction(Actor ap) {
 		super("Put on", SensoryLevel.PHYSICAL_ACTIVITY);
 		this.putOnner = ap;
 		if (ap.getCharacter().getSuit() == null) {
@@ -43,6 +46,17 @@ public class PutOnAction extends Action {
 				options.add(actor.getCharacter().getSuit());
 			}
 		}
+
+        for (GameObject obj : ap.getPosition().getObjects()) {
+            if (obj instanceof ContainerObject) {
+                ContainerObject container = (ContainerObject) obj;
+                for (GameItem it : container.getInventory()) {
+                    if (it instanceof  SuitItem) {
+                        options.add((SuitItem)it);
+                    }
+                }
+            }
+        }
 	}
 
 	@Override
@@ -64,9 +78,11 @@ public class PutOnAction extends Action {
 			performingClient.getItems().remove(selectedItem);
 		} else if (performingClient.getPosition().getItems().contains(selectedItem)) {
 			performingClient.getPosition().getItems().remove(selectedItem);
-		} else if (lootVictim != null) {
+		} else if (lootVictim != null && lootVictim.getCharacter().getSuit() == selectedItem) {
 			lootVictim.getCharacter().removeSuit();
-		} else {
+		} else if (lootObject != null && lootObject.getInventory().contains(selectedItem)) {
+            lootObject.getInventory().remove(lootObject);
+        } else {
 			performingClient.addTolastTurnInfo("The " + selectedItem.getPublicName(performingClient) + " is gone! Your action failed.");
 			return;
 		}
@@ -103,6 +119,19 @@ public class PutOnAction extends Action {
 				}
 			}
 		}
+        for (GameObject obj : putOnner.getPosition().getObjects()) {
+            if (obj instanceof ContainerObject) {
+                ContainerObject container = (ContainerObject) obj;
+                for (GameItem it : container.getInventory()) {
+
+                    if (it.getPublicName(putOnner).equals(args.get(0))) {
+                        selectedItem = (SuitItem) it;
+                        lootObject = container;
+                        return;
+                    }
+                }
+            }
+        }
 		
 		
 	}

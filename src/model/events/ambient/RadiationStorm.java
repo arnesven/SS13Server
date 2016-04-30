@@ -28,7 +28,7 @@ public class RadiationStorm extends Event {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("radiationstorm", "decals.png", 1, 2);
+        return new Sprite("radiationstorm", "decals2.png", 2, 6);
     }
 
     @Override
@@ -47,16 +47,16 @@ public class RadiationStorm extends Event {
 	private void maintainStorm(GameData gameData) {
 		roundsLeft--;
 		for (Room r : gameData.getMap().getSideLocations().get(side)) {
-			hurtActorsInRoom(r, this.damage);
+			hurtActorsInRoom(r, this.damage, gameData);
 		}
 		this.damage = randomDamage();
 		
 	}
 
 
-	public void hurtActorsInRoom(Room r, double damage2) {
+	public void hurtActorsInRoom(Room r, double damage2, GameData gameData) {
 		for (Actor a : r.getActors()) {
-			a.getAsTarget().beExposedTo(null, new RadiationDamage(damage2));
+			a.getAsTarget().beExposedTo(null, new RadiationDamage(damage2, gameData));
 		}
 	}
 

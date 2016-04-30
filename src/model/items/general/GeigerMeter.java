@@ -3,7 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 
-public class GeigerMeter extends GameItem {
+public class GeigerMeter extends UplinkItem {
 
 	
 	public GeigerMeter() {

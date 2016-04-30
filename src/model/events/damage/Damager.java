@@ -1,9 +1,12 @@
 package model.events.damage;
 
+import model.GameData;
 import model.Target;
 import model.objects.general.BreakableObject;
 
-public interface Damager {
+import java.io.Serializable;
+
+public interface Damager extends Serializable {
 	
 	
 	/**
@@ -22,4 +25,5 @@ public interface Damager {
 	String getName();
 
     void doDamageOnMe(Target target);
+
 }

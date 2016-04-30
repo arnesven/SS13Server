@@ -11,7 +11,7 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.map.Room;
 
-public class Laptop extends GameItem {
+public class Laptop extends UplinkItem {
 
 	private Room jackRoom = null;
 	

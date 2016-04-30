@@ -28,6 +28,11 @@ public class PirateCharacter extends HumanCharacter {
     }
 
     @Override
+    public boolean isCrew() {
+        return false;
+    }
+
+    @Override
     public List<GameItem> getStartingItems() {
         List<GameItem> res = new ArrayList<>();
         res.add(weapon);

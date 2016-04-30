@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import graphics.sprites.Sprite;
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.CookFoodAction;
 import model.actions.objectactions.CookGrenadeIntoFoodAction;
+import model.items.general.ExplodableItem;
 import model.items.general.GameItem;
 import model.items.general.Grenade;
 import model.items.foods.ApplePie;
@@ -31,24 +33,24 @@ public class CookOMatic extends ElectricalMachinery {
     @Override
 	protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
 		at.add(new CookFoodAction(this));
-		if (hasGrenade(cl) != null) {
+		if (hasExplosive(cl) != null) {
 			at.add(new CookGrenadeIntoFoodAction(this, new CookFoodAction(this)));
 		}
 
 	}
 
-	public static List<FoodItem> getCookableFood() {
+	public static List<FoodItem> getCookableFood(Actor maker) {
 		List<FoodItem> foods = new ArrayList<>();
-		foods.add(new ApplePie());
-		foods.add(new SpinachSoup());
-		foods.add(new DoubleFlambeSteakDiane());
+		foods.add(new ApplePie(maker));
+		foods.add(new SpinachSoup(maker));
+		foods.add(new DoubleFlambeSteakDiane(maker));
 		return foods;
 	}
 
 
-	private GameItem hasGrenade(Player cl) {
+	private GameItem hasExplosive(Player cl) {
 		for (GameItem it : cl.getItems()) {
-			if (it instanceof Grenade) {
+			if (it instanceof ExplodableItem) {
 				return it;
 			}
 		}

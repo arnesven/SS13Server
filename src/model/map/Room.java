@@ -1,4 +1,5 @@
 package model.map;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +27,7 @@ import model.objects.general.GameObject;
  * @author erini02
  * Class for representing a room on the space station.
  */
-public class Room {
+public class Room implements Serializable {
 
     private final RoomType roomType;
     private String name;
@@ -316,6 +317,7 @@ public class Room {
 	public List<Target> getTargets() {
 		List<Target> result = new ArrayList<>();
 		result.addAll(players);
+        result.addAll(npcs);
 		for (GameObject o : objects) {
 			if (o instanceof Target) {
 				result.add((Target)o);

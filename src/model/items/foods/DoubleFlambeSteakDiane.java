@@ -1,5 +1,6 @@
 package model.items.foods;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.characters.general.GameCharacter;
@@ -7,10 +8,10 @@ import model.characters.decorators.AlterMovement;
 import model.characters.decorators.InstanceChecker;
 import model.events.RemoveInstanceLaterEvent;
 
-public class DoubleFlambeSteakDiane extends FoodItem {
+public class DoubleFlambeSteakDiane extends HealingFood {
 
-	public DoubleFlambeSteakDiane() {
-		super("Double Flambé Steak Diane", 0.5);
+	public DoubleFlambeSteakDiane(Actor maker) {
+		super("Double Flambé Steak Diane", 0.5, maker);
 	}
 
 	@Override
@@ -18,7 +19,12 @@ public class DoubleFlambeSteakDiane extends FoodItem {
 		return 0.90;
 	}
 
-	@Override
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("doubleflambesteakdiane", "food.png", 17, 3);
+    }
+
+    @Override
 	public void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
 		eatenBy.addTolastTurnInfo("You feel energized!");
 		eatenBy.setCharacter(new AlterMovement(eatenBy.getCharacter(), 
@@ -37,7 +43,7 @@ public class DoubleFlambeSteakDiane extends FoodItem {
 
 	@Override
 	public DoubleFlambeSteakDiane clone() {
-		return new DoubleFlambeSteakDiane();
+		return new DoubleFlambeSteakDiane(getMaker());
 	}
 
 }

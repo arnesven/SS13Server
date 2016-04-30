@@ -336,4 +336,14 @@ public abstract class CharacterDecorator extends GameCharacter {
         return innerChar.getNakedSprite();
     }
 
+    @Override
+    public boolean isPassive() {
+        return innerChar.isDead();
+    }
+
+    @Override
+    public boolean getsActions() {
+        return !isDead();
+    }
+
 }

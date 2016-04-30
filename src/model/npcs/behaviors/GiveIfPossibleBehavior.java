@@ -11,7 +11,7 @@ import model.actions.general.GiveAction;
 import model.items.general.GameItem;
 import model.npcs.NPC;
 
-public class GiveIfPossibleBehavior {
+public class GiveIfPossibleBehavior implements ActionBehavior {
 
 	public void act(NPC npc, GameData gameData) {
 		GiveAction give = new GiveAction(npc);

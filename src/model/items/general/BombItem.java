@@ -14,17 +14,21 @@ import model.events.ambient.ElectricalFire;
 import model.events.ambient.HullBreach;
 import model.events.damage.ExplosiveDamage;
 import model.items.NoSuchThingException;
+import model.items.foods.ExplodingFood;
 import model.map.Room;
 import model.events.Explosion;
 import util.Logger;
 import util.MyRandom;
 
-public abstract class BombItem extends HidableItem {
+public class BombItem extends HidableItem implements ExplodableItem {
 
 	public static final String FOUND_A_BOMB_STRING = "What's this... a bomb!?";
+    private final String name;
+    private GameItem concealedWithin;
 
-	public BombItem(String string) {
+    public BombItem(String string) {
 		super(string, 2.0);
+        this.name = string;
 	}
 
 	public static String getOperationString() {
@@ -74,6 +78,8 @@ public abstract class BombItem extends HidableItem {
             Logger.log(Logger.INTERESTING,
                     "Bomb was not found in a room.");
            // bombRoom continues to be null;
+
+
         }
 
         Actor currentCarrier = null;
@@ -86,13 +92,17 @@ public abstract class BombItem extends HidableItem {
                 return;
             }
             currentCarrier.getItems().remove(this);
+
 			currentCarrier.getCharacter().beExposedTo(performingClient, new ExplosiveDamage(3.0));
 			bombRoom = currentCarrier.getPosition();
 		} else {
 			bombRoom.removeFromRoom(this);
 		}
-		
-		for (Actor a : bombRoom.getActors()) {
+
+        handleWithin(gameData, bombRoom, performingClient);
+
+
+        for (Actor a : bombRoom.getActors()) {
 			if (a != currentCarrier) {
 				a.getCharacter().beExposedTo(performingClient, 
 						new ExplosiveDamage(2.0));
@@ -110,6 +120,27 @@ public abstract class BombItem extends HidableItem {
         bombRoom.addToEventsHappened(new Explosion());
 
 	}
+
+    private void handleWithin(GameData gameData, Room bombRoom, Actor bomber) {
+        if (this.concealedWithin != null) {
+            Actor currentCarrier = null;
+            for (Actor a : bombRoom.getActors()) {
+                a.addTolastTurnInfo("The " + concealedWithin.getBaseName() + " exploded!");
+                if (a.getItems().contains(concealedWithin)) {
+                    currentCarrier = a;
+                }
+            }
+
+            if (currentCarrier != null && currentCarrier.getItems().contains(concealedWithin)) {
+                currentCarrier.getItems().remove(concealedWithin);
+                currentCarrier.getCharacter().beExposedTo(bomber,
+                        new ExplosiveDamage(1.0));
+            } else if (bombRoom.getItems().contains(concealedWithin)) {
+                bombRoom.getItems().remove(concealedWithin);
+            }
+        }
+    }
+
 
     private void possiblyAddHazards(GameData gameData, final Room bombRoom) {
         new Hazard(gameData) {
@@ -136,5 +167,23 @@ public abstract class BombItem extends HidableItem {
         };
     }
 
+    @Override
+    public GameItem getAsItem() {
+        return this;
+    }
 
+    @Override
+    public void explode(GameData gameData, Room room, Actor maker) {
+        this.explode(gameData, maker);
+    }
+
+    @Override
+    public void setConceledWithin(ExplodingFood explodingFood) {
+        this.concealedWithin = explodingFood;
+    }
+
+    @Override
+    public GameItem clone() {
+        return new BombItem(name);
+    }
 }

@@ -159,9 +159,11 @@ public class TraitorGameMode extends GameMode {
 			return GameOver.ALL_DEAD;
 		} else if (gameData.getRound() == gameData.getNoOfRounds()) {
 			return GameOver.TIME_IS_UP;
-		} else if (allGoodGuysDead(gameData)) {
-			return GameOver.PROTAGONISTS_DEAD;
 		}
+
+        //else if (allGoodGuysDead(gameData)) {
+		//	return GameOver.PROTAGONISTS_DEAD;
+		//}
 		return null;
 	}
 	

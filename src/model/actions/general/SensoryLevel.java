@@ -1,6 +1,8 @@
 package model.actions.general;
 
-public class SensoryLevel {
+import java.io.Serializable;
+
+public class SensoryLevel implements Serializable {
 	
 	public enum VisualLevel {
 		CLEARLY_VISIBLE,

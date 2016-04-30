@@ -5,8 +5,8 @@ import model.Actor;
 
 public class ApplePie extends HealingFood {
 
-	public ApplePie() {
-		super("Apple Pie", 0.5);
+	public ApplePie(Actor maker) {
+		super("Apple Pie", 0.5, maker);
 	}
 
 	@Override
@@ -16,12 +16,12 @@ public class ApplePie extends HealingFood {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("applepie", "food.png", 0);
+        return new Sprite("applepie", "food.png", 15, 12);
     }
 
     @Override
 	public ApplePie clone() {
-		return new ApplePie();
+		return new ApplePie(this.getMaker());
 	}
 
 }

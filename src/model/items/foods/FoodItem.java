@@ -12,9 +12,11 @@ import model.items.general.GameItem;
 
 public abstract class FoodItem extends GameItem {
 
+
 	public FoodItem(String string, double weight) {
 		super(string, weight);
 	}
+
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
@@ -25,7 +27,7 @@ public abstract class FoodItem extends GameItem {
 	public void addYourActions(GameData gameData, 
 			ArrayList<Action> at,
 			Player cl) {
-		at.add(new EatAction(this));
+		at.add(new EatAction(this, cl));
 	}
 	
 	public abstract double getFireRisk();

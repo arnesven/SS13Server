@@ -27,7 +27,7 @@ public class ChimpCharacter extends AnimalCharacter {
 		
 		ArrayList<GameItem> arr = new ArrayList<>();
 		for (int i = 0; i < 3; ++i) {
-			arr.add(new Banana());
+			arr.add(new Banana(getActor()));
 		}
 		
 		return arr;

@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by erini02 on 18/04/16.
  */
-public class Teleporter extends GameItem {
+public class Teleporter extends UplinkItem {
 
     private Room coordinates;
 

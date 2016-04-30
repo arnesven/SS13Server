@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by erini02 on 14/04/16.
  */
-public abstract class Radio extends GameItem {
+public abstract class Radio extends UplinkItem {
 
     private boolean noConnect = false;
 

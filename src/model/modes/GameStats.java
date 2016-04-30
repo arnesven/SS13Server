@@ -190,9 +190,9 @@ public abstract class GameStats {
             if (a instanceof PirateNPC) {
                 if (a.isDead()) {
                     if (a.getCharacter().getKillerString() != null) {
-                        if (killMap.containsKey(a.getCharacter().getKillerString())) {
-                            killMap.put(a.getCharacter().getKillerString(),
-                                    killMap.get(a.getCharacter().getKillerString() + 1));
+                        String key = a.getCharacter().getKillerString();
+                        if (killMap.containsKey(key)) {
+                            killMap.put(key, killMap.get(key) + 1);
                         } else {
                             killMap.put(a.getCharacter().getKillerString(), 1);
                         }
@@ -207,9 +207,11 @@ public abstract class GameStats {
         int maxkill = 0;
         String maxkillName = null;
         for (Entry<String, Integer> entry : killMap.entrySet()) {
-            if (entry.getValue() > maxkill) {
-                maxkill = entry.getValue();
-                maxkillName = entry.getKey();
+            if (entry != null) {
+                if (entry.getValue() > maxkill) {
+                    maxkill = entry.getValue();
+                    maxkillName = entry.getKey();
+                }
             }
         }
 

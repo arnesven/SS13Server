@@ -95,6 +95,7 @@ public class ChangelingCharacter extends GameCharacter {
 			addHunt(gameData, at);
 		}
         addSprayAcid(gameData, at);
+        Logger.log("Adding specific actions for form");
 		getForm().addCharacterSpecificActions(gameData, at);
 	}
 
@@ -183,6 +184,7 @@ public class ChangelingCharacter extends GameCharacter {
 			if (gc.getBaseName().equals(target.getBaseName())) {
 				transferClothes(gc);
 				this.current = gc;
+
 				if (isAlien()) {
 					dropAllItems();
 				}

@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,7 +37,7 @@ import util.Logger;
  * Class for representing a client in the game. 
  * This means, a player, and the data pertaining to that player.
  */
-public class Player extends Actor implements Target {
+public class Player extends Actor implements Target, Serializable {
 
 	private boolean ready = false;
 	private int nextMove = 0;
@@ -224,26 +225,34 @@ public class Player extends Actor implements Target {
 		}
 	}
 
-	/**
-	 * Moves the player into another room
-	 * @param room the room to be moved into.
-	 */
-	public void moveIntoRoom(Room room) {
-		setNextMove(room.getID());
-		if (!isDead()) {
-			if (this.getPosition() != null) {
-                try {
-                    this.getPosition().removePlayer(this);
-                } catch (NoSuchThingException e) {
-                    Logger.log(Logger.CRITICAL, "Tried removing player from room, but it wasn't there!");
+    /**
+     * Moves the player into another room
+     *
+     * @param room the room to be moved into.
+     */
+    public void moveIntoRoom(Room room) {
+        setNextMove(room.getID());
+        if (!isDead()) {
+            if (this.getPosition() != null && this.getPosition().getID() != this.getNextMove()) {
+                if (this.getPosition() != null) {
+                    try {
+                        this.getPosition().removePlayer(this);
+                    } catch (NoSuchThingException e) {
+                        Logger.log(Logger.CRITICAL, "Tried removing player from room, but it wasn't there!");
+                    }
                 }
+                Logger.log("Moving player " + this.getCharacterRealName() +
+                        " into room " + room.getName());
+                this.setPosition(room);
+                room.addPlayer(this);
+            } else if (this.getPosition() == null) {
+                Logger.log("Moving player " + this.getCharacterRealName() +
+                        " into room " + room.getName());
+                this.setPosition(room);
+                room.addPlayer(this);
             }
-			Logger.log("Moving player " + this.getCharacterRealName() +
-					" into room " + room.getName());
-			this.setPosition(room);
-			room.addPlayer(this);
-		}
-	}
+        }
+    }
 
 
 
@@ -359,9 +368,9 @@ public class Player extends Actor implements Target {
 	 */
 	private ArrayList<Action> getActionList(GameData gameData) {
 		ArrayList<Action> at = new ArrayList<Action>();
-		addBasicActions(at);
-		if (!isDead()) {
-			
+
+		if (getsActions()) {
+            addBasicActions(at);
 			
 			addRoomActions(gameData, at);
 			
@@ -592,4 +601,17 @@ public class Player extends Actor implements Target {
 	}
 
 
+    public boolean isPassive() {
+        if (getCharacter() != null) {
+            return getCharacter().isPassive();
+        }
+        return isDead();
+    }
+
+    public boolean getsActions() {
+        if (getCharacter() != null) {
+            return getCharacter().getsActions();
+        }
+        return !isDead();
+    }
 }

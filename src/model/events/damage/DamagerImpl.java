@@ -1,6 +1,7 @@
 package model.events.damage;
 
 import model.Actor;
+import model.GameData;
 import model.Target;
 import model.objects.general.BreakableObject;
 

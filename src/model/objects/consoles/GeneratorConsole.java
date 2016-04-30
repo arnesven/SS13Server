@@ -1,5 +1,6 @@
 package model.objects.consoles;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ import util.Logger;
 public class GeneratorConsole extends Console {
 
 
-    private interface PowerUpdater {
+    private interface PowerUpdater extends Serializable {
 		double update(double currentPower, double lsPer, double liPer, double eqPer, 
 				List<Room> ls, List<Room> lights, List<ElectricalMachinery> eq);
 	}
@@ -30,8 +31,8 @@ public class GeneratorConsole extends Console {
 	private static final double FIXED_INCREASE = STARTING_POWER * 0.15;
 	private static final double ONGOING_INCREASE = STARTING_POWER * 0.08;
 	
-	private static final double EQUIPMENT_POWER_USE_PCT = 0.45;
-	private static final double LIFE_SUPPORT_POWER_USE_PCT = 0.45;
+	private static final double EQUIPMENT_POWER_USE_PCT = 0.60;
+	private static final double LIFE_SUPPORT_POWER_USE_PCT = 0.30;
 	private static final double LIGHTING_POWER_USE_PCT = 0.10;
 	
 	private Map<String, PowerUpdater> updaters;

@@ -7,7 +7,9 @@ import model.GameData;
 import model.Player;
 import model.actions.general.SensoryLevel;
 
-public abstract class Event {
+import java.io.Serializable;
+
+public abstract class Event implements Serializable {
 
 	public abstract void apply(GameData gameData);
 

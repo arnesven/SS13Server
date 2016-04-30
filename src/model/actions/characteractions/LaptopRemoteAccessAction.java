@@ -67,7 +67,7 @@ public class LaptopRemoteAccessAction extends Action {
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
 		selectedAction = args.get(0);
-		this.args = args.subList(1, args.size());
+		this.args = new ArrayList<>(args.subList(1, args.size()));
 	}
 	
 	private List<GameObject> getRemotes(GameData gameData) {

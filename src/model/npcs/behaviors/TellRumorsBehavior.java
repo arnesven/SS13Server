@@ -59,7 +59,7 @@ public class TellRumorsBehavior implements ActionBehavior {
                         if (pl.getNextAction() instanceof AttackAction) {
                             gossip.add("I hear " + pl.getBaseName() + " is a violent person.");
                         }
-                        if (! pl.getCharacter().getSuit().permitsOver()) {
+                        if (pl.getCharacter().getSuit() != null && ! pl.getCharacter().getSuit().permitsOver()) {
                             gossip.add("I hear " + pl.getBaseName() + " likes to dress up.");
                         }
                         if (pl.getNextAction() instanceof RepairAction ||
@@ -97,7 +97,7 @@ public class TellRumorsBehavior implements ActionBehavior {
 
                 gossip.add("What'll it be?");
 
-                int randGossips = Math.max(MyRandom.nextInt(3), gossip.size());
+                int randGossips = Math.min(MyRandom.nextInt(3), gossip.size());
                 for (int i = 0; i < randGossips; ++i) {
                     String line = MyRandom.sample(gossip);
                     gossip.remove(line);

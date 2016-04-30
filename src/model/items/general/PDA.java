@@ -12,7 +12,7 @@ import model.actions.itemactions.UsePDAAction;
 import model.modes.TraitorGameMode;
 import model.items.weapons.*;
 
-public class PDA extends GameItem {
+public class PDA extends UplinkItem {
 
 	private TraitorGameMode traitorMode;
 	private int usesLeft = 2;

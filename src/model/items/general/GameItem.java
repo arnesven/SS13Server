@@ -1,5 +1,6 @@
 package model.items.general;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.Target;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
@@ -18,7 +20,7 @@ import model.map.Room;
  * An item is an object which can be held, dropped, picked up or used
  * by a character.
  */
-public abstract class GameItem implements Locatable {
+public abstract class GameItem implements Locatable, Serializable {
 
 	private String name;
 	private double weight;
@@ -205,5 +207,9 @@ public abstract class GameItem implements Locatable {
     // TODO: make abstract..?
     public Sprite getSprite(Actor whosAsking) {
         return sprite;
+    }
+
+    public void gotGivenTo(GameCharacter to, Target from) {
+        // is called when items are given
     }
 }

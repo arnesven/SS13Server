@@ -42,4 +42,7 @@ public class Logger {
     }
 
 
+    public static void setLevel(int level) {
+        Logger.currentLevel = level;
+    }
 }

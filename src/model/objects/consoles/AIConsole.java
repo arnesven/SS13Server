@@ -36,7 +36,7 @@ public class AIConsole extends Console {
                 alarms.add("-->Low pressure in " + r.getName() + ".");
             }
             for (Actor a : r.getActors()) {
-                if (a instanceof PirateNPC) {
+                if (a instanceof PirateNPC && !a.isDead()) {
                     alarms.add("-->Pirate in " + r.getName() + ".");
                     break;
                 }

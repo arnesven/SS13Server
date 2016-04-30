@@ -3,19 +3,17 @@ import java.util.ArrayList;
 
 import model.GameData;
 import model.characters.general.RobotCharacter;
-import model.items.NoSuchThingException;
 import model.items.general.FireExtinguisher;
 import model.items.suits.SpaceSuit;
 import model.npcs.*;
-import model.npcs.behaviors.DoNothingBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.TellRumorsBehavior;
+import model.objects.StasisPod;
 import model.objects.consoles.*;
 import model.objects.consoles.AirLockControl;
 import model.objects.general.EvidenceBox;
 import model.objects.general.Lockers;
 import model.objects.general.MedkitDispenser;
-import util.Logger;
 
 
 /**
@@ -61,6 +59,7 @@ public class MapBuilder {
 		result.add(new Room(11, "Starboard Hall Front", ""       , 9,  9, 3, 2, new int[]{9, 12, 13} ,         new double[]{12.0, 9.5}, RoomType.hall ));
 		Room dorms = new Room(12, "Dorms"               , "Dorm"   , 9, 11, 4, 3, new int[]{10, 11, 14},         new double[]{10.5, 11.0, 13.0, 11.5} , RoomType.support);
 		dorms.addObject(new Lockers(dorms));
+        dorms.addObject((new StasisPod(dorms)));
 		result.add(dorms);
 		result.add(new Room(13, "Front Hall"          , ""       ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{13.5, 10.0, 12.0, 8.0, 13.5, 6.0}, RoomType.hall ));
 		Room office = new Room(14, "Office"              , "Offc"   ,13, 10, 2, 2, new int[]{12, 13}    ,         new double[]{}, RoomType.command );
@@ -107,6 +106,7 @@ public class MapBuilder {
 		result.add(new Room(23, "Port Hall Aft"       , ""       , 6,  3, 4, 2, new int[]{19, 24, 5} ,         new double[]{7.5, 3.0, }, RoomType.hall ));
 		Room sickbay = new Room(24, "Sickbay"             , "Sick"   , 6,  0, 3, 3, new int[]{23, 25, 1} ,         new double[]{}, RoomType.science );
 		sickbay.addObject(new MedkitDispenser(3, sickbay));
+        sickbay.addObject(new StasisPod(sickbay));
 		result.add(sickbay);
 		result.add(new AirLockRoom(25, 3    , 5,  0, 1, 1, new int[]{24}        ,         new double[]{6.0, 0.5}  ));
 

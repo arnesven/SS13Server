@@ -1,5 +1,7 @@
 package model.objects.general;
 
-public interface RemotelyOperateable {
+import java.io.Serializable;
+
+public interface RemotelyOperateable extends Serializable {
 
 }

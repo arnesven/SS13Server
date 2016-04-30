@@ -4,10 +4,12 @@ import model.npcs.RobotNPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.MovementBehavior;
 
+import java.io.Serializable;
+
 /**
  * Created by erini02 on 14/04/16.
  */
-public class BotProgram {
+public class BotProgram implements Serializable {
     private MovementBehavior moveBehave;
     private ActionBehavior actBehave;
     private String name;

@@ -32,6 +32,8 @@ public class DropAction extends Action {
 			performingClient.getItems().remove(item);
 		}
 		performingClient.getPosition().addItem(item);
+        item.setPosition(performingClient.getPosition());
+        item.setHolder(null);
 		performingClient.addTolastTurnInfo("You dropped the " + item.getPublicName(performingClient) + ".");
 	}
 

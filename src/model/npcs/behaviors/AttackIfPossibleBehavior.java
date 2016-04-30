@@ -36,6 +36,7 @@ public class AttackIfPossibleBehavior implements ActionBehavior {
 			atk.setArguments(args, npc);
 			Logger.log(npc.getPublicName() + " is attacking " + randomTarget.getName() + "!");
 			atk.printAndExecute(gameData);
+
 		}
 	}
 

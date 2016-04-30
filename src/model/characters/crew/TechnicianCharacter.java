@@ -23,6 +23,7 @@ public class TechnicianCharacter extends CrewCharacter {
 	@Override
 	public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
 		if (GameItem.hasAnItem(this.getActor(), new Laptop())) {
+            Logger.log("Technician had a laptop");
             Laptop pc = null;
             try {
                 pc = (Laptop) GameItem.getItem(this.getActor(), new Laptop());
@@ -30,7 +31,7 @@ public class TechnicianCharacter extends CrewCharacter {
                 Logger.log(Logger.CRITICAL, "No Laptop found. Abandoning Technicians special action.");
                 return;
             }
-            if (pc.isJackedIn() && pc.getJackRoom() != this.getPosition()) {
+            if (pc.isJackedIn() && pc.getJackRoom() != getActor().getPosition()) {
 				pc.setNotJackedIn();
 			}
 			
@@ -39,7 +40,9 @@ public class TechnicianCharacter extends CrewCharacter {
 			} else {
 				at.add(new JackInAction(pc));
 			}
-		}
+		} else {
+            Logger.log("Technician didn't have a laptop");
+        }
 	}
 	
 	@Override

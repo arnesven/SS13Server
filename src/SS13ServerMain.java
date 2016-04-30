@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -6,6 +7,7 @@ import comm.ServiceHandler;
 
 import graphics.pdf.MapPDFMaker;
 import model.GameData;
+import util.GameRecovery;
 import util.Logger;
 
 
@@ -28,10 +30,24 @@ public class SS13ServerMain {
 		
 		GameData gameData = new GameData();
 		
-		ServiceHandler serviceHandler = new ServiceHandler(name, gameData, port);
-        if (args.length == 3 && args[2].equals("pdf")) {
-            MapPDFMaker.generate(gameData);
+	  if (args.length == 3) {
+            if (args[2].equals("pdf")) {
+                MapPDFMaker.generate(gameData);
+            } else if (args[2].equals("recover")) {
+                try {
+                    Logger.log(Logger.CRITICAL, "TRYING TO RECOVER DATA");
+                    gameData = GameRecovery.recover();
+                    Logger.log(Logger.CRITICAL, "GAME RECOVERED!");
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (FileNotFoundException fnfe) {
+                    Logger.log(Logger.CRITICAL, "Recovery file not found :-(");
+                }
+            }
         }
+        ServiceHandler serviceHandler = new ServiceHandler(name, gameData, port);
+
+
 
         try {
 			listener = new ServerSocket(port);

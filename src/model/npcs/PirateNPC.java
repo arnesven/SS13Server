@@ -3,6 +3,7 @@ package model.npcs;
 import model.characters.general.GameCharacter;
 import model.characters.general.PirateCharacter;
 import model.items.general.GameItem;
+import model.items.suits.OxygenMask;
 import model.items.suits.PirateOutfit;
 import model.map.Room;
 import model.npcs.behaviors.*;
@@ -18,6 +19,7 @@ public class PirateNPC extends HumanNPC {
                 new AttackIfPossibleBehavior()));
         //this.takeOffSuit();
         putOnSuit(new PirateOutfit(num));
+        putOnSuit(new OxygenMask());
         for (GameItem it : getCharacter().getStartingItems()) {
             getCharacter().giveItem(it, null);
         }

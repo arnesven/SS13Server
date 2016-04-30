@@ -3,7 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 
-public class Locator extends GameItem {
+public class Locator extends UplinkItem {
 
 	private Locatable target;
 

@@ -13,8 +13,8 @@ public class EatAction extends Action {
 
 	private FoodItem food;
 
-	public EatAction(FoodItem food) {
-		super("Eat " + food.getBaseName(), SensoryLevel.PHYSICAL_ACTIVITY);
+	public EatAction(FoodItem food, Actor performer) {
+		super("Eat " + food.getPublicName(performer), SensoryLevel.PHYSICAL_ACTIVITY);
 		this.food = food;
 	}
 	

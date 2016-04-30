@@ -1,15 +1,15 @@
 package model;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Map.Entry;
 
+import graphics.sprites.SpriteManager;
 import model.items.NoSuchThingException;
 import model.objects.general.ContainerObject;
-import util.Logger;
-import util.MyRandom;
-import util.MyStrings;
-import util.Pair;
+import util.*;
 import model.actions.general.Action;
 import model.actions.general.DoNothingAction;
 import model.actions.general.SpeedComparator;
@@ -31,7 +31,8 @@ import model.objects.general.GameObject;
  * players (the clients), the world (the rooms of the station) and what state
  * the game is in. The game also has a "mode".
  */
-public class GameData {
+public class GameData implements Serializable {
+
 	private final Date startingTime = new Date();
 	// these fields should persist between games
 	private HashMap<String, Player> players = new HashMap<>();
@@ -183,7 +184,7 @@ public class GameData {
 	 */
 	public void setPlayerReady(String clid, boolean equals) {
 		players.get(clid).setReady(equals);
-		if (allClientsReadyOrDead()) {
+		if (allClientsReadyOrPassive()) {
 			increaseGameState();	
 		}
 		
@@ -229,12 +230,12 @@ public class GameData {
 	}
 
 
-	private boolean allClientsReadyOrDead() {
+	private boolean allClientsReadyOrPassive() {
 		for (Player c : players.values()) {
 			if (!c.isReady()) {
 				if (gameState == GameState.PRE_GAME) {
 					return false;
-				} else if (!c.isDead()) {
+				} else if (!c.isPassive()) {
 					return false;
 				}
 			}
@@ -277,6 +278,11 @@ public class GameData {
 			} else {
 				gameState = GameState.MOVEMENT;
 				round = round + 1;
+                try {
+                    GameRecovery.saveData(this);
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
 			}
 			allClearReady();
 		}
@@ -569,7 +575,10 @@ public class GameData {
                 }
             }
 		}
-
+        Room r = searchedItem.getPosition();
+        if (r != null) {
+            return r;
+        }
 		throw new NoSuchThingException("Room for searched item " + searchedItem.getBaseName() + " not found");
 	}
 

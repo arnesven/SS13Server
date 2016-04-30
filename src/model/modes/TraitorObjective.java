@@ -3,7 +3,9 @@ package model.modes;
 import model.GameData;
 import model.items.general.Locatable;
 
-public interface TraitorObjective {
+import java.io.Serializable;
+
+public interface TraitorObjective extends Serializable {
 
 	/**
 	 * Gets the objective text as it appears to the

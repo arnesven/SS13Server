@@ -1,5 +1,6 @@
 package model.characters.general;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ import model.map.Room;
  * Class for representing a character in the game. I.e. the physical representation
  * of a player or a NPC. 
  */
-public abstract class GameCharacter {
+public abstract class GameCharacter implements Serializable {
 	
 	private double maxHealth = 3.0;
 	
@@ -197,6 +198,7 @@ public abstract class GameCharacter {
 
 	public void beExposedTo(Actor something, Damager damager) {
 		boolean reduced = false;
+        Logger.log(this.getFullName() + " got hit by " + damager.getName());
 		getActor().addTolastTurnInfo(damager.getText());
 
 		if (damager.isDamageSuccessful(reduced)) {
@@ -376,6 +378,7 @@ public abstract class GameCharacter {
 	 */
 	public void giveItem(GameItem it, Target giver) {
 		this.getItems().add(it);
+        it.gotGivenTo(this, giver);
 		it.setHolder(this);
 	}
 
@@ -454,5 +457,13 @@ public abstract class GameCharacter {
 
     public void setNakedSprite(Sprite nakedSprite) {
         this.nakedSprite = nakedSprite;
+    }
+
+    public boolean isPassive() {
+        return isDead();
+    }
+
+    public boolean getsActions() {
+        return !isDead();
     }
 }

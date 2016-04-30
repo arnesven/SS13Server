@@ -1,5 +1,6 @@
 package model.map;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.NoSuchElementException;
  * This is just a container class which has references to two underlying
  * data structures with the rooms, a map and a list.
  */
-public class GameMap {
+public class GameMap implements Serializable {
 
 	private List<Room> roomsList;
 

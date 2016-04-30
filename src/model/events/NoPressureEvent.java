@@ -14,6 +14,7 @@ import model.events.ambient.LowPressureEvent;
 import model.events.damage.NoPressureDamage;
 import model.map.Room;
 import model.objects.general.PressurePanel;
+import util.Logger;
 
 public class NoPressureEvent extends Event {
 
@@ -51,6 +52,7 @@ public class NoPressureEvent extends Event {
 
 	@Override
 	public void apply(GameData gameData) {
+        Logger.log("Running NO PRESSURE event in " + roomRef.getName());
         if (affectsAdjacent) {
             applyLowPressureInAdjacentRooms(gameData);
             addLowPressureToAdjacentRooms(gameData);
@@ -58,6 +60,7 @@ public class NoPressureEvent extends Event {
 
 		if (!shouldBeRemoved(gameData)) {
 			for (Target t : roomRef.getTargets()) {
+               // Logger.log(" hit " + t.getName());
 				t.beExposedTo(performingClient, new NoPressureDamage(t));
 			}
 		}

@@ -28,7 +28,7 @@ public class ChefCharacter extends CrewCharacter {
 	@Override
 	public void giveItem(GameItem it, Target giver) {
 		if (giver instanceof CookOMatic) {
-			super.giveItem(it, giver);
+			super.giveItem(it.clone(), giver);
 		}
 		super.giveItem(it, giver);
 	}

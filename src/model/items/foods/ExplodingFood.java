@@ -1,24 +1,48 @@
 package model.items.foods;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Target;
+import model.characters.general.GameCharacter;
 import model.events.damage.ExplosiveDamage;
 import model.events.Explosion;
+import model.items.general.ExplodableItem;
+import model.map.Room;
 
 public class ExplodingFood extends FoodItem {
 
-	private FoodItem innerItem;
+    private final ExplodableItem expel;
+    private FoodItem innerItem;
 	private Actor maker;
 
-	public ExplodingFood(FoodItem selectedItem, Actor maker) {
+	public ExplodingFood(FoodItem selectedItem, Actor maker, ExplodableItem expel) {
 		super(selectedItem.getBaseName(), selectedItem.getWeight());
 		this.innerItem = selectedItem;
 		this.maker = maker;
+        this.expel = expel;
+        expel.setConceledWithin(this);
 	}
 
-	
-	
-	@Override
+
+
+    @Override
+    public String getFullName(Actor whosAsking) {
+        if (whosAsking == maker) {
+            return "Exploding " + super.getFullName(whosAsking);
+        }
+        return super.getFullName(whosAsking);
+    }
+
+    @Override
+    public String getPublicName(Actor whosAsking) {
+        if (whosAsking == maker) {
+            return "Exploding " + super.getPublicName(whosAsking);
+        }
+        return super.getPublicName(whosAsking);
+    }
+
+    @Override
 	public double getFireRisk() {
 		return innerItem.getFireRisk();
 	}
@@ -26,20 +50,48 @@ public class ExplodingFood extends FoodItem {
 	@Override
 	protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
 		innerItem.triggerSpecificReaction(eatenBy, gameData);
-		eatenBy.getAsTarget().beExposedTo(maker, new ExplosiveDamage(3.0){
+		eatenBy.getAsTarget().beExposedTo(maker, new ExplosiveDamage(2.0){
 			@Override
 			public String getText() {
 				return "You exploded!";
 			}
 		});
+        eatenBy.getPosition().addItem(expel.getAsItem());
+        expel.explode(gameData, eatenBy.getPosition(), maker);
 		eatenBy.getPosition().addToEventsHappened(new Explosion());
 	}
 
+    @Override
+    public void gotGivenTo(GameCharacter to, Target from) {
+        super.gotGivenTo(to, from);
+        innerItem.setHolder(to);
+        expel.getAsItem().setHolder(to);
+    }
+
+    @Override
+    public void setHolder(GameCharacter gameCharacter) {
+        super.setHolder(gameCharacter);
+        innerItem.setHolder(gameCharacter);
+        expel.getAsItem().setHolder(gameCharacter);
+    }
+
+    @Override
+    public void setPosition(Room p) {
+        super.setPosition(p);
+        innerItem.setPosition(p);
+        expel.getAsItem().setPosition(p);
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return innerItem.getSprite(whosAsking);
+    }
+
+    @Override
+	public FoodItem clone() {
+        return innerItem.clone();
+    }
 
 
-	@Override
-	public ExplodingFood clone() {
-		return new ExplodingFood(innerItem.clone(), this.maker);
-	}
 
 }
