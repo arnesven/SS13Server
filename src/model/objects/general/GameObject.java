@@ -49,7 +49,12 @@ public class GameObject implements Serializable {
 	public void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
 	}
 
-	
 
+    public <T extends GameObject> boolean isOfType(Class<T> className) {
+        return className.isInstance(this);
+    }
 
+    public GameObject getTrueObject() {
+        return this;
+    }
 }

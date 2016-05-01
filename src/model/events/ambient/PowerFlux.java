@@ -24,7 +24,7 @@ public class PowerFlux extends Event {
 	public void apply(GameData gameData) {
         GeneratorConsole gc;
         try {
-            gc = GeneratorConsole.find(gameData);
+            gc = gameData.findObjectOfType(GeneratorConsole.class);
         } catch (NoSuchThingException e) {
             Logger.log("Cannot find generator, PowerFlux has no effect.");
             return;

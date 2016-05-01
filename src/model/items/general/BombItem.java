@@ -74,13 +74,13 @@ public class BombItem extends HidableItem implements ExplodableItem {
         Room bombRoom = null;
         try {
             bombRoom = gameData.findRoomForItem(this);
+            Logger.log(Logger.INTERESTING, "bomb room is " + bombRoom.getName());
         } catch (NoSuchThingException e) {
             Logger.log(Logger.INTERESTING,
                     "Bomb was not found in a room.");
            // bombRoom continues to be null;
-
-
         }
+
 
         Actor currentCarrier = null;
 		if (bombRoom == null) {
@@ -97,6 +97,9 @@ public class BombItem extends HidableItem implements ExplodableItem {
 			bombRoom = currentCarrier.getPosition();
 		} else {
 			bombRoom.removeFromRoom(this);
+            if (concealedWithin != null) {
+                bombRoom.removeFromRoom(concealedWithin);
+            }
 		}
 
         handleWithin(gameData, bombRoom, performingClient);
@@ -132,6 +135,8 @@ public class BombItem extends HidableItem implements ExplodableItem {
             }
 
             if (currentCarrier != null && currentCarrier.getItems().contains(concealedWithin)) {
+                Logger.log(Logger.INTERESTING, currentCarrier.getBaseName() + " was carrying a " +
+                        concealedWithin.getBaseName() + " with a bomb in it.");
                 currentCarrier.getItems().remove(concealedWithin);
                 currentCarrier.getCharacter().beExposedTo(bomber,
                         new ExplosiveDamage(1.0));

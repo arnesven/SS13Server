@@ -12,6 +12,8 @@ import java.util.Map;
  */
 public class SecretModeTest extends TestCase {
 
+    private static final int NO_OF_GAMES = 1;
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -21,7 +23,7 @@ public class SecretModeTest extends TestCase {
     public void testSecretMode() {
         Map<String, Integer> freqs = new HashMap<>();
 
-        for (int i = 100; i > 0; i--) {
+        for (int i = NO_OF_GAMES; i > 0; i--) {
             GameData gameData = new GameData();
             gameData.createNewClient("TestGuy1");
             gameData.createNewClient("TestGuy2");

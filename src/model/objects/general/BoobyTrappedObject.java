@@ -33,6 +33,16 @@ public class BoobyTrappedObject extends GameObject {
     }
 
     @Override
+    public <T extends GameObject> boolean isOfType(Class<T> className) {
+        return innerObject.isOfType(className);
+    }
+
+    @Override
+    public GameObject getTrueObject() {
+        return innerObject;
+    }
+
+    @Override
 	public void addSpecificActionsFor(GameData gameData, Player cl,
 			ArrayList<Action> at) {
 		

@@ -59,7 +59,7 @@ public abstract class ElectricalMachinery extends BreakableObject
 
 	public static boolean isPowered(GameData gameData, ElectricalMachinery machine) {
         try {
-            return !(GeneratorConsole.find(gameData).getNoPowerObjects().contains(machine));
+            return !(gameData.findObjectOfType(GeneratorConsole.class).getNoPowerObjects().contains(machine));
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "No power console found. Electrical machinery has power.");
             return true;

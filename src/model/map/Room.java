@@ -21,6 +21,7 @@ import model.items.general.GameItem;
 import model.npcs.NPC;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
+import util.Logger;
 
 
 /**
@@ -385,16 +386,29 @@ public class Room implements Serializable {
     public void removeFromRoom(GameItem searched) {
         if (items.contains(searched)) {
             items.remove(searched);
+            Logger.log(Logger.INTERESTING, "Found object directly in room");
+            return;
         } else {
             for (GameObject ob : getObjects()) {
                 if (ob instanceof ContainerObject) {
-                    if (((ContainerObject)ob).getInventory().contains(searched)) {
+                    if (((ContainerObject)ob).getInventory().contains(searched) ) {
                         ((ContainerObject)ob).getInventory().remove(searched);
+                        Logger.log(Logger.INTERESTING, "Found object in container in room");
                         return;
+                    }
+
+                    for (GameItem it : ((ContainerObject) ob).getInventory()) {
+                        if (it.getTrueItem() == searched) {
+                            ((ContainerObject)ob).getInventory().remove(it);
+                            Logger.log(Logger.INTERESTING, "Found object in other object in container in room");
+                            return;
+                        }
                     }
                 }
             }
         }
+        Logger.log(Logger.INTERESTING, "Did not find object " + searched.getBaseName() + " anywhere n room");
+
     }
 
     public RoomType getType() {

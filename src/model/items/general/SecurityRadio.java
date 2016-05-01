@@ -23,13 +23,13 @@ public class SecurityRadio extends Radio {
 
     @Override
     protected Console getSpecificConsole(GameData gameData) throws NoSuchThingException {
-        return CrimeRecordsConsole.find(gameData);
+        return gameData.findObjectOfType(CrimeRecordsConsole.class);
     }
 
     @Override
     protected Action getSpecificAction(GameData gameData) {
         try {
-            return new CrimeRecordsAction(CrimeRecordsConsole.find(gameData));
+            return new CrimeRecordsAction(gameData.findObjectOfType(CrimeRecordsConsole.class));
         } catch (NoSuchThingException e) {
             throw new IllegalStateException("Cannot get specific action for security radio, no crime console found.");
         }

@@ -64,17 +64,6 @@ public class CrimeRecordsConsole extends Console {
 		return reportMap;
 	}
 
-	public static CrimeRecordsConsole find(GameData gameData) throws NoSuchThingException {
-		for (Room r : gameData.getRooms()) {
-			for (GameObject o : r.getObjects()) {
-				if (o instanceof CrimeRecordsConsole) {
-					return (CrimeRecordsConsole)o;
-				}
-			}
-		}
-		
-		throw new NoSuchThingException("Could not find CrimeRecordsConsole!");
-	}
 
 	public Actor getMostWanted() {
 		int maxSent = 0;
@@ -123,9 +112,8 @@ public class CrimeRecordsConsole extends Console {
 		Room brig = gameData.getRoom("Brig");
 		worst.moveIntoRoom(brig);
 		try {
-			EvidenceBox ev = EvidenceBox.find(gameData);
-			ev.addAffects(worst, worst.getItems());
-			worst.getItems().removeAll(worst.getItems());
+			EvidenceBox ev = gameData.findObjectOfType(EvidenceBox.class);
+			transferItems(worst, ev);
 			Logger.log("Prisoners affects were stored in the evidence box");
 			if (worst.getCharacter().getSuit() != null && 
 					!worst.getCharacter().getSuit().permitsOver()) {
@@ -145,7 +133,17 @@ public class CrimeRecordsConsole extends Console {
 		gameData.addEvent(new SentenceCountdownEvent(gameData, worst, this));
 	}
 
-	public Map<Actor, Integer> getSentenceMap() {
+    private void transferItems(Actor worst, EvidenceBox ev) {
+        ev.addAffects(worst, worst.getItems());
+        for (GameItem it : worst.getItems()) {
+            it.setHolder(null);
+            it.setPosition(ev.getPosition());
+        }
+        worst.getItems().removeAll(worst.getItems());
+
+    }
+
+    public Map<Actor, Integer> getSentenceMap() {
 		return sentences;
 	}
 
@@ -153,7 +151,7 @@ public class CrimeRecordsConsole extends Console {
 		getSentenceMap().remove(inmate);
 		inmate.moveIntoRoom(gameData.getRoom("Port Hall Front"));
 		try {
-			EvidenceBox ev = EvidenceBox.find(gameData);
+			EvidenceBox ev = gameData.findObjectOfType(EvidenceBox.class);
 			for (GameItem it : ev.removeAffects(inmate)) {
 				inmate.addItem(it, null);
 			}

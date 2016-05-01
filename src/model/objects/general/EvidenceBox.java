@@ -58,16 +58,6 @@ public class EvidenceBox extends ContainerObject {
 		}
 		return itemsToReturn;
 	}
-	
-	public static EvidenceBox find(GameData gameData) throws NoSuchThingException {
-		for (GameObject o : gameData.getObjects()) {
-			if (o instanceof EvidenceBox) {
-				return (EvidenceBox) o;
-			}
-		}
-		throw new NoSuchThingException("Did not find EvidenceBox on station!");
-	}
 
-	
 	
 }

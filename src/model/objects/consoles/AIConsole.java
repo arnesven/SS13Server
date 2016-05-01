@@ -69,12 +69,4 @@ public class AIConsole extends Console {
         return alarms;
     }
 
-    public static AIConsole find(GameData gameData) throws NoSuchThingException {
-        for (GameObject obj : gameData.getObjects()) {
-            if (obj instanceof AIConsole) {
-                return (AIConsole)obj;
-            }
-        }
-        throw new NoSuchThingException("No AI Console found!");
-    }
 }

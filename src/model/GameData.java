@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import graphics.sprites.SpriteManager;
 import model.items.NoSuchThingException;
+import model.objects.consoles.CrimeRecordsConsole;
 import model.objects.general.ContainerObject;
 import util.*;
 import model.actions.general.Action;
@@ -626,5 +627,19 @@ public class GameData implements Serializable {
 
     public boolean isRunningEvents() {
         return runningEvents;
+    }
+
+    public <T extends GameObject> T  findObjectOfType(Class<T> className) throws NoSuchThingException {
+        for (Room r : getRooms()) {
+            for (GameObject obj : r.getObjects()) {
+                if (obj.getClass() == className) {
+                    return (T)obj;
+                } else if (obj.isOfType(className)) {
+                    return (T)obj.getTrueObject();
+                }
+
+            }
+        }
+        throw new NoSuchThingException("GameData: Could not find object of type " + className.getName() + "!");
     }
 }

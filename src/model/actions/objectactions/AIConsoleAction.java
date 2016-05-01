@@ -46,7 +46,7 @@ public class AIConsoleAction extends ConsoleAction {
 			boolean noAlarms = true;
             List<String> alarms = null;
             try {
-                alarms = AIConsole.find(gameData).getAlarms(gameData);
+                alarms = gameData.findObjectOfType(AIConsole.class).getAlarms(gameData);
 
                 for (String alarm : alarms) {
                     performingClient.addTolastTurnInfo(alarm);

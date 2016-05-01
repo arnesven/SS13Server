@@ -15,6 +15,8 @@ public class RepairAction extends TargetingAction {
 		super("Repair", SensoryLevel.PHYSICAL_ACTIVITY, ap);
 	}
 
+
+
 	@Override
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
@@ -31,6 +33,6 @@ public class RepairAction extends TargetingAction {
 
 	@Override
 	protected String getVerb(Actor whosAsking) {
-		return "repaired";
+		return "tinkered with " + target.getName();
 	}
 }

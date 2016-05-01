@@ -20,15 +20,10 @@ public class SerializingTest extends TestCase {
 
         util.Logger.setLevel(Logger.CRITICAL);
 
-        GameData gameData = new GameData();
-        gameData.createNewClient("TestA");
-        gameData.createNewClient("TestB");
+        GameData gameData = TestUtil.makeAGame(2);
 
-        gameData.setPlayerReady("TestA", true);
-        gameData.setPlayerReady("TestB", true);
-
-        Player player1 = gameData.getPlayerForClid("TestA");
-        Player player2 = gameData.getPlayerForClid("TestB");
+        Player player1 = gameData.getPlayerForClid(TestUtil.getPlayerName(0));
+        Player player2 = gameData.getPlayerForClid(TestUtil.getPlayerName(1));
 
         player1.setNextMove(player1.getPosition().getNeighbors()[0]);
         player2.setNextMove(player2.getPosition().getNeighbors()[0]);

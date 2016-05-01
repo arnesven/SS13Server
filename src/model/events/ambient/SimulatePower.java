@@ -27,7 +27,7 @@ public class SimulatePower extends Event {
 		addDarknessEvent(gameData);
         GeneratorConsole gc;
         try {
-            gc = GeneratorConsole.find(gameData);
+            gc = gameData.findObjectOfType(GeneratorConsole.class);
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "No need to simulate power, no power console on station.");
             return;

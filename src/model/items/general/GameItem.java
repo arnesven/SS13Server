@@ -212,4 +212,8 @@ public abstract class GameItem implements Locatable, Serializable {
     public void gotGivenTo(GameCharacter to, Target from) {
         // is called when items are given
     }
+
+    public GameItem getTrueItem() {
+        return this;
+    }
 }

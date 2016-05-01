@@ -73,7 +73,7 @@ public class TellRumorsBehavior implements ActionBehavior {
                 }
 
                 try {
-                    List<String> alarms = AIConsole.find(gameData).getAlarms(gameData);
+                    List<String> alarms = gameData.findObjectOfType(AIConsole.class).getAlarms(gameData);
                     if (alarms.size() > 2) {
                         gossip.add("I hear the AI has some alarms.");
                     }
@@ -82,7 +82,8 @@ public class TellRumorsBehavior implements ActionBehavior {
                 }
 
                 try {
-                    for (List<Pair<String, Actor>> listOfpair : CrimeRecordsConsole.find(gameData).getReportedActors().values()) {
+                    CrimeRecordsConsole crc = gameData.findObjectOfType(CrimeRecordsConsole.class);
+                    for (List<Pair<String, Actor>> listOfpair : crc.getReportedActors().values()) {
                         for (Pair<String, Actor> pair : listOfpair) {
                             gossip.add("I hear " + pair.second.getBaseName() + " is a " + pair.second.getCharacter().getGender() + " of justice.");
                         }

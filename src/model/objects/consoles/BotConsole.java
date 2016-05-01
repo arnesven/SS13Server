@@ -54,8 +54,8 @@ public class BotConsole extends Console {
                 new RepairStuffBehavior(gameData)));
         try {
             bp.add(new BotProgram("Security",
-                    new FollowCriminalBehavior(CrimeRecordsConsole.find(gameData)),
-                    new ArrestCriminalBehavior(CrimeRecordsConsole.find(gameData))));
+                    new FollowCriminalBehavior(gameData.findObjectOfType(CrimeRecordsConsole.class)),
+                    new ArrestCriminalBehavior(gameData.findObjectOfType(CrimeRecordsConsole.class))));
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "No crime console on statin. Not adding security bot program.");
         }
@@ -68,12 +68,4 @@ public class BotConsole extends Console {
 
     }
 
-    public static BotConsole find(GameData gameData) throws NoSuchThingException {
-        for (GameObject o : gameData.getObjects()) {
-            if (o instanceof BotConsole) {
-                return (BotConsole) o;
-            }
-        }
-        throw new NoSuchThingException("Could not find a bot console on the station");
-    }
 }

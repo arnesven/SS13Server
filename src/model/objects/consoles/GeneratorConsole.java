@@ -226,22 +226,6 @@ public class GeneratorConsole extends Console {
 	public List<Room> getNoLightRooms() {
 		return noLight;
 	}
-	
-	public static GeneratorConsole find(GameData gameData) throws NoSuchThingException {
-		GeneratorConsole gc = null;
-		for (GameObject o : gameData.getObjects()) {
-			if (gc != null) {
-				throw new IllegalStateException("More than one GeneratorConsole found!");
-			} else if (o instanceof GeneratorConsole) {
-				gc = (GeneratorConsole) o;
-				break;
-			}
-		}
-		if (gc == null) {
-			throw new NoSuchThingException("Could not find a generator console on station!");
-		}
-		return gc;
-	}
 
 	public void addToLevel(double d) {
 		level = Math.max(0.0, level + d);

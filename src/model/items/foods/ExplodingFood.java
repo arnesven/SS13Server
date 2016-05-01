@@ -8,6 +8,7 @@ import model.characters.general.GameCharacter;
 import model.events.damage.ExplosiveDamage;
 import model.events.Explosion;
 import model.items.general.ExplodableItem;
+import model.items.general.GameItem;
 import model.map.Room;
 
 public class ExplodingFood extends FoodItem {
@@ -24,7 +25,10 @@ public class ExplodingFood extends FoodItem {
         expel.setConceledWithin(this);
 	}
 
-
+    @Override
+    public GameItem getTrueItem() {
+        return innerItem;
+    }
 
     @Override
     public String getFullName(Actor whosAsking) {

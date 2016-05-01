@@ -45,15 +45,6 @@ public class Dumbwaiter extends GameObject {
         return new Sprite("dumbwaiter", "storage2.png", 3, 13);
     }
 
-    public static Dumbwaiter find(GameData gameData) throws NoSuchThingException {
-        for (GameObject ob : gameData.getObjects()) {
-            if (ob instanceof Dumbwaiter) {
-                return (Dumbwaiter) ob;
-            }
-        }
-        throw new NoSuchThingException("No dumbwaiter found on station");
-    }
-
     public List<Room> getDestinations(GameData gameData) {
         String[] places = new String[]{"Greenhouse", "Bar", "Dorms", "Office", "Captain's Quarters", "Bridge", "Security Station" ,
                                         "Shuttle Gate", "Sickbay", "Lab", "Chapel", "Generator", "AI Core", "Kitchen"};

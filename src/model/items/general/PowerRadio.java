@@ -19,13 +19,13 @@ public class PowerRadio extends Radio {
 
     @Override
     protected Console getSpecificConsole(GameData gameData) throws NoSuchThingException {
-        return GeneratorConsole.find(gameData);
+        return gameData.findObjectOfType(GeneratorConsole.class);
     }
 
     @Override
     protected Action getSpecificAction(GameData gameData) {
         try {
-            return new PowerConsoleAction(GeneratorConsole.find(gameData));
+            return new PowerConsoleAction(gameData.findObjectOfType(GeneratorConsole.class));
         } catch (NoSuchThingException e) {
             throw new IllegalStateException("Cannot get specific action for Power Radio, no power console found on station.");
         }

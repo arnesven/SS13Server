@@ -40,7 +40,7 @@ public class CookFoodAction extends Action {
 		ActionOption res = new ActionOption("Cook Food");
         List<Room> dumbwaiterRooms = null;
         try {
-            dumbwaiterRooms = Dumbwaiter.find(gameData).getDestinations(gameData);
+            dumbwaiterRooms = gameData.findObjectOfType(Dumbwaiter.class).getDestinations(gameData);
         } catch (NoSuchThingException nste) {
             Logger.log(Logger.CRITICAL, "No dumbwaiter found.");
         }
@@ -74,7 +74,7 @@ public class CookFoodAction extends Action {
                 performingClient.addTolastTurnInfo(result + ".");
             } else {
                 try {
-                    List<Room> dumbwaiterRooms = Dumbwaiter.find(gameData).getDestinations(gameData);
+                    List<Room> dumbwaiterRooms = gameData.findObjectOfType(Dumbwaiter.class).getDestinations(gameData);
                     for (Room r : dumbwaiterRooms) {
                         if (chosenDestination.contains(r.getName())) {
                             r.addItem(selectedItem);

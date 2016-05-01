@@ -45,7 +45,7 @@ public class ReprogramAction extends Action {
     }
 
     private void addProgramOpts(GameData gameData, ActionOption sub) throws NoSuchThingException {
-        List<BotProgram> programs = BotConsole.find(gameData).getPrograms(gameData);
+        List<BotProgram> programs = gameData.findObjectOfType(BotConsole.class).getPrograms(gameData);
         for (BotProgram bp : programs) {
             sub.addOption(bp.getName());
         }
@@ -65,7 +65,7 @@ public class ReprogramAction extends Action {
                 return;
             }
             BotProgram selectedProgram = null;
-            for (BotProgram bp : BotConsole.find(gameData).getPrograms(gameData)) {
+            for (BotProgram bp : gameData.findObjectOfType(BotConsole.class).getPrograms(gameData)) {
                 if (progString.equals(bp.getName())) {
                     selectedProgram = bp;
                 }

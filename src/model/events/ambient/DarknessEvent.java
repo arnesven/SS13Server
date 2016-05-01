@@ -19,7 +19,7 @@ public class DarknessEvent extends Event {
 
 	public DarknessEvent(GameData gameData) {
         try {
-            this.gc = GeneratorConsole.find(gameData);
+            this.gc = gameData.findObjectOfType(GeneratorConsole.class);
         } catch (NoSuchThingException e) {
             throw new IllegalStateException("Should not get any darkness if there is no generator!");
         }
