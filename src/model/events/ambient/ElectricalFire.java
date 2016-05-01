@@ -13,7 +13,8 @@ import model.map.Room;
 public class ElectricalFire extends OngoingEvent {
 
 	private static final double SPREAD_CHANCE = 0.1;
-	//private static final double SPREAD_CHANCE = 0.1;
+    private static final double BURNOUT_CHANCE = 0.25;
+    //private static final double SPREAD_CHANCE = 0.1;
 
 	public double getProbability() {
 		// TODO: Change this into something more reasonable
@@ -42,14 +43,22 @@ public class ElectricalFire extends OngoingEvent {
 		for (Target t : getRoom().getTargets()) {
 			t.beExposedTo(null, new FireDamage());
 		}
-		
+
+        boolean anyAroundHasFire = false;
 		for (Room neighbor : getRoom().getNeighborList()) {
 			if (MyRandom.nextDouble() < SPREAD_CHANCE) {
 				Logger.log(Logger.INTERESTING,
                         "  Fire spread to " + neighbor.getName() + "!");
 				startNewEvent(neighbor);
 			}
+            if (neighbor.hasFire()) {
+                anyAroundHasFire = true;
+            }
 		}
+
+        if (!anyAroundHasFire & MyRandom.nextDouble() < BURNOUT_CHANCE) {
+            this.setShouldBeRemoved(true);
+        }
 		
 		getRoom().addToEventsHappened(this);
 	}

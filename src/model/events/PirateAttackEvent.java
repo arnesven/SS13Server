@@ -15,7 +15,7 @@ import java.util.List;
  * Created by erini02 on 26/04/16.
  */
 public class PirateAttackEvent extends Event {
-    private static final double CHANCE_OF_HAPPENING_EACH_ROUND = 1.025;
+    private static final double CHANCE_OF_HAPPENING_EACH_ROUND = 0.025;
     private boolean hasHappened = false;
     private int piratesRemainingOnBarge;
     private int pirateNum = 1;
