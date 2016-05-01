@@ -16,17 +16,18 @@ public class MutationFactory {
 
 	private static List<Mutation> randMutes(GameData gameData) {
 		List<Mutation> mutes = new ArrayList<>();
-		mutes.add(new StrongerMutation());
-		mutes.add(new SluggishMutation());
-		mutes.add(new HuskMutation());
-		mutes.add(new BlueMutation());
-		mutes.add(new IronFists());
-		mutes.add(new SexChange());
-		mutes.add(new SuperSprint());
-		mutes.add(new HorrorAppearance());
-		mutes.add(new ChimpAppearance());
+        mutes.add(new BlueMutation());
+        mutes.add(new ChimpAppearance());
         mutes.add(new ExtraHealthMutation());
+        mutes.add(new HorrorAppearance());
+        mutes.add(new HuskMutation());
+        mutes.add(new IronFists());
+
         mutes.add(new RadioActiveMutation());
+        mutes.add(new SexChange());
+        mutes.add(new SluggishMutation());
+        mutes.add(new StrongerMutation());
+		mutes.add(new SuperSprint());
 		
 		return mutes;
 	}

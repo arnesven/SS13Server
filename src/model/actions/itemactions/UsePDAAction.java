@@ -8,6 +8,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.items.general.GameItem;
+import model.items.general.ItemStack;
 import model.items.general.Locator;
 import model.items.general.PDA;
 import model.modes.TraitorGameMode;
@@ -50,8 +51,16 @@ public class UsePDAAction extends Action {
 				performingClient.addTolastTurnInfo("You are the only traitor.");
 			}
 		} else {
-			GameItem gi = orderedItem.clone();
-			performingClient.addItem(gi, null);
+            GameItem gi = null;
+            if (orderedItem instanceof ItemStack) {
+                for (int i = ((ItemStack) orderedItem).getNum(); i > 0; --i) {
+                    gi = ((ItemStack) orderedItem).getInnerItem().clone();
+                    performingClient.addItem(gi, null);
+                }
+            } else {
+                gi = orderedItem.clone();
+                performingClient.addItem(gi, null);
+            }
 			pda.decrementUses();
 			performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) + 
 					" appeared! You put it in your inventory.");

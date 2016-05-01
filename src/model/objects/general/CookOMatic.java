@@ -10,13 +10,10 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.CookFoodAction;
 import model.actions.objectactions.CookGrenadeIntoFoodAction;
+import model.items.foods.*;
 import model.items.general.ExplodableItem;
 import model.items.general.GameItem;
 import model.items.general.Grenade;
-import model.items.foods.ApplePie;
-import model.items.foods.DoubleFlambeSteakDiane;
-import model.items.foods.FoodItem;
-import model.items.foods.SpinachSoup;
 import model.map.Room;
 
 public class CookOMatic extends ElectricalMachinery {
@@ -42,6 +39,8 @@ public class CookOMatic extends ElectricalMachinery {
 	public static List<FoodItem> getCookableFood(Actor maker) {
 		List<FoodItem> foods = new ArrayList<>();
 		foods.add(new ApplePie(maker));
+        foods.add(new Doughnut(maker));
+        foods.add(new SpaceBurger(maker));
 		foods.add(new SpinachSoup(maker));
 		foods.add(new DoubleFlambeSteakDiane(maker));
 		return foods;
