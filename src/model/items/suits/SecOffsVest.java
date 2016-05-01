@@ -2,13 +2,16 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.characters.decorators.InstanceChecker;
+import model.characters.decorators.PiercingProtection;
+import model.characters.general.GameCharacter;
 
 /**
  * Created by erini02 on 26/04/16.
  */
 public class SecOffsVest extends SuitItem {
     public SecOffsVest() {
-        super("Vest", 0.5);
+        super("Vest", 1.0);
     }
 
     @Override
@@ -28,11 +31,17 @@ public class SecOffsVest extends SuitItem {
 
     @Override
     public void beingPutOn(Actor actionPerformer) {
-
+        actionPerformer.setCharacter(new PiercingProtection(actionPerformer.getCharacter()));
     }
 
     @Override
     public void beingTakenOff(Actor actionPerformer) {
+        actionPerformer.removeInstance(new InstanceChecker() {
+            @Override
+            public boolean checkInstanceOf(GameCharacter ch) {
+                return ch instanceof PiercingProtection;
+            }
+        });
 
     }
 
