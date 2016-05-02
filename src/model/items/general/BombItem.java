@@ -186,7 +186,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
         }
 
         if (chain > maxChain) {
-            setMaxChain(chain);
+            setMaxChain(gameData, chain);
         }
     }
 
@@ -271,11 +271,12 @@ public class BombItem extends HidableItem implements ExplodableItem {
         return exploded;
     }
 
-    public static void setMaxChain(int max) {
-        maxChain = max;
+    public void setMaxChain(GameData gameData, int max) {
+        gameData.getGameMode().setMaxBombChain(max);
     }
 
-    public static int getMaxChain() {
-        return maxChain;
+    public void defuse(GameData gameData) {
+        exploded = true;
+        gameData.getGameMode().addToDefusedBombs(1);
     }
 }

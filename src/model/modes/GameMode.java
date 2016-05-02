@@ -99,8 +99,10 @@ public abstract class GameMode implements Serializable {
 	private static String[] knownModes = {"Host", "Traitor", "Operatives", "Changeling", "Secret"};
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
+    private int defusedBombs = 0;
+    private int maxBombChain;
 
-	public GameMode() {
+    public GameMode() {
 		events.put("fires", new ElectricalFire());
 		events.put("hull breaches", new HullBreach());
 		events.put("explosion", new Explosion());
@@ -524,4 +526,19 @@ public abstract class GameMode implements Serializable {
 	}
 
 
+    public void addToDefusedBombs(int i) {
+        defusedBombs += i;
+    }
+
+    public void setMaxBombChain(int maxBombChain) {
+        this.maxBombChain = maxBombChain;
+    }
+
+    public int getMaxChain() {
+        return maxBombChain;
+    }
+
+    public int getBombsDefused() {
+        return defusedBombs;
+    }
 }

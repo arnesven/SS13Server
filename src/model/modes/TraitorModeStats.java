@@ -65,6 +65,7 @@ public class TraitorModeStats extends GameStats {
 		buf.append("<tr><td>Hull Breaches</td><td " + style +">"      + traitorMode.pointsFromBreaches(gameData)         + "</td></tr>");		
 		buf.append("<tr><td>Points from God</td><td " + style +">"     + traitorMode.pointsFromGod(gameData)         + "</td></tr>");		
 		buf.append("<tr><td>Parasites killed</td><td " + style +">"   + traitorMode.pointsFromParasites(gameData)        + "</td></tr>");
+        buf.append("<tr><td>Defused Bombs</td><td " + style +">"   + traitorMode.pointsFromBombsDefused(gameData)        + "</td></tr>");
         int piratePoints = traitorMode.pointsFromPirates(gameData);
         if (piratePoints > 0) {
             buf.append("<tr><td>Pirates killed</td><td " + style + ">" + piratePoints + "</td></tr>");

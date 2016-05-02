@@ -39,6 +39,7 @@ public class TraitorGameMode extends GameMode {
 	private static final int EVENT_FIX_POINTS = 20;
 	private static final int POINTS_FOR_BROKEN_OBJECTS = 25;
     private static final int POINTS_FROM_DEAD_PIRATES = 50;
+    private static final int POINTS_FROM_BOMBS_DEFUSED = 50;
     private List<Player> traitors = new ArrayList<>();
 	private HashMap<Player, TraitorObjective> objectives = new HashMap<>();
 	private String TRAITOR_START_STRING = "You are a traitor!";
@@ -234,8 +235,13 @@ public class TraitorGameMode extends GameMode {
 		result += pointsFromPower(gameData);
 		result += pointsFromGod(gameData);
         result += pointsFromPirates(gameData);
+        result += pointsFromBombsDefused(gameData);
 		return result;
 	}
+
+    public int pointsFromBombsDefused(GameData gameData) {
+        return POINTS_FROM_BOMBS_DEFUSED * gameData.getGameMode().getBombsDefused();
+    }
 
     public int pointsFromPirates(GameData gameData) {
         int res = 0;

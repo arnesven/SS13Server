@@ -12,7 +12,6 @@ import model.Player;
 import model.events.ambient.Crazyness;
 import model.events.ambient.OngoingEvent;
 import model.items.NoSuchThingException;
-import model.items.general.BombItem;
 import model.npcs.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
@@ -168,7 +167,8 @@ public abstract class GameStats {
             Logger.log(Logger.CRITICAL, "What? no generator on station?");
         }
         res += "<tr><td> Cat survived: </td><td>"        + isCatDead(gameData) + "</td></tr>" +
-                "<tr><td> Greatest bomb chain: </td><td>"        + BombItem.getMaxChain() + "</td></tr>" +
+                "<tr><td> Greatest bomb chain: </td><td>"        + mode.getMaxChain() + "</td></tr>" +
+                "<tr><td> Bombs defused: </td><td>"        + mode.getBombsDefused() + "</td></tr>" +
 		"<tr><td> Parasites spawned: </td><td>"    + mode.getAllParasites().size() + "</td></tr>" +
 		"<tr><td> Parasites killed: </td><td>"     + countDead(mode.getAllParasites()) + "</td></tr>" +
 		"<tr><td> Parasite vanquisher: </td><td>"  + findVanquisher(mode.getAllParasites())+ "</td></tr>";

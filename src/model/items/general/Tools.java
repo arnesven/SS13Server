@@ -8,6 +8,7 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.general.Action;
+import model.actions.itemactions.DefuseBombAction;
 import model.actions.itemactions.RepairAction;
 import model.actions.itemactions.SealHullBreachAction;
 import model.items.weapons.BluntWeapon;
@@ -41,10 +42,22 @@ public class Tools extends BluntWeapon {
 		if (cl.getPosition().hasHullBreach()) {
 			at.add(new SealHullBreachAction());
 		}
+        if (positionHasBomb(cl.getPosition())) {
+            at.add(new DefuseBombAction());
+        }
 	}
 
+    private boolean positionHasBomb(Room position) {
+        for (GameItem it : position.getItems()) {
+            if (it instanceof BombItem) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	private boolean hasBrokenObjects(Room position) {
+
+    private boolean hasBrokenObjects(Room position) {
 		for (GameObject ob : position.getObjects()) {
 			if (ob instanceof Target) {
 				if (ob instanceof Repairable) {
