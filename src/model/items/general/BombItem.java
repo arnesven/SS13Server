@@ -101,6 +101,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
             if (bombRoom == null) {
                 Logger.log(Logger.CRITICAL,
                         " COULD NOT FIND BOMB, WHERE DID IT GO?!");
+                exploded = true;
                 return;
             }
         }
@@ -275,6 +276,6 @@ public class BombItem extends HidableItem implements ExplodableItem {
     }
 
     public static int getMaxChain() {
-        return this.maxChain;
+        return maxChain;
     }
 }
