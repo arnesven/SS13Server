@@ -40,9 +40,9 @@ public abstract class Actor  implements Serializable {
 	public void setCharacter(GameCharacter charr) {
 		this.character = charr;
 		getCharacter().setActor(this);
-		if (charr instanceof CharacterDecorator) {
-			charr.printInstances();
-		}
+//		if (charr instanceof CharacterDecorator) {
+//			charr.printInstances();
+//		}
 	}
 	
 	/**

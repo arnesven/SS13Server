@@ -436,6 +436,13 @@ public class Player extends Actor implements Target, Serializable {
 				set.add(it.getFullName(this));
 			}
 		}
+
+
+        for (GameItem it : getPosition().getItems()) {
+            if (it.isUsableFromFloor()) {
+                it.addYourActions(gameData, itActions, this);
+            }
+        }
 		
 		if (itActions.size() > 0) {
 			ActionGroup ag = new ActionGroup("Use Items");

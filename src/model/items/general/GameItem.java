@@ -22,16 +22,22 @@ import model.map.Room;
  */
 public abstract class GameItem implements Locatable, Serializable {
 
-	private String name;
+    private final boolean usableFromFloor;
+    private String name;
 	private double weight;
 	private Room position;
 	private GameCharacter holder = null;
     private Sprite sprite = new Sprite("keycard", "card.png", 1);
 
-    public GameItem(String string, double weight) {
+    public GameItem(String string, double weight, boolean usableFromFloor) {
 		this.name = string;
 		this.weight = weight;
+        this.usableFromFloor = usableFromFloor;
 	}
+
+    public GameItem(String string, double weight) {
+        this(string, weight, false);
+    }
 	
 	public abstract GameItem clone();
 
@@ -215,5 +221,9 @@ public abstract class GameItem implements Locatable, Serializable {
 
     public GameItem getTrueItem() {
         return this;
+    }
+
+    public boolean isUsableFromFloor() {
+        return usableFromFloor;
     }
 }

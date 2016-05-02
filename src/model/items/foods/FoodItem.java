@@ -7,14 +7,14 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
-import model.actions.itemactions.EatAction;
+import model.actions.itemactions.ConsumeAction;
 import model.items.general.GameItem;
 
 public abstract class FoodItem extends GameItem {
 
 
 	public FoodItem(String string, double weight) {
-		super(string, weight);
+		super(string, weight, true);
 	}
 
 
@@ -27,7 +27,7 @@ public abstract class FoodItem extends GameItem {
 	public void addYourActions(GameData gameData, 
 			ArrayList<Action> at,
 			Player cl) {
-		at.add(new EatAction(this, cl));
+		at.add(new ConsumeAction(this, cl));
 	}
 	
 	public abstract double getFireRisk();
@@ -35,7 +35,11 @@ public abstract class FoodItem extends GameItem {
 	protected abstract void triggerSpecificReaction(Actor eatenBy, GameData gameData);
 	
 	public void beEaten(Actor eatenBy, GameData gameData) {
-		eatenBy.getItems().remove(this);
+        if (eatenBy.getItems().contains(this)) {
+            eatenBy.getItems().remove(this);
+        } else if (eatenBy.getPosition().getItems().contains(this)) {
+            eatenBy.getPosition().getItems().remove(this);
+        }
 		triggerSpecificReaction(eatenBy, gameData);
 	}
 

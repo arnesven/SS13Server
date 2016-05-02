@@ -31,14 +31,21 @@ public class HealWithMedKitAction extends TargetingAction {
 		}
 		
 		if (! target.hasSpecificReaction(objectRef)) {
-			target.addToHealth(HEAL_AMOUNT);
+
 			
 			if ((!(performingClient.getCharacter() instanceof DoctorCharacter)) ||
 					MyRandom.nextDouble() < 0.5) {
-				performingClient.getItems().remove(objectRef);
+                if ( performingClient.getItems().contains(objectRef)) {
+                    performingClient.getItems().remove(objectRef);
+                } else if (performingClient.getPosition().getItems().contains(objectRef)) {
+                    performingClient.getPosition().getItems().remove(objectRef);
+                } else {
+                    performingClient.addTolastTurnInfo("What? The MedKit was missing! Your action failed!");
+                }
 			} else {
 				performingClient.addTolastTurnInfo("The MedKit wasn't used up.");
 			}
+            target.addToHealth(HEAL_AMOUNT);
 			
 			if (target == performingClient) {
 				performingClient.addTolastTurnInfo("You " + getVerb(performingClient) + " yourself with the " + objectRef.getPublicName(performingClient) + ".");

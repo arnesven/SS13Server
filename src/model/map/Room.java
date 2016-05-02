@@ -223,6 +223,7 @@ public class Room implements Serializable {
 				ob.addSpecificActionsFor(gameData, client, at);
 			}
 		}
+
 	}
 
 	public void setMap(GameMap gameMap) {
