@@ -5,6 +5,7 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.items.CryoBomb;
 import model.items.NoSuchThingException;
 import model.items.general.*;
 import model.objects.general.Dumbwaiter;
@@ -68,7 +69,7 @@ public class MakeBombAction extends Action {
                 return;
             }
         } else {
-            bomb = new BombItem("Cryo Bomb");
+            bomb = new CryoBomb(gameData, performingClient);
         }
         Logger.log(performingClient.getBaseName() + " built a bomb!");
         if (MyRandom.nextDouble() < RISK_OF_EXPLOSION) {
