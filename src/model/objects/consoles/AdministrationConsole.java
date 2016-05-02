@@ -20,6 +20,7 @@ public class AdministrationConsole extends Console {
 		shipments.add(new FireFighterShipment());
 		shipments.add(new MedicalShipment());
 		shipments.add(new ExterminationShipment());
+        shipments.add(new TechnicalShipment());
 		shipments.add(new PartyShipment());
         shipments.add(new RobotPartsShipment());
 		shipments.add(new MilitaryShipment());
