@@ -29,7 +29,7 @@ public class LowPressureEvent extends Event {
 
     @Override
     public String howYouAppear(Actor performingClient) {
-        return "Low Pressure";
+        return "Low Pressure!";
     }
 
     @Override

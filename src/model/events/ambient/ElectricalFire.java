@@ -12,17 +12,18 @@ import model.map.Room;
 
 public class ElectricalFire extends OngoingEvent {
 
-	private static final double SPREAD_CHANCE = 0.1;
-    private static final double BURNOUT_CHANCE = 0.25;
+	private static final double SPREAD_CHANCE = 0.10;
+    private static final double BURNOUT_CHANCE = 0.05;
+    private static final double occurenceChance = 0.15;
     //private static final double SPREAD_CHANCE = 0.1;
 
-	public double getProbability() {
-		// TODO: Change this into something more reasonable
-		// like 0.2
-		return 0.15;
-	}
+    @Override
+    protected double getStaticProbability() {
+        return occurenceChance;
+    }
 
-	@Override
+
+    @Override
 	public SensoryLevel getSense() {
 		return SensoryLevel.FIRE;
 	}
@@ -79,6 +80,7 @@ public class ElectricalFire extends OngoingEvent {
 	public String getDistantDescription() {
 		return "Something is burning...";
 	}
+
 
 
 }

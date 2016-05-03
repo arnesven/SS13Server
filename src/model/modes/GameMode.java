@@ -8,21 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import model.characters.decorators.HuskDecorator;
-import model.characters.general.HorrorCharacter;
-import model.characters.general.OperativeCharacter;
 import model.events.PirateAttackEvent;
+import model.events.SpontaneousExplosionEvent;
 import model.events.ambient.*;
-import model.items.NoSuchThingException;
-import model.items.suits.CaptainsHat;
-import model.items.suits.OperativeSpaceSuit;
 import model.npcs.*;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
 import model.Player;
 import model.GameData;
-import model.actions.general.SpeedComparator;
 import model.characters.general.CharacterSpeedComparator;
 import model.characters.general.GameCharacter;
 import model.characters.crew.BartenderCharacter;
@@ -42,11 +36,7 @@ import model.characters.crew.RoboticistCharacter;
 import model.characters.crew.SecurityOfficerCharacter;
 import model.characters.crew.TouristCharacter;
 import model.events.Event;
-import model.events.Explosion;
-import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
-import model.items.general.Tools;
-import model.items.suits.RadiationSuit;
 import model.map.GameMap;
 import model.map.NukieShipRoom;
 import model.map.Room;
@@ -96,7 +86,7 @@ import model.map.Room;
 public abstract class GameMode implements Serializable {
 
 
-	private static String[] knownModes = {"Host", "Traitor", "Operatives", "Changeling", "Secret"};
+	private static String[] knownModes = { "Secret", "Host", "Traitor", "Operatives", "Changeling", "Armageddon"};
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
     private int defusedBombs = 0;
@@ -105,8 +95,8 @@ public abstract class GameMode implements Serializable {
     public GameMode() {
 		events.put("fires", new ElectricalFire());
 		events.put("hull breaches", new HullBreach());
-		events.put("explosion", new Explosion());
-		events.put("crazyness", new Crazyness());
+		events.put("explosion", new SpontaneousExplosionEvent());
+		events.put("crazyness", new SpontaneousCrazyness());
 		events.put("radiation storms", new RadiationStorm());
 		events.put("simulate power", new SimulatePower());
 		events.put("Power flux", new PowerFlux());
@@ -285,10 +275,12 @@ public abstract class GameMode implements Serializable {
 
 		/// SELECT A CAPTAIN, SS13 MUST ALWAYS HAVE A CAPTAIN
 		selectCaptain(listOfClients, listOfCharacters);
-
+        Logger.log("Captain assigned");
 		/// ASSIGN ROLES RANDOMLY
-		assignRestRoles(listOfClients, listOfCharacters, gameData);	
+		assignRestRoles(listOfClients, listOfCharacters, gameData);
+        Logger.log("Other roles assigned");
 		assignOtherRoles(listOfCharacters, gameData);
+        Logger.log("Mode specific roles assigned");
 
 		return listOfCharacters;
 	}
@@ -326,7 +318,7 @@ public abstract class GameMode implements Serializable {
 
 	protected void assignRestRoles(ArrayList<Player> remainingPlayers,
 			ArrayList<GameCharacter> remainingCharacters, GameData gameData) {
-
+        Logger.log("Assigning other roles, players remaining: " + remainingPlayers.size());
 		Collections.shuffle(remainingPlayers);
 
 		while (remainingPlayers.size() > 0) {
@@ -509,7 +501,6 @@ public abstract class GameMode implements Serializable {
 			gameData.addNPC(parasite);
 			allParasites.add(parasite);
 		}
-
 	}
 
 	public Map<String, Event> getEvents() {

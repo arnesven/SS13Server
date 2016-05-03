@@ -13,15 +13,18 @@ import model.npcs.NPC;
 import model.npcs.behaviors.CrazyBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 
-public class Crazyness extends Event {
+public class SpontaneousCrazyness extends AmbientEvent {
 
 	private List<NPC> crazyPeople = new ArrayList<>();
+    private static double occurrenceChance = 0.01;
 
-	public double getProbability() {
-		return 0.01;
-	}
+    @Override
+    protected double getStaticProbability() {
+        return occurrenceChance;
+    }
 
-	@Override
+
+    @Override
 	public void apply(GameData gameData) {
 
 		if (MyRandom.nextDouble() < getProbability()) {
@@ -31,7 +34,7 @@ public class Crazyness extends Event {
 
 
 			for (NPC npc : npclist) {
-				if (npc.getCharacter().isCrew()) {
+				if (npc.getCharacter().isCrew() && !npc.isDead()) {
 					npc.setActionBehavior(new CrazyBehavior());
 					npc.setMoveBehavior(new MeanderingMovement(0.80));
 					crazyPeople.add(npc);

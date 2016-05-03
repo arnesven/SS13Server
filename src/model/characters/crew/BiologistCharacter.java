@@ -39,7 +39,7 @@ public class BiologistCharacter extends CrewCharacter {
 	}
 
 	private Trainable getTrainableInRoom(Room position) {
-		for (Actor a : position.getActors()) {
+		for (Actor a : getActor().getPosition().getActors()) {
 			if (a instanceof Trainable) {
 				return (Trainable)a;
 			}

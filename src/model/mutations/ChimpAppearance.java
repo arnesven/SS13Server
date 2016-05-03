@@ -17,6 +17,11 @@ public class ChimpAppearance extends Mutation {
             public Sprite getSprite(Actor whosAsking) {
                 return new Sprite("chimpappearance", "monkey.png", 0);
             }
+
+            @Override
+            public String getPublicName() {
+                return "Chimp";
+            }
         };
 	}
 

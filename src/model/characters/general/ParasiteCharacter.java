@@ -5,6 +5,7 @@ import java.util.List;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.events.damage.AsphyxiationDamage;
 import model.events.damage.ColdDamage;
 import model.events.damage.Damager;
 import model.events.damage.RadiationDamage;
@@ -50,9 +51,12 @@ public class ParasiteCharacter extends GameCharacter {
 	
 	@Override
 	public void beExposedTo(Actor something, Damager damager) {
-		if (!(damager instanceof RadiationDamage) && !(damager instanceof ColdDamage)) {
-			super.beExposedTo(something, damager);
-		}
+        if (damager instanceof RadiationDamage ||
+                damager instanceof ColdDamage ||
+                damager instanceof AsphyxiationDamage) {
+            return;
+        }
+        super.beExposedTo(something, damager);
 	}
 	
 	@Override

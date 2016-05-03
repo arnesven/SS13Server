@@ -79,16 +79,24 @@ public class CrimeRecordsConsole extends Console {
 		return worst;
 	}
 
+    public int getTimeForCrime(String crime) throws NoSuchThingException {
+        for (int i = 0; i < sentenceLengths.length; ++i) {
+            if (crime.equals(crimes[i])) {
+                return sentenceLengths[i];
+            }
+        }
+        throw new NoSuchThingException("Could not find time for crime " + crime);
+    }
+
 	public int sumCrimesFor(Actor a) {
 		int sumSent = 0;	
 		for (Pair<String, Actor> p : reportMap.get(a)) {
-			for (int i = 0; i < sentenceLengths.length; ++i) {
-				if (p.first.equals(crimes[i])) {
-					sumSent += sentenceLengths[i];
-					break;
-				}
-			}	
-		}
+            try {
+                sumSent += getTimeForCrime(p.first);
+            } catch (NoSuchThingException e) {
+                Logger.log(Logger.CRITICAL, e.getMessage());
+            }
+        }
 		return sumSent;
 	}
 

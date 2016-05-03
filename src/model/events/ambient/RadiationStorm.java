@@ -15,16 +15,18 @@ import model.npcs.NPC;
 import model.npcs.behaviors.AvoidRoomsMovement;
 import model.npcs.behaviors.MeanderingHumanMovement;
 
-public class RadiationStorm extends Event {
+public class RadiationStorm extends AmbientEvent {
 
 	private int roundsLeft = -1;
 	private double damage;
 	private int side;
+    private static final double occurenceChance = 0.03;
 
+    @Override
+    protected double getStaticProbability() {
+        return occurenceChance;
+    }
 
-	public double getProbability() {
-		return 0.03;
-	}
 
     @Override
     public Sprite getSprite(Actor whosAsking) {

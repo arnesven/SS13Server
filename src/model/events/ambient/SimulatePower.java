@@ -8,7 +8,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
-import model.events.Explosion;
+import model.events.SpontaneousExplosionEvent;
 import model.items.NoSuchThingException;
 import model.map.Room;
 import model.objects.consoles.GeneratorConsole;
@@ -69,7 +69,7 @@ public class SimulatePower extends Event {
 		if (MyRandom.nextDouble() < outputPct - 1.5) {
             Logger.log(Logger.INTERESTING,
                       "High power output (>150%) caused explosion in generator room");
-			Explosion exp = new Explosion();
+			SpontaneousExplosionEvent exp = new SpontaneousExplosionEvent();
 			exp.explode(gc.getPosition());
 		}
 	}

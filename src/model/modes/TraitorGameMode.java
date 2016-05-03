@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 import model.items.NoSuchThingException;
 import model.items.suits.CaptainsHat;
 import model.npcs.*;
+import model.objects.consoles.CrimeRecordsConsole;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -31,6 +32,7 @@ import model.objects.general.BreakableObject;
 import model.objects.general.GameObject;
 import model.objects.general.ElectricalMachinery;
 import model.objects.consoles.GeneratorConsole;
+import util.Pair;
 
 public class TraitorGameMode extends GameMode {
 
@@ -40,6 +42,7 @@ public class TraitorGameMode extends GameMode {
 	private static final int POINTS_FOR_BROKEN_OBJECTS = 25;
     private static final int POINTS_FROM_DEAD_PIRATES = 50;
     private static final int POINTS_FROM_BOMBS_DEFUSED = 50;
+    private static final int BAD_SECURITY = 10;
     private List<Player> traitors = new ArrayList<>();
 	private HashMap<Player, TraitorObjective> objectives = new HashMap<>();
 	private String TRAITOR_START_STRING = "You are a traitor!";
@@ -236,8 +239,34 @@ public class TraitorGameMode extends GameMode {
 		result += pointsFromGod(gameData);
         result += pointsFromPirates(gameData);
         result += pointsFromBombsDefused(gameData);
+        result += pointsFromSecurity(gameData);
 		return result;
 	}
+
+    public int pointsFromSecurity(GameData gameData) {
+        try {
+            int sum = 0;
+            CrimeRecordsConsole crc = gameData.findObjectOfType(CrimeRecordsConsole.class);
+            for (Map.Entry<Actor, List<Pair<String, Actor>>> entry : crc.getReportedActors().entrySet()) {
+                for (Pair<String, Actor> p : entry.getValue()) {
+                    if (p.second instanceof Player && !isAntagonist((Player) p.second)) {
+                        if (entry.getKey() instanceof Player &&
+                               !isAntagonist((Player) p.second)) {
+                            sum -= BAD_SECURITY * crc.getTimeForCrime(p.first);
+                        }
+                    }
+                }
+
+            }
+            return sum;
+
+        } catch (NoSuchThingException e) {
+            Logger.log(Logger.CRITICAL, "Could not find Crime Records Console");
+            return 0;
+        }
+
+
+    }
 
     public int pointsFromBombsDefused(GameData gameData) {
         return POINTS_FROM_BOMBS_DEFUSED * gameData.getGameMode().getBombsDefused();

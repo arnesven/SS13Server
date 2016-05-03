@@ -17,7 +17,10 @@ public class GameModeFactory {
 		} else if (selectedMode.toLowerCase().equals("changeling")) {
 			Logger.log(Logger.INTERESTING, "Mode is changeling");
 			return new ChangelingGameMode();
-		}
+		} else if (selectedMode.toLowerCase().equals("armageddon")) {
+            Logger.log(Logger.INTERESTING, "Mode is ARMAGEDDON");
+            return new ArmageddonGameMode();
+        }
 		
 		Logger.log(Logger.INTERESTING, "Mode is secret");
 		return SecretGameMode.getNewInstance();

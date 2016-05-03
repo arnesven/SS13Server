@@ -5,8 +5,8 @@ import model.Actor;
 import model.GameData;
 import model.Target;
 import model.characters.general.GameCharacter;
+import model.events.SpontaneousExplosionEvent;
 import model.events.damage.ExplosiveDamage;
-import model.events.Explosion;
 import model.items.general.ExplodableItem;
 import model.items.general.GameItem;
 import model.map.Room;
@@ -62,7 +62,7 @@ public class ExplodingFood extends FoodItem {
 		});
         eatenBy.getPosition().addItem(expel.getAsItem());
         expel.explode(gameData, eatenBy.getPosition(), maker);
-		eatenBy.getPosition().addToEventsHappened(new Explosion());
+		eatenBy.getPosition().addToEventsHappened(new SpontaneousExplosionEvent());
 	}
 
     @Override

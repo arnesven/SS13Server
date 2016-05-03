@@ -39,7 +39,7 @@ public class SecretGameMode  {
 					protMessage(c);
 				}
 			};
-		} else {
+		} else if (d < 0.95){
 			Logger.log("...... but secretly it's changeling");
 			MyRandom.write_to_file(filename, d + " Changeling");
 			result = new ChangelingGameMode() {
@@ -48,7 +48,16 @@ public class SecretGameMode  {
 					protMessage(c);
 				}
 			};
-		}
+		} else {
+            Logger.log("...... but secretly it's armageddon");
+            MyRandom.write_to_file(filename, d + " Armageddon");
+            result = new ArmageddonGameMode() {
+                @Override
+                protected void addProtagonistStartingMessage(Player c) {
+                    protMessage(c);
+                }
+            };
+        }
 		return result;
 	}
 

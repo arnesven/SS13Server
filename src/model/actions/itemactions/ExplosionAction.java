@@ -21,7 +21,7 @@ public class ExplosionAction extends Action {
 	private Room location;
 
 	public ExplosionAction(Grenade grenade, Room location) {
-		super("Explosion", Explosive.SENSED_AS);
+		super("SpontaneousExplosionEvent", Explosive.SENSED_AS);
 		this.grenade = grenade;
 		this.location = location;
 	}

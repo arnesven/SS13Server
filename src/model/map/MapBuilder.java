@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import model.GameData;
 import model.characters.general.RobotCharacter;
 import model.items.general.FireExtinguisher;
+import model.items.general.NuclearDisc;
 import model.items.suits.SpaceSuit;
 import model.npcs.*;
 import model.npcs.behaviors.MeanderingMovement;
@@ -87,8 +88,11 @@ public class MapBuilder {
 		
 		Room gate =new Room(19, "Shuttle Gate"        , "Gate"   ,10,  2, 3, 2, new int[]{16, 21, 23},         new double[]{10.0, 3.5, 13.0, 3.5}, RoomType.hall );
 		result.add(gate);
+
+
 		Room CQ = new Room(20, "Captain's Quarters"  , "CQ"     ,15,  8, 2, 2, new int[]{17}        ,         new double[]{16.0, 8.0} , RoomType.command);
         NPC cat = new CatNPC(CQ);
+        CQ.addItem(new NuclearDisc());
         gameData.addNPC(cat);
 
 

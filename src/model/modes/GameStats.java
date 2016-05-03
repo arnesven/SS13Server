@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.events.ambient.Crazyness;
+import model.events.ambient.SpontaneousCrazyness;
 import model.events.ambient.OngoingEvent;
 import model.items.NoSuchThingException;
 import model.npcs.CatNPC;
@@ -233,7 +233,7 @@ public abstract class GameStats {
 
     private String crazyPeopleString() {
 		String res = "";
-		for (NPC npc : ((Crazyness)mode.getEvents().get("crazyness")).getCrazyPeople()) {
+		for (NPC npc : ((SpontaneousCrazyness)mode.getEvents().get("crazyness")).getCrazyPeople()) {
 			if (!res.equals("")) {
 				res += ", ";
 			}

@@ -25,7 +25,7 @@ public class ExplosiveDamage extends DamagerImpl {
 
 	@Override
 	public String getName() {
-		return "Explosion";
+		return "Spontaneous explosion";
 	}
 
 }

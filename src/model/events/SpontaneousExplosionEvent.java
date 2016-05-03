@@ -1,5 +1,6 @@
 package model.events;
 
+import model.events.ambient.AmbientEvent;
 import model.events.damage.ExplosiveDamage;
 import util.MyRandom;
 import model.Actor;
@@ -11,13 +12,15 @@ import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
 import model.map.Room;
 
-public class Explosion extends Event {
+public class SpontaneousExplosionEvent extends AmbientEvent {
 
-	public double getProbability() {
-		return 0.02;
+    private static final double occurrenceChance = 0.02;
+
+    public double getStaticProbability() {
+		return occurrenceChance;
 	}
 
-	@Override
+    @Override
 	public void apply(GameData gameData) {
 		if (MyRandom.nextDouble() >= getProbability()) {
 			return;
@@ -29,7 +32,7 @@ public class Explosion extends Event {
 
 	@Override
 	public String howYouAppear(Actor performingClient) {
-		return "Explosion!";
+		return "spontaneous explosion";
 	}
 	
 	public void explode(Room room) {

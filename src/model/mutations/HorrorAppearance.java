@@ -17,6 +17,11 @@ public class HorrorAppearance extends Mutation {
             public Sprite getSprite(Actor whosAsking) {
                 return new Sprite("horrorappearance", "alien.png", 0);
             }
+
+            @Override
+            public String getPublicName() {
+                return "Stalking Horror";
+            }
         };
 	}
 

@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.SensoryLevel;
+import model.events.ambient.AmbientEvent;
 import model.map.Room;
 import model.npcs.PirateNPC;
 import util.MyRandom;
@@ -14,17 +15,23 @@ import java.util.List;
 /**
  * Created by erini02 on 26/04/16.
  */
-public class PirateAttackEvent extends Event {
-    private static final double CHANCE_OF_HAPPENING_EACH_ROUND = 0.025;
+public class PirateAttackEvent extends AmbientEvent {
+    private static final double occurranceChance = 0.025;
     private boolean hasHappened = false;
     private int piratesRemainingOnBarge;
     private int pirateNum = 1;
     private int randAirLock;
     private Room targetRoom;
 
+
+    @Override
+    protected double getStaticProbability() {
+        return occurranceChance;
+    }
+
     @Override
     public void apply(GameData gameData) {
-        if (!hasHappened && MyRandom.nextDouble() < CHANCE_OF_HAPPENING_EACH_ROUND) {
+        if (!hasHappened && MyRandom.nextDouble() < occurranceChance) {
             hasHappened = true;
             randAirLock = MyRandom.nextInt(3)+1;
             targetRoom = randomTargetRoom(gameData);
@@ -78,4 +85,5 @@ public class PirateAttackEvent extends Event {
     public SensoryLevel getSense() {
         return SensoryLevel.NO_SENSE;
     }
+
 }

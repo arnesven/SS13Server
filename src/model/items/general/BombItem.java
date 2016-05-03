@@ -17,7 +17,7 @@ import model.events.damage.ExplosiveDamage;
 import model.items.NoSuchThingException;
 import model.items.foods.ExplodingFood;
 import model.map.Room;
-import model.events.Explosion;
+import model.events.SpontaneousExplosionEvent;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 import util.Logger;
@@ -132,7 +132,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
         exploded = true;
         possiblyAddHazards(gameData, bombRoom);
         explodeOtherBombsInRoom(gameData, performingClient, bombRoom);
-        bombRoom.addToEventsHappened(new Explosion());
+        bombRoom.addToEventsHappened(new SpontaneousExplosionEvent());
 
 	}
 
@@ -181,7 +181,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
 
         if (chain > 1) {
             for (Actor a : surrounding) {
-                a.getCharacter().beExposedTo(performingClient, new ExplosiveDamage(((double) chain) / 2.0));
+                a.getCharacter().beExposedTo(performingClient, new ExplosiveDamage(((double) chain-1) / 2.0));
             }
         }
 

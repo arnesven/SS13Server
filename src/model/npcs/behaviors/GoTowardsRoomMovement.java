@@ -27,6 +27,7 @@ public abstract class GoTowardsRoomMovement implements MovementBehavior{
         List<Room> fireRooms = getEligableRooms(npc, gameData);
         if (fireRooms.size() == 0) {
             Logger.log("No fires... standing still");
+            return;
         }
 
         Collections.sort(fireRooms, new Comparator<Room>() {

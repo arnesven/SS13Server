@@ -41,7 +41,11 @@ public class ChangelingGameMode extends GameMode {
 	@Override
 	protected void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters,
 			GameData gameData) {
-		
+
+        if (gameData.getPlayersAsList().size() < 2) {
+            throw new IllegalStateException("Cannot play changeling with 2 players!");
+        }
+
 		List<Player> lingPlayers = new ArrayList<>();
 		
 		for (Player p : gameData.getPlayersAsList()) {

@@ -11,7 +11,7 @@ import util.MyRandom;
 import model.GameData;
 import model.map.Room;
 
-public abstract class OngoingEvent extends Event {
+public abstract class OngoingEvent extends AmbientEvent {
 	
 	private List<OngoingEvent> eventsToMaintain = new ArrayList<>();
 
@@ -23,8 +23,8 @@ public abstract class OngoingEvent extends Event {
 	protected abstract void maintain(GameData gameData);
 	protected abstract OngoingEvent clone();
 	protected abstract boolean hasThisEvent(Room randomRoom);
-	public abstract double getProbability();
-	
+
+
 	public Room getRoom() {
 		return room;
 	}

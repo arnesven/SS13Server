@@ -14,12 +14,13 @@ import model.map.Room;
 
 public class HullBreach extends OngoingEvent {
 
-    public double getProbability() {
-		return 0.1;
+    private static final double occurenceChance = 0.15;
 
+    public double getStaticProbability() {
+		return occurenceChance;
 	}
 
-	@Override
+    @Override
 	public SensoryLevel getSense() {
 		return new SensoryLevel(VisualLevel.INVISIBLE, 
 				AudioLevel.SAME_ROOM, OlfactoryLevel.UNSMELLABLE);
