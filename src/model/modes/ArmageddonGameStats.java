@@ -59,6 +59,11 @@ class ArmageddonGameStats extends GameStats {
 
     @Override
     public String getContent() {
-      return "";
+        StringBuffer buf = new StringBuffer("<table>");
+
+        buf.append("<tr><td>Zombie Killer:</td><td>" + armageddonGameMode.getZombieKiller() + "</td></tr>");
+        buf.append("</table>");
+        return buf.toString();
+
     }
 }

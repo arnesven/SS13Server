@@ -28,6 +28,7 @@ public class MutationFactory {
         mutes.add(new SluggishMutation());
         mutes.add(new StrongerMutation());
 		mutes.add(new SuperSprint());
+        mutes.add(new LizardMutation());
 		
 		return mutes;
 	}

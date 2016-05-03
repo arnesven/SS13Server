@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 import model.Actor;
 import model.GameData;
@@ -19,7 +18,6 @@ import model.map.Room;
 import model.npcs.NPC;
 import model.npcs.SecuritronNPC;
 import model.objects.general.EvidenceBox;
-import model.objects.general.GameObject;
 import util.Logger;
 import util.Pair;
 
@@ -31,9 +29,10 @@ public class CrimeRecordsConsole extends Console {
 	
 	private Map<Actor, Integer> sentences = new HashMap<>();
 	private Map<Actor, List<Pair<String, Actor>>> reportMap = new HashMap<>();
+    private Map<Actor, List<Pair<String, Actor>>> reportsHistory = new HashMap<>();
 	private int noOfSentenced = 1;
-	
-	public CrimeRecordsConsole(Room r, GameData gameData) {
+
+    public CrimeRecordsConsole(Room r, GameData gameData) {
 		super("Crime Records", r);
         NPC securitron = null;
         try {
@@ -55,14 +54,21 @@ public class CrimeRecordsConsole extends Console {
 	public void addReport(Actor guy, String selectedCrime, Actor reporter) {
 		if (reportMap.get(guy) == null) {
 			reportMap.put(guy, new ArrayList<Pair<String, Actor>>());
-		}
+		    reportsHistory.put(guy, new ArrayList<Pair<String, Actor>>());
+        }
 		
-		reportMap.get(guy).add(new Pair<String, Actor>(selectedCrime, reporter));	
-	}
+		reportMap.get(guy).add(new Pair<String, Actor>(selectedCrime, reporter));
+        reportsHistory.get(guy).add(new Pair<String, Actor>(selectedCrime, reporter));
+
+    }
 
 	public Map<Actor, List<Pair<String, Actor>>> getReportedActors() {
 		return reportMap;
 	}
+
+    public Map<Actor, List<Pair<String, Actor>>> getReportsHistory() {
+        return reportsHistory;
+    }
 
 
 	public Actor getMostWanted() {
@@ -173,5 +179,6 @@ public class CrimeRecordsConsole extends Console {
 		inmate.addTolastTurnInfo("You were released from the brig.");
 		
 	}
+
 
 }

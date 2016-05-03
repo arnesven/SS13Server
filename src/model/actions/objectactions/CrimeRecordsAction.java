@@ -15,14 +15,15 @@ public class CrimeRecordsAction extends Action {
 	private CrimeRecordsConsole console;
 	private ReportCrimeAction reportCrimeAction;
 	private PardonAction pardonAction;
-	private boolean report;
+    private CommuteSentenceAction commuteSentenceAction;
+    private int selected;
 
-	public CrimeRecordsAction(CrimeRecordsConsole crimeRecordsConsole) {
+    public CrimeRecordsAction(CrimeRecordsConsole crimeRecordsConsole) {
 		super("Crime Records", SensoryLevel.OPERATE_DEVICE);
 		this.console = crimeRecordsConsole;
 		reportCrimeAction = new ReportCrimeAction(console);
 		pardonAction = new PardonAction(console);
-//		commuteSentenceAction = new commuteSentenceAction(console);
+		commuteSentenceAction = new CommuteSentenceAction(console);
 	}
 
 	@Override
@@ -37,6 +38,9 @@ public class CrimeRecordsAction extends Action {
 		if (console.getReportedActors().size() > 0) {
 			opt.addOption(pardonAction.getOptions(gameData, whosAsking));
 		}
+        if (console.getSentenceMap().size() > 0) {
+            opt.addOption(commuteSentenceAction.getOptions(gameData, whosAsking));
+        }
 		return opt;
 	}
 	
@@ -47,11 +51,13 @@ public class CrimeRecordsAction extends Action {
 			return;
 		}
 		
-		if (report) {
+		if (selected == 1) {
 			reportCrimeAction.execute(gameData, performingClient);
-		} else {
+		} else if (selected == 2){
 			pardonAction.execute(gameData, performingClient);
-		}
+		} else {
+            commuteSentenceAction.execute(gameData, performingClient);
+        }
 	}
 	
 	@Override
@@ -62,12 +68,15 @@ public class CrimeRecordsAction extends Action {
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
 		if (args.get(0).equals(reportCrimeAction.getName())) {
-			this.report = true;
+			this.selected = 1;
 			reportCrimeAction.setArguments(args.subList(1, args.size()), performingClient);
-		} else {
-			this.report = false;
+		} else if (args.get(0).equals(pardonAction.getName())) {
+			this.selected = 2;
 			pardonAction.setArguments(args.subList(1, args.size()), performingClient);
-		}
+		} else {
+            this.selected = 3;
+            commuteSentenceAction.setArguments(args.subList(1, args.size()), performingClient);
+        }
 	}
 
 }

@@ -34,7 +34,7 @@ public class SpontaneousCrazyness extends AmbientEvent {
 
 
 			for (NPC npc : npclist) {
-				if (npc.getCharacter().isCrew() && !npc.isDead()) {
+				if (npc.getCharacter().isCrew() && !npc.isDead() && !crazyPeople.contains(npc)) {
 					npc.setActionBehavior(new CrazyBehavior());
 					npc.setMoveBehavior(new MeanderingMovement(0.80));
 					crazyPeople.add(npc);

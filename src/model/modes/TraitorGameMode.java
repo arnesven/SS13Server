@@ -247,7 +247,7 @@ public class TraitorGameMode extends GameMode {
         try {
             int sum = 0;
             CrimeRecordsConsole crc = gameData.findObjectOfType(CrimeRecordsConsole.class);
-            for (Map.Entry<Actor, List<Pair<String, Actor>>> entry : crc.getReportedActors().entrySet()) {
+            for (Map.Entry<Actor, List<Pair<String, Actor>>> entry : crc.getReportsHistory().entrySet()) {
                 for (Pair<String, Actor> p : entry.getValue()) {
                     if (p.second instanceof Player && !isAntagonist((Player) p.second)) {
                         if (entry.getKey() instanceof Player &&
