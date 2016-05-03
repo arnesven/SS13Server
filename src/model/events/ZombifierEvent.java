@@ -108,4 +108,8 @@ public class ZombifierEvent extends Event {
     public boolean isZombie(Actor value) {
         return alreadyTurned.contains(value);
     }
+
+    public Set<Actor> getZombies() {
+        return alreadyTurned;
+    }
 }
