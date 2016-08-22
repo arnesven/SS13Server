@@ -28,6 +28,8 @@ public class RobotNPC extends NPC implements Repairable {
     public static List<String> getAvailableRobotNames() {
         if (availableRobotNames == null) {
             availableRobotNames = addDefaultRobotNames();
+        } else if (availableRobotNames.size() == 0) {
+            availableRobotNames = addDefaultRobotNames();
         }
         return availableRobotNames;
     }
