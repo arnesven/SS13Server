@@ -1,2 +1,2 @@
 The Gui can be found at:
-korturl.com/ss13
+tinyurl.com/ss13new
