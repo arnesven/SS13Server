@@ -12,6 +12,7 @@ import model.events.PirateAttackEvent;
 import model.events.SpontaneousExplosionEvent;
 import model.events.ambient.*;
 import model.npcs.*;
+import model.objects.general.VendingMachine;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -237,7 +238,7 @@ public abstract class GameMode implements Serializable {
 		setUpOtherStuff(gameData);
 		Logger.log(" Game Mode: Other stuff setupped");
 		
-		addItemsToRooms(gameData);
+		addStuffToRooms(gameData);
 		
 		addRandomItemsToRooms(gameData);
 		Logger.log(" Game Mode: Items added to rooms");
@@ -383,23 +384,6 @@ public abstract class GameMode implements Serializable {
 		}
 	}
 
-	private void testShortestDistance(GameData gameData) {
-		// TODO Auto-generated method stub
-		List<String> places = new ArrayList<>();
-		places.add("Greenhouse");
-		places.add("Dorms");
-		places.add("Office");
-		places.add("Bridge");
-		places.add("Generator");
-		places.add("Air Lock #2");
-		for (String place1 : places) {
-			for (String place2 : places) {
-			Logger.log("Shortest distance between " + place1 + 
-								" and " + place2 + ": " + 
-								GameMap.shortestDistance(gameData.getRoom(place1), gameData.getRoom(place2)));
-			}
-		}
-	}
 
 	private void giveCharactersStartingItems(GameData gameData) {
 		List<Actor> actors = new ArrayList<Actor>();
@@ -415,21 +399,10 @@ public abstract class GameMode implements Serializable {
 		}
 	}
 
-	private void addItemsToRooms(GameData gameData) {
-
-	//	Room genRoom = gameData.getRoom("Generator");
-
-
-	//	Room labRoom = gameData.getRoom("Lab");
-
-
-		//Room bridge = gameData.getRoom("Bridge");
-
-
-
-		//Room kitchRoom = gameData.getRoom("Kitchen");
-
-
+	private void addStuffToRooms(GameData gameData) {
+        Room r = MyRandom.getRandomHallway(gameData);
+        r.addObject(new VendingMachine(r));
+        Logger.log("Added vending machinxkie in " + r.getName());
 
 	}
 

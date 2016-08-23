@@ -8,9 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import model.characters.decorators.InfectedCharacter;
+import model.characters.decorators.InstanceChecker;
 import model.items.NoSuchThingException;
 import model.items.suits.CaptainsHat;
 import model.npcs.*;
+import model.npcs.behaviors.CrazyBehavior;
 import model.objects.consoles.CrimeRecordsConsole;
 import util.Logger;
 import util.MyRandom;
@@ -247,12 +250,13 @@ public class TraitorGameMode extends GameMode {
         try {
             int sum = 0;
             CrimeRecordsConsole crc = gameData.findObjectOfType(CrimeRecordsConsole.class);
-            for (Map.Entry<Actor, List<Pair<String, Actor>>> entry : crc.getReportsHistory().entrySet()) {
-                for (Pair<String, Actor> p : entry.getValue()) {
-                    if (p.second instanceof Player && !isAntagonist((Player) p.second)) {
-                        if (entry.getKey() instanceof Player &&
-                               !isAntagonist((Player) p.second)) {
-                            sum -= BAD_SECURITY * crc.getTimeForCrime(p.first);
+            for (Map.Entry<Actor, List<Pair<String, Actor>>> criminalCrimeReporterEntry : crc.getReportsHistory().entrySet()) {
+                Actor criminal = criminalCrimeReporterEntry.getKey();
+                for (Pair<String, Actor> crimeReporterPair : criminalCrimeReporterEntry.getValue()) {
+                    Actor reporter = crimeReporterPair.second;
+                    if (reporter instanceof Player && !isAntagonist((Player) reporter)) {
+                        if ((criminal instanceof Player && !isAntagonist((Player) criminal)) || isABadPersonNPC(criminal)) {
+                            sum -= BAD_SECURITY * crc.getTimeForCrime(crimeReporterPair.first);
                         }
                     }
                 }
@@ -266,6 +270,20 @@ public class TraitorGameMode extends GameMode {
         }
 
 
+    }
+
+    private boolean isABadPersonNPC(Actor criminal) {
+        if (criminal instanceof NPC) {
+            NPC crimNPC = (NPC)criminal;
+            if (crimNPC.isInfected()) {
+                return true;
+            }
+
+           if (crimNPC.getActionBehavior() instanceof CrazyBehavior) {
+               return true;
+           }
+        }
+        return false;
     }
 
     public int pointsFromBombsDefused(GameData gameData) {
@@ -386,10 +404,12 @@ public class TraitorGameMode extends GameMode {
 		shouldBeSaved.removeAll(traitors);
 		for (Iterator<Actor> it = shouldBeSaved.iterator(); it.hasNext() ; ) {
 			Actor a = it.next();
-			if (!(a instanceof Player || a instanceof HumanNPC)) {
+            a.getCharacter().isCrew();
+			if (!(a instanceof Player || a instanceof HumanNPC) || !a.getCharacter().isCrew()) {
 				it.remove();
 			}
 		}
+
 		int stillAlive = 0;
 		for (Actor act : shouldBeSaved) {
 			if (!act.isDead()) {
@@ -397,7 +417,7 @@ public class TraitorGameMode extends GameMode {
 			}
 		}
 		
-		return (int)( stillAlive * getTotalPointsForCrew(gameData)
+		return (int)( (stillAlive * getTotalPointsForCrew(gameData))
 					 / shouldBeSaved.size()   );
 	}
 

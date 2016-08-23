@@ -163,6 +163,9 @@ public abstract class NPC extends Actor implements Target, Serializable {
 		return this.moveBehavior;
 	}
 
+    public ActionBehavior getActionBehavior() {
+        return this.actBehavior;
+    }
 
 	@Override
 	public boolean canBeInteractedBy(Actor performingClient) {

@@ -7,7 +7,7 @@ import model.events.Event;
  */
 public abstract class AmbientEvent extends Event {
 
-    private static double prob;
+    private double prob;
 
     public AmbientEvent() {
         this.prob = getStaticProbability();

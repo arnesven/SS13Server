@@ -39,6 +39,10 @@ public abstract class BreakableObject extends GameObject implements Target {
 		
 	}
 
+    public void setBreaker(Actor a) {
+        this.breaker = a;
+    }
+
 	@Override
 	public boolean beAttackedBy(Actor performingClient, Weapon item) {
 		boolean success;

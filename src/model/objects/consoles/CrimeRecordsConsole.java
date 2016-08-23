@@ -51,14 +51,14 @@ public class CrimeRecordsConsole extends Console {
 		}
 	}
 
-	public void addReport(Actor guy, String selectedCrime, Actor reporter) {
-		if (reportMap.get(guy) == null) {
-			reportMap.put(guy, new ArrayList<Pair<String, Actor>>());
-		    reportsHistory.put(guy, new ArrayList<Pair<String, Actor>>());
+	public void addReport(Actor criminal, String selectedCrime, Actor reporter) {
+		if (reportMap.get(criminal) == null) {
+			reportMap.put(criminal, new ArrayList<Pair<String, Actor>>());
+		    reportsHistory.put(criminal, new ArrayList<Pair<String, Actor>>());
         }
 		
-		reportMap.get(guy).add(new Pair<String, Actor>(selectedCrime, reporter));
-        reportsHistory.get(guy).add(new Pair<String, Actor>(selectedCrime, reporter));
+		reportMap.get(criminal).add(new Pair<String, Actor>(selectedCrime, reporter));
+        reportsHistory.get(criminal).add(new Pair<String, Actor>(selectedCrime, reporter));
 
     }
 

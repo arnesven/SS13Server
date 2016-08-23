@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import model.GameData;
 import model.items.foods.*;
 import model.items.general.*;
 import model.items.suits.*;
 import model.items.weapons.*;
+import model.map.Room;
 
 public class MyRandom {
 	public static Random random = new Random();
@@ -142,5 +144,20 @@ public class MyRandom {
         randDrinks.add(new SpaceRum());
 
         return sample(randDrinks);
+    }
+
+    public static Room getRandomHallway(GameData gameData) {
+        List<Room> roomList = new ArrayList<>();
+        roomList.add(gameData.getRoom("Aft Hall"));
+        roomList.add(gameData.getRoom("Front Hall"));
+        roomList.add(gameData.getRoom("Port Hall Aft"));
+        roomList.add(gameData.getRoom("Port Hall Front"));
+        roomList.add(gameData.getRoom("Starboard Hall Aft"));
+        roomList.add(gameData.getRoom("Starboard Hall Front"));
+        roomList.add(gameData.getRoom("Panorama Walkway"));
+        roomList.add(gameData.getRoom("Aft Walkway"));
+        roomList.add(gameData.getRoom("Shuttle Gate"));
+
+        return sample(roomList);
     }
 }

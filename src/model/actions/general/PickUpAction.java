@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import model.Actor;
 import model.GameData;
 import model.items.general.GameItem;
+import model.items.general.HidableItem;
 
 public class PickUpAction extends Action {
 
@@ -45,7 +46,13 @@ public class PickUpAction extends Action {
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = new ActionOption(this.getName());
 		for (GameItem gi : ap.getPosition().getItems()) {
-			opt.addOption(gi.getPublicName(whosAsking) + String.format(" (%.1f kg)", gi.getWeight()));
+            if (gi instanceof HidableItem) {
+                if (((HidableItem) gi).isHidden()) {
+                    opt.addOption(gi.getPublicName(whosAsking) + String.format(" (%.1f kg)", gi.getWeight()));
+                }
+            } else {
+                opt.addOption(gi.getPublicName(whosAsking) + String.format(" (%.1f kg)", gi.getWeight()));
+            }
 		}
 		return opt;
 	}

@@ -39,12 +39,11 @@ public class OperativesGameMode extends GameMode {
 
     @Override
 	protected void setUpOtherStuff(GameData gameData) {
-		for (Actor a : gameData.getActors()) {
-			for (GameItem it : a.getItems()) {
-				if (it instanceof NuclearDisc) {
-					nukieDisk = (NuclearDisc)it;
-					break;
-				}
+        Room cq = gameData.getRoom("Captain's Quarters");
+        for (GameItem it : cq.getItems()) {
+			if (it instanceof NuclearDisc) {
+				nukieDisk = (NuclearDisc)it;
+				break;
 			}
 		}
 		Locator loc = new Locator();

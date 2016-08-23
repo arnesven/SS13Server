@@ -24,8 +24,9 @@ import util.MyRandom;
 public class Flamer extends Weapon {
 
 	public static final SensoryLevel SENSED_AS = SensoryLevel.FIRE;
+    public static final int CHEMS_NEEDED_TO_BURN_HIVE = 2;
 
-	public Flamer() {
+    public Flamer() {
 		super("Flamer", 0.75, 0.5, false, 1.5);
 	}
 
@@ -43,7 +44,7 @@ public class Flamer extends Weapon {
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
 
         List<Chemicals> chem = getChemicalsFromClient(cl);
-        if (chem.size() >= 2) {
+        if (chem.size() >= CHEMS_NEEDED_TO_BURN_HIVE) {
             possiblyAddBurnHive(at, cl);
         }
 

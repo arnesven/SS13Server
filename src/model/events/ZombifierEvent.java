@@ -26,8 +26,8 @@ import java.util.Set;
  * Created by erini02 on 03/05/16.
  */
 public class ZombifierEvent extends Event {
-    private static final double TURNING_CHANCE_STAGE2 = 0.5;
-    private static final double TURNING_CHANCE_STAGE1 = 0.1;
+    private static final double TURNING_CHANCE_STAGE2 = 0.75;
+    private static final double TURNING_CHANCE_STAGE1 = 0.2;
     private Set<Actor> turningZombie = new HashSet<>();
     private Set<Actor> alreadyTurned = new HashSet<>();
 

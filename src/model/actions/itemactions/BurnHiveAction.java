@@ -27,8 +27,9 @@ public class BurnHiveAction extends Action {
 	
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		if (GameItem.hasAnItem(performingClient, new Flamer()) && Chemicals.hasNChemicals(performingClient, 3)) {	
-			for (int i = 3; i > 0; --i) {
+		if (GameItem.hasAnItem(performingClient, new Flamer()) && Chemicals.hasNChemicals(performingClient,
+                Flamer.CHEMS_NEEDED_TO_BURN_HIVE)) {
+			for (int i = Flamer.CHEMS_NEEDED_TO_BURN_HIVE; i > 0; --i) {
 				Iterator<GameItem> it = performingClient.getItems().iterator();
 				while (it.hasNext()) {
 					if (it.next() instanceof Chemicals) {
@@ -40,6 +41,7 @@ public class BurnHiveAction extends Action {
 			}
 
 			hive.setHealth(0.0);
+            hive.setBreaker(performingClient);
 			performingClient.addTolastTurnInfo("You destroyed the hive with the flamer!");
 		} else if (!GameItem.hasAnItem(performingClient, new Flamer())) {
 			performingClient.addTolastTurnInfo("What? The flamer is gone. Your action failed.");

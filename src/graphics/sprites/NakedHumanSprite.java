@@ -14,7 +14,6 @@ public class NakedHumanSprite extends Sprite {
 
     private static List<Sprite> hairSprites = makeHairSpriteList();
 
-
     public NakedHumanSprite(boolean gender) {
         super("nakedman", "naked.png", (gender?0:2), getRandomHair());
     }
