@@ -70,7 +70,8 @@ public class SabotageObjective implements TraitorObjective {
 
 	@Override
 	public boolean wasCompleted() {
-		return wasCompleted;
+		//return wasCompleted;
+        return isCompleted(gameData);
 	}
 
 	@Override
