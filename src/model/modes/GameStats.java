@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import graphics.sprites.SpriteManager;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -81,12 +82,15 @@ public abstract class GameStats {
 
 	private String generatePlayersTable() {
 		StringBuffer buf = new StringBuffer("<table>");
-		buf.append("<tr><td><b>Crew      </b></td>");
+		buf.append("<tr><td></td><td><b>Crew      </b></td>");
 		buf.append(    "<td><b>HP         </b></td>");
 		buf.append(    "<td><b>Status     </b></td>");
 		buf.append(    "<td><b> </b></td></tr>");
 		for (Map.Entry<String, Player> entry : gameData.getPlayersAsEntrySet()) {
 			buf.append("<tr><td>");
+            String img = SpriteManager.encode64(entry.getValue().getCharacter().getSprite(entry.getValue()));
+            buf.append("<img src=\"data:image/png;base64," + img +"\"></img>");
+            buf.append("</td><td>");
 			buf.append(entry.getValue().getBaseName() + " (" + entry.getKey() + ")");
 			buf.append("</td><td>");
 			buf.append(entry.getValue().getHealth() + "");
@@ -99,6 +103,9 @@ public abstract class GameStats {
 		for (NPC npc : gameData.getNPCs()) {
 			if (npc instanceof HumanNPC) {
 				buf.append("<tr><td>");
+                String img = SpriteManager.encode64(npc.getCharacter().getSprite(npc));
+                buf.append("<img src=\"data:image/png;base64," + img +"\"></img>");
+                buf.append("</td><td>");
 				buf.append(npc.getBaseName());
 				buf.append("</td><td>");
 				buf.append(npc.getHealth() + "");

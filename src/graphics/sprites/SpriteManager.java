@@ -33,25 +33,31 @@ public class SpriteManager {
 
     public static String getSpriteAsBas64(String rest) {
         rest = rest.substring(1);
-        try {
-
-            Sprite sprite = nameMap.get(rest);
+           Sprite sprite = nameMap.get(rest);
             if (sprite != null) {
            //     Logger.log(" found!");
-                BufferedImage img = sprite.getImage();
-                ByteArrayOutputStream bto = new ByteArrayOutputStream();
-                ImageIO.write(img, "png", bto);
-
-                byte[] bytes = bto.toByteArray();
-                String str = Base64.getEncoder().encodeToString(bytes);
-                return str;
+                return encode64(sprite);
             }
             Logger.log(Logger.CRITICAL, "Resource not found! " + rest);
-        } catch (IOException e) {
-            Logger.log(Logger.CRITICAL, "Exception when reading image! " + rest);
-        }
+
 
         return "ERROR";
+    }
+
+    public static String encode64(Sprite sprite) {
+        String str = null;
+        try {
+            BufferedImage img = sprite.getImage();
+            ByteArrayOutputStream bto = new ByteArrayOutputStream();
+
+            ImageIO.write(img, "png", bto);
+            byte[] bytes = bto.toByteArray();
+            str = Base64.getEncoder().encodeToString(bytes);
+        } catch (IOException e) {
+            Logger.log(Logger.CRITICAL, "Exception when reading image! ");
+        }
+
+        return str;
     }
 
     private static void test() {

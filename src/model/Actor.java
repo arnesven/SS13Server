@@ -132,8 +132,8 @@ public abstract class Actor  implements Serializable {
 	 */
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
 		if ( whosAsking == this) {
-            info.add(getCharacter().getSprite(whosAsking).getName() + "<img>" + "You");
-        } else {
+            info.add(getCharacter().getSprite(whosAsking).getName() + "<img>" + "You" + (getCharacter().isVisible()?"":" (invisible)"));
+        } else if (getCharacter().isVisible()){
             info.add(getCharacter().getSprite(whosAsking).getName() + "<img>" + whosAsking.getCharacter().getHowPerceived(this));
         }
     }

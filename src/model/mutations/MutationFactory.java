@@ -29,7 +29,10 @@ public class MutationFactory {
         mutes.add(new StrongerMutation());
 		mutes.add(new SuperSprint());
         mutes.add(new LizardMutation());
-		
+
+        mutes.add(new FartingMutation());
+		mutes.add(new ShootElectricity());
+        mutes.add(new TurnInvisible());
 		return mutes;
 	}
 	

@@ -466,4 +466,8 @@ public abstract class GameCharacter implements Serializable {
     public boolean getsActions() {
         return !isDead();
     }
+
+    public boolean isVisible() {
+        return true;
+    }
 }

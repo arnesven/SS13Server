@@ -346,4 +346,8 @@ public abstract class CharacterDecorator extends GameCharacter {
         return !isDead();
     }
 
+    @Override
+    public boolean isVisible() {
+        return innerChar.isVisible();
+    }
 }
