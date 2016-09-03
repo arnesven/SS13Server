@@ -1,11 +1,11 @@
-package model.npcs;
+package model.npcs.animals;
 
 import model.characters.general.CatCharacter;
 import model.map.Room;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.MeowOrHissBehavior;
 
-public class CatNPC extends NPC implements Trainable {
+public class CatNPC extends AnimalNPC {
 
 	public CatNPC(Room startingRoom) {
 		super(new CatCharacter(), new MeanderingMovement(0.5),

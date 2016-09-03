@@ -7,7 +7,7 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.general.RobotCharacter;
 import model.items.general.RobotParts;
-import model.npcs.RobotNPC;
+import model.npcs.robots.RobotNPC;
 import model.npcs.behaviors.DoNothingBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 

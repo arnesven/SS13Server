@@ -27,7 +27,7 @@ public class AttackOfOpportunityEvent extends Event {
     public void apply(GameData gameData) {
         if (this.room == attacker.getPosition() &&
                 this.room != defender.getPosition() &&
-                !defender.isDead()) {
+                !defender.isDead() && !attacker.isDead()) {
             weapon.doAttack(attacker, defender.getAsTarget(), gameData);
             if (defender.isDead()) {
                 defender.moveIntoRoom(this.room);

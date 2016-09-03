@@ -6,12 +6,11 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
-import model.npcs.RobotNPC;
+import model.npcs.robots.RobotNPC;
 import model.objects.consoles.BotConsole;
 import model.programs.BotProgram;
 import util.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

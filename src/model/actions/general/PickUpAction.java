@@ -47,7 +47,7 @@ public class PickUpAction extends Action {
 		ActionOption opt = new ActionOption(this.getName());
 		for (GameItem gi : ap.getPosition().getItems()) {
             if (gi instanceof HidableItem) {
-                if (((HidableItem) gi).isHidden()) {
+                if (!((HidableItem) gi).isHidden()) {
                     opt.addOption(gi.getPublicName(whosAsking) + String.format(" (%.1f kg)", gi.getWeight()));
                 }
             } else {

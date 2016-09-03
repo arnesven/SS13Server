@@ -3,7 +3,9 @@ package model.objects.shipments;
 import java.util.HashSet;
 
 import model.Actor;
+import model.GameData;
 import model.items.general.GameItem;
+import model.map.Room;
 
 public abstract class Shipment extends HashSet<GameItem> {
 	
@@ -66,4 +68,7 @@ public abstract class Shipment extends HashSet<GameItem> {
 		return rankNeeded;
 	}
 
+    public void hasArrivedIn(Room position, GameData gameData) {
+
+    }
 }

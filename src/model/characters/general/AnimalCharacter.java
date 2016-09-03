@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.items.general.GameItem;
-import model.npcs.Trainable;
+import model.npcs.animals.Trainable;
 
 public abstract class AnimalCharacter extends GameCharacter implements Trainable {
 

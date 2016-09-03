@@ -6,6 +6,7 @@ import java.util.List;
 import model.Actor;
 import model.Target;
 import model.characters.general.GameCharacter;
+import model.items.general.Defibrilator;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.weapons.Knife;
@@ -21,6 +22,7 @@ public class DoctorCharacter extends CrewCharacter {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new MedKit());
 		list.add(new Knife());
+        list.add(new Defibrilator());
 		return list;
 	}
 

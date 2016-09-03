@@ -16,7 +16,7 @@ import model.items.general.GameItem;
 import model.items.suits.PrisonerSuit;
 import model.map.Room;
 import model.npcs.NPC;
-import model.npcs.SecuritronNPC;
+import model.npcs.robots.SecuritronNPC;
 import model.objects.general.EvidenceBox;
 import util.Logger;
 import util.Pair;

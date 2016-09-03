@@ -418,7 +418,7 @@ public class Player extends Actor implements Target, Serializable {
 		ArrayList<Action> at = new ArrayList<>();
 		addGiveAction(at);
 		addDropActions(gameData, at);
-		addPickUpActions(at);
+		addPickUpActions(gameData, at);
 		addPutOnActions(at);
 		if (at.size() > 0) {
 			ActionGroup manageItems = new ActionGroup("Manage Items");
@@ -451,9 +451,9 @@ public class Player extends Actor implements Target, Serializable {
 		}
 	}
 
-	private void addPickUpActions(ArrayList<Action> at) {
-		if (getCharacter().getPosition().getItems().size() > 0) {
-			PickUpAction pickUpAction = new PickUpAction(this);
+	private void addPickUpActions(GameData gameData, ArrayList<Action> at) {
+        PickUpAction pickUpAction = new PickUpAction(this);
+		if (pickUpAction.getOptions(gameData, this).numberOfSuboptions() > 0) {
 			at.add(pickUpAction);
 		}
 	}

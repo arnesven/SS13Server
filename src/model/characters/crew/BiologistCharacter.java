@@ -12,7 +12,7 @@ import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.weapons.Flamer;
 import model.map.Room;
-import model.npcs.Trainable;
+import model.npcs.animals.Trainable;
 
 public class BiologistCharacter extends CrewCharacter {
 
@@ -40,7 +40,7 @@ public class BiologistCharacter extends CrewCharacter {
 
 	private Trainable getTrainableInRoom(Room position) {
 		for (Actor a : getActor().getPosition().getActors()) {
-			if (a instanceof Trainable) {
+			if (a instanceof Trainable && !a.isDead()) {
 				return (Trainable)a;
 			}
 		}

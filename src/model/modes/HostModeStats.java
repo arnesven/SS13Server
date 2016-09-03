@@ -89,11 +89,18 @@ public class HostModeStats extends GameStats {
 	public String getMode() {
 		return "Host";
 	}
-	
-	
+
+    @Override
+    protected String getTopContent() {
+        //if (mode.isNuked()) {
+            return "<img src='https://media.giphy.com/media/5xtDarsYSGGMqAV4sh2/giphy.gif'></img>";
+        //}
+        //return super.getTopContent();
+    }
 
 
-	@Override
+
+    @Override
 	public String getOutcome() {
 		GameOver status = hostMode.getGameResultType(gameData);
 		if (status == GameOver.ALL_INFECTED || status == GameOver.TIME_IS_UP) {

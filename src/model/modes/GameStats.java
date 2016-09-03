@@ -12,7 +12,7 @@ import model.Player;
 import model.events.ambient.SpontaneousCrazyness;
 import model.events.ambient.OngoingEvent;
 import model.items.NoSuchThingException;
-import model.npcs.CatNPC;
+import model.npcs.animals.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
 import model.npcs.PirateNPC;

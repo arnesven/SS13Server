@@ -10,15 +10,16 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.characters.decorators.InstanceChecker;
+import model.characters.decorators.NameAddDecorator;
+import model.characters.decorators.NoSuchInstanceException;
+import model.characters.general.GameCharacter;
 import model.npcs.NPC;
-import model.npcs.Trainable;
-import model.npcs.behaviors.ActionBehavior;
-import model.npcs.behaviors.AttackIfPossibleBehavior;
-import model.npcs.behaviors.DoNothingBehavior;
-import model.npcs.behaviors.FollowMeBehavior;
-import model.npcs.behaviors.MeanderingMovement;
-import model.npcs.behaviors.MovementBehavior;
+import model.npcs.animals.Trainable;
+import model.npcs.behaviors.*;
 import util.MyRandom;
+
+import javax.management.InstanceNotFoundException;
 
 public class TrainNPCAction extends Action {
 
@@ -47,6 +48,7 @@ public class TrainNPCAction extends Action {
 	private void addActionBehaviors() {
 		acts.put("Enrage", new AttackIfPossibleBehavior());
 		acts.put("Calm", new DoNothingBehavior());
+        acts.put("Guard", new AttackBaddiesBehavior());
 	}
 
 	private void addTrainables(Actor ap) {
@@ -97,12 +99,26 @@ public class TrainNPCAction extends Action {
 		}
 		
 		performingClient.addTolastTurnInfo("You trained " + targetAsNPC.getPublicName() + ".");
-		if (MyRandom.nextDouble() < 0.5) {
-			targetAsNPC.setHealth(targetAsNPC.getHealth() + 0.5);
-			targetAsNPC.setMaxHealth(targetAsNPC.getMaxHealth() + 0.5);
-			performingClient.addTolastTurnInfo(targetAsNPC.getPublicName() + " grew stronger!");
-		}
-	}
+		targetAsNPC.setHealth(targetAsNPC.getHealth() + 0.5);
+		targetAsNPC.setMaxHealth(targetAsNPC.getMaxHealth() + 0.5);
+		performingClient.addTolastTurnInfo(targetAsNPC.getPublicName() + " grew stronger!");
+        if (targetAsNPC.getMaxHealth() >= 3.0) {
+            try {
+                targetAsNPC.removeInstance(new InstanceChecker() {
+                    @Override
+                    public boolean checkInstanceOf(GameCharacter ch) {
+                        return ch instanceof NameAddDecorator;
+                    }
+                });
+            } catch (NoSuchInstanceException infe) {
+                // no such instance, ok.
+            }
+            targetAsNPC.setCharacter(new NameAddDecorator(targetAsNPC.getCharacter(), "Monsterous "));
+        } else if (targetAsNPC.getMaxHealth() >= 2.0) {
+            targetAsNPC.setCharacter(new NameAddDecorator(targetAsNPC.getCharacter(), "Large "));
+        }
+
+    }
 
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {

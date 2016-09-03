@@ -5,6 +5,10 @@ import java.util.List;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.events.damage.AsphyxiationDamage;
+import model.events.damage.ColdDamage;
+import model.events.damage.Damager;
+import model.events.damage.RadiationDamage;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
@@ -37,6 +41,16 @@ public class HorrorCharacter extends GameCharacter {
 		return new HorrorCharacter();
 	}
 	
+
+    @Override
+	public void beExposedTo(Actor something, Damager damager) {
+        if (damager instanceof RadiationDamage ||
+                damager instanceof ColdDamage ||
+                damager instanceof AsphyxiationDamage) {
+            return;
+        }
+        super.beExposedTo(something, damager);
+	}
 
 	@Override
 	public Weapon getDefaultWeapon() {

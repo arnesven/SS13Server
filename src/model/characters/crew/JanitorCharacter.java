@@ -39,7 +39,7 @@ public class JanitorCharacter extends CrewCharacter {
 	}
 	
 	public boolean isEncumbered() {
-        return getTotalWeight() >= 8.0;
+        return getTotalWeight() >= 10.0;
 
     }
 

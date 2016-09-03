@@ -1,4 +1,4 @@
-package model.npcs;
+package model.npcs.animals;
 
 
 public interface Trainable {

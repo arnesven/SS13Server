@@ -1,6 +1,6 @@
 package model.programs;
 
-import model.npcs.RobotNPC;
+import model.npcs.robots.RobotNPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.MovementBehavior;
 

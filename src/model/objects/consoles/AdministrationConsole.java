@@ -24,6 +24,7 @@ public class AdministrationConsole extends Console {
 		shipments.add(new PartyShipment());
         shipments.add(new RobotPartsShipment());
 		shipments.add(new MilitaryShipment());
+        shipments.add(new WildlifeShipment());
 	}
 	
 	@Override

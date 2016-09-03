@@ -1,4 +1,4 @@
-package model.npcs;
+package model.npcs.robots;
 
 import model.characters.general.TarsCharacter;
 import model.map.Room;

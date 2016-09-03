@@ -58,7 +58,7 @@ public class AdminConsoleAction extends ConsoleAction {
 	protected void execute(GameData gameData, Actor performingClient) {
 		Room gate = gameData.getRoom("Shuttle Gate");
 		Shipment s = selectedShip.clone();
-		gate.addObject(new CrateObject(gate, s));
+		gate.addObject(new CrateObject(gate, s, gameData));
 		pc.setMoney(pc.getMoney() - s.getCost());
 		performingClient.addTolastTurnInfo("You ordered a shipment! It has arrived in the Shuttle Gate. Station funds; " + pc.getMoney());
 	}

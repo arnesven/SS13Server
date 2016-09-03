@@ -7,11 +7,15 @@ import model.Player;
 public class SecretGameMode  {
 	
 	private static final String filename = "random_modes";
+    private static final double[] probabilities = {0.30, 0.60,     0.75,         0.90,         1.00};
+    private static final String[] modeNames = {"Host", "Traitor", "Operatives", "Changeling", "Armageddon"};
+
 
 	public static GameMode getNewInstance() {
 		GameMode result;
+        printProbabilites();
 		double d = MyRandom.nextDouble();
-		if (d < 0.35) {
+		if (d < probabilities[0]) {
 			MyRandom.write_to_file(filename, d + " Host");
 			result = new HostGameMode() {
 				@Override
@@ -20,7 +24,7 @@ public class SecretGameMode  {
 				}
 			};
 			Logger.log("...... but secretly it's host");
-		} else if (d < 0.70) {
+		} else if (d < probabilities[1]) {
 			Logger.log("...... but secretly it's traitor");
 			MyRandom.write_to_file(filename, d + " Traitor");
 			result = new TraitorGameMode() {
@@ -30,7 +34,7 @@ public class SecretGameMode  {
 				}
 
 			};
-		} else if (d < 0.85) {
+		} else if (d < probabilities[2]) {
 			MyRandom.write_to_file(filename, d + " Operatives");
 			Logger.log("...... but secretly it's operatives");
 			result = new OperativesGameMode() {
@@ -39,7 +43,7 @@ public class SecretGameMode  {
 					protMessage(c);
 				}
 			};
-		} else if (d < 0.95){
+		} else if (d < probabilities[3]){
 			Logger.log("...... but secretly it's changeling");
 			MyRandom.write_to_file(filename, d + " Changeling");
 			result = new ChangelingGameMode() {
@@ -61,7 +65,16 @@ public class SecretGameMode  {
 		return result;
 	}
 
-	private static void protMessage(Player c) {
+    private static void printProbabilites() {
+        System.out.println("Secret game mode probabilities:");
+        double cum = 0.0;
+        for (int i = 0; i < probabilities.length; ++i) {
+            System.out.println(modeNames[i] + " " + (probabilities[i] - cum)*100.0 + "%");
+            cum = probabilities[i];
+        }
+    }
+
+    private static void protMessage(Player c) {
 		c.addTolastTurnInfo("Just another day on SS13. What will happen today?");
 	}
 

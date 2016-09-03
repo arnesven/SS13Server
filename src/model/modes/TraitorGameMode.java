@@ -6,14 +6,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
-import model.characters.decorators.InfectedCharacter;
-import model.characters.decorators.InstanceChecker;
 import model.items.NoSuchThingException;
-import model.items.suits.CaptainsHat;
 import model.npcs.*;
+import model.npcs.animals.CatNPC;
+import model.npcs.animals.ChimpNPC;
 import model.npcs.behaviors.CrazyBehavior;
+import model.npcs.robots.TARSNPC;
 import model.objects.consoles.CrimeRecordsConsole;
 import util.Logger;
 import util.MyRandom;

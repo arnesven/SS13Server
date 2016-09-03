@@ -1,4 +1,4 @@
-package model.npcs;
+package model.npcs.robots;
 
 import model.Actor;
 import model.characters.general.GameCharacter;
@@ -7,6 +7,7 @@ import model.events.damage.ColdDamage;
 import model.events.damage.Damager;
 import model.events.damage.RadiationDamage;
 import model.map.Room;
+import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.MovementBehavior;
 import model.objects.general.Repairable;

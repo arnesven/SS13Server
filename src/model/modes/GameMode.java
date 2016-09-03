@@ -12,6 +12,8 @@ import model.events.PirateAttackEvent;
 import model.events.SpontaneousExplosionEvent;
 import model.events.ambient.*;
 import model.npcs.*;
+import model.npcs.animals.SnakeNPC;
+import model.npcs.robots.TARSNPC;
 import model.objects.general.VendingMachine;
 import util.Logger;
 import util.MyRandom;
@@ -38,7 +40,6 @@ import model.characters.crew.SecurityOfficerCharacter;
 import model.characters.crew.TouristCharacter;
 import model.events.Event;
 import model.items.general.GameItem;
-import model.map.GameMap;
 import model.map.NukieShipRoom;
 import model.map.Room;
 
