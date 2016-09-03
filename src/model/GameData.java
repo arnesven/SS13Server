@@ -252,12 +252,13 @@ public class GameData implements Serializable {
 			allClearReady();
 			
 		} else if (gameState == GameState.MOVEMENT) {
+            MovementData moveData = new MovementData(this);
 			moveAllNPCs();
 			moveAllPlayers();
-			
-			
+
 			allResetActionStrings();
 			allClearLastTurn();
+            moveData.informPlayersOfMovements(this);
 			runMovementEvents();
 			
 			gameMode.setStartingLastTurnInfo();
