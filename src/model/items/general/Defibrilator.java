@@ -6,6 +6,8 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.ReviveAction;
+import model.characters.decorators.InstanceChecker;
+import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
 import model.map.Room;
 
@@ -40,12 +42,19 @@ public class Defibrilator extends GameItem {
 
     private boolean isDeadGuyInRoom(Room position) {
         for (Actor a : position.getActors()) {
-            if (a.getCharacter() instanceof HumanCharacter) {
+            if (a.getCharacter().checkInstance(new InstanceChecker() {
+                @Override
+                public boolean checkInstanceOf(GameCharacter ch) {
+                    return ch instanceof HumanCharacter;
+                }
+            })) {
+
                 if (a.isDead()) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 
