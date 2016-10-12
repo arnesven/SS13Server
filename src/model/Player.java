@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+import graphics.sprites.Sprite;
 import model.actions.general.Action;
 import model.actions.general.ActionGroup;
 import model.actions.general.AttackAction;
@@ -23,12 +24,14 @@ import model.actions.general.SearchAction;
 import model.actions.general.TargetingAction;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InfectedCharacter;
+import model.events.Event;
 import model.events.damage.Damager;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.weapons.Weapon;
 import model.map.Room;
+import model.objects.general.GameObject;
 import util.Logger;
 
 
@@ -45,6 +48,7 @@ public class Player extends Actor implements Target, Serializable {
 	private List<String> personalHistory = new ArrayList<>();
 	private Action nextAction;
 	private HashMap<String, Boolean> jobChoices = new HashMap<>();
+    private HashMap<String, Boolean> settings = new HashMap<>();
 
 
 	public Player(GameData gameData) {
@@ -52,6 +56,9 @@ public class Player extends Actor implements Target, Serializable {
 //			jobChoices.put(s, true);
 //		}
 		//jobChoices.put("Host", true);
+        settings.put("Auto-loot on kill", false);
+        settings.put("Show items in map when dead", true);
+
 	}
 
 	/**
@@ -620,5 +627,80 @@ public class Player extends Actor implements Target, Serializable {
             return getCharacter().getsActions();
         }
         return !isDead();
+    }
+
+    public List<String> getOverlayStrings(GameData gameData) {
+        ArrayList<String> strs = new ArrayList<>();
+
+
+
+        for (Room r : gameData.getRooms()) {
+
+            ArrayList<Sprite> sprites = new ArrayList<>();
+            for (Event e : r.getEvents()) {
+                sprites.add(e.getSprite(this));
+            }
+
+            for (Actor a : r.getActors()) {
+                sprites.add(a.getCharacter().getSprite(this));
+            }
+
+//            for (GameObject o : r.getObjects()) {
+//                strs.add(o.getSprite(this).getName() + pos);
+//            }
+            if (settings.get("Show items in map when dead")) {
+                for (GameItem it : r.getItems()) {
+                    sprites.add(it.getSprite(this));
+                }
+            }
+
+            double roomX = (double)r.getX();
+            double roomY = (double)r.getY();
+            double xIncr = 0.75;
+            double yIncr = 0.75;
+
+            double gridX = 0;
+            double gridY = 0;
+            for (Sprite sp : sprites) {
+                double finalX = roomX + gridX*xIncr;
+                double finalY = roomY + gridY*yIncr;
+                String pos = "," +
+                        String.format("%1$.1f", finalX) + "," +
+                        String.format("%1$.1f", finalY);
+                strs.add(sp.getName() + pos);
+                gridX += xIncr;
+                if (gridX >= r.getWidth()) {
+                    gridY += yIncr;
+                    gridX = 0;
+                    if (gridY >= r.getHeight()) {
+                        gridY = 0;
+                    }
+                }
+
+            }
+
+        }
+        if (isDead() || gameData.getGameMode().gameOver(gameData)) {
+            return strs;
+        }
+        Sprite sp = new Sprite("dummy", "animal.png", 0);
+        ArrayList<String> dummyList = new ArrayList<>();
+        dummyList.add("dummy,0.0,0.0");
+        return dummyList;
+    }
+
+    public HashMap<String, Boolean> getSettings() {
+        return settings;
+    }
+
+    public void setSettings(String settingsString) {
+        if (!settingsString.equals("[]")) {
+            settingsString = settingsString.substring(1, settingsString.length() - 1);
+            String[] parts = settingsString.split(",");
+            for (String str : parts) {
+                String[] strs = str.split("=");
+                settings.put(strs[0], Boolean.parseBoolean(strs[1]));
+            }
+        }
     }
 }

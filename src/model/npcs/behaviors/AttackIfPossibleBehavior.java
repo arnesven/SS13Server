@@ -13,7 +13,7 @@ import model.items.weapons.Weapon;
 import model.npcs.NPC;
 import model.objects.general.GameObject;
 
-public class AttackIfPossibleBehavior implements ActionBehavior {
+public abstract class AttackIfPossibleBehavior implements ActionBehavior {
 
 	
 
@@ -44,16 +44,16 @@ public class AttackIfPossibleBehavior implements ActionBehavior {
         List<Target> targets = new ArrayList<Target>();
         targets.addAll(atk.getTargets());
 
-        for (Target t : atk.getTargets()) {
-            if (t instanceof NPC) {
-                NPC targetAsNPC = (NPC)t;
-                if (targetAsNPC.getName().equals(t.getName())) {
-                    targets.remove(t);
-                }
-            } else if (t instanceof GameObject) {
-                targets.remove(t);
-            }
-        }
+//        for (Target t : atk.getTargets()) {
+//            if (t instanceof NPC) {
+//                NPC targetAsNPC = (NPC)t;
+//                if (targetAsNPC.getName().equals(t.getName())) {
+//                    targets.remove(t);
+//                }
+//            } else if (t instanceof GameObject) {
+//                targets.remove(t);
+//            }
+//        }
         return targets;
     }
 

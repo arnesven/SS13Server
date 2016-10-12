@@ -13,6 +13,7 @@ import model.characters.general.HumanCharacter;
 import model.items.NoSuchThingException;
 import model.npcs.NPC;
 import model.npcs.ZombieNPC;
+import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
 import model.npcs.behaviors.AttackIfPossibleBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.MovementBehavior;
@@ -38,7 +39,7 @@ public class ZombifierEvent extends Event {
                 if (turningZombie.contains(a) && MyRandom.nextDouble() < TURNING_CHANCE_STAGE2) {
                     try {
                         MovementBehavior move = new MeanderingMovement(0.5);
-                        AttackIfPossibleBehavior atk = new AttackIfPossibleBehavior();
+                        AttackIfPossibleBehavior atk = new AttackAllActorsNotSameClassBehavior();
                         if (a instanceof Player) {
                             a.getPosition().removePlayer((Player) a);
                             NPC npc = new ZombieNPC(new ZombieDecorator(a.getCharacter().clone()), move, atk, a.getPosition());

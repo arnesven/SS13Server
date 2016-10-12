@@ -8,7 +8,7 @@ import model.npcs.NPC;
 public class CrazyBehavior implements ActionBehavior {
 
 	private AttackIfPossibleBehavior atkBehavior = 
-						new AttackIfPossibleBehavior();
+						new AttackAllActorsNotSameClassBehavior();
 	
 	private SpontaneousAct gibberish = new SpontaneousAct(0.5, new SpeechAction("Aaaaargh!"));
 	

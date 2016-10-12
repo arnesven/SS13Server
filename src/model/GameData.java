@@ -442,7 +442,8 @@ public class GameData implements Serializable {
 					   ":" + cl.getSuit() +
 					   ":" + MyStrings.join(cl.getItemsAsFullNameList(), "|") + 
 					   ":" + MyStrings.join(cl.getRoomInfo(), "|") + 
-					   ":" + MyStrings.join(cl.getLastTurnInfo(), "|");
+					   ":" + MyStrings.join(cl.getLastTurnInfo(), "|") +
+                       ":" + MyStrings.join(cl.getOverlayStrings(this), "|");
 		return result;	
 		
 	}
@@ -517,10 +518,11 @@ public class GameData implements Serializable {
 				 ":" + getNoOfRounds() + ":" + getSelectedMode() + ":" + GameMode.getAvailableModesAsString();
 	}
 
-	public void setSettings(String rest) {
+	public void setSettings(String rest, Player pl) {
+        String[] sets = rest.substring(1).split(":");
 		if (gameState == GameState.PRE_GAME) { //can only change settings in pre game
 			Logger.log("Setting new settings: " + rest);
-			String[] sets = rest.substring(1).split(":");
+
 			try {
 				setNumberOfRounds(Integer.parseInt(sets[0]));
 				selectedMode = sets[1];
@@ -529,6 +531,10 @@ public class GameData implements Serializable {
 
 			}
 		}
+        if (sets.length == 4) {
+            pl.setSettings(sets[3]);
+        }
+
 	}
 	
 	public int getNumberOfRounds() {

@@ -106,7 +106,7 @@ public abstract class TargetingAction extends Action {
 		}
 		
 		ActionOption root = super.getOptions(gameData, whosAsking);
-		for (Target t : targets) {
+		for (Target t : getTargets()) {
 			if (performer == t) {
 				root.addOption("Yourself");
 			} else {

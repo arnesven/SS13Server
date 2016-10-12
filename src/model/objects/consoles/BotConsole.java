@@ -3,16 +3,17 @@ package model.objects.consoles;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.objectactions.ScanBrainAction;
+import model.items.Brain;
 import model.items.NoSuchThingException;
 import model.map.Room;
 import model.npcs.behaviors.*;
-import model.objects.general.GameObject;
 import model.programs.BotProgram;
+import model.programs.BrainBotProgram;
 import util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 /**
  * Created by erini02 on 14/04/16.
@@ -22,7 +23,7 @@ public class BotConsole extends Console {
     private List<BotProgram> programs;
 
     public BotConsole(Room r) {
-        super("Bot Console", r);
+        super("Mainframe Console", r);
     }
 
     public List<BotProgram> getPrograms(GameData gameData) {
@@ -42,7 +43,7 @@ public class BotConsole extends Console {
                 new RandomSpeechBehavior("resources/CHITCHAT.TXT")));
         bp.add(new BotProgram("Hostile",
                 new MoveTowardsClosestActorMovement(gameData),
-                new AttackIfPossibleBehavior()));
+                new AttackAllActorsNotSameClassBehavior()));
         bp.add(new BotProgram("Nurse",
                 new MeanderingMovement(1.0),
                 new HealOtherBehavior()));
@@ -57,7 +58,7 @@ public class BotConsole extends Console {
                     new FollowCriminalBehavior(gameData.findObjectOfType(CrimeRecordsConsole.class)),
                     new ArrestCriminalBehavior(gameData.findObjectOfType(CrimeRecordsConsole.class))));
         } catch (NoSuchThingException e) {
-            Logger.log(Logger.CRITICAL, "No crime console on statin. Not adding security bot program.");
+            Logger.log(Logger.CRITICAL, "No crime console on station. Not adding security bot program.");
         }
 
         return bp;
@@ -65,7 +66,18 @@ public class BotConsole extends Console {
 
     @Override
     protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+        ScanBrainAction sba = new ScanBrainAction(this);
 
+        if (sba.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+            at.add(sba);
+        }
     }
 
+    public void addProgramFromBrain(GameData gameData, Brain selectedBrain) {
+        getPrograms(gameData).add(new BrainBotProgram(selectedBrain.getProgramName(), this, gameData, selectedBrain));
+    }
+
+    public void removeProgram(BotProgram program, GameData gameData) {
+        getPrograms(gameData).remove(program);
+    }
 }

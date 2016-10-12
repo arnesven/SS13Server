@@ -4,6 +4,6 @@ import model.map.Room;
 
 public class GuardBehavior extends MoveTowardsBehavior {
 	public GuardBehavior(Room target) {
-		super(target, new StayBehavior(), new AttackIfPossibleBehavior());
+		super(target, new StayBehavior(), new AttackBaddiesBehavior());
 	}
 }

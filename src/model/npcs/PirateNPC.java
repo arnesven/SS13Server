@@ -1,6 +1,5 @@
 package model.npcs;
 
-import model.characters.general.GameCharacter;
 import model.characters.general.PirateCharacter;
 import model.items.general.GameItem;
 import model.items.suits.OxygenMask;
@@ -16,7 +15,7 @@ public class PirateNPC extends HumanNPC {
         super(new PirateCharacter(num, room.getID()), room);
         this.setActionBehavior(new PirateBehavior());
         this.setMoveBehavior(new MoveTowardsBehavior(targetRoom, new MeanderingHumanMovement(0.1),
-                new AttackIfPossibleBehavior()));
+                new AttackAllActorsNotSameClassBehavior()));
         //this.takeOffSuit();
         putOnSuit(new PirateOutfit(num));
         putOnSuit(new OxygenMask());

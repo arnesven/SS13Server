@@ -34,7 +34,9 @@ public class Defibrilator extends GameItem {
 
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
-        if (isDeadGuyInRoom(cl.getPosition()) && charge) {
+        ReviveAction re = new ReviveAction(gameData, cl, this);
+
+        if (re.getOptions(gameData, cl).numberOfSuboptions() > 0 && charge) {
             at.add(new ReviveAction(gameData, cl, this));
         }
 

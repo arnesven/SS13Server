@@ -9,7 +9,7 @@ import model.npcs.NPC;
 public class ChimpBehavior implements ActionBehavior {
 
 	private AttackIfPossibleBehavior atkBehavior = 
-			new AttackIfPossibleBehavior();
+			new AttackAllActorsNotSameClassBehavior();
 	
 	private GiveIfPossibleBehavior giveBehavior =
 			new GiveIfPossibleBehavior();

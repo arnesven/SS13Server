@@ -17,9 +17,6 @@ import model.characters.general.GameCharacter;
 import model.npcs.NPC;
 import model.npcs.animals.Trainable;
 import model.npcs.behaviors.*;
-import util.MyRandom;
-
-import javax.management.InstanceNotFoundException;
 
 public class TrainNPCAction extends Action {
 
@@ -46,7 +43,7 @@ public class TrainNPCAction extends Action {
 	}
 
 	private void addActionBehaviors() {
-		acts.put("Enrage", new AttackIfPossibleBehavior());
+		acts.put("Enrage", new AttackAllActorsNotSameClassBehavior());
 		acts.put("Calm", new DoNothingBehavior());
         acts.put("Guard", new AttackBaddiesBehavior());
 	}

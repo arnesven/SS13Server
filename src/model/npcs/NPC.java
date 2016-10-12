@@ -11,7 +11,7 @@ import model.items.general.MedKit;
 import model.items.weapons.Weapon;
 import model.map.Room;
 import model.npcs.behaviors.ActionBehavior;
-import model.npcs.behaviors.AttackIfPossibleBehavior;
+import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.MovementBehavior;
 import util.Logger;
@@ -136,7 +136,7 @@ public abstract class NPC extends Actor implements Target, Serializable {
 
 	public void beInfected(Actor performingClient) {
 		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
-		this.actBehavior = new AttackIfPossibleBehavior();
+		this.actBehavior = new AttackAllActorsNotSameClassBehavior();
 		this.moveBehavior = new MeanderingMovement(0.75);
 	}
 

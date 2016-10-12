@@ -6,6 +6,9 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.characters.decorators.BrainRemovedDecorator;
+import model.characters.decorators.InstanceChecker;
+import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
 import model.items.general.Defibrilator;
 import util.MyRandom;
@@ -33,11 +36,29 @@ public class ReviveAction extends Action {
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption op = super.getOptions(gameData, whosAsking);
         for (Actor a : whosAsking.getPosition().getActors()) {
-            if (a.getCharacter() instanceof HumanCharacter && a.getCharacter().isDead()) {
+            if (isHuman(a.getCharacter()) && a.getCharacter().isDead() && !brainRemoved(a.getCharacter())) {
                 op.addOption(a.getPublicName());
             }
         }
         return op;
+    }
+
+    private boolean brainRemoved(GameCharacter character) {
+        return character.checkInstance(new InstanceChecker() {
+            @Override
+            public boolean checkInstanceOf(GameCharacter ch) {
+                return ch instanceof BrainRemovedDecorator;
+            }
+        });
+    }
+
+    private boolean isHuman(GameCharacter character) {
+        return character.checkInstance(new InstanceChecker() {
+            @Override
+            public boolean checkInstanceOf(GameCharacter ch) {
+                return ch instanceof HumanCharacter;
+            }
+        });
     }
 
     @Override
@@ -56,7 +77,7 @@ public class ReviveAction extends Action {
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
         for (Actor a : performingClient.getPosition().getActors()) {
-            if (a.getCharacter() instanceof HumanCharacter && a.getCharacter().isDead()) {
+            if (isHuman(a.getCharacter()) && a.getCharacter().isDead() && !brainRemoved(a.getCharacter())) {
                 if (args.get(0).equals(a.getPublicName())) {
                     target = a;
                     break;

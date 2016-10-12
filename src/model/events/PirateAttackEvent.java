@@ -16,7 +16,7 @@ import java.util.List;
  * Created by erini02 on 26/04/16.
  */
 public class PirateAttackEvent extends AmbientEvent {
-    private static final double occurranceChance = 0.025;
+    private static final double occurranceChance = 0.015;
     private boolean hasHappened = false;
     private int piratesRemainingOnBarge;
     private int pirateNum = 1;
