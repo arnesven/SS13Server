@@ -5,6 +5,8 @@ import java.util.NoSuchElementException;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.PlayerSettings;
 import model.items.general.GameItem;
 import model.items.general.HidableItem;
 
@@ -24,7 +26,15 @@ public class PickUpAction extends Action {
 		if (performingClient.getPosition().getItems().contains(item)) {
 			performingClient.addTolastTurnInfo("You picked up the " + item.getPublicName(performingClient) + ".");
 			performingClient.getPosition().getItems().remove(item);
-			performingClient.getCharacter().giveItem(item, null);
+			boolean wasEncumbered = performingClient.getCharacter().isEncumbered();
+            performingClient.getCharacter().giveItem(item, null);
+            if (!wasEncumbered && performingClient.getCharacter().isEncumbered()) {
+                if (performingClient instanceof Player &&
+                        ((Player)performingClient).getSettings().get(PlayerSettings.AUTO_DROP_ITEMS_ON_PICK_UP)) {
+                    dropButNot(performingClient, item);
+                }
+            }
+
 		} else {
 			performingClient.addTolastTurnInfo("You failed to pick up the " + item.getPublicName(performingClient) + "!");
 			
@@ -32,7 +42,19 @@ public class PickUpAction extends Action {
 		
 	}
 
-	@Override
+    private void dropButNot(Actor performingClient, GameItem item) {
+        while (performingClient.getCharacter().isEncumbered() &&
+                performingClient.getCharacter().getItems().size() > 1) {
+            GameItem it = performingClient.getCharacter().getItems().get(performingClient.getCharacter().getItems().size()-2);
+            if (it != item) {
+                performingClient.addTolastTurnInfo("You dropped the " + it.getPublicName(performingClient) + ".");
+                performingClient.getCharacter().getItems().remove(it);
+                performingClient.getPosition().getItems().add(it);
+            }
+        }
+    }
+
+    @Override
 	protected String getVerb(Actor whosAsking) {
 		return "picked up";
 	}

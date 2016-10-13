@@ -6,12 +6,9 @@ import java.util.List;
 
 import graphics.sprites.NakedHumanSprite;
 import graphics.sprites.Sprite;
+import model.*;
 import util.Logger;
 import util.MyRandom;
-import model.Actor;
-import model.Player;
-import model.GameData;
-import model.Target;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.general.SensoryLevel.AudioLevel;
@@ -120,11 +117,17 @@ public abstract class GameCharacter implements Serializable {
     }
 
     public void doUponDeath(Actor killer) {
-        dropAllItems();
+        if (killer instanceof Player && ((Player)killer).getSettings().get(PlayerSettings.AUTO_LOOT_ON_KILL)) {
+            transferAllItemsTo((Actor)killer);
+        } else {
+            dropAllItems();
+        }
         if (killer != null) {
             setKiller(killer);
         }
     }
+
+
 
     private void internalAttackSuccess(Actor whom,
                                        Weapon weapon, boolean frag, boolean crit,
@@ -138,7 +141,7 @@ public abstract class GameCharacter implements Serializable {
                 verb + "ed " + second + " with " +
                 weapon.getPublicName(getActor()) + ".");
         if (weapon.wasCriticalHit()) {
-            whom.addTolastTurnInfo(weapon.getCriticalMessage() + "!");
+            whom.addTolastTurnInfo(critMess + "!");
         }
 
     }
@@ -221,6 +224,12 @@ public abstract class GameCharacter implements Serializable {
 			this.position.addItem(this.items.remove(0));
 		}
 	}
+
+    private void transferAllItemsTo(Actor killer) {
+        while (this.items.size() > 0) {
+            killer.getCharacter().giveItem(this.items.remove(0), this.getActor().getAsTarget());
+        }
+    }
 
 	public Actor getActor() {
 		return actor;
