@@ -54,7 +54,7 @@ public class RobotCharacter extends GameCharacter {
 	
 	@Override
 	public boolean hasInventory() {
-		return false;
+		return true;
 	}
 
 
