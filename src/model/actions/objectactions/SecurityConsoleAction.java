@@ -10,6 +10,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
+import model.characters.decorators.SeeRoomOverlayDecorator;
 import model.events.Event;
 import model.map.GameMap;
 import model.map.MapBuilder;
@@ -59,7 +60,7 @@ public class SecurityConsoleAction extends ConsoleAction {
 		occupants.append(nobody);
 		performingClient.addTolastTurnInfo(occupants.toString());
 		
-		
+		performingClient.setCharacter(new SeeRoomOverlayDecorator(performingClient.getCharacter(), gameData, viewdRoom));
 		
 		for (Action a : viewdRoom.getActionsHappened()) {
 			if (a.getSense().visual == VisualLevel.CLEARLY_VISIBLE) {

@@ -626,10 +626,15 @@ public class Player extends Actor implements Target, Serializable {
     }
 
     public List<String> getOverlayStrings(GameData gameData) {
+
         if (isDead() ||
                 (gameData.getGameMode().gameOver(gameData) &&
                 gameData.getGameState() != GameState.MOVEMENT)) {
             return OverlaySprites.seeAllOverlay(this, gameData);
+        }
+
+        if (getCharacter() != null) {
+            return getCharacter().getOverlayStrings(this, gameData);
         }
 
         return OverlaySprites.dummyList();

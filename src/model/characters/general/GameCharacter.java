@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import graphics.sprites.NakedHumanSprite;
+import graphics.sprites.OverlaySprites;
 import graphics.sprites.Sprite;
 import model.*;
 import util.Logger;
@@ -478,5 +479,9 @@ public abstract class GameCharacter implements Serializable {
 
     public boolean isVisible() {
         return true;
+    }
+
+    public List<String> getOverlayStrings(Player player, GameData gameData) {
+        return OverlaySprites.dummyList();
     }
 }

@@ -33,7 +33,7 @@ public abstract class Event implements Serializable {
 
 
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("event", "decals.png", 0, 1, 32, 32);
+        return new Sprite("event", "decals2.png", 5, 0, 32, 32);
     }
 
     public double getProbability() {

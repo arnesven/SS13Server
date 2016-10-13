@@ -53,7 +53,7 @@ public class AIConsole extends Console {
                     parCount++;
                 }
             }
-            if (parCount > 4) {
+            if (parCount > 3) {
                 alarms.add("-->Parasite infestation in " + r.getName() + ".");
             }
         }

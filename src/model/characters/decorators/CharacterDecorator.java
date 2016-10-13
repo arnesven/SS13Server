@@ -350,4 +350,9 @@ public abstract class CharacterDecorator extends GameCharacter {
     public boolean isVisible() {
         return innerChar.isVisible();
     }
+
+    @Override
+    public List<String> getOverlayStrings(Player player, GameData gameData) {
+        return innerChar.getOverlayStrings(player, gameData);
+    }
 }

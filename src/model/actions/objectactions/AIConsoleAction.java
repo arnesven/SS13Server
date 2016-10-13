@@ -7,6 +7,7 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.characters.decorators.AlarmOverlayDecorator;
 import model.characters.general.HorrorCharacter;
 import model.items.NoSuchThingException;
 import model.map.Room;
@@ -42,22 +43,10 @@ public class AIConsoleAction extends ConsoleAction {
 		}
 		
 		console.setInUse(true);
+
 		if (choice.equals("Check Alarms")) {
-			boolean noAlarms = true;
-            List<String> alarms = null;
-            try {
-                alarms = gameData.findObjectOfType(AIConsole.class).getAlarms(gameData);
+            // we will execute at end of round
 
-                for (String alarm : alarms) {
-                    performingClient.addTolastTurnInfo(alarm);
-                }
-            } catch (NoSuchThingException nste) {
-                Logger.log(Logger.CRITICAL, "NO AI CONSOLE FOUND!");
-            }
-
-			if (alarms == null || alarms.size() == 0) {
-				performingClient.addTolastTurnInfo("No alarms.");
-			}
 			
 		} else {
 			boolean found = false;
@@ -78,7 +67,24 @@ public class AIConsoleAction extends ConsoleAction {
 
 	@Override
 	public void lateExecution(GameData gameData, Actor performingClient) {
-		Logger.log("Executing late ai console...");
+        boolean noAlarms = true;
+        List<String> alarms = null;
+        try {
+            alarms = gameData.findObjectOfType(AIConsole.class).getAlarms(gameData);
+
+            for (String alarm : alarms) {
+                performingClient.addTolastTurnInfo(alarm);
+            }
+        } catch (NoSuchThingException nste) {
+            Logger.log(Logger.CRITICAL, "NO AI CONSOLE FOUND!");
+        }
+
+        if (alarms == null || alarms.size() == 0) {
+            performingClient.addTolastTurnInfo("No alarms.");
+        } else {
+            performingClient.setCharacter(new AlarmOverlayDecorator(performingClient.getCharacter(), gameData));
+        }
+
 		console.setInUse(false);
 	}
 
