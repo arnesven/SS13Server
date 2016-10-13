@@ -70,6 +70,6 @@ public class OverlaySprites {
         Sprite sp = new Sprite("dummy", "animal.png", 0);
         ArrayList<String> dummyList = new ArrayList<>();
         dummyList.add("dummy,0.0,0.0");
-        return dummyList();
+        return dummyList;
     }
 }
