@@ -21,21 +21,17 @@ public class SettingsCommandHandler extends AbstractCommandHandler {
 			ObjectOutputStream oos) throws IOException {
 		
 		if (command.equals("SETTINGS")) {
-			gameData.setSettings(rest, gameData.getPlayerForClid(clid));
+            if (!rest.contains("undefined")) { // stupid fix, client sends a dummy message at start, ignore it
+                gameData.setSettings(rest, gameData.getPlayerForClid(clid));
+            }
 			System.out.println("Setting settings " + rest);
-			oos.writeObject(makeSettingsString(gameData.getPlayerForClid(clid).getSettings()));
+			oos.writeObject(gameData.getPlayerForClid(clid).getSettings().makeIntoString());
 			return true;
 		}
 
 		return false;
 	}
 
-    private String makeSettingsString(HashMap<String, Boolean> settings) {
-        List<String> strs = new ArrayList<>();
-        for (Map.Entry<String, Boolean> entry : settings.entrySet()) {
-            strs.add(entry.getKey() + "," + entry.getValue());
-        }
-        return MyStrings.join(strs, "|");
-    }
+
 
 }
