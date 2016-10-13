@@ -1,9 +1,6 @@
 package model.actions.general;
 
-import model.Actor;
-import model.GameData;
-import model.Player;
-import model.Target;
+import model.*;
 import model.items.general.BombItem;
 import model.items.general.GameItem;
 
@@ -31,11 +28,18 @@ public class GiveAction extends TargetingAction {
 	@Override
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
-		
+        Actor targetAsActor = (Actor)target;
+		if (target instanceof Player && ((Player)target).getSettings().get(PlayerSettings.ALWAYS_REFUSE_GIFTS)) {
+            performingClient.addTolastTurnInfo(target.getName() + " refused your gift!");
+		    targetAsActor.addTolastTurnInfo(performingClient.getPublicName() + " tried to give you a " +
+                    item.getPublicName(targetAsActor) + ", but you refused it.");
+
+            return;
+        }
+
 		((Actor)target).getCharacter().giveItem(item, performingClient.getAsTarget());
 		performingClient.getItems().remove(item);
 		performingClient.addTolastTurnInfo("You gave a " + item.getPublicName(performingClient) + " to " + target.getName() + ".");
-		Actor targetAsActor = (Actor)target;
 		targetAsActor.addTolastTurnInfo("You got a " + item.getPublicName(targetAsActor) + " from " + performingClient.getPublicName() + ".");
 		
 	}
