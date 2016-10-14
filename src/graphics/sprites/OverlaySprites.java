@@ -5,6 +5,7 @@ import model.GameData;
 import model.Player;
 import model.PlayerSettings;
 import model.actions.general.SensoryLevel;
+import model.characters.general.GameCharacter;
 import model.characters.general.HorrorCharacter;
 import model.characters.general.ParasiteCharacter;
 import model.events.Event;
@@ -105,16 +106,19 @@ public class OverlaySprites {
             for (Actor a : r.getActors()) {
                 if (a instanceof PirateNPC && !a.isDead()) {
                     sp.add(a.getCharacter().getSprite(player));
-                } else if (a.getCharacter() instanceof HorrorCharacter) {
+                } else if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof HorrorCharacter)) {
                     sp.add(a.getCharacter().getSprite(player));
-                } else if (a.getCharacter() instanceof ParasiteCharacter) {
+                } else if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof ParasiteCharacter)) {
                     parasites.add(a.getCharacter().getSprite(player));
                 }
             }
-            if (parasites.size() > 3) {
+            if (parasites.size() > 2) {
                 sp.addAll(parasites);
             }
             strs.addAll(getStringsForSpritesInRoom(sp, r));
+        }
+        if (strs.isEmpty()) {
+            return dummyList();
         }
         return strs;
     }
@@ -122,23 +126,27 @@ public class OverlaySprites {
     public static List<String> seeRoom(Player player, GameData gameData, Room r) {
         ArrayList<String> strs = new ArrayList<>();
 
-            ArrayList<Sprite> sp = new ArrayList<>();
-            for (Event e : r.getEvents()) {
-                if (e.getSense().visual == SensoryLevel.VisualLevel.CLEARLY_VISIBLE) {
-                    sp.add(e.getSprite(player));
-                }
+        ArrayList<Sprite> sp = new ArrayList<>();
+        for (Event e : r.getEvents()) {
+            if (e.getSense().visual == SensoryLevel.VisualLevel.CLEARLY_VISIBLE) {
+                sp.add(e.getSprite(player));
             }
+        }
 
-            for (Actor a : r.getActors()) {
-                    sp.add(a.getCharacter().getSprite(player));
-            }
+        for (Actor a : r.getActors()) {
+            sp.add(a.getCharacter().getSprite(player));
+        }
 
-            for (GameItem it : r.getItems()) {
-                sp.add(it.getSprite(player));
-            }
+        for (GameItem it : r.getItems()) {
+            sp.add(it.getSprite(player));
+        }
 
-            strs.addAll(getStringsForSpritesInRoom(sp, r));
+        strs.addAll(getStringsForSpritesInRoom(sp, r));
 
+        if (strs.isEmpty()) {
+            return dummyList();
+        }
         return strs;
     }
+
 }

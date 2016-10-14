@@ -35,4 +35,8 @@ public abstract class AnimalCharacter extends GameCharacter implements Trainable
 		return false;
 	}
 
+    @Override
+    public String getGender() {
+        return getBaseName();
+    }
 }

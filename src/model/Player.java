@@ -637,6 +637,7 @@ public class Player extends Actor implements Target, Serializable {
             return getCharacter().getOverlayStrings(this, gameData);
         }
 
+
         return OverlaySprites.dummyList();
     }
 

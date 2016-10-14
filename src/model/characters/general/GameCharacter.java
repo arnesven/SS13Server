@@ -449,12 +449,15 @@ public abstract class GameCharacter implements Serializable {
     }
 
     public Sprite getSprite(Actor whosAsking) {
+        Sprite sp;
         if (suit == null) {
 
-            return getNakedSprite();
+            sp = getNakedSprite();
 		} else {
-            return suit.getGetup(getActor(), whosAsking);
+            sp = suit.getGetup(getActor(), whosAsking);
         }
+
+        return sp;
     }
 
     public char getIcon(Player whosAsking) {
@@ -482,6 +485,9 @@ public abstract class GameCharacter implements Serializable {
     }
 
     public List<String> getOverlayStrings(Player player, GameData gameData) {
+        if (getActor() instanceof  Player && ((Player) getActor()).getSettings().get(PlayerSettings.CURRENT_ROOM_STUFF_IN_MAP)) {
+            return OverlaySprites.seeRoom(((Player)getActor()), gameData, getPosition());
+        }
         return OverlaySprites.dummyList();
     }
 }

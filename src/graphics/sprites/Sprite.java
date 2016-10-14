@@ -1,6 +1,8 @@
 package graphics.sprites;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
@@ -20,6 +22,7 @@ public class Sprite implements Serializable {
     private int height;
  //   private BufferedImage image;
     private Color color;
+    private double rotation = 0.0;
 
 
     public Sprite(String name, String mapPath, int column, int row, int width, int height,
@@ -87,11 +90,8 @@ public class Sprite implements Serializable {
         this(name, mapPath, column, 0, 32, 32, list);
     }
 
-
-
-
     public String getName(){
-        return name;
+        return name + (int)getRotation();
     }
 
     public BufferedImage getImage() throws IOException {
@@ -108,11 +108,28 @@ public class Sprite implements Serializable {
         Graphics g = result.getGraphics();
         BufferedImage img = SpriteManager.getFile("resources/sprites/" + mapPath);
         img = img.getSubimage(column * width, row * height, width, height);
-        g.drawImage(img, 0, 0, null);
 
+        Graphics2D g2d = (Graphics2D) g;
+        //if (getRotation() != 0) {
+
+
+        double rotationRequired = Math.toRadians(getRotation());
+        double locationX = img.getWidth() / 2;
+        double locationY = img.getHeight() / 2;
+        AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
+// Drawing the rotated image at the required drawing locations
+        g2d.drawImage(op.filter(img, null), 0, 0, null);
         for (Sprite s : layers) {
-            g.drawImage(s.internalGetImage(), 0, 0, null);
+            g2d.drawImage(op.filter(s.internalGetImage(), null), 0, 0, null);
         }
+
+//        } else {
+//            g2d.drawImage(img, 0, 0, null);
+//        }
+
+
 
         if (color != null) {
             result = colorize(result, color);
@@ -160,5 +177,19 @@ public class Sprite implements Serializable {
 
     public void addToOver(Sprite piratemask) {
         layers.add(piratemask);
+    }
+
+    public double getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(double d) {
+        rotation = d;
+        SpriteManager.register(this);
+        try {
+            getImage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

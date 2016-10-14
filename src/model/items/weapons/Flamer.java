@@ -24,7 +24,7 @@ import util.MyRandom;
 public class Flamer extends Weapon {
 
 	public static final SensoryLevel SENSED_AS = SensoryLevel.FIRE;
-    public static final int CHEMS_NEEDED_TO_BURN_HIVE = 2;
+    public static final int CHEMS_NEEDED_TO_BURN_HIVE = 1;
 
     public Flamer() {
 		super("Flamer", 0.75, 0.5, false, 1.5);

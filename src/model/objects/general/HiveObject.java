@@ -30,7 +30,8 @@ public class HiveObject extends BreakableObject {
 		if (isFound()){
 			super.addYourselfToRoomInfo(info, whosAsking);
 		} else if (whosAsking.isInfected()) {
-			info.add("o" + getName() + " (sensed)");
+            info.add(getSprite(whosAsking).getName() + "<img>" + this.getPublicName(whosAsking) + " (sensed)");
+
 		} 
 	}
 
