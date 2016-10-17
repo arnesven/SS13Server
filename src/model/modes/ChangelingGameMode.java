@@ -33,7 +33,7 @@ public class ChangelingGameMode extends GameMode {
     @Override
 	protected void setUpOtherStuff(GameData gameData) {
         Event e = new ChangelingSensesEvent(ling);
-		gameData.addMovementEvent(e);
+		//gameData.addMovementEvent(e);
         gameData.addEvent(e);
 		getEvents().remove("random husks");
 	}

@@ -5,6 +5,7 @@ import model.GameData;
 import model.Player;
 import model.PlayerSettings;
 import model.actions.general.SensoryLevel;
+import model.characters.general.ChangelingCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.HorrorCharacter;
 import model.characters.general.ParasiteCharacter;
@@ -19,6 +20,7 @@ import model.objects.general.GameObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,49 +38,13 @@ public class OverlaySprites {
                 sprites.add(e.getSprite(player));
             }
 
-            for (Actor a : r.getActors()) {
-                sprites.add(a.getCharacter().getSprite(player));
-            }
-
+            addActorsForRoom(sprites, player, r);
 
             if (player.getSettings().get(PlayerSettings.SHOW_ITEMS_IN_MAP_WHEN_DEAD)) {
-                for (GameItem it : r.getItems()) {
-                    sprites.add(it.getSprite(player));
-                }
+                addItemsForRoom(sprites, player, r);
             }
 
             strs.addAll(getStringsForSpritesInRoom(sprites, r));
-
-
-
-        }
-        return strs;
-    }
-
-    private static List<String> getStringsForSpritesInRoom(ArrayList<Sprite> sprites, Room r) {
-        ArrayList<String> strs = new ArrayList<>();
-        double roomX = (double)r.getX();
-        double roomY = (double)r.getY();
-        double xIncr = 0.75;
-        double yIncr = 0.75;
-
-        double gridX = 0;
-        double gridY = 0;
-        for (Sprite sp : sprites) {
-            double finalX = roomX + gridX*xIncr;
-            double finalY = roomY + gridY*yIncr;
-            String pos = "," +
-                    String.format("%1$.1f", finalX) + "," +
-                    String.format("%1$.1f", finalY);
-            strs.add(sp.getName() + pos);
-            gridX += xIncr;
-            if (gridX >= r.getWidth()) {
-                gridY += yIncr;
-                gridX = 0;
-                if (gridY >= r.getHeight()) {
-                    gridY = 0;
-                }
-            }
 
         }
         return strs;
@@ -87,7 +53,7 @@ public class OverlaySprites {
     public static List<String> dummyList() {
         Sprite sp = new Sprite("dummy", "animal.png", 0);
         ArrayList<String> dummyList = new ArrayList<>();
-        dummyList.add("dummy,0.0,0.0");
+        dummyList.add(sp.getName()+",0.0,0.0");
         return dummyList;
     }
 
@@ -133,20 +99,82 @@ public class OverlaySprites {
             }
         }
 
-        for (Actor a : r.getActors()) {
-            sp.add(a.getCharacter().getSprite(player));
-        }
+        addActorsForRoom(sp, player, r);
+        addItemsForRoom(sp, player, r);
 
-        for (GameItem it : r.getItems()) {
-            sp.add(it.getSprite(player));
-        }
 
         strs.addAll(getStringsForSpritesInRoom(sp, r));
+        if (strs.isEmpty()) {
+            return dummyList();
+        }
+        return strs;
+    }
+
+    public static List<String> seeActorsInAdjacentRooms(Player player, Room room) {
+        ArrayList<String> strs = new ArrayList<>();
+        ArrayList<Sprite> sp = new ArrayList<>();
+        for (Room r : room.getNeighborList()) {
+            for (Actor a : r.getActors()) {
+                if (ChangelingCharacter.isDetectable(a.getAsTarget())) {
+                    sp.add(a.getCharacter().getSprite(player));
+                    strs.addAll(getStringsForSpritesInRoom(sp, r));
+                }
+            }
+
+        }
+
 
         if (strs.isEmpty()) {
             return dummyList();
         }
         return strs;
     }
+
+    private static List<String> getStringsForSpritesInRoom(ArrayList<Sprite> sprites, Room r) {
+        ArrayList<String> strs = new ArrayList<>();
+        double roomX = (double)r.getX();
+        double roomY = (double)r.getY();
+        double xIncr = 0.75;
+        double yIncr = 0.75;
+
+        double gridX = 0;
+        double gridY = 0;
+        for (Sprite sp : sprites) {
+            double finalX = roomX + gridX*xIncr;
+            double finalY = roomY + gridY*yIncr;
+            String pos = "," +
+                    String.format("%1$.1f", finalX) + "," +
+                    String.format("%1$.1f", finalY);
+            strs.add(sp.getName() + pos);
+            gridX += xIncr;
+            if (gridX >= r.getWidth()) {
+                gridY += yIncr;
+                gridX = 0;
+                if (gridY >= r.getHeight()) {
+                    gridY = 0;
+                }
+            }
+
+        }
+        return strs;
+    }
+
+
+
+    private static void addItemsForRoom(ArrayList<Sprite> sp, Player player, Room r) {
+        for (GameItem it : r.getItems()) {
+            sp.add(it.getSprite(player));
+        }
+    }
+
+    private static void addActorsForRoom(ArrayList<Sprite> sp, Player player, Room r) {
+        List<Actor> l = new ArrayList<>();
+        l.addAll(r.getActors());
+        Collections.shuffle(l);
+        for (Actor a : l) {
+            sp.add(a.getCharacter().getSprite(player));
+        }
+    }
+
 
 }

@@ -25,9 +25,11 @@ public abstract class GameStats {
 	protected GameData gameData;
 	private GameMode mode;
 
-	public GameStats(GameData gameData, GameMode mode) {
+
+    public GameStats(GameData gameData, GameMode mode) {
 		this.gameData = gameData;
 		this.mode = mode;
+
 	}
 
 	/**
@@ -160,37 +162,39 @@ public abstract class GameStats {
 	}
 
 
-
-	final private String getMiscStats() {
-		String res = "<br/> <table>" +
-		"<tr><td><b>Miscellaneous Stats</b></td><td></td></tr>" +
-		"<tr><td> Fires put out: </td><td>"       + getFireString(gameData) + "</td></tr>" +
-		"<tr><td> Hull breaches fixed: </td><td>" + getHullString(gameData) + "</td></tr>";
+    final private String getMiscStats() {
+        String res = "<br/> <table>" +
+                "<tr><td><b>Miscellaneous Stats</b></td><td></td></tr>" +
+                "<tr><td> Fires put out: </td><td>" + getFireString(gameData) + "</td></tr>" +
+                "<tr><td> Hull breaches fixed: </td><td>" + getHullString(gameData) + "</td></tr>";
         try {
             res +=
-            "<tr><td> Station power output: </td><td>" + String.format("%.1f", gameData.findObjectOfType(GeneratorConsole.class).getPowerOutput()*100.0) +
-                    "%  <a target='_blank' href='https://www.wolframalpha.com/input/?i=plot" + powerHistoryString() + "'>graph</a></td></tr>";
+                    "<tr><td> Station power output: </td><td>" + String.format("%.1f", gameData.findObjectOfType(GeneratorConsole.class).getPowerOutput() * 100.0) +
+                            "%  <a target='_blank' href='https://www.wolframalpha.com/input/?i=plot" + powerHistoryString() + "'>graph</a></td></tr>";
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "What? no generator on station?");
         }
-        res += "<tr><td> Cat survived: </td><td>"        + isCatDead(gameData) + "</td></tr>" +
-                "<tr><td> Greatest bomb chain: </td><td>"        + mode.getMaxChain() + "</td></tr>" +
-                "<tr><td> Bombs defused: </td><td>"        + mode.getBombsDefused() + "</td></tr>" +
-		"<tr><td> Parasites spawned: </td><td>"    + mode.getAllParasites().size() + "</td></tr>" +
-		"<tr><td> Parasites killed: </td><td>"     + countDead(mode.getAllParasites()) + "</td></tr>" +
-		"<tr><td> Parasite vanquisher: </td><td>"  + findVanquisher(mode.getAllParasites())+ "</td></tr>";
+        res += "<tr><td> Cat survived: </td><td>" + isCatDead(gameData) + "</td></tr>" +
+                "<tr><td> Greatest bomb chain: </td><td>" + mode.getMaxChain() + "</td></tr>" +
+                "<tr><td> Bombs defused: </td><td>" + mode.getBombsDefused() + "</td></tr>" +
+                "<tr><td> Parasites spawned: </td><td>" + mode.getAllParasites().size() + "</td></tr>" +
+                "<tr><td> Parasites killed: </td><td>" + countDead(mode.getAllParasites()) + "</td></tr>" +
+                "<tr><td> Parasite vanquisher: </td><td>" + findVanquisher(mode.getAllParasites()) + "</td></tr>";
         String pirateKiller = findPirateKiller(gameData);
         if (pirateKiller != null) {
-            res += "<tr><td> Pirate Killer: </td><td>"  + pirateKiller+ "</td></tr>";
+            res += "<tr><td> Pirate Killer: </td><td>" + pirateKiller + "</td></tr>";
         }
-		String crazyPeople = crazyPeopleString();
-		if (! crazyPeople.equals("")) {
-			res += "<tr><td colspan=\"2\"> "  + crazyPeopleString() + " went crazy. </td>";
-		}
-		res += "</table>";
-		 
-		return res;
-	}
+        String crazyPeople = crazyPeopleString();
+        if (!crazyPeople.equals("")) {
+            res += "<tr><td colspan=\"2\"> " + crazyPeopleString() + " went crazy. </td>";
+        }
+        for (String str : mode.getMiscHappenings()) {
+            res += "<tr><td colspan=\"2\"> " + str + "</td>";
+        }
+        res += "</table>";
+
+        return res;
+    }
 
     private String findPirateKiller(GameData gameData) {
         List<Actor> pirates = new ArrayList<>();
@@ -309,5 +313,6 @@ public abstract class GameStats {
 		return maxName;
 	}
 
-	
+
+
 }

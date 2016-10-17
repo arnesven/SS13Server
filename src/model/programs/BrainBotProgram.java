@@ -58,5 +58,6 @@ public class BrainBotProgram extends BotProgram {
         GameCharacter botCharacter = selectedBot.getCharacter();
         selectedBot.setCharacter(brain.getBelongsTo().getCharacter());
         brain.getBelongsTo().setCharacter(botCharacter);
+        gameData.getGameMode().getMiscHappenings().add("The " + brain.getBelongsTo().getBaseName() + " got 'borged back to life!");
     }
 }

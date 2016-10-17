@@ -8,7 +8,7 @@ import model.Target;
 public class CorrosiveDamage extends DamagerImpl {
     @Override
     public String getText() {
-        return "Corrosive Acid";
+        return "You got some acid on you!";
     }
 
     @Override

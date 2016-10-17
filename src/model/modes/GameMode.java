@@ -93,6 +93,7 @@ public abstract class GameMode implements Serializable {
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
     private int defusedBombs = 0;
     private int maxBombChain;
+    private List<String> miscHappenings = new ArrayList<>();
 
     public GameMode() {
 		events.put("fires", new ElectricalFire());
@@ -505,5 +506,10 @@ public abstract class GameMode implements Serializable {
 
     public int getBombsDefused() {
         return defusedBombs;
+    }
+
+
+    public List<String> getMiscHappenings() {
+        return miscHappenings;
     }
 }

@@ -11,6 +11,7 @@ import model.actions.characteractions.*;
 import model.actions.general.Action;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.NoSuchInstanceException;
+import model.events.damage.Damager;
 import model.items.general.GameItem;
 import model.items.general.TornClothes;
 import model.items.suits.SuitItem;
@@ -200,10 +201,14 @@ public class ChangelingCharacter extends GameCharacter {
 		}
 		throw new NoSuchInstanceException("Could not find character to change into.");
 	}
-	
 
 
-	@Override
+    @Override
+    public void beExposedTo(Actor something, Damager damager) {
+        getForm().beExposedTo(something, damager);
+    }
+
+    @Override
 	public GameCharacter clone() {
 		return new ChangelingCharacter(startRoom);
 	}

@@ -4,7 +4,9 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.SensoryLevel;
+import model.characters.decorators.SenseActorsInOtherRoomsDecorator;
 import model.characters.general.ChangelingCharacter;
+import model.characters.general.GameCharacter;
 import model.map.Room;
 
 public class ChangelingSensesEvent extends Event {
@@ -30,6 +32,10 @@ public class ChangelingSensesEvent extends Event {
 				ling.addTolastTurnInfo(str);
 			}
 		}
+        if (ling.getCharacter().checkInstance((GameCharacter cha) ->  cha instanceof SenseActorsInOtherRoomsDecorator)) {
+            ling.removeInstance((GameCharacter cha) -> cha instanceof SenseActorsInOtherRoomsDecorator);
+        }
+        ling.setCharacter(new SenseActorsInOtherRoomsDecorator(ling.getCharacter(), gameData));
 		
 	}
 
