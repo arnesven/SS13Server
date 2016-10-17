@@ -7,6 +7,7 @@ import model.characters.crew.*;
 import model.characters.decorators.DisguisedAs;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
+import model.characters.visitors.CaptainsDaughter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +88,8 @@ public class OutFit extends SuitItem {
             return makeOutfit("chaplainsuniformworn", "uniform.png", 2, 7);
         } else if (type instanceof TouristCharacter) {
             return makeOutfit("touristsuniformworn", "uniform2.png", 14, 14);
+        } else if (type instanceof CaptainsDaughter) {
+            return makeOutfit("captainsdaughteruniformworn", "uniform2.png", 22, 14);
         }
         return super.getWornSprite(whosAsking);
     }

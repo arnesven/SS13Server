@@ -3,6 +3,7 @@ package model.characters.crew;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.characters.visitors.VisitorCharacter;
 import model.items.suits.SunGlasses;
 import util.MyRandom;
 import model.GameData;
@@ -12,7 +13,7 @@ import model.items.suits.FancyClothes;
 import model.map.NukieShipRoom;
 import model.map.Room;
 
-public class TouristCharacter extends CrewCharacter {
+public class TouristCharacter extends VisitorCharacter {
 
 	public TouristCharacter() {
 		super("Tourist", 0, 1.0);
@@ -26,15 +27,7 @@ public class TouristCharacter extends CrewCharacter {
 		return l;
 	}
 	
-	@Override
-	public Room getStartingRoom(GameData gameData) {
-		Room room;
-		do {
-			room = MyRandom.sample(gameData.getRooms());
-		} while (room instanceof NukieShipRoom);
-		
-		return room;
-	}
+
 
 	@Override
 	public GameCharacter clone() {

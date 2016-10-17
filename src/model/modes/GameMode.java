@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import model.characters.visitors.VisitorCharacter;
 import model.events.PirateAttackEvent;
 import model.events.SpontaneousExplosionEvent;
 import model.events.ambient.*;
@@ -126,7 +127,11 @@ public abstract class GameMode implements Serializable {
 		availableChars.put("Bartender",        new BartenderCharacter());
 		availableChars.put("Technician",       new TechnicianCharacter());
 		availableChars.put("Chaplain",         new ChaplainCharacter());
-		availableChars.put("Tourist",          new TouristCharacter());
+		availableChars.put("Visitor",          new VisitorCharacter("Visitor", 0, 0.0){
+            public VisitorCharacter clone() {
+                throw new IllegalStateException("Should not have been called!");
+            }
+        });
 		return availableChars;
 	}
 
@@ -338,6 +343,9 @@ public abstract class GameMode implements Serializable {
 			}
 
 			GameCharacter selected = candidates.remove(MyRandom.nextInt(candidates.size()));
+            if (selected instanceof VisitorCharacter) {
+                selected = MyRandom.sample(((VisitorCharacter)selected).getSubtypes());
+            }
 
 			cl.setCharacter(selected);
 			remainingCharacters.remove(selected);
