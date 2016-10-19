@@ -13,8 +13,6 @@ public class FartWrapperAction extends Action {
     private final Action inner;
 
     /**
-     * @param name   the name of this action
-     * @param senses if the action is stealthy it will not be displayed to other players standing in that room.
      */
     public FartWrapperAction(Action inner) {
         super(inner.getName(), inner.getSense());

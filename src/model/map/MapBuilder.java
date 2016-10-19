@@ -131,7 +131,16 @@ public class MapBuilder {
 			portHallFront.addObject(l1);
 		}
 
+        Room dummy = new Room(30, "Dummy Room", "", 18, 1, 0, 0,
+                                new int[]{28}, new double[]{-1.0, -1.0}, RoomType.other);
+        result.add(dummy);
+        Room otherDim = new Room(31, "Other Dimension", "", 18, 0, 0, 0,
+                                new int[]{30}, new double[]{-1.0, -1.0}, RoomType.other);
+
+        result.add(otherDim);
 		GameMap gm = new GameMap(result);
+
+
 		
 
 		return gm;

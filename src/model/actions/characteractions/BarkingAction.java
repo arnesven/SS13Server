@@ -11,10 +11,7 @@ import java.util.List;
  * Created by erini02 on 03/09/16.
  */
 public class BarkingAction extends Action {
-    /**
-     * @param name   the name of this action
-     * @param senses if the action is stealthy it will not be displayed to other players standing in that room.
-     */
+
     public BarkingAction() {
         super("Bark", SensoryLevel.SPEECH);
     }

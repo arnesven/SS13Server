@@ -83,14 +83,7 @@ public class RadiationStorm extends AmbientEvent {
 		roundsLeft = MyRandom.nextInt(3) + 2;
 		this.damage = randomDamage();
 		side = MyRandom.nextInt(4);
-		String sideStr = "aft";
-		if (side == 1) {
-			sideStr = "port";
-		} else if (side == 2) {
-			sideStr = "front";
-		} else if (side == 3) {
-			sideStr = "starboard";
-		}
+		String sideStr = gameData.getMap().getSideString(side);
 		
 		for (Player p : gameData.getPlayersAsList()) {
 			p.addTolastTurnInfo("AI; \"Radiation storm detected, please evacuate " + sideStr + " side of station.\"");

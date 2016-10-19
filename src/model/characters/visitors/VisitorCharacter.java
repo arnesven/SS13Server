@@ -47,6 +47,8 @@ public abstract class VisitorCharacter extends GameCharacter {
         chars.add(new CaptainsDaughter());
         chars.add(new ClownCharacter());
         chars.add(new GeishaCharacter());
+        chars.add(new LawyerCharacter());
+        chars.add(new AdventurerCharacter());
         return chars;
     }
 }

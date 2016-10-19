@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import model.characters.visitors.VisitorCharacter;
+import model.events.AlienDimensionEvent;
 import model.events.PirateAttackEvent;
 import model.events.SpontaneousExplosionEvent;
 import model.events.ambient.*;
@@ -106,6 +107,7 @@ public abstract class GameMode implements Serializable {
 		events.put("Power flux", new PowerFlux());
 		events.put("random husks", new RandomHuskEvent());
         events.put("pirate attack", new PirateAttackEvent());
+        events.put("alien dimension", new AlienDimensionEvent());
 	}
 
     public abstract String getName();

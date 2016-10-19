@@ -1,0 +1,95 @@
+package model.items.weapons;
+
+import graphics.sprites.Sprite;
+import model.Actor;
+import model.GameData;
+import model.Player;
+import model.Target;
+import model.actions.general.Action;
+import model.actions.general.SensoryLevel;
+import model.actions.general.TargetingAction;
+import model.characters.general.GameCharacter;
+import model.characters.visitors.AdventurerCharacter;
+import model.items.general.GameItem;
+import model.npcs.NPC;
+import util.MyRandom;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by erini02 on 18/10/16.
+ */
+public class BullWhip extends Weapon {
+    public BullWhip() {
+        super("Bull Whip", 0.75, 0.5, false, 0.5, false);
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("bullwhip", "weapons2.png", 27, 29, 32, 32);
+    }
+
+    @Override
+    public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
+        super.addYourActions(gameData, at, cl);
+        if (cl.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof AdventurerCharacter)) {
+            TargetingAction ta = new SnatchAction(cl);
+            if (ta.getNoOfTargets() > 0) {
+                at.add(ta);
+            }
+        }
+    }
+
+
+    @Override
+    public void doAttack(Actor performingClient, Target target, GameData gameData) {
+        boolean success;
+        if (MyRandom.nextDouble() > 0.5 ||
+                performingClient.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof AdventurerCharacter))) {
+            success = target.beAttackedBy(performingClient, this);
+        } else {
+            success = performingClient.getAsTarget().beAttackedBy(performingClient, this);
+        }
+
+
+        if (success) {
+            usedOnBy(target, performingClient, gameData);
+        } else {
+            checkOnlyMissHazard(performingClient, gameData);
+        }
+        checkHazard(performingClient, gameData);
+    }
+
+
+    private class SnatchAction extends TargetingAction {
+        public SnatchAction(Actor actionPerformer) {
+            super("Snatch", SensoryLevel.PHYSICAL_ACTIVITY, actionPerformer);
+        }
+
+        @Override
+        protected void applyTargetingAction(GameData gameData, Actor performingClient, Target target, GameItem item) {
+            if (((Actor)target).getCharacter().getItems().size() > 0 && MyRandom.nextDouble() < 0.75) {
+                GameItem it = MyRandom.sample(((Actor)target).getCharacter().getItems());
+                ((Actor)target).getCharacter().getItems().remove(it);
+                performingClient.getCharacter().giveItem(it, target);
+                performingClient.addTolastTurnInfo("You snatched a " + it.getPublicName(performingClient) + " from " + ((Actor) target).getPublicName() + " with your whip.");
+                ((Actor) target).addTolastTurnInfo(performingClient.getPublicName() + " snatched your " + it.getFullName((Actor)target) + " with his whip!");
+            } else {
+                performingClient.addTolastTurnInfo("You missed " + ((Actor) target).getPublicName() + " with your whip.");
+                ((Actor) target).addTolastTurnInfo(performingClient.getPublicName() + " tried to attack you with a bull whip.");
+
+            }
+        }
+
+        @Override
+        public boolean isViableForThisAction(Target target2) {
+            return target2 instanceof Actor;
+        }
+
+        @Override
+        protected String getVerb(Actor whosAsking) {
+            return "used bull whip to snatch an item";
+        }
+    }
+}

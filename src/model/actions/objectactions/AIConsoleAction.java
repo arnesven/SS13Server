@@ -50,12 +50,14 @@ public class AIConsoleAction extends ConsoleAction {
 			
 		} else {
 			boolean found = false;
-			for (Actor a : gameData.getActors()) {
-				if (a.getBaseName().equals(crew)) {
-					performingClient.addTolastTurnInfo("-->" + crew + " is in " + a.getPosition().getName() + ".");
-					found = true;
-				}
-			}
+            for (Room r : gameData.getRooms()) {
+                for (Actor a : r.getActors()) {
+                    if (a.getBaseName().equals(crew)) {
+                        performingClient.addTolastTurnInfo("-->" + crew + " is in " + a.getPosition().getName() + ".");
+                        found = true;
+                    }
+                }
+            }
 			if (! found) {
 				performingClient.addTolastTurnInfo(crew + " not found.");
 			}

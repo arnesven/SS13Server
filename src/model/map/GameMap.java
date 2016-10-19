@@ -197,4 +197,19 @@ public class GameMap implements Serializable {
         }
         return maxY;
     }
+
+    public String getSideString(int side) {
+        String sideStr = "central";
+
+        if (side == 0) {
+            sideStr = "aft";
+        } else if (side == 1) {
+            sideStr = "port";
+        } else if (side == 2) {
+            sideStr = "front";
+        } else if (side == 3) {
+            sideStr = "starboard";
+        }
+        return sideStr;
+    }
 }
