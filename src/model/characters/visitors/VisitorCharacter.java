@@ -1,6 +1,7 @@
 package model.characters.visitors;
 
 import model.GameData;
+import model.characters.crew.CrewCharacter;
 import model.characters.crew.TouristCharacter;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by erini02 on 17/10/16.
  */
-public abstract class VisitorCharacter extends GameCharacter {
+public abstract class VisitorCharacter extends CrewCharacter {
 
     public VisitorCharacter(String s, int i, double v) {
         super(s, i, v);

@@ -193,8 +193,30 @@ public class OperativesGameMode extends GameMode {
 		return (new OperativesModeStats(gameData, this)).toString();
 	}
 
+    @Override
+    public Integer getPointsForPlayer(GameData gameData, Player value) {
+        if (getGameResult(gameData) == GameOver.SHIP_NUKED) {
+            if (isAntagonist(value)) {
+                if (!value.isDead()) {
+                    return 2;
+                } else {
+                    return 1;
+                }
+            } else {
+                return 0;
+            }
+        } else {
+            if (!value.isDead()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
 
-	public void setNuked(boolean b) {
+    }
+
+
+    public void setNuked(boolean b) {
 		this.nuked  = b;
 	}
 	

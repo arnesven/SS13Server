@@ -64,7 +64,10 @@ public class TraitorModeStats extends GameStats {
 		buf.append("<tr><td>Fires</td><td " + style +">"              + traitorMode.pointsFromFires(gameData)            + "</td></tr>");
 		buf.append("<tr><td>Hull Breaches</td><td " + style +">"      + traitorMode.pointsFromBreaches(gameData)         + "</td></tr>");		
 		buf.append("<tr><td>Points from God</td><td " + style +">"     + traitorMode.pointsFromGod(gameData)         + "</td></tr>");		
-		buf.append("<tr><td>Parasites killed</td><td " + style +">"   + traitorMode.pointsFromParasites(gameData)        + "</td></tr>");
+		buf.append("<tr><td>Parasites Killed</td><td " + style +">"   + traitorMode.pointsFromParasites(gameData)        + "</td></tr>");
+        if (traitorMode.cosmicArtifactFound(gameData) > 0) {
+            buf.append("<tr><td>Cosmic Artifact Acquired</td><td " + style + ">" + traitorMode.cosmicArtifactFound(gameData) + "</td></tr>");
+        }
         buf.append("<tr><td>Defused Bombs</td><td " + style +">"   + traitorMode.pointsFromBombsDefused(gameData)        + "</td></tr>");
         buf.append("<tr><td>Bad Security</td><td " + style +">"   + traitorMode.pointsFromSecurity(gameData)        + "</td></tr>");
 

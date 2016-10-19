@@ -84,6 +84,14 @@ public class ArmageddonGameMode extends GameMode {
         return new ArmageddonGameStats(this, gameData).toString();
     }
 
+    @Override
+    public Integer getPointsForPlayer(GameData gameData, Player value) {
+        if (!value.isDead()) {
+            return 1;
+        }
+        return 0;
+    }
+
     public ZombifierEvent getZombieEvent() {
         return zombieEvent;
     }

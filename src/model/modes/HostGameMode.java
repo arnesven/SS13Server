@@ -164,9 +164,28 @@ public class HostGameMode extends GameMode {
 		return (new HostModeStats(gameData, this)).toString();
 	}
 
+    @Override
+    public Integer getPointsForPlayer(GameData gameData, Player value) {
+        if (value.isDead()) {
+            return 0;
+        }
+        if (getGameResultType(gameData) == GameOver.HIVE_BROKEN) {
+            if (isAntagonist(value)) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+        // Infected team wins
+        if (isAntagonist(value)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
 
-	public Player getHostPlayer() {
+    public Player getHostPlayer() {
 		return hostClient;
 	}
 

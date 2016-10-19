@@ -174,7 +174,23 @@ public class ChangelingGameMode extends GameMode {
 		return (new ChangelingModeStats(gameData, this)).toString();
 	}
 
-	public Actor getChangeling() {
+    @Override
+    public Integer getPointsForPlayer(GameData gameData, Player value) {
+        if (value.isDead()) {
+            return 0;
+        }
+        if (getGameResult(gameData) == GameOver.PROTAGONISTS_DEAD) {
+            if (isAntagonist(value)) {
+                return 3;
+            }
+        }
+        if (isAntagonist(value)) {
+            return 0;
+        }
+        return 1;
+    }
+
+    public Actor getChangeling() {
 		return ling;
 	}
 

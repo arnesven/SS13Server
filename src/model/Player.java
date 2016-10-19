@@ -369,7 +369,7 @@ public class Player extends Actor implements Target, Serializable {
 	 * @param gameData the Game's data
 	 * @return the tree of actions.
 	 */
-	private ArrayList<Action> getActionList(GameData gameData) {
+	public ArrayList<Action> getActionList(GameData gameData) {
 		ArrayList<Action> at = new ArrayList<Action>();
 
 		if (getsActions()) {

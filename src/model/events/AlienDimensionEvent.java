@@ -5,6 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.SensoryLevel;
+import model.characters.decorators.DimensionTrappedDecorator;
 import model.events.ambient.AmbientEvent;
 import model.map.Room;
 import model.npcs.AlienNPC;
@@ -35,7 +36,7 @@ public class AlienDimensionEvent extends AmbientEvent {
             targetRoom = MyRandom.sample(gameData.getRooms());
             addPortalObject(gameData, targetRoom);
             turnsActive = MyRandom.nextInt(12);
-            Logger.log(Logger.INTERESTING, "Portal created in " + targetRoom.getName());
+            Logger.log(Logger.INTERESTING, "Portal created in " + targetRoom.getName() + " active for " + turnsActive + " turns.");
             int side = 0;
             for (List<Room> locations : gameData.getMap().getSideLocations()) {
                 if (locations.contains(targetRoom)) {
@@ -45,15 +46,18 @@ public class AlienDimensionEvent extends AmbientEvent {
             }
             informCrew(gameData, side);
             gameData.addNPC(new AlienNPC(targetRoom));
+            while (MyRandom.nextDouble() > 0.75) {
+                gameData.addNPC(new AlienNPC(targetRoom));
+            }
 
         } else if (hasHappened) {
             if (turnsActive == 0) {
                 informCrewDimensionEnded(gameData);
                 removePortalObject();
 
-            } else {
-                turnsActive--;
             }
+            turnsActive--;
+
         }
 
     }
@@ -61,6 +65,11 @@ public class AlienDimensionEvent extends AmbientEvent {
     private void removePortalObject() {
         portal.remove();
         portal2.remove();
+        for (Actor a : otherDim.getActors()) {
+            if (!(a instanceof AlienNPC)) {
+                a.setCharacter(new DimensionTrappedDecorator(a.getCharacter()));
+            }
+        }
     }
 
     private void addPortalObject(GameData gameData, Room targetRoom) {

@@ -43,6 +43,9 @@ public class ActionOption {
 		return suboptions.size();
 	}
 
+    public List<ActionOption> getSuboptions() {
+        return suboptions;
+    }
 
     public String getName() {
         return name;

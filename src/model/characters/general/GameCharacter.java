@@ -388,7 +388,7 @@ public abstract class GameCharacter implements Serializable {
 	 */
 	public void giveItem(GameItem it, Target giver) {
 		this.getItems().add(it);
-        it.gotGivenTo(this, giver);
+        it.gotGivenTo(getActor(), giver);
 		it.setHolder(this);
 	}
 

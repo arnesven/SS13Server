@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
 import model.npcs.*;
 import model.npcs.animals.CatNPC;
@@ -217,7 +218,25 @@ public class TraitorGameMode extends GameMode {
 		return (new TraitorModeStats(gameData, this)).toString();
 	}
 
-	public List<Player> getTraitors() {
+    @Override
+    public Integer getPointsForPlayer(GameData gameData, Player value) {
+        if (value.isDead()) {
+            return 0;
+        }
+        if (getScore(gameData) > 0) {
+            if (isAntagonist(value)) {
+                return 0;
+            }
+        }
+        if (getScore(gameData) < 0) {
+            if (!isAntagonist(value)) {
+                return 0;
+            }
+        }
+        return 1;
+    }
+
+    public List<Player> getTraitors() {
 		return traitors;
 	}
 	
@@ -464,6 +483,19 @@ public class TraitorGameMode extends GameMode {
 		return traitors.contains(c);
 	}
 
-	
 
+    public int cosmicArtifactFound(GameData gameData) {
+        for (Player pl : gameData.getPlayersAsList()) {
+            for (GameItem it : pl.getItems()) {
+                if (it instanceof CosmicArtifact) {
+                    if (!isAntagonist(pl)) {
+                        return 500;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
 }

@@ -66,10 +66,10 @@ public class ExplodingFood extends FoodItem {
 	}
 
     @Override
-    public void gotGivenTo(GameCharacter to, Target from) {
+    public void gotGivenTo(Actor to, Target from) {
         super.gotGivenTo(to, from);
-        innerItem.setHolder(to);
-        expel.getAsItem().setHolder(to);
+        innerItem.setHolder(to.getCharacter());
+        expel.getAsItem().setHolder(to.getCharacter());
     }
 
     @Override

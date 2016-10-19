@@ -96,6 +96,7 @@ public abstract class GameMode implements Serializable {
     private int defusedBombs = 0;
     private int maxBombChain;
     private List<String> miscHappenings = new ArrayList<>();
+    private boolean hallOfFameUpdated = false;
 
     public GameMode() {
 		events.put("fires", new ElectricalFire());
@@ -158,6 +159,14 @@ public abstract class GameMode implements Serializable {
 		gcs.add("Chimp");
 		return gcs;
 	}
+    public boolean hasUpdatedHallOfFame() {
+        return hallOfFameUpdated;
+    }
+
+    public void setUpdatedHallOfFame(boolean updatedHallOfFame) {
+        this.hallOfFameUpdated = updatedHallOfFame;
+    }
+
 
 	/**
 	 * This method is called as the last part of the setup.
@@ -224,6 +233,14 @@ public abstract class GameMode implements Serializable {
 	 */
 	public abstract String getSummary(GameData gameData);
 
+    /**
+     * At the end of the game, players gain points for
+     * survival/completed objectives. This is then summed
+     * and displayed in the Hall of Fame.
+     * @param value
+     * @return
+     */
+    public abstract Integer getPointsForPlayer(GameData gameData, Player value);
 
 	protected List<GameCharacter> getAllCharacters() {
 		List<GameCharacter> list = new ArrayList<>();
@@ -385,10 +402,18 @@ public abstract class GameMode implements Serializable {
 		for ( ; noOfNPCs > 0 ; noOfNPCs--) {
 			GameCharacter gc;
 			if (remainingChars.size() == 0) {
-				gc = new TouristCharacter();
+				gc = new VisitorCharacter("asdf") {
+                    @Override
+                    public GameCharacter clone() {
+                        return null;
+                    }
+                };
 			} else {
 				gc = remainingChars.remove(MyRandom.nextInt(remainingChars.size()));
 			}
+            if (gc instanceof VisitorCharacter) {
+                gc = MyRandom.sample(((VisitorCharacter)gc).getSubtypes());
+            }
 			NPC human = new HumanNPC(gc, gc.getStartingRoom(gameData));
 			gameData.addNPC(human);
 			Logger.log("Adding npc " + gc.getBaseName());
@@ -522,4 +547,6 @@ public abstract class GameMode implements Serializable {
     public List<String> getMiscHappenings() {
         return miscHappenings;
     }
+
+
 }

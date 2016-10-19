@@ -59,6 +59,7 @@ public class DimensionPortal extends GameObject {
         @Override
         protected void execute(GameData gameData, Actor performingClient) {
             performingClient.moveIntoRoom(destination);
+            performingClient.addTolastTurnInfo("You went through the portal!");
         }
 
         @Override

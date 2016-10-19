@@ -16,7 +16,7 @@ public class MyStrings {
 		}
 		buf.delete(buf.length()-1, buf.length());
 		buf.append("]");
-		Logger.log(buf.toString());
+		//Logger.log(buf.toString());
 		return buf.toString();
 	}
 

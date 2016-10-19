@@ -12,10 +12,12 @@ import model.characters.general.ParasiteCharacter;
 import model.events.Event;
 import model.events.ambient.ElectricalFire;
 import model.events.ambient.HullBreach;
+import model.events.ambient.RadiationStorm;
 import model.items.general.GameItem;
 import model.map.Room;
 import model.npcs.ParasiteNPC;
 import model.npcs.PirateNPC;
+import model.objects.general.DimensionPortal;
 import model.objects.general.GameObject;
 
 import java.util.ArrayList;
@@ -117,10 +119,10 @@ public class OverlaySprites {
             for (Actor a : r.getActors()) {
                 if (ChangelingCharacter.isDetectable(a.getAsTarget())) {
                     sp.add(a.getCharacter().getSprite(player));
-                    strs.addAll(getStringsForSpritesInRoom(sp, r));
                 }
             }
-
+            strs.addAll(getStringsForSpritesInRoom(sp, r));
+            sp.clear();
         }
 
 
@@ -129,6 +131,30 @@ public class OverlaySprites {
         }
         return strs;
     }
+
+    public static List<String> seeRadiationAndPortalsInRoomAndAdjacent(Player player) {
+        ArrayList<String> strs = new ArrayList<>();
+        ArrayList<Sprite> sp = new ArrayList<>();
+        for (Room r : player.getPosition().getNeighborList()) {
+            for (Event e : r.getEvents()) {
+                if (e instanceof RadiationStorm) {
+                    sp.add(e.getSprite(player));
+                }
+            }
+            for (GameObject ob : r.getObjects()) {
+                if (ob instanceof DimensionPortal) {
+                    sp.add(ob.getSprite(player));
+                }
+            }
+            strs.addAll(getStringsForSpritesInRoom(sp, r));
+            sp.clear();
+        }
+        if (strs.isEmpty()) {
+            return dummyList();
+        }
+        return strs;
+    }
+
 
     private static List<String> getStringsForSpritesInRoom(ArrayList<Sprite> sprites, Room r) {
         ArrayList<String> strs = new ArrayList<>();
@@ -175,6 +201,7 @@ public class OverlaySprites {
             sp.add(a.getCharacter().getSprite(player));
         }
     }
+
 
 
 }

@@ -13,6 +13,8 @@ import model.Player;
 import model.events.ambient.SpontaneousCrazyness;
 import model.events.ambient.OngoingEvent;
 import model.items.NoSuchThingException;
+import model.map.OtherDimension;
+import model.npcs.AlienNPC;
 import model.npcs.animals.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
@@ -75,7 +77,8 @@ public abstract class GameStats {
 				"</table> <br/>" + 
 				generatePlayersTable() + "<br/>" + 
 				getContent() + "<br/>" + 
-				getMiscStats();
+				getMiscStats() + "<br/>" +
+                getHallOfFame();
 	}
 
 	protected String getTopContent() {
@@ -104,27 +107,38 @@ public abstract class GameStats {
 		}
 		for (NPC npc : gameData.getNPCs()) {
 			if (npc instanceof HumanNPC) {
-				buf.append("<tr><td>");
-                String img = SpriteManager.encode64(npc.getCharacter().getSprite(npc));
-                buf.append("<img src=\"data:image/png;base64," + img +"\"></img>");
-                buf.append("</td><td>");
-				buf.append(npc.getBaseName());
-				buf.append("</td><td>");
-				buf.append(npc.getHealth() + "");
-				buf.append("</td><td>");
-				buf.append(getStatusStringForPlayer(npc));
-				buf.append("</td><td>");
-				buf.append(getExtraInfoAndKilledBy(npc));
-				buf.append("</td><td>");
+                appendForNPC(buf, npc);
 			}
 		}
+//        for (NPC npc : gameData.getNPCs()) {
+//            if (!(npc instanceof HumanNPC)) {
+//                appendForNPC(buf, npc);
+//            }
+//        }
+
 		
 		buf.append("</table>");
 		
 		return buf.toString();
 	}
-	
-	private String getExtraInfoAndKilledBy(Actor value) {
+
+    private void appendForNPC(StringBuffer buf, NPC npc) {
+        buf.append("<tr><td>");
+        String img = SpriteManager.encode64(npc.getCharacter().getSprite(npc));
+        buf.append("<img src=\"data:image/png;base64," + img +"\"></img>");
+        buf.append("</td><td>");
+        buf.append(npc.getBaseName());
+        buf.append("</td><td>");
+        buf.append(npc.getHealth() + "");
+        buf.append("</td><td>");
+        buf.append(getStatusStringForPlayer(npc));
+        buf.append("</td><td>");
+        buf.append(getExtraInfoAndKilledBy(npc));
+        buf.append("</td><td>");
+    }
+
+
+    private String getExtraInfoAndKilledBy(Actor value) {
 		String result = "";
 		
 		result += modeSpecificExtraInfo(value);
@@ -190,6 +204,11 @@ public abstract class GameStats {
         }
         for (String str : mode.getMiscHappenings()) {
             res += "<tr><td colspan=\"2\"> " + str + "</td>";
+        }
+        for (Actor a : gameData.getActors()) {
+            if (a.getPosition() instanceof OtherDimension && !(a instanceof AlienNPC)) {
+                res += "<tr><td colspan=\"2\"> " + a.getBaseName() + " got trapped in another dimension! </td>";
+            }
         }
         res += "</table>";
 
@@ -314,5 +333,7 @@ public abstract class GameStats {
 	}
 
 
-
+    public String getHallOfFame() {
+        return (new HallOfFame(gameData)).getHTMLTable();
+    }
 }
