@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class AlienDimensionEvent extends AmbientEvent {
 
-    private static final double occurranceChance = 1.5;
+    private static final double occurranceChance = 0.015;
     private boolean hasHappened = false;
     private Room targetRoom;
     private Room otherDim;
