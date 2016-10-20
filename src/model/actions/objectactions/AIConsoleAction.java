@@ -12,8 +12,12 @@ import model.characters.general.HorrorCharacter;
 import model.items.NoSuchThingException;
 import model.map.Room;
 import model.modes.GameMode;
+import model.npcs.NPC;
 import model.npcs.ParasiteNPC;
 import model.npcs.PirateNPC;
+import model.npcs.behaviors.DoNothingBehavior;
+import model.npcs.behaviors.MeanderingMovement;
+import model.npcs.robots.RobotNPC;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.GeneratorConsole;
 import model.objects.general.GameObject;
@@ -47,14 +51,21 @@ public class AIConsoleAction extends ConsoleAction {
 		if (choice.equals("Check Alarms")) {
             // we will execute at end of round
 
-			
+            gameData.executeAtEndOfRound(performingClient, this);
+        } else if (choice.equals("Shut Down AI")){
+            console.shutDown(gameData);
+
+            performingClient.addTolastTurnInfo("You shut down the AI! Your on your own now.");
+
 		} else {
 			boolean found = false;
-            for (Room r : gameData.getRooms()) {
-                for (Actor a : r.getActors()) {
-                    if (a.getBaseName().equals(crew)) {
-                        performingClient.addTolastTurnInfo("-->" + crew + " is in " + a.getPosition().getName() + ".");
-                        found = true;
+            if (!console.isCorrupt()) {
+                for (Room r : gameData.getRooms()) {
+                    for (Actor a : r.getActors()) {
+                        if (a.getBaseName().equals(crew)) {
+                            performingClient.addTolastTurnInfo("-->" + crew + " is in " + a.getPosition().getName() + ".");
+                            found = true;
+                        }
                     }
                 }
             }
@@ -64,7 +75,7 @@ public class AIConsoleAction extends ConsoleAction {
 		}
 	
 	
-		gameData.executeAtEndOfRound(performingClient, this);
+
 	}
 
 	@Override
@@ -99,6 +110,7 @@ public class AIConsoleAction extends ConsoleAction {
 			locate.addOption(s);
 		}
 		top.addOption(locate);
+        top.addOption("Shut Down AI");
 		
 		return top;
 	}

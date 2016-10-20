@@ -11,6 +11,7 @@ import model.items.general.GameItem;
 import model.items.general.ItemStack;
 import model.items.general.Locator;
 import model.items.general.PDA;
+import model.items.suits.SuperSuit;
 import model.modes.TraitorGameMode;
 import model.modes.TraitorObjective;
 import model.actions.general.SensoryLevel;
@@ -57,6 +58,11 @@ public class UsePDAAction extends Action {
                     gi = ((ItemStack) orderedItem).getInnerItem().clone();
                     performingClient.addItem(gi, null);
                 }
+            } else if (orderedItem instanceof SuperSuit) {
+                gi = orderedItem.clone();
+                ((SuperSuit)gi).setAppearance(performingClient.getCharacter().getSuit(), performingClient);
+                performingClient.getCharacter().removeSuit();
+                performingClient.putOnSuit((SuperSuit)gi);
             } else {
                 gi = orderedItem.clone();
                 performingClient.addItem(gi, null);

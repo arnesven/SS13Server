@@ -5,8 +5,10 @@ import model.GameData;
 import model.Player;
 import model.actions.general.SensoryLevel;
 import model.events.ambient.AmbientEvent;
+import model.items.NoSuchThingException;
 import model.map.Room;
 import model.npcs.PirateNPC;
+import model.objects.consoles.AIConsole;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -57,8 +59,10 @@ public class PirateAttackEvent extends AmbientEvent {
     }
 
     private void informCrew(GameData gameData, int randAirLock) {
-        for (Player p : gameData.getPlayersAsList()) {
-            p.addTolastTurnInfo("AI; \"Warning! Pirate marauders are boarding the station through Air Lock #" +randAirLock + "!\"");
+        try {
+            gameData.findObjectOfType(AIConsole.class).informOnStation("Warning! Pirate marauders are boarding the station through Air Lock #" +randAirLock + "!", gameData);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
         }
     }
 

@@ -109,6 +109,7 @@ public abstract class GameMode implements Serializable {
 		events.put("random husks", new RandomHuskEvent());
         events.put("pirate attack", new PirateAttackEvent());
         events.put("alien dimension", new AlienDimensionEvent());
+        events.put("corrupt ai", new CorruptAIEvent());
 	}
 
     public abstract String getName();

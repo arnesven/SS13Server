@@ -130,4 +130,7 @@ public class OutFit extends SuitItem {
 		return new OutFit(this.type);
 	}
 
+    public GameCharacter getType() {
+        return type;
+    }
 }

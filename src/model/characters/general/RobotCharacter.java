@@ -49,7 +49,7 @@ public class RobotCharacter extends GameCharacter {
 
 	@Override
 	public Weapon getDefaultWeapon() {
-		return new BluntWeapon("Steel Prod", 0.5){};
+		return Weapon.STEEL_PROD;
 	}
 	
 	@Override

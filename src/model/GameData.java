@@ -89,6 +89,8 @@ public class GameData implements Serializable {
 		list.addAll(getAllRooms());
         try {
             list.remove(map.getRoom("Nuclear Ship"));
+            list.remove(map.getRoom("Other Dimension"));
+            list.remove(map.getRoom("Dummy"));
         } catch (NoSuchElementException nse) {
             Logger.log("CRITICAL: No Nuclear ship found");
         }

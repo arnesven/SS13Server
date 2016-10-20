@@ -7,8 +7,10 @@ import model.Player;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.DimensionTrappedDecorator;
 import model.events.ambient.AmbientEvent;
+import model.items.NoSuchThingException;
 import model.map.Room;
 import model.npcs.AlienNPC;
+import model.objects.consoles.AIConsole;
 import model.objects.general.DimensionPortal;
 import util.Logger;
 import util.MyRandom;
@@ -83,14 +85,20 @@ public class AlienDimensionEvent extends AmbientEvent {
     }
 
     private void informCrewDimensionEnded(GameData gameData) {
-        for (Player p : gameData.getPlayersAsList()) {
-            p.addTolastTurnInfo("AI; \"Singularity has vanished.\"");
+        try {
+            gameData.findObjectOfType(AIConsole.class).informOnStation("Singularity has vanished.", gameData);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
         }
+
     }
 
     private void informCrew(GameData gameData, int side) {
-        for (Player p : gameData.getPlayersAsList()) {
-            p.addTolastTurnInfo("AI; \"Warning! Singularity detected in " + gameData.getMap().getSideString(side) + " part of station!\"");
+        try {
+            gameData.findObjectOfType(AIConsole.class).informOnStation("Warning! Singularity detected in " +
+                    gameData.getMap().getSideString(side) + " part of station!", gameData);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
         }
     }
 

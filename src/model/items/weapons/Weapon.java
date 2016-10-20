@@ -19,6 +19,7 @@ public class Weapon extends GameItem {
 
 	public static final Weapon FISTS = new Weapon("Fists", 0.5, 0.5, false, 0.0, true);
     public static final Weapon TENTACLE = new Weapon("Tentacle", 0.5, 0.5, false, 0.0, true);
+    public static final Weapon STEEL_PROD = new BluntWeapon("Steel Prod", 1.0){};
     public static Weapon CLAWS = new Weapon("Claws", 0.75, 0.5, false, -1.0, true);
     public static Weapon BEAR_CLAWS = new Weapon("Bear claws", 0.5, 1.0, false, -1.0, true);
 

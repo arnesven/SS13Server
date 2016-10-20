@@ -7,6 +7,7 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.npcs.robots.RobotNPC;
+import model.objects.consoles.AIConsole;
 import model.objects.consoles.BotConsole;
 import model.programs.BotProgram;
 import util.Logger;
@@ -29,6 +30,14 @@ public class ReprogramAction extends Action {
     @Override
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption option = super.getOptions(gameData, whosAsking);
+        try {
+            AIConsole console = gameData.findObjectOfType(AIConsole.class);
+            if (console.isShutDown()) {
+                return option;
+            }
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
         for (Actor a : whosAsking.getPosition().getActors()) {
             if (a instanceof RobotNPC) {
                 ActionOption sub = new ActionOption(a.getPublicName());
@@ -69,7 +78,9 @@ public class ReprogramAction extends Action {
                     selectedProgram = bp;
                 }
             }
-            selectedProgram.loadInto(selectedBot);
+            if (! gameData.findObjectOfType(AIConsole.class).isCorrupt()) {
+                selectedProgram.loadInto(selectedBot);
+            }
             performingClient.addTolastTurnInfo("You reprogrammed " + selectedBot.getPublicName() + ".");
         } catch (NoSuchThingException nste) {
             Logger.log("What? No bot console? No bot programs could be found!");

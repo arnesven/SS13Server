@@ -3,6 +3,8 @@ package model.events.ambient;
 import graphics.sprites.Sprite;
 import model.events.Event;
 import model.events.damage.RadiationDamage;
+import model.items.NoSuchThingException;
+import model.objects.consoles.AIConsole;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -63,10 +65,12 @@ public class RadiationStorm extends AmbientEvent {
 	}
 
 	private void endRadiationstorm(GameData gameData) {
-		for (Player p : gameData.getPlayersAsList()) {
-			p.addTolastTurnInfo("AI; \"Radiation storm has passed.\"");
-		}
-		
+        try {
+            gameData.findObjectOfType(AIConsole.class).informOnStation("Radiation storm has passed.", gameData);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+
 		for (Room r : gameData.getMap().getSideLocations().get(side)) {
 			r.removeEvent(this);
 		}

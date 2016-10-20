@@ -9,6 +9,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.UsePDAAction;
+import model.items.suits.SuperSuit;
 import model.modes.TraitorGameMode;
 import model.items.weapons.*;
 
@@ -46,6 +47,7 @@ public class PDA extends UplinkItem {
 		items.add(new BoobyTrapBomb());
 		items.add(new Locator());
 		items.add(new LarcenyGloves());
+        items.add(new SuperSuit());
 		return items;
 	}
 
