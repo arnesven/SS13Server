@@ -55,7 +55,7 @@ public class AIConsoleAction extends ConsoleAction {
         } else if (choice.equals("Shut Down AI")){
             console.shutDown(gameData);
 
-            performingClient.addTolastTurnInfo("You shut down the AI! Your on your own now.");
+            performingClient.addTolastTurnInfo("You shut down the AI! You're on your own now.");
 
 		} else {
 			boolean found = false;

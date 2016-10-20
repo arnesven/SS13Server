@@ -30,9 +30,11 @@ public class DoctorCharacter extends CrewCharacter {
 	public String getHowPerceived(Actor actor) {
 		String usually = super.getHowPerceived(actor);
 		Target t = actor.getAsTarget();
-		if (t.getHealth() < t.getMaxHealth()) {
-			usually += " (unhealthy)";
-		}
+        if (!t.isDead()) {
+            if (t.getHealth() < t.getMaxHealth()) {
+                usually += " (unhealthy)";
+            }
+        }
 		
 		return usually;
 	}

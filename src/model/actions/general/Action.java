@@ -46,8 +46,6 @@ public abstract class Action implements Serializable {
 	public void doTheAction(GameData gameData, Actor performingClient) {
 		this.execute(gameData, performingClient);
 		this.performer = performingClient;
-        Logger.log(Logger.CRITICAL, "performingClient is " + performingClient);
-        Logger.log(Logger.CRITICAL, "performingClients position is " + performingClient.getPosition());
 		performingClient.getPosition().addToActionsHappened(this);
 	}
 	

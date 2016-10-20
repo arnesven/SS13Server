@@ -7,10 +7,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
-import model.items.general.GameItem;
-import model.items.general.ItemStack;
-import model.items.general.Locator;
-import model.items.general.PDA;
+import model.items.general.*;
 import model.items.suits.SuperSuit;
 import model.modes.TraitorGameMode;
 import model.modes.TraitorObjective;
@@ -58,18 +55,27 @@ public class UsePDAAction extends Action {
                     gi = ((ItemStack) orderedItem).getInnerItem().clone();
                     performingClient.addItem(gi, null);
                 }
+                performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) +
+                        " appeared! You put it in your inventory.");
             } else if (orderedItem instanceof SuperSuit) {
                 gi = orderedItem.clone();
-                ((SuperSuit)gi).setAppearance(performingClient.getCharacter().getSuit(), performingClient);
-                performingClient.getCharacter().removeSuit();
-                performingClient.putOnSuit((SuperSuit)gi);
+                ((SuperSuit) gi).setAppearance(performingClient.getCharacter().getSuit(), performingClient);
+                performingClient.putOnSuit((SuperSuit) gi);
+                performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) +
+                        " appeared! You put it on.");
+            }else if (orderedItem instanceof LarcenyGloves) {
+                gi = orderedItem.clone();
+                performingClient.putOnSuit((LarcenyGloves)gi);
+                performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) +
+                        " appeared! You put them on.");
             } else {
                 gi = orderedItem.clone();
                 performingClient.addItem(gi, null);
+                performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) +
+                        " appeared! You put it in your inventory.");
             }
 			pda.decrementUses();
-			performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) + 
-					" appeared! You put it in your inventory.");
+
 			
 			if (gi instanceof Locator) {
 				setTargetFromObjective(gameData, performingClient, gi);

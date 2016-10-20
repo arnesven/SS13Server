@@ -10,6 +10,7 @@ import model.actions.characteractions.TrainNPCAction;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
+import model.items.general.MotionTracker;
 import model.items.weapons.Flamer;
 import model.map.Room;
 import model.npcs.animals.Trainable;
@@ -24,7 +25,7 @@ public class BiologistCharacter extends CrewCharacter {
 	public List<GameItem> getStartingItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new MedKit());
-		list.add(new Flamer());
+		list.add(new MotionTracker());
 		return list;
 	}
 	

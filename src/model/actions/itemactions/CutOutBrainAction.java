@@ -28,6 +28,7 @@ public class CutOutBrainAction extends TargetingAction {
     protected void applyTargetingAction(GameData gameData, Actor performingClient, Target target, GameItem item) {
         Actor targetAsActor = (Actor)target;
         targetAsActor.setCharacter(new BrainRemovedDecorator(targetAsActor.getCharacter()));
+        ((Actor) target).getCharacter().setHealth(0.0);
         performingClient.addItem(new Brain(targetAsActor, performingClient), target);
         performingClient.addTolastTurnInfo("You cut out a brain from " + target.getName());
         targetAsActor.addTolastTurnInfo(performingClient.getBaseName() + " cut out your brain!");
@@ -39,7 +40,7 @@ public class CutOutBrainAction extends TargetingAction {
         targets.addAll(super.getTargets());
         for (Target t : super.getTargets()) {
             if (t instanceof Actor) {
-               if ( (! ((Actor)t).isDead()) || hasBrainRemoved((Actor)t) || !isHuman((Actor)t)) {
+               if ( (! ((Actor)t).isPassive()) || hasBrainRemoved((Actor)t) || !isHuman((Actor)t)) {
                     targets.remove(t);
                }
             } else {

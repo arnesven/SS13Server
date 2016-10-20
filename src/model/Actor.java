@@ -181,4 +181,8 @@ public abstract class Actor  implements Serializable {
 	public abstract double getMaxHealth();
 	
 	public abstract void moveIntoRoom(Room brig);
+
+    public boolean isPassive() {
+        return getCharacter().isPassive();
+    }
 }

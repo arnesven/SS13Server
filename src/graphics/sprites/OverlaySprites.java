@@ -5,10 +5,7 @@ import model.GameData;
 import model.Player;
 import model.PlayerSettings;
 import model.actions.general.SensoryLevel;
-import model.characters.general.ChangelingCharacter;
-import model.characters.general.GameCharacter;
-import model.characters.general.HorrorCharacter;
-import model.characters.general.ParasiteCharacter;
+import model.characters.general.*;
 import model.events.Event;
 import model.events.ambient.ElectricalFire;
 import model.events.ambient.HullBreach;
@@ -153,6 +150,27 @@ public class OverlaySprites {
             return dummyList();
         }
         return strs;
+    }
+
+    public static Collection<String> seeAnimalsInAdjacentRooms(Player player, GameData gameData) {
+        ArrayList<String> strs = new ArrayList<>();
+        ArrayList<Sprite> sp = new ArrayList<>();
+        for (Room r : player.getPosition().getNeighborList()) {
+            for (Actor a : r.getActors()) {
+                if (a.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof AnimalCharacter)) ||
+                    a.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof ParasiteCharacter))) {
+                    sp.add(a.getCharacter().getSprite(player));
+                }
+            }
+
+            strs.addAll(getStringsForSpritesInRoom(sp, r));
+            sp.clear();
+        }
+        if (strs.isEmpty()) {
+            return dummyList();
+        }
+        return strs;
+
     }
 
 
