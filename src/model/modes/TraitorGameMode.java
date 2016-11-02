@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import model.characters.general.AICharacter;
 import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
 import model.npcs.*;
@@ -70,7 +71,8 @@ public class TraitorGameMode extends GameMode {
 	private void assignTraitors(GameData gameData) {
 		traitors = new ArrayList<>();
 		for (Player p : gameData.getPlayersAsList()) {
-			if (p.checkedJob("Traitor")) {
+			if (p.checkedJob("Traitor") &&
+                    !(p.getCharacter() instanceof AICharacter)) {
 				traitors.add(p);
 			}
 		}

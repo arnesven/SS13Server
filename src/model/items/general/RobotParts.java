@@ -8,7 +8,9 @@ import model.actions.general.Action;
 import model.actions.itemactions.BuildRobotAction;
 import model.characters.crew.RoboticistCharacter;
 import model.characters.decorators.InstanceChecker;
+import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
+import model.characters.general.RobotCharacter;
 
 import java.util.ArrayList;
 
@@ -33,7 +35,7 @@ public class RobotParts extends GameItem {
         InstanceChecker instanceChecker = new InstanceChecker() {
             @Override
             public boolean checkInstanceOf(GameCharacter ch) {
-                return ch instanceof RoboticistCharacter;
+                return ch instanceof RoboticistCharacter || ch instanceof RobotCharacter;
             }
         };
 

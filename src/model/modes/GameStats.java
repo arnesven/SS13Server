@@ -13,12 +13,14 @@ import model.Player;
 import model.events.ambient.SpontaneousCrazyness;
 import model.events.ambient.OngoingEvent;
 import model.items.NoSuchThingException;
+import model.items.laws.AILaw;
 import model.map.OtherDimension;
 import model.npcs.AlienNPC;
 import model.npcs.animals.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
 import model.npcs.PirateNPC;
+import model.objects.consoles.AIConsole;
 import model.objects.consoles.GeneratorConsole;
 import util.Logger;
 
@@ -210,6 +212,20 @@ public abstract class GameStats {
                 res += "<tr><td colspan=\"2\"> " + a.getBaseName() + " got trapped in another dimension! </td>";
             }
         }
+
+        if (gameData.getGameMode().aiIsPlayer()) {
+            try {
+                AIConsole console = gameData.findObjectOfType(AIConsole.class);
+                res += "<tr><td><b>AI Laws at end of game</b></td></tr>";
+                for (AILaw law : console.getLaws()) {
+                    res += "<tr><td>" + law.getNumber() + ". " +
+                            law.getBaseName() + "</td></tr>";
+                }
+            } catch (NoSuchThingException e) {
+                e.printStackTrace();
+            }
+        }
+
         res += "</table>";
 
         return res;

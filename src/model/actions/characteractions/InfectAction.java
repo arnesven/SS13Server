@@ -34,6 +34,10 @@ public class InfectAction extends TargetingAction {
 	}
 	
 	public static boolean canBeInfected(Target target2) {
+        if (!target2.isTargetable()) {
+            return false;
+        }
+
 		if (target2 instanceof Player && !target2.isDead()) {
 			return !((Player)target2).isInfected();
 		}

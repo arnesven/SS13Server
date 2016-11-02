@@ -22,6 +22,7 @@ public class SecuritronNPC extends RobotNPC {
 		this.setHealth(2.0);
 	}
 
-	
+
+
 
 }

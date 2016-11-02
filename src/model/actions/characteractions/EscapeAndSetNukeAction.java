@@ -62,7 +62,7 @@ public class EscapeAndSetNukeAction extends Action {
 					
 					if (roundsLeft == 0) {
 						for (Actor a : gameData.getActors()) {
-							if (a.getPosition() != nukieShip) {
+							if (gameData.getRooms().contains(a.getPosition())) {
 								a.getCharacter().beExposedTo(null, new NuclearExplosiveDamage());
 							}
 						}

@@ -4,6 +4,7 @@ import model.GameData;
 import model.Player;
 import model.items.general.GameItem;
 import model.items.general.Locatable;
+import model.items.suits.SuitItem;
 
 public class LarcenyObjective implements TraitorObjective {
 
@@ -31,10 +32,30 @@ public class LarcenyObjective implements TraitorObjective {
 
 	@Override
 	public boolean isCompleted(GameData gameData) {
-		return traitor.getItems().contains(item);
+		return traitor.getItems().contains(item) || wearingItem(item, traitor);
 	}
 
-	@Override
+    private boolean wearingItem(GameItem item, Player traitor) {
+        if (item instanceof SuitItem) {
+            if (recursiveIsWearing((SuitItem)item, traitor.getCharacter().getSuit())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean recursiveIsWearing(SuitItem item, SuitItem suit) {
+        if (item == suit) {
+            return true;
+        }
+        if (suit.getUnder() == null) {
+            return false;
+        }
+        return recursiveIsWearing(item, suit.getUnder());
+
+    }
+
+    @Override
 	public boolean wasCompleted() {
 		return isCompleted(gameData);
 	}

@@ -76,7 +76,7 @@ public abstract class NPC extends Actor implements Target, Serializable {
 
 	@Override
 	public boolean isTargetable() {
-		return !isDead();
+		return !isDead() && getCharacter().isVisible();
 	}
 
 	@Override

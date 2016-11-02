@@ -271,7 +271,7 @@ public class ChangelingCharacter extends GameCharacter {
 	}
 
 	public static boolean isDetectable(Target target2) {
-		if (target2.isDead()) { 
+		if (target2.isTargetable()) {
 			return false;
 		}
 		if (target2 instanceof GameObject) {

@@ -29,10 +29,11 @@ public class MovementData {
 
     private void inform(Actor beholder, GameData gameData) {
         for (Actor subject : gameData.getActors()) {
-            // the were in same room
+            // they were in same room
             if (positions.get(subject) == beholder.getPosition()) {
                 // ... but aren't any more
-                if (subject.getPosition() != beholder.getPosition()) {
+                if (subject.getPosition() != beholder.getPosition() &&
+                        beholder.getCharacter().isVisible()) {
                     try {
                         heLeftTowards(beholder, subject, findAdjacentRoom(beholder.getPosition(), subject.getPosition()));
                     } catch (RoomNotFoundException e) {

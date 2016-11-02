@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.characters.general.AICharacter;
+import model.objects.consoles.AIConsole;
 import model.objects.general.NuclearBomb;
 import util.MyRandom;
 import model.Actor;
@@ -72,7 +74,8 @@ public class OperativesGameMode extends GameMode {
 		
 		for (Player p : gameData.getPlayersAsList()) {
 			if (p.checkedJob("Operative") && 
-					!(p.getCharacter() instanceof CaptainCharacter)) {
+					!(p.getCharacter() instanceof CaptainCharacter) &&
+                    !(p.getCharacter() instanceof AICharacter)) {
 				opPlayers.add(p);
 			}
 		}

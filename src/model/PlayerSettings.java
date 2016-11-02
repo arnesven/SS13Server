@@ -18,6 +18,7 @@ public class PlayerSettings implements Serializable {
     public static final String AUTO_DROP_ITEMS_ON_PICK_UP  = "Auto-drop items on pick-up";
     public static final String ALWAYS_REFUSE_GIFTS         = "Always refuse gifts";
     public static final String CURRENT_ROOM_STUFF_IN_MAP   = "Current room stuff in map";
+    public static final String MAKE_ME_AI_IF_ABLE          = "Make me the AI if able";
 
     private HashMap<String, Boolean> settings = new HashMap<>();
 
@@ -27,6 +28,7 @@ public class PlayerSettings implements Serializable {
         settings.put(AUTO_DROP_ITEMS_ON_PICK_UP, false);
         settings.put(ALWAYS_REFUSE_GIFTS, false);
         settings.put(CURRENT_ROOM_STUFF_IN_MAP, true);
+        settings.put(MAKE_ME_AI_IF_ABLE, false);
     }
 
     public void set(String key, boolean value) {

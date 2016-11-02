@@ -40,7 +40,7 @@ public class StealAction extends Action {
 		ActionOption opt = super.getOptions(gameData, whosAsking);
 		
 		for (Actor a : performer.getPosition().getActors()) {
-			if (a != performer) {
+			if (a != performer && a.getAsTarget().isTargetable()) {
 				ActionOption subopt = new ActionOption(a.getPublicName());
 				for (GameItem it : a.getItems()) {
 					subopt.addOption(it.getPublicName(whosAsking));
@@ -56,6 +56,16 @@ public class StealAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
+        if (victim == null) {
+            performingClient.addTolastTurnInfo("What? the target isn't there! Your action failed.");
+            return;
+        }
+
+        if (item == null) {
+            performingClient.addTolastTurnInfo("What? the item isn't there! Your action failed.");
+            return;
+        }
+
 		if (performingClient.getPosition() != victim.getPosition()) {
 			performingClient.addTolastTurnInfo("What? " + victim.getPublicName() + " isn't there! Your action failed.");
 		} else if (!victim.getItems().contains(item)) {

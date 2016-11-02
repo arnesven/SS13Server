@@ -170,7 +170,50 @@ public class OverlaySprites {
             return dummyList();
         }
         return strs;
+    }
 
+    public static List<String> seeAIVision(Player player, GameData gameData) {
+        ArrayList<String> strs = new ArrayList<>();
+        ArrayList<Sprite> sp = new ArrayList<>();
+        List<Room> allRooms = new ArrayList<>();
+        allRooms.addAll(player.getPosition().getNeighborList());
+        for (Room r : player.getPosition().getNeighborList()) {
+            for (Room r2 : r.getNeighborList()) {
+                for (Room r3: r2.getNeighborList()) {
+                    if (!allRooms.contains(r3)) {
+                        allRooms.add(r3);
+                    }
+                }
+                if (!allRooms.contains(r2)) {
+                    allRooms.add(r2);
+                }
+            }
+        }
+        if (!allRooms.contains(player.getPosition())) {
+            allRooms.add(player.getPosition());
+        }
+
+
+
+        for (Room r : allRooms) {
+            addActorsForRoom(sp, player, r);
+            for (Event e : r.getEvents()) {
+                sp.add(e.getSprite(player));
+            }
+            for (GameObject ob : r.getObjects()) {
+                if (ob instanceof DimensionPortal) {
+                    sp.add(ob.getSprite(player));
+                }
+            }
+            strs.addAll(getStringsForSpritesInRoom(sp, r));
+            sp.clear();
+        }
+
+
+        if (strs.isEmpty()) {
+            return dummyList();
+        }
+        return strs;
     }
 
 
@@ -216,7 +259,9 @@ public class OverlaySprites {
         l.addAll(r.getActors());
         Collections.shuffle(l);
         for (Actor a : l) {
-            sp.add(a.getCharacter().getSprite(player));
+            if (a.getCharacter().isVisible()) {
+                sp.add(a.getCharacter().getSprite(player));
+            }
         }
     }
 

@@ -4,10 +4,13 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.characters.general.GameCharacter;
+import model.characters.general.RobotCharacter;
 import model.events.NoSuchEventException;
 import model.events.ambient.ElectricalFire;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
+import model.npcs.robots.RobotNPC;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -37,7 +40,7 @@ public class PutOutFireAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        if (GameItem.hasAnItem(performingClient, new FireExtinguisher())) {
+        if (GameItem.hasAnItem(performingClient, new FireExtinguisher()) || isRobot(performingClient.getCharacter())) {
             try {
                 ElectricalFire fire = null;
                 try {
@@ -53,7 +56,11 @@ public class PutOutFireAction extends Action {
                 performingClient.addTolastTurnInfo("No fire to put out.");
             }
         } else {
-            performingClient.addTolastTurnInfo("What the fire extinguisher is gone! Your action failed.");
+            performingClient.addTolastTurnInfo("What? The fire extinguisher is gone! Your action failed.");
         }
+    }
+
+    private boolean isRobot(GameCharacter character) {
+        return character.checkInstance(((GameCharacter ch) -> ch instanceof RobotCharacter));
     }
 }

@@ -8,14 +8,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import model.PlayerSettings;
+import model.characters.general.AICharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.events.AlienDimensionEvent;
 import model.events.PirateAttackEvent;
 import model.events.SpontaneousExplosionEvent;
 import model.events.ambient.*;
+import model.items.NoSuchThingException;
 import model.npcs.*;
 import model.npcs.animals.SnakeNPC;
 import model.npcs.robots.TARSNPC;
+import model.objects.AIMemory;
+import model.objects.consoles.AIConsole;
 import model.objects.general.VendingMachine;
 import util.Logger;
 import util.MyRandom;
@@ -39,7 +44,6 @@ import model.characters.crew.JanitorCharacter;
 import model.characters.crew.TechnicianCharacter;
 import model.characters.crew.RoboticistCharacter;
 import model.characters.crew.SecurityOfficerCharacter;
-import model.characters.crew.TouristCharacter;
 import model.events.Event;
 import model.items.general.GameItem;
 import model.map.NukieShipRoom;
@@ -97,6 +101,8 @@ public abstract class GameMode implements Serializable {
     private int maxBombChain;
     private List<String> miscHappenings = new ArrayList<>();
     private boolean hallOfFameUpdated = false;
+    private Player aIPlayer = null;
+    private Player capCl = null;
 
     public GameMode() {
 		events.put("fires", new ElectricalFire());
@@ -281,6 +287,18 @@ public abstract class GameMode implements Serializable {
 			} else {
 				addProtagonistStartingMessage(c);
 			}
+            if (aIPlayer != null) {
+                try {
+                    if (c == aIPlayer) {
+                        c.addTolastTurnInfo(AICharacter.getStartingMessage());
+                        c.addTolastTurnInfo(gameData.getClidForPlayer(capCl) + " is the Captain.");
+                    } else {
+                        c.addTolastTurnInfo(gameData.getClidForPlayer(aIPlayer) + " is the AI.");
+                    }
+                } catch (NoSuchThingException nste) {
+                    nste.printStackTrace();
+                }
+            }
 		}
 	}
 
@@ -302,8 +320,12 @@ public abstract class GameMode implements Serializable {
 		listOfCharacters.addAll(getAllCharacters());
 
 		/// SELECT A CAPTAIN, SS13 MUST ALWAYS HAVE A CAPTAIN
-		selectCaptain(listOfClients, listOfCharacters);
+		capCl = selectCaptain(listOfClients, listOfCharacters);
         Logger.log("Captain assigned");
+
+        /// ASSIGN AN AI-PLAYER IF ABLE
+        selectAIPlayer(listOfClients, gameData);
+
 		/// ASSIGN ROLES RANDOMLY
 		assignRestRoles(listOfClients, listOfCharacters, gameData);
         Logger.log("Other roles assigned");
@@ -313,11 +335,38 @@ public abstract class GameMode implements Serializable {
 		return listOfCharacters;
 	}
 
+    private void selectAIPlayer(ArrayList<Player> listOfClients, GameData gameData) {
+        List<Player> playersWhoWantToBeAI = new ArrayList<>();
+        for (Player pl : listOfClients) {
+            if (pl.getSettings().get(PlayerSettings.MAKE_ME_AI_IF_ABLE)) {
+                playersWhoWantToBeAI.add(pl);
+            }
+        }
+
+        if (playersWhoWantToBeAI.size() == 0 || MyRandom.nextDouble() < 0.3333) {
+            return;
+        }
 
 
+        try {
+            AIConsole console = gameData.findObjectOfType(AIConsole.class);
+            console.setAIisPlayer(true);
+            aIPlayer = MyRandom.sample(playersWhoWantToBeAI);
+            console.setAIPlayer(aIPlayer);
+            aIPlayer.setCharacter(new AICharacter(gameData.getRoom("AI Core").getID(), console));
+            listOfClients.remove(aIPlayer);
+            events.remove("corrupt ai");
+            gameData.getRoom("AI Core").addObject(new AIMemory(aIPlayer, gameData.getRoom("AI Core")));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
 
-	protected void selectCaptain(ArrayList<Player> clientsRemaining, 
-			ArrayList<GameCharacter> listOfCharacters) {
+
+    }
+
+
+    protected Player selectCaptain(ArrayList<Player> clientsRemaining,
+                                   ArrayList<GameCharacter> listOfCharacters) {
 
 		ArrayList<Player> playersWhoSelectedCaptain = new ArrayList<>();
 		for (Player pl : clientsRemaining) {
@@ -342,7 +391,8 @@ public abstract class GameMode implements Serializable {
 			}
 		}
 		listOfCharacters.remove(gc);
-	}
+        return capCl;
+    }
 
 	protected void assignRestRoles(ArrayList<Player> remainingPlayers,
 			ArrayList<GameCharacter> remainingCharacters, GameData gameData) {
@@ -465,8 +515,7 @@ public abstract class GameMode implements Serializable {
 		res.append("aTraitor:");
 		res.append("aHost:");
 		res.append("aOperative:");
-		res.append("aChangeling");
-
+		res.append("aChangeling:");
 
 		return res.toString();
 	}
@@ -550,4 +599,7 @@ public abstract class GameMode implements Serializable {
     }
 
 
+    public boolean aiIsPlayer() {
+        return aIPlayer != null;
+    }
 }

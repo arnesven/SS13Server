@@ -10,6 +10,8 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.CrimeRecordsAction;
+import model.characters.general.AICharacter;
+import model.characters.general.GameCharacter;
 import model.events.SentenceCountdownEvent;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
@@ -46,7 +48,7 @@ public class CrimeRecordsConsole extends Console {
 
 	@Override
 	protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
-		if (cl.getCharacter().isCrew()) {
+		if (cl.getCharacter().isCrew() || cl.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof AICharacter))) {
 			at.add(new CrimeRecordsAction(this));
 		}
 	}
@@ -95,12 +97,14 @@ public class CrimeRecordsConsole extends Console {
     }
 
 	public int sumCrimesFor(Actor a) {
-		int sumSent = 0;	
-		for (Pair<String, Actor> p : reportMap.get(a)) {
-            try {
-                sumSent += getTimeForCrime(p.first);
-            } catch (NoSuchThingException e) {
-                Logger.log(Logger.CRITICAL, e.getMessage());
+		int sumSent = 0;
+        if (reportMap.get(a) != null) {
+            for (Pair<String, Actor> p : reportMap.get(a)) {
+                try {
+                    sumSent += getTimeForCrime(p.first);
+                } catch (NoSuchThingException e) {
+                    Logger.log(Logger.CRITICAL, e.getMessage());
+                }
             }
         }
 		return sumSent;

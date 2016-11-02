@@ -216,7 +216,6 @@ public abstract class GameCharacter implements Serializable {
 			}
 
 		}
-
 	}
 
 

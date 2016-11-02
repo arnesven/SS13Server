@@ -76,12 +76,18 @@ public class HallOfFame {
     public String getHTMLTable() {
         StringBuilder strb = new StringBuilder();
         strb.append("<b>Hall of Fame<b><br/><table>");
-        SortedMap<Integer, String> ordered = new TreeMap<>(Collections.reverseOrder());
-        for (String name : entries.keySet()) {
-            ordered.put(entries.get(name), name);
-        }
-        for (Map.Entry<Integer, String> entry : ordered.entrySet()) {
-            strb.append("<tr><td>" + entry.getValue() + "</td><td>" + entry.getKey() + "</td></tr>");
+        List<Map.Entry<String, Integer>> list = new ArrayList<>();
+        list.addAll(entries.entrySet());
+
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return o2.getValue()-o1.getValue();
+            }
+        });
+
+        for (Map.Entry<String, Integer> entry : list) {
+            strb.append("<tr><td>" + entry.getKey() + "</td><td>" + entry.getValue() + "</td></tr>");
         }
         strb.append("</table>");
         return strb.toString();

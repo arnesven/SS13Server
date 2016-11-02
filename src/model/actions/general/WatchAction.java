@@ -32,7 +32,13 @@ public class WatchAction extends TargetingAction {
 
 	@Override
 	public boolean isViableForThisAction(Target target2) {
-		return target2 instanceof Player || target2 instanceof NPC;
+
+        boolean visible = true;
+        if (target2 instanceof Actor) {
+            visible = ((Actor) target2).getCharacter().isVisible();
+        }
+
+		return (target2 instanceof Player || target2 instanceof NPC) && visible;
 	}
 
 	@Override

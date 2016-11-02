@@ -134,7 +134,7 @@ public class SuperSuit extends SuitItem {
 
     private void disguise(Actor actionPerformer) {
         Logger.log(Logger.CRITICAL, "actionPerformer is" + actionPerformer.toString());
-        Logger.log(Logger.CRITICAL, "appearAsAcharacter is" + appearAsCharacter.toString());
+        Logger.log(Logger.CRITICAL, "appearAsAcharacter is" + appearAsCharacter.toString()); // <-- crasch here nullptr
         actionPerformer.setCharacter(new DisguisedAs(actionPerformer.getCharacter(), appearAsCharacter.getBaseName()));
     }
 

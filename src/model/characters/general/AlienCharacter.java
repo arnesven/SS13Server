@@ -39,6 +39,11 @@ public class AlienCharacter extends GameCharacter {
         return Weapon.TENTACLE;
     }
 
+//    @Override
+//    public boolean isCrew() {
+//        return false;
+//    }
+
     @Override
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         super.addCharacterSpecificActions(gameData, at);

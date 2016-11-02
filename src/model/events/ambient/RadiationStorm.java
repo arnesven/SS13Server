@@ -88,12 +88,15 @@ public class RadiationStorm extends AmbientEvent {
 		this.damage = randomDamage();
 		side = MyRandom.nextInt(4);
 		String sideStr = gameData.getMap().getSideString(side);
-		
-		for (Player p : gameData.getPlayersAsList()) {
-			p.addTolastTurnInfo("AI; \"Radiation storm detected, please evacuate " + sideStr + " side of station.\"");
-		}
-		
-		for (Room r : gameData.getMap().getSideLocations().get(side)) {
+
+        try {
+            gameData.findObjectOfType(AIConsole.class).informOnStation("AI; \"Radiation storm detected, please evacuate " + sideStr + " side of station.\"", gameData);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+
+
+        for (Room r : gameData.getMap().getSideLocations().get(side)) {
 			r.addEvent(this);
 		}
 		
@@ -128,7 +131,9 @@ public class RadiationStorm extends AmbientEvent {
 
 	@Override
 	public SensoryLevel getSense() {
-		return SensoryLevel.NO_SENSE;
+		return new SensoryLevel(SensoryLevel.VisualLevel.CLEARLY_VISIBLE,
+                                SensoryLevel.AudioLevel.INAUDIBLE,
+                                SensoryLevel.OlfactoryLevel.UNSMELLABLE);
 	}
 	
 	private static double randomDamage() {

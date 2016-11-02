@@ -6,9 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Map.Entry;
 
-import graphics.sprites.SpriteManager;
+import model.characters.general.AICharacter;
+import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
-import model.objects.consoles.CrimeRecordsConsole;
+import model.objects.consoles.AIConsole;
 import model.objects.general.ContainerObject;
 import util.*;
 import model.actions.general.Action;
@@ -128,6 +129,15 @@ public class GameData implements Serializable {
 	public Player getPlayerForClid(String clid) {
 		return players.get(clid);
 	}
+
+    public String getClidForPlayer(Player c) throws NoSuchThingException {
+        for (String id : players.keySet()) {
+            if (players.get(id) == c) {
+                return id;
+            }
+        }
+        throw new NoSuchThingException("No ID for that player!");
+    }
 
 
 	/**
@@ -370,7 +380,8 @@ public class GameData implements Serializable {
 
 	public boolean isAllDead() {
 		for (Player cl : players.values()) {
-			if (!cl.isDead()) {
+			if (!cl.isDead() &&
+                    !cl.getCharacter().checkInstance((GameCharacter a) -> a instanceof AICharacter))  {
 				return false;
 			}
 		}
@@ -533,6 +544,13 @@ public class GameData implements Serializable {
 
 			}
 		}
+
+        try {
+            findObjectOfType(AIConsole.class).addCustomLawToAvailable(sets[2]);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+
         if (sets.length == 4) {
             pl.setSettings(sets[3]);
         }
@@ -651,6 +669,7 @@ public class GameData implements Serializable {
         }
         throw new NoSuchThingException("GameData: Could not find object of type " + className.getName() + "!");
     }
+
 
 
 }

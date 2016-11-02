@@ -14,7 +14,7 @@ import java.util.List;
 public class CaptainsDaughter extends VisitorCharacter {
     public CaptainsDaughter() {
         super("Captain's Daughter", 0, 1.0);
-        putOnSuit(new CaptainsDaughtersOutfit(this));
+        // putOnSuit(new CaptainsDaughtersOutfit(this));
     }
 
     @Override

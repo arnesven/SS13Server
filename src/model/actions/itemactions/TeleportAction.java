@@ -32,7 +32,7 @@ public class TeleportAction extends Action {
         for (Actor a : whosAsking.getPosition().getActors()) {
             if (a == whosAsking) {
                 opt.addOption("Yourself");
-            } else {
+            } else if (a.getAsTarget().isTargetable()){
                 opt.addOption(a.getPublicName());
             }
         }

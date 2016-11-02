@@ -48,7 +48,7 @@ public class BotConsole extends Console {
                 new MeanderingMovement(1.0),
                 new HealOtherBehavior()));
         bp.add(new BotProgram("Bodyguard",
-                new FollowMostWoundedActor(gameData),
+                new FollowMostWoundedActor(gameData),  // should be follow me?
                 new AttackBaddiesBehavior()));
         bp.add(new BotProgram("Repair",
                 new GoTowardsBrokenMovement(gameData),
@@ -71,6 +71,9 @@ public class BotConsole extends Console {
         if (sba.getOptions(gameData, cl).numberOfSuboptions() > 0) {
             at.add(sba);
         }
+
+
+
     }
 
     public void addProgramFromBrain(GameData gameData, Brain selectedBrain) {

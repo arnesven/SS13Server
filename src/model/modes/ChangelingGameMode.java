@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.decorators.CharacterDecorator;
+import model.characters.general.AICharacter;
 import model.events.Event;
 import util.MyRandom;
 import model.Actor;
@@ -50,7 +51,8 @@ public class ChangelingGameMode extends GameMode {
 		
 		for (Player p : gameData.getPlayersAsList()) {
 			if (p.checkedJob("Changeling") && 
-					!(p.getCharacter() instanceof CaptainCharacter)) {
+					!(p.getCharacter() instanceof CaptainCharacter) &&
+                    !(p.getCharacter() instanceof AICharacter) ) {
 				lingPlayers.add(p);
 			}
 		}

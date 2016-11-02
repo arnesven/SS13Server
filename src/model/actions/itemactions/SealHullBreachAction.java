@@ -4,10 +4,13 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.characters.general.GameCharacter;
+import model.characters.general.RobotCharacter;
 import model.events.Event;
 import model.events.ambient.HullBreach;
 import model.items.general.GameItem;
 import model.items.general.Tools;
+import model.npcs.robots.RobotNPC;
 
 import java.util.List;
 
@@ -31,7 +34,7 @@ public class SealHullBreachAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        if (GameItem.hasAnItem(performingClient, new Tools())) {
+        if (GameItem.hasAnItem(performingClient, new Tools()) || isRobot(performingClient.getCharacter())) {
             List<Event> evs = performingClient.getPosition().getEvents();
             for (Event e : evs) {
                 if (e instanceof HullBreach) {
@@ -43,5 +46,9 @@ public class SealHullBreachAction extends Action {
         } else {
             performingClient.addTolastTurnInfo("What? The tools are gone! Your action failed.");
         }
+    }
+
+    private boolean isRobot(GameCharacter character) {
+        return character.checkInstance(((GameCharacter ch) -> ch instanceof RobotCharacter));
     }
 }

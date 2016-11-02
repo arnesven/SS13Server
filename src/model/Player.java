@@ -194,7 +194,7 @@ public class Player extends Actor implements Target, Serializable {
 	public int[] getSelectableLocations(GameData gameData) {
 		int steps = getCharacter().getMovementSteps();
 		if (getCharacter().isEncumbered()) {
-			addTolastTurnInfo("You are carrying to much to be able to run!");
+			addTolastTurnInfo("You are carrying too much to be able to run!");
 		}
 		
 		ArrayList<Integer> movablePlaces = new ArrayList<>();
@@ -359,7 +359,7 @@ public class Player extends Actor implements Target, Serializable {
 
 	@Override
 	public boolean isTargetable() {
-		return !isDead();
+		return !isDead() && getCharacter().isVisible();
 	}
 
 	/**

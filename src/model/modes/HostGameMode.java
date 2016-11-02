@@ -3,6 +3,7 @@ package model.modes;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.characters.general.AICharacter;
 import util.MyRandom;
 import model.Player;
 import model.GameData;
@@ -32,7 +33,8 @@ public class HostGameMode extends GameMode {
 	private void assignHost(GameData gameData) {
 		ArrayList<Player> playersWhoSelectedHost = new ArrayList<>();
 		for (Player pl : gameData.getPlayersAsList()) {
-			if (pl.checkedJob("Host")) {
+			if (pl.checkedJob("Host") &&
+                    !(pl.getCharacter() instanceof AICharacter)) {
 				playersWhoSelectedHost.add(pl);
 			}
 		}
