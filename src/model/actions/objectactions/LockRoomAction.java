@@ -5,6 +5,8 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
+import model.characters.general.AICharacter;
+import model.characters.general.GameCharacter;
 import model.map.Room;
 import model.objects.consoles.KeyCardLock;
 import model.actions.general.SensoryLevel;
@@ -30,7 +32,8 @@ public class LockRoomAction extends Action {
 	
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		if (KeyCard.hasAnItem(performingClient, new KeyCard())) {
+		if (KeyCard.hasAnItem(performingClient, new KeyCard()) ||
+                performingClient.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof AICharacter)) {
 			lock.lockRooms();
 			performingClient.addTolastTurnInfo("You locked the " + to.getName() + ".");
 		} else {

@@ -3,6 +3,7 @@ package model.modes;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.characters.decorators.InfectedCharacter;
 import model.characters.general.AICharacter;
 import util.MyRandom;
 import model.Player;
@@ -179,7 +180,7 @@ public class HostGameMode extends GameMode {
             }
         }
         // Infected team wins
-        if (isAntagonist(value)) {
+        if (isAntagonist(value) && value.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof InfectedCharacter))) {
             return 1;
         } else {
             return 0;

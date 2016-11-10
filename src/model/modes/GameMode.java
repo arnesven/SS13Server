@@ -20,6 +20,7 @@ import model.npcs.*;
 import model.npcs.animals.SnakeNPC;
 import model.npcs.robots.TARSNPC;
 import model.objects.AIMemory;
+import model.objects.AITurret;
 import model.objects.consoles.AIConsole;
 import model.objects.general.VendingMachine;
 import util.Logger;
@@ -343,13 +344,13 @@ public abstract class GameMode implements Serializable {
             }
         }
 
-        if (playersWhoWantToBeAI.size() == 0 || MyRandom.nextDouble() < 0.3333) {
-            return;
-        }
-
-
         try {
             AIConsole console = gameData.findObjectOfType(AIConsole.class);
+            if (playersWhoWantToBeAI.size() == 0 || MyRandom.nextDouble() < 0.0003) {
+                gameData.findObjectOfType(AITurret.class).addPassiveTurretEvent(console, gameData);
+                return;
+            }
+
             console.setAIisPlayer(true);
             aIPlayer = MyRandom.sample(playersWhoWantToBeAI);
             console.setAIPlayer(aIPlayer);
@@ -357,6 +358,7 @@ public abstract class GameMode implements Serializable {
             listOfClients.remove(aIPlayer);
             events.remove("corrupt ai");
             gameData.getRoom("AI Core").addObject(new AIMemory(aIPlayer, gameData.getRoom("AI Core")));
+
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

@@ -489,4 +489,20 @@ public abstract class GameCharacter implements Serializable {
         }
         return OverlaySprites.dummyList();
     }
+
+    public void doBeforeMovement(GameData gameData) {
+
+    }
+
+    public void doAfterMovement(GameData gameData) {
+
+    }
+
+    public void doAfterActions(GameData gameData) {
+
+    }
+
+    public void doAtEndOfTurn(GameData gameData) {
+
+    }
 }

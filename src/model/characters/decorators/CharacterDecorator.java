@@ -355,4 +355,24 @@ public abstract class CharacterDecorator extends GameCharacter {
     public List<String> getOverlayStrings(Player player, GameData gameData) {
         return innerChar.getOverlayStrings(player, gameData);
     }
+
+    @Override
+    public void doBeforeMovement(GameData gameData) {
+        innerChar.doBeforeMovement(gameData);
+    }
+
+    @Override
+    public void doAfterMovement(GameData gameData) {
+        innerChar.doAfterMovement(gameData);
+    }
+
+    @Override
+    public void doAfterActions(GameData gameData) {
+        innerChar.doAfterActions(gameData);
+    }
+
+    @Override
+    public void doAtEndOfTurn(GameData gameData) {
+        innerChar.doAtEndOfTurn(gameData);
+    }
 }

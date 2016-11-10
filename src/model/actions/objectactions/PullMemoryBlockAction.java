@@ -5,6 +5,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.objects.AIMemory;
 import model.objects.consoles.AIConsole;
@@ -16,10 +17,12 @@ import java.util.List;
  */
 public class PullMemoryBlockAction extends Action {
     private final Player aiPlayer;
+    private final GameCharacter aiCharacter;
 
-    public PullMemoryBlockAction(AIMemory aiMemory, Player aiPlayer) {
+    public PullMemoryBlockAction(AIMemory aiMemory, Player aiPlayer, GameCharacter aiCharacter) {
         super("Pull Memory (" + aiMemory.getBlocks() + " blocks left)", SensoryLevel.OPERATE_DEVICE);
         this.aiPlayer = aiPlayer;
+        this.aiCharacter = aiCharacter;
     }
 
     @Override
@@ -29,12 +32,13 @@ public class PullMemoryBlockAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        if (!aiPlayer.isDead()) {
-            performingClient.addTolastTurnInfo("You pulled out memory block nr " + (3 - (int)aiPlayer.getHealth()));
-            aiPlayer.addToHealth(-1.0);
+        if (!aiCharacter.isDead()) {
+            performingClient.addTolastTurnInfo("You pulled out memory block nr " + (4 - (int)aiCharacter.getHealth()));
+            aiCharacter.setHealth(aiCharacter.getHealth() - 1.0);
             aiPlayer.addTolastTurnInfo("Someone is pulling your memory. You can feel your mind is going...");
-            if (aiPlayer.isDead()) {
-                aiPlayer.getCharacter().setKiller(performingClient);
+            if (aiCharacter.isDead()) {
+                aiCharacter.setKiller(performingClient);
+                performingClient.addTolastTurnInfo("You shut down the AI! You're on your own now.");
                 try {
                     gameData.findObjectOfType(AIConsole.class).shutDown(gameData);
                 } catch (NoSuchThingException e) {

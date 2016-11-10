@@ -7,6 +7,8 @@ import model.Target;
 import model.events.AttackOfOpportunityEvent;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
+import model.objects.general.BreakableObject;
+import model.objects.general.GameObject;
 
 
 public class AttackAction extends TargetingAction {
@@ -60,6 +62,9 @@ public class AttackAction extends TargetingAction {
     @Override
 	protected String getVerb(Actor whosAsking) {
 		if (target.isDead()) {
+            if (target instanceof BreakableObject) {
+                return "destroyed";
+            }
 			return "killed";
 		}
 		return getName().toLowerCase() + "ed";

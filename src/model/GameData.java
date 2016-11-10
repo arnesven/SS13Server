@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Map.Entry;
 
+import model.characters.GameCharacterLambda;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
@@ -264,6 +265,7 @@ public class GameData implements Serializable {
 			allClearReady();
 			
 		} else if (gameState == GameState.MOVEMENT) {
+            forEachCharacter(((GameCharacter ch) -> ch.doBeforeMovement(this)));
             MovementData moveData = new MovementData(this);
 			moveAllNPCs();
 			moveAllPlayers();
@@ -272,15 +274,16 @@ public class GameData implements Serializable {
 			allClearLastTurn();
             moveData.informPlayersOfMovements(this);
 			runMovementEvents();
-			
+
 			gameMode.setStartingLastTurnInfo();
+            forEachCharacter(((GameCharacter ch) -> ch.doAfterMovement(this)));
 			allClearReady();
 			clearAllDeadNPCs();
 			gameState = GameState.ACTIONS;
 			
 		} else if (gameState == GameState.ACTIONS) {
 			executeAllActions();
-			
+			forEachCharacter((GameCharacter ch) -> ch.doAfterActions(this));
 			runEvents();
 			executeLateAction();
 			informPlayersOfRoomHappenings();
@@ -298,15 +301,20 @@ public class GameData implements Serializable {
                     ioe.printStackTrace();
                 }
 			}
+            forEachCharacter((GameCharacter ch) -> ch.doAtEndOfTurn(this));
 			allClearReady();
 		}
 		
 	}
 
+    private void forEachCharacter(GameCharacterLambda o) {
+        for (Actor a : getActors()) {
+            o.doAction(a.getCharacter());
+        }
+    }
 
 
-
-	private void runEvents() {
+    private void runEvents() {
         this.runningEvents = true;
         gameMode.triggerEvents(this);
 
@@ -671,5 +679,7 @@ public class GameData implements Serializable {
     }
 
 
-
+    public void removeEvent(Event ev) {
+        events.remove(ev);
+    }
 }

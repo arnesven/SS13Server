@@ -6,6 +6,8 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.characters.general.AICharacter;
+import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.Room;
@@ -31,7 +33,8 @@ public class UnlockRoomAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		if (GameItem.hasAnItem(performingClient, new KeyCard())) {
+		if (GameItem.hasAnItem(performingClient, new KeyCard()) ||
+                performingClient.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof AICharacter)) {
 			lock.unlockRooms();
 			performingClient.addTolastTurnInfo("You unlocked the " + to.getName() + ".");
 			

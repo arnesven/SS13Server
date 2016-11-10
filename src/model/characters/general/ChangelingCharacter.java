@@ -36,6 +36,7 @@ public class ChangelingCharacter extends GameCharacter {
 		setHealth(2.0);
 		current = new ParasiteCharacter();
 		forms.add(current);
+
 	}
 
 	@Override
@@ -167,6 +168,7 @@ public class ChangelingCharacter extends GameCharacter {
 		copy.setActor(this.getActor());
 		forms.add(copy);
 		if (forms.size() == 2) {
+            ultimate.setActor(this.getActor());
 			forms.add(ultimate);
 		}
 	}
@@ -271,7 +273,7 @@ public class ChangelingCharacter extends GameCharacter {
 	}
 
 	public static boolean isDetectable(Target target2) {
-		if (target2.isTargetable()) {
+		if (!target2.isTargetable()) {
 			return false;
 		}
 		if (target2 instanceof GameObject) {
@@ -312,5 +314,15 @@ public class ChangelingCharacter extends GameCharacter {
 
     public void setAcidSprayed(boolean acidSprayed) {
         this.acidSprayed = acidSprayed;
+    }
+
+    @Override
+    public void doAfterMovement(GameData gameData) {
+        super.doAfterMovement(gameData);
+        if (getHealth() < getMaxHealth()) {
+            getActor().addTolastTurnInfo("You regenerated some health.");
+            setHealth(getHealth() + 0.5);
+        }
+
     }
 }

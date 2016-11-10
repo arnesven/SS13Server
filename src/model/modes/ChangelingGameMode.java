@@ -76,6 +76,7 @@ public class ChangelingGameMode extends GameMode {
 		NPC npc = new HumanNPC(ling.getCharacter(), 
 							   ling.getCharacter().getStartingRoom(gameData));
 		ling.getCharacter().setActor(npc);
+
 		gameData.addNPC(npc);
 		decoy = npc;
 		
@@ -86,6 +87,7 @@ public class ChangelingGameMode extends GameMode {
 		
 		lingChar = new ChangelingCharacter(startRoom);
 		ling.setCharacter(lingChar);
+        lingChar.getForm().setActor(ling);
 		lingChar.removeSuit();
 		
 	}

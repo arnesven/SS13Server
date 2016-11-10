@@ -11,6 +11,7 @@ import model.events.ambient.ElectricalFire;
 import model.events.ambient.HullBreach;
 import model.events.ambient.RadiationStorm;
 import model.items.general.GameItem;
+import model.items.general.HidableItem;
 import model.map.Room;
 import model.npcs.ParasiteNPC;
 import model.npcs.PirateNPC;
@@ -197,6 +198,7 @@ public class OverlaySprites {
 
         for (Room r : allRooms) {
             addActorsForRoom(sp, player, r);
+            addItemsForRoom(sp, player, r);
             for (Event e : r.getEvents()) {
                 sp.add(e.getSprite(player));
             }
@@ -250,7 +252,13 @@ public class OverlaySprites {
 
     private static void addItemsForRoom(ArrayList<Sprite> sp, Player player, Room r) {
         for (GameItem it : r.getItems()) {
-            sp.add(it.getSprite(player));
+            if (it instanceof HidableItem) {
+                if (!((HidableItem) it).isHidden()) {
+                      sp.add(it.getSprite(player));
+                }
+            } else {
+                sp.add(it.getSprite(player));
+            }
         }
     }
 

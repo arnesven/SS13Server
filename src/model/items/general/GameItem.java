@@ -168,4 +168,8 @@ public abstract class GameItem implements Locatable, Serializable {
     public boolean isUsableFromFloor() {
         return usableFromFloor;
     }
+
+    public void setName(String newName) {
+        this.name = newName;
+    }
 }

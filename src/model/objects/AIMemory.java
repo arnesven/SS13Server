@@ -5,6 +5,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.PullMemoryBlockAction;
+import model.characters.general.GameCharacter;
 import model.map.Room;
 import model.objects.general.GameObject;
 
@@ -15,10 +16,12 @@ import java.util.ArrayList;
  */
 public class AIMemory extends GameObject {
     private final Player aiPlayer;
+    private final GameCharacter aiCharacter;
 
     public AIMemory(Player aIPlayer, Room room) {
         super("AI Memory Bank", room);
         this.aiPlayer = aIPlayer;
+        this.aiCharacter = aiPlayer.getCharacter();
     }
 
     @Override
@@ -29,11 +32,11 @@ public class AIMemory extends GameObject {
     @Override
     public void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
         if (!aiPlayer.isDead()) {
-            at.add(new PullMemoryBlockAction(this, aiPlayer));
+            at.add(new PullMemoryBlockAction(this, aiPlayer, aiCharacter));
         }
     }
 
     public int getBlocks() {
-        return (int)aiPlayer.getHealth();
+        return (int)(aiCharacter.getHealth());
     }
 }

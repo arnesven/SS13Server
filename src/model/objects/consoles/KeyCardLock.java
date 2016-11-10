@@ -9,6 +9,9 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.LockRoomAction;
 import model.actions.objectactions.UnlockRoomAction;
+import model.characters.general.AICharacter;
+import model.characters.general.GameCharacter;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.GameMap;
@@ -33,7 +36,8 @@ public class KeyCardLock extends Console {
 	
 	@Override
 	public boolean canBeInteractedBy(Actor performingClient) {
-		return performingClient.getPosition() == to || performingClient.getPosition() == from;
+		return performingClient.getPosition() == to || performingClient.getPosition() == from ||
+                performingClient.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof AICharacter);
 	}
 	
 	@Override
@@ -48,6 +52,10 @@ public class KeyCardLock extends Console {
 	}
 
 	private boolean hasKeyCard(Player cl) {
+        if (cl.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof AICharacter)) {
+            return true;
+        }
+
 		for (GameItem it : cl.getItems()) {
 			if (it instanceof KeyCard) {
 				return true;
@@ -89,10 +97,13 @@ public class KeyCardLock extends Console {
 	
 	@Override
 	public void onPowerOff(GameData gameData) {
-		for (Actor a : gameData.getActors()) {
-			a.addTolastTurnInfo("AI; Attention, " + to.getName() + " unlocked because of power failure!");
-		}
-		Logger.log(Logger.INTERESTING, " room unlocked because of power failure!");
+        try {
+            gameData.findObjectOfType(AIConsole.class).informOnStation("AI; Attention, " + to.getName() + " unlocked because of power failure!", gameData);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+
+        Logger.log(Logger.INTERESTING, " room unlocked because of power failure!");
 		unlockRooms();
 	}
 

@@ -42,7 +42,7 @@ public class PutOnAction extends Action {
 		}
 		
 		for (Actor actor : ap.getPosition().getActors()) {
-			if (actor.isDead() && actor.getCharacter().getSuit() != null) {
+			if (actor.isDead() && actor.getCharacter().getSuit() != null && actor.getCharacter().isVisible()) {
 				options.add(actor.getCharacter().getSuit());
 			}
 		}

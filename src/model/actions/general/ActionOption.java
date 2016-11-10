@@ -1,5 +1,7 @@
 package model.actions.general;
 
+import util.MyRandom;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,5 +51,9 @@ public class ActionOption {
 
     public String getName() {
         return name;
+    }
+
+    public ActionOption getRandomOption() {
+        return MyRandom.sample(suboptions);
     }
 }
