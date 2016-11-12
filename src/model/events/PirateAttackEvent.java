@@ -7,6 +7,8 @@ import model.actions.general.SensoryLevel;
 import model.events.ambient.AmbientEvent;
 import model.items.NoSuchThingException;
 import model.map.Room;
+import model.npcs.AbstractPirateNPC;
+import model.npcs.PirateCaptainNPC;
 import model.npcs.PirateNPC;
 import model.objects.consoles.AIConsole;
 import util.MyRandom;
@@ -72,7 +74,12 @@ public class PirateAttackEvent extends AmbientEvent {
         int piratesThisTurn = Math.min(piratesRemainingOnBarge, MyRandom.nextInt(3) + 1);
 
         for (int i = piratesThisTurn; i > 0; --i) {
-            PirateNPC pirate = new PirateNPC(airLock, pirateNum++, targetRoom);
+            AbstractPirateNPC pirate;
+            if (i == 1 && MyRandom.nextDouble() < 0.5) {
+                pirate = new PirateCaptainNPC(airLock, targetRoom);
+            } else {
+                pirate = new PirateNPC(airLock, pirateNum++, targetRoom);
+            }
 
             gameData.addNPC(pirate);
             piratesRemainingOnBarge--;

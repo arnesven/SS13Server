@@ -278,6 +278,7 @@ public abstract class GameMode implements Serializable {
 		Logger.log(" Game Mode: Items added to rooms");
 		
 		addStartingMessages(gameData);
+
 	}
 
 

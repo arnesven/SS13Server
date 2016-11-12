@@ -18,9 +18,10 @@ import java.util.List;
 public class Teleporter extends UplinkItem {
 
     private Room coordinates;
+    private boolean used = false;
 
     public Teleporter() {
-        super("Teleporter", 1.0);
+        super("Teleporter", 0.3);
     }
 
     @Override
@@ -31,10 +32,20 @@ public class Teleporter extends UplinkItem {
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
         super.addYourActions(gameData, at, cl);
-        addMarkCoordinatesAction(gameData, at, cl);
-        if (coordinates != null) {
-            addTeleportAction(gameData, at, cl);
+        if (!used) {
+            addMarkCoordinatesAction(gameData, at, cl);
+            if (coordinates != null) {
+                addTeleportAction(gameData, at, cl);
+            }
         }
+    }
+
+    @Override
+    public String getFullName(Actor whosAsking) {
+        if (used) {
+            return super.getFullName(whosAsking) + "(no charge)";
+        }
+        return super.getFullName(whosAsking);
     }
 
     private void addTeleportAction(GameData gameData, ArrayList<Action> at, Player cl) {
@@ -67,5 +78,9 @@ public class Teleporter extends UplinkItem {
 
     public Room getMarked() {
         return coordinates;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
     }
 }

@@ -45,30 +45,27 @@ public class SS13ServerMain {
                 }
             }
         }
-        ServiceHandler serviceHandler = new ServiceHandler(name, gameData, port);
 
 
+            ServiceHandler serviceHandler = new ServiceHandler(name, gameData, port);
 
-        try {
-			listener = new ServerSocket(port);
-			Logger.log("SS13 server \"" + name + "\" running on " + port  + "...");
+            try {
+                listener = new ServerSocket(port);
+                Logger.log("SS13 server \"" + name + "\" running on " + port + "...");
 
-			do {
-				Socket socket = listener.accept();
+                do {
+                    Socket socket = listener.accept();
 
-				serviceHandler.serv(socket);
+                    serviceHandler.serv(socket);
 
-				socket.close();
-    		} while (true);
+                    socket.close();
+                } while (true);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			listener.close();
-		}
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                listener.close();
+            }
+
 	}
-	
-
-
-
 }

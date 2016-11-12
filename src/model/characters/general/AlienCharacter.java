@@ -25,12 +25,24 @@ public class AlienCharacter extends GameCharacter {
     }
 
     @Override
+    public String getPublicName() {
+		String res = getBaseName();
+		if (isDead()) {
+			return res + " (dead)";
+		}
+		return res;
+	}
+
+    @Override
     public GameCharacter clone() {
         return new AlienCharacter();
     }
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
+        if (isDead()) {
+            return new Sprite("eyeballaliendead", "weapons2.png", 44, 7, 32, 32);
+        }
         return new Sprite("eyeballalien", "weapons2.png", 46, 5, 32, 32);
     }
 
@@ -38,11 +50,7 @@ public class AlienCharacter extends GameCharacter {
     public Weapon getDefaultWeapon() {
         return Weapon.TENTACLE;
     }
-
-//    @Override
-//    public boolean isCrew() {
-//        return false;
-//    }
+    
 
     @Override
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {

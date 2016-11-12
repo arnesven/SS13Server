@@ -10,17 +10,11 @@ import model.npcs.behaviors.*;
 /**
  * Created by erini02 on 26/04/16.
  */
-public class PirateNPC extends HumanNPC {
+public class PirateNPC extends AbstractPirateNPC {
     public PirateNPC(Room room, int num, Room targetRoom) {
-        super(new PirateCharacter(num, room.getID()), room);
-        this.setActionBehavior(new PirateBehavior());
-        this.setMoveBehavior(new MoveTowardsBehavior(targetRoom, new MeanderingHumanMovement(0.1),
-                new AttackAllActorsNotSameClassBehavior()));
-        //this.takeOffSuit();
+        super(room, new PirateCharacter(num, room.getID()), targetRoom);
         putOnSuit(new PirateOutfit(num));
         putOnSuit(new OxygenMask());
-        for (GameItem it : getCharacter().getStartingItems()) {
-            getCharacter().giveItem(it, null);
-        }
+
     }
 }

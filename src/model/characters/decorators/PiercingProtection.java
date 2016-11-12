@@ -26,6 +26,7 @@ public class PiercingProtection extends CharacterDecorator {
         if (getProtectionFrom(weapon)) {
             if (oldHealth > getActor().getCharacter().getHealth()) {
                 // get refunded some health
+                getActor().addTolastTurnInfo("Your armor protects you.");
                 getActor().addToHealth(0.5);
             }
         }
@@ -40,6 +41,7 @@ public class PiercingProtection extends CharacterDecorator {
             if (oldHealth > getActor().getCharacter().getHealth()) {
                 // get refunded some health
                 getActor().addToHealth(0.5);
+                getActor().addTolastTurnInfo("Your armor protects you.");
             }
         }
     }

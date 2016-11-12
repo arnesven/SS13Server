@@ -37,13 +37,19 @@ public class MitosisAction extends Action {
             ab = ((NPC) performingClient).getActionBehavior();
             mov = ((NPC) performingClient).getMovementBehavior();
         }
-
-        gameData.addNPC(new NPC(chara, mov, ab, performingClient.getPosition()) {
+        NPC npc = new NPC(chara, mov, ab, performingClient.getPosition()) {
             @Override
             public boolean hasInventory() {
                 return true;
             }
-        });
+        };
+        gameData.addNPC(npc);
+        if (performingClient.getCharacter().getSuit() != null) {
+            if (npc.getCharacter().getSuit() != null) {
+                npc.takeOffSuit();
+            }
+            npc.putOnSuit(performingClient.getCharacter().getSuit().clone());
+        }
     }
 
     @Override
