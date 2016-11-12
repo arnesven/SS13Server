@@ -2,11 +2,13 @@ package model.mutations;
 
 import model.Actor;
 import model.GameData;
+import model.actions.general.ActionGroup;
 import model.actions.general.FartWrapperAction;
 import model.actions.general.Action;
 import model.characters.decorators.CharacterDecorator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by erini02 on 03/09/16.
@@ -27,7 +29,16 @@ public class FartingMutation extends Mutation {
                 ArrayList<Action> fartWrappedActions = new ArrayList<>();
 
                 for (Action a : at) {
-                    fartWrappedActions.add(new FartWrapperAction(a));
+                    if (a instanceof ActionGroup) {
+                        ActionGroup ag = new ActionGroup(a.getDescription(forWhom));
+                        List<Action> acts = new ArrayList<>();
+                        for (Action a2 : ((ActionGroup) a).getActions()) {
+                            acts.add(new FartWrapperAction(a2));
+                        }
+                        ag.addAll(acts);
+                    } else {
+                        fartWrappedActions.add(new FartWrapperAction(a));
+                    }
                 }
                 at.clear();
                 at.addAll(fartWrappedActions);

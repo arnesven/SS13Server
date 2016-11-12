@@ -85,9 +85,10 @@ public class AITakenOverDecorator extends CharacterDecorator {
                     GameCharacter aiChar = oldNpc.getCharacter();
 
                     oldNpc.setCharacter(performingClient.getCharacter());
+                    performingClient.removeInstance(((GameCharacter gc) -> gc instanceof AITakenOverDecorator));
+
                     performingClient.setCharacter(aiChar);
                     performingClient.addTolastTurnInfo("You uploaded into the mainframe.");
-                    performingClient.removeInstance(((GameCharacter gc) -> gc instanceof AITakenOverDecorator));
 
                 }
 

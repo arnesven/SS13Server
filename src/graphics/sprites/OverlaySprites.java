@@ -34,7 +34,7 @@ public class OverlaySprites {
         for (Room r : gameData.getRooms()) {
 
             ArrayList<Sprite> sprites = new ArrayList<>();
-            for (Event e : r.getEvents()) {
+            for (Event e : r.getEvents()) {  // TODO: got a concurrent modification here!!
                 sprites.add(e.getSprite(player));
             }
 

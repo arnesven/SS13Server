@@ -75,7 +75,7 @@ public class PirateAttackEvent extends AmbientEvent {
 
         for (int i = piratesThisTurn; i > 0; --i) {
             AbstractPirateNPC pirate;
-            if (i == 1 && MyRandom.nextDouble() < 0.5) {
+            if (i == 1 && MyRandom.nextDouble() < 0.5 && piratesRemainingOnBarge == 0) {
                 pirate = new PirateCaptainNPC(airLock, targetRoom);
             } else {
                 pirate = new PirateNPC(airLock, pirateNum++, targetRoom);
