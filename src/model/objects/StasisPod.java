@@ -53,8 +53,9 @@ public class StasisPod extends ElectricalMachinery {
     @Override
     protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
         if (isVacant()) {
-            if (cl.getCharacter().getSuit() != null &&
-                    cl.getCharacter().getSuit().permitsOver()) {
+            if (cl.getCharacter().getSuit() == null ||
+                    (cl.getCharacter().getSuit() != null &&
+                    cl.getCharacter().getSuit().permitsOver())) {
                 at.add(new FreezeYourselfAction(this));
             }
         } else {

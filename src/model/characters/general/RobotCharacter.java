@@ -28,7 +28,7 @@ public class RobotCharacter extends GameCharacter {
     @Override
     public String getPublicName() {
         if (isDead()) {
-            return super.getPublicName() + " (dead)";
+            return super.getPublicName() + " (broken)";
         }
         return super.getPublicName();
     }
