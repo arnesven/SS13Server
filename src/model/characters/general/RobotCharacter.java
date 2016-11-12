@@ -26,6 +26,14 @@ public class RobotCharacter extends GameCharacter {
     }
 
     @Override
+    public String getPublicName() {
+        if (isDead()) {
+            return super.getPublicName() + " (dead)";
+        }
+        return super.getPublicName();
+    }
+
+    @Override
     public boolean wasCriticalHit(Weapon weapon) {
         return false;
     }

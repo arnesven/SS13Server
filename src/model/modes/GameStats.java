@@ -149,13 +149,19 @@ public abstract class GameStats {
 			if (!result.equals("")) {
 				result += ", ";
 			}
-			
-			if (value.getCharacter().getKillerString().equals(value.getBaseName())) {
-				result += "<i>Committed suicide!</i>";
-			} else {
-				result += "<i>Killed by ";
-				result += value.getCharacter().getKillerString() + "</i>";
-			}
+
+            Logger.log("Value is " + value);
+            Logger.log("Value killer string is " + value.getCharacter().getKillerString());
+            if (value.getCharacter().getKillerString() != null) {
+                if (value.getCharacter().getKillerString().equals(value.getBaseName())) {
+                    result += "<i>Committed suicide!</i>";
+                } else {
+                    result += "<i>Killed by ";
+                    result += value.getCharacter().getKillerString() + "</i>";
+                }
+            } else {
+                result += "<i>Killed by unknown";
+            }
 		}
 		
 		return result;

@@ -231,7 +231,9 @@ public class AIConsole extends Console {
             }
             i++;
         }
-        aiLaws.remove(i);
+        if (i < getLaws().size()) {
+            aiLaws.remove(i);
+        }
     }
 
     public List<AILaw> getOriginalLaws() {
