@@ -47,13 +47,13 @@ public class MapBuilder {
 
         result.add(green);
 		result.add(new Room( 4, "Airtunnel"           , ""       , 3,  7, 1, 1, new int[]{3, 5}      ,         new double[]{3.0, 7.5, 4.0, 7.5}, RoomType.hall));
-		result.add(new Room( 5, "Aft Hall"            , ""       , 4,  4, 2, 4, new int[]{1, 2, 4, 9, 26, 23}, new double[]{6.0, 4.5, 6.0, 6.5, 5.5, 8.0}, RoomType.hall));
+		result.add(new Room( 5, "Aft Hall"            , "AFT"    , 4,  4, 2, 4, new int[]{1, 2, 4, 9, 26, 23}, new double[]{6.0, 4.5, 6.0, 6.5, 5.5, 8.0}, RoomType.hall));
 		result.add(new Room( 6, "Aft Walkway"         , ""       , 2, 10, 2, 1, new int[]{3, 7, 8}   ,         new double[]{2.5, 10.0, 4.0, 10.5}, RoomType.hall));
 		result.add(new AirLockRoom( 7,  1, 2, 11, 1, 1, new int[]{6}         ,         new double[]{2.5, 11.0} ));
 		
 		KitchenRoom kitch = new KitchenRoom(8,  4, 10, 2, 3, new int[]{6, 9, 10}  ,         new double[]{6.0, 11.5, 5.5, 10.0} );
 		result.add(kitch); 
-		result.add(new Room( 9, "Starboard Hall Aft"  , ""       , 5,  8, 4, 2, new int[]{5, 8, 10, 11},       new double[]{9.0, 9.5}, RoomType.hall ));
+		result.add(new Room( 9, "Starboard Hall Aft"  , "S T A R -" , 5,  8, 4, 2, new int[]{5, 8, 10, 11},       new double[]{9.0, 9.5}, RoomType.hall ));
 
 
         Room bar = new BarRoom(10, 6, 10, 3, 2, new int[]{8, 9, 12}  ,         new double[]{7.5, 10.0, 9.0, 11.5}, RoomType.support);
@@ -61,12 +61,12 @@ public class MapBuilder {
                 new MeanderingMovement(0.0), new TellRumorsBehavior(), bar);
         gameData.addNPC(bar2d2);
         result.add(bar);
-		result.add(new Room(11, "Starboard Hall Front", ""       , 9,  9, 3, 2, new int[]{9, 12, 13} ,         new double[]{12.0, 9.5}, RoomType.hall ));
+		result.add(new Room(11, "Starboard Hall Front", "B O A R D"       , 9,  9, 3, 2, new int[]{9, 12, 13} ,         new double[]{12.0, 9.5}, RoomType.hall ));
 		Room dorms = new Room(12, "Dorms"               , "Dorm"   , 9, 11, 4, 3, new int[]{10, 11, 14},         new double[]{10.5, 11.0, 13.0, 11.5} , RoomType.support);
 		dorms.addObject(new Lockers(dorms));
         dorms.addObject((new StasisPod(dorms)));
 		result.add(dorms);
-		result.add(new Room(13, "Front Hall"          , ""       ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{13.5, 10.0, 12.0, 8.0, 13.5, 6.0}, RoomType.hall ));
+		result.add(new Room(13, "Front Hall"          , "FRONT"     ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{13.5, 10.0, 12.0, 8.0, 13.5, 6.0}, RoomType.hall ));
 		Room office = new Room(14, "Office"              , "Offc"   ,13, 10, 2, 2, new int[]{12, 13}    ,         new double[]{}, RoomType.command );
 		office.addObject(new AdministrationConsole(office));
 		result.add(office);
@@ -113,7 +113,7 @@ public class MapBuilder {
 		}
 
 		result.add(army);
-		result.add(new Room(23, "Port Hall Aft"       , ""       , 6,  3, 4, 2, new int[]{19, 24, 5} ,         new double[]{7.5, 3.0, }, RoomType.hall ));
+		result.add(new Room(23, "Port Hall Aft"       , "P O R T"       , 6,  3, 4, 2, new int[]{19, 24, 5} ,         new double[]{7.5, 3.0, }, RoomType.hall ));
 		Room sickbay = new Room(24, "Sickbay"             , "Sick"   , 6,  0, 3, 3, new int[]{23, 25, 1} ,         new double[]{}, RoomType.science );
 		sickbay.addObject(new MedkitDispenser(3, sickbay));
         sickbay.addObject(new StasisPod(sickbay));

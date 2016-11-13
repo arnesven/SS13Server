@@ -18,7 +18,7 @@ public class IDMessageHandler implements MessageHandler {
 	@Override
 	public boolean handle(String message, ObjectOutputStream oos) throws IOException {
 		if (message.contains("IDENT ME")) {
-			if (gameData.getGameState() == GameState.PRE_GAME) {
+//			if (gameData.getGameState() == GameState.PRE_GAME) {
 				try {
 					
 					String clid = gameData.createNewClient(message.replace("IDENT ME", ""));
@@ -29,9 +29,9 @@ public class IDMessageHandler implements MessageHandler {
 					oos.writeObject("ERROR" + ise.getMessage());
 					return true;
 				}
-			} else {
-				oos.writeObject("ERROR" + "GAME ALREADY STARTED!");
-			}
+//			} else {
+//				oos.writeObject("ERROR" + "GAME ALREADY STARTED!");
+//			}
 			return true;	
 
 		} 

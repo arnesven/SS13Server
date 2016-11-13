@@ -33,6 +33,7 @@ import model.items.general.MedKit;
 import model.items.weapons.Weapon;
 import model.map.Room;
 import model.objects.general.GameObject;
+import util.HTMLFont;
 import util.Logger;
 
 
@@ -559,7 +560,7 @@ public class Player extends Actor implements Target, Serializable {
 
 	public void beInfected(Actor performingClient) {
 		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
-		this.addTolastTurnInfo("You were infected by " + performingClient.getPublicName() + 
+		this.addTolastTurnInfo("You were " + HTMLFont.makeText("green", "infected") + " by " + performingClient.getPublicName() +
 				"! You are now on the Host team. Keep the humans from destroying the hive!");
 
 	}

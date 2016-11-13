@@ -8,6 +8,7 @@ import java.util.Map;
 import model.characters.general.AICharacter;
 import model.objects.consoles.AIConsole;
 import model.objects.general.NuclearBomb;
+import util.HTMLFont;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -171,7 +172,7 @@ public class OperativesGameMode extends GameMode {
 			}
 		}
 		
-		c.addTolastTurnInfo("You are a nuclear operative! " + 
+		c.addTolastTurnInfo(HTMLFont.makeText("red", "You are a nuclear operative!") +
 							"Infiltrate the station and find the nuclear disk. " + 
 							"Then leave the station through an airlock. " + 
 							"You can pretend to be the " + decoys.get(c).getBaseName() + 

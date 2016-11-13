@@ -23,6 +23,7 @@ import model.objects.AIMemory;
 import model.objects.AITurret;
 import model.objects.consoles.AIConsole;
 import model.objects.general.VendingMachine;
+import util.HTMLFont;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -104,6 +105,7 @@ public abstract class GameMode implements Serializable {
     private boolean hallOfFameUpdated = false;
     private Player aIPlayer = null;
     private Player capCl = null;
+    private List<GameCharacter> remainingChars;
 
     public GameMode() {
 		events.put("fires", new ElectricalFire());
@@ -250,6 +252,12 @@ public abstract class GameMode implements Serializable {
      */
     public abstract Integer getPointsForPlayer(GameData gameData, Player value);
 
+
+    protected void gameModeSpecificSetupForLateJoiner(Player newPlayer, GameData gameData) {
+
+    }
+
+
 	protected List<GameCharacter> getAllCharacters() {
 		List<GameCharacter> list = new ArrayList<>();
 		list.addAll(availableChars().values());
@@ -258,7 +266,7 @@ public abstract class GameMode implements Serializable {
 
 	public void setup(GameData gameData) {
 		Logger.log("Game Modes: Going to assign roles");
-		List<GameCharacter> remainingChars = assignCharactersToPlayers(gameData);
+		remainingChars = assignCharactersToPlayers(gameData);
 		Logger.log(" Game Mode: Setup: Characters assigned");
 		moveCharactersIntoStartingRooms(gameData);
 		Logger.log(" Game Mode: Setup: Characters moved into starting rooms");
@@ -284,30 +292,32 @@ public abstract class GameMode implements Serializable {
 
 	protected void addStartingMessages(GameData gameData) {
 		for (Player c : gameData.getPlayersAsList()) {
-			if (isAntagonist(c)) {
-				addAntagonistStartingMessage(c);
-			} else {
-				addProtagonistStartingMessage(c);
-			}
-            if (aIPlayer != null) {
-                try {
-                    if (c == aIPlayer) {
-                        c.addTolastTurnInfo(AICharacter.getStartingMessage());
-                        c.addTolastTurnInfo(gameData.getClidForPlayer(capCl) + " is the Captain.");
-                    } else {
-                        c.addTolastTurnInfo(gameData.getClidForPlayer(aIPlayer) + " is the AI.");
-                    }
-                } catch (NoSuchThingException nste) {
-                    nste.printStackTrace();
-                }
-            }
+			addStartingMessage(gameData, c);
 		}
 	}
 
+    private void addStartingMessage(GameData gameData, Player c) {
+        if (isAntagonist(c)) {
+            addAntagonistStartingMessage(c);
+        } else {
+            addProtagonistStartingMessage(c);
+        }
+        if (aIPlayer != null) {
+            try {
+                if (c == aIPlayer) {
+                    c.addTolastTurnInfo(AICharacter.getStartingMessage());
+                    c.addTolastTurnInfo(gameData.getClidForPlayer(capCl) + " is the Captain.");
+                } else {
+                    c.addTolastTurnInfo(HTMLFont.makeText("blue", gameData.getClidForPlayer(aIPlayer) + " is the AI."));
+                }
+            } catch (NoSuchThingException nste) {
+                nste.printStackTrace();
+            }
+        }
+    }
 
 
-
-	/**
+    /**
 	 * this method is called as the first step of the setup
 	 * at the beginning of the game. Players should receive
 	 * their characters in this step.
@@ -347,7 +357,7 @@ public abstract class GameMode implements Serializable {
 
         try {
             AIConsole console = gameData.findObjectOfType(AIConsole.class);
-            if (playersWhoWantToBeAI.size() == 0 || MyRandom.nextDouble() < 0.0003) {
+            if (playersWhoWantToBeAI.size() == 0 || MyRandom.nextDouble() < 0.33) {
                 gameData.findObjectOfType(AITurret.class).addPassiveTurretEvent(console, gameData);
                 return;
             }
@@ -416,16 +426,21 @@ public abstract class GameMode implements Serializable {
 			}
 
 			GameCharacter selected = candidates.remove(MyRandom.nextInt(candidates.size()));
-            if (selected instanceof VisitorCharacter) {
-                selected = MyRandom.sample(((VisitorCharacter)selected).getSubtypes());
-            }
+            setPlayersCharacter(cl, selected, remainingCharacters);
 
-			cl.setCharacter(selected);
-			remainingCharacters.remove(selected);
 		}
 	}
 
-	private void moveCharactersIntoStartingRooms(GameData gameData) {
+    private void setPlayersCharacter(Player cl, GameCharacter selected,
+                                     List<GameCharacter> remainingCharacters) {
+        if (selected instanceof VisitorCharacter) {
+            selected = MyRandom.sample(((VisitorCharacter)selected).getSubtypes());
+        }
+        cl.setCharacter(selected);
+        remainingCharacters.remove(selected);
+    }
+
+    private void moveCharactersIntoStartingRooms(GameData gameData) {
 		for (Player c : gameData.getPlayersAsList()) {
 			Room startRoom = c.getCharacter().getStartingRoom(gameData);
 			c.moveIntoRoom(startRoom);
@@ -452,7 +467,7 @@ public abstract class GameMode implements Serializable {
 
 	//	testShortestDistance(gameData);
 
-		int noOfNPCs = Math.min(MyRandom.nextInt(3) + 4, remainingChars.size());
+		int noOfNPCs = noOfNPCs();
 		for ( ; noOfNPCs > 0 ; noOfNPCs--) {
 			GameCharacter gc;
 			if (remainingChars.size() == 0) {
@@ -475,8 +490,13 @@ public abstract class GameMode implements Serializable {
 		}
 	}
 
+    private int noOfNPCs() {
+        return Math.min(MyRandom.nextInt(3) + 5, remainingChars.size());
+        //return Math.min(16, remainingChars.size());
+    }
 
-	private void giveCharactersStartingItems(GameData gameData) {
+
+    private void giveCharactersStartingItems(GameData gameData) {
 		List<Actor> actors = new ArrayList<Actor>();
 		actors.addAll(gameData.getPlayersAsList());
 		actors.addAll(gameData.getNPCs());
@@ -605,4 +625,30 @@ public abstract class GameMode implements Serializable {
     public boolean aiIsPlayer() {
         return aIPlayer != null;
     }
+
+    public void lateJoiningPlayer(Player newPlayer, GameData gameData) {
+        GameCharacter chAr;
+        if (remainingChars.size() == 0) {
+            chAr = MyRandom.sample(VisitorCharacter.getSubtypes());
+            newPlayer.setCharacter(chAr);
+        } else {
+            chAr = MyRandom.sample(remainingChars);
+            setPlayersCharacter(newPlayer, chAr, remainingChars);
+        }
+
+        gameModeSpecificSetupForLateJoiner(newPlayer, gameData);
+
+        newPlayer.moveIntoRoom(gameData.getRoom("Shuttle Gate"));
+
+        List<GameItem> startingItems = newPlayer.getCharacter().getStartingItems();
+        Logger.log("Giving starting items to " + newPlayer.getPublicName());
+        for (GameItem it : startingItems) {
+            newPlayer.addItem(it, null);
+        }
+
+        addStartingMessage(gameData, newPlayer);
+
+    }
+
+
 }

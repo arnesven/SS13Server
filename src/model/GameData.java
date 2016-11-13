@@ -155,8 +155,15 @@ public class GameData implements Serializable {
 		if (getClientsAsMap().containsKey(clid)) {
 			throw new IllegalStateException("THAT USER NAME ALREADY TAKEN!");
 		}
-		
-		players.put(clid, new Player(this));
+
+        Player newPlayer = new Player(this);
+		players.put(clid, newPlayer);
+
+        if (getGameState() != GameState.PRE_GAME) { // already started
+            newPlayer.prepForNewGame();
+            gameMode.lateJoiningPlayer(newPlayer, this);
+        }
+
 		return clid;
 	}
 
@@ -164,7 +171,7 @@ public class GameData implements Serializable {
 	private String getRandomClid() {
 		String clid;
 		do {
-			clid = new String("CL" + (MyRandom.nextInt(900)+100));
+            clid = MyRandom.getRandomName();
 		} while (getClientsAsMap().containsKey(clid));
 		return clid;
 	}

@@ -16,6 +16,7 @@ import model.npcs.animals.ChimpNPC;
 import model.npcs.behaviors.CrazyBehavior;
 import model.npcs.robots.TARSNPC;
 import model.objects.consoles.CrimeRecordsConsole;
+import util.HTMLFont;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -49,7 +50,7 @@ public class TraitorGameMode extends GameMode {
     private static final int BAD_SECURITY = 10;
     private List<Player> traitors = new ArrayList<>();
 	private HashMap<Player, TraitorObjective> objectives = new HashMap<>();
-	private String TRAITOR_START_STRING = "You are a traitor!";
+	private String TRAITOR_START_STRING = HTMLFont.makeText("orange", "You are a traitor!");
 	private String CREW_START_STRING = "There are traitors on the station. Find them and stop them before they ruin everything!";
 
     @Override
@@ -103,7 +104,19 @@ public class TraitorGameMode extends GameMode {
 		}
 	}
 
-	private TraitorObjective createRandomObjective(Player traitor, GameData gameData) {
+    @Override
+    protected void gameModeSpecificSetupForLateJoiner(Player newPlayer, GameData gameData) {
+
+        if (MyRandom.nextDouble() < 0.34) {
+            TraitorObjective obj = createRandomObjective(newPlayer, gameData);
+            newPlayer.setCharacter(new TraitorCharacter(newPlayer.getCharacter()));
+            objectives.put(newPlayer, obj);
+            newPlayer.addItem(new PDA(this), null);
+            traitors.add(newPlayer);
+        }
+    }
+
+    private TraitorObjective createRandomObjective(Player traitor, GameData gameData) {
 		GameItem it = MyRandom.sample(stealableItems(gameData));
 		Logger.log("Steal-item is " + it.getBaseName());
 		for (Player p : gameData.getPlayersAsList()) {

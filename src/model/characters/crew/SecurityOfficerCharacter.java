@@ -25,9 +25,9 @@ public class SecurityOfficerCharacter extends CrewCharacter {
     public void setActor(Actor c) {
         super.setActor(c);
         if (!actorSet) {
+            actorSet = true;
             c.putOnSuit(new SecOffsVest());
             c.putOnSuit(new SecOffsHelmet());
-            actorSet = true;
         }
     }
 

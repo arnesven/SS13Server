@@ -8,6 +8,7 @@ import graphics.sprites.NakedHumanSprite;
 import graphics.sprites.OverlaySprites;
 import graphics.sprites.Sprite;
 import model.*;
+import util.HTMLFont;
 import util.Logger;
 import util.MyRandom;
 import model.actions.general.Action;
@@ -138,11 +139,16 @@ public abstract class GameCharacter implements Serializable {
             verb = "kill";
             second = second.replace(" (dead)", "");
         }
-        whom.addTolastTurnInfo(first + " " +
+        String msg = first + " " +
                 verb + "ed " + second + " with " +
-                weapon.getPublicName(getActor()) + ".");
+                weapon.getPublicName(getActor()) + ".";
+        if (verb.equals("kill") && second.equals("you")) {
+            msg = HTMLFont.makeText("red", msg);
+        }
+
+        whom.addTolastTurnInfo(msg);
         if (weapon.wasCriticalHit()) {
-            whom.addTolastTurnInfo(critMess + "!");
+            whom.addTolastTurnInfo(HTMLFont.makeText("red", critMess + "!"));
         }
 
     }
@@ -203,7 +209,9 @@ public abstract class GameCharacter implements Serializable {
 	public void beExposedTo(Actor something, Damager damager) {
 		boolean reduced = false;
         Logger.log(this.getFullName() + " got hit by " + damager.getName());
-		getActor().addTolastTurnInfo(damager.getText());
+        if (!isDead()) {
+            getActor().addTolastTurnInfo(damager.getText());
+        }
 
 		if (damager.isDamageSuccessful(reduced)) {
 			boolean wasDeadAlready = isDead();

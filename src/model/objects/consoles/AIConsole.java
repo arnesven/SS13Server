@@ -30,6 +30,7 @@ import model.npcs.behaviors.FindHumansMovement;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.robots.RobotNPC;
 import model.objects.general.GameObject;
+import util.HTMLFont;
 
 public class AIConsole extends Console {
 
@@ -148,7 +149,7 @@ public class AIConsole extends Console {
         if (!isCorrupt() && !isShutDown() && !AIIsPlayer()) {
             for (Room r : gameData.getRooms()) {
                 for (Actor a : r.getActors()) {
-                    a.addTolastTurnInfo("AI; \"" + s + "\"");
+                    a.addTolastTurnInfo(HTMLFont.makeText("orange", "AI; \"" + s + "\""));
                 }
             }
         }

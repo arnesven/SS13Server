@@ -42,7 +42,7 @@ public abstract class VisitorCharacter extends CrewCharacter {
         return room;
     }
 
-    public List<GameCharacter> getSubtypes() {
+    public static List<GameCharacter> getSubtypes() {
         List<GameCharacter> chars = new ArrayList<>();
         chars.add(new TouristCharacter());
         chars.add(new CaptainsDaughter());

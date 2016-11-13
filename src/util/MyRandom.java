@@ -17,10 +17,13 @@ import model.map.Room;
 
 public class MyRandom {
 	public static Random random = new Random();
+    private static final boolean LOG_RANDOM_NUMBERS = false;
 
 	public static double nextDouble() {
 		double d = random.nextDouble();
-		write_to_file("random_doubles", d + " ");
+        if (LOG_RANDOM_NUMBERS) {
+            write_to_file("random_doubles", d + " ");
+        }
 		
 		return d;
 	}
@@ -48,7 +51,9 @@ public class MyRandom {
 
 	public static int nextInt(int size) {
 		int i = random.nextInt(size);
-		write_to_file("random_ints", i + " (0 to " + size + "), ");
+        if (LOG_RANDOM_NUMBERS) {
+            write_to_file("random_ints", i + " (0 to " + size + "), ");
+        }
 		return i;
 	}
 
@@ -159,5 +164,14 @@ public class MyRandom {
         roomList.add(gameData.getRoom("Shuttle Gate"));
 
         return sample(roomList);
+    }
+
+    public static String getRandomName() {
+        try {
+            return getRandomLineFromFile("resources/NAMES.TXT");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return "NAME_FILE_NOT_FOUND";
+        }
     }
 }
