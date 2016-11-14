@@ -156,8 +156,10 @@ public class OperativesGameMode extends GameMode {
 	@Override
 	public void setStartingLastTurnInfo() {
 		for (Player p : operatives) {
-			p.addTolastTurnInfo("Your decoy is " + decoys.get(p).getBaseName() + 
-							" (in " + decoys.get(p).getPosition().getName() + ")");
+            p.addTolastTurnInfo("Infiltrate the station and find the nuclear disk. " +
+                                "Then leave the station through an airlock. " +
+                                "Your decoy is " + decoys.get(p).getBaseName() +
+							    " (in " + decoys.get(p).getPosition().getName() + ")");
 		}
 
 	}
@@ -173,7 +175,7 @@ public class OperativesGameMode extends GameMode {
 		}
 		
 		c.addTolastTurnInfo(HTMLFont.makeText("red", "You are a nuclear operative!") +
-							"Infiltrate the station and find the nuclear disk. " + 
+							" Infiltrate the station and find the nuclear disk. " +
 							"Then leave the station through an airlock. " + 
 							"You can pretend to be the " + decoys.get(c).getBaseName() + 
 							" (in " + decoys.get(c).getPosition().getName() + ")");

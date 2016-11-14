@@ -1,5 +1,6 @@
 package model.programs;
 
+import model.Actor;
 import model.npcs.robots.RobotNPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.MovementBehavior;
@@ -24,7 +25,7 @@ public class BotProgram implements Serializable {
         return this.name;
     }
 
-    public void loadInto(RobotNPC selectedBot) {
+    public void loadInto(RobotNPC selectedBot, Actor whosAsking) {
         selectedBot.setMoveBehavior(this.moveBehave);
         selectedBot.setActionBehavior(this.actBehave);
     }

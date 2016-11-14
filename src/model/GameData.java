@@ -161,6 +161,7 @@ public class GameData implements Serializable {
 
         if (getGameState() != GameState.PRE_GAME) { // already started
             newPlayer.prepForNewGame();
+            newPlayer.setNextAction(new DoNothingAction());
             gameMode.lateJoiningPlayer(newPlayer, this);
         }
 

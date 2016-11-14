@@ -455,7 +455,7 @@ public class TraitorGameMode extends GameMode {
 	}
 
 	private double getTotalPointsForCrew(GameData gameData) {
-		return getNoOfTraitors(gameData)*POINTS_FOR_CREW_PER_TRATIOR;
+		return traitors.size()*POINTS_FOR_CREW_PER_TRATIOR;
 	}
 
 	public int pointsFromTARS(GameData gameData) {

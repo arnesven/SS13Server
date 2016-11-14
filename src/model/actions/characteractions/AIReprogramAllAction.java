@@ -36,7 +36,7 @@ public class AIReprogramAllAction extends Action {
         ActionOption opts = super.getOptions(gameData, whosAsking);
 
         try {
-            for (BotProgram bp : gameData.findObjectOfType(BotConsole.class).getPrograms(gameData)) {
+            for (BotProgram bp : gameData.findObjectOfType(BotConsole.class).getPrograms(gameData, whosAsking)) {
                 if (! (bp instanceof BrainBotProgram)) {
                     opts.addOption(bp.getName());
                 }
@@ -52,7 +52,7 @@ public class AIReprogramAllAction extends Action {
     protected void execute(GameData gameData, Actor performingClient) {
         for (Actor a : gameData.getNPCs()) {
             if (a instanceof RobotNPC && !a.isDead()) {
-                selectedProgram.loadInto((RobotNPC)a);
+                selectedProgram.loadInto((RobotNPC)a, performingClient);
                 performingClient.addTolastTurnInfo(a.getBaseName() + " was given new instructions.");
             }
         }
@@ -61,7 +61,7 @@ public class AIReprogramAllAction extends Action {
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
         try {
-            for (BotProgram bp : gameData.findObjectOfType(BotConsole.class).getPrograms(gameData)) {
+            for (BotProgram bp : gameData.findObjectOfType(BotConsole.class).getPrograms(gameData, performingClient)) {
                 if (bp.getName().equals(args.get(0))) {
                     selectedProgram = bp;
                 }

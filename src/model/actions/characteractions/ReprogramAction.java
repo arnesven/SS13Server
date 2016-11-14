@@ -42,7 +42,7 @@ public class ReprogramAction extends Action {
             if (a instanceof RobotNPC) {
                 ActionOption sub = new ActionOption(a.getPublicName());
                 try {
-                    addProgramOpts(gameData, sub);
+                    addProgramOpts(gameData, sub, whosAsking);
                 } catch (NoSuchThingException e) {
                     throw new IllegalStateException("No bot console found on station.");
                 }
@@ -52,8 +52,8 @@ public class ReprogramAction extends Action {
         return option;
     }
 
-    private void addProgramOpts(GameData gameData, ActionOption sub) throws NoSuchThingException {
-        List<BotProgram> programs = gameData.findObjectOfType(BotConsole.class).getPrograms(gameData);
+    private void addProgramOpts(GameData gameData, ActionOption sub, Actor whosAsking) throws NoSuchThingException {
+        List<BotProgram> programs = gameData.findObjectOfType(BotConsole.class).getPrograms(gameData, whosAsking);
         for (BotProgram bp : programs) {
             sub.addOption(bp.getName());
         }
@@ -73,13 +73,13 @@ public class ReprogramAction extends Action {
                 return;
             }
             BotProgram selectedProgram = null;
-            for (BotProgram bp : gameData.findObjectOfType(BotConsole.class).getPrograms(gameData)) {
+            for (BotProgram bp : gameData.findObjectOfType(BotConsole.class).getPrograms(gameData, performingClient)) {
                 if (progString.equals(bp.getName())) {
                     selectedProgram = bp;
                 }
             }
             if (! gameData.findObjectOfType(AIConsole.class).isCorrupt()) {
-                selectedProgram.loadInto(selectedBot);
+                selectedProgram.loadInto(selectedBot, performingClient);
             }
             performingClient.addTolastTurnInfo("You reprogrammed " + selectedBot.getPublicName() + ".");
         } catch (NoSuchThingException nste) {

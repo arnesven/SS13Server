@@ -433,10 +433,11 @@ public abstract class GameMode implements Serializable {
 
     private void setPlayersCharacter(Player cl, GameCharacter selected,
                                      List<GameCharacter> remainingCharacters) {
+        GameCharacter chAr = selected;
         if (selected instanceof VisitorCharacter) {
-            selected = MyRandom.sample(((VisitorCharacter)selected).getSubtypes());
+            chAr = MyRandom.sample(((VisitorCharacter)selected).getSubtypes());
         }
-        cl.setCharacter(selected);
+        cl.setCharacter(chAr);
         remainingCharacters.remove(selected);
     }
 
@@ -647,7 +648,14 @@ public abstract class GameMode implements Serializable {
         }
 
         addStartingMessage(gameData, newPlayer);
-
+        try {
+            gameData.findObjectOfType(AIConsole.class).informOnStation(
+                    gameData.getClidForPlayer(newPlayer) + " the " + chAr.getBaseName() +
+                    " has arrived late for " +
+                            (chAr.getGender().equals("man")?"his":"her") + " shift.", gameData);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package model.programs;
 
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.characters.general.GameCharacter;
@@ -26,8 +27,8 @@ public class BrainBotProgram extends BotProgram {
     }
 
     @Override
-    public void loadInto(RobotNPC selectedBot) {
-        console.removeProgram(this, gameData);
+    public void loadInto(RobotNPC selectedBot, Actor whosAsking) {
+        console.removeProgram(this, gameData, whosAsking);
 
         // switch the bots character with the brains character
 

@@ -39,7 +39,7 @@ public class AIProgramBotAction extends Action {
         for (Actor a : gameData.getNPCs()) {
             if (a instanceof RobotNPC && !a.isDead()) {
                 ActionOption subopt = new ActionOption(a.getBaseName());
-                addPrograms(gameData, subopt);
+                addPrograms(gameData, subopt, whosAsking);
 
                 opt.addOption(subopt);
             }
@@ -48,9 +48,9 @@ public class AIProgramBotAction extends Action {
         return opt;
     }
 
-    private void addPrograms(GameData gameData, ActionOption subopt) {
+    private void addPrograms(GameData gameData, ActionOption subopt, Actor whosAsking) {
         try {
-            for (BotProgram bp : gameData.findObjectOfType(BotConsole.class).getPrograms(gameData)) {
+            for (BotProgram bp : gameData.findObjectOfType(BotConsole.class).getPrograms(gameData, whosAsking)) {
                 subopt.addOption(bp.getName());
             }
         } catch (NoSuchThingException e) {
@@ -60,7 +60,7 @@ public class AIProgramBotAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        selectedProgram.loadInto(selectedBot);
+        selectedProgram.loadInto(selectedBot, performingClient);
         performingClient.addTolastTurnInfo(selectedBot.getBaseName() + " was given new instructions.");
     }
 
@@ -73,7 +73,7 @@ public class AIProgramBotAction extends Action {
         }
 
         try {
-            for (BotProgram bp : gameData.findObjectOfType(BotConsole.class).getPrograms(gameData)) {
+            for (BotProgram bp : gameData.findObjectOfType(BotConsole.class).getPrograms(gameData, performingClient)) {
                 if (args.get(1).equals(bp.getName())) {
                     selectedProgram = bp;
                 }

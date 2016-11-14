@@ -11,11 +11,13 @@ import model.objects.general.GameObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by erini02 on 18/04/16.
  */
 public class AttackBaddiesBehavior extends AttackIfPossibleBehavior {
+
 
     @Override
     protected List<Target> getTargets(NPC npc, GameData gameData, AttackAction atk) {
@@ -33,6 +35,7 @@ public class AttackBaddiesBehavior extends AttackIfPossibleBehavior {
         }
         return targets;
     }
+
 
     private boolean isBaddie(Actor t) {
         return t.getCharacter().checkInstance(new InstanceChecker() {
@@ -57,5 +60,6 @@ public class AttackBaddiesBehavior extends AttackIfPossibleBehavior {
             }
         }));
     }
+
 
 }

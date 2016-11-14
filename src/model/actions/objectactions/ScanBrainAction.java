@@ -46,7 +46,7 @@ public class ScanBrainAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         performingClient.getItems().remove(selectedBrain);
-        botConsole.addProgramFromBrain(gameData, selectedBrain);
+        botConsole.addProgramFromBrain(gameData, selectedBrain, performingClient);
         performingClient.addTolastTurnInfo("You scanned a brain.");
     }
 

@@ -1,5 +1,6 @@
 package model.objects.consoles;
 
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -26,14 +27,14 @@ public class BotConsole extends Console {
         super("Mainframe Console", r);
     }
 
-    public List<BotProgram> getPrograms(GameData gameData) {
+    public List<BotProgram> getPrograms(GameData gameData, Actor whosAsking) {
         if (programs == null) {
-            programs = loadDefaultPrograms(gameData);
+            programs = loadDefaultPrograms(gameData, whosAsking);
         }
         return programs;
     }
 
-    private static List<BotProgram> loadDefaultPrograms(GameData gameData) {
+    private static List<BotProgram> loadDefaultPrograms(GameData gameData, Actor whosAsking) {
         ArrayList<BotProgram> bp = new ArrayList<>();
 
         bp.add(new BotProgram("Anti-Fire",
@@ -48,7 +49,7 @@ public class BotConsole extends Console {
                 new MeanderingMovement(1.0),
                 new HealOtherBehavior()));
         bp.add(new BotProgram("Bodyguard",
-                new FollowMostWoundedActor(gameData),  // should be follow me?
+                new FollowMeBehavior(whosAsking, gameData),
                 new AttackBaddiesBehavior()));
         bp.add(new BotProgram("Repair",
                 new GoTowardsBrokenMovement(gameData),
@@ -76,11 +77,11 @@ public class BotConsole extends Console {
 
     }
 
-    public void addProgramFromBrain(GameData gameData, Brain selectedBrain) {
-        getPrograms(gameData).add(new BrainBotProgram(selectedBrain.getProgramName(), this, gameData, selectedBrain));
+    public void addProgramFromBrain(GameData gameData, Brain selectedBrain, Actor whosAsking) {
+        getPrograms(gameData, whosAsking).add(new BrainBotProgram(selectedBrain.getProgramName(), this, gameData, selectedBrain));
     }
 
-    public void removeProgram(BotProgram program, GameData gameData) {
-        getPrograms(gameData).remove(program);
+    public void removeProgram(BotProgram program, GameData gameData, Actor whosAsking) {
+        getPrograms(gameData, whosAsking).remove(program);
     }
 }
