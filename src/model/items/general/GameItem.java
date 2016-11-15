@@ -10,6 +10,7 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.general.Action;
+import model.actions.general.ActionOption;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.map.Room;
@@ -151,6 +152,15 @@ public abstract class GameItem implements Locatable, Serializable {
 		throw new NoSuchThingException("Did not find a " + item.getBaseName());
 	}
 
+    public static GameItem getItemFromActor(Actor victim, GameItem obj) throws NoSuchThingException {
+        for (GameItem it : victim.getItems()) {
+            if (it.getClass() == obj.getClass()) {
+                return it;
+            }
+        }
+        throw new NoSuchThingException("Did not find a " + obj.getBaseName());
+    }
+
 
     // TODO: make abstract..?
     public Sprite getSprite(Actor whosAsking) {
@@ -171,5 +181,26 @@ public abstract class GameItem implements Locatable, Serializable {
 
     public void setName(String newName) {
         this.name = newName;
+    }
+
+    public ActionOption getActionOptions(Actor whosAsking) {
+        return new ActionOption(getPublicName(whosAsking));
+    }
+
+    public void transferBetweenActors(Actor from, Actor to, String giveArgs) {
+        to.getCharacter().giveItem(this, from.getAsTarget());
+        from.getItems().remove(this);
+    }
+
+
+    public GameCharacter getHolder() {
+        return holder;
+    }
+
+    /**
+     *
+     * @param actor, can be null, careful!
+     */
+    public void gotAddedToRoom(Actor cameFrom, Room to) {
     }
 }

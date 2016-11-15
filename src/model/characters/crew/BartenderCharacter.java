@@ -15,9 +15,9 @@ public class BartenderCharacter extends CrewCharacter {
 	public BartenderCharacter() {
 		super("Bartender", 10, 4.0);
 	}
-	
-	@Override
-	public List<GameItem> getStartingItems() {
+
+    @Override
+    public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Shotgun());
         list.add(new Beer());
@@ -27,7 +27,8 @@ public class BartenderCharacter extends CrewCharacter {
 		return list;
 	}
 
-	@Override
+
+    @Override
 	public GameCharacter clone() {
 		return new BartenderCharacter();
 	}

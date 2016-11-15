@@ -13,7 +13,7 @@ import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.map.Room;
 
-public abstract class Actor  implements Serializable {
+public abstract class Actor  implements ItemHolder, Serializable {
 
 	private GameCharacter character = null;
 	

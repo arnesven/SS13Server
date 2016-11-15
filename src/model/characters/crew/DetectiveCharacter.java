@@ -9,6 +9,7 @@ import model.actions.general.TargetingAction;
 import model.actions.characteractions.ShadowAction;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
+import model.items.general.ZippoLighter;
 import model.items.suits.SunGlasses;
 import model.items.weapons.Revolver;
 
@@ -20,10 +21,11 @@ public class DetectiveCharacter extends CrewCharacter {
 	}
 	
 	@Override
-	public List<GameItem> getStartingItems() {
+	public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Revolver());
 		list.add(new SunGlasses());
+        list.add(new ZippoLighter());
 		return list;
 	}
 	
@@ -43,4 +45,8 @@ public class DetectiveCharacter extends CrewCharacter {
 		return new DetectiveCharacter();
 	}
 
+    @Override
+    public int getStartingMoney() {
+        return 25;
+    }
 }

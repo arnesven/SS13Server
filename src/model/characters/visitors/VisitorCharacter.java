@@ -26,8 +26,9 @@ public abstract class VisitorCharacter extends CrewCharacter {
         this(str, 0, 1.0);
     }
 
+
     @Override
-    public List<GameItem> getStartingItems() {
+    public List<GameItem> getCrewSpecificItems() {
         return new ArrayList<>();
     }
 

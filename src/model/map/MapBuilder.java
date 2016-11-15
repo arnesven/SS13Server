@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import model.GameData;
 import model.characters.general.RobotCharacter;
 import model.items.general.FireExtinguisher;
+import model.items.general.MoneyStack;
 import model.items.general.NuclearDisc;
 import model.items.suits.SpaceSuit;
 import model.npcs.*;
@@ -57,8 +58,7 @@ public class MapBuilder {
 
 
         Room bar = new BarRoom(10, 6, 10, 3, 2, new int[]{8, 9, 12}  ,         new double[]{7.5, 10.0, 9.0, 11.5}, RoomType.support);
-        RobotNPC bar2d2 = new RobotNPC(new RobotCharacter("BAR2-D2", bar.getID(), 0.0),
-                new MeanderingMovement(0.0), new TellRumorsBehavior(), bar);
+        RobotNPC bar2d2 = new BAR2D2Robot(bar.getID(), bar);
         gameData.addNPC(bar2d2);
         result.add(bar);
 		result.add(new Room(11, "Starboard Hall Front", "B O A R D"       , 9,  9, 3, 2, new int[]{9, 12, 13} ,         new double[]{12.0, 9.5}, RoomType.hall ));
@@ -99,6 +99,7 @@ public class MapBuilder {
 		Room CQ = new Room(20, "Captain's Quarters"  , "CQ"     ,15,  8, 2, 2, new int[]{17}        ,         new double[]{16.0, 8.0} , RoomType.command);
         NPC cat = new CatNPC(CQ);
         CQ.addItem(new NuclearDisc());
+        CQ.addItem(new MoneyStack(300));
         gameData.addNPC(cat);
 
 

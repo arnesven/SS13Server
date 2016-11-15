@@ -15,11 +15,10 @@ public class ChefCharacter extends CrewCharacter {
 	public ChefCharacter() {
 		super("Chef", 8, 5.0);
 	}
-	
-	@Override
-	public List<GameItem> getStartingItems() {
+
+    @Override
+    public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
-//		list.add(new FireExtinguisher());
 		list.add(new Knife());
 		list.add(new ChefsHat());
 		return list;
@@ -38,4 +37,8 @@ public class ChefCharacter extends CrewCharacter {
 		return new ChefCharacter();
 	}
 
+    @Override
+    public int getStartingMoney() {
+        return 50;
+    }
 }

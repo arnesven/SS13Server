@@ -17,9 +17,9 @@ public class HeadOfStaffCharacter extends CrewCharacter {
 	public HeadOfStaffCharacter() {
 		super("Head of Staff", 14, 15.0);
 	}
-	
-	@Override
-	public List<GameItem> getStartingItems() {
+
+    @Override
+    public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new MedKit());
 		list.add(new KeyCard());
@@ -36,5 +36,10 @@ public class HeadOfStaffCharacter extends CrewCharacter {
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         super.addCharacterSpecificActions(gameData, at);
         at.add(new SendATextAction(gameData));
+    }
+
+    @Override
+    public int getStartingMoney() {
+        return 150;
     }
 }

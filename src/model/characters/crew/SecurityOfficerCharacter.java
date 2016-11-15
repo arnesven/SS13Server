@@ -32,7 +32,7 @@ public class SecurityOfficerCharacter extends CrewCharacter {
     }
 
     @Override
-	public List<GameItem> getStartingItems() {
+    public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new StunBaton());
 		list.add(new SecurityRadio());
@@ -44,4 +44,8 @@ public class SecurityOfficerCharacter extends CrewCharacter {
 		return new SecurityOfficerCharacter();
 	}
 
+    @Override
+    public int getStartingMoney() {
+        return 25;
+    }
 }

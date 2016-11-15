@@ -14,10 +14,10 @@ public class EngineerCharacter extends CrewCharacter {
 	public EngineerCharacter() {
 		super("Engineer", 26, 10.0);
 	}
-	
 
-	@Override
-	public List<GameItem> getStartingItems() {
+
+    @Override
+    public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new FireSuit());
 		list.add(new Tools());
@@ -30,4 +30,9 @@ public class EngineerCharacter extends CrewCharacter {
 	public GameCharacter clone() {
 		return new EngineerCharacter();
 	}
+
+    @Override
+    public int getStartingMoney() {
+        return 150;
+    }
 }

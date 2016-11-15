@@ -7,6 +7,8 @@ import model.GameData;
 import model.Hazard;
 import model.actions.general.Action;
 import model.events.ambient.HullBreach;
+import model.events.damage.Damager;
+import model.items.general.ExplodableItem;
 import model.items.general.Explosive;
 import model.items.general.Grenade;
 import model.map.Room;
@@ -17,12 +19,12 @@ import util.MyRandom;
 
 public class ExplosionAction extends Action {
 
-	private Grenade grenade;
+	private Damager exploder;
 	private Room location;
 
-	public ExplosionAction(Grenade grenade, Room location) {
+	public ExplosionAction(Damager exploder, Room location) {
 		super("SpontaneousExplosionEvent", Explosive.SENSED_AS);
-		this.grenade = grenade;
+		this.exploder = exploder;
 		this.location = location;
 	}
 
@@ -38,15 +40,8 @@ public class ExplosionAction extends Action {
 	
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		for (Actor a : location.getActors()) {
-			a.getAsTarget().beExposedTo(performingClient, grenade);
-			location.getItems().remove(grenade);
-		}
-        for (GameObject o : location.getObjects()) {
-            if (o instanceof BreakableObject) {
-                ((BreakableObject) o).beExposedTo(performingClient, grenade);
-            }
-        }
+        ((ExplodableItem)exploder).explode(gameData, location, performingClient);
+        location.getItems().remove(exploder);
 
         new Hazard(gameData) {
             @Override
@@ -55,7 +50,7 @@ public class ExplosionAction extends Action {
                     HullBreach hull = ((HullBreach)gameData.getGameMode().getEvents().get("hull breaches"));
                     hull.startNewEvent(location);
                     Logger.log(Logger.INTERESTING,
-                            location.getName() + " got hull brech from grenade!");
+                            location.getName() + " got hull brech from " + exploder.getName() + "!");
                 }
             }
         };

@@ -13,6 +13,8 @@ import model.Player;
 import model.events.ambient.SpontaneousCrazyness;
 import model.events.ambient.OngoingEvent;
 import model.items.NoSuchThingException;
+import model.items.general.GameItem;
+import model.items.general.MoneyStack;
 import model.items.laws.AILaw;
 import model.map.OtherDimension;
 import model.npcs.AlienNPC;
@@ -218,6 +220,15 @@ public abstract class GameStats {
                 res += "<tr><td colspan=\"2\"> " + a.getBaseName() + " got trapped in another dimension! </td>";
             }
         }
+        Actor winner = whoGotMostMoney();
+        if (winner != null) {
+            try {
+                res += "<tr><td colspan=\"2\"> " + winner.getPublicName() + " accrued the most money: " +
+                        ((MoneyStack) GameItem.getItemFromActor(winner, new MoneyStack(1))).getAmount() + ".";
+            } catch (NoSuchThingException e) {
+
+            }
+        }
 
         if (gameData.getGameMode().aiIsPlayer()) {
             try {
@@ -235,6 +246,25 @@ public abstract class GameStats {
         res += "</table>";
 
         return res;
+    }
+
+    private Actor whoGotMostMoney() {
+        int max = 0;
+        Actor winner = null;
+        for (Actor a : gameData.getActors()) {
+            try {
+                int hisAmount = ((MoneyStack) GameItem.getItemFromActor(a, new MoneyStack(1))).getAmount();
+                if (hisAmount > max) {
+                    winner = a;
+                    max = hisAmount;
+                }
+            } catch (NoSuchThingException e) {
+                // had no money;
+            }
+
+        }
+
+        return winner;
     }
 
     private String findPirateKiller(GameData gameData) {

@@ -29,4 +29,7 @@ public abstract class Alcohol extends FoodItem {
 	}
 
 
+    public int getPotency() {
+        return potency;
+    }
 }

@@ -16,9 +16,9 @@ public class DoctorCharacter extends CrewCharacter {
 	public DoctorCharacter() {
 		super("Doctor", 24, 12.0);
 	}
-	
-	@Override
-	public List<GameItem> getStartingItems() {
+
+    @Override
+    public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new MedKit());
 		list.add(new Knife());
@@ -43,4 +43,9 @@ public class DoctorCharacter extends CrewCharacter {
 	public GameCharacter clone() {
 		return new DoctorCharacter();
 	}
+
+    @Override
+    public int getStartingMoney() {
+        return 50;
+    }
 }

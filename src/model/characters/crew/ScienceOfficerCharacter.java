@@ -14,9 +14,9 @@ public class ScienceOfficerCharacter extends CrewCharacter {
 	public ScienceOfficerCharacter() {
 		super("Science Officer", 1, 9.0);
 	}
-	
-	@Override
-	public List<GameItem> getStartingItems() {
+
+    @Override
+    public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Chemicals());
 		list.add(new GeigerMeter());
@@ -29,4 +29,8 @@ public class ScienceOfficerCharacter extends CrewCharacter {
 		return new ScienceOfficerCharacter();
 	}
 
+    @Override
+    public int getStartingMoney() {
+        return 250;
+    }
 }

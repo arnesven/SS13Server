@@ -20,9 +20,9 @@ public class BiologistCharacter extends CrewCharacter {
 	public BiologistCharacter() {
 		super("Biologist", 3, 11.0);
 	}
-	
-	@Override
-	public List<GameItem> getStartingItems() {
+
+    @Override
+    public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new MedKit());
 		list.add(new MotionTracker());
@@ -53,4 +53,8 @@ public class BiologistCharacter extends CrewCharacter {
 		return new BiologistCharacter();
 	}
 
+    @Override
+    public int getStartingMoney() {
+        return 50;
+    }
 }

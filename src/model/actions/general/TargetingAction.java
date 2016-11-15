@@ -20,8 +20,9 @@ public abstract class TargetingAction extends Action {
 	protected Target target;
 	protected GameItem item;
 	protected Actor performer;
-	
-	public TargetingAction(String name, SensoryLevel s, Actor ap) {
+    protected String otherArgs;
+
+    public TargetingAction(String name, SensoryLevel s, Actor ap) {
 		super(name, s);
 		this.performer = ap;
 		this.addTargetsToAction(ap);
@@ -102,7 +103,11 @@ public abstract class TargetingAction extends Action {
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		List<ActionOption> optlist = new ArrayList<>();
 		for (GameItem gi : withWhats) {
-			optlist.add(new ActionOption(gi.getPublicName(whosAsking)));
+            if (gi.getActionOptions(whosAsking).numberOfSuboptions() > 0) {
+                optlist.add(gi.getActionOptions(whosAsking));
+            } else {
+                optlist.add(new ActionOption(gi.getPublicName(whosAsking)));
+            }
 		}
 		
 		ActionOption root = super.getOptions(gameData, whosAsking);
@@ -150,6 +155,9 @@ public abstract class TargetingAction extends Action {
                 Logger.log(Logger.CRITICAL, "What, item wasn't there?");
                 return;
             }
+        }
+        if (args.size() > 2) {
+            otherArgs = args.get(2);
         }
 	}
 	

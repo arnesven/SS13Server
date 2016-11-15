@@ -19,8 +19,8 @@ public class TouristCharacter extends VisitorCharacter {
 		super("Tourist", 0, 1.0);
 	}
 
-	@Override
-	public List<GameItem> getStartingItems() {
+    @Override
+    public List<GameItem> getCrewSpecificItems() {
 		List<GameItem> l = new ArrayList<GameItem>();
 		l.add(new FancyClothes());
         l.add(new SunGlasses());
@@ -33,5 +33,9 @@ public class TouristCharacter extends VisitorCharacter {
 	public GameCharacter clone() {
 		return new TouristCharacter();
 	}
-	
+
+    @Override
+    public int getStartingMoney() {
+        return 850;
+    }
 }

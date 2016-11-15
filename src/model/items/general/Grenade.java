@@ -7,6 +7,8 @@ import model.Actor;
 import model.Target;
 import model.items.foods.ExplodingFood;
 import model.map.Room;
+import model.objects.general.BreakableObject;
+import model.objects.general.GameObject;
 import util.MyRandom;
 import model.GameData;
 import model.Player;
@@ -73,6 +75,11 @@ public class Grenade extends GameItem implements Damager, ExplodableItem {
     public void explode(GameData gameData, Room room, Actor maker) {
         for (Actor a : room.getActors()) {
             a.getAsTarget().beExposedTo(maker, this);
+        }
+        for (GameObject o : room.getObjects()) {
+            if (o instanceof BreakableObject) {
+                ((BreakableObject) o).beExposedTo(maker, this);
+            }
         }
     }
 

@@ -69,7 +69,7 @@ public class ReviveAction extends Action {
             defibrilator.setCharge(false);
             performingClient.addTolastTurnInfo("You resuscitated " + target.getPublicName() + "!");
             gameData.getGameMode().getMiscHappenings().add("The " + target.getBaseName() +
-                    "died, but was brought back to life by the " + performingClient.getBaseName() + ".");
+                    " died, but was brought back to life by the " + performingClient.getBaseName() + ".");
         } else {
             target.addTolastTurnInfo(performingClient.getPublicName() + " failed to resuscitate you.");
             performingClient.addTolastTurnInfo("You tried to resuscitate " + target.getPublicName() + ", but you failed.");

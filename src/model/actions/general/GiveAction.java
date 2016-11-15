@@ -37,8 +37,7 @@ public class GiveAction extends TargetingAction {
             return;
         }
 
-		((Actor)target).getCharacter().giveItem(item, performingClient.getAsTarget());
-		performingClient.getItems().remove(item);
+        item.transferBetweenActors(performingClient, ((Actor)target), otherArgs);
 		performingClient.addTolastTurnInfo("You gave a " + item.getPublicName(performingClient) + " to " + target.getName() + ".");
 		targetAsActor.addTolastTurnInfo("You got a " + item.getPublicName(targetAsActor) + " from " + performingClient.getPublicName() + ".");
 		

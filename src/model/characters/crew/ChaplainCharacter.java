@@ -13,9 +13,9 @@ public class ChaplainCharacter extends CrewCharacter {
 	public ChaplainCharacter() {
 		super("Chaplain", 2, 2.0);
 	}
-	
-	@Override
-	public List<GameItem> getStartingItems() {
+
+    @Override
+    public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new MedKit());
 		list.add(new Bible());
@@ -27,4 +27,8 @@ public class ChaplainCharacter extends CrewCharacter {
 		return new ChaplainCharacter();
 	}
 
+    @Override
+    public int getStartingMoney() {
+        return 25;
+    }
 }

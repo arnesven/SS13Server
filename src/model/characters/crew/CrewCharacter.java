@@ -1,7 +1,12 @@
 package model.characters.crew;
 
 import model.characters.general.HumanCharacter;
+import model.items.general.GameItem;
+import model.items.general.MoneyStack;
 import model.items.suits.OutFit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class CrewCharacter extends HumanCharacter {
 
@@ -9,6 +14,19 @@ public abstract class CrewCharacter extends HumanCharacter {
 		super(name, startRoom, speed);
 		putOnSuit(new OutFit(this));
 	}
-	
 
+
+    @Override
+    public List<GameItem> getStartingItems() {
+        List<GameItem> items = new ArrayList<>();
+        items.add(new MoneyStack(getStartingMoney()));
+        items.addAll(getCrewSpecificItems());
+        return items;
+    }
+
+    public int getStartingMoney() {
+        return 76;
+    }
+
+    public abstract List<GameItem> getCrewSpecificItems();
 }

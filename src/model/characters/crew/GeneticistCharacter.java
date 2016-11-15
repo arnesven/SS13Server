@@ -14,9 +14,9 @@ public class GeneticistCharacter extends CrewCharacter {
 	public GeneticistCharacter() {
 		super("Geneticist", 1, 8.0);
 	}
-	
-	@Override
-	public List<GameItem> getStartingItems() {
+
+    @Override
+    public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Syringe());
 		list.add(new MedKit());
@@ -29,4 +29,9 @@ public class GeneticistCharacter extends CrewCharacter {
 		return new GeneticistCharacter();
 	}
 
+
+    @Override
+    public int getStartingMoney() {
+        return 100;
+    }
 }

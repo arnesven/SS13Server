@@ -18,9 +18,9 @@ public class RoboticistCharacter extends CrewCharacter {
 	public RoboticistCharacter() {
 		super("Roboticist", 15, 7.0);
 	}
-	
-	@Override
-	public List<GameItem> getStartingItems() {
+
+    @Override
+    public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Tools());
 		list.add(new FireExtinguisher());
@@ -42,4 +42,8 @@ public class RoboticistCharacter extends CrewCharacter {
 		return new RoboticistCharacter();
 	}
 
+    @Override
+    public int getStartingMoney() {
+        return 100;
+    }
 }

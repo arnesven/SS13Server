@@ -28,9 +28,9 @@ public class JanitorCharacter extends CrewCharacter {
 			at.add(pua);
 		}
 	}
-	
-	@Override
-	public List<GameItem> getStartingItems() {
+
+    @Override
+    public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Chemicals());
 		list.add(new FireExtinguisher());
@@ -48,4 +48,8 @@ public class JanitorCharacter extends CrewCharacter {
 		return new JanitorCharacter();
 	}
 
+    @Override
+    public int getStartingMoney() {
+        return 25;
+    }
 }

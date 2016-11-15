@@ -44,14 +44,12 @@ public class ThrowGrenadeAction extends Action {
 			targetRoom.addItem(grenade);
 			Action a = new ExplosionAction(grenade, targetRoom);
 			a.doTheAction(gameData, performingClient);
-			
 		}
 	}
 
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = new ActionOption(this.getName());
-		
 		for (Room r : thrower.getPosition().getNeighborList()) {
 			opt.addOption(r.getName());
 		}

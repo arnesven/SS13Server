@@ -6,6 +6,7 @@ import model.items.suits.AdventurersHat;
 import model.items.suits.AdventurersOutfit;
 import model.items.weapons.BullWhip;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,8 +21,8 @@ public class AdventurerCharacter extends VisitorCharacter {
     }
 
     @Override
-    public List<GameItem> getStartingItems() {
-        List<GameItem> gis = super.getStartingItems();
+    public List<GameItem> getCrewSpecificItems() {
+        List<GameItem> gis = new ArrayList<>();
         gis.add(new BullWhip());
         return gis;
     }

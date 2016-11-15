@@ -44,9 +44,9 @@ public class TechnicianCharacter extends CrewCharacter {
             Logger.log("Technician didn't have a laptop");
         }
 	}
-	
-	@Override
-	public List<GameItem> getStartingItems() {
+
+    @Override
+    public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Laptop());
 		list.add(new Tools());
@@ -58,4 +58,8 @@ public class TechnicianCharacter extends CrewCharacter {
 		return new TechnicianCharacter();
 	}
 
+    @Override
+    public int getStartingMoney() {
+        return 75;
+    }
 }

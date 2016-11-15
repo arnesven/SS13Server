@@ -6,10 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import model.Actor;
-import model.GameData;
-import model.Player;
-import model.Target;
+import model.*;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
@@ -28,7 +25,7 @@ import util.Logger;
  * @author erini02
  * Class for representing a room on the space station.
  */
-public class Room implements Serializable {
+public class Room implements ItemHolder, Serializable {
 
     private final RoomType roomType;
     private String name;
@@ -240,6 +237,11 @@ public class Room implements Serializable {
 
 	public void addItem(GameItem item) {
 		this.items.add(item);
+        if (item.getHolder() == null) {
+            item.gotAddedToRoom(null, this);
+        } else {
+            item.gotAddedToRoom(item.getHolder().getActor(), this);
+        }
 		item.setHolder(null);
 		item.setPosition(this);
 	}
@@ -271,7 +273,7 @@ public class Room implements Serializable {
 	public void pushHappeningsToPlayers() {
 		for (Action a : getActionsHappened()) {
 			for (Player p : players) {
-				if (p.getCharacter().doesPerceive(a)) {
+				if (p.getCharacter().doesPerceive(a) && p.getCharacter().isVisible()) {
 					String text = a.getDescription(p);
 					if (!text.contains(p.getPublicName()) && !text.toLowerCase().contains("you")) {
 						p.addTolastTurnInfo(text);

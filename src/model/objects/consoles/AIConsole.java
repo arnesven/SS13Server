@@ -153,6 +153,9 @@ public class AIConsole extends Console {
                 }
             }
         }
+        if (AIIsPlayer() && !isShutDown()) {
+            aiPlayer.addTolastTurnInfo(HTMLFont.makeText("blue", "SYSTEM; \"" + s + "\""));
+        }
     }
 
     public void corrupt(GameData gameData) {
