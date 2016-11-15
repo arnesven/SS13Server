@@ -6,7 +6,7 @@ import model.Actor;
 public class TornClothes extends GameItem {
 
 	public TornClothes() {
-		super("Torn Clothes", 0.5);
+		super("Torn Clothes", 0.5, 1);
 	}
 
     @Override

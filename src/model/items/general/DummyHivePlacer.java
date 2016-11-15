@@ -18,7 +18,7 @@ public class DummyHivePlacer extends GameItem {
 	private boolean placeAsFound = true;
 	
 	public DummyHivePlacer() {
-		super("Dummy Hive", 1.0);
+		super("Dummy Hive", 1.0, 380);
 	}
 	
 

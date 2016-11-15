@@ -10,7 +10,7 @@ import model.items.suits.SuitItem;
 public class LarcenyGloves extends SuitItem {
 
 	public LarcenyGloves() {
-		super("Larceny Gloves", 0.1);
+		super("Larceny Gloves", 0.1, 299);
 	}
 	
 	

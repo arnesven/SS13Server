@@ -17,7 +17,10 @@ public class LawyerCharacter extends VisitorCharacter {
         putOnSuit(new LawyerSuit(this));
     }
 
-
+    @Override
+    public int getStartingMoney() {
+        return 600;
+    }
 
     @Override
     public GameCharacter clone() {

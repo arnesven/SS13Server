@@ -25,7 +25,7 @@ public class Syringe extends GameItem {
 	private Mutation mutation = null;
 	
 	public Syringe() {
-		super("Syringe", 0.1);
+		super("Syringe", 0.1, 14);
 	}
 	
 	@Override

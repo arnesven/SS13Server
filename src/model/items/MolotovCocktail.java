@@ -18,7 +18,7 @@ public class MolotovCocktail extends GameItem implements Damager, ExplodableItem
     private final GameItem inner;
 
     public MolotovCocktail(GameItem selectedBurnable) {
-        super("Molotov Cocktail", selectedBurnable.getWeight(), false);
+        super("Molotov Cocktail", selectedBurnable.getWeight(), false, 0);
         inner = selectedBurnable;
     }
 

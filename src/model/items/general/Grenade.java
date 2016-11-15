@@ -19,7 +19,7 @@ import model.events.damage.Damager;
 public class Grenade extends GameItem implements Damager, ExplodableItem {
 
 	public Grenade() {
-		super("Grenade", 0.5);
+		super("Grenade", 0.5, 120);
 	}
 	
 	@Override

@@ -39,7 +39,7 @@ public class BuyAlcoholFromServerAction extends Action {
         ActionOption opt = super.getOptions(gameData, whosAsking);
         List<String> added = new ArrayList<>();
         for (GameItem gi : cabinet.getInventory()) {
-            String optName = gi.getPublicName(whosAsking) + " ($$ " + Cabinet.getPriceFor(gi) + ")";
+            String optName = gi.getPublicName(whosAsking) + " ($$ " + gi.getCost() + ")";
             if (!added.contains(optName)) {
                 opt.addOption(optName);
                 added.add(optName);
@@ -58,15 +58,15 @@ public class BuyAlcoholFromServerAction extends Action {
 
         try {
             MoneyStack buyersMoney = (MoneyStack)GameItem.getItemFromActor(performingClient, new MoneyStack(1));
-            if (buyersMoney.getAmount() < Cabinet.getPriceFor(selected)) {
+            if (buyersMoney.getAmount() < selected.getCost()) {
                 performingClient.addTolastTurnInfo(server.getPublicName() + "; You do not have enough money!");
                 return;
             }
 
-            buyersMoney.transferBetweenActors(performingClient, server, Cabinet.getPriceFor(selected) + "");
+            buyersMoney.transferBetweenActors(performingClient, server, selected.getCost() + "");
             server.addTolastTurnInfo("You served " + selected.getPublicName(server) + " to " + performingClient.getPublicName() + ".");
             performingClient.addTolastTurnInfo(server.getPublicName() + " served you " + selected.getPublicName(performingClient) + ".");
-            performingClient.getCharacter().giveItem(selected, server.getAsTarget());
+            performingClient.addItem(selected, server.getAsTarget());
             cabinet.getInventory().remove(selected);
 
         } catch (NoSuchThingException e) {

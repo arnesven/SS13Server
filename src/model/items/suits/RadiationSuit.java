@@ -12,7 +12,7 @@ import java.util.List;
 public class RadiationSuit extends SuitItem {
 
 	public RadiationSuit() {
-		super("Radiation Suit", 2.0);
+		super("Radiation Suit", 2.0, 99);
 	}
 
 	@Override

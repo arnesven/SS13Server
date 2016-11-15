@@ -5,6 +5,7 @@ import model.Actor;
 import model.ItemHolder;
 import model.Target;
 import model.actions.general.ActionOption;
+import model.items.NoSuchThingException;
 import model.map.Room;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class MoneyStack extends GameItem {
     private static final int[] limits = new int[]{10, 100, 200, 500, 1000, 2500, 5000, 10000};
 
     public MoneyStack(int startingMoney) {
-        super("$$", 0.0);
+        super("$$", 0.0, 0);
         amount = startingMoney;
     }
 
@@ -63,6 +64,7 @@ public class MoneyStack extends GameItem {
         if (amount > this.amount) {
             return false;
         } else if (amount == this.amount) {
+            this.amount = 0;
             throw new MoneyStackDepletedException();
         }
         this.amount -= amount;
@@ -94,6 +96,10 @@ public class MoneyStack extends GameItem {
 
     public int getAmount() {
         return amount;
+    }
+
+    public static MoneyStack getActorsMoney(Actor whosAsking) throws NoSuchThingException {
+        return (MoneyStack)GameItem.getItemFromActor(whosAsking, new MoneyStack(1));
     }
 
     public class MoneyStackDepletedException extends Exception {

@@ -11,7 +11,7 @@ public class PrisonerSuit extends SuitItem {
 	private int number;
 
 	public PrisonerSuit(int i) {
-		super("Prison Clothes", 0.5);
+		super("Prison Clothes", 0.5, 49);
 		this.number = i;
 	}
 

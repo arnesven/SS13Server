@@ -8,7 +8,7 @@ import model.Actor;
  */
 public class SpaceBurger extends HealingFood {
     public SpaceBurger(Actor maker) {
-        super("Space Burger", 0.4, maker);
+        super("Space Burger", 0.4, maker, 30);
     }
 
     @Override

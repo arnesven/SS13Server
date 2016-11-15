@@ -10,7 +10,7 @@ public class ItemStack extends GameItem {
     private GameItem innerItem;
 
     public ItemStack(int i, GameItem it) {
-        super(i + "x" + it.getBaseName(), i * it.getWeight());
+        super(i + "x" + it.getBaseName(), i * it.getWeight(), it.getCost() * i);
         this.num = i;
         this.innerItem = it;
     }

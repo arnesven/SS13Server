@@ -21,7 +21,7 @@ public class Defibrilator extends GameItem {
     private boolean charge = true;
 
     public Defibrilator() {
-        super("Defibrillator", 1.0, false);
+        super("Defibrillator", 1.0, false, 120);
     }
 
     @Override

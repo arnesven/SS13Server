@@ -74,11 +74,4 @@ public class Cabinet extends DispenserObject {
                 whosAsking.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof BAR2D2Character);
     }
 
-    public static int getPriceFor(GameItem gi) {
-        if (gi instanceof Vodka) {
-            return 70;
-        } else {
-            return 20;
-        }
-    }
 }

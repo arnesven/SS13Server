@@ -32,7 +32,7 @@ public class AlienDimensionEvent extends AmbientEvent {
 
     @Override
     public void apply(GameData gameData) {
-        if (!hasHappened && MyRandom.nextDouble() < occurranceChance) {
+        if (!hasHappened && MyRandom.nextDouble() < getProbability()) {
             hasHappened = true;
 
             targetRoom = MyRandom.sample(gameData.getRooms());

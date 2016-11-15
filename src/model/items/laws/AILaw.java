@@ -12,7 +12,7 @@ public class AILaw extends GameItem {
     private final int number;
 
     public AILaw(int number, String string) {
-        super(string, 0.0, false);
+        super(string, 0.0, false, 0);
         this.number = number;
         this.text = string;
     }

@@ -8,7 +8,7 @@ import model.Actor;
  */
 public class PirateNuclearDisc extends GameItem {
     public PirateNuclearDisc() {
-        super("Pirates' Nuclear Disc", 0.1, false);
+        super("Pirates' Nuclear Disc", 0.1, false, 13);
     }
 
     @Override

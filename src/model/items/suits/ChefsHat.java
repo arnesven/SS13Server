@@ -6,7 +6,7 @@ import model.Actor;
 public class ChefsHat extends SuitItem {
 
 	public ChefsHat() {
-		super("Chef's Hat", 0.2);
+		super("Chef's Hat", 0.2, 10);
 	}
 
 

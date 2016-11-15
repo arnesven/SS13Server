@@ -17,7 +17,7 @@ public class OutFit extends SuitItem {
 	private GameCharacter type;
 
 	public OutFit(GameCharacter chara) {
-		super(chara.getBaseName() + "'s Outfit", 0.5);
+		super(chara.getBaseName() + "'s Outfit", 0.5, 49);
 		this.type = chara;
 	}
 

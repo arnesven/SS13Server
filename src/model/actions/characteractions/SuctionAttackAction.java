@@ -22,7 +22,7 @@ public class SuctionAttackAction extends TargetingAction {
 	@Override
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
-		boolean succ = target.beAttackedBy(performingClient, new Weapon("Proboscis", 0.95, 1.0, false, 0.0));
+		boolean succ = target.beAttackedBy(performingClient, new Weapon("Proboscis", 0.95, 1.0, false, 0.0, 0));
 		if (succ) {
 			Actor targetAsActor = ((Actor) target);
 			ling.addToSucked(targetAsActor);

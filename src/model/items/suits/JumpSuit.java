@@ -10,7 +10,7 @@ import java.util.List;
 public class JumpSuit extends SuitItem {
 
 	public JumpSuit() {
-		super("Jump Suit", 0.5);
+		super("Jump Suit", 0.5, 39);
 	}
 
 	@Override

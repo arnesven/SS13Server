@@ -12,8 +12,8 @@ public abstract class SuitItem extends GameItem {
 
 	private SuitItem under = null;
 	
-	public SuitItem(String string, double weight) {
-		super(string, weight);
+	public SuitItem(String string, double weight, int cost) {
+		super(string, weight, cost);
 	}
 	
 	public SuitItem getUnder() {

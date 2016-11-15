@@ -15,7 +15,7 @@ public class CryoBomb extends BombItem {
     private Actor maker;
 
     public CryoBomb(GameData gameData, Actor maker) {
-        super("Cryo Bomb");
+        super("Cryo Bomb", 50);
         this.maker = maker;
 
         gameData.addEvent(new Event() {

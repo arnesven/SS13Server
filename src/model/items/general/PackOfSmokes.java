@@ -8,7 +8,7 @@ import model.Actor;
  */
 public class PackOfSmokes extends GameItem {
     public PackOfSmokes() {
-        super("Pack of Smokes", 0.1, true);
+        super("Pack of Smokes", 0.1, true, 20);
     }
 
     @Override

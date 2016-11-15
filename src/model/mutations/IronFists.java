@@ -15,7 +15,7 @@ public class IronFists extends Mutation {
 	public CharacterDecorator getDecorator(Actor forWhom) {
 		return new CharacterDecorator(forWhom.getCharacter(), "Iron Fists") {
 			
-			private Weapon fists = new BluntWeapon("Iron Fists", 0.0) { };
+			private Weapon fists = new BluntWeapon("Iron Fists", 0.0, 0) { };
 			@Override
 			public Weapon getDefaultWeapon() {
 				return fists;

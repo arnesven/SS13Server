@@ -12,7 +12,7 @@ public class Brain extends GameItem {
     private final Actor cutOutBy;
 
     public Brain(Actor belongsTo, Actor cutOutBy) {
-        super(belongsTo.getCharacter().getPublicName().replace("(dead)", "") + "'s Brain", 1.0);
+        super(belongsTo.getCharacter().getPublicName().replace("(dead)", "") + "'s Brain", 1.0, 0);
         this.belongsTo = belongsTo;
         this.cutOutBy = cutOutBy;
     }

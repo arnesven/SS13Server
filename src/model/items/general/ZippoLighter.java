@@ -16,7 +16,7 @@ public class ZippoLighter extends GameItem {
     private int uses;
 
     public ZippoLighter() {
-        super("Zippo Lighter", 0.1, false);
+        super("Zippo Lighter", 0.1, false, 45);
         this.uses = 8;
     }
 

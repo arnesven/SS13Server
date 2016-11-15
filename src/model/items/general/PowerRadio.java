@@ -14,7 +14,7 @@ import model.objects.consoles.GeneratorConsole;
 public class PowerRadio extends Radio {
 
     public PowerRadio() {
-        super("Power Radio");
+        super("Power Radio", 89);
     }
 
     @Override

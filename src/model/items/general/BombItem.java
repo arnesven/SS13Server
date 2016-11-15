@@ -32,8 +32,8 @@ public class BombItem extends HidableItem implements ExplodableItem {
     private boolean exploded;
     private static int maxChain = 0;
 
-    public BombItem(String string) {
-		super(string, 2.0);
+    public BombItem(String string, int cost) {
+		super(string, 2.0, cost);
         this.name = string;
         exploded = false;
 	}
@@ -264,7 +264,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
 
     @Override
     public GameItem clone() {
-        return new BombItem(name);
+        return new BombItem(name, this.getCost());
     }
 
     public boolean isExploded() {

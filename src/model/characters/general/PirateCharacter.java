@@ -61,6 +61,5 @@ public class PirateCharacter extends HumanCharacter {
 
         return new Sprite("piratewithweapon" + weapon.getBaseName(),
                 "human.png", 0, list);
-
     }
 }

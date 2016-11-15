@@ -16,7 +16,7 @@ public class CosmicArtifact extends GameItem {
     private final Sprite sprite;
 
     public CosmicArtifact() {
-        super("Cosmic Artifact", 1.0, false);
+        super("Cosmic Artifact", 1.0, false, 1000);
         this.sprite = MyRandom.sample(spritelist());
     }
 

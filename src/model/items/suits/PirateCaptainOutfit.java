@@ -10,7 +10,7 @@ import model.characters.general.GameCharacter;
  */
 public class PirateCaptainOutfit extends SuitItem {
     public PirateCaptainOutfit() {
-        super("Pirate Captain's Armor", 5.0);
+        super("Pirate Captain's Armor", 5.0, 699);
     }
 
     @Override

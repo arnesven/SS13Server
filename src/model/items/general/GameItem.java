@@ -29,15 +29,17 @@ public abstract class GameItem implements Locatable, Serializable {
 	private Room position;
 	private GameCharacter holder = null;
     private Sprite sprite = new Sprite("keycard", "card.png", 1);
+    private int cost;
 
-    public GameItem(String string, double weight, boolean usableFromFloor) {
+    public GameItem(String string, double weight, boolean usableFromFloor, int cost) {
 		this.name = string;
 		this.weight = weight;
         this.usableFromFloor = usableFromFloor;
+        this.cost = cost;
 	}
 
-    public GameItem(String string, double weight) {
-        this(string, weight, false);
+    public GameItem(String string, double weight, int cost) {
+        this(string, weight, false, cost);
     }
 	
 	public abstract GameItem clone();
@@ -199,8 +201,12 @@ public abstract class GameItem implements Locatable, Serializable {
 
     /**
      *
-     * @param actor, can be null, careful!
+     * @param cameFrom, can be null, careful!
      */
     public void gotAddedToRoom(Actor cameFrom, Room to) {
+    }
+
+    public int getCost() {
+        return cost;
     }
 }

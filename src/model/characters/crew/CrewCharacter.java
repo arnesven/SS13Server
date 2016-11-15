@@ -25,7 +25,7 @@ public abstract class CrewCharacter extends HumanCharacter {
     }
 
     public int getStartingMoney() {
-        return 76;
+        return 5;
     }
 
     public abstract List<GameItem> getCrewSpecificItems();

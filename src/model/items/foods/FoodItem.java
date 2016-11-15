@@ -13,8 +13,8 @@ import model.items.general.GameItem;
 public abstract class FoodItem extends GameItem {
 
 
-	public FoodItem(String string, double weight) {
-		super(string, weight, true);
+	public FoodItem(String string, double weight, int cost) {
+		super(string, weight, true, cost);
 	}
 
 

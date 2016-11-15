@@ -17,7 +17,7 @@ public class Bible extends GameItem {
 	private int godPoints = 0;
 
 	public Bible() {
-		super("Holy Bible", 1.0);
+		super("Holy Bible", 1.0, 26);
 	}
 
 	@Override

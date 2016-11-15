@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class BullWhip extends Weapon {
     public BullWhip() {
-        super("Bull Whip", 0.75, 0.5, false, 0.5, false);
+        super("Bull Whip", 0.75, 0.5, false, 0.5, false, 175);
     }
 
     @Override

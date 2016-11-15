@@ -13,7 +13,7 @@ import model.actions.itemactions.RigBoobyTrapAction;
 public class BoobyTrapBomb extends BombItem {
 
 	public BoobyTrapBomb() {
-		super("Booby Trap Bomb");
+		super("Booby Trap Bomb", 650);
 	}
 	
 	@Override

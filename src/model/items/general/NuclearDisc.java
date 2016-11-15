@@ -6,7 +6,7 @@ import model.Actor;
 public class NuclearDisc extends GameItem {
 
 	public NuclearDisc() {
-		super("Nuclear Disc", 0.1);
+		super("Nuclear Disc", 0.1, 1000);
 	}
 
 	@Override

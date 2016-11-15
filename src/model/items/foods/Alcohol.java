@@ -12,8 +12,8 @@ public abstract class Alcohol extends FoodItem {
 
 	private int potency;
 	
-	public Alcohol(String name, double weight, int potency) {
-		super(name, weight);
+	public Alcohol(String name, double weight, int potency, int cost) {
+		super(name, weight, cost);
 		this.potency = potency;
 	}
 

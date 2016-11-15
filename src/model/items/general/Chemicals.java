@@ -6,7 +6,7 @@ import model.Actor;
 public class Chemicals extends GameItem {
 
 	public Chemicals() {
-		super("Chemicals", 1.0);
+		super("Chemicals", 1.0, 10);
 	}
 
 	@Override

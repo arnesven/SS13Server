@@ -10,7 +10,7 @@ import model.characters.decorators.InstanceChecker;
  */
 public class Sweater extends SuitItem {
     public Sweater() {
-        super("Sweater", 0.5);
+        super("Sweater", 0.5, 25);
     }
 
     @Override

@@ -21,6 +21,7 @@ import model.npcs.animals.SnakeNPC;
 import model.npcs.robots.TARSNPC;
 import model.objects.AIMemory;
 import model.objects.AITurret;
+import model.objects.ATM;
 import model.objects.consoles.AIConsole;
 import model.objects.general.VendingMachine;
 import util.HTMLFont;
@@ -108,17 +109,18 @@ public abstract class GameMode implements Serializable {
     private List<GameCharacter> remainingChars;
 
     public GameMode() {
-		events.put("fires", new ElectricalFire());
-		events.put("hull breaches", new HullBreach());
-		events.put("explosion", new SpontaneousExplosionEvent());
-		events.put("crazyness", new SpontaneousCrazyness());
+		events.put("fires",            new ElectricalFire());
+		events.put("hull breaches",    new HullBreach());
+		events.put("explosion",        new SpontaneousExplosionEvent());
+		events.put("crazyness",        new SpontaneousCrazyness());
 		events.put("radiation storms", new RadiationStorm());
-		events.put("simulate power", new SimulatePower());
-		events.put("Power flux", new PowerFlux());
-		events.put("random husks", new RandomHuskEvent());
-        events.put("pirate attack", new PirateAttackEvent());
-        events.put("alien dimension", new AlienDimensionEvent());
-        events.put("corrupt ai", new CorruptAIEvent());
+		events.put("simulate power",   new SimulatePower());
+		events.put("Power flux",       new PowerFlux());
+		events.put("random husks",     new RandomHuskEvent());
+        events.put("pirate attack",    new PirateAttackEvent());
+        events.put("alien dimension",  new AlienDimensionEvent());
+        events.put("corrupt ai",       new CorruptAIEvent());
+        events.put("merchant",         new TravelingMerchantEvent());
 	}
 
     public abstract String getName();
@@ -514,7 +516,8 @@ public abstract class GameMode implements Serializable {
 	private void addStuffToRooms(GameData gameData) {
         Room r = MyRandom.getRandomHallway(gameData);
         r.addObject(new VendingMachine(r));
-        Logger.log("Added vending machinxkie in " + r.getName());
+        Logger.log("Added vending machine in " + r.getName());
+        gameData.getRoom("Starboard Hall Aft").addObject(new ATM(gameData, gameData.getRoom("Starboard Hall Aft")));
 
 	}
 

@@ -6,7 +6,7 @@ import model.Actor;
 public class ApplePie extends HealingFood {
 
 	public ApplePie(Actor maker) {
-		super("Apple Pie", 0.5, maker);
+		super("Apple Pie", 0.5, maker, 20);
 	}
 
 	@Override

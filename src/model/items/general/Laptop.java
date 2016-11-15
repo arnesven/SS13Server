@@ -16,7 +16,7 @@ public class Laptop extends UplinkItem {
 	private Room jackRoom = null;
 	
 	public Laptop() {
-		super("Laptop", 1.0);
+		super("Laptop", 1.0, 455);
 	}
 	
 	@Override

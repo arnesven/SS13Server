@@ -7,9 +7,9 @@ public abstract class HealingFood extends FoodItem {
 
     private Actor maker;
 
-	public HealingFood(String string, double weight, Actor maker) {
+	public HealingFood(String string, double weight, Actor maker, int cost) {
         // CAREFUL! maker can be null!
-		super(string, weight);
+		super(string, weight, cost);
         this.maker = maker;
 
     }

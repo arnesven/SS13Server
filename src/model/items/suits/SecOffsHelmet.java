@@ -8,7 +8,7 @@ import model.Actor;
  */
 public class SecOffsHelmet extends SuitItem {
     public SecOffsHelmet() {
-        super("Helmet", 0.5);
+        super("Helmet", 0.5, 50);
     }
 
     @Override

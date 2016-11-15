@@ -17,7 +17,7 @@ public class BombDetonator extends GameItem {
 	private boolean detonated = false;
 
 	public BombDetonator(BombItem remoteBomb) {
-		super("Detonator", 0.2);
+		super("Detonator", 0.2, 40);
 		this.bomb = remoteBomb;
 	}
 	

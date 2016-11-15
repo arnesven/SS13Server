@@ -9,7 +9,7 @@ import model.GameData;
  */
 public class Doughnut extends HealingFood {
     public Doughnut(Actor maker) {
-        super("Doughnut", 0.1, maker);
+        super("Doughnut", 0.1, maker, 5);
     }
 
     @Override

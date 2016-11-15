@@ -6,7 +6,7 @@ import model.Actor;
 public class Vodka extends Alcohol {
 
 	public Vodka() {
-		super("Vodka", 0.8, 4);
+		super("Vodka", 0.8, 4, 70);
 	}
 
 	@Override

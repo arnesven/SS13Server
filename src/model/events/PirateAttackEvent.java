@@ -35,7 +35,7 @@ public class PirateAttackEvent extends AmbientEvent {
 
     @Override
     public void apply(GameData gameData) {
-        if (!hasHappened && MyRandom.nextDouble() < occurranceChance) {
+        if (!hasHappened && MyRandom.nextDouble() < getProbability()) {
             hasHappened = true;
             randAirLock = MyRandom.nextInt(3)+1;
             targetRoom = randomTargetRoom(gameData);

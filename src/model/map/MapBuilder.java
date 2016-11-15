@@ -14,6 +14,7 @@ import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.TellRumorsBehavior;
 import model.npcs.robots.RobotNPC;
 import model.objects.AITurret;
+import model.objects.ATM;
 import model.objects.StasisPod;
 import model.objects.consoles.*;
 import model.objects.consoles.AirLockControl;
@@ -53,8 +54,9 @@ public class MapBuilder {
 		result.add(new AirLockRoom( 7,  1, 2, 11, 1, 1, new int[]{6}         ,         new double[]{2.5, 11.0} ));
 		
 		KitchenRoom kitch = new KitchenRoom(8,  4, 10, 2, 3, new int[]{6, 9, 10}  ,         new double[]{6.0, 11.5, 5.5, 10.0} );
-		result.add(kitch); 
-		result.add(new Room( 9, "Starboard Hall Aft"  , "S T A R -" , 5,  8, 4, 2, new int[]{5, 8, 10, 11},       new double[]{9.0, 9.5}, RoomType.hall ));
+		result.add(kitch);
+        Room sHallAft =new Room( 9, "Starboard Hall Aft"  , "S T A R -" , 5,  8, 4, 2, new int[]{5, 8, 10, 11},       new double[]{9.0, 9.5}, RoomType.hall );
+		result.add(sHallAft);
 
 
         Room bar = new BarRoom(10, 6, 10, 3, 2, new int[]{8, 9, 12}  ,         new double[]{7.5, 10.0, 9.0, 11.5}, RoomType.support);

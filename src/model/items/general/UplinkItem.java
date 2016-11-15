@@ -5,7 +5,7 @@ package model.items.general;
  */
 public abstract class UplinkItem extends GameItem {
 
-    public UplinkItem(String s, double v) {
-        super(s, v);
+    public UplinkItem(String s, double v, int cost) {
+        super(s, v, cost);
     }
 }

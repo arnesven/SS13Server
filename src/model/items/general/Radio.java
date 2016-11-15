@@ -17,8 +17,8 @@ public abstract class Radio extends UplinkItem {
 
     private boolean noConnect = false;
 
-    public Radio(String name) {
-        super(name, 0.5);
+    public Radio(String name, int cost) {
+        super(name, 0.5, cost);
     }
 
     @Override

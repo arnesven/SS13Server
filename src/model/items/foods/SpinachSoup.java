@@ -11,7 +11,7 @@ import model.events.RemoveInstanceLaterEvent;
 public class SpinachSoup extends HealingFood {
 
 	public SpinachSoup(Actor maker) {
-		super("Spinach Soup", 1.0, maker);
+		super("Spinach Soup", 1.0, maker, 20);
 	}
 
 	@Override

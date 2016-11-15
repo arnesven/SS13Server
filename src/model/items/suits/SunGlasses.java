@@ -9,7 +9,7 @@ import model.characters.decorators.InstanceChecker;
 public class SunGlasses extends SuitItem {
 
 	public SunGlasses() {
-		super("Sun Glasses", 0.1);
+		super("Sun Glasses", 0.1, 19);
 	}
 
 	@Override

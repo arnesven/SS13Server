@@ -27,7 +27,7 @@ public class Flamer extends Weapon {
     public static final int CHEMS_NEEDED_TO_BURN_HIVE = 1;
 
     public Flamer() {
-		super("Flamer", 0.75, 0.5, false, 1.5);
+		super("Flamer", 0.75, 0.5, false, 1.5, 159);
 	}
 
     @Override

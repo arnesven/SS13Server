@@ -10,7 +10,7 @@ public class GeigerMeter extends UplinkItem {
 
 	
 	public GeigerMeter() {
-		super("Geiger Meter", 0.2);
+		super("Geiger Meter", 0.2, 49);
 	}
 
 	@Override
@@ -27,7 +27,9 @@ public class GeigerMeter extends UplinkItem {
     public void gotGivenTo(Actor to, Target from) {
        to.setCharacter(new RadiationOverlayDecorator(to.getCharacter()));
         if (from instanceof Actor) {
-            ((Actor)from).removeInstance(((GameCharacter ch) -> ch instanceof RadiationOverlayDecorator));
+            if (((Actor) from).getCharacter().checkInstance((GameCharacter ch) -> ch instanceof RadiationOverlayDecorator)){
+                ((Actor) from).removeInstance(((GameCharacter ch) -> ch instanceof RadiationOverlayDecorator));
+            }
         }
     }
 }

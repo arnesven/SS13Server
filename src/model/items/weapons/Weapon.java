@@ -17,11 +17,11 @@ import java.util.List;
 
 public class Weapon extends GameItem {
 
-	public static final Weapon FISTS = new Weapon("Fists", 0.5, 0.5, false, 0.0, true);
-    public static final Weapon TENTACLE = new Weapon("Tentacle", 0.5, 0.5, false, 0.0, true);
-    public static final Weapon STEEL_PROD = new BluntWeapon("Steel Prod", 1.0){};
-    public static Weapon CLAWS = new Weapon("Claws", 0.75, 0.5, false, -1.0, true);
-    public static Weapon BEAR_CLAWS = new Weapon("Bear claws", 0.5, 1.0, false, -1.0, true);
+	public static final Weapon FISTS      = new Weapon("Fists", 0.5, 0.5, false, 0.0, true, 0);
+    public static final Weapon TENTACLE   = new Weapon("Tentacle", 0.5, 0.5, false, 0.0, true, 0);
+    public static final Weapon STEEL_PROD = new BluntWeapon("Steel Prod", 1.0, 0){};
+    public static Weapon CLAWS            = new Weapon("Claws", 0.75, 0.5, false, -1.0, true, 0);
+    public static Weapon BEAR_CLAWS       = new Weapon("Bear claws", 0.5, 1.0, false, -1.0, true, 0);
 
     private double criticalChance = 0.05;
     private double hitChance;
@@ -31,8 +31,8 @@ public class Weapon extends GameItem {
     private boolean attackOfOpportunity;
 
     public Weapon(String string, double hitChance, double damage,
-                  boolean bang, double weight, boolean attackOfOp) {
-        super(string, weight);
+                  boolean bang, double weight, boolean attackOfOp, int cost) {
+        super(string, weight, cost);
         this.hitChance = hitChance;
         this.damage = damage;
         makesBang = bang;
@@ -40,8 +40,8 @@ public class Weapon extends GameItem {
     }
 
     public Weapon(String string, double hitChance, double damage,
-				  boolean bang, double weight) {
-        this(string, hitChance, damage, bang, weight, false);
+				  boolean bang, double weight, int cost) {
+        this(string, hitChance, damage, bang, weight, false, cost);
 	}
 
     @Override
@@ -106,7 +106,7 @@ public class Weapon extends GameItem {
     @Override
 	public Weapon clone() {
 		return new Weapon(this.getBaseName(), this.getHitChance(), 
-						  this.getDamage(), this.makesBang, this.getWeight());
+						  this.getDamage(), this.makesBang, this.getWeight(), getCost());
 	}
 
 	public void setDamage(double d) {

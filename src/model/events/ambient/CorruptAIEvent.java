@@ -16,7 +16,7 @@ public class CorruptAIEvent extends AmbientEvent {
 
     @Override
     public void apply(GameData gameData) {
-        if (!hasHappened && MyRandom.nextDouble() < occurranceChance) {
+        if (!hasHappened && MyRandom.nextDouble() < getProbability()) {
             hasHappened = true;
             gameData.getGameMode().getMiscHappenings().add("AI was corrupted.");
             try {

@@ -11,7 +11,7 @@ import model.characters.general.GameCharacter;
  */
 public class SecOffsVest extends SuitItem {
     public SecOffsVest() {
-        super("Vest", 1.0);
+        super("Vest", 1.0, 139);
     }
 
     @Override

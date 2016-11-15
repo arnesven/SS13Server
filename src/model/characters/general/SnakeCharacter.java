@@ -15,7 +15,7 @@ public class SnakeCharacter extends AnimalCharacter {
 		super("Snake", startRoom, -3.0);
 	}
 
-	private static Weapon fangs = new Weapon("Fangs", 0.75, 0.5, false, 0.0);
+	private static Weapon fangs = new Weapon("Fangs", 0.75, 0.5, false, 0.0, 0);
 
     @Override
     public Sprite getSprite(Actor whosAsking) {

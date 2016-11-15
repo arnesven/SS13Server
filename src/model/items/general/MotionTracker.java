@@ -11,7 +11,7 @@ import model.characters.general.GameCharacter;
  */
 public class MotionTracker extends GameItem {
     public MotionTracker() {
-        super("Motion Tracker", 1.0, false);
+        super("Motion Tracker", 1.0, false, 190);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class SuperSuit extends SuitItem {
     private GameCharacter appearAsCharacter = null;
 
     public SuperSuit() {
-        super("Super Suit", 1.0);
+        super("Super Suit", 1.0, 149);
     }
 
     @Override

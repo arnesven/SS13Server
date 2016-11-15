@@ -8,7 +8,7 @@ import model.items.suits.SuitItem;
  */
 public class AISuit extends SuitItem {
     public AISuit() {
-        super("Your laws are...", 0.0);
+        super("Your laws are...", 0.0, 0);
     }
 
     @Override

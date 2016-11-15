@@ -17,8 +17,8 @@ public class ExplodingFood extends FoodItem {
     private FoodItem innerItem;
 	private Actor maker;
 
-	public ExplodingFood(FoodItem selectedItem, Actor maker, ExplodableItem expel) {
-		super(selectedItem.getBaseName(), selectedItem.getWeight());
+	public ExplodingFood(FoodItem selectedItem, Actor maker, ExplodableItem expel, int cost) {
+		super(selectedItem.getBaseName(), selectedItem.getWeight(), cost);
 		this.innerItem = selectedItem;
 		this.maker = maker;
         this.expel = expel;

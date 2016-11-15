@@ -19,7 +19,7 @@ public class PDA extends UplinkItem {
 	private int usesLeft = 2;
 
 	public PDA(TraitorGameMode traitorMode) {
-		super("PDA", 0.5);
+		super("PDA", 0.5, 1500);
 		this.traitorMode = traitorMode;
 	}
 	

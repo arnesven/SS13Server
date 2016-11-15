@@ -14,7 +14,7 @@ public class RemoteBomb extends BombItem {
 	private boolean remoteGotten = false;
 	
 	public RemoteBomb() {
-		super("Remote Bomb");
+		super("Remote Bomb", 750);
 	}
 	
 	@Override

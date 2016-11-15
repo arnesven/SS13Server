@@ -8,7 +8,7 @@ public class KeyCard extends GameItem {
 
 
 	public KeyCard() {
-		super("Keycard", 0.1);
+		super("Keycard", 0.1, 129);
 	}
 
 	@Override

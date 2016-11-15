@@ -9,8 +9,8 @@ import model.actions.itemactions.HideAction;
 
 public abstract class HidableItem extends GameItem {
 
-	public HidableItem(String string, double weight) {
-		super(string, weight);
+	public HidableItem(String string, double weight, int cost) {
+		super(string, weight, cost);
 	}
 
 	private boolean hidden = false;

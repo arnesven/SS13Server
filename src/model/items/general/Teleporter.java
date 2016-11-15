@@ -21,7 +21,7 @@ public class Teleporter extends UplinkItem {
     private boolean used = false;
 
     public Teleporter() {
-        super("Teleporter", 0.3);
+        super("Teleporter", 0.3, 200);
     }
 
     @Override

@@ -9,7 +9,7 @@ public class Locator extends UplinkItem {
 
 
 	public Locator() {
-		super("Locator", 0.3);
+		super("Locator", 0.3, 500);
 	}
 	
 	@Override

@@ -46,7 +46,7 @@ public class ChimpCharacter extends AnimalCharacter {
         return new Sprite("chimp", "monkey.png", 0);
     }
 
-    private static Weapon feces = new Weapon("Feces", 1.0, 0.0, false, 0.0);
+    private static Weapon feces = new Weapon("Feces", 1.0, 0.0, false, 0.0, 0);
 	
 	@Override
 	public Weapon getDefaultWeapon() {

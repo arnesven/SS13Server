@@ -22,16 +22,16 @@ import java.util.List;
  */
 public class VendingMachine extends ElectricalMachinery {
 
-    private ArrayList<Pair<GameItem, Integer>> selection;
+    private ArrayList<GameItem> selection;
     private GameItem selectedItem;
 
     public VendingMachine(Room r) {
         super("Vending Machine", r);
         selection = new ArrayList<>();
-        selection.add(new Pair<>(new Doughnut(null), 5));
-        selection.add(new Pair<>(new Banana(null), 3));
-        selection.add(new Pair<>(new PackOfSmokes(), 20));
-        selection.add(new Pair<>(new ZippoLighter(), 45));
+        selection.add(new Doughnut(null));
+        selection.add(new Banana(null));
+        selection.add(new PackOfSmokes());
+        selection.add(new ZippoLighter());
 
     }
 
@@ -57,17 +57,17 @@ public class VendingMachine extends ElectricalMachinery {
             @Override
             public ActionOption getOptions(GameData gameData, Actor whosAsking) {
                 ActionOption aop = super.getOptions(gameData, whosAsking);
-                for (Pair<GameItem, Integer> it : selection) {
-                    aop.addOption(it.first.getBaseName() + " ($$ " + it.second + ")");
+                for (GameItem it : selection) {
+                    aop.addOption(it.getBaseName() + " ($$ " + it.getCost() + ")");
                 }
                 return aop;
             }
 
             @Override
             public void setArguments(List<String> args, Actor performingClient) {
-                for (Pair<GameItem, Integer> it : selection) {
-                    if (args.get(0).contains(it.first.getBaseName())) {
-                        selectedItem = it.first;
+                for (GameItem it : selection) {
+                    if (args.get(0).contains(it.getBaseName())) {
+                        selectedItem = it;
                         break;
                     }
                 }

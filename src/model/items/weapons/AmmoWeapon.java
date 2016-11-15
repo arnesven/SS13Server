@@ -9,8 +9,8 @@ public class AmmoWeapon extends Weapon {
 	private int maxshots;
 
 	public AmmoWeapon(String string, double hitChance, double damage,
-			boolean bang, double weight, int shots) {
-		super(string, hitChance, damage, bang, weight);
+			boolean bang, double weight, int shots, int cost) {
+		super(string, hitChance, damage, bang, weight, cost);
 		this.shots = shots;
 		this.maxshots = shots;
         this.setCriticalChance(0.10);
@@ -36,7 +36,7 @@ public class AmmoWeapon extends Weapon {
 	@Override
 	public AmmoWeapon clone() {
 		return new AmmoWeapon(this.getBaseName(), super.getHitChance(), 
-				this.getDamage(), this.makesBang(), this.getWeight(), maxshots);
+				this.getDamage(), this.makesBang(), this.getWeight(), maxshots, this.getCost());
 	}
 	
 }

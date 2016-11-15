@@ -12,7 +12,7 @@ public class SecurityRadio extends Radio {
 
 
 	public SecurityRadio() {
-		super("Sec Radio");
+		super("Sec Radio", 230);
 	}
 	
 

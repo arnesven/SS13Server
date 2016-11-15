@@ -11,7 +11,7 @@ import model.characters.general.GameCharacter;
  */
 public class OxygenMask extends SuitItem {
     public OxygenMask() {
-        super("Oxygen Mask", 0.5);
+        super("Oxygen Mask", 0.5, 69);
     }
 
     @Override

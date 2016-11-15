@@ -21,7 +21,7 @@ public class ShootElectricity extends Mutation {
     public CharacterDecorator getDecorator(Actor forWhom) {
         return new CharacterDecorator(forWhom.getCharacter(), "Shoot Electricity") {
 
-            private Weapon electricShocks = new Weapon("Electric shock", 0.9, 1.0, false, 0.0, false);
+            private Weapon electricShocks = new Weapon("Electric shock", 0.9, 1.0, false, 0.0, false, 0);
 
             @Override
             public Weapon getDefaultWeapon() {

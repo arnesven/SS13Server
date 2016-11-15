@@ -49,7 +49,7 @@ public class CookGrenadeIntoFoodAction extends Action {
 		}
 		if (explosive != null) {
 			FoodItem food = new ExplodingFood(innerAction.getSelectedItem(), 
-					                          performingClient, explosive);
+					                          performingClient, explosive, innerAction.getSelectedItem().getCost());
 			performingClient.getItems().remove(explosive);
 
 			performingClient.addItem(food, cooker);

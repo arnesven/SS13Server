@@ -10,7 +10,7 @@ public class FancyClothes extends SuitItem {
 
 	
 	public FancyClothes() {
-		super("Fancy Clothes", 0.5);
+		super("Fancy Clothes", 0.5, 129);
 	}
 
     @Override

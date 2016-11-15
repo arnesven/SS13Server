@@ -8,7 +8,7 @@ import model.events.BananaPeelEvent;
 public class Banana extends HealingFood {
 
 	public Banana(Actor maker) {
-		super("Banana", 0.3, maker);
+		super("Banana", 0.3, maker, 3);
 	}
 
 	@Override

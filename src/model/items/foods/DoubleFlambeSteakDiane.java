@@ -11,7 +11,7 @@ import model.events.RemoveInstanceLaterEvent;
 public class DoubleFlambeSteakDiane extends HealingFood {
 
 	public DoubleFlambeSteakDiane(Actor maker) {
-		super("Double Flambé Steak Diane", 0.5, maker);
+		super("Double Flambé Steak Diane", 0.5, maker, 129);
 	}
 
 	@Override

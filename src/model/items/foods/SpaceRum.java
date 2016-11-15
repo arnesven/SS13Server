@@ -8,7 +8,7 @@ import model.Actor;
  */
 public class SpaceRum extends Alcohol {
     public SpaceRum() {
-        super("Space Rum", 0.75, 3);
+        super("Space Rum", 0.75, 3, 59);
     }
 
     @Override

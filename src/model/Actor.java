@@ -185,4 +185,12 @@ public abstract class Actor  implements ItemHolder, Serializable {
     public boolean isPassive() {
         return getCharacter().isPassive();
     }
+
+    public GameCharacter getInnermostCharacter() {
+        GameCharacter current = getCharacter();
+        while (current instanceof CharacterDecorator) {
+            current = ((CharacterDecorator) current).getInner();
+        }
+        return current;
+    }
 }
