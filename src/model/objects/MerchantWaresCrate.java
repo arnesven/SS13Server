@@ -27,7 +27,7 @@ public class MerchantWaresCrate extends ContainerObject {
         super("Merchant's Wares", shuttleGate);
         this.merchant = merchant;
 
-        List<GameItem> randomItems = MyRandom.getItemsWhichAppearRandomly();
+        List<GameItem> randomItems = MyRandom.allRandomItems();
         Collections.shuffle(randomItems);
         for (int i = 3 + MyRandom.nextInt(4); i > 0; --i) {
             getInventory().add(randomItems.remove(0));

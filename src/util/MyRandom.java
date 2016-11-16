@@ -99,12 +99,9 @@ public class MyRandom {
         list.add(new SpinachSoup(null));
         list.add(new Banana(null));
         list.add(new Syringe());
-        list.add(new BoobyTrapBomb());
         list.add(new Chemicals());
         list.add(new Grenade());
-        list.add(new DummyHivePlacer());
         list.add(new MedKit());
-        list.add(new LarcenyGloves());
         list.add(new Tools());
         list.add(new KeyCard());
         list.add(new Laptop());
@@ -114,14 +111,12 @@ public class MyRandom {
         list.add(new FireExtinguisher());
         list.add(new MotionTracker());
         list.add(new PirateNuclearDisc());
-        list.add(new RemoteBomb());
         list.add(new Bible());
         list.add(new Defibrilator());
         list.add(new GeigerMeter());
         list.add(new NuclearDisc());
         list.add(new SecurityRadio());
         list.add(new Teleporter());
-        list.add(new TimeBomb());
         list.add(new PowerRadio());
         list.add(new PackOfSmokes());
         list.add(new ZippoLighter());
@@ -129,10 +124,7 @@ public class MyRandom {
         list.add(new SecOffsVest());
         list.add(new Sweater());
         list.add(new OxygenMask());
-        list.add(new PrisonerSuit(1337));
-        list.add(new PirateOutfit(1337));
         list.add(new ChefsHat());
-        list.add(new OperativeSpaceSuit());
         list.add(new RadiationSuit());
         list.add(new SpaceSuit());
         list.add(new AdventurersHat());
@@ -141,17 +133,30 @@ public class MyRandom {
         list.add(new SecOffsHelmet());
         list.add(new JumpSuit());
         list.add(new CaptainsHat());
-        list.add(new SuperSuit());
-        list.add(new PirateCaptainOutfit());
         list.add(new Knife());
         list.add(new Revolver());
-        list.add(new LaserPistol());
         list.add(new Shotgun());
-        list.add(new LaserSword());
         list.add(new StunBaton());
         list.add(new Flamer());
-        list.add(new BullWhip());
 
+        return list;
+    }
+
+    public static List<GameItem> allRandomItems() {
+        List<GameItem> list = getItemsWhichAppearRandomly();
+        list.add(new BoobyTrapBomb());
+        list.add(new TimeBomb());
+        list.add(new RemoteBomb());
+        list.add(new OperativeSpaceSuit());
+        list.add(new LarcenyGloves());
+        list.add(new SuperSuit());
+        list.add(new LaserSword());
+        list.add(new LaserPistol());
+        list.add(new PirateCaptainOutfit());
+        list.add(new BullWhip());
+        list.add(new PrisonerSuit(1337));
+        list.add(new PirateOutfit(1337));
+        list.add(new DummyHivePlacer());
         return list;
     }
 
@@ -198,4 +203,6 @@ public class MyRandom {
             return "NAME_FILE_NOT_FOUND";
         }
     }
+
+
 }

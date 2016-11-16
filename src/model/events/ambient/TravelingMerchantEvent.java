@@ -17,7 +17,7 @@ import util.MyRandom;
  * Created by erini02 on 15/11/16.
  */
 public class TravelingMerchantEvent extends AmbientEvent {
-    private static final double occurranceChance = 2;
+    private static final double occurranceChance = 0.02;
     private boolean hasHappened = false;
     private MerchantNPC merchant;
     private MerchantWaresCrate crate;
