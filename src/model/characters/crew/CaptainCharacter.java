@@ -25,7 +25,7 @@ public class CaptainCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<GameItem>();
 		list.add(new KeyCard());
-        list.add(new CosmicArtifact());
+      //  list.add(new CosmicArtifact());
 
 		return list;
 	}
