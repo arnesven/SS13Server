@@ -41,7 +41,7 @@ public class ZombifierEvent extends Event {
                         MovementBehavior move = new MeanderingMovement(0.5);
                         AttackIfPossibleBehavior atk = new AttackAllActorsNotSameClassBehavior();
                         if (a instanceof Player) {
-                            a.getPosition().removePlayer((Player) a);
+                            a.getPosition().removeActor(a);
                             NPC npc = new ZombieNPC(new ZombieDecorator(a.getCharacter().clone()), move, atk, a.getPosition());
                             gameData.addNPC(npc);
                             npc.moveIntoRoom(npc.getPosition());

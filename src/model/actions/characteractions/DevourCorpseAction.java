@@ -33,11 +33,9 @@ public class DevourCorpseAction extends Action {
 	protected void execute(GameData gameData, Actor performingClient) {
 		Actor husk = getAHusk();
         try {
-            if (husk instanceof Player) {
-                performingClient.getPosition().removePlayer((Player) husk);
-            } else {
-                performingClient.getPosition().removeNPC((NPC) husk);
-            }
+
+                performingClient.getPosition().removeActor(husk);
+
         } catch (NoSuchThingException nste) {
             Logger.log(Logger.CRITICAL, "What, no husk to be devoured?");
         }

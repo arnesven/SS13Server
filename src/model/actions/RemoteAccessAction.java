@@ -79,7 +79,7 @@ public abstract class RemoteAccessAction extends Action {
 
     private List<Action> getActionsForRemote(GameData gameData, Actor whosAsking, GameObject ob) {
         ArrayList<Action> at = new ArrayList<>();
-        ob.addSpecificActionsFor(gameData, (Player)whosAsking, at);
+        ob.addSpecificActionsFor(gameData, whosAsking, at);
         return at;
     }
 

@@ -13,7 +13,6 @@ import model.actions.objectactions.CookGrenadeIntoFoodAction;
 import model.items.foods.*;
 import model.items.general.ExplodableItem;
 import model.items.general.GameItem;
-import model.items.general.Grenade;
 import model.map.Room;
 
 public class CookOMatic extends ElectricalMachinery {
@@ -28,7 +27,7 @@ public class CookOMatic extends ElectricalMachinery {
     }
 
     @Override
-	protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(new CookFoodAction(this));
 		if (hasExplosive(cl) != null) {
 			at.add(new CookGrenadeIntoFoodAction(this, new CookFoodAction(this)));
@@ -47,7 +46,7 @@ public class CookOMatic extends ElectricalMachinery {
 	}
 
 
-	private GameItem hasExplosive(Player cl) {
+	private GameItem hasExplosive(Actor cl) {
 		for (GameItem it : cl.getItems()) {
 			if (it instanceof ExplodableItem) {
 				return it;

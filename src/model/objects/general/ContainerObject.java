@@ -5,7 +5,6 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
@@ -26,8 +25,8 @@ private List<GameItem> inventory = new ArrayList<>();
 	
 	
 	@Override
-	public void addSpecificActionsFor(GameData gameData, Player cl,
-			ArrayList<Action> at) {
+	public void addSpecificActionsFor(GameData gameData, Actor cl,
+                                      ArrayList<Action> at) {
 		super.addSpecificActionsFor(gameData, cl, at);
 		
 		if (inventory.size() > 0) {

@@ -92,13 +92,15 @@ public class StealAction extends Action {
 
 
 	private boolean victimIsAttacking(Actor performingClient) {
-		if (((Player)performingClient).getNextAction() instanceof AttackAction) {
-			if (((AttackAction)((Player)performingClient).getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
-                Logger.log(Logger.INTERESTING,
-                        "Steal chance reduced because of attacking...");
-				return true;
-			}
-		}
+        if (performingClient instanceof Player) {
+		    if (((Player)performingClient).getNextAction() instanceof AttackAction) {
+			    if (((AttackAction)((Player)performingClient).getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
+                    Logger.log(Logger.INTERESTING,
+                            "Steal chance reduced because of attacking...");
+				    return true;
+			    }
+		    }
+        }
 		return false;
 	}
 

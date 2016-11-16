@@ -44,13 +44,8 @@ public class BrainBotProgram extends BotProgram {
 
         // move brain Actor to NPCs old position
         try {
-            if (brain.getBelongsTo() instanceof Player) {
-                brain.getBelongsTo().getPosition().removePlayer(((Player)(brain.getBelongsTo())));
-                oldPosition.addPlayer((Player)(brain.getBelongsTo()));
-            } else {
-                brain.getBelongsTo().getPosition().removeNPC(((NPC)(brain.getBelongsTo())));
-                oldPosition.addNPC((NPC)(brain.getBelongsTo()));
-            }
+            brain.getBelongsTo().getPosition().removeActor(brain.getBelongsTo());
+            oldPosition.addActor(brain.getBelongsTo());
         } catch (NoSuchThingException nste) {
             nste.printStackTrace();
         }

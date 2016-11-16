@@ -1,6 +1,5 @@
 package model.objects.consoles;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,23 +12,19 @@ import model.Player;
 import model.actions.characteractions.AILawAction;
 import model.actions.objectactions.AIConsoleAction;
 import model.actions.general.Action;
-import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
 import model.characters.general.HorrorCharacter;
 import model.characters.general.ParasiteCharacter;
 import model.items.NoSuchThingException;
-import model.items.general.GameItem;
 import model.items.laws.AILaw;
 import model.map.Room;
 import model.npcs.NPC;
-import model.npcs.ParasiteNPC;
 import model.npcs.PirateNPC;
 import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
 import model.npcs.behaviors.DoNothingBehavior;
 import model.npcs.behaviors.FindHumansMovement;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.robots.RobotNPC;
-import model.objects.general.GameObject;
 import util.HTMLFont;
 
 public class AIConsole extends Console {
@@ -72,7 +67,7 @@ public class AIConsole extends Console {
 
 
     @Override
-	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+	public void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (!isShutDown()) {
             if (!AIIsPlayer()) {
                 at.add(new AIConsoleAction(this));
@@ -80,11 +75,6 @@ public class AIConsole extends Console {
                 if (cl.getCharacter().isCrew()) {
                     at.add(new AILawAction(this));
                 }
-                //at.add(new AILawAction(this));
-                //            -> Delete law
-                //            -> Add Zeroth Law
-                //            -> Add Nth Law
-                //at.add(new AIPullFuseAction(this)
             }
         }
 	}

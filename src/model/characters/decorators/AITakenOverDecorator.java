@@ -74,8 +74,8 @@ public class AITakenOverDecorator extends CharacterDecorator {
 
 
                     try {
-                        performingClient.getPosition().removePlayer((Player) performingClient);
-                        oldPos.addPlayer((Player) performingClient);
+                        performingClient.getPosition().removeActor(performingClient);
+                        oldPos.addActor(performingClient);
                     } catch (NoSuchThingException e) {
                         e.printStackTrace();
                     }

@@ -120,7 +120,7 @@ public abstract class GameCharacter implements Serializable {
 
     public void doUponDeath(Actor killer) {
         if (killer instanceof Player && ((Player)killer).getSettings().get(PlayerSettings.AUTO_LOOT_ON_KILL)) {
-            transferAllItemsTo((Actor)killer);
+            transferAllItemsTo(killer);
         } else {
             dropAllItems();
         }

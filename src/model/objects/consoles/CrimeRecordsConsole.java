@@ -7,7 +7,6 @@ import java.util.Map;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.CrimeRecordsAction;
 import model.characters.general.AICharacter;
@@ -47,7 +46,7 @@ public class CrimeRecordsConsole extends Console {
 	}
 
 	@Override
-	protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		if (cl.getCharacter().isCrew() || cl.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof AICharacter))) {
 			at.add(new CrimeRecordsAction(this));
 		}

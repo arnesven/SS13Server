@@ -12,7 +12,6 @@ import model.items.general.GameItem;
 import model.items.general.PackOfSmokes;
 import model.items.general.ZippoLighter;
 import model.map.Room;
-import util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,7 @@ public class VendingMachine extends ElectricalMachinery {
     }
 
     @Override
-    protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+    protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         at.add(new Action("Use Vending Machine", SensoryLevel.OPERATE_DEVICE) {
             @Override
             protected String getVerb(Actor whosAsking) {

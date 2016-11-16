@@ -195,6 +195,14 @@ public class Room implements ItemHolder, Serializable {
 		this.npcs.add(npc);
 	}
 
+    public void addActor(Actor person) {
+        if (person instanceof Player) {
+            addPlayer((Player) person);
+        } else if (person instanceof NPC) {
+            addNPC((NPC) person);
+        }
+    }
+
 	/**
 	 * Removes an NPC from this room.
 	 * @param npc, the NPC to remove from this room.
@@ -205,6 +213,16 @@ public class Room implements ItemHolder, Serializable {
 		}
 		this.npcs.remove(npc);
 	}
+
+    public void removeActor(Actor a) throws NoSuchThingException {
+        if (npcs.contains(a)) {
+            npcs.remove(a);
+        } else if (players.contains(a)) {
+            players.remove(a);
+        } else {
+            throw new NoSuchThingException("Tried removing Actor " + a.getBaseName() + " from the room, but it wasn't there!");
+        }
+    }
 
 	public List<Room> getNeighborList() {
 		List<Room> list = new ArrayList<>();
@@ -417,4 +435,7 @@ public class Room implements ItemHolder, Serializable {
     public RoomType getType() {
         return roomType;
     }
+
+
+
 }

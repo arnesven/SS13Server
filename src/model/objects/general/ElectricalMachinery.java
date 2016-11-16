@@ -2,8 +2,8 @@ package model.objects.general;
 
 import java.util.ArrayList;
 
+import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.general.NoPowerAction;
 import model.items.NoSuchThingException;
@@ -41,8 +41,8 @@ public abstract class ElectricalMachinery extends BreakableObject
 	
 	
 	@Override
-	public void addSpecificActionsFor(GameData gameData, Player cl,
-			ArrayList<Action> at) {
+	public void addSpecificActionsFor(GameData gameData, Actor cl,
+                                      ArrayList<Action> at) {
 		Logger.log("## adding specific action for electrical");
 		ArrayList<Action> at2 = new ArrayList<>();
 		if (!isPowered(gameData, this)) {

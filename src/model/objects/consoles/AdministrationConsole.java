@@ -7,7 +7,6 @@ import java.util.Map;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.AdminConsoleAction;
 import model.actions.objectactions.SetWagesAction;
@@ -17,7 +16,6 @@ import model.characters.crew.HeadOfStaffCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.map.Room;
-import model.objects.ATM;
 import model.objects.shipments.*;
 
 public class AdministrationConsole extends Console {
@@ -39,7 +37,7 @@ public class AdministrationConsole extends Console {
 	}
 	
 	@Override
-	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+	public void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		Action a = new AdminConsoleAction(this);
 		if (a.getOptions(gameData, cl).numberOfSuboptions() > 0) {
 			at.add(a);
@@ -49,7 +47,7 @@ public class AdministrationConsole extends Console {
         }
 	}
 
-    private boolean canSetWages(Player cl) {
+    private boolean canSetWages(Actor cl) {
         return cl.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof CaptainCharacter) ||
                 cl.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof HeadOfStaffCharacter);
     }

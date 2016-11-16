@@ -31,9 +31,9 @@ public class MedkitDispenser extends DispenserObject {
     }
 
     @Override
-    public void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
+    public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
         super.addSpecificActionsFor(gameData, cl, at);
-        if (getAMedkit() != null && cl.getHealth() < cl.getMaxHealth()) {
+        if (getAMedkit() != null && cl.getCharacter().getHealth() < cl.getMaxHealth()) {
             MedKit med = getAMedkit();
             HealWithMedKitAction healAct = new HealWithMedKitAction(cl, med);
             at.add(new Action("Retrieve and Heal", SensoryLevel.OPERATE_DEVICE) {

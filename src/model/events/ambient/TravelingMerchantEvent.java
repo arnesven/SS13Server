@@ -44,22 +44,24 @@ public class TravelingMerchantEvent extends AmbientEvent {
                 e.printStackTrace();
             }
         } else {
-            if (!leftAlready && !merchant.isDead() && merchant.getHealth() < merchant.getMaxHealth()) {
-                gameData.getNPCs().remove(merchant);
-                merchant.getPosition().getObjects().remove(crate);
+            if (hasHappened && !leftAlready) {
+                if (!merchant.isDead() && merchant.getHealth() < merchant.getMaxHealth()) {
+                    gameData.getNPCs().remove(merchant);
+                    merchant.getPosition().getObjects().remove(crate);
 
-                try {
-                    Logger.log(Logger.INTERESTING, "Trying to remove merchant from: " + merchant.getPosition().getName());
-                    merchant.getPosition().removeNPC(merchant);
-                } catch (NoSuchThingException e) {
-                    e.printStackTrace();
+                    try {
+                        Logger.log(Logger.INTERESTING, "Trying to remove merchant from: " + merchant.getPosition().getName());
+                        merchant.getPosition().removeNPC(merchant);
+                    } catch (NoSuchThingException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        gameData.findObjectOfType(AIConsole.class).informOnStation("The traveling merchant left the station.", gameData);
+                    } catch (NoSuchThingException e) {
+                        e.printStackTrace();
+                    }
+                    leftAlready = true;
                 }
-                try {
-                    gameData.findObjectOfType(AIConsole.class).informOnStation("The traveling merchant left the station.", gameData);
-                } catch (NoSuchThingException e) {
-                    e.printStackTrace();
-                }
-                leftAlready = true;
             }
         }
     }

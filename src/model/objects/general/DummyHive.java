@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.items.weapons.Weapon;
 import model.map.Room;
@@ -28,7 +27,7 @@ public class DummyHive extends HiveObject {
 	}
 
 	@Override
-	protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) { }
+	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) { }
 
 	@Override
 	public boolean beAttackedBy(Actor performingClient, Weapon item) {

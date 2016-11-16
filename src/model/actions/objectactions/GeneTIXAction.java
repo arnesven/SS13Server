@@ -17,7 +17,7 @@ public class GeneTIXAction extends ConsoleAction {
 	private GeneticsConsole console;
 	private ConsoleAction selected;
 
-	public GeneTIXAction(GameData gameData, Player cl,
+	public GeneTIXAction(GameData gameData, Actor cl,
 			GeneticsConsole geneticsConsole) {
 		super(geneticsConsole.getName(), SensoryLevel.OPERATE_DEVICE);
 		this.console = geneticsConsole;

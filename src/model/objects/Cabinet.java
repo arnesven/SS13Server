@@ -12,7 +12,6 @@ import model.characters.general.GameCharacter;
 import model.items.foods.Beer;
 import model.items.foods.Vodka;
 import model.items.foods.Wine;
-import model.items.general.GameItem;
 import model.map.Room;
 import model.objects.general.DispenserObject;
 
@@ -42,7 +41,7 @@ public class Cabinet extends DispenserObject {
     }
 
     @Override
-    public void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
+    public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (canServe(cl)) {
             super.addSpecificActionsFor(gameData, cl, at);
         }

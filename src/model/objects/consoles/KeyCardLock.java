@@ -41,7 +41,7 @@ public class KeyCardLock extends Console {
 	}
 	
 	@Override
-	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+	public void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		if (hasKeyCard(cl)) {
 			if (locked) {
 				at.add(new UnlockRoomAction(to, from, this));
@@ -51,7 +51,7 @@ public class KeyCardLock extends Console {
 		}
 	}
 
-	private boolean hasKeyCard(Player cl) {
+	private boolean hasKeyCard(Actor cl) {
         if (cl.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof AICharacter)) {
             return true;
         }

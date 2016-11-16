@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.GeneTIXAction;
 import model.map.Room;
@@ -21,7 +21,7 @@ public class GeneticsConsole extends Console {
 	}
 
 	@Override
-	protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         Action cons = new GeneTIXAction(gameData, cl, this);
         if (cons.getOptions(gameData, cl).numberOfSuboptions() > 0) {
             at.add(cons);

@@ -2,8 +2,8 @@ package model.objects.consoles;
 
 import java.util.ArrayList;
 
+import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.SecurityConsoleAction;
 import model.map.Room;
@@ -17,7 +17,7 @@ public class SecurityCameraConsole extends Console {
 	}
 	
 	@Override
-	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+	public void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(new SecurityConsoleAction(this));
 	}
 

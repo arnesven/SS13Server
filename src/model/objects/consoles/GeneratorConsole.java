@@ -7,13 +7,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
+import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.PowerConsoleAction;
-import model.items.NoSuchThingException;
 import model.map.Room;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
@@ -103,7 +101,7 @@ public class GeneratorConsole extends Console {
 	}
 
 	@Override
-	protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(new PowerConsoleAction(this));
 	}
 

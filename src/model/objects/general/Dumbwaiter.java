@@ -7,8 +7,6 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.DumbwaiterAction;
 import model.actions.objectactions.MakeBombAction;
-import model.items.NoSuchThingException;
-import model.items.general.*;
 import model.map.KitchenRoom;
 import model.map.Room;
 import util.Logger;
@@ -31,7 +29,7 @@ public class Dumbwaiter extends GameObject {
     }
 
     @Override
-    public void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
+    public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
         super.addSpecificActionsFor(gameData, cl, at);
         at.add(new MakeBombAction(this));
         if (cl.getItems().size() > 0) {

@@ -38,7 +38,7 @@ public class BioScanner extends ElectricalMachinery {
 	}
 	
 	@Override
-	public void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+	public void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		if (!loaded) {
 	//		if (getChemicals(cl) != null) {
 				at.add(new Action("Turn On BioScanner", SensoryLevel.OPERATE_DEVICE) {

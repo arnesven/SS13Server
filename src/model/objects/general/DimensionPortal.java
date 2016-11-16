@@ -30,7 +30,7 @@ public class DimensionPortal extends GameObject {
     }
 
     @Override
-    public void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
+    public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
         at.add(new GoThroughPortalAction(otherDimRoom));
     }
 

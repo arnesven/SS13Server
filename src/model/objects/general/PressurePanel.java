@@ -26,7 +26,7 @@ public class PressurePanel extends ElectricalMachinery {
 	}
 
 	@Override
-	protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(makeApplicableAction(gameData));
 		
 	}

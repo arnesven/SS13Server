@@ -2,7 +2,6 @@ package model.objects.consoles;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.ScanBrainAction;
 import model.items.Brain;
@@ -66,7 +65,7 @@ public class BotConsole extends Console {
     }
 
     @Override
-    protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+    protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         ScanBrainAction sba = new ScanBrainAction(this);
 
         if (sba.getOptions(gameData, cl).numberOfSuboptions() > 0) {

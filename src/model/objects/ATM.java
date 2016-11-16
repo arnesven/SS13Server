@@ -43,7 +43,7 @@ public class ATM extends ElectricalMachinery {
     }
 
     @Override
-    protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+    protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (hasAnAccount(cl)) {
             at.add(new AccessAccountAction(this));
         }

@@ -11,15 +11,11 @@ import model.actions.general.SensoryLevel;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.events.Event;
-import model.events.damage.FireDamage;
 import model.events.damage.LaserBlast;
 import model.items.weapons.AutoTurretLaser;
-import model.items.weapons.LaserPistol;
 import model.map.Room;
 import model.objects.consoles.AIConsole;
-import model.objects.general.BreakableObject;
 import model.objects.general.ElectricalMachinery;
-import model.objects.general.GameObject;
 import model.objects.general.RemotelyOperateable;
 import util.MyRandom;
 
@@ -89,7 +85,7 @@ public class AITurret extends ElectricalMachinery implements RemotelyOperateable
     }
 
     @Override
-    protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+    protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (cl.getCharacter().checkInstance((GameCharacter ch) ->  ch instanceof AICharacter)) {
             if (autoIsOn) {
                 at.add(makeAutoOffAction(gameData));
@@ -126,7 +122,7 @@ public class AITurret extends ElectricalMachinery implements RemotelyOperateable
         };
     }
 
-    private Action makeAutoOnAction(GameData gameData, Player cl) {
+    private Action makeAutoOnAction(GameData gameData, Actor cl) {
         return new Action("AutoFire ON", SensoryLevel.NO_SENSE) {
             @Override
             protected String getVerb(Actor whosAsking) {

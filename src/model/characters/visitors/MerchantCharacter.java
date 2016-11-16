@@ -5,6 +5,7 @@ import model.Actor;
 import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
 import model.items.general.GameItem;
+import model.items.general.MoneyStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,9 @@ public class MerchantCharacter extends HumanCharacter {
 
     @Override
     public List<GameItem> getStartingItems() {
-        return new ArrayList<>();
+        List<GameItem> things = new ArrayList<>();
+        things.add(new MoneyStack(50));
+        return things;
     }
 
     @Override

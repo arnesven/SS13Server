@@ -1,6 +1,7 @@
 package model.objects;
 
 import graphics.sprites.Sprite;
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -8,9 +9,7 @@ import model.actions.objectactions.ShopFromMerchantAction;
 import model.items.general.GameItem;
 import model.map.Room;
 import model.npcs.MerchantNPC;
-import model.npcs.NPC;
 import model.objects.general.ContainerObject;
-import model.objects.general.GameObject;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class MerchantWaresCrate extends ContainerObject {
     }
 
     @Override
-    public void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
+    public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (cl.getPosition().getActors().contains(merchant)) {
             if (getInventory().size() > 0) {
                 at.add(new ShopFromMerchantAction(this, merchant));

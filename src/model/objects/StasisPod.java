@@ -13,8 +13,8 @@ import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.items.NoSuchThingException;
 import model.map.Room;
+import model.npcs.NPC;
 import model.objects.general.ElectricalMachinery;
-import model.objects.general.GameObject;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class StasisPod extends ElectricalMachinery {
     }
 
     @Override
-    protected void addActions(GameData gameData, Player cl, ArrayList<Action> at) {
+    protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (isVacant()) {
             if (cl.getCharacter().getSuit() == null ||
                     (cl.getCharacter().getSuit() != null &&
@@ -91,7 +91,7 @@ public class StasisPod extends ElectricalMachinery {
     public void eject() {
         Logger.log("Ejecting player from pod!");
 
-        person.getPosition().addPlayer((Player)person);
+        person.getPosition().addActor(person);
         person.removeInstance(new InstanceChecker() {
             @Override
             public boolean checkInstanceOf(GameCharacter ch) {
@@ -116,7 +116,7 @@ public class StasisPod extends ElectricalMachinery {
 
     public void putIntoPod(GameData gameData, Actor performingClient, String timeChosen) {
         try {
-            performingClient.getPosition().removePlayer((Player)performingClient);
+            performingClient.getPosition().removeActor(performingClient);
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

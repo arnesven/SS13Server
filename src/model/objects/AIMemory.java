@@ -1,6 +1,7 @@
 package model.objects;
 
 import graphics.sprites.Sprite;
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -30,7 +31,7 @@ public class AIMemory extends GameObject {
     }
 
     @Override
-    public void addSpecificActionsFor(GameData gameData, Player cl, ArrayList<Action> at) {
+    public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (!aiPlayer.isDead()) {
             at.add(new PullMemoryBlockAction(this, aiPlayer, aiCharacter));
         }
