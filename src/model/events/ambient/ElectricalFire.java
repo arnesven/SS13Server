@@ -67,7 +67,7 @@ public class ElectricalFire extends OngoingEvent {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("electricalfire", "decals.png", 0, 2, 32, 32);
+        return new Sprite("electricalfire", "screen2.png", 5, 2);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package model.objects.consoles;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -38,25 +39,31 @@ public class BotConsole extends Console {
 
         bp.add(new BotProgram("Anti-Fire",
                 new GoTowardsFireMovement(gameData),
-                new PutOutFireBehavior(gameData)));
+                new PutOutFireBehavior(gameData),
+                new Sprite("firefighterbot", "robots2.png", 9, 2)));
         bp.add(new BotProgram("Friendly", new MeanderingMovement(0.5),
                 new RandomSpeechBehavior("resources/CHITCHAT.TXT")));
         bp.add(new BotProgram("Hostile",
                 new MoveTowardsClosestActorMovement(gameData),
-                new AttackAllActorsNotSameClassBehavior()));
+                new AttackAllActorsNotSameClassBehavior(),
+                new Sprite("hostilebot", "robots2.png", 13, 15)));
         bp.add(new BotProgram("Nurse",
                 new MeanderingMovement(1.0),
-                new HealOtherBehavior()));
+                new HealOtherBehavior(),
+                new Sprite("nursebot", "robots2.png", 10, 4)));
         bp.add(new BotProgram("Bodyguard",
                 new FollowMeBehavior(whosAsking, gameData),
-                new AttackBaddiesBehavior()));
+                new AttackBaddiesBehavior(),
+                new Sprite("bodyguardbot", "robots2.png", 14, 4)));
         bp.add(new BotProgram("Repair",
                 new GoTowardsBrokenMovement(gameData),
-                new RepairStuffBehavior(gameData)));
+                new RepairStuffBehavior(gameData),
+                new Sprite("repairbot", "robots2.png", 13, 2)));
         try {
             bp.add(new BotProgram("Security",
                     new FollowCriminalBehavior(gameData.findObjectOfType(CrimeRecordsConsole.class)),
-                    new ArrestCriminalBehavior(gameData.findObjectOfType(CrimeRecordsConsole.class))));
+                    new ArrestCriminalBehavior(gameData.findObjectOfType(CrimeRecordsConsole.class)),
+                    new Sprite("securitybot", "robots2.png", 21, 2)));
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "No crime console on station. Not adding security bot program.");
         }

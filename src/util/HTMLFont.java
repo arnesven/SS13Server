@@ -8,7 +8,7 @@ public class HTMLFont {
         return "<font color=\"" + color + "\">" + s + "</font>";
     }
 
-    public static Object makeText(String color, String font, int size, String s) {
+    public static String makeText(String color, String font, int size, String s) {
         return "<font color=\"" + color + "\" face=\"" + font + "\" size=\"" + size + "\">" + s + "</font>";
     }
 }

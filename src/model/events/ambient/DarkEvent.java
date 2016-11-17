@@ -1,5 +1,6 @@
 package model.events.ambient;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
@@ -15,7 +16,12 @@ public class DarkEvent extends Event {
 		return "Dark";
 	}
 
-	@Override
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("darkevent", "screen1.png", 12, 13);
+    }
+
+    @Override
 	public SensoryLevel getSense() {
 		return new SensoryLevel(SensoryLevel.VisualLevel.CLEARLY_VISIBLE,
 								SensoryLevel.AudioLevel.INAUDIBLE,

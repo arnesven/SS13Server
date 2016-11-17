@@ -1,5 +1,6 @@
 package model.events.ambient;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Target;
@@ -25,6 +26,11 @@ public class LowPressureEvent extends Event {
         for (Target t : roomRef.getTargets()) {
             t.beExposedTo(null, new AsphyxiationDamage(t));
         }
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("lowpressureevent", "screen1.png", 16, 13);
     }
 
     @Override
