@@ -22,14 +22,19 @@ public class PiercingProtection extends CharacterDecorator {
     @Override
     public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
         double oldHealth = getActor().getCharacter().getHealth();
-        boolean res = super.beAttackedBy(performingClient, weapon);
+
         if (getProtectionFrom(weapon)) {
-            if (oldHealth > getActor().getCharacter().getHealth()) {
-                // get refunded some health
-                getActor().addTolastTurnInfo("Your armor protects you.");
-                getActor().addToHealth(0.5);
+            getActor().getCharacter().setHealth(oldHealth + 0.5);
+            getActor().addTolastTurnInfo("Your armor protects you.");
+        }
+        boolean res = super.beAttackedBy(performingClient, weapon);
+
+        if (getProtectionFrom(weapon)) {
+            if (getActor().getCharacter().getHealth() == oldHealth + 0.5) {
+                getActor().getCharacter().setHealth(oldHealth - 0.5);
             }
         }
+
         return res;
     }
 

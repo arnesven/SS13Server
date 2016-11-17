@@ -78,8 +78,8 @@ public class RoomDecorator extends Room {
 		return innerRoom.getNeighborList();
 	}
 
-	public void addActionsFor(GameData gameData, Player client,
-			ArrayList<Action> at) {
+	public void addActionsFor(GameData gameData, Actor client,
+                              ArrayList<Action> at) {
 		innerRoom.addActionsFor(gameData, client, at);
 	}
 

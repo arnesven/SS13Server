@@ -166,6 +166,11 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public String getKillerString() {
 		return innerChar.getKillerString();
 	}
+
+    @Override
+    public Actor getKiller() {
+        return innerChar.getKiller();
+    }
 	
 	@Override
 	public double getSpeed() {

@@ -3,7 +3,6 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.ReviveAction;
 import model.characters.decorators.InstanceChecker;
@@ -33,7 +32,7 @@ public class Defibrilator extends GameItem {
     }
 
     @Override
-    public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
+    public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         ReviveAction re = new ReviveAction(gameData, cl, this);
 
         if (re.getOptions(gameData, cl).numberOfSuboptions() > 0 && charge) {

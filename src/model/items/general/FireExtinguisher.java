@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.PutOutFireAction;
 import model.events.NoSuchEventException;
@@ -43,7 +42,7 @@ public class FireExtinguisher extends BluntWeapon {
 	}
 	
 	@Override
-	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
+	public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
 		try {
             if (getFire(cl.getPosition()) != null && level > 0) {
                 at.add(new PutOutFireAction(this));

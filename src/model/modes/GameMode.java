@@ -11,9 +11,7 @@ import java.util.Set;
 import model.PlayerSettings;
 import model.characters.general.AICharacter;
 import model.characters.visitors.VisitorCharacter;
-import model.events.AlienDimensionEvent;
-import model.events.PirateAttackEvent;
-import model.events.SpontaneousExplosionEvent;
+import model.events.*;
 import model.events.ambient.*;
 import model.items.NoSuchThingException;
 import model.npcs.*;
@@ -47,7 +45,6 @@ import model.characters.crew.JanitorCharacter;
 import model.characters.crew.TechnicianCharacter;
 import model.characters.crew.RoboticistCharacter;
 import model.characters.crew.SecurityOfficerCharacter;
-import model.events.Event;
 import model.items.general.GameItem;
 import model.map.NukieShipRoom;
 import model.map.Room;
@@ -121,6 +118,7 @@ public abstract class GameMode implements Serializable {
         events.put("alien dimension",  new AlienDimensionEvent());
         events.put("corrupt ai",       new CorruptAIEvent());
         events.put("merchant",         new TravelingMerchantEvent());
+        events.put("marshals",         new GalacticFederalMarshalsEvent());
 	}
 
     public abstract String getName();
@@ -494,7 +492,7 @@ public abstract class GameMode implements Serializable {
 	}
 
     private int noOfNPCs() {
-        return Math.min(MyRandom.nextInt(3) + 5, remainingChars.size());
+        return Math.min(MyRandom.nextInt(3) + 4, remainingChars.size());
         //return Math.min(16, remainingChars.size());
     }
 
@@ -504,12 +502,11 @@ public abstract class GameMode implements Serializable {
 		actors.addAll(gameData.getPlayersAsList());
 		actors.addAll(gameData.getNPCs());
 
+
+
 		for (Actor c : actors) {
-			List<GameItem> startingItems = c.getCharacter().getStartingItems();
-			Logger.log("Giving starting items to " + c.getPublicName());
-			for (GameItem it : startingItems) {
-				c.addItem(it, null);
-			}		
+            c.giveStartingItemsToSelf();
+
 		}
 	}
 

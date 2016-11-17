@@ -7,7 +7,7 @@ import model.items.general.*;
  */
 public class TechnicalShipment extends Shipment {
     public TechnicalShipment() {
-        super("Technical", 6000);
+        super("Technical");
         this.add(new Tools());
         this.add(new Tools());
         this.add(new PowerRadio());

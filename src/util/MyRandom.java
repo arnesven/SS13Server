@@ -3,10 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import model.GameData;
 import model.items.foods.*;
@@ -81,8 +78,18 @@ public class MyRandom {
 		return "man";
 	}
 
-	public static <T> T sample(List<? extends T> list) {
-		return list.get(nextInt(list.size()));
+	public static <T> T sample(Collection<? extends T> list) {
+        if (list.size() == 0) {
+            throw new IllegalStateException("Cannot sample from collection of size 0!");
+        }
+
+        T result = null;
+        Iterator<? extends T> it = list.iterator();
+        for (int i = MyRandom.nextInt(list.size()); i >= 0; --i) {
+            result = it.next();
+        }
+
+		return result;
 	}
 
 	public static List<GameItem> getItemsWhichAppearRandomly() {
@@ -136,6 +143,7 @@ public class MyRandom {
         list.add(new Knife());
         list.add(new Revolver());
         list.add(new Shotgun());
+        list.add(new ShotgunShells());
         list.add(new StunBaton());
         list.add(new Flamer());
 

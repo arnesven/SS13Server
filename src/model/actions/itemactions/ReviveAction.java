@@ -22,7 +22,7 @@ public class ReviveAction extends Action {
     private final Defibrilator defibrilator;
     private Actor target;
 
-    public ReviveAction(GameData gameData, Player cl, Defibrilator defibrilator) {
+    public ReviveAction(GameData gameData, Actor cl, Defibrilator defibrilator) {
         super("Resuscitate", SensoryLevel.OPERATE_DEVICE);
         this.defibrilator = defibrilator;
     }

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.SermonAction;
 import model.characters.general.GameCharacter;
@@ -27,7 +26,7 @@ public class Bible extends GameItem {
 	
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
-			Player cl) {
+                               Actor cl) {
 		if (isAGodlyMan(cl.getCharacter())) {
 			at.add(new SermonAction(this));
 		}

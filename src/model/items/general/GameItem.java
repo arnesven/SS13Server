@@ -97,9 +97,10 @@ public abstract class GameItem implements Locatable, Serializable {
 	 * Adds the items actions to the players list of actions.
 	 * Overload this method for specific items so they add their
 	 * actions.
-	 * @param at
-	 */
-	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
+     * @param at
+     * @param cl
+     */
+	public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
 	}
 
 	public double getWeight() {
@@ -154,10 +155,10 @@ public abstract class GameItem implements Locatable, Serializable {
 		throw new NoSuchThingException("Did not find a " + item.getBaseName());
 	}
 
-    public static GameItem getItemFromActor(Actor victim, GameItem obj) throws NoSuchThingException {
+    public static <E extends GameItem> E getItemFromActor(Actor victim, E obj) throws NoSuchThingException {
         for (GameItem it : victim.getItems()) {
             if (it.getClass() == obj.getClass()) {
-                return it;
+                return (E)it;
             }
         }
         throw new NoSuchThingException("Did not find a " + obj.getBaseName());

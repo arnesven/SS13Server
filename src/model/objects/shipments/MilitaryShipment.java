@@ -8,7 +8,7 @@ import model.characters.crew.HeadOfStaffCharacter;
 public class MilitaryShipment extends Shipment {
 
 	public MilitaryShipment() {
-		super("Military", 8000, (new HeadOfStaffCharacter()).getSpeed());
+		super("Military", (new HeadOfStaffCharacter()).getSpeed());
 		for (int i = 3; i > 0; --i) {
 			this.add(new LaserPistol());
 		}

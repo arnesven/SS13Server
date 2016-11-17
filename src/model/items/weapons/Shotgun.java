@@ -22,6 +22,6 @@ public class Shotgun extends AmmoWeapon {
 
     @Override
     public Sprite getHandHeldSprite() {
-        return new Sprite("shotgunhandheld", "items_righthand.png", 0, 41);
+        return new Sprite("shotgunhandheld", "items_righthand.png", 8, 23);
     }
 }

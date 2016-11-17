@@ -6,7 +6,6 @@ import java.util.List;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
@@ -25,7 +24,7 @@ public class DummyHivePlacer extends GameItem {
 	
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
-			Player cl) {
+                               Actor cl) {
 		at.add(new Action("Place Dummy Hive", SensoryLevel.PHYSICAL_ACTIVITY) {
 			
 			@Override

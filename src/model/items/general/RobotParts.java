@@ -3,12 +3,10 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.BuildRobotAction;
 import model.characters.crew.RoboticistCharacter;
 import model.characters.decorators.InstanceChecker;
-import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.RobotCharacter;
 
@@ -21,7 +19,7 @@ public class RobotParts extends GameItem {
 
 
     public RobotParts() {
-        super("Robot Parts", 125.0, 80);
+        super("Robot Parts", 125.0, 1250);
     }
 
     @Override
@@ -30,7 +28,7 @@ public class RobotParts extends GameItem {
     }
 
     @Override
-    public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
+    public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
         InstanceChecker instanceChecker = new InstanceChecker() {
             @Override

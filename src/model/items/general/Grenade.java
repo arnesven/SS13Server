@@ -11,7 +11,6 @@ import model.objects.general.BreakableObject;
 import model.objects.general.GameObject;
 import util.MyRandom;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.ThrowGrenadeAction;
 import model.events.damage.Damager;
@@ -23,7 +22,7 @@ public class Grenade extends GameItem implements Damager, ExplodableItem {
 	}
 	
 	@Override
-	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
+	public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
 		at.add(new ThrowGrenadeAction(cl));
 	}
 

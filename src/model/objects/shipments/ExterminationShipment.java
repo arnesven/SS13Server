@@ -6,7 +6,7 @@ import model.items.weapons.Flamer;
 public class ExterminationShipment extends Shipment {
 
 	public ExterminationShipment() {
-		super("Extermination", 4000);
+		super("Extermination");
 		for (int i = 5; i > 0; --i) {
 			this.add(new Chemicals());
 		}

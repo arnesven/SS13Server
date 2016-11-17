@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
@@ -26,7 +25,7 @@ public class TimeBomb extends BombItem {
 
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
-			Player cl) {
+                               Actor cl) {
 		super.addYourActions(gameData, at, cl);
 		if (!timeSet) {
 		

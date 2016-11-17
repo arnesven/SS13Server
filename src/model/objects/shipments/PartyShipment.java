@@ -7,7 +7,7 @@ import model.items.suits.FancyClothes;
 public class PartyShipment extends Shipment {
 
 	public PartyShipment() {
-		super("Party", 1500);
+		super("Party");
 		this.add(new ApplePie(null));
 		this.add(new ApplePie(null));
 		this.add(new FancyClothes());

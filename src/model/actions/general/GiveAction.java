@@ -44,7 +44,7 @@ public class GiveAction extends TargetingAction {
 	}
 	
 	@Override
-	public void addClientsItemsToAction(Player client) {
+	public void addClientsItemsToAction(Actor client) {
 		for (GameItem it : client.getItems()) {
 			if (! (it instanceof BombItem)) {
 				withWhats.add(it);

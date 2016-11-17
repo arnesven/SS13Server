@@ -75,6 +75,9 @@ private List<GameItem> inventory = new ArrayList<>();
 			});
 		}
 	}
-	
-	
+
+
+    public boolean accessibleTo(Actor ap) {
+        return true;
+    }
 }

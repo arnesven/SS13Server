@@ -3,7 +3,6 @@ package model.items.weapons;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.Target;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
@@ -11,11 +10,9 @@ import model.actions.general.TargetingAction;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.AdventurerCharacter;
 import model.items.general.GameItem;
-import model.npcs.NPC;
 import util.MyRandom;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by erini02 on 18/10/16.
@@ -31,7 +28,7 @@ public class BullWhip extends Weapon {
     }
 
     @Override
-    public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
+    public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
         if (cl.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof AdventurerCharacter)) {
             TargetingAction ta = new SnatchAction(cl);

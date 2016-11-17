@@ -2,8 +2,8 @@ package model.items.general;
 
 import java.util.ArrayList;
 
+import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.map.Room;
 import model.objects.general.GameObject;
@@ -18,7 +18,7 @@ public class BoobyTrapBomb extends BombItem {
 	
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
-			Player cl) {
+                               Actor cl) {
 		super.addYourActions(gameData, at, cl);
 		if (hasRiggableObjects(cl.getPosition())) {
 			at.add(new RigBoobyTrapAction(this, cl));

@@ -30,7 +30,7 @@ public class Teleporter extends UplinkItem {
     }
 
     @Override
-    public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
+    public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
         if (!used) {
             addMarkCoordinatesAction(gameData, at, cl);
@@ -48,11 +48,11 @@ public class Teleporter extends UplinkItem {
         return super.getFullName(whosAsking);
     }
 
-    private void addTeleportAction(GameData gameData, ArrayList<Action> at, Player cl) {
+    private void addTeleportAction(GameData gameData, ArrayList<Action> at, Actor cl) {
         at.add(new TeleportAction(this));
     }
 
-    private void addMarkCoordinatesAction(GameData gameData, ArrayList<Action> at, final Player cl) {
+    private void addMarkCoordinatesAction(GameData gameData, ArrayList<Action> at, final Actor cl) {
         at.add(new Action("Mark Coordinates", new SensoryLevel(SensoryLevel.VisualLevel.STEALTHY,
                 SensoryLevel.AudioLevel.INAUDIBLE, SensoryLevel.OlfactoryLevel.UNSMELLABLE)) {
             @Override

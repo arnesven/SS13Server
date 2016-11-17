@@ -1,9 +1,9 @@
 package model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import model.actions.general.*;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InfectedCharacter;
@@ -12,6 +12,7 @@ import model.characters.decorators.NoSuchInstanceException;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.map.Room;
+import util.Logger;
 
 public abstract class Actor  implements ItemHolder, Serializable {
 
@@ -178,7 +179,160 @@ public abstract class Actor  implements ItemHolder, Serializable {
                 getCharacter().getHealth() - d));
     }
 
-	public abstract double getMaxHealth();
+    /**
+     * Gets the tree structure of selectable actions from which the player
+     * can select one. Some actions require subinformation, which is why this
+     * datastructure is a tree.
+     * @param gameData the Game's data
+     * @return the tree of actions.
+     */
+    public ArrayList<Action> getActionList(GameData gameData) {
+        ArrayList<Action> at = new ArrayList<Action>();
+
+        if (getsActions()) {
+            addBasicActions(at);
+
+            addRoomActions(gameData, at);
+
+            if (this.hasInventory()) {
+                addItemActions(gameData, at);
+            }
+            addAttackActions(at);
+            addWatchAction(at);
+            if (this.hasInventory()) {
+                addManageItemActions(gameData, at);
+            }
+
+            getCharacter().addCharacterSpecificActions(gameData, at);
+
+        }
+
+        groupTargetingActions(at);
+        at.add(0, new DoNothingAction());
+
+        return at;
+    }
+
+    public boolean getsActions() {
+        if (getCharacter() != null) {
+            return getCharacter().getsActions();
+        }
+        return !isDead();
+    }
+
+    public boolean hasInventory() {
+        return getCharacter().hasInventory();
+    }
+
+    private void groupTargetingActions(ArrayList<Action> at) {
+        List<Action> targetingActions = new ArrayList<>();
+        Iterator<Action> it = at.iterator();
+        while (it.hasNext()) {
+            Action a = it.next();
+            if (a instanceof TargetingAction) {
+                targetingActions.add(a);
+                it.remove();
+            }
+        }
+        if (targetingActions.size() > 0) {
+            ActionGroup ag = new ActionGroup("Interaction");
+            ag.addAll(targetingActions);
+            at.add(ag);
+        }
+    }
+
+    private void addManageItemActions(GameData gameData, ArrayList<Action> at2) {
+        ArrayList<Action> at = new ArrayList<>();
+        addGiveAction(at);
+        addDropActions(gameData, at);
+        addPickUpActions(gameData, at);
+        addPutOnActions(at);
+        if (at.size() > 0) {
+            ActionGroup manageItems = new ActionGroup("Manage Items");
+            manageItems.addAll(at);
+            at2.add(manageItems);
+        }
+    }
+
+    private void addItemActions(GameData gameData, ArrayList<Action> at) {
+        Set<String> set = new HashSet<>();
+        ArrayList<Action> itActions = new ArrayList<>();
+        for (GameItem it : getItems()) {
+            if (!set.contains(it.getBaseName())) {
+                it.addYourActions(gameData, itActions, this);
+                set.add(it.getFullName(this));
+            }
+        }
+
+
+        for (GameItem it : getPosition().getItems()) {
+            if (it.isUsableFromFloor()) {
+                it.addYourActions(gameData, itActions, this);
+            }
+        }
+
+        if (itActions.size() > 0) {
+            ActionGroup ag = new ActionGroup("Use Items");
+            ag.addAll(itActions);
+            at.add(ag);
+        }
+    }
+
+    private void addPickUpActions(GameData gameData, ArrayList<Action> at) {
+        PickUpAction pickUpAction = new PickUpAction(this);
+        if (pickUpAction.getOptions(gameData, this).numberOfSuboptions() > 0) {
+            at.add(pickUpAction);
+        }
+    }
+
+    private void addDropActions(GameData gameData, ArrayList<Action> at) {
+        DropAction dropAction = new DropAction(this);
+        if (dropAction.getOptions(gameData, this).numberOfSuboptions() > 0) {
+            at.add(dropAction);
+        }
+    }
+
+    private void addRoomActions(GameData gameData, ArrayList<Action> at) {
+        this.getPosition().addActionsFor(gameData, this, at);
+    }
+
+    private void addWatchAction(ArrayList<Action> at) {
+        TargetingAction watchAction = new WatchAction(this);
+        if (watchAction.getNoOfTargets() > 0) {
+            at.add(watchAction);
+        }
+    }
+
+    private void addGiveAction(ArrayList<Action> at) {
+        TargetingAction giveAction = new GiveAction(this);
+        giveAction.addClientsItemsToAction(this);
+        if (giveAction.getNoOfTargets() > 0 && giveAction.getWithWhats().size() > 0) {
+            at.add(giveAction);
+        }
+    }
+
+    private void addPutOnActions(ArrayList<Action> at) {
+        PutOnAction act = new PutOnAction(this);
+        if (act.getNoOfOptions() > 0) {
+            at.add(act);
+        }
+    }
+
+    private void addAttackActions(ArrayList<Action> at) {
+        TargetingAction attackAction = new AttackAction(this);
+        if (attackAction.getNoOfTargets() > 0) {
+            attackAction.addClientsItemsToAction(this);
+            at.add(attackAction);
+        }
+    }
+
+    private void addBasicActions(ArrayList<Action> at) {
+        if (!isDead()) {
+            at.add(new SearchAction());
+        }
+    }
+
+    public abstract double getMaxHealth();
 	
 	public abstract void moveIntoRoom(Room brig);
 
@@ -192,5 +346,13 @@ public abstract class Actor  implements ItemHolder, Serializable {
             current = ((CharacterDecorator) current).getInner();
         }
         return current;
+    }
+
+    public void giveStartingItemsToSelf() {
+        List<GameItem> startingItems = this.getCharacter().getStartingItems();
+        Logger.log("Giving starting items to " + this.getPublicName());
+        for (GameItem it : startingItems) {
+            this.addItem(it, null);
+        }
     }
 }

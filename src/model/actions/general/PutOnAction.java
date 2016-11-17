@@ -6,6 +6,7 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.items.general.GameItem;
+import model.items.suits.MerchantSuit;
 import model.items.suits.SuitItem;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
@@ -50,9 +51,11 @@ public class PutOnAction extends Action {
         for (GameObject obj : ap.getPosition().getObjects()) {
             if (obj instanceof ContainerObject) {
                 ContainerObject container = (ContainerObject) obj;
-                for (GameItem it : container.getInventory()) {
-                    if (it instanceof  SuitItem) {
-                        options.add((SuitItem)it);
+                if (container.accessibleTo(ap)) {
+                    for (GameItem it : container.getInventory()) {
+                        if (it instanceof SuitItem) {
+                            options.add((SuitItem) it);
+                        }
                     }
                 }
             }

@@ -6,7 +6,6 @@ import java.util.List;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.general.SensoryLevel.*;
@@ -23,7 +22,7 @@ public class BombDetonator extends GameItem {
 	
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
-			Player cl) {
+                               Actor cl) {
 		if (! detonated ) {
 			at.add(new Action("Detonate " + bomb.getPublicName(cl),
 					new SensoryLevel(VisualLevel.STEALTHY, 

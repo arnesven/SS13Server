@@ -30,7 +30,7 @@ public abstract class Radio extends UplinkItem {
     }
 
     @Override
-    public void addYourActions(GameData gameData, ArrayList<Action> at, model.Player cl) {
+    public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         Console console;
         try {
             console = getSpecificConsole(gameData);

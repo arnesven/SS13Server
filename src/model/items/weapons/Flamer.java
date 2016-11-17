@@ -41,7 +41,7 @@ public class Flamer extends Weapon {
     }
 
     @Override
-	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
+	public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
 
         List<Chemicals> chem = getChemicalsFromClient(cl);
         if (chem.size() >= CHEMS_NEEDED_TO_BURN_HIVE) {
@@ -51,12 +51,12 @@ public class Flamer extends Weapon {
         addSprayFireAction(at, cl);
     }
 
-	private void addSprayFireAction(ArrayList<Action> at, Player cl) {
+	private void addSprayFireAction(ArrayList<Action> at, Actor cl) {
 		at.add(new SprayFireAction());
 		
 	}
 
-	private void possiblyAddBurnHive(ArrayList<Action> at, Player cl) {
+	private void possiblyAddBurnHive(ArrayList<Action> at, Actor cl) {
 		for (GameObject ob : cl.getPosition().getObjects()) {
 			if (ob instanceof HiveObject){
 				if (((HiveObject)ob).isFound()) {
@@ -66,7 +66,7 @@ public class Flamer extends Weapon {
 		}
 	}
 
-	private List<Chemicals> getChemicalsFromClient(Player cl) {
+	private List<Chemicals> getChemicalsFromClient(Actor cl) {
 		List<Chemicals> list = new ArrayList<>();
 		for (GameItem gi : cl.getItems()) {
 			if (gi instanceof Chemicals) {

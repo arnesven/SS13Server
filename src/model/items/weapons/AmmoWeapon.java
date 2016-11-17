@@ -33,10 +33,17 @@ public class AmmoWeapon extends Weapon {
 		return shots > 0;
 	}
 
-	@Override
-	public AmmoWeapon clone() {
-		return new AmmoWeapon(this.getBaseName(), super.getHitChance(), 
-				this.getDamage(), this.makesBang(), this.getWeight(), maxshots, this.getCost());
-	}
-	
+    @Override
+    public AmmoWeapon clone() {
+        return new AmmoWeapon(this.getBaseName(), super.getHitChance(),
+                this.getDamage(), this.makesBang(), this.getWeight(), maxshots, this.getCost());
+    }
+
+    public int getMaxShots() {
+        return maxshots;
+    }
+
+    public void setShots(int shots) {
+        this.shots = shots;
+    }
 }

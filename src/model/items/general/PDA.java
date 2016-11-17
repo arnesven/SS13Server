@@ -6,7 +6,6 @@ import java.util.List;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.UsePDAAction;
 import model.items.suits.SuperSuit;
@@ -25,7 +24,7 @@ public class PDA extends UplinkItem {
 	
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
-			Player cl) {
+                               Actor cl) {
 		at.add(new UsePDAAction(traitorMode, this));
 	}
 

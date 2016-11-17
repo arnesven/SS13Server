@@ -6,7 +6,6 @@ import java.util.List;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.items.weapons.BluntWeapon;
 import model.actions.general.SensoryLevel;
@@ -24,7 +23,7 @@ public class Saxophone extends BluntWeapon {
 
     @Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
-			Player cl) {
+                               Actor cl) {
 		super.addYourActions(gameData, at, cl);
 		at.add(new Action("Play Saxophone", SensoryLevel.PHYSICAL_ACTIVITY) {
 			

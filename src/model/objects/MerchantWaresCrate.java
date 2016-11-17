@@ -6,6 +6,8 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.ShopFromMerchantAction;
+import model.characters.general.GameCharacter;
+import model.characters.visitors.MerchantCharacter;
 import model.items.general.GameItem;
 import model.map.Room;
 import model.npcs.MerchantNPC;
@@ -46,5 +48,10 @@ public class MerchantWaresCrate extends ContainerObject {
             }
         }
 
+    }
+
+    @Override
+    public boolean accessibleTo(Actor ap) {
+        return ap.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof MerchantCharacter);
     }
 }

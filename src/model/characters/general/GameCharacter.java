@@ -307,6 +307,10 @@ public abstract class GameCharacter implements Serializable {
 		this.killer = a;
 	}
 
+    public Actor getKiller() {
+        return killer;
+    }
+
 	public boolean isCrew() {
 		return true;
 	}

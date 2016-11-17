@@ -47,7 +47,7 @@ public class Syringe extends GameItem {
 
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
-			Player cl) {
+                               Actor cl) {
 		if (!filled) {
 			TargetingAction action = new DrawBloodAction(cl);
 			if (action.getOptions(gameData, cl).numberOfSuboptions() > 0) {

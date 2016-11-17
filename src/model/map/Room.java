@@ -232,7 +232,7 @@ public class Room implements ItemHolder, Serializable {
 		return list;
 	}
 
-	public void addActionsFor(GameData gameData, Player client, ArrayList<Action> at) {
+	public void addActionsFor(GameData gameData, Actor client, ArrayList<Action> at) {
 		for (GameObject ob : objects) {
 			if (client.getCharacter().canUseObjects()) {
 				ob.addSpecificActionsFor(gameData, client, at);

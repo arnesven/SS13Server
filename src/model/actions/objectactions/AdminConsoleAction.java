@@ -18,8 +18,9 @@ public class AdminConsoleAction extends ConsoleAction {
 
 	private AdministrationConsole pc;
 	private Shipment selectedShip;
+    private boolean checkedfunds;
 
-	public AdminConsoleAction(AdministrationConsole console) {
+    public AdminConsoleAction(AdministrationConsole console) {
 		super("Admin Console", SensoryLevel.OPERATE_DEVICE);
 		this.pc = console;
 	}
@@ -27,10 +28,10 @@ public class AdminConsoleAction extends ConsoleAction {
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = super.getOptions(gameData, whosAsking);
-		
+		opt.addOption("Station funds $$ " + pc.getMoney());
 		for (Shipment ship : pc.getShipments()) {
 			if (ship.getCost() <= pc.getMoney() && rankOk(ship, whosAsking)) {
-				opt.addOption(ship.getName() + " ($ " + String.format("%.1f", ship.getCost()/1000.0) + "k)");
+				opt.addOption(ship.getName() + " ($$ " + String.format("%.1f", ship.getCost()/1000.0) + "k)");
 			}
 		}
 		
@@ -44,7 +45,10 @@ public class AdminConsoleAction extends ConsoleAction {
 	}
 
 	@Override
-	public void setArguments(List<String> args, Actor p) { 
+	public void setArguments(List<String> args, Actor p) {
+        if (args.get(0).contains("Station funds $$")) {
+            checkedfunds = true;
+        }
 		for (Shipment ship : pc.getShipments()) {
 			if (args.get(0).contains(ship.getName())) {
 				selectedShip = ship;
@@ -56,11 +60,15 @@ public class AdminConsoleAction extends ConsoleAction {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		Room gate = gameData.getRoom("Shuttle Gate");
-		Shipment s = selectedShip.clone();
-		gate.addObject(new CrateObject(gate, s, gameData));
-		pc.setMoney(pc.getMoney() - s.getCost());
-		performingClient.addTolastTurnInfo("You ordered a shipment! It has arrived in the Shuttle Gate. Station funds; " + pc.getMoney());
+        if (!checkedfunds) {
+            Room gate = gameData.getRoom("Shuttle Gate");
+            Shipment s = selectedShip.clone();
+            gate.addObject(new CrateObject(gate, s, gameData));
+            pc.setMoney(pc.getMoney() - s.getCost());
+            performingClient.addTolastTurnInfo("You ordered a shipment! It has arrived in the Shuttle Gate. Station funds; " + pc.getMoney());
+        } else {
+            performingClient.addTolastTurnInfo("The station's account balance is $$ " + pc.getMoney() + ".");
+        }
 	}
 
 	@Override

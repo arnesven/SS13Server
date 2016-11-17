@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.Target;
 import model.actions.general.Action;
 import model.actions.itemactions.DefuseBombAction;
@@ -35,7 +34,7 @@ public class Tools extends BluntWeapon {
     }
 
     @Override
-	public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
+	public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
 		if (hasBrokenObjects(cl.getPosition())) {
 			at.add(new RepairAction(cl));
 		}

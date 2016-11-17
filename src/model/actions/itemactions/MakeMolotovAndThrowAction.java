@@ -22,7 +22,7 @@ public class MakeMolotovAndThrowAction extends Action {
     private String location;
     private GameItem selectedBurnable;
 
-    public MakeMolotovAndThrowAction(Player cl) {
+    public MakeMolotovAndThrowAction(Actor cl) {
         super("Throw Molotov", SensoryLevel.PHYSICAL_ACTIVITY);
     }
 

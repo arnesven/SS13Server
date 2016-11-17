@@ -141,9 +141,10 @@ public class MapBuilder {
                                 new int[]{28}, new double[]{-1.0, -1.0}, RoomType.other);
         result.add(dummy);
         Room otherDim = new OtherDimension(31, new int[]{30}, new double[]{-1.0, -1.0});
-
+        Room prisonPlanet = new Room(32, "Prison Planet", "", 18, 1, 0, 0, new int[]{30}, new double[]{-1.0, -1.0}, RoomType.other);
 
         result.add(otherDim);
+        result.add(prisonPlanet);
 		GameMap gm = new GameMap(result);
 
 

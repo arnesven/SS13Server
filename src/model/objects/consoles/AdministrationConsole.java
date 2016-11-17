@@ -13,6 +13,7 @@ import model.actions.objectactions.SetWagesAction;
 import model.characters.crew.CaptainCharacter;
 import model.characters.crew.CrewCharacter;
 import model.characters.crew.HeadOfStaffCharacter;
+import model.characters.general.ChangelingCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.map.Room;
@@ -74,6 +75,9 @@ public class AdministrationConsole extends Console {
         }
         if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof CaptainCharacter)) {
             return 35;
+        }
+        if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof ChangelingCharacter)) {
+            return 0;
         }
         if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof CrewCharacter)) {
             return ((CrewCharacter)a.getInnermostCharacter()).getStartingMoney() / 5;

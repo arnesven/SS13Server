@@ -7,7 +7,7 @@ import model.items.general.RobotParts;
  */
 public class RobotPartsShipment extends Shipment {
     public RobotPartsShipment() {
-        super("Robot Parts", 4000);
+        super("Robot Parts");
         this.add(new RobotParts());
         this.add(new RobotParts());
     }

@@ -3,11 +3,9 @@ package model.items;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.Target;
 import model.actions.general.Action;
 import model.actions.itemactions.MindControlAction;
-import model.characters.decorators.AttributeChangeDecorator;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
@@ -60,7 +58,7 @@ public class CosmicArtifact extends GameItem {
     }
 
     @Override
-    public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
+    public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         Action a = new MindControlAction(cl, gameData);
         if (a.getOptions(gameData, cl).numberOfSuboptions() > 0) {
 

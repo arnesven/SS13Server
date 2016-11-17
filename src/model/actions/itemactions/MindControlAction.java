@@ -25,7 +25,7 @@ public class MindControlAction extends Action {
     private String argsString;
     private ActionBehavior oldActionBehavior = null;
 
-    public MindControlAction(Player cl, GameData gameData) {
+    public MindControlAction(Actor cl, GameData gameData) {
         super("Mind Control", SensoryLevel.NO_SENSE);
         this.gameData = gameData;
     }
@@ -49,19 +49,9 @@ public class MindControlAction extends Action {
 
     private void addMindControlActions(GameData gameData, ActionOption opt, Actor victim) {
 
-        Player pl;
-        if (victim instanceof Player) {
-            pl = (Player)victim;
-
-        } else {
-            // It's an NPC, but we simulate it as a player!
-            pl = new Player(gameData);
-            pl.setCharacter(victim.getCharacter());
-        }
-
-        List<Action> acts = pl.getActionList(gameData);
+        List<Action> acts = victim.getActionList(gameData);
         for (Action a : acts) {
-            opt.addOption(a.getOptions(gameData, pl));
+            opt.addOption(a.getOptions(gameData, victim));
         }
 
     }
@@ -89,12 +79,7 @@ public class MindControlAction extends Action {
 
         if (victimOfMindControl instanceof NPC) {
             oldActionBehavior = ((NPC) victimOfMindControl).getActionBehavior();
-            ((NPC) victimOfMindControl).setActionBehavior(new ActionBehavior() {
-                @Override
-                public void act(NPC npc, GameData gameData) {
-                    pl.getNextAction().doTheAction(gameData, victimOfMindControl);
-                }
-            });
+            ((NPC) victimOfMindControl).setActionBehavior(((NPC npc, GameData gameD) ->  pl.getNextAction().doTheAction(gameData, victimOfMindControl)));
         }
     }
 

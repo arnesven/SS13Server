@@ -6,7 +6,7 @@ import model.items.suits.FireSuit;
 public class FireFighterShipment extends Shipment {
 
 	public FireFighterShipment() {
-		super("Fire Fighting", 2000);
+		super("Fire Fighting");
 		this.add(new FireExtinguisher());
 		this.add(new FireExtinguisher());
 		this.add(new FireExtinguisher());

@@ -97,7 +97,7 @@ public abstract class TargetingAction extends Action {
 		super.doTheAction(gameData, performer);
 	}
 
-	public void addClientsItemsToAction(Player client) { }
+	public void addClientsItemsToAction(Actor client) { }
 	
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {

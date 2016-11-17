@@ -2,6 +2,7 @@ package model.items.general;
 
 import java.util.ArrayList;
 
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -32,7 +33,7 @@ public abstract class HidableItem extends GameItem {
 	
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
-			Player cl) {
+                               Actor cl) {
 		if (!hidden) {
 			at.add(new HideAction(this));
 		}

@@ -3,7 +3,6 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.MakeMolotovAndThrowAction;
 
@@ -26,7 +25,7 @@ public class ZippoLighter extends GameItem {
     }
 
     @Override
-    public void addYourActions(GameData gameData, ArrayList<Action> at, Player cl) {
+    public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         Action molotov = new MakeMolotovAndThrowAction(cl);
         if (molotov.getOptions(gameData, cl).numberOfSuboptions() > 0) {
             at.add(molotov);

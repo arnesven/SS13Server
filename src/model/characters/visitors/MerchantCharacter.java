@@ -2,8 +2,11 @@ package model.characters.visitors;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.characters.decorators.TraitorCharacter;
+import model.characters.general.ChangelingCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
+import model.characters.general.OperativeCharacter;
 import model.items.general.GameItem;
 import model.items.general.MoneyStack;
 
@@ -33,5 +36,15 @@ public class MerchantCharacter extends HumanCharacter {
         return new MerchantCharacter(startRoom);
     }
 
+    @Override
+    public void setKiller(Actor a) {
+        super.setKiller(a);
+    }
 
+    private boolean isOutlaw(Actor a) {
+        return a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof OperativeCharacter) ||
+                a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof TraitorCharacter) ||
+                a.isInfected() ||
+                a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof ChangelingCharacter);
+    }
 }

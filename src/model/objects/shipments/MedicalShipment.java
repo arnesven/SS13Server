@@ -6,7 +6,7 @@ import model.items.general.Syringe;
 public class MedicalShipment extends Shipment {
 
 	public MedicalShipment() {
-		super("Medical Supplies", 1000);
+		super("Medical Supplies");
 		this.add(new MedKit());
 		this.add(new MedKit());
 		this.add(new MedKit());

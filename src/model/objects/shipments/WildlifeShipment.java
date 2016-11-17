@@ -17,9 +17,12 @@ import java.util.List;
 public class WildlifeShipment extends Shipment {
 
     public WildlifeShipment() {
-        super("Wildlife", 5000);
+        super("Wildlife");
+    }
 
-
+    @Override
+    public int getCost() {
+        return 3000;
     }
 
     @Override

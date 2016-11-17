@@ -36,12 +36,14 @@ public class SecOffsVest extends SuitItem {
 
     @Override
     public void beingTakenOff(Actor actionPerformer) {
-        actionPerformer.removeInstance(new InstanceChecker() {
-            @Override
-            public boolean checkInstanceOf(GameCharacter ch) {
-                return ch instanceof PiercingProtection;
-            }
-        });
+        if (actionPerformer.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof PiercingProtection)) {
+            actionPerformer.removeInstance(new InstanceChecker() {
+                @Override
+                public boolean checkInstanceOf(GameCharacter ch) {
+                    return ch instanceof PiercingProtection;
+                }
+            });
+        }
 
     }
 

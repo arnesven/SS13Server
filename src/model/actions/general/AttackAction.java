@@ -1,14 +1,12 @@
 package model.actions.general;
 
 import model.Actor;
-import model.Player;
 import model.GameData;
 import model.Target;
 import model.events.AttackOfOpportunityEvent;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 import model.objects.general.BreakableObject;
-import model.objects.general.GameObject;
 
 
 public class AttackAction extends TargetingAction {
@@ -20,7 +18,7 @@ public class AttackAction extends TargetingAction {
 
 	
 	@Override
-	public void addClientsItemsToAction(Player client) {
+	public void addClientsItemsToAction(Actor client) {
 		withWhats.add(client.getCharacter().getDefaultWeapon());
 		for (GameItem it : client.getItems()) {
 			if (it instanceof Weapon) {

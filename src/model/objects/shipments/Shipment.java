@@ -10,17 +10,15 @@ import model.map.Room;
 public abstract class Shipment extends HashSet<GameItem> {
 	
 	private String name;
-	private int cost;
 	private Actor orderedBy;
 	private double rankNeeded;
 	
-	public Shipment(String name, int cost) {
-		this(name, cost, 0.0);
+	public Shipment(String name) {
+		this(name, 0.0);
 	}
 	
-	public Shipment(String name, int cost, double rankNeeded) {
+	public Shipment(String name, double rankNeeded) {
 		this.name = name;
-		this.cost = cost;
 		this.rankNeeded = rankNeeded;	
 	}
 	
@@ -43,14 +41,18 @@ public abstract class Shipment extends HashSet<GameItem> {
 
 
 	public int getCost() {
-		return cost;
+        int cost = 0;
+        for (GameItem gi : this) {
+            cost += gi.getCost();
+        }
+		return cost*2;
 	}
 
 
 
-	public void setCost(int cost) {
-		this.cost = cost;
-	}
+//	public void setCost(int cost) {
+//		this.cost = cost;
+//	}
 
 
 

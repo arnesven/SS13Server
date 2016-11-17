@@ -54,12 +54,10 @@ public class PirateCharacter extends HumanCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-
         List<Sprite> list = new ArrayList<>();
         list.add(super.getSprite(whosAsking));
         list.add(weapon.getHandHeldSprite());
-
-        return new Sprite("piratewithweapon" + weapon.getBaseName(),
+        return new Sprite(super.getSprite(whosAsking).getName() + "holding" + weapon.getBaseName(),
                 "human.png", 0, list);
     }
 }

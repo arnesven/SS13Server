@@ -5,7 +5,6 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 
@@ -19,7 +18,7 @@ public class RemoteBomb extends BombItem {
 	
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
-			Player cl) {
+                               Actor cl) {
 		super.addYourActions(gameData, at, cl);
 		if (!remoteGotten) {
 			at.add(new Action("Separate Bomb Detonator",
