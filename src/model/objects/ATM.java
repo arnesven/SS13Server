@@ -2,6 +2,7 @@ package model.objects;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.Bank;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -21,17 +22,13 @@ import java.util.Map;
  */
 public class ATM extends ElectricalMachinery {
     private final GameData gameData;
-    private Map<Actor, MoneyStack> accounts = new HashMap<>();
+    private final Bank bank;
 
     public ATM(GameData gameData, Room room) {
         super("ATM", room);
         this.gameData = gameData;
 
-        for (Actor a : gameData.getActors()) {
-            if (hasAnAccountFromStart(a)) {
-                accounts.put(a, new MoneyStack(0));
-            }
-        }
+        this.bank = Bank.getInstance(gameData);
 
         gameData.addEvent(new PayWagesEvent(gameData, this));
     }
@@ -50,23 +47,18 @@ public class ATM extends ElectricalMachinery {
     }
 
     public boolean hasAnAccount(Actor a) {
-        return accounts.containsKey(a);
-    }
-
-    private static boolean hasAnAccountFromStart(Actor actor) {
-        return actor.getCharacter().isCrew() ||
-                !actor.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof VisitorCharacter));
+        return bank.getAccounts().containsKey(a);
     }
 
 
     public MoneyStack getAccountForActor(Actor whosAsking) {
-        return accounts.get(whosAsking);
+        return bank.getAccounts().get(whosAsking);
     }
 
     public void addToAccount(Actor a, int wage) {
-        if (!accounts.containsKey(a)) {
-            accounts.put(a, new MoneyStack(0));
+        if (!bank.getAccounts().containsKey(a)) {
+            bank.getAccounts().put(a, new MoneyStack(0));
         }
-        accounts.get(a).addTo(wage);
+        bank.getAccounts().get(a).addTo(wage);
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.general.GameCharacter;
+import model.items.general.ElectronicParts;
 import model.items.general.GameItem;
 import model.items.general.PowerRadio;
 import model.items.general.Tools;
@@ -22,6 +23,7 @@ public class EngineerCharacter extends CrewCharacter {
 		list.add(new FireSuit());
 		list.add(new Tools());
 		list.add(new PowerRadio());
+        list.add(new ElectronicParts());
         return list;
 	}
 

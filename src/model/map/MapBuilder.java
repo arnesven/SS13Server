@@ -70,7 +70,7 @@ public class MapBuilder {
 		result.add(dorms);
 		result.add(new Room(13, "Front Hall"          , "FRONT"     ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{13.5, 10.0, 12.0, 8.0, 13.5, 6.0}, RoomType.hall ));
 		Room office = new Room(14, "Office"              , "Offc"   ,13, 10, 2, 2, new int[]{12, 13}    ,         new double[]{}, RoomType.command );
-		office.addObject(new AdministrationConsole(office));
+		office.addObject(new AdministrationConsole(office, gameData));
 		result.add(office);
 		Room aiCore = new Room(15, "AI Core"             , "AI"     ,10,  7, 2, 2, new int[]{13}        ,         new double[]{}, RoomType.tech );
 		AIConsole aiCons = new AIConsole(aiCore);

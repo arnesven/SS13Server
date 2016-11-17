@@ -31,6 +31,10 @@ public class GameObject implements Serializable {
 	public Room getPosition() {
 		return position;
 	}
+
+    public void setPosition(Room pos) {
+        position = pos;
+    }
 	
 
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {

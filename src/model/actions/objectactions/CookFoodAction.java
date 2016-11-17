@@ -5,6 +5,7 @@ import java.util.List;
 import model.items.NoSuchThingException;
 import model.map.Room;
 import model.objects.general.Dumbwaiter;
+import model.objects.general.GameObject;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -38,17 +39,20 @@ public class CookFoodAction extends Action {
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption res = new ActionOption("Cook Food");
-        List<Room> dumbwaiterRooms = null;
-        try {
-            dumbwaiterRooms = gameData.findObjectOfType(Dumbwaiter.class).getDestinations(gameData);
-        } catch (NoSuchThingException nste) {
-            Logger.log(Logger.CRITICAL, "No dumbwaiter found.");
+        Dumbwaiter dumb = null;
+
+        for (GameObject ob : cooker.getPosition().getObjects()) {
+            if (ob instanceof Dumbwaiter) {
+                dumb = (Dumbwaiter) ob;
+            }
         }
+
 		for (FoodItem gi : CookOMatic.getCookableFood(whosAsking)) {
             ActionOption opt = new ActionOption(gi.getBaseName());
-            if (dumbwaiterRooms != null) {
-                opt.addOption("Into inventory");
-                for (Room r : dumbwaiterRooms) {
+
+            opt.addOption("Into inventory");
+            if (dumb != null) {
+                for (Room r : dumb.getDestinations(gameData)) {
                     opt.addOption("Send to " + r.getName());
                 }
             }

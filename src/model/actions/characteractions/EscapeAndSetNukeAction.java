@@ -8,10 +8,14 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.NuclearDisc;
 import model.map.Room;
 import model.modes.OperativesGameMode;
+import model.objects.consoles.AIConsole;
+import model.objects.general.GameObject;
+import model.objects.general.NuclearBomb;
 
 public class EscapeAndSetNukeAction extends Action {
 
@@ -55,17 +59,22 @@ public class EscapeAndSetNukeAction extends Action {
 						tellString = "Nuclear warhead detected. " + tellString;
 						gameData.setNumberOfRounds(gameData.getNoOfRounds() + 2);
 					}
-					
-					for (Player p : gameData.getPlayersAsList()) {
-						p.addTolastTurnInfo("AI; " + tellString);
-					}
-					
-					if (roundsLeft == 0) {
-						for (Actor a : gameData.getActors()) {
-							if (gameData.getRooms().contains(a.getPosition())) {
-								a.getCharacter().beExposedTo(null, new NuclearExplosiveDamage());
-							}
-						}
+
+
+                    try {
+                        gameData.findObjectOfType(AIConsole.class).informOnStation(tellString, gameData);
+                    } catch (NoSuchThingException e) {
+
+                    }
+
+
+                    if (roundsLeft == 0) {
+                        for (GameObject ob : nukieShip.getObjects()) {
+                            if (ob instanceof NuclearBomb) {
+                                ((NuclearBomb)ob).detonate(gameData);
+                            }
+                        }
+
 						((OperativesGameMode)gameData.getGameMode()).setNuked(true);
 						gameData.setNumberOfRounds(gameData.getNoOfRounds() - 2);
 					}

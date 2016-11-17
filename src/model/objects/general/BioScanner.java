@@ -48,7 +48,7 @@ public class BioScanner extends ElectricalMachinery {
 					
 					@Override
 					protected String getVerb(Actor whosAsking) {
-						return "loaded the BioScanner with chemicals";
+						return "turned the bioscanner on";
 					}
 					
 					@Override

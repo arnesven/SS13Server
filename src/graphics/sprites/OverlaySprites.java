@@ -65,7 +65,9 @@ public class OverlaySprites {
         ArrayList<String> strs = new ArrayList<>();
         for (Room r : gameData.getRooms()) {
             ArrayList<Sprite> sp = new ArrayList<>();
-            for (Event e : r.getEvents()) {
+            List<Event> list = new ArrayList<>();
+            list.addAll(r.getEvents());
+            for (Event e : list) {
                 if (e instanceof ElectricalFire || e instanceof HullBreach) {
                     sp.add(e.getSprite(player));
                 }

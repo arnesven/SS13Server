@@ -171,6 +171,10 @@ public class Room implements ItemHolder, Serializable {
 		objects.add(gameObject);
 	}
 
+    public void removeObject(GameObject target) {
+        objects.remove(target);
+    }
+
 	/**
 	 * Gets a list of players who are currently in this room.
 	 * @return the list of players (clients)

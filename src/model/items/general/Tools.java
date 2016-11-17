@@ -8,6 +8,7 @@ import model.GameData;
 import model.Target;
 import model.actions.general.Action;
 import model.actions.itemactions.DefuseBombAction;
+import model.actions.itemactions.DismantleAction;
 import model.actions.itemactions.RepairAction;
 import model.actions.itemactions.SealHullBreachAction;
 import model.items.weapons.BluntWeapon;
@@ -19,7 +20,7 @@ import model.objects.general.Repairable;
 public class Tools extends BluntWeapon {
 
 	public Tools() {
-		super("Toolkit", 1.0, 80);
+		super("Toolkit", 0.5, 80);
 	}
 	
 	@Override
@@ -43,6 +44,10 @@ public class Tools extends BluntWeapon {
 		}
         if (positionHasBomb(cl.getPosition())) {
             at.add(new DefuseBombAction());
+        }
+        Action dismantle = new DismantleAction(cl);
+        if (dismantle.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+            at.add(dismantle);
         }
 	}
 

@@ -12,16 +12,15 @@ import model.actions.general.Action;
 import model.events.Event;
 import model.events.NoPressureEvent;
 import model.map.AirLockRoom;
+import model.map.Room;
 
 public class PressurePanel extends ElectricalMachinery {
 
-	private AirLockRoom roomRef;
 	private boolean hasPressure;
 	protected Event noPressureEvent = null;
 
-	public PressurePanel(AirLockRoom roomRef) {
-		super("Pressure control", roomRef);
-		this.roomRef = roomRef;
+	public PressurePanel(Room roomRef) {
+		super("Airlock", roomRef);
 		this.hasPressure = true;
 	}
 
@@ -54,9 +53,9 @@ public class PressurePanel extends ElectricalMachinery {
 			protected void execute(GameData gameData, Actor performingClient) {
 				PressurePanel.this.hasPressure = true;
 				if (noPressureEvent != null) {
-					roomRef.removeEvent(noPressureEvent);
+					PressurePanel.this.getPosition().removeEvent(noPressureEvent);
 				}
-				performingClient.addTolastTurnInfo("Pressurized " + roomRef.getName());
+				performingClient.addTolastTurnInfo("Pressurized " + PressurePanel.this.getPosition().getName());
 			}
 
 			@Override
@@ -75,11 +74,11 @@ public class PressurePanel extends ElectricalMachinery {
 			@Override
 			protected void execute(GameData gameData, final Actor performingClient) {
 				PressurePanel.this.hasPressure = false;
-				Event e = new NoPressureEvent(PressurePanel.this, roomRef, performingClient, true);
+				Event e = new NoPressureEvent(PressurePanel.this, PressurePanel.this.getPosition(), performingClient, true);
 				gameData.addEvent(e);
-				roomRef.addEvent(e);
+				PressurePanel.this.getPosition().addEvent(e);
 				PressurePanel.this.noPressureEvent = e;
-				performingClient.addTolastTurnInfo("Depressurized " + roomRef.getName());
+				performingClient.addTolastTurnInfo("Depressurized " + PressurePanel.this.getPosition().getName());
 			}
 
 			@Override

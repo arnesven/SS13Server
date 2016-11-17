@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.Actor;
+import model.Bank;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.objectactions.AdminConsoleAction;
@@ -21,13 +22,15 @@ import model.objects.shipments.*;
 
 public class AdministrationConsole extends Console {
 
-	private int money = 14000;
+    private final Bank bank;
+
 	private List<Shipment> shipments = new ArrayList<>();
     private Map<Actor, Integer> alternateWages = new HashMap<>();
 	
-	public AdministrationConsole(Room pos) {
+	public AdministrationConsole(Room pos, GameData gameData) {
 		super("Admin Console", pos);
-		shipments.add(new FireFighterShipment());
+        this.bank = Bank.getInstance(gameData);
+        shipments.add(new FireFighterShipment());
 		shipments.add(new MedicalShipment());
 		shipments.add(new ExterminationShipment());
         shipments.add(new TechnicalShipment());
@@ -58,11 +61,12 @@ public class AdministrationConsole extends Console {
 	}
 
 	public void setMoney(int m) {
-		this.money = m;
+        bank.setStationMoney(m);
+
 	}
 	
 	public int getMoney() {
-		return money;
+        return bank.getStationMoney();
 	}
 
     public int getWageForActor(Actor a) {
@@ -90,11 +94,12 @@ public class AdministrationConsole extends Console {
         for (Actor a : gameData.getActors()) {
             sum += getWageForActor(a);
         }
-        return sum < money;
+        return sum < bank.getStationMoney();
     }
 
     public void subtractFromBudget(int amount) {
-        money -= amount;
+        bank.subtractFromStationMoney(amount);
+
     }
 
     public void setWageForActor(Actor selectedActor, int newWage) {

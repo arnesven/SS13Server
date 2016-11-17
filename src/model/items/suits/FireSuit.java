@@ -12,7 +12,7 @@ import java.util.List;
 public class FireSuit extends SuitItem {
 
 	public FireSuit() {
-		super("Fire suit", 2.0, 119);
+		super("Fire suit", 1.5, 119);
 	}
 
 	@Override

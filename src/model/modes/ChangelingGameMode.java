@@ -26,6 +26,7 @@ public class ChangelingGameMode extends GameMode {
 	private ChangelingCharacter lingChar;
 	private NPC decoy;
     private boolean changelingExposed = false;
+    private List<Actor> actorsWhoStartedTheGame;
 
     @Override
     public String getName() {
@@ -38,6 +39,8 @@ public class ChangelingGameMode extends GameMode {
 		//gameData.addMovementEvent(e);
         gameData.addEvent(e);
 		getEvents().remove("random husks");
+        actorsWhoStartedTheGame = new ArrayList<>();
+        actorsWhoStartedTheGame.addAll(gameData.getActors());
 	}
 
 	@Override
@@ -120,7 +123,7 @@ public class ChangelingGameMode extends GameMode {
 	}
 	
 	private boolean allCrewDead(GameData gameData) {
-		for (Actor a : gameData.getActors()) {
+		for (Actor a : actorsWhoStartedTheGame) {
 			if (a.getCharacter().isCrew() && !a.isDead()) {
 				return false;
 			}

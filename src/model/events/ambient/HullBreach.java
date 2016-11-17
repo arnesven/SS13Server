@@ -11,6 +11,7 @@ import model.actions.general.SensoryLevel.VisualLevel;
 import model.events.NoPressureEvent;
 import model.events.damage.AsphyxiationDamage;
 import model.map.Room;
+import util.Logger;
 
 public class HullBreach extends OngoingEvent {
 
@@ -34,8 +35,6 @@ public class HullBreach extends OngoingEvent {
 		return "Low Pressure!";
 	}
 
-
-
     @Override
 	public void maintain(GameData gameData) {
         if (lowPressureInAllAdjacent()) {
@@ -53,11 +52,11 @@ public class HullBreach extends OngoingEvent {
             return new NoPressureEvent(null, getRoom(), null, false).getSprite(whosAsking);
 
         }
-        return super.getSprite(whosAsking);
+        return new LowPressureEvent(getRoom()).getSprite(whosAsking);
     }
 
     @Override
-	protected OngoingEvent clone() {
+	protected HullBreach clone() {
 		return new HullBreach();
 	}
 
@@ -75,6 +74,8 @@ public class HullBreach extends OngoingEvent {
                 return false;
             }
         }
+
+        Logger.log(Logger.CRITICAL, "Low pressure all around " + getRoom().getName());
         return true;
     }
 	
