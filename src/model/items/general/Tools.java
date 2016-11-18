@@ -20,7 +20,7 @@ import model.objects.general.Repairable;
 public class Tools extends BluntWeapon {
 
 	public Tools() {
-		super("Toolkit", 0.5, 80);
+		super("Toolkit", 0.5, 80, 0.80);
 	}
 	
 	@Override

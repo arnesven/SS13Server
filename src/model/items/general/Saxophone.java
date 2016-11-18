@@ -13,7 +13,7 @@ import model.actions.general.SensoryLevel;
 public class Saxophone extends BluntWeapon {
 
 	public Saxophone() {
-		super("Saxophone", 1.5, 100);
+		super("Saxophone", 1.5, 100, 0.65);
 	}
 
     @Override

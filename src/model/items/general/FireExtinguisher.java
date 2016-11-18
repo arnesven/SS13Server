@@ -18,7 +18,7 @@ public class FireExtinguisher extends BluntWeapon {
 	private int level = 4;
 	
 	public FireExtinguisher() {
-		super("Fire ext.", 1.0, 45);
+		super("Fire ext.", 1.0, 45, 0.85);
 	}
 	
 	@Override
@@ -29,11 +29,11 @@ public class FireExtinguisher extends BluntWeapon {
 	@Override
 	public String getFullName(Actor whosAsking) {
 		if (level == 4) {
-            return super.getBaseName() + "(full)";
+            return super.getBaseName() + "(4/4)";
         } else if (level == 3) {
             return super.getBaseName() + "(3/4)";
         } else if (level == 2) {
-            return super.getBaseName() + "(half)";
+            return super.getBaseName() + "(2/4)";
 		} else if (level == 1) {
 			return super.getBaseName() + "(1/4)";
 		} 

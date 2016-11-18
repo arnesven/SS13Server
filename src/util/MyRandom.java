@@ -141,6 +141,7 @@ public class MyRandom {
         list.add(new JumpSuit());
         list.add(new CaptainsHat());
         list.add(new Knife());
+        list.add(new Crowbar());
         list.add(new Revolver());
         list.add(new Shotgun());
         list.add(new ShotgunShells());

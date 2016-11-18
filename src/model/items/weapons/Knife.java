@@ -10,10 +10,11 @@ import model.actions.itemactions.CutOutBrainAction;
 
 import java.util.ArrayList;
 
-public class Knife extends Weapon {
+public class Knife extends BluntWeapon {
 
 	public Knife() {
-		super("Knife", 0.75, 1.0, false, 0.2, true, 60);
+		super("Knife", 0.5, 60, 0.9);
+        this.setHitChance(0.75);
 	}
 
 	@Override
