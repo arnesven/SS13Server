@@ -26,7 +26,7 @@ public class DismantleAction extends TargetingAction {
     protected void applyTargetingAction(GameData gameData, Actor performingClient, Target target, GameItem item) {
         target.getPosition().removeObject((GameObject)target);
         this.removedTarget = target;
-        for (int i = MyRandom.nextInt(3)+1; i >= 0; i--) {
+        for (int i = MyRandom.nextInt(1)+1; i >= 0; i--) {
             performingClient.addItem(new ElectronicParts(), target);
         }
         performingClient.addTolastTurnInfo("You salvaged some parts from the " +
@@ -36,7 +36,7 @@ public class DismantleAction extends TargetingAction {
 
     @Override
     public boolean isViableForThisAction(Target target2) {
-        return target2 instanceof BreakableObject &&
+        return target2 instanceof BreakableObject && ((BreakableObject) target2).canBeDismantled() &&
                 target2.getHealth() == 0.0;
     }
 

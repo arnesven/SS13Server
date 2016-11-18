@@ -111,4 +111,9 @@ public class KeyCardLock extends Console {
     public Sprite getSprite(Player whosAsking) {
         return new Sprite("keycardlock", "computer_complaints.png", 1, 0);
     }
+
+    @Override
+    public boolean canBeDismantled() {
+        return false;
+    }
 }

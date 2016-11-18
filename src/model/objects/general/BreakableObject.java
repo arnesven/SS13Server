@@ -188,6 +188,9 @@ public abstract class BreakableObject extends GameObject implements Target {
 	public boolean isHealable() {
 		return false;
 	}
-	
+
+    public boolean canBeDismantled() {
+        return true;
+    }
 	
 }
