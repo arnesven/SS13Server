@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.Bank;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.AdminConsoleAction;
 import model.actions.objectactions.SetWagesAction;
@@ -50,6 +52,11 @@ public class AdministrationConsole extends Console {
             at.add(new SetWagesAction(this, gameData));
         }
 	}
+
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("adminconsole", "computer2.png", 1, 12);
+    }
 
     private boolean canSetWages(Actor cl) {
         return cl.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof CaptainCharacter) ||

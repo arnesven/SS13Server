@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.GeneTIXAction;
 import model.map.Room;
@@ -27,7 +29,12 @@ public class GeneticsConsole extends Console {
             at.add(cons);
         }
     }
-	
+
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("geneticsconsole", "computer2.png", 11, 7);
+    }
+
 	public void addKnownMutation(Mutation known) {
 		for (Mutation m : knownMutations) {
 			if (m.getClass() == known.getClass()) {

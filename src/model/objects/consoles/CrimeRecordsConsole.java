@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.CrimeRecordsAction;
 import model.characters.general.AICharacter;
@@ -44,6 +46,11 @@ public class CrimeRecordsConsole extends Console {
         }
 
 	}
+
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("crimerecordsconsole", "computer2.png", 12, 12);
+    }
 
 	@Override
 	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {

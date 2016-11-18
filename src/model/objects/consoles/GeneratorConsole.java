@@ -8,8 +8,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.PowerConsoleAction;
 import model.map.Room;
@@ -59,8 +61,13 @@ public class GeneratorConsole extends Console {
 		}
 		return cp;
 	}
-	
-	private void setupUpdaters() {
+
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("powerconsole", "computer2.png", 16, 10);
+    }
+
+    private void setupUpdaters() {
 		updaters = new HashMap<>();
 		updaters.put("Life Support", new PowerUpdater() {
 
