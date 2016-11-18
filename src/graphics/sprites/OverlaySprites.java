@@ -42,6 +42,7 @@ public class OverlaySprites {
             }
 
             addActorsForRoom(sprites, player, r);
+            addObjectsForRoom(sprites, player, r);
 
             if (player.getSettings().get(PlayerSettings.SHOW_ITEMS_IN_MAP_WHEN_DEAD)) {
                 addItemsForRoom(sprites, player, r);
@@ -52,6 +53,8 @@ public class OverlaySprites {
         }
         return strs;
     }
+
+
 
     public static List<String> dummyList() {
         Sprite sp = new Sprite("dummy", "animal.png", 0);
@@ -275,6 +278,12 @@ public class OverlaySprites {
             if (a.getCharacter().isVisible()) {
                 sp.add(a.getCharacter().getSprite(player));
             }
+        }
+    }
+
+    private static void addObjectsForRoom(ArrayList<Sprite> sprites, Player player, Room r) {
+        for (GameObject ob : r.getObjects()) {
+            sprites.add(ob.getSprite(player));
         }
     }
 

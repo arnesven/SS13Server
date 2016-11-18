@@ -11,15 +11,14 @@ import model.Player;
 import model.actions.general.Action;
 import model.events.Event;
 import model.events.NoPressureEvent;
-import model.map.AirLockRoom;
 import model.map.Room;
 
-public class PressurePanel extends ElectricalMachinery {
+public class AirlockPanel extends ElectricalMachinery {
 
 	private boolean hasPressure;
 	protected Event noPressureEvent = null;
 
-	public PressurePanel(Room roomRef) {
+	public AirlockPanel(Room roomRef) {
 		super("Airlock", roomRef);
 		this.hasPressure = true;
 	}
@@ -51,11 +50,11 @@ public class PressurePanel extends ElectricalMachinery {
 
 			@Override
 			protected void execute(GameData gameData, Actor performingClient) {
-				PressurePanel.this.hasPressure = true;
+				AirlockPanel.this.hasPressure = true;
 				if (noPressureEvent != null) {
-					PressurePanel.this.getPosition().removeEvent(noPressureEvent);
+					AirlockPanel.this.getPosition().removeEvent(noPressureEvent);
 				}
-				performingClient.addTolastTurnInfo("Pressurized " + PressurePanel.this.getPosition().getName());
+				performingClient.addTolastTurnInfo("Pressurized " + AirlockPanel.this.getPosition().getName());
 			}
 
 			@Override
@@ -73,12 +72,12 @@ public class PressurePanel extends ElectricalMachinery {
 
 			@Override
 			protected void execute(GameData gameData, final Actor performingClient) {
-				PressurePanel.this.hasPressure = false;
-				Event e = new NoPressureEvent(PressurePanel.this, PressurePanel.this.getPosition(), performingClient, true);
+				AirlockPanel.this.hasPressure = false;
+				Event e = new NoPressureEvent(AirlockPanel.this, AirlockPanel.this.getPosition(), performingClient, true);
 				gameData.addEvent(e);
-				PressurePanel.this.getPosition().addEvent(e);
-				PressurePanel.this.noPressureEvent = e;
-				performingClient.addTolastTurnInfo("Depressurized " + PressurePanel.this.getPosition().getName());
+				AirlockPanel.this.getPosition().addEvent(e);
+				AirlockPanel.this.noPressureEvent = e;
+				performingClient.addTolastTurnInfo("Depressurized " + AirlockPanel.this.getPosition().getName());
 			}
 
 			@Override

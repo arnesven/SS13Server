@@ -1,6 +1,6 @@
 package model.map;
 
-import model.objects.general.PressurePanel;
+import model.objects.general.AirlockPanel;
 
 public class AirLockRoom extends Room {
 
@@ -9,7 +9,7 @@ public class AirLockRoom extends Room {
 		super(ID, "Air Lock #"+number         , number+"" , 
 				x, y, width, height, neighbors, doors, RoomType.airlock);
 		
-		this.addObject(new PressurePanel(this));
+		this.addObject(new AirlockPanel(this));
 	}
 
 }

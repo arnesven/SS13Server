@@ -11,6 +11,9 @@ import model.map.AirLockRoom;
 import model.actions.characteractions.EscapeAndSetNukeAction;
 import model.actions.characteractions.StealAction;
 import model.items.weapons.Revolver;
+import model.map.Room;
+import model.objects.general.AirlockPanel;
+import model.objects.general.GameObject;
 
 public class OperativeCharacter extends HumanCharacter {
 
@@ -37,7 +40,7 @@ public class OperativeCharacter extends HumanCharacter {
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {
 		super.addCharacterSpecificActions(gameData, at);
-		if (getPosition() instanceof AirLockRoom && hasASpaceSuitOn()) {
+		if (hasAirlockPanel(getPosition()) && hasASpaceSuitOn()) {
 			at.add(new EscapeAndSetNukeAction());
 		}
 		Action stealAction = new StealAction(this.getActor());
@@ -46,8 +49,17 @@ public class OperativeCharacter extends HumanCharacter {
 		}
 	}
 
+    private static boolean hasAirlockPanel(Room position) {
+        for (GameObject ob : position.getObjects()) {
+            if (ob instanceof AirlockPanel) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	private boolean hasASpaceSuitOn() {
+
+    private boolean hasASpaceSuitOn() {
 		return getSuit() instanceof SpaceSuit;
 	}
 

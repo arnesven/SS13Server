@@ -7,6 +7,7 @@ import model.Player;
 import model.actions.characteractions.NuclearExplosiveDamage;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.events.NukeSetEvent;
 import model.items.general.GameItem;
 import model.items.general.NuclearDisc;
 import model.map.Room;
@@ -38,6 +39,16 @@ public class NuclearBomb extends GameObject {
                 a.getCharacter().beExposedTo(null, new NuclearExplosiveDamage());
             }
         }
+
+        for (GameObject ob : gameData.getObjects()) {
+            if (ob instanceof BreakableObject) {
+                ((BreakableObject) ob).beExposedTo(null, new NuclearExplosiveDamage());
+            }
+        }
+    }
+
+    public boolean deactivated() {
+        return false;
     }
 
     private class SetOffNukeAction extends Action {
@@ -56,7 +67,9 @@ public class NuclearBomb extends GameObject {
         @Override
         protected void execute(GameData gameData, Actor performingClient) {
             if (GameItem.hasAnItem(performingClient, new NuclearDisc())) {
-                nuke.detonate(gameData);
+                gameData.addEvent(new NukeSetEvent(NuclearBomb.this));
+            } else {
+                performingClient.addTolastTurnInfo("What, the nuclear disc wasn't there? " + Action.FAILED_STRING);
             }
         }
 

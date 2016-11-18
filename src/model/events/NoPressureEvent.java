@@ -13,18 +13,18 @@ import model.events.ambient.ElectricalFire;
 import model.events.ambient.LowPressureEvent;
 import model.events.damage.NoPressureDamage;
 import model.map.Room;
-import model.objects.general.PressurePanel;
+import model.objects.general.AirlockPanel;
 import util.Logger;
 
 public class NoPressureEvent extends Event {
 
     private final boolean affectsAdjacent;
-    private PressurePanel panelRef;
+    private AirlockPanel panelRef;
 	private Room roomRef;
 	private Actor performingClient;
     private List<LowPressureEvent> adjacentRoomEvents = new ArrayList<>();
 
-    public NoPressureEvent(PressurePanel panelRef, Room roomRef,
+    public NoPressureEvent(AirlockPanel panelRef, Room roomRef,
                            Actor performingClient, boolean adjacent) {
 		this.panelRef = panelRef;
 		this.roomRef = roomRef;

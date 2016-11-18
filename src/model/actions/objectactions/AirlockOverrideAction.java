@@ -5,27 +5,26 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.map.Room;
 import model.objects.general.GameObject;
-import model.objects.general.PressurePanel;
+import model.objects.general.AirlockPanel;
 
 public class AirlockOverrideAction extends ConsoleAction {
 
 	private List<Room> rooms = new ArrayList<>();
-	private List<PressurePanel> panels = new ArrayList<>();
-	private PressurePanel selected;
+	private List<AirlockPanel> panels = new ArrayList<>();
+	private AirlockPanel selected;
 	
 	
 	public AirlockOverrideAction(GameData gameData) {
 		super("Airlock Override", SensoryLevel.OPERATE_DEVICE);
 		for (Room r : gameData.getRooms()) {
 			for (GameObject ob : r.getObjects()) {
-				if (ob instanceof PressurePanel) {
+				if (ob instanceof AirlockPanel) {
 					rooms.add(r);
-					panels.add((PressurePanel)ob);
+					panels.add((AirlockPanel)ob);
 				}
 			}
 		}

@@ -81,7 +81,7 @@ public class BuildElectronicObjectAction extends Action {
         set.add(new Dumbwaiter(null));
         set.add(new AdministrationConsole(null, gameData));
         set.add(new NuclearBomb(null));
-        set.add(new PressurePanel(null));
+        set.add(new AirlockPanel(null));
         set.add(new SlotMachine(null));
         set.add(new VendingMachine(null));
         try {

@@ -8,6 +8,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
+import model.events.NukeSetByOperativesEvent;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.NuclearDisc;
@@ -36,57 +37,13 @@ public class EscapeAndSetNukeAction extends Action {
 		((Player)performingClient).setNextMove(nukieShip.getID()); // TODO: will crash if operative is an NPC
 		if (hasTheDisk(performingClient) != null) {
 			performingClient.getItems().remove(hasTheDisk(performingClient));
-			
-			gameData.addEvent(new Event() {
-				
-				private int roundsLeft = 2;
-				
-				@Override
-				public String howYouAppear(Actor performingClient) {
-					return "";
-				}
-				
-				@Override
-				public SensoryLevel getSense() {
-					return SensoryLevel.NO_SENSE;
-				}
-				
-				@Override
-				public void apply(GameData gameData) {
-					String tellString = "Detonation in " + roundsLeft + " minutes.";
-					
-					if (roundsLeft == 2) {
-						tellString = "Nuclear warhead detected. " + tellString;
-						gameData.setNumberOfRounds(gameData.getNoOfRounds() + 2);
-					}
 
-
-                    try {
-                        gameData.findObjectOfType(AIConsole.class).informOnStation(tellString, gameData);
-                    } catch (NoSuchThingException e) {
-
-                    }
-
-
-                    if (roundsLeft == 0) {
-                        for (GameObject ob : nukieShip.getObjects()) {
-                            if (ob instanceof NuclearBomb) {
-                                ((NuclearBomb)ob).detonate(gameData);
-                            }
-                        }
-
-						((OperativesGameMode)gameData.getGameMode()).setNuked(true);
-						gameData.setNumberOfRounds(gameData.getNoOfRounds() - 2);
-					}
-					
-					roundsLeft--;
-				}
-				
-				@Override
-				public boolean shouldBeRemoved(GameData gameData) {
-					return roundsLeft == -1;
-				}
-			});
+            for (GameObject ob : nukieShip.getObjects()) {
+                if (ob instanceof NuclearBomb) {
+                    gameData.addEvent(new NukeSetByOperativesEvent((NuclearBomb)ob));
+                    break;
+                }
+            }
 			
 			
 		} else {
