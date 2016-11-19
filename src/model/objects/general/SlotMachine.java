@@ -9,7 +9,7 @@ import model.actions.objectactions.SlotMachineAction;
 import model.items.NoSuchThingException;
 import model.items.general.MoneyStack;
 import model.map.BarRoom;
-import util.HTMLFont;
+import util.HTMLText;
 import util.MyRandom;
 
 import java.util.*;
@@ -97,17 +97,17 @@ public class SlotMachine extends ElectricalMachinery {
         List<String> set = new ArrayList<>();
         String font = "courier";
         int size = 10;
-        set.add(HTMLFont.makeText("brown", font, size, "☕"));
-        set.add(HTMLFont.makeText("red", font, size, "♥"));
-        set.add(HTMLFont.makeText("purple", font, size, "☯"));
+        set.add(HTMLText.makeText("brown", font, size, "☕"));
+        set.add(HTMLText.makeText("red", font, size, "♥"));
+        set.add(HTMLText.makeText("purple", font, size, "☯"));
 
-        set.add(HTMLFont.makeText("yellow", font, size, "⛃"));
-        set.add(HTMLFont.makeText("green", font, size, "♻"));
-        set.add(HTMLFont.makeText("orange", font, size, "❼"));
+        set.add(HTMLText.makeText("yellow", font, size, "⛃"));
+        set.add(HTMLText.makeText("green", font, size, "♻"));
+        set.add(HTMLText.makeText("orange", font, size, "❼"));
 
-        set.add(HTMLFont.makeText("black", font, size, "☠"));
-        set.add(HTMLFont.makeText("Chartreuse", font, size, "⚑"));
-        set.add(HTMLFont.makeText("Cyan", font, size, "☂"));
+        set.add(HTMLText.makeText("black", font, size, "☠"));
+        set.add(HTMLText.makeText("Chartreuse", font, size, "⚑"));
+        set.add(HTMLText.makeText("Cyan", font, size, "☂"));
 
 
         return set;

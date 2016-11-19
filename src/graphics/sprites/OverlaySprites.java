@@ -102,9 +102,9 @@ public class OverlaySprites {
 
         ArrayList<Sprite> sp = new ArrayList<>();
         for (Event e : r.getEvents()) {
-            if (e.getSense().visual == SensoryLevel.VisualLevel.CLEARLY_VISIBLE) {
+            //if (e.getSense().visual == SensoryLevel.VisualLevel.CLEARLY_VISIBLE) {
                 sp.add(e.getSprite(player));
-            }
+            //}
         }
 
         addActorsForRoom(sp, player, r);

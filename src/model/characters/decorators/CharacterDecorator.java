@@ -129,11 +129,6 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
 		return innerChar.beAttackedBy(performingClient, weapon);
 	}
-	
-	@Override
-	public boolean isReduced(Actor thisActor, Actor performingClient) {
-		return innerChar.isReduced(thisActor, performingClient);
-	}
 		
 	
 	@Override
@@ -286,7 +281,7 @@ public abstract class CharacterDecorator extends GameCharacter {
 	
 	@Override
 	public GameCharacter clone() {
-		return innerChar.clone();
+        return innerChar.clone();
 	}
 
     @Override

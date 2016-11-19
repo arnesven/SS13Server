@@ -220,7 +220,7 @@ public class GameData implements Serializable {
 	 */
 	public String createPlayerMovementData(String clid) {
 		Player cl = players.get(clid);
-		String result =  Arrays.toString(cl.getSelectableLocations(this)) + ":" + createBasicPlayerData(cl);
+		String result =  Arrays.toString(cl.getSelectableLocations(this)) + "<player-data-part>" + createBasicPlayerData(cl);
 		return result;
 	}
 
@@ -232,7 +232,7 @@ public class GameData implements Serializable {
 	 */
 	public String createPlayerActionData(String clid) {
 		Player cl = players.get(clid);
-		String result = cl.getActionListString(this) + ":" + createBasicPlayerData(cl);
+		String result = cl.getActionListString(this) + "<player-data-part>" + createBasicPlayerData(cl);
 		return result;
 	}
 
@@ -465,15 +465,17 @@ public class GameData implements Serializable {
 
 
 	private String createBasicPlayerData(Player cl) {
+        String delim = "<player-data-part>";
+
 		String result = cl.getCharacterRealName() + 
-				       ":" + cl.getPosition().getID() + 
-					   ":" + cl.getCurrentHealth() +
-					   ":" + String.format("%1$.1f", cl.getCharacter().getTotalWeight()) +
-					   ":" + cl.getSuit() +
-					   ":" + MyStrings.join(cl.getItemsAsFullNameList(), "|") + 
-					   ":" + MyStrings.join(cl.getRoomInfo(), "|") + 
-					   ":" + MyStrings.join(cl.getLastTurnInfo(), "|") +
-                       ":" + MyStrings.join(cl.getOverlayStrings(this), "|");
+				       delim + cl.getPosition().getID() +
+					   delim + cl.getCurrentHealth() +
+					   delim + String.format("%1$.1f", cl.getCharacter().getTotalWeight()) +
+					   delim + cl.getSuit() +
+					   delim + MyStrings.join(cl.getItemsAsFullNameList()) +
+					   delim + MyStrings.join(cl.getRoomInfo()) +
+					   delim + MyStrings.join(cl.getLastTurnInfo()) +
+                       delim + MyStrings.join(cl.getOverlayStrings(this));
 		return result;	
 		
 	}
@@ -544,14 +546,19 @@ public class GameData implements Serializable {
 	}
 
 	public String getPollData() {
-		return makeStringFromReadyClients()+ ":" + getGameState().val + ":" + getRound() +
-				 ":" + getNoOfRounds() + ":" + getSelectedMode() + ":" + GameMode.getAvailableModesAsString();
+        String del = "<player-data-part>";
+		return makeStringFromReadyClients()+ del + getGameState().val + del +
+                getRound() + del + getNoOfRounds() + del +
+                getSelectedMode() + del + GameMode.getAvailableModesAsString();
 	}
 
 	public void setSettings(String rest, Player pl) {
-        String[] sets = rest.substring(1).split(":");
+        //String str = "<player-data-part>";
+
+        String del = "<player-data-part>";
+        String[] sets = rest.substring(1).split(del);
 		if (gameState == GameState.PRE_GAME) { //can only change settings in pre game
-			Logger.log("Setting new settings: " + rest);
+			Logger.log("Setting new settings: " + sets[3]);
 
 			try {
 				setNumberOfRounds(Integer.parseInt(sets[0]));

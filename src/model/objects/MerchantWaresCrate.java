@@ -42,7 +42,7 @@ public class MerchantWaresCrate extends ContainerObject {
 
     @Override
     public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
-        if (cl.getPosition().getActors().contains(merchant)) {
+        if (cl.getPosition().getActors().contains(merchant) && !merchant.isDead()) {
             if (getInventory().size() > 0) {
                 at.add(new ShopFromMerchantAction(this, merchant));
             }

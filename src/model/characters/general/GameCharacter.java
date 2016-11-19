@@ -8,7 +8,7 @@ import graphics.sprites.NakedHumanSprite;
 import graphics.sprites.OverlaySprites;
 import graphics.sprites.Sprite;
 import model.*;
-import util.HTMLFont;
+import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
 import model.actions.general.Action;
@@ -143,12 +143,12 @@ public abstract class GameCharacter implements Serializable {
                 verb + "ed " + second + " with " +
                 weapon.getPublicName(getActor()) + ".";
         if (verb.equals("kill") && second.equals("you")) {
-            msg = HTMLFont.makeText("red", msg);
+            msg = HTMLText.makeText("red", msg);
         }
 
         whom.addTolastTurnInfo(msg);
         if (weapon.wasCriticalHit()) {
-            whom.addTolastTurnInfo(HTMLFont.makeText("red", critMess + "!"));
+            whom.addTolastTurnInfo(HTMLText.makeText("red", critMess + "!"));
         }
 
     }
@@ -192,11 +192,11 @@ public abstract class GameCharacter implements Serializable {
        return  weapon.isAttackSuccessful(isReduced(getActor(), performingClient));
     }
 
-    public boolean isReduced(Actor thisActor, Actor performingClient) {
-		if (thisActor instanceof Player) {
-			Player thisClient = (Player) thisActor;
-			if (thisClient.getNextAction() instanceof WatchAction) {
-				if (((WatchAction)thisClient.getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
+    public static boolean isReduced(Actor watchingActor, Actor otherActor) {
+		if (watchingActor instanceof Player) {
+			Player watchingPlayer = (Player) watchingActor;
+			if (watchingPlayer.getNextAction() instanceof WatchAction) {
+				if (((WatchAction)watchingPlayer.getNextAction()).isArgumentOf(otherActor.getAsTarget())) {
 					Logger.log(Logger.INTERESTING,
                             "Attack chance reduced because of watching...");
 					return true;

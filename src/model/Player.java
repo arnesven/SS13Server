@@ -4,27 +4,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
 
 import graphics.sprites.OverlaySprites;
-import graphics.sprites.Sprite;
 import model.actions.general.Action;
 import model.actions.general.ActionGroup;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InfectedCharacter;
-import model.events.Event;
 import model.events.damage.Damager;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.weapons.Weapon;
 import model.map.Room;
-import model.objects.general.GameObject;
-import util.HTMLFont;
+import util.HTMLText;
 import util.Logger;
 
 
@@ -404,7 +397,7 @@ public class Player extends Actor implements Target, Serializable {
 
 	public void beInfected(Actor performingClient) {
 		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
-		this.addTolastTurnInfo("You were " + HTMLFont.makeText("green", "infected") + " by " + performingClient.getPublicName() +
+		this.addTolastTurnInfo("You were " + HTMLText.makeText("green", "infected") + " by " + performingClient.getPublicName() +
 				"! You are now on the Host team. Keep the humans from destroying the hive!");
 
 	}

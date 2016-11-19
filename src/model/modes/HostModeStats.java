@@ -120,7 +120,7 @@ public class HostModeStats extends GameStats {
 	public String getEnding() {
 		GameOver status = hostMode.getGameResultType(gameData);
 		if (status == GameOver.ALL_INFECTED) {
-			return "All reminaing players infected";
+			return "All remaining players infected";
 		}
 		if (status == GameOver.TIME_IS_UP) {
 			return "Time limit reached";

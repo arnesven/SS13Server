@@ -22,7 +22,7 @@ import model.objects.AITurret;
 import model.objects.ATM;
 import model.objects.consoles.AIConsole;
 import model.objects.general.VendingMachine;
-import util.HTMLFont;
+import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -308,7 +308,7 @@ public abstract class GameMode implements Serializable {
                     c.addTolastTurnInfo(AICharacter.getStartingMessage());
                     c.addTolastTurnInfo(gameData.getClidForPlayer(capCl) + " is the Captain.");
                 } else {
-                    c.addTolastTurnInfo(HTMLFont.makeText("blue", gameData.getClidForPlayer(aIPlayer) + " is the AI."));
+                    c.addTolastTurnInfo(HTMLText.makeText("blue", gameData.getClidForPlayer(aIPlayer) + " is the AI."));
                 }
             } catch (NoSuchThingException nste) {
                 nste.printStackTrace();
@@ -532,14 +532,14 @@ public abstract class GameMode implements Serializable {
 		List<GameCharacter> list = new ArrayList<>();
 		list.addAll(availableChars().values());
 		Collections.sort(list, new CharacterSpeedComparator());
-
+        String delim = "<player-data-part>";
 		for (GameCharacter gc : list) {
-			res.append("p" + gc.getBaseName() + ":");
+			res.append("p" + gc.getBaseName() + delim);
 		}
-		res.append("aTraitor:");
-		res.append("aHost:");
-		res.append("aOperative:");
-		res.append("aChangeling:");
+		res.append("aTraitor" + delim);
+		res.append("aHost" + delim);
+		res.append("aOperative" + delim);
+		res.append("aChangeling" + delim);
 
 		return res.toString();
 	}
@@ -553,7 +553,7 @@ public abstract class GameMode implements Serializable {
 		StringBuffer res = new StringBuffer();
 		for (String s : knownModes) {
 			if (!s.equals(knownModes[0])) {
-				res.append(":");
+				res.append("<player-data-part>");
 			}
 			res.append(s);
 

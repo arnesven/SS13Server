@@ -20,7 +20,6 @@ public class IDMessageHandler implements MessageHandler {
 		if (message.contains("IDENT ME")) {
 //			if (gameData.getGameState() == GameState.PRE_GAME) {
 				try {
-					
 					String clid = gameData.createNewClient(message.replace("IDENT ME", ""));
 					Logger.log("This new dude gets " + clid);
 					oos.writeObject(clid);

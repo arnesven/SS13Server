@@ -24,8 +24,10 @@ public class SettingsCommandHandler extends AbstractCommandHandler {
             if (!rest.contains("undefined")) { // stupid fix, client sends a dummy message at start, ignore it
                 gameData.setSettings(rest, gameData.getPlayerForClid(clid));
             }
-			System.out.println("Setting settings " + rest);
-			oos.writeObject(gameData.getPlayerForClid(clid).getSettings().makeIntoString());
+			//System.out.println("Setting settings " + rest);
+            String result = gameData.getPlayerForClid(clid).getSettings().makeIntoString();
+            System.out.print(result);
+			oos.writeObject(result);
 			return true;
 		}
 

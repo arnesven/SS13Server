@@ -32,13 +32,13 @@ public class CopyCharacterPowerMutation extends Mutation {
 			}
 
 			@Override
-			public boolean checkInstance(InstanceChecker infectChecker) {
+			public boolean checkInstance(InstanceChecker checker) {
 
-				if (infectChecker.checkInstanceOf(source)) {
+				if (checker.checkInstanceOf(source)) {
 					return true;
 				}
 
-				return super.checkInstance(infectChecker);
+				return super.checkInstance(checker);
 			}
 
 		};

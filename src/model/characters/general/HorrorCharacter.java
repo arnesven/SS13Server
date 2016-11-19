@@ -15,7 +15,7 @@ import model.items.weapons.Weapon;
 
 public class HorrorCharacter extends GameCharacter {
 
-    public static Weapon hugeClaw = new Weapon("Impaler", 0.75, 1.0, false, 0.0, true, 0);
+    public static Weapon hugeClaw = new Weapon("Impaler", 0.95, 1.0, false, 0.0, true, 0);
     private int numforms = 0;
 
 

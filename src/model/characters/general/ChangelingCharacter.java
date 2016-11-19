@@ -67,14 +67,7 @@ public class ChangelingCharacter extends GameCharacter {
     public Sprite getSprite(Actor whosAsking) {
         return getForm().getSprite(whosAsking);
     }
-	
-	@Override
-	public boolean isReduced(Actor thisActor, Actor performingClient) {
-		if (getForm() instanceof ParasiteCharacter) {
-			return true;
-		}
-		return super.isReduced(thisActor, performingClient);
-	}
+
 	
 	@Override
 	public void addCharacterSpecificActions(GameData gameData,

@@ -44,7 +44,7 @@ public class PlayerSettings implements Serializable {
         for (Map.Entry<String, Boolean> entry : settings.entrySet()) {
             strs.add(entry.getKey() + "," + entry.getValue());
         }
-        return MyStrings.join(strs, "|");
+        return MyStrings.join(strs);
     }
 
 }

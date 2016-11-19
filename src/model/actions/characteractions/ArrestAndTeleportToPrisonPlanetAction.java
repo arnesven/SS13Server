@@ -11,7 +11,7 @@ import model.characters.decorators.PassiveDecorator;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Teleporter;
-import util.HTMLFont;
+import util.HTMLText;
 import util.Logger;
 
 import java.util.List;
@@ -58,7 +58,7 @@ public class ArrestAndTeleportToPrisonPlanetAction extends Action {
             performingClient.addTolastTurnInfo("You arrested " + performingClient.getPublicName() + " and teleported " +
                     (performingClient.getCharacter().getGender().equals("man") ? "him" : "her") + " to the Prison Planet.");
 
-            selected.addTolastTurnInfo(HTMLFont.makeText("red", performingClient.getPublicName() + "; Stand down! You are under arrest for the murder of a Nanotransen Merchant." +
+            selected.addTolastTurnInfo(HTMLText.makeText("red", performingClient.getPublicName() + "; Stand down! You are under arrest for the murder of a Nanotransen Merchant." +
                     " You have been auto-sentenced to a lifetime of imprisonment on the Prison Planet!"));
             selected.moveIntoRoom(gameData.getRoom("Prison Planet"));
             selected.setCharacter(new PassiveDecorator(selected.getCharacter()));

@@ -80,7 +80,8 @@ public class Room implements ItemHolder, Serializable {
 	public String toString() {
 		String result = ID + ":" + name + ":" + shortname + ":" + x + ":" + y + ":" + 
 						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors);
-		return result;
+		//Logger.log(result);
+        return result;
 	}
 
 	/**

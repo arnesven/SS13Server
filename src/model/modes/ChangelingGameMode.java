@@ -6,7 +6,7 @@ import java.util.List;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.AICharacter;
 import model.events.Event;
-import util.HTMLFont;
+import util.HTMLText;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -155,7 +155,7 @@ public class ChangelingGameMode extends GameMode {
 
     @Override
 	public void setStartingLastTurnInfo() {
-		ling.addTolastTurnInfo(LING_START_STRING + decoyString());
+		ling.addTolastTurnInfo("You are a " + HTMLText.makeLink(HTMLText.wikiURL + "/modes/changeling", "changeling!") + " " + LING_START_STRING + decoyString());
 	}
 
 	private String decoyString() {
@@ -164,7 +164,7 @@ public class ChangelingGameMode extends GameMode {
 
 	@Override
 	protected void addAntagonistStartingMessage(Player c) {
-		c.addTolastTurnInfo(HTMLFont.makeText("purple", "verdana", 4, "You are a changeling!") + "Use your suction attack to absorb the essence of other creatures. You must be the sole survivor to win!" + decoyString());
+		c.addTolastTurnInfo(HTMLText.makeText("purple", "verdana", 3, "You are a " + HTMLText.makeLink(HTMLText.wikiURL + "/changelingmode", "changeling!")) + "Use your suction attack to absorb the essence of other creatures. You must be the sole survivor to win!" + decoyString());
 	}
 
 	@Override

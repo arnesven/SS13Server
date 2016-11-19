@@ -16,7 +16,7 @@ import model.npcs.animals.ChimpNPC;
 import model.npcs.behaviors.CrazyBehavior;
 import model.npcs.robots.TARSNPC;
 import model.objects.consoles.CrimeRecordsConsole;
-import util.HTMLFont;
+import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -50,7 +50,7 @@ public class TraitorGameMode extends GameMode {
     private static final int BAD_SECURITY = 10;
     private List<Player> traitors = new ArrayList<>();
 	private HashMap<Player, TraitorObjective> objectives = new HashMap<>();
-	private String TRAITOR_START_STRING = HTMLFont.makeText("orange", "You are a traitor!");
+	private String TRAITOR_START_STRING = HTMLText.makeText("orange", "You are a " + HTMLText.makeWikiLink("modes/traitor", "traitor") + "!");
 	private String CREW_START_STRING = "There are traitors on the station. Find them and stop them before they ruin everything!";
 
     @Override
@@ -216,7 +216,7 @@ public class TraitorGameMode extends GameMode {
 	}
 
 	private String getObjectiveText(Player traitor) {
-		return "Objective; \"" + objectives.get(traitor).getText() + "\"";
+		return HTMLText.makeWikiLink("modes/traitor", "Objective") + "; \"" + objectives.get(traitor).getText() + "\"";
 	}
 
 
@@ -276,6 +276,7 @@ public class TraitorGameMode extends GameMode {
         result += pointsFromPirates(gameData);
         result += pointsFromBombsDefused(gameData);
         result += pointsFromSecurity(gameData);
+        result += cosmicArtifactFound(gameData);
 		return result;
 	}
 

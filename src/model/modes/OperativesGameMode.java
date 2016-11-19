@@ -6,9 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import model.characters.general.AICharacter;
-import model.objects.consoles.AIConsole;
 import model.objects.general.NuclearBomb;
-import util.HTMLFont;
+import util.HTMLText;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -156,7 +155,8 @@ public class OperativesGameMode extends GameMode {
 	@Override
 	public void setStartingLastTurnInfo() {
 		for (Player p : operatives) {
-            p.addTolastTurnInfo("Infiltrate the station and find the nuclear disk. " +
+            p.addTolastTurnInfo("You are an " + HTMLText.makeLink(HTMLText.wikiURL + "/modes/operatives", "opearative") +
+                                ". Infiltrate the station and find the nuclear disk. " +
                                 "Then leave the station through an airlock. " +
                                 "Your decoy is " + decoys.get(p).getBaseName() +
 							    " (in " + decoys.get(p).getPosition().getName() + ")");
@@ -174,8 +174,9 @@ public class OperativesGameMode extends GameMode {
 			}
 		}
 		
-		c.addTolastTurnInfo(HTMLFont.makeText("red", "You are a nuclear operative!") +
-							" Infiltrate the station and find the nuclear disk. " +
+		c.addTolastTurnInfo(HTMLText.makeText("red", "You are a nuclear " +
+                            HTMLText.makeLink(HTMLText.wikiURL + "/modes/operatives", "operative") +
+							"!") + " Infiltrate the station and find the nuclear disk. " +
 							"Then leave the station through an airlock. " + 
 							"You can pretend to be the " + decoys.get(c).getBaseName() + 
 							" (in " + decoys.get(c).getPosition().getName() + ")");

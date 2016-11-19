@@ -25,7 +25,7 @@ import model.npcs.behaviors.DoNothingBehavior;
 import model.npcs.behaviors.FindHumansMovement;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.robots.RobotNPC;
-import util.HTMLFont;
+import util.HTMLText;
 
 public class AIConsole extends Console {
 
@@ -139,12 +139,12 @@ public class AIConsole extends Console {
         if (!isCorrupt() && !isShutDown() && !AIIsPlayer()) {
             for (Room r : gameData.getRooms()) {
                 for (Actor a : r.getActors()) {
-                    a.addTolastTurnInfo(HTMLFont.makeText("orange", "AI; \"" + s + "\""));
+                    a.addTolastTurnInfo(HTMLText.makeText("orange", "AI; \"" + s + "\""));
                 }
             }
         }
         if (AIIsPlayer() && !isShutDown()) {
-            aiPlayer.addTolastTurnInfo(HTMLFont.makeText("blue", "SYSTEM; \"" + s + "\""));
+            aiPlayer.addTolastTurnInfo(HTMLText.makeText("blue", "SYSTEM; \"" + s + "\""));
         }
     }
 

@@ -90,7 +90,7 @@ public class AdministrationConsole extends Console {
         if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof ChangelingCharacter)) {
             return 0;
         }
-        if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof CrewCharacter)) {
+        if (a.getInnermostCharacter() instanceof CrewCharacter) {
             return ((CrewCharacter)a.getInnermostCharacter()).getStartingMoney() / 5;
         }
         return 0;

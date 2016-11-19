@@ -14,6 +14,7 @@ import model.actions.general.ActionOption;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.map.Room;
+import util.HTMLText;
 
 /**
  * @author erini02

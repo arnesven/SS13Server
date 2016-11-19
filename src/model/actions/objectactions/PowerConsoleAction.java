@@ -45,6 +45,8 @@ public class PowerConsoleAction extends ConsoleAction {
 			performingClient.addTolastTurnInfo("You failed to activate the Power Console.");
 			return;
 		}
+
+
 		
 		if (prioSelected) {
 			Logger.log("Prio changed!");
