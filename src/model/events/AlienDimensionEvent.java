@@ -75,12 +75,17 @@ public class AlienDimensionEvent extends AmbientEvent {
     }
 
     private void addPortalObject(GameData gameData, Room targetRoom) {
-        otherDim = gameData.getRoom("Other Dimension");
-        this.portal = new DimensionPortal(gameData, targetRoom, otherDim);
-        targetRoom.addObject(portal);
+        try {
+            otherDim = gameData.getRoom("Other Dimension");
+            this.portal = new DimensionPortal(gameData, targetRoom, otherDim);
+            targetRoom.addObject(portal);
 
-        this.portal2 = new DimensionPortal(gameData, otherDim, targetRoom);
-        otherDim.addObject(portal2);
+            this.portal2 = new DimensionPortal(gameData, otherDim, targetRoom);
+            otherDim.addObject(portal2);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

@@ -69,4 +69,10 @@ public class OperativeCharacter extends HumanCharacter {
 	}
 
 
+    @Override
+    public List<Room> getVisibleMap(GameData gameData) {
+        List<Room> rooms = super.getVisibleMap(gameData);
+        rooms.add(getStartingRoom(gameData));
+        return rooms;
+    }
 }

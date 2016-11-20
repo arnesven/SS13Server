@@ -8,10 +8,12 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.crew.CaptainCharacter;
+import model.items.NoSuchThingException;
 import model.map.Room;
 import model.objects.general.CrateObject;
 import model.objects.consoles.AdministrationConsole;
 import model.objects.shipments.Shipment;
+import util.MyRandom;
 
 public class AdminConsoleAction extends ConsoleAction {
 
@@ -61,7 +63,12 @@ public class AdminConsoleAction extends ConsoleAction {
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
         if (!checkedfunds) {
-            Room gate = gameData.getRoom("Shuttle Gate");
+            Room gate = null;
+            try {
+                gate = gameData.getRoom("Shuttle Gate");
+            } catch (NoSuchThingException e) {
+                gate = MyRandom.sample(gameData.getRooms());
+            }
             Shipment s = selectedShip.clone();
             gate.addObject(new CrateObject(gate, s, gameData));
             pc.setMoney(pc.getMoney() - s.getCost());

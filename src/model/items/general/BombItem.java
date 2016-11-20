@@ -1,6 +1,7 @@
 package model.items.general;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import graphics.sprites.Sprite;
@@ -11,6 +12,10 @@ import model.Target;
 import model.Hazard;
 import model.characters.general.GameCharacter;
 import model.characters.crew.*;
+import model.events.Event;
+import model.events.NoPressureEvent;
+import model.events.ambient.ColdEvent;
+import model.events.ambient.DarkEvent;
 import model.events.ambient.ElectricalFire;
 import model.events.ambient.HullBreach;
 import model.events.damage.ExplosiveDamage;
@@ -18,6 +23,7 @@ import model.items.NoSuchThingException;
 import model.items.foods.ExplodingFood;
 import model.map.Room;
 import model.events.SpontaneousExplosionEvent;
+import model.modes.NoPressureEverEvent;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 import util.Logger;
@@ -26,7 +32,7 @@ import util.MyRandom;
 public class BombItem extends HidableItem implements ExplodableItem {
 
 	public static final String FOUND_A_BOMB_STRING = "What's this... a bomb!?";
-    private static final double CHAIN_DETONATION_CHANCE = 0.5;
+    private static final double CHAIN_DETONATION_CHANCE = 0.9;
     private final String name;
     private GameItem concealedWithin;
     private boolean exploded;
@@ -179,6 +185,13 @@ public class BombItem extends HidableItem implements ExplodableItem {
             }
         }
 
+        if (chain > 2) {
+            if (gameData.getAllRooms().contains(bombRoom)) { // not already destroyed
+                destroyRoom(gameData, bombRoom);
+            }
+
+        }
+
         if (chain > 1) {
             for (Actor a : surrounding) {
                 a.getCharacter().beExposedTo(performingClient, new ExplosiveDamage(((double) chain-1) / 2.0));
@@ -188,6 +201,27 @@ public class BombItem extends HidableItem implements ExplodableItem {
         if (chain > maxChain) {
             setMaxChain(gameData, chain);
         }
+    }
+
+    private void destroyRoom(GameData gameData, Room bombRoom) {
+        Iterator<Event> roomIter = bombRoom.getEvents().iterator();
+        for (Event ev = null ; roomIter.hasNext(); ev = roomIter.next()) {
+            if (ev instanceof ElectricalFire || ev instanceof HullBreach) {
+                roomIter.remove();
+            }
+        }
+
+        bombRoom.addEvent(new NoPressureEverEvent(bombRoom));
+        bombRoom.addEvent(new ColdEvent(bombRoom));
+        bombRoom.addEvent(new DarkEvent());
+
+        for (Room neigh : bombRoom.getNeighborList()) {
+            HullBreach hull = ((HullBreach) gameData.getGameMode().getEvents().get("hull breaches"));
+            hull.startNewEvent(neigh);
+        }
+
+        gameData.getMap().removeRoom(bombRoom);
+
     }
 
     private BombItem getIfIsAnUnexplodedBomb(GameItem it) {

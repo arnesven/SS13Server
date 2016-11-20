@@ -52,11 +52,31 @@ public class PirateAttackEvent extends AmbientEvent {
 
     private Room randomTargetRoom(GameData gameData) {
         List<Room> roomList = new ArrayList<>();
-        roomList.add(gameData.getRoom("Bridge"));
-        roomList.add(gameData.getRoom("Generator"));
-        roomList.add(gameData.getRoom("Bar"));
-        roomList.add(gameData.getRoom("Greenhouse"));
-        roomList.add(gameData.getRoom("Lab"));
+        try {
+            roomList.add(gameData.getRoom("Bridge"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        try {
+            roomList.add(gameData.getRoom("Generator"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        try {
+            roomList.add(gameData.getRoom("Bar"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        try {
+            roomList.add(gameData.getRoom("Greenhouse"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        try {
+            roomList.add(gameData.getRoom("Lab"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
         return MyRandom.sample(roomList);
     }
 
@@ -69,7 +89,10 @@ public class PirateAttackEvent extends AmbientEvent {
     }
 
     private void movePiratesOverToStation(GameData gameData, int randAirLock) {
-        Room airLock = gameData.getRoom("Air Lock #" + randAirLock);
+        Room airLock = null;
+        try {
+            airLock = gameData.getRoom("Air Lock #" + randAirLock);
+
 
         int piratesThisTurn = Math.min(piratesRemainingOnBarge, MyRandom.nextInt(3) + 1);
 
@@ -83,6 +106,9 @@ public class PirateAttackEvent extends AmbientEvent {
 
             gameData.addNPC(pirate);
             piratesRemainingOnBarge--;
+        }
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
         }
 
     }

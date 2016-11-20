@@ -92,8 +92,12 @@ public class TellRumorsBehavior implements ActionBehavior {
                     e.printStackTrace();
                 }
 
-                for (Actor a : gameData.getRoom("Brig").getActors()) {
-                    gossip.add("I hear " + a.getBaseName() + " was a bad " + (a.getCharacter().getGender().equals("man")?"boy":"girl") + ".");
+                try {
+                    for (Actor a : gameData.getRoom("Brig").getActors()) {
+                        gossip.add("I hear " + a.getBaseName() + " was a bad " + (a.getCharacter().getGender().equals("man")?"boy":"girl") + ".");
+                    }
+                } catch (NoSuchThingException e) {
+                    e.printStackTrace();
                 }
 
                 gossip.add("What'll it be?");

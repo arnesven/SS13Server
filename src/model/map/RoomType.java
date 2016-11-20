@@ -11,5 +11,6 @@ public enum RoomType {
     support,
     airlock,
     security,
-    other
+    outer,
+    hidden
 }

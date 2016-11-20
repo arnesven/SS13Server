@@ -7,6 +7,7 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Grenade;
 import model.map.Room;
@@ -40,10 +41,16 @@ public class ThrowGrenadeAction extends Action {
 		} else {
 			performingClient.getItems().remove(grenade);
 			performingClient.addTolastTurnInfo("You threw the grenade into " + location + ".");
-			Room targetRoom = gameData.getRoom(location);
-			targetRoom.addItem(grenade);
-			Action a = new ExplosionAction(grenade, targetRoom);
-			a.doTheAction(gameData, performingClient);
+            Room targetRoom = null;
+            try {
+                targetRoom = gameData.getRoom(location);
+                targetRoom.addItem(grenade);
+                Action a = new ExplosionAction(grenade, targetRoom);
+                a.doTheAction(gameData, performingClient);
+            } catch (NoSuchThingException e) {
+                e.printStackTrace();
+            }
+
 		}
 	}
 

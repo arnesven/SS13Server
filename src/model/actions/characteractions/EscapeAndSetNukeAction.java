@@ -32,23 +32,27 @@ public class EscapeAndSetNukeAction extends Action {
 	
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		final Room nukieShip = gameData.getRoom("Nuclear Ship");
-		performingClient.moveIntoRoom(nukieShip);
-		((Player)performingClient).setNextMove(nukieShip.getID()); // TODO: will crash if operative is an NPC
-		if (hasTheDisk(performingClient) != null) {
-			performingClient.getItems().remove(hasTheDisk(performingClient));
+        try {
+            final Room nukieShip = gameData.getRoom("Nuclear Ship");
+            performingClient.moveIntoRoom(nukieShip);
+            ((Player) performingClient).setNextMove(nukieShip.getID()); // TODO: will crash if operative is an NPC
+            if (hasTheDisk(performingClient) != null) {
+                performingClient.getItems().remove(hasTheDisk(performingClient));
 
-            for (GameObject ob : nukieShip.getObjects()) {
-                if (ob instanceof NuclearBomb) {
-                    gameData.addEvent(new NukeSetByOperativesEvent((NuclearBomb)ob));
-                    break;
+                for (GameObject ob : nukieShip.getObjects()) {
+                    if (ob instanceof NuclearBomb) {
+                        gameData.addEvent(new NukeSetByOperativesEvent((NuclearBomb) ob));
+                        break;
+                    }
                 }
+
+
+            } else {
+                performingClient.addTolastTurnInfo("What? The nuclear disk is gone! Your action failed.");
             }
-			
-			
-		} else {
-			performingClient.addTolastTurnInfo("What? The nuclear disk is gone! Your action failed.");
-		}
+        } catch (NoSuchThingException nste) {
+            nste.printStackTrace();
+        }
 	}
 
 	private NuclearDisc hasTheDisk(Actor performingClient) {

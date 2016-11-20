@@ -15,6 +15,7 @@ import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
 import model.map.Room;
+import model.map.RoomType;
 import util.Logger;
 
 
@@ -374,5 +375,15 @@ public abstract class CharacterDecorator extends GameCharacter {
     @Override
     public void doAtEndOfTurn(GameData gameData) {
         innerChar.doAtEndOfTurn(gameData);
+    }
+
+    public List<Room> getVisibleMap(GameData gameData) {
+        if (getPosition().getType() == RoomType.outer) {
+            List<Room> arr = new ArrayList<>();
+            arr.add(getPosition());
+            return arr;
+        }
+
+        return innerChar.getVisibleMap(gameData);
     }
 }

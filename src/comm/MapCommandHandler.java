@@ -18,7 +18,7 @@ public class MapCommandHandler extends AbstractCommandHandler {
 			ObjectOutputStream oos) throws IOException {
 //		System.out.println("handling map command");
 		if (command.equals("MAP")) {
-			String result = gameData.getAllRooms().toString();
+			String result = gameData.getPlayerForClid(clid).getVsibleMap(gameData).toString();
 			//Logger.log(result);
 			oos.writeObject(result);
 			return true;

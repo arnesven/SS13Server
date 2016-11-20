@@ -15,7 +15,7 @@ import model.items.general.GameItem;
  * @author erini02
  * Decorator class for indicating that this character is
  * infected. I.e. that player is an antagonist for the
- * host game mode and can infect other players.
+ * host game mode and can infect hidden players.
  */
 public class InfectedCharacter extends CharacterDecorator {
 

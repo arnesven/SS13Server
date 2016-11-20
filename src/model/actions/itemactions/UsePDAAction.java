@@ -38,7 +38,7 @@ public class UsePDAAction extends Action {
 	protected void execute(GameData gameData, Actor performingClient) {
 		if (!order) {
 			if (traitorMode.getTraitors().size() > 1) {
-				String others = "The other traitors are; ";
+				String others = "The hidden traitors are; ";
 				for (Player p : traitorMode.getTraitors()) {
 					if (performingClient != p) {
 						others += p.getBaseName() + " (obj; \"" + traitorMode.getObjectives().get(p).getText() + "\")";

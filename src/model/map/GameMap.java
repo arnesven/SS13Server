@@ -1,5 +1,7 @@
 package model.map;
 
+import model.items.NoSuchThingException;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,17 +39,17 @@ public class GameMap implements Serializable {
 		return roomsList;
 	}
 
-	public Room getRoomForID(int ID) {
-		return roomsList.get(ID-1);
-	}
+//	public Room getRoomForID(int ID) {
+//		return roomsList.get(ID-1);
+//	}
 
-	public Room getRoom(String string) {
+	public Room getRoom(String string) throws NoSuchThingException {
 		for (Room r : roomsList) {
 			if (r.getName().equals(string)) {
 				return r;
 			}
 		}
-		throw new NoSuchElementException("No room for given string " + string);
+		throw new NoSuchThingException("No room for given string " + string);
 	}
 
 	/**
@@ -61,53 +63,61 @@ public class GameMap implements Serializable {
 	public List<List<Room>> getSideLocations() {
 		List<List<Room>> list = new ArrayList<>();
 		List<Room> aftSide = new ArrayList<>();
-		aftSide.add(this.getRoom("Greenhouse"));
-		aftSide.add(this.getRoom("Panorama Walkway"));
-		aftSide.add(this.getRoom("Aft Walkway"));
-		aftSide.add(this.getRoom("Airtunnel"));
-		aftSide.add(this.getRoom("Chapel"));
-		aftSide.add(this.getRoom("Aft Hall"));
-		aftSide.add(this.getRoom("Lab"));
-		aftSide.add(this.getRoom("Air Lock #1"));	
-		list.add(aftSide);
-		
-		List<Room> portSide = new ArrayList<>();
-		portSide.add(this.getRoom("Lab"));
-		portSide.add(this.getRoom("Sickbay"));
-		portSide.add(this.getRoom("Air Lock #3"));
-		portSide.add(this.getRoom("Port Hall Aft"));
-		portSide.add(this.getRoom("Shuttle Gate"));
-		portSide.add(this.getRoom("Port Hall Front"));
-		portSide.add(this.getRoom("Security Station"));
-		portSide.add(this.getRoom("Air Lock #2"));
-		list.add(portSide);
-		
-		List<Room> frontSide = new ArrayList<>();
-		frontSide.add(this.getRoom("Security Station"));
-		frontSide.add(this.getRoom("Port Hall Front"));
-		frontSide.add(this.getRoom("Air Lock #2"));
-		frontSide.add(this.getRoom("Bridge"));
-		frontSide.add(this.getRoom("Captain's Quarters"));
-		frontSide.add(this.getRoom("Front Hall"));
-		frontSide.add(this.getRoom("Office"));
-		list.add(frontSide);
-		
-		List<Room> starboardSide = new ArrayList<>();
-		starboardSide.add(this.getRoom("Office"));
-		starboardSide.add(this.getRoom("Starboard Hall Front"));
-		starboardSide.add(this.getRoom("Dorms"));
-		starboardSide.add(this.getRoom("Bar"));
-		starboardSide.add(this.getRoom("Kitchen"));
-		starboardSide.add(this.getRoom("Starboard Hall Aft"));
-		starboardSide.add(this.getRoom("Aft Walkway"));
-		starboardSide.add(this.getRoom("Air Lock #1"));
-		list.add(starboardSide);
-		
-		return list;
-	}
+        addIfAble(aftSide, "Greenhouse");
+        addIfAble(aftSide, "Panorama Walkway");
+        addIfAble(aftSide, "Aft Walkway");
+        addIfAble(aftSide, "Airtunnel");
+        addIfAble(aftSide, "Chapel");
+        addIfAble(aftSide, "Aft Hall");
+        addIfAble(aftSide, "Lab");
+        addIfAble(aftSide, "Air Lock #1");
+        list.add(aftSide);
+
+        List<Room> portSide = new ArrayList<>();
+        addIfAble(portSide, "Lab");
+        addIfAble(portSide, "Sickbay");
+        addIfAble(portSide, "Air Lock #3");
+        addIfAble(portSide, "Port Hall Aft");
+        addIfAble(portSide, "Shuttle Gate");
+        addIfAble(portSide, "Port Hall Front");
+        addIfAble(portSide, "Security Station");
+        addIfAble(portSide, "Air Lock #2");
+        list.add(portSide);
+
+        List<Room> frontSide = new ArrayList<>();
+        addIfAble(frontSide, "Security Station");
+        addIfAble(frontSide, "Port Hall Front");
+        addIfAble(frontSide, "Air Lock #2");
+        addIfAble(frontSide, "Bridge");
+        addIfAble(frontSide, "Captain's Quarters");
+        addIfAble(frontSide, "Front Hall");
+        addIfAble(frontSide, "Office");
+        list.add(frontSide);
+
+        List<Room> starboardSide = new ArrayList<>();
+        addIfAble(starboardSide, "Office");
+        addIfAble(starboardSide, "Starboard Hall Front");
+        addIfAble(starboardSide, "Dorms");
+        addIfAble(starboardSide, "Bar");
+        addIfAble(starboardSide, "Kitchen");
+        addIfAble(starboardSide, "Starboard Hall Aft");
+        addIfAble(starboardSide, "Aft Walkway");
+        addIfAble(starboardSide, "Air Lock #1");
+        list.add(starboardSide);
+
+        return list;
+    }
+
+    private void addIfAble(List<Room> side, String roomName) {
+        try {
+	  side.add(this.getRoom(roomName));
+        } catch (NoSuchThingException nste) {
+            // don't add it!
+        }
+    }
 
 
-	private void setRoomsList(ArrayList<Room> result) {
+    private void setRoomsList(ArrayList<Room> result) {
 		roomsList = result;
 	}
 
@@ -211,5 +221,28 @@ public class GameMap implements Serializable {
             sideStr = "starboard";
         }
         return sideStr;
+    }
+
+    public List<Room> getStationRooms() {
+        List<Room> station = new ArrayList<Room>();
+        for (Room r : roomsList) {
+            if (r.getType() != RoomType.hidden && r.getType() != RoomType.outer) {
+                station.add(r);
+            }
+        }
+        return station;
+    }
+
+    public void removeRoom(Room bombRoom) {
+        roomsList.remove(bombRoom);
+    }
+
+    public Room getRoomByID(int i) throws NoSuchThingException {
+        for (Room r : roomsList) {
+            if (r.getID() == i) {
+                return r;
+            }
+        }
+        throw new NoSuchThingException("No room for ID " + i);
     }
 }

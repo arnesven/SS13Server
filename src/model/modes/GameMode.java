@@ -180,7 +180,7 @@ public abstract class GameMode implements Serializable {
 
 	/**
 	 * This method is called as the last part of the setup.
-	 * In this step, the game mode can set up other things
+	 * In this step, the game mode can set up hidden things
 	 * which pertains to this game mode.
 	 * @param gameData
 	 */
@@ -409,7 +409,7 @@ public abstract class GameMode implements Serializable {
 
 	protected void assignRestRoles(ArrayList<Player> remainingPlayers,
 			ArrayList<GameCharacter> remainingCharacters, GameData gameData) {
-        Logger.log("Assigning other roles, players remaining: " + remainingPlayers.size());
+        Logger.log("Assigning hidden roles, players remaining: " + remainingPlayers.size());
 		Collections.shuffle(remainingPlayers);
 
 		while (remainingPlayers.size() > 0) {
@@ -443,18 +443,24 @@ public abstract class GameMode implements Serializable {
 
     private void moveCharactersIntoStartingRooms(GameData gameData) {
 		for (Player c : gameData.getPlayersAsList()) {
-			Room startRoom = c.getCharacter().getStartingRoom(gameData);
-			c.moveIntoRoom(startRoom);
+            Room startRoom = null;
+            startRoom = c.getCharacter().getStartingRoom(gameData);
+
+            c.moveIntoRoom(startRoom);
 			c.setNextMove(c.getPosition().getID());
 		}
 	}
 
 	private void addNPCs(GameData gameData, List<GameCharacter> remainingChars) {
 
-
+        try {
 		while (MyRandom.nextDouble() < 0.5) {
-			gameData.addNPC(new SnakeNPC(gameData.getRoom("Greenhouse")));
-		}
+                gameData.addNPC(new SnakeNPC(gameData.getRoom("Greenhouse")));
+        }
+        } catch (NoSuchThingException e) {
+            Logger.log(Logger.CRITICAL, "No greenhouse to put snakes in!");
+            e.printStackTrace();
+        }
 
 		Room TARSRoom;
 		do {
@@ -514,9 +520,13 @@ public abstract class GameMode implements Serializable {
         Room r = MyRandom.getRandomHallway(gameData);
         r.addObject(new VendingMachine(r));
         Logger.log("Added vending machine in " + r.getName());
-        gameData.getRoom("Starboard Hall Aft").addObject(new ATM(gameData, gameData.getRoom("Starboard Hall Aft")));
+        try {
+            gameData.getRoom("Starboard Hall Aft").addObject(new ATM(gameData, gameData.getRoom("Starboard Hall Aft")));
 
-	}
+        } catch (NoSuchThingException nste) {
+            Logger.log(Logger.CRITICAL, "No Starboard Hall Aft to put ATM in!");
+        }
+    }
 
 	private void addRandomItemsToRooms(GameData gameData) {
 		while (MyRandom.nextDouble() < 0.5) {
@@ -639,7 +649,12 @@ public abstract class GameMode implements Serializable {
 
         gameModeSpecificSetupForLateJoiner(newPlayer, gameData);
 
-        newPlayer.moveIntoRoom(gameData.getRoom("Shuttle Gate"));
+        try {
+            newPlayer.moveIntoRoom(gameData.getRoom("Shuttle Gate"));
+        } catch (NoSuchThingException e) {
+            Logger.log(Logger.CRITICAL, "No Shuttle gate to put new player!");
+            newPlayer.moveIntoRoom(MyRandom.sample(gameData.getRooms()));
+        }
 
         List<GameItem> startingItems = newPlayer.getCharacter().getStartingItems();
         Logger.log("Giving starting items to " + newPlayer.getPublicName());

@@ -6,6 +6,7 @@ import java.util.List;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.AICharacter;
 import model.events.Event;
+import model.items.NoSuchThingException;
 import util.HTMLText;
 import util.MyRandom;
 import model.Actor;
@@ -97,8 +98,12 @@ public class ChangelingGameMode extends GameMode {
 	}
 
 	private boolean lockedRoom(Room startRoom, GameData gameData) {
-		return startRoom == gameData.getRoom("Brig") || startRoom == gameData.getRoom("Armory");
-	}
+        try {
+            return startRoom == gameData.getRoom("Brig") || startRoom == gameData.getRoom("Armory");
+        } catch (NoSuchThingException e) {
+            return true;
+        }
+    }
 
 	private boolean isAStartingRoom(Room startRoom, GameData gameData) {
 		for (Player p : gameData.getPlayersAsList()) {
@@ -164,7 +169,7 @@ public class ChangelingGameMode extends GameMode {
 
 	@Override
 	protected void addAntagonistStartingMessage(Player c) {
-		c.addTolastTurnInfo(HTMLText.makeText("purple", "verdana", 3, "You are a " + HTMLText.makeLink(HTMLText.wikiURL + "/changelingmode", "changeling!")) + "Use your suction attack to absorb the essence of other creatures. You must be the sole survivor to win!" + decoyString());
+		c.addTolastTurnInfo(HTMLText.makeText("purple", "verdana", 3, "You are a " + HTMLText.makeLink(HTMLText.wikiURL + "/changelingmode", "changeling!")) + "Use your suction attack to absorb the essence of hidden creatures. You must be the sole survivor to win!" + decoyString());
 	}
 
 	@Override

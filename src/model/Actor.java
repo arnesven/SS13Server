@@ -14,6 +14,8 @@ import model.items.suits.SuitItem;
 import model.map.Room;
 import util.Logger;
 
+import javax.swing.table.TableStringConverter;
+
 public abstract class Actor  implements ItemHolder, Serializable {
 
 	private GameCharacter character = null;
@@ -354,5 +356,13 @@ public abstract class Actor  implements ItemHolder, Serializable {
         for (GameItem it : startingItems) {
             this.addItem(it, null);
         }
+    }
+
+    public String getVsibleMap(GameData gameData) {
+        if (getCharacter() != null) {
+            return getCharacter().getVisibleMap(gameData).toString();
+        }
+
+        return gameData.getRooms().toString();
     }
 }

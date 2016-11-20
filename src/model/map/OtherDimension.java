@@ -7,7 +7,7 @@ import model.items.CosmicArtifact;
  */
 public class OtherDimension extends Room {
     public OtherDimension(int id, int[] ints, double[] doubles) {
-        super(id, "Other Dimension", "", 18, 0, 0, 0,ints, doubles, RoomType.other);
+        super(id, "Other Dimension", "", 4, 4, 1, 1,ints, doubles, RoomType.outer);
         this.addItem(new CosmicArtifact());
     }
 }

@@ -23,7 +23,7 @@ public abstract class Action implements Serializable {
 	
 	/**
 	 * @param name the name of this action
-	 * @param senses if the action is stealthy it will not be displayed to other players standing in that room.
+	 * @param senses if the action is stealthy it will not be displayed to hidden players standing in that room.
 	 */
 	public Action(String name, SensoryLevel senses) {
 		this.name = name;
@@ -51,7 +51,7 @@ public abstract class Action implements Serializable {
 	
 	/**
 	 * Gets the string which is a textual description of the action to all
-	 * other clients in the same room.
+	 * hidden clients in the same room.
 	 * DoTheAction must have been called before!
 	 * @param whosAsking the ActionPerformer who is performing the action
 	 * @return the textual description of the action (as seen by bystanders).

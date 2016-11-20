@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.characters.general.AICharacter;
+import model.items.NoSuchThingException;
 import model.objects.general.NuclearBomb;
 import util.HTMLText;
 import util.MyRandom;
@@ -41,7 +42,12 @@ public class OperativesGameMode extends GameMode {
 
     @Override
 	protected void setUpOtherStuff(GameData gameData) {
-        Room cq = gameData.getRoom("Captain's Quarters");
+        Room cq = null;
+        try {
+            cq = gameData.getRoom("Captain's Quarters");
+        } catch (NoSuchThingException e) {
+            cq = MyRandom.sample(gameData.getRooms());
+        }
         for (GameItem it : cq.getItems()) {
 			if (it instanceof NuclearDisc) {
 				nukieDisk = (NuclearDisc)it;
@@ -67,55 +73,58 @@ public class OperativesGameMode extends GameMode {
 	@Override
 	protected void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters,
 			GameData gameData) {
-		nukieShip = gameData.getRoom("Nuclear Ship");
-		int num = 1;
-		
-		List<Player> opPlayers = new ArrayList<>();
-		
-		for (Player p : gameData.getPlayersAsList()) {
-			if (p.checkedJob("Operative") && 
-					!(p.getCharacter() instanceof CaptainCharacter) &&
-                    !(p.getCharacter() instanceof AICharacter)) {
-				opPlayers.add(p);
-			}
-		}
-		
-		while (opPlayers.size() > getNoOfOperatives(gameData)) {
-			// Too many operatives, remove some.
-			opPlayers.remove(MyRandom.sample(opPlayers));
-		}
-	
-		List<Player> allPlayers = new ArrayList<>();
-		allPlayers.addAll(gameData.getPlayersAsList());
-		while (opPlayers.size() < getNoOfOperatives(gameData)) {
-			// Too few checked operatives add some.
-			Player p = MyRandom.sample(allPlayers);
-			if (!opPlayers.contains(p) &&
-					!(p.getCharacter() instanceof CaptainCharacter)) {
-				opPlayers.add(p);
-			}
-		}
-		
+        try {
+            nukieShip = gameData.getRoom("Nuclear Ship");
+            int num = 1;
 
-		for (int i = 0; i < getNoOfOperatives(gameData); ++i) {
-			Player p = opPlayers.get(i);
-			
-			// Turn Character into decoy-npc
-			//p.getCharacter().setClient(null);
-			NPC npc = new HumanNPC(p.getCharacter(), p.getCharacter().getStartingRoom(gameData));
-			p.getCharacter().setActor(npc);
-			gameData.addNPC(npc);
-			decoys.put(p, npc);
-			GameCharacter opChar = new OperativeCharacter(num++, nukieShip.getID());
-			
-			p.setCharacter(opChar);
-			p.putOnSuit(new JumpSuit());
-			p.putOnSuit(new OperativeSpaceSuit());
+            List<Player> opPlayers = new ArrayList<>();
+
+            for (Player p : gameData.getPlayersAsList()) {
+                if (p.checkedJob("Operative") &&
+                        !(p.getCharacter() instanceof CaptainCharacter) &&
+                        !(p.getCharacter() instanceof AICharacter)) {
+                    opPlayers.add(p);
+                }
+            }
+
+            while (opPlayers.size() > getNoOfOperatives(gameData)) {
+                // Too many operatives, remove some.
+                opPlayers.remove(MyRandom.sample(opPlayers));
+            }
+
+            List<Player> allPlayers = new ArrayList<>();
+            allPlayers.addAll(gameData.getPlayersAsList());
+            while (opPlayers.size() < getNoOfOperatives(gameData)) {
+                // Too few checked operatives add some.
+                Player p = MyRandom.sample(allPlayers);
+                if (!opPlayers.contains(p) &&
+                        !(p.getCharacter() instanceof CaptainCharacter)) {
+                    opPlayers.add(p);
+                }
+            }
 
 
+            for (int i = 0; i < getNoOfOperatives(gameData); ++i) {
+                Player p = opPlayers.get(i);
 
-			operatives.add(p);
-		}
+                // Turn Character into decoy-npc
+                //p.getCharacter().setClient(null);
+                NPC npc = new HumanNPC(p.getCharacter(), p.getCharacter().getStartingRoom(gameData));
+                p.getCharacter().setActor(npc);
+                gameData.addNPC(npc);
+                decoys.put(p, npc);
+                GameCharacter opChar = new OperativeCharacter(num++, nukieShip.getID());
+
+                p.setCharacter(opChar);
+                p.putOnSuit(new JumpSuit());
+                p.putOnSuit(new OperativeSpaceSuit());
+
+
+                operatives.add(p);
+            }
+        } catch (NoSuchThingException nste) {
+            nste.printStackTrace();
+        }
 	}
 
 	private int getNoOfOperatives(GameData gameData) {
@@ -181,7 +190,7 @@ public class OperativesGameMode extends GameMode {
 							"You can pretend to be the " + decoys.get(c).getBaseName() + 
 							" (in " + decoys.get(c).getPosition().getName() + ")");
 		if (!decoyStr.toString().equals("")) {
-			c.addTolastTurnInfo("The other decoys are " + decoyStr.toString());
+			c.addTolastTurnInfo("The hidden decoys are " + decoyStr.toString());
 		}
 	}
 

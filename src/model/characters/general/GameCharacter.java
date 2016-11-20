@@ -8,6 +8,7 @@ import graphics.sprites.NakedHumanSprite;
 import graphics.sprites.OverlaySprites;
 import graphics.sprites.Sprite;
 import model.*;
+import model.items.NoSuchThingException;
 import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
@@ -330,9 +331,13 @@ public abstract class GameCharacter implements Serializable {
 		return true;
 	}
 
-	public Room getStartingRoom(GameData gameData) {
-		return gameData.getRoomForId(startingRoom);
-	}
+	public Room getStartingRoom(GameData gameData)  {
+        try {
+            return gameData.getRoomForId(startingRoom);
+        } catch (NoSuchThingException e) {
+            return MyRandom.sample(gameData.getRooms());
+        }
+    }
 
 	public int getMovementSteps() {
 		if (isDead()) {
@@ -516,5 +521,9 @@ public abstract class GameCharacter implements Serializable {
 
     public void doAtEndOfTurn(GameData gameData) {
 
+    }
+
+    public List<Room> getVisibleMap(GameData gameData) {
+        return gameData.getMap().getStationRooms();
     }
 }

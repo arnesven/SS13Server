@@ -2,7 +2,6 @@ package model.map;
 import java.util.ArrayList;
 
 import model.GameData;
-import model.characters.general.RobotCharacter;
 import model.items.general.FireExtinguisher;
 import model.items.general.MoneyStack;
 import model.items.general.NuclearDisc;
@@ -10,11 +9,8 @@ import model.items.suits.SpaceSuit;
 import model.npcs.*;
 import model.npcs.animals.CatNPC;
 import model.npcs.animals.ChimpNPC;
-import model.npcs.behaviors.MeanderingMovement;
-import model.npcs.behaviors.TellRumorsBehavior;
 import model.npcs.robots.RobotNPC;
 import model.objects.AITurret;
-import model.objects.ATM;
 import model.objects.StasisPod;
 import model.objects.consoles.*;
 import model.objects.consoles.AirLockControl;
@@ -138,10 +134,10 @@ public class MapBuilder {
 		}
 
         Room dummy = new Room(30, "Dummy", "", 18, 1, 0, 0,
-                                new int[]{28}, new double[]{-1.0, -1.0}, RoomType.other);
+                                new int[]{28}, new double[]{-1.0, -1.0}, RoomType.hidden);
         result.add(dummy);
         Room otherDim = new OtherDimension(31, new int[]{30}, new double[]{-1.0, -1.0});
-        Room prisonPlanet = new Room(32, "Prison Planet", "", 18, 1, 0, 0, new int[]{30}, new double[]{-1.0, -1.0}, RoomType.other);
+        Room prisonPlanet = new Room(32, "Prison Planet", "", 0, 0, 1, 1, new int[]{30}, new double[]{-1.0, -1.0}, RoomType.outer);
 
         result.add(otherDim);
         result.add(prisonPlanet);

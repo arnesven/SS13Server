@@ -22,6 +22,7 @@ import model.npcs.NPC;
 import model.npcs.robots.SecuritronNPC;
 import model.objects.general.EvidenceBox;
 import util.Logger;
+import util.MyRandom;
 import util.Pair;
 
 public class CrimeRecordsConsole extends Console {
@@ -133,8 +134,11 @@ public class CrimeRecordsConsole extends Console {
 	}
 
 	public void teleBrig(Actor worst, GameData gameData) {
-		Room brig = gameData.getRoom("Brig");
-		worst.moveIntoRoom(brig);
+        Room brig = null;
+        try {
+            brig = gameData.getRoom("Brig");
+
+        worst.moveIntoRoom(brig);
 		try {
 			EvidenceBox ev = gameData.findObjectOfType(EvidenceBox.class);
 			transferItems(worst, ev);
@@ -155,6 +159,9 @@ public class CrimeRecordsConsole extends Console {
 		getReportedActors().remove(worst);
 		sentences.put(worst, duration);
 		gameData.addEvent(new SentenceCountdownEvent(gameData, worst, this));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
 	}
 
     private void transferItems(Actor worst, EvidenceBox ev) {
@@ -173,8 +180,12 @@ public class CrimeRecordsConsole extends Console {
 
 	public void release(GameData gameData, Actor inmate) {
 		getSentenceMap().remove(inmate);
-		inmate.moveIntoRoom(gameData.getRoom("Port Hall Front"));
-		try {
+        try {
+            inmate.moveIntoRoom(gameData.getRoom("Port Hall Front"));
+        } catch (NoSuchThingException e) {
+            inmate.moveIntoRoom(MyRandom.sample(gameData.getRooms()));
+        }
+        try {
 			EvidenceBox ev = gameData.findObjectOfType(EvidenceBox.class);
 			for (GameItem it : ev.removeAffects(inmate)) {
 				inmate.addItem(it, null);

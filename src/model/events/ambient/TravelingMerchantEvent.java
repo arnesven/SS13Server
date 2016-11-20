@@ -80,16 +80,20 @@ public class TravelingMerchantEvent extends AmbientEvent {
 
     private void merchantArrives(GameData gameData) {
         hasHappened = true;
-        Room shuttleGate = gameData.getRoom("Shuttle Gate");
-        merchant = new MerchantNPC(shuttleGate);
-        gameData.addNPC(merchant);
-        crate = new MerchantWaresCrate(shuttleGate, merchant);
-        shuttleGate.addObject(crate);
-
         try {
-            gameData.findObjectOfType(AIConsole.class).informOnStation("A traveling merchant has arrived on the station.", gameData);
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
+            Room shuttleGate = gameData.getRoom("Shuttle Gate");
+            merchant = new MerchantNPC(shuttleGate);
+            gameData.addNPC(merchant);
+            crate = new MerchantWaresCrate(shuttleGate, merchant);
+            shuttleGate.addObject(crate);
+
+            try {
+                gameData.findObjectOfType(AIConsole.class).informOnStation("A traveling merchant has arrived on the station.", gameData);
+            } catch (NoSuchThingException e) {
+                e.printStackTrace();
+            }
+        } catch (NoSuchThingException nste) {
+            nste.printStackTrace();
         }
     }
 

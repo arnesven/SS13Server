@@ -7,14 +7,13 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.DumbwaiterAction;
 import model.actions.objectactions.MakeBombAction;
+import model.events.NoSuchEventException;
+import model.items.NoSuchThingException;
 import model.map.KitchenRoom;
 import model.map.Room;
 import util.Logger;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by erini02 on 28/04/16.
@@ -49,11 +48,11 @@ public class Dumbwaiter extends GameObject {
         List<Room> result = new ArrayList<>();
         for (String place :  places) {
 
-            Room r = gameData.getRoom(place);
-            if (r == null) {
-                Logger.log(Logger.CRITICAL, "Dumbwaiter did not find room: " + place);
-            } else {
+            try {
+                Room r = gameData.getRoom(place);
                 result.add(r);
+            } catch (NoSuchThingException nse) {
+                    Logger.log(Logger.CRITICAL, "Dumbwaiter did not find room: " + place);
             }
         }
         Collections.sort(result, new Comparator<Room>() {

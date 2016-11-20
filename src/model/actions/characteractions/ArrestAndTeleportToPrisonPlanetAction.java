@@ -54,23 +54,27 @@ public class ArrestAndTeleportToPrisonPlanetAction extends Action {
 
     @Override
     public void lateExecution(GameData gameData, Actor performingClient) {
-        if (selected.getPosition() == performingClient.getPosition()) {
-            performingClient.addTolastTurnInfo("You arrested " + performingClient.getPublicName() + " and teleported " +
-                    (performingClient.getCharacter().getGender().equals("man") ? "him" : "her") + " to the Prison Planet.");
+        try {
+            if (selected.getPosition() == performingClient.getPosition()) {
+                performingClient.addTolastTurnInfo("You arrested " + performingClient.getPublicName() + " and teleported " +
+                        (performingClient.getCharacter().getGender().equals("man") ? "him" : "her") + " to the Prison Planet.");
 
-            selected.addTolastTurnInfo(HTMLText.makeText("red", performingClient.getPublicName() + "; Stand down! You are under arrest for the murder of a Nanotransen Merchant." +
-                    " You have been auto-sentenced to a lifetime of imprisonment on the Prison Planet!"));
-            selected.moveIntoRoom(gameData.getRoom("Prison Planet"));
-            selected.setCharacter(new PassiveDecorator(selected.getCharacter()));
-            if (selected instanceof Player) {
-                try {
-                    MostWantedCriminals.remove(gameData.getClidForPlayer((Player) selected));
-                } catch (NoSuchThingException e) {
-                    e.printStackTrace();
+                selected.addTolastTurnInfo(HTMLText.makeText("red", performingClient.getPublicName() + "; Stand down! You are under arrest for the murder of a Nanotransen Merchant." +
+                        " You have been auto-sentenced to a lifetime of imprisonment on the Prison Planet!"));
+                selected.moveIntoRoom(gameData.getRoom("Prison Planet"));
+                selected.setCharacter(new PassiveDecorator(selected.getCharacter()));
+                if (selected instanceof Player) {
+                    try {
+                        MostWantedCriminals.remove(gameData.getClidForPlayer((Player) selected));
+                    } catch (NoSuchThingException e) {
+                        e.printStackTrace();
+                    }
                 }
+            } else {
+                performingClient.addTolastTurnInfo("What? The " + selected.getPublicName() + " wasn't there anymore? " + Action.FAILED_STRING);
             }
-        } else {
-            performingClient.addTolastTurnInfo("What? The " + selected.getPublicName() + " wasn't there anymore? " + Action.FAILED_STRING);
+        } catch (NoSuchThingException nste) {
+            nste.printStackTrace();
         }
     }
 

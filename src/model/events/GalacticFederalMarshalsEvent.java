@@ -32,38 +32,42 @@ public class GalacticFederalMarshalsEvent extends AmbientEvent {
 
     @Override
     public void apply(GameData gameData) {
-        if (!hasHappened && MyRandom.nextDouble() < getProbability()) {
-            mostWantedCriminal = wantedCriminalOnStation(gameData);
-            if (mostWantedCriminal != null) {
-                hasHappened = true;
-                gfm1 = new GalacticFederalMarshalNPC(1, mostWantedCriminal, gameData.getRoom("Shuttle Gate"));
-                gameData.addNPC(gfm1);
-                gfm2 = new GalacticFederalMarshalNPC(2, mostWantedCriminal, gameData.getRoom("Shuttle Gate"));
-                gameData.addNPC(gfm2);
-                try {
-                    gameData.findObjectOfType(AIConsole.class).informOnStation("Galactic Federal Marshals have arrived on the station. Keep clear and let them do their jobs.",
-                            gameData);
-                } catch (NoSuchThingException e) {
-                    e.printStackTrace();
+        try {
+            if (!hasHappened && MyRandom.nextDouble() < getProbability()) {
+                mostWantedCriminal = wantedCriminalOnStation(gameData);
+                if (mostWantedCriminal != null) {
+                    hasHappened = true;
+                    gfm1 = new GalacticFederalMarshalNPC(1, mostWantedCriminal, gameData.getRoom("Shuttle Gate"));
+                    gameData.addNPC(gfm1);
+                    gfm2 = new GalacticFederalMarshalNPC(2, mostWantedCriminal, gameData.getRoom("Shuttle Gate"));
+                    gameData.addNPC(gfm2);
+                    try {
+                        gameData.findObjectOfType(AIConsole.class).informOnStation("Galactic Federal Marshals have arrived on the station. Keep clear and let them do their jobs.",
+                                gameData);
+                    } catch (NoSuchThingException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-        } else if (hasHappened) {
-            mostWantedCriminal = wantedCriminalOnStation(gameData);
-            if (mostWantedCriminal == null && !removed) {
-                removeIfNotDead(gfm1, gameData);
-                removeIfNotDead(gfm2, gameData);
-                removed = true;
-                try {
-                    gameData.findObjectOfType(AIConsole.class).informOnStation("The marshals have left the station.",
-                            gameData);
-                } catch (NoSuchThingException e) {
-                    e.printStackTrace();
+            } else if (hasHappened) {
+                mostWantedCriminal = wantedCriminalOnStation(gameData);
+                if (mostWantedCriminal == null && !removed) {
+                    removeIfNotDead(gfm1, gameData);
+                    removeIfNotDead(gfm2, gameData);
+                    removed = true;
+                    try {
+                        gameData.findObjectOfType(AIConsole.class).informOnStation("The marshals have left the station.",
+                                gameData);
+                    } catch (NoSuchThingException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    gfm1.setMostWanted(mostWantedCriminal);
+                    gfm2.setMostWanted(mostWantedCriminal);
                 }
-            } else {
-                gfm1.setMostWanted(mostWantedCriminal);
-                gfm2.setMostWanted(mostWantedCriminal);
             }
+        } catch (NoSuchThingException nste) {
+            nste.printStackTrace();
         }
     }
 

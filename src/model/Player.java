@@ -142,7 +142,7 @@ public class Player extends Actor implements Target, Serializable {
 	/**
 	 * Gets the info for the player's current room. 
 	 * The room info is a collection of strings which
-	 * tells the player what other characters/items/objects
+	 * tells the player what hidden characters/items/objects
 	 * are in that same room with him/her.
 	 * @return the information as a list of strings.
 	 */
@@ -207,10 +207,14 @@ public class Player extends Actor implements Target, Serializable {
 			movablePlaces.add(n);
 		}
 		if (steps > 0) {
-			for (int n2 : gameData.getRoomForId(n).getNeighbors()) {
-				addNeighborsRecursively(gameData, n2, movablePlaces, steps-1);
-			}
-		}
+            try {
+                for (int n2 : gameData.getRoomForId(n).getNeighbors()) {
+                    addNeighborsRecursively(gameData, n2, movablePlaces, steps-1);
+                }
+            } catch (NoSuchThingException e) {
+                Logger.log(Logger.CRITICAL, "Did not find such a neighbor room");
+            }
+        }
 	}
 
     /**
@@ -247,7 +251,7 @@ public class Player extends Actor implements Target, Serializable {
 	/**
 	 * Gets the string representation of this players
 	 * current action tree. I.e. the actions which this player can
-	 * take depending on what room, what items and what other players
+	 * take depending on what room, what items and what hidden players
 	 * are in that same room with him/her.
 	 * @param gameData the Game's data
 	 * @return the string representing the selectable actions.
@@ -484,4 +488,6 @@ public class Player extends Actor implements Target, Serializable {
             }
         }
     }
+
+
 }

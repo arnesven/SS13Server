@@ -12,6 +12,7 @@ import model.actions.general.SensoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
 import model.characters.decorators.SeeRoomOverlayDecorator;
 import model.events.Event;
+import model.items.NoSuchThingException;
 import model.map.GameMap;
 import model.map.MapBuilder;
 import model.map.Room;
@@ -43,30 +44,33 @@ public class SecurityConsoleAction extends ConsoleAction {
 	
 	@Override
 	public void lateExecution(GameData gameData, Actor performingClient) {
-		
-		performingClient.addTolastTurnInfo("Security Camera in " + console.getChosen() + ";");
-		Room viewdRoom = gameData.getRoom(console.getChosen());
-		StringBuffer occupants = new StringBuffer("-->In the room; ");
-		for (Event e : viewdRoom.getEvents()) {
-			if (e.getSense().visual == VisualLevel.CLEARLY_VISIBLE) {
-				performingClient.addTolastTurnInfo("-->"+e.howYouAppear(performingClient));
-			}
-		}
-		String nobody = "Nobody";
-		for (Actor a : viewdRoom.getActors()) {
-			occupants.append(a.getPublicName() + ",");
-			nobody = "";
-		}
-		occupants.append(nobody);
-		performingClient.addTolastTurnInfo(occupants.toString());
-		
-		performingClient.setCharacter(new SeeRoomOverlayDecorator(performingClient.getCharacter(), gameData, viewdRoom));
-		
-		for (Action a : viewdRoom.getActionsHappened()) {
-			if (a.getSense().visual == VisualLevel.CLEARLY_VISIBLE) {
-				performingClient.addTolastTurnInfo("-->" + a.getDescription(performingClient));
-			}
-		}
+		try {
+            performingClient.addTolastTurnInfo("Security Camera in " + console.getChosen() + ";");
+            Room viewdRoom = gameData.getRoom(console.getChosen());
+            StringBuffer occupants = new StringBuffer("-->In the room; ");
+            for (Event e : viewdRoom.getEvents()) {
+                if (e.getSense().visual == VisualLevel.CLEARLY_VISIBLE) {
+                    performingClient.addTolastTurnInfo("-->" + e.howYouAppear(performingClient));
+                }
+            }
+            String nobody = "Nobody";
+            for (Actor a : viewdRoom.getActors()) {
+                occupants.append(a.getPublicName() + ",");
+                nobody = "";
+            }
+            occupants.append(nobody);
+            performingClient.addTolastTurnInfo(occupants.toString());
+
+            performingClient.setCharacter(new SeeRoomOverlayDecorator(performingClient.getCharacter(), gameData, viewdRoom));
+
+            for (Action a : viewdRoom.getActionsHappened()) {
+                if (a.getSense().visual == VisualLevel.CLEARLY_VISIBLE) {
+                    performingClient.addTolastTurnInfo("-->" + a.getDescription(performingClient));
+                }
+            }
+        } catch (NoSuchThingException nste) {
+            nste.printStackTrace();
+        }
 		console.setInUse(false);
 	}
 	

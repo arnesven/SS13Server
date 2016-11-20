@@ -94,8 +94,8 @@ public class GameData implements Serializable {
             list.remove(map.getRoom("Other Dimension"));
             list.remove(map.getRoom("Dummy"));
             list.remove(map.getRoom("Prison Planet"));
-        } catch (NoSuchElementException nse) {
-            Logger.log("CRITICAL: No Nuclear ship found");
+        } catch (NoSuchThingException nse) {
+            Logger.log("CRITICAL: No such room found");
         }
 		return list;
 	}
@@ -452,8 +452,13 @@ public class GameData implements Serializable {
 
 	private void moveAllPlayers() {
 		for (Player cl : players.values()) {
-			cl.moveIntoRoom(map.getRoomForID(cl.getNextMove()));
-		}
+            try {
+                cl.moveIntoRoom(map.getRoomByID(cl.getNextMove()));
+            } catch (NoSuchThingException e) {
+                //Room did not exist any more
+                Logger.log(Logger.CRITICAL, "WHAt, tried moving player to room that did not exist???");
+            }
+        }
 	}
 	
 	private void moveAllNPCs() {
@@ -481,8 +486,8 @@ public class GameData implements Serializable {
 	}
 
 
-	public Room getRoomForId(int ID) {
-		return map.getRoomForID(ID);
+	public Room getRoomForId(int ID) throws NoSuchThingException {
+		return map.getRoomByID(ID);
 	}
 
 	/**
@@ -501,7 +506,7 @@ public class GameData implements Serializable {
 		return round ;
 	}
 
-	public Room getRoom(String string) {
+	public Room getRoom(String string) throws NoSuchThingException {
 		return map.getRoom(string);
 	}
 

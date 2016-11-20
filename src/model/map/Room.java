@@ -60,7 +60,7 @@ public class Room implements ItemHolder, Serializable {
 	 * @param y, the rooms y-position (upper left corner).
 	 * @param width the width of the room.
 	 * @param height the height of the room
-	 * @param neighbors what other rooms (their IDs) are connected to this room by doors.
+	 * @param neighbors what hidden rooms (their IDs) are connected to this room by doors.
 	 * @param doors where doors should show up visually on the map (no game effect) 
 	 */
 	public Room(int ID, String name, String shortname, int x, int y, int width, int height, int[] neighbors, double[] doors, RoomType roomType) {
@@ -232,8 +232,13 @@ public class Room implements ItemHolder, Serializable {
 	public List<Room> getNeighborList() {
 		List<Room> list = new ArrayList<>();
 		for (int i = 0; i < neighbors.length; ++i) {
-			list.add(map.getRoomForID(getNeighbors()[i]));
-		}
+            try {
+                list.add(map.getRoomByID(getNeighbors()[i]));
+            } catch (NoSuchThingException e) {
+                // Room does not exist any more
+                Logger.log(Logger.CRITICAL, "Could not find room " + getNeighbors()[i]);
+            }
+        }
 		return list;
 	}
 
@@ -426,7 +431,7 @@ public class Room implements ItemHolder, Serializable {
                     for (GameItem it : ((ContainerObject) ob).getInventory()) {
                         if (it.getTrueItem() == searched) {
                             ((ContainerObject)ob).getInventory().remove(it);
-                            Logger.log(Logger.INTERESTING, "Found object in other object in container in room");
+                            Logger.log(Logger.INTERESTING, "Found object in hidden object in container in room");
                             return;
                         }
                     }

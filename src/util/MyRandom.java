@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.*;
 
 import model.GameData;
+import model.items.NoSuchThingException;
 import model.items.foods.*;
 import model.items.general.*;
 import model.items.suits.*;
@@ -191,18 +192,56 @@ public class MyRandom {
 
     public static Room getRandomHallway(GameData gameData) {
         List<Room> roomList = new ArrayList<>();
-        roomList.add(gameData.getRoom("Aft Hall"));
-        roomList.add(gameData.getRoom("Front Hall"));
-        roomList.add(gameData.getRoom("Port Hall Aft"));
-        roomList.add(gameData.getRoom("Port Hall Front"));
-        roomList.add(gameData.getRoom("Starboard Hall Aft"));
-        roomList.add(gameData.getRoom("Starboard Hall Front"));
-        roomList.add(gameData.getRoom("Panorama Walkway"));
-        roomList.add(gameData.getRoom("Aft Walkway"));
-        roomList.add(gameData.getRoom("Shuttle Gate"));
+
+        try {
+            roomList.add(gameData.getRoom("Aft Hall"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        try {
+            roomList.add(gameData.getRoom("Front Hall"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        try {
+            roomList.add(gameData.getRoom("Port Hall Aft"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        try {
+            roomList.add(gameData.getRoom("Port Hall Front"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        try {
+            roomList.add(gameData.getRoom("Starboard Hall Aft"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        try {
+            roomList.add(gameData.getRoom("Starboard Hall Front"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        try {
+            roomList.add(gameData.getRoom("Panorama Walkway"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        try {
+            roomList.add(gameData.getRoom("Aft Walkway"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        try {
+            roomList.add(gameData.getRoom("Shuttle Gate"));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
 
         return sample(roomList);
     }
+
 
     public static String getRandomName() {
         try {

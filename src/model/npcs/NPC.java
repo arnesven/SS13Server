@@ -21,7 +21,7 @@ import java.io.Serializable;
 /**
  * @author erini02
  * Class representing NPCs on the station (non-player characters).
- * E.g. monsters, crewmembers not controlled by players. And other things.
+ * E.g. monsters, crewmembers not controlled by players. And hidden things.
  */
 public abstract class NPC extends Actor implements Target, Serializable {
 		

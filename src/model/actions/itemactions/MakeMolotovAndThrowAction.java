@@ -7,6 +7,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.MolotovCocktail;
+import model.items.NoSuchThingException;
 import model.items.foods.Alcohol;
 import model.items.general.Chemicals;
 import model.items.general.GameItem;
@@ -67,11 +68,17 @@ public class MakeMolotovAndThrowAction extends Action {
         }
         performingClient.getItems().remove(selectedBurnable);
 		performingClient.addTolastTurnInfo("You threw the molotov cocktail into " + location + ".");
-		Room targetRoom = gameData.getRoom(location);
-		MolotovCocktail mol = new MolotovCocktail(selectedBurnable);
-        targetRoom.addItem(mol);
-		Action a = new ExplosionAction(mol, targetRoom);
-		a.doTheAction(gameData, performingClient);
+        Room targetRoom = null;
+        try {
+            targetRoom = gameData.getRoom(location);
+
+            MolotovCocktail mol = new MolotovCocktail(selectedBurnable);
+            targetRoom.addItem(mol);
+		    Action a = new ExplosionAction(mol, targetRoom);
+		    a.doTheAction(gameData, performingClient);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
