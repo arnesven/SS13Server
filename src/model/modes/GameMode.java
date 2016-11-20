@@ -42,7 +42,7 @@ import model.characters.crew.EngineerCharacter;
 import model.characters.crew.GeneticistCharacter;
 import model.characters.crew.HeadOfStaffCharacter;
 import model.characters.crew.JanitorCharacter;
-import model.characters.crew.TechnicianCharacter;
+import model.characters.crew.ArchitectCharacter;
 import model.characters.crew.RoboticistCharacter;
 import model.characters.crew.SecurityOfficerCharacter;
 import model.items.general.GameItem;
@@ -138,7 +138,7 @@ public abstract class GameMode implements Serializable {
 		availableChars.put("Janitor",          new JanitorCharacter());
 		availableChars.put("Chef",             new ChefCharacter());
 		availableChars.put("Bartender",        new BartenderCharacter());
-		availableChars.put("Technician",       new TechnicianCharacter());
+		availableChars.put("Technician",       new ArchitectCharacter());
 		availableChars.put("Chaplain",         new ChaplainCharacter());
 		availableChars.put("Visitor",          new VisitorCharacter("Visitor", 0, 0.0){
             public VisitorCharacter clone() {

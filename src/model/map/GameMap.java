@@ -245,4 +245,14 @@ public class GameMap implements Serializable {
         }
         throw new NoSuchThingException("No room for ID " + i);
     }
+
+    public int getMaxID() {
+        int max = 0;
+        for (Room r : roomsList) {
+            if (r.getID() > max) {
+                max = r.getID();
+            }
+        }
+        return max;
+    }
 }

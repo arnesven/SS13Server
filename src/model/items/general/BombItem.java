@@ -218,6 +218,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
         for (Room neigh : bombRoom.getNeighborList()) {
             HullBreach hull = ((HullBreach) gameData.getGameMode().getEvents().get("hull breaches"));
             hull.startNewEvent(neigh);
+            neigh.addItem(new RoomParts());
         }
 
         gameData.getMap().removeRoom(bombRoom);

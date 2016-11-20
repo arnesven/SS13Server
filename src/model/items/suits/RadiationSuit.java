@@ -29,7 +29,7 @@ public class RadiationSuit extends SuitItem {
     protected Sprite getWornSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
         list.add(new Sprite("radiationsuithelmet", "head.png", 5));
-        return new Sprite("radiationsuitworn", "suit.png", 15, list);
+        return new Sprite("radiationsuitworn", "suit2.png", 11, 2, 32, 32, list);
     }
 
     @Override

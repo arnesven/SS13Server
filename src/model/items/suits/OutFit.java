@@ -38,7 +38,7 @@ public class OutFit extends SuitItem {
             return new Sprite("geneticistuniform", "uniforms.png", 5);
         } else if (type instanceof RoboticistCharacter) {
             return new Sprite("roboticistuniform", "uniforms.png", 3, 4);
-        } else if (type instanceof  TechnicianCharacter) {
+        } else if (type instanceof ArchitectCharacter) {
             return new Sprite("techniciansuniform", "uniforms.png", 6, 4);
         } else if (type instanceof  ChefCharacter) {
             return new Sprite("chefsuniform", "uniforms.png", 5, 1);
@@ -76,7 +76,7 @@ public class OutFit extends SuitItem {
             return makeOutfit("geneticistuniformworn", "uniform2.png", 9, 7);
         } else if (type instanceof RoboticistCharacter) {
             return makeOutfit("roboticistsuniformworn", "uniform2.png", 1, 7);
-        } else if (type instanceof TechnicianCharacter) {
+        } else if (type instanceof ArchitectCharacter) {
             return makeOutfit("techniciansuniformworn", "uniform2.png", 27, 5);
         } else if (type instanceof ChefCharacter) {
             return makeOutfit("chefsuniformworn", "uniform.png", 18, 13);

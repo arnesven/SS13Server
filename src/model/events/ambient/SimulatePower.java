@@ -77,11 +77,12 @@ public class SimulatePower extends Event {
 
 
 	private void handleLifeSupport(GameData gameData, GeneratorConsole gc) {
-		if (roundsWithoutLS.isEmpty()) {
-			for (Room r : gameData.getRooms()) {
-				roundsWithoutLS.put(r, 0);
-			}
-		}
+		for (Room r : gameData.getRooms()) {
+            if (!roundsWithoutLS.containsKey(r)) {
+                roundsWithoutLS.put(r, 0);
+            }
+        }
+
 		
 		// Update how long rooms have been without life support
 		List<Room> noLSRooms = gc.getNoLifeSupportRooms();
