@@ -340,11 +340,6 @@ public class Player extends Actor implements Target, Serializable {
 		return getPublicName();
 	}
 
-	@Override
-	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
-		return getCharacter().beAttackedBy(performingClient, weapon);
-
-	}
 
 	@Override
 	public boolean isTargetable() {

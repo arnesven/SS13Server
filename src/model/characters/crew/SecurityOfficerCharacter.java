@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Actor;
 import model.characters.general.GameCharacter;
+import model.items.HandCuffs;
 import model.items.general.GameItem;
 import model.items.general.SecurityRadio;
 import model.items.suits.SecOffsHelmet;
@@ -36,6 +37,7 @@ public class SecurityOfficerCharacter extends CrewCharacter {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new StunBaton());
 		list.add(new SecurityRadio());
+        list.add(new HandCuffs());
 		return list;
 	}
 

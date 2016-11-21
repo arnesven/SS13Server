@@ -11,6 +11,7 @@ import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.NoSuchInstanceException;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
+import model.items.weapons.Weapon;
 import model.map.Room;
 import util.Logger;
 
@@ -24,7 +25,10 @@ public abstract class Actor  implements ItemHolder, Serializable {
 	public abstract Target getAsTarget();
 	public abstract void action(GameData gameData);
 	public abstract void beInfected(Actor performingClient);
-	
+
+    public boolean beAttackedBy(Actor performingClient, Weapon item) {
+        return getCharacter().beAttackedBy(performingClient, item);
+    }
 	
 	/**
 	 * Returns the character of this Actor,

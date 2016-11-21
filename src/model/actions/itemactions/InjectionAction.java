@@ -33,7 +33,7 @@ public class InjectionAction extends TargetingAction {
         if (isProInjector(performingClient)) {
             chance = 0.95;
         }
-        if (GameCharacter.isReduced((Actor)target, performingClient)) {
+        if (GameCharacter.isWatching((Actor)target, performingClient)) {
             chance = 0.5;
         }
         if (target == performingClient) {

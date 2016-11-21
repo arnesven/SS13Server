@@ -8,7 +8,9 @@ import graphics.sprites.NakedHumanSprite;
 import graphics.sprites.OverlaySprites;
 import graphics.sprites.Sprite;
 import model.*;
+import model.actions.general.AttackAction;
 import model.items.NoSuchThingException;
+import model.npcs.NPC;
 import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
@@ -190,10 +192,10 @@ public abstract class GameCharacter implements Serializable {
 
 
     public boolean isAttackerSuccessful(Actor performingClient, Weapon weapon) {
-       return  weapon.isAttackSuccessful(isReduced(getActor(), performingClient));
+       return  weapon.isAttackSuccessful(isWatching(getActor(), performingClient));
     }
 
-    public static boolean isReduced(Actor watchingActor, Actor otherActor) {
+    public static boolean isWatching(Actor watchingActor, Actor otherActor) {
 		if (watchingActor instanceof Player) {
 			Player watchingPlayer = (Player) watchingActor;
 			if (watchingPlayer.getNextAction() instanceof WatchAction) {
@@ -206,6 +208,21 @@ public abstract class GameCharacter implements Serializable {
 		}
 		return false;
 	}
+
+    public static boolean isAttacking(Actor attackingActor, Actor otherActor) {
+        if (attackingActor instanceof NPC) {
+            return false;
+        }
+
+        if (((Player)attackingActor).getNextAction() instanceof AttackAction) {
+            if (((AttackAction)((Player)(attackingActor)).getNextAction()).isArgumentOf(otherActor.getAsTarget())) {
+                Logger.log(Logger.INTERESTING,
+                        "infect chance reduced because of attacking...");
+                return true;
+            }
+        }
+        return false;
+    }
 
 	public void beExposedTo(Actor something, Damager damager) {
 		boolean reduced = false;
@@ -526,4 +543,6 @@ public abstract class GameCharacter implements Serializable {
     public List<Room> getVisibleMap(GameData gameData) {
         return gameData.getMap().getStationRooms();
     }
+
+
 }

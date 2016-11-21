@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by erini02 on 29/04/16.
  */
-public class FrozenDecorator extends CharacterDecorator {
+public class FrozenDecorator extends GetsNoActionsDecorator {
     public FrozenDecorator(GameCharacter character) {
         super(character, "Frozen");
     }
@@ -18,8 +18,5 @@ public class FrozenDecorator extends CharacterDecorator {
         return true;
     }
 
-    @Override
-    public boolean getsActions() {
-        return false;
-    }
+
 }
