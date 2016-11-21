@@ -25,10 +25,10 @@ public class HorrorCharacter extends GameCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        if (numforms > 4) {
-            return new Sprite("horrorlesser", "alien.png", 0);
+        if (numforms > 5) {
+            return new Sprite("horrorgreater", "alien.png", 19);
         }
-        return new Sprite("horrorgreater", "alien.png", 19);
+        return new Sprite("horrorlesser", "alien.png", 0);
     }
 
     @Override

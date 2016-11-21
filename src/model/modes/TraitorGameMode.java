@@ -134,7 +134,7 @@ public class TraitorGameMode extends GameMode {
 
 		
 		double val = MyRandom.nextDouble();
-		if (val < 0.5 ) {
+		if (val < 0.45 ) {
 			List<Player> targets = new ArrayList<>();
 			targets.addAll(gameData.getPlayersAsList());
 			targets.remove(traitor);
@@ -144,7 +144,7 @@ public class TraitorGameMode extends GameMode {
 				// KILL YOURSELF!
 				return new AssassinateObjective(traitor, traitor);
 			}
-		} else  {
+		} else if (val < 0.9)  {
 			List<BreakableObject> objects = SabotageObjective.getBreakableObjects(gameData);
 			List<BreakableObject> sabObjects = new ArrayList<>();
 			
@@ -156,7 +156,9 @@ public class TraitorGameMode extends GameMode {
 				}
 			}
 			return new SabotageObjective(gameData, sabObjects);
-		} 
+		} else {
+            return new MoneyObjective(gameData, traitor);
+        }
 
 			
 		

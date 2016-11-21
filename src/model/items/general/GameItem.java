@@ -211,4 +211,8 @@ public abstract class GameItem implements Locatable, Serializable {
     public int getCost() {
         return cost;
     }
+
+    public boolean canBePickedUp() {
+        return true;
+    }
 }

@@ -13,10 +13,12 @@ import java.util.ArrayList;
 /**
  * Created by erini02 on 20/11/16.
  */
-public class RoomParts extends GameItem {
-    public RoomParts() {
-        super("Construction Parts", 125.0, false, 3000);
+public class RoomPartsStack extends ItemStack {
+    public RoomPartsStack(int number) {
+        super("Construction Parts", 50.0, 1000, number);
     }
+
+
 
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
@@ -34,6 +36,6 @@ public class RoomParts extends GameItem {
 
     @Override
     public GameItem clone() {
-        return new RoomParts();
+        return new RoomPartsStack(getAmount());
     }
 }

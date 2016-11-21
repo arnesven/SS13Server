@@ -354,15 +354,19 @@ public abstract class Actor  implements ItemHolder, Serializable {
         List<GameItem> startingItems = this.getCharacter().getStartingItems();
         Logger.log("Giving starting items to " + this.getPublicName());
         for (GameItem it : startingItems) {
-            this.addItem(it, null);
+            if (it.canBePickedUp()) {
+                this.addItem(it, null);
+            } else {
+                this.getPosition().addItem(it);
+            }
         }
     }
 
-    public String getVsibleMap(GameData gameData) {
+    public List<Room> getVisibleMap(GameData gameData) {
         if (getCharacter() != null) {
-            return getCharacter().getVisibleMap(gameData).toString();
+            return getCharacter().getVisibleMap(gameData);
         }
 
-        return gameData.getRooms().toString();
+        return gameData.getRooms();
     }
 }

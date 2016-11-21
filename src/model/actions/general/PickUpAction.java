@@ -73,7 +73,9 @@ public class PickUpAction extends Action {
                     opt.addOption(gi.getPublicName(whosAsking) + String.format(" (%.1f kg)", gi.getWeight()));
                 }
             } else {
-                opt.addOption(gi.getPublicName(whosAsking) + String.format(" (%.1f kg)", gi.getWeight()));
+                if (gi.canBePickedUp()) {
+                    opt.addOption(gi.getPublicName(whosAsking) + String.format(" (%.1f kg)", gi.getWeight()));
+                }
             }
 		}
 		return opt;

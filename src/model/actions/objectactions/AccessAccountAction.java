@@ -6,8 +6,8 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
-import model.items.general.GameItem;
 import model.items.general.MoneyStack;
+import model.items.general.ItemStackDepletedException;
 import model.objects.ATM;
 
 import java.util.List;
@@ -63,14 +63,14 @@ public class AccessAccountAction extends Action {
             }
             try {
                 account.subtractFrom(amount);
-            } catch (MoneyStack.MoneyStackDepletedException e) {
+            } catch (ItemStackDepletedException e) {
                 // should happen!
             }
         } else {
             int amount = cash.getAmount();
             try {
                 cash.subtractFrom(amount);
-            } catch (MoneyStack.MoneyStackDepletedException e) {
+            } catch (ItemStackDepletedException e) {
                 // should happen!
                 performingClient.getItems().remove(cash);
             }

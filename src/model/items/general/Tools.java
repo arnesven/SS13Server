@@ -53,7 +53,7 @@ public class Tools extends BluntWeapon {
 
     private boolean positionHasBomb(Room position) {
         for (GameItem it : position.getItems()) {
-            if (it instanceof BombItem) {
+            if (it instanceof BombItem  && !((BombItem) it).isHidden()) {
                 return true;
             }
         }

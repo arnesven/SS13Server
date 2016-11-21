@@ -7,6 +7,7 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.items.general.MoneyStack;
+import model.items.general.ItemStackDepletedException;
 import model.objects.general.SlotMachine;
 
 import java.util.List;
@@ -52,7 +53,7 @@ public class SlotMachineAction extends Action {
         try {
             m = MoneyStack.getActorsMoney(performingClient);
             m.subtractFrom(bettedAmount);
-        } catch (MoneyStack.MoneyStackDepletedException e) {
+        } catch (ItemStackDepletedException e) {
             performingClient.getItems().remove(m);
         } catch (NoSuchThingException e) {
             e.printStackTrace();

@@ -19,7 +19,7 @@ public class RobotParts extends GameItem {
 
 
     public RobotParts() {
-        super("Robot Parts", 25.0, 1250);
+        super("Robot Parts", 25.0, 850);
     }
 
     @Override

@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import model.GameData;
-import util.Logger;
+import util.MyStrings;
 
 
 public class MapCommandHandler extends AbstractCommandHandler {
@@ -18,7 +18,7 @@ public class MapCommandHandler extends AbstractCommandHandler {
 			ObjectOutputStream oos) throws IOException {
 //		System.out.println("handling map command");
 		if (command.equals("MAP")) {
-			String result = gameData.getPlayerForClid(clid).getVsibleMap(gameData).toString();
+			String result = MyStrings.join(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
 			//Logger.log(result);
 			oos.writeObject(result);
 			return true;

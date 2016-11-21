@@ -6,11 +6,10 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.items.NoSuchThingException;
 import model.items.foods.Banana;
 import model.items.foods.Doughnut;
-import model.items.general.GameItem;
-import model.items.general.PackOfSmokes;
-import model.items.general.ZippoLighter;
+import model.items.general.*;
 import model.map.Room;
 
 import java.util.ArrayList;
@@ -23,6 +22,7 @@ public class VendingMachine extends ElectricalMachinery {
 
     private ArrayList<GameItem> selection;
     private GameItem selectedItem;
+    private int cost;
 
     public VendingMachine(Room r) {
         super("Vending Machine", r);
@@ -49,6 +49,24 @@ public class VendingMachine extends ElectricalMachinery {
 
             @Override
             protected void execute(GameData gameData, Actor performingClient) {
+                MoneyStack money;
+                try {
+                    money = MoneyStack.getActorsMoney(performingClient);
+                } catch (NoSuchThingException e) {
+                    performingClient.addTolastTurnInfo("You don't have any money!");
+                    return;
+                }
+                if (cost > money.getAmount()) {
+                    performingClient.addTolastTurnInfo("Sorry, you don't have enough money.");
+                    return;
+                }
+
+                try {
+                    money.subtractFrom(cost);
+                } catch (ItemStackDepletedException e) {
+                    performingClient.getItems().remove(cost);
+                }
+
                 performingClient.addItem(selectedItem.clone(), null);
                 performingClient.addTolastTurnInfo("You got a " + selectedItem.getBaseName() + " from the Vending Machine.");
             }
@@ -67,6 +85,8 @@ public class VendingMachine extends ElectricalMachinery {
                 for (GameItem it : selection) {
                     if (args.get(0).contains(it.getBaseName())) {
                         selectedItem = it;
+                        String costStr = args.get(0).split("\\$\\$ ")[1];
+                        cost = Integer.parseInt(costStr.substring(0, costStr.length()-1));
                         break;
                     }
                 }

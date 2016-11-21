@@ -5,8 +5,9 @@ import java.util.List;
 
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
-import model.items.general.RoomParts;
+import model.items.general.RoomPartsStack;
 import model.items.general.Tools;
+import model.items.suits.PowerSuit;
 
 public class ArchitectCharacter extends CrewCharacter {
 
@@ -18,9 +19,8 @@ public class ArchitectCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Tools());
-        for (int i = 1; i >= 0; --i) {
-            list.add(new RoomParts());
-        }
+        list.add(new RoomPartsStack(3));
+        list.add(new PowerSuit());
 		return list;
 	}
 

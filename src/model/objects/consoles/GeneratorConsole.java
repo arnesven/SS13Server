@@ -21,7 +21,6 @@ import util.Logger;
 
 public class GeneratorConsole extends Console {
 
-
     private interface PowerUpdater extends Serializable {
 		double update(double currentPower, double lsPer, double liPer, double eqPer, 
 				List<Room> ls, List<Room> lights, List<ElectricalMachinery> eq);
@@ -52,6 +51,8 @@ public class GeneratorConsole extends Console {
 		super("Power Console", r);
 		setupPrio();
 		setupUpdaters();
+        setMaxHealth(3.0);
+        setHealth(3.0);
 	}
 
 	private double internalUpdater(double cp, double pp, List<?> list) {
@@ -114,12 +115,12 @@ public class GeneratorConsole extends Console {
 
 	public void setLevel(boolean fixed, boolean increase) {
 		if (fixed) {
-			level = Math.max(0.0, level + FIXED_INCREASE * (increase?+1.0:-1.0));
+			level = Math.max(0.0, getLevel() + FIXED_INCREASE * (increase?+1.0:-1.0));
 			dlevel = 0.0;
 		} else {
 			dlevel = ONGOING_INCREASE * (increase?+1.0:-1.0);
 		}
-		Logger.log("Powerlevel is now " + level);
+		Logger.log("Powerlevel is now " + getLevel());
 	}
 
 	public List<String> getPrios() {
@@ -142,9 +143,9 @@ public class GeneratorConsole extends Console {
 	}
 
 	public void updateYourself(GameData gameData) {
-        history.add(level);
-		level = Math.max(0.0, level+dlevel);
-		Logger.log("Current power: " + level);
+        history.add(getLevel());
+		level = Math.max(0.0, getLevel()+dlevel);
+		Logger.log("Current power: " + getLevel());
 		
 		noLifeSupport = new ArrayList<Room>();
 		noLight       = new ArrayList<Room>();
@@ -184,7 +185,7 @@ public class GeneratorConsole extends Console {
 		lsBefore = noLifeSupport.size();
 		eqBefore = noPower.size();
 		
-		double currentPower = this.level + STARTING_POWER*0.01;
+		double currentPower = this.getLevel() + STARTING_POWER*0.01;
 		for (String type : prios) {
 			currentPower = updaters.get(type).update(currentPower, 
 					lsPowerPerRoom, lightPowerPerRoom, eqPowerPer, 
@@ -202,8 +203,15 @@ public class GeneratorConsole extends Console {
 		runPowerOnOrOffFunctions(gameData, oldNoPower);
 	}
 
-	private void runPowerOnOrOffFunctions(GameData gameData,
-			List<ElectricalMachinery> oldNoPower) {
+    public double getLevel() {
+        if (isBroken()) {
+            return 0.0;
+        }
+        return level;
+    }
+
+    private void runPowerOnOrOffFunctions(GameData gameData,
+                                          List<ElectricalMachinery> oldNoPower) {
 		for (GameObject obj : gameData.getObjects()) {
 			if (obj instanceof ElectricalMachinery) {
 				ElectricalMachinery em = (ElectricalMachinery) obj;
@@ -221,7 +229,7 @@ public class GeneratorConsole extends Console {
 	}
 
 	public double getPowerOutput() {
-		return (level/GeneratorConsole.STARTING_POWER);
+		return (getLevel()/GeneratorConsole.STARTING_POWER);
 	}
 
 	public List<ElectricalMachinery> getNoPowerObjects() {
@@ -233,7 +241,7 @@ public class GeneratorConsole extends Console {
 	}
 
 	public void addToLevel(double d) {
-		level = Math.max(0.0, level + d);
+		level = Math.max(0.0, getLevel() + d);
 	}
 
 	public String getLSString() {

@@ -1,4 +1,5 @@
 package model.map;
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +27,8 @@ import util.Logger;
  * Class for representing a room on the space station.
  */
 public class Room implements ItemHolder, Serializable {
+
+
 
     private final RoomType roomType;
     private String name;
@@ -79,7 +82,7 @@ public class Room implements ItemHolder, Serializable {
 	@Override
 	public String toString() {
 		String result = ID + ":" + name + ":" + shortname + ":" + x + ":" + y + ":" + 
-						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors);
+						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors) + ":" + getColor();
 		//Logger.log(result);
         return result;
 	}
@@ -447,5 +450,27 @@ public class Room implements ItemHolder, Serializable {
     }
 
 
-
+    public String getColor() {
+        Color backgroundcolor;
+        switch (roomType) {
+            case command:
+                backgroundcolor = new Color(100, 190, 255);
+                break;
+            case science:
+                backgroundcolor = new Color(70, 200, 150);
+                break;
+            case security:
+                backgroundcolor = new Color(255, 130, 100);
+                break;
+            case support:
+                backgroundcolor = new Color(200, 150, 200);
+                break;
+            case tech:
+                backgroundcolor = new Color(255, 210, 0);
+                break;
+            default:
+                backgroundcolor = new Color(217, 217, 217);
+        }
+        return String.format("#%02X%02X%02X", backgroundcolor.getRed(), backgroundcolor.getGreen(), backgroundcolor.getBlue());
+    }
 }

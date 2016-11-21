@@ -50,9 +50,9 @@ public class UsePDAAction extends Action {
 			}
 		} else {
             GameItem gi = null;
-            if (orderedItem instanceof ItemStack) {
-                for (int i = ((ItemStack) orderedItem).getNum(); i > 0; --i) {
-                    gi = ((ItemStack) orderedItem).getInnerItem().clone();
+            if (orderedItem instanceof OrderBundle) {
+                for (int i = ((OrderBundle) orderedItem).getNum(); i > 0; --i) {
+                    gi = ((OrderBundle) orderedItem).getInnerItem().clone();
                     performingClient.addItem(gi, null);
                 }
                 performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) +

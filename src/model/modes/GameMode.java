@@ -21,6 +21,7 @@ import model.objects.AIMemory;
 import model.objects.AITurret;
 import model.objects.ATM;
 import model.objects.consoles.AIConsole;
+import model.objects.consoles.AdministrationConsole;
 import model.objects.general.VendingMachine;
 import util.HTMLText;
 import util.Logger;
@@ -525,6 +526,12 @@ public abstract class GameMode implements Serializable {
 
         } catch (NoSuchThingException nste) {
             Logger.log(Logger.CRITICAL, "No Starboard Hall Aft to put ATM in!");
+        }
+
+        try {
+            gameData.getRoom("Office").addObject(new AdministrationConsole(gameData.getRoom("Office"), gameData));
+        } catch (NoSuchThingException e) {
+            Logger.log(Logger.CRITICAL, "No office, no admin console!");
         }
     }
 

@@ -66,7 +66,6 @@ public class MapBuilder {
 		result.add(dorms);
 		result.add(new Room(13, "Front Hall"          , "FRONT"     ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{13.5, 10.0, 12.0, 8.0, 13.5, 6.0}, RoomType.hall ));
 		Room office = new Room(14, "Office"              , "Offc"   ,13, 10, 2, 2, new int[]{12, 13}    ,         new double[]{}, RoomType.command );
-		office.addObject(new AdministrationConsole(office, gameData));
 		result.add(office);
 		Room aiCore = new Room(15, "AI Core"             , "AI"     ,10,  7, 2, 2, new int[]{13}        ,         new double[]{}, RoomType.tech );
 		AIConsole aiCons = new AIConsole(aiCore);
@@ -104,7 +103,7 @@ public class MapBuilder {
 
         result.add(CQ);
 		result.add(new AirLockRoom(21, 2   ,13,  2, 1, 1, new int[]{19}        ,         new double[]{13.0, 2.5} ));
-		Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{22}        ,         new double[]{-11.0, 4.0});
+		Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{22}        ,         new double[]{11.0, 4.0});
 		{
 			KeyCardLock l1 = new KeyCardLock(army, gate, true, 4.0);
 			gate.addObject(l1);
@@ -125,7 +124,7 @@ public class MapBuilder {
 		Room nukieShip = new NukieShipRoom(28, new int[]{7, 21, 25}, new double[]{-1.0, -1.0});
 		result.add(nukieShip);
 		
-		Room brig = new Room(29, "Brig", "", 15, 4, 1, 1, new int[]{29}, new double[]{-14.65, 4.5}, RoomType.security);
+		Room brig = new Room(29, "Brig", "", 15, 4, 1, 1, new int[]{29}, new double[]{16.0, 4.5}, RoomType.security);
 		result.add(brig);
 		{
 			KeyCardLock l1 = new KeyCardLock(brig, portHallFront, true, 3.0);

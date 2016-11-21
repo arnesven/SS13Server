@@ -13,7 +13,6 @@ import model.Hazard;
 import model.characters.general.GameCharacter;
 import model.characters.crew.*;
 import model.events.Event;
-import model.events.NoPressureEvent;
 import model.events.ambient.ColdEvent;
 import model.events.ambient.DarkEvent;
 import model.events.ambient.ElectricalFire;
@@ -218,7 +217,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
         for (Room neigh : bombRoom.getNeighborList()) {
             HullBreach hull = ((HullBreach) gameData.getGameMode().getEvents().get("hull breaches"));
             hull.startNewEvent(neigh);
-            neigh.addItem(new RoomParts());
+            neigh.addItem(new RoomPartsStack(1));
         }
 
         gameData.getMap().removeRoom(bombRoom);
