@@ -50,7 +50,7 @@ import model.items.general.GameItem;
 import model.map.NukieShipRoom;
 import model.map.Room;
 
-/**
+/*
  * @author erini02
  * Class for representing a GameMode, i.e. what a round of this game should
  * be about, what antagonists are there, and what are the objectives for the
@@ -120,6 +120,7 @@ public abstract class GameMode implements Serializable {
         events.put("corrupt ai",       new CorruptAIEvent());
         events.put("merchant",         new TravelingMerchantEvent());
         events.put("marshals",         new GalacticFederalMarshalsEvent());
+        events.put("santa",            new SantaClauseEvent());
 	}
 
     public abstract String getName();

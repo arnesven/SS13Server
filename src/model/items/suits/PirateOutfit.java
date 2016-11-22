@@ -13,7 +13,7 @@ public class PirateOutfit extends SuitItem {
     private final int num;
 
     public PirateOutfit(int num) {
-        super("Pirate Outfite", 1.0, 20);
+        super("Pirate Outfit", 1.0, 20);
         this.num = num;
     }
 

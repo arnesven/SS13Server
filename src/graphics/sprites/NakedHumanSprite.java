@@ -22,7 +22,7 @@ public class NakedHumanSprite extends Sprite {
         List<Sprite> res = new ArrayList<>();
         res.add(MyRandom.sample(hairSprites));
        // Logger.log("Ran Random Hair");
-        res.get(0).setColor(new Color(MyRandom.nextInt(156), MyRandom.nextInt(156), MyRandom.nextInt(156)));
+        res.get(0).setColor(new Color(MyRandom.nextInt(176), MyRandom.nextInt(126), MyRandom.nextInt(126)));
         return res;
     }
 

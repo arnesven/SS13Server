@@ -545,4 +545,7 @@ public abstract class GameCharacter implements Serializable {
     }
 
 
+    public void addActionsForActorsInRoom(GameData gameData, Actor otherActor,
+                                          ArrayList<Action> at) {
+    }
 }

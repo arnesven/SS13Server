@@ -252,6 +252,10 @@ public class Room implements ItemHolder, Serializable {
 			}
 		}
 
+        for (Actor a : getActors()) {
+            a.getCharacter().addActionsForActorsInRoom(gameData, client, at);
+        }
+
 	}
 
 	public void setMap(GameMap gameMap) {

@@ -377,6 +377,12 @@ public abstract class CharacterDecorator extends GameCharacter {
         innerChar.doAtEndOfTurn(gameData);
     }
 
+    @Override
+    public void addActionsForActorsInRoom(GameData gameData, Actor anyActorInRoom,
+                                          ArrayList<Action> at) {
+        innerChar.addActionsForActorsInRoom(gameData, anyActorInRoom, at);
+    }
+
     public List<Room> getVisibleMap(GameData gameData) {
         if (getPosition().getType() == RoomType.outer) {
             List<Room> arr = new ArrayList<>();
@@ -386,4 +392,6 @@ public abstract class CharacterDecorator extends GameCharacter {
 
         return innerChar.getVisibleMap(gameData);
     }
+
+
 }

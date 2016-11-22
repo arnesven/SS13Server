@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.*;
 
 import model.GameData;
+import model.items.HandCuffs;
 import model.items.NoSuchThingException;
 import model.items.foods.*;
 import model.items.general.*;
@@ -148,6 +149,9 @@ public class MyRandom {
         list.add(new ShotgunShells());
         list.add(new StunBaton());
         list.add(new Flamer());
+        list.add(new HandCuffs());
+        list.add(new RoomPartsStack(1));
+        list.add(new SantaSuit());
 
         return list;
     }
