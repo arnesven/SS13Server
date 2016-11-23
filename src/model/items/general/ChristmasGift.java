@@ -44,6 +44,11 @@ public class ChristmasGift extends GameItem {
         return innerItem;
     }
 
+    @Override
+    public GameItem getTrueItem() {
+        return getInner();
+    }
+
     private class UnwrapAction extends Action {
 
         public UnwrapAction() {
