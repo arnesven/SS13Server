@@ -186,8 +186,9 @@ public class GameMap implements Serializable {
 		
 	}
 
+//
 
-    public int totalWidth() {
+    public int getMaxX() {
         int maxX = 0;
         for (Room r : roomsList) {
             if (r.getX() + r.getWidth() > maxX) {
@@ -198,7 +199,18 @@ public class GameMap implements Serializable {
 
     }
 
-    public int getTotalHeight() {
+    public int getMinX() {
+        int minX = 10000;
+        for (Room r : roomsList) {
+            if (r.getX() < minX) {
+                minX = r.getX();
+            }
+        }
+        return minX;
+    }
+
+
+    public int getMaxY() {
         int maxY = 0;
         for (Room r : roomsList) {
             if (r.getY() + r.getHeight() > maxY) {
@@ -206,6 +218,16 @@ public class GameMap implements Serializable {
             }
         }
         return maxY;
+    }
+
+    public int getMinY() {
+        int minY = 0;
+        for (Room r : roomsList) {
+            if (r.getY() < minY) {
+                minY = r.getY();
+            }
+        }
+        return minY;
     }
 
     public String getSideString(int side) {
@@ -254,5 +276,16 @@ public class GameMap implements Serializable {
             }
         }
         return max;
+    }
+
+    public static void addDoor(Room position, double x, double y) {
+        double[] newDoorArr = new double[position.getDoors().length + 2];
+        int i = 0;
+        for ( ; i < position.getDoors().length ; ++i) {
+            newDoorArr[i] = position.getDoors()[i];
+        }
+        newDoorArr[i] = x;
+        newDoorArr[i+1] = y;
+        position.setDoors(newDoorArr);
     }
 }

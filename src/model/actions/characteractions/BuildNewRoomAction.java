@@ -10,10 +10,13 @@ import model.items.general.GameItem;
 import model.items.general.ItemStackDepletedException;
 import model.items.general.RoomPartsStack;
 import model.items.general.Tools;
+import model.map.Architecture;
 import model.map.GameMap;
 import model.map.Room;
 import model.map.RoomType;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.Scanner;
 
@@ -60,7 +63,7 @@ public class BuildNewRoomAction extends Action {
         for (int w = 1; w <= amount; w++) {
             for (int h = 1; h <= amount; h++) {
                 if (w*h <= amount) {
-                    opt.addOption("size " + w + "x" + h);
+                    opt.addOption("size WxH=" + w + "x" + h);
                 }
             }
         }
@@ -80,7 +83,13 @@ public class BuildNewRoomAction extends Action {
         }
 
         if (GameItem.hasAnItem(performingClient, new Tools())) {
-            String name = buildNewRoom(gameData, performingClient, selected, width, height);
+            String name = null;
+            try {
+                name = buildNewRoom(gameData, performingClient, selected, width, height);
+            } catch (Architecture.NoLegalPlacementForRoom noLegalPlacementForRoom) {
+                performingClient.addTolastTurnInfo("No space for room to be built here. " + Action.FAILED_STRING);
+                return;
+            }
             performingClient.addTolastTurnInfo("You built a new room: " + name + "!");
             try {
                 parts.subtractFrom(costOfBuild);
@@ -93,34 +102,31 @@ public class BuildNewRoomAction extends Action {
         }
     }
 
-    private String buildNewRoom(GameData gameData, Actor performingClient, String selected, int width, int height) {
+    private String buildNewRoom(GameData gameData, Actor performingClient, String selected, int width, int height) throws Architecture.NoLegalPlacementForRoom {
         Room current = performingClient.getPosition();
 
-        int x = current.getX();
-        int y = current.getY();
-        double doorx = x;
-        double doory = y;
-
+        Point direction = null;
         if (selected.equals("Port")) {
-            y -= height;
-            doorx += 0.5;
+            direction = new Point(0, -1);
         } else if (selected.equals("Starboard")) {
-            y += current.getHeight();
-            doorx += 0.5;
-            doory += current.getHeight();
+            direction = new Point(0, 1);
         } else if (selected.equals("Forwards")) {
-            x += current.getWidth();
-            doorx += current.getWidth();
-            doory += 0.5;
+            direction = new Point(1, 0);
         } else if (selected.equals("Aftwards")) {
-            x -= width;
-            doory += 0.5;
+            direction = new Point(-1, 0);
         }
+
+        Point2D doorPoint = new Point2D.Double(0, 0);
+        Point roomPlacement = new Point(0, 0);
+        Architecture architecture = new Architecture(gameData.getMap());
+        architecture.checkPlacement(current, width, height, direction, doorPoint, roomPlacement);
+
 
         int id = gameData.getMap().getMaxID()+1;
         int[] neighs = new int[]{};
-        double[] doors = new double[]{doorx, doory};
-        Room newRoom = new Room(id, "Annex #" + id, "", x, y, width, height, neighs, doors, RoomType.hall);
+        double[] doors = new double[]{doorPoint.getX(), doorPoint.getY()};
+        Room newRoom = new Room(id, "Annex #" + id, "", (int)roomPlacement.getX(), (int)roomPlacement.getY(),
+                                width, height, neighs, doors, RoomType.hall);
         newRoom.setMap(gameData.getMap());
         GameMap.joinRooms(newRoom, current);
 
@@ -133,7 +139,7 @@ public class BuildNewRoomAction extends Action {
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
         selected = args.get(0);
-        String[] rest = args.get(1).replace("size ", "").split("x");
+        String[] rest = args.get(1).replace("size WxH=", "").split("x");
         width = Integer.parseInt(rest[0]);
         height = Integer.parseInt(rest[1]);
     }

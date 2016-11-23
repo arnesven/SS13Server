@@ -420,6 +420,10 @@ public class Room implements ItemHolder, Serializable {
 		return doors;
 	}
 
+    public void setDoors(double[] doors) {
+        this.doors = doors;
+    }
+
 
     public void removeFromRoom(GameItem searched) {
         if (items.contains(searched)) {
@@ -477,4 +481,6 @@ public class Room implements ItemHolder, Serializable {
         }
         return String.format("#%02X%02X%02X", backgroundcolor.getRed(), backgroundcolor.getGreen(), backgroundcolor.getBlue());
     }
+
+
 }

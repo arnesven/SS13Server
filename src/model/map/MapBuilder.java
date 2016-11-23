@@ -124,7 +124,7 @@ public class MapBuilder {
 		Room nukieShip = new NukieShipRoom(28, new int[]{7, 21, 25}, new double[]{-1.0, -1.0});
 		result.add(nukieShip);
 		
-		Room brig = new Room(29, "Brig", "", 15, 4, 1, 1, new int[]{29}, new double[]{16.0, 4.5}, RoomType.security);
+		Room brig = new Room(29, "Brig", "", 15, 4, 1, 1, new int[]{29}, new double[]{15.0, 4.5}, RoomType.security);
 		result.add(brig);
 		{
 			KeyCardLock l1 = new KeyCardLock(brig, portHallFront, true, 3.0);

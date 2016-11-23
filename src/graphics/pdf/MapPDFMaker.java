@@ -7,7 +7,6 @@ import model.items.general.GameItem;
 import model.map.AirLockRoom;
 import model.map.Room;
 import model.map.RoomType;
-import model.objects.consoles.AirLockControl;
 import model.objects.consoles.KeyCardLock;
 import model.objects.general.GameObject;
 import util.Logger;
@@ -80,8 +79,8 @@ public class MapPDFMaker {
         writer.newLine();
 
 
-        int mapWidth = gameData.getMap().totalWidth();
-        int mapHeight = gameData.getMap().getTotalHeight();
+        int mapWidth = gameData.getMap().getMaxX();
+        int mapHeight = gameData.getMap().getMaxY();
         Logger.log("Map dimensions are " + mapWidth + "x" + mapHeight);
         double xFactor = (double)(DESIRED_WIDTH_MM) / (double)(mapWidth);
         double yFactor = (double)(DESIRED_HEIGHT_MM) / (double)(mapHeight);

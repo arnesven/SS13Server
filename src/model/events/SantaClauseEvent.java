@@ -25,7 +25,7 @@ public class SantaClauseEvent extends AmbientEvent {
 
     @Override
     public void apply(GameData gameData) {
-        if (!hasHappened) {
+        if (!hasHappened && MyRandom.nextDouble() < getProbability()) {
             hasHappened = true;
 
             Room santaRoom = MyRandom.sample(gameData.getRooms());
