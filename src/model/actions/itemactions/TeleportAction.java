@@ -50,7 +50,7 @@ public class TeleportAction extends Action {
                                         (target==performingClient?"yourself.":target.getPublicName()));
         target.addTolastTurnInfo(performingClient.getPublicName() + " is using the teleporter on you!");
         target.setCharacter(new AlterMovement(target.getCharacter(), "teleport", true, 0));
-        teleporter.setUsed(true);
+        teleporter.useOnce();
 
         gameData.addMovementEvent(new Event() {
             @Override

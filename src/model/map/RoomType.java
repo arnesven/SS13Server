@@ -11,6 +11,8 @@ public enum RoomType {
     support,
     airlock,
     security,
+    space,
     outer,
-    hidden
+    derelict, hidden
+
 }

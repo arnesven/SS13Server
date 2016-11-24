@@ -18,7 +18,7 @@ import java.util.List;
 public class Teleporter extends UplinkItem {
 
     private Room coordinates;
-    private boolean used = false;
+    private int uses = 3;
 
     public Teleporter() {
         super("Teleporter", 0.3, 200);
@@ -32,7 +32,7 @@ public class Teleporter extends UplinkItem {
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
-        if (!used) {
+        if (uses > 0) {
             addMarkCoordinatesAction(gameData, at, cl);
             if (coordinates != null) {
                 addTeleportAction(gameData, at, cl);
@@ -42,7 +42,7 @@ public class Teleporter extends UplinkItem {
 
     @Override
     public String getFullName(Actor whosAsking) {
-        if (used) {
+        if (uses == 0) {
             return super.getFullName(whosAsking) + "(no charge)";
         }
         return super.getFullName(whosAsking);
@@ -80,7 +80,11 @@ public class Teleporter extends UplinkItem {
         return coordinates;
     }
 
-    public void setUsed(boolean used) {
-        this.used = used;
+//    public void setUsed(boolean used) {
+//        this.used = used;
+//    }
+
+    public void useOnce() {
+        this.uses--;
     }
 }

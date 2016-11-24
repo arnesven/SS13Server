@@ -6,7 +6,10 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.characters.decorators.CharacterDecorator;
+import model.characters.general.GameCharacter;
 import model.map.Room;
+import model.map.RoomType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,21 +20,23 @@ import java.util.List;
 public class DimensionPortal extends GameObject {
     private final Room room;
     private final Room otherDimRoom;
+    private final String name;
 
-    public DimensionPortal(GameData gameData, Room position, Room destination) {
+    public DimensionPortal(GameData gameData, Room position, Room destination, String name) {
         super("Portal", position);
         this.room = position;
         otherDimRoom = destination;
+        this.name = name;
     }
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("portal", "weapons2.png", 19, 10, 32, 32);
+        return new Sprite("portalblue", "weapons2.png", 19, 10, 32, 32);
     }
 
     @Override
     public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
-        at.add(new GoThroughPortalAction(otherDimRoom));
+        at.add(new GoThroughPortalAction(otherDimRoom, name));
     }
 
     public void remove() {
@@ -45,9 +50,10 @@ public class DimensionPortal extends GameObject {
 
         /**
          * @param otherDimRoom
+         * @param name
          */
-        public GoThroughPortalAction(Room otherDimRoom) {
-            super("Go Through Portal", SensoryLevel.PHYSICAL_ACTIVITY);
+        public GoThroughPortalAction(Room otherDimRoom, String name) {
+            super("Go Through " + name + " Portal", SensoryLevel.PHYSICAL_ACTIVITY);
             this.destination = otherDimRoom;
         }
 
@@ -60,11 +66,44 @@ public class DimensionPortal extends GameObject {
         protected void execute(GameData gameData, Actor performingClient) {
             performingClient.moveIntoRoom(destination);
             performingClient.addTolastTurnInfo("You went through the portal!");
+            if (performingClient.getCharacter().checkInstance((GameCharacter gc ) -> gc instanceof SeeOnlyThisRoomTypeDecorator)) {
+                performingClient.removeInstance((GameCharacter gc ) -> gc instanceof SeeOnlyThisRoomTypeDecorator);
+            }
+            if (destination.getType() == RoomType.outer || destination.getType() == RoomType.derelict) {
+                performingClient.setCharacter(new SeeOnlyThisRoomTypeDecorator(performingClient.getCharacter(), destination.getType()));
+            }
         }
 
         @Override
         public void setArguments(List<String> args, Actor performingClient) {
 
+        }
+    }
+
+    private class SeeOnlyThisRoomTypeDecorator extends CharacterDecorator {
+        private final RoomType type;
+
+        public SeeOnlyThisRoomTypeDecorator(GameCharacter character, RoomType outer) {
+            super(character, "see only certain rooms");
+            this.type = outer;
+        }
+
+        @Override
+        public List<Room> getVisibleMap(GameData gameData) {
+            List<Room> list = new ArrayList<>();
+            for (Room r : gameData.getAllRooms()) {
+                if (r.getType().equals(type)) {
+                    list.add(r);
+                }
+            }
+            return list;
+        }
+
+        @Override
+        public void doAtEndOfTurn(GameData gameData) {
+            if (!getPosition().getType().equals(type)) {
+                getActor().removeInstance((GameCharacter gc ) -> gc instanceof SeeOnlyThisRoomTypeDecorator);
+            }
         }
     }
 }

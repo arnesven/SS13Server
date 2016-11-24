@@ -41,7 +41,7 @@ public class RandomActionBehavior implements ActionBehavior {
         List<Action> availableActions = pl.getActionList(gameData);
         Action selected = MyRandom.sample(availableActions);
 
-        if (selected instanceof ActionGroup) {
+        while (selected instanceof ActionGroup) {
             selected = MyRandom.sample(((ActionGroup) selected).getActions());
         }
 

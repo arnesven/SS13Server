@@ -7,9 +7,11 @@ import model.Player;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.DimensionTrappedDecorator;
 import model.events.ambient.AmbientEvent;
+import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
 import model.map.Room;
 import model.npcs.AlienNPC;
+import model.objects.RedDimensionPortal;
 import model.objects.consoles.AIConsole;
 import model.objects.general.DimensionPortal;
 import util.Logger;
@@ -29,6 +31,8 @@ public class AlienDimensionEvent extends AmbientEvent {
     private int turnsActive;
     private DimensionPortal portal;
     private DimensionPortal portal2;
+    private DimensionPortal portal3;
+    private DimensionPortal portal4;
 
     @Override
     public void apply(GameData gameData) {
@@ -72,16 +76,34 @@ public class AlienDimensionEvent extends AmbientEvent {
                 a.setCharacter(new DimensionTrappedDecorator(a.getCharacter()));
             }
         }
+        if (portal3 != null) {
+            portal3.remove();
+        }
+        if (portal4 != null) {
+            portal4.remove();
+        }
+
+
     }
 
     private void addPortalObject(GameData gameData, Room targetRoom) {
         try {
             otherDim = gameData.getRoom("Other Dimension");
-            this.portal = new DimensionPortal(gameData, targetRoom, otherDim);
+            this.portal = new DimensionPortal(gameData, targetRoom, otherDim, "Blue");
             targetRoom.addObject(portal);
 
-            this.portal2 = new DimensionPortal(gameData, otherDim, targetRoom);
+            this.portal2 = new DimensionPortal(gameData, otherDim, targetRoom, "Blue");
             otherDim.addObject(portal2);
+
+            if (MyRandom.nextDouble() < 0.5) {
+                otherDim.addItem(new CosmicArtifact());
+            } else {
+                Room derelictBridge = gameData.getRoom("Derelict Bridge");
+                this.portal3 = new RedDimensionPortal(gameData, otherDim, derelictBridge, "Red");
+                otherDim.addObject(portal3);
+                this.portal4 = new RedDimensionPortal(gameData, derelictBridge, otherDim, "Red");
+                derelictBridge.addObject(portal4);
+            }
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

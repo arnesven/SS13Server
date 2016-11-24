@@ -248,7 +248,7 @@ public class GameMap implements Serializable {
     public List<Room> getStationRooms() {
         List<Room> station = new ArrayList<Room>();
         for (Room r : roomsList) {
-            if (r.getType() != RoomType.hidden && r.getType() != RoomType.outer) {
+            if (r.getType() != RoomType.hidden && r.getType() != RoomType.outer && r.getType() != RoomType.derelict) {
                 station.add(r);
             }
         }

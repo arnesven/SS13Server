@@ -6,6 +6,7 @@ import model.items.general.FireExtinguisher;
 import model.items.general.MoneyStack;
 import model.items.general.NuclearDisc;
 import model.items.suits.SpaceSuit;
+import model.modes.NoPressureEverEvent;
 import model.npcs.*;
 import model.npcs.animals.CatNPC;
 import model.npcs.animals.ChimpNPC;
@@ -132,14 +133,35 @@ public class MapBuilder {
 			portHallFront.addObject(l1);
 		}
 
-        Room dummy = new Room(30, "Dummy", "", 18, 1, 0, 0,
+        Room space = new Room(30, "Space", "", 0, 0, 1, 1, new int[]{}, new double[]{}, RoomType.space);
+        space.addEvent(new NoPressureEverEvent(space));
+        result.add(space);
+
+        Room dummy = new Room(31, "Dummy", "", 18, 1, 0, 0,
                                 new int[]{28}, new double[]{-1.0, -1.0}, RoomType.hidden);
         result.add(dummy);
-        Room otherDim = new OtherDimension(31, new int[]{30}, new double[]{-1.0, -1.0});
-        Room prisonPlanet = new Room(32, "Prison Planet", "", 0, 0, 1, 1, new int[]{30}, new double[]{-1.0, -1.0}, RoomType.outer);
+        Room otherDim = new OtherDimension(32, new int[]{30}, new double[]{-1.0, -1.0});
+        Room prisonPlanet = new Room(33, "Prison Planet", "", 0, 0, 1, 1, new int[]{30}, new double[]{-1.0, -1.0}, RoomType.outer);
 
         result.add(otherDim);
         result.add(prisonPlanet);
+
+        Room derelictBridge = new Room(34, "Derelict Bridge", "", 40, 40, 3, 1, new int[]{35}, new double[]{}, RoomType.derelict);
+        result.add(derelictBridge);
+        Room derelictHall =  new Room(35, "Derelict Hall", "", 41, 41, 1, 5, new int[]{34, 36, 37, 38}, new double[]{41.5, 41.0}, RoomType.derelict);
+        result.add(derelictHall);
+        Room derelictLab =  new Room(36, "Derelict Lab", "", 39, 43, 2, 2, new int[]{35}, new double[]{41.0, 43.5}, RoomType.derelict);
+        result.add(derelictLab);
+        Room derelictGen =  new Room(37, "Derelict Generator", "", 40, 45, 3, 3, new int[]{35}, new double[]{41.5, 45.0}, RoomType.derelict);
+        result.add(derelictGen);
+        Room derelictAirLock =  new Room(38, "Derelict Air Lock", "", 42, 44, 1, 1, new int[]{35}, new double[]{42.0, 44.5}, RoomType.derelict);
+        result.add(derelictAirLock);
+
+        Room derelictUnreachableRoom =  new Room(39, "Broken Room", "", 52, 52, 2, 1, new int[]{}, new double[]{}, RoomType.derelict);
+        result.add(derelictUnreachableRoom);
+        Room derelictUnreachableRoom2 =  new Room(40, "Broken Room", "", 35, 35, 1, 2, new int[]{}, new double[]{}, RoomType.derelict);
+        result.add(derelictUnreachableRoom2);
+
 		GameMap gm = new GameMap(result);
 
 

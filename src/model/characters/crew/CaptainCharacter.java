@@ -7,10 +7,7 @@ import model.characters.general.GameCharacter;
 import model.items.CosmicArtifact;
 import model.items.foods.SpaceRum;
 import model.items.foods.Vodka;
-import model.items.general.GameItem;
-import model.items.general.KeyCard;
-import model.items.general.NuclearDisc;
-import model.items.general.ZippoLighter;
+import model.items.general.*;
 import model.items.suits.CaptainsOutfit;
 
 public class CaptainCharacter extends CrewCharacter {
@@ -25,7 +22,6 @@ public class CaptainCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<GameItem>();
 		list.add(new KeyCard());
-      //  list.add(new CosmicArtifact());
 
 		return list;
 	}

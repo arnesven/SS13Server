@@ -10,6 +10,7 @@ import model.characters.GameCharacterLambda;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
+import model.map.RoomType;
 import model.objects.consoles.AIConsole;
 import model.objects.general.ContainerObject;
 import util.*;
@@ -89,14 +90,10 @@ public class GameData implements Serializable {
 	public List<Room> getRooms() {
 		List<Room> list = new ArrayList<>();
 		list.addAll(getAllRooms());
-        try {
-            list.remove(map.getRoom("Nuclear Ship"));
-            list.remove(map.getRoom("Other Dimension"));
-            list.remove(map.getRoom("Dummy"));
-            list.remove(map.getRoom("Prison Planet"));
-        } catch (NoSuchThingException nse) {
-            Logger.log("CRITICAL: No such room found");
-        }
+
+            list.removeIf((Room r) -> r.getType() == RoomType.derelict ||
+                        r.getType() == RoomType.hidden || r.getType() == RoomType.outer || r.getType() == RoomType.space);
+
 		return list;
 	}
 	

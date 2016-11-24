@@ -9,6 +9,12 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.objectactions.MoveToOtherAirlocks;
+import model.characters.decorators.SpaceProtection;
+import model.characters.general.ChangelingCharacter;
+import model.characters.general.GameCharacter;
+import model.characters.general.HorrorCharacter;
+import model.characters.general.RobotCharacter;
 import model.events.Event;
 import model.events.NoPressureEvent;
 import model.map.Room;
@@ -26,7 +32,11 @@ public class AirlockPanel extends ElectricalMachinery {
 	@Override
 	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(makeApplicableAction(gameData));
-		
+		if (cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof SpaceProtection) ||
+                cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HorrorCharacter) ||
+                cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof RobotCharacter)) {
+            at.add(new MoveToOtherAirlocks(this.getPosition(), gameData));
+        }
 	}
 
     @Override

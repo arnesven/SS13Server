@@ -476,6 +476,9 @@ public class Room implements ItemHolder, Serializable {
             case tech:
                 backgroundcolor = new Color(255, 210, 0);
                 break;
+            case space:
+                backgroundcolor = new Color(0, 0, 0);
+                break;
             default:
                 backgroundcolor = new Color(217, 217, 217);
         }
