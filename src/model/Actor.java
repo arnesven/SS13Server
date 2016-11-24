@@ -264,7 +264,7 @@ public abstract class Actor  implements ItemHolder, Serializable {
         Set<String> set = new HashSet<>();
         ArrayList<Action> itActions = new ArrayList<>();
         for (GameItem it : getItems()) {
-            if (!set.contains(it.getBaseName())) {
+            if (!set.contains(it.getFullName(this))) {
                 it.addYourActions(gameData, itActions, this);
                 set.add(it.getFullName(this));
             }

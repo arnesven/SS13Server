@@ -19,7 +19,7 @@ public class DrawBloodAction extends TargetingAction {
 	@Override
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
-		Syringe syringe = Syringe.findSyringe(performingClient);
+		Syringe syringe = Syringe.findSyringe(performingClient, false);
 		if (syringe == null) {
 			performingClient.addTolastTurnInfo("What? The Syringe is gone! Your action failed.");
 		    return;

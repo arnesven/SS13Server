@@ -22,7 +22,7 @@ public class InjectionAction extends TargetingAction {
 	@Override
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
-		Syringe s = Syringe.findSyringe(performingClient);
+		Syringe s = Syringe.findSyringe(performingClient, true);
 		if (s == null) {
 			performingClient.addTolastTurnInfo("What? The Syringe is gone! Your action failed.");
 		    return;

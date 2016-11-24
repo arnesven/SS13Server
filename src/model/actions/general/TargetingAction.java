@@ -106,7 +106,7 @@ public abstract class TargetingAction extends Action {
             if (gi.getActionOptions(whosAsking).numberOfSuboptions() > 0) {
                 optlist.add(gi.getActionOptions(whosAsking));
             } else {
-                optlist.add(new ActionOption(gi.getPublicName(whosAsking)));
+                optlist.add(new ActionOption(gi.getFullName(whosAsking)));
             }
 		}
 		

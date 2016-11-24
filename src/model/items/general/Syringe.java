@@ -95,15 +95,25 @@ public class Syringe extends GameItem {
 		return false;
 	}
 
-	public static Syringe findSyringe(Actor performingClient) {
+	public static Syringe findSyringe(Actor performingClient, boolean filled) {
 		Syringe syringe = null;
 		for (GameItem it : performingClient.getItems()) {
 			if (it instanceof Syringe) {
-				syringe = (Syringe)it;
+                if (filled) {
+                    if (((Syringe) it).isFilled()) {
+                        syringe = (Syringe) it;
+                    }
+                } else {
+                    if (!((Syringe) it).isFilled()) {
+                        syringe = (Syringe) it;
+                    }
+                }
 			}
 		}
 		return syringe;
 	}
+
+
 
 	public void setMutation(Mutation randomMutation) {
 		this.mutation = randomMutation;

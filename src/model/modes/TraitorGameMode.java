@@ -48,10 +48,19 @@ public class TraitorGameMode extends GameMode {
     private static final int POINTS_FROM_DEAD_PIRATES = 50;
     private static final int POINTS_FROM_BOMBS_DEFUSED = 50;
     private static final int BAD_SECURITY = 10;
+    private final List<GameItem> stealableItems;
     private List<Player> traitors = new ArrayList<>();
 	private HashMap<Player, TraitorObjective> objectives = new HashMap<>();
 	private String TRAITOR_START_STRING = HTMLText.makeText("orange", "You are a " + HTMLText.makeWikiLink("modes/traitor", "traitor") + "!");
 	private String CREW_START_STRING = "There are traitors on the station. Find them and stop them before they ruin everything!";
+
+    public  TraitorGameMode() {
+        GameItem[] stealables = new GameItem[]{new ChefsHat(), new Bible(), new SunGlasses(), new GeigerMeter(), new KeyCard()};
+        //GameItem[] stealables = new GameItem[]{ new KeyCard()};
+        ArrayList<GameItem> arr = new ArrayList<>();
+        arr.addAll(Arrays.asList(stealables));
+        stealableItems = arr;
+    }
 
     @Override
     public String getName() {
@@ -117,21 +126,24 @@ public class TraitorGameMode extends GameMode {
     }
 
     private TraitorObjective createRandomObjective(Player traitor, GameData gameData) {
-		GameItem it = MyRandom.sample(stealableItems(gameData));
-		Logger.log("Steal-item is " + it.getBaseName());
-		for (Player p : gameData.getPlayersAsList()) {
-			if (GameItem.containsItem(p.getCharacter().getStartingItems(), it)) {
-				Logger.log(" " + p.getBaseName() + " has a " + it.getBaseName());
-				if (p != traitor) {
-					Logger.log(" match!.");
-					return new LarcenyObjective(gameData, traitor, p, it);
-				} else {
-					Logger.log(" but he was the traitor...");
-				}
-			}
-		}
-		Logger.log("Did not find player for steal-item");
 
+        if (stealableItems.size() > 0 && MyRandom.nextDouble() < 0.5) {
+            GameItem it = MyRandom.sample(stealableItems);
+            Logger.log("Steal-item is " + it.getBaseName());
+            for (Player p : gameData.getPlayersAsList()) {
+                if (GameItem.containsItem(p.getCharacter().getStartingItems(), it)) {
+                    Logger.log(" " + p.getBaseName() + " has a " + it.getBaseName());
+                    if (p != traitor) {
+                        Logger.log(" match!.");
+                        stealableItems.remove(it);
+                        return new LarcenyObjective(gameData, traitor, p, it);
+                    } else {
+                        Logger.log(" but he was the traitor...");
+                    }
+                }
+            }
+            Logger.log("Did not find player for steal-item");
+        }
 		
 		double val = MyRandom.nextDouble();
 		if (val < 0.45 ) {
@@ -165,11 +177,6 @@ public class TraitorGameMode extends GameMode {
 		//return null;
 	}
 
-	private List<GameItem> stealableItems(GameData gameData) {
-		GameItem[] stealables = new GameItem[]{new ChefsHat(), new Bible(), new SunGlasses(), new GeigerMeter(), new KeyCard()};
-		List<GameItem> list = Arrays.asList(stealables);
-		return list;
-	}
 
 	private int getNoOfTraitors(GameData gameData) {
 		double d = gameData.getPlayersAsList().size() * TRAITOR_FACTOR;
