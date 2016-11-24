@@ -288,4 +288,27 @@ public class GameMap implements Serializable {
         newDoorArr[i+1] = y;
         position.setDoors(newDoorArr);
     }
+
+    public static void removeDoor(Room position, double x, double y) {
+        double[] newDoorArr = new double[position.getDoors().length - 2];
+        int i = 0;
+        int index = 0;
+        for ( ; i < newDoorArr.length ; i+=2) {
+            if (position.getDoors()[i] != x || position.getDoors()[i+1] != y) {
+                newDoorArr[index]   = position.getDoors()[i];
+                newDoorArr[index+1] = position.getDoors()[i+1];
+                index += 2;
+            }
+        }
+        position.setDoors(newDoorArr);
+    }
+
+    public static boolean hasDoor(Room position, double x, double y) {
+        for (int i = 0; i < position.getDoors().length ; i+=2) {
+            if (position.getDoors()[i] == x || position.getDoors()[i+1] == y) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -194,6 +194,36 @@ public class Architecture {
         return result;
     }
 
+    public Point2D getDoorPositionBetween(Room position, Room selected) throws DoorNotFoundBetweenRooms {
+
+        Set<Point2D> setA = getPerimiterPointsForRoom(position);
+        Set<Point2D> setB = getPerimiterPointsForRoom(selected);
+        setB.retainAll(setA);
+
+        for (int doorIndex = 0; doorIndex < position.getDoors().length; doorIndex +=2) {
+            Point2D possibleDoor = new Point2D.Double(position.getDoors()[doorIndex],
+                                                      position.getDoors()[doorIndex+1]);
+            if (setB.contains(possibleDoor)) {
+                return possibleDoor;
+            }
+        }
+
+        for (int doorIndex = 0; doorIndex < selected.getDoors().length; doorIndex +=2) {
+            Point2D possibleDoor = new Point2D.Double(selected.getDoors()[doorIndex],
+                                                      selected.getDoors()[doorIndex+1]);
+            if (setB.contains(possibleDoor)) {
+                return possibleDoor;
+            }
+        }
+
+        throw new DoorNotFoundBetweenRooms();
+
+
+    }
+
     public class NoLegalPlacementForRoom extends Exception {
+    }
+
+    public class DoorNotFoundBetweenRooms extends Throwable {
     }
 }

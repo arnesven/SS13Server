@@ -5,6 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.characteractions.BuildNewRoomAction;
 import model.actions.general.Action;
+import model.actions.itemactions.RemoveDoorAction;
 import model.characters.crew.ArchitectCharacter;
 import model.characters.general.GameCharacter;
 
@@ -25,6 +26,11 @@ public class RoomPartsStack extends ItemStack {
         if (cl.getCharacter().checkInstance(((GameCharacter gc) -> gc instanceof ArchitectCharacter))) {
             if (GameItem.hasAnItem(cl, new Tools())) {
                 at.add(new BuildNewRoomAction());
+
+                Action removeDoor = new RemoveDoorAction(cl);
+                if (removeDoor.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+                    at.add(removeDoor);
+                }
             }
         }
     }
