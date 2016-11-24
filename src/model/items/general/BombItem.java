@@ -1,5 +1,6 @@
 package model.items.general;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +11,8 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.Hazard;
+import model.actions.general.Action;
+import model.actions.itemactions.AttachToWallAction;
 import model.characters.general.GameCharacter;
 import model.characters.crew.*;
 import model.events.Event;
@@ -20,6 +23,8 @@ import model.events.ambient.HullBreach;
 import model.events.damage.ExplosiveDamage;
 import model.items.NoSuchThingException;
 import model.items.foods.ExplodingFood;
+import model.map.Architecture;
+import model.map.GameMap;
 import model.map.Room;
 import model.events.SpontaneousExplosionEvent;
 import model.modes.NoPressureEverEvent;
@@ -36,6 +41,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
     private GameItem concealedWithin;
     private boolean exploded;
     private static int maxChain = 0;
+    private Room attatchedToRoomWall;
 
     public BombItem(String string, int cost) {
 		super(string, 2.0, cost);
@@ -62,8 +68,20 @@ public class BombItem extends HidableItem implements ExplodableItem {
 			}
 		}
 	}
-	
-	@Override
+
+    @Override
+    public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
+        super.addYourActions(gameData, at, cl);
+
+
+        Action attachAction = new AttachToWallAction(gameData, cl, this);
+        if (attachAction.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+            at.add(attachAction);
+        }
+
+    }
+
+    @Override
 	public String getPublicName(Actor whosAsking) {
 		if (isDemolitionsExpert(whosAsking)) {
 			return getFullName(whosAsking);
@@ -75,7 +93,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
 		if (whosAsking != null) { 
 			GameCharacter chara = whosAsking.getCharacter();
 			return chara instanceof DetectiveCharacter ||
-					chara instanceof EngineerCharacter;
+					chara instanceof ArchitectCharacter;
 		}
 		return false;
 	}
@@ -261,6 +279,15 @@ public class BombItem extends HidableItem implements ExplodableItem {
 
             @Override
             public void doHazard(GameData gameData) {
+                if (attatchedToRoomWall != null) {
+                    Architecture arch = new Architecture(gameData.getMap());
+                    Point2D doorPos = arch.getPossibleNewDoors(bombRoom).get(attatchedToRoomWall);
+                    GameMap.addDoor(attatchedToRoomWall, doorPos.getX(), doorPos.getY());
+                    GameMap.joinRooms(bombRoom, attatchedToRoomWall);
+                    Logger.log(Logger.INTERESTING, "Bomb blew a hole from " + bombRoom.getName() + " to " + attatchedToRoomWall.getName() + "!");
+                }
+
+
                 // breach the hull?
                 if (MyRandom.nextDouble() < 0.75) {
                     HullBreach hull = ((HullBreach) gameData.getGameMode().getEvents().get("hull breaches"));
@@ -312,5 +339,9 @@ public class BombItem extends HidableItem implements ExplodableItem {
     public void defuse(GameData gameData) {
         exploded = true;
         gameData.getGameMode().addToDefusedBombs(1);
+    }
+
+    public void setAttached(Room attached) {
+        this.attatchedToRoomWall = attached;
     }
 }
