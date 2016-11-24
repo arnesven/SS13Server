@@ -200,9 +200,6 @@ public abstract class Actor  implements ItemHolder, Serializable {
 
             addRoomActions(gameData, at);
 
-            if (this.hasInventory()) {
-                addItemActions(gameData, at);
-            }
             addAttackActions(at);
             addWatchAction(at);
             if (this.hasInventory()) {
@@ -253,8 +250,9 @@ public abstract class Actor  implements ItemHolder, Serializable {
         addDropActions(gameData, at);
         addPickUpActions(gameData, at);
         addPutOnActions(at);
+        addItemActions(gameData, at);
         if (at.size() > 0) {
-            ActionGroup manageItems = new ActionGroup("Manage Items");
+            ActionGroup manageItems = new ActionGroup("Items");
             manageItems.addAll(at);
             at2.add(manageItems);
         }
@@ -278,7 +276,7 @@ public abstract class Actor  implements ItemHolder, Serializable {
         }
 
         if (itActions.size() > 0) {
-            ActionGroup ag = new ActionGroup("Use Items");
+            ActionGroup ag = new ActionGroup("Use");
             ag.addAll(itActions);
             at.add(ag);
         }
@@ -299,7 +297,15 @@ public abstract class Actor  implements ItemHolder, Serializable {
     }
 
     private void addRoomActions(GameData gameData, ArrayList<Action> at) {
-        this.getPosition().addActionsFor(gameData, this, at);
+        ActionGroup roomActions = new ActionGroup("Room");
+
+        ArrayList<Action> at2 = new ArrayList<>();
+        this.getPosition().addActionsFor(gameData, this, at2);
+        roomActions.addAll(at2);
+        if (at2.size() > 0) {
+            at.add(roomActions);
+        }
+
     }
 
     private void addWatchAction(ArrayList<Action> at) {

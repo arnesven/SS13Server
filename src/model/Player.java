@@ -276,27 +276,28 @@ public class Player extends Actor implements Target, Serializable {
 		ArrayList<Action> at = getActionList(gameData);
 		String actionStr = actionString.replaceFirst("root,", "");
 
-		ArrayList<String> strings = new ArrayList<>();
-		strings.addAll(Arrays.asList(actionStr.split(",")));
+		List<String> args = new ArrayList<>();
+		args.addAll(Arrays.asList(actionStr.split(",")));
 		//Logger.log("Action tree: " + at.toString());
 		for (Action a : at) {
-			if (a.getName().equals(strings.get(0))) {
-				if (a instanceof ActionGroup) {
-					for (Action a2 : ((ActionGroup)a).getActions()) {
-						Logger.log("Parsing for " +  a2.getName() + ", strings is: " + strings.toString());
-						if (a2.getName().equals(strings.get(1))) {
-							List<String> args = strings.subList(2, strings.size());
-							a2.setArguments(args, this);
-							this.nextAction = a2;
-							return;
+			if (a.getName().equals(args.get(0))) {
+                while (a instanceof ActionGroup) {
+                    for (Action a2 : ((ActionGroup)a).getActions()) {
+						Logger.log("Parsing for " +  a2.getName() + ", strings is: " + args.toString());
+						if (a2.getName().equals(args.get(1))) {
+                            a = a2;
+							args = args.subList(1, args.size());
+							break;
 						}
 					}
-				} else {
-					List<String> args = strings.subList(1, strings.size());
-					a.setArguments(args, this);
-					this.nextAction = a;
-					return;
-				}
+                }
+
+
+
+                args = args.subList(1, args.size());
+				a.setArguments(args, this);
+				this.nextAction = a;
+				return;
 			}
 		}	
 		throw new IllegalStateException("Could not find action for this action string " + actionString + ".");
