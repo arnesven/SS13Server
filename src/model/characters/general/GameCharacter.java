@@ -2,6 +2,7 @@ package model.characters.general;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import graphics.sprites.NakedHumanSprite;
@@ -10,6 +11,7 @@ import graphics.sprites.Sprite;
 import model.*;
 import model.actions.general.AttackAction;
 import model.items.NoSuchThingException;
+import model.map.RoomType;
 import model.npcs.NPC;
 import util.HTMLText;
 import util.Logger;
@@ -541,7 +543,17 @@ public abstract class GameCharacter implements Serializable {
     }
 
     public List<Room> getVisibleMap(GameData gameData) {
-        return gameData.getMap().getStationRooms();
+        String level = "ss13";
+        try {
+            level = gameData.getMap().getLevelForRoom(getPosition());
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        Collection<Room> roomsToShow = gameData.getMap().getRoomsForLevel(level);
+        roomsToShow.removeIf((Room r ) -> r.getType() == RoomType.hidden);
+        List<Room> result = new ArrayList<>();
+        result.addAll(roomsToShow);
+        return result;
     }
 
 

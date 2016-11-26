@@ -18,7 +18,7 @@ public class RandomSpeechBehavior extends SpontaneousAct {
 			
 			@Override
 			public String getDescription(Actor whosAsking) {
-				return "TARS said \"" + talkString + "\"";
+				return performer.getPublicName() + " said \"" + talkString + "\"";
 			}
 			
 			@Override

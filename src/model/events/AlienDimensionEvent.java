@@ -48,14 +48,7 @@ public class AlienDimensionEvent extends AmbientEvent {
             addPortalObject(gameData, targetRoom);
             turnsActive = MyRandom.nextInt(12);
             Logger.log(Logger.INTERESTING, "Portal created in " + targetRoom.getName() + " active for " + turnsActive + " turns.");
-            int side = 0;
-            for (List<Room> locations : gameData.getMap().getSideLocations()) {
-                if (locations.contains(targetRoom)) {
-                    break;
-                }
-                side++;
-            }
-            informCrew(gameData, side);
+            informCrew(gameData);
             gameData.addNPC(new AlienNPC(targetRoom));
             while (MyRandom.nextDouble() > 0.75) {
                 gameData.addNPC(new AlienNPC(targetRoom));
@@ -123,10 +116,10 @@ public class AlienDimensionEvent extends AmbientEvent {
 
     }
 
-    private void informCrew(GameData gameData, int side) {
+    private void informCrew(GameData gameData) {
         try {
             gameData.findObjectOfType(AIConsole.class).informOnStation("Warning! Singularity detected in " +
-                    gameData.getMap().getSideString(side) + " part of station!", gameData);
+                    gameData.getMap().getAreaForRoom("ss13", targetRoom) + " part of station!", gameData);
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
@@ -159,10 +152,8 @@ public class AlienDimensionEvent extends AmbientEvent {
             derelictBridge.addObject(portal4);
 
 
-            Room derelictGenerator  = gameData.getRoom("Derelict Generator");
-            NPC abandoned = new RobotNPC(new AbandonedBotCharacter(derelictGenerator), new MeanderingMovement(0),
-                                         new RandomSpeechBehavior("resources/ABANDONED.TXT"), derelictGenerator);
-            gameData.addNPC(abandoned);
+            //Room derelictGenerator  = gameData.getRoom("Derelict Generator");
+
 
         } catch (NoSuchThingException e) {
             e.printStackTrace();

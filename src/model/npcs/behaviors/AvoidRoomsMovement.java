@@ -1,6 +1,7 @@
 package model.npcs.behaviors;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,10 +11,10 @@ import util.Logger;
 
 public class AvoidRoomsMovement implements MovementBehavior {
 
-	private List<Room> avoidRooms;
+	private Collection<Room> avoidRooms;
 	private MeanderingHumanMovement meander = new MeanderingHumanMovement(1.0);
 
-	public AvoidRoomsMovement(List<Room> list) {
+	public AvoidRoomsMovement(Collection<Room> list) {
 		this.avoidRooms = list;
 	}
 

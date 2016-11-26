@@ -238,7 +238,11 @@ public class BombItem extends HidableItem implements ExplodableItem {
             neigh.addItem(new RoomPartsStack(1));
         }
 
-        gameData.getMap().removeRoom(bombRoom);
+        try {
+            gameData.getMap().removeRoom(bombRoom);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
 
     }
 

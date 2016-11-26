@@ -87,4 +87,8 @@ public class Teleporter extends UplinkItem {
     public void useOnce() {
         this.uses--;
     }
+
+    public void setMarked(Room marked) {
+        this.coordinates = marked;
+    }
 }

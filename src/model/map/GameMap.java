@@ -3,10 +3,7 @@ package model.map;
 import model.items.NoSuchThingException;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 
 /**
@@ -17,26 +14,38 @@ import java.util.NoSuchElementException;
  */
 public class GameMap implements Serializable {
 
-	private List<Room> roomsList;
+	//private List<Room> roomsList;
+    private Map<String, Map<String, Set<Room>>> levels = new HashMap<>();
 
-    private  GameMap() {
-       // should not instanciate like this
+
+    public GameMap(String firstLevelName) {
+        levels.put(firstLevelName, new HashMap<>());
     }
 
-	public GameMap(ArrayList<Room> result) {
-		for (Room r : result) {
-			r.setMap(this);
-		}
-		this.setRoomsList(result);
-	
-	}
+	public void addRoom(Room room, String level, String area) {
+        if (!levels.containsKey(level)) {
+            levels.put(level, new HashMap<>());
+        }
 
-	public void addRoom(Room room) {
-		roomsList.add(room);
+        if (levels.get(level).containsKey(area)) {
+            levels.get(level).get(area).add(room);
+        } else {
+            Set<Room> set = new HashSet<>();
+            set.add(room);
+            levels.get(level).put(area, set);
+        }
 	}
 	
 	public List<Room> getRooms() {
-		return roomsList;
+        Set<Room> list = new HashSet<>();
+        for (Map<String, Set<Room>> m : levels.values()) {
+            for (Set<Room> set : m.values()) {
+                list.addAll(set);
+            }
+        }
+        List<Room> result = new ArrayList<>();
+        result.addAll(list);
+        return result;
 	}
 
 //	public Room getRoomForID(int ID) {
@@ -44,7 +53,7 @@ public class GameMap implements Serializable {
 //	}
 
 	public Room getRoom(String string) throws NoSuchThingException {
-		for (Room r : roomsList) {
+		for (Room r : getRooms()) {
 			if (r.getName().equals(string)) {
 				return r;
 			}
@@ -52,74 +61,20 @@ public class GameMap implements Serializable {
 		throw new NoSuchThingException("No room for given string " + string);
 	}
 
-	/**
-	 * Gets the location for a particular side.
-	 * 0 => aft side
-	 * 1 => port side
-	 * 2 => front side
-	 * 3 => starboard side
-	 * @return A list of lists of rooms.
-	 */
-	public List<List<Room>> getSideLocations() {
-		List<List<Room>> list = new ArrayList<>();
-		List<Room> aftSide = new ArrayList<>();
-        addIfAble(aftSide, "Greenhouse");
-        addIfAble(aftSide, "Panorama Walkway");
-        addIfAble(aftSide, "Aft Walkway");
-        addIfAble(aftSide, "Airtunnel");
-        addIfAble(aftSide, "Chapel");
-        addIfAble(aftSide, "Aft Hall");
-        addIfAble(aftSide, "Lab");
-        addIfAble(aftSide, "Air Lock #1");
-        list.add(aftSide);
-
-        List<Room> portSide = new ArrayList<>();
-        addIfAble(portSide, "Lab");
-        addIfAble(portSide, "Sickbay");
-        addIfAble(portSide, "Air Lock #3");
-        addIfAble(portSide, "Port Hall Aft");
-        addIfAble(portSide, "Shuttle Gate");
-        addIfAble(portSide, "Port Hall Front");
-        addIfAble(portSide, "Security Station");
-        addIfAble(portSide, "Air Lock #2");
-        list.add(portSide);
-
-        List<Room> frontSide = new ArrayList<>();
-        addIfAble(frontSide, "Security Station");
-        addIfAble(frontSide, "Port Hall Front");
-        addIfAble(frontSide, "Air Lock #2");
-        addIfAble(frontSide, "Bridge");
-        addIfAble(frontSide, "Captain's Quarters");
-        addIfAble(frontSide, "Front Hall");
-        addIfAble(frontSide, "Office");
-        list.add(frontSide);
-
-        List<Room> starboardSide = new ArrayList<>();
-        addIfAble(starboardSide, "Office");
-        addIfAble(starboardSide, "Starboard Hall Front");
-        addIfAble(starboardSide, "Dorms");
-        addIfAble(starboardSide, "Bar");
-        addIfAble(starboardSide, "Kitchen");
-        addIfAble(starboardSide, "Starboard Hall Aft");
-        addIfAble(starboardSide, "Aft Walkway");
-        addIfAble(starboardSide, "Air Lock #1");
-        list.add(starboardSide);
-
-        return list;
-    }
-
-    private void addIfAble(List<Room> side, String roomName) {
-        try {
-	  side.add(this.getRoom(roomName));
-        } catch (NoSuchThingException nste) {
-            // don't add it!
-        }
-    }
 
 
-    private void setRoomsList(ArrayList<Room> result) {
-		roomsList = result;
-	}
+//    private void addIfAble(List<Room> side, String roomName) {
+//        try {
+//	  side.add(this.getRoom(roomName));
+//        } catch (NoSuchThingException nste) {
+//            // don't add it!
+//        }
+//    }
+
+
+//    private void setRoomsList(ArrayList<Room> result) {
+//		roomsList = result;
+//	}
 
 	public static boolean areJoined(Room a, Room b) {
         return a.getNeighborList().contains(b) &&
@@ -190,7 +145,7 @@ public class GameMap implements Serializable {
 
     public int getMaxX() {
         int maxX = 0;
-        for (Room r : roomsList) {
+        for (Room r : getRooms()) {
             if (r.getX() + r.getWidth() > maxX) {
                 maxX = r.getX() + r.getWidth();
             }
@@ -201,7 +156,7 @@ public class GameMap implements Serializable {
 
     public int getMinX() {
         int minX = 10000;
-        for (Room r : roomsList) {
+        for (Room r : getRooms()) {
             if (r.getX() < minX) {
                 minX = r.getX();
             }
@@ -212,7 +167,7 @@ public class GameMap implements Serializable {
 
     public int getMaxY() {
         int maxY = 0;
-        for (Room r : roomsList) {
+        for (Room r : getRooms()) {
             if (r.getY() + r.getHeight() > maxY) {
                 maxY = r.getY() + r.getHeight();
             }
@@ -222,7 +177,7 @@ public class GameMap implements Serializable {
 
     public int getMinY() {
         int minY = 0;
-        for (Room r : roomsList) {
+        for (Room r : getRooms()) {
             if (r.getY() < minY) {
                 minY = r.getY();
             }
@@ -230,7 +185,7 @@ public class GameMap implements Serializable {
         return minY;
     }
 
-    public String getSideString(int side) {
+    public static String getSideString(int side) {
         String sideStr = "central";
 
         if (side == 0) {
@@ -247,20 +202,31 @@ public class GameMap implements Serializable {
 
     public List<Room> getStationRooms() {
         List<Room> station = new ArrayList<Room>();
-        for (Room r : roomsList) {
-            if (r.getType() != RoomType.hidden && r.getType() != RoomType.outer && r.getType() != RoomType.derelict) {
-                station.add(r);
-            }
+//        for (Room r : roomsList) {
+//            if (r.getType() != RoomType.hidden && r.getType() != RoomType.outer && r.getType() != RoomType.derelict) {
+//                station.add(r);
+//            }
+//        }
+        for (Set<Room> rooms : levels.get("ss13").values()) {
+            station.addAll(rooms);
         }
         return station;
     }
 
-    public void removeRoom(Room bombRoom) {
-        roomsList.remove(bombRoom);
+    public void removeRoom(Room bombRoom) throws NoSuchThingException {
+        for (Map<String, Set<Room>> level : levels.values()) {
+            for (Set<Room> area : level.values()) {
+                if (area.contains(bombRoom)) {
+                    area.remove(bombRoom);
+                    return;
+                }
+            }
+        }
+        throw new NoSuchThingException("No room " + bombRoom.getName() + "!");
     }
 
     public Room getRoomByID(int i) throws NoSuchThingException {
-        for (Room r : roomsList) {
+        for (Room r : getRooms()) {
             if (r.getID() == i) {
                 return r;
             }
@@ -270,7 +236,7 @@ public class GameMap implements Serializable {
 
     public int getMaxID() {
         int max = 0;
-        for (Room r : roomsList) {
+        for (Room r : getRooms()) {
             if (r.getID() > max) {
                 max = r.getID();
             }
@@ -310,5 +276,45 @@ public class GameMap implements Serializable {
             }
         }
         return false;
+    }
+
+    public Collection<Room> getArea(String ss13, String sideString) {
+        return levels.get(ss13).get(sideString);
+    }
+
+    public String getAreaForRoom(String ss13, Room targetRoom) throws NoSuchThingException {
+        for (Map.Entry<String, Set<Room>> entry : levels.get(ss13).entrySet()) {
+            if (entry.getValue().contains(targetRoom)) {
+                return entry.getKey();
+            }
+        }
+        throw new NoSuchThingException("Room not found in any area in level " + ss13);
+    }
+
+    public String getLevelForRoom(Room current) throws NoSuchThingException {
+        for (Map.Entry<String, Map<String, Set<Room>>> entry : levels.entrySet()) {
+            for (Set<Room> entry2 : entry.getValue().values()) {
+                for (Room r : entry2) {
+                    if (r == current) {
+                        return entry.getKey();
+                    }
+                }
+            }
+        }
+        throw new NoSuchThingException("Room not found in any level");
+    }
+
+    public Collection<Room> getRoomsForLevel(String level) {
+        Set<Room> result = new HashSet<>();
+        for (Set<Room> set : levels.get(level).values()) {
+            result.addAll(set);
+        }
+        return result;
+    }
+
+    public void setMapReferenceForAllRooms() {
+        for (Room r : getRooms()) {
+            r.setMap(this);
+        }
     }
 }

@@ -66,12 +66,12 @@ public class DimensionPortal extends GameObject {
         protected void execute(GameData gameData, Actor performingClient) {
             performingClient.moveIntoRoom(destination);
             performingClient.addTolastTurnInfo("You went through the portal!");
-            if (performingClient.getCharacter().checkInstance((GameCharacter gc ) -> gc instanceof SeeOnlyThisRoomTypeDecorator)) {
-                performingClient.removeInstance((GameCharacter gc ) -> gc instanceof SeeOnlyThisRoomTypeDecorator);
-            }
-            if (destination.getType() == RoomType.outer || destination.getType() == RoomType.derelict) {
-                performingClient.setCharacter(new SeeOnlyThisRoomTypeDecorator(performingClient.getCharacter(), destination.getType()));
-            }
+//            if (performingClient.getCharacter().checkInstance((GameCharacter gc ) -> gc instanceof SeeOnlyThisRoomTypeDecorator)) {
+//                performingClient.removeInstance((GameCharacter gc ) -> gc instanceof SeeOnlyThisRoomTypeDecorator);
+//            }
+//            if (destination.getType() == RoomType.outer || destination.getType() == RoomType.derelict) {
+//                performingClient.setCharacter(new SeeOnlyThisRoomTypeDecorator(performingClient.getCharacter(), destination.getType()));
+//            }
         }
 
         @Override

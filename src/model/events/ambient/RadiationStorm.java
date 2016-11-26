@@ -4,6 +4,7 @@ import graphics.sprites.Sprite;
 import model.events.Event;
 import model.events.damage.RadiationDamage;
 import model.items.NoSuchThingException;
+import model.map.GameMap;
 import model.objects.consoles.AIConsole;
 import util.MyRandom;
 import model.Actor;
@@ -50,7 +51,7 @@ public class RadiationStorm extends AmbientEvent {
 
 	private void maintainStorm(GameData gameData) {
 		roundsLeft--;
-		for (Room r : gameData.getMap().getSideLocations().get(side)) {
+		for (Room r : gameData.getMap().getArea("ss13", GameMap.getSideString(side))) {
 			hurtActorsInRoom(r, this.damage, gameData);
 		}
 		this.damage = randomDamage();
@@ -71,7 +72,7 @@ public class RadiationStorm extends AmbientEvent {
             e.printStackTrace();
         }
 
-		for (Room r : gameData.getMap().getSideLocations().get(side)) {
+		for (Room r : gameData.getMap().getArea("ss13", GameMap.getSideString(side))) {
 			r.removeEvent(this);
 		}
 		
@@ -87,7 +88,7 @@ public class RadiationStorm extends AmbientEvent {
 		roundsLeft = MyRandom.nextInt(3) + 2;
 		this.damage = randomDamage();
 		side = MyRandom.nextInt(4);
-		String sideStr = gameData.getMap().getSideString(side);
+		String sideStr = GameMap.getSideString(side);
 
         try {
             gameData.findObjectOfType(AIConsole.class).informOnStation("Radiation storm detected, please evacuate " + sideStr + " side of station.", gameData);
@@ -96,13 +97,13 @@ public class RadiationStorm extends AmbientEvent {
         }
 
 
-        for (Room r : gameData.getMap().getSideLocations().get(side)) {
+        for (Room r : gameData.getMap().getArea("ss13", GameMap.getSideString(side))) {
 			r.addEvent(this);
 		}
 		
 		for (NPC npc : gameData.getNPCs()) {
 			if (npc.getMovementBehavior() instanceof MeanderingHumanMovement) {
-				npc.setMoveBehavior(new AvoidRoomsMovement(gameData.getMap().getSideLocations().get(side)));
+				npc.setMoveBehavior(new AvoidRoomsMovement(gameData.getMap().getArea("ss13", GameMap.getSideString(side))));
 			}
 		}
 	}

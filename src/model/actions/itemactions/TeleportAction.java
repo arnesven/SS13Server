@@ -48,7 +48,9 @@ public class TeleportAction extends Action {
     protected void execute(GameData gameData, Actor performingClient) {
         performingClient.addTolastTurnInfo("You used the teleporter on " +
                                         (target==performingClient?"yourself.":target.getPublicName()));
-        target.addTolastTurnInfo(performingClient.getPublicName() + " is using the teleporter on you!");
+        if (target != performingClient) {
+            target.addTolastTurnInfo(performingClient.getPublicName() + " is using the teleporter on you!");
+        }
         target.setCharacter(new AlterMovement(target.getCharacter(), "teleport", true, 0));
         teleporter.useOnce();
 

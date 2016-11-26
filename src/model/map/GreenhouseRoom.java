@@ -2,6 +2,7 @@ package model.map;
 
 import model.items.general.FireExtinguisher;
 import model.items.general.Tools;
+import model.objects.general.BioScanner;
 
 public class GreenhouseRoom extends Room {
 
@@ -11,6 +12,7 @@ public class GreenhouseRoom extends Room {
 	
 		this.addItem(new FireExtinguisher());
 		this.addItem(new Tools());
+        this.addObject(new BioScanner(this));
 	}
 	
 }

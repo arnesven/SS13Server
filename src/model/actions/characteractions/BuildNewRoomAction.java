@@ -129,8 +129,14 @@ public class BuildNewRoomAction extends Action {
                                 width, height, neighs, doors, RoomType.hall);
         newRoom.setMap(gameData.getMap());
         GameMap.joinRooms(newRoom, current);
-
-        gameData.getMap().addRoom(newRoom);
+        String level = null;
+        try {
+            level = gameData.getMap().getLevelForRoom(current);
+            gameData.getMap().addRoom(newRoom, level,
+                    gameData.getMap().getAreaForRoom(level, current));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
 
 
         return "Annex #" + newRoom.getID();

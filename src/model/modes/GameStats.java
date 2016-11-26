@@ -224,7 +224,7 @@ public abstract class GameStats {
         Actor winner = whoGotMostMoney();
         if (winner != null) {
             try {
-                res += "<tr><td colspan=\"2\"> " + winner.getPublicName() + " accrued the most money: " +
+                res += "<tr><td colspan=\"2\"> " + winner.getBaseName() + " accrued the most money: " +
                         ((MoneyStack) GameItem.getItemFromActor(winner, new MoneyStack(1))).getAmount() + ".";
             } catch (NoSuchThingException e) {
 
