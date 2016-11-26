@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import model.GameData;
+import model.modes.GameMode;
 import util.Logger;
 
 public class SummaryCommandHandler extends AbstractCommandHandler {
 
     private String oldSummary = "No previous game summary...";
+    private GameMode mode = null;
 
 	public SummaryCommandHandler(GameData gameData) {
 		super(gameData);
@@ -20,16 +22,12 @@ public class SummaryCommandHandler extends AbstractCommandHandler {
 		if (command.equals("SUMMARY")) {
 
             try {
-                if (gameData.getGameMode() != null &&
-                        gameData.getPlayerForClid(clid).getCharacter() != null &&
-                        gameData.getGameMode().gameOver(gameData)) {
+                if (mode != gameData.getGameMode()) {
                     oldSummary = gameData.getSummary(); // is still a bug here...
+                    mode = gameData.getGameMode();
                 }
             } catch (IllegalStateException ise) {
                 Logger.log(Logger.INTERESTING, ise.getMessage());
-            } catch (NullPointerException npe) {
-                npe.printStackTrace();
-
             }
             oos.writeObject(oldSummary);
 			return true;

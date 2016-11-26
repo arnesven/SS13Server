@@ -20,7 +20,10 @@ public class ChatHandler extends AbstractCommandHandler {
     @Override
     public boolean handleCommand(String command, String clid, String rest, ObjectOutputStream oos) throws IOException {
         if (command.contains("CHATPUT")) {
+            rest = rest.substring(1);
+            gameData.chatWasCommand(rest);
             gameData.getChat().add(clid + ": " + rest);
+
             oos.writeObject("ACK");
             return true;
         } else if (command.contains("CHATGET")) {

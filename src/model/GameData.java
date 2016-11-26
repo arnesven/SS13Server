@@ -245,7 +245,7 @@ public class GameData implements Serializable {
 	}
 
 	
-	private void allClearReady() {
+	public void allClearReady() {
 		for (Player c : players.values()) {
 			c.setReady(false);
 		}
@@ -296,6 +296,7 @@ public class GameData implements Serializable {
 			executeLateAction();
 			informPlayersOfRoomHappenings();
 			if (gameMode.gameOver(this)) {
+                getChat().serverSay("Game is over!");
 				gameState = GameState.PRE_GAME;
 				//round = 0; <-- Don't do this, if you do
 				//               the gamemode wont be able to
@@ -576,11 +577,6 @@ public class GameData implements Serializable {
 			}
 		}
 
-        try {
-            findObjectOfType(AIConsole.class).addCustomLawToAvailable(sets[2]);
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
 
         if (sets.length == 4) {
             pl.setSettings(sets[3]);
@@ -708,5 +704,20 @@ public class GameData implements Serializable {
 
     public ChatMessages getChat() {
         return chatMessages;
+    }
+
+    public boolean chatWasCommand(String rest) {
+        if (rest.startsWith("/")) {
+            if (rest.contains("/ailaw ")) {
+                try {
+                    findObjectOfType(AIConsole.class).addCustomLawToAvailable(rest.replace("/ailaw ", ""));
+                    getChat().serverSay("New AI Law added");
+                    return true;
+                } catch (NoSuchThingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return false;
     }
 }

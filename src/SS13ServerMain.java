@@ -38,6 +38,8 @@ public class SS13ServerMain {
                     Logger.log(Logger.CRITICAL, "TRYING TO RECOVER DATA");
                     gameData = GameRecovery.recover();
                     Logger.log(Logger.CRITICAL, "GAME RECOVERED!");
+                    gameData.getChat().serverSay("Server has been recovered from crash");
+                    gameData.allClearReady();
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 } catch (FileNotFoundException fnfe) {
