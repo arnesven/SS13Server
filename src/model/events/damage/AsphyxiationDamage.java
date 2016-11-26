@@ -18,7 +18,7 @@ public class AsphyxiationDamage extends DamagerImpl {
 
 	@Override
 	public String getText() {
-		return "your gasping for air!";
+		return "you're gasping for air!";
 	}
 
 	@Override

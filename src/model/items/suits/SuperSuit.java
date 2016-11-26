@@ -7,10 +7,7 @@ import model.characters.crew.CrewCharacter;
 import model.characters.decorators.ChangeAppearanceActionDecorator;
 import model.characters.decorators.DisguisedAs;
 import model.characters.decorators.InstanceChecker;
-import model.characters.general.GameCharacter;
-import model.characters.general.HorrorCharacter;
-import model.characters.general.OperativeCharacter;
-import model.characters.general.RobotCharacter;
+import model.characters.general.*;
 import model.characters.visitors.VisitorCharacter;
 import util.Logger;
 
@@ -122,6 +119,7 @@ public class SuperSuit extends SuitItem {
         chars.add(new HorrorCharacter());
         chars.add(new OperativeCharacter(1,1));
         chars.add(new RobotCharacter("TARS", 1, 20.0));
+        chars.add(new SantaClauseCharacter(3));
         return chars;
     }
 

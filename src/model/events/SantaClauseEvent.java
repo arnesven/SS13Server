@@ -20,7 +20,7 @@ public class SantaClauseEvent extends AmbientEvent {
 
     @Override
     protected double getStaticProbability() {
-        return 0.01;
+        return AmbientEvent.everyNGames(3);
     }
 
     @Override

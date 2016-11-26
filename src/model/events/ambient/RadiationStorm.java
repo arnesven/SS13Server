@@ -90,7 +90,7 @@ public class RadiationStorm extends AmbientEvent {
 		String sideStr = gameData.getMap().getSideString(side);
 
         try {
-            gameData.findObjectOfType(AIConsole.class).informOnStation("AI; \"Radiation storm detected, please evacuate " + sideStr + " side of station.\"", gameData);
+            gameData.findObjectOfType(AIConsole.class).informOnStation("Radiation storm detected, please evacuate " + sideStr + " side of station.", gameData);
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package model.modes;
 
 import java.io.Serializable;
+import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Set;
 
 import model.PlayerSettings;
 import model.characters.general.AICharacter;
+import model.characters.general.SantaClauseCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.events.*;
 import model.events.ambient.*;
@@ -122,6 +124,10 @@ public abstract class GameMode implements Serializable {
         events.put("marshals",         new GalacticFederalMarshalsEvent());
         events.put("santa",            new SantaClauseEvent());
 	}
+
+    public static int getNumberOfAvailableModes() {
+        return knownModes.length;
+    }
 
     public abstract String getName();
 

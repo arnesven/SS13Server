@@ -24,9 +24,11 @@ public class MeanderingMovement implements MovementBehavior {
 	public void move(NPC npc) {
 		if (MyRandom.nextDouble() < probability) {
 			List<Room> listOfNeighboringRooms = npc.getPosition().getNeighborList();
-			Room dest = MyRandom.sample(listOfNeighboringRooms);
-			npc.moveIntoRoom(dest);
-			Logger.log(npc.getName() + " is now in " + dest.getName());
+            if (listOfNeighboringRooms.size() > 0) {
+                Room dest = MyRandom.sample(listOfNeighboringRooms);
+                npc.moveIntoRoom(dest);
+                Logger.log(npc.getName() + " is now in " + dest.getName());
+            }
 		}
 	}
 	

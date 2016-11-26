@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Map.Entry;
 
+import comm.chat.ChatMessages;
 import model.characters.GameCharacterLambda;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
@@ -54,6 +55,7 @@ public class GameData implements Serializable {
 	private List<Event> events = new ArrayList<>();
 	private List<Event> moveEvents = new ArrayList<>();
     private boolean runningEvents;
+    private ChatMessages chatMessages = new ChatMessages();
 
 
     public GameData() {
@@ -371,6 +373,7 @@ public class GameData implements Serializable {
         this.runningEvents = false;
 		gameMode.setup(this);
 		Logger.log("Game mode set-upped!");
+        getChat().serverSay("New game started, mode: " + selectedMode);
 	}
 
 	
@@ -547,11 +550,13 @@ public class GameData implements Serializable {
 		return selectedMode ;
 	}
 
-	public String getPollData() {
+	public String getPollData(String clid) {
         String del = "<player-data-part>";
+        //int numModes = GameMode.getNumberOfAvailableModes();
 		return makeStringFromReadyClients()+ del + getGameState().val + del +
-                getRound() + del + getNoOfRounds() + del +
-                getSelectedMode() + del + GameMode.getAvailableModesAsString();
+                getRound() + del + getNoOfRounds() + del + chatMessages.getLastMessageIndex() + del +
+                getSelectedMode() + del +
+                GameMode.getAvailableModesAsString();
 	}
 
 	public void setSettings(String rest, Player pl) {
@@ -699,5 +704,9 @@ public class GameData implements Serializable {
 
     public void removeEvent(Event ev) {
         events.remove(ev);
+    }
+
+    public ChatMessages getChat() {
+        return chatMessages;
     }
 }

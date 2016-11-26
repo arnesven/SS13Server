@@ -32,7 +32,7 @@ public abstract class AttackIfPossibleBehavior implements ActionBehavior {
 			Weapon weaponToUse = getWeapon(npc);
 			atk.addWithWhat(weaponToUse);
 			args.add(randomTarget.getName());
-			args.add(weaponToUse.getPublicName(npc));
+			args.add(weaponToUse.getFullName(npc));
 			atk.setArguments(args, npc);
 			Logger.log(npc.getPublicName() + " is attacking " + randomTarget.getName() + "!");
 			atk.printAndExecute(gameData);

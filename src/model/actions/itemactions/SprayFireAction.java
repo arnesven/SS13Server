@@ -29,7 +29,9 @@ public class SprayFireAction extends Action {
 		if (GameItem.hasAnItem(performingClient, new Flamer())) {
             for (Actor a : performingClient.getPosition().getActors()) {
 				if (a != performingClient) {
-                    (new Flamer()).doAttack(performingClient, a.getAsTarget(), gameData);
+                    if (!a.isDead()) {
+                        (new Flamer()).doAttack(performingClient, a.getAsTarget(), gameData);
+                    }
 				}
 			}
 			for (Object o : performingClient.getPosition().getObjects()) {

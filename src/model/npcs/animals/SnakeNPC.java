@@ -20,7 +20,10 @@ public class SnakeNPC extends AnimalNPC {
 	public boolean hasInventory() {
 		return false;
 	}
-	
-	
 
+
+    @Override
+    public boolean shouldBeCleanedUp() {
+        return true;
+    }
 }

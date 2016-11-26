@@ -43,4 +43,9 @@ public class SantaClauseCharacter extends GameCharacter {
     public void gotAGift(Actor a) {
         receivedGiftSet.add(a);
     }
+
+    @Override
+    public boolean isCrew() {
+        return false;
+    }
 }

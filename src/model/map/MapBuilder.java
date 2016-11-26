@@ -10,6 +10,8 @@ import model.modes.NoPressureEverEvent;
 import model.npcs.*;
 import model.npcs.animals.CatNPC;
 import model.npcs.animals.ChimpNPC;
+import model.npcs.behaviors.MeanderingMovement;
+import model.npcs.behaviors.RandomSpeechBehavior;
 import model.npcs.robots.RobotNPC;
 import model.objects.AITurret;
 import model.objects.StasisPod;
@@ -153,6 +155,7 @@ public class MapBuilder {
         Room derelictLab =  new Room(36, "Derelict Lab", "", 39, 43, 2, 2, new int[]{35}, new double[]{41.0, 43.5}, RoomType.derelict);
         result.add(derelictLab);
         Room derelictGen =  new Room(37, "Derelict Generator", "", 40, 45, 3, 3, new int[]{35}, new double[]{41.5, 45.0}, RoomType.derelict);
+
         result.add(derelictGen);
         Room derelictAirLock =  new Room(38, "Derelict Air Lock", "", 42, 44, 1, 1, new int[]{35}, new double[]{42.0, 44.5}, RoomType.derelict);
         result.add(derelictAirLock);

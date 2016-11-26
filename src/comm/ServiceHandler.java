@@ -48,6 +48,8 @@ public class ServiceHandler {
 		handlers.add(new SettingsCommandHandler(gameData));
 
 		handlers.add(new ResourceCommandHandler(gameData));
+
+        handlers.add(new ChatHandler(gameData));
 		
 	}
 

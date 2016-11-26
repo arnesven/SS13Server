@@ -6,11 +6,16 @@ import model.GameData;
 import model.Player;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.DimensionTrappedDecorator;
+import model.characters.general.AbandonedBotCharacter;
 import model.events.ambient.AmbientEvent;
 import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
 import model.map.Room;
 import model.npcs.AlienNPC;
+import model.npcs.NPC;
+import model.npcs.behaviors.MeanderingMovement;
+import model.npcs.behaviors.RandomSpeechBehavior;
+import model.npcs.robots.RobotNPC;
 import model.objects.RedDimensionPortal;
 import model.objects.consoles.AIConsole;
 import model.objects.general.DimensionPortal;
@@ -24,7 +29,7 @@ import java.util.List;
  */
 public class AlienDimensionEvent extends AmbientEvent {
 
-    private static final double occurranceChance = 0.015;
+    private static final double occurranceChance = AmbientEvent.everyNGames(5);
     private boolean hasHappened = false;
     private Room targetRoom;
     private Room otherDim;
@@ -98,11 +103,9 @@ public class AlienDimensionEvent extends AmbientEvent {
             if (MyRandom.nextDouble() < 0.5) {
                 otherDim.addItem(new CosmicArtifact());
             } else {
-                Room derelictBridge = gameData.getRoom("Derelict Bridge");
-                this.portal3 = new RedDimensionPortal(gameData, otherDim, derelictBridge, "Red");
-                otherDim.addObject(portal3);
-                this.portal4 = new RedDimensionPortal(gameData, derelictBridge, otherDim, "Red");
-                derelictBridge.addObject(portal4);
+                setUpDerelictStation(gameData);
+
+
             }
         } catch (NoSuchThingException e) {
             e.printStackTrace();
@@ -144,5 +147,28 @@ public class AlienDimensionEvent extends AmbientEvent {
     @Override
     protected double getStaticProbability() {
         return occurranceChance;
+    }
+
+    public void setUpDerelictStation(GameData gameData) {
+        Room derelictBridge = null;
+        try {
+            derelictBridge = gameData.getRoom("Derelict Bridge");
+            this.portal3 = new RedDimensionPortal(gameData, otherDim, derelictBridge, "Red");
+            otherDim.addObject(portal3);
+            this.portal4 = new RedDimensionPortal(gameData, derelictBridge, otherDim, "Red");
+            derelictBridge.addObject(portal4);
+
+
+            Room derelictGenerator  = gameData.getRoom("Derelict Generator");
+            NPC abandoned = new RobotNPC(new AbandonedBotCharacter(derelictGenerator), new MeanderingMovement(0),
+                                         new RandomSpeechBehavior("resources/ABANDONED.TXT"), derelictGenerator);
+            gameData.addNPC(abandoned);
+
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 }

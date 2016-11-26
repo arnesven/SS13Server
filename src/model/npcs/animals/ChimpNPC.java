@@ -15,7 +15,10 @@ public class ChimpNPC extends AnimalNPC {
 	public boolean hasInventory() {
 		return true;
 	}
-	
-	
 
+
+    @Override
+    public boolean shouldBeCleanedUp() {
+        return true;
+    }
 }

@@ -21,7 +21,7 @@ public class ReadyCommandHandler extends AbstractCommandHandler {
 		if (command.equals("READY")) {
 			String yesNo = sc.next();
 			gameData.setPlayerReady(clid, yesNo.equals("YES"));
-			oos.writeObject(gameData.getPollData());
+			oos.writeObject(gameData.getPollData(clid));
 			sc.close();
 			return true;
 		} 

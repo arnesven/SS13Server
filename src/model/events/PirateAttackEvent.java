@@ -20,7 +20,7 @@ import java.util.List;
  * Created by erini02 on 26/04/16.
  */
 public class PirateAttackEvent extends AmbientEvent {
-    private static final double occurranceChance = 0.015;
+    private static final double occurranceChance = AmbientEvent.everyNGames(5);
     private boolean hasHappened = false;
     private int piratesRemainingOnBarge;
     private int pirateNum = 1;
@@ -98,7 +98,7 @@ public class PirateAttackEvent extends AmbientEvent {
 
         for (int i = piratesThisTurn; i > 0; --i) {
             AbstractPirateNPC pirate;
-            if (i == 1 && MyRandom.nextDouble() < 0.5 && piratesRemainingOnBarge == 0) {
+            if (i == 1 && MyRandom.nextDouble() < 0.5 && piratesRemainingOnBarge == 1) {
                 pirate = new PirateCaptainNPC(airLock, targetRoom);
             } else {
                 pirate = new PirateNPC(airLock, pirateNum++, targetRoom);

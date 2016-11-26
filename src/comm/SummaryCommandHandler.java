@@ -23,12 +23,15 @@ public class SummaryCommandHandler extends AbstractCommandHandler {
                 if (gameData.getGameMode() != null &&
                         gameData.getPlayerForClid(clid).getCharacter() != null &&
                         gameData.getGameMode().gameOver(gameData)) {
-                    oldSummary = gameData.getSummary();
+                    oldSummary = gameData.getSummary(); // is still a bug here...
                 }
             } catch (IllegalStateException ise) {
                 Logger.log(Logger.INTERESTING, ise.getMessage());
+            } catch (NullPointerException npe) {
+                npe.printStackTrace();
+
             }
-			oos.writeObject(oldSummary);
+            oos.writeObject(oldSummary);
 			return true;
 		}
 		return false;

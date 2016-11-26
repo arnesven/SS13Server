@@ -46,7 +46,7 @@ public class ShopFromMerchantAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        if (selectedItem == null) {
+        if (selectedItem == null || !merchant.getItems().contains(selectedItem)) {
             performingClient.addTolastTurnInfo(merchant.getPublicName() + "; Sorry, I'm sold out of that item.");
             return;
         }

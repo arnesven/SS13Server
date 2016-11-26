@@ -62,6 +62,15 @@ public class PowerSuit extends SuitItem {
         }
 
         @Override
+        public String getPublicName() {
+            String str = "Power Suit";
+            if (isDead()) {
+                return str + " (dead)";
+            }
+            return str;
+        }
+
+        @Override
         public boolean isEncumbered() {
             return false;
         }
@@ -85,11 +94,11 @@ public class PowerSuit extends SuitItem {
             if (damager instanceof ColdDamage || damager instanceof AsphyxiationDamage) {
                 return;
             }
-             double healthBefore = something.getCharacter().getHealth();
+             double healthBefore = getActor().getCharacter().getHealth();
 
             super.beExposedTo(something, damager);
 
-            if (something.getCharacter().getHealth() < healthBefore
+            if (getActor().getCharacter().getHealth() < healthBefore
                     && damager instanceof ExplosiveDamage) {
                 suitTakeDamage(healthBefore - something.getCharacter().getHealth(), something);
             }
