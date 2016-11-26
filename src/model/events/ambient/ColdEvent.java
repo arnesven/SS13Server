@@ -10,6 +10,7 @@ import model.characters.decorators.ChilledDecorator;
 import model.events.Event;
 import model.events.damage.ColdDamage;
 import model.map.Room;
+import util.MyRandom;
 
 public class ColdEvent extends Event {
 
@@ -24,7 +25,9 @@ public class ColdEvent extends Event {
 		for (Actor a : room.getActors()) {
 			if (!room.hasFire()) {
 				if (isChilled(a)) {
-					a.getCharacter().beExposedTo(null, new ColdDamage());
+                    if (MyRandom.nextDouble() < 0.75) {
+                        a.getCharacter().beExposedTo(null, new ColdDamage());
+                    }
 				} else {
 					makeChilled(a);
 					a.addTolastTurnInfo("You are feeling very cold.");

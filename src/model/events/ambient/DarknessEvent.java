@@ -16,11 +16,13 @@ import model.objects.consoles.PowerSource;
 
 public abstract class DarknessEvent extends Event {
 
-	private PowerSource gc;
+    private final SimulatePower simPower;
+    private PowerSource gc;
 
     protected abstract PowerSource findPowerSource(GameData gameData) throws NoSuchThingException;
 
-	public DarknessEvent(GameData gameData) {
+	public DarknessEvent(GameData gameData, SimulatePower simulatePower) {
+        this.simPower = simulatePower;
         try {
             this.gc = findPowerSource(gameData);
         } catch (NoSuchThingException e) {
@@ -31,7 +33,7 @@ public abstract class DarknessEvent extends Event {
 
     @Override
 	public void apply(GameData gameData) {
-		for (Room r : gameData.getRooms()) {
+		for (Room r : simPower.getAffactedRooms(gameData)) {
 			for (Actor a : r.getActors()) {
 				if (gc.getNoLightRooms().contains(r)) {
 					addDarkness(a);

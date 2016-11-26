@@ -4,6 +4,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.characteractions.NuclearExplosiveDamage;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.objectactions.FreezeYourselfAction;
@@ -11,6 +12,7 @@ import model.characters.decorators.FrozenDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
 import model.events.Event;
+import model.events.damage.Damager;
 import model.items.NoSuchThingException;
 import model.map.Room;
 import model.npcs.NPC;
@@ -158,6 +160,16 @@ public class StasisPod extends ElectricalMachinery {
             };
             gameData.addEvent(timer);
         }
+    }
+
+    @Override
+    public void beExposedTo(Actor performingClient, Damager damage) {
+        if (damage instanceof NuclearExplosiveDamage) {
+            if (this.person != null) {
+                this.person.getAsTarget().beExposedTo(performingClient, damage);
+            }
+        }
+        super.beExposedTo(performingClient, damage);
     }
 
     private void cancelTimer() {

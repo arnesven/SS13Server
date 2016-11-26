@@ -111,23 +111,8 @@ public abstract class GameMode implements Serializable {
 		events.put("explosion",        new SpontaneousExplosionEvent());
 		events.put("crazyness",        new SpontaneousCrazyness());
 		events.put("radiation storms", new RadiationStorm());
-		events.put("simulate power",   new SimulatePower() {
-            @Override
-            public Collection<Room> getAffactedRooms(GameData gameData) {
-                return gameData.getRooms();
-            }
-        });
-		events.put("Power flux", new PowerFlux() {
-            @Override
-            protected PowerSource findePowerSource(GameData gameData) throws NoSuchThingException {
-                for (GameObject obj : gameData.getRoom("Generator").getObjects()) {
-                    if (obj instanceof PowerSource) {
-                        return (PowerSource) obj;
-                    }
-                }
-                throw new NoSuchThingException("Did not find power source");
-            }
-        });
+
+		events.put("Power flux",       makePowerFluxEvent());
 		events.put("random husks",     new RandomHuskEvent());
         events.put("pirate attack",    new PirateAttackEvent());
         events.put("alien dimension",  new AlienDimensionEvent());
@@ -135,7 +120,24 @@ public abstract class GameMode implements Serializable {
         events.put("merchant",         new TravelingMerchantEvent());
         events.put("marshals",         new GalacticFederalMarshalsEvent());
         events.put("santa",            new SantaClauseEvent());
+        events.put("simulate power",   new SimulatePower() {
+            @Override
+            public Collection<Room> getAffactedRooms(GameData gameData) {
+                return gameData.getRooms();
+            }
+        });
+        events.put("derelict simpower", new SimulatePower() {
+            @Override
+            public Collection<Room> getAffactedRooms(GameData gameData) {
+                return gameData.getMap().getRoomsForLevel("derelict");
+            }
+        });
+
+
+
 	}
+
+
 
     public static int getNumberOfAvailableModes() {
         return knownModes.length;
@@ -697,6 +699,22 @@ public abstract class GameMode implements Serializable {
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
+    }
+
+
+
+    private Event makePowerFluxEvent() {
+        return new PowerFlux() {
+            @Override
+            protected PowerSource findePowerSource(GameData gameData) throws NoSuchThingException {
+                for (GameObject obj : gameData.getRoom("Generator").getObjects()) {
+                    if (obj instanceof PowerSource) {
+                        return (PowerSource) obj;
+                    }
+                }
+                throw new NoSuchThingException("Did not find power source");
+            }
+        };
     }
 
 

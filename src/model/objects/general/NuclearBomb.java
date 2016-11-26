@@ -8,9 +8,11 @@ import model.actions.characteractions.NuclearExplosiveDamage;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.events.NukeSetEvent;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.NuclearDisc;
 import model.map.Room;
+import model.map.RoomType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,17 +36,29 @@ public class NuclearBomb extends GameObject {
     }
 
     public void detonate(GameData gameData) {
-        for (Actor a : gameData.getActors()) {
-            if (gameData.getRooms().contains(a.getPosition())) {
-                a.getCharacter().beExposedTo(null, new NuclearExplosiveDamage());
+        String level = "ss13";
+        try {
+            level = gameData.getMap().getLevelForRoom(this.getPosition());
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+
+        for (Room r : gameData.getMap().getRoomsForLevel(level)) {
+            if (r.getType() != RoomType.hidden) {
+                for (Actor a : r.getActors()) {
+                    a.getCharacter().beExposedTo(null, new NuclearExplosiveDamage());
+                }
+                for (GameObject ob : r.getObjects()) {
+                    if (ob instanceof BreakableObject) {
+                        ((BreakableObject) ob).beExposedTo(null, new NuclearExplosiveDamage());
+                    }
+                }
             }
         }
 
-        for (GameObject ob : gameData.getObjects()) {
-            if (ob instanceof BreakableObject) {
-                ((BreakableObject) ob).beExposedTo(null, new NuclearExplosiveDamage());
-            }
-        }
+
+
+
     }
 
     public boolean deactivated() {

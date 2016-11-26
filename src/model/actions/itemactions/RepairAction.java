@@ -22,6 +22,7 @@ public class RepairAction extends TargetingAction {
 			Actor performingClient, Target target, GameItem item) {
 		target.addToHealth(1.0);
 		performingClient.addTolastTurnInfo("You repaired " + target.getName());
+        ((Repairable)target).doWhenRepaired(gameData);
 	}
 
 	@Override

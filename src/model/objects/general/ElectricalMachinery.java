@@ -79,5 +79,9 @@ public abstract class ElectricalMachinery extends BreakableObject
 	public void onPowerOn(GameData gameData) {  }
 	
 	public void onPowerOff(GameData gameData) {  }
-	
+
+    @Override
+    public void doWhenRepaired(GameData gameData) {
+
+    }
 }

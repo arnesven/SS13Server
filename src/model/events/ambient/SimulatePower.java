@@ -59,7 +59,7 @@ public abstract class SimulatePower extends Event {
 
     private void addDarknessEvent(GameData gameData) {
 		if (!alreadyAddedDarkness) {
-			gameData.addMovementEvent(new DarknessEvent(gameData) {
+			gameData.addMovementEvent(new DarknessEvent(gameData, this) {
                 @Override
                 protected PowerSource findPowerSource(GameData gameData) throws NoSuchThingException {
                     return SimulatePower.this.findPowerSource(gameData);
@@ -109,7 +109,7 @@ public abstract class SimulatePower extends Event {
 		List<Room> noLSRooms = gc.getNoLifeSupportRooms();
 		for (Room r : getAffactedRooms(gameData)) {
 			if (noLSRooms.contains(r)) {
-				roundsWithoutLS.put(r, roundsWithoutLS.get(r) + 1);
+				roundsWithoutLS.put(r, Math.min(roundsWithoutLS.get(r) + 1, 2));
 			} else {
 				roundsWithoutLS.put(r, Math.max(0, roundsWithoutLS.get(r) - 1));
 			}

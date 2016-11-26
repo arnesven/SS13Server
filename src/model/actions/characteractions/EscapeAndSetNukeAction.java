@@ -17,6 +17,7 @@ import model.modes.OperativesGameMode;
 import model.objects.consoles.AIConsole;
 import model.objects.general.GameObject;
 import model.objects.general.NuclearBomb;
+import util.MyRandom;
 
 public class EscapeAndSetNukeAction extends Action {
 
@@ -38,13 +39,17 @@ public class EscapeAndSetNukeAction extends Action {
             ((Player) performingClient).setNextMove(nukieShip.getID()); // TODO: will crash if operative is an NPC
             if (hasTheDisk(performingClient) != null) {
                 performingClient.getItems().remove(hasTheDisk(performingClient));
-
+                NuclearBomb nuke = null;
                 for (GameObject ob : nukieShip.getObjects()) {
                     if (ob instanceof NuclearBomb) {
-                        gameData.addEvent(new NukeSetByOperativesEvent((NuclearBomb) ob));
+                        nuke = (NuclearBomb) ob;
+                        gameData.addEvent(new NukeSetByOperativesEvent(nuke));
                         break;
                     }
                 }
+                performingClient.addTolastTurnInfo("You activated the nuke and sent it to SS13.");
+                nukieShip.getObjects().remove(nuke);
+                MyRandom.sample(gameData.getRooms()).addObject(nuke);
 
 
             } else {

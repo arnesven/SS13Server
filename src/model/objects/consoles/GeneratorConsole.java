@@ -19,9 +19,9 @@ public class GeneratorConsole extends Console {
 
     private PowerSource powerSource;
 
-	public GeneratorConsole(Room r) {
+	public GeneratorConsole(Room r, GameData gameData) {
 		super("Power Console", r);
-        powerSource = new PowerSource(45.0, r) {
+        powerSource = new PowerSource(45.0, r, gameData) {
             @Override
             protected List<Room> getAffectedRooms(GameData gameData) {
                 return gameData.getRooms();

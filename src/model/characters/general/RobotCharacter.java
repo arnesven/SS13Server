@@ -10,6 +10,10 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.*;
+import model.events.damage.AsphyxiationDamage;
+import model.events.damage.ColdDamage;
+import model.events.damage.Damager;
+import model.events.damage.RadiationDamage;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
 import model.items.general.RobotParts;
@@ -51,6 +55,14 @@ public class RobotCharacter extends GameCharacter {
     @Override
     public List<GameItem> getStartingItems() {
         return new ArrayList<GameItem>();
+    }
+
+    @Override
+    public void beExposedTo(Actor something, Damager damager) {
+        if (damager instanceof ColdDamage || damager instanceof AsphyxiationDamage) {
+            return;
+        }
+        super.beExposedTo(something, damager);
     }
 
     @Override

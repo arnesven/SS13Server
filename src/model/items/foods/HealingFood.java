@@ -2,6 +2,8 @@ package model.items.foods;
 
 import model.Actor;
 import model.GameData;
+import model.characters.decorators.ChilledDecorator;
+import model.characters.general.GameCharacter;
 
 public abstract class HealingFood extends FoodItem {
 
@@ -22,6 +24,9 @@ public abstract class HealingFood extends FoodItem {
         } else {
             eatenBy.getAsTarget().addToHealth(0.5);
             eatenBy.addTolastTurnInfo("Mmm, tastes good.");
+        }
+        if (eatenBy.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof ChilledDecorator)) {
+            eatenBy.removeInstance((GameCharacter gc) -> gc instanceof ChilledDecorator);
         }
 
 	}

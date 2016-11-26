@@ -9,6 +9,7 @@ import model.map.Room;
 import model.objects.general.BreakableObject;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
+import model.objects.general.Repairable;
 import util.Logger;
 
 import java.io.Serializable;
@@ -17,8 +18,7 @@ import java.util.*;
 /**
  * Created by erini02 on 26/11/16.
  */
-public abstract class PowerSource extends BreakableObject {
-
+public abstract class PowerSource extends BreakableObject implements Repairable {
 
 
     @Override
@@ -61,13 +61,12 @@ public abstract class PowerSource extends BreakableObject {
         return startingPower;
     }
 
-    public PowerSource(double normal_output, Room r) {
+    public PowerSource(double normal_output, Room r, GameData gameData) {
         super("Power Source", 3, r);
         this.startingPower = normal_output;
         level = startingPower;
         setupPrio();
         setupUpdaters();
-
 
 
     }
@@ -173,7 +172,7 @@ public abstract class PowerSource extends BreakableObject {
 
 
         List<Room> allRooms = new ArrayList<>();
-        allRooms.addAll(gameData.getRooms());
+        allRooms.addAll(getAffectedRooms(gameData));
 
         double noOfRooms = allRooms.size();
         double lsPowerPerRoom    = startingPower * LIFE_SUPPORT_POWER_USE_PCT / noOfRooms;
@@ -195,9 +194,9 @@ public abstract class PowerSource extends BreakableObject {
         Logger.log(" POWER: Lighting (MW per room)    : " + lightPowerPerRoom);
         Logger.log(" POWER: Equipment (MW per machine): " + eqPowerPer);
 
-        noLight.addAll(gameData.getRooms());
+        noLight.addAll(getAffectedRooms(gameData));
         Collections.shuffle(noLight);
-        noLifeSupport.addAll(gameData.getRooms());
+        noLifeSupport.addAll(getAffectedRooms(gameData));
         Collections.shuffle(noLifeSupport);
 
         Collections.sort(noPower);
@@ -275,4 +274,8 @@ public abstract class PowerSource extends BreakableObject {
         return history;
     }
 
+    @Override
+    public void doWhenRepaired(GameData gameData) {
+
+    }
 }

@@ -1,6 +1,7 @@
 package model.npcs.robots;
 
 import model.Actor;
+import model.GameData;
 import model.characters.general.GameCharacter;
 import model.events.damage.AsphyxiationDamage;
 import model.events.damage.ColdDamage;
@@ -90,5 +91,10 @@ public class RobotNPC extends NPC implements Repairable {
         if (availableRobotNames != null) {
             availableRobotNames.remove(chosenName);
         }
+    }
+
+    @Override
+    public void doWhenRepaired(GameData gameData) {
+
     }
 }

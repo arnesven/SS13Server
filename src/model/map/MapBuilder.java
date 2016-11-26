@@ -3,9 +3,11 @@ import java.util.ArrayList;
 
 import model.GameData;
 import model.characters.general.AbandonedBotCharacter;
+import model.events.ambient.ColdEvent;
 import model.items.general.FireExtinguisher;
 import model.items.general.MoneyStack;
 import model.items.general.NuclearDisc;
+import model.items.general.Tools;
 import model.items.suits.SpaceSuit;
 import model.modes.NoPressureEverEvent;
 import model.npcs.*;
@@ -18,10 +20,7 @@ import model.objects.AITurret;
 import model.objects.StasisPod;
 import model.objects.consoles.*;
 import model.objects.consoles.AirLockControl;
-import model.objects.general.EvidenceBox;
-import model.objects.general.Lockers;
-import model.objects.general.MailBox;
-import model.objects.general.MedkitDispenser;
+import model.objects.general.*;
 
 
 /**
@@ -199,7 +198,7 @@ public class MapBuilder {
 		gm.addRoom(sickbay, "ss13", "port");
 		gm.addRoom(new AirLockRoom(25, 3    , 5,  0, 1, 1, new int[]{24}        ,         new double[]{6.0, 0.5}  ), "ss13", "port");
 
-		gm.addRoom(new GeneratorRoom(26, 6,  5, 3, 3, new int[]{5}         ,         new double[]{} ), "ss13", "center");
+		gm.addRoom(new GeneratorRoom(26, 6,  5, 3, 3, new int[]{5}         ,         new double[]{}, gameData ), "ss13", "center");
 		gm.addRoom(new Room(27, "Panorama Walkway"    , ""       , 1,  3, 1, 3, new int[]{1, 3}      ,         new double[]{}, RoomType.hall ), "ss13", "aft");
 		
 		Room nukieShip = new NukieShipRoom(28, new int[]{7, 21, 25}, new double[]{-1.0, -1.0});
@@ -215,6 +214,7 @@ public class MapBuilder {
 
         Room space = new Room(30, "Space", "", 0, 0, 1, 1, new int[]{}, new double[]{}, RoomType.space);
         space.addEvent(new NoPressureEverEvent(space));
+        space.addEvent(new ColdEvent(space));
         gm.addRoom(space, "ss13", "space");
 
         Room dummy = new Room(31, "Dummy", "", 18, 1, 0, 0,
@@ -232,11 +232,13 @@ public class MapBuilder {
         gm.addRoom(derelictHall, "derelict", "derelict");
         Room derelictLab =  new Room(36, "Derelict Lab", "", 39, 43, 2, 2, new int[]{35}, new double[]{41.0, 43.5}, RoomType.derelict);
         gm.addRoom(derelictLab, "derelict", "derelict");
-        Room derelictGen =  new Room(37, "Derelict Generator", "", 40, 45, 3, 3, new int[]{35}, new double[]{41.5, 45.0}, RoomType.derelict);
+        Room derelictGen =  new Room(37, "Derelict Generator", "", 40, 46, 3, 3, new int[]{35}, new double[]{41.5, 46.0}, RoomType.derelict);
 
         NPC abandoned = new RobotNPC(new AbandonedBotCharacter(derelictGen), new MeanderingMovement(0),
                 new RandomSpeechBehavior("resources/ABANDON.TXT"), derelictGen);
         gameData.addNPC(abandoned);
+        derelictGen.addObject(new DerelictPowerSource(derelictGen, gameData));
+        derelictGen.addItem(new Tools());
 
         gm.addRoom(derelictGen, "derelict", "derelict");
         Room derelictAirLock =  new Room(38, "Derelict Air Lock", "", 42, 44, 1, 1, new int[]{35}, new double[]{42.0, 44.5}, RoomType.derelict);
