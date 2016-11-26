@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.GameData;
 import model.items.general.Locatable;
+import model.map.Room;
 import model.objects.general.BreakableObject;
 import model.objects.general.GameObject;
 
@@ -91,11 +92,13 @@ public class SabotageObjective implements TraitorObjective {
 
 	public static List<BreakableObject> getBreakableObjects(GameData gameData2) {
 		List<BreakableObject> list = new ArrayList<>();
-		for (GameObject ob : gameData2.getObjects()) {
-			if (ob instanceof BreakableObject) {
-				list.add((BreakableObject)ob);
-			}
-		}
+        for (Room r : gameData2.getRooms()) {
+            for (Object o : r.getObjects()) {
+                if ( o instanceof BreakableObject) {
+                    list.add((BreakableObject) o);
+                }
+            }
+        }
 		return list;
 	}
 

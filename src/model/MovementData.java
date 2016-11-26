@@ -3,7 +3,9 @@ package model;
 import model.map.Room;
 import model.npcs.behaviors.PathFinding;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,6 +13,7 @@ import java.util.Map;
  */
 public class MovementData {
     private Map<Actor, Room> positions = new HashMap<>();
+
 
     public MovementData(GameData gameData) {
         for (Actor a : gameData.getActors()) {

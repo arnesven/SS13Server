@@ -57,6 +57,7 @@ public class GameData implements Serializable {
 	private List<Event> moveEvents = new ArrayList<>();
     private boolean runningEvents;
     private ChatMessages chatMessages = new ChatMessages();
+    private List<String> lostMessages = new ArrayList<>();
 
 
     public GameData() {
@@ -285,6 +286,7 @@ public class GameData implements Serializable {
 			runMovementEvents();
 
 			gameMode.setStartingLastTurnInfo();
+            sendLostMessages();
             forEachCharacter(((GameCharacter ch) -> ch.doAfterMovement(this)));
 			allClearReady();
 			clearAllDeadNPCs();
@@ -316,6 +318,7 @@ public class GameData implements Serializable {
 		}
 		
 	}
+
 
     private void forEachCharacter(GameCharacterLambda o) {
         for (Actor a : getActors()) {
@@ -718,12 +721,25 @@ public class GameData implements Serializable {
                     e.printStackTrace();
                 }
             }
-        } else if (gameState != GameState.PRE_GAME) {
+        } else if (gameState == GameState.ACTIONS) {
             for (Player p : getPlayersAsList()) {
                 p.addTolastTurnInfo(HTMLText.makeText("purple", clid + ": " + rest));
             }
+        } else if (gameState == GameState.MOVEMENT) {
+            lostMessages.add(HTMLText.makeText("purple", clid + ": " + rest));
+
         }
 
         return false;
+    }
+
+
+    private void sendLostMessages() {
+        for (Actor a : getActors()) {
+            for (String s : lostMessages) {
+                a.addTolastTurnInfo(s);
+            }
+        }
+        lostMessages.clear();
     }
 }
