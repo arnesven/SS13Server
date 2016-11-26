@@ -14,6 +14,7 @@ public class GeneratorRoom extends Room {
 		this.addObject(new ChemicalDispenser("Fuel Storage", 2, this));
 		this.addItem(new FireSuit());
 		this.addObject(new GeneratorConsole(this));
+
         this.addItem(new FireExtinguisher());
         this.addItem(new Tools());
 	}

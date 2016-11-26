@@ -32,7 +32,7 @@ public class PowerLevelAction extends Action {
 	
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
-		String str = String.format("%.1f", genRef.getPowerLevel());
+		String str = String.format("%.1f", genRef.getSource().getPowerLevel());
 		ActionOption opt = new ActionOption(this.getName() + "(" + str + " MW)");
 		for (int i = 0; i < opts.length ; ++i) {
 			opt.addOption(opts[i]);
@@ -42,7 +42,7 @@ public class PowerLevelAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		genRef.setLevel(fixed, increase);
+		genRef.getSource().setLevel(fixed, increase);
 		performingClient.addTolastTurnInfo("You set the power level to \"" + selected + "\"");
 
 	}

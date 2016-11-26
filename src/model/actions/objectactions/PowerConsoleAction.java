@@ -55,10 +55,10 @@ public class PowerConsoleAction extends ConsoleAction {
 			Logger.log("Level changed!");
 			powerLevelAction.execute(gameData, performingClient);
 		} else {
-			performingClient.addTolastTurnInfo("STATION POWER; " + (int)(genRef.getPowerOutput()*100) + "% of demand.");
-			performingClient.addTolastTurnInfo("-> " + genRef.getLSString());
-			performingClient.addTolastTurnInfo("-> " + genRef.getLightString());
-			performingClient.addTolastTurnInfo("-> " + genRef.getEquipmentString());
+			performingClient.addTolastTurnInfo("STATION POWER; " + (int)(genRef.getSource().getPowerOutput()*100) + "% of demand.");
+			performingClient.addTolastTurnInfo("-> " + genRef.getSource().getLSString());
+			performingClient.addTolastTurnInfo("-> " + genRef.getSource().getLightString());
+			performingClient.addTolastTurnInfo("-> " + genRef.getSource().getEquipmentString());
 		}
 		
 		genRef.setInUse(true);

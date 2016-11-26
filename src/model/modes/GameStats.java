@@ -24,6 +24,7 @@ import model.npcs.NPC;
 import model.npcs.PirateNPC;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.GeneratorConsole;
+import model.objects.consoles.PowerSource;
 import util.HTMLText;
 import util.Logger;
 
@@ -194,7 +195,7 @@ public abstract class GameStats {
                 "<tr><td> Hull breaches fixed: </td><td>" + getHullString(gameData) + "</td></tr>";
         try {
             res +=
-                    "<tr><td> Station power output: </td><td>" + String.format("%.1f", gameData.findObjectOfType(GeneratorConsole.class).getPowerOutput() * 100.0) +
+                    "<tr><td> Station power output: </td><td>" + String.format("%.1f", gameData.findObjectOfType(PowerSource.class).getPowerOutput() * 100.0) +
                             "%  <a target='_blank' href='https://www.wolframalpha.com/input/?i=plot" + powerHistoryString() + "'>graph</a></td></tr>";
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "What? no generator on station?");
@@ -306,7 +307,7 @@ public abstract class GameStats {
 
     private String powerHistoryString() throws NoSuchThingException {
         String res = "";
-        for (Double d : gameData.findObjectOfType(GeneratorConsole.class).getHistory()) {
+        for (Double d : gameData.findObjectOfType(PowerSource.class).getHistory()) {
             res += String.format("+%.1f", d.doubleValue());
         }
         System.out.println("Power history is: " + res);

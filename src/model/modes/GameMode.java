@@ -2,12 +2,7 @@ package model.modes;
 
 import java.io.Serializable;
 import java.security.KeyStore;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import model.PlayerSettings;
 import model.characters.general.AICharacter;
@@ -24,6 +19,8 @@ import model.objects.AITurret;
 import model.objects.ATM;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.AdministrationConsole;
+import model.objects.consoles.PowerSource;
+import model.objects.general.GameObject;
 import model.objects.general.VendingMachine;
 import util.HTMLText;
 import util.Logger;
@@ -114,8 +111,23 @@ public abstract class GameMode implements Serializable {
 		events.put("explosion",        new SpontaneousExplosionEvent());
 		events.put("crazyness",        new SpontaneousCrazyness());
 		events.put("radiation storms", new RadiationStorm());
-		events.put("simulate power",   new SimulatePower());
-		events.put("Power flux",       new PowerFlux());
+		events.put("simulate power",   new SimulatePower() {
+            @Override
+            public Collection<Room> getAffactedRooms(GameData gameData) {
+                return gameData.getRooms();
+            }
+        });
+		events.put("Power flux", new PowerFlux() {
+            @Override
+            protected PowerSource findePowerSource(GameData gameData) throws NoSuchThingException {
+                for (GameObject obj : gameData.getRoom("Generator").getObjects()) {
+                    if (obj instanceof PowerSource) {
+                        return (PowerSource) obj;
+                    }
+                }
+                throw new NoSuchThingException("Did not find power source");
+            }
+        });
 		events.put("random husks",     new RandomHuskEvent());
         events.put("pirate attack",    new PirateAttackEvent());
         events.put("alien dimension",  new AlienDimensionEvent());

@@ -12,20 +12,24 @@ import model.events.Event;
 import model.items.NoSuchThingException;
 import model.map.Room;
 import model.objects.consoles.GeneratorConsole;
+import model.objects.consoles.PowerSource;
 
-public class DarknessEvent extends Event {
+public abstract class DarknessEvent extends Event {
 
-	private GeneratorConsole gc;
+	private PowerSource gc;
+
+    protected abstract PowerSource findPowerSource(GameData gameData) throws NoSuchThingException;
 
 	public DarknessEvent(GameData gameData) {
         try {
-            this.gc = gameData.findObjectOfType(GeneratorConsole.class);
+            this.gc = findPowerSource(gameData);
         } catch (NoSuchThingException e) {
             throw new IllegalStateException("Should not get any darkness if there is no generator!");
         }
     }
 
-	@Override
+
+    @Override
 	public void apply(GameData gameData) {
 		for (Room r : gameData.getRooms()) {
 			for (Actor a : r.getActors()) {

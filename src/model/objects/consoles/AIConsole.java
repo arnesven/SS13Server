@@ -12,6 +12,7 @@ import model.Player;
 import model.actions.characteractions.AILawAction;
 import model.actions.objectactions.AIConsoleAction;
 import model.actions.general.Action;
+import model.actions.objectactions.PowerConsoleAction;
 import model.characters.general.GameCharacter;
 import model.characters.general.HorrorCharacter;
 import model.characters.general.ParasiteCharacter;
@@ -114,10 +115,10 @@ public class AIConsole extends Console {
                 }
             }
             for (Object ob : gameData.getObjects()) {
-                if (ob instanceof GeneratorConsole) {
-                    GeneratorConsole gc = (GeneratorConsole) ob;
-                    if (Math.abs(gc.getPowerOutput() - 1.0) > 0.2) {
-                        alarms.add("-->Power output anomalous " + (int) (100.0 * gc.getPowerOutput()) + "%");
+                if (ob instanceof PowerSource) {
+                    PowerSource ps = (PowerSource) ob;
+                    if (Math.abs(ps.getPowerOutput() - 1.0) > 0.2) {
+                        alarms.add("-->Power output anomalous " + (int) (100.0 * ps.getPowerOutput()) + "%");
                     }
                     break;
                 }

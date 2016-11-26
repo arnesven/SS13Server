@@ -389,7 +389,7 @@ public class TraitorGameMode extends GameMode {
 
 	public int pointsFromPower(GameData gameData) {
         try {
-            if (gameData.findObjectOfType(GeneratorConsole.class).getPowerOutput() > 0.99) {
+            if (gameData.findObjectOfType(GeneratorConsole.class).getSource().getPowerOutput() > 0.99) {
                 return 200;
             }
         } catch (NoSuchThingException e) {
