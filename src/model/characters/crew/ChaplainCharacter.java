@@ -7,6 +7,7 @@ import model.characters.general.GameCharacter;
 import model.items.general.Bible;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
+import model.items.weapons.AutoCremator;
 
 public class ChaplainCharacter extends CrewCharacter {
 
@@ -17,7 +18,7 @@ public class ChaplainCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
-		list.add(new MedKit());
+		list.add(new AutoCremator());
 		list.add(new Bible());
 		return list;
 	}

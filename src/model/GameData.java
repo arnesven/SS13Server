@@ -12,6 +12,7 @@ import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.map.RoomType;
+import model.modes.GameStats;
 import model.objects.consoles.AIConsole;
 import model.objects.general.ContainerObject;
 import util.*;
@@ -706,7 +707,7 @@ public class GameData implements Serializable {
         return chatMessages;
     }
 
-    public boolean chatWasCommand(String rest) {
+    public boolean chatWasCommand(String rest, String clid) {
         if (rest.startsWith("/")) {
             if (rest.contains("/ailaw ")) {
                 try {
@@ -717,7 +718,12 @@ public class GameData implements Serializable {
                     e.printStackTrace();
                 }
             }
+        } else if (gameState != GameState.PRE_GAME) {
+            for (Player p : getPlayersAsList()) {
+                p.addTolastTurnInfo(HTMLText.makeText("purple", clid + ": " + rest));
+            }
         }
+
         return false;
     }
 }

@@ -16,6 +16,7 @@ import model.npcs.animals.ChimpNPC;
 import model.npcs.behaviors.CrazyBehavior;
 import model.npcs.robots.TARSNPC;
 import model.objects.consoles.CrimeRecordsConsole;
+import model.objects.general.MailBox;
 import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
@@ -346,11 +347,22 @@ public class TraitorGameMode extends GameMode {
 
     public int pointsFromGod(GameData gameData) {
 		Bible b = getBible(gameData);
+        int biblePoints = 0;
 		if (b == null) {
 			Logger.log("Bible not found");
-			return 0;
-		}
-		return b.getGodPoints();
+		} else {
+            biblePoints = b.getGodPoints();
+        }
+
+        int mailboxpoints = 0;
+        try {
+            MailBox box = gameData.findObjectOfType(MailBox.class);
+            mailboxpoints = box.getPoints();
+        } catch (NoSuchThingException e) {
+            Logger.log("Mailbox not found");
+        }
+
+        return biblePoints + mailboxpoints;
 	}
 	
 	private Bible getBible(GameData gameData) {

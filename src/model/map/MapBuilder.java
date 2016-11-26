@@ -19,6 +19,7 @@ import model.objects.consoles.*;
 import model.objects.consoles.AirLockControl;
 import model.objects.general.EvidenceBox;
 import model.objects.general.Lockers;
+import model.objects.general.MailBox;
 import model.objects.general.MedkitDispenser;
 
 
@@ -40,7 +41,10 @@ public class MapBuilder {
 		ArrayList<Room> result = new ArrayList<>();
 		//                   ID  Name                   shortname  x   y  w  h   neighbors
 		result.add(new LabRoom(1, 2,  1, 4, 3, new int[]{27, 24, 5} , new double[]{5.0, 4.0, 2.0, 3.5, 6.0, 1.5} ));
-		result.add(new Room( 2, "Chapel"              , "Chap"   , 2,  4, 2, 2, new int[]{5}         ,         new double[]{4.0, 5.0}, RoomType.support ));
+        Room room = new Room(2, "Chapel", "Chap", 2, 4, 2, 2, new int[]{5}, new double[]{4.0, 5.0}, RoomType.support);
+        MailBox mail = new MailBox(room);
+        room.addObject(mail);
+        result.add(room);
 
         Room green = new GreenhouseRoom( 3,  0,  6, 3, 4, new int[]{4, 6, 27}  ,         new double[]{1.5, 6.0}  );
         NPC chimp = new ChimpNPC(green);
