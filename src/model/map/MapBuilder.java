@@ -17,8 +17,8 @@ import model.npcs.behaviors.RandomSpeechBehavior;
 import model.npcs.robots.RobotNPC;
 import model.objects.AITurret;
 import model.objects.StasisPod;
+import model.objects.christmas.Snowman;
 import model.objects.consoles.*;
-import model.objects.consoles.AirLockControl;
 import model.objects.general.*;
 
 
@@ -104,6 +104,7 @@ public class MapBuilder {
         bridge.addItem(new FireExtinguisher());
 		bridge.addObject(new AirLockControl(bridge));
 		bridge.addObject(new SecurityCameraConsole(bridge));
+		bridge.addObject(new Snowman(bridge));
 		gm.addRoom(bridge, "ss13", "front");
 	
 		Room ss = new Room(18, "Security Station"    , "SS"     ,15,  2, 2, 2, new int[]{16}        ,         new double[]{} , RoomType.security );

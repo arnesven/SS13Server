@@ -300,6 +300,7 @@ public class GameData implements Serializable {
 			informPlayersOfRoomHappenings();
 			if (gameMode.gameOver(this)) {
                 getChat().serverSay("Game is over!");
+                this.getGameMode().doWhenGameOver(this);
 				gameState = GameState.PRE_GAME;
 				//round = 0; <-- Don't do this, if you do
 				//               the gamemode wont be able to

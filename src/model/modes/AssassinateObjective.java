@@ -1,5 +1,6 @@
 package model.modes;
 
+import util.Logger;
 import model.GameData;
 import model.Player;
 import model.items.general.Locatable;
@@ -23,6 +24,8 @@ public class AssassinateObjective implements TraitorObjective {
 
 	@Override
 	public boolean isCompleted(GameData gameData) {
+		Logger.log("Target was: " + target.getCharacter().getKillerString());
+		Logger.log("Killer was " + assassin.getBaseName());
 		if (target.isDead() && 
 				target.getCharacter().getKillerString().equals(assassin.getBaseName())) {
 			completed  = true;
