@@ -30,13 +30,17 @@ public class MoveToOtherAirlocks extends Action {
     public MoveToOtherAirlocks(Room position, GameData gameData) {
         super("Go EVA", SensoryLevel.PHYSICAL_ACTIVITY);
         this.pos = position;
-        for (Room r : gameData.getRooms()) {
-            for (GameObject obj : r.getObjects()) {
-                if (obj instanceof AirlockPanel && r != pos) {
-                    moveableRoomsTo.add(r);
-                    break;
+        try {
+            for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(position))) {
+                for (GameObject obj : r.getObjects()) {
+                    if (obj instanceof AirlockPanel && r != pos) {
+                        moveableRoomsTo.add(r);
+                        break;
+                    }
                 }
             }
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
         }
     }
 

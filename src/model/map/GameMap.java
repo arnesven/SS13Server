@@ -451,7 +451,7 @@ public class GameMap implements Serializable {
     }
 
 
-    private Integer[] getPositionForLevel(String levelForRoom) {
+    public Integer[] getPositionForLevel(String levelForRoom) {
         for (int x = 0; x < levelMatrix.length; ++x) {
             for (int y = 0; y < levelMatrix[0].length; y++) {
                 for (int z = 0; z < levelMatrix[0][0].length; z++) {
@@ -473,4 +473,5 @@ public class GameMap implements Serializable {
         }
         return level;
     }
+
 }

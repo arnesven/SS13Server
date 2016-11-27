@@ -50,7 +50,10 @@ public class TeleportToCoordinatesAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        Room r = MyRandom.sample(gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForCoordinates(selected, gameData)));
+        Logger.log("Teleporting to " + selected[0] + "-" + selected[1] + "-" + selected[2]);
+        String level = gameData.getMap().getLevelForCoordinates(selected, gameData);
+        Logger.log("  which is level " + level);
+        Room r = MyRandom.sample(gameData.getMap().getRoomsForLevel(level));
         Teleporter tele = new Teleporter();
         tele.setMarked(r);
         Action a = new TeleportAction(tele);
