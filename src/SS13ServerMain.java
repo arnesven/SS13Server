@@ -21,7 +21,7 @@ public class SS13ServerMain {
 	 */
 	public static void main(String[] args) throws IOException {
 		int port = 55444;
-		String name = "Hilarious Shenanigans";
+		String name = "Nathalies Server";
 		ServerSocket listener = null;
 		if (args.length == 2) {
 			name = args[0];
