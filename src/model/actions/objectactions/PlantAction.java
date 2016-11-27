@@ -48,7 +48,11 @@ public class PlantAction extends Action {
             return;
         }
 
-        soil.plant(selectedSeeds, gameData);
+        if (soil.isPlanted()) {
+            performingClient.addTolastTurnInfo("What, the soil was already planted? " + Action.FAILED_STRING);
+        }
+
+        soil.plant(selectedSeeds, gameData, performingClient);
         performingClient.addTolastTurnInfo("You planted the " + selectedSeeds.getPublicName(performingClient) + " in the soil.");
         performingClient.getItems().remove(selectedSeeds);
     }

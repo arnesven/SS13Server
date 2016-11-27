@@ -9,6 +9,7 @@ import model.actions.objectactions.PlantAction;
 import model.items.general.GameItem;
 import model.items.seeds.SeedsItem;
 import model.map.GreenhouseRoom;
+import model.map.Room;
 import model.objects.general.GameObject;
 import model.objects.plants.Plant;
 
@@ -22,7 +23,7 @@ public class SoilPatch extends GameObject {
 
     private Plant plant;
 
-    public SoilPatch(GreenhouseRoom greenhouseRoom) {
+    public SoilPatch(Room greenhouseRoom) {
         super("Soil Patch", greenhouseRoom);
     }
 
@@ -62,12 +63,16 @@ public class SoilPatch extends GameObject {
 
     }
 
-    public void plant(SeedsItem selectedSeeds, GameData gameData) {
-        this.plant = selectedSeeds.doWhenPlanted(this, gameData);
+    public void plant(SeedsItem selectedSeeds, GameData gameData, Actor planter) {
+        this.plant = selectedSeeds.doWhenPlanted(this, gameData, planter);
 
     }
 
     public boolean isPlanted() {
         return plant != null;
+    }
+
+    public void clearPlant() {
+        plant = null;
     }
 }

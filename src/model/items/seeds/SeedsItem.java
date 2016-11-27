@@ -16,5 +16,5 @@ public abstract class SeedsItem extends GameItem {
     }
 
 
-    public abstract Plant doWhenPlanted(SoilPatch s, GameData gameData);
+    public abstract Plant doWhenPlanted(SoilPatch s, GameData gameData, Actor planter);
 }

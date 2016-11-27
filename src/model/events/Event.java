@@ -11,6 +11,7 @@ import java.io.Serializable;
 
 public abstract class Event implements Serializable {
 
+    private boolean shouldBeRemoved = false;
 	public abstract void apply(GameData gameData);
 
 	public abstract String howYouAppear(Actor performingClient);
@@ -26,7 +27,7 @@ public abstract class Event implements Serializable {
 	}
 
 	public boolean shouldBeRemoved(GameData gameData) {
-		return false;
+		return shouldBeRemoved;
 	}
 
 	public void setShouldBeRemoved(boolean b) { }

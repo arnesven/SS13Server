@@ -17,4 +17,6 @@ public class TomatoPlant extends Plant {
     public Sprite getSprite(Player whosAsking) {
         return new Sprite("tomatoplant", "hydroponics.png", 2, 1);
     }
+
+
 }
