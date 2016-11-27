@@ -2,9 +2,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Locale;
 
 import comm.ServiceHandler;
-
 import graphics.pdf.MapPDFMaker;
 import model.GameData;
 import util.GameRecovery;
@@ -20,6 +20,7 @@ public class SS13ServerMain {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
+		Locale.setDefault(Locale.US);
 		int port = 55444;
 		String name = "Nathalies Server";
 		ServerSocket listener = null;
