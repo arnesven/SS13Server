@@ -51,7 +51,7 @@ public class GameData implements Serializable {
 	private int noOfRounds = 20;
 	private List<Pair<Actor, Action>> lateActions;
 	// Map must be built before first game, client needs it.
-	private GameMap map = MapBuilder.createMap(this);
+	private GameMap map;
 	private String selectedMode = "Secret";
 	private List<Event> events = new ArrayList<>();
 	private List<Event> moveEvents = new ArrayList<>();
@@ -61,7 +61,7 @@ public class GameData implements Serializable {
 
 
     public GameData() {
-
+        map = MapBuilder.createMap(this);
 	}
 	
 	/**
@@ -363,15 +363,16 @@ public class GameData implements Serializable {
 	private void doSetup() {
 		Logger.log("Doing setup:");
         this.npcs = new ArrayList<>();
+        this.events = new ArrayList<>();
+        this.moveEvents = new ArrayList<>();
+        this.lateActions = new ArrayList<>();
 		this.map = MapBuilder.createMap(this);
 		Logger.log("Map built");
 		for (Player p : getPlayersAsList()) {
 			p.prepForNewGame();
 		}
 		Logger.log("Players prepped");
-		this.events = new ArrayList<>();
-		this.moveEvents = new ArrayList<>();
-		this.lateActions = new ArrayList<>();
+
 
 		this.gameMode = GameModeFactory.create(selectedMode);
 		Logger.log("Got game mode from factory.");

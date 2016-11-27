@@ -1,6 +1,13 @@
 package model.map;
 
+import model.Actor;
+import model.GameData;
+import model.events.Event;
+import model.events.ambient.ColdEvent;
 import model.items.NoSuchThingException;
+import model.modes.NoPressureEverEvent;
+import util.Logger;
+import util.MyRandom;
 
 import java.io.Serializable;
 import java.util.*;
@@ -16,15 +23,30 @@ public class GameMap implements Serializable {
 
 	//private List<Room> roomsList;
     private Map<String, Map<String, Set<Room>>> levels = new HashMap<>();
+    private String[][][] levelMatrix = new String[3][3][3];
+    private int levelCount = 0;
+    public static final int MATRIX_DIM_MAX = 3;
+    private static final int MAX_LEVELS = MATRIX_DIM_MAX * MATRIX_DIM_MAX * MATRIX_DIM_MAX;
+
+    private static Map<String, Integer[]> directions = new HashMap<>();
 
 
     public GameMap(String firstLevelName) {
-        levels.put(firstLevelName, new HashMap<>());
+        createLevel(firstLevelName);
+        directions.clear();
+        directions.put("Upwards",   new Integer[]{ 0,  0,  1});
+        directions.put("Downwards", new Integer[]{ 0,  0, -1});
+        directions.put("Left",      new Integer[]{-1,  0,  0});
+        directions.put("Right",     new Integer[]{ 1,  0,  0});
+        directions.put("Forwards",  new Integer[]{ 0,  1,  0});
+        directions.put("Backwards", new Integer[]{ 0, -1,  0});
     }
 
-	public void addRoom(Room room, String level, String area) {
+
+    public void addRoom(Room room, String level, String area) {
         if (!levels.containsKey(level)) {
-            levels.put(level, new HashMap<>());
+            createLevel(level);
+
         }
 
         if (levels.get(level).containsKey(area)) {
@@ -35,8 +57,37 @@ public class GameMap implements Serializable {
             levels.get(level).put(area, set);
         }
 	}
-	
-	public List<Room> getRooms() {
+
+
+    private void createLevel(String level, Integer x, Integer y, Integer z) {
+        if (levelCount == MAX_LEVELS) {
+            throw new MapOverflowException("Too many levels (max " + MAX_LEVELS + ")");
+        }
+        levels.put(level, new HashMap<>());
+        levelCount++;
+
+        levelMatrix[x][y][z] = level;
+
+        Logger.log("Level " + level + " created on coordinates " + x + " " + y + " " + z + " ");
+
+
+    }
+
+    private void createLevel(String level) {
+        int x, y, z;
+        do {
+            x = MyRandom.nextInt(3);
+            y = MyRandom.nextInt(3);
+            z = MyRandom.nextInt(3);
+            if (levelMatrix[x][y][z] == null) {
+                break;
+            }
+        } while (true);
+        createLevel(level, x, y, z);
+
+    }
+
+    public List<Room> getRooms() {
         Set<Room> list = new HashSet<>();
         for (Map<String, Set<Room>> m : levels.values()) {
             for (Set<Room> set : m.values()) {
@@ -316,5 +367,110 @@ public class GameMap implements Serializable {
         for (Room r : getRooms()) {
             r.setMap(this);
         }
+    }
+
+
+    public static List<String> getDirectionStrings() {
+        List<String> l = new ArrayList<>();
+        l.addAll(directions.keySet());
+        return l;
+    }
+
+    public static String getOppositeDirection(String direction) {
+
+        List<String> directions = new ArrayList<>();
+        directions.add("Upwards");
+        directions.add("Downwards");
+        directions.add("Left");
+        directions.add("Right");
+        directions.add("Forwards");
+        directions.add("Backwards");
+
+        for (int i = 0; i < directions.size() ; ++i) {
+            if (directions.get(i).equals(direction)) {
+                if (i % 2 == 0) {
+                    if (i == 0) {
+                        return directions.get(directions.size() - 1);
+                    } else {
+                        return directions.get(i - 1);
+                    }
+                } else {
+                    if (i == directions.size() - 1) {
+                        return directions.get(0);
+                    } else {
+                        return directions.get(i + 1);
+                    }
+                }
+            }
+        }
+        throw new NoSuchElementException("Could not find opposite direction for direction " + direction);
+    }
+
+    public void tumbleIntoLevel(GameData gameData, Actor performingClient, String oppositeDirection) {
+        Integer[] dir = directions.get(oppositeDirection);
+
+        try {
+            Integer[] current = getPositionForLevel(this.getLevelForRoom(performingClient.getPosition()));
+
+            for (int dim = 0; dim < MATRIX_DIM_MAX; ++dim) {
+                current[dim] += dir[dim];
+                if (current[dim] == -1) {
+                    current[dim] = MATRIX_DIM_MAX - 1;
+                } else if (current[dim] == MATRIX_DIM_MAX) {
+                    current[dim] = 0;
+                }
+            }
+
+            String level = levelMatrix[current[0]][current[1]][current[2]];
+            if (level == null) {
+                level = createEmptyLevel(current, gameData);
+            }
+            Logger.log("Tumbling player to " + level);
+            Room r = MyRandom.sample(getRoomsForLevel(level));
+            performingClient.moveIntoRoom(r);
+
+
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private String createEmptyLevel(Integer[] current, GameData gameData) {
+        String level = "emptylevel" + current[0] + "-" + current[1] + "-" + current[2];
+        createLevel(level, current[0], current[1], current[2]);
+        Room r = new Room(getMaxID()+1, "Deep Space", "D E E P   S P A C E", 0, 0, 2,2, new int[]{}, new double[]{}, RoomType.space);
+        this.addRoom(r, level, "space");
+        Event noPress = new NoPressureEverEvent(r);
+        r.addEvent(noPress);
+        Event cold = new ColdEvent(r);
+        r.addEvent(cold);
+        gameData.addEvent(cold);
+        gameData.addEvent(noPress);
+        return level;
+    }
+
+
+    private Integer[] getPositionForLevel(String levelForRoom) {
+        for (int x = 0; x < levelMatrix.length; ++x) {
+            for (int y = 0; y < levelMatrix[0].length; y++) {
+                for (int z = 0; z < levelMatrix[0][0].length; z++) {
+                    if (levelMatrix[x][y][z] != null) {
+                        if (levelMatrix[x][y][z].equals(levelForRoom)) {
+                            return new Integer[]{x, y, z};
+                        }
+                    }
+                }
+            }
+        }
+        throw new NoSuchElementException("Level not found in map: " + levelForRoom);
+    }
+
+    public String getLevelForCoordinates(Integer[] selected, GameData gameData) {
+        String level = levelMatrix[selected[0]][selected[1]][selected[2]];
+        if (level == null) {
+            level = createEmptyLevel(selected, gameData);
+        }
+        return level;
     }
 }

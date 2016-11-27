@@ -6,6 +6,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.TeleportAction;
+import model.actions.objectactions.TeleportToCoordinatesAction;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Teleporter;
@@ -40,6 +41,7 @@ public class TeleportConsole extends Console {
                 at.add(new TeleportAction(tele));
             }
         }
+        at.add(new TeleportToCoordinatesAction());
     }
 
     private void addIfSuitable(List<Room> markedRooms, GameItem it) {

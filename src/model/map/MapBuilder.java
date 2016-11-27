@@ -2,6 +2,7 @@ package model.map;
 
 import model.GameData;
 import model.characters.general.AbandonedBotCharacter;
+import model.events.Event;
 import model.events.ambient.ColdEvent;
 import model.items.general.FireExtinguisher;
 import model.items.general.MoneyStack;
@@ -159,15 +160,16 @@ public class MapBuilder {
 		}
 
         Room space = new Room(30, "Space", "", 0, 0, 1, 1, new int[]{}, new double[]{}, RoomType.space);
-        space.addEvent(new NoPressureEverEvent(space));
-        space.addEvent(new ColdEvent(space));
+
+        addEventsToSpaceRoom(space, gameData);
+
         gm.addRoom(space, "ss13", "space");
 
         Room dummy = new Room(31, "Dummy", "", 18, 1, 0, 0,
                                 new int[]{28}, new double[]{-1.0, -1.0}, RoomType.hidden);
         gm.addRoom(dummy, "ss13", "dummy");
         Room otherDim = new OtherDimension(32, new int[]{30}, new double[]{-1.0, -1.0});
-        Room prisonPlanet = new Room(33, "Prison Planet", "", 0, 0, 1, 1, new int[]{30}, new double[]{-1.0, -1.0}, RoomType.outer);
+        Room prisonPlanet = new Room(33, "Prison Planet", "P R I S O N P L A N E T", 0, 0, 1, 1, new int[]{30}, new double[]{-1.0, -1.0}, RoomType.outer);
 
         gm.addRoom(otherDim, "other dimension", "other dimension");
         gm.addRoom(prisonPlanet, "prison planet", "prison planet");
@@ -209,5 +211,14 @@ public class MapBuilder {
 
 		return gm;
 	}
+
+    private static void addEventsToSpaceRoom(Room space, GameData gameData) {
+        Event noPress = new NoPressureEverEvent(space);
+        space.addEvent(noPress);
+        Event cold = new ColdEvent(space);
+        space.addEvent(cold);
+        gameData.addEvent(cold);
+        gameData.addEvent(noPress);
+    }
 
 }

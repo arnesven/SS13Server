@@ -17,7 +17,7 @@ public class MovementCommandHandler extends AbstractCommandHandler {
 			ObjectOutputStream oos) throws IOException {
 		if (command.equals("MOVEMENT")) {
 			String s = gameData.createPlayerMovementData(clid);
-			Logger.log(Logger.INTERESTING, s);
+			//Logger.log(Logger.INTERESTING, s);
 			oos.writeObject(s);
 			return true;
 		}
