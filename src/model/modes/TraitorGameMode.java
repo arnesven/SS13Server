@@ -147,7 +147,7 @@ public class TraitorGameMode extends GameMode {
         }
 		
 		double val = MyRandom.nextDouble();
-		if (val < 45 ) {
+		if (val < 0.45 ) {
 			List<Player> targets = new ArrayList<>();
 			targets.addAll(gameData.getPlayersAsList());
 			targets.remove(traitor);
