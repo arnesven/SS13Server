@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.MyPaths;
+
 /**
  * Created by erini02 on 24/04/16.
  */
@@ -106,7 +108,7 @@ public class Sprite implements Serializable {
         BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         Graphics g = result.getGraphics();
-        BufferedImage img = SpriteManager.getFile("resources/sprites/" + mapPath);
+        BufferedImage img = SpriteManager.getFile(MyPaths.makePath(new String[]{"resources", "sprites"}) + mapPath);
         img = img.getSubimage(column * width, row * height, width, height);
 
         Graphics2D g2d = (Graphics2D) g;

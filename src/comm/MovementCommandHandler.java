@@ -2,6 +2,7 @@ package comm;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import util.Logger;
 import model.GameData;
 
 
@@ -15,8 +16,9 @@ public class MovementCommandHandler extends AbstractCommandHandler {
 	public boolean handleCommand(String command, String clid, String rest,
 			ObjectOutputStream oos) throws IOException {
 		if (command.equals("MOVEMENT")) {
-			
-			oos.writeObject(gameData.createPlayerMovementData(clid));
+			String s = gameData.createPlayerMovementData(clid);
+			Logger.log(Logger.INTERESTING, s);
+			oos.writeObject(s);
 			return true;
 		}
 		return false;

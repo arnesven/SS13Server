@@ -20,6 +20,7 @@ public class SS13ServerMain {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
+		Locale.setDefault(Locale.US);
 		int port = 55444;
 		String name = "Wacky Ulululations";
 		ServerSocket listener = null;
