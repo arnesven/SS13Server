@@ -237,6 +237,12 @@ public class TraitorGameMode extends GameMode {
 			obj.isCompleted(gameData);
 		}
 	}
+	
+	@Override
+	public void doWhenGameOver(GameData gameData) {
+		triggerModeSpecificEvents(gameData);
+		
+	};
 
 	@Override
 	public String getSummary(GameData gameData) {
@@ -371,7 +377,7 @@ public class TraitorGameMode extends GameMode {
 				Bible b = (Bible)GameItem.getItem(a, new Bible());
 				return b;
 			} catch (NoSuchThingException nse) {
-				Logger.log(Logger.CRITICAL, "Bible not found!");
+//				Logger.log(Logger.CRITICAL, "Bible not found!");
 			}
 			
 		}

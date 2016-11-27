@@ -144,6 +144,10 @@ public abstract class GameMode implements Serializable {
     }
 
     public abstract String getName();
+    
+	public void doWhenGameOver(GameData gameData) {
+		
+	}
 
 	private static HashMap<String, GameCharacter> availableChars() {
 		HashMap<String, GameCharacter> availableChars = new HashMap<>();
@@ -716,6 +720,10 @@ public abstract class GameMode implements Serializable {
             }
         };
     }
+
+
+
+
 
 
 }
