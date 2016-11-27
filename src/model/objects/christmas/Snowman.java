@@ -9,7 +9,6 @@ public class Snowman extends GameObject {
 
 	public Snowman(Room position) {
 		super("Snowman", position);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
