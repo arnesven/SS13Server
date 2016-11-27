@@ -34,6 +34,13 @@ public class AutoCremator extends Weapon {
         return new Sprite("autocremator", "items.png", 26);
     }
 
+    @Override
+    protected void usedOnBy(Target target, Actor performingClient, GameData gameData) {
+        if (target.isDead() && target instanceof Actor) {
+            cremate(target, performingClient);
+        }
+    }
+
     private class CremateAction extends TargetingAction {
         private final AutoCremator creamator;
 
@@ -55,11 +62,10 @@ public class AutoCremator extends Weapon {
                 performingClient.addTolastTurnInfo("What? " + target.getName() + "wasn't there anymore! " + Action.FAILED_STRING);
                 return;
             }
-            Actor targetAsActor = (Actor)target;
-            performingClient.addItem(new ActorsAshes(targetAsActor), target);
-            String pronoun = (((Actor) target).getCharacter().getGender()=="Man"?"he":"she");
-            performingClient.addTolastTurnInfo("You cremated " + targetAsActor.getBaseName() + ", may " + pronoun + " rest in peace.");
-        }
+
+            cremate(target, performingClient);
+
+         }
 
         @Override
         public boolean isViableForThisAction(Target target2) {
@@ -70,5 +76,15 @@ public class AutoCremator extends Weapon {
         protected String getVerb(Actor whosAsking) {
             return "cremated " + target.getName();
         }
+    }
+
+
+
+    private void cremate(Target beingCremated, Actor performingClient) {
+        Actor targetAsActor = (Actor)beingCremated;
+        performingClient.addItem(new ActorsAshes(targetAsActor), beingCremated);
+        String pronoun = (((Actor) beingCremated).getCharacter().getGender()=="Man"?"he":"she");
+        performingClient.addTolastTurnInfo("You cremated " + targetAsActor.getBaseName() + ", may " + pronoun + " rest in peace.");
+
     }
 }

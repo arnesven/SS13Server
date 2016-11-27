@@ -64,11 +64,11 @@ public class TeleportConsole extends Console {
             }
         }
 
-        try {
-            markedRooms.add(gameData.getRoom("Derelict Lab"));
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            markedRooms.add(gameData.getRoom("Derelict Lab"));
+//        } catch (NoSuchThingException e) {
+//            e.printStackTrace();
+//        }
 
         return markedRooms;
     }

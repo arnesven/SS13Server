@@ -78,6 +78,9 @@ public class SuperSuit extends SuitItem {
         if (appearAsCharacter.checkInstance(((GameCharacter ch) -> ch instanceof HorrorCharacter))) {
             return (new HorrorCharacter()).getSprite(whosAsking);
         }
+        if (appearAsCharacter.checkInstance(((GameCharacter ch) -> ch instanceof SantaClauseCharacter))) {
+            return (new SantaSuit()).getSprite(whosAsking);
+        }
 
         if (appearAsCharacter.getSuit() != null) {
             return appearAsCharacter.getSuit().getWornSprite(whosAsking);
@@ -131,9 +134,11 @@ public class SuperSuit extends SuitItem {
 
 
     private void disguise(Actor actionPerformer) {
-        Logger.log(Logger.CRITICAL, "actionPerformer is" + actionPerformer.toString());
-        Logger.log(Logger.CRITICAL, "appearAsAcharacter is" + appearAsCharacter.toString()); // <-- crasch here nullptr
-        actionPerformer.setCharacter(new DisguisedAs(actionPerformer.getCharacter(), appearAsCharacter.getBaseName()));
+        if (appearance != null) {
+            Logger.log(Logger.CRITICAL, "actionPerformer is" + actionPerformer.toString());
+            Logger.log(Logger.CRITICAL, "appearAsAcharacter is" + appearAsCharacter.toString()); // <-- crasch here nullptr
+            actionPerformer.setCharacter(new DisguisedAs(actionPerformer.getCharacter(), appearAsCharacter.getBaseName()));
+        }
     }
 
     private void removeDisguise(Actor actionPerformer) {

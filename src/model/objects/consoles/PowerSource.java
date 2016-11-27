@@ -180,12 +180,11 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
 
         for (Room room : getAffectedRooms(gameData)) {
             for (GameObject obj : room.getObjects()) {
-                if (obj instanceof ElectricalMachinery) {
+                if (obj instanceof ElectricalMachinery && !(obj instanceof GeneratorConsole)) {
                     noPower.add((ElectricalMachinery) obj);
                 }
             }
         }
-        noPower.remove(this); // the generator console has its own power source and can never be unpowered.
         Collections.shuffle(noPower);
 
         double eqPowerPer = startingPower * EQUIPMENT_POWER_USE_PCT / (double)(noPower.size());
@@ -226,13 +225,15 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
 
     private void runPowerOnOrOffFunctions(GameData gameData,
                                           List<ElectricalMachinery> oldNoPower) {
-        for (GameObject obj : gameData.getObjects()) {
-            if (obj instanceof ElectricalMachinery) {
-                ElectricalMachinery em = (ElectricalMachinery) obj;
-                if (oldNoPower.contains(em) && ! getNoPowerObjects().contains(em)) {
-                    em.onPowerOn(gameData);
-                } else if (!oldNoPower.contains(em) && getNoPowerObjects().contains(em)) {
-                    em.onPowerOff(gameData);
+        for (Room r : getAffectedRooms(gameData)) {
+            for (GameObject obj : r.getObjects()) {
+                if (obj instanceof ElectricalMachinery) {
+                    ElectricalMachinery em = (ElectricalMachinery) obj;
+                    if (oldNoPower.contains(em) && !getNoPowerObjects().contains(em)) {
+                        em.onPowerOn(gameData);
+                    } else if (!oldNoPower.contains(em) && getNoPowerObjects().contains(em)) {
+                        em.onPowerOff(gameData);
+                    }
                 }
             }
         }

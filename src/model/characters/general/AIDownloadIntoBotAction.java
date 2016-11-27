@@ -37,9 +37,11 @@ public class AIDownloadIntoBotAction extends Action {
     @Override
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption opts = super.getOptions(gameData, whosAsking);
-        for (NPC npc : gameData.getNPCs()) {
-            if (npc instanceof RobotNPC && !((RobotNPC) npc).isDead()) {
-               opts.addOption(npc.getBaseName());
+        for (Room r : gameData.getRooms()) {
+            for (NPC npc : r.getNPCs()) {
+                if (npc instanceof RobotNPC && !((RobotNPC) npc).isDead()) {
+                    opts.addOption(npc.getBaseName());
+                }
             }
         }
         return opts;

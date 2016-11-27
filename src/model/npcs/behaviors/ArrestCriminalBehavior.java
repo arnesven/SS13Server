@@ -22,7 +22,8 @@ public class ArrestCriminalBehavior implements ActionBehavior {
 		List<Actor> acts = new ArrayList<>();
 		
 		for (Actor a : console.getReportedActors().keySet()) {
-			if (npc.getPosition().getActors().contains(a)) {
+			if (npc.getPosition().getActors().contains(a) &&
+                    a.getAsTarget().isTargetable()) {
 				acts.add(a);
 			}
 		}

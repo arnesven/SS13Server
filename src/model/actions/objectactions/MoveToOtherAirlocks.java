@@ -13,6 +13,7 @@ import model.map.Room;
 import model.objects.general.AirlockPanel;
 import model.objects.general.GameObject;
 import util.Logger;
+import util.MyRandom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,12 +61,29 @@ public class MoveToOtherAirlocks extends Action {
             performingClient.moveIntoRoom(space);
             performingClient.addTolastTurnInfo("You went out through the airlock into SPACE.");
             gameData.addMovementEvent(new Event() {
+                public boolean slipped = false;
+                public static final double SLIP_CHANCE = 0.1;
+
                 @Override
                 public void apply(GameData gameData) {
-                    Logger.log("Moving player into " + selected.getName());
-                    performingClient.moveIntoRoom(selected);
-                    performingClient.removeInstance((GameCharacter gc) -> gc instanceof FrozenDecorator);
-                    performingClient.addTolastTurnInfo("You came back into the station.");
+                    if (MyRandom.nextDouble() < SLIP_CHANCE) {
+                        this.slipped = true;
+                        performingClient.addTolastTurnInfo("You lost your grip! You're drifting away!");
+                        Room spaceRoom = null;
+                        try {
+                            spaceRoom = gameData.getRoom("Deep Space");
+                            Logger.log("Moving player into " + spaceRoom.getName());
+                            performingClient.moveIntoRoom(spaceRoom);
+                        } catch (NoSuchThingException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else {
+                        Logger.log("Moving player into " + selected.getName());
+                        performingClient.moveIntoRoom(selected);
+                        performingClient.removeInstance((GameCharacter gc) -> gc instanceof FrozenDecorator);
+                        performingClient.addTolastTurnInfo("You came back into the station.");
+                    }
                 }
 
                 @Override
@@ -80,7 +98,7 @@ public class MoveToOtherAirlocks extends Action {
 
                 @Override
                 public boolean shouldBeRemoved(GameData gameData) {
-                    return true;
+                    return !slipped;
                 }
             });
         } catch (NoSuchThingException e) {

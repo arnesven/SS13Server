@@ -670,8 +670,10 @@ public class GameData implements Serializable {
 
 	/**
 	 * Gets all game objects in all the rooms.
+     * @Deprecated, use getObjectsForLevel instead or getAllObjects
 	 * @return all objects as a list.
 	 */
+    @Deprecated
 	public List<GameObject> getObjects() {
 		Set<GameObject> set = new HashSet<>();
 		List<GameObject> obj = new ArrayList<>();
@@ -681,6 +683,20 @@ public class GameData implements Serializable {
 		obj.addAll(set);
 		return obj;
 	}
+
+    public List<GameObject> getAllObjects() {
+        return getObjects();
+    }
+
+    public List<GameObject> getObjectsForLevel(String level) {
+        List<GameObject> list = new ArrayList<>();
+        for (Room room : getMap().getRoomsForLevel(level)) {
+            for (GameObject ob : room.getObjects()) {
+                list.add(ob);
+            }
+        }
+        return list;
+    }
 
 
     public boolean isRunningEvents() {

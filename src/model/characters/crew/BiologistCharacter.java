@@ -11,6 +11,7 @@ import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.general.MotionTracker;
+import model.items.seeds.TomatoSeeds;
 import model.items.weapons.Flamer;
 import model.map.Room;
 import model.npcs.animals.Trainable;
@@ -24,7 +25,7 @@ public class BiologistCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
-		list.add(new MedKit());
+		list.add(new TomatoSeeds());
 		list.add(new MotionTracker());
 		return list;
 	}

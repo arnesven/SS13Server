@@ -1,5 +1,4 @@
 package model.map;
-import java.util.ArrayList;
 
 import model.GameData;
 import model.characters.general.AbandonedBotCharacter;
@@ -31,61 +30,7 @@ import model.objects.general.*;
  */
 public class MapBuilder {
 
-    /**
-     * Gets the location for a particular side.
-     * 0 => aft side
-     * 1 => port side
-     * 2 => front side
-     * 3 => starboard side
-     * @return A list of lists of rooms.
-     */
-//	public List<List<Room>> getSideLocations() {
-//		List<List<Room>> list = new ArrayList<>();
-//		List<Room> aftSide = new ArrayList<>();
-//        addIfAble(aftSide, "Greenhouse");
-//        addIfAble(aftSide, "Panorama Walkway");
-//        addIfAble(aftSide, "Aft Walkway");
-//        addIfAble(aftSide, "Airtunnel");
-//        addIfAble(aftSide, "Chapel");
-//        addIfAble(aftSide, "Aft Hall");
-//        addIfAble(aftSide, "Lab");
-//        addIfAble(aftSide, "Air Lock #1");
-//        list.add(aftSide);
-//
-//        List<Room> portSide = new ArrayList<>();
-//        addIfAble(portSide, "Lab");
-//        addIfAble(portSide, "Sickbay");
-//        addIfAble(portSide, "Air Lock #3");
-//        addIfAble(portSide, "Port Hall Aft");
-//        addIfAble(portSide, "Shuttle Gate");
-//        addIfAble(portSide, "Port Hall Front");
-//        addIfAble(portSide, "Security Station");
-//        addIfAble(portSide, "Air Lock #2");
-//        list.add(portSide);
-//
-//        List<Room> frontSide = new ArrayList<>();
-//        addIfAble(frontSide, "Security Station");
-//        addIfAble(frontSide, "Port Hall Front");
-//        addIfAble(frontSide, "Air Lock #2");
-//        addIfAble(frontSide, "Bridge");
-//        addIfAble(frontSide, "Captain's Quarters");
-//        addIfAble(frontSide, "Front Hall");
-//        addIfAble(frontSide, "Office");
-//        list.add(frontSide);
-//
-//        List<Room> starboardSide = new ArrayList<>();
-//        addIfAble(starboardSide, "Office");
-//        addIfAble(starboardSide, "Starboard Hall Front");
-//        addIfAble(starboardSide, "Dorms");
-//        addIfAble(starboardSide, "Bar");
-//        addIfAble(starboardSide, "Kitchen");
-//        addIfAble(starboardSide, "Starboard Hall Aft");
-//        addIfAble(starboardSide, "Aft Walkway");
-//        addIfAble(starboardSide, "Air Lock #1");
-//        list.add(starboardSide);
-//
-//        return list;
-//    }
+
 
 	/**
 	 * Creates the map of the game and returns it.
@@ -227,6 +172,8 @@ public class MapBuilder {
         gm.addRoom(prisonPlanet, "prison planet", "prison planet");
 
         Room derelictBridge = new Room(34, "Derelict Bridge", "", 40, 40, 3, 1, new int[]{35}, new double[]{}, RoomType.derelict);
+        ShipsLogsConsole capsLog = new ShipsLogsConsole(derelictBridge);
+        derelictBridge.addObject(capsLog);
         gm.addRoom(derelictBridge, "derelict", "derelict");
         Room derelictHall =  new Room(35, "Derelict Hall", "", 41, 41, 1, 5, new int[]{34, 36, 37, 38}, new double[]{41.5, 41.0}, RoomType.derelict);
         gm.addRoom(derelictHall, "derelict", "derelict");
@@ -248,6 +195,14 @@ public class MapBuilder {
         gm.addRoom(derelictUnreachableRoom, "derelict", "derelict");
         Room derelictUnreachableRoom2 =  new Room(40, "Broken Room", "", 35, 35, 1, 2, new int[]{}, new double[]{}, RoomType.derelict);
         gm.addRoom(derelictUnreachableRoom2, "derelict", "derelict");
+
+
+
+        Room deepspace = new Room(41, "Deep Space", "D E E P   S P A C E", 6, 8, 3, 3, new int[]{}, new double[]{}, RoomType.space);
+        deepspace.addEvent(new NoPressureEverEvent(space));
+        deepspace.addEvent(new ColdEvent(space));
+        gm.addRoom(deepspace, "deep space", "deep space");
+
 
         gm.setMapReferenceForAllRooms();
 

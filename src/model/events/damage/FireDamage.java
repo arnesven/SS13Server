@@ -38,5 +38,6 @@ public class FireDamage extends DamagerImpl {
                 burned.removeInstance((GameCharacter gc) -> gc instanceof ChilledDecorator);
             }
         }
+        super.doDamageOnMe(target);
     }
 }
