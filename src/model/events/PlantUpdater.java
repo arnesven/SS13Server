@@ -33,4 +33,13 @@ public abstract class PlantUpdater extends Event {
     public SensoryLevel getSense() {
         return SensoryLevel.NO_SENSE;
     }
+
+    @Override
+    public boolean shouldBeRemoved(GameData gameData) {
+        return isDone();
+    }
+
+    protected abstract boolean isDone();
+
+
 }

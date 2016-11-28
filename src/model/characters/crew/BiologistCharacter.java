@@ -11,6 +11,7 @@ import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.general.MotionTracker;
+import model.items.seeds.RedWeedSeeds;
 import model.items.seeds.TomatoSeeds;
 import model.items.weapons.Flamer;
 import model.map.Room;
@@ -27,6 +28,7 @@ public class BiologistCharacter extends CrewCharacter {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new TomatoSeeds());
 		list.add(new MotionTracker());
+        list.add(new RedWeedSeeds());
 		return list;
 	}
 	

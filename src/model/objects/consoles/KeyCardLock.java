@@ -98,7 +98,9 @@ public class KeyCardLock extends Console {
 	@Override
 	public void onPowerOff(GameData gameData) {
         try {
-            gameData.findObjectOfType(AIConsole.class).informOnStation("AI; Attention, " + to.getName() + " unlocked because of power failure!", gameData);
+            if (locked) {
+                gameData.findObjectOfType(AIConsole.class).informOnStation("Attention, " + to.getName() + " unlocked because of power failure!", gameData);
+            }
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
