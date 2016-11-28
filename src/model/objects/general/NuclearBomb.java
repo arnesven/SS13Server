@@ -30,7 +30,7 @@ public class NuclearBomb extends GameObject {
 
     @Override
     public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
-        if (GameItem.hasAnItem(cl, new NuclearDisc())) {
+        if (GameItem.hasAnItem(cl, new NuclearDisc(gameData, false))) {
             at.add(new SetOffNukeAction(this));
         }
     }
@@ -80,7 +80,7 @@ public class NuclearBomb extends GameObject {
 
         @Override
         protected void execute(GameData gameData, Actor performingClient) {
-            if (GameItem.hasAnItem(performingClient, new NuclearDisc())) {
+            if (GameItem.hasAnItem(performingClient, new NuclearDisc(gameData, false))) {
                 gameData.addEvent(new NukeSetEvent(NuclearBomb.this));
             } else {
                 performingClient.addTolastTurnInfo("What, the nuclear disc wasn't there? " + Action.FAILED_STRING);

@@ -114,13 +114,15 @@ public class AIConsole extends Console {
                     alarms.add("-->Parasite infestation in " + r.getName() + ".");
                 }
             }
-            for (Object ob : gameData.getObjects()) {
-                if (ob instanceof PowerSource) {
-                    PowerSource ps = (PowerSource) ob;
-                    if (Math.abs(ps.getPowerOutput() - 1.0) > 0.2) {
-                        alarms.add("-->Power output anomalous " + (int) (100.0 * ps.getPowerOutput()) + "%");
+            for (Room r : gameData.getMap().getRoomsForLevel("ss13")) {
+                for (Object ob : r.getObjects()) {
+                    if (ob instanceof PowerSource) {
+                        PowerSource ps = (PowerSource) ob;
+                        if (Math.abs(ps.getPowerOutput() - 1.0) > 0.2) {
+                            alarms.add("-->Power output anomalous " + (int) (100.0 * ps.getPowerOutput()) + "%");
+                        }
+                        break;
                     }
-                    break;
                 }
             }
         }
@@ -138,7 +140,7 @@ public class AIConsole extends Console {
 
     public void informOnStation(String s, GameData gameData) {
         if (!isCorrupt() && !isShutDown() && !AIIsPlayer()) {
-            for (Room r : gameData.getRooms()) {
+            for (Room r : gameData.getMap().getRoomsForLevel("ss13")) {
                 for (Actor a : r.getActors()) {
                     a.addTolastTurnInfo(HTMLText.makeText("orange", "AI; \"" + s + "\""));
                 }

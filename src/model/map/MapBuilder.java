@@ -121,7 +121,7 @@ public class MapBuilder {
 
 		Room CQ = new Room(20, "Captain's Quarters"  , "CQ"     ,15,  8, 2, 2, new int[]{17}        ,         new double[]{16.0, 8.0} , RoomType.command);
         NPC cat = new CatNPC(CQ);
-        CQ.addItem(new NuclearDisc());
+        CQ.addItem(new NuclearDisc(gameData, true));
         CQ.addItem(new MoneyStack(300));
         gameData.addNPC(cat);
 

@@ -426,7 +426,10 @@ public class GameMap implements Serializable {
                 level = createEmptyLevel(current, gameData);
             }
             Logger.log("Tumbling player to " + level);
-            Room r = MyRandom.sample(getRoomsForLevel(level));
+            Set<Room> set = new HashSet<>();
+            set.addAll(getRoomsForLevel(level));
+            set.removeIf((Room r) -> r.getType() == RoomType.hidden);
+            Room r = MyRandom.sample(set);
             performingClient.moveIntoRoom(r);
 
 

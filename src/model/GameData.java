@@ -92,12 +92,14 @@ public class GameData implements Serializable {
 	 * @return the list of rooms.
 	 */
 	public List<Room> getRooms() {
-		List<Room> list = new ArrayList<>();
-		list.addAll(getAllRooms());
+		Set<Room> set = new HashSet<>();
+		set.addAll(getMap().getRoomsForLevel("ss13"));
 
-            list.removeIf((Room r) -> r.getType() == RoomType.derelict ||
+        set.removeIf((Room r) -> r.getType() == RoomType.derelict ||
                         r.getType() == RoomType.hidden || r.getType() == RoomType.outer || r.getType() == RoomType.space);
 
+        List<Room> list = new ArrayList<>();
+        list.addAll(set);
 		return list;
 	}
 	

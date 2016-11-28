@@ -70,4 +70,8 @@ public class FireExtinguisher extends BluntWeapon {
     public void decrementLevel() {
         level--;
     }
+
+    public int getUsesRemaining() {
+        return level;
+    }
 }

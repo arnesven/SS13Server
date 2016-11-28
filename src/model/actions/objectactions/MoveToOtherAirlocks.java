@@ -10,7 +10,9 @@ import model.characters.decorators.TumblingThroughSpaceDecorator;
 import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.items.NoSuchThingException;
+import model.map.GameMap;
 import model.map.Room;
+import model.map.RoomType;
 import model.objects.general.AirlockPanel;
 import model.objects.general.GameObject;
 import util.Logger;
@@ -26,6 +28,7 @@ public class MoveToOtherAirlocks extends Action {
     private final Room pos;
     private List<Room> moveableRoomsTo = new ArrayList<>();
     private Room selected;
+    private boolean jumpAway = false;
 
     public MoveToOtherAirlocks(Room position, GameData gameData) {
         super("Go EVA", SensoryLevel.PHYSICAL_ACTIVITY);
@@ -55,6 +58,7 @@ public class MoveToOtherAirlocks extends Action {
         for (Room r : moveableRoomsTo) {
             opts.addOption("to " + r.getName());
         }
+        opts.addOption("Jump away from station");
         return opts;
     }
 
@@ -62,10 +66,20 @@ public class MoveToOtherAirlocks extends Action {
     protected void execute(GameData gameData, Actor performingClient) {
         performingClient.setCharacter(new FrozenDecorator(performingClient.getCharacter()));
         try {
-            Room space = gameData.getRoom("Space");
-            performingClient.moveIntoRoom(space);
-            performingClient.addTolastTurnInfo("You went out through the airlock into SPACE.");
-            gameData.addMovementEvent(new MovingThroughSpaceEvent(performingClient));
+            if (!jumpAway) {
+                Room space = gameData.getRoom("Space");
+                performingClient.moveIntoRoom(space);
+                performingClient.addTolastTurnInfo("You went out through the airlock into SPACE.");
+                gameData.addMovementEvent(new MovingThroughSpaceEvent(performingClient));
+            } else {
+                performingClient.setCharacter(new TumblingThroughSpaceDecorator(performingClient.getCharacter()));
+                gameData.getMap().tumbleIntoLevel(gameData, performingClient, MyRandom.sample(GameMap.getDirectionStrings()));
+                performingClient.addTolastTurnInfo("You tumbled through space.");
+
+                if (performingClient.getPosition().getType() != RoomType.space) {
+                    performingClient.removeInstance((GameCharacter gc) -> gc instanceof TumblingThroughSpaceDecorator);
+                }
+            }
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
@@ -79,6 +93,10 @@ public class MoveToOtherAirlocks extends Action {
                selected = r;
                return;
            }
+        }
+        if (args.get(0).contains("Jump")) {
+            jumpAway = true;
+            return;
         }
         Logger.log(Logger.CRITICAL, "Could not find target ROOM!");
     }
