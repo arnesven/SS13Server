@@ -10,6 +10,9 @@ import model.items.HandCuffs;
 import model.items.NoSuchThingException;
 import model.items.foods.*;
 import model.items.general.*;
+import model.items.seeds.OrangeSeeds;
+import model.items.seeds.RedWeedSeeds;
+import model.items.seeds.TomatoSeeds;
 import model.items.suits.*;
 import model.items.weapons.*;
 import model.map.Room;
@@ -152,6 +155,12 @@ public class MyRandom {
         list.add(new HandCuffs());
         list.add(new RoomPartsStack(1));
         list.add(new SantaSuit());
+        list.add(new TomatoSeeds());
+        list.add(new RedWeedSeeds());
+        list.add(new OrangeSeeds());
+        list.add(new Tomato(null));
+        list.add(new Orange(null));
+        list.add(new BagOfSoil());
 
         return list;
     }

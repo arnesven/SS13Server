@@ -1,5 +1,6 @@
 package model.items.weapons;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -25,6 +26,11 @@ public abstract class Ammunition extends GameItem {
             at.add(act);
         }
 
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("ammo", "ammo.png", 5);
     }
 
     public abstract boolean canBeLoadedIntoGun(AmmoWeapon w);
