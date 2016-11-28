@@ -5,16 +5,16 @@ import model.Player;
 import model.map.Room;
 import model.objects.general.GameObject;
 
-public class Snowman extends GameObject {
+public class Christmas_lights extends GameObject {
 
-	public Snowman(Room position) {
-		super("Snowman", position);
+	public Christmas_lights(Room position) {
+		super("Christmas lights", position);
 	}
 	
+
+
 	@Override
 	public Sprite getSprite(Player whosAsking){
-		return new Sprite("snowman", "snowman.png", 0);
-		
+		return new Sprite("christmas_lights", "christmas_lights.png", 0);
 	}
-
 }
