@@ -22,6 +22,7 @@ import model.objects.consoles.AIConsole;
 import model.objects.consoles.GeneratorConsole;
 import model.objects.general.GameObject;
 import util.Logger;
+import util.MyRandom;
 
 public class AIConsoleAction extends ConsoleAction {
 
@@ -46,11 +47,10 @@ public class AIConsoleAction extends ConsoleAction {
 			return;
 		}
 		
-		console.setInUse(true);
 
 		if (choice.equals("Check Alarms")) {
             // we will execute at end of round
-
+            console.setInUse(true);
             gameData.executeAtEndOfRound(performingClient, this);
         } else if (choice.equals("Shut Down AI")){
             console.shutDown(gameData);
@@ -68,6 +68,25 @@ public class AIConsoleAction extends ConsoleAction {
                         }
                     }
                 }
+
+                for (Room r : gameData.getAllRooms()) {
+                    for (Actor a : r.getActors()) {
+                        if (a.getBaseName().equals(crew)) {
+                            try {
+                                Integer[] pos = gameData.getMap().getPositionForLevel(gameData.getMap().getLevelForRoom(r));
+                                performingClient.addTolastTurnInfo("-->" + crew + " is off station, at coordinates " +
+                                        (pos[0]*100 + MyRandom.nextInt(100)) + "-" +
+                                        (pos[1]*100 + MyRandom.nextInt(100)) + "-" +
+                                        (pos[2]*100 + MyRandom.nextInt(100)));
+                                found = true;
+                            } catch (NoSuchThingException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+                }
+
             }
 			if (! found) {
 				performingClient.addTolastTurnInfo(crew + " not found.");
