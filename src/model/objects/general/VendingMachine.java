@@ -18,20 +18,21 @@ import java.util.List;
 /**
  * Created by erini02 on 04/05/16.
  */
-public class VendingMachine extends ElectricalMachinery {
+public abstract class VendingMachine extends ElectricalMachinery {
 
     private ArrayList<GameItem> selection;
     private GameItem selectedItem;
     private int cost;
 
-    public VendingMachine(Room r) {
-        super("Vending Machine", r);
+    public VendingMachine(String name, Room r) {
+        super(name,  r);
         selection = new ArrayList<>();
-        selection.add(new Doughnut(null));
-        selection.add(new Banana(null));
-        selection.add(new PackOfSmokes());
-        selection.add(new ZippoLighter());
 
+
+    }
+
+    public void addSelection(GameItem it) {
+        selection.add(it);
     }
 
     @Override

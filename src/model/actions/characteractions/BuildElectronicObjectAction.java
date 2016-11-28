@@ -83,7 +83,7 @@ public class BuildElectronicObjectAction extends Action {
         set.add(new NuclearBomb(null));
         set.add(new AirlockPanel(null));
         set.add(new SlotMachine(null));
-        set.add(new VendingMachine(null));
+        set.add(new JunkVendingMachine(null));
         try {
             set.add(new AITurret(null, gameData.findObjectOfType(AIConsole.class), gameData));
         } catch (NoSuchThingException e) {
@@ -91,6 +91,8 @@ public class BuildElectronicObjectAction extends Action {
         }
         set.add(new ATM(gameData, null));
         set.add(new StasisPod(null));
+        set.add(new TeleportConsole(null));
+        set.add(new SeedVendingMachine(null));
         return set;
     }
 }

@@ -123,7 +123,7 @@ public class MyRandom {
         list.add(new Bible());
         list.add(new Defibrilator());
         list.add(new GeigerMeter());
-        list.add(new NuclearDisc());
+        list.add(new NuclearDisc(null, false));
         list.add(new SecurityRadio());
         list.add(new Teleporter());
         list.add(new PowerRadio());

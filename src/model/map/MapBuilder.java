@@ -146,7 +146,10 @@ public class MapBuilder {
 		gm.addRoom(new AirLockRoom(25, 3    , 5,  0, 1, 1, new int[]{24}        ,         new double[]{6.0, 0.5}  ), "ss13", "port");
 
 		gm.addRoom(new GeneratorRoom(26, 6,  5, 3, 3, new int[]{5}         ,         new double[]{}, gameData ), "ss13", "center");
-		gm.addRoom(new Room(27, "Panorama Walkway"    , ""       , 1,  3, 1, 3, new int[]{1, 3}      ,         new double[]{}, RoomType.hall ), "ss13", "aft");
+
+        Room panorama = new Room(27, "Panorama Walkway"    , ""       , 1,  3, 1, 3, new int[]{1, 3}      ,         new double[]{}, RoomType.hall );
+        panorama.addObject(new SeedVendingMachine(panorama));
+        gm.addRoom(panorama, "ss13", "aft");
 		
 		Room nukieShip = new NukieShipRoom(28, new int[]{7, 21, 25}, new double[]{-1.0, -1.0});
 		gm.addRoom(nukieShip, "ss13", "nuke");

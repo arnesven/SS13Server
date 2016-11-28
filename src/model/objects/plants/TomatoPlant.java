@@ -39,7 +39,7 @@ public class TomatoPlant extends Plant {
             @Override
             protected void updatePlant(GameData gameData, Plant plant) {
                 if (plantRound < gameData.getRound()) {
-                    if (tomatosLeft > 0) {
+                    if (tomatosLeft > 0 && !plant.isBroken()) {
                         if (!mutate) {
                             plant.getPosition().addItem(new Tomato(planter));
                         } else {

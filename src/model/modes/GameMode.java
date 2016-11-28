@@ -21,6 +21,7 @@ import model.objects.consoles.AIConsole;
 import model.objects.consoles.AdministrationConsole;
 import model.objects.consoles.PowerSource;
 import model.objects.general.GameObject;
+import model.objects.general.JunkVendingMachine;
 import model.objects.general.VendingMachine;
 import util.HTMLText;
 import util.Logger;
@@ -544,7 +545,7 @@ public abstract class GameMode implements Serializable {
 
 	private void addStuffToRooms(GameData gameData) {
         Room r = MyRandom.getRandomHallway(gameData);
-        r.addObject(new VendingMachine(r));
+        r.addObject(new JunkVendingMachine(r));
         Logger.log("Added vending machine in " + r.getName());
         try {
             gameData.getRoom("Starboard Hall Aft").addObject(new ATM(gameData, gameData.getRoom("Starboard Hall Aft")));
