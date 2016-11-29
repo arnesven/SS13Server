@@ -48,6 +48,7 @@ import model.characters.crew.SecurityOfficerCharacter;
 import model.items.general.GameItem;
 import model.map.NukieShipRoom;
 import model.map.Room;
+import model.misc.ChristmasBooster;
 
 /*
  * @author erini02
@@ -119,7 +120,7 @@ public abstract class GameMode implements Serializable {
         events.put("corrupt ai",       new CorruptAIEvent());
         events.put("merchant",         new TravelingMerchantEvent());
         events.put("marshals",         new GalacticFederalMarshalsEvent());
-        events.put("santa",            new SantaClauseEvent());
+
         events.put("simulate power",   new SimulatePower() {
             @Override
             public Collection<Room> getAffactedRooms(GameData gameData) {
@@ -312,6 +313,8 @@ public abstract class GameMode implements Serializable {
 		Logger.log(" Game Mode: Items added to rooms");
 		
 		addStartingMessages(gameData);
+		
+		ChristmasBooster.addStuff(gameData);
 
 	}
 

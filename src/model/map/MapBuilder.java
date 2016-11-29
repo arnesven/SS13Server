@@ -92,7 +92,7 @@ public class MapBuilder {
 
 		Room frontHall = new Room(13, "Front Hall"          , "FRONT"     ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{13.5, 10.0, 12.0, 8.0, 13.5, 6.0}, RoomType.hall );
 		gm.addRoom(frontHall, "ss13", "front");
-		frontHall.addObject(new Christmas_lights(frontHall));
+
 		
         Room aiCore = new Room(15, "AI Core"             , "AI"     ,10,  7, 2, 2, new int[]{13}        ,         new double[]{}, RoomType.tech );
 		AIConsole aiCons = new AIConsole(aiCore);
@@ -109,7 +109,7 @@ public class MapBuilder {
         bridge.addItem(new FireExtinguisher());
 		bridge.addObject(new AirLockControl(bridge));
 		bridge.addObject(new SecurityCameraConsole(bridge));
-		bridge.addObject(new Snowman(bridge));
+		
 		gm.addRoom(bridge, "ss13", "front");
 	
 		Room ss = new Room(18, "Security Station"    , "SS"     ,15,  2, 2, 2, new int[]{16}        ,         new double[]{} , RoomType.security );
