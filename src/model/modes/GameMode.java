@@ -113,7 +113,6 @@ public abstract class GameMode implements Serializable {
 		events.put("explosion",        new SpontaneousExplosionEvent());
 		events.put("crazyness",        new SpontaneousCrazyness());
 		events.put("radiation storms", new RadiationStorm());
-
 		events.put("Power flux",       makePowerFluxEvent());
 		events.put("random husks",     new RandomHuskEvent());
         events.put("pirate attack",    new PirateAttackEvent());
@@ -121,7 +120,6 @@ public abstract class GameMode implements Serializable {
         events.put("corrupt ai",       new CorruptAIEvent());
         events.put("merchant",         new TravelingMerchantEvent());
         events.put("marshals",         new GalacticFederalMarshalsEvent());
-
         events.put("simulate power",   new SimulatePower() {
             @Override
             public Collection<Room> getAffactedRooms(GameData gameData) {
