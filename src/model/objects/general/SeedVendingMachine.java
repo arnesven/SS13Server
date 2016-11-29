@@ -3,6 +3,7 @@ package model.objects.general;
 import graphics.sprites.Sprite;
 import model.Player;
 import model.items.general.BagOfSoil;
+import model.items.seeds.MushroomSpores;
 import model.items.seeds.OrangeSeeds;
 import model.items.seeds.RedWeedSeeds;
 import model.items.seeds.TomatoSeeds;
@@ -17,7 +18,9 @@ public class SeedVendingMachine extends VendingMachine {
         addSelection(new TomatoSeeds());
         addSelection(new RedWeedSeeds());
         addSelection(new OrangeSeeds());
+        addSelection(new MushroomSpores());
         addSelection(new BagOfSoil());
+
     }
 
     @Override

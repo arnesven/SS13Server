@@ -70,7 +70,9 @@ public class SoilPatch extends BreakableObject {
 
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-
+        if (isPlanted()) {
+            plant.addSpecificActionsFor(gameData, cl, at);
+        }
     }
 
     public void plant(SeedsItem selectedSeeds, GameData gameData, Actor planter) {

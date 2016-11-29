@@ -1,5 +1,6 @@
 package model.items.general;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -21,6 +22,11 @@ public class BagOfSoil extends GameItem {
     @Override
     public GameItem clone() {
         return new BagOfSoil();
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("bagofsoil", "seeds.png", 3, 7);
     }
 
     @Override

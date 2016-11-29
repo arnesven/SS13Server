@@ -169,6 +169,8 @@ public class GameData implements Serializable {
             gameMode.lateJoiningPlayer(newPlayer, this);
         }
 
+        getChat().serverSay(clid + " has joined.");
+
 		return clid;
 	}
 
@@ -200,6 +202,7 @@ public class GameData implements Serializable {
             }
 		}
 		players.remove(otherPlayer);
+        getChat().serverSay(otherPlayer + " has been kicked.");
 	}
 
 
