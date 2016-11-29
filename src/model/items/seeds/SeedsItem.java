@@ -25,7 +25,7 @@ public abstract class SeedsItem extends GameItem {
 
 
     public Plant doWhenPlanted(SoilPatch s, GameData gameData, Actor planter) {
-        Plant pl = this.getPlant(s.getPosition(), gameData, planter);
+        Plant pl = this.getPlant(s.getPosition(), gameData, planter, s);
 
         gameData.addEvent(pl.getPlantUpdater(gameData, s, planter));
 
@@ -39,5 +39,6 @@ public abstract class SeedsItem extends GameItem {
     }
 
 
-    protected abstract Plant getPlant(Room position, GameData gameData, Actor planter);
+    protected abstract Plant getPlant(Room position, GameData gameData,
+                                      Actor planter, SoilPatch sp);
 }

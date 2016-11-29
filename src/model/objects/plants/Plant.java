@@ -19,8 +19,11 @@ import java.util.ArrayList;
  * Created by erini02 on 26/11/16.
  */
 public abstract class Plant extends BreakableObject {
-    public Plant(String name, Room position) {
+    private SoilPatch soilPatch;
+
+    public Plant(String name, Room position, SoilPatch sp) {
         super(name, 0.5, position);
+        this.soilPatch = sp;
     }
 
     public abstract PlantUpdater getPlantUpdater(GameData gameData,
@@ -28,6 +31,9 @@ public abstract class Plant extends BreakableObject {
 
     public abstract SeedsItem getSeeds();
 
+    public SoilPatch getSoilPatch() {
+        return soilPatch;
+    }
 
     @Override
     public void beExposedTo(Actor performingClient, Damager damage) {

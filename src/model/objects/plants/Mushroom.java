@@ -5,6 +5,7 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.events.PlantUpdater;
+import model.items.foods.FoodItem;
 import model.map.Room;
 import model.objects.SoilPatch;
 
@@ -15,8 +16,8 @@ import java.util.List;
  * Created by erini02 on 28/11/16.
  */
 public abstract class Mushroom extends StagePlant {
-    public Mushroom(String name, Room position) {
-        super(name, position, 5);
+    public Mushroom(String name, Room position, SoilPatch sp) {
+        super(name, position, sp, 5);
     }
 
     @Override
@@ -57,7 +58,12 @@ public abstract class Mushroom extends StagePlant {
 
         @Override
         protected void execute(GameData gameData, Actor performingClient) {
-
+            if (getSoilPatch().isPlanted()) {
+                performingClient.addItem(Mushroom.this.getAsItem(), null);
+                performingClient.addTolastTurnInfo("You picked a mushroom.");
+            } else {
+                performingClient.addTolastTurnInfo("What, nothing to pick? " + Action.FAILED_STRING);
+            }
         }
 
         @Override
@@ -65,4 +71,6 @@ public abstract class Mushroom extends StagePlant {
 
         }
     }
+
+    protected abstract FoodItem getAsItem();
 }

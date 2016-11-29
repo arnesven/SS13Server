@@ -57,4 +57,8 @@ public class Bank implements Serializable {
     public void subtractFromStationMoney(int amount) {
         stationMoney -= amount;
     }
+
+    public void addToStationMoney(int cost) {
+        stationMoney += cost;
+    }
 }

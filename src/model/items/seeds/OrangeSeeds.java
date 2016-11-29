@@ -5,6 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.items.general.GameItem;
 import model.map.Room;
+import model.objects.SoilPatch;
 import model.objects.plants.OrangePlant;
 import model.objects.plants.Plant;
 
@@ -17,8 +18,8 @@ public class OrangeSeeds extends SeedsItem {
     }
 
     @Override
-    protected Plant getPlant(Room position, GameData gameData, Actor planter) {
-        return new OrangePlant(position);
+    protected Plant getPlant(Room position, GameData gameData, Actor planter, SoilPatch sp) {
+        return new OrangePlant(position, sp);
     }
 
     @Override

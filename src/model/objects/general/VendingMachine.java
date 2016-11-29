@@ -1,6 +1,7 @@
 package model.objects.general;
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.Bank;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -64,6 +65,7 @@ public abstract class VendingMachine extends ElectricalMachinery {
 
                 try {
                     money.subtractFrom(cost);
+                    Bank.getInstance(gameData).addToStationMoney(cost);
                 } catch (ItemStackDepletedException e) {
                     performingClient.getItems().remove(cost);
                 }

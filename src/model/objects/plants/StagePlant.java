@@ -3,6 +3,7 @@ package model.objects.plants;
 import graphics.sprites.Sprite;
 import model.Player;
 import model.map.Room;
+import model.objects.SoilPatch;
 
 import java.util.List;
 
@@ -14,8 +15,8 @@ public abstract class StagePlant extends Plant {
     private int stage;
     private final int maxStages;
 
-    public StagePlant(String name, Room position, int maxStages) {
-        super(name, position);
+    public StagePlant(String name, Room position, SoilPatch sp, int maxStages) {
+        super(name, position, sp);
         this.stage = 0;
         this.maxStages = maxStages;
     }

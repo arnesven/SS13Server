@@ -7,6 +7,7 @@ import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
 import model.characters.decorators.BrainRemovedDecorator;
 import model.characters.decorators.InstanceChecker;
+import model.characters.decorators.OnSurgeryTableDecorator;
 import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
 import model.items.Brain;
@@ -39,15 +40,32 @@ public class CutOutBrainAction extends TargetingAction {
         List<Target> targets = new ArrayList<>();
         targets.addAll(super.getTargets());
         for (Target t : super.getTargets()) {
-            if (t instanceof Actor) {
-               if ( (! ((Actor)t).isPassive()) || hasBrainRemoved((Actor)t) || !isHuman((Actor)t)) {
-                    targets.remove(t);
-               }
-            } else {
+            if (!canHaveBrainCutOut((Actor)t)) {
                 targets.remove(t);
             }
+
         }
         return targets;
+    }
+
+    private boolean canHaveBrainCutOut(Actor t) {
+        if (hasBrainRemoved(t)) {
+            return false;
+        }
+
+        if (!isHuman(t)) {
+            return false;
+        }
+
+        if (t.isDead()) {
+            return true;
+        }
+
+        if (((Actor) t).getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnSurgeryTableDecorator)) {
+            return true;
+        }
+
+        return false;
     }
 
     private boolean isHuman(Actor t) {

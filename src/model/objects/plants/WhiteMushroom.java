@@ -4,6 +4,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.events.PlantUpdater;
+import model.items.foods.FoodItem;
 import model.items.seeds.MushroomSpores;
 import model.items.seeds.SeedsItem;
 import model.map.Room;
@@ -16,8 +17,8 @@ import java.util.List;
  * Created by erini02 on 28/11/16.
  */
 public class WhiteMushroom extends Mushroom {
-    public WhiteMushroom(Room position) {
-        super("White Mushrooms", position);
+    public WhiteMushroom(Room position, SoilPatch sp) {
+        super("White Mushrooms", position, sp);
     }
 
     @Override
@@ -37,5 +38,36 @@ public class WhiteMushroom extends Mushroom {
     @Override
     public SeedsItem getSeeds() {
         return new MushroomSpores();
+    }
+
+    @Override
+    protected FoodItem getAsItem() {
+        return new WhiteMushroomItem();
+    }
+
+    private class WhiteMushroomItem extends FoodItem {
+        public WhiteMushroomItem() {
+            super("White Mushroom", 0.1, 35);
+        }
+
+        @Override
+        public Sprite getSprite(Actor whosAsking) {
+            return new Sprite("whitemushroomitem", "harvest.png", 6);
+        }
+
+        @Override
+        public double getFireRisk() {
+            return 0;
+        }
+
+        @Override
+        public FoodItem clone() {
+            return new WhiteMushroomItem();
+        }
+
+        @Override
+        protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
+
+        }
     }
 }

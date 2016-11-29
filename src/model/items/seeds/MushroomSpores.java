@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.items.general.GameItem;
 import model.map.Room;
+import model.objects.SoilPatch;
 import model.objects.plants.Plant;
 import model.objects.plants.RedMushroom;
 import model.objects.plants.WhiteMushroom;
@@ -18,17 +19,17 @@ public class MushroomSpores extends SeedsItem {
     }
 
     @Override
-    protected Plant getPlant(Room position, GameData gameData, Actor planter) {
-        return randomMushroom(position, gameData, planter);
+    protected Plant getPlant(Room position, GameData gameData, Actor planter, SoilPatch sp) {
+        return randomMushroom(position, gameData, planter, sp);
     }
 
-    private Plant randomMushroom(Room position, GameData gameData, Actor planter) {
+    private Plant randomMushroom(Room position, GameData gameData, Actor planter, SoilPatch sp) {
 
         if (MyRandom.nextDouble() < 0.5) {
-            return new WhiteMushroom(position);
+            return new WhiteMushroom(position, sp);
         }
 
-        return new RedMushroom(position);
+        return new RedMushroom(position, sp);
     }
 
     @Override

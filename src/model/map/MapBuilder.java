@@ -18,6 +18,7 @@ import model.npcs.behaviors.RandomSpeechBehavior;
 import model.npcs.robots.RobotNPC;
 import model.objects.AITurret;
 import model.objects.StasisPod;
+import model.objects.SurgeryTable;
 import model.objects.christmas.Christmas_lights;
 import model.objects.christmas.Snowman;
 import model.objects.consoles.*;
@@ -147,6 +148,7 @@ public class MapBuilder {
 		Room sickbay = new Room(24, "Sickbay"             , "Sick"   , 6,  0, 3, 3, new int[]{23, 25, 1} ,         new double[]{}, RoomType.science );
 		sickbay.addObject(new MedkitDispenser(3, sickbay));
         sickbay.addObject(new StasisPod(sickbay));
+        sickbay.addObject(new SurgeryTable(sickbay));
 		gm.addRoom(sickbay, "ss13", "port");
 		gm.addRoom(new AirLockRoom(25, 3    , 5,  0, 1, 1, new int[]{24}        ,         new double[]{6.0, 0.5}  ), "ss13", "port");
 

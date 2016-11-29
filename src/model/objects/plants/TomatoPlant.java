@@ -19,8 +19,8 @@ import model.objects.SoilPatch;
  * Created by erini02 on 27/11/16.
  */
 public class TomatoPlant extends Plant {
-    public TomatoPlant(Room position) {
-        super("Tomato Plant", position);
+    public TomatoPlant(Room position, SoilPatch sp) {
+        super("Tomato Plant", position, sp);
     }
 
     @Override

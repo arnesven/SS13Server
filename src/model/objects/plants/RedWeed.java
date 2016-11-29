@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class RedWeed extends StagePlant {
 
-    public RedWeed(Room position) {
-        super("Red Weed", position, 6);
+    public RedWeed(Room position, SoilPatch sp) {
+        super("Red Weed", position, sp, 6);
     }
 
 

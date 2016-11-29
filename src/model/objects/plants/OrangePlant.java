@@ -18,8 +18,8 @@ import java.util.List;
  * Created by erini02 on 28/11/16.
  */
 public class OrangePlant extends StagePlant {
-    public OrangePlant(Room position) {
-        super("Orange Tree", position, 4);
+    public OrangePlant(Room position, SoilPatch sp) {
+        super("Orange Tree", position, sp, 4);
     }
 
 

@@ -37,8 +37,8 @@ public class TomatoSeeds extends SeedsItem {
 
 
     @Override
-    protected Plant getPlant(Room position, GameData gameData, Actor planter) {
-        TomatoPlant pl = new TomatoPlant(position);
+    protected Plant getPlant(Room position, GameData gameData, Actor planter, SoilPatch sp) {
+        TomatoPlant pl = new TomatoPlant(position, sp);
         return pl;
     }
 }
