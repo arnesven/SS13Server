@@ -68,21 +68,22 @@ public class AIConsoleAction extends ConsoleAction {
                         }
                     }
                 }
+                if (! found) {
+                    for (Room r : gameData.getAllRooms()) {
+                        for (Actor a : r.getActors()) {
+                            if (a.getBaseName().equals(crew)) {
+                                try {
+                                    Integer[] pos = gameData.getMap().getPositionForLevel(gameData.getMap().getLevelForRoom(r));
+                                    performingClient.addTolastTurnInfo("-->" + crew + " is off station, at coordinates " +
+                                            (pos[0] * 100 + MyRandom.nextInt(100)) + "-" +
+                                            (pos[1] * 100 + MyRandom.nextInt(100)) + "-" +
+                                            (pos[2] * 100 + MyRandom.nextInt(100)));
+                                    found = true;
+                                } catch (NoSuchThingException e) {
+                                    e.printStackTrace();
+                                }
 
-                for (Room r : gameData.getAllRooms()) {
-                    for (Actor a : r.getActors()) {
-                        if (a.getBaseName().equals(crew)) {
-                            try {
-                                Integer[] pos = gameData.getMap().getPositionForLevel(gameData.getMap().getLevelForRoom(r));
-                                performingClient.addTolastTurnInfo("-->" + crew + " is off station, at coordinates " +
-                                        (pos[0]*100 + MyRandom.nextInt(100)) + "-" +
-                                        (pos[1]*100 + MyRandom.nextInt(100)) + "-" +
-                                        (pos[2]*100 + MyRandom.nextInt(100)));
-                                found = true;
-                            } catch (NoSuchThingException e) {
-                                e.printStackTrace();
                             }
-
                         }
                     }
                 }

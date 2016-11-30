@@ -56,6 +56,7 @@ public class DropAction extends Action {
             SuitItem s = performingClient.getCharacter().getSuit();
             if (s != null) {
                 performingClient.takeOffSuit();
+                performingClient.getPosition().addItem(s);
             } else {
                 break;
             }

@@ -6,6 +6,7 @@ import java.util.List;
 import model.GameData;
 import model.items.general.Locatable;
 import model.map.Room;
+import model.objects.SoilPatch;
 import model.objects.general.BreakableObject;
 import model.objects.general.GameObject;
 
@@ -99,6 +100,7 @@ public class SabotageObjective implements TraitorObjective {
                 }
             }
         }
+        list.removeIf((BreakableObject ob) -> ob instanceof SoilPatch);
 		return list;
 	}
 
