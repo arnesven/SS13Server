@@ -12,6 +12,7 @@ import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
 import model.items.Brain;
 import model.items.general.GameItem;
+import model.objects.general.GameObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,11 @@ public class CutOutBrainAction extends TargetingAction {
         List<Target> targets = new ArrayList<>();
         targets.addAll(super.getTargets());
         for (Target t : super.getTargets()) {
-            if (!canHaveBrainCutOut((Actor)t)) {
+            if (t instanceof Actor) {
+                if (!canHaveBrainCutOut((Actor) t)) {
+                    targets.remove(t);
+                }
+            } else {
                 targets.remove(t);
             }
 
@@ -64,6 +69,8 @@ public class CutOutBrainAction extends TargetingAction {
         if (((Actor) t).getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnSurgeryTableDecorator)) {
             return true;
         }
+
+
 
         return false;
     }

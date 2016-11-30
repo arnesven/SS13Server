@@ -54,7 +54,7 @@ public class NuclearDisc extends GameItem {
             Logger.log("Checking that disc is still on station...");
             if (getHolder() != null) {
                 try {
-                    if (gameData.getMap().getLevelForRoom(getHolder().getPosition()) != "ss13") {
+                    if (!gameData.getMap().getLevelForRoom(getHolder().getPosition()).equals("ss13")) {
                         Logger.log(Logger.INTERESTING, "disc is held by soneone, not on ss13 any more! Respawning disc in CQ");
                         getHolder().getItems().remove(disc);
                         gameData.getRoom("Captain's Quarters").addItem(disc);

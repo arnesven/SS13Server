@@ -58,8 +58,9 @@ public abstract class Action implements Serializable {
 	 */
 	public String getDescription(Actor whosAsking) {
 		if (performer == null) {
-			throw new IllegalStateException("doTheAction was not called before call to getDescription!");
-		}
+            return "someone FARTED";
+			//throw new IllegalStateException("doTheAction was not called before call to getDescription!");
+        }
 		return performer.getPublicName() + " " + this.getVerb(whosAsking).toLowerCase() + "";
 	}
 

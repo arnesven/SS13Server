@@ -23,6 +23,7 @@ public class PayWagesEvent extends Event {
 
     @Override
     public void apply(GameData gameData) {
+        Logger.log("Applying paychecks. - ran once");
         try {
             AdministrationConsole adminConsole = gameData.findObjectOfType(AdministrationConsole.class);
             if ((gameData.getRound()-1) % 3 == 0) {

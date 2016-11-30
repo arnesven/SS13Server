@@ -22,7 +22,7 @@ public class SummaryCommandHandler extends AbstractCommandHandler {
 		if (command.equals("SUMMARY")) {
 
             try {
-                if (mode != gameData.getGameMode()) {
+                if (mode != gameData.getGameMode() && gameData.getGameMode().gameOver(gameData)) {
                     oldSummary = gameData.getSummary(); // is still a bug here...
                     mode = gameData.getGameMode();
                 }

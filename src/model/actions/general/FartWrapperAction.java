@@ -26,7 +26,8 @@ public class FartWrapperAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        inner.execute(gameData, performingClient);
+        inner.doTheAction(gameData, performingClient);
+       // inner.execute(gameData, performingClient);
     }
 
     @Override
