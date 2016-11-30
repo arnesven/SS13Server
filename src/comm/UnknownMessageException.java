@@ -5,5 +5,6 @@ package comm;
  */
 public class UnknownMessageException extends Exception {
     public UnknownMessageException(String s) {
+        super(s);
     }
 }

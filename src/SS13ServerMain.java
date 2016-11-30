@@ -66,7 +66,9 @@ public class SS13ServerMain {
                 } while (true);
 
             } catch (Exception e) {
+                Logger.log(Logger.CRITICAL, e.getMessage());
                 e.printStackTrace();
+
             } finally {
                 listener.close();
             }

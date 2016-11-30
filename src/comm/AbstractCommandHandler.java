@@ -26,7 +26,7 @@ public abstract class AbstractCommandHandler implements MessageHandler {
 		String clid = sc.next();
 
 		if (gameData.getPlayerForClid(clid) == null && !message.contains("RETURNING")) {
-			oos.writeObject("ERROR: OUT OF SYNC");
+			oos.writeObject("ERROR: Server has been restarted, please rejoin.");
 			return true;
 		}
 
@@ -41,9 +41,12 @@ public abstract class AbstractCommandHandler implements MessageHandler {
 
 			return handleCommand(command, clid, rest, oos);
 
+		} else if (message.equals(" RETURNING")) {
+            oos.writeObject("ERROR: If you are returning to a game, you must enter a player name.");
+			return true;
 		} else {
-			return false;
-		}
+            return false;
+        }
 		//		}
 
 	//	return false;

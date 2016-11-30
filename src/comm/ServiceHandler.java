@@ -64,8 +64,8 @@ public class ServiceHandler {
 			}
 		}
 		
-		oos.writeObject("ERROR");
-		throw new UnknownMessageException("Unknown message" + message);
+		oos.writeObject("ERROR: An unknown error has occurred on the server. The server has crashed - you crashed it.");
+		throw new UnknownMessageException("Unknown message \"" + message + "\"");
 	}
 
 
