@@ -4,12 +4,13 @@ import model.characters.general.ParasiteCharacter;
 import model.map.Room;
 import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
 import model.npcs.behaviors.MeanderingMovement;
+import model.npcs.behaviors.ParasiteBehavior;
 
 public class ParasiteNPC extends NPC {
 
 	public ParasiteNPC(Room startRoom) {
 		super(new ParasiteCharacter(), new MeanderingMovement(0.75),
-		   new AttackAllActorsNotSameClassBehavior(), startRoom);
+		   new ParasiteBehavior(), startRoom);
 		this.setHealth(0.5);
 		this.setMaxHealth(0.5);
 	}
