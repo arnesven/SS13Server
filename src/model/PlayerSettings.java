@@ -19,6 +19,7 @@ public class PlayerSettings implements Serializable {
     public static final String ALWAYS_REFUSE_GIFTS         = "Always refuse gifts";
     public static final String CURRENT_ROOM_STUFF_IN_MAP   = "Current room stuff in map";
     public static final String MAKE_ME_AI_IF_ABLE          = "Make me the AI if able";
+    public static final String GIVE_ME_A_TASK              = "Give me a task each round";
 
     private HashMap<String, Boolean> settings = new HashMap<>();
 
@@ -29,6 +30,7 @@ public class PlayerSettings implements Serializable {
         settings.put(ALWAYS_REFUSE_GIFTS, false);
         settings.put(CURRENT_ROOM_STUFF_IN_MAP, true);
         settings.put(MAKE_ME_AI_IF_ABLE, false);
+        settings.put(GIVE_ME_A_TASK, false);
     }
 
     public void set(String key, boolean value) {

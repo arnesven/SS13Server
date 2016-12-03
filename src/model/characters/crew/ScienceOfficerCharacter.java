@@ -9,6 +9,7 @@ import model.actions.characteractions.LaptopRemoteAccessAction;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
+import model.items.chemicals.EtherChemicals;
 import model.items.general.*;
 import util.Logger;
 
@@ -21,7 +22,7 @@ public class ScienceOfficerCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
-		list.add(new Chemicals());
+		list.add(new EtherChemicals());
 		list.add(new GeigerMeter());
         list.add(new Teleporter());
         list.add(new Laptop());

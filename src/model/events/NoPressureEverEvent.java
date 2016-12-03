@@ -1,4 +1,4 @@
-package model.modes;
+package model.events;
 
 import model.GameData;
 import model.events.NoPressureEvent;

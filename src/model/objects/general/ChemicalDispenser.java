@@ -9,8 +9,8 @@ public class ChemicalDispenser extends DispenserObject {
 
 	public ChemicalDispenser(String name, int i, Room pos) {
 		super(name, pos);
-		this.addItem(new Chemicals());
-		this.addItem(new Chemicals());
+		this.addItem(Chemicals.createRandomChemicals());
+		this.addItem(Chemicals.createRandomChemicals());
 	}
 
     @Override

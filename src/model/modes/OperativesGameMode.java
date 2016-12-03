@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.characters.general.AICharacter;
+import model.events.NoPressureEverEvent;
 import model.items.NoSuchThingException;
 import model.objects.general.NuclearBomb;
 import util.HTMLText;
@@ -200,7 +201,7 @@ public class OperativesGameMode extends GameMode {
 	}
 
 	@Override
-	protected boolean isAntagonist(Player c) {
+    public boolean isAntagonist(Player c) {
 		return operatives.contains(c);
 	}
 	

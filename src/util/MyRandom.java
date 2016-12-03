@@ -111,7 +111,7 @@ public class MyRandom {
         list.add(new SpinachSoup(null));
         list.add(new Banana(null));
         list.add(new Syringe());
-        list.add(new Chemicals());
+        list.add(Chemicals.createRandomChemicals());
         list.add(new Grenade());
         list.add(new MedKit());
         list.add(new Tools());

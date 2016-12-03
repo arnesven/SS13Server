@@ -24,8 +24,10 @@ public class ParasiteBehavior implements ActionBehavior {
 
     @Override
     public void act(NPC npc, GameData gameData) {
-        if (MyRandom.nextDouble() < 0.5) {
-            TargetingAction act = new FaceHuggingAction(npc);
+         TargetingAction act = new FaceHuggingAction(npc);
+        
+
+        if (MyRandom.nextDouble() < 0.5 && act.getNoOfTargets() > 0) {
             Target t = MyRandom.sample(act.getTargets());
             List<String> args = new ArrayList<>();
             args.add(t.getName());

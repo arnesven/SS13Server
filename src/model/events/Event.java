@@ -45,4 +45,31 @@ public abstract class Event implements Serializable {
     }
 
 
+    public interface EventRunner {
+        void doEvent(GameData gd);
+    }
+
+    public static void runOnceAtEndOfMovement(GameData gd, EventRunner ev) {
+        gd.addMovementEvent(new Event() {
+            @Override
+            public void apply(GameData gameData) {
+                ev.doEvent(gameData);
+            }
+
+            @Override
+            public String howYouAppear(Actor performingClient) {
+                return "";
+            }
+
+            @Override
+            public SensoryLevel getSense() {
+                return SensoryLevel.NO_SENSE;
+            }
+
+            @Override
+            public boolean shouldBeRemoved(GameData gameData) {
+                return true;
+            }
+        });
+    }
 }

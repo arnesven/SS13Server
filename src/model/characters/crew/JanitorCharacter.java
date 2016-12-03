@@ -7,6 +7,7 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.characteractions.PickUpAllAction;
 import model.characters.general.GameCharacter;
+import model.items.chemicals.HydrogenPeroxideChemicals;
 import model.items.general.Chemicals;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
@@ -32,7 +33,7 @@ public class JanitorCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
-		list.add(new Chemicals());
+		list.add(new HydrogenPeroxideChemicals());
 		list.add(new FireExtinguisher());
         list.add(new Tools());
 		return list;

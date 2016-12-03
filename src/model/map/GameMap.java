@@ -5,7 +5,7 @@ import model.GameData;
 import model.events.Event;
 import model.events.ambient.ColdEvent;
 import model.items.NoSuchThingException;
-import model.modes.NoPressureEverEvent;
+import model.events.NoPressureEverEvent;
 import util.Logger;
 import util.MyRandom;
 

@@ -1,4 +1,4 @@
-package model.modes;
+package model.modes.objectives;
 
 import java.util.ArrayList;
 import java.util.List;

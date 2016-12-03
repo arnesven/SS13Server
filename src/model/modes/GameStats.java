@@ -17,13 +17,13 @@ import model.items.general.GameItem;
 import model.items.general.MoneyStack;
 import model.items.laws.AILaw;
 import model.map.OtherDimension;
+import model.modes.goals.PersonalGoal;
 import model.npcs.AlienNPC;
 import model.npcs.animals.CatNPC;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
 import model.npcs.PirateNPC;
 import model.objects.consoles.AIConsole;
-import model.objects.consoles.GeneratorConsole;
 import model.objects.consoles.PowerSource;
 import util.HTMLText;
 import util.Logger;
@@ -148,6 +148,7 @@ public abstract class GameStats {
 		String result = "";
 		
 		result += modeSpecificExtraInfo(value);
+        result += protagonistTaskInfo(value);
 
 		if (value.isDead()) {
 			if (!result.equals("")) {
@@ -171,9 +172,22 @@ public abstract class GameStats {
 		return result;
 	}
 
-	
+    private String protagonistTaskInfo(Actor value) {
+        PersonalGoal pt = gameData.getGameMode().getTasks().getGoalsForActors().get(value);
+        if (pt == null) {
+            return "";
+        }
+        String result = "(Personal Goal: " + pt.getText() + " - ";
+        if (pt.isCompleted(gameData)) {
+            result += HTMLText.makeText("green", "Success") + ")";
+        } else {
+            result += HTMLText.makeText("red", "Failed") + ")";
+        }
+        return result;
+    }
 
-	private String getStatusStringForPlayer(Actor value) {
+
+    private String getStatusStringForPlayer(Actor value) {
 		if (value.isDead()) {
 
 			return "<span style='background-color: #AAAAAA'>Dead" + getExtraDeadInfo(value) + "</span>";

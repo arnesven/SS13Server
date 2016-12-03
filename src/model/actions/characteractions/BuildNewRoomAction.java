@@ -118,7 +118,12 @@ public class BuildNewRoomAction extends Action {
 
         Point2D doorPoint = new Point2D.Double(0, 0);
         Point roomPlacement = new Point(0, 0);
-        Architecture architecture = new Architecture(gameData.getMap());
+        Architecture architecture = null;
+        try {
+            architecture = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(current));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
         architecture.checkPlacement(current, width, height, direction, doorPoint, roomPlacement);
 
 

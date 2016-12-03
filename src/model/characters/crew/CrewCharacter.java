@@ -29,4 +29,9 @@ public abstract class CrewCharacter extends HumanCharacter {
     }
 
     public abstract List<GameItem> getCrewSpecificItems();
+
+    @Override
+    public boolean isCrew() {
+        return true;
+    }
 }

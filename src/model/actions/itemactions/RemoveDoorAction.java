@@ -70,7 +70,12 @@ public class RemoveDoorAction extends Action {
             performingClient.getItems().remove(roomParts);
         }
 
-        Architecture arc = new Architecture(gameData.getMap());
+        Architecture arc = null;
+        try {
+            arc = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(performingClient.getPosition()));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
         Point2D doorPos = null;
         try {
             doorPos = arc.getDoorPositionBetween(performingClient.getPosition(), selected);

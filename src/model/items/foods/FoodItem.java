@@ -34,6 +34,7 @@ public abstract class FoodItem extends GameItem {
 	protected abstract void triggerSpecificReaction(Actor eatenBy, GameData gameData);
 	
 	public void beEaten(Actor eatenBy, GameData gameData) {
+        eatenBy.getCharacter().doWhenConsumeItem(this, gameData);
         if (eatenBy.getItems().contains(this)) {
             eatenBy.getItems().remove(this);
         } else if (eatenBy.getPosition().getItems().contains(this)) {

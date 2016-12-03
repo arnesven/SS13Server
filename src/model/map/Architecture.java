@@ -12,20 +12,20 @@ import java.util.List;
  */
 public class Architecture {
 
-    private final List<Room> allRooms;
+    private final Collection<Room> allRooms;
     private int xOffset;
     private int yOffset;
     private int width;
     private int height;
     int[][] mapMatrix;
 
-    public Architecture(GameMap map) {
+    public Architecture(GameMap map, String level) {
         width = map.getMaxX() - map.getMinX();
         height = map.getMaxY() - map.getMinY();
         mapMatrix = new int[width][height];
         xOffset = map.getMinX();
         yOffset = map.getMinY();
-        this.allRooms = map.getRooms();
+        this.allRooms = map.getRoomsForLevel(level);
         zeroOut(map);
 
         fillInActualRooms(map);

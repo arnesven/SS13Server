@@ -10,7 +10,7 @@ import model.actions.general.ActionOption;
 import model.items.general.*;
 import model.items.suits.SuperSuit;
 import model.modes.TraitorGameMode;
-import model.modes.TraitorObjective;
+import model.modes.objectives.TraitorObjective;
 import model.actions.general.SensoryLevel;
 
 public class UsePDAAction extends Action {

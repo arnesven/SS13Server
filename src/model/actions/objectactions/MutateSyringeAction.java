@@ -53,7 +53,7 @@ public class MutateSyringeAction extends ConsoleAction {
     private void addGeneticistOpts(ActionOption subopt, Actor whosAsking, GameData gameData) {
         if (isGeneticist(whosAsking)) {
             geneticistsOptions = new ArrayList<>();
-            while (geneticistsOptions.size() < 15) {
+            while (geneticistsOptions.size() < 3) {
                 Mutation mut = MutationFactory.getRandomMutation(gameData);
                 if (!geneticistsOptions.contains(mut)) {
                     geneticistsOptions.add(mut);

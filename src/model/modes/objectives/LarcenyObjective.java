@@ -1,4 +1,4 @@
-package model.modes;
+package model.modes.objectives;
 
 import model.GameData;
 import model.Player;

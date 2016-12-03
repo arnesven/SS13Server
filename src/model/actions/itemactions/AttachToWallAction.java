@@ -5,6 +5,7 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.items.NoSuchThingException;
 import model.items.general.BombItem;
 import model.map.Architecture;
 import model.map.Room;
@@ -24,7 +25,12 @@ public class AttachToWallAction extends Action {
 
     public AttachToWallAction(GameData gameData, Actor cl, BombItem bombItem) {
         super("Attach Bomb to Wall", SensoryLevel.OPERATE_DEVICE);
-        Architecture arch = new Architecture(gameData.getMap());
+        Architecture arch = null;
+        try {
+            arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(cl.getPosition()));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
 
         arc = arch.getPossibleNewDoors(cl.getPosition());
         this.bomb = bombItem;

@@ -30,7 +30,12 @@ public class BuildDoorAction extends Action {
         super("Build Door", SensoryLevel.PHYSICAL_ACTIVITY);
 
 
-        Architecture arch = new Architecture(gameData.getMap());
+        Architecture arch = null;
+        try {
+            arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(performingClient.getPosition()));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
 
         arc = arch.getPossibleNewDoors(performingClient.getPosition());
 

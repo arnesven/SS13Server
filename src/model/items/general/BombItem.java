@@ -27,7 +27,7 @@ import model.map.Architecture;
 import model.map.GameMap;
 import model.map.Room;
 import model.events.SpontaneousExplosionEvent;
-import model.modes.NoPressureEverEvent;
+import model.events.NoPressureEverEvent;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 import util.Logger;
@@ -284,7 +284,12 @@ public class BombItem extends HidableItem implements ExplodableItem {
             @Override
             public void doHazard(GameData gameData) {
                 if (attatchedToRoomWall != null) {
-                    Architecture arch = new Architecture(gameData.getMap());
+                    Architecture arch = null;
+                    try {
+                        arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(bombRoom));
+                    } catch (NoSuchThingException e) {
+                        e.printStackTrace();
+                    }
                     Point2D doorPos = arch.getPossibleNewDoors(bombRoom).get(attatchedToRoomWall);
                     GameMap.addDoor(attatchedToRoomWall, doorPos.getX(), doorPos.getY());
                     GameMap.joinRooms(bombRoom, attatchedToRoomWall);

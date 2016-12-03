@@ -1,27 +1,11 @@
-package model.modes;
+package model.modes.objectives;
 
-import model.GameData;
 import model.items.general.Locatable;
+import model.modes.objectives.Objective;
 
-import java.io.Serializable;
+public interface TraitorObjective extends Objective {
 
-public interface TraitorObjective extends Serializable {
 
-	/**
-	 * Gets the objective text as it appears to the
-	 * traitor at the beginning of the game.
-	 * @return the objective text.
-	 */
-	String getText();
-	
-	/**
-	 * Checks wether or not the objective is completed
-	 * right at this moment.
-	 * @param gameData
-	 * @return
-	 */
-	boolean isCompleted(GameData gameData);
-	
 	/**
 	 * Returns true if this objective ever was completed.
 	 * May be true even if the objective isn't true right

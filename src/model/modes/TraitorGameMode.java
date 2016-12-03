@@ -10,6 +10,7 @@ import java.util.Map;
 import model.characters.general.AICharacter;
 import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
+import model.modes.objectives.*;
 import model.npcs.*;
 import model.npcs.animals.CatNPC;
 import model.npcs.animals.ChimpNPC;
@@ -522,7 +523,7 @@ public class TraitorGameMode extends GameMode {
 	}
 
 	@Override
-	protected boolean isAntagonist(Player c) {
+    public boolean isAntagonist(Player c) {
 		return traitors.contains(c);
 	}
 

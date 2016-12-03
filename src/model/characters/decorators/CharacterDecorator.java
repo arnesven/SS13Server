@@ -11,6 +11,7 @@ import model.Target;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;
 import model.events.damage.Damager;
+import model.items.foods.FoodItem;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
@@ -393,5 +394,8 @@ public abstract class CharacterDecorator extends GameCharacter {
         return innerChar.getVisibleMap(gameData);
     }
 
-
+    @Override
+    public void doWhenConsumeItem(FoodItem foodItem, GameData gameData) {
+        innerChar.doWhenConsumeItem(foodItem, gameData);
+    }
 }

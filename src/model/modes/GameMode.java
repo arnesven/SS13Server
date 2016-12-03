@@ -1,16 +1,15 @@
 package model.modes;
 
 import java.io.Serializable;
-import java.security.KeyStore;
 import java.util.*;
 
-import model.PlayerSettings;
+import model.*;
 import model.characters.general.AICharacter;
-import model.characters.general.SantaClauseCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.events.*;
 import model.events.ambient.*;
 import model.items.NoSuchThingException;
+import model.modes.goals.PersonalGoalAssigner;
 import model.npcs.*;
 import model.npcs.animals.SnakeNPC;
 import model.npcs.robots.TARSNPC;
@@ -19,16 +18,10 @@ import model.objects.AITurret;
 import model.objects.ATM;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.AdministrationConsole;
-import model.objects.consoles.PowerSource;
-import model.objects.general.GameObject;
 import model.objects.general.JunkVendingMachine;
-import model.objects.general.VendingMachine;
 import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
-import model.Actor;
-import model.Player;
-import model.GameData;
 import model.characters.general.CharacterSpeedComparator;
 import model.characters.general.GameCharacter;
 import model.characters.crew.BartenderCharacter;
@@ -51,44 +44,6 @@ import model.map.NukieShipRoom;
 import model.map.Room;
 import model.misc.ChristmasBooster;
 
-/*
- * @author erini02
- * Class for representing a GameMode, i.e. what a round of this game should
- * be about, what antagonists are there, and what are the objectives for the
- * teams.
- * Ideas for GameModes (extending classes):
- * 
- * Host - A hive has spawned somewhere on the station and is spreading parasites
- * and disease. One player (the host) has already been infected, and will protect
- * the hive at all costs. The player will do this by attacking the crew, or infecting
- * them, turning them over to his/her side. The humans must find the hive and destroy it
- * before the time runs out.
- * 
- * Operation - A small team (2-3) of operatives starts the game off-station and must try to
- * infiltrate the station through the airlocks and obtain the captain's security disk. 
- * This is difficult however, since a crewmember will immediately recognize the operatives'
- * spacesuits as different from the station's. Will the operatives stay together or will they
- * spread out? Will they try to dispose of their spacesuit and get som SS13 clothes, or will 
- * they try to make a quick smash and grab? The crew must prevent the operatives from
- * obtaining the disk. If they can escape through one of the airlocks with the disk, they will
- * be able to nuke the station! The operatives are assigned contacts at the beginning of the
- * game, i.e. characters which they know are NPCs, but who they can pretend that they are playing
- * in order to maintain the false pretence of who they are.
- * 
- * Traitors - Two of the crew's members are disgruntled and have contacted the
- * evil syndicate. They have now been assigned special traitorous missions to be carried out
- * on the station. E.g. assassinations or bombings. They can secretly order some traitor
- * equipment, and need only wait until the right moment to strike. The crew's only objective
- * is to survive the round, but who can be trusted and who is a traitor?
- * 
- * Xenomorph - A strange alien life form has gotten aboard the station. At the start of the game
- * it is simply a small parasite, but once it attacks and sucs the life force out of a living
- * creature it can take the form of that creature. Be aware! There is now a shape shifting
- * alien on SS13. The objective of the Xenomorph is to kill as many humans as possible, via
- * stealth or by ultimately turning in to the shambling abomination, a super-form of the
- * xenomorph which is more powerful the more creatures it has sucked. The crew must kill the 
- * xeno and survive the round to win the game.
- */
 /**
  * @author erini02
  *
@@ -106,42 +61,11 @@ public abstract class GameMode implements Serializable {
     private Player aIPlayer = null;
     private Player capCl = null;
     private List<GameCharacter> remainingChars;
+    private PersonalGoalAssigner tasks;
 
     public GameMode() {
-		events.put("fires",            new ElectricalFire());
-		events.put("hull breaches",    new HullBreach());
-		events.put("explosion",        new SpontaneousExplosionEvent());
-		events.put("crazyness",        new SpontaneousCrazyness());
-		events.put("radiation storms", new RadiationStorm());
-		events.put("Power flux",       makePowerFluxEvent());
-		events.put("random husks",     new RandomHuskEvent());
-        events.put("pirate attack",    new PirateAttackEvent());
-        events.put("alien dimension",  new AlienDimensionEvent());
-        events.put("corrupt ai",       new CorruptAIEvent());
-        events.put("merchant",         new TravelingMerchantEvent());
-        events.put("marshals",         new GalacticFederalMarshalsEvent());
-        events.put("simulate power",   new SimulatePower() {
-            @Override
-            public Collection<Room> getAffactedRooms(GameData gameData) {
-                return gameData.getRooms();
-            }
-        });
-        events.put("derelict simpower", new SimulatePower() {
-            @Override
-            public Collection<Room> getAffactedRooms(GameData gameData) {
-                return gameData.getMap().getRoomsForLevel("derelict");
-            }
-        });
-
-
-
+        AmbientEvent.setUpAmbients(events);
 	}
-
-
-
-    public static int getNumberOfAvailableModes() {
-        return knownModes.length;
-    }
 
     public abstract String getName();
     
@@ -257,7 +181,7 @@ public abstract class GameMode implements Serializable {
 	 * @param c
 	 * @return
 	 */
-	protected abstract boolean isAntagonist(Player c);
+	public abstract boolean isAntagonist(Player c);
 
 
 	/**
@@ -296,23 +220,20 @@ public abstract class GameMode implements Serializable {
 		Logger.log(" Game Mode: Setup: Characters assigned");
 		moveCharactersIntoStartingRooms(gameData);
 		Logger.log(" Game Mode: Setup: Characters moved into starting rooms");
-			
 		addNPCs(gameData, remainingChars);
 		Logger.log(" Game Mode: Setup: NPCs added");
-		
 		giveCharactersStartingItems(gameData);
 		Logger.log(" Game Mode: Setup: Chars got starting items");
-		
 		setUpOtherStuff(gameData);
 		Logger.log(" Game Mode: Other stuff setupped");
-		
 		addStuffToRooms(gameData);
-		
 		addRandomItemsToRooms(gameData);
 		Logger.log(" Game Mode: Items added to rooms");
-		
+
+        tasks = new PersonalGoalAssigner(gameData);
+        tasks.addTasks(gameData);
+
 		addStartingMessages(gameData);
-		
 		ChristmasBooster.addStuff(gameData);
 
 	}
@@ -697,35 +618,31 @@ public abstract class GameMode implements Serializable {
         }
 
         addStartingMessage(gameData, newPlayer);
+        informOnStation(gameData, newPlayer);
+    }
+
+    private void informOnStation(GameData gameData, Player newPlayer) {
+        final String message;
         try {
-            gameData.findObjectOfType(AIConsole.class).informOnStation(
-                    gameData.getClidForPlayer(newPlayer) + " the " + chAr.getBaseName() +
+            message = gameData.getClidForPlayer(newPlayer) + " the " + newPlayer.getCharacter().getBaseName() +
                     " has arrived late for " +
-                            (chAr.getGender().equals("man")?"his":"her") + " shift.", gameData);
+            (newPlayer.getCharacter().getGender().equals("man")?"his":"her") + " shift.";
+            if (gameData.getGameState() == GameState.MOVEMENT) {
+                Event.runOnceAtEndOfMovement(gameData, (GameData gd) -> {try {
+                    gameData.findObjectOfType(AIConsole.class).informOnStation(message, gameData);
+                } catch (NoSuchThingException e) {
+                    e.printStackTrace();
+                }});
+            } else {
+                gameData.findObjectOfType(AIConsole.class).informOnStation(message, gameData);
+            }
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
     }
 
 
-
-    private Event makePowerFluxEvent() {
-        return new PowerFlux() {
-            @Override
-            protected PowerSource findePowerSource(GameData gameData) throws NoSuchThingException {
-                for (GameObject obj : gameData.getRoom("Generator").getObjects()) {
-                    if (obj instanceof PowerSource) {
-                        return (PowerSource) obj;
-                    }
-                }
-                throw new NoSuchThingException("Did not find power source");
-            }
-        };
+    public PersonalGoalAssigner getTasks() {
+        return tasks;
     }
-
-
-
-
-
-
 }

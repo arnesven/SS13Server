@@ -6,6 +6,9 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
 import model.events.damage.InternalBleeding;
+import model.events.damage.PoisonDamage;
+import model.items.foods.FoodItem;
+import model.items.general.Chemicals;
 import model.items.general.GameItem;
 import model.items.weapons.Knife;
 import model.npcs.ParasiteNPC;
@@ -48,6 +51,17 @@ public class FaceHuggedDecorator extends CharacterDecorator {
         if (getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnSurgeryTableDecorator)) {
             if (GameItem.hasAnItem(anyActorInRoom, new Knife())) {
                 at.add(new PerformSurgeryOnAction(getActor(), anyActorInRoom));
+            }
+        }
+    }
+
+    @Override
+    public void doWhenConsumeItem(FoodItem foodItem, GameData gameData) {
+        super.doWhenConsumeItem(foodItem, gameData);
+        if (foodItem instanceof Chemicals) {
+            if (getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof FaceHuggedDecorator)) {
+                getActor().removeInstance((GameCharacter gc) -> gc instanceof FaceHuggedDecorator);
+                getActor().addTolastTurnInfo("Your parasites have been euthanized.");
             }
         }
     }

@@ -1,6 +1,5 @@
-package model.modes;
+package model.modes.objectives;
 
-import model.Actor;
 import model.GameData;
 import model.ItemHolder;
 import model.Player;
@@ -8,7 +7,6 @@ import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Locatable;
 import model.items.general.MoneyStack;
-import model.map.Room;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,7 +9,7 @@ import model.items.general.MoneyStack;
 import model.items.general.NuclearDisc;
 import model.items.general.Tools;
 import model.items.suits.SpaceSuit;
-import model.modes.NoPressureEverEvent;
+import model.events.NoPressureEverEvent;
 import model.npcs.*;
 import model.npcs.animals.CatNPC;
 import model.npcs.animals.ChimpNPC;
@@ -19,8 +19,6 @@ import model.npcs.robots.RobotNPC;
 import model.objects.AITurret;
 import model.objects.StasisPod;
 import model.objects.SurgeryTable;
-import model.objects.christmas.Christmas_lights;
-import model.objects.christmas.Snowman;
 import model.objects.consoles.*;
 import model.objects.general.*;
 

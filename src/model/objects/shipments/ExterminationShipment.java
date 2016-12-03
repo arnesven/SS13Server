@@ -8,7 +8,7 @@ public class ExterminationShipment extends Shipment {
 	public ExterminationShipment() {
 		super("Extermination");
 		for (int i = 5; i > 0; --i) {
-			this.add(new Chemicals());
+			this.add(Chemicals.createRandomChemicals());
 		}
 		for (int i = 3; i > 0; --i) {
 			this.add(new Flamer());

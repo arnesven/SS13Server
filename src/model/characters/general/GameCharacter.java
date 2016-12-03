@@ -11,6 +11,7 @@ import graphics.sprites.Sprite;
 import model.*;
 import model.actions.general.AttackAction;
 import model.items.NoSuchThingException;
+import model.items.foods.FoodItem;
 import model.map.RoomType;
 import model.npcs.NPC;
 import util.HTMLText;
@@ -332,7 +333,7 @@ public abstract class GameCharacter implements Serializable {
     }
 
 	public boolean isCrew() {
-		return true;
+		return false;
 	}
 
 	public boolean doesPerceive(Action a) {
@@ -559,5 +560,9 @@ public abstract class GameCharacter implements Serializable {
 
     public void addActionsForActorsInRoom(GameData gameData, Actor otherActor,
                                           ArrayList<Action> at) {
+    }
+
+    public void doWhenConsumeItem(FoodItem foodItem, GameData gameData) {
+
     }
 }

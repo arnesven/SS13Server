@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.general.GameCharacter;
+import model.items.chemicals.EthanolChemicals;
 import model.items.general.Chemicals;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
@@ -20,7 +21,7 @@ public class GeneticistCharacter extends CrewCharacter {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new Syringe());
 		list.add(new MedKit());
-		list.add(new Chemicals());
+		list.add(new EthanolChemicals());
 		return list;
 	}
 

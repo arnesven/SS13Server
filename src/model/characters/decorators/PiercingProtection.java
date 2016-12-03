@@ -28,10 +28,11 @@ public class PiercingProtection extends CharacterDecorator {
             getActor().addTolastTurnInfo("Your armor protects you.");
         }
         boolean res = super.beAttackedBy(performingClient, weapon);
-
-        if (getProtectionFrom(weapon)) {
-            if (getActor().getCharacter().getHealth() == oldHealth + 0.5) {
-                getActor().getCharacter().setHealth(oldHealth - 0.5);
+        if (!performingClient.isDead()) {
+            if (getProtectionFrom(weapon)) {
+                if (getActor().getCharacter().getHealth() == oldHealth + 0.5) {
+                    getActor().getCharacter().setHealth(oldHealth - 0.5);
+                }
             }
         }
 
