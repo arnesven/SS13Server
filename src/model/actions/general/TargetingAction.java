@@ -199,4 +199,8 @@ public abstract class TargetingAction extends Action {
 	public List<GameItem> getWithWhats() {
 		return withWhats;
 	}
+
+    public Target getTarget() {
+        return target;
+    }
 }

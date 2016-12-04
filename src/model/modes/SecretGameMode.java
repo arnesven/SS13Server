@@ -7,8 +7,8 @@ import model.Player;
 public class SecretGameMode  {
 	
 	private static final String filename = "random_modes";
-    private static final double[] probabilities = {0.30, 0.60,     0.75,         0.90,         1.00};
-    private static final String[] modeNames = {"Host", "Traitor", "Operatives", "Changeling", "Armageddon"};
+    private static final double[] probabilities = {0.30, 0.60,     0.75,         0.90,         0.95,     1.00};
+    private static final String[] modeNames = {"Host", "Traitor", "Operatives", "Changeling", "Mutiny", "Armageddon"};
 
 
 	public static GameMode getNewInstance() {
@@ -52,7 +52,16 @@ public class SecretGameMode  {
 					protMessage(c);
 				}
 			};
-		} else {
+		} else if (d < probabilities[4]) {
+            Logger.log("...... but secretly it's mutiny");
+			MyRandom.write_to_file(filename, d + " Mutiny");
+			result = new MutinyGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					protMessage(c);
+				}
+			};
+        } else {
             Logger.log("...... but secretly it's armageddon");
             MyRandom.write_to_file(filename, d + " Armageddon");
             result = new ArmageddonGameMode() {

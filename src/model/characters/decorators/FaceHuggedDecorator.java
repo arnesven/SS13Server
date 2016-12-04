@@ -30,6 +30,7 @@ public class FaceHuggedDecorator extends CharacterDecorator {
 
     @Override
     public void doAtEndOfTurn(GameData gameData) {
+        super.doAtEndOfTurn(gameData);
         if (gameData.getRound() - huggedInRound < 3) {
             getActor().addTolastTurnInfo("You don't feel so good. You need a doctor...");
         } else if (gameData.getRound() - huggedInRound < 5) {

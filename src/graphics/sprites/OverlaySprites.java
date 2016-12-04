@@ -78,7 +78,7 @@ public class OverlaySprites {
 
             ArrayList<Sprite> parasites = new ArrayList<>();
             for (Actor a : r.getActors()) {
-                if (a instanceof PirateNPC && !a.isDead()) {
+                if (a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof PirateCharacter) && !a.isDead()) {
                     sp.add(a.getCharacter().getSprite(player));
                 } else if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof HorrorCharacter)) {
                     sp.add(a.getCharacter().getSprite(player));

@@ -11,10 +11,6 @@ public abstract class PersonalGoal implements Objective {
 
     private Actor belongsTo;
 
-    public PersonalGoal(Actor belongsTo) {
-        this.belongsTo = belongsTo;
-    }
-
     public Actor getBelongsTo() {
         return belongsTo;
     }

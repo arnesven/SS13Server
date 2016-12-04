@@ -179,9 +179,9 @@ public abstract class GameStats {
         }
         String result = "(Personal Goal: " + pt.getText() + " - ";
         if (pt.isCompleted(gameData)) {
-            result += HTMLText.makeText("green", "Success") + ")";
+            result += HTMLText.makeText("green", "*Success*") + ")";
         } else {
-            result += HTMLText.makeText("red", "Failed") + ")";
+            result += HTMLText.makeText("red", "*Failed*") + ")";
         }
         return result;
     }

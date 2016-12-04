@@ -22,7 +22,7 @@ public class AttackAllActorsNotSameClassBehavior extends AttackIfPossibleBehavio
         for (Target t : atk.getTargets()) {
             if (t instanceof Actor) {
                 Actor targetAsActor = (Actor)t;
-                if (targetAsActor.getClass() == npc.getClass()) {
+                if (targetAsActor.getClass().equals(npc.getClass())) {
                     targets.remove(t);
                 }
             } else {

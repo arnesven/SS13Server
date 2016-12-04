@@ -17,6 +17,7 @@ import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.RandomSpeechBehavior;
 import model.npcs.robots.RobotNPC;
 import model.objects.AITurret;
+import model.objects.PulseRifleDisplayCase;
 import model.objects.StasisPod;
 import model.objects.SurgeryTable;
 import model.objects.consoles.*;
@@ -127,6 +128,7 @@ public class MapBuilder {
         NPC cat = new CatNPC(CQ);
         CQ.addItem(new NuclearDisc(gameData, true));
         CQ.addItem(new MoneyStack(300));
+        CQ.addObject(new PulseRifleDisplayCase(CQ));
         gameData.addNPC(cat);
 
         gm.addRoom(CQ, "ss13", "front");

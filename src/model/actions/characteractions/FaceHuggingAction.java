@@ -34,6 +34,6 @@ public class FaceHuggingAction extends TargetingAction {
 
     @Override
     protected String getVerb(Actor whosAsking) {
-        return "facehugged " + target.getName();
+        return "facehugged";
     }
 }

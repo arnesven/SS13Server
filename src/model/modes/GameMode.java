@@ -51,7 +51,7 @@ import model.misc.ChristmasBooster;
 public abstract class GameMode implements Serializable {
 
 
-	private static String[] knownModes = { "Secret", "Host", "Traitor", "Operatives", "Changeling", "Armageddon"};
+	private static String[] knownModes = { "Secret", "Host", "Traitor", "Operatives", "Changeling", "Armageddon", "Mutiny"};
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
     private int defusedBombs = 0;
@@ -644,5 +644,9 @@ public abstract class GameMode implements Serializable {
 
     public PersonalGoalAssigner getTasks() {
         return tasks;
+    }
+
+    public Actor getCaptain() {
+        return capCl;
     }
 }

@@ -46,4 +46,8 @@ public class AmmoWeapon extends Weapon {
     public void setShots(int shots) {
         this.shots = shots;
     }
+
+    public int getShots() {
+        return shots;
+    }
 }

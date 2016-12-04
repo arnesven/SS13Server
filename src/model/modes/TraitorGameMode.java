@@ -117,7 +117,6 @@ public class TraitorGameMode extends GameMode {
 
     @Override
     protected void gameModeSpecificSetupForLateJoiner(Player newPlayer, GameData gameData) {
-
         if (MyRandom.nextDouble() < 0.34) {
             TraitorObjective obj = createRandomObjective(newPlayer, gameData);
             newPlayer.setCharacter(new TraitorCharacter(newPlayer.getCharacter()));
