@@ -27,4 +27,6 @@ public class ClownCharacter extends VisitorCharacter {
     public GameCharacter clone() {
         return new ClownCharacter();
     }
+
+
 }

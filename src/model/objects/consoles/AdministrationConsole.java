@@ -1,24 +1,18 @@
 package model.objects.consoles;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import graphics.sprites.Sprite;
-import model.Actor;
-import model.Bank;
-import model.GameData;
-import model.Player;
+import model.*;
 import model.actions.general.Action;
-import model.actions.objectactions.AdminConsoleAction;
-import model.actions.objectactions.SetWagesAction;
+import model.actions.objectactions.*;
 import model.characters.crew.CaptainCharacter;
 import model.characters.crew.CrewCharacter;
-import model.characters.crew.HeadOfStaffCharacter;
 import model.characters.general.ChangelingCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.VisitorCharacter;
+import model.items.general.GameItem;
+import model.items.general.KeyCard;
 import model.map.Room;
 import model.objects.shipments.*;
 
@@ -28,9 +22,13 @@ public class AdministrationConsole extends Console {
 
 	private List<Shipment> shipments = new ArrayList<>();
     private Map<Actor, Integer> alternateWages = new HashMap<>();
-	
-	public AdministrationConsole(Room pos, GameData gameData) {
+    private Set<Actor> acceptedActors;
+    private Set<Actor> toBeDemoted;
+
+    public AdministrationConsole(Room pos, GameData gameData) {
 		super("Admin Console", pos);
+        acceptedActors = new HashSet<>();
+        toBeDemoted = new HashSet<>();
         this.bank = Bank.getInstance(gameData);
         shipments.add(new FireFighterShipment());
 		shipments.add(new MedicalShipment());
@@ -49,9 +47,20 @@ public class AdministrationConsole extends Console {
 		if (a.getOptions(gameData, cl).numberOfSuboptions() > 0) {
 			at.add(a);
 		}
-        if (canSetWages(cl)) {
+        if (hasAdminPrivilege(cl)) {
             at.add(new SetWagesAction(this, gameData));
+
+            Action change = new ChangeJobAction(this, gameData);
+            if (change.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+                at.add(change);
+            }
         }
+        if (cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof CaptainCharacter)) {
+            at.add(new MarkForDemotionAction(this, gameData));
+
+        }
+        at.add(new AcceptNewProfessionAction(this));
+
 	}
 
     @Override
@@ -59,9 +68,8 @@ public class AdministrationConsole extends Console {
         return new Sprite("adminconsole", "computer2.png", 1, 12);
     }
 
-    private boolean canSetWages(Actor cl) {
-        return cl.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof CaptainCharacter) ||
-                cl.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof HeadOfStaffCharacter);
+    private boolean hasAdminPrivilege(Actor cl) {
+        return GameItem.hasAnItem(cl, new KeyCard());
     }
 
     public List<Shipment> getShipments() {
@@ -112,5 +120,13 @@ public class AdministrationConsole extends Console {
 
     public void setWageForActor(Actor selectedActor, int newWage) {
         alternateWages.put(selectedActor, newWage);
+    }
+
+    public Set<Actor> getAcceptedActors() {
+        return acceptedActors;
+    }
+
+    public Set<Actor> getToBeDemoted() {
+        return toBeDemoted;
     }
 }

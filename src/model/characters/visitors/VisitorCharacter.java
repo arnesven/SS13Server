@@ -53,4 +53,9 @@ public abstract class VisitorCharacter extends CrewCharacter {
         chars.add(new AdventurerCharacter());
         return chars;
     }
+
+    @Override
+    public boolean isCrew() {
+        return true;
+    }
 }

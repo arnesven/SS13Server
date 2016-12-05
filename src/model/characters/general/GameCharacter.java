@@ -54,6 +54,8 @@ public abstract class GameCharacter implements Serializable {
     private Sprite nakedSprite;
 
 
+
+
     public GameCharacter(String name, int startRoom, double speed) {
 		this.name = name;
 		this.startingRoom = startRoom;
@@ -564,5 +566,21 @@ public abstract class GameCharacter implements Serializable {
 
     public void doWhenConsumeItem(FoodItem foodItem, GameData gameData) {
 
+    }
+
+    public void moveDecoratorsAndCopy(GameCharacter selectedJob) {
+        selectedJob.maxHealth = this.maxHealth;
+        //selectedJob.name = this.name;
+        selectedJob.startingRoom = this.startingRoom;
+        selectedJob.health = this.health;
+        selectedJob.actor = this.actor;
+        selectedJob.position = this.position;
+        //selectedJob.speed = this.speed;
+        selectedJob.items = this.items;
+        //selectedJob.suit = this.suit;
+        selectedJob.killer = this.killer;
+        selectedJob.killString = this.killString;
+        selectedJob.gender = this.gender;
+        selectedJob.nakedSprite = this.nakedSprite;
     }
 }

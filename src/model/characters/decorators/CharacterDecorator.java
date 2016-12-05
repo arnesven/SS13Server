@@ -398,4 +398,13 @@ public abstract class CharacterDecorator extends GameCharacter {
     public void doWhenConsumeItem(FoodItem foodItem, GameData gameData) {
         innerChar.doWhenConsumeItem(foodItem, gameData);
     }
+
+    @Override
+    public void moveDecoratorsAndCopy(GameCharacter selectedJob) {
+        innerChar.moveDecoratorsAndCopy(selectedJob);
+        if (!(innerChar instanceof CharacterDecorator)) {
+            // next char is the REAL character
+            this.innerChar = selectedJob;
+        }
+    }
 }
