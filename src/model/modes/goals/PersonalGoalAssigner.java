@@ -35,6 +35,8 @@ public class PersonalGoalAssigner implements Serializable {
         taskCollection.add(new LayerUponLayerGoal(MyRandom.nextInt(4)+5));
         taskCollection.add(new PacifistGoal(MyRandom.nextInt(2)));
         taskCollection.add(new PervertGoal());
+        taskCollection.add(new BeatUpTheClownGoal());
+        taskCollection.add(new DrinkAlcoholGoal(MyRandom.nextInt(2)+2));
     }
 
     public void addTasks(GameData gameData) {

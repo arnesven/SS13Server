@@ -203,4 +203,8 @@ public abstract class TargetingAction extends Action {
     public Target getTarget() {
         return target;
     }
+
+    public GameItem getItem() {
+        return item;
+    }
 }
