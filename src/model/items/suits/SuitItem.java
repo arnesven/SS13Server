@@ -80,4 +80,13 @@ public abstract class SuitItem extends GameItem {
 	public abstract boolean permitsOver();
 
 
+    public static int countSuits(Actor belongsTo) {
+        SuitItem suit = belongsTo.getCharacter().getSuit();
+        int sum = 0;
+        while (suit != null) {
+            suit = suit.getUnder();
+            sum++;
+        }
+        return sum;
+    }
 }

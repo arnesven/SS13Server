@@ -22,13 +22,19 @@ public class PersonalGoalAssigner implements Serializable {
 
     public PersonalGoalAssigner(GameData gameData) {
         taskCollection = new HashSet<>();
-        taskCollection.add(new CollectMoneyTask());
-        taskCollection.add(new ParasiteKiller());
-        taskCollection.add(new FireManGoal());
-        taskCollection.add(new HullBreachGoal());
-        taskCollection.add(new PlaySlotsGoal());
+        taskCollection.add(new CollectMoneyTask(MyRandom.nextInt(3)*300 + 900));
+        taskCollection.add(new ParasiteKiller(MyRandom.nextInt(3) + 3));
+        taskCollection.add(new FireManGoal(MyRandom.nextInt(3) + 3));
+        taskCollection.add(new HullBreachGoal(MyRandom.nextInt(2) + 2));
+        taskCollection.add(new PlaySlotsGoal(MyRandom.nextInt(2) + 3));
         taskCollection.add(new AvengerGoal());
         taskCollection.add(new CollectThreeChemicals());
+        taskCollection.add(new EatDifferentFoods(MyRandom.nextInt(2)+3));
+        taskCollection.add(new GoIntoSpaceGoal());
+        taskCollection.add(new SickOfYourselfGoal());
+        taskCollection.add(new LayerUponLayerGoal(MyRandom.nextInt(4)+5));
+        taskCollection.add(new PacifistGoal(MyRandom.nextInt(2)));
+        taskCollection.add(new PervertGoal());
     }
 
     public void addTasks(GameData gameData) {

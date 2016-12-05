@@ -16,13 +16,17 @@ import java.util.List;
  */
 public class ParasiteKiller extends PersonalGoal {
 
+    private final int quant;
     private int killed = 0;
 
+    public ParasiteKiller(int i) {
+        this.quant = i;
+    }
 
 
     @Override
     public String getText() {
-        return "Kill 4 parasites";
+        return "Kill " + quant + " parasites";
     }
 
     @Override
@@ -50,6 +54,6 @@ public class ParasiteKiller extends PersonalGoal {
 
     @Override
     public boolean isCompleted(GameData gameData) {
-        return killed >= 4;
+        return killed >= quant;
     }
 }

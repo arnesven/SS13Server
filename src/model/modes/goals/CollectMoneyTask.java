@@ -9,16 +9,22 @@ import model.items.general.MoneyStack;
  */
 public class CollectMoneyTask extends PersonalGoal {
 
+    private int quant;
+
+    public CollectMoneyTask(int i) {
+        this.quant = i;
+    }
+
     @Override
     public String getText() {
-        return "Collect $$ 1000";
+        return "Collect $$ " + this.quant;
     }
 
     @Override
     public boolean isCompleted(GameData gameData) {
         try {
             MoneyStack m = MoneyStack.getActorsMoney(getBelongsTo());
-            return m.getAmount() >= 1000;
+            return m.getAmount() >= this.quant;
         } catch (NoSuchThingException e) {
 
         }
