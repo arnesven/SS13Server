@@ -19,7 +19,7 @@ public class PlayerSettings implements Serializable {
     public static final String ALWAYS_REFUSE_GIFTS         = "Always refuse gifts";
     public static final String CURRENT_ROOM_STUFF_IN_MAP   = "Current room stuff in map";
     public static final String MAKE_ME_AI_IF_ABLE          = "Make me the AI if able";
-    public static final String GIVE_ME_A_TASK              = "Give me a task each game";
+    public static final String GIVE_ME_A_TASK              = "Give me a personal goal";
 
     private HashMap<String, Boolean> settings = new HashMap<>();
 

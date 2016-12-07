@@ -2,6 +2,7 @@ package model.modes.goals;
 
 
 import model.Actor;
+import model.GameData;
 import model.modes.objectives.Objective;
 
 /**
@@ -18,4 +19,9 @@ public abstract class PersonalGoal implements Objective {
     public void setBelongsTo(Actor belongingTo) {
         this.belongsTo = belongingTo;
     }
+
+    public boolean isApplicable(GameData gameData, Actor potential) {
+        return true;
+    }
+
 }

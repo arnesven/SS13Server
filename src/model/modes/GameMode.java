@@ -67,6 +67,10 @@ public abstract class GameMode implements Serializable {
         AmbientEvent.setUpAmbients(events);
 	}
 
+    public static String[] getAvailableModes() {
+        return knownModes;
+    }
+
     public abstract String getName();
     
 	public void doWhenGameOver(GameData gameData) {
