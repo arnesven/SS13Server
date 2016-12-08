@@ -8,13 +8,14 @@ import model.actions.general.Action;
 import model.actions.general.NoPowerAction;
 import model.items.NoSuchThingException;
 import model.map.Room;
+import model.objects.PowerConsumer;
 import model.objects.consoles.GeneratorConsole;
 import model.objects.consoles.PowerSource;
 import util.Logger;
 
 
 public abstract class ElectricalMachinery extends BreakableObject 
-			implements Repairable, Comparable<ElectricalMachinery> {
+			implements Repairable, PowerConsumer, Comparable<ElectricalMachinery> {
 
 	private boolean inUse = false;
 	private int powerPriority = 5; // lowest priority
@@ -83,5 +84,10 @@ public abstract class ElectricalMachinery extends BreakableObject
     @Override
     public void doWhenRepaired(GameData gameData) {
 
+    }
+
+    @Override
+    public double getPowerConsumptionFactor() {
+        return 1.0;
     }
 }

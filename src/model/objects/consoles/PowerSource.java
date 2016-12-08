@@ -6,6 +6,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.map.Room;
+import model.objects.PowerConsumer;
 import model.objects.general.BreakableObject;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
@@ -34,7 +35,9 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
 
     private interface PowerUpdater extends Serializable {
         double update(double currentPower, double lsPer, double liPer, double eqPer,
-                      List<Room> ls, List<Room> lights, List<ElectricalMachinery> eq);
+                      List<? extends PowerConsumer> ls,
+                      List<? extends PowerConsumer> lights,
+                      List<? extends PowerConsumer> eq);
     }
 
     public double startingPower;
@@ -49,10 +52,10 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
     private double level;
     private double dlevel = 0.0;
     private List<String> prios;
-    private ArrayList<Room> noLifeSupport = new ArrayList<>();
-    private ArrayList<Room> noLight = new ArrayList<>();
-    private ArrayList<ElectricalMachinery> noPower = new ArrayList<>();
-    private ArrayList<Double> history = new ArrayList<>();
+    private List<Room> noLifeSupport = new ArrayList<>();
+    private List<Room> noLight = new ArrayList<>();
+    private List<ElectricalMachinery> noPower = new ArrayList<>();
+    private List<Double> history = new ArrayList<>();
     private int lightBefore;
     private int lsBefore;
     private int eqBefore;
@@ -91,10 +94,10 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
         return new Sprite("powersource", "stationobjs.png", 160);
     }
 
-    private double internalUpdater(double cp, double pp, List<?> list) {
+    private double internalUpdater(double cp, double pp, List<? extends PowerConsumer> list) {
         while (cp - pp > 0 && list.size() > 0) {
-            list.remove(0);
-            cp -= pp;
+            PowerConsumer pc = list.remove(0);
+            cp -= pp * pc.getPowerConsumptionFactor();
         }
         return cp;
     }
@@ -109,18 +112,18 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
     private void setupUpdaters() {
         updaters = new HashMap<>();
         updaters.put("Life Support", (double currentPower, double lsPer,
-                                 double liPer, double eqPer, List<Room> ls,
-                                 List<Room> lights, List<ElectricalMachinery> eq) ->
+                                 double liPer, double eqPer, List<? extends PowerConsumer> ls,
+                                 List<? extends PowerConsumer> lights, List<? extends  PowerConsumer> eq) ->
                 internalUpdater(currentPower, lsPer, ls));
 
         updaters.put("Lighting", (double currentPower, double lsPer,
-                                 double liPer, double eqPer, List<Room> ls,
-                                 List<Room> lights, List<ElectricalMachinery> eq) ->
+                                 double liPer, double eqPer, List<? extends PowerConsumer> ls,
+                                 List<? extends PowerConsumer> lights, List<? extends  PowerConsumer> eq) ->
                 internalUpdater(currentPower, liPer, lights));
 
-        updaters.put("Equipment", (double currentPower, double lsPer,
-                                 double liPer, double eqPer, List<Room> ls,
-                                 List<Room> lights, List<ElectricalMachinery> eq) ->
+        updaters.put("Equipment",(double currentPower, double lsPer,
+                                 double liPer, double eqPer, List<? extends PowerConsumer> ls,
+                                 List<? extends PowerConsumer> lights, List<? extends  PowerConsumer> eq) ->
                 internalUpdater(currentPower, eqPer, eq));
     }
 
@@ -271,7 +274,7 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
         return "Electrical equipment (" + (eqBefore - noPower.size()) + "/" + eqBefore + ")";
     }
 
-    public ArrayList<Double> getHistory() {
+    public List<Double> getHistory() {
         return history;
     }
 

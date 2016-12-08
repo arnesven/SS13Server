@@ -7,6 +7,7 @@ import model.characters.crew.CaptainCharacter;
 import model.characters.crew.HeadOfStaffCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.CaptainsDaughter;
+import util.HTMLText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class MutinyGameMode extends GameMode {
 
-    private static final String MUTINEER_MESSAGE = "You are a <b>mutineer</b>! Take over the station by killing the Captain. Everybody is in on the mutiny except for the Head of Staff and the Captain's Daughter.";
+    private static final String MUTINEER_MESSAGE = "You are a " +  HTMLText.makeLink(HTMLText.wikiURL + "/modes/mutiny", "<b>mutineer</b>") + "! Take over the station by killing the Captain. Everybody is in on the mutiny except for the Head of Staff and the Captain's Daughter.";
     private List<Actor> mutineers = new ArrayList<>();
 
     @Override

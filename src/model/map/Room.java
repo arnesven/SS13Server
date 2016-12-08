@@ -17,6 +17,7 @@ import model.events.ambient.HullBreach;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.npcs.NPC;
+import model.objects.PowerConsumer;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 import util.Logger;
@@ -26,7 +27,7 @@ import util.Logger;
  * @author erini02
  * Class for representing a room on the space station.
  */
-public class Room implements ItemHolder, Serializable {
+public class Room implements ItemHolder, PowerConsumer, Serializable {
 
 
 
@@ -486,4 +487,8 @@ public class Room implements ItemHolder, Serializable {
     }
 
 
+    @Override
+    public double getPowerConsumptionFactor() {
+        return 1.0;
+    }
 }

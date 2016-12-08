@@ -142,14 +142,14 @@ public class BombItem extends HidableItem implements ExplodableItem {
         for (Actor a : bombRoom.getActors()) {
 			if (a != currentCarrier) {
 				a.getCharacter().beExposedTo(performingClient, 
-						new ExplosiveDamage(2.0));
+						new ExplosiveDamage(getExplosiveDamage()));
 			}
 		}
 
 		for (Object o : bombRoom.getObjects()) {
 			if (o instanceof Target) {
 				((Target)o).beExposedTo(performingClient, 
-						new ExplosiveDamage(2.0));
+						new ExplosiveDamage(getExplosiveDamage()));
 			}
 		}
         exploded = true;
@@ -158,6 +158,10 @@ public class BombItem extends HidableItem implements ExplodableItem {
         bombRoom.addToEventsHappened(new SpontaneousExplosionEvent());
 
 	}
+
+    public double getExplosiveDamage() {
+        return 2.0;
+    }
 
     private void explodeOtherBombsInRoom(GameData gameData, Actor performingClient, Room bombRoom) {
         List<BombItem> bombList = new ArrayList<>();
@@ -211,7 +215,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
 
         if (chain > 1) {
             for (Actor a : surrounding) {
-                a.getCharacter().beExposedTo(performingClient, new ExplosiveDamage(((double) chain-1) / 2.0));
+                a.getCharacter().beExposedTo(performingClient, new ExplosiveDamage(((double) chain-1) / getExplosiveDamage()));
             }
         }
 

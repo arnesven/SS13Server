@@ -1,5 +1,6 @@
 package model.map;
 
+import javafx.geometry.Point3D;
 import model.Actor;
 import model.GameData;
 import model.events.Event;
@@ -21,7 +22,8 @@ import java.util.*;
  */
 public class GameMap implements Serializable {
 
-	//private List<Room> roomsList;
+    public static final String STATION_LEVEL_NAME = "ss13";
+    //private List<Room> roomsList;
     private Map<String, Map<String, Set<Room>>> levels = new HashMap<>();
     private String[][][] levelMatrix = new String[3][3][3];
     private int levelCount = 0;
@@ -477,4 +479,26 @@ public class GameMap implements Serializable {
         return level;
     }
 
+    public Collection<Integer[]> getEmptyQuandrants() {
+        Set<Integer[]> empties = new HashSet<>();
+        for (int x = 0; x < levelMatrix.length; ++x) {
+            for (int y = 0; y < levelMatrix[0].length; ++y) {
+                for (int z = 0; z < levelMatrix[0][0].length; ++z) {
+                    if (levelMatrix[x][y][z] == null || levelMatrix[x][y][z].contains("emptylevel")) {
+                        empties.add(new Integer[]{x, y, z});
+                    }
+                }
+            }
+        }
+        return empties;
+    }
+
+    public void swapLevels(String levelA, String levelB) {
+        Integer[] posA = getPositionForLevel(levelA);
+        Integer[] posB = getPositionForLevel(levelB);
+
+        levelMatrix[posA[0]][posA[1]][posA[2]] = levelB;
+        levelMatrix[posB[0]][posB[1]][posB[2]] = levelA;
+
+    }
 }

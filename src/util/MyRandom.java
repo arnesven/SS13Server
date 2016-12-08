@@ -83,13 +83,13 @@ public class MyRandom {
 		return "man";
 	}
 
-	public static <T> T sample(Collection<? extends T> list) {
+	public static <Type> Type sample(Collection<? extends Type> list) {
         if (list.size() == 0) {
             throw new IllegalStateException("Cannot sample from collection of size 0!");
         }
 
-        T result = null;
-        Iterator<? extends T> it = list.iterator();
+        Type result = null;
+        Iterator<? extends Type> it = list.iterator();
         for (int i = MyRandom.nextInt(list.size()); i >= 0; --i) {
             result = it.next();
         }
