@@ -25,29 +25,35 @@ public class Saxophone extends BluntWeapon {
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
                                Actor cl) {
 		super.addYourActions(gameData, at, cl);
-		at.add(new Action("Play Saxophone", SensoryLevel.PHYSICAL_ACTIVITY) {
-			
-			@Override
-			protected String getVerb(Actor whosAsking) {
-				return "Played a cool jazz tune";
-			}
-			
-			@Override
-			public void setArguments(List<String> args, Actor performingClient) { }
-			
-			@Override
-			protected void execute(GameData gameData, Actor performingClient) {
-				if (GameItem.hasAnItem(performingClient, new Saxophone())) {
-					performingClient.addTolastTurnInfo("You play a cool jazz tune.");
-				} else {
-					performingClient.addTolastTurnInfo("What? The saxophone is gone! Your action failed.");
-				}
-			}
-		});
+		at.add(new PlaySaxophoneAction());
 	}
 
     @Override
     public Saxophone clone() {
         return new Saxophone();
+    }
+
+    public static class PlaySaxophoneAction extends Action {
+
+        public PlaySaxophoneAction() {
+            super("Play Saxophone", SensoryLevel.PHYSICAL_ACTIVITY);
+        }
+
+        @Override
+        protected String getVerb(Actor whosAsking) {
+            return "Played a cool jazz tune";
+        }
+
+        @Override
+        public void setArguments(List<String> args, Actor performingClient) { }
+
+        @Override
+        protected void execute(GameData gameData, Actor performingClient) {
+            if (GameItem.hasAnItem(performingClient, new Saxophone())) {
+                performingClient.addTolastTurnInfo("You play a cool jazz tune.");
+            } else {
+                performingClient.addTolastTurnInfo("What? The saxophone is gone! Your action failed.");
+            }
+        }
     }
 }
