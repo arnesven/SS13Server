@@ -22,10 +22,12 @@ import java.util.List;
  */
 public class FaceHuggedDecorator extends CharacterDecorator {
     private final int huggedInRound;
+    private final Actor targetActor;
 
     public FaceHuggedDecorator(GameCharacter target, GameData gameData) {
         super(target, "Facehugged");
         this.huggedInRound = gameData.getRound();
+        this.targetActor = target.getActor();
     }
 
     @Override
@@ -35,7 +37,8 @@ public class FaceHuggedDecorator extends CharacterDecorator {
             getActor().addTolastTurnInfo("You don't feel so good. You need a doctor...");
         } else if (gameData.getRound() - huggedInRound < 5) {
             getActor().addTolastTurnInfo("You feel like something's trying to claw itself out of you!");
-        } else if (gameData.getRound() - huggedInRound == 5) {
+        } else if (gameData.getRound() - huggedInRound == 5 &&
+                targetActor.getCharacter().checkInstance((GameCharacter gc) -> gc == this)) {
             getActor().addTolastTurnInfo(HTMLText.makeText("red", "Parasites burst out of your abdomen!"));
             getActor().getAsTarget().beExposedTo(null, new InternalBleeding(2.5));
             for (int i = 0; i < 3; i++) {
@@ -84,11 +87,11 @@ public class FaceHuggedDecorator extends CharacterDecorator {
 
         @Override
         protected void execute(GameData gameData, Actor performingClient) {
-            if (performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof  FaceHuggedDecorator)) {
+            while (performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof  FaceHuggedDecorator)) {
                 performingClient.removeInstance((GameCharacter gc) -> gc instanceof FaceHuggedDecorator);
+                performingClient.addTolastTurnInfo("You surgically removed eggs from " + patient.getPublicName() + ".");
+                patient.addTolastTurnInfo(performingClient.getPublicName() + " surgically removed eggs from you");
             }
-            performingClient.addTolastTurnInfo("You surgically removed eggs from " + patient.getPublicName() + ".");
-            patient.addTolastTurnInfo(performingClient.getPublicName() + " surgically removed eggs from you");
         }
 
         @Override

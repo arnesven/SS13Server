@@ -41,4 +41,8 @@ public class ConsumeAction extends Action {
 	@Override
 	public void setArguments(List<String> args, Actor p) { 	}
 
+
+    public FoodItem getConsumable() {
+        return food;
+    }
 }

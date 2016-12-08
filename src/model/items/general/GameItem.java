@@ -131,7 +131,7 @@ public abstract class GameItem implements Locatable, Serializable {
 	
 	public static <E> boolean hasAnItem(Actor act, E obj) {
 		for (GameItem it : act.getItems()) {
-			if (it.getClass() == obj.getClass()) {
+			if (obj.getClass().isInstance(it)) {
 				return true;
 			}
 		}

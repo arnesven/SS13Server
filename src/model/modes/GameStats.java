@@ -177,7 +177,7 @@ public abstract class GameStats {
         if (pt == null) {
             return "";
         }
-        String result = "(Personal Goal: " + pt.getText() + " - ";
+        String result = " (Personal Goal: " + pt.getText() + " - ";
         if (pt.isCompleted(gameData)) {
             result += HTMLText.makeText("green", "*Success*") + ")";
         } else {

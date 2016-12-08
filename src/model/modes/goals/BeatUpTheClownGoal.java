@@ -51,4 +51,14 @@ public class BeatUpTheClownGoal extends PersonalGoal {
             }
         }
     }
+
+    @Override
+    public boolean isApplicable(GameData gameData, Actor potential) {
+        for (Actor a : gameData.getActors()) {
+            if (a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof ClownCharacter)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
