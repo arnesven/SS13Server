@@ -5,6 +5,7 @@ import model.GameData;
 import model.Player;
 import model.PlayerSettings;
 import model.characters.crew.DetectiveCharacter;
+import model.characters.crew.EngineerCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.modes.GameMode;
@@ -29,6 +30,7 @@ public class  PersonalGoalAssigner implements Serializable {
 
         jobSpecificGoals = newEmptyMap();
         jobSpecificGoals.get(new DetectiveCharacter().getBaseName()).add(new GuessGameModeGoal(MyRandom.nextInt(3)+5));
+        jobSpecificGoals.get(new EngineerCharacter().getBaseName()).add(new KeepPowerOverPct(MyRandom.nextInt(7)*5+50));
 
     }
 
