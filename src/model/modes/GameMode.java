@@ -185,7 +185,7 @@ public abstract class GameMode implements Serializable {
 	 * @param c
 	 * @return
 	 */
-	public abstract boolean isAntagonist(Player c);
+	public abstract boolean isAntagonist(Actor c);
 
 
 	/**

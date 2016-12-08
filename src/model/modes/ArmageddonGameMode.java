@@ -75,7 +75,7 @@ public class ArmageddonGameMode extends GameMode {
     }
 
     @Override
-    public boolean isAntagonist(Player c) {
+    public boolean isAntagonist(Actor c) {
         return false;
     }
 

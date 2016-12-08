@@ -522,7 +522,7 @@ public class TraitorGameMode extends GameMode {
 	}
 
 	@Override
-    public boolean isAntagonist(Player c) {
+    public boolean isAntagonist(Actor c) {
 		return traitors.contains(c);
 	}
 

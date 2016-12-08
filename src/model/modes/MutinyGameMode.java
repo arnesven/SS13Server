@@ -87,7 +87,7 @@ public class MutinyGameMode extends GameMode {
     }
 
     @Override
-    public boolean isAntagonist(Player c) {
+    public boolean isAntagonist(Actor c) {
         return mutineers.contains(c);
     }
 

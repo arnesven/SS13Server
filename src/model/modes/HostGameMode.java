@@ -3,6 +3,7 @@ package model.modes;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Actor;
 import model.characters.decorators.InfectedCharacter;
 import model.characters.general.AICharacter;
 import util.HTMLText;
@@ -221,7 +222,7 @@ public class HostGameMode extends GameMode {
 
 
 	@Override
-    public boolean isAntagonist(Player c) {
+    public boolean isAntagonist(Actor c) {
 		return c == hostClient;
 	}
 

@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.characters.decorators.NameChangeDecorator;
+import model.characters.general.GameCharacter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +31,12 @@ public class SantaSuit extends SuitItem {
 
     @Override
     public void beingPutOn(Actor actionPerformer) {
-
+        actionPerformer.setCharacter(new NameChangeDecorator(actionPerformer.getCharacter(), "Father Christmas"));
     }
 
     @Override
     public void beingTakenOff(Actor actionPerformer) {
-
+        actionPerformer.removeInstance((GameCharacter gc) -> gc instanceof NameChangeDecorator);
     }
 
     @Override

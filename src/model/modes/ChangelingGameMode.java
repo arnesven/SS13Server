@@ -178,7 +178,7 @@ public class ChangelingGameMode extends GameMode {
 	}
 
 	@Override
-    public boolean isAntagonist(Player c) {
+    public boolean isAntagonist(Actor c) {
 		return c == ling;
 	}
 

@@ -1,5 +1,6 @@
 package model.items.suits;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.ColdProtection;
@@ -16,6 +17,11 @@ public class Sweater extends SuitItem {
     @Override
     public SuitItem clone() {
         return new Sweater();
+    }
+
+    @Override
+    protected Sprite getWornSprite(Actor whosAsking) {
+        return new Sprite("sweaterworn", "suit2.png", 24, 12);
     }
 
     @Override

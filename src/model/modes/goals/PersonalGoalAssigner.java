@@ -5,9 +5,7 @@ import model.GameData;
 import model.Player;
 import model.PlayerSettings;
 import model.actions.general.SensoryLevel;
-import model.characters.crew.ChefCharacter;
-import model.characters.crew.DetectiveCharacter;
-import model.characters.crew.EngineerCharacter;
+import model.characters.crew.*;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.events.BackgroundEvent;
@@ -16,10 +14,7 @@ import model.modes.GameMode;
 import util.MyRandom;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by erini02 on 03/12/16.
@@ -27,15 +22,12 @@ import java.util.Map;
 public class  PersonalGoalAssigner implements Serializable {
     private Map<Actor, PersonalGoal> goalsForActors = new HashMap<>();
     private final Collection<PersonalGoal> generalGoals;
-    private final HashMap<String, Collection<PersonalGoal>> jobSpecificGoals;
+    private final Map<String, Collection<PersonalGoal>> jobSpecificGoals;
 
     public PersonalGoalAssigner(GameData gameData) {
         generalGoals = createGeneralGoals();
 
-        jobSpecificGoals = newEmptyMap();
-        jobSpecificGoals.get(new DetectiveCharacter().getBaseName()).add(new GuessGameModeGoal(MyRandom.nextInt(3)+5));
-        jobSpecificGoals.get(new EngineerCharacter().getBaseName()).add(new KeepPowerOverPct(MyRandom.nextInt(7)*5+50));
-        jobSpecificGoals.get(new ChefCharacter().getBaseName()).add(new GetOthersToEatYourFood(MyRandom.nextInt(3)+2));
+        jobSpecificGoals = createJobSpecificGoals(gameData);
 
     }
 
@@ -75,7 +67,7 @@ public class  PersonalGoalAssigner implements Serializable {
             gameData.addMovementEvent(new BackgroundEvent() {
                 @Override
                 public void apply(GameData gameData) {
-                    a.addTolastTurnInfo(finalGoal.getText());
+                    a.addTolastTurnInfo("PG: " + finalGoal.getText() + ".");
                 }
             });
         }
@@ -97,6 +89,15 @@ public class  PersonalGoalAssigner implements Serializable {
     }
 
 
+    private Map<String,Collection<PersonalGoal>> createJobSpecificGoals(GameData gameData) {
+        Map<String, Collection<PersonalGoal>> jobSpecificGoals = newEmptyMap();
+        jobSpecificGoals.get(new DetectiveCharacter().getBaseName()).add(new GuessGameModeGoal(MyRandom.nextInt(3)+5));
+        jobSpecificGoals.get(new EngineerCharacter().getBaseName()).add(new KeepPowerOverPct(MyRandom.nextInt(7)*5+50));
+        jobSpecificGoals.get(new ChefCharacter().getBaseName()).add(new GetOthersToEatYourFood(MyRandom.nextInt(3)+2));
+        jobSpecificGoals.get(new SecurityOfficerCharacter().getBaseName()).add(new BrigAnAntagonistGoal(gameData));
+        jobSpecificGoals.get(new BiologistCharacter().getBaseName()).add(new PlantXTimesGoal(MyRandom.nextInt(2) + 2));
+        return jobSpecificGoals;
+    }
 
     private static HashMap<String, Collection<PersonalGoal>> newEmptyMap() {
         HashMap<String, Collection<PersonalGoal>> result = new HashMap<>();
