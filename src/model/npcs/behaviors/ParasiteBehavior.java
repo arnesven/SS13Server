@@ -27,7 +27,7 @@ public class ParasiteBehavior implements ActionBehavior {
          TargetingAction act = new FaceHuggingAction(npc);
         
 
-        if (MyRandom.nextDouble() < 0.5 && act.getNoOfTargets() > 0) {
+        if (MyRandom.nextDouble() < 0.03 && act.getNoOfTargets() > 0) {
             Target t = MyRandom.sample(act.getTargets());
             List<String> args = new ArrayList<>();
             args.add(t.getName());

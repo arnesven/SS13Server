@@ -182,7 +182,7 @@ public class HostGameMode extends GameMode {
             }
         }
         // Infected team wins
-        if (isAntagonist(value) && value.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof InfectedCharacter))) {
+        if (isAntagonist(value) || value.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof InfectedCharacter))) {
             return 1;
         } else {
             return 0;

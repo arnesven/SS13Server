@@ -8,9 +8,8 @@ import model.items.foods.Banana;
 import model.items.foods.Beer;
 import model.items.foods.FoodItem;
 import model.items.foods.SpaceBurger;
-import model.items.general.GameItem;
-import model.items.general.MedKit;
-import model.items.general.Saxophone;
+import model.items.general.*;
+import util.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,8 +20,8 @@ import java.util.List;
  */
 public class ThreeRandomSubgoals extends CompositePersonalGoal {
 
-    @Override
-    protected List<PersonalGoal> getGoals() {
+  @Override
+    protected List<PersonalGoal> initializeGoals() {
 
         List<PersonalGoal> subGoals = new ArrayList<>();
 
@@ -31,8 +30,10 @@ public class ThreeRandomSubgoals extends CompositePersonalGoal {
         subGoals.add(new DrinkABeerGoal());
         subGoals.add(new EatABanana());
         subGoals.add(new HaveAMedkit());
+        subGoals.add(new HaveAToolkit());
+        subGoals.add(new HaveAPackOfSmokes());
         subGoals.add(new GetNakedGoal());
-        String[] someLocations = new String[]{"Lab", "Armory", "Bridge", "Greenhouse", "Sickbay", "Dorms", "Bar", "Kitchen"};
+        String[] someLocations = new String[]{"Lab", "Armory", "Bridge", "Greenhouse", "Sickbay", "Dorms", "Bar", "Kitchen", "Brig"};
         for (String s : someLocations) {
             subGoals.add(new VisitSpecificRoomGoal(s));
         }
@@ -151,6 +152,30 @@ public class ThreeRandomSubgoals extends CompositePersonalGoal {
         }
     }
 
+    private class HaveAPackOfSmokes extends PersonalGoal {
+        @Override
+        public String getText() {
+            return "have a pack of smokes";
+        }
+
+        @Override
+        public boolean isCompleted(GameData gameData) {
+            return GameItem.hasAnItem(getBelongsTo(), new PackOfSmokes());
+        }
+    }
+
+    private class HaveAToolkit extends PersonalGoal {
+        @Override
+        public String getText() {
+            return "have a toolkit";
+        }
+
+        @Override
+        public boolean isCompleted(GameData gameData) {
+            return GameItem.hasAnItem(getBelongsTo(), new Tools());
+        }
+    }
+
     private static class GetNakedGoal extends PersonalGoal {
         @Override
         public String getText() {
@@ -201,12 +226,15 @@ public class ThreeRandomSubgoals extends CompositePersonalGoal {
             @Override
             public void doAfterMovement(GameData gameData) {
                 super.doAfterMovement(gameData);
+                Logger.log("Checking if visiting " + getRoomName());
                 if (getActor().getPosition().getName().equals(VisitSpecificRoomGoal.this.getRoomName())) {
                     visited = true;
+                    Logger.log("   .... yes");
                 }
             }
         }
     }
+
 
 
 }

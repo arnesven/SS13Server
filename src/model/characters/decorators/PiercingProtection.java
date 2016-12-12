@@ -44,7 +44,7 @@ public class PiercingProtection extends CharacterDecorator {
         double oldHealth = getActor().getCharacter().getHealth();
         super.beExposedTo(something, damager);
         if (getProtectionFrom(damager)) {
-            if (oldHealth > getActor().getCharacter().getHealth()) {
+            if (oldHealth > getActor().getCharacter().getHealth() && !getActor().isDead()) {
                 // get refunded some health
                 getActor().addToHealth(0.5);
                 getActor().addTolastTurnInfo("Your armor protects you.");

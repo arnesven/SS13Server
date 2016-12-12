@@ -21,7 +21,7 @@ public class Sweater extends SuitItem {
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        return new Sprite("sweaterworn", "suit2.png", 24, 12);
+        return new Sprite("sweaterworn", "suit2.png", 24, 11);
     }
 
     @Override

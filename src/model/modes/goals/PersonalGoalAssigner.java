@@ -50,11 +50,14 @@ public class  PersonalGoalAssigner implements Serializable {
         goals.add(new EatDifferentFoods(MyRandom.nextInt(2)+3));
         goals.add(new GoIntoSpaceGoal());
         goals.add(new SickOfYourselfGoal());
-        goals.add(new LayerUponLayerGoal(MyRandom.nextInt(4)+5));
+        goals.add(new LayerUponLayerGoal(MyRandom.nextInt(4)+3));
         goals.add(new PacifistGoal(MyRandom.nextInt(2)));
         goals.add(new PervertGoal());
         goals.add(new BeatUpTheClownGoal());
         goals.add(new DrinkAlcoholGoal(MyRandom.nextInt(2)+2));
+       // goals.add(new TakeDifferentTypesOfDamage());
+        goals.add(new ThreeRandomSubgoals());
+        goals.add(new ThreeRandomSubgoals());
         goals.add(new ThreeRandomSubgoals());
         return goals;
     }

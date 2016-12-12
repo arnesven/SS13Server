@@ -21,7 +21,7 @@ import java.util.List;
  * Created by erini02 on 30/11/16.
  */
 public class FaceHuggedDecorator extends CharacterDecorator {
-    private final int huggedInRound;
+    private int huggedInRound;
     private final Actor targetActor;
 
     public FaceHuggedDecorator(GameCharacter target, GameData gameData) {
@@ -33,6 +33,11 @@ public class FaceHuggedDecorator extends CharacterDecorator {
     @Override
     public void doAtEndOfTurn(GameData gameData) {
         super.doAtEndOfTurn(gameData);
+
+        if (getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof FrozenDecorator)) {
+            huggedInRound++;
+        }
+
         if (gameData.getRound() - huggedInRound < 3) {
             getActor().addTolastTurnInfo("You don't feel so good. You need a doctor...");
         } else if (gameData.getRound() - huggedInRound < 5) {

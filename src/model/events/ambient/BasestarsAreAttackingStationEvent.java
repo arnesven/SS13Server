@@ -12,6 +12,7 @@ import model.objects.consoles.AIConsole;
 import util.MyRandom;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class BasestarsAreAttackingStationEvent extends AmbientEvent {
             hasHappened = true;
 
             basestarsJumpIn(gameData);
-        } else if (hasHappened && currentCoords.equals(attackCoordinates)) {
+        } else if (hasHappened && Arrays.equals(currentCoords, attackCoordinates)) {
             List<BombItem> shotsFired = new ArrayList<>();
             basestarAttackSide(gameData, sideA, shotsFired);
             basestarAttackSide(gameData, sideB, shotsFired);
