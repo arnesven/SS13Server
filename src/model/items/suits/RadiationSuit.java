@@ -39,13 +39,15 @@ public class RadiationSuit extends SuitItem {
 
 	@Override
 	public void beingTakenOff(Actor actionPerformer) {
-		actionPerformer.removeInstance(new InstanceChecker() {
-			
-			@Override
-			public boolean checkInstanceOf(GameCharacter ch) {
-				return ch instanceof RadiationProtection;
-			}
-		});
+        if (actionPerformer.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof RadiationProtection)) {
+            actionPerformer.removeInstance(new InstanceChecker() {
+
+                @Override
+                public boolean checkInstanceOf(GameCharacter ch) {
+                    return ch instanceof RadiationProtection;
+                }
+            });
+        }
 		
 	}
 

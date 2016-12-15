@@ -38,6 +38,9 @@ public abstract class VendingMachine extends ElectricalMachinery {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
+        if (isBroken()) {
+            return new Sprite("vendingmachinebroken", "vending.png", 4);
+        }
         return new Sprite("vendingmachine", "vending.png", 3);
     }
 

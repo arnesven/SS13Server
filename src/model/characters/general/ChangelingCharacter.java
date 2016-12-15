@@ -292,12 +292,13 @@ public class ChangelingCharacter extends GameCharacter {
 
 	@Override
 	public boolean checkInstance(InstanceChecker infectChecker) {
-		for (GameCharacter chara : getForms()) {
-			if (infectChecker.checkInstanceOf(chara)) {
-				return true;
-			}
-		}
-		return super.checkInstance(infectChecker);
+//		for (GameCharacter chara : getForms()) {
+//			if (infectChecker.checkInstanceOf(chara)) {
+//				return true;
+//			}
+//		}
+        return getForm().checkInstance(infectChecker);
+//        return super.checkInstance(infectChecker);
 	}
 	
 	@Override
@@ -312,7 +313,7 @@ public class ChangelingCharacter extends GameCharacter {
     @Override
     public void doAfterMovement(GameData gameData) {
         super.doAfterMovement(gameData);
-        if (getHealth() < getMaxHealth()) {
+        if (getHealth() < getMaxHealth() && !isDead()) {
             getActor().addTolastTurnInfo("You regenerated some health.");
             setHealth(getHealth() + 0.5);
         }

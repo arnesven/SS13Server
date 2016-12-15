@@ -490,7 +490,7 @@ public abstract class GameCharacter implements Serializable {
         Sprite sp;
         if (suit == null) {
 
-            sp = getNakedSprite();
+            sp = getActor().getCharacter().getNakedSprite();
 		} else {
             sp = suit.getGetup(getActor(), whosAsking);
         }

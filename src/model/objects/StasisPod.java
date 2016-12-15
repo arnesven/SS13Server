@@ -12,6 +12,7 @@ import model.characters.decorators.FrozenDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
 import model.events.Event;
+import model.events.damage.ColdDamage;
 import model.events.damage.Damager;
 import model.items.NoSuchThingException;
 import model.map.Room;
@@ -32,7 +33,7 @@ public class StasisPod extends ElectricalMachinery {
 
     public StasisPod(Room r) {
         super("Stasis Pod", r);
-        setHealth(3.0);
+        setHealth(2.5);
     }
 
     @Override
@@ -90,6 +91,8 @@ public class StasisPod extends ElectricalMachinery {
         this.person = person;
     }
 
+
+
     public void eject() {
         Logger.log("Ejecting player from pod!");
 
@@ -112,7 +115,9 @@ public class StasisPod extends ElectricalMachinery {
 
     public void thisJustBroke() {
         if (!isVacant()) {
+            Actor a = this.getPerson();
             this.eject();
+            a.getAsTarget().beExposedTo(null, new ColdDamage(3.0));
         }
     }
 
@@ -178,5 +183,9 @@ public class StasisPod extends ElectricalMachinery {
 
     public Event getTimer() {
         return timer;
+    }
+
+    public Actor getPerson() {
+        return person;
     }
 }

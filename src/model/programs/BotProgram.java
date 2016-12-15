@@ -2,8 +2,11 @@ package model.programs;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
+import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
+import model.npcs.behaviors.MoveTowardsClosestActorMovement;
 import model.npcs.robots.RobotNPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.MovementBehavior;
@@ -46,5 +49,12 @@ public class BotProgram implements Serializable {
                 }
             });
         }
+    }
+
+    public static BotProgram createHostileProgram(GameData gameData) {
+        return new BotProgram("Hostile",
+                new MoveTowardsClosestActorMovement(gameData),
+                new AttackAllActorsNotSameClassBehavior(),
+                new Sprite("hostilebot", "robots2.png", 13, 15));
     }
 }

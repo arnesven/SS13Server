@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * Created by erini02 on 22/11/16.
  */
-public class SantaClauseCharacter extends GameCharacter {
+public class SantaClauseCharacter extends HumanCharacter {
 
     private Set<Actor> receivedGiftSet = new HashSet<>();
 

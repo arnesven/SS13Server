@@ -43,10 +43,7 @@ public class BotConsole extends Console {
                 new Sprite("firefighterbot", "robots2.png", 9, 2)));
         bp.add(new BotProgram("Friendly", new MeanderingMovement(0.5),
                 new RandomSpeechBehavior("resources/CHITCHAT.TXT")));
-        bp.add(new BotProgram("Hostile",
-                new MoveTowardsClosestActorMovement(gameData),
-                new AttackAllActorsNotSameClassBehavior(),
-                new Sprite("hostilebot", "robots2.png", 13, 15)));
+        bp.add(BotProgram.createHostileProgram(gameData));
         bp.add(new BotProgram("Nurse",
                 new MeanderingMovement(1.0),
                 new HealOtherBehavior(),

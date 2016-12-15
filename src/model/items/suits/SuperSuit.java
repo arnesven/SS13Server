@@ -79,7 +79,7 @@ public class SuperSuit extends SuitItem {
             return (new HorrorCharacter()).getSprite(whosAsking);
         }
         if (appearAsCharacter.checkInstance(((GameCharacter ch) -> ch instanceof SantaClauseCharacter))) {
-            return (new SantaSuit()).getSprite(whosAsking);
+            return (new SantaSuit()).getWornSprite(whosAsking);
         }
 
         if (appearAsCharacter.getSuit() != null) {

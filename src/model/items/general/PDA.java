@@ -47,6 +47,7 @@ public class PDA extends UplinkItem {
 		items.add(new Locator());
 		items.add(new LarcenyGloves());
         items.add(new SuperSuit());
+        items.add(new EMAG());
 		return items;
 	}
 

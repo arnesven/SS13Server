@@ -18,7 +18,7 @@ public class NextMoveCommandHandler extends AbstractCommandHandler {
 			ObjectOutputStream oos) throws IOException {
 		if (command.equals("NEXTMOVE")) {
 			Scanner sc = new Scanner(rest);
-			Logger.log(rest);
+			Logger.log(clid + " selected location " + rest + " for move");
 			gameData.getPlayerForClid(clid).setNextMove(sc.nextInt());
 			oos.writeObject("ACK");
 			return true;

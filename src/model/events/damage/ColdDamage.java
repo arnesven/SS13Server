@@ -2,7 +2,17 @@ package model.events.damage;
 
 public class ColdDamage extends DamagerImpl {
 
-	@Override
+    private double damage = 0.5;
+
+    public ColdDamage() {
+
+    }
+
+    public ColdDamage(double v) {
+        damage = v;
+    }
+
+    @Override
 	public String getText() {
 		return "You feel a painful shivering in your body.";
 	}
@@ -14,7 +24,7 @@ public class ColdDamage extends DamagerImpl {
 
 	@Override
 	public double getDamage() {
-		return 0.5;
+		return damage;
 	}
 
 	@Override

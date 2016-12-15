@@ -175,7 +175,7 @@ public class AIConsole extends Console {
         this.AIisPlayer = AIisPlayer;
     }
 
-    private boolean AIIsPlayer() {
+    public boolean AIIsPlayer() {
         return AIisPlayer;
     }
 

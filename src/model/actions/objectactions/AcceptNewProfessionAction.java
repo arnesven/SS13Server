@@ -18,7 +18,7 @@ public class AcceptNewProfessionAction extends Action {
     private final AdministrationConsole adminConsole;
 
     public AcceptNewProfessionAction(AdministrationConsole administrationConsole) {
-        super("Accept Job Change", SensoryLevel.OPERATE_DEVICE);
+        super("Apply Job Change", SensoryLevel.OPERATE_DEVICE);
         this.adminConsole = administrationConsole;
     }
 
