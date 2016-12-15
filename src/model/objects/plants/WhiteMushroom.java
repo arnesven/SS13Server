@@ -3,11 +3,10 @@ package model.objects.plants;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.events.PlantUpdater;
 import model.items.foods.FoodItem;
 import model.items.seeds.MushroomSpores;
 import model.items.seeds.SeedsItem;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.SoilPatch;
 
 import java.util.ArrayList;

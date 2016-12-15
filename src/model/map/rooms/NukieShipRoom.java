@@ -1,4 +1,4 @@
-package model.map;
+package model.map.rooms;
 
 
 public class NukieShipRoom extends Room {

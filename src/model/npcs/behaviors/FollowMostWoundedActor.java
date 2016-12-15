@@ -3,7 +3,6 @@ package model.npcs.behaviors;
 import model.Actor;
 import model.GameData;
 import model.events.FollowMovementEvent;
-import model.map.Room;
 import model.npcs.NPC;
 
 /**

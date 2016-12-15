@@ -9,7 +9,7 @@ import model.events.NoPressureEvent;
 import util.Logger;
 import util.MyRandom;
 import model.GameData;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public abstract class OngoingEvent extends AmbientEvent {
 	

@@ -15,7 +15,7 @@ import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.GameMap;
-import model.map.Room;
+import model.map.rooms.Room;
 import util.Logger;
 
 public class KeyCardLock extends Console {

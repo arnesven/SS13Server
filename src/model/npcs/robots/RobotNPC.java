@@ -7,7 +7,7 @@ import model.events.damage.AsphyxiationDamage;
 import model.events.damage.ColdDamage;
 import model.events.damage.Damager;
 import model.events.damage.RadiationDamage;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.MovementBehavior;

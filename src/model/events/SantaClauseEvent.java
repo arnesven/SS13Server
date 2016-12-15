@@ -5,7 +5,7 @@ import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.events.ambient.AmbientEvent;
 import model.items.NoSuchThingException;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.SantaNPC;
 import model.objects.consoles.AIConsole;

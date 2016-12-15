@@ -17,7 +17,7 @@ import model.events.SentenceCountdownEvent;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.suits.PrisonerSuit;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.robots.SecuritronNPC;
 import model.objects.general.EvidenceBox;

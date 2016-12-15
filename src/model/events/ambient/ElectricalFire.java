@@ -8,7 +8,7 @@ import model.Actor;
 import model.GameData;
 import model.Target;
 import model.actions.general.SensoryLevel;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class ElectricalFire extends OngoingEvent {
 

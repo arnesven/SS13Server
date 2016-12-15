@@ -10,7 +10,7 @@ import model.actions.objectactions.ShowTheseCoordinates;
 import model.actions.objectactions.TeleportToCoordinatesAction;
 import model.items.general.GameItem;
 import model.items.general.Teleporter;
-import model.map.Room;
+import model.map.rooms.Room;
 
 import java.util.ArrayList;
 import java.util.List;

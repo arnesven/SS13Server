@@ -8,7 +8,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class GameObject implements Serializable {
 	private String name;

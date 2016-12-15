@@ -7,7 +7,7 @@ import model.GameData;
 import model.actions.general.Action;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.consoles.KeyCardLock;
 import model.actions.general.SensoryLevel;
 import model.items.general.KeyCard;

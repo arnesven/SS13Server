@@ -1,7 +1,7 @@
 package model.npcs.animals;
 
 import model.characters.general.ChimpCharacter;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.behaviors.ChimpBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 

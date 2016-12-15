@@ -13,8 +13,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
-import model.map.Room;
-import util.HTMLText;
+import model.map.rooms.Room;
 
 /**
  * @author erini02

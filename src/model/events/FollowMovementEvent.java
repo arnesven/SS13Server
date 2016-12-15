@@ -6,9 +6,8 @@ import model.Player;
 import model.Target;
 import model.actions.general.SensoryLevel;
 import model.map.GameMap;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
-import model.npcs.behaviors.PathFinding;
 
 public class FollowMovementEvent extends Event {
 

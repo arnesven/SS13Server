@@ -8,7 +8,7 @@ import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.items.general.BombItem;
 import model.map.Architecture;
-import model.map.Room;
+import model.map.rooms.Room;
 
 import java.awt.geom.Point2D;
 import java.util.List;

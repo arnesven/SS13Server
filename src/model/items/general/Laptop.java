@@ -8,7 +8,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class Laptop extends UplinkItem {
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.GameData;
 import model.items.general.Locatable;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.SoilPatch;
 import model.objects.general.BreakableObject;
 import model.objects.general.GameObject;

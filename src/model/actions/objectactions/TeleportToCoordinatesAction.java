@@ -9,8 +9,8 @@ import model.actions.itemactions.TeleportAction;
 import model.characters.decorators.TumblingThroughSpaceDecorator;
 import model.items.general.Teleporter;
 import model.map.GameMap;
-import model.map.Room;
-import model.map.RoomType;
+import model.map.rooms.Room;
+import model.map.rooms.RoomType;
 import util.Logger;
 import util.MyRandom;
 

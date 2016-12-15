@@ -10,7 +10,7 @@ import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
 import model.characters.general.NobodyCharacter;
 import model.characters.decorators.HuskDecorator;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.HumanNPC;
 
 public class RandomHuskEvent extends Event {

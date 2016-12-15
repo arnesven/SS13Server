@@ -23,7 +23,7 @@ import model.items.general.NuclearDisc;
 import model.items.suits.JumpSuit;
 import model.items.suits.OperativeSpaceSuit;
 import model.items.general.Locator;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
 

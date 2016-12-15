@@ -7,15 +7,11 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.AccessAccountAction;
-import model.characters.general.GameCharacter;
-import model.characters.visitors.VisitorCharacter;
 import model.events.PayWagesEvent;
 import model.items.general.MoneyStack;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.ElectricalMachinery;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by erini02 on 15/11/16.

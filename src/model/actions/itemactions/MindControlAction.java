@@ -6,7 +6,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.robots.RobotNPC;

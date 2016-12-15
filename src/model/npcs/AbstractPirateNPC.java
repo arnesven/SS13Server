@@ -2,7 +2,7 @@ package model.npcs;
 
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
 import model.npcs.behaviors.MeanderingHumanMovement;
 import model.npcs.behaviors.MoveTowardsBehavior;

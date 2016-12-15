@@ -12,7 +12,7 @@ import model.actions.itemactions.DismantleAction;
 import model.actions.itemactions.RepairAction;
 import model.actions.itemactions.SealHullBreachAction;
 import model.items.weapons.BluntWeapon;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.GameObject;
 import model.objects.general.Repairable;
 

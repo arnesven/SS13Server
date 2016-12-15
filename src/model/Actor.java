@@ -12,10 +12,8 @@ import model.characters.decorators.NoSuchInstanceException;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
-import model.map.Room;
+import model.map.rooms.Room;
 import util.Logger;
-
-import javax.swing.table.TableStringConverter;
 
 public abstract class Actor  implements ItemHolder, Serializable {
 

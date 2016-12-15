@@ -4,7 +4,7 @@ import model.GameData;
 import model.Player;
 import model.actions.characteractions.HissAction;
 import model.actions.characteractions.MeowingAction;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.ParasiteNPC;
 

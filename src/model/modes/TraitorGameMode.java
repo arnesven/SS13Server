@@ -34,7 +34,7 @@ import model.items.general.KeyCard;
 import model.items.general.PDA;
 import model.items.suits.ChefsHat;
 import model.items.suits.SunGlasses;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.BreakableObject;
 import model.objects.general.GameObject;
 import model.objects.general.ElectricalMachinery;

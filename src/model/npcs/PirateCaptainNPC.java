@@ -3,7 +3,7 @@ package model.npcs;
 import model.characters.general.PirateCaptainCharacter;
 import model.items.suits.OxygenMask;
 import model.items.suits.PirateCaptainOutfit;
-import model.map.Room;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 11/11/16.

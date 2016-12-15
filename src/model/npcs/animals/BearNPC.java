@@ -1,7 +1,7 @@
 package model.npcs.animals;
 
 import model.characters.general.BearCharacter;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 

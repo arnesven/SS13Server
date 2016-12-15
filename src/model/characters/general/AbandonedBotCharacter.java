@@ -1,6 +1,6 @@
 package model.characters.general;
 
-import model.map.Room;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 25/11/16.

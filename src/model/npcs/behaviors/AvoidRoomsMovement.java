@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import util.Logger;
 

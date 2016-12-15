@@ -1,8 +1,7 @@
 package model.npcs;
 
 import model.characters.general.ParasiteCharacter;
-import model.map.Room;
-import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
+import model.map.rooms.Room;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.ParasiteBehavior;
 

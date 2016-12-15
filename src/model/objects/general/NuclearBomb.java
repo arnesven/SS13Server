@@ -11,8 +11,8 @@ import model.events.NukeSetEvent;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.NuclearDisc;
-import model.map.Room;
-import model.map.RoomType;
+import model.map.rooms.Room;
+import model.map.rooms.RoomType;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,8 @@
 package model;
 
-import model.map.Room;
-import model.npcs.behaviors.PathFinding;
+import model.map.rooms.Room;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

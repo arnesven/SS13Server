@@ -2,6 +2,7 @@ package model.events;
 
 import model.events.ambient.AmbientEvent;
 import model.events.damage.ExplosiveDamage;
+import sounds.Sound;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -10,7 +11,7 @@ import model.actions.general.SensoryLevel;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class SpontaneousExplosionEvent extends AmbientEvent {
 
@@ -52,5 +53,15 @@ public class SpontaneousExplosionEvent extends AmbientEvent {
 	public String getDistantDescription() {
 		return "You hear a loud explosion";
 	}
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return Sound.EXPLOSION;
+    }
 
 }

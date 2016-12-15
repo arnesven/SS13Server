@@ -1,7 +1,7 @@
 package model.npcs;
 
 import model.characters.general.GameCharacter;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.behaviors.DoNothingBehavior;
 import model.npcs.behaviors.MeanderingHumanMovement;
 

@@ -7,10 +7,9 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.DumbwaiterAction;
 import model.actions.objectactions.MakeBombAction;
-import model.events.NoSuchEventException;
 import model.items.NoSuchThingException;
-import model.map.KitchenRoom;
-import model.map.Room;
+import model.map.rooms.KitchenRoom;
+import model.map.rooms.Room;
 import util.Logger;
 
 import java.util.*;

@@ -1,11 +1,9 @@
 package model.npcs;
 
 import model.characters.general.PirateCharacter;
-import model.items.general.GameItem;
 import model.items.suits.OxygenMask;
 import model.items.suits.PirateOutfit;
-import model.map.Room;
-import model.npcs.behaviors.*;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 26/04/16.

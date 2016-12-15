@@ -3,7 +3,7 @@ package model.events.ambient;
 import model.GameData;
 import model.events.*;
 import model.items.NoSuchThingException;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.consoles.PowerSource;
 import model.objects.general.GameObject;
 import util.Logger;

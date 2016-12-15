@@ -8,7 +8,7 @@ import model.actions.itemactions.ReviveAction;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
-import model.map.Room;
+import model.map.rooms.Room;
 
 import java.util.ArrayList;
 

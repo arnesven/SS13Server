@@ -12,7 +12,7 @@ import model.characters.general.GameCharacter;
 import model.items.foods.Beer;
 import model.items.foods.Vodka;
 import model.items.foods.Wine;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.DispenserObject;
 
 import java.util.ArrayList;

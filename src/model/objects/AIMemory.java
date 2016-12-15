@@ -7,7 +7,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.PullMemoryBlockAction;
 import model.characters.general.GameCharacter;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.GameObject;
 
 import java.util.ArrayList;

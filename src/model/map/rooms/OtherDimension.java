@@ -1,8 +1,4 @@
-package model.map;
-
-import model.items.CosmicArtifact;
-import model.objects.general.DimensionPortal;
-import util.MyRandom;
+package model.map.rooms;
 
 /**
  * Created by erini02 on 19/10/16.

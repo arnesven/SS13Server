@@ -3,7 +3,7 @@ package model.npcs;
 import model.characters.visitors.MerchantCharacter;
 import model.items.suits.MerchantSuit;
 import model.items.suits.SecOffsVest;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.behaviors.MeanderingMovement;
 
 /**

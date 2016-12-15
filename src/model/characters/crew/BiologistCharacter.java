@@ -9,13 +9,9 @@ import model.actions.general.Action;
 import model.actions.characteractions.TrainNPCAction;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
-import model.items.general.MedKit;
 import model.items.general.MotionTracker;
-import model.items.seeds.OrangeSeeds;
-import model.items.seeds.RedWeedSeeds;
 import model.items.seeds.TomatoSeeds;
-import model.items.weapons.Flamer;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.animals.Trainable;
 
 public class BiologistCharacter extends CrewCharacter {

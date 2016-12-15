@@ -9,7 +9,7 @@ import model.actions.general.SensoryLevel;
 
 import java.io.Serializable;
 
-public abstract class Event implements Serializable {
+public abstract class Event extends Experienceable implements Serializable {
 
     private boolean shouldBeRemoved = false;
 	public abstract void apply(GameData gameData);
@@ -42,6 +42,15 @@ public abstract class Event implements Serializable {
     }
 
     public void setProbability(double v) {
+    }
+
+    public void experienceFar(Player p) {
+        String text = this.getDistantDescription();
+        p.addUniquelyTolastTurnInfo(text);
+    }
+
+    public void experienceNear(Player p) {
+
     }
 
 

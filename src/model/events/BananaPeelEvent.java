@@ -14,7 +14,7 @@ import model.characters.general.GameCharacter;
 import model.characters.general.ParasiteCharacter;
 import model.characters.decorators.AlterMovement;
 import model.characters.decorators.InstanceChecker;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class BananaPeelEvent extends Event {
 

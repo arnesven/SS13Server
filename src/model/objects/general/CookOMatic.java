@@ -13,7 +13,7 @@ import model.actions.objectactions.CookGrenadeIntoFoodAction;
 import model.items.foods.*;
 import model.items.general.ExplodableItem;
 import model.items.general.GameItem;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class CookOMatic extends ElectricalMachinery {
 

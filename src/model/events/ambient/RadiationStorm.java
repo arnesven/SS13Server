@@ -1,7 +1,6 @@
 package model.events.ambient;
 
 import graphics.sprites.Sprite;
-import model.events.Event;
 import model.events.damage.RadiationDamage;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
@@ -9,11 +8,10 @@ import model.objects.consoles.AIConsole;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.SensoryLevel;
 import model.items.general.GameItem;
 import model.items.general.GeigerMeter;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.behaviors.AvoidRoomsMovement;
 import model.npcs.behaviors.MeanderingHumanMovement;

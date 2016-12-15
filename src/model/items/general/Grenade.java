@@ -6,7 +6,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.Target;
 import model.items.foods.ExplodingFood;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.BreakableObject;
 import model.objects.general.GameObject;
 import util.MyRandom;

@@ -5,7 +5,7 @@ import util.MyRandom;
 import model.Player;
 import model.items.general.MedKit;
 import model.items.suits.OutFit;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.modes.GameMode;
 
 public class Lockers extends ContainerObject {

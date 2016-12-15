@@ -1,12 +1,10 @@
 package model.npcs;
 
-import model.GameData;
 import model.Player;
 import model.characters.general.GalacticFederalMarshalCharacter;
 import model.items.suits.MarshalOutfit;
-import model.items.suits.SpaceSuit;
 import model.items.suits.UncoolSunglasses;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.behaviors.ArrestLoadOrCounterAttack;
 import model.npcs.behaviors.DoNothingBehavior;
 import model.npcs.behaviors.MeanderingMovement;

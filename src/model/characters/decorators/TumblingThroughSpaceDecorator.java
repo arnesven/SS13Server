@@ -10,7 +10,7 @@ import model.items.NoSuchThingException;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
 import model.map.GameMap;
-import model.map.RoomType;
+import model.map.rooms.RoomType;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,7 @@ package model.npcs.behaviors;
 import model.Actor;
 import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import util.Logger;
 import util.MyRandom;

@@ -3,7 +3,7 @@ package model.objects.general;
 import graphics.sprites.Sprite;
 import model.GameData;
 import model.Player;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.consoles.PowerSource;
 
 import java.util.ArrayList;

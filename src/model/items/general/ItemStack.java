@@ -3,7 +3,7 @@ package model.items.general;
 import model.Actor;
 import model.ItemHolder;
 import model.Target;
-import model.map.Room;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 20/11/16.

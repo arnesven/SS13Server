@@ -12,13 +12,12 @@ import model.items.general.RoomPartsStack;
 import model.items.general.Tools;
 import model.map.Architecture;
 import model.map.GameMap;
-import model.map.Room;
-import model.map.RoomType;
+import model.map.rooms.Room;
+import model.map.rooms.RoomType;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by erini02 on 20/11/16.

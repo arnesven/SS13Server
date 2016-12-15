@@ -7,7 +7,7 @@ import model.actions.general.Action;
 import model.actions.objectactions.ScanBrainAction;
 import model.items.Brain;
 import model.items.NoSuchThingException;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.behaviors.*;
 import model.programs.BotProgram;
 import model.programs.BrainBotProgram;

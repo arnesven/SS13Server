@@ -1,28 +1,19 @@
 package model.events;
 
-import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.DimensionTrappedDecorator;
-import model.characters.general.AbandonedBotCharacter;
 import model.events.ambient.AmbientEvent;
 import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.AlienNPC;
-import model.npcs.NPC;
-import model.npcs.behaviors.MeanderingMovement;
-import model.npcs.behaviors.RandomSpeechBehavior;
-import model.npcs.robots.RobotNPC;
 import model.objects.RedDimensionPortal;
 import model.objects.consoles.AIConsole;
 import model.objects.general.DimensionPortal;
 import util.Logger;
 import util.MyRandom;
-
-import java.util.List;
 
 /**
  * Created by erini02 on 18/10/16.

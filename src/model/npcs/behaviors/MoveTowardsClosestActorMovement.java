@@ -2,7 +2,7 @@ package model.npcs.behaviors;
 
 import model.Actor;
 import model.GameData;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 
 import java.util.ArrayList;

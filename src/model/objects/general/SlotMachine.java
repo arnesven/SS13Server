@@ -8,7 +8,7 @@ import model.actions.general.Action;
 import model.actions.objectactions.SlotMachineAction;
 import model.items.NoSuchThingException;
 import model.items.general.MoneyStack;
-import model.map.BarRoom;
+import model.map.rooms.BarRoom;
 import util.HTMLText;
 import util.MyRandom;
 

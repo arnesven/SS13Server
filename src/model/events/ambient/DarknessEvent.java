@@ -10,8 +10,7 @@ import model.characters.decorators.DarknessShroudDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.events.Event;
 import model.items.NoSuchThingException;
-import model.map.Room;
-import model.objects.consoles.GeneratorConsole;
+import model.map.rooms.Room;
 import model.objects.consoles.PowerSource;
 
 public abstract class DarknessEvent extends Event {

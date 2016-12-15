@@ -1,6 +1,5 @@
 package model.objects.consoles;
 
-import java.io.Serializable;
 import java.util.*;
 
 import graphics.sprites.Sprite;
@@ -9,10 +8,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.PowerConsoleAction;
-import model.map.Room;
-import model.objects.general.ElectricalMachinery;
-import model.objects.general.GameObject;
-import util.Logger;
+import model.map.rooms.Room;
 
 public class GeneratorConsole extends Console {
 

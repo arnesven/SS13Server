@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 import model.GameData;
 import model.items.NoSuchThingException;
 import model.items.general.BoobyTrapBomb;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.StasisPod;
 import model.objects.consoles.*;
 import model.objects.general.BoobyTrappedObject;

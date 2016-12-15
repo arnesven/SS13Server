@@ -7,8 +7,7 @@ import model.Target;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
 import model.events.damage.AsphyxiationDamage;
-import model.events.damage.NoPressureDamage;
-import model.map.Room;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 26/04/16.

@@ -7,7 +7,7 @@ import model.actions.general.SensoryLevel;
 import model.characters.decorators.SenseActorsInOtherRoomsDecorator;
 import model.characters.general.ChangelingCharacter;
 import model.characters.general.GameCharacter;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class ChangelingSensesEvent extends Event {
 

@@ -1,4 +1,4 @@
-package model.map;
+package model.map.rooms;
 
 import model.objects.general.AirlockPanel;
 

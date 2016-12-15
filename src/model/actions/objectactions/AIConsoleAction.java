@@ -4,23 +4,13 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.AlarmOverlayDecorator;
-import model.characters.general.HorrorCharacter;
 import model.items.NoSuchThingException;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.modes.GameMode;
-import model.npcs.NPC;
-import model.npcs.ParasiteNPC;
-import model.npcs.PirateNPC;
-import model.npcs.behaviors.DoNothingBehavior;
-import model.npcs.behaviors.MeanderingMovement;
-import model.npcs.robots.RobotNPC;
 import model.objects.consoles.AIConsole;
-import model.objects.consoles.GeneratorConsole;
-import model.objects.general.GameObject;
 import util.Logger;
 import util.MyRandom;
 

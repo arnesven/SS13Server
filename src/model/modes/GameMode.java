@@ -40,8 +40,8 @@ import model.characters.crew.ArchitectCharacter;
 import model.characters.crew.RoboticistCharacter;
 import model.characters.crew.SecurityOfficerCharacter;
 import model.items.general.GameItem;
-import model.map.NukieShipRoom;
-import model.map.Room;
+import model.map.rooms.NukieShipRoom;
+import model.map.rooms.Room;
 import model.misc.ChristmasBooster;
 
 /**

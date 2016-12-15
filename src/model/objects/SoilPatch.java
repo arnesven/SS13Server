@@ -10,10 +10,8 @@ import model.events.damage.Damager;
 import model.items.general.GameItem;
 import model.items.seeds.SeedsItem;
 import model.items.weapons.Weapon;
-import model.map.GreenhouseRoom;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.BreakableObject;
-import model.objects.general.GameObject;
 import model.objects.plants.Plant;
 
 import java.util.ArrayList;

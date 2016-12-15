@@ -2,17 +2,15 @@ package model.characters.decorators;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.items.laws.AILaw;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.MovementBehavior;
-import model.npcs.robots.RobotNPC;
 import model.objects.consoles.AIConsole;
 
 import java.util.ArrayList;

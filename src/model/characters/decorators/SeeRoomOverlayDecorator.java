@@ -4,7 +4,7 @@ import graphics.sprites.OverlaySprites;
 import model.GameData;
 import model.Player;
 import model.characters.general.GameCharacter;
-import model.map.Room;
+import model.map.rooms.Room;
 
 import java.util.List;
 

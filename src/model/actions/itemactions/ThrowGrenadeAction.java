@@ -10,7 +10,7 @@ import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Grenade;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class ThrowGrenadeAction extends Action {
 

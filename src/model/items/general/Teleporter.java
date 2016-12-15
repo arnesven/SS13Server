@@ -3,11 +3,10 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.itemactions.TeleportAction;
-import model.map.Room;
+import model.map.rooms.Room;
 
 import java.util.ArrayList;
 import java.util.List;

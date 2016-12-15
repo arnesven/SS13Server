@@ -5,7 +5,9 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
+import model.events.Experienceable;
 import util.Logger;
 
 /**
@@ -13,7 +15,7 @@ import util.Logger;
  * Represent an action which can be taken by a client.
  * TODO: NPCs should also be able to take actions.
  */
-public abstract class Action implements Serializable {
+public abstract class Action extends Experienceable implements Serializable {
 	
 	public static final String FAILED_STRING = "Your action failed.";
 	private String name;
@@ -116,4 +118,17 @@ public abstract class Action implements Serializable {
 	}
 
 
+    public void experienceNear(Player p) {
+        String text = getDescription(p);
+        if (!text.contains(p.getPublicName()) && !text.toLowerCase().contains("you")) {
+            p.addTolastTurnInfo(text);
+        }
+    }
+
+    public void experienceFar(Player p) {
+        if (p.getCharacter().doesPerceive(this)) {
+            String text = getDistantDescription(p);
+            p.addTolastTurnInfo(text);
+        }
+    }
 }

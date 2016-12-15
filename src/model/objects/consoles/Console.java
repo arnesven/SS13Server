@@ -2,7 +2,7 @@ package model.objects.consoles;
 
 import graphics.sprites.Sprite;
 import model.Player;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.RemotelyOperateable;
 

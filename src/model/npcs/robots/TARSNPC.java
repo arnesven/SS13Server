@@ -1,7 +1,7 @@
 package model.npcs.robots;
 
 import model.characters.general.TarsCharacter;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.RandomSpeechBehavior;
 

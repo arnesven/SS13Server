@@ -13,7 +13,7 @@ import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.events.damage.LaserBlast;
 import model.items.weapons.AutoTurretLaser;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.consoles.AIConsole;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.RemotelyOperateable;

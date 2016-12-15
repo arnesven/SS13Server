@@ -4,7 +4,7 @@ package model.npcs.robots;
 import model.GameData;
 import model.characters.general.SecuritronCharacter;
 import model.items.NoSuchThingException;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.behaviors.ArrestCriminalBehavior;
 import model.npcs.behaviors.FollowCriminalBehavior;
 import model.objects.consoles.CrimeRecordsConsole;

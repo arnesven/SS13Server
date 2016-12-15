@@ -1,6 +1,6 @@
 package model.items.general;
 
-import model.map.Room;
+import model.map.rooms.Room;
 
 public interface Locatable {
 	

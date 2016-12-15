@@ -10,7 +10,7 @@ import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.consoles.KeyCardLock;
 
 public class UnlockRoomAction extends Action {

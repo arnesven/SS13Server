@@ -7,7 +7,7 @@ import model.items.seeds.MushroomSpores;
 import model.items.seeds.OrangeSeeds;
 import model.items.seeds.RedWeedSeeds;
 import model.items.seeds.TomatoSeeds;
-import model.map.Room;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 28/11/16.

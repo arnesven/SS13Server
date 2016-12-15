@@ -6,8 +6,8 @@ import util.Logger;
 import model.GameData;
 import model.events.SantaClauseEvent;
 import model.items.NoSuchThingException;
-import model.map.Room;
-import model.map.RoomType;
+import model.map.rooms.Room;
+import model.map.rooms.RoomType;
 import model.objects.christmas.Christmas_lights;
 import model.objects.christmas.Snowman;
 

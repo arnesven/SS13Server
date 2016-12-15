@@ -3,7 +3,7 @@ package model.events.ambient;
 import model.Actor;
 import model.GameData;
 import model.events.damage.RadiationDamage;
-import model.map.Room;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 19/04/16.

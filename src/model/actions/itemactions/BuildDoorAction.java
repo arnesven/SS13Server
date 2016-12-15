@@ -11,8 +11,7 @@ import model.items.general.GameItem;
 import model.items.general.ItemStackDepletedException;
 import model.map.Architecture;
 import model.map.GameMap;
-import model.map.Room;
-import util.Pair;
+import model.map.rooms.Room;
 
 import java.awt.geom.Point2D;
 import java.util.List;

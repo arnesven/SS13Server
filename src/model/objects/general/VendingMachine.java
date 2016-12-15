@@ -8,10 +8,8 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
-import model.items.foods.Banana;
-import model.items.foods.Doughnut;
 import model.items.general.*;
-import model.map.Room;
+import model.map.rooms.Room;
 
 import java.util.ArrayList;
 import java.util.List;

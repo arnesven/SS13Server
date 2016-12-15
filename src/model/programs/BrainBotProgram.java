@@ -2,12 +2,10 @@ package model.programs;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.characters.general.GameCharacter;
 import model.items.Brain;
 import model.items.NoSuchThingException;
-import model.map.Room;
-import model.npcs.NPC;
+import model.map.rooms.Room;
 import model.npcs.robots.RobotNPC;
 import model.objects.consoles.BotConsole;
 

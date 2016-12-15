@@ -2,9 +2,7 @@ package model.items.weapons;
 
 
 import graphics.sprites.Sprite;
-import model.Actor;
-import model.GameData;
-import model.Hazard;
+import model.*;
 import model.events.ambient.ElectricalFire;
 import util.Logger;
 import util.MyRandom;
@@ -30,6 +28,8 @@ public class LaserPistol extends AmmoWeapon {
     public Sprite getHandHeldSprite() {
         return new Sprite("laserpistolinhand", "items_righthand.png", 0, 16);
     }
+
+
 
     @Override
     protected void checkOnlyMissHazard(final Actor performingClient, GameData gameData) {

@@ -5,11 +5,10 @@ import model.characters.crew.CrewCharacter;
 import model.characters.crew.TouristCharacter;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
-import model.map.NukieShipRoom;
-import model.map.Room;
+import model.map.rooms.NukieShipRoom;
+import model.map.rooms.Room;
 import util.MyRandom;
 
-import javax.naming.OperationNotSupportedException;
 import java.util.ArrayList;
 import java.util.List;
 

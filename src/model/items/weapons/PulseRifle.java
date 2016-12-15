@@ -3,6 +3,7 @@ package model.items.weapons;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class PulseRifle extends AmmoWeapon {
             makeAdditionalAttacks(gameData, performingClient, alreadyAttacked);
         }
     }
+
 
     @Override
     public Sprite getSprite(Actor whosAsking) {

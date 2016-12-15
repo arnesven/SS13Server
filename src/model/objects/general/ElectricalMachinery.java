@@ -6,10 +6,8 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.NoPowerAction;
-import model.items.NoSuchThingException;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.PowerConsumer;
-import model.objects.consoles.GeneratorConsole;
 import model.objects.consoles.PowerSource;
 import util.Logger;
 

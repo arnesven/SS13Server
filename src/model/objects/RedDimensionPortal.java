@@ -3,7 +3,7 @@ package model.objects;
 import graphics.sprites.Sprite;
 import model.GameData;
 import model.Player;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.DimensionPortal;
 
 /**

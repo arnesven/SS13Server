@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.GameObject;
 import model.objects.general.ElectricalMachinery;
 import model.actions.itemactions.RigBoobyTrapAction;

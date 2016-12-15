@@ -5,7 +5,7 @@ import java.util.HashSet;
 import model.Actor;
 import model.GameData;
 import model.items.general.GameItem;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public abstract class Shipment extends HashSet<GameItem> {
 	

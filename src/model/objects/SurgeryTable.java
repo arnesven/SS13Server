@@ -9,7 +9,7 @@ import model.actions.general.SensoryLevel;
 import model.characters.decorators.OnSurgeryTableDecorator;
 import model.characters.general.GameCharacter;
 import model.events.Event;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.GameObject;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package model.map;
+package model.map.rooms;
 
 import model.items.weapons.Flamer;
 import model.items.general.Grenade;

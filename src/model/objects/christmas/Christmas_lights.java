@@ -2,7 +2,7 @@ package model.objects.christmas;
 
 import graphics.sprites.Sprite;
 import model.Player;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.GameObject;
 
 public class Christmas_lights extends GameObject {

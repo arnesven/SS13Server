@@ -25,7 +25,7 @@ import model.items.NoSuchThingException;
 import model.items.foods.ExplodingFood;
 import model.map.Architecture;
 import model.map.GameMap;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.events.SpontaneousExplosionEvent;
 import model.events.NoPressureEverEvent;
 import model.objects.general.ContainerObject;

@@ -15,8 +15,7 @@ import model.events.Event;
 import model.events.damage.ColdDamage;
 import model.events.damage.Damager;
 import model.items.NoSuchThingException;
-import model.map.Room;
-import model.npcs.NPC;
+import model.map.rooms.Room;
 import model.objects.general.ElectricalMachinery;
 import util.Logger;
 

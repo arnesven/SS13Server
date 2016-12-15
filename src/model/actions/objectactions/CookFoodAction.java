@@ -3,7 +3,7 @@ package model.actions.objectactions;
 import java.util.List;
 
 import model.items.NoSuchThingException;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.Dumbwaiter;
 import model.objects.general.GameObject;
 import util.Logger;

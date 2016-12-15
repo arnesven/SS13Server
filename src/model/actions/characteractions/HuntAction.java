@@ -9,7 +9,7 @@ import model.characters.general.ChangelingCharacter;
 import model.events.FollowMovementEvent;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class HuntAction extends TargetingAction {
 

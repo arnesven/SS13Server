@@ -1,9 +1,8 @@
 package model.npcs.behaviors;
 
 import model.Actor;
-import model.GameData;
 import model.items.NoSuchThingException;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.objects.consoles.CrimeRecordsConsole;
 import util.Logger;

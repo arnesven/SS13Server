@@ -9,7 +9,7 @@ import model.actions.objectactions.ShopFromMerchantAction;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.MerchantCharacter;
 import model.items.general.GameItem;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.MerchantNPC;
 import model.objects.general.ContainerObject;
 import util.MyRandom;

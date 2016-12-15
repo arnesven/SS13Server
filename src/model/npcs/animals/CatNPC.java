@@ -1,7 +1,7 @@
 package model.npcs.animals;
 
 import model.characters.general.CatCharacter;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.MeowOrHissBehavior;
 

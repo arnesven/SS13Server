@@ -10,10 +10,8 @@ import model.events.ambient.HullBreach;
 import model.events.damage.Damager;
 import model.items.general.ExplodableItem;
 import model.items.general.Explosive;
-import model.items.general.Grenade;
-import model.map.Room;
-import model.objects.general.BreakableObject;
-import model.objects.general.GameObject;
+import model.map.rooms.Room;
+import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
 
@@ -65,4 +63,13 @@ public class ExplosionAction extends Action {
 		return "exploded";
 	}
 
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return Sound.EXPLOSION;
+    }
 }

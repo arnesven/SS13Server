@@ -16,7 +16,7 @@ import model.items.general.GameItem;
 import model.items.general.TornClothes;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.HumanNPC;
 import model.objects.general.GameObject;
 import util.Logger;

@@ -3,10 +3,9 @@ package model.modes.goals;
 import model.Actor;
 import model.GameData;
 import model.events.BackgroundEvent;
-import model.events.Event;
-import model.map.BrigRoom;
+import model.map.rooms.BrigRoom;
 import model.map.GameMap;
-import model.map.Room;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 08/12/16.

@@ -2,10 +2,8 @@ package model.items.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
-import model.ItemHolder;
 import model.actions.general.ActionOption;
 import model.items.NoSuchThingException;
-import model.map.Room;
 
 /**
  * Created by erini02 on 14/11/16.

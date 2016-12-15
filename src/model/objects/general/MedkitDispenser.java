@@ -10,7 +10,7 @@ import model.actions.itemactions.HealWithMedKitAction;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.general.Syringe;
-import model.map.Room;
+import model.map.rooms.Room;
 
 import java.util.ArrayList;
 import java.util.List;

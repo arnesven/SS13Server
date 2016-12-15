@@ -10,7 +10,7 @@ import model.events.ambient.RadiationStorm;
 import model.items.foods.Tomato;
 import model.items.seeds.SeedsItem;
 import model.items.seeds.TomatoSeeds;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.TomatoNPC;
 import model.objects.SoilPatch;

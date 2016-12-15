@@ -13,9 +13,7 @@ import model.actions.general.SensoryLevel.VisualLevel;
 import model.characters.decorators.SeeRoomOverlayDecorator;
 import model.events.Event;
 import model.items.NoSuchThingException;
-import model.map.GameMap;
-import model.map.MapBuilder;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.consoles.SecurityCameraConsole;
 
 public class SecurityConsoleAction extends ConsoleAction {

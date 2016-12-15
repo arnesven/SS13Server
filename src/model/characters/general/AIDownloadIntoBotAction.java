@@ -2,16 +2,14 @@ package model.characters.general;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.AITakenOverDecorator;
 import model.items.NoSuchThingException;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.behaviors.DoNothingBehavior;
-import model.npcs.behaviors.MovementBehavior;
 import model.npcs.behaviors.StayBehavior;
 import model.npcs.robots.RobotNPC;
 

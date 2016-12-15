@@ -11,7 +11,7 @@ import model.events.NoSuchEventException;
 import model.events.ambient.ElectricalFire;
 import model.events.Event;
 import model.items.weapons.BluntWeapon;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class FireExtinguisher extends BluntWeapon {
 

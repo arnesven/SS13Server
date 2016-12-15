@@ -2,11 +2,10 @@ package model.npcs.behaviors;
 
 import model.GameData;
 import model.map.GameMap;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import util.Logger;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;

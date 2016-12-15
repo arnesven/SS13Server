@@ -5,13 +5,9 @@ import java.util.List;
 
 import model.characters.visitors.VisitorCharacter;
 import model.items.suits.SunGlasses;
-import util.MyRandom;
-import model.GameData;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.suits.FancyClothes;
-import model.map.NukieShipRoom;
-import model.map.Room;
 
 public class TouristCharacter extends VisitorCharacter {
 

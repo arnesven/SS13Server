@@ -12,7 +12,7 @@ import model.events.Event;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.map.GameMap;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.objects.general.GameObject;
 

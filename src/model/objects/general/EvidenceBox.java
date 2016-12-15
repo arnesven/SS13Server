@@ -7,12 +7,10 @@ import java.util.Map;
 
 import graphics.sprites.Sprite;
 import model.Actor;
-import model.GameData;
 import model.Player;
-import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class EvidenceBox extends ContainerObject {
 

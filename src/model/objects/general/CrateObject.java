@@ -4,7 +4,7 @@ import graphics.sprites.Sprite;
 import model.GameData;
 import model.Player;
 import model.items.general.GameItem;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.shipments.Shipment;
 
 public class CrateObject extends ContainerObject {

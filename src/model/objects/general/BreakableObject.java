@@ -11,7 +11,7 @@ import model.events.damage.Damager;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.weapons.Weapon;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public abstract class BreakableObject extends GameObject implements Target {
 

@@ -7,11 +7,10 @@ import model.GameData;
 import model.actions.general.Action;
 import model.items.general.GameItem;
 import model.items.suits.SpaceSuit;
-import model.map.AirLockRoom;
 import model.actions.characteractions.EscapeAndSetNukeAction;
 import model.actions.characteractions.StealAction;
 import model.items.weapons.Revolver;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.AirlockPanel;
 import model.objects.general.GameObject;
 

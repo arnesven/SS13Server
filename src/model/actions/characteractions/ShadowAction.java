@@ -6,7 +6,7 @@ import model.Target;
 import model.actions.general.WatchAction;
 import model.events.FollowMovementEvent;
 import model.items.general.GameItem;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class ShadowAction extends WatchAction {
 

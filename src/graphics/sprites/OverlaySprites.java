@@ -4,7 +4,6 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.PlayerSettings;
-import model.actions.general.SensoryLevel;
 import model.characters.general.*;
 import model.events.Event;
 import model.events.ambient.ElectricalFire;
@@ -12,9 +11,7 @@ import model.events.ambient.HullBreach;
 import model.events.ambient.RadiationStorm;
 import model.items.general.GameItem;
 import model.items.general.HidableItem;
-import model.map.Room;
-import model.npcs.ParasiteNPC;
-import model.npcs.PirateNPC;
+import model.map.rooms.Room;
 import model.objects.general.DimensionPortal;
 import model.objects.general.GameObject;
 

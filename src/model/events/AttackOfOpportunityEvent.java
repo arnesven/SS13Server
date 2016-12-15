@@ -4,7 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.items.weapons.Weapon;
-import model.map.Room;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 16/04/16.

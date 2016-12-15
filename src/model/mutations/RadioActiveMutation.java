@@ -5,7 +5,7 @@ import model.Actor;
 import model.characters.decorators.CharacterDecorator;
 import model.events.Event;
 import model.events.ambient.LocalRadiationEvent;
-import model.map.Room;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 19/04/16.

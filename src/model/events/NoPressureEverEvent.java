@@ -1,8 +1,7 @@
 package model.events;
 
 import model.GameData;
-import model.events.NoPressureEvent;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class NoPressureEverEvent extends NoPressureEvent {
 

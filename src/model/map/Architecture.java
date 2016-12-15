@@ -1,11 +1,11 @@
 package model.map;
 
+import model.map.rooms.Room;
 import util.Logger;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.*;
-import java.util.List;
 
 /**
  * Created by erini02 on 23/11/16.

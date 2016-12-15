@@ -15,7 +15,7 @@ import model.items.seeds.RedWeedSeeds;
 import model.items.seeds.TomatoSeeds;
 import model.items.suits.*;
 import model.items.weapons.*;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class MyRandom {
 	public static Random random = new Random();

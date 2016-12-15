@@ -12,7 +12,7 @@ import model.actions.general.SensoryLevel;
 import model.events.ambient.ElectricalFire;
 import model.events.ambient.LowPressureEvent;
 import model.events.damage.NoPressureDamage;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.AirlockPanel;
 import util.Logger;
 

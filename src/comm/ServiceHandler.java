@@ -50,6 +50,8 @@ public class ServiceHandler {
 		handlers.add(new ResourceCommandHandler(gameData));
 
         handlers.add(new ChatHandler(gameData));
+
+        handlers.add(new SoundHandler(gameData));
 		
 	}
 

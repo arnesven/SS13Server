@@ -13,7 +13,7 @@ import model.characters.general.GameCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.shipments.*;
 
 public class AdministrationConsole extends Console {

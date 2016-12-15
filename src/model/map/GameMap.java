@@ -1,12 +1,13 @@
 package model.map;
 
-import javafx.geometry.Point3D;
 import model.Actor;
 import model.GameData;
 import model.events.Event;
 import model.events.ambient.ColdEvent;
 import model.items.NoSuchThingException;
 import model.events.NoPressureEverEvent;
+import model.map.rooms.Room;
+import model.map.rooms.RoomType;
 import util.Logger;
 import util.MyRandom;
 

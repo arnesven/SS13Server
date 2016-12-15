@@ -4,7 +4,7 @@ import model.items.foods.Banana;
 import model.items.foods.Doughnut;
 import model.items.general.PackOfSmokes;
 import model.items.general.ZippoLighter;
-import model.map.Room;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 28/11/16.

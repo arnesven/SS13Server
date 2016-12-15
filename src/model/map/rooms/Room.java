@@ -1,4 +1,4 @@
-package model.map;
+package model.map.rooms;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import model.events.Event;
 import model.events.ambient.HullBreach;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
+import model.map.GameMap;
 import model.npcs.NPC;
 import model.objects.PowerConsumer;
 import model.objects.general.ContainerObject;
@@ -310,10 +311,7 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 		for (Action a : getActionsHappened()) {
 			for (Player p : players) {
 				if (p.getCharacter().doesPerceive(a) && p.getCharacter().isVisible()) {
-					String text = a.getDescription(p);
-					if (!text.contains(p.getPublicName()) && !text.toLowerCase().contains("you")) {
-						p.addTolastTurnInfo(text);
-					}
+                    a.experienceFor(p);
 				}				
 			}
 			
@@ -324,10 +322,7 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 				a.getSense().smell == OlfactoryLevel.SHARP) {
 				for (Room r : getNeighborList()) {
 					for (Player p : r.getClients()) {
-						if (p.getCharacter().doesPerceive(a)) {
-							String text = a.getDistantDescription(p);
-							p.addTolastTurnInfo(text);
-						}				
+						a.experienceFromAfarFor(p);
 					}
 				}
 			}
@@ -338,11 +333,14 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 				a.getSense().smell == OlfactoryLevel.SHARP) {
 				for (Room r : getNeighborList()) {
 					for (Player p : r.getClients()) {
-						String text = a.getDistantDescription();
-						p.addUniquelyTolastTurnInfo(text);
+						a.experienceFromAfarFor(p);
 					}
 				}
+
 			}
+            for (Player p : players) {
+                a.experienceFor(p);
+            }
 		}
 	}
 

@@ -16,7 +16,7 @@ import model.characters.general.ChangelingCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.crew.CaptainCharacter;
 import model.events.ChangelingSensesEvent;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
 

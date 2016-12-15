@@ -6,7 +6,7 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.events.PlantUpdater;
 import model.items.foods.FoodItem;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.SoilPatch;
 
 import java.util.ArrayList;

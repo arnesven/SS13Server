@@ -9,7 +9,7 @@ import model.actions.general.SensoryLevel;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.items.weapons.PulseRifle;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.BreakableObject;
 
 import java.util.ArrayList;

@@ -11,10 +11,10 @@ import model.characters.GameCharacterLambda;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
-import model.map.RoomType;
-import model.modes.GameStats;
+import model.map.rooms.RoomType;
 import model.objects.consoles.AIConsole;
 import model.objects.general.ContainerObject;
+import sounds.Sound;
 import util.*;
 import model.actions.general.Action;
 import model.actions.general.DoNothingAction;
@@ -22,8 +22,8 @@ import model.actions.general.SpeedComparator;
 import model.events.Event;
 import model.items.general.GameItem;
 import model.map.GameMap;
-import model.map.MapBuilder;
-import model.map.Room;
+import model.map.builders.MapBuilder;
+import model.map.rooms.Room;
 import model.modes.GameMode;
 import model.modes.GameModeFactory;
 import model.npcs.NPC;
@@ -162,6 +162,7 @@ public class GameData implements Serializable {
 
         Player newPlayer = new Player(this);
 		players.put(clid, newPlayer);
+        newPlayer.getSoundQueue().add(Sound.YOU_JUST_JOINED);
 
         if (getGameState() != GameState.PRE_GAME) { // already started
             newPlayer.prepForNewGame();
@@ -567,6 +568,7 @@ public class GameData implements Serializable {
         //int numModes = GameMode.getNumberOfAvailableModes();
 		return makeStringFromReadyClients()+ del + getGameState().val + del +
                 getRound() + del + getNoOfRounds() + del + chatMessages.getLastMessageIndex() + del +
+                getPlayerForClid(clid).getSoundQueue().getCurrentIndex() + del +
                 getSelectedMode() + del +
                 GameMode.getAvailableModesAsString();
 	}

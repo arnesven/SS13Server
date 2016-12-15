@@ -1,15 +1,11 @@
 package model.objects.shipments;
 
 import model.GameData;
-import model.map.Room;
-import model.npcs.animals.AnimalNPC;
+import model.map.rooms.Room;
 import model.npcs.animals.BearNPC;
 import model.npcs.animals.ChimpNPC;
 import model.npcs.animals.DogNPC;
 import util.MyRandom;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by erini02 on 03/09/16.

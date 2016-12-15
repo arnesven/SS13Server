@@ -9,7 +9,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.TriggerAction;
 import model.items.general.BombItem;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class BoobyTrappedObject extends GameObject {
 

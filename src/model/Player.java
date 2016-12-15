@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import sounds.Sound;
+import sounds.SoundQueue;
 import graphics.sprites.OverlaySprites;
 import model.actions.general.Action;
 import model.actions.general.ActionGroup;
@@ -15,8 +17,7 @@ import model.events.damage.Damager;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
-import model.items.weapons.Weapon;
-import model.map.Room;
+import model.map.rooms.Room;
 import util.HTMLText;
 import util.Logger;
 
@@ -36,9 +37,10 @@ public class Player extends Actor implements Target, Serializable {
 	private HashMap<String, Boolean> jobChoices = new HashMap<>();
 
     private PlayerSettings settings = new PlayerSettings();
+    private SoundQueue soundQueue = new SoundQueue();
 
 
-	public Player(GameData gameData) {
+    public Player(GameData gameData) {
 
 	}
 
@@ -406,7 +408,7 @@ public class Player extends Actor implements Target, Serializable {
 		this.nextMove = 0;
 		this.nextAction = null;
 		this.personalHistory = new ArrayList<>();
-
+        soundQueue.add(Sound.NEW_GAME);
 	}
 
 	@Override
@@ -486,4 +488,7 @@ public class Player extends Actor implements Target, Serializable {
     }
 
 
+    public SoundQueue getSoundQueue() {
+        return soundQueue;
+    }
 }

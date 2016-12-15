@@ -11,7 +11,7 @@ import model.actions.general.SpeechAction;
 import model.items.general.GameItem;
 import model.items.foods.Banana;
 import model.items.weapons.Weapon;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class ChimpCharacter extends AnimalCharacter {
 

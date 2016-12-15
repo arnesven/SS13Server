@@ -5,7 +5,7 @@ import java.util.Set;
 
 import model.Actor;
 import model.map.GameMap;
-import model.map.Room;
+import model.map.rooms.Room;
 import util.Logger;
 
 public class PathFinding {

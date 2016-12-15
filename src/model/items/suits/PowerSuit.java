@@ -3,14 +3,12 @@ package model.items.suits;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.Player;
-import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.PiercingProtection;
 import model.characters.general.GameCharacter;
 import model.events.damage.*;
 import model.items.weapons.Weapon;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.GameObject;
-import model.objects.general.Repairable;
 
 /**
  * Created by erini02 on 20/11/16.

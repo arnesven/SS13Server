@@ -1,10 +1,9 @@
-package model.map;
+package model.map.rooms;
 
 import model.items.general.FireExtinguisher;
 import model.items.suits.RadiationSuit;
 import model.objects.consoles.TeleportConsole;
 import model.objects.general.ChemicalDispenser;
-import model.objects.general.BioScanner;
 import model.objects.consoles.GeneticsConsole;
 
 public class LabRoom extends Room {

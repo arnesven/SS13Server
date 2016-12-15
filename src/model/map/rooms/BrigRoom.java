@@ -1,4 +1,4 @@
-package model.map;
+package model.map.rooms;
 
 /**
  * Created by erini02 on 08/12/16.

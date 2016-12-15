@@ -5,7 +5,7 @@ import model.GameData;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.consoles.PowerSource;
 import model.objects.general.GameObject;
 

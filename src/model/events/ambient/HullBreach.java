@@ -10,7 +10,7 @@ import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
 import model.events.NoPressureEvent;
 import model.events.damage.AsphyxiationDamage;
-import model.map.Room;
+import model.map.rooms.Room;
 import util.Logger;
 
 public class HullBreach extends OngoingEvent {

@@ -11,7 +11,7 @@ import model.items.general.ItemStackDepletedException;
 import model.items.general.RoomPartsStack;
 import model.map.Architecture;
 import model.map.GameMap;
-import model.map.Room;
+import model.map.rooms.Room;
 
 import java.awt.geom.Point2D;
 import java.util.HashSet;

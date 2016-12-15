@@ -7,7 +7,7 @@ import model.items.NoSuchThingException;
 import model.items.general.BombItem;
 import model.items.weapons.Missile;
 import model.map.GameMap;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.consoles.AIConsole;
 import util.MyRandom;
 

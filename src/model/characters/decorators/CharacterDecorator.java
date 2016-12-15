@@ -15,8 +15,8 @@ import model.items.foods.FoodItem;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
-import model.map.Room;
-import model.map.RoomType;
+import model.map.rooms.Room;
+import model.map.rooms.RoomType;
 import util.Logger;
 
 

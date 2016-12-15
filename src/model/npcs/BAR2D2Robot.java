@@ -1,10 +1,7 @@
 package model.npcs;
 
-import graphics.sprites.Sprite;
-import model.Actor;
 import model.characters.general.BAR2D2Character;
-import model.characters.general.RobotCharacter;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.TellRumorsBehavior;
 import model.npcs.robots.RobotNPC;

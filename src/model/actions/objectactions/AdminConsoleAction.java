@@ -4,12 +4,11 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.crew.CaptainCharacter;
 import model.items.NoSuchThingException;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.CrateObject;
 import model.objects.consoles.AdministrationConsole;
 import model.objects.shipments.Shipment;

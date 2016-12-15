@@ -4,7 +4,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.items.general.GameItem;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.SoilPatch;
 import model.objects.plants.RedWeed;
 import model.objects.plants.Plant;

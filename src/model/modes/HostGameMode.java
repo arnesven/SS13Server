@@ -13,7 +13,7 @@ import model.GameData;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.HostCharacter;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.ParasiteNPC;
 import model.objects.general.HiveObject;

@@ -10,7 +10,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.GeneTIXAction;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.mutations.Mutation;
 
 public class GeneticsConsole extends Console {

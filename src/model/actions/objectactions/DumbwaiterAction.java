@@ -6,7 +6,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.general.GameItem;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.general.Dumbwaiter;
 
 import java.util.List;

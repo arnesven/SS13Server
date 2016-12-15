@@ -9,7 +9,7 @@ import model.events.SpontaneousExplosionEvent;
 import model.events.damage.ExplosiveDamage;
 import model.items.general.ExplodableItem;
 import model.items.general.GameItem;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class ExplodingFood extends FoodItem {
 

@@ -6,7 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.items.weapons.Weapon;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class DummyHive extends HiveObject {
 

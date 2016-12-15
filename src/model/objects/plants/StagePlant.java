@@ -2,7 +2,7 @@ package model.objects.plants;
 
 import graphics.sprites.Sprite;
 import model.Player;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.SoilPatch;
 
 import java.util.List;

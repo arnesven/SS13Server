@@ -1,7 +1,7 @@
 package model.objects.general;
 
 import model.items.general.GameItem;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public abstract class DispenserObject extends ContainerObject {
 

@@ -16,7 +16,7 @@ import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.MoneyStack;
 import model.items.laws.AILaw;
-import model.map.OtherDimension;
+import model.map.rooms.OtherDimension;
 import model.modes.goals.PersonalGoal;
 import model.npcs.AlienNPC;
 import model.npcs.animals.CatNPC;

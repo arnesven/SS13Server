@@ -3,7 +3,7 @@ package model.objects.general;
 import graphics.sprites.Sprite;
 import model.Player;
 import model.items.general.Chemicals;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class ChemicalDispenser extends DispenserObject {
 

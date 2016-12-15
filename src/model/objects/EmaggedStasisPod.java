@@ -4,9 +4,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.events.damage.ColdDamage;
-import model.map.Room;
-import model.objects.general.GameObject;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 14/12/16.

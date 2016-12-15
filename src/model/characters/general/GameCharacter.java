@@ -12,7 +12,7 @@ import model.*;
 import model.actions.general.AttackAction;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
-import model.map.RoomType;
+import model.map.rooms.RoomType;
 import model.npcs.NPC;
 import util.HTMLText;
 import util.Logger;
@@ -28,7 +28,7 @@ import model.events.damage.Damager;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
-import model.map.Room;
+import model.map.rooms.Room;
 
 /**
  * @author erini02

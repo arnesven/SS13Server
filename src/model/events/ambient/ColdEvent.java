@@ -9,7 +9,7 @@ import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.ChilledDecorator;
 import model.events.Event;
 import model.events.damage.ColdDamage;
-import model.map.Room;
+import model.map.rooms.Room;
 import util.MyRandom;
 
 public class ColdEvent extends Event {

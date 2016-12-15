@@ -3,7 +3,7 @@ package model.items.general;
 import model.Actor;
 import model.GameData;
 import model.items.foods.ExplodingFood;
-import model.map.Room;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 28/04/16.

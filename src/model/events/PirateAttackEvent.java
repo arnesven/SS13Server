@@ -2,11 +2,10 @@ package model.events;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.SensoryLevel;
 import model.events.ambient.AmbientEvent;
 import model.items.NoSuchThingException;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.AbstractPirateNPC;
 import model.npcs.PirateCaptainNPC;
 import model.npcs.PirateNPC;

@@ -1,6 +1,5 @@
 package model.objects.consoles;
 
-import javafx.geometry.Point3D;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -10,8 +9,7 @@ import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
-import model.map.Room;
-import model.objects.general.GameObject;
+import model.map.rooms.Room;
 import util.MyRandom;
 
 import java.util.ArrayList;

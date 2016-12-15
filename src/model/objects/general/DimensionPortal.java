@@ -8,8 +8,8 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
-import model.map.Room;
-import model.map.RoomType;
+import model.map.rooms.Room;
+import model.map.rooms.RoomType;
 
 import java.util.ArrayList;
 import java.util.List;

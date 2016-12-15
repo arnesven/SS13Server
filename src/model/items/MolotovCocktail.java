@@ -8,7 +8,7 @@ import model.events.damage.Damager;
 import model.items.foods.ExplodingFood;
 import model.items.general.ExplodableItem;
 import model.items.general.GameItem;
-import model.map.Room;
+import model.map.rooms.Room;
 import util.MyRandom;
 
 /**

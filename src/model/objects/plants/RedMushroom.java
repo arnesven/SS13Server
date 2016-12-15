@@ -7,7 +7,7 @@ import model.characters.decorators.PoisonedDecorator;
 import model.items.foods.FoodItem;
 import model.items.seeds.MushroomSpores;
 import model.items.seeds.SeedsItem;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.objects.SoilPatch;
 
 import java.util.ArrayList;

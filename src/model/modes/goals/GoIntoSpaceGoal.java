@@ -4,8 +4,8 @@ import model.Actor;
 import model.GameData;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
-import model.map.Room;
-import model.map.RoomType;
+import model.map.rooms.Room;
+import model.map.rooms.RoomType;
 
 /**
  * Created by erini02 on 05/12/16.

@@ -1,6 +1,6 @@
 package model.npcs.behaviors;
 
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 
 public class MoveTowardsBehavior implements MovementBehavior {

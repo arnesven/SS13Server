@@ -4,7 +4,7 @@ import java.util.List;
 
 import util.Logger;
 import util.MyRandom;
-import model.map.Room;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 
 

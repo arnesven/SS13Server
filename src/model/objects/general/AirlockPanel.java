@@ -11,13 +11,12 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.MoveToOtherAirlocks;
 import model.characters.decorators.SpaceProtection;
-import model.characters.general.ChangelingCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.HorrorCharacter;
 import model.characters.general.RobotCharacter;
 import model.events.Event;
 import model.events.NoPressureEvent;
-import model.map.Room;
+import model.map.rooms.Room;
 
 public class AirlockPanel extends ElectricalMachinery {
 
