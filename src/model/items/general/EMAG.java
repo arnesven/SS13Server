@@ -4,6 +4,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
+import model.actions.general.ElectrifyObjectAction;
 import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
 import model.characters.general.RobotCharacter;
@@ -14,6 +15,8 @@ import model.objects.EmaggedStasisPod;
 import model.objects.EmaggedVendingMachine;
 import model.objects.StasisPod;
 import model.objects.consoles.AIConsole;
+import model.objects.consoles.Console;
+import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
 import model.objects.general.SlotMachine;
 import model.objects.general.VendingMachine;
@@ -67,6 +70,9 @@ public class EMAG extends KeyCard {
             }
             if (ob instanceof VendingMachine) {
                 at.add(new EmagVendingMachineAction((VendingMachine)ob, cl));
+            }
+            if (ob instanceof Console) {
+                at.add(new ElectrifyObjectAction((ElectricalMachinery)ob));
             }
         }
 
@@ -144,6 +150,7 @@ public class EMAG extends KeyCard {
         protected void execute(GameData gameData, Actor performingClient) {
             pod.getPosition().removeObject(pod);
             pod.getPosition().addObject(new EmaggedStasisPod(pod.getPosition(), performingClient));
+            performingClient.addTolastTurnInfo("The stasis pod is now a trap.");
         }
 
         @Override

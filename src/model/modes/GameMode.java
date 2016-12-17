@@ -51,7 +51,7 @@ import model.misc.ChristmasBooster;
 public abstract class GameMode implements Serializable {
 
 
-	private static String[] knownModes = { "Secret", "Host", "Traitor", "Operatives", "Changeling", "Armageddon", "Mutiny"};
+	private static String[] knownModes = { "Secret", "Host", "Traitor", "Operatives", "Changeling", "Armageddon", "Mutiny", "Creative"};
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
     private int defusedBombs = 0;
@@ -473,18 +473,12 @@ public abstract class GameMode implements Serializable {
         Room r = MyRandom.getRandomHallway(gameData);
         r.addObject(new JunkVendingMachine(r));
         Logger.log("Added vending machine in " + r.getName());
-        try {
-            gameData.getRoom("Starboard Hall Aft").addObject(new ATM(gameData, gameData.getRoom("Starboard Hall Aft")));
 
-        } catch (NoSuchThingException nste) {
-            Logger.log(Logger.CRITICAL, "No Starboard Hall Aft to put ATM in!");
-        }
-
-        try {
-            gameData.getRoom("Office").addObject(new AdministrationConsole(gameData.getRoom("Office"), gameData));
-        } catch (NoSuchThingException e) {
-            Logger.log(Logger.CRITICAL, "No office, no admin console!");
-        }
+        Room r2;
+        do {
+             r2 = MyRandom.getRandomHallway(gameData);
+        } while (r == r2);
+        r2.addObject(new ATM(gameData, r2));
     }
 
 	private void addRandomItemsToRooms(GameData gameData) {

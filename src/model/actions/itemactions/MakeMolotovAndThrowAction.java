@@ -11,6 +11,7 @@ import model.items.foods.Alcohol;
 import model.items.general.Chemicals;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
+import sounds.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,5 +95,15 @@ public class MakeMolotovAndThrowAction extends Action {
 		} else {
 			location = args.get(1);
 		}
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("http://www.ida.liu.se/~erini02/ss13/molotov-cocktail.mp3");
     }
 }

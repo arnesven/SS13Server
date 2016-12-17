@@ -2,6 +2,7 @@ package model.map.rooms;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
 import model.map.GameMap;
@@ -9,6 +10,7 @@ import model.objects.consoles.PowerSource;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.ElevatorPanel;
 import model.objects.general.GameObject;
+import sounds.Sound;
 import util.HTMLText;
 
 import java.util.ArrayList;
@@ -57,12 +59,18 @@ public class ElevatorRoom extends Room {
     private void notifyOutsiders(GameData gameData) {
         for (Actor a : getCurrentFloor().getActors()) {
             a.addTolastTurnInfo(HTMLText.makeText("blue", "Elevator: ding-dong!"));
+            if (a instanceof Player) {
+                ((Player) a).getSoundQueue().add(new Sound("http://www.ida.liu.se/~erini02/ss13/elevator-ding.mp3"));
+            }
         }
     }
 
     private void notifyOccupants(GameData gameData) {
         for (Actor a : getActors()) {
             a.addTolastTurnInfo(HTMLText.makeText("blue", "Elevator: now on " + floorNames[currentFloor] + "."));
+            if (a instanceof Player) {
+                ((Player) a).getSoundQueue().add(new Sound("http://www.ida.liu.se/~erini02/ss13/elevator-ding.mp3"));
+            }
         }
     }
 

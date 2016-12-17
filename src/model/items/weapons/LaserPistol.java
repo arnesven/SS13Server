@@ -4,6 +4,7 @@ package model.items.weapons;
 import graphics.sprites.Sprite;
 import model.*;
 import model.events.ambient.ElectricalFire;
+import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
 
@@ -45,5 +46,15 @@ public class LaserPistol extends AmmoWeapon {
             }
         };
 
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("http://www.ida.liu.se/~erini02/ss13/laser_a.ogg");
     }
 }

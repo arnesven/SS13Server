@@ -11,6 +11,7 @@ import model.events.ambient.ElectricalFire;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
 import model.npcs.robots.RobotNPC;
+import sounds.Sound;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -62,5 +63,15 @@ public class PutOutFireAction extends Action {
 
     private boolean isRobot(GameCharacter character) {
         return character.checkInstance(((GameCharacter ch) -> ch instanceof RobotCharacter));
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("http://www.ida.liu.se/~erini02/ss13/spray.ogg");
     }
 }

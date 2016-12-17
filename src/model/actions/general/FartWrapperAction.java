@@ -2,6 +2,7 @@ package model.actions.general;
 
 import model.Actor;
 import model.GameData;
+import sounds.Sound;
 
 import java.util.List;
 
@@ -39,5 +40,15 @@ public class FartWrapperAction extends Action {
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
         inner.setArguments(args, performingClient);
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("http://www.ida.liu.se/~erini02/ss13/fart.mp3");
     }
 }

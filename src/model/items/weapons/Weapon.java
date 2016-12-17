@@ -9,6 +9,7 @@ import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
 import model.items.general.GameItem;
+import sounds.Sound;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class Weapon extends GameItem {
 
-	public static final Weapon FISTS      = new Weapon("Fists", 0.5, 0.5, false, 0.0, true, 0);
+	public static final Weapon FISTS      = new Fist();
     public static final Weapon TENTACLE   = new Weapon("Tentacle", 0.5, 0.5, false, 0.0, true, 0);
     public static final Weapon STEEL_PROD = new BluntWeapon("Steel Prod", 1.0, 0, 0.99){};
     public static final Weapon TEETH      = new Weapon("Teeth", 0.5, 0.5, false, 0.0, false, 0);
@@ -174,5 +175,13 @@ public class Weapon extends GameItem {
 
     public void setHitChance(double hitChance) {
         this.hitChance = hitChance;
+    }
+
+    public boolean hasRealSound() {
+        return false;
+    }
+
+    public Sound getRealSound() {
+        return null;
     }
 }

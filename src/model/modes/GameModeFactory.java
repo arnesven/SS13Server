@@ -23,6 +23,9 @@ public class GameModeFactory {
         } else if (selectedMode.toLowerCase().equals("mutiny")) {
             Logger.log(Logger.INTERESTING, "Mode is Mutiny");
             return new MutinyGameMode();
+        } else if (selectedMode.toLowerCase().equals("creative")) {
+            Logger.log(Logger.INTERESTING, "Mode is Creative");
+            return new CreativeGameMode();
         }
 		
 		Logger.log(Logger.INTERESTING, "Mode is secret");

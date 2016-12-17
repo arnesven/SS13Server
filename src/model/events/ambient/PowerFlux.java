@@ -11,8 +11,8 @@ import model.actions.general.SensoryLevel;
 
 public abstract class PowerFlux extends AmbientEvent {
 
-	private static final double FLUX_SUSTAIN_FACTOR = 0.2; // maximum sustained power flux is 30% of normal power (per turn)
-	private static final double FLUX_FIXED_FACTOR = 0.4;   // maximum power spike/drain is 80% of normal power
+	private static final double FLUX_SUSTAIN_FACTOR = 0.15; // maximum sustained power flux is 15% of normal power (per turn)
+	private static final double FLUX_FIXED_FACTOR = 0.25;   // maximum power spike/drain is 25% of normal power
 	private static final double occurranceChance = 0.08;
     private boolean sustaining = false;
 	private boolean increasing = false;

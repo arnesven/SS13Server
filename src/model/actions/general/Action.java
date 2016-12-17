@@ -131,4 +131,8 @@ public abstract class Action extends Experienceable implements Serializable {
             p.addTolastTurnInfo(text);
         }
     }
+
+    public Actor getPerformer() {
+        return performer;
+    }
 }

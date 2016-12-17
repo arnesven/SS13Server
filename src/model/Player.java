@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import model.items.weapons.Weapon;
 import sounds.Sound;
 import sounds.SoundQueue;
 import graphics.sprites.OverlaySprites;
@@ -43,6 +44,17 @@ public class Player extends Actor implements Target, Serializable {
     public Player(GameData gameData) {
 
 	}
+
+    public boolean beAttackedBy(Actor performingClient, Weapon item) {
+        boolean succ = getCharacter().beAttackedBy(performingClient, item);
+        if (item.hasRealSound()) {
+            getSoundQueue().add(item.getRealSound());
+            if (performingClient instanceof Player) {
+                ((Player)performingClient).getSoundQueue().add(item.getRealSound());
+            }
+        }
+        return succ;
+    }
 
 	/**
 	 * Sets the ready flag for the client. True meaning that the client is ready to continue
@@ -414,6 +426,9 @@ public class Player extends Actor implements Target, Serializable {
 	@Override
 	public void beExposedTo(Actor performingClient, Damager damager) {
 		getCharacter().beExposedTo(performingClient, damager);
+        if (damager.hasRealSound()) {
+            getSoundQueue().add(damager.getRealSound());
+        }
 	}
 
 

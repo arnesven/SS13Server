@@ -35,8 +35,9 @@ public class CrimeRecordsConsole extends Console {
 	private Map<Actor, List<Pair<String, Actor>>> reportMap = new HashMap<>();
     private Map<Actor, List<Pair<String, Actor>>> reportsHistory = new HashMap<>();
 	private int noOfSentenced = 1;
+    private Room releaseIntoRoom;
 
-    public CrimeRecordsConsole(Room r, GameData gameData) {
+    public CrimeRecordsConsole(Room r, GameData gameData, Room release) {
 		super("Crime Records", r);
         NPC securitron = null;
         try {
@@ -45,6 +46,7 @@ public class CrimeRecordsConsole extends Console {
         } catch (NoSuchThingException e) {
             Logger.log("No crime console found, not adding securitron to station");
         }
+        this.releaseIntoRoom = release;
 
 	}
 
@@ -180,11 +182,8 @@ public class CrimeRecordsConsole extends Console {
 
 	public void release(GameData gameData, Actor inmate) {
 		getSentenceMap().remove(inmate);
-        try {
-            inmate.moveIntoRoom(gameData.getRoom("Port Hall Front"));
-        } catch (NoSuchThingException e) {
-            inmate.moveIntoRoom(MyRandom.sample(gameData.getRooms()));
-        }
+        inmate.moveIntoRoom(releaseIntoRoom);
+
         try {
 			EvidenceBox ev = gameData.findObjectOfType(EvidenceBox.class);
 			for (GameItem it : ev.removeAffects(inmate)) {
@@ -202,4 +201,7 @@ public class CrimeRecordsConsole extends Console {
 	}
 
 
+    public Room getReleaseIntoRoom() {
+        return releaseIntoRoom;
+    }
 }

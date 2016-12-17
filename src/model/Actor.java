@@ -24,9 +24,7 @@ public abstract class Actor  implements ItemHolder, Serializable {
 	public abstract void action(GameData gameData);
 	public abstract void beInfected(Actor performingClient);
 
-    public boolean beAttackedBy(Actor performingClient, Weapon item) {
-        return getCharacter().beAttackedBy(performingClient, item);
-    }
+
 	
 	/**
 	 * Returns the character of this Actor,

@@ -40,7 +40,7 @@ public class PulseRifle extends AmmoWeapon {
     private void makeAdditionalAttacks(GameData gameData, Actor performingClient, List<Actor> alreadyAttacked) {
         for (Actor a : performingClient.getPosition().getActors()) {
             if (!alreadyAttacked.contains(a) && performingClient != a && a.getAsTarget().isTargetable()) {
-                if (!a.beAttackedBy(performingClient, this)) {
+                if (!a.getAsTarget().beAttackedBy(performingClient, this)) {
                     break;
                 }
                 alreadyAttacked.add(a);

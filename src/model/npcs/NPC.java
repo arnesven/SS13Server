@@ -8,6 +8,7 @@ import model.characters.decorators.InfectedCharacter;
 import model.events.damage.Damager;
 import model.items.NoSuchThingException;
 import model.items.general.MedKit;
+import model.items.weapons.Weapon;
 import model.map.rooms.Room;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
@@ -36,8 +37,14 @@ public abstract class NPC extends Actor implements Target, Serializable {
 		this.setMaxHealth(1.0);
 		moveIntoRoom(r);
 	}
-	
-	public void moveIntoRoom(Room r) {
+
+    public boolean beAttackedBy(Actor performingClient, Weapon item) {
+        boolean succ = getCharacter().beAttackedBy(performingClient, item);
+        return succ;
+    }
+
+
+    public void moveIntoRoom(Room r) {
 		if (getPosition() != null) {
             try {
                 getPosition().removeNPC(this);

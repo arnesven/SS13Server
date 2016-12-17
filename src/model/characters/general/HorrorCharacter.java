@@ -11,11 +11,12 @@ import model.events.damage.Damager;
 import model.events.damage.RadiationDamage;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
+import model.items.weapons.ImpalerWeapon;
 import model.items.weapons.Weapon;
 
 public class HorrorCharacter extends GameCharacter {
 
-    public static Weapon hugeClaw = new Weapon("Impaler", 0.95, 1.0, false, 0.0, true, 0);
+    public static Weapon hugeClaw = new ImpalerWeapon();;
     private int numforms = 0;
 
 

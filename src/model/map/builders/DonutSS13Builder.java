@@ -45,7 +45,7 @@ public class DonutSS13Builder extends MapBuilder {
         Room dorms = new DormsRoom(12, 9, 11, 4, 3, new int[]{10, 11, 14},         new double[]{10.5, 11.0, 13.0, 11.5} , RoomType.support);
         gm.addRoom(dorms, ss13, "starboard");
 
-        Room office = new Room(14, "Office"              , "Offc"   ,13, 10, 2, 2, new int[]{12, 13}    ,         new double[]{}, RoomType.command );
+        Room office = new OfficeRoom(gameData, 14, 13, 10, 2, 2, new int[]{12, 13}    ,         new double[]{}, RoomType.command );
         gm.addRoom(office, ss13, "front");
         gm.addRoom(office, ss13, "starboard");
 
@@ -63,7 +63,7 @@ public class DonutSS13Builder extends MapBuilder {
         Room bridge = new BridgeRoom(17, 15,  5, 3, 3, new int[]{16, 20}    ,         new double[]{16.0, 8.0} , RoomType.command );
         gm.addRoom(bridge, ss13, "front");
 
-        Room ss = new SecurityRoom(gameData, 18, 15,  2, 2, 2, new int[]{16}        ,         new double[]{} , RoomType.security );
+        Room ss = new SecurityRoom(gameData, 18, 15,  2, 2, 2, new int[]{16}        ,         new double[]{} , RoomType.security, portHallFront );
         gm.addRoom(ss, ss13, "front");
         gm.addRoom(ss, ss13, "port");
 

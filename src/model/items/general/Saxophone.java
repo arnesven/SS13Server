@@ -9,6 +9,8 @@ import model.GameData;
 import model.actions.general.Action;
 import model.items.weapons.BluntWeapon;
 import model.actions.general.SensoryLevel;
+import sounds.Sound;
+import util.MyRandom;
 
 public class Saxophone extends BluntWeapon {
 
@@ -35,8 +37,11 @@ public class Saxophone extends BluntWeapon {
 
     public static class PlaySaxophoneAction extends Action {
 
+        private final int soundInt;
+
         public PlaySaxophoneAction() {
             super("Play Saxophone", SensoryLevel.PHYSICAL_ACTIVITY);
+            soundInt = MyRandom.nextInt(5) + 1;
         }
 
         @Override
@@ -54,6 +59,16 @@ public class Saxophone extends BluntWeapon {
             } else {
                 performingClient.addTolastTurnInfo("What? The saxophone is gone! Your action failed.");
             }
+        }
+
+        @Override
+        public boolean hasRealSound() {
+            return true;
+        }
+
+        @Override
+        public Sound getRealSound() {
+            return new Sound("http://www.ida.liu.se/~erini02/ss13/sax" + soundInt + ".ogg");
         }
     }
 }

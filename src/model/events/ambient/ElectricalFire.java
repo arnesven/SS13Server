@@ -2,6 +2,7 @@ package model.events.ambient;
 
 import graphics.sprites.Sprite;
 import model.events.damage.FireDamage;
+import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -81,6 +82,13 @@ public class ElectricalFire extends OngoingEvent {
 		return "Something is burning...";
 	}
 
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
 
-
+    @Override
+    public Sound getRealSound() {
+        return new Sound("http://www.ida.liu.se/~erini02/ss13/fire-burning.mp3");
+    }
 }
