@@ -47,13 +47,13 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 	/**
 	 * These fields are purely for the GUI.
 	 */
-	protected String shortname;
-	protected int x;
-	protected int y;
-	protected int width;
-	protected int height;
+	private String shortname;
+	private int x;
+	private int y;
+	private int width;
+	private int height;
 	private int ID;
-	protected double[] doors;
+	private double[] doors;
 
 
 	/**
@@ -488,5 +488,10 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
     @Override
     public double getPowerConsumptionFactor() {
         return 1.0;
+    }
+
+    protected void setCoordinates(int newX, int newY) {
+        x = newX;
+        y = newY;
     }
 }

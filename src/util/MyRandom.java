@@ -16,6 +16,7 @@ import model.items.seeds.TomatoSeeds;
 import model.items.suits.*;
 import model.items.weapons.*;
 import model.map.rooms.Room;
+import model.map.rooms.RoomType;
 
 public class MyRandom {
 	public static Random random = new Random();
@@ -206,51 +207,8 @@ public class MyRandom {
     public static Room getRandomHallway(GameData gameData) {
         List<Room> roomList = new ArrayList<>();
 
-        try {
-            roomList.add(gameData.getRoom("Aft Hall"));
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        try {
-            roomList.add(gameData.getRoom("Front Hall"));
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        try {
-            roomList.add(gameData.getRoom("Port Hall Aft"));
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        try {
-            roomList.add(gameData.getRoom("Port Hall Front"));
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        try {
-            roomList.add(gameData.getRoom("Starboard Hall Aft"));
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        try {
-            roomList.add(gameData.getRoom("Starboard Hall Front"));
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        try {
-            roomList.add(gameData.getRoom("Panorama Walkway"));
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        try {
-            roomList.add(gameData.getRoom("Aft Walkway"));
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        try {
-            roomList.add(gameData.getRoom("Shuttle Gate"));
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
+        roomList.addAll(gameData.getMap().getRoomsForLevel("ss13"));
+        roomList.removeIf((Room r) -> r.getType() != RoomType.hall);
 
         return sample(roomList);
     }

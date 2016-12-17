@@ -6,6 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.NoPowerAction;
+import model.items.NoSuchThingException;
 import model.map.rooms.Room;
 import model.objects.PowerConsumer;
 import model.objects.consoles.PowerSource;
@@ -59,7 +60,8 @@ public abstract class ElectricalMachinery extends BreakableObject
 
 	public static boolean isPowered(GameData gameData, ElectricalMachinery machine) {
 
-            for (Room r : gameData.getAllRooms()) {
+        try {
+            for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(machine.getPosition()))) {
                 for (GameObject obj : r.getObjects()) {
                     if (obj instanceof PowerSource) {
                         if (((PowerSource) obj).getNoPowerObjects().contains(machine)) {
@@ -68,6 +70,10 @@ public abstract class ElectricalMachinery extends BreakableObject
                     }
                 }
             }
+            return true;
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 	

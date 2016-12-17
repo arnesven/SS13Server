@@ -9,7 +9,7 @@ import model.objects.general.MedkitDispenser;
  */
 public class SickbayRoom extends Room {
     public SickbayRoom(int i,  int i1, int i2, int i3, int i4, int[] ints, double[] doubles, RoomType science) {
-        super(i, "Sickbay", "sick", i1, i2, i3, i4, ints, doubles, science);
+        super(i, "Sickbay", "Sick", i1, i2, i3, i4, ints, doubles, science);
         addObject(new MedkitDispenser(3, this));
         addObject(new StasisPod(this));
         addObject(new SurgeryTable(this));

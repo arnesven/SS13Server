@@ -24,8 +24,9 @@ import java.util.*;
 public class GameMap implements Serializable {
 
     public static final String STATION_LEVEL_NAME = "ss13";
+    private static String[] SS13AreaNames;
     //private List<Room> roomsList;
-    private Map<String, Map<String, Set<Room>>> levels = new HashMap<>();
+    private Map<String, Map<String, Set<Room>>> levels = new TreeMap<>();
     private String[][][] levelMatrix = new String[3][3][3];
     private int levelCount = 0;
     public static final int MATRIX_DIM_MAX = 3;
@@ -34,8 +35,11 @@ public class GameMap implements Serializable {
     private static Map<String, Integer[]> directions = new HashMap<>();
 
 
+
     public GameMap(String firstLevelName) {
         createLevel(firstLevelName);
+        SS13AreaNames = new String[]{"aft", "port", "front", "starboard", "central"};
+
         directions.clear();
         directions.put("Upwards",   new Integer[]{ 0,  0,  1});
         directions.put("Downwards", new Integer[]{ 0,  0, -1});
@@ -99,6 +103,7 @@ public class GameMap implements Serializable {
         }
         List<Room> result = new ArrayList<>();
         result.addAll(list);
+
         return result;
 	}
 
@@ -240,18 +245,8 @@ public class GameMap implements Serializable {
     }
 
     public static String getSideString(int side) {
-        String sideStr = "central";
+        return SS13AreaNames[side];
 
-        if (side == 0) {
-            sideStr = "aft";
-        } else if (side == 1) {
-            sideStr = "port";
-        } else if (side == 2) {
-            sideStr = "front";
-        } else if (side == 3) {
-            sideStr = "starboard";
-        }
-        return sideStr;
     }
 
     public List<Room> getStationRooms() {
@@ -359,10 +354,16 @@ public class GameMap implements Serializable {
     }
 
     public Collection<Room> getRoomsForLevel(String level) {
-        Set<Room> result = new HashSet<>();
+        List<Room> result = new ArrayList<>();
         for (Set<Room> set : levels.get(level).values()) {
             result.addAll(set);
         }
+        Collections.sort(result, new Comparator<Room>() {
+            @Override
+            public int compare(Room o1, Room o2) {
+                return o1.getID() - o2.getID();
+            }
+        });
         return result;
     }
 
@@ -501,5 +502,9 @@ public class GameMap implements Serializable {
         levelMatrix[posA[0]][posA[1]][posA[2]] = levelB;
         levelMatrix[posB[0]][posB[1]][posB[2]] = levelA;
 
+    }
+
+    public void setSS13AreaNames(String[] SS13AreaNames) {
+        this.SS13AreaNames = SS13AreaNames;
     }
 }
