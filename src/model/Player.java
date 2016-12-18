@@ -38,23 +38,14 @@ public class Player extends Actor implements Target, Serializable {
 	private HashMap<String, Boolean> jobChoices = new HashMap<>();
 
     private PlayerSettings settings = new PlayerSettings();
-    private SoundQueue soundQueue = new SoundQueue();
+    private SoundQueue soundQueue = new SoundQueue(this);
 
 
     public Player(GameData gameData) {
 
 	}
 
-    public boolean beAttackedBy(Actor performingClient, Weapon item) {
-        boolean succ = getCharacter().beAttackedBy(performingClient, item);
-        if (item.hasRealSound()) {
-            getSoundQueue().add(item.getRealSound());
-            if (performingClient instanceof Player) {
-                ((Player)performingClient).getSoundQueue().add(item.getRealSound());
-            }
-        }
-        return succ;
-    }
+
 
 	/**
 	 * Sets the ready flag for the client. True meaning that the client is ready to continue

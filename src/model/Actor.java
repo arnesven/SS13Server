@@ -34,6 +34,20 @@ public abstract class Actor  implements ItemHolder, Serializable {
 	public GameCharacter getCharacter() {
 		return character;
 	}
+
+    public boolean beAttackedBy(Actor performingClient, Weapon item) {
+        boolean succ = getCharacter().beAttackedBy(performingClient, item);
+        if (item.hasRealSound()) {
+            if (this instanceof Player) {
+                ((Player)this).getSoundQueue().add(item.getRealSound());
+            }
+
+            if (performingClient instanceof Player) {
+                ((Player)performingClient).getSoundQueue().add(item.getRealSound());
+            }
+        }
+        return succ;
+    }
 	
 	/**
 	 * Sets the character for this Actor.

@@ -38,11 +38,6 @@ public abstract class NPC extends Actor implements Target, Serializable {
 		moveIntoRoom(r);
 	}
 
-    public boolean beAttackedBy(Actor performingClient, Weapon item) {
-        boolean succ = getCharacter().beAttackedBy(performingClient, item);
-        return succ;
-    }
-
 
     public void moveIntoRoom(Room r) {
 		if (getPosition() != null) {
