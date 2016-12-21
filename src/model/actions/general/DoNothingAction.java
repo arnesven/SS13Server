@@ -17,7 +17,7 @@ public class DoNothingAction extends Action {
 
 	@Override
 	protected String getVerb(Actor whosAsking) {
-		return "Idled";
+		return "Did nothing";
 	}
 
 	@Override

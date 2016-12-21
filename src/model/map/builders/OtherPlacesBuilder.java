@@ -5,6 +5,7 @@ import model.map.GameMap;
 import model.map.rooms.OtherDimension;
 import model.map.rooms.Room;
 import model.map.rooms.RoomType;
+import model.map.rooms.SpectatorRoom;
 
 /**
  * Created by erini02 on 15/12/16.
@@ -24,5 +25,10 @@ public class OtherPlacesBuilder extends MapBuilder {
         Room deepspace = new Room(41, "Deep Space", "D E E P   S P A C E", 6, 8, 3, 3, new int[]{}, new double[]{}, RoomType.space);
         addEventsToSpaceRoom(deepspace, gameData);
         gm.addRoom(deepspace, "deep space", "deep space");
+
+
+        Room spectatorBench = new SpectatorRoom(gameData);
+        gm.addRoom(spectatorBench, "ss13", "hidden");
+
     }
 }

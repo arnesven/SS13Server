@@ -48,10 +48,10 @@ public class BuildNewRoomAction extends Action {
         }
 
 
-        addOptions(opts, "Aftwards", roomParts.getAmount());
-        addOptions(opts, "Forwards", roomParts.getAmount());
-        addOptions(opts, "Port",     roomParts.getAmount());
-        addOptions(opts, "Starboard", roomParts.getAmount());
+        addOptions(opts, "Left", roomParts.getAmount());
+        addOptions(opts, "Right", roomParts.getAmount());
+        addOptions(opts, "Up",     roomParts.getAmount());
+        addOptions(opts, "Down", roomParts.getAmount());
 
         return opts;
     }
@@ -105,13 +105,13 @@ public class BuildNewRoomAction extends Action {
         Room current = performingClient.getPosition();
 
         Point direction = null;
-        if (selected.equals("Port")) {
+        if (selected.equals("Up")) {
             direction = new Point(0, -1);
-        } else if (selected.equals("Starboard")) {
+        } else if (selected.equals("Down")) {
             direction = new Point(0, 1);
-        } else if (selected.equals("Forwards")) {
+        } else if (selected.equals("Right")) {
             direction = new Point(1, 0);
-        } else if (selected.equals("Aftwards")) {
+        } else if (selected.equals("Left")) {
             direction = new Point(-1, 0);
         }
 

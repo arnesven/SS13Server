@@ -403,7 +403,7 @@ public class Player extends Actor implements Target, Serializable {
 	public void beInfected(Actor performingClient) {
 		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
 		this.addTolastTurnInfo("You were " + HTMLText.makeText("green", "infected") + " by " + performingClient.getPublicName() +
-				"! You are now on the Host team. Keep the humans from destroying the hive!");
+				"! You are now on the " + HTMLText.makeWikiLink("modes/host", "Host") + " team. Keep the humans from destroying the hive!");
 
 	}
 
@@ -411,6 +411,7 @@ public class Player extends Actor implements Target, Serializable {
 		this.nextMove = 0;
 		this.nextAction = null;
 		this.personalHistory = new ArrayList<>();
+        soundQueue.clear();
         soundQueue.add(Sound.NEW_GAME);
 	}
 
@@ -466,7 +467,7 @@ public class Player extends Actor implements Target, Serializable {
 
         if (isDead() ||
                 (gameData.getGameMode().gameOver(gameData) &&
-                gameData.getGameState() != GameState.MOVEMENT)) {
+                gameData.getGameState() == GameState.PRE_GAME)) {
             return OverlaySprites.seeAllOverlay(this, gameData);
         }
 

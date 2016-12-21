@@ -5,6 +5,7 @@ import model.Actor;
 import model.Target;
 import model.characters.decorators.AnimalOverlayDecorator;
 import model.characters.general.GameCharacter;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 20/10/16.
@@ -24,7 +25,19 @@ public class MotionTracker extends GameItem {
         super.gotGivenTo(to, from);
         to.setCharacter(new AnimalOverlayDecorator(to.getCharacter()));
         if (from instanceof Actor) {
-            ((Actor)from).removeInstance(((GameCharacter ch) -> ch instanceof AnimalOverlayDecorator));
+           removeDecorator((Actor)from);
+        }
+    }
+
+    private void removeDecorator(Actor from) {
+        from.removeInstance(((GameCharacter ch) -> ch instanceof AnimalOverlayDecorator));
+    }
+
+    @Override
+    public void gotAddedToRoom(Actor cameFrom, Room to) {
+        super.gotAddedToRoom(cameFrom, to);
+        if (cameFrom != null) {
+            removeDecorator(cameFrom);
         }
     }
 

@@ -56,7 +56,9 @@ public abstract class Actor  implements ItemHolder, Serializable {
 	 */
 	public void setCharacter(GameCharacter charr) {
 		this.character = charr;
-		getCharacter().setActor(this);
+        if (charr != null) {
+            getCharacter().setActor(this);
+        }
 //		if (charr instanceof CharacterDecorator) {
 //			charr.printInstances();
 //		}

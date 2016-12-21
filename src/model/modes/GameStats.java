@@ -10,6 +10,7 @@ import graphics.sprites.SpriteManager;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.characters.special.SpectatorCharacter;
 import model.events.ambient.SpontaneousCrazyness;
 import model.events.ambient.OngoingEvent;
 import model.items.NoSuchThingException;
@@ -98,6 +99,9 @@ public abstract class GameStats {
 		buf.append(    "<td><b>Status     </b></td>");
 		buf.append(    "<td><b> </b></td></tr>");
 		for (Map.Entry<String, Player> entry : gameData.getPlayersAsEntrySet()) {
+            if (entry.getValue().getInnermostCharacter() instanceof SpectatorCharacter) {
+                continue;
+            }
 			buf.append("<tr><td>");
             String img = SpriteManager.encode64(entry.getValue().getCharacter().getSprite(entry.getValue()));
             buf.append("<img src=\"data:image/png;base64," + img +"\"></img>");

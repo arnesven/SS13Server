@@ -27,7 +27,7 @@ public class AccessAccountAction extends Action {
 
     @Override
     protected String getVerb(Actor whosAsking) {
-        return "ued the ATM";
+        return "used the ATM";
     }
 
     @Override

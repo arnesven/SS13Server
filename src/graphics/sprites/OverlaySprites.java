@@ -13,6 +13,7 @@ import model.items.general.GameItem;
 import model.items.general.HidableItem;
 import model.map.rooms.Room;
 import model.objects.general.DimensionPortal;
+import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
 
 import java.util.ArrayList;
@@ -204,6 +205,7 @@ public class OverlaySprites {
         for (Room r : allRooms) {
             addActorsForRoom(sp, player, r);
             addItemsForRoom(sp, player, r);
+            addPowerForRoom(sp, r, gameData);
             for (Event e : r.getEvents()) {
                 sp.add(e.getSprite(player));
             }
@@ -222,6 +224,7 @@ public class OverlaySprites {
         }
         return strs;
     }
+
 
 
     private static List<String> getStringsForSpritesInRoom(ArrayList<Sprite> sprites, Room r) {
@@ -267,6 +270,18 @@ public class OverlaySprites {
         }
     }
 
+    private static void addPowerForRoom(List<Sprite> sp, Room r, GameData gameData) {
+        for (GameObject ob : r.getObjects()) {
+            if (ob instanceof ElectricalMachinery) {
+                if (!ElectricalMachinery.isPowered(gameData, (ElectricalMachinery) ob)) {
+                    sp.add(new Sprite("nopowerdecal", "decals2.png", 6));
+                    break;
+                }
+            }
+        }
+    }
+
+
     private static void addActorsForRoom(ArrayList<Sprite> sp, Player player, Room r) {
         List<Actor> l = new ArrayList<>();
         l.addAll(r.getActors());
@@ -285,5 +300,13 @@ public class OverlaySprites {
     }
 
 
-
+    public static List<String> seePower(GameData gameData) {
+        List<String> strs = new ArrayList<>();
+        for (Room r : gameData.getMap().getRoomsForLevel("ss13")) {
+            ArrayList<Sprite> sprs = new ArrayList<>();
+            addPowerForRoom(sprs, r, gameData);
+            strs.addAll(getStringsForSpritesInRoom(sprs, r));
+        }
+        return strs;
+    }
 }

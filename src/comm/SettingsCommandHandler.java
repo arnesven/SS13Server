@@ -26,7 +26,7 @@ public class SettingsCommandHandler extends AbstractCommandHandler {
             }
 			//System.out.println("Setting settings " + rest);
             String result = gameData.getPlayerForClid(clid).getSettings().makeIntoString();
-            System.out.print(result);
+            //System.out.print(result);
 			oos.writeObject(result);
 			return true;
 		}

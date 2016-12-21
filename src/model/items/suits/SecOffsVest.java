@@ -49,6 +49,6 @@ public class SecOffsVest extends SuitItem {
 
     @Override
     public boolean permitsOver() {
-        return false;
+        return true;
     }
 }

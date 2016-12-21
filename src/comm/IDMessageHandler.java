@@ -19,8 +19,14 @@ public class IDMessageHandler implements MessageHandler {
 	public boolean handle(String message, ObjectOutputStream oos) throws IOException {
 		if (message.contains("IDENT ME")) {
 //			if (gameData.getGameState() == GameState.PRE_GAME) {
+            boolean spec = false;
+            if (message.contains("SPECTATOR")) {
+                spec = true;
+                message = message.replace(" SPECTATOR", "");
+            }
+
 				try {
-					String clid = gameData.createNewClient(message.replace("IDENT ME", ""));
+					String clid = gameData.createNewClient(message.replace("IDENT ME", ""), spec);
 					Logger.log("This new dude gets " + clid);
 					oos.writeObject(clid);
 				} catch (IllegalStateException ise) {

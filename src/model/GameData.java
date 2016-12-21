@@ -10,8 +10,10 @@ import comm.chat.ChatMessages;
 import model.characters.GameCharacterLambda;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
+import model.characters.special.SpectatorCharacter;
 import model.items.NoSuchThingException;
 import model.map.rooms.RoomType;
+import model.modes.GameCouldNotBeStartedException;
 import model.objects.consoles.AIConsole;
 import model.objects.general.ContainerObject;
 import sounds.Sound;
@@ -69,10 +71,15 @@ public class GameData implements Serializable {
 	 * True indicating that the client is ready, false => not ready.
 	 * @return the map
 	 */
-	public Map<String, Boolean> getClientsAsMap() {
-		HashMap<String, Boolean> hm = new HashMap<>();
+	public Map<String, BooleanWrapper> getClientsAsMap() {
+		HashMap<String, BooleanWrapper> hm = new HashMap<>();
 		for (Entry<String, Player> e : players.entrySet()) {
-			hm.put(e.getKey(), e.getValue().isReady());
+            if ((e.getValue().getCharacter() != null && e.getValue().getInnermostCharacter() instanceof SpectatorCharacter) &&
+                    gameState != GameState.PRE_GAME) {
+                 hm.put(e.getKey(), new BooleanWrapper(e.getValue().isReady(), true));
+            } else {
+                hm.put(e.getKey(),  new BooleanWrapper(e.getValue().isReady(), false));
+            }
 		}
 		return hm;
 	}
@@ -108,7 +115,7 @@ public class GameData implements Serializable {
 	 * Prints the clients (and if they are ready or not) to the console
 	 */
 	public void printClients() {
-		for (Entry<String, Boolean> s : getClientsAsMap().entrySet()) {
+		for (Entry<String, BooleanWrapper> s : getClientsAsMap().entrySet()) {
 			System.out.println("  " + s.getKey() + " " + s.getValue());
 		}
 	}
@@ -132,6 +139,10 @@ public class GameData implements Serializable {
 	 * @return the searched for client.
 	 */
 	public Player getPlayerForClid(String clid) {
+
+        if (players.get(clid) == null) {
+            Logger.log(Logger.CRITICAL, "Finding player for clid was nulL!: " + clid);
+        }
 		return players.get(clid);
 	}
 
@@ -150,7 +161,7 @@ public class GameData implements Serializable {
 	 * The client gets a unique ID called a CLID.
 	 * @return the CLID of the new client.
 	 */
-	public String createNewClient(String rest) {
+	public String createNewClient(String rest, boolean spectator) {
 		String clid = rest;
 		if (rest.equals("")) {
 			clid = getRandomClid();
@@ -162,12 +173,15 @@ public class GameData implements Serializable {
 
         Player newPlayer = new Player(this);
 		players.put(clid, newPlayer);
-        newPlayer.getSoundQueue().add(Sound.YOU_JUST_JOINED);
+        if (spectator) {
+            newPlayer.getSettings().set(PlayerSettings.MAKE_ME_A_SPECTATOR, true);
+        }
+        //newPlayer.getSoundQueue().add(Sound.YOU_JUST_JOINED);
 
         if (getGameState() != GameState.PRE_GAME) { // already started
             newPlayer.prepForNewGame();
             newPlayer.setNextAction(new DoNothingAction());
-            gameMode.lateJoiningPlayer(newPlayer, this);
+            gameMode.lateJoiningPlayer(newPlayer, this, spectator);
         }
 
         getChat().serverSay(clid + " has joined.");
@@ -276,10 +290,16 @@ public class GameData implements Serializable {
 
 	private void increaseGameState() {
 		if (gameState == GameState.PRE_GAME) {
-			gameState = GameState.MOVEMENT;
-			doSetup();
-			allClearReady();
-			
+            try {
+                doSetup();
+                allClearReady();
+                gameState = GameState.MOVEMENT;
+            } catch (GameCouldNotBeStartedException gcnbese) {
+                chatMessages.serverSay("Game could not bes tarted! " +gcnbese.getMessage());
+                Logger.log("Game could not bes tarted! " + gcnbese.getMessage() + " gamestate remains at " + gameState.name);
+                cleanChars();
+            }
+
 		} else if (gameState == GameState.MOVEMENT) {
             forEachCharacter(((GameCharacter ch) -> ch.doBeforeMovement(this)));
             MovementData moveData = new MovementData(this);
@@ -325,6 +345,12 @@ public class GameData implements Serializable {
 		}
 		
 	}
+
+    private void cleanChars() {
+        for (Player p : getPlayersAsList()) {
+            p.setCharacter(null);
+        }
+    }
 
 
     private void forEachCharacter(GameCharacterLambda o) {
@@ -411,7 +437,8 @@ public class GameData implements Serializable {
 	public boolean isAllDead() {
 		for (Player cl : players.values()) {
 			if (!cl.isDead() &&
-                    !cl.getCharacter().checkInstance((GameCharacter a) -> a instanceof AICharacter))  {
+                    !cl.getCharacter().checkInstance((GameCharacter a) -> a instanceof AICharacter ||
+                            a instanceof SpectatorCharacter))  {
 				return false;
 			}
 		}
@@ -575,15 +602,17 @@ public class GameData implements Serializable {
 
 	public void setSettings(String rest, Player pl) {
         //String str = "<player-data-part>";
-
+        Logger.log("Setting new settings: " + rest);
         String del = "<player-data-part>";
         String[] sets = rest.substring(1).split(del);
 		if (gameState == GameState.PRE_GAME) { //can only change settings in pre game
-			Logger.log("Setting new settings: " + sets[3]);
+
 
 			try {
 				setNumberOfRounds(Integer.parseInt(sets[0]));
-				selectedMode = sets[1];
+                if (GameMode.isAMode(sets[1])) {
+                    selectedMode = sets[1];
+                }
 				//Logger.log("Set new settings");
 			} catch (NumberFormatException nfe) {
 
@@ -766,5 +795,13 @@ public class GameData implements Serializable {
             }
         }
         lostMessages.clear();
+    }
+
+    public Collection<? extends Player> getTargetablePlayers() {
+        Collection<Player> p = new ArrayList<>();
+        p.addAll(getPlayersAsList());
+        p.removeIf((Player p2) -> p2.getInnermostCharacter() instanceof AICharacter ||
+                p2.getInnermostCharacter() instanceof SpectatorCharacter);
+        return p;
     }
 }

@@ -35,7 +35,7 @@ public class DevourCorpseAction extends Action {
         try {
 
                 performingClient.getPosition().removeActor(husk);
-
+            ling.addToPower(1);
         } catch (NoSuchThingException nste) {
             Logger.log(Logger.CRITICAL, "What, no husk to be devoured?");
         }

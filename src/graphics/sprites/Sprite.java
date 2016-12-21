@@ -44,7 +44,11 @@ public class Sprite implements Serializable {
         }
     }
 
-//    private void writeObject(java.io.ObjectOutputStream out)
+    protected List<Sprite> getLayers() {
+        return layers;
+    }
+
+    //    private void writeObject(java.io.ObjectOutputStream out)
 //            throws IOException{
 //        out.writeObject(layers);
 //        out.writeObject(name);
@@ -193,5 +197,21 @@ public class Sprite implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Sprite makeSpectatorItems(List<Sprite> spriteList) {
+        StringBuilder bldr = new StringBuilder();
+        for (Sprite sp : spriteList) {
+            bldr.append(sp.getName());
+        }
+        int size = 32;
+        if (spriteList.size() > 1) {
+            size += 32;
+        }
+        if (spriteList.size() > 2) {
+            size += (spriteList.size() - 2)*16;
+        }
+        Sprite sp = new SpectatorSprite(bldr.toString(), "blank.png", 0, 0, size, 32, spriteList);
+        return sp;
     }
 }

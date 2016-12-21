@@ -6,6 +6,8 @@ import model.actions.general.SensoryLevel;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.characters.general.GameCharacter;
+import model.items.general.GameItem;
+import model.items.general.LightItem;
 
 public class DarknessShroudDecorator extends CharacterDecorator {
 
@@ -15,6 +17,9 @@ public class DarknessShroudDecorator extends CharacterDecorator {
 	
 	@Override
 	public String getWatchString(Actor whosAsking) {
+        if (GameItem.hasAnItem(whosAsking, LightItem.class)) {
+            super.getWatchString(whosAsking);
+        }
 		return "It's too dark to see!";
 	}
 	

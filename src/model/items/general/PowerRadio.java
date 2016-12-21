@@ -1,12 +1,21 @@
 package model.items.general;
 
+import graphics.sprites.OverlaySprites;
+import model.Actor;
 import model.GameData;
+import model.Player;
+import model.Target;
 import model.actions.general.Action;
 import model.actions.objectactions.PowerConsoleAction;
+import model.characters.decorators.CharacterDecorator;
+import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
+import model.map.rooms.Room;
 import model.objects.consoles.Console;
 import model.objects.consoles.CrimeRecordsConsole;
 import model.objects.consoles.GeneratorConsole;
+
+import java.util.List;
 
 /**
  * Created by erini02 on 14/04/16.
@@ -34,5 +43,39 @@ public class PowerRadio extends Radio {
     @Override
     public GameItem clone() {
         return new PowerRadio();
+    }
+
+
+    @Override
+    public void gotGivenTo(Actor to, Target from) {
+        super.gotGivenTo(to, from);
+        to.setCharacter(new PowerOverlayDecorator(to.getCharacter()));
+        if (from instanceof Actor) {
+            removeDecorator((Actor)from);
+
+        }
+    }
+
+    @Override
+    public void gotAddedToRoom(Actor cameFrom, Room to) {
+        super.gotAddedToRoom(cameFrom, to);
+        removeDecorator(cameFrom);
+    }
+
+    private void removeDecorator(Actor from) {
+        from.removeInstance(((GameCharacter ch) -> ch instanceof PowerOverlayDecorator));
+    }
+
+    private class PowerOverlayDecorator extends CharacterDecorator {
+        public PowerOverlayDecorator(GameCharacter character) {
+            super(character, "power overlay");
+        }
+
+        @Override
+        public List<String> getOverlayStrings(Player player, GameData gameData) {
+            List<String> strs = super.getOverlayStrings(player, gameData);
+            strs.addAll(OverlaySprites.seePower(gameData));
+            return strs;
+        }
     }
 }

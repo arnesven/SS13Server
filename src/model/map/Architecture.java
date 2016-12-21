@@ -1,6 +1,7 @@
 package model.map;
 
 import model.map.rooms.Room;
+import model.map.rooms.RoomType;
 import util.Logger;
 
 import java.awt.*;
@@ -165,7 +166,7 @@ public class Architecture {
         Map<Room, Point2D> map = new HashMap<>();
         Set<Point2D> currentPerimiterPoints = getPerimiterPointsForRoom(position);
         for (Room r : allRooms) {
-            if (r != position) {
+            if (r != position && r.getType() != RoomType.hidden) {
                 Set<Point2D> perimiterPoints = getPerimiterPointsForRoom(r);
                 perimiterPoints.retainAll(currentPerimiterPoints);
                 if (perimiterPoints.size() > 0) {

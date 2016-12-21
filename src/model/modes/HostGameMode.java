@@ -6,6 +6,7 @@ import java.util.List;
 import model.Actor;
 import model.characters.decorators.InfectedCharacter;
 import model.characters.general.AICharacter;
+import model.characters.special.SpectatorCharacter;
 import util.HTMLText;
 import util.MyRandom;
 import model.Player;
@@ -35,7 +36,7 @@ public class HostGameMode extends GameMode {
 
 	private void assignHost(GameData gameData) {
 		ArrayList<Player> playersWhoSelectedHost = new ArrayList<>();
-		for (Player pl : gameData.getPlayersAsList()) {
+		for (Player pl : gameData.getTargetablePlayers()) {
 			if (pl.checkedJob("Host") &&
                     !(pl.getCharacter() instanceof AICharacter)) {
 				playersWhoSelectedHost.add(pl);
@@ -43,7 +44,7 @@ public class HostGameMode extends GameMode {
 		}
 
 		if (playersWhoSelectedHost.size() == 0) {
-			playersWhoSelectedHost.addAll(gameData.getPlayersAsList());
+			playersWhoSelectedHost.addAll(gameData.getTargetablePlayers());
 		}
 		
 		hostClient = playersWhoSelectedHost.remove(MyRandom.nextInt(playersWhoSelectedHost.size()));
@@ -122,10 +123,10 @@ public class HostGameMode extends GameMode {
 	}
 
 	private boolean allInfected(GameData gameData) {
-		for (Player cl : gameData.getPlayersAsList()) {
-			if (!cl.isDead() && !cl.isInfected()) {
-				return false;
-			}
+		for (Player cl : gameData.getTargetablePlayers()) {
+            if (!cl.isDead() && !cl.isInfected()) {
+                return false;
+            }
 		}
 		return true;
 	}

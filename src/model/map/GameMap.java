@@ -350,7 +350,7 @@ public class GameMap implements Serializable {
                 }
             }
         }
-        throw new NoSuchThingException("Room not found in any level");
+        throw new NoSuchThingException("Room not found in any level: " + current);
     }
 
     public Collection<Room> getRoomsForLevel(String level) {

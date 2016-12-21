@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.characters.general.AICharacter;
+import model.characters.special.SpectatorCharacter;
 import model.events.NoPressureEverEvent;
 import model.items.NoSuchThingException;
 import model.objects.general.NuclearBomb;
@@ -83,25 +84,19 @@ public class OperativesGameMode extends GameMode {
             for (Player p : gameData.getPlayersAsList()) {
                 if (p.checkedJob("Operative") &&
                         !(p.getCharacter() instanceof CaptainCharacter) &&
-                        !(p.getCharacter() instanceof AICharacter)) {
+                        !(p.getCharacter() instanceof AICharacter) &&
+                        !(p.getCharacter() instanceof SpectatorCharacter)) {
                     opPlayers.add(p);
                 }
+            }
+
+            if (opPlayers.size() < getNoOfOperatives(gameData)) {
+                throw new GameCouldNotBeStartedException("Could not play operatives mode. Too few operatives.");
             }
 
             while (opPlayers.size() > getNoOfOperatives(gameData)) {
                 // Too many operatives, remove some.
                 opPlayers.remove(MyRandom.sample(opPlayers));
-            }
-
-            List<Player> allPlayers = new ArrayList<>();
-            allPlayers.addAll(gameData.getPlayersAsList());
-            while (opPlayers.size() < getNoOfOperatives(gameData)) {
-                // Too few checked operatives add some.
-                Player p = MyRandom.sample(allPlayers);
-                if (!opPlayers.contains(p) &&
-                        !(p.getCharacter() instanceof CaptainCharacter)) {
-                    opPlayers.add(p);
-                }
             }
 
 
@@ -129,7 +124,7 @@ public class OperativesGameMode extends GameMode {
 	}
 
 	private int getNoOfOperatives(GameData gameData) {
-		return (int)Math.floor(gameData.getPlayersAsList().size() * OPERATIVE_FACTOR);
+		return (int)Math.floor(gameData.getTargetablePlayers().size() * OPERATIVE_FACTOR);
 	}
 
 	private boolean allOpsDead(GameData gameData) {

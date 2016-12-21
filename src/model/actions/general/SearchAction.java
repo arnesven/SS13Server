@@ -4,8 +4,12 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
+import model.events.Event;
+import model.events.ambient.DarkEvent;
 import model.items.general.BombItem;
 import model.items.general.GameItem;
+import model.items.general.LightItem;
+import model.map.rooms.Room;
 import model.objects.general.GameObject;
 import model.objects.general.HiveObject;
 import model.items.general.HidableItem;
@@ -23,6 +27,12 @@ public class SearchAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
+        if (isDark(performingClient, performingClient.getPosition())) {
+            performingClient.addTolastTurnInfo("It's too dark to see!");
+            return;
+        }
+
+
 		boolean foundSomething = false;
 		for (GameObject o : performingClient.getPosition().getObjects()) {
 			if (o instanceof HiveObject) {
@@ -57,7 +67,20 @@ public class SearchAction extends Action {
 		}
 	}
 
-	@Override
+    private boolean isDark(Actor whosAsking, Room position) {
+        if (GameItem.hasAnItemOfClass(whosAsking, LightItem.class)) {
+            return false;
+        }
+
+        for (Event e : position.getEvents()) {
+            if (e instanceof DarkEvent) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
 	public void setArguments(List<String> args, Actor p) { // Not needed	
 	}
 

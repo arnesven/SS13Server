@@ -40,4 +40,9 @@ public class SoundQueue extends ArrayList<Sound> implements Serializable {
         }
         return false;
     }
+
+    @Override
+    public void clear() {
+        index = -1;
+    }
 }

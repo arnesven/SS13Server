@@ -5,6 +5,7 @@ import model.Actor;
 import model.Target;
 import model.characters.decorators.RadiationOverlayDecorator;
 import model.characters.general.GameCharacter;
+import model.map.rooms.Room;
 
 public class GeigerMeter extends UplinkItem {
 
@@ -27,9 +28,22 @@ public class GeigerMeter extends UplinkItem {
     public void gotGivenTo(Actor to, Target from) {
        to.setCharacter(new RadiationOverlayDecorator(to.getCharacter()));
         if (from instanceof Actor) {
-            if (((Actor) from).getCharacter().checkInstance((GameCharacter ch) -> ch instanceof RadiationOverlayDecorator)){
-                ((Actor) from).removeInstance(((GameCharacter ch) -> ch instanceof RadiationOverlayDecorator));
-            }
+            removeDecorator((Actor)from);
         }
     }
+
+    private void removeDecorator(Actor from) {
+        if (from.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof RadiationOverlayDecorator)){
+            from.removeInstance(((GameCharacter ch) -> ch instanceof RadiationOverlayDecorator));
+        }
+    }
+
+    @Override
+    public void gotAddedToRoom(Actor cameFrom, Room to) {
+        super.gotAddedToRoom(cameFrom, to);
+        if (cameFrom != null) {
+            removeDecorator(cameFrom);
+        }
+    }
+
 }

@@ -17,7 +17,7 @@ public class MapCommandHandler extends AbstractCommandHandler {
 	public boolean handleCommand(String command, String clid, String rest,
 			ObjectOutputStream oos) throws IOException {
 //		System.out.println("handling map command");
-		if (command.equals("MAP")) {
+		if (command.contains("MAP")) { // TODO: take care of clients width and height. could be useful!
 			String result = MyStrings.join(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
 			//Logger.log(result);
 			oos.writeObject(result);

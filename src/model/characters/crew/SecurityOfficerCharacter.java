@@ -23,21 +23,13 @@ public class SecurityOfficerCharacter extends CrewCharacter {
 	}
 
     @Override
-    public void setActor(Actor c) {
-        super.setActor(c);
-        if (!actorSet) {
-            actorSet = true;
-            c.putOnSuit(new SecOffsVest());
-            c.putOnSuit(new SecOffsHelmet());
-        }
-    }
-
-    @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new StunBaton());
 		list.add(new SecurityRadio());
         list.add(new HandCuffs());
+        list.add(new SecOffsVest());
+        list.add(new SecOffsHelmet());
 		return list;
 	}
 

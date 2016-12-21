@@ -65,12 +65,11 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
     }
 
     public PowerSource(double normal_output, Room r, GameData gameData) {
-        super("Power Source", 3, r);
+        super("Power Source", 5, r);
         this.startingPower = normal_output;
         level = startingPower;
         setupPrio();
         setupUpdaters();
-
 
     }
 

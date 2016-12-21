@@ -14,6 +14,7 @@ import model.actions.general.ActionOption;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
+import util.Logger;
 
 /**
  * @author erini02
@@ -127,14 +128,19 @@ public abstract class GameItem implements Locatable, Serializable {
 		this.holder = gameCharacter;
 		
 	}
-	
+
+    public static <E extends Class> boolean hasAnItemOfClass(Actor act, E className) {
+        for (GameItem it : act.getItems()) {
+            if (className.isInstance(it)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Deprecated
 	public static <E> boolean hasAnItem(Actor act, E obj) {
-		for (GameItem it : act.getItems()) {
-			if (obj.getClass().isInstance(it)) {
-				return true;
-			}
-		}
-		return false;
+        return hasAnItemOfClass(act, obj.getClass());
 	}
 
 	public static <E> boolean containsItem(List<GameItem> startingItems, E obj) {

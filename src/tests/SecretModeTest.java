@@ -25,8 +25,8 @@ public class SecretModeTest extends TestCase {
 
         for (int i = NO_OF_GAMES; i > 0; i--) {
             GameData gameData = new GameData();
-            gameData.createNewClient("TestGuy1");
-            gameData.createNewClient("TestGuy2");
+            gameData.createNewClient("TestGuy1", false);
+            gameData.createNewClient("TestGuy2", false);
             gameData.setPlayerReady("TestGuy1", true);
             gameData.setPlayerReady("TestGuy2", true);
             String mode = gameData.getGameMode().getName();

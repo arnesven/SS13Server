@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.AICharacter;
+import model.characters.special.SpectatorCharacter;
 import model.events.Event;
 import model.items.NoSuchThingException;
 import util.HTMLText;
@@ -48,19 +49,21 @@ public class ChangelingGameMode extends GameMode {
 	protected void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters,
 			GameData gameData) {
 
-        if (gameData.getPlayersAsList().size() < 2) {
-            throw new IllegalStateException("Cannot play changeling with 2 players!");
-        }
 
 		List<Player> lingPlayers = new ArrayList<>();
 		
 		for (Player p : gameData.getPlayersAsList()) {
 			if (p.checkedJob("Changeling") && 
 					!(p.getCharacter() instanceof CaptainCharacter) &&
-                    !(p.getCharacter() instanceof AICharacter) ) {
+                    !(p.getCharacter() instanceof AICharacter) &&
+                    !(p.getCharacter() instanceof SpectatorCharacter)) {
 				lingPlayers.add(p);
 			}
 		}
+
+        if (lingPlayers.isEmpty()) {
+            throw new GameCouldNotBeStartedException("Can't play changeling mode!");
+        }
 		
 		while (lingPlayers.size() > 1) { // Too many lings, remove some.
 			lingPlayers.remove(MyRandom.sample(lingPlayers));
@@ -121,13 +124,19 @@ public class ChangelingGameMode extends GameMode {
 			return GameOver.PROTAGONISTS_DEAD;
 		} else if (ling.isDead()) {
 			return GameOver.ANTAGONISTS_DEAD;
-		} else if (gameData.getRound() == gameData.getNoOfRounds()) {
+		} else if (gameData.getRound() == lengthDependingOnTargets(gameData)) {
             return GameOver.TIME_IS_UP;
         }
 		return null;
 	}
-	
-	private boolean allCrewDead(GameData gameData) {
+
+    private int lengthDependingOnTargets(GameData gameData) {
+        return (int)(Math.min(gameData.getNoOfRounds(),
+                Math.ceil(actorsWhoStartedTheGame.size()*2.5)));
+
+    }
+
+    private boolean allCrewDead(GameData gameData) {
 		for (Actor a : actorsWhoStartedTheGame) {
 			if (a.getCharacter().isCrew() && !a.isDead()) {
 				return false;

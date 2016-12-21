@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by erini02 on 15/11/16.
  */
-public class ZippoLighter extends GameItem {
+public class ZippoLighter extends LightItem {
     private int uses;
 
     public ZippoLighter() {

@@ -3,12 +3,16 @@ package model.modes;
 import java.io.Serializable;
 import java.util.*;
 
+import graphics.sprites.Sprite;
 import model.*;
 import model.characters.general.AICharacter;
+import model.characters.special.SpectatorCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.events.*;
 import model.events.ambient.*;
 import model.items.NoSuchThingException;
+import model.items.suits.SuitItem;
+import model.map.rooms.SpectatorRoom;
 import model.modes.goals.PersonalGoalAssigner;
 import model.npcs.*;
 import model.npcs.animals.SnakeNPC;
@@ -43,6 +47,7 @@ import model.items.general.GameItem;
 import model.map.rooms.NukieShipRoom;
 import model.map.rooms.Room;
 import model.misc.ChristmasBooster;
+import util.Pair;
 
 /**
  * @author erini02
@@ -276,9 +281,16 @@ public abstract class GameMode implements Serializable {
 	 * their characters in this step.
 	 * @param gameData
 	 */
-	protected List<GameCharacter> assignCharactersToPlayers(GameData gameData) {
+	protected final List<GameCharacter> assignCharactersToPlayers(GameData gameData) {
 		ArrayList<Player> listOfClients = new ArrayList<Player>();
 		listOfClients.addAll(gameData.getPlayersAsList());
+
+        removeSpectators(listOfClients, gameData);
+
+        if (listOfClients.isEmpty()) {
+            throw new GameCouldNotBeStartedException("No remaining non-spectator players");
+        }
+
 		Collections.shuffle(listOfClients);
 		
 		ArrayList<GameCharacter> listOfCharacters = new ArrayList<>();
@@ -394,11 +406,26 @@ public abstract class GameMode implements Serializable {
         remainingCharacters.remove(selected);
     }
 
+    private void removeSpectators(ArrayList<Player> listOfClients, GameData gameData) {
+        List<Player> done = new ArrayList<>();
+        for (Player p : listOfClients) {
+            if (p.getSettings().get(PlayerSettings.MAKE_ME_A_SPECTATOR)) {
+                p.setCharacter(new SpectatorCharacter(gameData));
+                done.add(p);
+                p.moveIntoRoom(p.getCharacter().getStartingRoom(gameData));
+            }
+        }
+
+        listOfClients.removeAll(done);
+    }
+
+
+
     private void moveCharactersIntoStartingRooms(GameData gameData) {
 		for (Player c : gameData.getPlayersAsList()) {
             Room startRoom = null;
             startRoom = c.getCharacter().getStartingRoom(gameData);
-
+            Logger.log("Starting room for " + c.getName() + " is " + startRoom.getName());
             c.moveIntoRoom(startRoom);
 			c.setNextMove(c.getPosition().getID());
 		}
@@ -590,7 +617,14 @@ public abstract class GameMode implements Serializable {
         return aIPlayer != null;
     }
 
-    public void lateJoiningPlayer(Player newPlayer, GameData gameData) {
+    public void lateJoiningPlayer(Player newPlayer, GameData gameData, boolean spectator) {
+
+        if (spectator) {
+            newPlayer.setCharacter(new SpectatorCharacter(gameData));
+            newPlayer.moveIntoRoom(newPlayer.getCharacter().getStartingRoom(gameData));
+            return;
+        }
+
         GameCharacter chAr;
         if (remainingChars.size() == 0) {
             chAr = MyRandom.sample(VisitorCharacter.getSubtypes());
@@ -646,5 +680,22 @@ public abstract class GameMode implements Serializable {
 
     public Actor getCaptain() {
         return capCl;
+    }
+
+    public static boolean isAMode(String set) {
+        for (String s : knownModes) {
+            if (s.equals(set)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String getSpectatorSubInfo(GameData gameData) {
+        return "";
+    }
+
+    public List<Pair<Sprite, String>> getSpectatorContent(Actor whosAsking) {
+        return new ArrayList<>();
     }
 }

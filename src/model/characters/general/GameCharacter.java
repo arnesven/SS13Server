@@ -385,7 +385,7 @@ public abstract class GameCharacter implements Serializable {
 			totalWeight += it.getWeight();
 		}
 		if (getSuit() != null) {
-			totalWeight += suit.getWeight();
+			totalWeight += getSuit().getWeight();
 		}
 		return totalWeight;
 	}

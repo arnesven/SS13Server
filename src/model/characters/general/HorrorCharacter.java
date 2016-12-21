@@ -16,17 +16,21 @@ import model.items.weapons.Weapon;
 
 public class HorrorCharacter extends GameCharacter {
 
-    public static Weapon hugeClaw = new ImpalerWeapon();;
-    private int numforms = 0;
+    public static Weapon hugeClaw = new ImpalerWeapon();
+    private ChangelingCharacter ling;
 
 
     public HorrorCharacter() {
 		super("Stalking Horror", 0, 21.0);
 	}
 
+    public void setChangeling(ChangelingCharacter ling) {
+        this.ling = ling;
+    }
+
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        if (numforms > 5) {
+        if (ling != null && ling.getPower() >= 3) {
             return new Sprite("horrorgreater", "alien.png", 19);
         }
         return new Sprite("horrorlesser", "alien.png", 0);
@@ -58,9 +62,7 @@ public class HorrorCharacter extends GameCharacter {
 		return hugeClaw;
 	}
 
-	public void setImpalerDamage(List<GameCharacter> forms) {
-        numforms = forms.size();
-		double d = forms.size() / 2.0 - 0.5;
+	public void setImpalerDamage(double d) {
 		hugeClaw.setDamage(d);		
 	}
 	

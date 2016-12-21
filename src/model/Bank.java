@@ -4,6 +4,7 @@ import model.characters.general.GameCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.items.general.MoneyStack;
 import model.modes.GameMode;
+import util.Logger;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -20,9 +21,13 @@ public class Bank implements Serializable {
     private int stationMoney;
 
     private Bank(GameData gameData) {
+        Logger.log("New bank instance creater, number of actors " + gameData.getActors().size());
         for (Actor a : gameData.getActors()) {
-            if (hasAnAccountFromStart(a)) {
-                accounts.put(a, new MoneyStack(0));
+            Logger.log("Setting up acount for an actor with char " + a.getCharacter());
+            if (a.getCharacter() != null) {
+                if (hasAnAccountFromStart(a)) {
+                    accounts.put(a, new MoneyStack(0));
+                }
             }
         }
         stationMoney = 14000;

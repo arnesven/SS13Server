@@ -28,6 +28,7 @@ public class ChangelingCharacter extends GameCharacter {
 	private Room startRoom;
 	private HorrorCharacter ultimate = new HorrorCharacter();
     private boolean acidSprayed = false;
+    private int extra = 0;
 
     public ChangelingCharacter(Room startRoom) {
 		super("Changeling", startRoom.getID(), 21.0);
@@ -185,11 +186,12 @@ public class ChangelingCharacter extends GameCharacter {
 					dropAllItems();
 				}
 				if (current instanceof HorrorCharacter) {
-					double m = 0.5 + getForms().size()*0.5;
+					double m = 0.5 + getPower();
 					this.setMaxHealth(m);
-					double h = this.getHealth() + getForms().size()*0.5;
+					double h = this.getHealth() + getPower();
 					this.setHealth(Math.min(m, h));
-					ultimate.setImpalerDamage(getForms());
+					ultimate.setImpalerDamage(getPower() - 0.5);
+                    ((HorrorCharacter)current).setChangeling(this);
 				}
 				return;
 			}
@@ -318,5 +320,13 @@ public class ChangelingCharacter extends GameCharacter {
             setHealth(getHealth() + 0.5);
         }
 
+    }
+
+    public double getPower() {
+        return (getForms().size() + extra) * 0.5 ;
+    }
+
+    public void addToPower(int i) {
+        extra += i;
     }
 }

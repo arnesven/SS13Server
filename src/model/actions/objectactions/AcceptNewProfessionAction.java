@@ -33,7 +33,7 @@ public class AcceptNewProfessionAction extends Action {
         adminConsole.getAcceptedActors().add(performingClient);
         for (Actor a : gameData.getActors()) {
             if (a.getCharacter().checkInstance((GameCharacter gc ) -> gc instanceof HeadOfStaffCharacter)) {
-                performingClient.addTolastTurnInfo(HTMLText.makeText("blue",
+                a.addTolastTurnInfo(HTMLText.makeText("blue",
                         "Admin Console: " + performingClient.getPublicName() + " has signed up for a new job. You need to handle the request."));
             }
         }

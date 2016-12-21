@@ -7,7 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import graphics.sprites.Sprite;
 import model.characters.general.AICharacter;
+import model.characters.special.SpectatorCharacter;
 import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
 import model.modes.objectives.*;
@@ -84,19 +86,18 @@ public class TraitorGameMode extends GameMode {
 		traitors = new ArrayList<>();
 		for (Player p : gameData.getPlayersAsList()) {
 			if (p.checkedJob("Traitor") &&
-                    !(p.getCharacter() instanceof AICharacter)) {
+                    !(p.getCharacter() instanceof AICharacter) &&
+                    !(p.getCharacter() instanceof SpectatorCharacter)) {
 				traitors.add(p);
 			}
 		}
-		
+
+
+
 		// TO Few checked traitor, add som more randomly until we have
 		// enough
 		while (traitors.size() < getNoOfTraitors(gameData)) {
-			Logger.log("Still to few traitors, adding one");
-			List<Player> otherPlayers = new ArrayList<>();
-			otherPlayers.addAll(gameData.getPlayersAsList());
-			otherPlayers.removeAll(traitors);
-			traitors.add(MyRandom.sample(otherPlayers));
+			throw new GameCouldNotBeStartedException("Can not play traitor mode. To few traitors.");
 		}
 		
 		// To Many checked traitor, removing some randomly until we have
@@ -149,7 +150,7 @@ public class TraitorGameMode extends GameMode {
 		double val = MyRandom.nextDouble();
 		if (val < 0.45 ) {
 			List<Player> targets = new ArrayList<>();
-			targets.addAll(gameData.getPlayersAsList());
+			targets.addAll(gameData.getTargetablePlayers());
 			targets.remove(traitor);
 			if (targets.size() > 0) { 
 				return new AssassinateObjective(traitor, MyRandom.sample(targets));
@@ -540,5 +541,22 @@ public class TraitorGameMode extends GameMode {
             }
         }
         return 0;
+    }
+
+    @Override
+    public String getSpectatorSubInfo(GameData gameData) {
+        return "Current score: " + getScore(gameData) + ", Taitors: ";
+    }
+
+    @Override
+    public List<Pair<Sprite, String>> getSpectatorContent(Actor whosAsking) {
+        List<Pair<Sprite, String>> cont = new ArrayList<>();
+
+        for (Actor a : traitors) {
+            cont.add(new Pair<>(a.getCharacter().getSprite(whosAsking),
+                                objectives.get(a).getText()));
+        }
+
+        return cont;
     }
 }

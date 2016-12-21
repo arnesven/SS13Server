@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.characters.decorators.ReduceCriticalChanceDecorator;
+import model.characters.general.GameCharacter;
 
 /**
  * Created by erini02 on 26/04/16.
@@ -28,12 +30,12 @@ public class SecOffsHelmet extends SuitItem {
 
     @Override
     public void beingPutOn(Actor actionPerformer) {
-
+        actionPerformer.setCharacter(new ReduceCriticalChanceDecorator(actionPerformer.getCharacter()));
     }
 
     @Override
     public void beingTakenOff(Actor actionPerformer) {
-
+        actionPerformer.removeInstance((GameCharacter gc) -> gc instanceof ReduceCriticalChanceDecorator);
     }
 
     @Override

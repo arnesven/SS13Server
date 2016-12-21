@@ -310,10 +310,12 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 	public void pushHappeningsToPlayers() {
 		for (Action a : getActionsHappened()) {
 			for (Player p : players) {
-				if (p.getCharacter().doesPerceive(a) &&  a.getPerformer().getCharacter().isVisible()) {
-                    a.experienceFor(p);
-				}				
-			}
+                if (p.getCharacter().doesPerceive(a)) {
+                    if (a.getPerformer() != null && a.getPerformer().getCharacter().isVisible()) {
+                        a.experienceFor(p);
+                    }
+				}
+            }
 		}
 		
 		for (Action a : getActionsHappened()) {

@@ -18,7 +18,7 @@ public class TestUtil {
 
         // Players join game
         for (int i = 0; i < noOfPlayers; ++i) {
-            gameData.createNewClient(getPlayerName(i));
+            gameData.createNewClient(getPlayerName(i), false);
         }
         // players are ready
         for (int i = 0; i < noOfPlayers; ++i) {
