@@ -43,17 +43,17 @@ public class ElectrifyObjectAction extends Action {
     }
 
     private class OverchargedElectricalMachinery extends GameObject {
-        private final ElectricalMachinery ob;
+        private final ElectricalMachinery innerObject;
 
         public OverchargedElectricalMachinery(ElectricalMachinery ob) {
             super(ob.getBaseName(), ob.getPosition());
-            this.ob = ob;
+            this.innerObject = ob;
         }
 
         @Override
         public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
             ArrayList<Action> acts = new ArrayList<>();
-            ob.addSpecificActionsFor(gameData, cl, acts);
+            innerObject.addSpecificActionsFor(gameData, cl, acts);
             for (Action a : acts) {
                 at.add(new OverchargeWrapper(a, this));
             }
@@ -61,12 +61,12 @@ public class ElectrifyObjectAction extends Action {
 
         @Override
         public Sprite getSprite(Player whosAsking) {
-            return ob.getSprite(whosAsking);
+            return innerObject.getSprite(whosAsking);
         }
 
         public void revert() {
-            ob.getPosition().removeObject(this);
-            ob.getPosition().addObject(ob);
+            innerObject.getPosition().removeObject(this);
+            innerObject.getPosition().addObject(innerObject);
         }
     }
 

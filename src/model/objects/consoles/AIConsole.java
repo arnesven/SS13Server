@@ -9,7 +9,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.characteractions.AILawAction;
+import model.actions.ai.AILawAction;
 import model.actions.objectactions.AIConsoleAction;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;

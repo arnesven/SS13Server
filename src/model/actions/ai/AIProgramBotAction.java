@@ -1,4 +1,4 @@
-package model.actions.characteractions;
+package model.actions.ai;
 
 import model.Actor;
 import model.GameData;

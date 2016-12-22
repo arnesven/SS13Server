@@ -7,9 +7,11 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.map.GameMap;
 import model.map.rooms.Room;
 import model.objects.general.GameObject;
 import model.objects.general.AirlockPanel;
+import util.Logger;
 
 public class AirlockOverrideAction extends ConsoleAction {
 
@@ -20,11 +22,13 @@ public class AirlockOverrideAction extends ConsoleAction {
 	
 	public AirlockOverrideAction(GameData gameData) {
 		super("Airlock Override", SensoryLevel.OPERATE_DEVICE);
-		for (Room r : gameData.getRooms()) {
+        Logger.log("Created airlock override action");
+		for (Room r : gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME)) {
 			for (GameObject ob : r.getObjects()) {
 				if (ob instanceof AirlockPanel) {
 					rooms.add(r);
 					panels.add((AirlockPanel)ob);
+                    Logger.log("   found an airlock panel in" + r.getName());
 				}
 			}
 		}
@@ -38,7 +42,6 @@ public class AirlockOverrideAction extends ConsoleAction {
 				selected = panels.get(i);
 			}
 		}
-		
 	}
 	
 	@Override

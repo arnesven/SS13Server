@@ -6,8 +6,9 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.RemoteAccessAction;
-import model.actions.characteractions.AIProgramBotAction;
-import model.actions.characteractions.AIReprogramAllAction;
+import model.actions.ai.AIOverchargeAction;
+import model.actions.ai.AIProgramBotAction;
+import model.actions.ai.AIReprogramAllAction;
 import model.actions.characteractions.NuclearExplosiveDamage;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
@@ -16,7 +17,6 @@ import model.characters.special.GhostCharacter;
 import model.events.damage.Damager;
 import model.items.general.GameItem;
 import model.items.laws.AISuit;
-import model.items.weapons.Weapon;
 import model.objects.consoles.AIConsole;
 
 import java.util.ArrayList;
@@ -97,6 +97,7 @@ public class AICharacter extends GhostCharacter {
             }
         });
         at.add(new AIDownloadIntoBotAction(gameData));
+        at.add(new AIOverchargeAction(gameData));
     }
 
 
