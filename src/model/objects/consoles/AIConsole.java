@@ -26,6 +26,7 @@ import model.npcs.behaviors.FindHumansMovement;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.robots.RobotNPC;
 import util.HTMLText;
+import util.MyRandom;
 
 public class AIConsole extends Console {
 
@@ -157,6 +158,10 @@ public class AIConsole extends Console {
                 npc.setMoveBehavior(new FindHumansMovement());
                 npc.setActionBehavior(new AttackAllActorsNotSameClassBehavior());
             }
+        }
+        if (AIIsPlayer()) {
+            getLaws().remove(MyRandom.sample(getLaws()));
+            aiPlayer.addTolastTurnInfo(HTMLText.makeText("blue", "SYSTEM; memory corruption detected. Law lost."));
         }
     }
 
