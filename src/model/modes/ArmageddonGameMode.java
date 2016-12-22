@@ -1,5 +1,6 @@
 package model.modes;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -8,9 +9,11 @@ import model.events.Event;
 import model.events.SpontaneousExplosionEvent;
 import model.events.ZombifierEvent;
 import model.events.ambient.SpontaneousCrazyness;
+import util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -92,6 +95,12 @@ public class ArmageddonGameMode extends GameMode {
         return 0;
     }
 
+    @Override
+    public String getSpectatorSubInfo(GameData gameData) {
+        return "Zombies: " + zombieEvent.getZombies();
+    }
+
+
     public ZombifierEvent getZombieEvent() {
         return zombieEvent;
     }
@@ -119,5 +128,10 @@ public class ArmageddonGameMode extends GameMode {
             }
         }
         return maxName;
+    }
+
+    @Override
+    public String getAntagonistName(Player p) {
+        return "Nobody";
     }
 }

@@ -1,5 +1,6 @@
 package model.modes;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -8,6 +9,7 @@ import model.characters.crew.HeadOfStaffCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.CaptainsDaughter;
 import util.HTMLText;
+import util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,5 +107,16 @@ public class MutinyGameMode extends GameMode {
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public String getSpectatorSubInfo(GameData gameData) {
+        return "Mutineers left: " + mutineers.size();
+    }
+
+
+    @Override
+    public String getAntagonistName(Player p) {
+        return "Mutineer";
     }
 }

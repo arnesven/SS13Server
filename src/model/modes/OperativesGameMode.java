@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import graphics.sprites.Sprite;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import model.events.NoPressureEverEvent;
@@ -27,6 +28,7 @@ import model.items.general.Locator;
 import model.map.rooms.Room;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
+import util.Pair;
 
 public class OperativesGameMode extends GameMode {
 
@@ -227,6 +229,11 @@ public class OperativesGameMode extends GameMode {
 
     }
 
+    @Override
+    public String getSpectatorSubInfo(GameData gameData) {
+        return "Disk in: " + nukieDisk.getPosition().getName();
+    }
+
 
     public void setNuked(boolean b) {
 		this.nuked  = b;
@@ -256,8 +263,8 @@ public class OperativesGameMode extends GameMode {
 	}
 
 
-
-	
-	
-
+    @Override
+    public String getAntagonistName(Player p) {
+        return "Operative";
+    }
 }

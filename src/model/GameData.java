@@ -277,12 +277,14 @@ public class GameData implements Serializable {
 	private boolean allClientsReadyOrPassive() {
 		for (Player c : players.values()) {
 			if (!c.isReady()) {
-				if (gameState == GameState.PRE_GAME) {
-					return false;
-				} else if (!c.isPassive()) {
-					return false;
-				}
-			}
+                if (!c.getSettings().get(PlayerSettings.MAKE_ME_A_SPECTATOR)) {
+                    if (gameState == GameState.PRE_GAME) {
+                        return false;
+                    } else if (!c.isPassive()) {
+                        return false;
+                    }
+                }
+            }
 		}		
 		return true;
 	}
@@ -295,8 +297,8 @@ public class GameData implements Serializable {
                 allClearReady();
                 gameState = GameState.MOVEMENT;
             } catch (GameCouldNotBeStartedException gcnbese) {
-                chatMessages.serverSay("Game could not bes tarted! " +gcnbese.getMessage());
-                Logger.log("Game could not bes tarted! " + gcnbese.getMessage() + " gamestate remains at " + gameState.name);
+                chatMessages.serverSay("Game could not be started! " +gcnbese.getMessage());
+                Logger.log("Game could not be started! " + gcnbese.getMessage() + " gamestate remains at " + gameState.name);
                 cleanChars();
             }
 
@@ -515,7 +517,7 @@ public class GameData implements Serializable {
 		String result = cl.getCharacterRealName() + 
 				       delim + cl.getPosition().getID() +
 					   delim + cl.getCurrentHealth() +
-					   delim + String.format("%1$.1f", cl.getCharacter().getTotalWeight()) +
+					   delim + cl.getWeightString() +
 					   delim + cl.getSuit() +
 					   delim + MyStrings.join(cl.getItemsAsFullNameList()) +
 					   delim + MyStrings.join(cl.getRoomInfo()) +

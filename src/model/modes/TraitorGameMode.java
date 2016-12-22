@@ -559,4 +559,9 @@ public class TraitorGameMode extends GameMode {
 
         return cont;
     }
+
+    @Override
+    public String getAntagonistName(Player p) {
+        return "Traitor";
+    }
 }

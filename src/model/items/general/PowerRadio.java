@@ -63,7 +63,9 @@ public class PowerRadio extends Radio {
     }
 
     private void removeDecorator(Actor from) {
-        from.removeInstance(((GameCharacter ch) -> ch instanceof PowerOverlayDecorator));
+        if (from.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof PowerOverlayDecorator)) {
+            from.removeInstance(((GameCharacter ch) -> ch instanceof PowerOverlayDecorator));
+        }
     }
 
     private class PowerOverlayDecorator extends CharacterDecorator {

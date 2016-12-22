@@ -33,8 +33,8 @@ public class Sprite implements Serializable {
         this.mapPath = mapPath;
         this.row = row;
         this.column = column;
-        this.width = width;
-        this.height = height;
+        this.width = Math.max(1, width);
+        this.height = Math.max(1, height);
         this.layers = layers;
         SpriteManager.register(this);
         try {

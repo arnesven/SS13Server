@@ -23,7 +23,7 @@ public class Bank implements Serializable {
     private Bank(GameData gameData) {
         Logger.log("New bank instance creater, number of actors " + gameData.getActors().size());
         for (Actor a : gameData.getActors()) {
-            Logger.log("Setting up acount for an actor with char " + a.getCharacter());
+            //Logger.log("Setting up acount for an actor with char " + a.getCharacter());
             if (a.getCharacter() != null) {
                 if (hasAnAccountFromStart(a)) {
                     accounts.put(a, new MoneyStack(0));

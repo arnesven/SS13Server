@@ -3,8 +3,9 @@ package model.modes;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.sprites.Sprite;
 import model.characters.decorators.CharacterDecorator;
-import model.characters.general.AICharacter;
+import model.characters.general.*;
 import model.characters.special.SpectatorCharacter;
 import model.events.Event;
 import model.items.NoSuchThingException;
@@ -13,13 +14,12 @@ import util.MyRandom;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.characters.general.ChangelingCharacter;
-import model.characters.general.GameCharacter;
 import model.characters.crew.CaptainCharacter;
 import model.events.ChangelingSensesEvent;
 import model.map.rooms.Room;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
+import util.Pair;
 
 public class ChangelingGameMode extends GameMode {
 
@@ -212,6 +212,23 @@ public class ChangelingGameMode extends GameMode {
         return 1;
     }
 
+    @Override
+    public String getSpectatorSubInfo(GameData gameData) {
+        return "Current power: " + String.format("%1$.1f", lingChar.getPower()) + ",  sucked from:";
+    }
+
+    @Override
+    public List<Pair<Sprite, String>> getSpectatorContent(Actor whosAsking) {
+        List<Pair<Sprite, String>> list = new ArrayList<>();
+        for (GameCharacter c : lingChar.getForms()) {
+            if (!(c instanceof ParasiteCharacter || c instanceof HorrorCharacter)) {
+                list.add(new Pair(c.getSprite(whosAsking), c.getBaseName()));
+            }
+        }
+
+        return super.getSpectatorContent(whosAsking);
+    }
+
     public Actor getChangeling() {
 		return ling;
 	}
@@ -220,4 +237,8 @@ public class ChangelingGameMode extends GameMode {
 		return lingChar;
 	}
 
+    @Override
+    public String getAntagonistName(Player p) {
+        return "Changeling";
+    }
 }

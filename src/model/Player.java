@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import graphics.ClientInfo;
+import model.characters.general.AICharacter;
+import model.characters.special.SpectatorCharacter;
 import model.items.weapons.Weapon;
 import sounds.Sound;
 import sounds.SoundQueue;
@@ -39,12 +42,12 @@ public class Player extends Actor implements Target, Serializable {
 
     private PlayerSettings settings = new PlayerSettings();
     private SoundQueue soundQueue = new SoundQueue(this);
+    private ClientInfo clientInf0 = new ClientInfo();
 
 
     public Player(GameData gameData) {
 
 	}
-
 
 
 	/**
@@ -497,5 +500,17 @@ public class Player extends Actor implements Target, Serializable {
 
     public SoundQueue getSoundQueue() {
         return soundQueue;
+    }
+
+    public String getWeightString() {
+        if (getCharacter() != null && (getInnermostCharacter() instanceof SpectatorCharacter || getInnermostCharacter() instanceof AICharacter)) {
+            return "";
+        }
+
+        return String.format("%1$.1f kg", getCharacter().getTotalWeight());
+    }
+
+    public void setClientDimension(int width, int height) {
+        this.clientInf0.setDimension(width, height);
     }
 }

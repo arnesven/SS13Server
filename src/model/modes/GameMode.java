@@ -691,11 +691,11 @@ public abstract class GameMode implements Serializable {
         return false;
     }
 
-    public String getSpectatorSubInfo(GameData gameData) {
-        return "";
-    }
+    public abstract String getSpectatorSubInfo(GameData gameData);
 
     public List<Pair<Sprite, String>> getSpectatorContent(Actor whosAsking) {
         return new ArrayList<>();
     }
+
+    public abstract String getAntagonistName(Player p);
 }

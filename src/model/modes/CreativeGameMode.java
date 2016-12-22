@@ -31,6 +31,11 @@ public class CreativeGameMode extends GameMode {
     }
 
     @Override
+    public String getSpectatorSubInfo(GameData gameData) {
+        return "";
+    }
+
+    @Override
     protected void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters, GameData gameData) {
         for (Player p : gameData.getPlayersAsList()) {
             p.setCharacter(new GodModeDecorator(p.getCharacter(), gameData));
@@ -39,7 +44,7 @@ public class CreativeGameMode extends GameMode {
 
     @Override
     public boolean gameOver(GameData gameData) {
-        return false;
+        return gameData.isAllDead();
     }
 
     @Override
@@ -70,5 +75,10 @@ public class CreativeGameMode extends GameMode {
     @Override
     public Integer getPointsForPlayer(GameData gameData, Player value) {
         return 0;
+    }
+
+    @Override
+    public String getAntagonistName(Player p) {
+        return "Nobody";
     }
 }

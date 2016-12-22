@@ -30,7 +30,9 @@ public class MotionTracker extends GameItem {
     }
 
     private void removeDecorator(Actor from) {
-        from.removeInstance(((GameCharacter ch) -> ch instanceof AnimalOverlayDecorator));
+        if (from.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AnimalOverlayDecorator)) {
+            from.removeInstance(((GameCharacter ch) -> ch instanceof AnimalOverlayDecorator));
+        }
     }
 
     @Override

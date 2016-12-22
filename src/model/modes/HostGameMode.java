@@ -3,6 +3,8 @@ package model.modes;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.sprites.LifeBarSprite;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.characters.decorators.InfectedCharacter;
 import model.characters.general.AICharacter;
@@ -18,6 +20,7 @@ import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.ParasiteNPC;
 import model.objects.general.HiveObject;
+import util.Pair;
 
 public class HostGameMode extends GameMode {
 	
@@ -164,8 +167,21 @@ public class HostGameMode extends GameMode {
 		}
 	}
 
+    @Override
+    public String getSpectatorSubInfo(GameData gameData) {
+        return "Hive in: " + hive.getPosition().getName();
+    }
 
-	@Override
+    @Override
+    public List<Pair<Sprite, String>> getSpectatorContent(Actor whosAsking) {
+        List<Pair<Sprite, String>> content = new ArrayList<>();
+        content.add(new Pair<>(hive.getSprite((Player)whosAsking), hive.isFound()?"(found)":"(hidden)"));
+        content.add(new Pair<>(new LifeBarSprite(hive.getHealth()), "."));
+        return content;
+    }
+
+
+    @Override
 	public String getSummary(GameData gameData) {
 		return (new HostModeStats(gameData, this)).toString();
 	}
@@ -228,8 +244,11 @@ public class HostGameMode extends GameMode {
 	}
 
 
-
-
-
-
+    @Override
+    public String getAntagonistName(Player p) {
+        if (p == hostClient) {
+            return "Host";
+        }
+        return "Infected";
+    }
 }

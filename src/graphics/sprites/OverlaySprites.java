@@ -29,7 +29,7 @@ public class OverlaySprites {
         ArrayList<String> strs = new ArrayList<>();
 
 
-        for (Room r : gameData.getRooms()) {
+        for (Room r : player.getVisibleMap(gameData)) {
 
             ArrayList<Sprite> sprites = new ArrayList<>();
             List<Event> evs = new ArrayList<>();

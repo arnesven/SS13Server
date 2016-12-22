@@ -6,10 +6,12 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.characters.general.GameCharacter;
+import model.characters.general.OperativeCharacter;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.map.rooms.Room;
+import model.modes.OperativesGameMode;
 import util.Pair;
 
 import java.util.ArrayList;
@@ -69,6 +71,9 @@ public class SpectatorCharacter extends GhostCharacter {
         List<Room> l = super.getVisibleMap(gameData);
         try {
             l.add(gameData.getMap().getRoom("Players"));
+            if (gameData.getGameMode() instanceof OperativesGameMode) {
+                l.add(gameData.getMap().getRoom("Nuclear Ship"));
+            }
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
@@ -77,7 +82,7 @@ public class SpectatorCharacter extends GhostCharacter {
 
     @Override
     public String getFullName() {
-        return "Game Mode:" + gameData.getGameMode().getName();
+        return "Game Mode: " + gameData.getGameMode().getName();
     }
 
     @Override
