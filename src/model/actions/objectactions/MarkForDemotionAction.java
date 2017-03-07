@@ -50,8 +50,8 @@ public class MarkForDemotionAction extends Action {
         performingClient.addTolastTurnInfo("You queued " + selected.getBaseName() + " up for demotion.");
         for (Actor a : gameData.getActors()) {
             if (a.getCharacter().checkInstance((GameCharacter gc ) -> gc instanceof HeadOfStaffCharacter)) {
-                performingClient.addTolastTurnInfo(HTMLText.makeText("blue",
-                        "Admin Console: " + performingClient.getPublicName() + " has been queued for demotion. You need to handle the request."));
+                a.addTolastTurnInfo(HTMLText.makeText("blue",
+                        "Admin Console: " + selected.getPublicName() + " has been queued for demotion. You need to handle the request."));
             }
         }
     }

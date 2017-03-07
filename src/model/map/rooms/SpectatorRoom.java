@@ -62,8 +62,12 @@ public class SpectatorRoom extends Room {
                 if (a instanceof Player && !(a.getInnermostCharacter() instanceof SpectatorCharacter)) {
 
                     List<String> strs = new ArrayList<>();
-                    String act = ((Player) a).getNextAction().getDescription(spectator);
-                    strs.add(act);
+                    try {
+                        String act = ((Player) a).getNextAction().getDescription(spectator);
+                        strs.add(act);
+                    } catch (IllegalStateException ise) {
+                        // probably not called this actions doTheAction...
+                    }
 //                    for (String s : ((Player) a).getLastTurnInfo()) {
 //                        if (!s.toLowerCase().contains("you")) {
 //                            strs.add(s);

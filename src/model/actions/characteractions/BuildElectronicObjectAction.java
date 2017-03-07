@@ -11,6 +11,7 @@ import model.items.general.GameItem;
 import model.objects.AITurret;
 import model.objects.ATM;
 import model.objects.StasisPod;
+import model.objects.XeroxMachine;
 import model.objects.consoles.*;
 import model.objects.general.*;
 
@@ -73,6 +74,7 @@ public class BuildElectronicObjectAction extends Action {
 
     public Collection<GameObject> getBuildableObjects(GameData gameData) {
         Set<GameObject> set = new HashSet<>();
+        set.add(new XeroxMachine(null));
         set.add(new AirLockControl(null));
         set.add(new GeneticsConsole(null));
         set.add(new SecurityCameraConsole(null));

@@ -243,7 +243,7 @@ public abstract class GameMode implements Serializable {
         tasks.addTasks(gameData);
 
 		addStartingMessages(gameData);
-		ChristmasBooster.addStuff(gameData);
+		//ChristmasBooster.addStuff(gameData);
 
 	}
 

@@ -26,7 +26,7 @@ public class HealWithMedKitAction extends TargetingAction {
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
 		if (target.isDead()) {
-			performingClient.addTolastTurnInfo(target.getName() + "Is already dead!"); 
+			performingClient.addTolastTurnInfo(target.getName() + " is already dead!");
 			return;
 		}
 		

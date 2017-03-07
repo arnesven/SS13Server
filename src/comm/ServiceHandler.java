@@ -52,6 +52,8 @@ public class ServiceHandler {
         handlers.add(new ChatHandler(gameData));
 
         handlers.add(new SoundHandler(gameData));
+
+        handlers.add(new ServerInfoCommandHandler(gameData, new ServerInfoFactory(name, port)));
 		
 	}
 

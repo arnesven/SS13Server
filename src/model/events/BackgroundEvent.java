@@ -9,6 +9,8 @@ import model.actions.general.SensoryLevel;
  */
 public abstract class BackgroundEvent extends Event {
 
+
+
     @Override
     public String howYouAppear(Actor performingClient) {
         return "";

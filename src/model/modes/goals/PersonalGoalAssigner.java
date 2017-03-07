@@ -5,6 +5,7 @@ import model.GameData;
 import model.Player;
 import model.PlayerSettings;
 import model.characters.crew.*;
+import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.events.BackgroundEvent;
@@ -131,6 +132,7 @@ public class  PersonalGoalAssigner implements Serializable {
                 result.put(gc.getBaseName(), new HashSet<>());
             }
         }
+        result.put((new AICharacter(0, null)).getBaseName(), new HashSet<>());
         return result;
     }
 

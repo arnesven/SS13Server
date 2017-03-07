@@ -48,17 +48,19 @@ public class CounterAttackAction extends Action {
     @Override
     public void lateExecution(GameData gameData, Actor performingClient) {
         if (!aggressors.isEmpty()) {
-            AttackAction atk = new AttackAction(performingClient);
-            List<String> args = new ArrayList<>();
 
-            args.add(MyRandom.sample(aggressors).getPublicName());
-            Weapon w = getWeapon(performingClient);
-            atk.addWithWhat(w);
-
-            args.add(w.getPublicName(performingClient));
-
-            atk.setArguments(args, performingClient);
-            atk.printAndExecute(gameData);
+            // TODO, target was not set, gave a null ptr exception. Was counter attack vs autoturret.
+//            AttackAction atk = new AttackAction(performingClient);
+//            List<String> args = new ArrayList<>();
+//
+//            args.add(MyRandom.sample(aggressors).getPublicName());
+//            Weapon w = getWeapon(performingClient);
+//            atk.addWithWhat(w);
+//
+//            args.add(w.getPublicName(performingClient));
+//
+//            atk.setArguments(args, performingClient);
+//            atk.printAndExecute(gameData);
         }
         if (performingClient.getCharacter().checkInstance((GameCharacter gc ) -> gc instanceof RecordWhoIsAttackingActorDecorator)) {
             performingClient.removeInstance((GameCharacter gc ) -> gc instanceof RecordWhoIsAttackingActorDecorator);

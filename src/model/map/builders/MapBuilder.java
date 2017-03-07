@@ -31,8 +31,8 @@ public abstract class MapBuilder {
 
         GameMap gm = new GameMap(ss13);
 
-        //MapBuilder station = new DonutSS13Builder();
-        MapBuilder station = new ValleyForgeSS13Builder();
+        MapBuilder station = new DonutSS13Builder();
+        //MapBuilder station = new ValleyForgeSS13Builder();
         MapBuilder derelict = new DerelictBuilder();
         MapBuilder otherPlaces = new OtherPlacesBuilder();
 
