@@ -25,7 +25,7 @@ public class PoisonDamage extends DamagerImpl {
 
     @Override
     public boolean isDamageSuccessful(boolean reduced) {
-        return false;
+        return true;
     }
 
     @Override

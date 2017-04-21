@@ -100,7 +100,12 @@ public class BombItem extends HidableItem implements ExplodableItem {
 	
 	public void explode(final GameData gameData, final Actor performingClient) {
         Logger.log(Logger.INTERESTING,
-                    "Exploding bomb.");
+                "Exploding bomb.");
+        if (isExploded()) {
+            Logger.log("But it was already exploded.");
+            return;
+        }
+        
         Room bombRoom = null;
         try {
             bombRoom = gameData.findRoomForItem(this);
@@ -295,9 +300,11 @@ public class BombItem extends HidableItem implements ExplodableItem {
                         e.printStackTrace();
                     }
                     Point2D doorPos = arch.getPossibleNewDoors(bombRoom).get(attatchedToRoomWall);
-                    GameMap.addDoor(attatchedToRoomWall, doorPos.getX(), doorPos.getY());
-                    GameMap.joinRooms(bombRoom, attatchedToRoomWall);
-                    Logger.log(Logger.INTERESTING, "Bomb blew a hole from " + bombRoom.getName() + " to " + attatchedToRoomWall.getName() + "!");
+                    if (doorPos != null) {
+                        GameMap.addDoor(attatchedToRoomWall, doorPos.getX(), doorPos.getY());
+                        GameMap.joinRooms(bombRoom, attatchedToRoomWall);
+                        Logger.log(Logger.INTERESTING, "Bomb blew a hole from " + bombRoom.getName() + " to " + attatchedToRoomWall.getName() + "!");
+                    }
                 }
 
 

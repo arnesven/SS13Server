@@ -20,7 +20,7 @@ public class HiveObject extends BreakableObject {
     @Override
     public Sprite getSprite(Player whosAsking) {
         if (isBroken()) {
-            return new Sprite("hive", "alien.png", 25);
+            return new Sprite("hivebroken", "alien.png", 25);
         }
         return new Sprite("hive", "alien.png", 24);
     }

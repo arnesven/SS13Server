@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class MoneyObjective implements TraitorObjective {
 
-    private static final int TARGET_AMOUNT = 2000;
+    private static final int TARGET_AMOUNT = 1000;
     private final Player traitor;
     private final GameData gameData;
 

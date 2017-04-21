@@ -94,7 +94,11 @@ public class StasisPod extends ElectricalMachinery {
 
     public void eject() {
         Logger.log("Ejecting player from pod!");
-
+        if (person == null) {
+            Logger.log("Person was null!");
+        } else if (person.getPosition() == null) {
+            Logger.log("Persons position was null!");
+        }
         person.getPosition().addActor(person);
         person.removeInstance(new InstanceChecker() {
             @Override

@@ -44,7 +44,7 @@ public abstract class VendingMachine extends ElectricalMachinery {
 
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-        at.add(new Action("Use Vending Machine", SensoryLevel.OPERATE_DEVICE) {
+        at.add(new Action("Use " + getName(), SensoryLevel.OPERATE_DEVICE) {
             @Override
             protected String getVerb(Actor whosAsking) {
                 return "Fiddled with Vending Machine";
