@@ -9,6 +9,7 @@ import model.characters.general.*;
 import model.characters.special.SpectatorCharacter;
 import model.events.Event;
 import model.items.NoSuchThingException;
+import model.map.GameMap;
 import util.HTMLText;
 import util.MyRandom;
 import model.Actor;
@@ -138,10 +139,15 @@ public class ChangelingGameMode extends GameMode {
 
     private boolean allCrewDead(GameData gameData) {
 		for (Actor a : actorsWhoStartedTheGame) {
-			if (a.getCharacter().isCrew() && !a.isDead()) {
-				return false;
-			}
-		}
+            try {
+                if (a.getCharacter().isCrew() && !a.isDead()
+                    && gameData.getMap().getLevelForRoom(a.getPosition()).equals(GameMap.STATION_LEVEL_NAME)) {
+                    return false;
+                }
+            } catch (NoSuchThingException e) {
+
+            }
+        }
 		return true;
 	}
 

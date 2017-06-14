@@ -10,6 +10,7 @@ import model.characters.general.GameCharacter;
 public class TurnInvisible extends Mutation {
     public TurnInvisible() {
         super("Invisible");
+
     }
 
     @Override

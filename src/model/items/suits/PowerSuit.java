@@ -98,7 +98,9 @@ public class PowerSuit extends SuitItem {
 
             if (getActor().getCharacter().getHealth() < healthBefore
                     && damager instanceof ExplosiveDamage) {
-                suitTakeDamage(healthBefore - something.getCharacter().getHealth(), something);
+                if (something != null) {
+                    suitTakeDamage(healthBefore - something.getCharacter().getHealth(), something);
+                }
             }
         }
 

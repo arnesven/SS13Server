@@ -39,6 +39,11 @@ public class MutinyGameMode extends GameMode {
         }
     }
 
+     @Override
+    protected void gameModeSpecificSetupForLateJoiner(Player newPlayer, GameData gameData) {
+        mutineers.add(newPlayer);
+    }
+
     @Override
     protected void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters,
                                     GameData gameData) {

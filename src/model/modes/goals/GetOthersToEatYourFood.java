@@ -66,13 +66,15 @@ public class GetOthersToEatYourFood extends PersonalGoal {
             super.doAtEndOfTurn(gameData);
             Set<FoodItem> toRemove = new HashSet<>();
             for (FoodItem it : trackedFood) {
-                if (it.getHolder().getActor() instanceof Player) {
-                    Player pl = (Player)(it.getHolder().getActor());
-                    if (pl.getNextAction() instanceof ConsumeAction) {
-                        ConsumeAction act = (ConsumeAction)(pl.getNextAction());
-                        if (act.getConsumable() == it && pl != getActor()) {
-                            current++;
-                            toRemove.add(it);
+                if (it.getHolder() != null) {
+                    if (it.getHolder().getActor() instanceof Player) {
+                        Player pl = (Player) (it.getHolder().getActor());
+                        if (pl.getNextAction() instanceof ConsumeAction) {
+                            ConsumeAction act = (ConsumeAction) (pl.getNextAction());
+                            if (act.getConsumable() == it && pl != getActor()) {
+                                current++;
+                                toRemove.add(it);
+                            }
                         }
                     }
                 }
