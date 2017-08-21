@@ -68,15 +68,17 @@ public class ServerInfoFactory {
         int num = 1;
         for (SyndEntry e : entries) {
 
-            buf.append("<li>" +  e.getTitle()
-                    + " <span style='color:gray;font-size:10pt'>(" + e.getUpdatedDate().toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime().format(dtf)
-                    + ")</span>"
-                    + "</li>");
+            if (!e.getTitle().contains("Merge")) {
+                buf.append("<li>" + e.getTitle()
+                        + " <span style='color:gray;font-size:10pt'>(" + e.getUpdatedDate().toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime().format(dtf)
+                        + ")</span>"
+                        + "</li>");
 
-            if (num == MAX_RSS_ITEMS) {
-                break;
+                if (num == MAX_RSS_ITEMS) {
+                    break;
+                }
+                num++;
             }
-            num++;
         }
 
         buf.append("</p></ul>");
