@@ -1,2 +1,2 @@
 The Gui can be found at:
-korturl.com/ss13
+fprg.se/ss13
