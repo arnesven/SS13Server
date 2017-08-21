@@ -63,7 +63,7 @@ public class ServerInfoFactory {
     private static String makeNiceFeed(SyndFeed feed) {
         List<SyndEntry> entries =  feed.getEntries();
         StringBuffer buf = new StringBuffer("<b>Latest Updates:</b><br/><p><ul>");
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:MM");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         int num = 1;
         for (SyndEntry e : entries) {
