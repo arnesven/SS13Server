@@ -20,10 +20,9 @@ import java.util.List;
  * Created by erini02 on 23/12/16.
  */
 public class ServerInfoFactory {
-    private static final int MAX_RSS_ITEMS = 5;
+    private static final int MAX_RSS_ITEMS = 8;
     private final String name;
     private final int port;
-    private String rssFeedString = null;
 
     private String machineName;
 
@@ -41,13 +40,42 @@ public class ServerInfoFactory {
 
 
 
+
+
+    }
+
+    private static String makeNiceFeed() {
+
+
         SyndFeedInput input = new SyndFeedInput();
         URL feedUrl;
         SyndFeed feed = null;
         try {
             feedUrl = new URL("https://gitlab.ida.liu.se/erini02/ss13/commits/master.atom");
             feed = input.build(new XmlReader(feedUrl));
-            rssFeedString = makeNiceFeed(feed);
+
+            List<SyndEntry> entries =  feed.getEntries();
+            StringBuffer buf = new StringBuffer("<b>Latest Updates:</b><br/><p><ul>");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+            int num = 1;
+            for (SyndEntry e : entries) {
+
+                if (!e.getTitle().contains("Merge")) {
+                    buf.append("<li>" + e.getTitle()
+                            + " <span style='color:gray;font-size:10pt'>(" + e.getUpdatedDate().toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime().format(dtf)
+                            + ")</span>"
+                            + "</li>");
+
+                    if (num == MAX_RSS_ITEMS) {
+                        break;
+                    }
+                    num++;
+                }
+            }
+
+            buf.append("</p></ul>");
+            return buf.toString();
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -57,41 +85,17 @@ public class ServerInfoFactory {
             e.printStackTrace();
         }
 
+        return "No RSS info found...";
 
-    }
-
-    private static String makeNiceFeed(SyndFeed feed) {
-        List<SyndEntry> entries =  feed.getEntries();
-        StringBuffer buf = new StringBuffer("<b>Latest Updates:</b><br/><p><ul>");
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-        int num = 1;
-        for (SyndEntry e : entries) {
-
-            if (!e.getTitle().contains("Merge")) {
-                buf.append("<li>" + e.getTitle()
-                        + " <span style='color:gray;font-size:10pt'>(" + e.getUpdatedDate().toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime().format(dtf)
-                        + ")</span>"
-                        + "</li>");
-
-                if (num == MAX_RSS_ITEMS) {
-                    break;
-                }
-                num++;
-            }
-        }
-
-        buf.append("</p></ul>");
-        return buf.toString();
 
     }
 
     public String getInfoHTML() {
         return "<h1>Welcome to SS13</h1>" +
-                "<center><img src=\"http://www.byond.com/games/hubicon/8266.png\"></center>"+
+                "<center><img src=\"https://vignette4.wikia.nocookie.net/simpsonstappedout/images/0/02/Donut.jpg/revision/latest?cb=20141006072944\"></center>"+
                 "<h2>'" + name + "' running on " + machineName +":"+port + "</h2>"+
                 "<b>What the hell is this?</b>" + "" +
                 "<p>Check out the <a target=\"_blank\" href=\"https://gitlab.ida.liu.se/erini02/ss13/wikis/home\">wiki</a>.</p>"+
-                rssFeedString;
+                makeNiceFeed();
     }
 }
