@@ -49,7 +49,7 @@ public class HostModeStats extends GameStats {
 		return "";
 	}
 	
-	private InfectedCharacter getInfectCharacter(GameCharacter character) {
+	public static InfectedCharacter getInfectCharacter(GameCharacter character) {
 		if (character instanceof InfectedCharacter) {
 			return (InfectedCharacter)character;
 		} else if (character instanceof CharacterDecorator) {

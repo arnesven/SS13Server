@@ -10,6 +10,7 @@ import model.characters.decorators.InfectedCharacter;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import util.HTMLText;
+import util.Logger;
 import util.MyRandom;
 import model.Player;
 import model.GameData;
@@ -189,19 +190,34 @@ public class HostGameMode extends GameMode {
     @Override
     public Integer getPointsForPlayer(GameData gameData, Player value) {
         if (value.isDead()) {
+            Logger.log(value.getBaseName() + " is dead and doesn't get a point.");
             return 0;
         }
         if (getGameResultType(gameData) == GameOver.HIVE_BROKEN) {
             if (isAntagonist(value)) {
+                Logger.log(value.getBaseName() + " is host and DOESN'T get a point.");
                 return 0;
             } else {
+                Logger.log(value.getBaseName() + " is crew and gets a point!");
                 return 1;
             }
         }
         // Infected team wins
-        if (isAntagonist(value) || value.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof InfectedCharacter))) {
+        if (isAntagonist(value)) {
+            Logger.log(value.getBaseName() + " is host and gets a point.");
             return 1;
+        } else if (value.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof InfectedCharacter))) {
+            InfectedCharacter infected = HostModeStats.getInfectCharacter(value.getCharacter());
+            Logger.log(infected.getBaseName() + " is infected...");
+            if (gameData.getRound() - infected.getInfectedInRound() > 2) {
+                Logger.log("    gets a point!");
+                return 1;
+            } else {
+                Logger.log("    but was infected too late to get a point!");
+                return 0;
+            }
         } else {
+            Logger.log(value.getBaseName() + " doesn't get a point.");
             return 0;
         }
     }
