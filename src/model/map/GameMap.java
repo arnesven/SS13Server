@@ -354,16 +354,10 @@ public class GameMap implements Serializable {
     }
 
     public Collection<Room> getRoomsForLevel(String level) {
-        List<Room> result = new ArrayList<>();
+        Set<Room> result = new HashSet<>();
         for (Set<Room> set : levels.get(level).values()) {
             result.addAll(set);
         }
-        Collections.sort(result, new Comparator<Room>() {
-            @Override
-            public int compare(Room o1, Room o2) {
-                return o1.getID() - o2.getID();
-            }
-        });
         return result;
     }
 

@@ -12,7 +12,9 @@ import model.objects.general.RemotelyOperateable;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by erini02 on 25/10/16.
@@ -31,10 +33,14 @@ public abstract class RemoteAccessAction extends Action {
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         remotes = getRemotes(gameData);
         ActionOption opt = super.getOptions(gameData, whosAsking);
+        Set<String> alreadyTaken = new HashSet<>();
         for (GameObject o : remotes) {
             for (Action a : getActionsForRemote(gameData, whosAsking, o)) {
-                a.setSense(SensoryLevel.NO_SENSE);
-                opt.addOption(a.getOptions(gameData, whosAsking));
+                if (!alreadyTaken.contains(a.getName())) {
+                    a.setSense(SensoryLevel.NO_SENSE);
+                    opt.addOption(a.getOptions(gameData, whosAsking));
+                    alreadyTaken.add(a.getName());
+                }
             }
 
         }

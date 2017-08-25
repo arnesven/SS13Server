@@ -1,6 +1,7 @@
 package model.characters.decorators;
 
 import model.GameData;
+import model.actions.characteractions.CommitSuicideAction;
 import model.actions.general.Action;
 import model.characters.crew.ArchitectCharacter;
 import model.characters.general.GameCharacter;
@@ -50,6 +51,8 @@ public class GodModeDecorator extends CharacterDecorator {
                 gc2.addCharacterSpecificActions(gameData, at);
             }
         }
+
+        at.add(new CommitSuicideAction());
     }
 
     @Override

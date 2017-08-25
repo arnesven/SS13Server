@@ -101,9 +101,10 @@ public class GameData implements Serializable {
 	public List<Room> getRooms() {
 		Set<Room> set = new HashSet<>();
 		set.addAll(getMap().getRoomsForLevel("ss13"));
-
         set.removeIf((Room r) -> r.getType() == RoomType.derelict ||
-                        r.getType() == RoomType.hidden || r.getType() == RoomType.outer || r.getType() == RoomType.space);
+                        r.getType() == RoomType.hidden ||
+                        r.getType() == RoomType.outer ||
+                        r.getType() == RoomType.space);
 
         List<Room> list = new ArrayList<>();
         list.addAll(set);
@@ -730,11 +731,14 @@ public class GameData implements Serializable {
 
     public List<GameObject> getObjectsForLevel(String level) {
         List<GameObject> list = new ArrayList<>();
+        Logger.log("Getting objects for level: Rooms:");
         for (Room room : getMap().getRoomsForLevel(level)) {
+            Logger.log("     " + room.getName());
             for (GameObject ob : room.getObjects()) {
                 list.add(ob);
             }
         }
+        Logger.log("End getting objects for level");
         return list;
     }
 
