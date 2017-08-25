@@ -26,7 +26,7 @@ public class ATM extends ElectricalMachinery {
 
         this.bank = Bank.getInstance(gameData);
 
-        gameData.addEvent(new PayWagesEvent(gameData, this));
+
     }
 
 

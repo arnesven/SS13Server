@@ -1,6 +1,7 @@
 package model.events;
 
 import model.Actor;
+import model.Bank;
 import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
@@ -13,13 +14,10 @@ import util.Logger;
  * Created by erini02 on 15/11/16.
  */
 public class PayWagesEvent extends Event {
-    private final ATM atm;
+
     private static final int STANDARD_WAGE = 10;
 
-    public PayWagesEvent(GameData gameData, ATM atm) {
-        this.atm = atm;
 
-    }
 
     @Override
     public void apply(GameData gameData) {
@@ -30,18 +28,13 @@ public class PayWagesEvent extends Event {
                 if (adminConsole.canPayAllWages(gameData)) {
                     for (Actor a : gameData.getActors()) {
 
-                        //if (noConsole) {
-                        //    atm.addToAccount(a, STANDARD_WAGE);
-                        //    adminConsole.subtractFromBudget(STANDARD_WAGE);
-                        //} else {
+
                             int wage =  adminConsole.getWageForActor(a);
                             if (wage != 0) {
-                                atm.addToAccount(a, wage);
+                                Bank.getInstance(gameData).addToAccount(a, wage);
                                 adminConsole.subtractFromBudget(wage);
                                 Logger.log(Logger.INTERESTING, a.getBaseName() + "'s wage payed $$" + wage);
                             }
-                        //}
-
                     }
                 } else {
                     try {

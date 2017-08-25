@@ -2,6 +2,7 @@ package model;
 
 import model.characters.general.GameCharacter;
 import model.characters.visitors.VisitorCharacter;
+import model.events.PayWagesEvent;
 import model.items.general.MoneyStack;
 import model.modes.GameMode;
 import util.Logger;
@@ -31,6 +32,7 @@ public class Bank implements Serializable {
             }
         }
         stationMoney = 14000;
+        gameData.addEvent(new PayWagesEvent());
     }
 
     public static Bank getInstance(GameData gameData) {
@@ -65,5 +67,9 @@ public class Bank implements Serializable {
 
     public void addToStationMoney(int cost) {
         stationMoney += cost;
+    }
+
+    public void addToAccount(Actor a, int wage) {
+        accounts.get(a).addTo(wage);
     }
 }
