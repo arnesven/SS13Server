@@ -256,13 +256,14 @@ public class TraitorGameMode extends GameMode {
             Logger.log(value.getBaseName() + " is dead and gets no points.");
             return 0;
         }
-        if (getScore(gameData) > 0) {
+        int score = getScore(gameData);
+        if ( score > 0) {
             if (isAntagonist(value)) {
                 Logger.log(value.getBaseName() + " is losing traitor and gets no points.");
                 return 0;
             }
         }
-        if (getScore(gameData) < 0) {
+        if (score  < 0) {
             if (!isAntagonist(value)) {
                 Logger.log(value.getBaseName() + " is losing crew and gets no points.");
                 return 0;
@@ -390,7 +391,7 @@ public class TraitorGameMode extends GameMode {
 		for (Room r : gameData.getRooms()) {
 			for (GameItem it : r.getItems()) {
 				if (it instanceof Bible) {
-					Logger.log("Found bible in room " + r.getName());
+					//Logger.log("Found bible in room " + r.getName());
 					return (Bible)it;
 				}
 			}
