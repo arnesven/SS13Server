@@ -253,18 +253,22 @@ public class TraitorGameMode extends GameMode {
     @Override
     public Integer getPointsForPlayer(GameData gameData, Player value) {
         if (value.isDead()) {
+            Logger.log(value.getBaseName() + " is dead and gets no points.");
             return 0;
         }
         if (getScore(gameData) > 0) {
             if (isAntagonist(value)) {
+                Logger.log(value.getBaseName() + " is losing traitor and gets no points.");
                 return 0;
             }
         }
         if (getScore(gameData) < 0) {
             if (!isAntagonist(value)) {
+                Logger.log(value.getBaseName() + " is losing crew and gets no points.");
                 return 0;
             }
         }
+        Logger.log(value.getBaseName() + " is winner and gets a point!");
         return 1;
     }
 

@@ -12,6 +12,7 @@ import model.events.NoPressureEverEvent;
 import model.items.NoSuchThingException;
 import model.objects.general.NuclearBomb;
 import util.HTMLText;
+import util.Logger;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -211,18 +212,24 @@ public class OperativesGameMode extends GameMode {
     public Integer getPointsForPlayer(GameData gameData, Player value) {
         if (getGameResult(gameData) == GameOver.SHIP_NUKED) {
             if (isAntagonist(value)) {
+                Logger.log(value.getBaseName() + " was operative and ");
                 if (!value.isDead()) {
+                    Logger.log("     isn't dead => 2 points! ");
                     return 2;
                 } else {
+                    Logger.log("     is dead as a dodo => 1 points ");
                     return 1;
                 }
             } else {
                 return 0;
             }
         } else {
+
             if (!value.isDead()) {
+                Logger.log(value.getBaseName() + " ISNT DEAD => 1 point!");
                 return 1;
             } else {
+                Logger.log(value.getBaseName() + " is pushing up the daisies. 0 pts");
                 return 0;
             }
         }

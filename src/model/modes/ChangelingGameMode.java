@@ -11,6 +11,7 @@ import model.events.Event;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
 import util.HTMLText;
+import util.Logger;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -205,16 +206,20 @@ public class ChangelingGameMode extends GameMode {
     @Override
     public Integer getPointsForPlayer(GameData gameData, Player value) {
         if (value.isDead()) {
+            Logger.log(value.getBaseName() + " is dead, no points.");
             return 0;
         }
         if (getGameResult(gameData) == GameOver.PROTAGONISTS_DEAD) {
             if (isAntagonist(value)) {
+                Logger.log(value.getBaseName() + " is winning changeling! 3 POINTS!");
                 return 3;
             }
         }
         if (isAntagonist(value)) {
+            Logger.log(value.getBaseName() + " is losing changeling. 0 points.");
             return 0;
         }
+        Logger.log(value.getBaseName() + " gets a point.");
         return 1;
     }
 
