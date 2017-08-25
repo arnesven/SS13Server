@@ -6,7 +6,7 @@ import model.Actor;
 /**
  * Created by erini02 on 26/04/16.
  */
-public class LaserSword extends Weapon {
+public class LaserSword extends SlashingWeapon {
     public LaserSword() {
         super("Laser Sword", 0.9, 1.0, false, 0.5, true, 399);
         this.setCriticalChance(0.15);

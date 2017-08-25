@@ -23,6 +23,10 @@ public class ReprogramAction extends Action {
     private RobotNPC selectedBot;
     private String progString;
 
+
+
+    private BotProgram selectedProgram;
+
     public ReprogramAction() {
         super("Load Program", SensoryLevel.OPERATE_DEVICE);
     }
@@ -72,7 +76,7 @@ public class ReprogramAction extends Action {
                 performingClient.addTolastTurnInfo("What? Bot wasn't there! Your action failed.");
                 return;
             }
-            BotProgram selectedProgram = null;
+            selectedProgram = null;
             for (BotProgram bp : gameData.findObjectOfType(BotConsole.class).getPrograms(gameData, performingClient)) {
                 if (progString.equals(bp.getName())) {
                     selectedProgram = bp;
@@ -100,4 +104,7 @@ public class ReprogramAction extends Action {
         progString = args.get(1);
     }
 
+    public BotProgram getSelectedProgram() {
+        return selectedProgram;
+    }
 }

@@ -23,17 +23,22 @@ import java.util.List;
 public class CutOutBrainAction extends TargetingAction {
 
     public CutOutBrainAction(Actor ap) {
-        super("Cut out brain", SensoryLevel.PHYSICAL_ACTIVITY, ap);
+        super("Cut Out Brain", SensoryLevel.PHYSICAL_ACTIVITY, ap);
     }
 
     @Override
     protected void applyTargetingAction(GameData gameData, Actor performingClient, Target target, GameItem item) {
         Actor targetAsActor = (Actor)target;
-        targetAsActor.setCharacter(new BrainRemovedDecorator(targetAsActor.getCharacter()));
-        ((Actor) target).getCharacter().setHealth(0.0);
-        performingClient.addItem(new Brain(targetAsActor, performingClient), target);
+        Brain b = cutOutABrainFrom(performingClient, targetAsActor);
+        performingClient.addItem(b, target);
         performingClient.addTolastTurnInfo("You cut out a brain from " + target.getName());
         targetAsActor.addTolastTurnInfo(performingClient.getBaseName() + " cut out your brain!");
+    }
+
+    public static Brain cutOutABrainFrom(Actor performingClient, Actor targetAsActor) {
+        targetAsActor.setCharacter(new BrainRemovedDecorator(targetAsActor.getCharacter()));
+        targetAsActor.getCharacter().setHealth(0.0);
+        return new Brain(targetAsActor, performingClient);
     }
 
     @Override
@@ -53,7 +58,7 @@ public class CutOutBrainAction extends TargetingAction {
         return targets;
     }
 
-    private boolean canHaveBrainCutOut(Actor t) {
+    public static boolean canHaveBrainCutOut(Actor t) {
         if (hasBrainRemoved(t)) {
             return false;
         }
@@ -75,7 +80,7 @@ public class CutOutBrainAction extends TargetingAction {
         return false;
     }
 
-    private boolean isHuman(Actor t) {
+    private static boolean isHuman(Actor t) {
         return t.getCharacter().checkInstance(new InstanceChecker() {
             @Override
             public boolean checkInstanceOf(GameCharacter ch) {
@@ -89,7 +94,7 @@ public class CutOutBrainAction extends TargetingAction {
         return true;
     }
 
-    private boolean hasBrainRemoved(Actor t) {
+    private static boolean hasBrainRemoved(Actor t) {
         return t.getCharacter().checkInstance(new InstanceChecker() {
             @Override
             public boolean checkInstanceOf(GameCharacter ch) {

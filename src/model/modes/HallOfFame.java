@@ -2,6 +2,7 @@ package model.modes;
 
 import model.GameData;
 import model.Player;
+import model.modes.goals.PersonalGoal;
 import util.Logger;
 
 import java.io.*;
@@ -36,7 +37,8 @@ public class HallOfFame {
             }
             int gainedPoints = gameData.getGameMode().getPointsForPlayer(gameData, entry.getValue());
             if (gainedPoints == 0) {
-                if (gameData.getGameMode().getTasks().getGoalsForActors().get(entry.getValue()).isCompleted(gameData)) {
+                PersonalGoal pg = gameData.getGameMode().getTasks().getGoalsForActors().get(entry.getValue());
+                if (pg != null && pg.isCompleted(gameData)) {
                     Logger.log(entry.getKey() + " scored a point from a personal goal!");
                     gainedPoints = 1;
                 } else {

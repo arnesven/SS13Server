@@ -30,12 +30,23 @@ public class  PersonalGoalAssigner implements Serializable {
 
     private Map<String,Collection<PersonalGoal>> createJobSpecificGoals(GameData gameData) {
         Map<String, Collection<PersonalGoal>> jobSpecificGoals = newEmptyMap();
-        jobSpecificGoals.get(new DetectiveCharacter().getBaseName()).add(new GuessGameModeGoal(MyRandom.nextInt(3)+5));
-        jobSpecificGoals.get(new EngineerCharacter().getBaseName()).add(new KeepPowerOverPct(MyRandom.nextInt(7)*5+50));
-        jobSpecificGoals.get(new ChefCharacter().getBaseName()).add(new GetOthersToEatYourFood(MyRandom.nextInt(3)+2));
+        jobSpecificGoals.get(new CaptainCharacter().getBaseName()).add(new KeepYourCaptainlyness());
+        // Job goal for Head of Staff
+        jobSpecificGoals.get(new SecurityOfficerCharacter().getBaseName()).add(new BatonABaddieGoal(gameData));
         jobSpecificGoals.get(new SecurityOfficerCharacter().getBaseName()).add(new BrigAnAntagonistGoal(gameData));
+        jobSpecificGoals.get(new DetectiveCharacter().getBaseName()).add(new GuessGameModeGoal(MyRandom.nextInt(3)+5));
+        jobSpecificGoals.get(new DoctorCharacter().getBaseName()).add(new HealXTimes(MyRandom.nextInt(3)+3));
         jobSpecificGoals.get(new BiologistCharacter().getBaseName()).add(new PlantXTimesGoal(MyRandom.nextInt(2) + 2));
+        jobSpecificGoals.get(new EngineerCharacter().getBaseName()).add(new KeepPowerOverPct(MyRandom.nextInt(7)*5+50));
         jobSpecificGoals.get(new ScienceOfficerCharacter().getBaseName()).add(new LeaveStationGoal());
+        // Job goal for Geneticist
+        jobSpecificGoals.get(new RoboticistCharacter().getBaseName()).add(new BorgBackToLifeGoal());
+        // Job goal for Architect
+        jobSpecificGoals.get(new ChefCharacter().getBaseName()).add(new GetOthersToEatYourFood(MyRandom.nextInt(3)+2));
+        // Job goal for Bartender
+        // Job goal for Janitor
+        jobSpecificGoals.get(new ChaplainCharacter().getBaseName()).add(new SingXSermonsGoal());
+        // Job goal for Visitor
         return jobSpecificGoals;
     }
 

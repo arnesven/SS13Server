@@ -69,7 +69,7 @@ public class CreativeGameMode extends GameMode {
 
     @Override
     public String getSummary(GameData gameData) {
-        return "Game was creative";
+        return (new CreativeModeStats(gameData, this)).toString();
     }
 
     @Override

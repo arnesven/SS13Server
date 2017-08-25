@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by erini02 on 17/12/16.
  */
-public class ImpalerWeapon extends Weapon {
+public class ImpalerWeapon extends SlashingWeapon {
     public ImpalerWeapon() {
         super("Impaler", 0.95, 1.0, false, 0.0, true, 0);
     }
