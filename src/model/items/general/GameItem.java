@@ -184,6 +184,7 @@ public abstract class GameItem implements Locatable, Serializable {
         return this;
     }
 
+    @Deprecated
     public boolean isUsableFromFloor() {
         return usableFromFloor;
     }

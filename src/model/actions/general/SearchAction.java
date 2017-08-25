@@ -21,7 +21,7 @@ public class SearchAction extends Action {
     private static final double RANDOM_ITEM_CHANCE = 0.05;
 
     public SearchAction() {
-		super("Search", SensoryLevel.PHYSICAL_ACTIVITY);
+		super("Search Room", SensoryLevel.PHYSICAL_ACTIVITY);
 	}
 
 

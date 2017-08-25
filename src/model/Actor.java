@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.*;
 
 import model.actions.general.*;
+import model.actions.general.PickupAndUseAction;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InfectedCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.NoSuchInstanceException;
 import model.items.general.GameItem;
+import model.items.general.HidableItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
@@ -207,25 +209,40 @@ public abstract class Actor  implements ItemHolder, Serializable {
     public ArrayList<Action> getActionList(GameData gameData) {
         ArrayList<Action> at = new ArrayList<Action>();
 
+        ArrayList<Action> generals = new ArrayList<>();
         if (getsActions()) {
-            addBasicActions(at);
+            addBasicActions(generals);
 
             addRoomActions(gameData, at);
 
-            addAttackActions(at);
-            addWatchAction(at);
+            addAttackActions(generals);
+            addWatchAction(generals);
             if (this.hasInventory()) {
                 addManageItemActions(gameData, at);
             }
 
-            getCharacter().addCharacterSpecificActions(gameData, at);
+
+           addCharacterSpecificActions(gameData, at);
 
         }
 
-        groupTargetingActions(at);
+        ActionGroup general = new ActionGroup("General");
+        general.addAll(generals);
+        at.add(general);
+        //groupTargetingActions(at);
         at.add(0, new DoNothingAction());
 
         return at;
+    }
+
+    private void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
+        ArrayList<Action> acts = new ArrayList<>();
+        getCharacter().addCharacterSpecificActions(gameData, acts);
+        if (acts.size() > 0) {
+            ActionGroup abilities = new ActionGroup("Abilities");
+            abilities.addAll(acts);
+            at.add(abilities);
+        }
     }
 
     public boolean getsActions() {
@@ -239,36 +256,39 @@ public abstract class Actor  implements ItemHolder, Serializable {
         return getCharacter().hasInventory();
     }
 
-    private void groupTargetingActions(ArrayList<Action> at) {
-        List<Action> targetingActions = new ArrayList<>();
-        Iterator<Action> it = at.iterator();
-        while (it.hasNext()) {
-            Action a = it.next();
-            if (a instanceof TargetingAction) {
-                targetingActions.add(a);
-                it.remove();
-            }
-        }
-        if (targetingActions.size() > 0) {
-            ActionGroup ag = new ActionGroup("Interaction");
-            ag.addAll(targetingActions);
-            at.add(ag);
-        }
-    }
+//    private void groupTargetingActions(ArrayList<Action> at) {
+//        List<Action> targetingActions = new ArrayList<>();
+//        Iterator<Action> it = at.iterator();
+//        while (it.hasNext()) {
+//            Action a = it.next();
+//            if (a instanceof TargetingAction) {
+//                targetingActions.add(a);
+//                it.remove();
+//            }
+//        }
+//        if (targetingActions.size() > 0) {
+//            ActionGroup ag = new ActionGroup("Interaction");
+//            ag.addAll(targetingActions);
+//            at.add(ag);
+//        }
+//    }
 
     private void addManageItemActions(GameData gameData, ArrayList<Action> at2) {
         ArrayList<Action> at = new ArrayList<>();
         addGiveAction(at);
         addDropActions(gameData, at);
-        addPickUpActions(gameData, at);
+
         addPutOnActions(at);
         addItemActions(gameData, at);
+
         if (at.size() > 0) {
-            ActionGroup manageItems = new ActionGroup("Items");
+            ActionGroup manageItems = new ActionGroup("Inventory");
             manageItems.addAll(at);
             at2.add(manageItems);
         }
     }
+
+
 
     private void addItemActions(GameData gameData, ArrayList<Action> at) {
         Set<String> set = new HashSet<>();
@@ -281,11 +301,11 @@ public abstract class Actor  implements ItemHolder, Serializable {
         }
 
 
-        for (GameItem it : getPosition().getItems()) {
-            if (it.isUsableFromFloor()) {
-                it.addYourActions(gameData, itActions, this);
-            }
-        }
+//        for (GameItem it : getPosition().getItems()) {
+//            if (it.isUsableFromFloor()) {
+//                it.addYourActions(gameData, itActions, this);
+//            }
+//        }
 
         if (itActions.size() > 0) {
             ActionGroup ag = new ActionGroup("Use");
@@ -301,6 +321,14 @@ public abstract class Actor  implements ItemHolder, Serializable {
         }
     }
 
+    private void addPickUpAndUseActions(GameData gameData, ArrayList<Action> at) {
+        PickupAndUseAction pickUpUse = new PickupAndUseAction(this, gameData);
+        if (pickUpUse.getOptions(gameData, this).numberOfSuboptions() > 0) {
+            at.add(pickUpUse);
+        }
+
+    }
+
     private void addDropActions(GameData gameData, ArrayList<Action> at) {
         DropAction dropAction = new DropAction(this);
         if (dropAction.getOptions(gameData, this).numberOfSuboptions() > 0) {
@@ -312,11 +340,16 @@ public abstract class Actor  implements ItemHolder, Serializable {
         ActionGroup roomActions = new ActionGroup("Room");
 
         ArrayList<Action> at2 = new ArrayList<>();
+        if (this.hasInventory()) {
+            addPickUpActions(gameData, at2);
+            addPickUpAndUseActions(gameData, at2);
+        }
         this.getPosition().addActionsFor(gameData, this, at2);
         roomActions.addAll(at2);
         if (at2.size() > 0) {
             at.add(roomActions);
         }
+
 
     }
 

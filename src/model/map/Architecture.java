@@ -182,12 +182,12 @@ public class Architecture {
 
     private Set<Point2D> getPerimiterPointsForRoom(Room r) {
         Set<Point2D> result = new HashSet<>();
-        for (double x = r.getX()+0.5 ; x < r.getX()+r.getWidth() ; x += 1.0) {
+        for (double x = r.getX()+0.5 ; x < r.getX()+r.getWidth() ; x += 0.5) {
             result.add(new Point2D.Double(x, r.getY()));
             result.add(new Point2D.Double(x, r.getY() + r.getHeight()));
         }
 
-        for (double y = r.getY()+0.5 ; y < r.getY()+r.getHeight() ; y += 1.0) {
+        for (double y = r.getY()+0.5 ; y < r.getY()+r.getHeight() ; y += 0.5) {
             result.add(new Point2D.Double(r.getX(), y));
             result.add(new Point2D.Double(r.getX() + r.getWidth(), y));
         }

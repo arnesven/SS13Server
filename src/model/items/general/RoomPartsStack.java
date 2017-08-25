@@ -25,7 +25,10 @@ public class RoomPartsStack extends ItemStack {
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         if (cl.getCharacter().checkInstance(((GameCharacter gc) -> gc instanceof ArchitectCharacter))) {
             if (GameItem.hasAnItem(cl, new Tools())) {
-                at.add(new BuildNewRoomAction());
+                BuildNewRoomAction bnr = new BuildNewRoomAction();
+                if (bnr.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+                    at.add(bnr);
+                }
 
                 Action removeDoor = new RemoveDoorAction(cl);
                 if (removeDoor.getOptions(gameData, cl).numberOfSuboptions() > 0) {
