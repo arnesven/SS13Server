@@ -70,6 +70,10 @@ public class Bank implements Serializable {
     }
 
     public void addToAccount(Actor a, int wage) {
-        accounts.get(a).addTo(wage);
+        MoneyStack s = accounts.get(a);
+        if (s != null) {
+
+            accounts.get(a).addTo(wage);
+        }
     }
 }

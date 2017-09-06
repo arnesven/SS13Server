@@ -478,7 +478,7 @@ public abstract class GameMode implements Serializable {
 	}
 
     private int noOfNPCs() {
-        return Math.min(MyRandom.nextInt(3) + 4, remainingChars.size());
+        return Math.min(MyRandom.nextInt(3) + 5, remainingChars.size());
         //return Math.min(16, remainingChars.size());
     }
 
