@@ -25,7 +25,7 @@ public class SS13ServerMain {
 		int port = 55444;
 		String name = "Donut SS13";
 		ServerSocket listener = null;
-		if (args.length >= 2) {
+		if (args.length >= 2) { // wi fixar
 			name = args[0];
 			port = Integer.parseInt(args[1]);
 		}
