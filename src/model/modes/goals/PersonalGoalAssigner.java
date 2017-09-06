@@ -22,11 +22,14 @@ public class  PersonalGoalAssigner implements Serializable {
     private Map<Actor, PersonalGoal> goalsForActors = new HashMap<>();
     private final Collection<PersonalGoal> generalGoals;
     private final Map<String, Collection<PersonalGoal>> jobSpecificGoals;
+    private final Collection<PersonalGoal> pairGoals;
 
     public PersonalGoalAssigner(GameData gameData) {
         generalGoals = createGeneralGoals();
         jobSpecificGoals = createJobSpecificGoals(gameData);
+        pairGoals = createPairGoals(gameData);
     }
+
 
     private Map<String,Collection<PersonalGoal>> createJobSpecificGoals(GameData gameData) {
         Map<String, Collection<PersonalGoal>> jobSpecificGoals = newEmptyMap();
@@ -73,6 +76,14 @@ public class  PersonalGoalAssigner implements Serializable {
         goals.add(new ThreeRandomSubgoals());
         return goals;
     }
+
+    private Collection<PersonalGoal> createPairGoals(GameData gameData) {
+        Collection<PersonalGoal> goals = new ArrayList<>();
+
+        return goals;
+
+    }
+
 
 
     public void addTasks(GameData gameData) {

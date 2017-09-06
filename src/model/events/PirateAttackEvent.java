@@ -13,6 +13,7 @@ import model.npcs.NPC;
 import model.npcs.PirateCaptainNPC;
 import model.npcs.PirateNPC;
 import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
+import model.npcs.behaviors.AttackNonPiratesBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.MoveTowardsBehavior;
 import model.objects.consoles.AIConsole;
@@ -29,8 +30,8 @@ import java.util.TreeSet;
  */
 public class PirateAttackEvent extends AmbientEvent {
     private static final double occurranceChance = AmbientEvent.everyNGames(5);
+    private static final double CHANCE_OF_PIRATE_CAPTAIN = 0.5;
     private boolean hasHappened = false;
-    private Set<AbstractPirateNPC> piratesOnBarge;
     private int pirateNum = 1;
     private int randAirLock;
     private Room targetRoom;
@@ -75,8 +76,9 @@ public class PirateAttackEvent extends AmbientEvent {
 
         for (int i = totalPirates; i > 0; --i) {
             AbstractPirateNPC pirate;
-            if (i == totalPirates && MyRandom.nextDouble() < 0.5) {
+            if (i == totalPirates && MyRandom.nextDouble() < CHANCE_OF_PIRATE_CAPTAIN) {
                 pirate = new PirateCaptainNPC(pirateShip, targetRoom);
+                pirate.setMoveBehavior(new MeanderingMovement(0.0));
             } else {
                 if (i <= piratesToMoveDirectly) {
                     pirate = new PirateNPC(airLock, pirateNum++, targetRoom);
@@ -135,7 +137,7 @@ public class PirateAttackEvent extends AmbientEvent {
             if (npc instanceof AbstractPirateNPC) {
                 if (MyRandom.nextDouble() < 0.0) {
                     npc.setMoveBehavior(new MoveTowardsBehavior(targetRoom,
-                            new MeanderingMovement(0.1), new AttackAllActorsNotSameClassBehavior()));
+                            new MeanderingMovement(0.1), new AttackNonPiratesBehavior()));
                 }
             }
         }

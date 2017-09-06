@@ -11,7 +11,7 @@ import util.MyRandom;
  * Created by erini02 on 26/04/16.
  */
 public class PirateBehavior implements ActionBehavior {
-    private AttackAllActorsNotSameClassBehavior attackBehave = new AttackAllActorsNotSameClassBehavior();
+    private AttackIfPossibleBehavior attackBehave = new AttackNonPiratesBehavior();
     private int thirst = 1;
 
     @Override
