@@ -572,6 +572,7 @@ public abstract class GameMode implements Serializable {
 		if (MyRandom.nextDouble() < PARASITE_SPAWN_CHANCE) {
 			Room randomRoom = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
 			NPC parasite = new ParasiteNPC(randomRoom);
+            Logger.log("Added parasite in " + randomRoom.getName());
 			gameData.addNPC(parasite);
 			allParasites.add(parasite);
 		}

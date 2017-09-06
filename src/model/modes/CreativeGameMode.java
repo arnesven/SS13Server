@@ -6,6 +6,10 @@ import model.Player;
 import model.characters.decorators.GodModeDecorator;
 import model.characters.general.GameCharacter;
 import model.events.Event;
+import model.items.NoSuchThingException;
+import model.npcs.NPC;
+import model.npcs.ParasiteNPC;
+import util.Logger;
 
 import java.util.ArrayList;
 
@@ -28,6 +32,15 @@ public class CreativeGameMode extends GameMode {
     @Override
     protected void spawnParasites(GameData gameData) {
         // no parasites in this game mode.
+//        NPC parasite = null;
+//        try {
+//            parasite = new ParasiteNPC(gameData.getMap().getRoom("Bridge"));
+//            gameData.addNPC(parasite);
+//            allParasites.add(parasite);
+//        } catch (NoSuchThingException e) {
+//            e.printStackTrace();
+//        }
+
     }
 
     @Override

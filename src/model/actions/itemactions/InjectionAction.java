@@ -8,6 +8,7 @@ import model.actions.general.TargetingAction;
 import model.characters.crew.DoctorCharacter;
 import model.characters.crew.GeneticistCharacter;
 import model.characters.decorators.CharacterDecorator;
+import model.characters.decorators.InfectedCharacter;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.Syringe;
@@ -51,6 +52,12 @@ public class InjectionAction extends TargetingAction {
             CharacterDecorator mutation = s.getMutationDecorator(targetAsActor);
             targetAsActor.setCharacter(mutation);
             s.empty();
+
+            if (s.isInfected()) {
+                targetAsActor.beInfected(performingClient);
+                ((InfectedCharacter)targetAsActor.getCharacter()).setInfectedInRound(gameData.getRound());
+            }
+
         } else {
             ((Actor) target).addTolastTurnInfo("The " + performingClient.getPublicName() + " tried to inject you!");
             performingClient.addTolastTurnInfo("You failed to inject the " + target.getName() + ".");

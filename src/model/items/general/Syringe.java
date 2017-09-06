@@ -11,6 +11,7 @@ import model.actions.general.Action;
 import model.actions.general.TargetingAction;
 import model.actions.itemactions.DrawBloodAction;
 import model.characters.general.GameCharacter;
+import model.characters.general.ParasiteCharacter;
 import model.characters.general.RobotCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.mutations.Mutation;
@@ -23,8 +24,9 @@ public class Syringe extends GameItem {
 	private boolean filled = false;
 	private GameCharacter bloodFrom;
 	private Mutation mutation = null;
-	
-	public Syringe() {
+    private boolean infected;
+
+    public Syringe() {
 		super("Syringe", 0.1, 14);
 	}
 	
@@ -78,6 +80,10 @@ public class Syringe extends GameItem {
 		this.bloodFrom = target.getCharacter().clone();
 		this.filled = true;
 		this.mutation = MutationFactory.getActorMutation(bloodFrom, gameData);
+        this.infected = target.isInfected();
+        if (target.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof ParasiteCharacter)) {
+            this.infected = true;
+        }
 	}
 	
 	public CharacterDecorator getMutationDecorator(Actor forWhom) {
@@ -121,9 +127,7 @@ public class Syringe extends GameItem {
 	}
 
 
-
-	
-
-
-
+    public boolean isInfected() {
+        return infected;
+    }
 }
