@@ -22,6 +22,11 @@ public class AutoCremator extends Weapon {
     }
 
     @Override
+    public GameItem clone() {
+        return new AutoCremator();
+    }
+
+    @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         Action cremation = new CremateAction(this, cl);
         if (cremation.getOptions(gameData, cl).numberOfSuboptions() > 0) {

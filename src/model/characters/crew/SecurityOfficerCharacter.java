@@ -10,6 +10,7 @@ import model.items.general.GameItem;
 import model.items.general.SecurityRadio;
 import model.items.suits.SecOffsHelmet;
 import model.items.suits.SecOffsVest;
+import model.items.weapons.Baton;
 import model.items.weapons.StunBaton;
 
 public class SecurityOfficerCharacter extends CrewCharacter {
@@ -26,6 +27,7 @@ public class SecurityOfficerCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new StunBaton());
+        list.add(new Baton());
 		list.add(new SecurityRadio());
         list.add(new HandCuffs());
         list.add(new SecOffsVest());

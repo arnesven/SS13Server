@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Weapon extends GameItem {
+public abstract class Weapon extends GameItem {
 
 	public static final Weapon FISTS      = new Fist();
-    public static final Weapon TENTACLE   = new Weapon("Tentacle", 0.5, 0.5, false, 0.0, true, 0);
-    public static final Weapon STEEL_PROD = new BluntWeapon("Steel Prod", 1.0, 0, 0.99){};
-    public static final Weapon TEETH      = new Weapon("Teeth", 0.5, 0.5, false, 0.0, false, 0);
+    public static final Weapon TENTACLE   = new Tentacle();
+    public static final Weapon STEEL_PROD = new SteelProd();
+    public static final Weapon TEETH      = new Teeth();
     public static Weapon CLAWS            = new Claws();
     public static Weapon BEAR_CLAWS       = new SlashingWeapon("Bear claws", 0.5, 1.0, false, -1.0, true, 0);
 
@@ -105,11 +105,13 @@ public class Weapon extends GameItem {
     protected void checkOnlyMissHazard(Actor performingClient, GameData gameData) { }
 
 
-    @Override
-	public Weapon clone() {
-		return new Weapon(this.getBaseName(), this.getHitChance(), 
-						  this.getDamage(), this.makesBang, this.getWeight(), getCost());
-	}
+//    @Override
+//	public Weapon clone() {
+//		return new Weapon(this.getBaseName(), this.getHitChance(),
+//						  this.getDamage(), this.makesBang, this.getWeight(), getCost());
+//	}
+
+
 
 	public void setDamage(double d) {
 		this.damage = d;

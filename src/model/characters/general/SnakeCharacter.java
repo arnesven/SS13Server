@@ -7,6 +7,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.characteractions.HissAction;
+import model.items.weapons.Fangs;
 import model.items.weapons.Weapon;
 
 public class SnakeCharacter extends AnimalCharacter {
@@ -15,7 +16,7 @@ public class SnakeCharacter extends AnimalCharacter {
 		super("Snake", startRoom, -3.0);
 	}
 
-	private static Weapon fangs = new Weapon("Fangs", 0.75, 0.5, false, 0.0, 0);
+	private static Weapon fangs = new Fangs();
 
     @Override
     public Sprite getSprite(Actor whosAsking) {

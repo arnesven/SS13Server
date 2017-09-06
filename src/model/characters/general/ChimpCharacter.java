@@ -10,6 +10,7 @@ import model.actions.general.Action;
 import model.actions.general.SpeechAction;
 import model.items.general.GameItem;
 import model.items.foods.Banana;
+import model.items.weapons.Feces;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
 
@@ -46,7 +47,7 @@ public class ChimpCharacter extends AnimalCharacter {
         return new Sprite("chimp", "monkey.png", 0);
     }
 
-    private static Weapon feces = new Weapon("Feces", 1.0, 0.0, false, 0.0, 0);
+    private static Weapon feces = new Feces();
 	
 	@Override
 	public Weapon getDefaultWeapon() {
