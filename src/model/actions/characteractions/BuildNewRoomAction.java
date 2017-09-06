@@ -131,7 +131,7 @@ public class BuildNewRoomAction extends Action {
         double[] doors = new double[]{doorPoint.getX(), doorPoint.getY()};
         Room newRoom = new Room(id, "Annex #" + id, "", (int)roomPlacement.getX(), (int)roomPlacement.getY(),
                                 width, height, neighs, doors, RoomType.hall);
-        newRoom.setMap(gameData.getMap());
+        //newRoom.setMap(gameData.getMap());
         GameMap.joinRooms(newRoom, current);
         String level = null;
         try {

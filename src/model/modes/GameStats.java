@@ -167,6 +167,8 @@ public abstract class GameStats {
                 } else {
                     result += "<i>Killed by ";
                     result += value.getCharacter().getKillerString();
+                    Logger.log("Killer item is " + value.getCharacter().getKillerItem() );
+                    Logger.log("Killer is " + value.getCharacter().getKiller());
                     if (value.getCharacter().getKillerItem() != null) {
                         result += " with " + value.getCharacter().getKillerItem().getFullName(value.getCharacter().getKiller());
                     }

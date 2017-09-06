@@ -24,7 +24,7 @@ public class GiveIfPossibleBehavior implements ActionBehavior {
 			args.add(randomTarget.getName());
 			args.add(itemToGive.getPublicName(npc));
 			give.setArguments(args, npc);
-			Logger.log(npc.getPublicName() + " is giving to " + randomTarget.getName() + "!");
+			Logger.log(npc.getPublicName() + " is giving to " + randomTarget.getName() + ", a " + itemToGive.getBaseName());
 			give.printAndExecute(gameData);
 		}
 		

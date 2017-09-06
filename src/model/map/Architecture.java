@@ -180,7 +180,7 @@ public class Architecture {
         return map;
     }
 
-    private Set<Point2D> getPerimiterPointsForRoom(Room r) {
+    private static Set<Point2D> getPerimiterPointsForRoom(Room r) {
         Set<Point2D> result = new HashSet<>();
         for (double x = r.getX()+0.5 ; x < r.getX()+r.getWidth() ; x += 0.5) {
             result.add(new Point2D.Double(x, r.getY()));
@@ -195,7 +195,7 @@ public class Architecture {
         return result;
     }
 
-    public Point2D getDoorPositionBetween(Room position, Room selected) throws DoorNotFoundBetweenRooms {
+    public static Point2D getDoorPositionBetween(Room position, Room selected) throws DoorNotFoundBetweenRooms {
 
         Set<Point2D> setA = getPerimiterPointsForRoom(position);
         Set<Point2D> setB = getPerimiterPointsForRoom(selected);
@@ -218,13 +218,11 @@ public class Architecture {
         }
 
         throw new DoorNotFoundBetweenRooms();
-
-
     }
 
-    public class NoLegalPlacementForRoom extends Exception {
+    public static class NoLegalPlacementForRoom extends Exception {
     }
 
-    public class DoorNotFoundBetweenRooms extends Throwable {
+    public static class DoorNotFoundBetweenRooms extends Throwable {
     }
 }

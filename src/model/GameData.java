@@ -819,6 +819,11 @@ public class GameData implements Serializable {
     private void setAutoReadyTimer() {
         Timer timer = new Timer();
         GameState currentState = getGameState();
+
+        if (currentState == GameState.PRE_GAME) {
+            return;
+        }
+
         int currentRound = getRound();
         TimerTask task = new TimerTask() {
             @Override

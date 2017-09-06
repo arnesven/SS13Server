@@ -63,6 +63,7 @@ public class GameMap implements Serializable {
             set.add(room);
             levels.get(level).put(area, set);
         }
+        room.setMap(this);
 	}
 
 

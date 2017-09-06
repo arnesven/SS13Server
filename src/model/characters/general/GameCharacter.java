@@ -50,7 +50,7 @@ public abstract class GameCharacter implements Serializable {
 	private SuitItem suit;
 	private Actor killer;
 	private String killString;
-    private GameItem killerItem = null;
+    private GameItem killerItem;
 	private String gender;
     private Sprite nakedSprite;
 
@@ -63,6 +63,7 @@ public abstract class GameCharacter implements Serializable {
 		this.speed = speed;
         gender = MyRandom.randomGender();
         nakedSprite = new NakedHumanSprite(gender.equals("man"));
+        killerItem = null;
 	}
 
 	/**
@@ -127,7 +128,11 @@ public abstract class GameCharacter implements Serializable {
         return success;
     }
 
-    private void doUponDeath(Actor killer, GameItem killItem) {
+    public void doUponDeath(Actor killer, GameItem killItem) {
+        if (killItem != null) {
+            this.killerItem = killItem;
+        }
+
         if (killer instanceof Player && ((Player)killer).getSettings().get(PlayerSettings.AUTO_LOOT_ON_KILL)) {
             transferAllItemsTo(killer);
         } else {
@@ -136,11 +141,8 @@ public abstract class GameCharacter implements Serializable {
         Logger.log(Logger.INTERESTING, getActor().getBaseName() + " just died! ");
         if (killer != null) {
             setKiller(killer);
-            if (killItem != null) {
-                this.killerItem = killItem;
-            }
             if (killerItem != null) {
-                Logger.log(Logger.INTERESTING, "  ... killed by " + killer.getBaseName() + " with " + killItem.getBaseName());
+                Logger.log(Logger.INTERESTING, "  ... killed by " + killer.getBaseName() + " with " + killerItem.getBaseName());
             }
         }
     }
