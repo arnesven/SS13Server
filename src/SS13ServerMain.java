@@ -24,7 +24,7 @@ public class SS13ServerMain {
 		Locale.setDefault(Locale.US);
 		int port = 55444;
 		String name = "Donut SS13";
-		ServerSocket listener = null;
+		ServerSocket listener = null; // Haha
 		if (args.length >= 2) {
 			name = args[0];
 			port = Integer.parseInt(args[1]);
