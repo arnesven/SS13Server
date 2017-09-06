@@ -16,7 +16,7 @@ import model.map.rooms.RoomType;
 import model.modes.GameCouldNotBeStartedException;
 import model.objects.consoles.AIConsole;
 import model.objects.general.ContainerObject;
-import sounds.Sound;
+
 import util.*;
 import model.actions.general.Action;
 import model.actions.general.DoNothingAction;
@@ -60,6 +60,7 @@ public class GameData implements Serializable {
     private boolean runningEvents;
     private ChatMessages chatMessages = new ChatMessages();
     private List<String> lostMessages = new ArrayList<>();
+
 
 
     public GameData() {
@@ -346,8 +347,11 @@ public class GameData implements Serializable {
             forEachCharacter((GameCharacter ch) -> ch.doAtEndOfTurn(this));
 			allClearReady();
 		}
+        setAutoReadyTimer();
 		
 	}
+
+
 
     private void cleanChars() {
         for (Player p : getPlayersAsList()) {
@@ -810,4 +814,45 @@ public class GameData implements Serializable {
                 p2.getInnermostCharacter() instanceof SpectatorCharacter);
         return p;
     }
+
+    private void setAutoReadyTimer() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Logger.log("Timer ran out. The following players are auto-ready:");
+                GameState state = getGameState();
+                for (Player p : getPlayersAsList()) {
+                    if (p.getSettings().get(PlayerSettings.AUTO_READY_ME_IN_60_SECONDS)) {
+                        try {
+                            Logger.log("  " + getClidForPlayer(p));
+                            setPlayerReady(getClidForPlayer(p), true);
+                        } catch (NoSuchThingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                if (state == getGameState()) {
+                    StringBuffer buf = new StringBuffer("Waiting for ");
+                    for (Player p : getPlayersAsList()) {
+                        if (!p.isReady()) {
+                            try {
+                                buf.append(getClidForPlayer(p) + ", ");
+                            } catch (NoSuchThingException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    buf.delete(buf.length()-2, buf.length());
+                    getChat().serverSay(buf.toString());
+                }
+            }
+        };
+
+
+        timer.schedule(task, 60000);
+
+
+    }
+
 }

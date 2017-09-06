@@ -3,10 +3,7 @@ package model;
 import util.MyStrings;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by erini02 on 13/10/16.
@@ -22,6 +19,7 @@ public class PlayerSettings implements Serializable {
     public static final String GIVE_ME_A_TASK              = "Give me a personal goal";
     public static final String PLAY_SOUND_IF_SUPPORTED     = "Play sound if supported";
     public static final String MAKE_ME_A_SPECTATOR         = "Make me a spectator";
+    public static final String AUTO_READY_ME_IN_60_SECONDS = "Auto-ready me after 60 secs";
 
     private HashMap<String, Boolean> settings = new HashMap<>();
 
@@ -35,6 +33,7 @@ public class PlayerSettings implements Serializable {
         settings.put(GIVE_ME_A_TASK, false);
         settings.put(PLAY_SOUND_IF_SUPPORTED, true);
         settings.put(MAKE_ME_A_SPECTATOR, false);
+        settings.put(AUTO_READY_ME_IN_60_SECONDS, true);
     }
 
     public void set(String key, boolean value) {
@@ -50,6 +49,12 @@ public class PlayerSettings implements Serializable {
         for (Map.Entry<String, Boolean> entry : settings.entrySet()) {
             strs.add(entry.getKey() + "," + entry.getValue());
         }
+        strs.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        });
         return MyStrings.join(strs);
     }
 
