@@ -1,5 +1,6 @@
 package model.items.weapons;
 
+import model.items.general.GameItem;
 import sounds.Sound;
 
 /**
@@ -18,5 +19,10 @@ public class Fist extends Weapon {
     @Override
     public Sound getRealSound() {
         return new Sound("http://www.ida.liu.se/~erini02/ss13/punch1.ogg");
+    }
+
+    @Override
+    public GameItem clone() {
+        return new Fist();
     }
 }

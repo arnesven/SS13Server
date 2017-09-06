@@ -120,10 +120,10 @@ public class BombItem extends HidableItem implements ExplodableItem {
         Actor currentCarrier = null;
         try {
             currentCarrier = gameData.findActorForItem(this);
-            Logger.log("Removing bomb from carrier");
+            Logger.log(Logger.INTERESTING, "Removing bomb from carrier");
             currentCarrier.getItems().remove(this);
 
-            currentCarrier.getCharacter().beExposedTo(performingClient, new ExplosiveDamage(3.0));
+            currentCarrier.getCharacter().beExposedTo(performingClient, new ExplosiveDamage(3.0, this));
             bombRoom = currentCarrier.getPosition();
         } catch (NoSuchThingException e) {
             if (bombRoom == null) {
@@ -147,14 +147,14 @@ public class BombItem extends HidableItem implements ExplodableItem {
         for (Actor a : bombRoom.getActors()) {
 			if (a != currentCarrier) {
 				a.getCharacter().beExposedTo(performingClient, 
-						new ExplosiveDamage(getExplosiveDamage()));
+						new ExplosiveDamage(getExplosiveDamage(), this));
 			}
 		}
 
 		for (Object o : bombRoom.getObjects()) {
 			if (o instanceof Target) {
 				((Target)o).beExposedTo(performingClient, 
-						new ExplosiveDamage(getExplosiveDamage()));
+						new ExplosiveDamage(getExplosiveDamage(), this));
 			}
 		}
         exploded = true;
@@ -220,7 +220,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
 
         if (chain > 1) {
             for (Actor a : surrounding) {
-                a.getCharacter().beExposedTo(performingClient, new ExplosiveDamage(((double) chain-1) / getExplosiveDamage()));
+                a.getCharacter().beExposedTo(performingClient, new ExplosiveDamage(((double) chain-1) / getExplosiveDamage(), this));
             }
         }
 
@@ -279,7 +279,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
                         concealedWithin.getBaseName() + " with a bomb in it.");
                 currentCarrier.getItems().remove(concealedWithin);
                 currentCarrier.getCharacter().beExposedTo(bomber,
-                        new ExplosiveDamage(1.0));
+                        new ExplosiveDamage(1.0, this));
             } else if (bombRoom.getItems().contains(concealedWithin)) {
                 bombRoom.getItems().remove(concealedWithin);
             }

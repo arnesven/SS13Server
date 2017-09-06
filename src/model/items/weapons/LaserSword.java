@@ -2,6 +2,7 @@ package model.items.weapons;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.items.general.GameItem;
 
 /**
  * Created by erini02 on 26/04/16.
@@ -15,6 +16,11 @@ public class LaserSword extends SlashingWeapon {
     @Override
     public Sprite getHandHeldSprite() {
         return new Sprite("laserswordinhand", "items_righthand.png", 37, 37);
+    }
+
+    @Override
+    public GameItem clone() {
+        return new LaserSword();
     }
 
     @Override

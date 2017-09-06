@@ -23,7 +23,7 @@ public abstract class Weapon extends GameItem {
     public static final Weapon STEEL_PROD = new SteelProd();
     public static final Weapon TEETH      = new Teeth();
     public static Weapon CLAWS            = new Claws();
-    public static Weapon BEAR_CLAWS       = new SlashingWeapon("Bear claws", 0.5, 1.0, false, -1.0, true, 0);
+    public static Weapon BEAR_CLAWS       = new BearClaws();
 
     private double criticalChance = 0.05;
     private double hitChance;

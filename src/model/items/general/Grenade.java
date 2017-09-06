@@ -51,7 +51,12 @@ public class Grenade extends GameItem implements Damager, ExplodableItem {
         }
     }
 
-	public double getDamage() {
+    @Override
+    public GameItem getOriginItem() {
+        return this;
+    }
+
+    public double getDamage() {
 		return 1.0;
 	}
 

@@ -28,6 +28,11 @@ public class BullWhip extends Weapon {
     }
 
     @Override
+    public GameItem clone() {
+        return new BullWhip();
+    }
+
+    @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
         if (cl.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof AdventurerCharacter)) {

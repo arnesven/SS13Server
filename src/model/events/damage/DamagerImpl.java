@@ -3,6 +3,7 @@ package model.events.damage;
 import model.Actor;
 import model.GameData;
 import model.Target;
+import model.items.general.GameItem;
 import model.objects.general.BreakableObject;
 
 /**
@@ -19,5 +20,10 @@ public abstract class DamagerImpl implements Damager {
         } else {
             target.addToHealth(-getDamage());
         }
+    }
+
+    @Override
+    public GameItem getOriginItem() {
+        return null;
     }
 }

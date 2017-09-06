@@ -10,7 +10,7 @@ import util.MyRandom;
 /**
  * Created by erini02 on 25/08/17.
  */
-public class SlashingWeapon extends Weapon {
+public abstract class SlashingWeapon extends Weapon {
     public SlashingWeapon(String string, double hitChance, double damage, boolean bang, double weight, boolean attackOfOp, int cost) {
         super(string, hitChance, damage, bang, weight, attackOfOp, cost);
     }

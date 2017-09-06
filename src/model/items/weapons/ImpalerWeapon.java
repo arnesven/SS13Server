@@ -6,6 +6,7 @@ import model.Player;
 import model.Target;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.items.general.GameItem;
 import model.map.rooms.Room;
 import sounds.Sound;
 
@@ -24,6 +25,11 @@ public class ImpalerWeapon extends SlashingWeapon {
     protected void usedOnBy(Target target, Actor performingClient, GameData gameData) {
         super.usedOnBy(target, performingClient, gameData);
         target.getPosition().addToActionsHappened(new ScreamAction());
+    }
+
+    @Override
+    public GameItem clone() {
+        return new ImpalerWeapon();
     }
 
     private class ScreamAction extends Action {

@@ -50,6 +50,7 @@ public abstract class GameCharacter implements Serializable {
 	private SuitItem suit;
 	private Actor killer;
 	private String killString;
+    private GameItem killerItem = null;
 	private String gender;
     private Sprite nakedSprite;
 
@@ -116,7 +117,7 @@ public abstract class GameCharacter implements Serializable {
 
 			if (this.isDead() && !wasDeadAlready) { // you died! Too bad!
 				frag = true;
-                getActor().getCharacter().doUponDeath(performingClient);
+                getActor().getCharacter().doUponDeath(performingClient, weapon);
 			}
 
         }
@@ -126,14 +127,21 @@ public abstract class GameCharacter implements Serializable {
         return success;
     }
 
-    public void doUponDeath(Actor killer) {
+    private void doUponDeath(Actor killer, GameItem killItem) {
         if (killer instanceof Player && ((Player)killer).getSettings().get(PlayerSettings.AUTO_LOOT_ON_KILL)) {
             transferAllItemsTo(killer);
         } else {
             dropAllItems();
         }
+        Logger.log(Logger.INTERESTING, getActor().getBaseName() + " just died! ");
         if (killer != null) {
             setKiller(killer);
+            if (killItem != null) {
+                this.killerItem = killItem;
+            }
+            if (killerItem != null) {
+                Logger.log(Logger.INTERESTING, "  ... killed by " + killer.getBaseName() + " with " + killItem.getBaseName());
+            }
         }
     }
 
@@ -240,7 +248,7 @@ public abstract class GameCharacter implements Serializable {
 			boolean wasDeadAlready = isDead();
             damager.doDamageOnMe(getActor().getAsTarget());
 			if (this.isDead() && !wasDeadAlready) { // you died! Too bad!
-                getActor().getCharacter().doUponDeath(something);
+                getActor().getCharacter().doUponDeath(something, damager.getOriginItem());
                 if (something == null) {
                     killString = damager.getName();
                 }
@@ -579,8 +587,13 @@ public abstract class GameCharacter implements Serializable {
         selectedJob.items = this.items;
         //selectedJob.suit = this.suit;
         selectedJob.killer = this.killer;
+        selectedJob.killerItem = this.killerItem;
         selectedJob.killString = this.killString;
         selectedJob.gender = this.gender;
         selectedJob.nakedSprite = this.nakedSprite;
+    }
+
+    public GameItem getKillerItem() {
+        return killerItem;
     }
 }

@@ -1,11 +1,20 @@
 package model.events.damage;
 
+import model.items.foods.ExplodingFood;
+import model.items.general.GameItem;
+
 public class ExplosiveDamage extends DamagerImpl {
 
-	private double damage;
+    private GameItem item = null;
+    private double damage;
 
-	public ExplosiveDamage(double d) {
-		this.damage = d;
+    public ExplosiveDamage(double d) {
+        this.damage = d;
+    }
+
+	public ExplosiveDamage(double d, GameItem item) {
+        this(d);
+        this.item = item;
 	}
 
 	@Override
@@ -28,4 +37,8 @@ public class ExplosiveDamage extends DamagerImpl {
 		return "Spontaneous explosion";
 	}
 
+    @Override
+    public GameItem getOriginItem() {
+        return item;
+    }
 }

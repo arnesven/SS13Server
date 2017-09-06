@@ -45,6 +45,11 @@ public class MolotovCocktail extends GameItem implements Damager, ExplodableItem
     }
 
     @Override
+    public GameItem getOriginItem() {
+        return this;
+    }
+
+    @Override
     public GameItem getAsItem() {
         return this;
     }

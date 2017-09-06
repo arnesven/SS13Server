@@ -313,10 +313,10 @@ public abstract class CharacterDecorator extends GameCharacter {
         return innerChar.doDamageOnSelfWith(weapon);
     }
 
-    @Override
-    public void doUponDeath(Actor killer) {
-        innerChar.doUponDeath(killer);
-    }
+//    @Override
+//    public void doUponDeath(Actor killer) {
+//        innerChar.doUponDeath(killer);
+//    }
 
     @Override
     public boolean wasCriticalHit(Weapon weapon) {
@@ -406,5 +406,10 @@ public abstract class CharacterDecorator extends GameCharacter {
             // next char is the REAL character
             this.innerChar = selectedJob;
         }
+    }
+
+    @Override
+    public GameItem getKillerItem() {
+        return innerChar.getKillerItem();
     }
 }
