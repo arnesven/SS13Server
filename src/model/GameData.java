@@ -348,7 +348,7 @@ public class GameData implements Serializable {
             forEachCharacter((GameCharacter ch) -> ch.doAtEndOfTurn(this));
 			allClearReady();
 		}
-        setAutoReadyTimer();
+        //setAutoReadyTimer();
 		
 	}
 
@@ -816,56 +816,56 @@ public class GameData implements Serializable {
         return p;
     }
 
-    private void setAutoReadyTimer() {
-        Timer timer = new Timer();
-        GameState currentState = getGameState();
-
-        if (currentState == GameState.PRE_GAME) {
-            return;
-        }
-
-        int currentRound = getRound();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                if (currentState == getGameState() && currentRound == getRound()) {
-                    Logger.log("Timer ran out. The following players are auto-ready:");
-                    GameState state = getGameState();
-                    for (Player p : getPlayersAsList()) {
-                        if (p.getSettings().get(PlayerSettings.AUTO_READY_ME_IN_60_SECONDS)) {
-                            try {
-                                Logger.log("  " + getClidForPlayer(p));
-                                setPlayerReady(getClidForPlayer(p), true);
-                            } catch (NoSuchThingException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                    if (state == getGameState()) {
-                        StringBuffer buf = new StringBuffer("Waiting for ");
-                        for (Player p : getPlayersAsList()) {
-                            if (!p.isReady()) {
-                                try {
-                                    buf.append(getClidForPlayer(p) + ", ");
-                                } catch (NoSuchThingException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                        buf.delete(buf.length() - 2, buf.length());
-                        getChat().serverSay(buf.toString());
-
-                    }
-                } else {
-                    Logger.log("Old timer ran out, ignoring it.");
-                }
-                timer.cancel();
-            }
-        };
-
-        timer.schedule(task, 60000);
-
-
-    }
+//    private void setAutoReadyTimer() {
+//        Timer timer = new Timer();
+//        GameState currentState = getGameState();
+//
+//        if (currentState == GameState.PRE_GAME) {
+//            return;
+//        }
+//
+//        int currentRound = getRound();
+//        TimerTask task = new TimerTask() {
+//            @Override
+//            public void run() {
+//                if (currentState == getGameState() && currentRound == getRound()) {
+//                    Logger.log("Timer ran out. The following players are auto-ready:");
+//                    GameState state = getGameState();
+//                    for (Player p : getPlayersAsList()) {
+//                        if (p.getSettings().get(PlayerSettings.AUTO_READY_ME_IN_60_SECONDS)) {
+//                            try {
+//                                Logger.log("  " + getClidForPlayer(p));
+//                                setPlayerReady(getClidForPlayer(p), true);
+//                            } catch (NoSuchThingException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                    if (state == getGameState()) {
+//                        StringBuffer buf = new StringBuffer("Waiting for ");
+//                        for (Player p : getPlayersAsList()) {
+//                            if (!p.isReady()) {
+//                                try {
+//                                    buf.append(getClidForPlayer(p) + ", ");
+//                                } catch (NoSuchThingException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        }
+//                        buf.delete(buf.length() - 2, buf.length());
+//                        getChat().serverSay(buf.toString());
+//
+//                    }
+//                } else {
+//                    Logger.log("Old timer ran out, ignoring it.");
+//                }
+//                timer.cancel();
+//            }
+//        };
+//
+//        timer.schedule(task, 60000);
+//
+//
+//    }
 
 }

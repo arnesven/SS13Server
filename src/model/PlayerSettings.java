@@ -33,7 +33,7 @@ public class PlayerSettings implements Serializable {
         settings.put(GIVE_ME_A_TASK, false);
         settings.put(PLAY_SOUND_IF_SUPPORTED, true);
         settings.put(MAKE_ME_A_SPECTATOR, false);
-        settings.put(AUTO_READY_ME_IN_60_SECONDS, true);
+        //settings.put(AUTO_READY_ME_IN_60_SECONDS, true);
     }
 
     public void set(String key, boolean value) {

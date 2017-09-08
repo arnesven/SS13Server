@@ -6,6 +6,7 @@ import model.Target;
 import model.actions.general.AttackAction;
 import model.npcs.AbstractPirateNPC;
 import model.npcs.NPC;
+import model.objects.general.GameObject;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -21,17 +22,19 @@ public class AttackNonPiratesBehavior extends AttackIfPossibleBehavior {
         List<Target> targets = new ArrayList<Target>();
         targets.addAll(atk.getTargets());
         Logger.log("Finding targets to exclude in AttackNonPiratesBehavior for " + npc.getName());
-        for (Target t : atk.getTargets()) {
-            if (t instanceof Actor) {
-                Actor targetAsActor = (Actor)t;
-                if (targetAsActor instanceof AbstractPirateNPC) {
-                    Logger.log(" -> Removed a pirate.");
-                    targets.remove(t);
-                }
-            } else {
-                targets.remove(t);
-            }
-        }
+//        for (Target t : atk.getTargets()) {
+//            if (t instanceof Actor) {
+//                Actor targetAsActor = (Actor)t;
+//                if (targetAsActor instanceof AbstractPirateNPC) {
+//                    Logger.log(" -> Removed a pirate.");
+//                    targets.remove(t);
+//                }
+//            } else {
+//                targets.remove(t);
+//            }
+//        }
+        targets.removeIf((Target t) -> (t.getName().contains("Pirate")));
+        targets.removeIf((Target t) -> !(t instanceof Actor));
 
         return targets;
     }
