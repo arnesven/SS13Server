@@ -1,6 +1,7 @@
 package model.actions.general;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Actor;
@@ -134,5 +135,25 @@ public abstract class Action extends Experienceable implements Serializable {
 
     public Actor getPerformer() {
         return performer;
+    }
+
+    public void uniquefy(GameData gameData, Actor a) {
+        getOptions(gameData, a).uniquefy();
+    }
+
+    public static void uniquefiyList(GameData gameData, List<Action> at, Actor act) {
+            for (Action a : at) {
+                int dup = 2;
+                for (Action b : at) {
+                    if (a != b && a.getName().equals(b.getName())) {
+                        b.setName(b.getName() + " [" + (dup++) + "]");
+                    }
+                }
+                if (dup != 2) {
+                    a.setName(a.getName() + " [1]");
+                }
+
+                a.uniquefy(gameData, act);
+            }
     }
 }

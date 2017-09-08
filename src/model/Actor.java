@@ -232,8 +232,12 @@ public abstract class Actor  implements ItemHolder, Serializable {
         //groupTargetingActions(at);
         at.add(0, new DoNothingAction());
 
+        Action.uniquefiyList(gameData, at, this);
+
         return at;
     }
+
+
 
     private void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         ArrayList<Action> acts = new ArrayList<>();
@@ -291,15 +295,17 @@ public abstract class Actor  implements ItemHolder, Serializable {
 
 
     private void addItemActions(GameData gameData, ArrayList<Action> at) {
-        Set<String> set = new HashSet<>();
         ArrayList<Action> itActions = new ArrayList<>();
         for (GameItem it : getItems()) {
-            if (!set.contains(it.getFullName(this))) {
-                it.addYourActions(gameData, itActions, this);
-                set.add(it.getFullName(this));
-            }
+            it.addYourActions(gameData, itActions, this);
         }
 
+        itActions.sort(new Comparator<Action>() {
+            @Override
+            public int compare(Action o1, Action o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
 
 //        for (GameItem it : getPosition().getItems()) {
 //            if (it.isUsableFromFloor()) {

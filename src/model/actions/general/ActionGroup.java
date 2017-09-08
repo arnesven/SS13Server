@@ -45,4 +45,8 @@ public class ActionGroup extends Action {
 		return actions;
 	}
 
+    @Override
+    public void uniquefy(GameData gameData, Actor act) {
+       Action.uniquefiyList(gameData, actions, act);
+    }
 }

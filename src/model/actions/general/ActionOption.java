@@ -56,4 +56,19 @@ public class ActionOption {
     public ActionOption getRandomOption() {
         return MyRandom.sample(suboptions);
     }
+
+    public void uniquefy() {
+        for (ActionOption a : suboptions) {
+            int dup = 2;
+            for (ActionOption b : suboptions) {
+                if (a != b && a.getName().equals(b.getName())) {
+                    b.setName(b.getName() + "[" + (dup++) + "]");
+                }
+            }
+            if (dup != 2) {
+                a.setName(a.getName() + " [1]");
+            }
+            a.uniquefy();
+        }
+    }
 }
