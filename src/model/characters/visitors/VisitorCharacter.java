@@ -50,6 +50,7 @@ public abstract class VisitorCharacter extends CrewCharacter {
         chars.add(new GeishaCharacter());
         chars.add(new LawyerCharacter());
         chars.add(new AdventurerCharacter());
+        chars.add(new BirdManCharacter());
         return chars;
     }
 
