@@ -33,6 +33,7 @@ public class MutationFactory {
         mutes.add(new FartingMutation());
 		mutes.add(new ShootElectricity());
         mutes.add(new TurnInvisible());
+        mutes.add(new PoisonMutation());
 		return mutes;
 	}
 	

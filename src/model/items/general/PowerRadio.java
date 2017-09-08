@@ -59,7 +59,9 @@ public class PowerRadio extends Radio {
     @Override
     public void gotAddedToRoom(Actor cameFrom, Room to) {
         super.gotAddedToRoom(cameFrom, to);
-        removeDecorator(cameFrom);
+        if (cameFrom != null) {
+            removeDecorator(cameFrom);
+        }
     }
 
     private void removeDecorator(Actor from) {

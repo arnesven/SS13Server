@@ -44,6 +44,10 @@ public class Sprite implements Serializable {
         }
     }
 
+    public Sprite(Sprite other, String suffix) {
+        this(other.name + suffix, other.mapPath, other.getColumn(), other.getRow(), other.getWidth(), other.getHeight(), other.getLayers());
+    }
+
     protected List<Sprite> getLayers() {
         return layers;
     }

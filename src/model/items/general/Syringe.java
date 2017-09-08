@@ -75,8 +75,12 @@ public class Syringe extends GameItem {
 	public boolean isFilled() {
 		return filled;
 	}
-	
-	public void setBloodFrom(Actor target, GameData gameData) {
+
+    public void setFilled(boolean filled) {
+        this.filled = filled;
+    }
+
+    public void setBloodFrom(Actor target, GameData gameData) {
 		this.bloodFrom = target.getCharacter().clone();
 		this.filled = true;
 		this.mutation = MutationFactory.getActorMutation(bloodFrom, gameData);

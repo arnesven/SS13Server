@@ -62,7 +62,7 @@ public class RedMushroom extends Mushroom {
 
         @Override
         protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
-            eatenBy.setCharacter(new PoisonedDecorator(eatenBy.getCharacter()));
+            eatenBy.setCharacter(new PoisonedDecorator(eatenBy.getCharacter(), null));
         }
     }
 }

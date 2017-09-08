@@ -39,7 +39,7 @@ public class PDA extends UplinkItem {
 	public static List<GameItem> getOrderableItems() {
 		List<GameItem> items = new ArrayList<>();
 		items.add(new LaserPistol());
-		items.add(new OrderBundle(4, new Grenade()));
+		items.add(new OrderBundle(3, new Grenade()));
 		items.add(new DummyHivePlacer());
 		items.add(new TimeBomb());
 		items.add(new RemoteBomb());
@@ -48,6 +48,7 @@ public class PDA extends UplinkItem {
 		items.add(new LarcenyGloves());
         items.add(new SuperSuit());
         items.add(new EMAG());
+        items.add(new PoisonSyringe());
 		return items;
 	}
 
