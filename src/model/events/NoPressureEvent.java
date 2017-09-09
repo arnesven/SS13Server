@@ -39,7 +39,6 @@ public class NoPressureEvent extends Event {
     }
 
     private void removeFires(Room roomRef2) {
-		// TODO Auto-generated method stub
 		for (Iterator<Event> it = roomRef2.getEvents().iterator(); it.hasNext(); ) {
 			Event e = it.next();
 			if (e instanceof ElectricalFire) {

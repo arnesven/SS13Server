@@ -29,6 +29,11 @@ public class BirdManSuit extends OutFit {
         return makeOutfit("birdmansuit", "uniform2.png", 01, 11);
     }
 
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("birdmansuitfloor", "uniforms.png", 7, 4);
+    }
+
     public static Sprite makeOutfit(String outfitname, String map, int i, int i1) {
         List<Sprite> list = new ArrayList<>();
         list.add(new Sprite("birdmanshoes", "feet.png", 10));

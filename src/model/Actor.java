@@ -284,7 +284,7 @@ public abstract class Actor  implements ItemHolder, Serializable {
         addGiveAction(at);
         addDropActions(gameData, at);
 
-        addPutOnActions(at);
+
         addItemActions(gameData, at);
 
         if (at.size() > 0) {
@@ -351,6 +351,7 @@ public abstract class Actor  implements ItemHolder, Serializable {
         if (this.hasInventory()) {
             addPickUpActions(gameData, at2);
             addPickUpAndUseActions(gameData, at2);
+            addPutOnActions(at2);
         }
         this.getPosition().addActionsFor(gameData, this, at2);
         roomActions.addAll(at2);

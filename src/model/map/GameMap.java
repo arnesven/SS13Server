@@ -38,7 +38,7 @@ public class GameMap implements Serializable {
 
     public GameMap(String firstLevelName) {
         createLevel(firstLevelName);
-        SS13AreaNames = new String[]{"aft", "port", "front", "starboard", "central"};
+        SS13AreaNames = new String[]{"aft", "port", "front", "starboard", "center"};
 
         directions.clear();
         directions.put("Upwards",   new Integer[]{ 0,  0,  1});
@@ -49,6 +49,9 @@ public class GameMap implements Serializable {
         directions.put("Backwards", new Integer[]{ 0, -1,  0});
     }
 
+    public static String[] getSS13AreaNames() {
+        return SS13AreaNames;
+    }
 
     public void addRoom(Room room, String level, String area) {
         if (!levels.containsKey(level)) {

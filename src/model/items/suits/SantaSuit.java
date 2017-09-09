@@ -30,6 +30,11 @@ public class SantaSuit extends SuitItem {
     }
 
     @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("santassuit", "uniforms.png", 5, 5);
+    }
+
+    @Override
     public void beingPutOn(Actor actionPerformer) {
         actionPerformer.setCharacter(new NameChangeDecorator(actionPerformer.getCharacter(), "Father Christmas"));
     }

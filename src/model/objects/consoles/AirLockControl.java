@@ -5,19 +5,35 @@ import java.util.ArrayList;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
+import model.actions.objectactions.ApproveVentStation;
+import model.items.general.GameItem;
+import model.items.general.KeyCard;
 import model.map.rooms.Room;
 import model.actions.objectactions.AirlockOverrideAction;
 
 public class AirLockControl extends Console {
 
-	public AirLockControl(Room pos) {
+    private int ventApprovedRound;
+
+    public AirLockControl(Room pos) {
 		super("Airlock Override", pos);
+        ventApprovedRound = 0;
 	}
 
-	@Override
+    public void setVentApprovedRound(int ventApprovedRound) {
+        this.ventApprovedRound = ventApprovedRound;
+    }
+
+    public int getVentApprovedRound() {
+        return ventApprovedRound;
+    }
+
+    @Override
 	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(new AirlockOverrideAction(gameData));
-        //at.add(new ApproveVentStation());
+        if (GameItem.hasAnItemOfClass(cl, KeyCard.class)) {
+            at.add(new ApproveVentStation(this));
+        }
 	}
 	
 

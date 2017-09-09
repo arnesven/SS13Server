@@ -5,13 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 import graphics.sprites.Sprite;
+import model.characters.general.*;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
-import model.characters.general.CatCharacter;
-import model.characters.general.GameCharacter;
-import model.characters.general.ParasiteCharacter;
 import model.characters.decorators.AlterMovement;
 import model.characters.decorators.InstanceChecker;
 import model.map.rooms.Room;
@@ -43,12 +41,9 @@ public class BananaPeelEvent extends Event {
 	}
 
 	private boolean canSlip(Actor c) {
-		GameCharacter a = c.getCharacter(); //TODO: AI should not slip!
-		if (!(a instanceof CatCharacter) && 
-				!(a instanceof ParasiteCharacter)) {
-			return !c.isDead();
-		}
-		return false;
+        return !(c.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof ParasiteCharacter || gc instanceof AICharacter))
+                && !c.isDead();
+
 	}
 
 	private void slipsOnPeel(Actor victim, GameData gameData) {
