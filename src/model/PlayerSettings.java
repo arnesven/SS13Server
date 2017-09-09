@@ -30,7 +30,7 @@ public class PlayerSettings implements Serializable {
         settings.put(ALWAYS_REFUSE_GIFTS, false);
         settings.put(CURRENT_ROOM_STUFF_IN_MAP, true);
         settings.put(MAKE_ME_AI_IF_ABLE, false);
-        settings.put(GIVE_ME_A_TASK, false);
+        settings.put(GIVE_ME_A_TASK, true);
         settings.put(PLAY_SOUND_IF_SUPPORTED, true);
         settings.put(MAKE_ME_A_SPECTATOR, false);
         //settings.put(AUTO_READY_ME_IN_60_SECONDS, true);

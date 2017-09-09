@@ -14,9 +14,10 @@ public class ChemicalDispenser extends DispenserObject {
 		super(name, pos);
 		this.addItem(Chemicals.createRandomChemicals());
 		this.addItem(Chemicals.createRandomChemicals());
-        this.addItem(new FireSuit());
+        this.addItem(Chemicals.createRandomChemicals());
+        this.addItem(Chemicals.createRandomChemicals());
         this.addItem(new FireExtinguisher());
-        this.addItem(new Tools());
+
 	}
 
     @Override

@@ -1,5 +1,6 @@
 package model.map.rooms;
 
+import model.objects.OxyMaskDispenser;
 import model.objects.general.AirlockPanel;
 
 public class AirLockRoom extends Room {
@@ -10,6 +11,7 @@ public class AirLockRoom extends Room {
 				x, y, width, height, neighbors, doors, RoomType.airlock);
 		
 		this.addObject(new AirlockPanel(this));
+        this.addObject(new OxyMaskDispenser(this));
 	}
 
 }

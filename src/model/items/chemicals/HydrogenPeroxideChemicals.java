@@ -15,4 +15,19 @@ public class HydrogenPeroxideChemicals extends Chemicals {
     public FoodItem clone() {
         return new HydrogenPeroxideChemicals();
     }
+
+    @Override
+    public boolean isFlammable() {
+        return false;
+    }
+
+    @Override
+    public boolean isToxic() {
+        return true;
+    }
+
+    @Override
+    public String getFormula() {
+        return "H2O2";
+    }
 }

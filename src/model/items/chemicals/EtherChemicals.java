@@ -15,4 +15,19 @@ public class EtherChemicals extends Chemicals {
     public FoodItem clone() {
         return new EtherChemicals();
     }
+
+    @Override
+    public boolean isFlammable() {
+        return true;
+    }
+
+    @Override
+    public boolean isToxic() {
+        return true;
+    }
+
+    @Override
+    public String getFormula() {
+        return "(C2H5)2O";
+    }
 }

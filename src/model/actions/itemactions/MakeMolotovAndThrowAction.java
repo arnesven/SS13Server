@@ -39,7 +39,7 @@ public class MakeMolotovAndThrowAction extends Action {
                 if (((Alcohol)it).getPotency() > 2) {
                     list.add(it);
                 }
-            } else if (it instanceof Chemicals) {
+            } else if (it instanceof Chemicals && ((Chemicals) it).isFlammable()) {
                 list.add(it);
             }
         }

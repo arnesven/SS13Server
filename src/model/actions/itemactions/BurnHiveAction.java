@@ -32,7 +32,7 @@ public class BurnHiveAction extends Action {
 			for (int i = Flamer.CHEMS_NEEDED_TO_BURN_HIVE; i > 0; --i) {
 				Iterator<GameItem> it = performingClient.getItems().iterator();
 				while (it.hasNext()) {
-					if (it.next() instanceof Chemicals) {
+					if (it.next() instanceof Chemicals && ((Chemicals) it.next()).isFlammable()) {
 						it.remove();
 						break;
 					}

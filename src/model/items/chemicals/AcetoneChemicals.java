@@ -4,16 +4,16 @@ import model.items.foods.FoodItem;
 import model.items.general.Chemicals;
 
 /**
- * Created by erini02 on 03/12/16.
+ * Created by erini02 on 09/09/17.
  */
-public class EthanolChemicals extends Chemicals {
-    public EthanolChemicals() {
-        super("Ethanol", 23);
+public class AcetoneChemicals extends Chemicals {
+    public AcetoneChemicals() {
+        super("Acetone", 29);
     }
 
     @Override
     public FoodItem clone() {
-        return new EthanolChemicals();
+        return new AcetoneChemicals();
     }
 
     @Override
@@ -23,11 +23,11 @@ public class EthanolChemicals extends Chemicals {
 
     @Override
     public boolean isToxic() {
-        return false;
+        return true;
     }
 
     @Override
     public String getFormula() {
-        return "C2H5OH";
+        return "(CH3)2CO";
     }
 }

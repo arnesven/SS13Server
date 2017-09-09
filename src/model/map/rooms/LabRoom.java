@@ -15,7 +15,6 @@ public class LabRoom extends Room {
 		this.addObject(new ChemicalDispenser("Lab Storage", 2, this));
 		this.addObject(new GeneticsConsole(this));
         this.addObject(new TeleportConsole(this));
-        this.addItem(new FireExtinguisher());
         this.addItem(new RadiationSuit());
 
 	}

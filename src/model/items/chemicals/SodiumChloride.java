@@ -4,21 +4,21 @@ import model.items.foods.FoodItem;
 import model.items.general.Chemicals;
 
 /**
- * Created by erini02 on 03/12/16.
+ * Created by erini02 on 09/09/17.
  */
-public class EthanolChemicals extends Chemicals {
-    public EthanolChemicals() {
-        super("Ethanol", 23);
+public class SodiumChloride extends Chemicals {
+    public SodiumChloride() {
+        super("Sodium Chloride", 28);
     }
 
     @Override
     public FoodItem clone() {
-        return new EthanolChemicals();
+        return new SodiumChloride();
     }
 
     @Override
     public boolean isFlammable() {
-        return true;
+        return false;
     }
 
     @Override
@@ -28,6 +28,6 @@ public class EthanolChemicals extends Chemicals {
 
     @Override
     public String getFormula() {
-        return "C2H5OH";
+        return "NaCl";
     }
 }

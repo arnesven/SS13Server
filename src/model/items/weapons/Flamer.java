@@ -69,7 +69,7 @@ public class Flamer extends Weapon {
 	private List<Chemicals> getChemicalsFromClient(Actor cl) {
 		List<Chemicals> list = new ArrayList<>();
 		for (GameItem gi : cl.getItems()) {
-			if (gi instanceof Chemicals) {
+			if (gi instanceof Chemicals && ((Chemicals) gi).isFlammable()) {
 				list.add((Chemicals)gi);
 			}
 		}

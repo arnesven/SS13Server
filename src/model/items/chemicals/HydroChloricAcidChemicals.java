@@ -4,30 +4,30 @@ import model.items.foods.FoodItem;
 import model.items.general.Chemicals;
 
 /**
- * Created by erini02 on 03/12/16.
+ * Created by erini02 on 09/09/17.
  */
-public class EthanolChemicals extends Chemicals {
-    public EthanolChemicals() {
-        super("Ethanol", 23);
+public class HydroChloricAcidChemicals extends Chemicals {
+    public HydroChloricAcidChemicals() {
+        super("Hydrocloric Acid", 24);
     }
 
     @Override
     public FoodItem clone() {
-        return new EthanolChemicals();
+        return new HydroChloricAcidChemicals();
     }
 
     @Override
     public boolean isFlammable() {
-        return true;
-    }
-
-    @Override
-    public boolean isToxic() {
         return false;
     }
 
     @Override
+    public boolean isToxic() {
+        return true;
+    }
+
+    @Override
     public String getFormula() {
-        return "C2H5OH";
+        return "HCl";
     }
 }
