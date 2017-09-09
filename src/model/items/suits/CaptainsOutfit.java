@@ -13,6 +13,6 @@ public class CaptainsOutfit extends OutFit {
 
     @Override
     public boolean permitsOver() {
-        return false;
+        return true;
     }
 }

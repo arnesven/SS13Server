@@ -13,7 +13,8 @@ public class NameAddDecorator extends CharacterDecorator {
 
 	@Override
 	public String getPublicName() {
-		String res = thisname + " " + getInner().getGender();
+        String res = thisname + " " + getInner().getGender();
+
 		if (isDead()) {
 			res += " (dead)";
 		}

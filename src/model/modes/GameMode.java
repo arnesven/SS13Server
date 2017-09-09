@@ -11,6 +11,7 @@ import model.characters.visitors.VisitorCharacter;
 import model.events.*;
 import model.events.ambient.*;
 import model.items.NoSuchThingException;
+import model.items.suits.Rapido;
 import model.items.suits.SuitItem;
 import model.map.rooms.SpectatorRoom;
 import model.modes.goals.PersonalGoalAssigner;
@@ -506,6 +507,11 @@ public abstract class GameMode implements Serializable {
              r2 = MyRandom.getRandomHallway(gameData);
         } while (r == r2);
         r2.addObject(new ATM(gameData, r2));
+
+        for (int i = 2; i > 0; i--) {
+            r2 = MyRandom.getRandomHallway(gameData);
+            r2.addItem(new Rapido());
+        }
     }
 
 	private void addRandomItemsToRooms(GameData gameData) {

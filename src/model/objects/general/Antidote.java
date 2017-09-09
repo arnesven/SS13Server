@@ -3,6 +3,8 @@ package model.objects.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.characters.decorators.PoisonedDecorator;
+import model.characters.general.GameCharacter;
 import model.items.foods.FoodItem;
 import model.items.general.GameItem;
 
@@ -31,6 +33,12 @@ public class Antidote extends FoodItem {
 
     @Override
     protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
+        if (eatenBy.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof PoisonedDecorator)) {
+            eatenBy.removeInstance((GameCharacter gc) -> gc instanceof PoisonedDecorator);
+            eatenBy.addTolastTurnInfo("You feel MUCH better.");
+        } else {
+            eatenBy.addTolastTurnInfo("Hmm, you don't feel much better.");
+        }
 
     }
 }
