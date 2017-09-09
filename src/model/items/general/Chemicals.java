@@ -17,7 +17,7 @@ public abstract class Chemicals extends FoodItem {
     private final int spriteCol;
 
     public Chemicals(String name, int spriteMapNumber) {
-		super(name, 1.0, 10);
+		super(name, 0.3, 10);
         this.spriteCol = spriteMapNumber;
 	}
 
@@ -77,4 +77,7 @@ public abstract class Chemicals extends FoodItem {
     }
 
 
+    public GameItem combineWith(Chemicals other) {
+        return null;
+    }
 }

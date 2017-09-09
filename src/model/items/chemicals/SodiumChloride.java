@@ -2,6 +2,8 @@ package model.items.chemicals;
 
 import model.items.foods.FoodItem;
 import model.items.general.Chemicals;
+import model.items.general.GameItem;
+import model.objects.general.Antidote;
 
 /**
  * Created by erini02 on 09/09/17.
@@ -29,5 +31,14 @@ public class SodiumChloride extends Chemicals {
     @Override
     public String getFormula() {
         return "NaCl";
+    }
+
+    @Override
+    public GameItem combineWith(Chemicals other) {
+        if (other instanceof AmmoniaChemicals) {
+            return new Antidote();
+        }
+
+        return super.combineWith(other);
     }
 }
