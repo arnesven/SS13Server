@@ -479,6 +479,9 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
             case space:
                 backgroundcolor = new Color(0, 0, 0);
                 break;
+            case basestar:
+                backgroundcolor = new Color(100, 100, 140);
+                break;
             default:
                 backgroundcolor = new Color(217, 217, 217);
         }

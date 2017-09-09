@@ -11,6 +11,7 @@ import model.events.NoPressureEverEvent;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
 import model.map.rooms.Room;
+import model.objects.consoles.AIConsole;
 import model.objects.consoles.AirLockControl;
 import model.objects.general.GameObject;
 import util.Logger;
@@ -54,6 +55,11 @@ public class VentStationAction extends ConsoleAction {
             affectedRooms.addAll(gameData.getMap().getStationRooms());
         } else {
             performingClient.addTolastTurnInfo("You vented the " + selectedPart + " part of the station");
+            try {
+                gameData.findObjectOfType(AIConsole.class).informOnStation("The " + selectedPart + " has been vented.", gameData);
+            } catch (NoSuchThingException e) {
+                e.printStackTrace();
+            }
             affectedRooms.addAll(gameData.getMap().getArea(GameMap.STATION_LEVEL_NAME, selectedPart));
         }
         Map<Room, NoPressureEvent> eventMap = new HashMap<>();

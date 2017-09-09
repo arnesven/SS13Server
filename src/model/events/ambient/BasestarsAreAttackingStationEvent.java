@@ -7,10 +7,12 @@ import model.items.NoSuchThingException;
 import model.items.general.BombItem;
 import model.items.weapons.Missile;
 import model.map.GameMap;
+import model.map.rooms.BaseStarRoom;
 import model.map.rooms.Room;
 import model.objects.consoles.AIConsole;
 import util.MyRandom;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -83,15 +85,66 @@ public class BasestarsAreAttackingStationEvent extends AmbientEvent {
             dirString.append(GameMap.getSideString(sideA));
             if (sideA == sideB) {
                 dirString.insert(0, "both ");
+                addRoomsOnSide(gameData, sideA);
             } else {
                 dirString.append(" and the " + GameMap.getSideString(sideB));
+                addRoomsOnSide(gameData, sideA);
+                addRoomsOnSide(gameData, sideB);
             }
             dirString.append(" side of the station.");
 
             gameData.findObjectOfType(AIConsole.class).informOnStation("Two basestars have jumped into this sector " + dirString.toString(), gameData);
+
+
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
+    }
+
+    private void addRoomsOnSide(GameData gameData, int sideA) {
+        if (sideA % 2 == 0) {
+            int xoff = (sideA/2) * 27;
+
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, -6+xoff, 5, 2, 3),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, -7+xoff, 3, 1, 2),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, -8+xoff, 2, 1, 1),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, -4+xoff, 3, 1, 2),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, -3+xoff, 2, 1, 1),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, -4+xoff, 8, 1, 2),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, -3+xoff, 10, 1, 1),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, -7+xoff, 8, 1, 2),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, -8+xoff, 10, 1, 1),
+                    GameMap.STATION_LEVEL_NAME, "space");
+        } else {
+            int xoff = (sideA/2) * 22;
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, 7, -5+xoff, 3, 2),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, 5, -6+xoff, 2, 1),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, 4, -7+xoff, 1, 1),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, 5, -3+xoff, 2, 1),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, 4, -2+xoff, 1, 1),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, 10, -3+xoff, 2, 1),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, 12, -2+xoff, 1, 1),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, 10, -6+xoff, 2, 1),
+                    GameMap.STATION_LEVEL_NAME, "space");
+            gameData.getMap().addRoom(new BaseStarRoom(gameData.getMap().getMaxID()+1, 12, -7+xoff, 1, 1),
+                    GameMap.STATION_LEVEL_NAME, "space");
+        }
+
     }
 
     @Override

@@ -10,11 +10,11 @@ import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
 import model.map.rooms.Room;
+import model.map.rooms.RoomType;
+import util.Logger;
 import util.MyRandom;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by erini02 on 07/12/16.
@@ -99,6 +99,7 @@ public class FTLControl extends Console {
             }
 
             Integer[] newCoordinates = MyRandom.sample(emptyPlaces);
+            Integer[] oldCoordinates = gameData.getMap().getPositionForLevel(GameMap.STATION_LEVEL_NAME);
             gameData.getMap().swapLevels(GameMap.STATION_LEVEL_NAME, gameData.getMap().getLevelForCoordinates(newCoordinates, gameData));
 
             String message = "Jump complete. New coordinates for SS13 are " +
@@ -111,6 +112,24 @@ public class FTLControl extends Console {
                 e.printStackTrace();
             }
             performingClient.addTolastTurnInfo(message);
+
+            Set<Room> baseStarRooms = new HashSet<>();
+            for (Room r : gameData.getAllRooms()) {
+                if (r.getType() == RoomType.basestar) {
+                    baseStarRooms.add(r);
+                }
+            }
+
+            for (Room r : baseStarRooms) {
+                try {
+                    gameData.getMap().removeRoom(r);
+                    gameData.getMap().addRoom(r, gameData.getMap().getLevelForCoordinates(oldCoordinates, gameData), "space");
+                } catch (NoSuchThingException e) {
+                    e.printStackTrace();
+                }
+            }
+            Logger.log("Old coords were: " + oldCoordinates);
+
         }
 
         @Override

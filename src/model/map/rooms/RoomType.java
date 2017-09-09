@@ -13,6 +13,8 @@ public enum RoomType {
     security,
     space,
     outer,
-    derelict, hidden
+    derelict,
+    hidden,
+    basestar
 
 }
