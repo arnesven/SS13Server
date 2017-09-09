@@ -17,6 +17,7 @@ public class AirLockControl extends Console {
 	@Override
 	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(new AirlockOverrideAction(gameData));
+        //at.add(new ApproveVentStation());
 	}
 	
 

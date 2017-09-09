@@ -43,7 +43,7 @@ public class BananaPeelEvent extends Event {
 	}
 
 	private boolean canSlip(Actor c) {
-		GameCharacter a = c.getCharacter();
+		GameCharacter a = c.getCharacter(); //TODO: AI should not slip!
 		if (!(a instanceof CatCharacter) && 
 				!(a instanceof ParasiteCharacter)) {
 			return !c.isDead();

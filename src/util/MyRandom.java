@@ -17,6 +17,7 @@ import model.items.suits.*;
 import model.items.weapons.*;
 import model.map.rooms.Room;
 import model.map.rooms.RoomType;
+import model.objects.general.Antidote;
 
 public class MyRandom {
 	public static Random random = new Random();
@@ -102,6 +103,8 @@ public class MyRandom {
 		List<GameItem> list = new ArrayList<>();
 
         list.add(new Beer());
+        list.add(new Antidote());
+        list.add(new Baton());
         list.add(new DoubleFlambeSteakDiane(null));
         list.add(new SpaceRum());
         list.add(new Wine());
@@ -181,6 +184,7 @@ public class MyRandom {
         list.add(new PrisonerSuit(1337));
         list.add(new PirateOutfit(1337));
         list.add(new DummyHivePlacer());
+        list.add(new PoisonSyringe());
         return list;
     }
 

@@ -23,6 +23,7 @@ public class MedkitDispenser extends DispenserObject {
 		this.addItem(new MedKit());
 		this.addItem(new MedKit());
 		this.addItem(new Syringe());
+        this.addItem(new Antidote());
 	}
 
     @Override

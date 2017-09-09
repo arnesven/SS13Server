@@ -298,6 +298,7 @@ public class Player extends Actor implements Target, Serializable {
 							break;
 						}
 					}
+                    Logger.log(" -> Next action!");
                 }
 
 

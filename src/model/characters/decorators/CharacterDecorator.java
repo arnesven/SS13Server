@@ -103,7 +103,10 @@ public abstract class CharacterDecorator extends GameCharacter {
 				decor.removeInstance(check);
 			}
 		} else {
-			throw new NoSuchInstanceException("Could not remove instance!");
+
+            // TODO::: fix..
+            System.err.println("CRITICAL! Could not remove isntance! " + check.getClass());
+            //throw new NoSuchInstanceException("Could not remove instance!");
 		}
 	}
 	

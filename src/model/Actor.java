@@ -228,7 +228,9 @@ public abstract class Actor  implements ItemHolder, Serializable {
 
         ActionGroup general = new ActionGroup("General");
         general.addAll(generals);
-        at.add(general);
+        if (general.getActions().size() > 0) {
+            at.add(general);
+        }
         //groupTargetingActions(at);
         at.add(0, new DoNothingAction());
 

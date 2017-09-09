@@ -12,12 +12,9 @@ public class GeneratorRoom extends Room {
 	public GeneratorRoom(int ID, int x, int y,
                          int width, int height, int[] neighbors, double[] doors, GameData gameData) {
 		super(ID, "Generator"           , "Gen"    , x,  y, width, height, neighbors, doors, RoomType.tech );
-		this.addObject(new ChemicalDispenser("Fuel Storage", 2, this));
-		this.addItem(new FireSuit());
+		this.addObject(new ChemicalDispenser("Storage", 2, this));
 		this.addObject(new GeneratorConsole(this, gameData));
 
-        this.addItem(new FireExtinguisher());
-        this.addItem(new Tools());
 	}
 
 }
