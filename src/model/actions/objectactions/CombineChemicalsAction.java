@@ -5,6 +5,8 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.characters.crew.ChemistCharacter;
+import model.characters.general.GameCharacter;
 import model.items.general.Chemicals;
 import model.items.general.GameItem;
 
@@ -63,7 +65,7 @@ public class CombineChemicalsAction extends Action {
         for (GameItem it : performingClient.getItems()) {
             if (it.getFullName(performingClient).equals(args.get(0))) {
                 selectedOne = (Chemicals)it;
-            } else if (it.getFullName(performingClient).equals(args.get(1))) {
+            } else if (args.get(1).contains(it.getFullName(performingClient))) {
                 selectedTwo = (Chemicals)it;
             }
             if (selectedOne != null && selectedTwo != null) {
@@ -76,22 +78,34 @@ public class CombineChemicalsAction extends Action {
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption opts = super.getOptions(gameData, whosAsking);
 
-        Set<String> difChems = new HashSet<>();
+        Set<Chemicals> difChems = new HashSet<>();
         for (GameItem it : whosAsking.getItems()) {
             if (it instanceof Chemicals) {
-                difChems.add(it.getFullName(whosAsking));
+                difChems.add((Chemicals)it);
             }
         }
 
         if (difChems.size() > 1) {
 
-            for (String s : difChems) {
-                ActionOption opt2 = new ActionOption(s);
-                Set<String> lesserSet = new HashSet<>();
+            for (Chemicals s : difChems) {
+                ActionOption opt2 = new ActionOption(s.getPublicName(whosAsking));
+                Set<Chemicals> lesserSet = new HashSet<>();
                 lesserSet.addAll(difChems);
                 lesserSet.remove(s);
-                for (String s2 : lesserSet) {
-                    opt2.addOption(s2);
+                for (Chemicals s2 : lesserSet) {
+                    String label = s2.getPublicName(whosAsking);
+                    if (whosAsking.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof ChemistCharacter)) {
+                        GameItem it = s.combineWith(s2);
+                        if (it == null) {
+                            it = s2.combineWith(s);
+                        }
+                        if (it == null) {
+                            label += " (nothing)";
+                        } else {
+                            label += " (" + it.getPublicName(whosAsking) + ")";
+                        }
+                    }
+                    opt2.addOption(label);
                 }
                 opts.addOption(opt2);
             }
