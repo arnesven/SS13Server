@@ -267,15 +267,19 @@ public class GameMap implements Serializable {
     }
 
     public void removeRoom(Room bombRoom) throws NoSuchThingException {
+        boolean removed = false;
         for (Map<String, Set<Room>> level : levels.values()) {
             for (Set<Room> area : level.values()) {
                 if (area.contains(bombRoom)) {
                     area.remove(bombRoom);
-                    return;
+                    //return;
+                     removed = true;
                 }
             }
         }
-        throw new NoSuchThingException("No room " + bombRoom.getName() + "!");
+        if (!removed) {
+            throw new NoSuchThingException("No room " + bombRoom.getName() + "!");
+        }
     }
 
     public Room getRoomByID(int i) throws NoSuchThingException {

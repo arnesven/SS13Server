@@ -12,6 +12,8 @@ import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
+import model.map.GameMap;
+import model.map.rooms.RoomType;
 import model.modes.objectives.*;
 import model.npcs.*;
 import model.npcs.animals.CatNPC;
@@ -148,28 +150,34 @@ public class TraitorGameMode extends GameMode {
         }
 		
 		double val = MyRandom.nextDouble();
-		if (val < 0.45 ) {
+		if (val < 0.4 ) {
 			List<Player> targets = new ArrayList<>();
 			targets.addAll(gameData.getTargetablePlayers());
 			targets.remove(traitor);
-			if (targets.size() > 0) { 
+			if (targets.size() > 0) {
 				return new AssassinateObjective(traitor, MyRandom.sample(targets));
 			} else {
 				// KILL YOURSELF!
 				return new AssassinateObjective(traitor, traitor);
 			}
-		} else if (val < 0.9)  {
-			List<BreakableObject> objects = SabotageObjective.getBreakableObjects(gameData);
-			List<BreakableObject> sabObjects = new ArrayList<>();
-			
-			for (int i = 2; i > 0; ) {
-				BreakableObject ob = MyRandom.sample(objects);
-				if (!sabObjects.contains(ob)) {
-					sabObjects.add(ob);
-					i--;
-				}
-			}
-			return new SabotageObjective(gameData, sabObjects);
+		} else if (val < 0.8) {
+            List<BreakableObject> objects = SabotageObjective.getBreakableObjects(gameData);
+            List<BreakableObject> sabObjects = new ArrayList<>();
+
+            for (int i = 2; i > 0; ) {
+                BreakableObject ob = MyRandom.sample(objects);
+                if (!sabObjects.contains(ob)) {
+                    sabObjects.add(ob);
+                    i--;
+                }
+            }
+            return new SabotageObjective(gameData, sabObjects);
+        } else if (val < 0.9) {
+            List<Room> funRoomsToDestroy = new ArrayList<>();
+            funRoomsToDestroy.addAll(gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME));
+            funRoomsToDestroy.removeIf((Room r) -> r.getType() == RoomType.hall || r.getType() == RoomType.hidden);
+
+            return new DestroyRoomObjective(gameData, MyRandom.sample(funRoomsToDestroy));
 		} else {
             return new MoneyObjective(gameData, traitor);
         }

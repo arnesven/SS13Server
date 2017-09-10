@@ -18,7 +18,7 @@ public class ElectricalFire extends OngoingEvent {
 	private static final double SPREAD_CHANCE = 0.10;
     private static final double BURNOUT_CHANCE = 0.05;
     private static final double occurenceChance = 0.15;
-    private static final double BURN_CHANCE = 1.0;
+    private static final double BURN_CHANCE = 0.1;
     //private static final double SPREAD_CHANCE = 0.1;
 
     @Override

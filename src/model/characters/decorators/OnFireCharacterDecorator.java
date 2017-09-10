@@ -4,7 +4,10 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.characters.general.GameCharacter;
+import model.events.damage.AsphyxiationDamage;
+import model.events.damage.Damager;
 import model.events.damage.FireDamage;
+import model.events.damage.NoPressureDamage;
 import model.items.general.GameItem;
 import util.MyRandom;
 
@@ -51,6 +54,15 @@ public class OnFireCharacterDecorator extends CharacterDecorator {
             getActor().removeInstance((GameCharacter gc) -> gc == this);
         } else {
             getActor().addTolastTurnInfo("You're on fire!");
+        }
+    }
+
+    @Override
+    public void beExposedTo(Actor something, Damager damager) {
+        super.beExposedTo(something, damager);
+
+        if (damager instanceof NoPressureDamage || damager instanceof AsphyxiationDamage) {
+            getActor().removeInstance((GameCharacter gc) -> gc == this);
         }
     }
 }
