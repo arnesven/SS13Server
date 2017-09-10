@@ -1,6 +1,8 @@
 package model.events.ambient;
 
 import graphics.sprites.Sprite;
+import model.characters.decorators.OnFireCharacterDecorator;
+import model.characters.general.GameCharacter;
 import model.events.damage.FireDamage;
 import sounds.Sound;
 import util.Logger;
@@ -16,6 +18,7 @@ public class ElectricalFire extends OngoingEvent {
 	private static final double SPREAD_CHANCE = 0.10;
     private static final double BURNOUT_CHANCE = 0.05;
     private static final double occurenceChance = 0.15;
+    private static final double BURN_CHANCE = 1.0;
     //private static final double SPREAD_CHANCE = 0.1;
 
     @Override
@@ -43,7 +46,21 @@ public class ElectricalFire extends OngoingEvent {
 	protected void maintain(GameData gameData) {
         Logger.log("Maintaining fire in " + getRoom().getName());
 		for (Target t : getRoom().getTargets()) {
-			t.beExposedTo(null, new FireDamage());
+
+            if (t instanceof Actor) {
+                Actor targetAsActor = (Actor)t;
+                if (! targetAsActor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnFireCharacterDecorator)) {
+                    if (MyRandom.nextDouble() < BURN_CHANCE) {
+                        targetAsActor.setCharacter(new OnFireCharacterDecorator(targetAsActor.getCharacter()));
+                    } else {
+                        t.beExposedTo(null, new FireDamage());
+                    }
+                } else {
+                    // Do nothing, burn decorator will damage actor this round.
+                }
+            } else {
+                t.beExposedTo(null, new FireDamage());
+            }
 		}
 
         boolean anyAroundHasFire = false;

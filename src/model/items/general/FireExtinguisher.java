@@ -6,6 +6,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
+import model.actions.itemactions.PutOutActorAction;
 import model.actions.itemactions.PutOutFireAction;
 import model.events.NoSuchEventException;
 import model.events.ambient.ElectricalFire;
@@ -47,8 +48,14 @@ public class FireExtinguisher extends BluntWeapon {
             if (getFire(cl.getPosition()) != null && level > 0) {
                 at.add(new PutOutFireAction(this));
             }
+
+
         } catch (NoSuchEventException nse) {
             // doesnt matter
+        }
+        Action putOutActorAction = new PutOutActorAction(cl);
+        if (putOutActorAction.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+            at.add(putOutActorAction);
         }
 
 	}

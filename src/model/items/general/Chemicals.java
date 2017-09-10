@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.actions.general.Action;
 import model.events.damage.PoisonDamage;
 import model.items.chemicals.*;
 import model.items.foods.FoodItem;
@@ -25,6 +26,10 @@ public abstract class Chemicals extends FoodItem {
     public abstract boolean isToxic();
     public abstract String getFormula();
 
+    @Override
+    public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
+        super.addYourActions(gameData, at, cl);
+    }
 
     @Override
     protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
