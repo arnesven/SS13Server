@@ -71,7 +71,7 @@ public class HostGameMode extends GameMode {
 			hiveRoom = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
 			hiveInStartingRoom = false;
 			for (Player c : gameData.getPlayersAsList()) {
-				if (c.getPosition().getID() == hiveRoom.getID()) {
+				if (c.getPosition().getID() == hiveRoom.getID() && MyRandom.nextDouble() < 0.5) {
 					hiveInStartingRoom = true;
 					break;
 				}
