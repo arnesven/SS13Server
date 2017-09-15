@@ -42,7 +42,7 @@ public class Rapido extends SuitItem {
     @Override
     public void beingPutOn(Actor actionPerformer) {
         actionPerformer.setCharacter(new AlterMovement(actionPerformer.getCharacter(),
-				"Steak Diane", false, 3));
+				"Rapido", false, 3));
         cd = new NameChangeDecorator(actionPerformer.getCharacter(),
                 actionPerformer.getPublicName() + " on Rapido");
         actionPerformer.setCharacter(cd);

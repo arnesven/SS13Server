@@ -73,13 +73,24 @@ public class HostModeStats extends GameStats {
 		StringBuffer buf = new StringBuffer("<table>");
 	
 		buf.append("<tr><td>Hive Location:</td><td>" + hostMode.getHiveRoom().getName() + "</td></tr>");
+        if (hostMode.getHive().isFound()) {
+            buf.append("<tr><td>Hive Discovered By:</td><td>" + hostMode.getHive().getFinder().getBaseName() + "</td></tr>");
+        } else {
+            buf.append("<tr><td>Hive remained hidden!</td><td></td></tr>");
+        }
+
 		if (hostMode.getHive().getHealth() > 0) {
 			buf.append("<tr><td>Hive HP remaining:</td><td>" + hostMode.getHive().getHealth() + "</td></tr>");
 		} else {
 			buf.append("<tr><td>Hive destroyed by:</td><td>" + hostMode.getHive().getBreakString() + "</td></tr>");
-			
 		}
 		buf.append("</table>");
+
+        buf.append("Hive Damage History:<p>");
+        for (String s : hostMode.getHive().getDamageHistory()) {
+            buf.append(s + "<br/>");
+        }
+        buf.append("</p>");
 		
 		return buf.toString();
 	}

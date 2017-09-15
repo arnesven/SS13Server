@@ -38,6 +38,7 @@ public class SearchAction extends Action {
 			if (o instanceof HiveObject) {
 				if (!performingClient.isInfected()) {
 					((HiveObject)o).setFound(true);
+                    ((HiveObject)o).setFinder(performingClient);
 					performingClient.addTolastTurnInfo("You found the hive! All humans will now also see it while standing in this room.");
 					foundSomething = true;
 				} else {

@@ -10,6 +10,16 @@ import model.characters.general.GameCharacter;
  */
 public class FireDamage extends DamagerImpl {
 
+    private final double damage;
+
+    public FireDamage() {
+        this.damage = 0.5;
+    }
+
+    public FireDamage(double v) {
+        this.damage = v;
+    }
+
     @Override
     public boolean isDamageSuccessful(boolean reduced) {
         return true;
@@ -27,7 +37,7 @@ public class FireDamage extends DamagerImpl {
 
     @Override
     public double getDamage() {
-        return 0.5;
+        return damage;
     }
 
     @Override

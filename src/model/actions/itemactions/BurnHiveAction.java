@@ -6,6 +6,7 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
+import model.events.damage.FireDamage;
 import model.items.general.GameItem;
 import model.items.weapons.Flamer;
 import model.objects.general.HiveObject;
@@ -40,7 +41,7 @@ public class BurnHiveAction extends Action {
 
 			}
 
-			hive.setHealth(0.0);
+			hive.beExposedTo(performingClient, new FireDamage(3.0));
             hive.setBreaker(performingClient);
 			performingClient.addTolastTurnInfo("You destroyed the hive with the flamer!");
 		} else if (!GameItem.hasAnItem(performingClient, new Flamer())) {
