@@ -163,7 +163,11 @@ public abstract class GameStats {
             Logger.log("Value killer string is " + value.getCharacter().getKillerString());
             if (value.getCharacter().getKillerString() != null) {
                 if (value.getCharacter().getKiller() == value) {
-                    result += "<i>Committed suicide!</i>";
+                    if (value.getCharacter().getKillerItem() != null) {
+                        result += "<i>Committed suicide with " + value.getCharacter().getKillerItem().getFullName(value) +"!</i>";
+                    } else {
+                        result += "<i>Committed suicide!</i>";
+                    }
                 } else {
                     result += "<i>Killed by ";
                     result += value.getCharacter().getKillerString();
