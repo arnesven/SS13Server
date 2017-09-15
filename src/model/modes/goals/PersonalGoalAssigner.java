@@ -33,7 +33,7 @@ public class  PersonalGoalAssigner implements Serializable {
 
     private Map<String,Collection<PersonalGoal>> createJobSpecificGoals(GameData gameData) {
         Map<String, Collection<PersonalGoal>> jobSpecificGoals = newEmptyMap();
-        //jobSpecificGoals.get(new CaptainCharacter().getBaseName()).add(new KeepYourCaptainlyness());
+        jobSpecificGoals.get(new CaptainCharacter().getBaseName()).add(new KeepYourCaptainlyness());
         // Job goal for Head of Staff
         jobSpecificGoals.get(new SecurityOfficerCharacter().getBaseName()).add(new BatonABaddieGoal(gameData));
         jobSpecificGoals.get(new SecurityOfficerCharacter().getBaseName()).add(new BrigAnAntagonistGoal(gameData));
