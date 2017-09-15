@@ -102,7 +102,9 @@ public class Rapido extends SuitItem {
         @Override
         public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
             boolean res = super.beAttackedBy(performingClient, weapon);
-            rapidoTakeDamage(weapon.getDamage(), getActor());
+            if (MyRandom.nextDouble() < 0.5) {
+                rapidoTakeDamage(weapon.getDamage(), getActor());
+            }
             return res;
         }
 
