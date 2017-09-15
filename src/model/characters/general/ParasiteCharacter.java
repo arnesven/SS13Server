@@ -84,4 +84,9 @@ public class ParasiteCharacter extends GameCharacter {
     public boolean getsAttackOfOpportunity(Weapon w) {
         return false;
     }
+
+    @Override
+    public int getMovementSteps() {
+        return 3;
+    }
 }
