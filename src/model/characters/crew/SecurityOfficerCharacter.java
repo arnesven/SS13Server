@@ -31,8 +31,8 @@ public class SecurityOfficerCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
-		// list.add(new StunBaton());
-        list.add(new Baton());
+		list.add(new StunBaton());
+        //list.add(new Baton());
 		list.add(new SecurityRadio());
         list.add(new HandCuffs());
         list.add(new SecOffsVest());

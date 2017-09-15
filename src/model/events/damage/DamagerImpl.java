@@ -11,7 +11,6 @@ import model.objects.general.BreakableObject;
  */
 public abstract class DamagerImpl implements Damager {
 
-    public abstract double getDamage();
 
     @Override
     public void doDamageOnMe(Target target) {

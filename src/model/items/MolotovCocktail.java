@@ -40,13 +40,18 @@ public class MolotovCocktail extends GameItem implements Damager, ExplodableItem
     @Override
     public void doDamageOnMe(Target target) {
         if (target instanceof Actor) {
-            ((Actor)target).subtractFromHealth(0.5);
+            ((Actor)target).subtractFromHealth(getDamage());
         }
     }
 
     @Override
     public GameItem getOriginItem() {
         return this;
+    }
+
+    @Override
+    public double getDamage() {
+        return 0.5;
     }
 
     @Override

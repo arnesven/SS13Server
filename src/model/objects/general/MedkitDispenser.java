@@ -31,41 +31,5 @@ public class MedkitDispenser extends DispenserObject {
         return new Sprite("medkitdispenser", "closet.png", 30);
     }
 
-    @Override
-    public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
-        super.addSpecificActionsFor(gameData, cl, at);
-        if (getAMedkit() != null && cl.getCharacter().getHealth() < cl.getMaxHealth()) {
-            MedKit med = getAMedkit();
-            HealWithMedKitAction healAct = new HealWithMedKitAction(cl, med);
-            at.add(new Action("Retrieve and Heal", SensoryLevel.OPERATE_DEVICE) {
-                @Override
-                protected String getVerb(Actor whosAsking) {
-                    return "healed";
-                }
 
-                @Override
-                protected void execute(GameData gameData, Actor performingClient) {
-                    performingClient.getCharacter().giveItem(med, null);
-                    List<String> args = new ArrayList<String>();
-                    args.add("Yourself");
-                    healAct.setArguments(args, performingClient);
-                    healAct.printAndExecute(gameData);
-                }
-
-                @Override
-                public void setArguments(List<String> args, Actor performingClient) {
-
-                }
-            });
-        }
-    }
-
-    private MedKit getAMedkit() {
-        for (GameItem it : getInventory()) {
-            if (it instanceof MedKit) {
-                return (MedKit) it;
-            }
-        }
-        return null;
-    }
 }

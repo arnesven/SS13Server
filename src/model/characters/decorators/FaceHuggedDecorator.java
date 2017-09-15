@@ -57,6 +57,7 @@ public class FaceHuggedDecorator extends CharacterDecorator {
 
     @Override
     public void addActionsForActorsInRoom(GameData gameData, Actor anyActorInRoom, ArrayList<Action> at) {
+        super.addActionsForActorsInRoom(gameData, anyActorInRoom, at);
         if (getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnSurgeryTableDecorator)) {
             if (GameItem.hasAnItem(anyActorInRoom, new Knife())) {
                 at.add(new PerformSurgeryOnAction(getActor(), anyActorInRoom));

@@ -32,4 +32,7 @@ public interface Damager extends Serializable {
     default Sound getRealSound() {return null;}
 
     GameItem getOriginItem();
+
+    public abstract double getDamage();
+
 }
