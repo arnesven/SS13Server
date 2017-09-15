@@ -17,6 +17,13 @@ public class Brain extends GameItem {
         this.cutOutBy = cutOutBy;
     }
 
+    @Deprecated
+    public Brain() {
+        super("Brain", 0.0, false, 0);
+        belongsTo = null;
+        cutOutBy = null;
+    }
+
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new  Sprite("brain", "surgery.png", 2, 1);

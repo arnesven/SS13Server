@@ -55,7 +55,7 @@ public class  PersonalGoalAssigner implements Serializable {
 
     private static Collection<PersonalGoal> createGeneralGoals() {
         HashSet<PersonalGoal> goals = new HashSet<>();
-        goals.add(new CollectMoneyTask(MyRandom.nextInt(3)*300 + 900));
+        goals.add(new CollectMoneyTask(MyRandom.nextInt(3)*300 + 500));
         goals.add(new ParasiteKiller(MyRandom.nextInt(3) + 3));
         goals.add(new FireManGoal(MyRandom.nextInt(3) + 3));
         goals.add(new HullBreachGoal(MyRandom.nextInt(2) + 2));
@@ -70,7 +70,13 @@ public class  PersonalGoalAssigner implements Serializable {
         goals.add(new PervertGoal());
         goals.add(new BeatUpTheClownGoal());
         goals.add(new DrinkAlcoholGoal(MyRandom.nextInt(2)+2));
+        goals.add(new BeOnARapido());
+        goals.add(new HaveABrain());
+        goals.add(new HaveACrowbar());
+        goals.add(new HaveAMushroom());
+        goals.add(new HaveAnOrange());
        // goals.add(new TakeDifferentTypesOfDamage());
+        goals.add(new ThreeRandomSubgoals());
         goals.add(new ThreeRandomSubgoals());
         goals.add(new ThreeRandomSubgoals());
         goals.add(new ThreeRandomSubgoals());

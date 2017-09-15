@@ -33,6 +33,13 @@ public class ThreeRandomSubgoals extends CompositePersonalGoal {
         subGoals.add(new HaveAToolkit());
         subGoals.add(new HaveAPackOfSmokes());
         subGoals.add(new GetNakedGoal());
+        subGoals.add(new HaveAChemicals());
+        subGoals.add(new KeepHealthy());
+        subGoals.add(new ParasiteKiller(1));
+        subGoals.add(new CollectMoneyTask(250));
+        subGoals.add(new PlaySlotsGoal(1));
+        subGoals.add(new FireManGoal(1));
+        subGoals.add(new HullBreachGoal(1));
         String[] someLocations = new String[]{"Lab", "Armory", "Bridge", "Greenhouse", "Sickbay", "Dorms", "Bar", "Kitchen", "Brig"};
         for (String s : someLocations) {
             subGoals.add(new VisitSpecificRoomGoal(s));
@@ -236,5 +243,27 @@ public class ThreeRandomSubgoals extends CompositePersonalGoal {
     }
 
 
+    private class HaveAChemicals extends PersonalGoal {
+        @Override
+        public String getText() {
+            return "get some chemicals";
+        }
 
+        @Override
+        public boolean isCompleted(GameData gameData) {
+            return GameItem.hasAnItemOfClass(getBelongsTo(), Chemicals.class);
+        }
+    }
+
+    private class KeepHealthy extends PersonalGoal {
+        @Override
+        public String getText() {
+            return "keep healthy";
+        }
+
+        @Override
+        public boolean isCompleted(GameData gameData) {
+            return getBelongsTo().getCharacter().getHealth() >= 2.0;
+        }
+    }
 }
