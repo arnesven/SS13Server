@@ -12,10 +12,9 @@ import model.events.damage.Damager;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
 
-public class HiveObject extends BreakableObject {
+public class HiveObject extends HideableObject {
 
-	private boolean foundByHumanTeam = false;
-    private Actor finder = null;
+
     private List<String> damageHistory;
 
     public HiveObject(String name, Room pos) {
@@ -38,7 +37,6 @@ public class HiveObject extends BreakableObject {
 			super.addYourselfToRoomInfo(info, whosAsking);
 		} else if (whosAsking.isInfected()) {
             info.add(getSprite(whosAsking).getName() + "<img>" + this.getPublicName(whosAsking) + " (sensed)");
-
 		} 
 	}
 
@@ -59,30 +57,11 @@ public class HiveObject extends BreakableObject {
         return succ;
     }
 
-    public void setFound(boolean b) {
-		foundByHumanTeam = b;
-	}
-	
-	public boolean isFound() {
-		return foundByHumanTeam;
-	}
 
-	@Override
-	public boolean isTargetable() {
-		return isFound();
-	}
 
 	@Override
 	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {	}
 
-
-    public void setFinder(Actor finder) {
-        this.finder = finder;
-    }
-
-    public Actor getFinder() {
-        return finder;
-    }
 
     public List<String> getDamageHistory() {
         return damageHistory;

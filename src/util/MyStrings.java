@@ -30,4 +30,14 @@ public class MyStrings {
 		return buf.toString();
 	}
 
+    public static String capitalize(String realName) {
+        StringBuffer buf = new StringBuffer();
+        for (int i = 0; i < realName.length(); ++i) {
+            buf.append(Character.toUpperCase(realName.charAt(i)));
+            if (i != realName.length() - 1 ) {
+                buf.append(" ");
+            }
+        }
+        return buf.toString();
+    }
 }

@@ -5,7 +5,11 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.general.ActionOption;
+import model.actions.general.SensoryLevel;
 import model.actions.itemactions.TeleportAction;
+import model.actions.objectactions.BeamUpAction;
+import model.actions.objectactions.ScanSpaceAction;
 import model.actions.objectactions.ShowTheseCoordinates;
 import model.actions.objectactions.TeleportToCoordinatesAction;
 import model.items.general.GameItem;
@@ -33,16 +37,10 @@ public class TeleportConsole extends Console {
 
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-        List<Room> markedRooms = getMarkedRooms(gameData);
-        if (markedRooms.size() > 0) {
-            for (Room r : markedRooms) {
-                Teleporter tele = new Teleporter();
-                tele.setMarked(r);
-                at.add(new TeleportAction(tele));
-            }
-        }
-        at.add(new TeleportToCoordinatesAction());
-        at.add(new ShowTheseCoordinates(this, gameData));
+
+
+        at.add(new CombinedTeleportAction(this, gameData));
+
     }
 
     private void addIfSuitable(List<Room> markedRooms, GameItem it) {
@@ -76,4 +74,56 @@ public class TeleportConsole extends Console {
         return markedRooms;
     }
 
+    private class CombinedTeleportAction extends Action {
+        private final List<Action> innerActions;
+        private Action selected;
+
+        public CombinedTeleportAction(TeleportConsole teleportConsole, GameData gameData) {
+            super("Teletronics", SensoryLevel.OPERATE_DEVICE);
+            innerActions = new ArrayList<>();
+
+            List<Room> markedRooms = getMarkedRooms(gameData);
+            if (markedRooms.size() > 0) {
+                for (Room r : markedRooms) {
+                    Teleporter tele = new Teleporter();
+                    tele.setMarked(r);
+                    innerActions.add(new TeleportAction(tele));
+                }
+            }
+            innerActions.add(new TeleportToCoordinatesAction());
+            innerActions.add(new BeamUpAction(teleportConsole, gameData));
+            innerActions.add(new ShowTheseCoordinates(teleportConsole, gameData));
+            innerActions.add(new ScanSpaceAction(gameData));
+
+        }
+
+        @Override
+        protected String getVerb(Actor whosAsking) {
+            return "Fiddled with Teletronics";
+        }
+
+        @Override
+        protected void execute(GameData gameData, Actor performingClient) {
+            selected.doTheAction(gameData, performingClient);
+        }
+
+        @Override
+        public void setArguments(List<String> args, Actor performingClient) {
+            for (Action a : innerActions) {
+                if (args.get(0).equals(a.getName())) {
+                    selected = a;
+                    selected.setArguments(args.subList(1, args.size()), performingClient);
+                }
+            }
+        }
+
+        @Override
+        public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+            ActionOption opts = super.getOptions(gameData, whosAsking);
+            for (Action a : innerActions) {
+                opts.addOption(a.getOptions(gameData, whosAsking));
+            }
+            return opts;
+        }
+    }
 }

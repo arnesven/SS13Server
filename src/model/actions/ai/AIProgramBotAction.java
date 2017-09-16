@@ -6,6 +6,8 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
+import model.map.GameMap;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.robots.RobotNPC;
 import model.objects.consoles.BotConsole;
@@ -36,12 +38,14 @@ public class AIProgramBotAction extends Action {
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption opt = super.getOptions(gameData, whosAsking);
 
-        for (Actor a : gameData.getNPCs()) {
-            if (a instanceof RobotNPC && !a.isDead()) {
-                ActionOption subopt = new ActionOption(a.getBaseName());
-                addPrograms(gameData, subopt, whosAsking);
+        for (Room r : gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME)) {
+            for (Actor a : r.getActors()) {
+                if (a instanceof RobotNPC && !a.isDead()) {
+                    ActionOption subopt = new ActionOption(a.getBaseName());
+                    addPrograms(gameData, subopt, whosAsking);
 
-                opt.addOption(subopt);
+                    opt.addOption(subopt);
+                }
             }
         }
 

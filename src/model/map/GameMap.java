@@ -8,6 +8,7 @@ import model.items.NoSuchThingException;
 import model.events.NoPressureEverEvent;
 import model.map.rooms.Room;
 import model.map.rooms.RoomType;
+import model.map.rooms.SpaceRoom;
 import util.Logger;
 import util.MyRandom;
 
@@ -448,7 +449,7 @@ public class GameMap implements Serializable {
     private String createEmptyLevel(Integer[] current, GameData gameData) {
         String level = "emptylevel" + current[0] + "-" + current[1] + "-" + current[2];
         createLevel(level, current[0], current[1], current[2]);
-        Room r = new Room(getMaxID()+1, "Deep Space", "D E E P   S P A C E", 0, 0, 2,2, new int[]{}, new double[]{}, RoomType.space);
+        Room r = new SpaceRoom(getMaxID()+1, 0, 0, 2,2);
         this.addRoom(r, level, "space");
         Event noPress = new NoPressureEverEvent(r);
         r.addEvent(noPress);
@@ -509,4 +510,9 @@ public class GameMap implements Serializable {
     public void setSS13AreaNames(String[] SS13AreaNames) {
         this.SS13AreaNames = SS13AreaNames;
     }
+
+    public Collection<String> getLevels() {
+        return levels.keySet();
+    }
+
 }

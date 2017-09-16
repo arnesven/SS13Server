@@ -54,9 +54,10 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 	private int height;
 	private int ID;
 	private double[] doors;
+    private String shortName;
 
 
-	/**
+    /**
 	 * Constructor for a Room
 	 * @param ID, the numeric ID of the room. This is used for the most part when identifying it
 	 * @param name, the full name of the room.
@@ -497,5 +498,13 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
     protected void setCoordinates(int newX, int newY) {
         x = newX;
         y = newY;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setShortname(String shortName) {
+        this.shortName = shortName;
     }
 }

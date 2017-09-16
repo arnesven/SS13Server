@@ -15,6 +15,7 @@ import util.Logger;
 import util.MyRandom;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -53,13 +54,13 @@ public class TeleportToCoordinatesAction extends Action {
         Logger.log("Teleporting to " + selected[0] + "-" + selected[1] + "-" + selected[2]);
         String level = gameData.getMap().getLevelForCoordinates(selected, gameData);
         Logger.log("  which is level " + level);
+
         Room r = MyRandom.sample(gameData.getMap().getRoomsForLevel(level));
+
         Teleporter tele = new Teleporter();
         tele.setMarked(r);
         Action a = new TeleportAction(tele);
-        List<String> args = new ArrayList<>();
-        args.add("Yourself");
-        a.setArguments(args, performingClient);
+        ((TeleportAction)a).setTarget(performingClient);
         a.doTheAction(gameData, performingClient);
         if (r.getType() == RoomType.space) {
             performingClient.setCharacter(new TumblingThroughSpaceDecorator(performingClient.getCharacter()));

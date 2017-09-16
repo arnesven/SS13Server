@@ -7,6 +7,7 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.AlterMovement;
 import model.characters.decorators.InstanceChecker;
+import model.characters.decorators.TeleportingDecorator;
 import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.items.general.Teleporter;
@@ -51,18 +52,13 @@ public class TeleportAction extends Action {
         if (target != performingClient) {
             target.addTolastTurnInfo(performingClient.getPublicName() + " is using the teleporter on you!");
         }
-        target.setCharacter(new AlterMovement(target.getCharacter(), "teleport", true, 0));
+        target.setCharacter(new TeleportingDecorator(target.getCharacter()));
         teleporter.useOnce();
 
         gameData.addMovementEvent(new Event() {
             @Override
             public void apply(GameData gameData) {
-                target.removeInstance(new InstanceChecker() {
-                    @Override
-                    public boolean checkInstanceOf(GameCharacter ch) {
-                        return ch instanceof AlterMovement;
-                    }
-                });
+                target.removeInstance((GameCharacter gc) -> gc instanceof TeleportingDecorator);
                 target.addTolastTurnInfo("You were teleported to " + teleporter.getMarked().getName());
                 target.moveIntoRoom(teleporter.getMarked());
             }
@@ -96,5 +92,9 @@ public class TeleportAction extends Action {
                 }
             }
         }
+    }
+
+    public void setTarget(Actor target) {
+        this.target = target;
     }
 }
