@@ -11,6 +11,8 @@ import model.characters.decorators.TeleportingDecorator;
 import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.items.general.Teleporter;
+import model.objects.general.GameObject;
+import model.objects.general.IncomingTeleporter;
 
 import java.util.List;
 
@@ -53,6 +55,8 @@ public class TeleportAction extends Action {
             target.addTolastTurnInfo(performingClient.getPublicName() + " is using the teleporter on you!");
         }
         target.setCharacter(new TeleportingDecorator(target.getCharacter()));
+        final GameObject tpfield = new IncomingTeleporter(teleporter.getMarked())
+        teleporter.getMarked().addObject(tpfield);
         teleporter.useOnce();
 
         gameData.addMovementEvent(new Event() {
@@ -61,6 +65,7 @@ public class TeleportAction extends Action {
                 target.removeInstance((GameCharacter gc) -> gc instanceof TeleportingDecorator);
                 target.addTolastTurnInfo("You were teleported to " + teleporter.getMarked().getName());
                 target.moveIntoRoom(teleporter.getMarked());
+                teleporter.getMarked().removeObject(tpfield);
             }
 
             @Override

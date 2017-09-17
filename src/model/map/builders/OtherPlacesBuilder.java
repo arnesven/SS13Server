@@ -94,7 +94,7 @@ public class OtherPlacesBuilder extends MapBuilder {
                     cabin = new Room(id++, "Cabin", "", x, y, 1, 1, new int[]{}, new double[]{}, RoomType.support);
                     gm.addRoom(cabin, "asteroid field", "mining station");
                 } else if (matrix[x][y] == 5) {
-                    shuttle = new Room(id++, "Mining Shuttle", "SHTL", x, y, 2, 1, new int[]{}, new double[]{}, RoomType.tech);
+                    shuttle = new ShuttleRoom(id++, "Mining Shuttle", "SHTL", x, y, 2, 1, new int[]{}, new double[]{}, RoomType.tech, gameData);
                     gm.addRoom(shuttle, "asteroid field", "mining station");
                 }
             }

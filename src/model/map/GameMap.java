@@ -515,4 +515,12 @@ public class GameMap implements Serializable {
         return levels.keySet();
     }
 
+    public void moveRoomToLevel(Room r, String level, String area) {
+        try {
+            removeRoom(r);
+            addRoom(r, level, area);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+    }
 }
