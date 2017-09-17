@@ -35,7 +35,9 @@ public class ScanSpaceAction extends Action {
                     } else if (levelname.equals("derelict")) {
                         performingClient.addTolastTurnInfo(coordString + " unidentified object.");
                     } else if (levelname.contains("exotic planet")) {
-                        performingClient.addTolastTurnInfo(coordString+ " planet.");
+                        performingClient.addTolastTurnInfo(coordString + " planet.");
+                    } else if (levelname.contains("asteroid field")) {
+                        performingClient.addTolastTurnInfo(coordString + " asteroid field.");
                     } else if (levelname.contains("deep space")) {
                         for (Room r : gameData.getMap().getRoomsForLevel(levelname)) {
                             if (r.getActors().size() > 0) {

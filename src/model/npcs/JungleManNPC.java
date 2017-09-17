@@ -25,7 +25,7 @@ import java.util.List;
 public class JungleManNPC extends NPC {
     public JungleManNPC(ExoticPlanet exoticPlanet) {
         super(new JungleManCharacter(exoticPlanet.getID()),
-                new MeanderingMovement(0.2),
+                new MeanderingMovement(0.15),
                 new JungleManBehavior(), exoticPlanet);
 
     }
