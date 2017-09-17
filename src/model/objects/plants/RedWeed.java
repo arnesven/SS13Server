@@ -7,7 +7,7 @@ import model.events.PlantUpdater;
 import model.items.seeds.RedWeedSeeds;
 import model.items.seeds.SeedsItem;
 import model.map.rooms.Room;
-import model.objects.SoilPatch;
+import model.objects.general.SoilPatch;
 import model.objects.general.GameObject;
 
 import java.util.ArrayList;

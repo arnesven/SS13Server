@@ -5,7 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
-import model.objects.SoilPatch;
+import model.objects.general.SoilPatch;
 import model.objects.plants.OrangePlant;
 import model.objects.plants.Plant;
 

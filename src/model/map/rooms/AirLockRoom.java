@@ -1,6 +1,6 @@
 package model.map.rooms;
 
-import model.objects.OxyMaskDispenser;
+import model.objects.general.OxyMaskDispenser;
 import model.objects.general.AirlockPanel;
 
 public class AirLockRoom extends Room {

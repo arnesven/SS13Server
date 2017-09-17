@@ -4,7 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
-import model.objects.SoilPatch;
+import model.objects.general.SoilPatch;
 
 import java.util.List;
 

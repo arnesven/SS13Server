@@ -1,4 +1,4 @@
-package model.objects;
+package model.objects.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
@@ -16,7 +16,6 @@ import model.events.damage.ColdDamage;
 import model.events.damage.Damager;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
-import model.objects.general.ElectricalMachinery;
 import util.Logger;
 
 import java.util.ArrayList;

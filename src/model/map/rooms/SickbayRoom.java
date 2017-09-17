@@ -1,7 +1,7 @@
 package model.map.rooms;
 
-import model.objects.StasisPod;
-import model.objects.SurgeryTable;
+import model.objects.general.StasisPod;
+import model.objects.general.SurgeryTable;
 import model.objects.general.MedkitDispenser;
 
 /**

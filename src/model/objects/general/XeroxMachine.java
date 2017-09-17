@@ -1,4 +1,4 @@
-package model.objects;
+package model.objects.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
@@ -12,7 +12,6 @@ import model.events.Event;
 import model.items.general.GameItem;
 import model.items.general.ItemStack;
 import model.map.rooms.Room;
-import model.objects.general.GameObject;
 
 import java.util.ArrayList;
 import java.util.List;

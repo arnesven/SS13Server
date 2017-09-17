@@ -2,19 +2,12 @@ package model.actions.objectactions;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
-import model.characters.decorators.FrozenDecorator;
-import model.characters.decorators.InstanceChecker;
-import model.characters.general.GameCharacter;
-import model.events.Event;
-import model.items.NoSuchThingException;
-import model.objects.StasisPod;
+import model.objects.general.StasisPod;
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by erini02 on 29/04/16.

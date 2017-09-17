@@ -8,10 +8,10 @@ import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.items.general.ElectronicParts;
 import model.items.general.GameItem;
-import model.objects.AITurret;
-import model.objects.ATM;
-import model.objects.StasisPod;
-import model.objects.XeroxMachine;
+import model.objects.ai.AITurret;
+import model.objects.general.ATM;
+import model.objects.general.StasisPod;
+import model.objects.general.XeroxMachine;
 import model.objects.consoles.*;
 import model.objects.general.*;
 

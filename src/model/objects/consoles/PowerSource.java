@@ -6,7 +6,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.map.rooms.Room;
-import model.objects.PowerConsumer;
+import model.objects.general.PowerConsumer;
 import model.objects.general.BreakableObject;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;

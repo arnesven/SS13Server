@@ -5,7 +5,6 @@ import model.Bank;
 import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
-import model.objects.ATM;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.AdministrationConsole;
 import util.Logger;

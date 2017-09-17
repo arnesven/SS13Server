@@ -2,7 +2,7 @@ package model.characters.decorators;
 
 import model.GameData;
 import model.characters.general.GameCharacter;
-import model.objects.SurgeryTable;
+import model.objects.general.SurgeryTable;
 
 /**
  * Created by erini02 on 29/11/16.

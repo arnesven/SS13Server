@@ -8,7 +8,7 @@ import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
 import model.npcs.MerchantNPC;
-import model.objects.MerchantWaresCrate;
+import model.objects.general.MerchantWaresCrate;
 import model.objects.consoles.AIConsole;
 import util.Logger;
 import util.MyRandom;

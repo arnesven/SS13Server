@@ -5,7 +5,7 @@ import model.items.general.FireExtinguisher;
 import model.items.general.Tools;
 import model.npcs.NPC;
 import model.npcs.animals.ChimpNPC;
-import model.objects.SoilPatch;
+import model.objects.general.SoilPatch;
 import model.objects.general.BioScanner;
 
 public class GreenhouseRoom extends Room {

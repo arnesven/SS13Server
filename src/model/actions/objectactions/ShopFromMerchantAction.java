@@ -9,8 +9,7 @@ import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.MoneyStack;
 import model.npcs.MerchantNPC;
-import model.npcs.NPC;
-import model.objects.MerchantWaresCrate;
+import model.objects.general.MerchantWaresCrate;
 
 import java.util.List;
 

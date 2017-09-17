@@ -5,7 +5,7 @@ import model.GameData;
 import model.items.NoSuchThingException;
 import model.items.general.BoobyTrapBomb;
 import model.map.rooms.Room;
-import model.objects.StasisPod;
+import model.objects.general.StasisPod;
 import model.objects.consoles.*;
 import model.objects.general.BoobyTrappedObject;
 import model.objects.general.Dumbwaiter;

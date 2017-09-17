@@ -3,7 +3,7 @@ package model.map.rooms;
 import model.GameData;
 import model.npcs.BAR2D2Robot;
 import model.npcs.robots.RobotNPC;
-import model.objects.Cabinet;
+import model.objects.general.Cabinet;
 import model.objects.general.SlotMachine;
 
 /**

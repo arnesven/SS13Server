@@ -13,17 +13,14 @@ import model.events.*;
 import model.events.ambient.*;
 import model.items.NoSuchThingException;
 import model.items.suits.Rapido;
-import model.items.suits.SuitItem;
-import model.map.rooms.SpectatorRoom;
 import model.modes.goals.PersonalGoalAssigner;
 import model.npcs.*;
 import model.npcs.animals.SnakeNPC;
 import model.npcs.robots.TARSNPC;
-import model.objects.AIMemory;
-import model.objects.AITurret;
-import model.objects.ATM;
+import model.objects.ai.AIMemory;
+import model.objects.ai.AITurret;
+import model.objects.general.ATM;
 import model.objects.consoles.AIConsole;
-import model.objects.consoles.AdministrationConsole;
 import model.objects.general.JunkVendingMachine;
 import util.HTMLText;
 import util.Logger;
@@ -33,7 +30,6 @@ import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.map.rooms.NukieShipRoom;
 import model.map.rooms.Room;
-import model.misc.ChristmasBooster;
 import util.Pair;
 
 /**
@@ -86,6 +82,7 @@ public abstract class GameMode implements Serializable {
 		availableChars.put("Bartender",        new BartenderCharacter());
 		availableChars.put("Technician",       new ArchitectCharacter());
 		availableChars.put("Chaplain",         new ChaplainCharacter());
+        availableChars.put("Miner",            new MinerCharacter());
         availableChars.put("Janitor",          new JanitorCharacter());
 		availableChars.put("Visitor",          new VisitorCharacter("Visitor", 0, 0.0){
             public VisitorCharacter clone() {

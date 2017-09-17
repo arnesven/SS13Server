@@ -8,7 +8,7 @@ import model.events.damage.Damager;
 import model.events.damage.RadiationDamage;
 import model.items.seeds.SeedsItem;
 import model.map.rooms.Room;
-import model.objects.SoilPatch;
+import model.objects.general.SoilPatch;
 import model.objects.general.BreakableObject;
 
 import java.util.ArrayList;

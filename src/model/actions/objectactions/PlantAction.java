@@ -7,7 +7,7 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.general.GameItem;
 import model.items.seeds.SeedsItem;
-import model.objects.SoilPatch;
+import model.objects.general.SoilPatch;
 
 import java.util.List;
 

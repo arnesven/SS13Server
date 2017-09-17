@@ -8,7 +8,7 @@ import model.items.foods.FoodItem;
 import model.items.seeds.MushroomSpores;
 import model.items.seeds.SeedsItem;
 import model.map.rooms.Room;
-import model.objects.SoilPatch;
+import model.objects.general.SoilPatch;
 
 import java.util.ArrayList;
 import java.util.List;

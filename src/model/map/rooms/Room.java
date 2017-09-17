@@ -18,7 +18,7 @@ import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.map.GameMap;
 import model.npcs.NPC;
-import model.objects.PowerConsumer;
+import model.objects.general.PowerConsumer;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 import util.Logger;

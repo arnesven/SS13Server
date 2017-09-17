@@ -55,7 +55,7 @@ public class TeleportAction extends Action {
             target.addTolastTurnInfo(performingClient.getPublicName() + " is using the teleporter on you!");
         }
         target.setCharacter(new TeleportingDecorator(target.getCharacter()));
-        final GameObject tpfield = new IncomingTeleporter(teleporter.getMarked())
+        final GameObject tpfield = new IncomingTeleporter(teleporter.getMarked());
         teleporter.getMarked().addObject(tpfield);
         teleporter.useOnce();
 
@@ -63,9 +63,11 @@ public class TeleportAction extends Action {
             @Override
             public void apply(GameData gameData) {
                 target.removeInstance((GameCharacter gc) -> gc instanceof TeleportingDecorator);
-                target.addTolastTurnInfo("You were teleported to " + teleporter.getMarked().getName());
-                target.moveIntoRoom(teleporter.getMarked());
                 teleporter.getMarked().removeObject(tpfield);
+                if (!target.isDead()) {
+                    target.addTolastTurnInfo("You were teleported to " + teleporter.getMarked().getName());
+                    target.moveIntoRoom(teleporter.getMarked());
+                }
             }
 
             @Override

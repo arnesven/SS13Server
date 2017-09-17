@@ -1,6 +1,6 @@
 package model.map.rooms;
 
-import model.objects.StasisPod;
+import model.objects.general.StasisPod;
 import model.objects.general.Lockers;
 import model.objects.general.Shower;
 

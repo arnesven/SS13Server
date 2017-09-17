@@ -7,7 +7,7 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
-import model.objects.AIMemory;
+import model.objects.ai.AIMemory;
 import model.objects.consoles.AIConsole;
 
 import java.util.List;

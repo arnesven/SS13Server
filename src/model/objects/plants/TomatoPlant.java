@@ -13,7 +13,7 @@ import model.items.seeds.TomatoSeeds;
 import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.TomatoNPC;
-import model.objects.SoilPatch;
+import model.objects.general.SoilPatch;
 
 /**
  * Created by erini02 on 27/11/16.

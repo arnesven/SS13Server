@@ -11,7 +11,7 @@ import model.items.seeds.SeedsItem;
 import model.map.rooms.ExoticPlanet;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.MeanderingMovement;
-import model.objects.SoilPatch;
+import model.objects.general.SoilPatch;
 import model.objects.general.GameObject;
 import model.objects.general.JungleCampFire;
 import util.MyRandom;

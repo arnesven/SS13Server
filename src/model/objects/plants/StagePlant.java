@@ -3,7 +3,7 @@ package model.objects.plants;
 import graphics.sprites.Sprite;
 import model.Player;
 import model.map.rooms.Room;
-import model.objects.SoilPatch;
+import model.objects.general.SoilPatch;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import model.items.general.MoneyStack;
 import model.items.general.NuclearDisc;
 import model.npcs.NPC;
 import model.npcs.animals.CatNPC;
-import model.objects.PulseRifleDisplayCase;
+import model.objects.general.PulseRifleDisplayCase;
 
 /**
  * Created by erini02 on 15/12/16.

@@ -6,10 +6,9 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
-import model.items.foods.Alcohol;
 import model.items.general.GameItem;
 import model.items.general.MoneyStack;
-import model.objects.Cabinet;
+import model.objects.general.Cabinet;
 
 import java.util.ArrayList;
 import java.util.List;

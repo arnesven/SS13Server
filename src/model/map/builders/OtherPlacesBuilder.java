@@ -88,7 +88,7 @@ public class OtherPlacesBuilder extends MapBuilder {
                     addEventsToSpaceRoom(asteroid, gameData);
                     gm.addRoom(asteroid, "asteroid field", "asteroid field");
                 } else if (matrix[x][y] == 3) {
-                    miningStation = new MiningStationRoom(id++, x, y);
+                    miningStation = new MiningStationRoom(x, y);
                     gm.addRoom(miningStation, "asteroid field", "mining station");
                 } else if (matrix[x][y] == 4) {
                     cabin = new Room(id++, "Cabin", "", x, y, 1, 1, new int[]{}, new double[]{}, RoomType.support);
@@ -110,8 +110,24 @@ public class OtherPlacesBuilder extends MapBuilder {
 
         GameMap.joinRooms(miningStation, cabin);
         GameMap.joinRooms(miningStation, shuttle);
+        GameMap.joinRooms(miningStation, findClosest(asteroids, miningStation));
 
         cabin.setDoors(new double[]{cabin.getX() + cabin.getWidth(), cabin.getY() + 0.5});
+    }
+
+    private Room findClosest(List<Room> asteroids, Room miningStation) {
+        Room closest = asteroids.get(0);
+        int dist = (closest.getX() - miningStation.getX())*(closest.getX() - miningStation.getX()) +
+                (closest.getY() - miningStation.getY())*(closest.getY() - miningStation.getY());
+        for (Room r : asteroids) {
+            int newdist = (r.getX() - miningStation.getX())*(r.getX() - miningStation.getX()) +
+                    (r.getY() - miningStation.getY())*(r.getY() - miningStation.getY());
+            if (newdist < dist) {
+                dist = newdist;
+                closest = r;
+            }
+        }
+        return closest;
     }
 
     private int[][] fillRandomMatrix() {

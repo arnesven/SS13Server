@@ -6,8 +6,9 @@ package model.map.rooms;
 public class MiningStationRoom extends Room {
     public static final int MS_WIDTH = 2;
     public static final int MS_HEIGHT = 2;
+    public static final int DEFAULT_ID = 555;
 
-    public MiningStationRoom(int id, int x, int y) {
-        super(id, "Mining Station", "MS", x, y, MS_WIDTH, MS_HEIGHT, new int[]{}, new double[]{}, RoomType.tech);
+    public MiningStationRoom(int x, int y) {
+        super(DEFAULT_ID, "Mining Station", "MS", x, y, MS_WIDTH, MS_HEIGHT, new int[]{}, new double[]{}, RoomType.tech);
     }
 }

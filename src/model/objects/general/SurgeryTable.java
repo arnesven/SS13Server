@@ -1,4 +1,4 @@
-package model.objects;
+package model.objects.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
@@ -10,7 +10,6 @@ import model.characters.decorators.OnSurgeryTableDecorator;
 import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.map.rooms.Room;
-import model.objects.general.GameObject;
 
 import java.util.ArrayList;
 import java.util.List;

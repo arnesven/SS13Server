@@ -9,7 +9,7 @@ import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
 import model.npcs.AlienNPC;
-import model.objects.RedDimensionPortal;
+import model.objects.general.RedDimensionPortal;
 import model.objects.consoles.AIConsole;
 import model.objects.general.DimensionPortal;
 import util.Logger;

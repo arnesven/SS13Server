@@ -8,7 +8,7 @@ import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.items.general.MoneyStack;
 import model.items.general.ItemStackDepletedException;
-import model.objects.ATM;
+import model.objects.general.ATM;
 
 import java.util.List;
 

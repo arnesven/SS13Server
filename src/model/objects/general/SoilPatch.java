@@ -1,4 +1,4 @@
-package model.objects;
+package model.objects.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;

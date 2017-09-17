@@ -1,7 +1,7 @@
 package model.map.rooms;
 
 import model.GameData;
-import model.objects.AITurret;
+import model.objects.ai.AITurret;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.BotConsole;
 
