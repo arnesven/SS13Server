@@ -43,7 +43,10 @@ public class GeneralManufacturer extends ElectricalMachinery {
 
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-        at.add(new GeneralManufacturerAction());
+        Action a = new GeneralManufacturerAction();
+        if (a.getOptions(gameData,cl).numberOfSuboptions() > 0) {
+            at.add(a);
+        }
     }
 
     public int getLimit() {
