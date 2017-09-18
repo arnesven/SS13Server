@@ -28,20 +28,8 @@ public class MinerCharacter extends CrewCharacter {
         arr.add(new MiningDrill());
         arr.add(new MiningTeleporter());
         arr.add(new OreShardBag());
+        arr.add(new MinerSpaceSuit());
         return arr;
-    }
-
-    @Override
-    public void setActor(Actor c) {
-        boolean actorNewlySet = false;
-        if (getActor() == null) {
-            actorNewlySet = true;
-        }
-        super.setActor(c);
-        if (actorNewlySet) {
-            this.removeSuit();
-            getActor().putOnSuit(new MinerSpaceSuit());
-        }
     }
 
     @Override
