@@ -44,7 +44,7 @@ public class OreShardBag extends GameItem {
 
     @Override
     public double getWeight() {
-        return shards.size()*1.0 + 0.1;
+        return shards.size()*0.2 + 0.1;
     }
 
     @Override
@@ -74,9 +74,10 @@ public class OreShardBag extends GameItem {
             if (all) {
                 for (GameItem it : performingClient.getPosition().getItems()) {
                     if (it instanceof OreShard) {
-                        transferIntoBag((OreShard)it, performingClient);
+                        OreShardBag.this.addShard((OreShard) it);
                     }
                 }
+                performingClient.getPosition().getItems().removeIf((GameItem it) -> it instanceof OreShard);
                 performingClient.addTolastTurnInfo("You put ore shards into your bag.");
             } else if (selected != null) {
                 if (performingClient.getPosition().getItems().contains(selected)) {

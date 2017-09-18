@@ -523,4 +523,19 @@ public class GameMap implements Serializable {
             e.printStackTrace();
         }
     }
+
+    public static Room findClosest(Collection<Room> asteroids, Room miningStation) {
+        Room closest = asteroids.iterator().next();
+        int dist = (closest.getX() - miningStation.getX())*(closest.getX() - miningStation.getX()) +
+                (closest.getY() - miningStation.getY())*(closest.getY() - miningStation.getY());
+        for (Room r : asteroids) {
+            int newdist = (r.getX() - miningStation.getX())*(r.getX() - miningStation.getX()) +
+                    (r.getY() - miningStation.getY())*(r.getY() - miningStation.getY());
+            if (newdist < dist) {
+                dist = newdist;
+                closest = r;
+            }
+        }
+        return closest;
+    }
 }

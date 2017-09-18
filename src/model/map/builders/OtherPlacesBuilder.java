@@ -110,25 +110,12 @@ public class OtherPlacesBuilder extends MapBuilder {
 
         GameMap.joinRooms(miningStation, cabin);
         GameMap.joinRooms(miningStation, shuttle);
-        GameMap.joinRooms(miningStation, findClosest(asteroids, miningStation));
+        GameMap.joinRooms(miningStation, GameMap.findClosest(asteroids, miningStation));
 
         cabin.setDoors(new double[]{cabin.getX() + cabin.getWidth(), cabin.getY() + 0.5});
     }
 
-    private Room findClosest(List<Room> asteroids, Room miningStation) {
-        Room closest = asteroids.get(0);
-        int dist = (closest.getX() - miningStation.getX())*(closest.getX() - miningStation.getX()) +
-                (closest.getY() - miningStation.getY())*(closest.getY() - miningStation.getY());
-        for (Room r : asteroids) {
-            int newdist = (r.getX() - miningStation.getX())*(r.getX() - miningStation.getX()) +
-                    (r.getY() - miningStation.getY())*(r.getY() - miningStation.getY());
-            if (newdist < dist) {
-                dist = newdist;
-                closest = r;
-            }
-        }
-        return closest;
-    }
+
 
     private int[][] fillRandomMatrix() {
         int matrix[][] = new int[FIELD_SIZE][FIELD_SIZE];

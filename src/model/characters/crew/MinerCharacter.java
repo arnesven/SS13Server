@@ -25,7 +25,6 @@ public class MinerCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
         List<GameItem> arr = new ArrayList<>();
-        arr.add(new FlashLight());
         arr.add(new MiningDrill());
         arr.add(new MiningTeleporter());
         arr.add(new OreShardBag());

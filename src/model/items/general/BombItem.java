@@ -213,7 +213,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
 
         if (chain > 2) {
             if (gameData.getAllRooms().contains(bombRoom)) { // not already destroyed
-                destroyRoom(gameData, bombRoom);
+                bombRoom.destroy(gameData);
             }
 
         }
@@ -229,31 +229,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
         }
     }
 
-    private void destroyRoom(GameData gameData, Room bombRoom) {
-        Iterator<Event> roomIter = bombRoom.getEvents().iterator();
-        for (Event ev = null ; roomIter.hasNext(); ev = roomIter.next()) {
-            if (ev instanceof ElectricalFire || ev instanceof HullBreach) {
-                roomIter.remove();
-            }
-        }
 
-        bombRoom.addEvent(new NoPressureEverEvent(bombRoom));
-        bombRoom.addEvent(new ColdEvent(bombRoom));
-        bombRoom.addEvent(new DarkEvent());
-
-        for (Room neigh : bombRoom.getNeighborList()) {
-            HullBreach hull = ((HullBreach) gameData.getGameMode().getEvents().get("hull breaches"));
-            hull.startNewEvent(neigh);
-            neigh.addItem(new RoomPartsStack(1));
-        }
-
-        try {
-            gameData.getMap().removeRoom(bombRoom);
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     private BombItem getIfIsAnUnexplodedBomb(GameItem it) {
         if (it.getTrueItem() instanceof BombItem) {

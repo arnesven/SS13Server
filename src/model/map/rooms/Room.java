@@ -1,21 +1,22 @@
 package model.map.rooms;
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import model.*;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
+import model.events.NoPressureEverEvent;
+import model.events.ambient.ColdEvent;
+import model.events.ambient.DarkEvent;
 import model.events.ambient.ElectricalFire;
 import model.events.Event;
 import model.events.ambient.HullBreach;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
+import model.items.general.RoomPartsStack;
 import model.map.GameMap;
 import model.npcs.NPC;
 import model.objects.general.PowerConsumer;
@@ -507,4 +508,31 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
     public void setShortname(String shortName) {
         this.shortName = shortName;
     }
+
+    public void destroy(GameData gameData) {
+        Iterator<Event> roomIter = this.getEvents().iterator();
+        for (Event ev = null ; roomIter.hasNext(); ev = roomIter.next()) {
+            if (ev instanceof ElectricalFire || ev instanceof HullBreach) {
+                roomIter.remove();
+            }
+        }
+
+        this.addEvent(new NoPressureEverEvent(this));
+        this.addEvent(new ColdEvent(this));
+        this.addEvent(new DarkEvent());
+
+        for (Room neigh : this.getNeighborList()) {
+            HullBreach hull = ((HullBreach) gameData.getGameMode().getEvents().get("hull breaches"));
+            hull.startNewEvent(neigh);
+            neigh.addItem(new RoomPartsStack(1));
+        }
+
+        try {
+            gameData.getMap().removeRoom(this);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

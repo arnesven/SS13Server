@@ -1,5 +1,8 @@
 package model.map.rooms;
 
+import model.objects.general.Lockers;
+import model.objects.mining.MiningStorage;
+
 /**
  * Created by erini02 on 17/09/17.
  */
@@ -10,5 +13,6 @@ public class MiningStationRoom extends Room {
 
     public MiningStationRoom(int x, int y) {
         super(DEFAULT_ID, "Mining Station", "MS", x, y, MS_WIDTH, MS_HEIGHT, new int[]{}, new double[]{}, RoomType.tech);
+        this.addObject(new MiningStorage(this));
     }
 }
