@@ -22,11 +22,11 @@ public class ConsumeAction extends Action {
 	protected String getVerb(Actor whosAsking) {
 		return "consumed something.";
 	}
-	
+
 	@Override
-	public ActionOption getOptions(GameData gameData, 
+	public ActionOption getOptions(GameData gameData,
 			Actor whosAsking) {
-		return new ActionOption("Consume " + food.getPublicName(whosAsking));
+		return super.getOptions(gameData, whosAsking);
 	}
 
 	@Override

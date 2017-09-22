@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import graphics.ClientInfo;
+import model.actions.general.ActionOption;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import model.items.weapons.Weapon;
@@ -267,7 +268,11 @@ public class Player extends Actor implements Target, Serializable {
 	public String getActionListString(GameData gameData) {		
 		String result = "{";
 		for (Action a : getActionList(gameData)) {
-			result += a.getOptions(gameData, this).makeBracketedString();
+
+            ActionOption opts = a.getOptions(gameData, this);
+            opts.uniquefy();
+
+			result += opts.makeBracketedString();
 		}
 		result += "}";
 		return result;

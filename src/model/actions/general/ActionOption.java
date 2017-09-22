@@ -1,5 +1,6 @@
 package model.actions.general;
 
+import util.Logger;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -58,11 +59,13 @@ public class ActionOption {
     }
 
     public void uniquefy() {
+        // Logger.log("     Uniqifying action options... " + this.getName());
         for (ActionOption a : suboptions) {
             int dup = 2;
             for (ActionOption b : suboptions) {
                 if (a != b && a.getName().equals(b.getName())) {
-                    b.setName(b.getName() + "[" + (dup++) + "]");
+                    // Logger.log("Found same : " + a.getName() + " - fixing.");
+                    b.setName(b.getName() + " [" + (dup++) + "]");
                 }
             }
             if (dup != 2) {
