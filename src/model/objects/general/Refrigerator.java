@@ -20,8 +20,8 @@ import java.util.ArrayList;
 /**
  * Created by erini02 on 15/11/16.
  */
-public class Cabinet extends DispenserObject {
-    public Cabinet(Room pos) {
+public class Refrigerator extends DispenserObject {
+    public Refrigerator(Room pos) {
         super("Refrigerator", pos);
         for (int i = 4; i > 0; i--) {
             addItem(new Vodka());

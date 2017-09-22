@@ -8,7 +8,7 @@ import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.MoneyStack;
-import model.objects.general.Cabinet;
+import model.objects.general.Refrigerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +18,10 @@ import java.util.List;
  */
 public class BuyAlcoholFromServerAction extends Action {
     private final Actor server;
-    private final Cabinet cabinet;
+    private final Refrigerator cabinet;
     private GameItem selected = null;
 
-    public BuyAlcoholFromServerAction(Actor server, Cabinet cabinet) {
+    public BuyAlcoholFromServerAction(Actor server, Refrigerator cabinet) {
         super("Order Drink", SensoryLevel.SPEECH);
         this.server = server;
         this.cabinet = cabinet;
