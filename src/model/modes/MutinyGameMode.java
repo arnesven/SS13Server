@@ -116,7 +116,17 @@ public class MutinyGameMode extends GameMode {
 
     @Override
     public String getSpectatorSubInfo(GameData gameData) {
-        return "Mutineers left: " + mutineers.size();
+        return "Mutineers left: " + countLiveMutineers();
+    }
+
+    private int countLiveMutineers() {
+        int count = 0;
+        for (Actor a : mutineers) {
+            if (!a.isDead()) {
+                count++;
+            }
+        }
+        return count;
     }
 
 
