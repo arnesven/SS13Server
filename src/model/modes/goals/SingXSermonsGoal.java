@@ -27,7 +27,7 @@ public class SingXSermonsGoal extends PersonalGoal {
 
     @Override
     public String getText() {
-        return "Sing sermons for " + amount + "people.";
+        return "Sing sermons for " + amount + " people.";
     }
 
     @Override

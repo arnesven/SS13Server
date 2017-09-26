@@ -36,20 +36,24 @@ public class HallOfFame {
                 current = 0;
             }
             int gainedPoints = gameData.getGameMode().getPointsForPlayer(gameData, entry.getValue());
-            if (gainedPoints == 0) {
-                PersonalGoal pg = gameData.getGameMode().getTasks().getGoalsForActors().get(entry.getValue());
-                if (pg != null && pg.isCompleted(gameData)) {
-                    Logger.log(entry.getKey() + " scored a point from a personal goal!");
-                    gainedPoints = 1;
-                } else {
-                    Logger.log(entry.getKey() + " got 0 and no PG completed.");
-                }
+            if (entry.getValue().isASpectator()) {
+                Logger.log(entry.getKey() + " was a spectator.");
             } else {
-                Logger.log(entry.getKey() + " was awarded " + gainedPoints + ".");
-            }
+                if (gainedPoints == 0) {
+                    PersonalGoal pg = gameData.getGameMode().getTasks().getGoalsForActors().get(entry.getValue());
+                    if (pg != null && pg.isCompleted(gameData)) {
+                        Logger.log(entry.getKey() + " scored a point from a personal goal!");
+                        gainedPoints = 1;
+                    } else {
+                        Logger.log(entry.getKey() + " got 0 and no PG completed.");
+                    }
+                } else {
+                    Logger.log(entry.getKey() + " was awarded " + gainedPoints + ".");
+                }
 
-            current = current + gainedPoints;
-            entries.put(entry.getKey(), current);
+                current = current + gainedPoints;
+                entries.put(entry.getKey(), current);
+            }
         }
     }
 
