@@ -519,4 +519,8 @@ public class Player extends Actor implements Target, Serializable {
     public void setClientDimension(int width, int height) {
         this.clientInf0.setDimension(width, height);
     }
+
+    public boolean isASpectator() {
+        return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof SpectatorCharacter);
+    }
 }

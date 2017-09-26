@@ -96,9 +96,11 @@ public class  PersonalGoalAssigner implements Serializable {
         for (Actor a : gameData.getActors()) {
             if (generalGoals.size() > 0) {
                 if (a instanceof Player) {
-                    if (!gameData.getGameMode().isAntagonist((Player) a)) {
-                        if (((Player) a).getSettings().get(PlayerSettings.GIVE_ME_A_TASK)) {
-                            setGoal(gameData, a);
+                    if (!((Player) a).isASpectator()) {
+                        if (!gameData.getGameMode().isAntagonist((Player) a)) {
+                            if (((Player) a).getSettings().get(PlayerSettings.GIVE_ME_A_TASK)) {
+                                setGoal(gameData, a);
+                            }
                         }
                     }
                 }
