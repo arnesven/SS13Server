@@ -22,7 +22,7 @@ public class ActionTree {
 
     public ActionTree(String substring) {
         name = substring;
-        System.out.println("Created node " + name);
+       // System.out.println("Created node " + name);
     }
 
 

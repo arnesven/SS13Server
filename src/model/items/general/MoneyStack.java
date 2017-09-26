@@ -73,6 +73,7 @@ public class MoneyStack extends ItemStack {
         super.transferBetweenActors(from, to, giveArgs);
         // both actors now got money increased by givers full money total
         int totalAmount = this.getAmount();
+        giveArgs = giveArgs.replaceAll(" \\[.*\\]", "");
         int amountTransferred = Integer.parseInt(giveArgs);
         GameItem copy = this.clone();
         from.getCharacter().giveItem(copy, null);

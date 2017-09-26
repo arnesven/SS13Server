@@ -137,7 +137,7 @@ public class SimulationClient extends Thread {
                 e.printStackTrace();
             }
 
-            if (gameState == 0 && MyRandom.nextDouble() < 0.3) {
+            if (gameState == 0 && MyRandom.nextDouble() < 0.1) {
                 setReady(true);
             } else if (gameState != 0 && MyRandom.nextDouble() < 0.7) {
                 setReady(true);
