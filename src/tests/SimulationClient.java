@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by erini02 on 26/09/17.
@@ -20,8 +21,6 @@ public class SimulationClient extends Thread {
     private int gameState;
     private int currentRound;
     private String gameStateName;
-    private String movementData;
-    private String actionData;
 
     public SimulationClient(int port, String clientName) {
         this.port = port;
@@ -54,12 +53,11 @@ public class SimulationClient extends Thread {
         if (newState != gameState) {
             System.out.println(clid + " Change in game state detected, going from " + getGameStateName() + " to " + SimulationClient.gameStateName(newState));
             if (newState == 1) {
-                movementData = sendToServer(clid + " MOVEMENT");
+                String movementData = sendToServer(clid + " MOVEMENT");
                 handleMovementData(movementData);
-                //System.out.println("   MOVEMENT data: " + );
             } else if (newState == 2) {
-                actionData = sendToServer(clid + " ACTIONS");
-                //System.out.println("   ACTIONS data: " + );
+                String actionData = sendToServer(clid + " ACTIONS");
+                handleActionData(actionData);
             }
 
         }
@@ -70,11 +68,25 @@ public class SimulationClient extends Thread {
 
     }
 
+
+
     private void handleMovementData(String movementData) {
         String[] parts = movementData.split("<player-data-part>");
         Collection<Integer> possibleDestination = MyArrays.parseIntArray(parts[0]);
         int selectedMove = MyRandom.sample(possibleDestination);
         sendToServer(clid + " NEXTMOVE " + selectedMove);
+    }
+
+    private void handleActionData(String actionData) {
+        //System.out.println(actionData);
+        String[] parts = actionData.split("<player-data-part>");
+        ActionTree at = ActionTree.parseTree(parts[0]);
+        //at.print();
+        System.out.println(at.randomAction());
+        List<String> randomAction = at.randomAction();
+        String toServer = MyStrings.join(randomAction, ",");
+        toServer = toServer.substring(1, toServer.length()-1);
+        sendToServer(clid + " NEXTACTION " + toServer);
     }
 
 
@@ -115,7 +127,6 @@ public class SimulationClient extends Thread {
             pollServer();
 
 
-
             //System.out.println(clid + " polled server: State: " + getGameStateName() + ", round: " + currentRound);
 
             getMapData();
@@ -126,7 +137,7 @@ public class SimulationClient extends Thread {
                 e.printStackTrace();
             }
 
-            if (gameState == 0 && MyRandom.nextDouble() < 0.1) {
+            if (gameState == 0 && MyRandom.nextDouble() < 0.3) {
                 setReady(true);
             } else if (gameState != 0 && MyRandom.nextDouble() < 0.7) {
                 setReady(true);
