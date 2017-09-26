@@ -97,7 +97,12 @@ public class ArmageddonGameMode extends GameMode {
 
     @Override
     public String getSpectatorSubInfo(GameData gameData) {
-        return "Zombies: " + zombieEvent.getZombies();
+        StringBuffer buf = new StringBuffer();
+        for (Actor a : zombieEvent.getZombies()) {
+            buf.append(a.getBaseName() + ", ");
+        }
+
+        return "Zombies: " + buf.toString();
     }
 
 

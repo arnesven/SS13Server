@@ -41,6 +41,7 @@ public class SimulationClient extends Thread {
 
     public String setReady(boolean ready) {
         if (ready) {
+            System.out.println(clid + " is ready.");
             return sendToServer(clid + " READY YES");
         }
         return sendToServer(clid + " READY NO");
