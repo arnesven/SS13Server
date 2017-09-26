@@ -1,11 +1,14 @@
 package tests;
 
+import util.MyArrays;
 import util.MyRandom;
+import util.MyStrings;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Collection;
 
 /**
  * Created by erini02 on 26/09/17.
@@ -51,6 +54,7 @@ public class SimulationClient extends Thread {
             System.out.println(clid + " Change in game state detected, going from " + getGameStateName() + " to " + SimulationClient.gameStateName(newState));
             if (newState == 1) {
                 movementData = sendToServer(clid + " MOVEMENT");
+                handleMovementData(movementData);
                 //System.out.println("   MOVEMENT data: " + );
             } else if (newState == 2) {
                 actionData = sendToServer(clid + " ACTIONS");
@@ -65,6 +69,12 @@ public class SimulationClient extends Thread {
 
     }
 
+    private void handleMovementData(String movementData) {
+        String[] parts = movementData.split("<player-data-part>");
+        Collection<Integer> possibleDestination = MyArrays.parseIntArray(parts[0]);
+        int selectedMove = MyRandom.sample(possibleDestination);
+        sendToServer(clid + " NEXTMOVE " + selectedMove);
+    }
 
 
     private boolean pingServer() {
@@ -105,7 +115,7 @@ public class SimulationClient extends Thread {
 
 
 
-            System.out.println(clid + " polled server: State: " + getGameStateName() + ", round: " + currentRound);
+            //System.out.println(clid + " polled server: State: " + getGameStateName() + ", round: " + currentRound);
 
             getMapData();
 
