@@ -51,7 +51,7 @@ public class NoPressureEvent extends Event {
 
 	@Override
 	public void apply(GameData gameData) {
-        Logger.log("Running NO PRESSURE event in " + roomRef.getName());
+        //Logger.log("Running NO PRESSURE event in " + roomRef.getName());
         if (affectsAdjacent) {
             applyLowPressureInAdjacentRooms(gameData);
             addLowPressureToAdjacentRooms(gameData);

@@ -135,7 +135,7 @@ public class PirateAttackEvent extends AmbientEvent {
     private void movePiratesOverToStation(GameData gameData, int randAirLock) {
         for (NPC npc : pirateShip.getNPCs()) {
             if (npc instanceof AbstractPirateNPC) {
-                if (MyRandom.nextDouble() < 0.0) {
+                if (MyRandom.nextDouble() < 0.5) {
                     npc.setMoveBehavior(new MoveTowardsBehavior(targetRoom,
                             new MeanderingMovement(0.1), new AttackNonPiratesBehavior()));
                 }

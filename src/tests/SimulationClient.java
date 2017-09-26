@@ -1,5 +1,7 @@
 package tests;
 
+import util.MyRandom;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,6 +17,8 @@ public class SimulationClient extends Thread {
     private int gameState;
     private int currentRound;
     private String gameStateName;
+    private String movementData;
+    private String actionData;
 
     public SimulationClient(int port, String clientName) {
         this.port = port;
@@ -46,9 +50,11 @@ public class SimulationClient extends Thread {
         if (newState != gameState) {
             System.out.println(clid + " Change in game state detected, going from " + getGameStateName() + " to " + SimulationClient.gameStateName(newState));
             if (newState == 1) {
-                System.out.println("   MOVEMENT data: " + sendToServer(clid + " MOVEMENT"));
+                movementData = sendToServer(clid + " MOVEMENT");
+                //System.out.println("   MOVEMENT data: " + );
             } else if (newState == 2) {
-                System.out.println("   ACTIONS data: " + sendToServer(clid + " ACTIONS"));
+                actionData = sendToServer(clid + " ACTIONS");
+                //System.out.println("   ACTIONS data: " + );
             }
 
         }
@@ -104,9 +110,15 @@ public class SimulationClient extends Thread {
             getMapData();
 
             try {
-                Thread.currentThread().sleep(3000);
+                Thread.currentThread().sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+
+            if (gameState == 0 && MyRandom.nextDouble() < 0.1) {
+                setReady(true);
+            } else if (gameState != 0 && MyRandom.nextDouble() < 0.7) {
+                setReady(true);
             }
         }
     }

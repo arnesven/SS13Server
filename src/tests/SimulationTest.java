@@ -32,17 +32,15 @@ public class SimulationTest {
             e.printStackTrace();
         }
 
-        SimulationClient sim1 = new SimulationClient(55555, "SIM1");
-        SimulationClient sim2 = new SimulationClient(55555, "SIM2");
+        for (int i = 1; i < 7; ++i) {
+            SimulationClient sim1 = new SimulationClient(55555, "BOT" + i);
+        }
 
         try {
             Thread.currentThread().sleep(15000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        sim1.setReady(true);
-        sim2.setReady(true);
 
 
     }
