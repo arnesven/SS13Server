@@ -69,7 +69,11 @@ public class StasisPod extends ElectricalMachinery {
 
                 @Override
                 protected void execute(GameData gameData, Actor performingClient) {
-                    StasisPod.this.eject();
+                    if (!StasisPod.this.isVacant()) {
+                        StasisPod.this.eject();
+                    } else {
+                        performingClient.addTolastTurnInfo("What, the stasis pod was empty? " + Action.FAILED_STRING);
+                    }
                 }
 
                 @Override
@@ -91,13 +95,14 @@ public class StasisPod extends ElectricalMachinery {
 
 
 
-    public void eject() {
+    private void eject() {
         Logger.log("Ejecting player from pod!");
         if (person == null) {
             Logger.log("Person was null!");
         } else if (person.getPosition() == null) {
             Logger.log("Persons position was null!");
         }
+
         person.getPosition().addActor(person);
         person.removeInstance(new InstanceChecker() {
             @Override
@@ -141,7 +146,9 @@ public class StasisPod extends ElectricalMachinery {
                 @Override
                 public void apply(GameData gameData) {
                     if (time == 0) {
-                        StasisPod.this.eject();
+                        if (!StasisPod.this.isVacant()) {
+                            StasisPod.this.eject();
+                        }
 
                     } else {
                         performingClient.addTolastTurnInfo("You have " + time + " more rounds in the pod.");

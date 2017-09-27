@@ -459,7 +459,7 @@ public class GameData implements Serializable {
 
 	private void allClearLastTurn() {
 		for (Player cl : players.values()) {
-			cl.clearLastTurnInfo();
+            cl.clearLastTurnInfo();
 		}
 		for (Room r : map.getRooms()) {
 			r.clearHappenings();

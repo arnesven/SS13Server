@@ -195,7 +195,7 @@ public class HostGameMode extends GameMode {
         }
         if (getGameResultType(gameData) == GameOver.HIVE_BROKEN) {
             if (isAntagonist(value)) {
-                Logger.log(value.getBaseName() + " is host and DOESN'T get a point.");
+                Logger.log(value.getBaseName() + " is on host team and DOESN'T get a point.");
                 return 0;
             } else {
                 Logger.log(value.getBaseName() + " is crew and gets a point!");
@@ -203,10 +203,10 @@ public class HostGameMode extends GameMode {
             }
         }
         // Infected team wins
-        if (isAntagonist(value)) {
+        if (value == hostClient) {
             Logger.log(value.getBaseName() + " is host and gets a point.");
             return 1;
-        } else if (value.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof InfectedCharacter))) {
+        } else if (value.isInfected()) {
             InfectedCharacter infected = HostModeStats.getInfectCharacter(value.getCharacter());
             Logger.log(infected.getBaseName() + " is infected...");
             if (gameData.getRound() - infected.getInfectedInRound() > 2) {
@@ -256,7 +256,7 @@ public class HostGameMode extends GameMode {
 
 	@Override
     public boolean isAntagonist(Actor c) {
-		return c == hostClient;
+		return c == hostClient || c.isInfected();
 	}
 
 

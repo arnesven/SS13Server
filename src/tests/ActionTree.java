@@ -70,4 +70,8 @@ public class ActionTree {
 
         return res;
     }
+
+    public List<ActionTree> getSubactions() {
+        return subactions;
+    }
 }

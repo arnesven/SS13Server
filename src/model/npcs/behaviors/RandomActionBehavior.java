@@ -51,6 +51,7 @@ public class RandomActionBehavior implements ActionBehavior {
     }
 
     private void getRandomArgsForOptions(List<String> args, ActionOption options) {
+        Logger.log(" random options size is " + options.numberOfSuboptions());
         if (options.numberOfSuboptions() == 0) {
             return;
         }

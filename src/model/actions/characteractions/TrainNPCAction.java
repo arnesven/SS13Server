@@ -120,7 +120,7 @@ public class TrainNPCAction extends Action {
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
 		for (Trainable t : trainables) {
-			if (args.get(0).equals(t.getPublicName())) {
+			if (args.get(0).contains(t.getPublicName())) {
 				target = t;
 			}
 		}

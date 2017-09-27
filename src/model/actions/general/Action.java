@@ -22,9 +22,10 @@ public abstract class Action extends Experienceable implements Serializable {
 	private String name;
 	private SensoryLevel senses;
 	protected Actor performer;
-	
-	
-	/**
+    private boolean wasDeadBeforeApplied = false;
+
+
+    /**
 	 * @param name the name of this action
 	 * @param senses if the action is stealthy it will not be displayed to hidden players standing in that room.
 	 */
@@ -158,5 +159,13 @@ public abstract class Action extends Experienceable implements Serializable {
 
                 a.uniquefy(gameData, act);
             }
+    }
+
+    public void setDeadBeforeApplied() {
+        this.wasDeadBeforeApplied = true;
+    }
+
+    public boolean wasDeadBeforeApplied() {
+        return this.wasDeadBeforeApplied;
     }
 }

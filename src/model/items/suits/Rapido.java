@@ -161,7 +161,9 @@ public class Rapido extends SuitItem {
     }
 
     private void eject(Actor victim) {
-        victim.takeOffSuit();
+        if (victim.getCharacter().getSuit() == this) {
+            victim.takeOffSuit();
+        }
         victim.getPosition().addObject(new BrokenRapido(victim.getPosition()));
     }
 

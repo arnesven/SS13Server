@@ -31,7 +31,7 @@ public class SimulationTest {
             e.printStackTrace();
         }
 
-        for (int i = 1; i < 7; ++i) {
+        for (int i = 1; i < 8; ++i) {
             SimulationClient sim1 = new SimulationClient(55555, "BOT" + i);
         }
 

@@ -94,15 +94,9 @@ public abstract class Actor  implements ItemHolder, Serializable {
 		if (getCharacter() == null) {
 			throw new IllegalStateException("This actor's character has not yet been set.");
 		}
-		
-		InstanceChecker infectChecker = new InstanceChecker() {
-			@Override
-			public boolean checkInstanceOf(GameCharacter ch) {
-				return ch instanceof InfectedCharacter;
-			}
-		};
-		
-		return getCharacter().checkInstance(infectChecker);
+
+        return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof InfectedCharacter);
+
 	}
 
 	public String getPublicName() {

@@ -189,7 +189,7 @@ public abstract class TargetingAction extends Action {
 
 	private Target findTarget(String name) throws NoSuchThingException {
 		for (Target c : targets) {
-			if (c.getName().equals(name)) {
+			if (name.contains(c.getName()) || c.getName().contains(name)) {
 				return c;
 			}
 		}

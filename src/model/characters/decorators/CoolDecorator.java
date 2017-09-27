@@ -17,12 +17,13 @@ public class CoolDecorator extends CharacterDecorator {
 		String res = "Cool ";
 		if (suit.getUnder() == null) {
 			res += "Naked " + getGender() ;
+            if (isDead()) {
+                return res + " (dead)";
+            }
 		} else {
 			res += getInner().getPublicName();
 		}
-		if (isDead()) {
-			return res + " (dead)";
-		}
+
 		return res;
 	}
 

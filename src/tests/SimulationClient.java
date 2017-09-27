@@ -82,10 +82,35 @@ public class SimulationClient extends Thread {
         String[] parts = actionData.split("<player-data-part>");
         ActionTree at = ActionTree.parseTree(parts[0]);
         //at.print();
-        System.out.println(at.randomAction());
         List<String> randomAction = at.randomAction();
+        if (at.getSubactions().size() > 1) {
+            do {
+                randomAction = at.randomAction();
+            } while (! isActionOK(randomAction));
+        }
+        finalizeAction(randomAction);
+    }
+
+    private boolean isActionOK(List<String> randomAction) {
+        if (randomAction.size() > 3) {
+            if (randomAction.get(3).contains("Strip Naked") || randomAction.get(3).contains("All Items")) {
+                return MyRandom.nextDouble() < 0.1;
+            }
+        }
+
+        if (randomAction.size() > 2) {
+            if (randomAction.get(2).contains("Drop")) {
+                return MyRandom.nextDouble() < 0.333;
+            }
+        }
+
+
+        return !randomAction.get(1).contains("Do Nothing");
+    }
+
+    private void finalizeAction(List<String> randomAction) {
         String toServer = MyStrings.join(randomAction, ",");
-        toServer = toServer.substring(1, toServer.length()-1);
+        toServer = toServer.substring(1, toServer.length() - 1);
         sendToServer(clid + " NEXTACTION " + toServer);
     }
 

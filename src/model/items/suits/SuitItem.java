@@ -73,11 +73,16 @@ public abstract class SuitItem extends GameItem {
 	}
 	
 	public double getWeight() {
-        Logger.log(" In getWeight " + getBaseName());
-		if (under == null) {
-			return super.getWeight();
-		}
-		return super.getWeight() + under.getWeight();
+        try {
+            //Logger.log(" In getWeight " + getBaseName());
+            if (under == null) {
+                return super.getWeight();
+            }
+            return super.getWeight() + under.getWeight();
+        } catch (StackOverflowError soe) {
+            System.out.println("In get weight for  " + getBaseName());
+            throw soe;
+        }
 	}
 	
 	public abstract void beingPutOn(Actor actionPerformer);

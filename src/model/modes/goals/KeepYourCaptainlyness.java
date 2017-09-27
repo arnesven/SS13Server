@@ -37,7 +37,7 @@ public class KeepYourCaptainlyness extends PersonalGoal {
             @Override
             public void doAfterActions(GameData gameData) {
                 super.doAfterActions(gameData);
-                tookOff = hasCaptainsSuit(getActor().getCharacter());
+                tookOff = !hasCaptainsSuit(getActor().getCharacter());
             }
         });
     }

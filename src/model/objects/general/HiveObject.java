@@ -42,11 +42,14 @@ public class HiveObject extends HideableObject {
 
     @Override
     public void beExposedTo(Actor performingClient, Damager damage) {
+        double healthBefore = getHealth();
         super.beExposedTo(performingClient, damage);
-        if (performingClient == null) {
-            damageHistory.add(damage.getDamage() + " damage from " + damage.getName());
-        } else {
-            damageHistory.add(performingClient.getBaseName() + " did " + damage.getDamage() + " damage with " + damage.getName());
+        if (healthBefore > getHealth()) {
+            if (performingClient == null) {
+                damageHistory.add(damage.getDamage() + " damage from " + damage.getName());
+            } else {
+                damageHistory.add(performingClient.getBaseName() + " did " + damage.getDamage() + " damage with " + damage.getName());
+            }
         }
     }
 

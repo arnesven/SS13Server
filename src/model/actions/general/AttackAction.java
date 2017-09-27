@@ -59,6 +59,9 @@ public class AttackAction extends TargetingAction {
 
     @Override
 	protected String getVerb(Actor whosAsking) {
+        if (target == null) {
+            return "attacked";
+        }
 		if (target.isDead()) {
             if (target instanceof BreakableObject) {
                 return "destroyed";

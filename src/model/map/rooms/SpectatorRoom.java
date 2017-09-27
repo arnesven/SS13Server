@@ -59,12 +59,14 @@ public class SpectatorRoom extends Room {
     public void pushHappeningsToPlayers() {
         for (Actor spectator : this.getActors()) {
             for (Actor a : gameData.getActors()) {
-                if (a instanceof Player && !(a.getInnermostCharacter() instanceof SpectatorCharacter)) {
+                if (a instanceof Player && !(((Player) a).isASpectator())) {
 
                     List<String> strs = new ArrayList<>();
                     try {
                         String act = ((Player) a).getNextAction().getDescription(spectator);
-                        strs.add(act);
+                        if (!((Player) a).getNextAction().wasDeadBeforeApplied()) {
+                            strs.add(act);
+                        }
                     } catch (IllegalStateException ise) {
                         // probably not called this actions doTheAction...
                     }

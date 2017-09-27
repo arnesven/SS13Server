@@ -45,12 +45,13 @@ public class LarcenyObjective implements TraitorObjective {
     }
 
     private boolean recursiveIsWearing(SuitItem item, SuitItem suit) {
+        if (suit == null) {
+            return false;
+        }
         if (item == suit) {
             return true;
         }
-        if (suit.getUnder() == null) {
-            return false;
-        }
+
         return recursiveIsWearing(item, suit.getUnder());
 
     }
