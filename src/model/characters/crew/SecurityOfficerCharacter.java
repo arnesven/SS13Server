@@ -74,9 +74,11 @@ public class SecurityOfficerCharacter extends CrewCharacter {
             try {
                 SuitItem it = GameItem.getItemFromActor(performingClient, new SecOffsVest());
                 performingClient.putOnSuit(it);
+                performingClient.getItems().remove(it);
 
                 it = GameItem.getItemFromActor(performingClient, new SecOffsHelmet());
                 performingClient.putOnSuit(it);
+                performingClient.getItems().remove(it);
 
                 performingClient.addTolastTurnInfo("Ready for action!");
 

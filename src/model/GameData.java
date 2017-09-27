@@ -14,7 +14,6 @@ import model.characters.special.SpectatorCharacter;
 import model.items.NoSuchThingException;
 import model.map.rooms.RoomType;
 import model.modes.GameCouldNotBeStartedException;
-import model.modes.GameStats;
 import model.objects.consoles.AIConsole;
 import model.objects.general.ContainerObject;
 
@@ -43,7 +42,8 @@ import model.objects.general.GameObject;
 public class GameData implements Serializable {
 
 	private final Date startingTime = new Date();
-	// these fields should persist between games
+    private final boolean recover;
+    // these fields should persist between games
 	private HashMap<String, Player> players = new HashMap<>();
 	private GameState gameState             = GameState.PRE_GAME;
 
@@ -64,8 +64,9 @@ public class GameData implements Serializable {
 
 
 
-    public GameData() {
+    public GameData(boolean recover) {
         map = MapBuilder.createMap(this);
+        this.recover = recover;
 	}
 	
 	/**
@@ -340,7 +341,9 @@ public class GameData implements Serializable {
 				gameState = GameState.MOVEMENT;
 				round = round + 1;
                 try {
-                    GameRecovery.saveData(this);
+                    if (recover) {
+                        GameRecovery.saveData(this);
+                    }
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                 }

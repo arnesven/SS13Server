@@ -1,7 +1,6 @@
 package tests;
 
 import model.GameData;
-import model.Player;
 import util.Logger;
 
 /**
@@ -14,7 +13,7 @@ public class TestUtil {
     public static GameData makeAGame(int noOfPlayers) {
         util.Logger.setLevel(Logger.CRITICAL);
 
-        GameData gameData = new GameData();
+        GameData gameData = new GameData(false);
 
         // Players join game
         for (int i = 0; i < noOfPlayers; ++i) {

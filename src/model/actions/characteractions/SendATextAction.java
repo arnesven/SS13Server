@@ -72,8 +72,12 @@ public class SendATextAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        selected.addTolastTurnInfo(mess);
-        performingClient.addTolastTurnInfo("You texted " + selected.getBaseName());
+        if (selected != null) {
+            selected.addTolastTurnInfo(mess);
+            performingClient.addTolastTurnInfo("You texted " + selected.getBaseName());
+        } else {
+            performingClient.addTolastTurnInfo("What, you couldn't text that person! " + Action.FAILED_STRING);
+        }
     }
 
     @Override

@@ -132,14 +132,14 @@ public class SimulationClient extends Thread {
             getMapData();
 
             try {
-                Thread.currentThread().sleep(1000);
+                Thread.currentThread().sleep(MyRandom.nextInt(1000) + 500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
             if (gameState == 0 && MyRandom.nextDouble() < 0.1) {
                 setReady(true);
-            } else if (gameState != 0 && MyRandom.nextDouble() < 0.7) {
+            } else if (gameState != 0 && MyRandom.nextDouble() < 0.6) {
                 setReady(true);
             }
         }

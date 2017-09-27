@@ -31,8 +31,13 @@ public class SS13ServerMain {
 			name = args[0];
 			port = Integer.parseInt(args[1]);
 		}
-		
-		GameData gameData = new GameData();
+
+        boolean dorecover = false;
+        if (args.length > 2) {
+            dorecover = args[2].equals("recover");
+        }
+
+		GameData gameData = new GameData(dorecover);
 		
 	  if (args.length == 3) {
             if (args[2].equals("pdf")) {

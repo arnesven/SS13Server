@@ -24,7 +24,7 @@ public class SecretModeTest extends TestCase {
         Map<String, Integer> freqs = new HashMap<>();
 
         for (int i = NO_OF_GAMES; i > 0; i--) {
-            GameData gameData = new GameData();
+            GameData gameData = new GameData(false);
             gameData.createNewClient("TestGuy1", false);
             gameData.createNewClient("TestGuy2", false);
             gameData.setPlayerReady("TestGuy1", true);

@@ -4,6 +4,7 @@ import graphics.sprites.RegularBlackShoesSprite;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.items.general.GameItem;
+import util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,9 @@ public abstract class SuitItem extends GameItem {
 
 
     public void setUnder(SuitItem it) {
+        if (it == this) {
+            throw new IllegalStateException("Tried putting same suit ontop of itself");
+        }
 		under = it;
 	}
 	
@@ -69,6 +73,7 @@ public abstract class SuitItem extends GameItem {
 	}
 	
 	public double getWeight() {
+        Logger.log(" In getWeight " + getBaseName());
 		if (under == null) {
 			return super.getWeight();
 		}

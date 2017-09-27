@@ -91,7 +91,7 @@ public class BullWhip extends Weapon {
 
         @Override
         protected String getVerb(Actor whosAsking) {
-            return "used bull whip to snatch an item";
+            return "used bull whip to snatch an item from ";
         }
     }
 }

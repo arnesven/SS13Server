@@ -89,7 +89,11 @@ public class PutOnAction extends Action {
 			performingClient.addTolastTurnInfo("The " + selectedItem.getPublicName(performingClient) + " is gone! Your action failed.");
 			return;
 		}
-		
+
+        if (selectedItem == performingClient.getCharacter().getSuit()) {
+            throw new IllegalStateException("Tried putting the same item on itself!");
+        }
+
 		performingClient.putOnSuit(selectedItem);
 	
 		performingClient.addTolastTurnInfo("You put on the " + selectedItem.getPublicName(performingClient) + ".");

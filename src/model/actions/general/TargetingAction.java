@@ -48,6 +48,9 @@ public abstract class TargetingAction extends Action {
 	
 	@Override
 	public String getDescription(Actor whosAsking) {
+        if (target == null) {
+            return super.getDescription(whosAsking);
+        }
 		String name = target.getName();
 		if (performer.getAsTarget() == target) {
 			name = (performer.getCharacter().getGender().equals("man")?"him":"her") + "self";
@@ -125,6 +128,10 @@ public abstract class TargetingAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
+        if (target == null) {
+            performingClient.addTolastTurnInfo("What, the target wasn't there? " + Action.FAILED_STRING);
+            return;
+        }
 		if (!target.canBeInteractedBy(performingClient)) {
 			performingClient.addTolastTurnInfo("What? " + target.getName() + " can't be targeted! Your action failed.");
 			
