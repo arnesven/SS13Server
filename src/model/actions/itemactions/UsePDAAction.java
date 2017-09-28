@@ -59,10 +59,18 @@ public class UsePDAAction extends Action {
                         " appeared! You put it in your inventory.");
             } else if (orderedItem instanceof SuperSuit) {
                 gi = orderedItem.clone();
-                ((SuperSuit) gi).setAppearance(performingClient.getCharacter().getSuit(), performingClient);
-                performingClient.putOnSuit((SuperSuit) gi);
-                performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) +
-                        " appeared! You put it on.");
+                boolean couldSet = ((SuperSuit) gi).setAppearance(performingClient.getCharacter().getSuit(), performingClient);
+                if (couldSet) {
+                    performingClient.putOnSuit((SuperSuit) gi);
+                    performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) +
+                            " appeared! You put it on.");
+                } else {
+                    performingClient.getCharacter().giveItem(gi, null);
+                    performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) +
+                            " appeared! You put it in your inventory.");
+                }
+
+
             }else if (orderedItem instanceof LarcenyGloves) {
                 gi = orderedItem.clone();
                 performingClient.putOnSuit((LarcenyGloves)gi);

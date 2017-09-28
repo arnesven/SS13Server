@@ -684,7 +684,8 @@ public abstract class GameMode implements Serializable {
 
     public abstract String getSpectatorSubInfo(GameData gameData);
 
-    public List<Pair<Sprite, String>> getSpectatorContent(Actor whosAsking) {
+    public List<Pair<Sprite, String>> getSpectatorContent(GameData gameData, Actor whosAsking) {
+
         return new ArrayList<>();
     }
 

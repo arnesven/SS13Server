@@ -92,7 +92,7 @@ public class SpectatorCharacter extends GhostCharacter {
 
     @Override
     public List<GameItem> getItems() {
-        List<Pair<Sprite, String>> data = gameData.getGameMode().getSpectatorContent(getActor());
+        List<Pair<Sprite, String>> data = gameData.getGameMode().getSpectatorContent(gameData, getActor());
         List<GameItem> its = new ArrayList<>();
         for (Pair<Sprite, String> p : data) {
             its.add(new SpectatorItem(p.second, p.first));

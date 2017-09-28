@@ -174,7 +174,7 @@ public class HostGameMode extends GameMode {
     }
 
     @Override
-    public List<Pair<Sprite, String>> getSpectatorContent(Actor whosAsking) {
+    public List<Pair<Sprite, String>> getSpectatorContent(GameData gameData, Actor whosAsking) {
         List<Pair<Sprite, String>> content = new ArrayList<>();
         content.add(new Pair<>(hive.getSprite((Player)whosAsking), hive.isFound()?"(found)":"(hidden)"));
         content.add(new Pair<>(new LifeBarSprite(hive.getHealth()), "."));

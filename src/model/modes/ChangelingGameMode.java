@@ -229,7 +229,7 @@ public class ChangelingGameMode extends GameMode {
     }
 
     @Override
-    public List<Pair<Sprite, String>> getSpectatorContent(Actor whosAsking) {
+    public List<Pair<Sprite, String>> getSpectatorContent(GameData gameData, Actor whosAsking) {
         List<Pair<Sprite, String>> list = new ArrayList<>();
         for (GameCharacter c : lingChar.getForms()) {
             if (!(c instanceof ParasiteCharacter || c instanceof HorrorCharacter)) {

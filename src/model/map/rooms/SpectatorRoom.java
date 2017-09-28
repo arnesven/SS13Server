@@ -47,12 +47,20 @@ public class SpectatorRoom extends Room {
                 if (gameData.getGameMode().isAntagonist(p)) {
                     sub = gameData.getGameMode().getAntagonistName(p);
                 }
+                sub = sub + " (in " + getPositionName(p)  + ")";
                 info.add(new LifeBarSprite(p.getHealth()).getName() + "<img>" + sub);
 
             }
         }
 
         return info;
+    }
+
+    private String getPositionName(Player p) {
+        if (p.getPosition().getShortname().equals("")) {
+            return p.getPosition().getType().toString().toUpperCase();
+        }
+        return p.getPosition().getShortname();
     }
 
     @Override

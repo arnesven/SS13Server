@@ -562,12 +562,12 @@ public class TraitorGameMode extends GameMode {
     }
 
     @Override
-    public List<Pair<Sprite, String>> getSpectatorContent(Actor whosAsking) {
+    public List<Pair<Sprite, String>> getSpectatorContent(GameData gameData, Actor whosAsking) {
         List<Pair<Sprite, String>> cont = new ArrayList<>();
 
         for (Actor a : traitors) {
             cont.add(new Pair<>(a.getCharacter().getSprite(whosAsking),
-                                objectives.get(a).getText()));
+                                objectives.get(a).getText() + " [" + (objectives.get(a).isCompleted(gameData)?"OK":"NO") + "]"));
         }
 
         return cont;

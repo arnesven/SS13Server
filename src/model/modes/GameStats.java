@@ -126,7 +126,7 @@ public abstract class GameStats {
         buf.append(    "<td><b>Status     </b></td>");
         buf.append(    "<td><b> </b></td></tr>");
         for (NPC npc : gameData.getNPCs()) {
-            if (!(npc instanceof ParasiteNPC)) {
+            if (!(npc instanceof ParasiteNPC) && (!npc.getCharacter().isCrew())) {
                 appendForNPC(buf, npc);
             }
         }

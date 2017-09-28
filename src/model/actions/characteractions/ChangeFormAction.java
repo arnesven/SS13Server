@@ -60,7 +60,7 @@ public class ChangeFormAction extends Action {
 					return;
 				}
 			} else {
-				if (args.get(0).equals(c.getBaseName())) {
+				if (args.get(0).contains(c.getBaseName())) {
 					selected = c;
 					return;
 				}
