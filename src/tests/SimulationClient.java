@@ -84,9 +84,10 @@ public class SimulationClient extends Thread {
         //at.print();
         List<String> randomAction = at.randomAction();
         if (at.getSubactions().size() > 1) {
-            do {
+            while (! isActionOK(randomAction)) {
+                System.out.println(clid + " getting new random action, last was: " + randomAction.get(1));
                 randomAction = at.randomAction();
-            } while (! isActionOK(randomAction));
+            }
         }
         finalizeAction(randomAction);
     }
@@ -157,14 +158,14 @@ public class SimulationClient extends Thread {
             getMapData();
 
             try {
-                Thread.currentThread().sleep(MyRandom.nextInt(1000) + 500);
+                Thread.currentThread().sleep(MyRandom.nextInt(1000) + 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
             if (gameState == 0 && MyRandom.nextDouble() < 0.1) {
                 setReady(true);
-            } else if (gameState != 0 && MyRandom.nextDouble() < 0.6) {
+            } else if (gameState != 0 && MyRandom.nextDouble() < 0.5) {
                 setReady(true);
             }
         }

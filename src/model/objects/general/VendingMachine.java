@@ -68,7 +68,7 @@ public abstract class VendingMachine extends ElectricalMachinery {
                     money.subtractFrom(cost);
                     Bank.getInstance(gameData).addToStationMoney(cost);
                 } catch (ItemStackDepletedException e) {
-                    performingClient.getItems().remove(cost);
+                    performingClient.getItems().remove(money);
                 }
 
                 performingClient.addItem(selectedItem.clone(), null);

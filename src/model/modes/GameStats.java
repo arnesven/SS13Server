@@ -19,11 +19,8 @@ import model.items.general.MoneyStack;
 import model.items.laws.AILaw;
 import model.map.rooms.OtherDimension;
 import model.modes.goals.PersonalGoal;
-import model.npcs.AlienNPC;
+import model.npcs.*;
 import model.npcs.animals.CatNPC;
-import model.npcs.HumanNPC;
-import model.npcs.NPC;
-import model.npcs.PirateNPC;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.PowerSource;
 import util.HTMLText;
@@ -116,19 +113,25 @@ public abstract class GameStats {
 			buf.append("</td><td>");
 		}
 		for (NPC npc : gameData.getNPCs()) {
-			if (npc instanceof HumanNPC) {
+			if (npc instanceof HumanNPC && npc.getCharacter().isCrew()) {
                 appendForNPC(buf, npc);
 			}
 		}
-//        for (NPC npc : gameData.getNPCs()) {
-//            if (!(npc instanceof HumanNPC)) {
-//                appendForNPC(buf, npc);
-//            }
-//        }
+        buf.append("</table>");
 
-		
-		buf.append("</table>");
-		
+        buf.append("<a href=\"#\" onclick=\"document.getElementById('othernpcs').style.display = 'block'\">Show more NPCs</a>");
+        buf.append("<table id=\"othernpcs\" style=\"display:none\">");
+        buf.append("<tr><td></td><td><b>Other NPCs      </b></td>");
+        buf.append(    "<td><b>HP         </b></td>");
+        buf.append(    "<td><b>Status     </b></td>");
+        buf.append(    "<td><b> </b></td></tr>");
+        for (NPC npc : gameData.getNPCs()) {
+            if (!(npc instanceof ParasiteNPC)) {
+                appendForNPC(buf, npc);
+            }
+        }
+        buf.append("</table>");
+
 		return buf.toString();
 	}
 

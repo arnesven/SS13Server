@@ -70,6 +70,8 @@ public class MoneyStack extends ItemStack {
 
     @Override
     public void transferBetweenActors(Actor from, Actor to, String giveArgs) {
+
+        System.out.println("Transferring money between actors: from " + from.getBaseName() + ", to " + to.getBaseName() + ", args: " + giveArgs);
         super.transferBetweenActors(from, to, giveArgs);
         // both actors now got money increased by givers full money total
         int totalAmount = this.getAmount();

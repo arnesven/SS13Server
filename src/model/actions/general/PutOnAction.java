@@ -84,7 +84,7 @@ public class PutOnAction extends Action {
 		} else if (lootVictim != null && lootVictim.getCharacter().getSuit() == selectedItem) {
 			lootVictim.getCharacter().removeSuit();
 		} else if (lootObject != null && lootObject.getInventory().contains(selectedItem)) {
-            lootObject.getInventory().remove(lootObject);
+            lootObject.getInventory().remove(selectedItem);
         } else {
 			performingClient.addTolastTurnInfo("The " + selectedItem.getPublicName(performingClient) + " is gone! Your action failed.");
 			return;

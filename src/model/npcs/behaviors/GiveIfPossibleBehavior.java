@@ -3,6 +3,7 @@ package model.npcs.behaviors;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.items.general.ItemStack;
 import util.Logger;
 import util.MyRandom;
 import model.GameData;
@@ -20,9 +21,14 @@ public class GiveIfPossibleBehavior implements ActionBehavior {
 			Target randomTarget = MyRandom.sample(give.getTargets());
 			List<String> args = new ArrayList<String>();
 			GameItem itemToGive = getItem(npc);
+
 			give.addWithWhat(itemToGive);
 			args.add(randomTarget.getName());
 			args.add(itemToGive.getPublicName(npc));
+            if (itemToGive instanceof ItemStack) {
+                String amount = "" + ((ItemStack) itemToGive).getAmount();
+                args.add(amount);
+            }
 			give.setArguments(args, npc);
 			Logger.log(npc.getPublicName() + " is giving to " + randomTarget.getName() + ", a " + itemToGive.getBaseName());
 			give.printAndExecute(gameData);

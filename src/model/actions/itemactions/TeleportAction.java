@@ -93,7 +93,7 @@ public class TeleportAction extends Action {
             target = performingClient;
         } else {
             for (Actor a : performingClient.getPosition().getActors()) {
-                if (a.getPublicName().equals(args.get(0))) {
+                if (args.get(0).contains(a.getPublicName())) {
                     target = a;
                     break;
                 }

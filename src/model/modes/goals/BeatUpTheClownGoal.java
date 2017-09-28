@@ -42,10 +42,13 @@ public class BeatUpTheClownGoal extends PersonalGoal {
             if (getActor() instanceof Player) {
                 Player pl = (Player)getActor();
                 if (pl.getNextAction() instanceof AttackAction) {
-                    Weapon w = (Weapon)((AttackAction) pl.getNextAction()).getItem();
-                    Actor a = (Actor)((AttackAction) pl.getNextAction()).getTarget();
-                    if (w == Weapon.FISTS && a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof ClownCharacter)) {
-                        completed = true;
+                    AttackAction atkAction = (AttackAction) pl.getNextAction();
+                    Weapon w = (Weapon)(atkAction.getItem());
+                    if (atkAction.getTarget() instanceof Actor) {
+                        Actor a = (Actor) (atkAction.getTarget());
+                        if (w == Weapon.FISTS && a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof ClownCharacter)) {
+                            completed = true;
+                        }
                     }
                 }
             }

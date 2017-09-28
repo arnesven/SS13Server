@@ -51,7 +51,9 @@ public class OnFireCharacterDecorator extends CharacterDecorator {
     public void doAtEndOfTurn(GameData gameData) {
         getActor().getCharacter().beExposedTo(null, new FireDamage());
         if (MyRandom.nextDouble() < END_CHANCE) {
-            getActor().removeInstance((GameCharacter gc) -> gc == this);
+            if (getActor().getCharacter().checkInstance((GameCharacter gc) -> gc == this)) {
+                getActor().removeInstance((GameCharacter gc) -> gc == this);
+            }
         } else {
             getActor().addTolastTurnInfo("You're on fire!");
         }

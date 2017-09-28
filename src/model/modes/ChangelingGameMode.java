@@ -237,7 +237,7 @@ public class ChangelingGameMode extends GameMode {
             }
         }
 
-        return super.getSpectatorContent(whosAsking);
+        return list;
     }
 
     public Actor getChangeling() {
