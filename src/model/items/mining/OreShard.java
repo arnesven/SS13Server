@@ -24,4 +24,6 @@ public abstract class OreShard extends GameItem {
 
     protected abstract int getSpriteRow();
 
+    public abstract int getCharge();
+
 }

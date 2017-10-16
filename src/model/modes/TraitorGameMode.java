@@ -22,6 +22,7 @@ import model.npcs.behaviors.CrazyBehavior;
 import model.npcs.robots.TARSNPC;
 import model.objects.consoles.CrimeRecordsConsole;
 import model.objects.general.MailBox;
+import model.objects.mining.GeneralManufacturer;
 import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
@@ -306,9 +307,20 @@ public class TraitorGameMode extends GameMode {
         result += pointsFromPirates(gameData);
         result += pointsFromBombsDefused(gameData);
         result += pointsFromSecurity(gameData);
+        result += pointsFromMining(gameData);
         result += cosmicArtifactFound(gameData);
 		return result;
 	}
+
+    public int pointsFromMining(GameData gameData) {
+	    int total = 0;
+	    for (GameObject obj : gameData.getAllObjects()) {
+	        if (obj instanceof GeneralManufacturer) {
+	            total += ((GeneralManufacturer)obj).getTotalCharged();
+            }
+        }
+        return total;
+    }
 
     public int pointsFromSecurity(GameData gameData) {
         try {

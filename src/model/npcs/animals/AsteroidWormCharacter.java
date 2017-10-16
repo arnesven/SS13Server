@@ -8,6 +8,7 @@ import model.events.damage.AsphyxiationDamage;
 import model.events.damage.ColdDamage;
 import model.events.damage.Damager;
 import model.events.damage.RadiationDamage;
+import model.items.weapons.Weapon;
 
 public class AsteroidWormCharacter extends AnimalCharacter {
     public AsteroidWormCharacter(int id) {
@@ -31,5 +32,10 @@ public class AsteroidWormCharacter extends AnimalCharacter {
     @Override
     public GameCharacter clone() {
         return new AsteroidWormCharacter(getStartingRoom());
+    }
+
+        @Override
+    public Weapon getDefaultWeapon() {
+        return Weapon.TUSKS;
     }
 }

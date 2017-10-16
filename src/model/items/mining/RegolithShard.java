@@ -21,6 +21,11 @@ public class RegolithShard extends OreShard {
     }
 
     @Override
+    public int getCharge() {
+        return 5;
+    }
+
+    @Override
     public GameItem clone() {
         return new RegolithShard();
     }

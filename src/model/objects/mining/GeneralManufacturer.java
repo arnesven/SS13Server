@@ -13,6 +13,9 @@ import model.items.HandCuffs;
 import model.items.chemicals.*;
 import model.items.general.*;
 import model.items.mining.MiningDrill;
+import model.items.mining.OreShard;
+import model.items.mining.OreShardBag;
+import model.items.mining.RegolithShard;
 import model.items.suits.*;
 import model.items.weapons.*;
 import model.map.rooms.MiningStationRoom;
@@ -29,6 +32,7 @@ import java.util.*;
 public class GeneralManufacturer extends ElectricalMachinery {
     private int charge;
     private Map<String, Set<GameItem>> itemsMap = new HashMap<>();
+    private int totalcharged = 0;
 
     public GeneralManufacturer(Room r) {
         super("General Manufacturer", r);
@@ -47,6 +51,11 @@ public class GeneralManufacturer extends ElectricalMachinery {
         if (a.getOptions(gameData,cl).numberOfSuboptions() > 0) {
             at.add(a);
         }
+        a = new AddShardsAction();
+        if (GameItem.hasAnItemOfClass(cl, OreShard.class) || GameItem.hasAnItemOfClass(cl, OreShardBag.class)) {
+        //if (a.getOptions(gameData,cl).numberOfSuboptions() > 0) {
+            at.add(a);
+        }
     }
 
     public int getLimit() {
@@ -57,6 +66,17 @@ public class GeneralManufacturer extends ElectricalMachinery {
         return charge;
     }
 
+    public void addCharge(int add){
+        charge += add;
+    }
+
+    private void addToTotalLoaded(int totalcharge) {
+        this.totalcharged += totalcharge;
+    }
+
+    public int getTotalCharged() {
+        return totalcharged;
+    }
 
     private class GeneralManufacturerAction extends Action {
 
@@ -194,4 +214,53 @@ public class GeneralManufacturer extends ElectricalMachinery {
 
         return availableItems;
     }
+
+    private class AddShardsAction extends Action {
+        private boolean all = false;
+
+        public AddShardsAction() {
+            super("Load Shards into GM", SensoryLevel.OPERATE_DEVICE);
+        }
+
+        @Override
+        protected String getVerb(Actor whosAsking) {
+            return "Added shards to the General Manufacturer";
+        }
+
+        @Override
+        protected void execute(GameData gameData, Actor performingClient) {
+            List<GameItem> toBeRemovedFromPerformer = new ArrayList<>();
+            int totalcharge = 0;
+            for (GameItem it : performingClient.getItems()) {
+                if (it instanceof OreShard) {
+                    totalcharge += ((OreShard)it).getCharge();
+                    GeneralManufacturer.this.addCharge(((OreShard)it).getCharge());
+                    toBeRemovedFromPerformer.add(it);
+                }
+                if (it instanceof OreShardBag) {
+                    OreShardBag osb = (OreShardBag) it;
+                    Iterator<OreShard> iter = ((OreShardBag) it).getShards().iterator();
+                    while (iter.hasNext()) {
+                        OreShard os = iter.next();
+                        totalcharge += os.getCharge();
+                        GeneralManufacturer.this.addCharge(os.getCharge());
+                        iter.remove();
+                    }
+                }
+            }
+            for (GameItem it : toBeRemovedFromPerformer) {
+                performingClient.getItems().remove(it);
+            }
+            performingClient.addTolastTurnInfo("You loaded the General Manufacturer with " + totalcharge + " charge!");
+            GeneralManufacturer.this.addToTotalLoaded(totalcharge);
+        }
+
+        @Override
+        public void setArguments(List<String> args, Actor performingClient) {
+
+
+        }
+    }
+
+
 }

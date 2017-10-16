@@ -28,4 +28,9 @@ public class UnobtainiumShard extends OreShard {
     protected int getSpriteRow() {
         return 1;
     }
+
+    @Override
+    public int getCharge() {
+        return 30;
+    }
 }

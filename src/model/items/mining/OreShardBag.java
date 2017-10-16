@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class OreShardBag extends GameItem {
 
-    private List<GameItem> shards = new ArrayList<>();
+    private List<OreShard> shards = new ArrayList<>();
 
 
     public OreShardBag() {
@@ -54,6 +54,10 @@ public class OreShardBag extends GameItem {
         if (a.getOptions(gameData, cl).numberOfSuboptions() > 1) {
             at.add(a);
         }
+    }
+
+    public List<OreShard> getShards() {
+        return shards;
     }
 
     private class PutIntoBagAction extends Action {

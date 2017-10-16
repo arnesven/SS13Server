@@ -22,6 +22,7 @@ public abstract class Weapon extends GameItem {
     public static final Weapon TENTACLE   = new Tentacle();
     public static final Weapon STEEL_PROD = new SteelProd();
     public static final Weapon TEETH      = new Teeth();
+    public static final Weapon TUSKS      = new Tusks();
     public static Weapon CLAWS            = new Claws();
     public static Weapon BEAR_CLAWS       = new BearClaws();
 

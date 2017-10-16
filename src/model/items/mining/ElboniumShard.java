@@ -21,6 +21,11 @@ public class ElboniumShard extends OreShard {
     }
 
     @Override
+    public int getCharge() {
+        return 15;
+    }
+
+    @Override
     public GameItem clone() {
         return new ElboniumShard();
     }
