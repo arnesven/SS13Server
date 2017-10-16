@@ -16,7 +16,7 @@ public abstract class Event extends Experienceable implements Serializable {
 
 	public abstract String howYouAppear(Actor performingClient);
 
-	public String addYourselfToRoomInfo(Player whosAsking) {
+	public final String addYourselfToRoomInfo(Player whosAsking) {
 		return getSprite(whosAsking).getName() + "<img>" + howYouAppear(whosAsking);
 	}
 

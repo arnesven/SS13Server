@@ -83,7 +83,7 @@ public class OtherPlacesBuilder extends MapBuilder {
                         matrix[x][y+1] = 1;
                     }
                     asteroidId.add(id);
-                    Room asteroid = new Asteroid(id++, x, y, w, h);
+                    Room asteroid = new Asteroid(id++, x, y, w, h, gameData);
                     asteroids.add(asteroid);
                     addEventsToSpaceRoom(asteroid, gameData);
                     gm.addRoom(asteroid, "asteroid field", "asteroid field");

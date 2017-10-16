@@ -131,7 +131,7 @@ public class PutOnAction extends Action {
                 ContainerObject container = (ContainerObject) obj;
                 for (GameItem it : container.getInventory()) {
 
-                    if (it.getPublicName(putOnner).equals(args.get(0))) {
+                    if (args.get(0).contains(it.getPublicName(putOnner))) {
                         selectedItem = (SuitItem) it;
                         lootObject = container;
                         return;

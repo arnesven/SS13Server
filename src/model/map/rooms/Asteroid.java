@@ -5,6 +5,7 @@ import model.GameData;
 import model.items.NoSuchThingException;
 import model.items.mining.OreShard;
 import model.map.GameMap;
+import model.npcs.animals.AsteroidWorm;
 import model.objects.general.GameObject;
 import model.objects.mining.RockFactory;
 import model.objects.mining.RockObject;
@@ -18,12 +19,19 @@ import java.util.List;
  * Created by erini02 on 16/09/17.
  */
 public class Asteroid extends Room {
-    public Asteroid(int id, int x, int y, int w, int h) {
+    private static final double WORM_SPAWN_CHANCE = 0.1;
+
+    public Asteroid(int id, int x, int y, int w, int h, GameData gameData) {
         super(id, "Asteroid " + id, "AST", x, y, w, h, new int[]{}, new double[]{}, RoomType.hall);
 
         for (double d = 0.9; d > MyRandom.nextDouble(); d = d/2.0) {
             addObject(RockFactory.randomRock(this));
         }
+
+        if (MyRandom.nextDouble() < WORM_SPAWN_CHANCE) {
+            gameData.addNPC(new AsteroidWorm(this));
+        }
+
     }
 
     @Override
