@@ -22,7 +22,7 @@ import model.npcs.animals.ChimpNPC;
 import model.npcs.behaviors.CrazyBehavior;
 import model.npcs.robots.TARSNPC;
 import model.objects.consoles.CrimeRecordsConsole;
-import model.objects.general.MailBox;
+import model.objects.general.*;
 import model.objects.mining.GeneralManufacturer;
 import util.HTMLText;
 import util.Logger;
@@ -41,9 +41,6 @@ import model.items.general.PDA;
 import model.items.suits.ChefsHat;
 import model.items.suits.SunGlasses;
 import model.map.rooms.Room;
-import model.objects.general.BreakableObject;
-import model.objects.general.GameObject;
-import model.objects.general.ElectricalMachinery;
 import model.objects.consoles.GeneratorConsole;
 import util.Pair;
 
@@ -299,6 +296,7 @@ public class TraitorGameMode extends GameMode {
 		result += pointsFromBrokenObjects(gameData);
 		result += pointsFromFires(gameData);
 		result += pointsFromBreaches(gameData);
+		result += pointsFromDirtyStation(gameData);
 		result += pointsFromParasites(gameData);
 		result += pointsFromCat(gameData);
 		result += pointsFromTARS(gameData);
@@ -313,6 +311,20 @@ public class TraitorGameMode extends GameMode {
         result += cosmicArtifactFound(gameData);
 		return result;
 	}
+
+    public int pointsFromDirtyStation(GameData gameData) {
+        int total = 0;
+
+        for (Room r : gameData.getMap().getStationRooms()) {
+            for (GameObject ob : r.getObjects()) {
+                if (ob instanceof BloodyMess) {
+                    total -= 10;
+                }
+            }
+        }
+
+        return total;
+    }
 
     public int pointsFromExploredPlanets(GameData gameData) {
         int total = 0;

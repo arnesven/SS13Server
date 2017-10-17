@@ -8,10 +8,7 @@ import model.actions.general.Action;
 import model.actions.characteractions.PickUpAllAction;
 import model.characters.general.GameCharacter;
 import model.items.chemicals.HydrogenPeroxideChemicals;
-import model.items.general.Chemicals;
-import model.items.general.FireExtinguisher;
-import model.items.general.GameItem;
-import model.items.general.Tools;
+import model.items.general.*;
 
 public class JanitorCharacter extends CrewCharacter {
 
@@ -35,6 +32,7 @@ public class JanitorCharacter extends CrewCharacter {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new HydrogenPeroxideChemicals());
 		list.add(new FireExtinguisher());
+		list.add(new Mop());
         list.add(new Tools());
 		return list;
 	}

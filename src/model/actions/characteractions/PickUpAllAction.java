@@ -11,7 +11,7 @@ import model.items.general.GameItem;
 public class PickUpAllAction extends Action {
 
 	public PickUpAllAction() {
-		super("Clean up", SensoryLevel.PHYSICAL_ACTIVITY);
+		super("Pick Up All", SensoryLevel.PHYSICAL_ACTIVITY);
 	}
 
 	@Override
