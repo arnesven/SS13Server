@@ -6,7 +6,7 @@ import sounds.Sound;
 /**
  * Created by erini02 on 18/12/16.
  */
-public class Fist extends Weapon {
+public class Fist extends Weapon implements BludgeoningWeapon {
     public Fist() {
         super("Fists", 0.5, 0.5, false, 0.0, true, 0);
     }

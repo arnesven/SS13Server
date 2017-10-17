@@ -6,10 +6,7 @@ import model.characters.general.HorrorCharacter;
 import model.events.damage.Damager;
 import model.events.damage.ExplosiveDamage;
 import model.items.general.Grenade;
-import model.items.weapons.Knife;
-import model.items.weapons.Revolver;
-import model.items.weapons.Shotgun;
-import model.items.weapons.Weapon;
+import model.items.weapons.*;
 
 /**
  * Created by erini02 on 01/05/16.
@@ -57,9 +54,6 @@ public class PiercingProtection extends CharacterDecorator {
     }
 
     private boolean getProtectionFrom(Weapon weapon) {
-        return weapon instanceof Knife ||
-                weapon instanceof Shotgun ||
-                weapon instanceof Revolver ||
-                weapon == HorrorCharacter.hugeClaw;
+        return weapon instanceof PiercingWeapon || weapon instanceof BludgeoningWeapon || weapon instanceof SlashingWeapon;
     }
 }

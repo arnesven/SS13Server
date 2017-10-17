@@ -7,7 +7,7 @@ import model.Target;
 import model.objects.general.BreakableObject;
 import util.MyRandom;
 
-public abstract class BluntWeapon extends Weapon {
+public abstract class BluntWeapon extends Weapon implements BludgeoningWeapon {
 
     private double durability;
 

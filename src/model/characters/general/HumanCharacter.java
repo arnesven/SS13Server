@@ -4,10 +4,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.events.damage.Damager;
 import model.events.damage.ExplosiveDamage;
-import model.items.weapons.BluntWeapon;
-import model.items.weapons.PiercingWeapon;
-import model.items.weapons.SlashingWeapon;
-import model.items.weapons.Weapon;
+import model.items.weapons.*;
 import model.objects.general.BloodyMess;
 import util.MyRandom;
 
@@ -53,7 +50,7 @@ public abstract class HumanCharacter extends GameCharacter {
     public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
 	    double hp = getHealth();
         boolean succ = super.beAttackedBy(performingClient, weapon);
-        if (weapon instanceof SlashingWeapon || weapon instanceof BluntWeapon || weapon instanceof PiercingWeapon) {
+        if (weapon instanceof SlashingWeapon || weapon instanceof BludgeoningWeapon || weapon instanceof PiercingWeapon) {
             if (hp > performingClient.getCharacter().getHealth()  && MyRandom.nextDouble() < BloodyMess.SPAWN_CHANCE) {
                 performingClient.getPosition().addObject(new BloodyMess(performingClient.getPosition()));
             }
