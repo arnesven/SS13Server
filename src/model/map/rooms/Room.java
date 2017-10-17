@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 
+import graphics.ClientInfo;
+import graphics.sprites.Sprite;
 import model.*;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel.AudioLevel;
@@ -535,4 +537,11 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 
     }
 
+    public boolean hasBackgroundSprite() {
+	    return false;
+    }
+
+    public Sprite getBackgroundSprite(ClientInfo clientInfo) {
+        return null;
+    }
 }

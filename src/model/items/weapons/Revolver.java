@@ -9,7 +9,7 @@ import model.events.ambient.HullBreach;
 import util.Logger;
 import util.MyRandom;
 
-public class Revolver extends AmmoWeapon {
+public class Revolver extends AmmoWeapon implements PiercingWeapon {
 
 	public Revolver() {
 		super("Revolver", 0.75, 1.0, true, 1.0, 6, 199);

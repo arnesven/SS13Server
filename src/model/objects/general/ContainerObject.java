@@ -52,7 +52,7 @@ private List<GameItem> inventory = new ArrayList<>();
 				@Override
 				public void setArguments(List<String> args, Actor performingClient) {
 					for (GameItem it : inventory) {
-						if (args.get(0).equals(it.getPublicName(performingClient))) {
+						if (args.get(0).contains(it.getPublicName(performingClient))) {
 							selectedItem = it;
 							return;
 						}

@@ -80,7 +80,7 @@ public abstract class GameMode implements Serializable {
         availableChars.put("Roboticist",       new RoboticistCharacter());
 		availableChars.put("Chef",             new ChefCharacter());
 		availableChars.put("Bartender",        new BartenderCharacter());
-		availableChars.put("Technician",       new ArchitectCharacter());
+		availableChars.put("Architect",        new ArchitectCharacter());
 		availableChars.put("Chaplain",         new ChaplainCharacter());
         availableChars.put("Miner",            new MinerCharacter());
         availableChars.put("Janitor",          new JanitorCharacter());

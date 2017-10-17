@@ -12,4 +12,12 @@ public class ClientInfo implements Serializable {
     public void setDimension(int width, int height) {
         clientDimension = new Dimension(width, height);
     }
+
+    public int getWidth() {
+        return clientDimension.width;
+    }
+
+    public int getHeight() {
+        return clientDimension.height;
+    }
 }

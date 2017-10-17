@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by erini02 on 08/09/17.
  */
-public class BirdManCharacter extends model.characters.general.GameCharacter {
+public class BirdManCharacter extends VisitorCharacter {
     public BirdManCharacter() {
         super("Bird Man", 1, 1.0);
         removeSuit();

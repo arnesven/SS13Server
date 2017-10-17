@@ -13,6 +13,7 @@ import model.characters.special.SpectatorCharacter;
 import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
+import model.map.rooms.ExoticPlanet;
 import model.map.rooms.RoomType;
 import model.modes.objectives.*;
 import model.npcs.*;
@@ -308,9 +309,21 @@ public class TraitorGameMode extends GameMode {
         result += pointsFromBombsDefused(gameData);
         result += pointsFromSecurity(gameData);
         result += pointsFromMining(gameData);
+        result += pointsFromExploredPlanets(gameData);
         result += cosmicArtifactFound(gameData);
 		return result;
 	}
+
+    public int pointsFromExploredPlanets(GameData gameData) {
+        int total = 0;
+        for (Room r : gameData.getAllRooms()) {
+            if (r instanceof ExoticPlanet) {
+                total += ((ExoticPlanet)r).isExplored()?50:0;
+
+            }
+        }
+        return total;
+    }
 
     public int pointsFromMining(GameData gameData) {
 	    int total = 0;

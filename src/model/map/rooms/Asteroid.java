@@ -19,7 +19,7 @@ import java.util.List;
  * Created by erini02 on 16/09/17.
  */
 public class Asteroid extends Room {
-    private static final double WORM_SPAWN_CHANCE = 0.1;
+    private static final double WORM_SPAWN_CHANCE = 0.05;
 
     public Asteroid(int id, int x, int y, int w, int h, GameData gameData) {
         super(id, "Asteroid " + id, "AST", x, y, w, h, new int[]{}, new double[]{}, RoomType.hall);

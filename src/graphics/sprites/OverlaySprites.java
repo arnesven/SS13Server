@@ -99,11 +99,14 @@ public class OverlaySprites {
         ArrayList<String> strs = new ArrayList<>();
 
         ArrayList<Sprite> sp = new ArrayList<>();
+        addBackgroundForRoom(sp, player, r);
+
         for (Event e : r.getEvents()) {
             //if (e.getSense().visual == SensoryLevel.VisualLevel.CLEARLY_VISIBLE) {
                 sp.add(e.getSprite(player));
             //}
         }
+
 
         addActorsForRoom(sp, player, r);
         addItemsForRoom(sp, player, r);
@@ -114,6 +117,12 @@ public class OverlaySprites {
             return dummyList();
         }
         return strs;
+    }
+
+    private static void addBackgroundForRoom(ArrayList<Sprite> sp, Player player, Room r) {
+        if (r.hasBackgroundSprite()) {
+            sp.add(r.getBackgroundSprite(player.getClientInfo()));
+        }
     }
 
     public static List<String> seeActorsInAdjacentRooms(Player player, Room room) {

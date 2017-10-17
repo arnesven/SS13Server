@@ -9,7 +9,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.Logger;
 import util.MyPaths;
+
+import javax.security.auth.login.Configuration;
 
 /**
  * Created by erini02 on 24/04/16.
@@ -22,6 +25,8 @@ public class Sprite implements Serializable {
     private int column;
     private int width;
     private int height;
+    private int resizeWidth;
+    private int resizeHeight;
  //   private BufferedImage image;
     private Color color;
     private double rotation = 0.0;
@@ -36,6 +41,8 @@ public class Sprite implements Serializable {
         this.width = Math.max(1, width);
         this.height = Math.max(1, height);
         this.layers = layers;
+        this.resizeWidth = width;
+        this.resizeHeight = height;
         SpriteManager.register(this);
         try {
             getImage();
@@ -52,30 +59,6 @@ public class Sprite implements Serializable {
         return layers;
     }
 
-    //    private void writeObject(java.io.ObjectOutputStream out)
-//            throws IOException{
-//        out.writeObject(layers);
-//        out.writeObject(name);
-//        out.writeObject(mapPath);
-//        out.writeInt(row);
-//        out.writeInt(column);
-//        out.writeInt(width);
-//        out.write(height);
-//        out.writeObject(color);
-//    }
-//
-//    private void readObject(java.io.ObjectInputStream in)
-//            throws IOException, ClassNotFoundException {
-//            layers  = (List<Sprite>)in.readObject();
-//            name    = (String)in.readObject();
-//            mapPath = (String)in.readObject();
-//            row     = in.readInt();
-//            column  = in.readInt();
-//            width   = in.readInt();
-//            height  = in.readInt();
-//            color   = (Color)in.readObject();
-//            SpriteManager.register(this);
-//       }
 
     public Sprite(String name, String mapPath, int column, int row, int width, int height){
         this(name, mapPath, column, row, width, height, new ArrayList<>());
@@ -84,6 +67,12 @@ public class Sprite implements Serializable {
 
     public Sprite(String name, String mapPath, int column, int row) {
         this(name, mapPath, column, row, 32, 32);
+    }
+
+    public Sprite(String name, String mapPath, int column, int row, int width, int height, int resizeW, int resizeH) {
+        this(name, mapPath, column, row, width, height);
+        this.resizeWidth = resizeW;
+        this.resizeHeight = resizeH;
     }
 
     public Sprite(String name, String mapPath, int column) {
@@ -105,10 +94,6 @@ public class Sprite implements Serializable {
     }
 
     public BufferedImage getImage() throws IOException {
-   //     if (this.image == null) {
-      //      this.image = internalGetImage();
-    //    }
-      //  return this.image;
         return internalGetImage();
      }
 
@@ -120,8 +105,6 @@ public class Sprite implements Serializable {
         img = img.getSubimage(column * width, row * height, width, height);
 
         Graphics2D g2d = (Graphics2D) g;
-        //if (getRotation() != 0) {
-
 
         double rotationRequired = Math.toRadians(getRotation());
         double locationX = img.getWidth() / 2;
@@ -135,18 +118,32 @@ public class Sprite implements Serializable {
             g2d.drawImage(op.filter(s.internalGetImage(), null), 0, 0, null);
         }
 
-//        } else {
-//            g2d.drawImage(img, 0, 0, null);
-//        }
-
-
-
         if (color != null) {
             result = colorize(result, color);
         }
 
+        if (this.resizeWidth != this.width || this.resizeHeight != this.height) {
+            // image needs to be resized!
+            result = resize(result);
+        }
+
         return result;
     }
+
+    private BufferedImage resize(BufferedImage result) {
+        Logger.log("resizeing an image from " + width + "x" + height + " to " + resizeWidth + "x" + resizeHeight);
+        BufferedImage dimg = new BufferedImage(this.resizeWidth, this.resizeHeight, result.getType());
+        Graphics2D gnew = dimg.createGraphics();
+        gnew.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        gnew.drawImage(result, 0, 0,
+                this.resizeWidth, this.resizeHeight,
+                0, 0,
+                this.width, this.height, null);
+        gnew.dispose();
+        return dimg;
+    }
+
 
     private static BufferedImage colorize(BufferedImage original, Color color) {
         BufferedImage redVersion = new BufferedImage(original.getWidth(), original.getHeight(),
@@ -218,4 +215,5 @@ public class Sprite implements Serializable {
         Sprite sp = new SpectatorSprite(bldr.toString(), "blank.png", 0, 0, size, 32, spriteList);
         return sp;
     }
+
 }

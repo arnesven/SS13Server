@@ -329,7 +329,7 @@ public class GameMap implements Serializable {
 
     public static boolean hasDoor(Room position, double x, double y) {
         for (int i = 0; i < position.getDoors().length ; i+=2) {
-            if (position.getDoors()[i] == x || position.getDoors()[i+1] == y) {
+            if (position.getDoors()[i] == x && position.getDoors()[i+1] == y) {
                 return true;
             }
         }

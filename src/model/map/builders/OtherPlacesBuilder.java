@@ -22,8 +22,7 @@ public class OtherPlacesBuilder extends MapBuilder {
                 new int[]{28}, new double[]{-1.0, -1.0}, RoomType.hidden);
         gm.addRoom(dummy, ss13, "dummy");
         Room otherDim = new OtherDimension(32, new int[]{30}, new double[]{-1.0, -1.0});
-        Room prisonPlanet = new Room(33, "Prison Planet", "P R I S O N P L A N E T", 0, 0, 1, 1, new int[]{30}, new double[]{-1.0, -1.0}, RoomType.outer);
-
+        Room prisonPlanet = new PrisonPlanet(33);
         gm.addRoom(otherDim, "other dimension", "other dimension");
         gm.addRoom(prisonPlanet, "prison planet", "prison planet");
 
@@ -35,11 +34,21 @@ public class OtherPlacesBuilder extends MapBuilder {
         Room spectatorBench = new SpectatorRoom(gameData);
         gm.addRoom(spectatorBench, "ss13", "hidden");
 
-        Room exoticPlanet = new ExoticPlanet(42, 2, 2, 6, 6, gameData);
+        Room exoticPlanet = buildExoticPlanet(gameData, 42);
         gm.addRoom(exoticPlanet, "exotic planet", "exotic planet");
 
         buildAsteroidField(gameData, gm);
 
+
+    }
+
+    private static ExoticPlanet buildExoticPlanet(GameData gameData, int i) {
+
+        if (MyRandom.nextDouble() < 0.5) {
+            return new JunglePlanet(i, gameData);
+        } else {
+            return new IcePlanet(i, gameData);
+        }
 
     }
 

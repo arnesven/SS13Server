@@ -4,7 +4,7 @@ package model.items.weapons;
 import graphics.sprites.Sprite;
 import model.Actor;
 
-public class Shotgun extends AmmoWeapon {
+public class Shotgun extends AmmoWeapon implements PiercingWeapon {
 
 	public Shotgun() {
 		super("Shotgun", 0.90, 1.0, true, 2.0, 2, 175);

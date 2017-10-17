@@ -1,5 +1,7 @@
 package model.map.rooms;
 
+import graphics.ClientInfo;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -18,36 +20,33 @@ import java.util.Set;
 /**
  * Created by erini02 on 15/09/17.
  */
-public class ExoticPlanet extends Room {
+public abstract class ExoticPlanet extends Room {
     private boolean explored;
-    private String realName = "Jungle Planet";
+    private String realName;
     private Set<HideableObject> hos = new HashSet<>();
 
-    public ExoticPlanet(int id, int x, int y, int w, int h, GameData gameData) {
-        super(id, "Exotic Planet", "E X O T I C   P L A N E T", x, y, w, h, new int[]{}, new double[]{}, RoomType.outer);
+    public ExoticPlanet(int id, GameData gameData, String realName) {
+        super(id, "Exotic Planet", "E X O T I C   P L A N E T", 2, 2, 6, 6, new int[]{}, new double[]{}, RoomType.outer);
+        this.realName = realName;
+    }
 
-        for (double d = 0.9; d > MyRandom.nextDouble(); d = d/1.5) {
-            HideableObject ho = new JunglePlanetPlant(this);
-            addObject(ho);
-            hos.add(ho);
-        }
+    protected abstract Sprite getBackground(ClientInfo clientInfo);
 
-        for (double d = 0.4; d > MyRandom.nextDouble(); d= d/1.6) {
-            NPC djungleMan = new JungleManNPC(this);
-            gameData.addNPC(djungleMan);
-        }
+    public abstract String getDescription();
 
 
+    protected void addHiddenObject(HideableObject ho) {
+        hos.add(ho);
+    }
+
+    public boolean isExplored() {
+        return explored;
     }
 
     @Override
     public void addActionsFor(GameData gameData, Actor client, ArrayList<Action> at) {
         super.addActionsFor(gameData, client, at);
         at.add(new ExplorePlanetAction(this));
-    }
-
-    public String getDescription() {
-        return "This world is a hot and steamy jungle planet. The ground is covered with ferns, and tall trees stretch upwards.";
     }
 
     public void setExplored(boolean explored, GameData gameData) {
@@ -57,14 +56,18 @@ public class ExoticPlanet extends Room {
             this.setShortname(MyStrings.capitalize(realName));
             for (HideableObject ho : hos) {
                 ho.setFound(true);
-
-            }
-            for (double d = 0.9; d > MyRandom.nextDouble(); d= d/1.7) {
-                NPC djungleMan = new JungleManNPC(this);
-                djungleMan.giveStartingItemsToSelf();
-                gameData.addNPC(djungleMan);
             }
         }
+    }
+
+    @Override
+    public boolean hasBackgroundSprite() {
+        return explored;
+    }
+
+    @Override
+    public Sprite getBackgroundSprite(ClientInfo clientInfo) {
+        return getBackground(clientInfo);
     }
 
 
