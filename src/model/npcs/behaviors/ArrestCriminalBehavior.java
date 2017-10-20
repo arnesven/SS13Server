@@ -6,7 +6,6 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.items.NoSuchThingException;
-import model.npcs.NPC;
 import model.objects.consoles.CrimeRecordsConsole;
 
 public class ArrestCriminalBehavior implements ActionBehavior {
@@ -18,7 +17,7 @@ public class ArrestCriminalBehavior implements ActionBehavior {
 	}
 
 	@Override
-	public void act(NPC npc, GameData gameData) {
+	public void act(Actor npc, GameData gameData) {
 		List<Actor> acts = new ArrayList<>();
 		
 		for (Actor a : console.getReportedActors().keySet()) {

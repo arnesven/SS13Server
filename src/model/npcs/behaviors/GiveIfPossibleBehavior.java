@@ -3,6 +3,7 @@ package model.npcs.behaviors;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Actor;
 import model.items.general.ItemStack;
 import util.Logger;
 import util.MyRandom;
@@ -14,7 +15,7 @@ import model.npcs.NPC;
 
 public class GiveIfPossibleBehavior implements ActionBehavior {
 
-	public void act(NPC npc, GameData gameData) {
+	public void act(Actor npc, GameData gameData) {
 		GiveAction give = new GiveAction(npc);
 		
 		if (give.getTargets().size() > 0 && npc.getItems().size() > 0) {
@@ -36,7 +37,7 @@ public class GiveIfPossibleBehavior implements ActionBehavior {
 		
 	}
 
-	private GameItem getItem(NPC npc) {
+	private GameItem getItem(Actor npc) {
 		return MyRandom.sample(npc.getItems());
 	}
 

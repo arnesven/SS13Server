@@ -84,6 +84,7 @@ public abstract class GameMode implements Serializable {
 		availableChars.put("Chaplain",         new ChaplainCharacter());
         availableChars.put("Miner",            new MinerCharacter());
         availableChars.put("Janitor",          new JanitorCharacter());
+        availableChars.put("Staff Assistant",  new StaffAssistantCharacter());
 		availableChars.put("Visitor",          new VisitorCharacter("Visitor", 0, 0.0){
             public VisitorCharacter clone() {
                 throw new IllegalStateException("Should not have been called!");

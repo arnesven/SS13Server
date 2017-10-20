@@ -1,7 +1,7 @@
 package model.npcs.behaviors;
 
+import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.characteractions.ArrestAndTeleportToPrisonPlanetAction;
 import model.actions.general.Action;
 import model.characters.general.CounterAttackAction;
@@ -27,7 +27,7 @@ public class ArrestLoadOrCounterAttack implements ActionBehavior {
     }
 
     @Override
-    public void act(NPC npc, GameData gameData) {
+    public void act(Actor npc, GameData gameData) {
         if (!arrestCriminalIfAble(npc, gameData)) {
             loadShotgunIfAble(npc, gameData);
             counterAttack(npc, gameData);
@@ -35,7 +35,7 @@ public class ArrestLoadOrCounterAttack implements ActionBehavior {
         }
     }
 
-    private void counterAttack(NPC npc, GameData gameData) {
+    private void counterAttack(Actor npc, GameData gameData) {
         ArrayList<Action> actionList = new ArrayList<>();
         npc.getCharacter().addCharacterSpecificActions(gameData, actionList);
         for (Action a : actionList) {
@@ -48,7 +48,7 @@ public class ArrestLoadOrCounterAttack implements ActionBehavior {
         Logger.log(Logger.INTERESTING, "  GFM counter-attacks.");
     }
 
-    private boolean arrestCriminalIfAble(NPC npc, GameData gameData) {
+    private boolean arrestCriminalIfAble(Actor npc, GameData gameData) {
         if (npc.getPosition() == mostWanted.getMostWanted().getPosition()) {
             Logger.log(Logger.INTERESTING, "  GFM found criminal!");
             ArrayList<Action> actionList = new ArrayList<>();
@@ -66,7 +66,7 @@ public class ArrestLoadOrCounterAttack implements ActionBehavior {
         return false;
     }
 
-    private boolean loadShotgunIfAble(NPC npc, GameData gameData) {
+    private boolean loadShotgunIfAble(Actor npc, GameData gameData) {
         try {
             Shotgun shotgun = GameItem.getItemFromActor(npc, new Shotgun());
 

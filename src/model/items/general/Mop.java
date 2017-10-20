@@ -46,7 +46,9 @@ public class Mop extends GameItem {
 
         @Override
         protected void execute(GameData gameData, Actor performingClient) {
-            super.execute(gameData, performingClient);
+            if (!GameItem.hasAnItemOfClass(performingClient, Mop.class)) {
+                performingClient.addTolastTurnInfo("You don't have a mop! " + Action.FAILED_STRING);
+            }
 
             List<GameObject> toBeRemoved = new ArrayList<>();
 
@@ -54,7 +56,10 @@ public class Mop extends GameItem {
                 toBeRemoved.add(obj);
             }
             performingClient.getPosition().getObjects().removeAll(toBeRemoved);
-            performingClient.addTolastTurnInfo("You cleaned up a bloody mess.");
+            if (toBeRemoved.size() > 0) {
+                performingClient.addTolastTurnInfo("You cleaned up a bloody mess.");
+            }
+            super.execute(gameData, performingClient);
 
         }
 

@@ -6,7 +6,6 @@ import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
 import model.characters.general.SantaClauseCharacter;
 import model.items.general.GameItem;
-import model.npcs.NPC;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ public class GiveAwayGiftsBehavior implements ActionBehavior {
     }
 
     @Override
-    public void act(NPC npc, GameData gameData) {
+    public void act(Actor npc, GameData gameData) {
         List<Actor> receivers = new ArrayList<>();
         //Logger.log(" Santa giving gifts!");
         for (Actor a : npc.getPosition().getActors()) {

@@ -7,7 +7,6 @@ import model.actions.general.AttackAction;
 import model.characters.general.AnimatedSlotMachineCharacter;
 import model.items.general.MoneyStack;
 import model.map.rooms.Room;
-import model.npcs.NPC;
 import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 import util.MyRandom;
@@ -25,7 +24,7 @@ public class AnimatedSlotMachineNPC extends RobotNPC {
 
     private static class SlotMachineBehavior extends AttackAllActorsNotSameClassBehavior {
         @Override
-	    public void act(NPC npc, GameData gameData) {
+	    public void act(Actor npc, GameData gameData) {
             AttackAction atk = new AttackAction(npc);
             List<Target> targets = getTargets(npc, gameData, atk);
             super.act(npc, gameData);

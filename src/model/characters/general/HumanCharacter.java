@@ -2,8 +2,10 @@ package model.characters.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.actions.general.Action;
 import model.events.damage.Damager;
 import model.events.damage.ExplosiveDamage;
+import model.events.damage.ScreamingAction;
 import model.items.weapons.*;
 import model.objects.general.BloodyMess;
 import util.MyRandom;
@@ -44,6 +46,14 @@ public abstract class HumanCharacter extends GameCharacter {
                 something.getPosition().addObject(new BloodyMess(something.getPosition()));
             }
         }
+
+        if (damager.getDamage() > 0.5 && MyRandom.nextDouble() < 0.25) {
+
+	        Action a = new ScreamingAction(getActor());
+	        a.doTheAction(null, getActor());
+
+        }
+
     }
 
     @Override
@@ -55,6 +65,11 @@ public abstract class HumanCharacter extends GameCharacter {
                 performingClient.getPosition().addObject(new BloodyMess(performingClient.getPosition()));
             }
         }
+        if (weapon.getDamage() > 0.5 && MyRandom.nextDouble() < 1.0) {
+           Action a = new ScreamingAction(getActor());
+           a.doTheAction(null, getActor());
+        }
+
         return succ;
     }
 }

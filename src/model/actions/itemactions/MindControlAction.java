@@ -79,7 +79,7 @@ public class MindControlAction extends Action {
 
         if (victimOfMindControl instanceof NPC) {
             oldActionBehavior = ((NPC) victimOfMindControl).getActionBehavior();
-            ((NPC) victimOfMindControl).setActionBehavior(((NPC npc, GameData gameD) ->  pl.getNextAction().doTheAction(gameData, victimOfMindControl)));
+            ((NPC) victimOfMindControl).setActionBehavior(((Actor npc, GameData gameD) ->  pl.getNextAction().doTheAction(gameData, victimOfMindControl)));
         }
     }
 

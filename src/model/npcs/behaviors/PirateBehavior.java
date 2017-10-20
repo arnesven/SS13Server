@@ -15,7 +15,7 @@ public class PirateBehavior implements ActionBehavior {
     private int thirst = 1;
 
     @Override
-    public void act(NPC npc, GameData gameData) {
+    public void act(Actor npc, GameData gameData) {
         if (hasRum(npc) != null && MyRandom.nextDouble() < thirst*0.1) {
             Alcohol al = hasRum(npc);
             al.beEaten(npc, gameData);
@@ -29,7 +29,7 @@ public class PirateBehavior implements ActionBehavior {
         }
     }
 
-    private Alcohol hasRum(NPC npc) {
+    private Alcohol hasRum(Actor npc) {
         for (GameItem it : npc.getItems()) {
             if (it instanceof Alcohol) {
                 return (Alcohol)it;

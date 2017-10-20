@@ -1,11 +1,10 @@
 package model.npcs.behaviors;
 
+import model.Actor;
 import model.GameData;
 import model.Target;
 import model.actions.characteractions.FaceHuggingAction;
-import model.actions.general.Action;
 import model.actions.general.TargetingAction;
-import model.npcs.NPC;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class ParasiteBehavior implements ActionBehavior {
     }
 
     @Override
-    public void act(NPC npc, GameData gameData) {
+    public void act(Actor npc, GameData gameData) {
          TargetingAction act = new FaceHuggingAction(npc);
         
 

@@ -36,6 +36,10 @@ public class UsePDAAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
+	    if (!GameItem.hasAnItemOfClass(performingClient, PDA.class)) {
+	        performingClient.addTolastTurnInfo("You don't have a PDA!" + Action.FAILED_STRING);
+        }
+
 		if (!order) {
 			if (traitorMode.getTraitors().size() > 1) {
 				String others = "The hidden traitors are; ";

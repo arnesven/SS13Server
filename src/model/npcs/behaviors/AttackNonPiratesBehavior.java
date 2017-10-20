@@ -18,21 +18,10 @@ import java.util.List;
 public class AttackNonPiratesBehavior extends AttackIfPossibleBehavior {
 
     @Override
-    protected List<Target> getTargets(NPC npc, GameData gameData, AttackAction atk) {
+    protected List<Target> getTargets(Actor npc, GameData gameData, AttackAction atk) {
         List<Target> targets = new ArrayList<Target>();
         targets.addAll(atk.getTargets());
-        Logger.log("Finding targets to exclude in AttackNonPiratesBehavior for " + npc.getName());
-//        for (Target t : atk.getTargets()) {
-//            if (t instanceof Actor) {
-//                Actor targetAsActor = (Actor)t;
-//                if (targetAsActor instanceof AbstractPirateNPC) {
-//                    Logger.log(" -> Removed a pirate.");
-//                    targets.remove(t);
-//                }
-//            } else {
-//                targets.remove(t);
-//            }
-//        }
+        Logger.log("Finding targets to exclude in AttackNonPiratesBehavior for " + npc.getBaseName());
         targets.removeIf((Target t) -> (t.getName().contains("Pirate")));
         targets.removeIf((Target t) -> !(t instanceof Actor));
 

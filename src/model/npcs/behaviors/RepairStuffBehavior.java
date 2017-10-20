@@ -18,7 +18,7 @@ public class RepairStuffBehavior implements ActionBehavior {
     }
 
     @Override
-    public void act(NPC npc, GameData gameData) {
+    public void act(Actor npc, GameData gameData) {
         boolean didFixBreach = fixHullBreach(npc, gameData);
         if (!didFixBreach) {
             boolean didReapairEq = fixDamagedEquipment(npc, gameData);
@@ -29,7 +29,7 @@ public class RepairStuffBehavior implements ActionBehavior {
 
     }
 
-    private void fixRepairableActor(NPC npc, GameData gameData) {
+    private void fixRepairableActor(Actor npc, GameData gameData) {
         for (Actor a : npc.getPosition().getActors()) {
             if (a instanceof Repairable && ((Repairable) a).isDamaged()) {
                 a.addToHealth(1.0);
@@ -38,7 +38,7 @@ public class RepairStuffBehavior implements ActionBehavior {
         }
     }
 
-    private boolean fixDamagedEquipment(NPC npc, GameData gameData) {
+    private boolean fixDamagedEquipment(Actor npc, GameData gameData) {
         for (GameObject ob : npc.getPosition().getObjects()) {
             if (ob instanceof BreakableObject) {
                 if (((BreakableObject)ob).isDamaged() || ((BreakableObject)ob).isBroken()) {
@@ -51,7 +51,7 @@ public class RepairStuffBehavior implements ActionBehavior {
         return false;
     }
 
-    private boolean fixHullBreach(NPC npc, GameData gameData) {
+    private boolean fixHullBreach(Actor npc, GameData gameData) {
         if (npc.getPosition().hasHullBreach()) {
             for (Event e : npc.getPosition().getEvents()) {
                 if (e instanceof HullBreach) {
@@ -64,7 +64,7 @@ public class RepairStuffBehavior implements ActionBehavior {
         return false;
     }
 
-    private void informPublic(NPC npc, String s) {
+    private void informPublic(Actor npc, String s) {
         for (Actor a : npc.getPosition().getActors()) {
             if (a != npc) {
                 a.addTolastTurnInfo(npc.getPublicName() + " " + s);

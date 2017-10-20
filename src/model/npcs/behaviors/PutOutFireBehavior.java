@@ -5,7 +5,6 @@ import model.GameData;
 import model.events.NoSuchEventException;
 import model.events.ambient.ElectricalFire;
 import model.items.general.FireExtinguisher;
-import model.npcs.NPC;
 import util.Logger;
 
 /**
@@ -19,7 +18,7 @@ public class PutOutFireBehavior implements ActionBehavior {
     }
 
     @Override
-    public void act(NPC npc, GameData gameData) {
+    public void act(Actor npc, GameData gameData) {
         try {
             ElectricalFire fire = FireExtinguisher.getFire(npc.getPosition());
 

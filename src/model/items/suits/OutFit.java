@@ -52,6 +52,8 @@ public class OutFit extends SuitItem {
             return new Sprite("chaplainsuniform", "uniforms.png", 7, 1);
         } else if (type instanceof TouristCharacter) {
             return new Sprite("touristuniform", "uniforms.png", 6, 7);
+        } else if (type instanceof StaffAssistantCharacter) {
+            return new Sprite("staffassistantuniform", "uniform.png", 0, 3);
         }
         return super.getSprite(whosAsking);
     }
@@ -94,14 +96,16 @@ public class OutFit extends SuitItem {
             return makeOutfit("touristsuniformworn", "uniform2.png", 14, 14);
         } else if (type instanceof CaptainsDaughter) {
             return makeOutfit("captainsdaughteruniformworn", "uniform2.png", 22, 14);
+        } else if (type instanceof StaffAssistantCharacter) {
+            return makeOutfit("staffassuniformworn", "uniform2.png",19,5);
         }
         return super.getWornSprite(whosAsking);
     }
 
-    public static Sprite makeOutfit(String outfitname, String map, int i, int i1) {
+    public static Sprite makeOutfit(String outfitname, String map, int col, int row) {
         List<Sprite> list = new ArrayList<>();
         list.add(new RegularBlackShoesSprite());
-        return new Sprite(outfitname, map, i, i1, 32, 32, list);
+        return new Sprite(outfitname, map, col, row, 32, 32, list);
     }
 
     @Override

@@ -3,6 +3,7 @@ package model.npcs.behaviors;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Actor;
 import util.Logger;
 import util.MyRandom;
 import model.GameData;
@@ -11,7 +12,6 @@ import model.actions.general.AttackAction;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 import model.npcs.NPC;
-import model.objects.general.GameObject;
 
 public abstract class AttackIfPossibleBehavior implements ActionBehavior {
 
@@ -22,7 +22,7 @@ public abstract class AttackIfPossibleBehavior implements ActionBehavior {
 	}
 	
 	@Override
-	public void act(NPC npc, GameData gameData) {
+	public void act(Actor npc, GameData gameData) {
 		AttackAction atk = new AttackAction(npc);
 		List<Target> targets = getTargets(npc, gameData, atk);
 
@@ -40,7 +40,7 @@ public abstract class AttackIfPossibleBehavior implements ActionBehavior {
 		}
 	}
 
-    protected List<Target> getTargets(NPC npc, GameData gameData, AttackAction atk) {
+    protected List<Target> getTargets(Actor npc, GameData gameData, AttackAction atk) {
         List<Target> targets = new ArrayList<Target>();
         targets.addAll(atk.getTargets());
 
@@ -57,7 +57,7 @@ public abstract class AttackIfPossibleBehavior implements ActionBehavior {
         return targets;
     }
 
-    private Weapon getWeapon(NPC npc) {
+    private Weapon getWeapon(Actor npc) {
 		for (GameItem it : npc.getItems()) {
 			if (it instanceof Weapon) {
 				if (((Weapon)it).isReadyToUse()) {

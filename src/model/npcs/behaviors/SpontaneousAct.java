@@ -1,6 +1,7 @@
 package model.npcs.behaviors;
 
 
+import model.Actor;
 import util.MyRandom;
 import model.GameData;
 import model.actions.general.Action;
@@ -18,13 +19,13 @@ public class SpontaneousAct implements ActionBehavior {
 	}
 
 	@Override
-	public void act(NPC npc, GameData gameData) {
+	public void act(Actor npc, GameData gameData) {
 		if (MyRandom.nextDouble() < probability) {
 			doTheAction(gameData, npc);
 		}
 	}
 
-	protected void doTheAction(GameData gameData, NPC npc) {
+	protected void doTheAction(GameData gameData, Actor npc) {
 		this.action.doTheAction(gameData, npc);		
 	}
 

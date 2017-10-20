@@ -32,7 +32,7 @@ public class JungleManNPC extends NPC {
 
     private static class JungleManBehavior implements ActionBehavior {
         @Override
-        public void act(NPC npc, GameData gameData) {
+        public void act(Actor npc, GameData gameData) {
             SoilPatch sp = roomHasUnplantedSoil(npc);
             if (sp != null && npc.getItems().size() > 0) {
                 PlantAction planting = new PlantAction(sp);
@@ -64,7 +64,7 @@ public class JungleManNPC extends NPC {
 
         }
 
-        private SoilPatch roomHasUnplantedSoil(NPC npc) {
+        private SoilPatch roomHasUnplantedSoil(Actor npc) {
             for (GameObject obj : npc.getPosition().getObjects()) {
                 if (obj instanceof SoilPatch && !((SoilPatch) obj).isPlanted()) {
                     return (SoilPatch)obj;
@@ -73,7 +73,7 @@ public class JungleManNPC extends NPC {
             return null;
         }
 
-        private boolean roomHasCampfire(NPC npc) {
+        private boolean roomHasCampfire(Actor npc) {
             for (GameObject obj : npc.getPosition().getObjects()) {
                 if (obj instanceof JungleCampFire) {
                     return true;

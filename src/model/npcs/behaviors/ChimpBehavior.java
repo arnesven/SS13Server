@@ -1,10 +1,10 @@
 package model.npcs.behaviors;
 
+import model.Actor;
 import util.Logger;
 import util.MyRandom;
 import model.GameData;
 import model.actions.general.SpeechAction;
-import model.npcs.NPC;
 
 public class ChimpBehavior implements ActionBehavior {
 
@@ -20,7 +20,7 @@ public class ChimpBehavior implements ActionBehavior {
 	private SpontaneousAct gibberish = new SpontaneousAct(0.5, new SpeechAction("Oooh oooh  ah!"));
 
 	@Override
-	public void act(NPC npc, GameData gameData) {
+	public void act(Actor npc, GameData gameData) {
 		if (MyRandom.nextDouble() < 0.5) {
 			pickUpBehavior.act(npc, gameData);
 			if (pickUpBehavior.didHappen()) {

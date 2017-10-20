@@ -1,5 +1,6 @@
 package model.npcs.behaviors;
 
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.characteractions.HissAction;
@@ -15,7 +16,7 @@ public class MeowOrHissBehavior extends SpontaneousAct {
 	}
 
 	@Override
-	protected void doTheAction(GameData gameData, NPC npc) {
+	protected void doTheAction(GameData gameData, Actor npc) {
 		if (infectedOrParasiteInRoom(npc.getPosition())) {
 			(new HissAction()).doTheAction(gameData, npc);
 		} else {

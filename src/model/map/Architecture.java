@@ -33,7 +33,7 @@ public class Architecture {
     }
 
     private void fillInActualRooms(GameMap map) {
-        for (Room r : map.getRooms()) {
+        for (Room r : allRooms) {
             for (int x = r.getX(); x < r.getX() + r.getWidth(); ++x) {
                 for (int y = r.getY(); y < r.getY() + r.getHeight(); ++y) {
                     setMatrix(x, y, 1);

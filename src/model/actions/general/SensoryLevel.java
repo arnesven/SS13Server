@@ -3,8 +3,10 @@ package model.actions.general;
 import java.io.Serializable;
 
 public class SensoryLevel implements Serializable {
-	
-	public enum VisualLevel {
+
+
+
+    public enum VisualLevel {
 		CLEARLY_VISIBLE,
 		VISIBLE_IF_CLOSE,
 		STEALTHY,
@@ -43,6 +45,10 @@ public class SensoryLevel implements Serializable {
 	public static final SensoryLevel FIRE =  new SensoryLevel(VisualLevel.CLEARLY_VISIBLE, 
 			  												  AudioLevel.SAME_ROOM, 
 			  												  OlfactoryLevel.SHARP);
+
+    public static final SensoryLevel SCREAM = new SensoryLevel(VisualLevel.INVISIBLE,
+                                                                AudioLevel.VERY_LOUD,
+                                                                OlfactoryLevel.UNSMELLABLE);
 	
 	public VisualLevel visual;
 	public AudioLevel sound;

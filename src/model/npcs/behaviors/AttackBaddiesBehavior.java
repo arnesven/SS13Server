@@ -20,7 +20,7 @@ public class AttackBaddiesBehavior extends AttackIfPossibleBehavior {
 
 
     @Override
-    protected List<Target> getTargets(NPC npc, GameData gameData, AttackAction atk) {
+    protected List<Target> getTargets(Actor npc, GameData gameData, AttackAction atk) {
         List<Target> targets = new ArrayList<Target>();
         targets.addAll(atk.getTargets());
 

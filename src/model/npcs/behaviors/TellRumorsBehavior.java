@@ -13,7 +13,6 @@ import model.characters.crew.CrewCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
-import model.npcs.NPC;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.CrimeRecordsConsole;
 import util.Logger;
@@ -28,7 +27,7 @@ import java.util.List;
  */
 public class TellRumorsBehavior implements ActionBehavior {
     @Override
-    public void act(NPC npc, GameData gameData) {
+    public void act(Actor npc, GameData gameData) {
         gameData.executeAtEndOfRound(npc, new Action("Tell Rumors", SensoryLevel.NO_SENSE) {
             @Override
             protected String getVerb(Actor whosAsking) {

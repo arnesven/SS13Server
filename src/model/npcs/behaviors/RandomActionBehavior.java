@@ -1,5 +1,6 @@
 package model.npcs.behaviors;
 
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class RandomActionBehavior implements ActionBehavior {
     @Override
-    public void act(NPC npc, GameData gameData) {
+    public void act(Actor npc, GameData gameData) {
 
 
         List<String> args = new ArrayList<>();
@@ -34,7 +35,7 @@ public class RandomActionBehavior implements ActionBehavior {
         selected.doTheAction(gameData, npc);
     }
 
-    private Action randomAction(List<String> args, GameData gameData, NPC npc) {
+    private Action randomAction(List<String> args, GameData gameData, Actor npc) {
 
         Player pl = new Player(gameData);
         pl.setCharacter(npc.getCharacter());

@@ -2,18 +2,18 @@ package model.npcs.behaviors;
 
 import java.util.List;
 
+import model.Actor;
 import util.MyRandom;
 import model.GameData;
 import model.actions.general.PickUpAction;
 import model.items.general.GameItem;
-import model.npcs.NPC;
 
 public class PickUpIfPossibleBehavior implements ActionBehavior {
 
 	private boolean didHappen = false;
 
 	@Override
-	public void act(NPC npc, GameData gameData) {
+	public void act(Actor npc, GameData gameData) {
 		List<GameItem> items = npc.getPosition().getItems();
 		
 		if (items.size() > 0) {

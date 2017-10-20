@@ -2,7 +2,6 @@ package model.npcs.behaviors;
 
 import model.Actor;
 import model.GameData;
-import model.npcs.NPC;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.List;
  */
 public class HealOtherBehavior implements ActionBehavior {
     @Override
-    public void act(NPC npc, GameData gameData) {
+    public void act(Actor npc, GameData gameData) {
         List<Actor> healbles = new ArrayList<>();
        for (Actor a : npc.getPosition().getActors()) {
             if (a.getCharacter().isHealable()) {
