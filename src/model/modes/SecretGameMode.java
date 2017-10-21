@@ -7,8 +7,8 @@ import model.Player;
 public class SecretGameMode  {
 	
 	private static final String filename = "random_modes";
-    private static final double[] probabilities = {0.30, 0.60,     0.75,         0.90,         0.95,     1.00};
-    private static final String[] modeNames = {"Host", "Traitor", "Operatives", "Changeling", "Mutiny", "Armageddon"};
+    private static final double[] probabilities = {0.25, 0.50,     0.65,         0.80,          0.90,      0.95,     1.00};
+    private static final String[] modeNames = {"Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Mutiny", "Armageddon"};
 
 
 	public static GameMode getNewInstance() {
@@ -53,14 +53,23 @@ public class SecretGameMode  {
 				}
 			};
 		} else if (d < probabilities[4]) {
-            Logger.log("...... but secretly it's mutiny");
-			MyRandom.write_to_file(filename, d + " Mutiny");
-			result = new MutinyGameMode() {
+            Logger.log("...... but secretly it's rogue ai");
+			MyRandom.write_to_file(filename, d + " Rogue AI");
+			result = new RogueAIMode() {
 				@Override
 				protected void addProtagonistStartingMessage(Player c) {
 					protMessage(c);
 				}
 			};
+        } else if (d < probabilities[5]) {
+            Logger.log("...... but secretly it's mutiny");
+            MyRandom.write_to_file(filename, d + " Mutiny");
+            result = new MutinyGameMode() {
+                @Override
+                protected void addProtagonistStartingMessage(Player c) {
+                    protMessage(c);
+                }
+            };
         } else {
             Logger.log("...... but secretly it's armageddon");
             MyRandom.write_to_file(filename, d + " Armageddon");

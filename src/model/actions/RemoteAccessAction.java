@@ -11,10 +11,7 @@ import model.objects.general.GameObject;
 import model.objects.general.RemotelyOperateable;
 
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by erini02 on 25/10/16.
@@ -45,6 +42,7 @@ public abstract class RemoteAccessAction extends Action {
 
         }
 
+        Collections.sort(opt.getSuboptions(), Comparator.comparing(ActionOption::getName));
         return opt;
     }
 

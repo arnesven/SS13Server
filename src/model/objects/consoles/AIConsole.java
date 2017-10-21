@@ -1,5 +1,6 @@
 package model.objects.consoles;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,8 @@ public class AIConsole extends Console {
     private List<AILaw> availableLaws = new ArrayList<>();
     private List<AILaw> aiLawsOriginal = new ArrayList<>();
     private Map<AILaw, Actor> adders = new HashMap<>();
+    private Actor shutdowner;
+    private Point selectedScreen;
 
 
     public AIConsole(Room pos) {
@@ -63,7 +66,7 @@ public class AIConsole extends Console {
         if (isCorrupt()) {
             return new Sprite("corruptai", "computer2.png", 23, 19);
         }
-        return super.getSprite(whosAsking);
+        return new Sprite("normalaiconsole", "computer2.png", 15);
     }
 
 
@@ -79,7 +82,6 @@ public class AIConsole extends Console {
             }
         }
 	}
-
 
 
     public List<String> getAlarms(GameData gameData) {
@@ -127,6 +129,34 @@ public class AIConsole extends Console {
             }
         }
         return alarms;
+    }
+
+    @Override
+    public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
+        super.addYourselfToRoomInfo(info, whosAsking);
+        info.add(0, getScreenSprite(whosAsking).getName() + "<img>" + "AI Screen");
+    }
+
+    private Sprite getScreenSprite(Player whosAsking) {
+        if (isCorrupt()) {
+            return new Sprite("aiscreencorrupt", "AI.png", 0, 1);
+        } else if (isShutDown()) {
+            double rand = MyRandom.nextDouble();
+            if (rand < 0.33) {
+                return new Sprite("aiscreenshutdown", "AI.png", 3, 1);
+            } else if (rand < 0.66) {
+                return new Sprite("aiscreenshutdown", "AI.png", 4, 1);
+            } else {
+                return new Sprite("aiscreenshutdown", "AI.png", 25, 3);
+            }
+        }
+
+        if (selectedScreen != null) {
+            return new Sprite("aiselectedscreen" + selectedScreen.x+"x"+selectedScreen.y,
+                    "AI.png", selectedScreen.x, selectedScreen.y);
+        }
+
+        return new Sprite("aiscreenspritenormal", "AI.png", 0);
     }
 
     public boolean isShutDown() {
@@ -248,5 +278,17 @@ public class AIConsole extends Console {
             }
         }
         throw new NoSuchThingException("No Actor for law!");
+    }
+
+    public void setShutdowner(Actor shutdowner) {
+        this.shutdowner = shutdowner;
+    }
+
+    public Actor getShutdowner() {
+        return shutdowner;
+    }
+
+    public void setSelectedScreen(Point selectedScreen) {
+        this.selectedScreen = selectedScreen;
     }
 }

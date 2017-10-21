@@ -8,12 +8,14 @@ import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.items.general.ElectronicParts;
 import model.items.general.GameItem;
+import model.map.rooms.Room;
 import model.objects.ai.AITurret;
 import model.objects.general.ATM;
 import model.objects.general.StasisPod;
 import model.objects.general.XeroxMachine;
 import model.objects.consoles.*;
 import model.objects.general.*;
+import model.objects.mining.GeneralManufacturer;
 
 import java.util.*;
 
@@ -22,13 +24,14 @@ import java.util.*;
  */
 public class BuildElectronicObjectAction extends Action {
 
-    private final Collection<GameObject> allBuildableObjects;
+    private final GameData gameData;
+    //private final Collection<GameObject> allBuildableObjects;
     private GameObject selected;
 
     public BuildElectronicObjectAction(GameData gameData) {
         super("Construct", SensoryLevel.PHYSICAL_ACTIVITY);
-
-        allBuildableObjects = getBuildableObjects(gameData);
+        this.gameData = gameData;
+        //allBuildableObjects = getBuildableObjects(gameData);
     }
 
     @Override
@@ -40,7 +43,7 @@ public class BuildElectronicObjectAction extends Action {
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption opts = super.getOptions(gameData, whosAsking);
         List<GameObject> list = new ArrayList<>();
-        list.addAll(allBuildableObjects);
+        list.addAll(getBuildableObjects(gameData, whosAsking));
         Collections.sort(list, ((GameObject o1, GameObject o2) -> o1.getPublicName(whosAsking).compareTo(o2.getPublicName(whosAsking))));
         for (GameObject obj : list) {
             opts.addOption(obj.getPublicName(whosAsking));
@@ -64,7 +67,7 @@ public class BuildElectronicObjectAction extends Action {
 
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
-        for (GameObject obj : allBuildableObjects) {
+        for (GameObject obj : getBuildableObjects(gameData, performingClient)) {
             if (obj.getPublicName(performingClient).equals(args.get(0))) {
                 selected = obj;
                 break;
@@ -72,7 +75,7 @@ public class BuildElectronicObjectAction extends Action {
         }
     }
 
-    public Collection<GameObject> getBuildableObjects(GameData gameData) {
+    public Collection<GameObject> getBuildableObjects(GameData gameData, Actor performer) {
         Set<GameObject> set = new HashSet<>();
         set.add(new XeroxMachine(null));
         set.add(new AirLockControl(null));
@@ -95,6 +98,13 @@ public class BuildElectronicObjectAction extends Action {
         set.add(new StasisPod(null));
         set.add(new TeleportConsole(null));
         set.add(new SeedVendingMachine(null));
+        set.add(new GeneralManufacturer(null));
+
+        for (Room r : performer.getPosition().getNeighborList()) {
+            set.add(new KeyCardLock(r, performer.getPosition(), false, 1.0));
+        }
+
+
         return set;
     }
 }

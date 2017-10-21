@@ -162,7 +162,7 @@ public class  PersonalGoalAssigner implements Serializable {
                 result.put(gc.getBaseName(), new HashSet<>());
             }
         }
-        result.put((new AICharacter(0, null)).getBaseName(), new HashSet<>());
+        result.put((new AICharacter(0, null, false)).getBaseName(), new HashSet<>());
         return result;
     }
 

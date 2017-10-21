@@ -7,6 +7,7 @@ import model.actions.general.ActionOption;
 import model.actions.general.ElectrifyObjectAction;
 import model.actions.general.SensoryLevel;
 import model.map.rooms.Room;
+import model.objects.consoles.AIConsole;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
 

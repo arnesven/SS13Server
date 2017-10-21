@@ -9,6 +9,7 @@ import model.actions.RemoteAccessAction;
 import model.actions.ai.AIOverchargeAction;
 import model.actions.ai.AIProgramBotAction;
 import model.actions.ai.AIReprogramAllAction;
+import model.actions.ai.ChangeScreenAction;
 import model.actions.characteractions.NuclearExplosiveDamage;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
@@ -27,11 +28,13 @@ import java.util.List;
  */
 public class AICharacter extends GhostCharacter {
     private final AIConsole console;
+    private final boolean isEvil;
 
-    public AICharacter(int startRoom, AIConsole console) {
-        super("Strong AI", startRoom, 0.0);
+    public AICharacter(int startRoom, AIConsole console, boolean isEvil) {
+        super("Artificial Intelligence", startRoom, 0.0);
         this.console = console;
         putOnSuit(new AISuit());
+        this.isEvil = isEvil;
     }
 
     public static String getStartingMessage() {
@@ -42,7 +45,7 @@ public class AICharacter extends GhostCharacter {
 
     @Override
     public GameCharacter clone() {
-        return new AICharacter(getStartingRoom(), console);
+        return new AICharacter(getStartingRoom(), console, isEvil);
     }
 
 
@@ -74,7 +77,10 @@ public class AICharacter extends GhostCharacter {
 
     @Override
     public Sprite getNakedSprite() {
-        return new Sprite("aipresence", "genetics.png", 25);
+        if (isEvil) {
+            return new Sprite("aipresence", "AI.png", 0, 1);
+        }
+        return new Sprite("aipresence", "AI.png", 0);
     }
 
     @Override
@@ -85,7 +91,7 @@ public class AICharacter extends GhostCharacter {
     @Override
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
 
-        at.removeIf((Action a) -> (!(a instanceof WatchAction)));
+
 
         // TODO:
         at.add(new AIProgramBotAction(gameData));
@@ -98,10 +104,16 @@ public class AICharacter extends GhostCharacter {
         });
         at.add(new AIDownloadIntoBotAction(gameData));
         at.add(new AIOverchargeAction(gameData));
+        at.add(new ChangeScreenAction(gameData));
     }
 
 
     public List<String> getOverlayStrings(Player player, GameData gameData) {
         return OverlaySprites.seeAIVision(player, gameData);
+    }
+
+    @Override
+    public void modifyActionList(GameData gameData, ArrayList<Action> at) {
+        at.removeIf((Action a) -> a.getName().equals("General"));
     }
 }

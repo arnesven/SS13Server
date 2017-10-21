@@ -598,4 +598,6 @@ public abstract class GameCharacter implements Serializable {
     public GameItem getKillerItem() {
         return killerItem;
     }
+
+    public void modifyActionList(GameData gameData, ArrayList<Action> at) { };
 }

@@ -15,8 +15,11 @@ public class GameModeFactory {
 			Logger.log(Logger.INTERESTING, "Mode is operatives");
 			return new OperativesGameMode();
 		} else if (selectedMode.toLowerCase().equals("changeling")) {
-			Logger.log(Logger.INTERESTING, "Mode is changeling");
-			return new ChangelingGameMode();
+            Logger.log(Logger.INTERESTING, "Mode is changeling");
+            return new ChangelingGameMode();
+        } else if (selectedMode.toLowerCase().equals("rogue ai")) {
+		    Logger.log("Mode is rogue ai");
+		    return new RogueAIMode();
 		} else if (selectedMode.toLowerCase().equals("armageddon")) {
             Logger.log(Logger.INTERESTING, "Mode is ARMAGEDDON");
             return new ArmageddonGameMode();

@@ -230,6 +230,8 @@ public abstract class Actor  implements ItemHolder, Serializable {
 
         Action.uniquefiyList(gameData, at, this);
 
+        getCharacter().modifyActionList(gameData, at);
+
         return at;
     }
 

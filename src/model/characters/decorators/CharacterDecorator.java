@@ -416,5 +416,6 @@ public abstract class CharacterDecorator extends GameCharacter {
         return innerChar.getKillerItem();
     }
 
+    public void modifyActionList(GameData gameData, ArrayList<Action> at) { innerChar.modifyActionList(gameData, at);};
 
 }

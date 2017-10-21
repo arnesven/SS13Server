@@ -3,6 +3,7 @@ package model.objects.consoles;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.ScanBrainAction;
 import model.items.Brain;
@@ -32,6 +33,11 @@ public class BotConsole extends Console {
             programs = loadDefaultPrograms(gameData, whosAsking);
         }
         return programs;
+    }
+
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("botconsole", "computer2.png", 17, 14);
     }
 
     private static List<BotProgram> loadDefaultPrograms(GameData gameData, Actor whosAsking) {

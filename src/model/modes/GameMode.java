@@ -39,7 +39,7 @@ import util.Pair;
 public abstract class GameMode implements Serializable {
 
 
-	private static String[] knownModes = { "Secret", "Host", "Traitor", "Operatives", "Changeling", "Armageddon", "Mutiny", "Creative"};
+	private static String[] knownModes = { "Secret", "Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Armageddon", "Mutiny", "Creative"};
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
     private int defusedBombs = 0;
@@ -298,7 +298,7 @@ public abstract class GameMode implements Serializable {
 		return listOfCharacters;
 	}
 
-    private void selectAIPlayer(ArrayList<Player> listOfClients, GameData gameData) {
+    protected void selectAIPlayer(ArrayList<Player> listOfClients, GameData gameData) {
         List<Player> playersWhoWantToBeAI = new ArrayList<>();
         for (Player pl : listOfClients) {
             if (pl.getSettings().get(PlayerSettings.MAKE_ME_AI_IF_ABLE)) {
@@ -308,7 +308,7 @@ public abstract class GameMode implements Serializable {
 
         try {
             AIConsole console = gameData.findObjectOfType(AIConsole.class);
-            if (playersWhoWantToBeAI.size() == 0 || MyRandom.nextDouble() < 0.01) {
+            if (playersWhoWantToBeAI.size() == 0 || MyRandom.nextDouble() < 0.25) {
                 gameData.findObjectOfType(AITurret.class).addPassiveTurretEvent(console, gameData);
                 return;
             }
@@ -316,7 +316,7 @@ public abstract class GameMode implements Serializable {
             console.setAIisPlayer(true);
             aIPlayer = MyRandom.sample(playersWhoWantToBeAI);
             console.setAIPlayer(aIPlayer);
-            aIPlayer.setCharacter(new AICharacter(gameData.getRoom("AI Core").getID(), console));
+            aIPlayer.setCharacter(new AICharacter(gameData.getRoom("AI Core").getID(), console, false));
             listOfClients.remove(aIPlayer);
             events.remove("corrupt ai");
             gameData.getRoom("AI Core").addObject(new AIMemory(aIPlayer, gameData.getRoom("AI Core")));
@@ -521,8 +521,10 @@ public abstract class GameMode implements Serializable {
 		res.append("aHost" + delim);
 		res.append("aOperative" + delim);
 		res.append("aChangeling" + delim);
+        res.append("aRogue AI" + delim);
 
-		return res.toString();
+
+        return res.toString();
 	}
 
 
