@@ -42,8 +42,8 @@ public abstract class HumanCharacter extends GameCharacter {
 	    super.beExposedTo(something, damager);
 
 	    if (damager instanceof ExplosiveDamage) {
-            if (hp > something.getCharacter().getHealth() && MyRandom.nextDouble() < BloodyMess.SPAWN_CHANCE) {
-                something.getPosition().addObject(new BloodyMess(something.getPosition()));
+            if (hp > getHealth() && MyRandom.nextDouble() < BloodyMess.SPAWN_CHANCE) {
+                getPosition().addObject(new BloodyMess(getPosition()));
             }
         }
 

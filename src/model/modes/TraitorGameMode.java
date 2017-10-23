@@ -266,6 +266,10 @@ public class TraitorGameMode extends GameMode {
         int score = getScore(gameData);
         if ( score > 0) {
             if (isAntagonist(value)) {
+                 if (objectives.get(value).isCompleted(gameData)) {
+                     Logger.log(value.getBaseName() + " is losing traitor but gets 1 from completed objective.");
+                     return 1;
+                 }
                 Logger.log(value.getBaseName() + " is losing traitor and gets no points.");
                 return 0;
             }
@@ -274,6 +278,14 @@ public class TraitorGameMode extends GameMode {
             if (!isAntagonist(value)) {
                 Logger.log(value.getBaseName() + " is losing crew and gets no points.");
                 return 0;
+            } else {
+                if (objectives.get(value).isCompleted(gameData)) {
+                    Logger.log(value.getBaseName() + " is winning traitor with completed objective.");
+                    return 2;
+                } else {
+                    Logger.log(value.getBaseName() + " is winning traitor with failed objective.");
+                    return 1;
+                }
             }
         }
         Logger.log(value.getBaseName() + " is winner and gets a point!");

@@ -198,6 +198,11 @@ public class HostGameMode extends GameMode {
                 Logger.log(value.getBaseName() + " is on host team and DOESN'T get a point.");
                 return 0;
             } else {
+
+                if (hive.getBreaker() == value) {
+                    Logger.log(value.getBaseName() + " is crew and broke the hive!");
+                    return 2;
+                }
                 Logger.log(value.getBaseName() + " is crew and gets a point!");
                 return 1;
             }
