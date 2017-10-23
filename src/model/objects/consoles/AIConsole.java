@@ -19,6 +19,7 @@ import model.characters.general.ParasiteCharacter;
 import model.items.NoSuchThingException;
 import model.items.laws.AILaw;
 import model.map.rooms.Room;
+import model.modes.RogueAIMode;
 import model.npcs.NPC;
 import model.npcs.PirateNPC;
 import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
@@ -26,6 +27,7 @@ import model.npcs.behaviors.DoNothingBehavior;
 import model.npcs.behaviors.FindHumansMovement;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.robots.RobotNPC;
+import model.objects.ai.AIScreen;
 import util.HTMLText;
 import util.MyRandom;
 
@@ -40,11 +42,14 @@ public class AIConsole extends Console {
     private List<AILaw> aiLawsOriginal = new ArrayList<>();
     private Map<AILaw, Actor> adders = new HashMap<>();
     private Actor shutdowner;
-    private Point selectedScreen;
+    private int inversion = 1;
+    private AIScreen screen;
 
 
     public AIConsole(Room pos) {
 		super("AI Console", pos);
+		screen = new AIScreen(pos, this);
+		pos.addObject(screen);
         aiLawsOriginal.add(new AILaw(1, "Do not let humans come to harm"));
         aiLawsOriginal.add(new AILaw(2, "Obey humans according to crew rank"));
         aiLawsOriginal.add(new AILaw(3, "Protect your own existence"));
@@ -75,11 +80,10 @@ public class AIConsole extends Console {
         if (!isShutDown()) {
             if (!AIIsPlayer()) {
                 at.add(new AIConsoleAction(this));
-            } else {
-                if (cl.getCharacter().isCrew()) {
-                    at.add(new AILawAction(this));
-                }
             }
+        }
+        if (cl.getCharacter().isCrew()) {
+            at.add(new AILawAction(this));
         }
 	}
 
@@ -134,30 +138,9 @@ public class AIConsole extends Console {
     @Override
     public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
         super.addYourselfToRoomInfo(info, whosAsking);
-        info.add(0, getScreenSprite(whosAsking).getName() + "<img>" + "AI Screen");
     }
 
-    private Sprite getScreenSprite(Player whosAsking) {
-        if (isCorrupt()) {
-            return new Sprite("aiscreencorrupt", "AI.png", 0, 1);
-        } else if (isShutDown()) {
-            double rand = MyRandom.nextDouble();
-            if (rand < 0.33) {
-                return new Sprite("aiscreenshutdown", "AI.png", 3, 1);
-            } else if (rand < 0.66) {
-                return new Sprite("aiscreenshutdown", "AI.png", 4, 1);
-            } else {
-                return new Sprite("aiscreenshutdown", "AI.png", 25, 3);
-            }
-        }
 
-        if (selectedScreen != null) {
-            return new Sprite("aiselectedscreen" + selectedScreen.x+"x"+selectedScreen.y,
-                    "AI.png", selectedScreen.x, selectedScreen.y);
-        }
-
-        return new Sprite("aiscreenspritenormal", "AI.png", 0);
-    }
 
     public boolean isShutDown() {
         return shutDown;
@@ -169,6 +152,14 @@ public class AIConsole extends Console {
 
 
     public void informOnStation(String s, GameData gameData) {
+
+        if (gameData.getGameMode() instanceof RogueAIMode) {
+            for (int i = inversion; i > 0; --i) {
+                s = randomlyReplace(s);
+            }
+            inversion++;
+        }
+
         if (!isCorrupt() && !isShutDown() && !AIIsPlayer()) {
             for (Room r : gameData.getMap().getRoomsForLevel("ss13")) {
                 for (Actor a : r.getActors()) {
@@ -179,6 +170,18 @@ public class AIConsole extends Console {
         if (AIIsPlayer() && !isShutDown()) {
             aiPlayer.addTolastTurnInfo(HTMLText.makeText("blue", "SYSTEM; \"" + s + "\""));
         }
+    }
+
+    private String randomlyReplace(String s) {
+        int d = MyRandom.nextInt(s.length());
+        int x = MyRandom.nextInt(s.length());
+        StringBuffer buf = new StringBuffer(s);
+        String little = buf.substring(x, x+1);
+        String little2 = buf.substring(d, d+1);
+        buf.replace(d, d+1, little);
+        buf.replace(x, x+1, little2);
+        s = buf.toString();
+        return s;
     }
 
     public void corrupt(GameData gameData) {
@@ -288,7 +291,8 @@ public class AIConsole extends Console {
         return shutdowner;
     }
 
-    public void setSelectedScreen(Point selectedScreen) {
-        this.selectedScreen = selectedScreen;
+
+    public AIScreen getScreen() {
+        return screen;
     }
 }

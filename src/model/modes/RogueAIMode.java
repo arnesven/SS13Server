@@ -21,6 +21,7 @@ import java.util.List;
 
 public class RogueAIMode extends GameMode {
 
+    public static final double CHANCE_FOR_SCREEN_CHANGE = 0.10;
     private Actor aiPlayer;
     private NPC decoy;
 
@@ -127,7 +128,16 @@ public class RogueAIMode extends GameMode {
     }
 
     @Override
-    public Integer getPointsForPlayer(GameData gameData, Player value) {
+    public Integer getPointsForPlayer(GameData gameData, Player value)
+    {
+        if (value.getCharacter().isCrew() &&
+                getGameResultType(gameData) == GameOver.ANTAGONISTS_DEAD  &&
+                !value.getCharacter().isDead()) {
+            return 1;
+        } else if (value == aiPlayer && !value.isDead()) {
+            return 1;
+        }
+
         return 0;
     }
 
