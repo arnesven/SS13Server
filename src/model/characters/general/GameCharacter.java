@@ -14,6 +14,8 @@ import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
 import model.map.rooms.RoomType;
 import model.npcs.NPC;
+import model.npcs.behaviors.ActionBehavior;
+import model.npcs.behaviors.DoNothingBehavior;
 import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
@@ -600,4 +602,8 @@ public abstract class GameCharacter implements Serializable {
     }
 
     public void modifyActionList(GameData gameData, ArrayList<Action> at) { };
+
+    public ActionBehavior getDefaultActionBehavior() {
+        return new DoNothingBehavior();
+    }
 }

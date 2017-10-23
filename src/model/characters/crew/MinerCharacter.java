@@ -9,6 +9,8 @@ import model.items.mining.OreShardBag;
 import model.items.suits.MinerSpaceSuit;
 import model.items.mining.MiningDrill;
 import model.map.rooms.MiningStationRoom;
+import model.npcs.behaviors.ActionBehavior;
+import model.npcs.behaviors.PutOnSuitBehavior;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,5 +42,11 @@ public class MinerCharacter extends CrewCharacter {
     @Override
     public int getStartingMoney() {
         return 150;
+    }
+
+
+    @Override
+    public ActionBehavior getDefaultActionBehavior() {
+        return new PutOnSuitBehavior(MinerSpaceSuit.class);
     }
 }

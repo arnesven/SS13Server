@@ -17,6 +17,7 @@ import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
 import model.map.rooms.RoomType;
+import model.npcs.behaviors.ActionBehavior;
 import util.Logger;
 
 
@@ -418,4 +419,8 @@ public abstract class CharacterDecorator extends GameCharacter {
 
     public void modifyActionList(GameData gameData, ArrayList<Action> at) { innerChar.modifyActionList(gameData, at);};
 
+    @Override
+    public ActionBehavior getDefaultActionBehavior() {
+        return innerChar.getDefaultActionBehavior();
+    }
 }
