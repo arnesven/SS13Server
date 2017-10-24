@@ -43,14 +43,24 @@ public class JunglePlanet extends ExoticPlanet {
         }
     }
 
-    @Override
-    protected Sprite getBackground(ClientInfo clientInfo) {
-        Sprite sp = new Sprite("junglebackground"+clientInfo.getWidth()+"x"+clientInfo.getHeight(),
-                "jungleplanet3.png",
-                0, 0, 365, 275,
-                (clientInfo.getWidth()*60)/100,
-                clientInfo.getHeight());
 
-        return sp;
+    @Override
+    protected int getBackgroundSpriteHeight() {
+        return 275;
+    }
+
+    @Override
+    protected int getBackgroundSpriteWidth() {
+        return 365;
+    }
+
+    @Override
+    protected String getBackgroundSpriteMap() {
+        return "jungleplanet3.png";
+    }
+
+    @Override
+    protected String getBackroundSpriteName() {
+        return "junglebackground";
     }
 }

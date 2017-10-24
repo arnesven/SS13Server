@@ -20,6 +20,7 @@ public class PlayerSettings implements Serializable {
     public static final String PLAY_SOUND_IF_SUPPORTED     = "Play sound if supported";
     public static final String MAKE_ME_A_SPECTATOR         = "Make me a spectator";
     public static final String AUTO_READY_ME_IN_60_SECONDS = "Auto-ready me after 60 secs";
+    public static final String ACTIVATE_MOVEMENT_POWERS    = "Activate Movement Powers";
 
     private HashMap<String, Boolean> settings = new HashMap<>();
 
@@ -33,6 +34,7 @@ public class PlayerSettings implements Serializable {
         settings.put(GIVE_ME_A_TASK, true);
         settings.put(PLAY_SOUND_IF_SUPPORTED, true);
         settings.put(MAKE_ME_A_SPECTATOR, false);
+        settings.put(ACTIVATE_MOVEMENT_POWERS, true);
         //settings.put(AUTO_READY_ME_IN_60_SECONDS, true);
     }
 

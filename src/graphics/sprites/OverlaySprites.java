@@ -215,7 +215,6 @@ public class OverlaySprites {
             addActorsForRoom(sp, player, r);
             addItemsForRoom(sp, player, r);
             addPowerForRoom(sp, r, gameData);
-            addObjectsForRoom(sp, player, r);
             for (Event e : r.getEvents()) {
                 sp.add(e.getSprite(player));
             }
@@ -237,7 +236,7 @@ public class OverlaySprites {
 
 
 
-    private static List<String> getStringsForSpritesInRoom(ArrayList<Sprite> sprites, Room r) {
+    private static List<String> getStringsForSpritesInRoom(List<Sprite> sprites, Room r) {
         ArrayList<String> strs = new ArrayList<>();
         double roomX = (double)r.getX();
         double roomY = (double)r.getY();
@@ -318,5 +317,15 @@ public class OverlaySprites {
             strs.addAll(getStringsForSpritesInRoom(sprs, r));
         }
         return strs;
+    }
+
+    public static List<String> getAlwaysSprites(Player player, GameData gameData) {
+        List<String> strs = new ArrayList<>();
+
+        for (Room r : player.getVisibleMap(gameData)) {
+            strs.addAll(getStringsForSpritesInRoom(r.getAlwaysSprites(), r));
+        }
+        return strs;
+
     }
 }

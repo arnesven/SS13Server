@@ -307,13 +307,13 @@ public class GameData implements Serializable {
             }
 
 		} else if (gameState == GameState.MOVEMENT) {
+            allClearLastTurn();
             forEachCharacter(((GameCharacter ch) -> ch.doBeforeMovement(this)));
             MovementData moveData = new MovementData(this);
 			moveAllNPCs();
-			moveAllPlayers();
-
+			moveAllPlayers(moveData);
 			allResetActionStrings();
-			allClearLastTurn();
+
             moveData.informPlayersOfMovements(this);
 			runMovementEvents();
 
@@ -501,10 +501,14 @@ public class GameData implements Serializable {
 	}
 
 
-	private void moveAllPlayers() {
+	private void moveAllPlayers(MovementData moveData) {
 		for (Player cl : players.values()) {
             try {
-                cl.moveIntoRoom(map.getRoomByID(cl.getNextMove()));
+                if (cl.getNextMove() > 0) {
+                    cl.moveIntoRoom(map.getRoomByID(cl.getNextMove()));
+                } else {
+                    cl.activateMovementPower(cl.getNextMove(), this, moveData);
+                }
             } catch (NoSuchThingException e) {
                 //Room did not exist any more
                 Logger.log(Logger.CRITICAL, "WHAt, tried moving player to room that did not exist???");

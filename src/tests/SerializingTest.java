@@ -1,7 +1,6 @@
 package tests;
 
 import junit.framework.TestCase;
-import model.Actor;
 import model.GameData;
 import model.Player;
 import org.junit.Test;

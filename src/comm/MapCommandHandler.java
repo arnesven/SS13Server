@@ -1,10 +1,11 @@
 package comm;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 import model.GameData;
+import model.map.rooms.Room;
+import model.map.rooms.RoomType;
 import util.Logger;
 import util.MyStrings;
 
@@ -21,7 +22,10 @@ public class MapCommandHandler extends AbstractCommandHandler {
 			ObjectOutputStream oos) throws IOException {
 //		System.out.println("handling map command");
 		if (command.contains("MAP")) {
-			String result = MyStrings.join(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
+		    //List<String> strs = makeStringsList(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
+
+			//String result = MyStrings.join(strs);
+            String result = MyStrings.join(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
 			//Logger.log("MAPCOMMAND:" + rest);
             rest = rest.substring(1);
 
@@ -40,5 +44,38 @@ public class MapCommandHandler extends AbstractCommandHandler {
 		
 		return false;
 	}
+
+//    private List<String> makeStringsList(List<Room> visibleMap) {
+//	    List<String> strs = new ArrayList<>();
+//        List<Integer> buttons = new ArrayList<>();
+//
+//
+//	    for (Room r : visibleMap) {
+//	        if (r.getType() == RoomType.button) {
+//	            buttons.add(r.getID());
+//	            Logger.log("    found a button " + r.getID());
+//            }
+//        }
+//
+//
+//	    for (Room r : visibleMap) {
+//            int[] newNeighs = new int[r.getNeighbors().length + buttons.size()];
+//            for (int i = 0; i < r.getNeighbors().length; ++i) {
+//                newNeighs[i] = r.getNeighbors()[i];
+//            }
+//            for (int i = 0; i < buttons.size(); ++i) {
+//                newNeighs[r.getNeighbors().length+i] = buttons.get(i);
+//            }
+//            Logger.log(" SENDING ARRAY TO CLIENT " + Arrays.toString(newNeighs));
+//
+//            String result = r.getID() + ":" + r.getName() + ":" +
+//                    r.getShortname() + ":" + r.getX() + ":" + r.getY() + ":" +
+//                    r.getWidth() + ":" + r.getHeight() + ":" + Arrays.toString(newNeighs) + ":" + Arrays.toString(r.getDoors()) + ":" + r.getColor();
+//            strs.add(result);
+//        }
+//	    return strs;
+//    }
+
+
 
 }

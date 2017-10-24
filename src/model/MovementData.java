@@ -63,4 +63,8 @@ public class MovementData {
         }
         throw new RoomNotFoundException();
     }
+
+    public Room getLastPosition(Actor a) {
+        return positions.get(a);
+    }
 }

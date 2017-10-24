@@ -12,23 +12,37 @@ public class IcePlanet extends ExoticPlanet {
         super(i, gameData, "Ice Planet");
     }
 
+
     @Override
-    protected Sprite getBackground(ClientInfo clientInfo) {
-        return new Sprite("iceplanetbackground"+clientInfo.getWidth()+"x"+clientInfo.getHeight(),
-                "iceplanet.png",
-                0, 0, 270, 179,
-                (clientInfo.getWidth()*60)/100,
-                clientInfo.getHeight());
+    protected int getBackgroundSpriteHeight() {
+        return 179;
+    }
+
+    @Override
+    protected int getBackgroundSpriteWidth() {
+        return 270;
+    }
+
+    @Override
+    protected String getBackgroundSpriteMap() {
+        return "iceplanet.png";
+    }
+
+    @Override
+    protected String getBackroundSpriteName() {
+        return "iceplanetbackground";
     }
 
     @Override
     public void setExplored(boolean explored, GameData gameData) {
         super.setExplored(explored, gameData);
-        while (MyRandom.nextDouble() < 0.6) {
-            gameData.addNPC(new TauntaunNPC(this));
-        }
-        if (MyRandom.nextDouble() < 0.4) {
-            gameData.addNPC(new WampaNPC(this));
+        if (explored) {
+            while (MyRandom.nextDouble() < 0.6) {
+                gameData.addNPC(new TauntaunNPC(this));
+            }
+            if (MyRandom.nextDouble() < 0.4) {
+                gameData.addNPC(new WampaNPC(this));
+            }
         }
     }
 

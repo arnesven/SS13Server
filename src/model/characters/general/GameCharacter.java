@@ -13,6 +13,7 @@ import model.actions.general.AttackAction;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
 import model.map.rooms.RoomType;
+import model.movepowers.*;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.DoNothingBehavior;
@@ -568,7 +569,30 @@ public abstract class GameCharacter implements Serializable {
         roomsToShow.removeIf((Room r ) -> r.getType() == RoomType.hidden);
         List<Room> result = new ArrayList<>();
         result.addAll(roomsToShow);
+
+        if (getActor() instanceof Player && ((Player) getActor()).getSettings().get(PlayerSettings.ACTIVATE_MOVEMENT_POWERS)) {
+            MovePowersHandler mp = new MovePowersHandler(result);
+            addMovepowersButtons(result, gameData, mp);
+        }
+
         return result;
+    }
+
+    public void addMovepowersButtons(List<Room> result, GameData gameData, MovePowersHandler mp) {
+
+	    result.add(mp.makeButton(new SearchMovePower()));
+	    result.add(mp.makeButton(new RepeatMovePower()));
+	    MovePower moveP = new HealyourselfMovePower();
+	    if (moveP.isApplicable(gameData, getActor())) {
+            result.add(mp.makeButton(moveP));
+        }
+
+        moveP = new FollowMovePower();
+        if (moveP.isApplicable(gameData, getActor())) {
+            result.add(mp.makeButton(moveP));
+        }
+	    result.add(mp.makeButton(new BlockMovement()));
+	    result.add(mp.makeButton(new AutoAttack()));
     }
 
 

@@ -43,9 +43,11 @@ public class OtherPlacesBuilder extends MapBuilder {
     }
 
     private static ExoticPlanet buildExoticPlanet(GameData gameData, int i) {
-
-        if (MyRandom.nextDouble() < 0.5) {
+        double d = MyRandom.nextDouble();
+        if (d < 0.333) {
             return new JunglePlanet(i, gameData);
+        } else if (d < 0.333) {
+            return new DesertPlanet(i, gameData);
         } else {
             return new IcePlanet(i, gameData);
         }

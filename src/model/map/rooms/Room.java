@@ -486,6 +486,9 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
             case basestar:
                 backgroundcolor = new Color(100, 100, 140);
                 break;
+            case button:
+                backgroundcolor = new Color(17, 17, 17);
+                break;
             default:
                 backgroundcolor = new Color(217, 217, 217);
         }
@@ -544,4 +547,6 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
     public Sprite getBackgroundSprite(ClientInfo clientInfo) {
         return null;
     }
+
+    public List<Sprite> getAlwaysSprites() {return new ArrayList<>();};
 }

@@ -202,7 +202,6 @@ public class GameMap implements Serializable {
 			}
 		}
 		return 1 + least;
-		
 	}
 
 //

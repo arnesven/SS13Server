@@ -19,7 +19,8 @@ public class NextMoveCommandHandler extends AbstractCommandHandler {
 		if (command.equals("NEXTMOVE")) {
 			Scanner sc = new Scanner(rest);
 			Logger.log(clid + " selected location " + rest + " for move");
-			gameData.getPlayerForClid(clid).setNextMove(sc.nextInt());
+			int selected = sc.nextInt();
+            gameData.getPlayerForClid(clid).setNextMove(selected);
 			oos.writeObject("ACK");
 			return true;
 		}

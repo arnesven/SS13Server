@@ -15,6 +15,7 @@ public enum RoomType {
     outer,
     derelict,
     hidden,
+    button,
     basestar
 
 }

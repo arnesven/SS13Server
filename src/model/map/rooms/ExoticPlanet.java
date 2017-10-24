@@ -30,7 +30,23 @@ public abstract class ExoticPlanet extends Room {
         this.realName = realName;
     }
 
-    protected abstract Sprite getBackground(ClientInfo clientInfo);
+    private Sprite getBackground(ClientInfo clientInfo) {
+        Sprite sp = new Sprite(getBackroundSpriteName()+clientInfo.getWidth()+"x"+clientInfo.getHeight(),
+                getBackgroundSpriteMap(),
+                0, 0, getBackgroundSpriteWidth(), getBackgroundSpriteHeight(),
+                (clientInfo.getWidth()*60)/100,
+                clientInfo.getHeight());
+
+        return sp;
+    }
+
+    protected abstract int getBackgroundSpriteHeight();
+
+    protected abstract int getBackgroundSpriteWidth();
+
+    protected abstract String getBackgroundSpriteMap();
+
+    protected abstract String getBackroundSpriteName();
 
     public abstract String getDescription();
 

@@ -10,7 +10,8 @@ import graphics.ClientInfo;
 import model.actions.general.ActionOption;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
-import model.items.weapons.Weapon;
+import model.map.rooms.RoomType;
+import model.movepowers.MovePowerRoom;
 import sounds.Sound;
 import sounds.SoundQueue;
 import graphics.sprites.OverlaySprites;
@@ -134,10 +135,10 @@ public class Player extends Actor implements Target, Serializable {
 	/**
 	 * Sets the ID of the next move which the player will make.
 	 * The GUI will send an ID of the room which the player has selected.
-	 * @param id the ID representing the room which to the player will move next.
-	 */
+     * @param id the ID representing the room which to the player will move next.
+     */
 	public void setNextMove(Integer id) {
-		nextMove = id;
+        nextMove = id;
 	}
 
 	/**
@@ -190,8 +191,15 @@ public class Player extends Actor implements Target, Serializable {
 		if (getCharacter().isEncumbered()) {
 			addTolastTurnInfo("You are carrying too much to be able to run!");
 		}
+
+        ArrayList<Integer> movablePlaces = new ArrayList<>();
+		for (Room r : getCharacter().getVisibleMap(gameData)) {
+		    if (r.getType() == RoomType.button) {
+		        movablePlaces.add(r.getID());
+            }
+        }
 		
-		ArrayList<Integer> movablePlaces = new ArrayList<>();
+
 
 		if (steps > 0) {
 			int[] neigbors = this.getPosition().getNeighbors();
@@ -476,18 +484,19 @@ public class Player extends Actor implements Target, Serializable {
 
     public List<String> getOverlayStrings(GameData gameData) {
 
+	    List<String> strs = OverlaySprites.dummyList();
+
         if (isDead() ||
                 (gameData.getGameMode().gameOver(gameData) &&
                 gameData.getGameState() == GameState.PRE_GAME)) {
-            return OverlaySprites.seeAllOverlay(this, gameData);
+            strs = OverlaySprites.seeAllOverlay(this, gameData);
+        } else if (getCharacter() != null) {
+            strs = getCharacter().getOverlayStrings(this, gameData);
         }
 
-        if (getCharacter() != null) {
-            return getCharacter().getOverlayStrings(this, gameData);
-        }
+        strs.addAll(OverlaySprites.getAlwaysSprites(this, gameData));
 
-
-        return OverlaySprites.dummyList();
+        return strs;
     }
 
     public PlayerSettings getSettings() {
@@ -528,5 +537,19 @@ public class Player extends Actor implements Target, Serializable {
 
     public boolean isASpectator() {
         return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof SpectatorCharacter);
+    }
+
+    public void activateMovementPower(int id, GameData gameData, MovementData moveData) {
+	    if (isDead()) {
+	        return;
+        }
+        Logger.log("TRIGGERED A BUTTON: " + id);
+        for (Room r : getCharacter().getVisibleMap(gameData)) {
+            if (r instanceof MovePowerRoom) {
+                if (r.getID() == id) {
+                        ((MovePowerRoom) r).getMovePower().activate(gameData, this, moveData);
+                }
+            }
+        }
     }
 }
