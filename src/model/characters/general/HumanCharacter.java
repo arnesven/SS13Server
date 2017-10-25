@@ -72,4 +72,10 @@ public abstract class HumanCharacter extends GameCharacter {
 
         return succ;
     }
+
+    @Override
+    public boolean isVisibileFromAdjacentRoom() {
+        return true;
+    }
+
 }

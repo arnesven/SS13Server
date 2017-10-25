@@ -24,5 +24,9 @@ public class HuskDecorator extends CharacterDecorator {
 	public String getWatchString(Actor whosAsking) {
 		return "Ugh! A shriveled up husk.";
 	}
-	
+
+    @Override
+    public boolean isVisibileFromAdjacentRoom() {
+        return false;
+    }
 }

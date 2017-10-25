@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.PlayerSettings;
+import model.actions.general.SensoryLevel;
 import model.characters.general.*;
 import model.events.Event;
 import model.events.ambient.ElectricalFire;
@@ -95,24 +96,39 @@ public class OverlaySprites {
         return strs;
     }
 
-    public static List<String> seeRoom(Player player, GameData gameData, Room r) {
+    public static List<String> normalVision(Player player, GameData gameData, Room r) {
         ArrayList<String> strs = new ArrayList<>();
 
         ArrayList<Sprite> sp = new ArrayList<>();
         addBackgroundForRoom(sp, player, r);
 
         for (Event e : r.getEvents()) {
-            //if (e.getSense().visual == SensoryLevel.VisualLevel.CLEARLY_VISIBLE) {
-                sp.add(e.getSprite(player));
-            //}
+            sp.add(e.getSprite(player));
         }
-
 
         addActorsForRoom(sp, player, r);
         addItemsForRoom(sp, player, r);
 
-
         strs.addAll(getStringsForSpritesInRoom(sp, r));
+
+
+        for (Room r2 : r.getNeighborList()) {
+            List<Sprite> sp2 = new ArrayList<>();
+            for (Actor a : r2.getActors()) {
+                if (a.getCharacter().isVisibileFromAdjacentRoom()) {
+                    sp2.add(a.getCharacter().getSprite(player));
+                }
+            }
+            for (Event e : r2.getEvents()) {
+                if (e.getSense().sound == SensoryLevel.AudioLevel.VERY_LOUD ||
+                        e.getSense().visual == SensoryLevel.VisualLevel.CLEARLY_VISIBLE ||
+                        e.getSense().smell == SensoryLevel.OlfactoryLevel.SHARP) {
+                    sp2.add(e.getSprite(player));
+                }
+            }
+            strs.addAll(getStringsForSpritesInRoom(sp2, r2));
+        }
+
         if (strs.isEmpty()) {
             return dummyList();
         }

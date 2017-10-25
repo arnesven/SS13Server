@@ -99,4 +99,8 @@ public class RobotCharacter extends GameCharacter {
 
     }
 
+    @Override
+    public boolean isVisibileFromAdjacentRoom() {
+        return true;
+    }
 }

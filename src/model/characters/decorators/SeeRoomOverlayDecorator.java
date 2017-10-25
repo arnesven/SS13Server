@@ -25,7 +25,7 @@ public class SeeRoomOverlayDecorator extends CharacterDecorator {
     @Override
     public List<String> getOverlayStrings(Player player, GameData gameData) {
         if (round == gameData.getRound() - 1) {
-            return OverlaySprites.seeRoom(player, gameData, room);
+            return OverlaySprites.normalVision(player, gameData, room);
         }
         player.removeInstance(new InstanceChecker() {
             @Override

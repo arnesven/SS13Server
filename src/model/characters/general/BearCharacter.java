@@ -38,4 +38,9 @@ public class BearCharacter extends GameCharacter {
     public Weapon getDefaultWeapon() {
         return Weapon.BEAR_CLAWS;
     }
+
+    @Override
+    public boolean isVisibileFromAdjacentRoom() {
+        return true;
+    }
 }

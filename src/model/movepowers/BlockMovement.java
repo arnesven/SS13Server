@@ -57,10 +57,12 @@ public class BlockMovement extends MovePower {
 
             if (toBeBlocked == null) {
                 for (Actor a : gameData.getActors()) {
-                    if (moveData.getLastPosition(a) == getActor().getPosition() && MyRandom.nextDouble() < 0.67) {
-                        toBeBlocked = a;
-                        Logger.log("Found person to block! " + toBeBlocked.getPublicName());
-                        break;
+                    if (a != getActor()) {
+                        if (moveData.getLastPosition(a) == getActor().getPosition() && MyRandom.nextDouble() < 0.67) {
+                            toBeBlocked = a;
+                            Logger.log("Found person to block! " + toBeBlocked.getPublicName());
+                            break;
+                        }
                     }
                 }
             }

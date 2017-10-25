@@ -7,11 +7,7 @@ import model.characters.crew.CaptainCharacter;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
-import model.items.suits.CaptainsDaughtersOutfit;
-import model.items.suits.CaptainsOutfit;
 import model.items.weapons.Weapon;
-import model.npcs.NPC;
-import util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,5 +88,10 @@ public class CaptainsDaughter extends VisitorCharacter {
     @Override
     public void doAtEndOfTurn(GameData gameData) {
 
+    }
+
+    @Override
+    public boolean isVisibileFromAdjacentRoom() {
+        return false;
     }
 }

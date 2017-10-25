@@ -45,6 +45,7 @@ public class Player extends Actor implements Target, Serializable {
     private PlayerSettings settings = new PlayerSettings();
     private SoundQueue soundQueue = new SoundQueue(this);
     private ClientInfo clientInf0 = new ClientInfo();
+    private String selectedMovePower;
 
 
     public Player(GameData gameData) {
@@ -543,11 +544,25 @@ public class Player extends Actor implements Target, Serializable {
 	    if (isDead()) {
 	        return;
         }
-        Logger.log("TRIGGERED A BUTTON: " + id);
+
         for (Room r : getCharacter().getVisibleMap(gameData)) {
             if (r instanceof MovePowerRoom) {
-                if (r.getID() == id) {
+                if (r.getName().equals(selectedMovePower)) {
                         ((MovePowerRoom) r).getMovePower().activate(gameData, this, moveData);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void setNextMovePower(int selected, GameData gameData) {
+        Logger.log("TRIGGERED A Move-Power BUTTON: " + selected);
+        for (Room r : getCharacter().getVisibleMap(gameData)) {
+            if (r instanceof MovePowerRoom) {
+                if (r.getID() == selected) {
+                    selectedMovePower = r.getName();
+                    Logger.log("        => " + selectedMovePower);
+                    break;
                 }
             }
         }

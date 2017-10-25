@@ -5,7 +5,7 @@ package model.map.rooms;
  */
 public class OtherDimension extends Room {
     public OtherDimension(int id, int[] ints, double[] doubles) {
-        super(id, "Other Dimension", "", 0, 0, 1, 1,ints, doubles, RoomType.outer);
+        super(id, "Other Dimension", "", 0, 0, 10, 10,ints, doubles, RoomType.outer);
 
     }
 }

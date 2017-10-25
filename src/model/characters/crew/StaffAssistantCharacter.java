@@ -68,9 +68,11 @@ public class StaffAssistantCharacter extends CrewCharacter {
     }
 
     private boolean otherActorInRoom() {
-        for (Actor a : getPosition().getActors()) {
-            if (a != getActor() && !a.isDead()) {
-                return true;
+        if (getPosition() != null) {
+            for (Actor a : getPosition().getActors()) {
+                if (a != getActor() && !a.isDead()) {
+                    return true;
+                }
             }
         }
         return false;

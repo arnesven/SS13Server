@@ -34,4 +34,6 @@ public abstract class CrewCharacter extends HumanCharacter {
     public boolean isCrew() {
         return true;
     }
+
+
 }

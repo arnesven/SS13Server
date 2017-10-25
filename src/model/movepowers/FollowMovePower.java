@@ -45,10 +45,12 @@ public class FollowMovePower extends MovePower {
 
             Actor actorToFollow = null;
             for (Actor a : gameData.getActors()) {
-                Room actorsLastRoom = moveData.getLastPosition(a);
-                if (actorsLastRoom == getActor().getPosition() &&
-                        GameMap.shortestDistance(actorsLastRoom, getActor().getPosition()) <= getMovementSteps() &&
-                        MyRandom.nextDouble() < 0.67) {
+                Room actorsLastRoom = moveData.getLastPosition(a);      // FOLLOW a IF:
+                if (a != getActor() &&                                  // a isn't me
+                        actorsLastRoom == getActor().getPosition() &&   // a was in my room
+                        a.getPosition() != actorsLastRoom &&            // a has moved to another pos
+                        GameMap.shortestDistance(actorsLastRoom, getActor().getPosition()) <= getMovementSteps() && // I can keep up with a
+                        MyRandom.nextDouble() < 0.67) {                 // I am a bit lucky
                     actorToFollow = a;
                     Logger.log("Found actor to follow " + actorToFollow.getPublicName());
                     break;

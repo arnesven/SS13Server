@@ -428,4 +428,9 @@ public abstract class CharacterDecorator extends GameCharacter {
     public void addMovepowersButtons(List<Room> result, GameData gameData, MovePowersHandler mp) {
         innerChar.addMovepowersButtons(result, gameData, mp);
     }
+
+    @Override
+    public boolean isVisibileFromAdjacentRoom() {
+        return innerChar.isVisibileFromAdjacentRoom();
+    }
 }

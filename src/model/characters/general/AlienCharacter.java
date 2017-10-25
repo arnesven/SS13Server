@@ -58,4 +58,9 @@ public class AlienCharacter extends GameCharacter {
         at.add(new MitosisAction());
 
     }
+
+    @Override
+    public boolean isVisibileFromAdjacentRoom() {
+        return true;
+    }
 }

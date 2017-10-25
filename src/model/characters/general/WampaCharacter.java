@@ -26,4 +26,9 @@ public class WampaCharacter extends AnimalCharacter {
     public Weapon getDefaultWeapon() {
         return wampaClaw;
     }
+
+    @Override
+    public boolean isVisibileFromAdjacentRoom() {
+        return true;
+    }
 }

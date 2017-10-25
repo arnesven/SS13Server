@@ -26,7 +26,7 @@ public abstract class ExoticPlanet extends Room {
     private Set<HideableObject> hos = new HashSet<>();
 
     public ExoticPlanet(int id, GameData gameData, String realName) {
-        super(id, "Exotic Planet", "E X O T I C   P L A N E T", 2, 2, 6, 6, new int[]{}, new double[]{}, RoomType.outer);
+        super(id, "Exotic Planet", "E X O T I C   P L A N E T", 2, 2, 10, 10, new int[]{}, new double[]{}, RoomType.outer);
         this.realName = realName;
     }
 

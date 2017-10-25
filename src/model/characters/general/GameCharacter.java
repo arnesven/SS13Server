@@ -537,7 +537,7 @@ public abstract class GameCharacter implements Serializable {
 
     public List<String> getOverlayStrings(Player player, GameData gameData) {
         if (getActor() instanceof  Player && ((Player) getActor()).getSettings().get(PlayerSettings.CURRENT_ROOM_STUFF_IN_MAP)) {
-            return OverlaySprites.seeRoom(((Player)getActor()), gameData, getPosition());
+            return OverlaySprites.normalVision(((Player)getActor()), gameData, getPosition());
         }
         return OverlaySprites.dummyList();
     }
@@ -629,5 +629,9 @@ public abstract class GameCharacter implements Serializable {
 
     public ActionBehavior getDefaultActionBehavior() {
         return new DoNothingBehavior();
+    }
+
+    public boolean isVisibileFromAdjacentRoom() {
+        return false;
     }
 }

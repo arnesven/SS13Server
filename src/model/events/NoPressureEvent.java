@@ -98,7 +98,9 @@ public class NoPressureEvent extends Event {
 
 	@Override
 	public SensoryLevel getSense() {
-		return SensoryLevel.NO_SENSE;
+		return new SensoryLevel(SensoryLevel.VisualLevel.INVISIBLE,
+                SensoryLevel.AudioLevel.VERY_LOUD,
+                SensoryLevel.OlfactoryLevel.UNSMELLABLE);
 	}
 
 	@Override

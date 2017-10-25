@@ -18,4 +18,9 @@ public class TauntaunCharacter extends AnimalCharacter {
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("tauntaun", "tauntaun.png", 0, 0, 82, 82);
     }
+
+    @Override
+    public boolean isVisibileFromAdjacentRoom() {
+        return true;
+    }
 }
