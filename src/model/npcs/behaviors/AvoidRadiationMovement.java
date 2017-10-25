@@ -9,12 +9,12 @@ import model.map.rooms.Room;
 import model.npcs.NPC;
 import util.Logger;
 
-public class AvoidRoomsMovement implements MovementBehavior {
+public class AvoidRadiationMovement implements MovementBehavior {
 
 	private Collection<Room> avoidRooms;
 	private MeanderingHumanMovement meander = new MeanderingHumanMovement(1.0);
 
-	public AvoidRoomsMovement(Collection<Room> list) {
+	public AvoidRadiationMovement(Collection<Room> list) {
 		this.avoidRooms = list;
 	}
 

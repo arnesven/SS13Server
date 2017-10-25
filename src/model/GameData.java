@@ -111,6 +111,7 @@ public class GameData implements Serializable {
 
         List<Room> list = new ArrayList<>();
         list.addAll(set);
+        Collections.sort(list, Comparator.comparing(Room::getName));
 		return list;
 	}
 	

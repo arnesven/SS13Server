@@ -13,7 +13,7 @@ import model.items.general.GameItem;
 import model.items.general.GeigerMeter;
 import model.map.rooms.Room;
 import model.npcs.NPC;
-import model.npcs.behaviors.AvoidRoomsMovement;
+import model.npcs.behaviors.AvoidRadiationMovement;
 import model.npcs.behaviors.MeanderingHumanMovement;
 
 public class RadiationStorm extends AmbientEvent {
@@ -75,7 +75,7 @@ public class RadiationStorm extends AmbientEvent {
 		}
 		
 		for (NPC npc : gameData.getNPCs()) {
-			if (npc.getMovementBehavior() instanceof AvoidRoomsMovement) {
+			if (npc.getMovementBehavior() instanceof AvoidRadiationMovement) {
 				npc.setMoveBehavior(new MeanderingHumanMovement(0.25));
 			}
 		}
@@ -101,7 +101,7 @@ public class RadiationStorm extends AmbientEvent {
 		
 		for (NPC npc : gameData.getNPCs()) {
 			if (npc.getMovementBehavior() instanceof MeanderingHumanMovement) {
-				npc.setMoveBehavior(new AvoidRoomsMovement(gameData.getMap().getArea("ss13", GameMap.getSideString(side))));
+				npc.setMoveBehavior(new AvoidRadiationMovement(gameData.getMap().getArea("ss13", GameMap.getSideString(side))));
 			}
 		}
 	}

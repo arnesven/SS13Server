@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.GameData;
-import model.actions.characteractions.SendATextAction;
+import model.actions.characteractions.InformCrew;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
@@ -35,7 +35,7 @@ public class HeadOfStaffCharacter extends CrewCharacter {
     @Override
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         super.addCharacterSpecificActions(gameData, at);
-        at.add(new SendATextAction(gameData));
+        at.add(new InformCrew(gameData));
     }
 
     @Override

@@ -255,13 +255,12 @@ public class GameMap implements Serializable {
 
     public List<Room> getStationRooms() {
         List<Room> station = new ArrayList<Room>();
-//        for (Room r : roomsList) {
-//            if (r.getType() != RoomType.hidden && r.getType() != RoomType.outer && r.getType() != RoomType.derelict) {
-//                station.add(r);
-//            }
-//        }
         for (Set<Room> rooms : levels.get("ss13").values()) {
-            station.addAll(rooms);
+            for (Room r : rooms) {
+                if (!station.contains(r)) {
+                    station.add(r);
+                }
+            }
         }
         return station;
     }
@@ -335,8 +334,8 @@ public class GameMap implements Serializable {
         return false;
     }
 
-    public Collection<Room> getArea(String ss13, String sideString) {
-        return levels.get(ss13).get(sideString);
+    public Collection<Room> getArea(String levelName, String sideString) {
+        return levels.get(levelName).get(sideString);
     }
 
     public String getAreaForRoom(String ss13, Room targetRoom) throws NoSuchThingException {
