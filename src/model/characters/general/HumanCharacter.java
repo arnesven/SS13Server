@@ -61,7 +61,7 @@ public abstract class HumanCharacter extends GameCharacter {
 	    double hp = getHealth();
         boolean succ = super.beAttackedBy(performingClient, weapon);
         if (weapon instanceof SlashingWeapon || weapon instanceof BludgeoningWeapon || weapon instanceof PiercingWeapon) {
-            if (hp > performingClient.getCharacter().getHealth()  && MyRandom.nextDouble() < BloodyMess.SPAWN_CHANCE) {
+            if (succ && hp > getHealth()  && MyRandom.nextDouble() < BloodyMess.SPAWN_CHANCE) {
                 performingClient.getPosition().addObject(new BloodyMess(performingClient.getPosition()));
             }
         }
