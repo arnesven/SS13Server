@@ -6,7 +6,7 @@ import java.util.List;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.TargetingAction;
-import model.actions.characteractions.ShadowAction;
+import model.actions.characteractions.InvestigateAction;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.ZippoLighter;
@@ -34,7 +34,7 @@ public class DetectiveCharacter extends CrewCharacter {
 			ArrayList<Action> at) {
 		super.addCharacterSpecificActions(gameData, at);
 	
-		TargetingAction act = new ShadowAction(this.getActor()); 
+		TargetingAction act = new InvestigateAction(this.getActor());
 		if (act.getNoOfTargets() > 0) {
 			at.add(act);
 		}
