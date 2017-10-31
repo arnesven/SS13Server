@@ -9,6 +9,7 @@ import model.events.damage.Damager;
 import model.events.damage.FireDamage;
 import model.events.damage.NoPressureDamage;
 import model.items.general.GameItem;
+import model.items.suits.SuitItem;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -20,10 +21,12 @@ import java.util.List;
 public class OnFireCharacterDecorator extends CharacterDecorator {
 
 
+    private SuitItem currentSuit;
     private double END_CHANCE = 0.25;
 
     public OnFireCharacterDecorator(GameCharacter character) {
         super(character, "On Fire");
+        this.currentSuit = character.getSuit();
     }
 
     @Override
@@ -50,6 +53,12 @@ public class OnFireCharacterDecorator extends CharacterDecorator {
     @Override
     public void doAtEndOfTurn(GameData gameData) {
         getActor().getCharacter().beExposedTo(null, new FireDamage());
+
+        if (currentSuit != getActor().getCharacter().getSuit()) {
+            END_CHANCE *= 2;
+            currentSuit = getActor().getCharacter().getSuit();
+        }
+
         if (MyRandom.nextDouble() < END_CHANCE) {
             if (getActor().getCharacter().checkInstance((GameCharacter gc) -> gc == this)) {
                 getActor().removeInstance((GameCharacter gc) -> gc == this);

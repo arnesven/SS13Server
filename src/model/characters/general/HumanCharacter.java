@@ -75,7 +75,7 @@ public abstract class HumanCharacter extends GameCharacter {
 
     @Override
     public boolean isVisibileFromAdjacentRoom() {
-        return true;
+        return !isDead();
     }
 
 }

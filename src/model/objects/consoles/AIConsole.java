@@ -82,7 +82,7 @@ public class AIConsole extends Console {
                 at.add(new AIConsoleAction(this));
             }
         }
-        if (cl.getCharacter().isCrew()) {
+        if (cl.getCharacter().isCrew() && AIIsPlayer()) {
             at.add(new AILawAction(this));
         }
 	}

@@ -33,4 +33,8 @@ public class DarknessShroudDecorator extends CharacterDecorator {
 
     }
 
+    @Override
+    public boolean isVisibileFromAdjacentRoom() {
+        return false;
+    }
 }

@@ -14,7 +14,11 @@ public class AlterMovement extends AttributeChangeDecorator {
 	
 	@Override
 	public int getMovementSteps() {
-		return newmovement;
+		if (super.getMovementSteps() == 0) {
+		    return 0;
+        }
+
+	    return newmovement;
 	}
 	
 

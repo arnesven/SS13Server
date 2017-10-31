@@ -53,7 +53,7 @@ public class OutFit extends SuitItem {
         } else if (type instanceof TouristCharacter) {
             return new Sprite("touristuniform", "uniforms.png", 6, 7);
         } else if (type instanceof StaffAssistantCharacter) {
-            return new Sprite("staffassistantuniform", "uniform.png", 0, 3);
+            return new Sprite("staffassistantuniform", "uniforms.png", 0, 3);
         }
         return super.getSprite(whosAsking);
     }

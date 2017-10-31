@@ -18,6 +18,8 @@ import java.util.*;
  * Created by erini02 on 17/11/16.
  */
 public class SlotMachine extends ElectricalMachinery {
+    private boolean alreadyBrokeOnce = false;
+
     public SlotMachine(BarRoom barRoom) {
         super("Slot Machine", barRoom);
 
@@ -54,6 +56,18 @@ public class SlotMachine extends ElectricalMachinery {
             }
         }
 
+
+    }
+
+    @Override
+    public void thisJustBroke() {
+        super.thisJustBroke();
+        if (!alreadyBrokeOnce) {
+            alreadyBrokeOnce = true;
+            getPosition().addItem(new MoneyStack(MyRandom.nextInt(200)+100));
+            getPosition().addItem(new MoneyStack(MyRandom.nextInt(100)+50));
+            getPosition().addItem(new MoneyStack(MyRandom.nextInt(50)+20));
+        }
 
     }
 
