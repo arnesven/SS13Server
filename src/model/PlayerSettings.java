@@ -2,8 +2,10 @@ package model;
 
 import util.MyStrings;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by erini02 on 13/10/16.
@@ -21,8 +23,10 @@ public class PlayerSettings implements Serializable {
     public static final String MAKE_ME_A_SPECTATOR         = "Make me a spectator";
     public static final String AUTO_READY_ME_IN_60_SECONDS = "Auto-ready me after 60 secs";
     public static final String ACTIVATE_MOVEMENT_POWERS    = "Activate Movement Powers";
+    public static final String STYLE_BUTTONS_ON            = "Style Buttons On";
 
     private HashMap<String, Boolean> settings = new HashMap<>();
+    private Color selectedHairColor = Color.BLACK;
 
     public PlayerSettings() {
         settings.put(AUTO_LOOT_ON_KILL, false);
@@ -36,6 +40,7 @@ public class PlayerSettings implements Serializable {
         settings.put(MAKE_ME_A_SPECTATOR, false);
         settings.put(ACTIVATE_MOVEMENT_POWERS, true);
         //settings.put(AUTO_READY_ME_IN_60_SECONDS, true);
+        settings.put(STYLE_BUTTONS_ON, false);
     }
 
     public void set(String key, boolean value) {
@@ -60,4 +65,11 @@ public class PlayerSettings implements Serializable {
         return MyStrings.join(strs);
     }
 
+    public Color getSelectedHairColor() {
+        return selectedHairColor;
+    }
+
+    public void setSelectedHairColor(Color selectedHairColor) {
+        this.selectedHairColor = selectedHairColor;
+    }
 }

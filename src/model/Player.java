@@ -562,6 +562,7 @@ public class Player extends Actor implements Target, Serializable {
                 if (r.getID() == selected) {
                     selectedMovePower = r.getName();
                     Logger.log("        => " + selectedMovePower);
+                    ((MovePowerRoom)r).gotTriggered(gameData, this);
                     break;
                 }
             }

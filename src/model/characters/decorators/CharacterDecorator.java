@@ -433,4 +433,9 @@ public abstract class CharacterDecorator extends GameCharacter {
     public boolean isVisibileFromAdjacentRoom() {
         return innerChar.isVisibileFromAdjacentRoom();
     }
+
+    @Override
+    public void setNakedSprite(Sprite nakedSprite) {
+        innerChar.setNakedSprite(nakedSprite);
+    }
 }

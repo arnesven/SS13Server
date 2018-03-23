@@ -4,6 +4,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.MovementData;
+import model.Player;
 
 public abstract class MovePower {
     private String name;
@@ -21,4 +22,6 @@ public abstract class MovePower {
     public abstract Sprite getButtonSprite();
 
     public boolean isApplicable(GameData gameData, Actor performingClient) {return true;}
+
+    public void gotTriggered(GameData gameData, Player player) { }
 }

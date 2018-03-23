@@ -1,6 +1,8 @@
 package model.movepowers;
 
 import graphics.sprites.Sprite;
+import model.GameData;
+import model.Player;
 import model.map.rooms.Room;
 import model.map.rooms.RoomType;
 
@@ -10,8 +12,8 @@ import java.util.List;
 public class MovePowerRoom extends Room {
     private final MovePower movePower;
 
-    public MovePowerRoom(int id, String name, int x, int y, MovePower mp) {
-        super(id, name, "", x, y, 2, 1, new int[0], new double[0], RoomType.button);
+    public MovePowerRoom(int id, String name, int x, int y, MovePower mp, int width) {
+        super(id, name, "", x, y, width, 1, new int[0], new double[0], RoomType.button);
         this.movePower = mp;
     }
 
@@ -28,5 +30,9 @@ public class MovePowerRoom extends Room {
 
     public Sprite getButtonSprite() {
         return this.movePower.getButtonSprite();
+    }
+
+    public void gotTriggered(GameData gameData, Player player) {
+        movePower.gotTriggered(gameData, player);
     }
 }

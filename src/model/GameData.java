@@ -793,6 +793,11 @@ public class GameData implements Serializable {
                 } catch (NoSuchThingException e) {
                     e.printStackTrace();
                 }
+            } else if (rest.contains("/style ")) {
+                String rest2 = rest.replace("/style ", "");
+                getPlayerForClid(clid).getSettings().set(PlayerSettings.STYLE_BUTTONS_ON, rest2.equals("on"));
+                getChat().serverSay(clid + " enabled style customization. Turn off with /style off");
+                return true;
             }
         } else if (gameState == GameState.ACTIONS) {
             for (Player p : getPlayersAsList()) {

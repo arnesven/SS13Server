@@ -1,6 +1,5 @@
 package graphics.sprites;
 
-import util.Logger;
 import util.MyRandom;
 
 import java.awt.*;
@@ -13,17 +12,34 @@ import java.util.List;
 public class NakedHumanSprite extends Sprite {
 
     private static List<Sprite> hairSprites = makeHairSpriteList();
+    private static long count = 0;
 
     public NakedHumanSprite(boolean gender) {
-        super("nakedman"+MyRandom.nextInt(99999999), "naked.png", (gender?0:2), getRandomHair());
+        super("nakedman"+(count++), "naked.png", (gender?0:2), getRandomHair());
+    }
+
+    public NakedHumanSprite(boolean gender, int hairNum, Color color) {
+        super("nakedman"+(count++), "naked.png", (gender?0:2),
+                getHairNumber(hairNum, color));
+    }
+
+    private static List<Sprite> getHairNumber(int hairNum, Color color) {
+        List<Sprite> res = new ArrayList<>();
+        res.add(hairSprites.get(hairNum));
+        // Logger.log("Ran Random Hair");
+        res.get(0).setColor(color);
+        return res;
     }
 
     private static List<Sprite> getRandomHair() {
         List<Sprite> res = new ArrayList<>();
         res.add(MyRandom.sample(hairSprites));
        // Logger.log("Ran Random Hair");
-        res.get(0).setColor(new Color(MyRandom.nextInt(176), MyRandom.nextInt(126), MyRandom.nextInt(126)));
-        return res;
+        Color c = new Color(MyRandom.nextInt(255), MyRandom.nextInt(255), MyRandom.nextInt(255));
+        Sprite sp = new Sprite(res.get(0).getName() + c.getRed() + "x" + c.getBlue() + "x" + c.getGreen(), "human.png", 0, res);
+        sp.setColor(c);
+        List<Sprite> sprs = new ArrayList<>();
+        return sprs;
     }
 
     private static List<Sprite> makeHairSpriteList() {
@@ -38,10 +54,17 @@ public class NakedHumanSprite extends Sprite {
         }
 
         for (int i = 0; i < col.size(); ++i) {
-            list.add(new Sprite("hair1", "human_face.png", col.get(i), row.get(i)));
+            list.add(new Sprite("hair"+col.get(i)+"x"+row.get(i), "human_face.png", col.get(i), row.get(i)));
         }
         return list;
     }
 
 
+    public static Sprite getHairSprite(int i) {
+        return hairSprites.get(i);
+    }
+
+    public static int noOfHairs() {
+        return hairSprites.size();
+    }
 }

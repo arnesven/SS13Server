@@ -1,5 +1,6 @@
 package model.characters.general;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -502,7 +503,6 @@ public abstract class GameCharacter implements Serializable {
     public Sprite getSprite(Actor whosAsking) {
         Sprite sp;
         if (suit == null) {
-
             sp = getActor().getCharacter().getNakedSprite();
 		} else {
             sp = suit.getGetup(getActor(), whosAsking);
@@ -570,12 +570,33 @@ public abstract class GameCharacter implements Serializable {
         List<Room> result = new ArrayList<>();
         result.addAll(roomsToShow);
 
+
         if (getActor() instanceof Player && ((Player) getActor()).getSettings().get(PlayerSettings.ACTIVATE_MOVEMENT_POWERS)) {
-            MovePowersHandler mp = new MovePowersHandler(result);
+            MovePowersHandler mp = new MovePowersHandler(result, 2);
             addMovepowersButtons(result, gameData, mp);
         }
 
+        if (getActor() instanceof  Player && ((Player) getActor()).getSettings().get(PlayerSettings.STYLE_BUTTONS_ON)) {
+            result.clear();
+            result.add(getPosition());
+            MovePowersHandler mp = new MovePowersHandler(result, 1);
+            addStyleMovementButtons(result, gameData, mp);
+        }
+
         return result;
+    }
+
+    private void addStyleMovementButtons(List<Room> result, GameData gameData, MovePowersHandler mp) {
+	    for (int i = 0; i < NakedHumanSprite.noOfHairs(); ++i) {
+            result.add(mp.makeButton(new SetHairMovePower(i)));
+        }
+        for (int r = 0; r < 256 ; r += 256/4) {
+	        for (int g = 0; g < 256; g += 256/4) {
+	            for (int b = 0; b < 256; b += 256/2) {
+	                result.add(mp.makeButton(new SetHairColorPower(new Color(r, g, b))));
+                }
+            }
+        }
     }
 
     public void addMovepowersButtons(List<Room> result, GameData gameData, MovePowersHandler mp) {

@@ -23,7 +23,6 @@ public class MapCommandHandler extends AbstractCommandHandler {
 //		System.out.println("handling map command");
 		if (command.contains("MAP")) {
 		    //List<String> strs = makeStringsList(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
-
 			//String result = MyStrings.join(strs);
             String result = MyStrings.join(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
 			//Logger.log("MAPCOMMAND:" + rest);
