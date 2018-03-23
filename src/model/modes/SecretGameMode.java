@@ -1,21 +1,28 @@
 package model.modes;
 
 import util.Logger;
+import util.MyArrays;
 import util.MyRandom;
 import model.Player;
+
+import java.util.Arrays;
 
 public class SecretGameMode  {
 	
 	private static final String filename = "random_modes";
-    private static final double[] probabilities = {0.25, 0.50,     0.65,         0.80,          0.90,      0.95,     1.00};
-    private static final String[] modeNames = {"Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Mutiny", "Armageddon"};
+	private static final double[] probabilities = {0.25,      0.25,         0.20,         0.15,       0.05,     0.05,         0.05};
+    private static final String[] modeNames =   {"Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Mutiny", "Armageddon"};
 
 
 	public static GameMode getNewInstance() {
 		GameMode result;
-        printProbabilites();
+
 		double d = MyRandom.nextDouble();
-		if (d < probabilities[0]) {
+
+		double[] cummulative = MyArrays.prefixsum(probabilities);
+        printProbabilites(cummulative);
+
+		if (d < cummulative[0]) {
 			MyRandom.write_to_file(filename, d + " Host");
 			result = new HostGameMode() {
 				@Override
@@ -24,7 +31,7 @@ public class SecretGameMode  {
 				}
 			};
 			Logger.log("...... but secretly it's host");
-		} else if (d < probabilities[1]) {
+		} else if (d < cummulative[1]) {
 			Logger.log("...... but secretly it's traitor");
 			MyRandom.write_to_file(filename, d + " Traitor");
 			result = new TraitorGameMode() {
@@ -34,7 +41,7 @@ public class SecretGameMode  {
 				}
 
 			};
-		} else if (d < probabilities[2]) {
+		} else if (d < cummulative[2]) {
 			MyRandom.write_to_file(filename, d + " Operatives");
 			Logger.log("...... but secretly it's operatives");
 			result = new OperativesGameMode() {
@@ -43,7 +50,7 @@ public class SecretGameMode  {
 					protMessage(c);
 				}
 			};
-		} else if (d < probabilities[3]){
+		} else if (d < cummulative[3]){
 			Logger.log("...... but secretly it's changeling");
 			MyRandom.write_to_file(filename, d + " Changeling");
 			result = new ChangelingGameMode() {
@@ -52,7 +59,7 @@ public class SecretGameMode  {
 					protMessage(c);
 				}
 			};
-		} else if (d < probabilities[4]) {
+		} else if (d < cummulative[4]) {
             Logger.log("...... but secretly it's rogue ai");
 			MyRandom.write_to_file(filename, d + " Rogue AI");
 			result = new RogueAIMode() {
@@ -61,7 +68,7 @@ public class SecretGameMode  {
 					protMessage(c);
 				}
 			};
-        } else if (d < probabilities[5]) {
+        } else if (d < cummulative[5]) {
             Logger.log("...... but secretly it's mutiny");
             MyRandom.write_to_file(filename, d + " Mutiny");
             result = new MutinyGameMode() {
@@ -83,12 +90,13 @@ public class SecretGameMode  {
 		return result;
 	}
 
-    private static void printProbabilites() {
-        System.out.println("Secret game mode probabilities:");
+    private static void printProbabilites(double[] cummulative) {
+        System.out.println("Secret game mode cummulative:");
         double cum = 0.0;
-        for (int i = 0; i < probabilities.length; ++i) {
-            System.out.println(modeNames[i] + " " + (probabilities[i] - cum)*100.0 + "%");
-            cum = probabilities[i];
+        for (int i = 0; i < cummulative.length; ++i) {
+            System.out.println(modeNames[i] + " " + (cummulative[i] - cum)*100.0 + "%");
+            //System.out.println(modeNames[i] + " " + cummulative[i]*100.0 + "%");
+            cum = cummulative[i];
         }
     }
 

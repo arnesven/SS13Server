@@ -21,4 +21,13 @@ public class MyArrays {
         }
         return result;
     }
+
+    public static double[] prefixsum(double[] in) {
+        double[] res = new double[in.length];
+        res[0] = in[0];
+        for (int i = 1; i < in.length ; ++i) {
+            res[i] = in[i] + res[i-1];
+        }
+        return res;
+    }
 }
