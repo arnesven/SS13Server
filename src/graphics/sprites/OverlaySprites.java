@@ -111,12 +111,12 @@ public class OverlaySprites {
 
         strs.addAll(getStringsForSpritesInRoom(sp, r));
 
-
+        Sprite blurredCharacterSprite = new Sprite("blurredchar", "human.png", 138);
         for (Room r2 : r.getNeighborList()) {
             List<Sprite> sp2 = new ArrayList<>();
             for (Actor a : r2.getActors()) {
                 if (a.getCharacter().isVisibileFromAdjacentRoom()) {
-                    sp2.add(a.getCharacter().getSprite(player));
+                    sp2.add(blurredCharacterSprite);
                 }
             }
             for (Event e : r2.getEvents()) {
