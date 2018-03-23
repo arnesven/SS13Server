@@ -13,6 +13,7 @@ import model.events.*;
 import model.events.ambient.*;
 import model.items.NoSuchThingException;
 import model.items.suits.Rapido;
+import model.misc.ChristmasBooster;
 import model.modes.goals.PersonalGoalAssigner;
 import model.npcs.*;
 import model.npcs.animals.SnakeNPC;

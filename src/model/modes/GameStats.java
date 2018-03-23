@@ -82,7 +82,7 @@ public abstract class GameStats {
 				generatePlayersTable() + "<br/>" + 
 				getContent() + "<br/>" + 
 				getMiscStats() + "<br/>" +
-                getHallOfFame();
+                getHallOfFame(gameData);
 	}
 
 	protected String getTopContent() {
@@ -419,7 +419,7 @@ public abstract class GameStats {
 	}
 
 
-    public String getHallOfFame() {
+    public static String getHallOfFame(GameData gameData) {
         return (new HallOfFame(gameData)).getHTMLTable();
     }
 }

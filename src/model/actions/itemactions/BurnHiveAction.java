@@ -25,21 +25,24 @@ public class BurnHiveAction extends Action {
 	protected String getVerb(Actor whosAsking) {
 		return "Incinerated the hive";
 	}
-	
-	@Override
-	protected void execute(GameData gameData, Actor performingClient) {
-		if (GameItem.hasAnItem(performingClient, new Flamer()) && Chemicals.hasNChemicals(performingClient,
-                Flamer.CHEMS_NEEDED_TO_BURN_HIVE)) {
-			for (int i = Flamer.CHEMS_NEEDED_TO_BURN_HIVE; i > 0; --i) {
-				Iterator<GameItem> it = performingClient.getItems().iterator();
-				while (it.hasNext()) {
-					if (it.next() instanceof Chemicals && ((Chemicals) it.next()).isFlammable()) {
-						it.remove();
-						break;
-					}
-				}
 
-			}
+        @Override
+        protected void execute(GameData gameData, Actor performingClient) {
+            if (GameItem.hasAnItem(performingClient, new Flamer()) && Chemicals.hasNChemicals(performingClient,
+                    Flamer.CHEMS_NEEDED_TO_BURN_HIVE)) {
+                for (int i = Flamer.CHEMS_NEEDED_TO_BURN_HIVE; i > 0; --i) {
+                    Iterator<GameItem> it = performingClient.getItems().iterator();
+                    while (it.hasNext()) {
+                        GameItem it2 = it.next();
+                        if (it2 instanceof Chemicals) {
+                            if (((Chemicals) it2).isFlammable()){
+                                it.remove();
+                                break;
+                            }
+                        }
+                    }
+
+                }
 
 			hive.beExposedTo(performingClient, new FireDamage(3.0));
             hive.setBreaker(performingClient);

@@ -5,11 +5,12 @@ import java.io.ObjectOutputStream;
 
 import model.GameData;
 import model.modes.GameMode;
+import model.modes.GameStats;
 import util.Logger;
 
 public class SummaryCommandHandler extends AbstractCommandHandler {
 
-    private String oldSummary = "No previous game summary...";
+    private String oldSummary = null;
     private GameMode mode = null;
 
 	public SummaryCommandHandler(GameData gameData) {
@@ -20,6 +21,10 @@ public class SummaryCommandHandler extends AbstractCommandHandler {
 	public boolean handleCommand(String command, String clid, String rest,
 			ObjectOutputStream oos) throws IOException {
 		if (command.equals("SUMMARY")) {
+
+		    if (oldSummary == null) {
+		        oldSummary = GameStats.getHallOfFame(gameData);
+            }
 
             try {
                 if (mode != gameData.getGameMode() && gameData.getGameMode().gameOver(gameData)) {

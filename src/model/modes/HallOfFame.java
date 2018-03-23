@@ -20,7 +20,7 @@ public class HallOfFame {
     public HallOfFame(GameData gameData) {
         this.gameData = gameData;
         readFile();
-        if (!gameData.getGameMode().hasUpdatedHallOfFame()) {
+        if (gameData.getGameMode() != null && !gameData.getGameMode().hasUpdatedHallOfFame()) {
             updateForThisGame();
             writeFile();
             gameData.getGameMode().setUpdatedHallOfFame(true);

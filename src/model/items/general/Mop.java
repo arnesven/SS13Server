@@ -5,6 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SearchAction;
+import model.objects.general.BloodyMess;
 import model.objects.general.GameObject;
 
 import java.util.ArrayList;
@@ -48,12 +49,15 @@ public class Mop extends GameItem {
         protected void execute(GameData gameData, Actor performingClient) {
             if (!GameItem.hasAnItemOfClass(performingClient, Mop.class)) {
                 performingClient.addTolastTurnInfo("You don't have a mop! " + Action.FAILED_STRING);
+                return;
             }
 
             List<GameObject> toBeRemoved = new ArrayList<>();
 
             for (GameObject obj : performingClient.getPosition().getObjects()) {
-                toBeRemoved.add(obj);
+                if (obj instanceof BloodyMess) {
+                    toBeRemoved.add(obj);
+                }
             }
             performingClient.getPosition().getObjects().removeAll(toBeRemoved);
             if (toBeRemoved.size() > 0) {

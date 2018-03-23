@@ -61,7 +61,7 @@ public class PlantAction extends Action {
     public void setArguments(List<String> args, Actor performingClient) {
         for (GameItem it : performingClient.getItems()) {
             if (it instanceof SeedsItem) {
-                if (it.getPublicName(performingClient).equals(args.get(0))) {
+                if (it.getPublicName(performingClient).contains(args.get(0))) {
                     selectedSeeds = (SeedsItem)it;
                 }
             }
