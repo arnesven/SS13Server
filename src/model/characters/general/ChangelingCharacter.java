@@ -150,7 +150,7 @@ public class ChangelingCharacter extends GameCharacter {
 			return;
 		}
 		GameCharacter copy = other.getCharacter().clone();
-		copy.setNakedSprite(copy.getNakedSprite());
+		copy.setNakedness(copy.getNakedness());
 
 		while (copy.getSuit() != null) {
 			copy.removeSuit();

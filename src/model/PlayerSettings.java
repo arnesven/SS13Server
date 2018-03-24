@@ -1,5 +1,6 @@
 package model;
 
+import util.MyRandom;
 import util.MyStrings;
 
 import java.awt.*;
@@ -24,9 +25,9 @@ public class PlayerSettings implements Serializable {
     public static final String AUTO_READY_ME_IN_60_SECONDS = "Auto-ready me after 60 secs";
     public static final String ACTIVATE_MOVEMENT_POWERS    = "Activate Movement Powers";
     public static final String STYLE_BUTTONS_ON            = "Style Buttons On";
+    public static final String NOT_BEING_A_WOMAN           = "Not being a woman";
 
     private HashMap<String, Boolean> settings = new HashMap<>();
-    private Color selectedHairColor = Color.BLACK;
 
     public PlayerSettings() {
         settings.put(AUTO_LOOT_ON_KILL, false);
@@ -41,6 +42,7 @@ public class PlayerSettings implements Serializable {
         settings.put(ACTIVATE_MOVEMENT_POWERS, true);
         //settings.put(AUTO_READY_ME_IN_60_SECONDS, true);
         settings.put(STYLE_BUTTONS_ON, false);
+        settings.put(NOT_BEING_A_WOMAN, MyRandom.nextBoolean());
     }
 
     public void set(String key, boolean value) {
@@ -63,13 +65,5 @@ public class PlayerSettings implements Serializable {
             }
         });
         return MyStrings.join(strs);
-    }
-
-    public Color getSelectedHairColor() {
-        return selectedHairColor;
-    }
-
-    public void setSelectedHairColor(Color selectedHairColor) {
-        this.selectedHairColor = selectedHairColor;
     }
 }

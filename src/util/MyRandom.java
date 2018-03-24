@@ -1,9 +1,11 @@
 package util;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 import model.GameData;
 import model.items.HandCuffs;
@@ -17,6 +19,7 @@ import model.items.suits.*;
 import model.items.weapons.*;
 import model.map.rooms.Room;
 import model.map.rooms.RoomType;
+import model.movepowers.SetHairColorPower;
 import model.objects.general.Antidote;
 
 public class MyRandom {
@@ -228,4 +231,15 @@ public class MyRandom {
     }
 
 
+    public static Color nextColor() {
+        return  new Color(MyRandom.nextInt(255), MyRandom.nextInt(255), MyRandom.nextInt(255));
+    }
+
+    public static Boolean nextBoolean() {
+        return random.nextBoolean();
+    }
+
+    public static Color randomHairColor() {
+        return sample(SetHairColorPower.getHairColors());
+    }
 }

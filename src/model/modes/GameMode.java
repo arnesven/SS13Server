@@ -390,6 +390,7 @@ public abstract class GameMode implements Serializable {
             chAr = MyRandom.sample(((VisitorCharacter)selected).getSubtypes());
         }
         cl.setCharacter(chAr);
+        chAr.setGender(cl.getSettings().get(PlayerSettings.NOT_BEING_A_WOMAN)?"man":"woman");
         remainingCharacters.remove(selected);
     }
 

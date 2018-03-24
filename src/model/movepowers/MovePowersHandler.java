@@ -14,7 +14,7 @@ public class MovePowersHandler {
     private int max_Y = Integer.MIN_VALUE;
     private int max_ID = Integer.MIN_VALUE;
     private int numCreated = 0;
-    private static int BUTTONS_PER_ROW = 20;
+    private static int BUTTONS_PER_ROW = 12;
 
     public MovePowersHandler(List<Room> result, int buttonWidth) {
         this.rooms = result;

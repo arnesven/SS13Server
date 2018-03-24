@@ -14,6 +14,7 @@ import model.characters.special.SpectatorCharacter;
 import model.items.NoSuchThingException;
 import model.map.rooms.RoomType;
 import model.modes.GameCouldNotBeStartedException;
+import model.modes.GameStats;
 import model.objects.consoles.AIConsole;
 import model.objects.general.ContainerObject;
 
@@ -795,8 +796,22 @@ public class GameData implements Serializable {
                 }
             } else if (rest.contains("/style ")) {
                 String rest2 = rest.replace("/style ", "");
-                getPlayerForClid(clid).getSettings().set(PlayerSettings.STYLE_BUTTONS_ON, rest2.equals("on"));
-                getChat().serverSay(clid + " enabled style customization. Turn off with /style off");
+                if (gameState == GameState.MOVEMENT && rest2.equals("on")) {
+                    getChat().serverSay("Style customization can only be turned on during action phase.");
+                } else {
+                    getPlayerForClid(clid).getSettings().set(PlayerSettings.STYLE_BUTTONS_ON, rest2.equals("on"));
+                    if (rest2.equals("on")) {
+                        getChat().serverSay(clid + " enabled style customization. Turn off with /style off");
+                    } else {
+                        getChat().serverSay(clid + " disabled style customization. Turn on with /style on");
+                    }
+                }
+
+                return true;
+            } else if (rest.contains("/help")) {
+                getChat().serverSay("Available commands are:");
+                getChat().serverSay("  /ailaw [new law]     - adds law to AI console");
+                getChat().serverSay("  /style [on/off]      - turns style customization on/off");
                 return true;
             }
         } else if (gameState == GameState.ACTIONS) {

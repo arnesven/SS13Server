@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import graphics.sprites.NakedHumanSprite;
+import graphics.sprites.Nakedness;
 import graphics.sprites.OverlaySprites;
 import graphics.sprites.Sprite;
 import model.*;
@@ -56,7 +56,7 @@ public abstract class GameCharacter implements Serializable {
 	private String killString;
     private GameItem killerItem;
 	private String gender;
-    private Sprite nakedSprite;
+    private Nakedness nakedSprite;
 
 
 
@@ -66,7 +66,7 @@ public abstract class GameCharacter implements Serializable {
 		this.startingRoom = startRoom;
 		this.speed = speed;
         gender = MyRandom.randomGender();
-        nakedSprite = new NakedHumanSprite(gender.equals("man"));
+        nakedSprite = new Nakedness(gender.equals("man"));
         killerItem = null;
 	}
 
@@ -516,10 +516,10 @@ public abstract class GameCharacter implements Serializable {
     }
 
     public Sprite getNakedSprite() {
-            return nakedSprite;
+            return nakedSprite.getSprite();
     }
 
-    public void setNakedSprite(Sprite nakedSprite) {
+    public void setNakedness(Nakedness nakedSprite) {
         this.nakedSprite = nakedSprite;
     }
 
@@ -586,16 +586,23 @@ public abstract class GameCharacter implements Serializable {
         return result;
     }
 
+
+
+
+
     private void addStyleMovementButtons(List<Room> result, GameData gameData, MovePowersHandler mp) {
-	    for (int i = 0; i < NakedHumanSprite.noOfHairs(); ++i) {
+	    for (int i = 0; i < Nakedness.noOfHumans(); ++i) {
+	        result.add(mp.makeButton(new SetNakedHumanPower(i)));
+        }
+
+	    for (int i = 0; i < Nakedness.noOfHairs(); ++i) {
             result.add(mp.makeButton(new SetHairMovePower(i)));
         }
-        for (int r = 0; r < 256 ; r += 256/4) {
-	        for (int g = 0; g < 256; g += 256/4) {
-	            for (int b = 0; b < 256; b += 256/2) {
-	                result.add(mp.makeButton(new SetHairColorPower(new Color(r, g, b))));
-                }
-            }
+        for (int i = 0; i < Nakedness.noOfFacials(); ++i) {
+	        result.add(mp.makeButton(new SetFacialHairMovePower(i)));
+        }
+        for (Color col : SetHairColorPower.getHairColors()) {
+	        result.add(mp.makeButton(new SetHairColorPower(col)));
         }
     }
 
@@ -654,5 +661,9 @@ public abstract class GameCharacter implements Serializable {
 
     public boolean isVisibileFromAdjacentRoom() {
         return false;
+    }
+
+    public Nakedness getNakedness() {
+        return nakedSprite;
     }
 }

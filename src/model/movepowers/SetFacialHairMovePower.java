@@ -6,14 +6,13 @@ import model.Actor;
 import model.GameData;
 import model.MovementData;
 import model.Player;
-import util.Logger;
 
-public class SetHairMovePower extends MovePower {
+public class SetFacialHairMovePower extends MovePower {
     private final int target;
 
-    public SetHairMovePower(int target) {
-        super("Set Hair");
-        this.target = target;
+    public SetFacialHairMovePower(int i) {
+        super("Set Facial Hair");
+        this.target = i;
     }
 
     @Override
@@ -23,12 +22,11 @@ public class SetHairMovePower extends MovePower {
 
     @Override
     public Sprite getButtonSprite() {
-        return Nakedness.getHairSprite(target);
+        return Nakedness.getFacialHairSprite(target);
     }
 
     @Override
     public void gotTriggered(GameData gameData, Player player) {
-        Logger.log("Changed hair for player!");
-        player.getCharacter().getNakedness().setHairNumber(target);
+        player.getCharacter().getNakedness().setFacialHairNumber(target);
     }
 }
