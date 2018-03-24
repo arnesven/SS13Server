@@ -56,6 +56,7 @@ public abstract class AmbientEvent extends Event {
         events.put("merchant",         new TravelingMerchantEvent());
         events.put("marshals",         new GalacticFederalMarshalsEvent());
         events.put("basestars",        new BasestarsAreAttackingStationEvent());
+        events.put("meteoric storm",   new MeteoricStorm());
         events.put("simulate power",   new SimulatePower() {
             @Override
             public Collection<Room> getAffactedRooms(GameData gameData) {

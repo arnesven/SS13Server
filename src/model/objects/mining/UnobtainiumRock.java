@@ -5,13 +5,14 @@ import model.Player;
 import model.items.mining.OreShard;
 import model.items.mining.UnobtainiumShard;
 import model.map.rooms.Asteroid;
+import model.map.rooms.Room;
 import model.objects.general.GameObject;
 
 /**
  * Created by erini02 on 17/09/17.
  */
 public class UnobtainiumRock extends RockObject {
-    public UnobtainiumRock(Asteroid asteroid) {
+    public UnobtainiumRock(Room asteroid) {
         super("Unobtainium Rock", asteroid);
     }
 

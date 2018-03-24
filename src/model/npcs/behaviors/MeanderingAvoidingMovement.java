@@ -3,12 +3,13 @@ package model.npcs.behaviors;
 import model.map.rooms.Room;
 import model.npcs.NPC;
 
+import java.util.Collection;
 import java.util.List;
 
 public class MeanderingAvoidingMovement extends MeanderingHumanMovement {
-    private final List<Room> roomsToAvoid;
+    private final Collection<Room> roomsToAvoid;
 
-    public MeanderingAvoidingMovement(List<Room> avoidRooms) {
+    public MeanderingAvoidingMovement(Collection<Room> avoidRooms) {
         super(0.25);
         this.roomsToAvoid = avoidRooms;
     }
