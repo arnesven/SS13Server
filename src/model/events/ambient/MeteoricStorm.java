@@ -16,6 +16,8 @@ import model.objects.mining.RockObject;
 import util.Logger;
 import util.MyRandom;
 
+import java.util.Arrays;
+
 public class MeteoricStorm extends AmbientEvent {
 
 
@@ -28,6 +30,7 @@ public class MeteoricStorm extends AmbientEvent {
     private static final double DESTROY_CHANCE           = 0.03;
     private static final double SHATTER_ON_INPACT_CHANCE = 0.60;
     private Boolean severe = false;
+    private Integer[] stormCoordinates;
 
 
     @Override
@@ -40,7 +43,11 @@ public class MeteoricStorm extends AmbientEvent {
         if (timer == -1 && MyRandom.nextDouble() < getProbability()) {
             setupStorm(gameData);
         } else if (timer == 0) {
-            resolveStorm(gameData);
+            if (Arrays.equals(stormCoordinates, gameData.getMap().getPositionForLevel(GameMap.STATION_LEVEL_NAME))) {
+                resolveStorm(gameData);
+            } else {
+                Logger.log("Storm cancelled, station has jumped");
+            }
             timer--;
         } else if (timer > 0) {
             timer--;
@@ -119,6 +126,9 @@ public class MeteoricStorm extends AmbientEvent {
                 npc.setMoveBehavior(new MeanderingAvoidingMovement(gameData.getMap().getArea(GameMap.STATION_LEVEL_NAME, sideStr)));
             }
         }
+
+        stormCoordinates = gameData.getMap().getPositionForLevel(GameMap.STATION_LEVEL_NAME);
+
     }
 
     @Override
