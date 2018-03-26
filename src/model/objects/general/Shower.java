@@ -5,9 +5,6 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
-import model.actions.general.SensoryLevel;
-import model.characters.decorators.OnFireCharacterDecorator;
-import model.characters.general.GameCharacter;
 import model.map.rooms.DormsRoom;
 
 import java.util.ArrayList;
@@ -34,26 +31,7 @@ public class Shower extends GameObject {
 
     @Override
     public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
-        at.add(new Action("Shower Off", SensoryLevel.PHYSICAL_ACTIVITY) {
-            @Override
-            protected String getVerb(Actor whosAsking) {
-                return "showered";
-            }
-
-            @Override
-            protected void execute(GameData gameData, Actor performingClient) {
-                if (performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnFireCharacterDecorator)) {
-                    performingClient.removeInstance((GameCharacter gc) -> gc instanceof OnFireCharacterDecorator);
-                    performingClient.addTolastTurnInfo("You were put out by the shower.");
-                } else {
-                    performingClient.addTolastTurnInfo("You don't really feel much cleaner...");
-                }
-            }
-
-            @Override
-            public void setArguments(List<String> args, Actor performingClient) {
-
-            }
-        });
+        at.add(new ShowerOffAction());
     }
+
 }

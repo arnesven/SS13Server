@@ -12,7 +12,7 @@ public class SickOfYourselfGoal extends PersonalGoal {
 
     @Override
     public String getText() {
-        return "Your sick of your life. Change your job or kill yourself.";
+        return "You're sick of your life. Change your job or kill yourself.";
     }
 
     @Override

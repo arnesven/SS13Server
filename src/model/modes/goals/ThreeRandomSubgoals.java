@@ -2,6 +2,7 @@ package model.modes.goals;
 
 import model.Actor;
 import model.GameData;
+import model.actions.general.Action;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.items.foods.Banana;
@@ -9,6 +10,7 @@ import model.items.foods.Beer;
 import model.items.foods.FoodItem;
 import model.items.foods.SpaceBurger;
 import model.items.general.*;
+import model.objects.general.ShowerOffAction;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ public class ThreeRandomSubgoals extends CompositePersonalGoal {
         subGoals.add(new GetNakedGoal());
         subGoals.add(new HaveAChemicals());
         subGoals.add(new KeepHealthy());
+        subGoals.add(new TakeAShower());
+        subGoals.add(new HealXTimes(1));
         subGoals.add(new ParasiteKiller(1));
         subGoals.add(new CollectMoneyTask(250));
         subGoals.add(new PlaySlotsGoal(1));
@@ -264,6 +268,27 @@ public class ThreeRandomSubgoals extends CompositePersonalGoal {
         @Override
         public boolean isCompleted(GameData gameData) {
             return getBelongsTo().getCharacter().getHealth() >= 2.0;
+        }
+    }
+
+    private class TakeAShower extends DidAnActionGoal {
+        public TakeAShower() {
+            super(1, ShowerOffAction.class);
+        }
+
+        @Override
+        protected String getNoun() {
+            return "a shower";
+        }
+
+        @Override
+        protected String getVerb() {
+            return "take";
+        }
+
+        @Override
+        public String getText() {
+            return "take a shower";
         }
     }
 }
