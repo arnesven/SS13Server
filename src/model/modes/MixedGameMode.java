@@ -100,6 +100,18 @@ public class MixedGameMode extends OperativesGameMode {
         super.addAntagonistStartingMessage(c);
     }
 
+    protected GameOver getGameResult(GameData gameData) {
+		if (gameData.isAllDead()) {
+			return GameOver.ALL_DEAD;
+		} else if (gameData.getRound() == gameData.getNoOfRounds()) {
+			return GameOver.TIME_IS_UP;
+		} else if (super.isNuked()) {
+			return GameOver.SHIP_NUKED;
+		}
+		return null;
+	}
+
+
     @Override
     protected void addProtagonistStartingMessage(Player c) {
         SecretGameMode.protMessage(c);
