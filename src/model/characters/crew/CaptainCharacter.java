@@ -8,6 +8,7 @@ import model.GameData;
 import model.actions.general.AttackAction;
 import model.characters.general.GameCharacter;
 import model.items.CosmicArtifact;
+import model.items.chemicals.DrugDose;
 import model.items.foods.SpaceRum;
 import model.items.foods.Vodka;
 import model.items.general.*;
@@ -26,6 +27,7 @@ public class CaptainCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
         ArrayList<GameItem> list = new ArrayList<GameItem>();
         list.add(new KeyCard());
+        list.add(new DrugDose(null));
 
         return list;
     }

@@ -2,20 +2,17 @@ package model.modes.goals;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.DealDrugsAction;
 import model.actions.general.Action;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
-import model.items.chemicals.CaseOfDrugs;
-import model.items.general.GameItem;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class DrugDealerGaoal extends DidAnActionGoal {
-    public DrugDealerGaoal() {
-        super(3, DealDrugsAction.class);
-    }
+public class DrugDealerGaoal extends PersonalGoal {
+
+    private Set<Actor> dealtTo = new HashSet<>();
 
     @Override
     public String getText() {
@@ -23,13 +20,8 @@ public class DrugDealerGaoal extends DidAnActionGoal {
     }
 
     @Override
-    protected String getNoun() {
-        return "";
-    }
-
-    @Override
-    protected String getVerb() {
-        return "";
+    public boolean isCompleted(GameData gameData) {
+        return dealtTo.size() >= 3;
     }
 
     @Override
@@ -46,6 +38,18 @@ public class DrugDealerGaoal extends DidAnActionGoal {
         @Override
         public String getFullName() {
             return super.getFullName() + "(Drug Dealer)";
+        }
+
+        @Override
+        public void doAfterActions(GameData gameData) {
+            super.doAfterActions(gameData);
+            if (getActor() instanceof Player) {
+                Player p = (Player)getActor();
+                Action a = p.getNextAction();
+                if (a instanceof DealDrugsAction) {
+                    dealtTo.add((Actor)((DealDrugsAction) a).getTarget());
+                }
+            }
         }
     }
 }

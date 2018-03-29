@@ -26,10 +26,15 @@ public class DealDrugsAction extends TargetingAction {
         if (target instanceof NPC) {
             try {
                 CaseOfDrugs drugCase = GameItem.getItemFromActor(performingClient, new CaseOfDrugs());
-                ((NPC) target).getCharacter().giveItem(drugCase.extractDose(), performingClient.getAsTarget());
-                ((NPC) target).setActionBehavior(new MaybeIngestDrugsBehavior());
-                performingClient.addItem(new MoneyStack(500), target);
-                performingClient.addTolastTurnInfo("You sold " + target.getName() + " some drugs...");
+                try {
+                    ((NPC) target).getCharacter().giveItem(drugCase.extractDose(), performingClient.getAsTarget());
+                    ((NPC) target).setActionBehavior(new MaybeIngestDrugsBehavior());
+                    performingClient.addItem(new MoneyStack(500), target);
+                    performingClient.addTolastTurnInfo("You sold " + target.getName() + " some drugs...");
+                } catch (CaseOfDrugs.NoDrugsException e) {
+                    performingClient.addTolastTurnInfo("You're out of drugs!");
+                }
+
             } catch (NoSuchThingException e) {
                 performingClient.addTolastTurnInfo("What? The drug case is gone! " + Action.FAILED_STRING);
             }
