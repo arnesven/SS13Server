@@ -40,7 +40,7 @@ import util.Pair;
 public abstract class GameMode implements Serializable {
 
 
-	private static String[] knownModes = { "Secret", "Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Armageddon", "Mutiny", "Creative"};
+	private static String[] knownModes = { "Secret", "Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Armageddon", "Mutiny", "Mixed", "Creative"};
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
     private int defusedBombs = 0;

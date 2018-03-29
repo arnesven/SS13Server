@@ -10,8 +10,8 @@ import java.util.Arrays;
 public class SecretGameMode  {
 	
 	private static final String filename = "random_modes";
-	private static final double[] probabilities = {0.25,      0.25,         0.20,         0.15,       0.05,     0.05,         0.05};
-    private static final String[] modeNames =   {"Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Mutiny", "Armageddon"};
+	private static final double[] probabilities = {0.25,      0.25,         0.20,         0.15,       0.04,     0.04,     0.04,    0.03};
+    private static final String[] modeNames =   {"Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Mutiny",  "Mixed", "Armageddon"};
 
 
 	public static GameMode getNewInstance() {
@@ -77,6 +77,15 @@ public class SecretGameMode  {
                     protMessage(c);
                 }
             };
+        } else if (d < cummulative[6]) {
+            Logger.log("...... but secretly it's mixed");
+            MyRandom.write_to_file(filename, d + " Mixed");
+            result = new MixedGameMode() {
+                @Override
+                protected void addProtagonistStartingMessage(Player c) {
+                    protMessage(c);
+                }
+            };
         } else {
             Logger.log("...... but secretly it's armageddon");
             MyRandom.write_to_file(filename, d + " Armageddon");
@@ -100,7 +109,7 @@ public class SecretGameMode  {
         }
     }
 
-    private static void protMessage(Player c) {
+    public static void protMessage(Player c) {
 		c.addTolastTurnInfo("Just another day on SS13. What will happen today?");
 	}
 

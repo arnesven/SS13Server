@@ -126,7 +126,7 @@ public class OperativesGameMode extends GameMode {
         }
 	}
 
-	private int getNoOfOperatives(GameData gameData) {
+	protected int getNoOfOperatives(GameData gameData) {
 		return (int)Math.floor(gameData.getTargetablePlayers().size() * OPERATIVE_FACTOR);
 	}
 

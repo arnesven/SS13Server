@@ -138,6 +138,6 @@ public class TraitorModeStats extends GameStats {
 
     @Override
     protected String getTopContent() {
-        return "<img width='450' src='http://suptg.thisisnotatrueending.com/archive/20317317/images/1344965560091.jpg'>";
+        return "<img width='450' src='http://www.ida.liu.se/~erini02/ss13/traitors.jpg'>";
     }
 }

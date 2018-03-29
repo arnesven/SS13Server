@@ -71,9 +71,9 @@ public class OperativesModeStats extends GameStats {
 	@Override
 	protected String getTopContent() {
 		if (mode.isNuked()) {
-			return "<img src='http://stream1.gifsoup.com/view3/1611505/nuclear-explosion-o.gif'></img>";
+			return "<img src='http://www.ida.liu.se/~erini02/ss13/explosion.gif'></img>";
 		} else {
-            return "<img width='450' src='http://suptg.thisisnotatrueending.com/archive/20521280/images/1346273249150.png'>";
+            return "<img width='450' src='http://www.ida.liu.se/~erini02/ss13/disk.png'>";
         }
 		//return super.getTopContent();
 	}

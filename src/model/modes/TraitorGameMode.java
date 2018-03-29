@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import graphics.sprites.Sprite;
+import model.characters.decorators.NoSuchInstanceException;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import model.items.CosmicArtifact;
@@ -625,5 +626,16 @@ public class TraitorGameMode extends GameMode {
     @Override
     public String getAntagonistName(Player p) {
         return "Traitor";
+    }
+
+    public void removeTraitor(Player p) {
+	    try {
+            p.removeInstance((GameCharacter gc) -> gc instanceof TraitorCharacter);
+        } catch (NoSuchInstanceException nsie) {
+	        Logger.log("Could not remove traitor decorator from player!");
+        }
+        traitors.remove(p);
+        objectives.remove(p);
+        p.getCharacter().getItems().removeIf((GameItem it ) -> it instanceof PDA);
     }
 }

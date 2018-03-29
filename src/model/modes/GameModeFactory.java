@@ -29,6 +29,9 @@ public class GameModeFactory {
         } else if (selectedMode.toLowerCase().equals("creative")) {
             Logger.log(Logger.INTERESTING, "Mode is Creative");
             return new CreativeGameMode();
+        } else if (selectedMode.toLowerCase().equals("mixed")) {
+		    Logger.log(Logger.INTERESTING, "Mode is Mixed");
+		    return new MixedGameMode();
         }
 		
 		Logger.log(Logger.INTERESTING, "Mode is secret");

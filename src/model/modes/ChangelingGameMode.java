@@ -56,7 +56,7 @@ public class ChangelingGameMode extends GameMode {
 		
 		for (Player p : gameData.getPlayersAsList()) {
 			if (p.checkedJob("Changeling") && 
-					!(p.getCharacter() instanceof CaptainCharacter) &&
+					!(p.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof CaptainCharacter)) &&
                     !(p.getCharacter() instanceof AICharacter) &&
                     !(p.getCharacter() instanceof SpectatorCharacter)) {
 				lingPlayers.add(p);
@@ -82,7 +82,8 @@ public class ChangelingGameMode extends GameMode {
 		}
 		
 		ling = MyRandom.sample(lingPlayers);
-		
+		Logger.log("Making an NPC out of " + ling.getCharacter().getFullName());
+		Logger.log("Starting room was " + ling.getCharacter().getStartingRoom(gameData).getName());
 		NPC npc = new HumanNPC(ling.getCharacter(), 
 							   ling.getCharacter().getStartingRoom(gameData));
 		ling.getCharacter().setActor(npc);

@@ -305,7 +305,7 @@ public class GameData implements Serializable {
             } catch (GameCouldNotBeStartedException gcnbese) {
                 chatMessages.serverSay("Game could not be started! " +gcnbese.getMessage());
                 Logger.log("Game could not be started! " + gcnbese.getMessage() + " gamestate remains at " + gameState.name);
-                cleanChars();
+                unsetup();
             }
 
 		} else if (gameState == GameState.MOVEMENT) {
@@ -428,10 +428,16 @@ public class GameData implements Serializable {
         getChat().serverSay("New game started, mode: " + selectedMode);
 	}
 
-	
+    private void unsetup() {
+	    cleanChars();
+	    gameMode = null;
+    }
 
 
-	private void clearAllDeadNPCs() {
+
+
+
+    private void clearAllDeadNPCs() {
 		Iterator<NPC> it = npcs.iterator();
 		
 		while (it.hasNext()) {
