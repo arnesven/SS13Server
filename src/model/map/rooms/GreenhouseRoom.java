@@ -10,9 +10,9 @@ import model.objects.general.BioScanner;
 
 public class GreenhouseRoom extends Room {
 
-	public GreenhouseRoom(GameData gameData, int i, int j, int k, int l, int m, int[] ns,
+	public GreenhouseRoom(GameData gameData, int id, int x, int y, int w, int h, int[] ns,
                           double[] ds) {
-		super(i, "Greenhouse"          , "GH"     , j, k, l, m, ns, ds, RoomType.science);
+		super(id, "Greenhouse"          , "GH"     , x, y, w, h, ns, ds, RoomType.science);
 		this.addItem(new FireExtinguisher());
 		this.addItem(new Tools());
         this.addObject(new BioScanner(this));

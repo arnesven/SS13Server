@@ -635,6 +635,9 @@ public class GameData implements Serializable {
 				setNumberOfRounds(Integer.parseInt(sets[0]));
                 if (GameMode.isAMode(sets[1])) {
                     selectedMode = sets[1];
+                    if (selectedMode.equals("Escape")) { // TODO: fix this quickfix
+                        MapBuilder.setSelectedBuilder("Socrates");
+                    }
                 }
 				//Logger.log("Set new settings");
 			} catch (NumberFormatException nfe) {
@@ -814,10 +817,28 @@ public class GameData implements Serializable {
                 }
 
                 return true;
+            } else if (rest.contains("/maps")) {
+                getChat().serverSay("Current map: \"" + MapBuilder.getSelectedBuilder() + "\"");
+                getChat().serverSay("Available maps:");
+                for (String s : MapBuilder.availableMaps()) {
+                    getChat().serverSay("   \"" + s + '\"');
+                }
+                return true;
+            } else if (rest.contains("/map ")) {
+                String requestedMap = rest.replace("/map ", "");
+                if (!MapBuilder.availableMaps().contains(requestedMap)) {
+                    getChat().serverSay("No such map available.");
+                } else {
+                    MapBuilder.setSelectedBuilder(requestedMap);
+                    getChat().serverSay("Map set to \"" + requestedMap + "\"");
+                }
+                return true;
             } else if (rest.contains("/help")) {
                 getChat().serverSay("Available commands are:");
                 getChat().serverSay("  /ailaw [new law]     - adds law to AI console");
                 getChat().serverSay("  /style [on/off]      - turns style customization on/off");
+                getChat().serverSay("  /map [mapname]       - changes the map");
+                getChat().serverSay("  /maps                - Prints current map and a list of available maps");
                 return true;
             }
         } else if (gameState == GameState.ACTIONS) {

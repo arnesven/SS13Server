@@ -40,7 +40,7 @@ import util.Pair;
 public abstract class GameMode implements Serializable {
 
 
-	private static String[] knownModes = { "Secret", "Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Armageddon", "Mutiny", "Mixed", "Creative"};
+	private static String[] knownModes = { "Secret", "Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Armageddon", "Mutiny", "Mixed", "Escape", "Creative"};
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
     private int defusedBombs = 0;
@@ -226,16 +226,20 @@ public abstract class GameMode implements Serializable {
 		addRandomItemsToRooms(gameData);
 		Logger.log(" Game Mode: Items added to rooms");
 
-        tasks = new PersonalGoalAssigner(gameData);
-        tasks.addTasks(gameData);
+		addPersonalGoals(gameData);
 
 		addStartingMessages(gameData);
 		//ChristmasBooster.addStuff(gameData);
 
 	}
 
+    protected void addPersonalGoals(GameData gameData) {
+        tasks = new PersonalGoalAssigner(gameData);
+        tasks.addTasks(gameData);
+    }
 
-	protected void addStartingMessages(GameData gameData) {
+
+    protected void addStartingMessages(GameData gameData) {
 		for (Player c : gameData.getPlayersAsList()) {
 			addStartingMessage(gameData, c);
 		}
@@ -419,7 +423,7 @@ public abstract class GameMode implements Serializable {
 		}
 	}
 
-	private void addNPCs(GameData gameData, List<GameCharacter> remainingChars) {
+	protected void addNPCs(GameData gameData, List<GameCharacter> remainingChars) {
 
         try {
 		while (MyRandom.nextDouble() < 0.5) {
@@ -484,7 +488,7 @@ public abstract class GameMode implements Serializable {
 		}
 	}
 
-	private void addStuffToRooms(GameData gameData) {
+	protected void addStuffToRooms(GameData gameData) {
         Room r = MyRandom.getRandomHallway(gameData);
         r.addObject(new JunkVendingMachine(r));
         Logger.log("Added vending machine in " + r.getName());

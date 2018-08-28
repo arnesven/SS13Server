@@ -3,6 +3,9 @@ package model.characters.crew;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.GameData;
+import model.actions.characteractions.MarriageAction;
+import model.actions.general.Action;
 import model.characters.general.GameCharacter;
 import model.items.general.Bible;
 import model.items.general.GameItem;
@@ -31,5 +34,15 @@ public class ChaplainCharacter extends CrewCharacter {
     @Override
     public int getStartingMoney() {
         return 25;
+    }
+
+    @Override
+    public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
+        super.addCharacterSpecificActions(gameData, at);
+        Action a = new MarriageAction();
+        if (a.getOptions(gameData, getActor()).numberOfSuboptions() > 0) {
+            at.add(a);
+        }
+
     }
 }

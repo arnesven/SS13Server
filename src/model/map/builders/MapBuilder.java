@@ -7,6 +7,8 @@ import model.events.NoPressureEverEvent;
 import model.map.GameMap;
 import model.map.rooms.Room;
 
+import java.util.*;
+
 
 /**
  * @author erini02
@@ -17,6 +19,25 @@ import model.map.rooms.Room;
 public abstract class MapBuilder {
 
     protected static String ss13 = GameMap.STATION_LEVEL_NAME;
+    private static Map<String, MapBuilder> builders = getBuilders();
+    private static String selectedBuilder = "Donut";
+
+    public static Map<String, MapBuilder> getBuilders() {
+        Map<String, MapBuilder> res = new HashMap<>();
+        res.put("Donut", new DonutSS13Builder());
+        res.put("ValleyForge", new ValleyForgeSS13Builder());
+        res.put("Socrates", new SocratesBuilder());
+
+        return res;
+    }
+
+    public static void setSelectedBuilder(String selectedBuilder) {
+        MapBuilder.selectedBuilder = selectedBuilder;
+    }
+
+    public static String getSelectedBuilder() {
+        return selectedBuilder;
+    }
 
     protected abstract void buildPart(GameData gameData, GameMap gm);
 
@@ -31,7 +52,7 @@ public abstract class MapBuilder {
 
         GameMap gm = new GameMap(ss13);
 
-        MapBuilder station = new DonutSS13Builder();
+        MapBuilder station = builders.get(selectedBuilder);
         //MapBuilder station = new ValleyForgeSS13Builder();
         MapBuilder derelict = new DerelictBuilder();
         MapBuilder otherPlaces = new OtherPlacesBuilder();
@@ -56,4 +77,7 @@ public abstract class MapBuilder {
         gameData.addEvent(noPress);
     }
 
+    public static Set<String> availableMaps() {
+        return builders.keySet();
+    }
 }

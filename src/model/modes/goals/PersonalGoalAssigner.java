@@ -52,6 +52,7 @@ public class  PersonalGoalAssigner implements Serializable {
         jobSpecificGoals.get(new JanitorCharacter().getBaseName()).add(new CleanUpBloodyMesses(MyRandom.nextInt(2)+2));
         jobSpecificGoals.get(new JanitorCharacter().getBaseName()).add(new CarryManyThings(MyRandom.nextInt(7)+7));
         jobSpecificGoals.get(new ChaplainCharacter().getBaseName()).add(new SingXSermonsGoal());
+        jobSpecificGoals.get(new ChaplainCharacter().getBaseName()).add(new MarryXPeople(MyRandom.nextInt(6)));
         // Job goal for Visitor
         return jobSpecificGoals;
     }
@@ -82,6 +83,7 @@ public class  PersonalGoalAssigner implements Serializable {
         goals.add(new HaveACrowbar());
         goals.add(new HaveAMushroom());
         goals.add(new HaveAnOrange());
+        goals.add(new GetMarriedGoal());
        // goals.add(new TakeDifferentTypesOfDamage());
         goals.add(new ThreeRandomSubgoals());
         goals.add(new ThreeRandomSubgoals());

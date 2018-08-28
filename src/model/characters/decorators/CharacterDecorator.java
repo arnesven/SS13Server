@@ -444,4 +444,12 @@ public abstract class CharacterDecorator extends GameCharacter {
     public void setNakedness(Nakedness nakedSprite) {
         innerChar.setNakedness(nakedSprite);
     }
+
+    public CharacterDecorator getDecorator(InstanceChecker check) {
+            if (check.checkInstanceOf(this)) {
+                return this;
+            } else {
+                return getInner().getDecorator(check);
+            }
+    }
 }

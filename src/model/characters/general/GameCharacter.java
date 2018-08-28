@@ -11,6 +11,8 @@ import graphics.sprites.OverlaySprites;
 import graphics.sprites.Sprite;
 import model.*;
 import model.actions.general.AttackAction;
+import model.characters.decorators.CharacterDecorator;
+import model.characters.decorators.NoSuchInstanceException;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
 import model.map.rooms.RoomType;
@@ -665,5 +667,9 @@ public abstract class GameCharacter implements Serializable {
 
     public Nakedness getNakedness() {
         return nakedSprite;
+    }
+
+    public CharacterDecorator getDecorator(InstanceChecker check) {
+        throw new NoSuchInstanceException("Can't call getDecorator on GameCharacter");
     }
 }

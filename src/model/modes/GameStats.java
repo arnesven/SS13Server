@@ -10,6 +10,9 @@ import graphics.sprites.SpriteManager;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.characteractions.MarriageAction;
+import model.characters.decorators.CharacterDecorator;
+import model.characters.general.GameCharacter;
 import model.characters.special.SpectatorCharacter;
 import model.events.ambient.SpontaneousCrazyness;
 import model.events.ambient.OngoingEvent;
@@ -261,6 +264,13 @@ public abstract class GameStats {
                         ((MoneyStack) GameItem.getItemFromActor(winner, new MoneyStack(1))).getAmount() + ".";
             } catch (NoSuchThingException e) {
 
+            }
+        }
+
+        for (Actor a : gameData.getActors()) {
+            if (a.getCharacter().checkInstance((GameCharacter cd) -> cd instanceof MarriageAction.MarriedDecorator)) {
+                MarriageAction.MarriedDecorator md = (MarriageAction.MarriedDecorator) a.getDecorator((GameCharacter cd) -> cd instanceof MarriageAction.MarriedDecorator);
+                res += "<tr><td colspan=\"2\"> " + a.getBaseName() + " got married to " + md.getMarriedTo().getBaseName()  + "</td></tr>";
             }
         }
 

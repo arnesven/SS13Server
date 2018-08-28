@@ -171,6 +171,21 @@ public abstract class Actor  implements ItemHolder, Serializable {
 		    throw new NoSuchInstanceException("Could not remove instance!");
 		}
 	}
+
+	public CharacterDecorator getDecorator(InstanceChecker check) {
+        if (getCharacter() instanceof CharacterDecorator) {
+            CharacterDecorator decor = (CharacterDecorator)getCharacter();
+            if (check.checkInstanceOf(decor)) {
+                return decor;
+            } else {
+                return decor.getDecorator(check);
+            }
+
+        }
+
+        throw new NoSuchInstanceException("Could not remove instance!");
+
+    }
 	
 	public void putOnSuit(SuitItem selectedItem) {
 		this.getCharacter().putOnSuit(selectedItem);

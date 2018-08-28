@@ -32,6 +32,9 @@ public class GameModeFactory {
         } else if (selectedMode.toLowerCase().equals("mixed")) {
 		    Logger.log(Logger.INTERESTING, "Mode is Mixed");
 		    return new MixedGameMode();
+        } else if (selectedMode.toLowerCase().equals("escape")) {
+		    Logger.log("Mode is Escape");
+		    return new EscapeGameMode();
         }
 		
 		Logger.log(Logger.INTERESTING, "Mode is secret");
