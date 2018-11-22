@@ -1,6 +1,8 @@
 package model.modes;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.*;
 
 import graphics.sprites.Sprite;
@@ -229,7 +231,12 @@ public abstract class GameMode implements Serializable {
 		addPersonalGoals(gameData);
 
 		addStartingMessages(gameData);
-		//ChristmasBooster.addStuff(gameData);
+		if (LocalDateTime.now().getMonth().equals(Month.DECEMBER)) {
+		    Logger.log("Santa clause is coming to town!");
+            ChristmasBooster.addStuff(gameData);
+        } else {
+            Logger.log("Santa stays at the north pole.");
+        }
 
 	}
 

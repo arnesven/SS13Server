@@ -7,6 +7,7 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.TargetingAction;
 import model.actions.itemactions.CutOutBrainAction;
+import model.actions.itemactions.SurgeryAction;
 
 import java.util.ArrayList;
 
@@ -34,5 +35,11 @@ public class Knife extends SlashingWeapon {
         if (cut.getTargets().size() > 0) {
             at.add(cut);
         }
+
+        SurgeryAction sur = new SurgeryAction();
+        if (sur.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+            at.add(sur);
+        }
+
     }
 }
