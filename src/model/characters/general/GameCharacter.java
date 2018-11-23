@@ -13,6 +13,7 @@ import model.*;
 import model.actions.general.AttackAction;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.NoSuchInstanceException;
+import model.items.BodyPartFactory;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
 import model.map.rooms.RoomType;
@@ -128,10 +129,32 @@ public abstract class GameCharacter implements Serializable {
 			}
 
         }
-        String critMess = weapon.getCriticalMessage();
+        String critMess = doCritical(getActor(), weapon, critical);
+
         informAttackerOfAttack(success, performingClient, weapon, frag, critical, critMess);
         informActorOfAttack(success, performingClient, weapon, frag, critical, critMess);
         return success;
+    }
+
+    private String doCritical(Actor victim, Weapon weapon, boolean critical) {
+	    double ampChance = weapon.getAmpChance();
+
+	    String critMess = "";
+        if (MyRandom.nextDouble() < ampChance) {
+            if (critical) {
+                String[] extremity = {"arm", "leg"};
+                int rand = MyRandom.nextInt(2);
+                String[] side = {"left", "right"};
+                int rand2 = MyRandom.nextInt(2);
+                String bodyPart = side[rand2] + " " + extremity[rand];
+                victim.getCharacter().getPhysicalBody().removeBodyPart(bodyPart);
+                victim.getPosition().addItem(BodyPartFactory.makeBodyPart(bodyPart, victim));
+                critMess = "severed a" + (rand==0?"n ":" ") + extremity[rand] + "!";
+            }
+        } else {
+            critMess = weapon.getCriticalMessage();
+        }
+        return critMess;
     }
 
     public void doUponDeath(Actor killer, GameItem killItem) {

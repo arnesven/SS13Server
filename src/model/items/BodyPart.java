@@ -16,4 +16,6 @@ public abstract class BodyPart extends GameItem {
     public static String[] getAllParts() {
         return allParts;
     }
+
+    public abstract String getEatString();
 }

@@ -25,4 +25,9 @@ public class SeveredArm extends BodyPart {
 
         return new Sprite("severedrightarm", "body_parts.png", 1, 0);
     }
+
+    @Override
+    public String getEatString() {
+        return "finger";
+    }
 }

@@ -25,4 +25,9 @@ public class SeveredLeg extends BodyPart {
 
         return new Sprite("severedrightleg", "body_parts.png", 3, 0);
     }
+
+    @Override
+    public String getEatString() {
+        return "toe";
+    }
 }

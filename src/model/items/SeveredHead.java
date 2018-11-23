@@ -18,4 +18,9 @@ public class SeveredHead extends BodyPart {
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("severedleftleg", "body_parts.png", 5, 0);
     }
+
+    @Override
+    public String getEatString() {
+        return "eyeball";
+    }
 }

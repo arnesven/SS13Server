@@ -162,7 +162,6 @@ public abstract class Weapon extends GameItem {
         messages.add("Struck the groin");
         messages.add("Some guts came out");
         messages.add("Blood shoots out");
-        messages.add("Severed an arm");
         messages.add("Broke an arm");
         messages.add("Hit the head");
         messages.add("Crushed an elbow");
@@ -186,5 +185,9 @@ public abstract class Weapon extends GameItem {
 
     public Sound getRealSound() {
         return null;
+    }
+
+    public double getAmpChance() {
+        return 0.25;
     }
 }

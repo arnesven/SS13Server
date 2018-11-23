@@ -30,4 +30,9 @@ public abstract class SlashingWeapon extends Weapon {
         }
 
     }
+
+    @Override
+    public double getAmpChance() {
+        return 0.6;
+    }
 }

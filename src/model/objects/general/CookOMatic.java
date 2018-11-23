@@ -8,8 +8,10 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.objectactions.CookBodyPartIntoFoodAction;
 import model.actions.objectactions.CookFoodAction;
 import model.actions.objectactions.CookGrenadeIntoFoodAction;
+import model.items.BodyPart;
 import model.items.foods.*;
 import model.items.general.ExplodableItem;
 import model.items.general.GameItem;
@@ -33,6 +35,10 @@ public class CookOMatic extends ElectricalMachinery {
 			at.add(new CookGrenadeIntoFoodAction(this, new CookFoodAction(this)));
 		}
 
+		if (hasBodyPart(cl) != null) {
+		    at.add(new CookBodyPartIntoFoodAction(this, new CookFoodAction(this)));
+        }
+
 	}
 
 	public static List<FoodItem> getCookableFood(Actor maker) {
@@ -54,5 +60,14 @@ public class CookOMatic extends ElectricalMachinery {
 		}
 		return null;
 	}
+
+    private GameItem hasBodyPart(Actor cl) {
+        for (GameItem it : cl.getItems()) {
+            if (it instanceof BodyPart) {
+                return it;
+            }
+        }
+        return null;
+    }
 
 }

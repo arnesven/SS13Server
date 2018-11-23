@@ -32,4 +32,9 @@ public abstract class BluntWeapon extends Weapon implements BludgeoningWeapon {
     public double getDurability() {
         return durability;
     }
+
+    @Override
+    public double getAmpChance() {
+        return 0.05;
+    }
 }
