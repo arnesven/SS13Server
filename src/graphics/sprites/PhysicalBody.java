@@ -262,4 +262,8 @@ public class PhysicalBody implements Serializable {
         bodyPartSprites.put("right leg", new Sprite("nakedrightleg", "body_parts.png", 5, 1));
         return bodyPartSprites;
     }
+
+    public void addBodyPart(String bodyPart) {
+        hasBodyParts.put(bodyPart, true);
+    }
 }
