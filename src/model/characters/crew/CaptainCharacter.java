@@ -7,6 +7,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.AttackAction;
 import model.characters.general.GameCharacter;
+import model.items.BodyPartFactory;
 import model.items.CosmicArtifact;
 import model.items.chemicals.DrugDose;
 import model.items.foods.SpaceRum;
@@ -28,6 +29,7 @@ public class CaptainCharacter extends CrewCharacter {
         ArrayList<GameItem> list = new ArrayList<GameItem>();
         list.add(new KeyCard());
         list.add(new DrugDose(null));
+        list.add(BodyPartFactory.makeBodyPart("buttocks", getActor()));
 
         return list;
     }

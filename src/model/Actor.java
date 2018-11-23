@@ -13,6 +13,7 @@ import model.characters.decorators.NoSuchInstanceException;
 import model.items.general.GameItem;
 import model.items.general.HidableItem;
 import model.items.suits.SuitItem;
+import model.items.suits.Wearable;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
 import util.Logger;
@@ -187,8 +188,10 @@ public abstract class Actor  implements ItemHolder, Serializable {
 
     }
 	
-	public void putOnSuit(SuitItem selectedItem) {
-		this.getCharacter().putOnSuit(selectedItem);
+	public void putOnSuit(Wearable selectedItem) {
+	    if (selectedItem instanceof SuitItem) {
+            this.getCharacter().putOnSuit((SuitItem) selectedItem);
+        }
 		selectedItem.beingPutOn(this);	
 	}
 	

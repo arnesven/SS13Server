@@ -9,7 +9,7 @@ import util.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SuitItem extends GameItem {
+public abstract class SuitItem extends GameItem implements Wearable {
 
 	private SuitItem under = null;
 	
@@ -84,11 +84,6 @@ public abstract class SuitItem extends GameItem {
             throw soe;
         }
 	}
-	
-	public abstract void beingPutOn(Actor actionPerformer);
-	public abstract void beingTakenOff(Actor actionPerformer);
-	public abstract boolean permitsOver();
-
 
     public static int countSuits(Actor belongsTo) {
         SuitItem suit = belongsTo.getCharacter().getSuit();

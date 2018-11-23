@@ -8,14 +8,15 @@ import model.GameData;
 import model.items.general.GameItem;
 import model.items.suits.MerchantSuit;
 import model.items.suits.SuitItem;
+import model.items.suits.Wearable;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 import util.Logger;
 
 public class PutOnAction extends Action {
 
-	private List<SuitItem> options = new ArrayList<>();
-	private SuitItem selectedItem;
+	private List<Wearable> options = new ArrayList<>();
+	private Wearable selectedItem;
 	private Actor putOnner;
 	private Actor lootVictim = null;
     private ContainerObject lootObject;
@@ -32,13 +33,13 @@ public class PutOnAction extends Action {
 
 	private void addOptions(Actor ap) {
 		for (GameItem it : ap.getItems()) {
-			if (it instanceof SuitItem) {
-				options.add((SuitItem)it);
+			if (it instanceof Wearable) {
+				options.add((Wearable)it);
 			}
 		}
 		for (GameItem it : ap.getPosition().getItems()) {
-			if (it instanceof SuitItem) {
-				options.add((SuitItem)it);
+			if (it instanceof Wearable) {
+				options.add((Wearable) it);
 			}
 		}
 		
@@ -53,8 +54,8 @@ public class PutOnAction extends Action {
                 ContainerObject container = (ContainerObject) obj;
                 if (container.accessibleTo(ap)) {
                     for (GameItem it : container.getInventory()) {
-                        if (it instanceof SuitItem) {
-                            options.add((SuitItem) it);
+                        if (it instanceof Wearable) {
+                            options.add((Wearable) it);
                         }
                     }
                 }
@@ -105,7 +106,7 @@ public class PutOnAction extends Action {
         Logger.log("Setting arg for put on" + args.get(0));
 		for (GameItem it : putOnner.getItems()) {
 			if (it.getPublicName(performingClient).equals(args.get(0))) {
-				selectedItem = (SuitItem)it;
+				selectedItem = (Wearable)it;
 				return;
 			}
 		}
@@ -150,7 +151,7 @@ public class PutOnAction extends Action {
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = new ActionOption(this.getName());
-		for (GameItem it : options) {
+		for (Wearable it : options) {
 			opt.addOption(it.getPublicName(whosAsking));
 		}
 		return opt;
