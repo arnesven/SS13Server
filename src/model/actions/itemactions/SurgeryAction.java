@@ -12,6 +12,7 @@ import model.characters.general.HumanCharacter;
 import model.items.BodyPart;
 import model.items.BodyPartFactory;
 import model.items.general.GameItem;
+import model.items.weapons.SurgicalProceedureScalpel;
 
 import java.util.List;
 
@@ -41,6 +42,9 @@ public class SurgeryAction extends Action {
                 performingClient.addItem(BodyPartFactory.makeBodyPart(bodyPart, target), target.getAsTarget());
                 performingClient.addTolastTurnInfo("You amputated " + target.getPublicName() + "'s " + bodyPart + "!");
                 target.getCharacter().getPhysicalBody().removeBodyPart(bodyPart);
+                if (bodyPart.equals("head")) {
+                    target.beAttackedBy(performingClient, new SurgicalProceedureScalpel());
+                }
             } else { // reattached
                 if (reattPart != null) {
                     performingClient.addTolastTurnInfo("You reattached " + target.getPublicName() + "'s " + bodyPart + "!");
