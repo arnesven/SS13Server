@@ -37,6 +37,7 @@ public class SurgeryAction extends Action {
             if (operationType.equals("Amputate")) {
                 performingClient.addItem(BodyPartFactory.makeBodyPart(bodyPart, target), target.getAsTarget());
                 performingClient.addTolastTurnInfo("You amputated " + target.getPublicName() + "'s " + bodyPart + "!");
+                target.getCharacter().getPhysicalBody().removeBodyPart(bodyPart);
             } else { // reattached
                 performingClient.addTolastTurnInfo("You reattached " + target.getPublicName() + "'s " + bodyPart + "!");
             }
@@ -59,12 +60,11 @@ public class SurgeryAction extends Action {
             if (a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnSurgeryTableDecorator)) {
                 target = a;
                 ActionOption amp = new ActionOption("Amputate");
-                amp.addOption("left arm");
-                amp.addOption("right arm");
-                amp.addOption("left leg");
-                amp.addOption("right leg");
-                amp.addOption("buttocks");
-                amp.addOption("head");
+                for (String part : BodyPart.getAllParts()) {
+                    if (a.getCharacter().getPhysicalBody().hasBodyPart(part)) {
+                        amp.addOption(part);
+                    }
+                }
                 opts.addOption(amp);
 
                 ActionOption reatt = new ActionOption("Reattach");

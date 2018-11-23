@@ -58,7 +58,7 @@ public abstract class GameCharacter implements Serializable {
 	private String killString;
     private GameItem killerItem;
 	private String gender;
-    private PhysicalBody nakedSprite;
+    private PhysicalBody physBody;
 
 
 
@@ -68,7 +68,7 @@ public abstract class GameCharacter implements Serializable {
 		this.startingRoom = startRoom;
 		this.speed = speed;
         gender = MyRandom.randomGender();
-        nakedSprite = new PhysicalBody(gender.equals("man"));
+        physBody = new PhysicalBody(gender.equals("man"));
         killerItem = null;
 	}
 
@@ -518,11 +518,11 @@ public abstract class GameCharacter implements Serializable {
     }
 
     public Sprite getNakedSprite() {
-            return nakedSprite.getSprite();
+            return physBody.getSprite();
     }
 
     public void setNakedness(PhysicalBody nakedSprite) {
-        this.nakedSprite = nakedSprite;
+        this.physBody = nakedSprite;
     }
 
     public boolean isPassive() {
@@ -593,9 +593,9 @@ public abstract class GameCharacter implements Serializable {
 
 
     private void addStyleMovementButtons(List<Room> result, GameData gameData, MovePowersHandler mp) {
-	    for (int i = 0; i < PhysicalBody.noOfHumans(); ++i) {
-	        result.add(mp.makeButton(new SetNakedHumanPower(i)));
-        }
+//	    for (int i = 0; i < PhysicalBody.noOfHumans(); ++i) {
+//	        result.add(mp.makeButton(new SetNakedHumanPower(i)));
+//        }
 
 	    for (int i = 0; i < PhysicalBody.noOfHairs(); ++i) {
             result.add(mp.makeButton(new SetHairMovePower(i)));
@@ -648,7 +648,7 @@ public abstract class GameCharacter implements Serializable {
         selectedJob.killerItem = this.killerItem;
         selectedJob.killString = this.killString;
         selectedJob.gender = this.gender;
-        selectedJob.nakedSprite = this.nakedSprite;
+        selectedJob.physBody = this.physBody;
     }
 
     public GameItem getKillerItem() {
@@ -665,8 +665,8 @@ public abstract class GameCharacter implements Serializable {
         return false;
     }
 
-    public PhysicalBody getNakedness() {
-        return nakedSprite;
+    public PhysicalBody getPhysicalBody() {
+        return physBody;
     }
 
     public CharacterDecorator getDecorator(InstanceChecker check) {

@@ -1,5 +1,6 @@
 package graphics.sprites;
 
+import model.items.BodyPart;
 import util.MyRandom;
 
 import java.awt.*;
@@ -16,7 +17,7 @@ public class PhysicalBody implements Serializable {
 
     private static List<Sprite> hairSprites = collectHairSprites();
     private static List<Sprite> facialHairSprites = collectFacialHairSprites();
-    private static List<Sprite> nakedSprites = nakedSpriteList();
+    //private static List<Sprite> nakedSprites = nakedSpriteList();
 
     private boolean gender;
     private Color hairColor;
@@ -26,18 +27,9 @@ public class PhysicalBody implements Serializable {
     private int nakedSpriteNum;
 
     private Map<String, Boolean> hasBodyParts;
+    private static Map<String, Sprite> bodyPartSprites = makeNakedMap();
 
-    public PhysicalBody(boolean gender) {
-       this(gender, MyRandom.nextInt(hairSprites.size()), MyRandom.randomHairColor(),
-               MyRandom.nextInt(facialHairSprites.size()), MyRandom.randomHairColor());
-       hasBodyParts = new HashMap<>();
-       hasBodyParts.put("left arm", true);
-       hasBodyParts.put("right arm", true);
-       hasBodyParts.put("left leg", true);
-       hasBodyParts.put("right leg", true);
-       hasBodyParts.put("buttocks", true);
-       hasBodyParts.put("head", true);
-    }
+
 
     public PhysicalBody(boolean gender, int hairNum, Color color, int facialHairNum, Color facialHairColor) {
         this.gender = gender;
@@ -45,26 +37,35 @@ public class PhysicalBody implements Serializable {
         this.hairNum = hairNum;
         this.facialHairColor =  facialHairColor;
         this.facialHairNum = facialHairNum;
+        hasBodyParts = new HashMap<>();
+        for (String part : BodyPart.getAllParts()) {
+            hasBodyParts.put(part, true);
+        }
     }
 
-    private static List<Sprite> getHairNumber(int hairNum, Color color) {
-        List<Sprite> res = new ArrayList<>();
-        res.add(hairSprites.get(hairNum));
-        // Logger.log("Ran Random Hair");
-        res.get(0).setColor(color);
-        return res;
+    public PhysicalBody(boolean gender) {
+        this(gender, MyRandom.nextInt(hairSprites.size()), MyRandom.randomHairColor(),
+                MyRandom.nextInt(facialHairSprites.size()), MyRandom.randomHairColor());
     }
 
-    private static List<Sprite> getRandomHair() {
-        List<Sprite> res = new ArrayList<>();
-        res.add(MyRandom.sample(hairSprites));
-       // Logger.log("Ran Random Hair");
-        Color c = new Color(MyRandom.nextInt(255), MyRandom.nextInt(255), MyRandom.nextInt(255));
-        Sprite sp = new Sprite(res.get(0).getName() + c.getRed() + "x" + c.getBlue() + "x" + c.getGreen(), "human.png", 0, res);
-        sp.setColor(c);
-        List<Sprite> sprs = new ArrayList<>();
-        return sprs;
-    }
+//    private static List<Sprite> getHairNumber(int hairNum, Color color) {
+//        List<Sprite> res = new ArrayList<>();
+//        res.add(hairSprites.get(hairNum));
+//        // Logger.log("Ran Random Hair");
+//        res.get(0).setColor(color);
+//        return res;
+//    }
+//
+//    private static List<Sprite> getRandomHair() {
+//        List<Sprite> res = new ArrayList<>();
+//        res.add(MyRandom.sample(hairSprites));
+//       // Logger.log("Ran Random Hair");
+//        Color c = new Color(MyRandom.nextInt(255), MyRandom.nextInt(255), MyRandom.nextInt(255));
+//        Sprite sp = new Sprite(res.get(0).getName() + c.getRed() + "x" + c.getBlue() + "x" + c.getGreen(), "human.png", 0, res);
+//        sp.setColor(c);
+//        List<Sprite> sprs = new ArrayList<>();
+//        return sprs;
+//    }
 
 
 
@@ -123,9 +124,9 @@ public class PhysicalBody implements Serializable {
         return facialHairSprites.size();
     }
 
-    public static List<Sprite> getNakedSprites() {
-        return nakedSprites;
-    }
+//    public static List<Sprite> getNakedSprites() {
+//        return nakedSprites;
+//    }
 
     public Sprite getSprite() {
         List<Sprite> list = new ArrayList<>();
@@ -135,13 +136,64 @@ public class PhysicalBody implements Serializable {
         Sprite facial = new Sprite("facialhair" + facialHairNum + colorToString(facialHairColor), "human_face.png",
                 facialHairSprites.get(facialHairNum).getColumn(), facialHairSprites.get(facialHairNum).getRow());
         facial.setColor(facialHairColor);
-        list.add(nakedSprites.get(nakedSpriteNum));
-        list.add(hair);
-        list.add(facial);
+        //list.add(nakedSprites.get(nakedSpriteNum));
+        list.add(makeNakedSpriteFromParts());
+        if (hasBodyParts.get("head")) {
+            list.add(hair);
+            list.add(facial);
+        }
 
 
         Sprite naked = new Sprite("nakedmanbase" + getNameString(), "human.png", 0, list);
         return naked;
+    }
+
+    private Sprite makeNakedSpriteFromParts() {
+        List<Sprite> list = new ArrayList<>();
+        String nameString = "";
+
+
+
+        if (hasBodyParts.get("left leg")) {
+            list.add(bodyPartSprites.get("left leg"));
+            nameString += "lleg";
+        }
+
+        if (hasBodyParts.get("right leg")) {
+            list.add(bodyPartSprites.get("right leg"));
+            nameString += "rleg";
+        }
+
+
+
+        if (gender) {
+            nameString += "mantorso";
+            list.add(bodyPartSprites.get("man torso"));
+            if (hasBodyParts.get("head")) {
+                list.add(bodyPartSprites.get("man head"));
+                nameString += "hd";
+            }
+        } else {
+            nameString += "womantorso";
+            list.add(bodyPartSprites.get("woman torso"));
+            if (hasBodyParts.get("head")) {
+                list.add(bodyPartSprites.get("woman head"));
+                nameString += "hd";
+            }
+        }
+
+        if (hasBodyParts.get("left arm")) {
+            list.add(bodyPartSprites.get("left arm"));
+            nameString += "lrm";
+        }
+
+        if (hasBodyParts.get("right arm")) {
+            list.add(bodyPartSprites.get("right arm"));
+            nameString += "rrm";
+        }
+
+        Sprite total = new Sprite("nakedcomposition" + nameString, "human.png", 0, list);
+        return total;
     }
 
     public String getNameString() {
@@ -171,22 +223,43 @@ public class PhysicalBody implements Serializable {
     }
 
 
-    private static List<Sprite> nakedSpriteList() {
-        List<Sprite> sprs = new ArrayList<>();
-        sprs.add(new Sprite("nakedman", "naked.png", 0));
-        sprs.add(new Sprite("nakedwoman", "naked.png", 2));
-        sprs.add(new Sprite("nakednakedman", "human.png", 3));
-        sprs.add(new Sprite("nakednakedwoam", "human.png", 8));
-        sprs.add(new Sprite("nakedfatman", "human.png", 128));
-        return sprs;
-    }
+//    private static List<Sprite> nakedSpriteList() {
+//        List<Sprite> sprs = new ArrayList<>();
+//        sprs.add(new Sprite("nakedman",       "naked.png", 0));
+//        sprs.add(new Sprite("nakedwoman",     "naked.png", 2));
+//        sprs.add(new Sprite("nakednakedman",  "human.png", 3));
+//        sprs.add(new Sprite("nakednakedwoam", "human.png", 8));
+//        sprs.add(new Sprite("nakedfatman",    "human.png", 128));
+//        return sprs;
+//    }
 
-
-    public static int noOfHumans() {
-        return nakedSprites.size();
-    }
+//
+//    public static int noOfHumans() {
+//        return nakedSprites.size();
+//    }
 
     public void setNakedSpriteNum(int nakedSpriteNum) {
         this.nakedSpriteNum = nakedSpriteNum;
+    }
+
+    public boolean hasBodyPart(String part) {
+        return hasBodyParts.get(part);
+    }
+
+    public void removeBodyPart(String bodyPart) {
+        hasBodyParts.put(bodyPart, false);
+    }
+
+    private static Map<String,Sprite> makeNakedMap() {
+        Map<String, Sprite> bodyPartSprites = new HashMap<>();
+        bodyPartSprites.put("man head", new Sprite("nakedmanhead", "body_parts.png", 0, 1));
+        bodyPartSprites.put("woman head", new Sprite("nakedwomanhead", "body_parts.png", 7, 1));
+        bodyPartSprites.put("left arm", new Sprite("nakedleftarm", "body_parts.png", 2, 1));
+        bodyPartSprites.put("right arm", new Sprite("nakedrightarm", "body_parts.png", 3, 1));
+        bodyPartSprites.put("man torso", new Sprite("nakedmantorso", "body_parts.png", 1, 1));
+        bodyPartSprites.put("woman torso", new Sprite("nakedwomantorso", "body_parts.png", 6, 1));
+        bodyPartSprites.put("left leg", new Sprite("nakedleftleg", "body_parts.png", 4, 1));
+        bodyPartSprites.put("right leg", new Sprite("nakedrightleg", "body_parts.png", 5, 1));
+        return bodyPartSprites;
     }
 }

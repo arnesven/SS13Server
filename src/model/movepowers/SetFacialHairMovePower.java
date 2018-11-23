@@ -27,6 +27,6 @@ public class SetFacialHairMovePower extends MovePower {
 
     @Override
     public void gotTriggered(GameData gameData, Player player) {
-        player.getCharacter().getNakedness().setFacialHairNumber(target);
+        player.getCharacter().getPhysicalBody().setFacialHairNumber(target);
     }
 }

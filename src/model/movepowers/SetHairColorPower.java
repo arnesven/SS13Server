@@ -70,6 +70,6 @@ public class SetHairColorPower extends MovePower {
     @Override
     public void gotTriggered(GameData gameData, Player player) {
         Logger.log("Set hair color!");
-        player.getCharacter().getNakedness().setHairColor(color);
+        player.getCharacter().getPhysicalBody().setHairColor(color);
     }
 }

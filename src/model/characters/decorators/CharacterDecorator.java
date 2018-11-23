@@ -436,8 +436,8 @@ public abstract class CharacterDecorator extends GameCharacter {
     }
 
     @Override
-    public PhysicalBody getNakedness() {
-        return innerChar.getNakedness();
+    public PhysicalBody getPhysicalBody() {
+        return innerChar.getPhysicalBody();
     }
 
     @Override

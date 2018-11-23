@@ -29,6 +29,6 @@ public class SetHairMovePower extends MovePower {
     @Override
     public void gotTriggered(GameData gameData, Player player) {
         Logger.log("Changed hair for player!");
-        player.getCharacter().getNakedness().setHairNumber(target);
+        player.getCharacter().getPhysicalBody().setHairNumber(target);
     }
 }
