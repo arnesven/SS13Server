@@ -3,7 +3,7 @@ package model.characters.decorators;
 import java.util.ArrayList;
 import java.util.List;
 
-import graphics.sprites.Nakedness;
+import graphics.sprites.PhysicalBody;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
@@ -436,12 +436,12 @@ public abstract class CharacterDecorator extends GameCharacter {
     }
 
     @Override
-    public Nakedness getNakedness() {
+    public PhysicalBody getNakedness() {
         return innerChar.getNakedness();
     }
 
     @Override
-    public void setNakedness(Nakedness nakedSprite) {
+    public void setNakedness(PhysicalBody nakedSprite) {
         innerChar.setNakedness(nakedSprite);
     }
 

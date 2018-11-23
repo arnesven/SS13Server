@@ -1,6 +1,6 @@
 package model.movepowers;
 
-import graphics.sprites.Nakedness;
+import graphics.sprites.PhysicalBody;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
@@ -22,7 +22,7 @@ public class SetNakedHumanPower extends MovePower {
 
     @Override
     public Sprite getButtonSprite() {
-        return Nakedness.getNakedSprites().get(target);
+        return PhysicalBody.getNakedSprites().get(target);
     }
 
     @Override

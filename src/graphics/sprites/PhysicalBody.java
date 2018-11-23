@@ -5,12 +5,14 @@ import util.MyRandom;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by erini02 on 26/04/16.
  */
-public class Nakedness implements Serializable {
+public class PhysicalBody implements Serializable {
 
     private static List<Sprite> hairSprites = collectHairSprites();
     private static List<Sprite> facialHairSprites = collectFacialHairSprites();
@@ -23,13 +25,21 @@ public class Nakedness implements Serializable {
     private int facialHairNum;
     private int nakedSpriteNum;
 
-    public Nakedness(boolean gender) {
+    private Map<String, Boolean> hasBodyParts;
+
+    public PhysicalBody(boolean gender) {
        this(gender, MyRandom.nextInt(hairSprites.size()), MyRandom.randomHairColor(),
                MyRandom.nextInt(facialHairSprites.size()), MyRandom.randomHairColor());
-
+       hasBodyParts = new HashMap<>();
+       hasBodyParts.put("left arm", true);
+       hasBodyParts.put("right arm", true);
+       hasBodyParts.put("left leg", true);
+       hasBodyParts.put("right leg", true);
+       hasBodyParts.put("buttocks", true);
+       hasBodyParts.put("head", true);
     }
 
-    public Nakedness(boolean gender, int hairNum, Color color, int facialHairNum, Color facialHairColor) {
+    public PhysicalBody(boolean gender, int hairNum, Color color, int facialHairNum, Color facialHairColor) {
         this.gender = gender;
         this.hairColor = color;
         this.hairNum = hairNum;

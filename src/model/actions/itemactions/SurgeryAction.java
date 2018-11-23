@@ -25,7 +25,10 @@ public class SurgeryAction extends Action {
 
     @Override
     protected String getVerb(Actor whosAsking) {
-        return "Performed surgery";
+        if (target == null) {
+            return "Performed surgery";
+        }
+        return operationType + "d " + target.getPublicName() + "'s " + bodyPart + "!";
     }
 
     @Override
@@ -33,6 +36,9 @@ public class SurgeryAction extends Action {
         if (target != null) {
             if (operationType.equals("Amputate")) {
                 performingClient.addItem(BodyPartFactory.makeBodyPart(bodyPart, target), target.getAsTarget());
+                performingClient.addTolastTurnInfo("You amputated " + target.getPublicName() + "'s " + bodyPart + "!");
+            } else { // reattached
+                performingClient.addTolastTurnInfo("You reattached " + target.getPublicName() + "'s " + bodyPart + "!");
             }
         }
     }

@@ -1,6 +1,6 @@
 package model.movepowers;
 
-import graphics.sprites.Nakedness;
+import graphics.sprites.PhysicalBody;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
@@ -23,7 +23,7 @@ public class SetHairMovePower extends MovePower {
 
     @Override
     public Sprite getButtonSprite() {
-        return Nakedness.getHairSprite(target);
+        return PhysicalBody.getHairSprite(target);
     }
 
     @Override

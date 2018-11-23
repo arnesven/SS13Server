@@ -6,12 +6,10 @@ import model.items.general.GameItem;
 
 public class SeveredArm extends BodyPart {
     private final String side;
-    private final Actor belongsTo;
 
     public SeveredArm(String side, Actor belongsTo) {
-        super(belongsTo.getPublicName() + " " + side + " arm", 3.0);
+        super(belongsTo.getPublicName() + "'s " + side + " arm", 3.0, belongsTo);
         this.side = side;
-        this.belongsTo = belongsTo;
     }
 
     @Override
