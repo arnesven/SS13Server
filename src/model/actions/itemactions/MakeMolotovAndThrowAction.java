@@ -85,7 +85,7 @@ public class MakeMolotovAndThrowAction extends Action {
     public void setArguments(List<String> args, Actor performingClient) {
         selectedBurnable = null;
         for (GameItem it : getBurnables(performingClient)) {
-            if (it.getPublicName(performingClient).equals(args.get(0))) {
+            if (it.getPublicName(performingClient).contains(args.get(0))) {
                 selectedBurnable = it;
             }
         }
