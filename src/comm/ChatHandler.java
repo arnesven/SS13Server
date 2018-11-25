@@ -24,7 +24,7 @@ public class ChatHandler extends AbstractCommandHandler {
             rest = rest.substring(1);
             boolean wasCommand = ChatCommands.chatWasCommand(gameData, rest, clid);
             if (!wasCommand) {
-                gameData.getChat().add(clid + ": " + rest);
+                gameData.getChat().addAll(clid + ": " + rest);
             }
 
             oos.writeObject("ACK");
@@ -32,8 +32,9 @@ public class ChatHandler extends AbstractCommandHandler {
         } else if (command.contains("CHATGET")) {
             Scanner scan = new Scanner(rest);
             int clientsIndex = scan.nextInt();
-            if (clientsIndex < gameData.getChat().getLastMessageIndex()) {
-                List<String> missingMessages = gameData.getChat().getMessagesFrom(clientsIndex+1);
+            if (clientsIndex < gameData.getChat().getLastMessageIndex(gameData.getPlayerForClid(clid))) {
+                List<String> missingMessages = gameData.getChat().getMessagesFrom(clientsIndex+1,
+                        gameData.getPlayerForClid(clid));
 
                 oos.writeObject(MyStrings.join(missingMessages));
             }

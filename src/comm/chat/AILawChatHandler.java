@@ -4,6 +4,7 @@ import model.GameData;
 import model.Player;
 import model.items.NoSuchThingException;
 import model.objects.consoles.AIConsole;
+import model.plebOS.ComputerSystemLogin;
 
 public class AILawChatHandler extends ChatCommandHandler {
 

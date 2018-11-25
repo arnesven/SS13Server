@@ -14,6 +14,11 @@ public class HTMLText {
         return "<font color=\"" + color + "\" face=\"" + font + "\" size=\"" + size + "\">" + s + "</font>";
     }
 
+    public static String makeText(String fgcolor, String bgcolor, String font, int size, String s) {
+        return "<font color=\"" + fgcolor + "\" face=\"" + font + "\" size=\"" +
+                size + "\" style=\"background-color:" + bgcolor + "\">" + s + "</font>";
+    }
+
     public static String makeLink(String addr, String title) {
         return "<a style=\"text-decoration:underline;\" target=\"_info\" href=\""+addr+"\">"+title+"</a>";
     }

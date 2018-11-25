@@ -2,8 +2,11 @@ package comm.chat;
 
 import model.GameData;
 import model.Player;
+import model.plebOS.ComputerSystemLogin;
 
-public abstract class ChatCommandHandler {
+import java.io.Serializable;
+
+public abstract class ChatCommandHandler implements Serializable {
 
     private final String cmd;
 
@@ -12,7 +15,7 @@ public abstract class ChatCommandHandler {
     }
 
     public boolean handle(GameData gameData, Player sender, String rest) {
-        if (rest.contains("/" + cmd)) {
+        if (rest.contains(cmd)) {
             internalHandle(gameData, sender, rest);
             return true;
         }
@@ -20,4 +23,8 @@ public abstract class ChatCommandHandler {
     }
 
     protected abstract void internalHandle(GameData gameData, Player sender, String rest);
+
+    protected String getCommand() {
+        return cmd;
+    }
 }

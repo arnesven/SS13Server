@@ -618,7 +618,7 @@ public class GameData implements Serializable {
         String del = "<player-data-part>";
         //int numModes = GameMode.getNumberOfAvailableModes();
 		return makeStringFromReadyClients()+ del + getGameState().val + del +
-                getRound() + del + getNoOfRounds() + del + chatMessages.getLastMessageIndex() + del +
+                getRound() + del + getNoOfRounds() + del + chatMessages.getLastMessageIndex(getPlayerForClid(clid)) + del +
                 getPlayerForClid(clid).getSoundQueue().getCurrentIndex() + del +
                 getSelectedMode() + del +
                 GameMode.getAvailableModesAsString();
