@@ -1,5 +1,6 @@
 package model.plebOS;
 
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.objects.consoles.Console;
@@ -30,6 +31,13 @@ public class ComputerSystemLogin implements Serializable {
         gameData.getChat().plebOSSay("", sender);
         gameData.getChat().plebOSSay("Last login on 24/03/2113, 4.15 pm", sender);
         gameData.getChat().plebOSSay("Welcome " + sender.getCharacter().getBaseName(), sender);
+
+        for (Actor a : sender.getPosition().getActors()) {
+            if (a != sender) {
+                a.addTolastTurnInfo(sender.getPublicName() +
+                        " fiddled with " + console.getPublicName(a) + ".");
+            }
+        }
     }
 
     public String getCurrentDirectory() {
