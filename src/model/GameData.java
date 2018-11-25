@@ -16,6 +16,7 @@ import model.map.rooms.RoomType;
 import model.modes.GameCouldNotBeStartedException;
 import model.modes.GameStats;
 import model.objects.consoles.AIConsole;
+import model.objects.consoles.Console;
 import model.objects.general.ContainerObject;
 
 import util.*;
@@ -793,65 +794,6 @@ public class GameData implements Serializable {
         return chatMessages;
     }
 
-    public boolean chatWasCommand(String rest, String clid) {
-        if (rest.startsWith("/")) {
-            if (rest.contains("/ailaw ")) {
-                try {
-                    findObjectOfType(AIConsole.class).addCustomLawToAvailable(rest.replace("/ailaw ", ""));
-                    getChat().serverSay("New AI Law added");
-                    return true;
-                } catch (NoSuchThingException e) {
-                    e.printStackTrace();
-                }
-            } else if (rest.contains("/style ")) {
-                String rest2 = rest.replace("/style ", "");
-                if (gameState == GameState.MOVEMENT && rest2.equals("on")) {
-                    getChat().serverSay("Style customization can only be turned on during action phase.");
-                } else {
-                    getPlayerForClid(clid).getSettings().set(PlayerSettings.STYLE_BUTTONS_ON, rest2.equals("on"));
-                    if (rest2.equals("on")) {
-                        getChat().serverSay(clid + " enabled style customization. Turn off with /style off");
-                    } else {
-                        getChat().serverSay(clid + " disabled style customization. Turn on with /style on");
-                    }
-                }
-
-                return true;
-            } else if (rest.contains("/maps")) {
-                getChat().serverSay("Current map: \"" + MapBuilder.getSelectedBuilder() + "\"");
-                getChat().serverSay("Available maps:");
-                for (String s : MapBuilder.availableMaps()) {
-                    getChat().serverSay("   \"" + s + '\"');
-                }
-                return true;
-            } else if (rest.contains("/map ")) {
-                String requestedMap = rest.replace("/map ", "");
-                if (!MapBuilder.availableMaps().contains(requestedMap)) {
-                    getChat().serverSay("No such map available.");
-                } else {
-                    MapBuilder.setSelectedBuilder(requestedMap);
-                    getChat().serverSay("Map set to \"" + requestedMap + "\"");
-                }
-                return true;
-            } else if (rest.contains("/help")) {
-                getChat().serverSay("Available commands are:");
-                getChat().serverSay("  /ailaw [new law]     - adds law to AI console");
-                getChat().serverSay("  /style [on/off]      - turns style customization on/off");
-                getChat().serverSay("  /map [mapname]       - changes the map");
-                getChat().serverSay("  /maps                - Prints current map and a list of available maps");
-                return true;
-            }
-        } else if (gameState == GameState.ACTIONS) {
-            for (Player p : getPlayersAsList()) {
-                p.addTolastTurnInfo(HTMLText.makeText("purple", clid + ": " + rest));
-            }
-        } else if (gameState == GameState.MOVEMENT) {
-            lostMessages.add(HTMLText.makeText("purple", clid + ": " + rest));
-
-        }
-
-        return false;
-    }
 
 
     private void sendLostMessages() {
@@ -871,56 +813,7 @@ public class GameData implements Serializable {
         return p;
     }
 
-//    private void setAutoReadyTimer() {
-//        Timer timer = new Timer();
-//        GameState currentState = getGameState();
-//
-//        if (currentState == GameState.PRE_GAME) {
-//            return;
-//        }
-//
-//        int currentRound = getRound();
-//        TimerTask task = new TimerTask() {
-//            @Override
-//            public void run() {
-//                if (currentState == getGameState() && currentRound == getRound()) {
-//                    Logger.log("Timer ran out. The following players are auto-ready:");
-//                    GameState state = getGameState();
-//                    for (Player p : getPlayersAsList()) {
-//                        if (p.getSettings().get(PlayerSettings.AUTO_READY_ME_IN_60_SECONDS)) {
-//                            try {
-//                                Logger.log("  " + getClidForPlayer(p));
-//                                setPlayerReady(getClidForPlayer(p), true);
-//                            } catch (NoSuchThingException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }
-//                    if (state == getGameState()) {
-//                        StringBuffer buf = new StringBuffer("Waiting for ");
-//                        for (Player p : getPlayersAsList()) {
-//                            if (!p.isReady()) {
-//                                try {
-//                                    buf.append(getClidForPlayer(p) + ", ");
-//                                } catch (NoSuchThingException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                        }
-//                        buf.delete(buf.length() - 2, buf.length());
-//                        getChat().serverSay(buf.toString());
-//
-//                    }
-//                } else {
-//                    Logger.log("Old timer ran out, ignoring it.");
-//                }
-//                timer.cancel();
-//            }
-//        };
-//
-//        timer.schedule(task, 60000);
-//
-//
-//    }
-
+    public void addToLostMessages(String lost) {
+        lostMessages.add(lost);
+    }
 }

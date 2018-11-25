@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SeveredButt extends BodyPart implements Wearable  {
     public SeveredButt(Actor belong) {
-        super(belong.getPublicName() + "'s butt", 3.0, belong);
+        super(belong.getPublicName() + "'s Butt", 3.0, belong);
     }
 
     @Override

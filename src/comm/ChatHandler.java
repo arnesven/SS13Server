@@ -1,5 +1,6 @@
 package comm;
 
+import comm.chat.ChatCommands;
 import model.GameData;
 import util.MyStrings;
 
@@ -21,7 +22,7 @@ public class ChatHandler extends AbstractCommandHandler {
     public boolean handleCommand(String command, String clid, String rest, ObjectOutputStream oos) throws IOException {
         if (command.contains("CHATPUT")) {
             rest = rest.substring(1);
-            boolean wasCommand = gameData.chatWasCommand(rest, clid);
+            boolean wasCommand = ChatCommands.chatWasCommand(gameData, rest, clid);
             if (!wasCommand) {
                 gameData.getChat().add(clid + ": " + rest);
             }
