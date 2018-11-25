@@ -5,6 +5,7 @@ import model.GameData;
 import model.Player;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
+import model.items.NoSuchThingException;
 import model.plebOS.ComputerSystemLogin;
 import model.plebOS.LoggedInDecorator;
 
@@ -18,10 +19,6 @@ public abstract class PlebOSCommandHandler extends ChatCommandHandler {
 
     @Override
     public boolean handle(GameData gameData, Player sender, String rest) {
-        if (sender.getCharacter() == null || !isLoggedIn(sender)) {
-            gameData.getChat().serverSay("You are not logged in at a console." , sender);
-            return true;
-        }
 
         ComputerSystemLogin loginInstance = getLogin(sender);
 
@@ -49,7 +46,7 @@ public abstract class PlebOSCommandHandler extends ChatCommandHandler {
         return ((LoggedInDecorator)gc).getLogin();
     }
 
-    private boolean isLoggedIn(Player sender) {
+    public static boolean isLoggedIn(Player sender) {
         return sender.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof LoggedInDecorator);
     }
 

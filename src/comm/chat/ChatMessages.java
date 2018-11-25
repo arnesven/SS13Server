@@ -95,6 +95,7 @@ public class ChatMessages implements Serializable {
                 s = pad(s);
             }
         }
+        //s = s.replace(" ", "");
         this.add(HTMLText.makeText("yellow", "black",
                 "Courier", 4, s), player, false);
     }
@@ -108,9 +109,9 @@ public class ChatMessages implements Serializable {
         boolean left = true;
         while (buf.length() < 60) {
             if (left) {
-                buf.append('¨');
+                buf.append('▒');
             } else {
-                buf.insert(0, '¨');
+                buf.insert(0, '▒');
             }
             left = !left;
         }
@@ -120,7 +121,7 @@ public class ChatMessages implements Serializable {
     private static String pad(String s) {
         StringBuffer buf = new StringBuffer(s);
         while (buf.length() < 60) {
-            buf.append('¨');
+            buf.append('▒');
         }
         return buf.toString();
     }

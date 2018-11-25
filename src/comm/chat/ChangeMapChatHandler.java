@@ -7,7 +7,7 @@ import model.plebOS.ComputerSystemLogin;
 
 public class ChangeMapChatHandler extends ChatCommandHandler {
     public ChangeMapChatHandler() {
-        super("map");
+        super("map ");
     }
 
     @Override

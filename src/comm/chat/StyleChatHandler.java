@@ -8,7 +8,7 @@ import model.plebOS.ComputerSystemLogin;
 
 public class StyleChatHandler extends ChatCommandHandler {
     public StyleChatHandler() {
-        super("style");
+        super("style ");
     }
 
     @Override

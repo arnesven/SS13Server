@@ -1,10 +1,14 @@
 package comm.chat;
 
+import comm.chat.plebOS.AIAlarmsCommand;
 import comm.chat.plebOS.LsCommand;
+import comm.chat.plebOS.PlebOSCommandHandler;
 import comm.chat.plebOS.PwdCommand;
 import model.GameData;
 import model.GameState;
 import model.Player;
+import model.plebOS.ComputerSystemLogin;
+import model.plebOS.LoggedInDecorator;
 import util.HTMLText;
 
 import java.util.ArrayList;
@@ -22,15 +26,25 @@ public class ChatCommands {
         if (rest.startsWith("/")) {
             for (ChatCommandHandler cch : commandHandlers) {
                 if (cch.handle(gameData, sender, rest)) {
-                    break;
+                    return true;
                 }
             }
+            gameData.getChat().serverSay("Unknown command \"" + rest + "\".");
             return true;
         } else if (rest.startsWith("$")) {
+            if (sender.getCharacter() == null || !PlebOSCommandHandler.isLoggedIn(sender)) {
+                gameData.getChat().serverSay("You are not logged in at a console." , sender);
+                return true;
+            }
             for (ChatCommandHandler posc : plebOSCommands) {
                 if (posc.handle(gameData, sender, rest)) {
-                    break;
+                   return true;
                 }
+            }
+            if (PlebOSCommandHandler.isLoggedIn(sender)) {
+                gameData.getChat().plebOSSay(rest, sender);
+                gameData.getChat().plebOSSay("Unknown command \"" + rest.replace("$", "")
+                        + "\".", sender);
             }
             return true;
         } else if (gameData.getGameState() == GameState.ACTIONS) {
@@ -47,7 +61,6 @@ public class ChatCommands {
 
     private static List<ChatCommandHandler> fillWithHandlers() {
         List<ChatCommandHandler> list = new ArrayList<>();
-        list.add(new AILawChatHandler());
         list.add(new LoginChatHandler());
         list.add(new StyleChatHandler());
         list.add(new MapsChatHandler());
@@ -61,6 +74,8 @@ public class ChatCommands {
         List<ChatCommandHandler> list = new ArrayList<>();
         list.add(new PwdCommand());
         list.add(new LsCommand());
+        list.add(new AILawChatHandler());
+        list.add(new AIAlarmsCommand());
         return list;
     }
 

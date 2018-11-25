@@ -4,6 +4,8 @@ import model.GameData;
 import model.Player;
 import model.plebOS.ComputerSystemLogin;
 
+import java.util.List;
+
 public class LsCommand extends PlebOSCommandHandler {
     public LsCommand() {
         super("ls");
@@ -11,6 +13,9 @@ public class LsCommand extends PlebOSCommandHandler {
 
     @Override
     protected void internalHandle(GameData gameData, Player sender, String rest, ComputerSystemLogin csl) {
-        gameData.getChat().plebOSSay("alarms", sender);
+        List<String> files = csl.getFilesForCurrentDirectory();
+        for (String file : files) {
+            gameData.getChat().plebOSSay(file, sender);
+        }
     }
 }
