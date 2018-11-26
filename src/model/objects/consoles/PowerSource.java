@@ -261,15 +261,15 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
         level = Math.max(0.0, getLevel() + d);
     }
 
-    public String getLSString() {
+    private String getLSString() {
         return "Life support units (" + (lsBefore - noLifeSupport.size()) + "/" + lsBefore + ")";
     }
 
-    public String getLightString() {
+    private String getLightString() {
         return "Lights (" + (lightBefore - noLight.size()) + "/" + lightBefore + ")";
     }
 
-    public String getEquipmentString() {
+    private String getEquipmentString() {
         return "Electrical equipment (" + (eqBefore - noPower.size()) + "/" + eqBefore + ")";
     }
 
@@ -280,5 +280,14 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
     @Override
     public void doWhenRepaired(GameData gameData) {
 
+    }
+
+    public List<String> getStatusMessages() {
+        List<String> strs = new ArrayList<>();
+        strs.add("STATION POWER; " + (int)(getPowerOutput()*100) + "% of demand.");
+        strs.add("-> " + getLSString());
+        strs.add("-> " + getLightString());
+        strs.add("-> " + getEquipmentString());
+        return strs;
     }
 }
