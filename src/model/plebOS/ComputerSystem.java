@@ -30,6 +30,7 @@ public class ComputerSystem implements Serializable {
         bin.add(new PlebosFile("alarms", true, new AIAlarmsCommand()));
         bin.add(new PlebosFile("crime", true, new CrimeCommand()));
         bin.add(new PlebosFile("power", true, new PowerCommand()));
+        bin.add(new PlebosFile("budget", true, new BudgetCommand()));
 
 
         Directory etc = new Directory("etc", fileSystemRoot);

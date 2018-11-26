@@ -71,6 +71,7 @@ public class AdminConsoleAction extends ConsoleAction {
             Shipment s = selectedShip.clone();
             gate.addObject(new CrateObject(gate, s, gameData));
             pc.setMoney(pc.getMoney() - s.getCost());
+            pc.addHistory(performingClient, selectedShip);
             performingClient.addTolastTurnInfo("You ordered a shipment! It has arrived in the Shuttle Gate. Station funds; " + pc.getMoney());
         } else {
             performingClient.addTolastTurnInfo("The station's account balance is $$ " + pc.getMoney() + ".");

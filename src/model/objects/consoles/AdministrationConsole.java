@@ -15,6 +15,7 @@ import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.rooms.Room;
 import model.objects.shipments.*;
+import util.Pair;
 
 public class AdministrationConsole extends Console {
 
@@ -24,6 +25,7 @@ public class AdministrationConsole extends Console {
     private Map<Actor, Integer> alternateWages = new HashMap<>();
     private Set<Actor> acceptedActors;
     private Set<Actor> toBeDemoted;
+    private List<Pair<Actor, Shipment>> history = new ArrayList<>();
 
     public AdministrationConsole(Room pos, GameData gameData) {
 		super("Admin Console", pos);
@@ -128,5 +130,13 @@ public class AdministrationConsole extends Console {
 
     public Set<Actor> getToBeDemoted() {
         return toBeDemoted;
+    }
+
+    public void addHistory(Actor performingClient, Shipment selectedShip) {
+        history.add(new Pair<Actor, Shipment>(performingClient, selectedShip));
+    }
+
+    public List<Pair<Actor, Shipment>> getHistory() {
+        return history;
     }
 }
