@@ -8,16 +8,16 @@ import model.map.rooms.Room;
 
 public class LoggedInDecorator extends CharacterDecorator {
 
-    private final ComputerSystemLogin loginInstance;
+    private final ComputerSystemSession loginInstance;
     private final Room loginRoom;
 
-    public LoggedInDecorator(GameCharacter chara, String name, ComputerSystemLogin computerSystemLogin) {
+    public LoggedInDecorator(GameCharacter chara, String name, ComputerSystemSession computerSystemLogin) {
         super(chara, name);
         this.loginInstance = computerSystemLogin;
         loginRoom = chara.getActor().getPosition();
     }
 
-    public ComputerSystemLogin getLogin() {
+    public ComputerSystemSession getLogin() {
         return loginInstance;
     }
 

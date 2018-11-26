@@ -1,14 +1,10 @@
 package comm.chat;
 
-import comm.chat.plebOS.AIAlarmsCommand;
-import comm.chat.plebOS.LsCommand;
 import comm.chat.plebOS.PlebOSCommandHandler;
-import comm.chat.plebOS.PwdCommand;
 import model.GameData;
 import model.GameState;
 import model.Player;
-import model.plebOS.ComputerSystemLogin;
-import model.plebOS.LoggedInDecorator;
+import model.plebOS.ComputerSystemSession;
 import util.HTMLText;
 
 import java.util.ArrayList;
@@ -17,7 +13,7 @@ import java.util.List;
 public class ChatCommands {
 
     private static List<ChatCommandHandler> commandHandlers = fillWithHandlers();
-    private static List<ChatCommandHandler> plebOSCommands = fillWithPlebOSCommands();
+    //private static List<ChatCommandHandler> plebOSCommands = ComputerSystem.getAllPlebosCommands();
 
 
     public static boolean chatWasCommand(GameData gameData, String rest, String clid) {
@@ -36,7 +32,8 @@ public class ChatCommands {
                 gameData.getChat().serverSay("You are not logged in at a console." , sender);
                 return true;
             }
-            for (ChatCommandHandler posc : plebOSCommands) {
+            ComputerSystemSession login = ComputerSystemSession.getLogin(sender);
+            for (ChatCommandHandler posc : login.getAvailableCommands()) {
                 if (posc.handle(gameData, sender, rest)) {
                    return true;
                 }
@@ -61,7 +58,6 @@ public class ChatCommands {
 
     private static List<ChatCommandHandler> fillWithHandlers() {
         List<ChatCommandHandler> list = new ArrayList<>();
-       // list.add(new LoginChatHandler());
         list.add(new StyleChatHandler());
         list.add(new MapsChatHandler());
         list.add(new ChangeMapChatHandler());
@@ -69,15 +65,6 @@ public class ChatCommands {
         return list;
     }
 
-
-    private static List<ChatCommandHandler> fillWithPlebOSCommands() {
-        List<ChatCommandHandler> list = new ArrayList<>();
-        list.add(new PwdCommand());
-        list.add(new LsCommand());
-        list.add(new AILawChatHandler());
-        list.add(new AIAlarmsCommand());
-        return list;
-    }
 
 
 

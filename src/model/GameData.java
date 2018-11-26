@@ -19,6 +19,7 @@ import model.objects.consoles.AIConsole;
 import model.objects.consoles.Console;
 import model.objects.general.ContainerObject;
 
+import model.plebOS.ComputerSystem;
 import util.*;
 import model.actions.general.Action;
 import model.actions.general.DoNothingAction;
@@ -63,6 +64,7 @@ public class GameData implements Serializable {
     private boolean runningEvents;
     private ChatMessages chatMessages = new ChatMessages();
     private List<String> lostMessages = new ArrayList<>();
+    private ComputerSystem computerSystem = new ComputerSystem();
 
 
 
@@ -343,6 +345,7 @@ public class GameData implements Serializable {
 			} else {
 				gameState = GameState.MOVEMENT;
 				round = round + 1;
+                getChat().serverSay("Starting round " + round + " (of " + noOfRounds + ")");
                 try {
                     if (recover) {
                         GameRecovery.saveData(this);
@@ -815,5 +818,9 @@ public class GameData implements Serializable {
 
     public void addToLostMessages(String lost) {
         lostMessages.add(lost);
+    }
+
+    public ComputerSystem getComputerSystem() {
+        return computerSystem;
     }
 }

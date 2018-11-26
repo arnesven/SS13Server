@@ -5,7 +5,7 @@ import model.GameData;
 import model.Player;
 import model.objects.consoles.Console;
 import model.objects.general.GameObject;
-import model.plebOS.ComputerSystemLogin;
+import model.plebOS.ComputerSystemSession;
 
 public class LoginChatHandler extends ChatCommandHandler {
     public LoginChatHandler() {
@@ -30,7 +30,7 @@ public class LoginChatHandler extends ChatCommandHandler {
                         } else {
                             gameData.getChat().serverSay("You logged in at the " + obj.getBaseName(), sender);
                             // do fun log in stuff!
-                            new ComputerSystemLogin(sender, con, gameData);
+                            new ComputerSystemSession(sender, con, gameData);
                         }
                         break;
                     }

@@ -2,7 +2,6 @@ package comm.chat;
 
 import model.GameData;
 import model.Player;
-import model.plebOS.ComputerSystemLogin;
 
 import java.io.Serializable;
 

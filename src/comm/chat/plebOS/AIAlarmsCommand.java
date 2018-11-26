@@ -4,7 +4,7 @@ import model.GameData;
 import model.Player;
 import model.items.NoSuchThingException;
 import model.objects.consoles.AIConsole;
-import model.plebOS.ComputerSystemLogin;
+import model.plebOS.ComputerSystemSession;
 
 import java.util.List;
 
@@ -14,7 +14,12 @@ public class AIAlarmsCommand extends PlebOSCommandHandler {
     }
 
     @Override
-    protected void internalHandle(GameData gameData, Player sender, String rest, ComputerSystemLogin loginInstance) {
+    protected boolean doesReadyUser() {
+        return true;
+    }
+
+    @Override
+    protected void internalHandle(GameData gameData, Player sender, String rest, ComputerSystemSession loginInstance) {
         List<String> alarms = null;
         try {
             alarms = gameData.findObjectOfType(AIConsole.class).getAlarms(gameData);

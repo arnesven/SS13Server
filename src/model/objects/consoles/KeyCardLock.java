@@ -16,9 +16,10 @@ import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.GameMap;
 import model.map.rooms.Room;
+import model.objects.general.ElectricalMachinery;
 import util.Logger;
 
-public class KeyCardLock extends Console {
+public class KeyCardLock extends ElectricalMachinery {
 
 	private Room to;
 	private Room from;
@@ -39,17 +40,17 @@ public class KeyCardLock extends Console {
 		return performingClient.getPosition() == to || performingClient.getPosition() == from ||
                 performingClient.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof AICharacter);
 	}
-	
-	@Override
-	public void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-		if (hasKeyCard(cl)) {
-			if (locked) {
-				at.add(new UnlockRoomAction(to, from, this));
-			} else {
-				at.add(new LockRoomAction(to, from, this));
-			}
-		}
-	}
+
+    @Override
+    protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+        if (hasKeyCard(cl)) {
+            if (locked) {
+                at.add(new UnlockRoomAction(to, from, this));
+            } else {
+                at.add(new LockRoomAction(to, from, this));
+            }
+        }
+    }
 
 	private boolean hasKeyCard(Actor cl) {
         if (cl.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof AICharacter)) {
@@ -94,8 +95,10 @@ public class KeyCardLock extends Console {
         GameMap.joinRooms(to, from);
         setLocked(false);
     }
-	
-	@Override
+
+
+
+    @Override
 	public void onPowerOff(GameData gameData) {
         try {
             if (locked) {

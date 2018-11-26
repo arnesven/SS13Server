@@ -3,7 +3,6 @@ package comm.chat;
 import model.GameData;
 import model.Player;
 import model.map.builders.MapBuilder;
-import model.plebOS.ComputerSystemLogin;
 
 public class ChangeMapChatHandler extends ChatCommandHandler {
     public ChangeMapChatHandler() {

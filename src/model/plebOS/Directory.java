@@ -1,17 +1,35 @@
 package model.plebOS;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Directory implements Serializable {
+public class Directory extends FileSystemNode {
 
-    private final String name;
+    private List<FileSystemNode> subdirs;
+    private Directory parent;
 
-    public Directory(String name) {
-        this.name = name;
+    public Directory(String name, Directory parent) {
+        super(name);
+        subdirs = new ArrayList<>();
+        this.parent = parent;
     }
 
-    @Override
-    public String toString() {
-        return name;
+    public void setParent(Directory parent) {
+        this.parent = parent;
+    }
+
+    public void add(FileSystemNode fsn) {
+        subdirs.add(fsn);
+    }
+
+    public List<FileSystemNode> getContents() {
+        return subdirs;
+    }
+
+    public String getPath() {
+        if (parent == this) {
+            return "";
+        }
+        return parent.getPath() + "/" + getName();
     }
 }
