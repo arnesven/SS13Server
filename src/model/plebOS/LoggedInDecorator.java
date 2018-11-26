@@ -22,6 +22,11 @@ public class LoggedInDecorator extends CharacterDecorator {
     }
 
     @Override
+    public String getFullName() {
+        return super.getFullName() + " (Logged In)";
+    }
+
+    @Override
     public void doAtEndOfTurn(GameData gameData) {
         super.doAtEndOfTurn(gameData);
 

@@ -56,7 +56,7 @@ public class CrimeRecordsConsole extends Console {
     }
 
 	@Override
-	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+	protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		if (cl.getCharacter().isCrew() || cl.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof AICharacter))) {
 			at.add(new CrimeRecordsAction(this));
 		}

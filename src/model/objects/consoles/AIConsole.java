@@ -76,7 +76,7 @@ public class AIConsole extends Console {
 
 
     @Override
-	public void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+	public void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (!isShutDown()) {
             if (!AIIsPlayer()) {
                 at.add(new AIConsoleAction(this));

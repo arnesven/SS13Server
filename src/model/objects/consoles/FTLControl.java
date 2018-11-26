@@ -29,7 +29,7 @@ public class FTLControl extends Console {
     }
 
     @Override
-    protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+    protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (spunUp && (cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof CaptainCharacter || gc instanceof AICharacter))) {
             at.add(new JumpStationAction());
         } else {

@@ -61,7 +61,7 @@ public class ChatCommands {
 
     private static List<ChatCommandHandler> fillWithHandlers() {
         List<ChatCommandHandler> list = new ArrayList<>();
-        list.add(new LoginChatHandler());
+       // list.add(new LoginChatHandler());
         list.add(new StyleChatHandler());
         list.add(new MapsChatHandler());
         list.add(new ChangeMapChatHandler());

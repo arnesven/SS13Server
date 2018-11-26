@@ -23,7 +23,7 @@ public class GeneticsConsole extends Console {
 	}
 
 	@Override
-	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+	protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         Action cons = new GeneTIXAction(gameData, cl, this);
         if (cons.getOptions(gameData, cl).numberOfSuboptions() > 0) {
             at.add(cons);

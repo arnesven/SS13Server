@@ -42,7 +42,7 @@ public class AdministrationConsole extends Console {
 	}
 	
 	@Override
-	public void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+	public void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		Action a = new AdminConsoleAction(this);
 		if (a.getOptions(gameData, cl).numberOfSuboptions() > 0) {
 			at.add(a);

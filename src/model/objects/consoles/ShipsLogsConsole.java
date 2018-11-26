@@ -22,7 +22,7 @@ public class ShipsLogsConsole extends Console {
     }
 
     @Override
-    protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+    protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         at.add(new ShipsLogsAction());
     }
 

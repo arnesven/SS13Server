@@ -19,7 +19,7 @@ public class SecurityCameraConsole extends Console {
 	}
 	
 	@Override
-	public void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+	public void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(new SecurityConsoleAction(this));
 	}
 

@@ -41,7 +41,7 @@ public class KeyCardLock extends Console {
 	}
 	
 	@Override
-	public void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+	public void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		if (hasKeyCard(cl)) {
 			if (locked) {
 				at.add(new UnlockRoomAction(to, from, this));

@@ -31,7 +31,7 @@ public class AirLockControl extends Console {
     }
 
     @Override
-	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+	protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(new AirlockOverrideAction(gameData));
         if (GameItem.hasAnItemOfClass(cl, KeyCard.class) ||
                 cl.getCharacter().checkInstance((GameCharacter gc ) -> gc instanceof AICharacter)) {
