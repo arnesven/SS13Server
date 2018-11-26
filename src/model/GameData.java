@@ -423,12 +423,15 @@ public class GameData implements Serializable {
 		Logger.log("Players prepped");
 
 
+
 		this.gameMode = GameModeFactory.create(selectedMode);
 		Logger.log("Got game mode from factory.");
 		this.round = 1;
         this.runningEvents = false;
 		gameMode.setup(this);
 		Logger.log("Game mode set-upped!");
+        computerSystem.setUpGame(this);
+        Logger.log("Computer System setupped.");
         getChat().serverSay("New game started, mode: " + selectedMode);
 	}
 

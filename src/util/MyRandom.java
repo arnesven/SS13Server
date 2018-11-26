@@ -242,4 +242,13 @@ public class MyRandom {
     public static Color randomHairColor() {
         return sample(SetHairColorPower.getHairColors());
     }
+
+    public static String randomHexString(int i) {
+        String hexdecs = "0123456789abcdef";
+        StringBuffer result = new StringBuffer();
+        for ( ; i > 0; --i) {
+            result.append(hexdecs.charAt(nextInt(16)));
+        }
+        return result.toString();
+    }
 }

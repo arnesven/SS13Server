@@ -29,22 +29,21 @@ public class LoggedInDecorator extends CharacterDecorator {
     @Override
     public void doAtEndOfTurn(GameData gameData) {
         super.doAtEndOfTurn(gameData);
+        checkForLogout(gameData);
 
-        if (loginRoom != getActor().getPosition()) {
-            getActor().addTolastTurnInfo("You logged out from the console.");
-            gameData.getChat().serverSay("You logged out from the console", (Player)getActor());
-            getActor().removeInstance((GameCharacter gc) -> gc instanceof LoggedInDecorator);
-        }
     }
 
     @Override
     public void doAfterMovement(GameData gameData) {
         super.doAfterMovement(gameData);
+        checkForLogout(gameData);
+    }
 
+    private void checkForLogout(GameData gameData) {
         if (loginRoom != getActor().getPosition()) {
-            getActor().addTolastTurnInfo("You logged out from the console.");
-            gameData.getChat().serverSay("You logged out from the console", (Player)getActor());
-            getActor().removeInstance((GameCharacter gc) -> gc instanceof LoggedInDecorator);
+            loginInstance.logOut(gameData);
         }
     }
+
+
 }

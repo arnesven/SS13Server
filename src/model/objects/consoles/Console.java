@@ -14,9 +14,12 @@ import model.objects.general.RemotelyOperateable;
 import java.util.ArrayList;
 
 public abstract class Console extends ElectricalMachinery implements RemotelyOperateable {
-	
-	public Console(String name, Room r) {
+
+    private Actor loggedInAt;
+
+    public Console(String name, Room r) {
 		super(name, r);
+		this.loggedInAt = null;
 	}
 
 	@Override
@@ -27,7 +30,7 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
     @Override
     protected final void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (cl.getCharacter().isCrew() && cl instanceof Player && !PlebOSCommandHandler.isLoggedIn((Player)cl)) {
-            if (!isBroken() && isPowered(gameData)) {
+            if (!isBroken() && isPowered(gameData) && loggedInAt==null) {
                 at.add(new LoginAction(this, cl));
 
             }
@@ -37,4 +40,8 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
     }
 
     protected abstract void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at);
+
+    public void setLoggedInAt(Player performingClient) {
+        this.loggedInAt = performingClient;
+    }
 }

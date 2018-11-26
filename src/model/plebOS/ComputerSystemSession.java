@@ -18,7 +18,7 @@ public class ComputerSystemSession implements Serializable {
     private final Player user;
     private final Console console;
     private final GameData gameData;
-    private final Directory currentDirectory;
+    private Directory currentDirectory;
 
     public ComputerSystemSession(Player sender, Console con, GameData gameData) {
         this.user = sender;
@@ -72,5 +72,16 @@ public class ComputerSystemSession implements Serializable {
         }
 
         return list;
+    }
+
+    public void setCurrentDirectory(Directory rootDirectory) {
+        this.currentDirectory = rootDirectory;
+    }
+
+    public void logOut(GameData gameData) {
+        user.addTolastTurnInfo("You logged out from the console.");
+        console.setLoggedInAt(null);
+        gameData.getChat().serverSay("You logged out from the console", user);
+        user.removeInstance((GameCharacter gc) -> gc instanceof LoggedInDecorator);
     }
 }

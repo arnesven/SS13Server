@@ -28,8 +28,26 @@ public class Directory extends FileSystemNode {
 
     public String getPath() {
         if (parent == this) {
-            return "";
+            return "/";
+        } else if (parent.getParent() == parent) {
+            return "/" + getName();
         }
         return parent.getPath() + "/" + getName();
+    }
+
+    public Directory getParent() {
+        return parent;
+    }
+
+    public FileSystemNode getNodeForeName(String name) {
+        for (FileSystemNode fsn : subdirs) {
+            if (fsn.getName().equals(name)) {
+                return fsn;
+            }
+        }
+        throw new NoSubDirectoryFoundException();
+    }
+
+    public class NoSubDirectoryFoundException extends RuntimeException {
     }
 }

@@ -5,12 +5,16 @@ import comm.chat.plebOS.AIAlarmsCommand;
 import comm.chat.plebOS.LsCommand;
 import comm.chat.plebOS.PlebOSCommandHandler;
 import comm.chat.plebOS.PwdCommand;
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.objects.consoles.Console;
+import util.Logger;
+import util.MyRandom;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ComputerSystem implements Serializable {
@@ -22,12 +26,16 @@ public class ComputerSystem implements Serializable {
         fileSystemRoot.setParent(fileSystemRoot);
         Directory bin = new Directory("bin", fileSystemRoot);
         fileSystemRoot.add(bin);
-        fileSystemRoot.add(new Directory("etc", fileSystemRoot));
         bin.add(new PlebosFile("ailaw", true, new AILawChatHandler()));
         bin.add(new PlebosFile("alarms", true, new AIAlarmsCommand()));
+
+        Directory etc = new Directory("etc", fileSystemRoot);
+        fileSystemRoot.add(etc);
+
     }
 
     public void createLogin(Player performingClient, Console con, GameData gameData) {
+        con.setLoggedInAt(performingClient);
         new ComputerSystemSession(performingClient, con, gameData);
     }
 
@@ -39,7 +47,32 @@ public class ComputerSystem implements Serializable {
         List<PlebOSCommandHandler> list = new ArrayList<>();
         list.add(new PwdCommand());
         list.add(new LsCommand());
+        list.add(new CdCommand());
+        list.add(new CatCommand());
         return list;
     }
 
+    public FileSystemNode getFileSystemNode(String path) {
+        String[] dirs = path.split("/");
+        Logger.log("Splitted: ->" + Arrays.toString(dirs) + "<-");
+
+        FileSystemNode d = fileSystemRoot;
+        for (int i = 1; i < dirs.length; ++i) {
+            d = ((Directory) d).getNodeForeName(dirs[i]);
+        }
+
+        return d;
+    }
+
+    public void setUpGame(GameData gameData) {
+        Directory etc = (Directory)getFileSystemNode("/etc");
+        PlebosFile pwdfile = new PlebosFile("passwords.txt");
+        for (Actor a : gameData.getActors()) {
+            if (a.getCharacter().isCrew()) {
+                pwdfile.appendLine(a.getCharacter().getBaseName().toLowerCase()
+                        + ":" + MyRandom.randomHexString(14));
+            }
+        }
+        etc.add(pwdfile);
+    }
 }
