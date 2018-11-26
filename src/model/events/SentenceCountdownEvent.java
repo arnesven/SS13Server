@@ -34,43 +34,41 @@ public class SentenceCountdownEvent extends Event {
                 int remaining = console.getSentenceMap().get(inmate);
                 if (remaining == 0) {
                     remove = true;
-                    gameData.addEvent(new Event() {
-
-                        @Override
-                        public String howYouAppear(Actor performingClient) {
-                            return "";
-                        }
-
-                        @Override
-                        public SensoryLevel getSense() {
-                            return SensoryLevel.NO_SENSE;
-                        }
-
-                        @Override
-                        public void apply(GameData gameData) {
+//                    gameData.addEvent(new Event() {
+//
+//                        @Override
+//                        public String howYouAppear(Actor performingClient) {
+//                            return "";
+//                        }
+//
+//                        @Override
+//                        public SensoryLevel getSense() {
+//                            return SensoryLevel.NO_SENSE;
+//                        }
+//
+//                        @Override
+//                        public void apply(GameData gameData) {
                             console.release(gameData, inmate);
                             inmate.addTolastTurnInfo("JudgeBot; I believe these were your personal affects.");
-                        }
-
-                        @Override
-                        public boolean shouldBeRemoved(GameData gameData) {
-                            return true;
-                        }
-                    });
+//                        }
+//
+//                        @Override
+//                        public boolean shouldBeRemoved(GameData gameData) {
+//                            return true;
+//                        }
+//                    });
                 } else {
                     if (!firstTime) {
                             inmate.addTolastTurnInfo("You have " + remaining + " more round(s) on your sentence.");
-                            }
+                    }
 
-                            for (Actor a : console.getReleaseIntoRoom().getActors()) {
-                                a.addTolastTurnInfo(inmate.getPublicName() + " looks unhappy in the brig.");
-                            }
-
+                    for (Actor a : console.getReleaseIntoRoom().getActors()) {
+                        a.addTolastTurnInfo(inmate.getPublicName() + " looks unhappy in the brig.");
+                    }
 
                     firstTime = false;
                     remaining--;
                     console.getSentenceMap().put(inmate, remaining);
-
                 }
             }
         } catch (NoSuchThingException e) {

@@ -101,7 +101,19 @@ public class ChatMessages implements Serializable {
     }
 
     public void plebOSSay(String s, Player player) {
-       plebOSSay( s , false, player);
+        if (s.length() == 0) {
+            plebOSSay(s, false, player);
+            return;
+        }
+
+        while (s.length() > 80) {
+            StringBuffer buf = new StringBuffer(s.substring(0, 80));
+            plebOSSay(buf.toString(), false, player);
+            s = buf.toString();
+        }
+        if (s.length() > 0) {
+            plebOSSay(s, false, player);
+        }
     }
 
     private String padCenter(String s) {
