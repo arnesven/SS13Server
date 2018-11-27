@@ -24,17 +24,25 @@ public class ComputerSystem implements Serializable {
     public ComputerSystem() {
         fileSystemRoot = new Directory("/", null);
         fileSystemRoot.setParent(fileSystemRoot);
-        Directory bin = new Directory("bin", fileSystemRoot);
-        fileSystemRoot.add(bin);
-        bin.add(new PlebosFile("ailaw", true, new AILawChatHandler()));
-        bin.add(new PlebosFile("alarms", true, new AIAlarmsCommand()));
-        bin.add(new PlebosFile("crime", true, new CrimeCommand()));
-        bin.add(new PlebosFile("power", true, new PowerCommand()));
-        bin.add(new PlebosFile("budget", true, new BudgetCommand()));
+        Directory adm = new Directory("adm", fileSystemRoot);
+        fileSystemRoot.add(adm);
+        adm.add(new PlebosFile("ailaw", true, new AILawChatHandler()));
+        adm.add(new PlebosFile("alarms", true, new AIAlarmsCommand()));
+        adm.add(new PlebosFile("crime", true, new CrimeCommand()));
+        adm.add(new PlebosFile("power", true, new PowerCommand()));
+        adm.add(new PlebosFile("budget", true, new BudgetCommand()));
 
+        Directory bin = new Directory("bin", fileSystemRoot);
+        bin.add(new PlebosFile("ls", true, new LsCommand()));
+        bin.add(new PlebosFile("pwd", true, new PwdCommand()));
+        bin.add(new PlebosFile("cd", true, new CdCommand()));
+        bin.add(new PlebosFile("cat", true, new CatCommand()));
+        fileSystemRoot.add(bin);
 
         Directory etc = new Directory("etc", fileSystemRoot);
         fileSystemRoot.add(etc);
+
+
 
     }
 
@@ -47,12 +55,14 @@ public class ComputerSystem implements Serializable {
         return fileSystemRoot;
     }
 
-    public static List<PlebOSCommandHandler> getAllPlebosCommands() {
+    public List<PlebOSCommandHandler> getAllPlebosCommands() {
         List<PlebOSCommandHandler> list = new ArrayList<>();
-        list.add(new PwdCommand());
-        list.add(new LsCommand());
-        list.add(new CdCommand());
-        list.add(new CatCommand());
+        FileSystemNode bin = getFileSystemNode("/bin");
+        for (FileSystemNode f : ((Directory)bin).getContents()) {
+            if (f instanceof PlebosFile && ((PlebosFile) f).isExecutable()) {
+                list.add(((PlebosFile) f).getExecutable());
+            }
+        }
         return list;
     }
 

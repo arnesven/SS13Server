@@ -61,7 +61,7 @@ public class ComputerSystemSession implements Serializable {
 
     public List<PlebOSCommandHandler> getAvailableCommands() {
         List<PlebOSCommandHandler> list = new ArrayList<>();
-        list.addAll(ComputerSystem.getAllPlebosCommands());
+        list.addAll(gameData.getComputerSystem().getAllPlebosCommands());
 
         for (FileSystemNode fsn : currentDirectory.getContents()) {
             if (fsn instanceof PlebosFile) {
