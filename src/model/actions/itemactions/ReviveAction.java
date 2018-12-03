@@ -6,7 +6,6 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
-import model.characters.decorators.BrainRemovedDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
@@ -44,12 +43,7 @@ public class ReviveAction extends Action {
     }
 
     private boolean brainRemoved(GameCharacter character) {
-        return character.checkInstance(new InstanceChecker() {
-            @Override
-            public boolean checkInstanceOf(GameCharacter ch) {
-                return ch instanceof BrainRemovedDecorator;
-            }
-        });
+        return character.getPhysicalBody().hasABrain() == false;
     }
 
     private boolean isHuman(GameCharacter character) {

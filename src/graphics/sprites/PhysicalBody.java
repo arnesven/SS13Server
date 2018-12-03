@@ -17,6 +17,7 @@ public class PhysicalBody implements Serializable {
 
     private static List<Sprite> hairSprites = collectHairSprites();
     private static List<Sprite> facialHairSprites = collectFacialHairSprites();
+    private boolean hasABrain;
     //private static List<Sprite> nakedSprites = nakedSpriteList();
 
     private boolean gender;
@@ -41,6 +42,7 @@ public class PhysicalBody implements Serializable {
         for (String part : BodyPart.getAllParts()) {
             hasBodyParts.put(part, true);
         }
+        this.hasABrain = true;
     }
 
     public PhysicalBody(boolean gender) {
@@ -265,5 +267,13 @@ public class PhysicalBody implements Serializable {
 
     public void addBodyPart(String bodyPart) {
         hasBodyParts.put(bodyPart, true);
+    }
+
+    public void removeBrain() {
+        this.hasABrain = false;
+    }
+
+    public boolean hasABrain() {
+        return hasABrain;
     }
 }

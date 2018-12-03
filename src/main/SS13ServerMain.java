@@ -14,6 +14,11 @@ import model.GameData;
 import util.GameRecovery;
 import util.Logger;
 
+/**
+     * Main Class of SS13 server. This is where it all begins...
+     * This class is mainly responsible for handeling arguments and creating
+     * the instance of GameData.
+ */
 
 public class SS13ServerMain {
 

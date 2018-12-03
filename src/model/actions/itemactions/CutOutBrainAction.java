@@ -3,9 +3,9 @@ package model.actions.itemactions;
 import model.Actor;
 import model.GameData;
 import model.Target;
+import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
-import model.characters.decorators.BrainRemovedDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.OnSurgeryTableDecorator;
 import model.characters.general.GameCharacter;
@@ -29,14 +29,18 @@ public class CutOutBrainAction extends TargetingAction {
     @Override
     protected void applyTargetingAction(GameData gameData, Actor performingClient, Target target, GameItem item) {
         Actor targetAsActor = (Actor)target;
-        Brain b = cutOutABrainFrom(performingClient, targetAsActor);
-        performingClient.addItem(b, target);
-        performingClient.addTolastTurnInfo("You cut out a brain from " + target.getName());
-        targetAsActor.addTolastTurnInfo(performingClient.getBaseName() + " cut out your brain!");
+        if (!hasBrainRemoved(targetAsActor)) {
+            Brain b = cutOutABrainFrom(performingClient, targetAsActor);
+            performingClient.addItem(b, target);
+            performingClient.addTolastTurnInfo("You cut out a brain from " + target.getName());
+            targetAsActor.addTolastTurnInfo(performingClient.getBaseName() + " cut out your brain!");
+        } else {
+            performingClient.addTolastTurnInfo(target.getName() + "'s brain is already removed. " + Action.FAILED_STRING);
+        }
     }
 
     public static Brain cutOutABrainFrom(Actor performingClient, Actor targetAsActor) {
-        targetAsActor.setCharacter(new BrainRemovedDecorator(targetAsActor.getCharacter()));
+        targetAsActor.getCharacter().getPhysicalBody().removeBrain();
         targetAsActor.getCharacter().setHealth(0.0);
         return new Brain(targetAsActor, performingClient);
     }
@@ -95,12 +99,7 @@ public class CutOutBrainAction extends TargetingAction {
     }
 
     private static boolean hasBrainRemoved(Actor t) {
-        return t.getCharacter().checkInstance(new InstanceChecker() {
-            @Override
-            public boolean checkInstanceOf(GameCharacter ch) {
-                return ch instanceof BrainRemovedDecorator;
-            }
-        });
+        return t.getCharacter().getPhysicalBody().hasABrain() == false;
     }
 
     @Override
