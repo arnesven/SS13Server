@@ -32,18 +32,23 @@ public class SurgeryAction extends Action {
         if (target == null) {
             return "Performed surgery";
         }
-        return operationType + "d " + target.getPublicName() + "'s " + bodyPart + "!";
+        return " performed surgery on " +  target.getPublicName();
     }
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        if (target != null) {
-            if (operationType.equals("Amputate")) {
-                performingClient.addItem(BodyPartFactory.makeBodyPart(bodyPart, target), target.getAsTarget());
-                performingClient.addTolastTurnInfo("You amputated " + target.getPublicName() + "'s " + bodyPart + "!");
-                target.getCharacter().getPhysicalBody().removeBodyPart(bodyPart);
-                if (bodyPart.equals("head")) {
-                    target.beAttackedBy(performingClient, new SurgicalProceedureScalpel());
+        if (target != null && operationType != null) {
+            if (operationType.contains("Amputate")) {
+                if (target.getCharacter().getPhysicalBody().hasBodyPart(bodyPart)) {
+                    performingClient.addItem(BodyPartFactory.makeBodyPart(bodyPart, target), target.getAsTarget());
+                    performingClient.addTolastTurnInfo("You amputated " + target.getPublicName() + "'s " + bodyPart + "!");
+                    target.getCharacter().getPhysicalBody().removeBodyPart(bodyPart);
+                    if (bodyPart.equals("head")) {
+                        target.beAttackedBy(performingClient, new SurgicalProceedureScalpel());
+                    }
+                } else {
+                    performingClient.addTolastTurnInfo(target.getPublicName() + " doesn't have a " +
+                            bodyPart + ". " + Action.FAILED_STRING);
                 }
             } else { // reattached
                 if (reattPart != null) {
@@ -54,17 +59,27 @@ public class SurgeryAction extends Action {
                     performingClient.addTolastTurnInfo("What, the body part is missing? " + Action.FAILED_STRING);
                 }
             }
+        } else {
+             performingClient.addTolastTurnInfo("What, " + Action.FAILED_STRING);
         }
     }
 
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
+        this.operationType = args.get(0);
+        for (Actor a : performingClient.getPosition().getActors()) {
+            if (operationType.contains(a.getPublicName())) {
+                target = a;
+                break;
+            }
+        }
+
+
         if (target != null && target.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnSurgeryTableDecorator)) {
-            this.operationType = args.get(0);
             this.bodyPart = args.get(1);
-            if (operationType.equals("Reattach")) {
+            if (operationType.contains("Reattach")) {
                 for (GameItem it : performingClient.getItems()) {
-                    if (it.getPublicName(performingClient).equals(bodyPart)) {
+                    if (bodyPart.contains(it.getPublicName(performingClient))) {
                         reattPart = it;
                     }
                 }
@@ -78,8 +93,7 @@ public class SurgeryAction extends Action {
 
         for (Actor a : whosAsking.getPosition().getActors()) {
             if (isEligableForSurgery(a)) {
-                target = a;
-                ActionOption amp = new ActionOption("Amputate");
+                ActionOption amp = new ActionOption("Amputate " + a.getPublicName());
                 for (String part : BodyPart.getAllParts()) {
                     if (a.getCharacter().getPhysicalBody().hasBodyPart(part)) {
                         amp.addOption(part);
@@ -87,7 +101,7 @@ public class SurgeryAction extends Action {
                 }
                 opts.addOption(amp);
 
-                ActionOption reatt = new ActionOption("Reattach");
+                ActionOption reatt = new ActionOption("Reattach to " + a.getPublicName());
                 for (GameItem i : whosAsking.getItems()) {
                     if (i instanceof BodyPart) {
                         reatt.addOption(i.getPublicName(whosAsking));

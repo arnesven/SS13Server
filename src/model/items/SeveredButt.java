@@ -22,7 +22,7 @@ public class SeveredButt extends BodyPart implements Wearable  {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("severedleftleg", "body_parts.png", 4, 0);
+        return new Sprite("severedbutt", "body_parts.png", 4, 0);
     }
 
     @Override

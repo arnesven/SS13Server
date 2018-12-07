@@ -168,7 +168,7 @@ public class PhysicalBody implements Serializable {
 
 
 
-        if (gender) {
+        if (!gender) {
             nameString += "mantorso";
             list.add(bodyPartSprites.get("man torso"));
             if (hasBodyParts.get("head")) {
@@ -199,7 +199,7 @@ public class PhysicalBody implements Serializable {
     }
 
     public String getNameString() {
-        return (gender ? "man" : "woman") + hairNum +"-"+colorToString(hairColor)+"-"
+        return (gender ? "woman" : "man") + hairNum +"-"+colorToString(hairColor)+"-"
                 + facialHairNum + colorToString(facialHairColor);
     }
 

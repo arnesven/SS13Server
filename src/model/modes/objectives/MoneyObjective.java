@@ -1,5 +1,6 @@
 package model.modes.objectives;
 
+import model.Bank;
 import model.GameData;
 import model.ItemHolder;
 import model.Player;
@@ -38,7 +39,11 @@ public class MoneyObjective implements TraitorObjective {
         } catch (NoSuchThingException e) {
             return false;
         }
-        return money.getAmount() >= TARGET_AMOUNT;
+
+        int fromBank = Bank.getInstance(gameData).getAccounts().get(traitor).getAmount();
+
+
+        return money.getAmount() + fromBank >= TARGET_AMOUNT;
     }
 
     @Override
