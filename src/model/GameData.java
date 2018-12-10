@@ -642,6 +642,7 @@ public class GameData implements Serializable {
 				setNumberOfRounds(Integer.parseInt(sets[0]));
                 if (GameMode.isAMode(sets[1])) {
                     selectedMode = sets[1];
+                    getChat().serverSay(getClidForPlayer(pl) + " set mode to " + selectedMode);
                     if (selectedMode.equals("Escape")) { // TODO: fix this quickfix
                         MapBuilder.setSelectedBuilder("Socrates");
                     }
@@ -649,8 +650,10 @@ public class GameData implements Serializable {
 				//Logger.log("Set new settings");
 			} catch (NumberFormatException nfe) {
 
-			}
-		}
+			} catch (NoSuchThingException e) {
+                e.printStackTrace();
+            }
+        }
 
 
         if (sets.length == 4) {
