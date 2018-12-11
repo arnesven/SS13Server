@@ -4,6 +4,7 @@ import model.characters.general.GameCharacter;
 import model.map.rooms.Room;
 import model.npcs.behaviors.DoNothingBehavior;
 import model.npcs.behaviors.MeanderingHumanMovement;
+import model.npcs.robots.RobotNPC;
 
 public class HumanNPC extends NPC {
 
@@ -18,5 +19,10 @@ public class HumanNPC extends NPC {
 	public boolean hasInventory() {
 		return true;
 	}
+
+    @Override
+    public NPC clone() {
+        return new HumanNPC(getCharacter().clone(), getPosition());
+    }
 
 }

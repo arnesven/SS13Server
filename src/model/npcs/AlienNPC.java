@@ -17,4 +17,10 @@ public class AlienNPC extends NPC {
     public boolean hasInventory() {
         return true;
     }
+
+
+    @Override
+    public NPC clone() {
+        return new AlienNPC(getPosition());
+    }
 }

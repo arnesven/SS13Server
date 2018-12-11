@@ -14,4 +14,9 @@ public class WampaNPC extends AnimalNPC {
                 new MeanderingMovement(0.5),
                 new AttackAllActorsNotSameClassBehavior(), r);
     }
+
+    @Override
+    public NPC clone() {
+        return new WampaNPC(getPosition());
+    }
 }

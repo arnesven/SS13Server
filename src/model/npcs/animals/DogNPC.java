@@ -20,4 +20,9 @@ public class DogNPC extends AnimalNPC {
     public boolean hasInventory() {
         return false;
     }
+
+    @Override
+    public NPC clone() {
+        return new DogNPC(getPosition());
+    }
 }

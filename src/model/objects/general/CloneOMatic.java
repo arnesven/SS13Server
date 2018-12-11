@@ -5,6 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.objectactions.ClonePersonAction;
 import model.actions.objectactions.StuffCorpseIntoClonerAction;
 import model.map.rooms.Room;
 import model.objects.consoles.GeneticsConsole;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class CloneOMatic extends ElectricalMachinery {
     private final GeneticsConsole geneticsConsole;
+    private boolean justStuffed;
     private List<Actor> storedActors;
     private double charge;
 
@@ -21,25 +23,43 @@ public class CloneOMatic extends ElectricalMachinery {
         super("Clone-O-Matic", r);
         this.geneticsConsole = gc;
         storedActors = new ArrayList<>();
-        charge = 0.5;
+        charge = 0.25;
+        justStuffed = false;
     }
 
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-        Action stuff = new StuffCorpseIntoClonerAction(this, this, cl);
-        if (stuff.getOptions(gameData, cl).numberOfSuboptions() > 0) {
-            at.add(stuff);
-        }
+        if (!isInUse()) {
+            Action stuff = new StuffCorpseIntoClonerAction(this, cl);
+            if (stuff.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+                at.add(stuff);
+            }
 
+            Action clone = new ClonePersonAction(this, cl, geneticsConsole);
+            if (clone.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+                at.add(clone);
+            }
+        }
 
     }
 
     @Override
     public Sprite getSprite(Player whosAsking) {
         if (isInUse()) {
-            return new Sprite("cloner", "cloning.png", 1, 0);
+            return new Sprite("clonerinuse", "cloning.png", 1, 0);
+        }
+        if (justStuffed()) {
+            return new Sprite("clonerstuffed", "cloning.png", 5, 0);
         }
         return new Sprite("cloner", "cloning.png", 0, 0);
+    }
+
+    private boolean justStuffed() {
+        return justStuffed;
+    }
+
+    public void setJustStuffed(boolean justStuffed) {
+        this.justStuffed = justStuffed;
     }
 
     public void addCharge(double v) {
@@ -48,5 +68,9 @@ public class CloneOMatic extends ElectricalMachinery {
 
     public void storeActor(Actor target) {
         storedActors.add(target);
+    }
+
+    public List<Actor> getStoredActors() {
+        return storedActors;
     }
 }

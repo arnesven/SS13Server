@@ -16,7 +16,14 @@ public class ZombieNPC extends NPC {
     }
 
     @Override
+    public NPC clone() {
+        return new ZombieNPC(getCharacter().clone(), getMovementBehavior(), getActionBehavior(), getPosition());
+    }
+
+    @Override
     public boolean hasInventory() {
         return false;
     }
+
+
 }

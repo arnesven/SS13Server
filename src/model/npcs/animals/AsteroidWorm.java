@@ -12,4 +12,10 @@ public class AsteroidWorm extends AnimalNPC {
                 new MeanderingMovement(0.0),
                 new AttackAllActorsNotSameClassBehavior(), r);
     }
+
+
+    @Override
+    public NPC clone() {
+        return new AsteroidWorm(getPosition());
+    }
 }

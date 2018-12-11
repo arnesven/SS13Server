@@ -9,6 +9,7 @@ import model.actions.objectactions.PlantAction;
 import model.items.general.GameItem;
 import model.items.seeds.SeedsItem;
 import model.map.rooms.ExoticPlanet;
+import model.map.rooms.Room;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 import model.objects.general.SoilPatch;
@@ -23,11 +24,16 @@ import java.util.List;
  * Created by erini02 on 16/09/17.
  */
 public class JungleManNPC extends NPC {
-    public JungleManNPC(ExoticPlanet exoticPlanet) {
+    public JungleManNPC(Room exoticPlanet) {
         super(new JungleManCharacter(exoticPlanet.getID()),
                 new MeanderingMovement(0.15),
                 new JungleManBehavior(), exoticPlanet);
 
+    }
+
+    @Override
+    public NPC clone() {
+        return new JungleManNPC(getPosition());
     }
 
     private static class JungleManBehavior implements ActionBehavior {
@@ -82,4 +88,7 @@ public class JungleManNPC extends NPC {
             return false;
         }
     }
+
+
+
 }

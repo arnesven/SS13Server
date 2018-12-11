@@ -12,4 +12,9 @@ public class TauntaunNPC extends AnimalNPC {
         super(new TauntaunCharacter(r.getID()),
                 new MeanderingMovement(0.5), new DoNothingBehavior(), r);
     }
+
+    @Override
+    public NPC clone() {
+        return new TauntaunNPC(getPosition());
+    }
 }

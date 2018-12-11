@@ -14,12 +14,14 @@ import model.npcs.behaviors.MoveTowardsMostWantedIfClose;
  * Created by erini02 on 17/11/16.
  */
 public class GalacticFederalMarshalNPC extends NPC {
+    private final int number;
     private Player mostWanted;
 
     public GalacticFederalMarshalNPC(int i, Player mostWantedCriminal, Room startPos) {
         super(new GalacticFederalMarshalCharacter(i, startPos.getID()),
                 new MeanderingMovement(0.0),
                 new DoNothingBehavior(), startPos);
+        this.number = i;
         mostWanted = mostWantedCriminal;
         putOnSuit(new MarshalOutfit());
         putOnSuit(new UncoolSunglasses());
@@ -43,5 +45,10 @@ public class GalacticFederalMarshalNPC extends NPC {
 
     public Player getMostWanted() {
         return mostWanted;
+    }
+
+    @Override
+    public NPC clone() {
+        return new GalacticFederalMarshalNPC(number+1, mostWanted, getPosition());
     }
 }

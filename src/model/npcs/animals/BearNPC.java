@@ -2,6 +2,7 @@ package model.npcs.animals;
 
 import model.characters.general.BearCharacter;
 import model.map.rooms.Room;
+import model.npcs.NPC;
 import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 
@@ -19,5 +20,10 @@ public class BearNPC extends AnimalNPC{
     @Override
     public boolean hasInventory() {
         return false;
+    }
+
+    @Override
+    public NPC clone() {
+        return new BearNPC(getPosition());
     }
 }

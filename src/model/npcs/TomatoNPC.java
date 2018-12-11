@@ -20,4 +20,9 @@ public class TomatoNPC extends AnimalNPC {
     public boolean shouldBeCleanedUp() {
         return true;
     }
+
+    @Override
+    public NPC clone() {
+        return new TomatoNPC(getPosition());
+    }
 }

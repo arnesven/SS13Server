@@ -19,7 +19,12 @@ public class ParasiteNPC extends NPC {
 		return true;
 	}
 
-	@Override
+    @Override
+    public NPC clone() {
+        return new ParasiteNPC(getPosition());
+    }
+
+    @Override
 	public boolean hasInventory() {
 		return false;
 	}

@@ -17,4 +17,9 @@ public class SantaNPC extends NPC {
         giveStartingItemsToSelf();
         putOnSuit(new SantaSuit());
     }
+
+    @Override
+    public NPC clone() {
+        return new SantaNPC(getPosition());
+    }
 }

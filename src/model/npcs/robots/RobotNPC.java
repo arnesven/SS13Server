@@ -97,4 +97,10 @@ public class RobotNPC extends NPC implements Repairable {
     public void doWhenRepaired(GameData gameData) {
 
     }
+
+    @Override
+    public NPC clone() {
+        return new RobotNPC(getCharacter().clone(), getMovementBehavior(),
+                getActionBehavior(), getPosition());
+    }
 }

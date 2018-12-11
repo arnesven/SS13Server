@@ -83,6 +83,7 @@ public class MutateSyringeAction extends ConsoleAction {
         if (performingClient.getItems().contains(syringe)) {
             performingClient.addTolastTurnInfo(GeneticsConsole.BLAST_STRING);
             console.addKnownMutation(syringe.getMutation());
+            console.storeDNA(syringe.getOriginalActor());
             if (isGeneticist(performingClient)) {
                 for (Mutation m : MutationFactory.getAllMutations(gameData)) {
                     if (m.getName().equals(genOptStr)) {

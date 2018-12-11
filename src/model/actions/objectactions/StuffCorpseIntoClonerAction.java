@@ -5,6 +5,8 @@ import model.GameData;
 import model.Target;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
+import model.characters.decorators.DrunkDecorator;
+import model.characters.general.AnimalCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
 import model.items.NoSuchThingException;
@@ -13,12 +15,10 @@ import model.objects.general.CloneOMatic;
 
 public class StuffCorpseIntoClonerAction extends TargetingAction {
 
-    private CloneOMatic cloneOMatic;
     private final CloneOMatic cloner;
 
-    public StuffCorpseIntoClonerAction(CloneOMatic cloneOMatic, CloneOMatic cloner, Actor ap) {
+    public StuffCorpseIntoClonerAction(CloneOMatic cloner, Actor ap) {
         super("Stuff Corpse", SensoryLevel.PHYSICAL_ACTIVITY, ap);
-        this.cloneOMatic = cloneOMatic;
         this.cloner = cloner;
     }
 
@@ -27,11 +27,12 @@ public class StuffCorpseIntoClonerAction extends TargetingAction {
         if (target instanceof Actor) {
             try {
                 target.getPosition().removeActor((Actor)target);
-                cloneOMatic.storeActor((Actor) target);
+                cloner.storeActor((Actor) target);
+                cloner.setJustStuffed(true);
                 if (((Actor) target).getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) {
-                    cloner.addCharge(1.0);
-                } else {
                     cloner.addCharge(0.5);
+                } else {
+                    cloner.addCharge(0.25);
                 }
             } catch (NoSuchThingException e) {
                 e.printStackTrace();
@@ -46,6 +47,15 @@ public class StuffCorpseIntoClonerAction extends TargetingAction {
 
     @Override
     public boolean isViableForThisAction(Target target2) {
+        if (target instanceof Actor) {
+            if (((Actor) target).getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AnimalCharacter)) {
+                return true;
+            }
+
+            if (((Actor) target).getCharacter().checkInstance((GameCharacter gc) -> gc instanceof DrunkDecorator)) {
+                return true;
+            }
+        }
         return target2.isDead();
     }
 }

@@ -176,12 +176,7 @@ public class GameData implements Serializable {
 			clid = getRandomClid();
 		}
 		
-		if (getClientsAsMap().containsKey(clid)) {
-			throw new IllegalStateException("THAT USER NAME ALREADY TAKEN!");
-		}
-
-        Player newPlayer = new Player(this);
-		players.put(clid, newPlayer);
+		Player newPlayer = addNewPlayer(clid);
         if (spectator) {
             newPlayer.getSettings().set(PlayerSettings.MAKE_ME_A_SPECTATOR, true);
         }
@@ -198,8 +193,18 @@ public class GameData implements Serializable {
 		return clid;
 	}
 
+    public Player addNewPlayer(String clid) {
+        if (getClientsAsMap().containsKey(clid)) {
+            throw new IllegalStateException("THAT USER NAME ALREADY TAKEN!");
+        }
 
-	private String getRandomClid() {
+        Player newPlayer = new Player(this);
+        players.put(clid, newPlayer);
+        return newPlayer;
+    }
+
+
+    private String getRandomClid() {
 		String clid;
 		do {
             clid = MyRandom.getRandomName();

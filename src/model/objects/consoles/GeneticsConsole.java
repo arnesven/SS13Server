@@ -17,6 +17,7 @@ public class GeneticsConsole extends Console {
 
 	public static final String BLAST_STRING = "The syringe was blasted with radiation.";
 	private List<Mutation> knownMutations = new ArrayList<>();
+	private List<Actor> storedActors = new ArrayList<>();
 	
 	public GeneticsConsole(Room r) {
 		super("GeneTIX-61", r);
@@ -52,4 +53,11 @@ public class GeneticsConsole extends Console {
 		return knownMutations.size();
 	}
 
+    public void storeDNA(Actor originalActor) {
+        storedActors.add(originalActor);
+    }
+
+    public List<Actor> getStoredActors() {
+	    return storedActors;
+    }
 }

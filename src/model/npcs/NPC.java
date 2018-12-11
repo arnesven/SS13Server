@@ -171,6 +171,6 @@ public abstract class NPC extends Actor implements Target, Serializable {
 		
 	}
 
-
+    public abstract NPC clone();
 
 }

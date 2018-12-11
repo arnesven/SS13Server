@@ -9,10 +9,16 @@ import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.MovementBehavior;
 
 public class FremenNPC extends NPC {
-    public FremenNPC(DesertPlanet desertPlanet) {
+    public FremenNPC(Room desertPlanet) {
         super(new FremenCharacter(desertPlanet.getID()),
                 new MeanderingMovement(0.5),
                 new DoNothingBehavior(), desertPlanet);
         putOnSuit(new StillSuit());
+    }
+
+
+    @Override
+    public NPC clone() {
+        return new FremenNPC(getPosition());
     }
 }

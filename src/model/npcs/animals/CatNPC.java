@@ -2,6 +2,7 @@ package model.npcs.animals;
 
 import model.characters.general.CatCharacter;
 import model.map.rooms.Room;
+import model.npcs.NPC;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.MeowOrHissBehavior;
 
@@ -16,7 +17,10 @@ public class CatNPC extends AnimalNPC {
 	public boolean hasInventory() {
 		return false;
 	}
-	
-	
 
+
+    @Override
+    public NPC clone() {
+        return new CatNPC(getPosition());
+    }
 }

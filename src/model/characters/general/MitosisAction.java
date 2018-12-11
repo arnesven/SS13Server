@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.DoNothingBehavior;
@@ -37,12 +38,7 @@ public class MitosisAction extends Action {
             ab = ((NPC) performingClient).getActionBehavior();
             mov = ((NPC) performingClient).getMovementBehavior();
         }
-        NPC npc = new NPC(chara, mov, ab, performingClient.getPosition()) {
-            @Override
-            public boolean hasInventory() {
-                return true;
-            }
-        };
+        NPC npc = new MitosisNPC(chara, mov, ab, performingClient.getPosition());
         gameData.addNPC(npc);
         if (performingClient.getCharacter().getSuit() != null) {
             if (npc.getCharacter().getSuit() != null) {
@@ -55,5 +51,21 @@ public class MitosisAction extends Action {
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
 
+    }
+
+    private class MitosisNPC extends NPC {
+        public MitosisNPC(GameCharacter chara, MovementBehavior mov, ActionBehavior ab, Room position) {
+            super(chara, mov, ab, position);
+        }
+
+        @Override
+        public boolean hasInventory() {
+            return true;
+        }
+
+        @Override
+        public NPC clone() {
+            return new MitosisNPC(getCharacter().clone(), getMovementBehavior(), getActionBehavior(), getPosition());
+        }
     }
 }

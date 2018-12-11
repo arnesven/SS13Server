@@ -23,6 +23,7 @@ public class Syringe extends GameItem {
 
 	private boolean filled = false;
 	private GameCharacter bloodFrom;
+	private Actor originalActor;
 	private Mutation mutation = null;
     private boolean infected;
 
@@ -81,6 +82,7 @@ public class Syringe extends GameItem {
     }
 
     public void setBloodFrom(Actor target, GameData gameData) {
+        this.originalActor = target;
 		this.bloodFrom = target.getCharacter().clone();
 		this.filled = true;
 		this.mutation = MutationFactory.getActorMutation(bloodFrom, gameData);
@@ -133,5 +135,9 @@ public class Syringe extends GameItem {
 
     public boolean isInfected() {
         return infected;
+    }
+
+    public Actor getOriginalActor() {
+        return originalActor;
     }
 }
