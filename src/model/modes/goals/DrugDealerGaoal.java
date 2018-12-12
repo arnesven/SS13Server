@@ -7,6 +7,7 @@ import model.actions.DealDrugsAction;
 import model.actions.general.Action;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
+import model.items.chemicals.CaseOfDrugs;
 import model.items.chemicals.DrugDose;
 import util.MyRandom;
 
@@ -30,9 +31,10 @@ public class DrugDealerGaoal extends PersonalGoal {
     public void setBelongsTo(Actor belongingTo) {
         super.setBelongsTo(belongingTo);
         belongingTo.setCharacter(new DrugDealerDecorator(belongingTo.getCharacter()));
-        for (int i = 0; i < MyRandom.nextInt(6); ++i) {
-            belongingTo.getCharacter().giveItem(new DrugDose(belongingTo), belongingTo.getAsTarget());
-        }
+//        for (int i = 0; i < MyRandom.nextInt(6); ++i) {
+//            belongingTo.getCharacter().giveItem(new DrugDose(belongingTo), belongingTo.getAsTarget());
+//        }
+        belongingTo.getCharacter().giveItem(new CaseOfDrugs(), belongingTo.getAsTarget());
     }
 
     private class DrugDealerDecorator extends CharacterDecorator {

@@ -50,10 +50,12 @@ public class AIReprogramAllAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        for (Actor a : gameData.getNPCs()) {
-            if (a instanceof RobotNPC && !a.isDead()) {
-                selectedProgram.loadInto((RobotNPC)a, performingClient);
-                performingClient.addTolastTurnInfo(a.getBaseName() + " was given new instructions.");
+        if (selectedProgram != null) {
+            for (Actor a : gameData.getNPCs()) {
+                if (a instanceof RobotNPC && !a.isDead()) {
+                    selectedProgram.loadInto((RobotNPC) a, performingClient);
+                    performingClient.addTolastTurnInfo(a.getBaseName() + " was given new instructions.");
+                }
             }
         }
     }

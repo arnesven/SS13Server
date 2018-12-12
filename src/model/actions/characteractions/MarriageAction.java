@@ -67,7 +67,7 @@ public class MarriageAction extends Action {
         ActionOption opts = super.getOptions(gameData, whosAsking);
         for (Actor a : whosAsking.getPosition().getActors()) {
             for (Actor b : whosAsking.getPosition().getActors()) {
-                if (!a.equals(b) && !a.equals(whosAsking) && !b.equals(whosAsking)) {
+                if (!a.equals(b) && !a.equals(whosAsking) && !b.equals(whosAsking) && !a.isDead() && !b.isDead()) {
                     String title = a.getPublicName() + " and " + b.getPublicName();
                     pairmap.put(title, new Pair<>(a, b));
                     opts.addOption(title);

@@ -16,7 +16,9 @@ import model.objects.mining.RockObject;
 import util.Logger;
 import util.MyRandom;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MeteoricStorm extends AmbientEvent {
 
@@ -58,7 +60,9 @@ public class MeteoricStorm extends AmbientEvent {
         stationInform("Meteoric impact on " + sideStr + " side of station.", gameData);
         int multiplier = severe?2:1;
         Logger.log("Resolving meteor storm...");
-        for (Room r : gameData.getMap().getArea(GameMap.STATION_LEVEL_NAME, sideStr)) {
+        List<Room> allRooms = new ArrayList<>();
+        allRooms.addAll(gameData.getMap().getArea(GameMap.STATION_LEVEL_NAME, sideStr));
+        for (Room r : allRooms) {
             if (MyRandom.nextDouble() < DESTROY_CHANCE*multiplier) {
                 Logger.log("... " + r.getName() + " was destroyed!");
                 try {

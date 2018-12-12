@@ -94,7 +94,15 @@ public class AICharacter extends GhostCharacter {
 
 
         // TODO:
-        at.add(new AIProgramBotAction(gameData));
+        Action a = new AIProgramBotAction(gameData);
+        try {
+            if (a.getOptions(gameData, getActor()).numberOfSuboptions() > 0) {
+                at.add(a);
+            }
+        } catch (IllegalStateException ise){
+
+
+        }
         at.add(new AIReprogramAllAction(gameData));
         at.add(new RemoteAccessAction(SensoryLevel.NO_SENSE) {
             @Override

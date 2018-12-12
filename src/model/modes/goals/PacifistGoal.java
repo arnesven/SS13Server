@@ -42,6 +42,7 @@ public class PacifistGoal extends PersonalGoal {
 
         @Override
         public void doAfterActions(GameData gameData) {
+            super.doAfterActions(gameData);
             if (getActor() instanceof Player) {
                 if (((Player)getActor()).getNextAction() instanceof AttackAction) {
                     attacks++;

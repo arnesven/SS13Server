@@ -12,6 +12,7 @@ import model.items.general.GameItem;
 import model.items.general.RobotParts;
 import model.items.general.Tools;
 import model.items.general.FireExtinguisher;
+import util.Logger;
 
 public class RoboticistCharacter extends CrewCharacter {
 
@@ -32,8 +33,12 @@ public class RoboticistCharacter extends CrewCharacter {
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         super.addCharacterSpecificActions(gameData, at);
         Action a = new ReprogramAction();
-        if (a.getOptions(gameData, getActor()).numberOfSuboptions() > 0) {
-            at.add(new ReprogramAction());
+        try {
+            if (a.getOptions(gameData, getActor()).numberOfSuboptions() > 0) {
+                at.add(new ReprogramAction());
+            }
+        } catch (IllegalStateException ise) {
+            Logger.log(ise.getMessage());
         }
     }
 

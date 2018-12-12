@@ -2,6 +2,7 @@ package comm;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,18 +59,22 @@ public class ServiceHandler {
 	}
 
 	public void serv(Socket socket) throws IOException, ClassNotFoundException, UnknownMessageException {
-		ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-		
-		String message = (String)ois.readObject();
-		ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-		for (MessageHandler handler : handlers) {
-			if (handler.handle(message, oos)) {
-				return;
-			}
-		}
-		
-		oos.writeObject("ERROR: An unknown error has occurred on the server. The server has crashed - you crashed it.");
-		throw new UnknownMessageException("Unknown message \"" + message + "\"");
+	    try {
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+            String message = (String) ois.readObject();
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            for (MessageHandler handler : handlers) {
+                if (handler.handle(message, oos)) {
+                    return;
+                }
+            }
+
+            oos.writeObject("ERROR: An unknown error has occurred on the server. The server has crashed - you crashed it.");
+            throw new UnknownMessageException("Unknown message \"" + message + "\"");
+        } catch (StreamCorruptedException sce) {
+	        System.err.println(sce.getMessage());
+        }
 	}
 
 

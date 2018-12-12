@@ -50,6 +50,7 @@ public class AIOverchargeAction extends Action {
     protected void execute(GameData gameData, Actor performingClient) {
         if (selected == null) {
             performingClient.addTolastTurnInfo("What, object not found? " + Action.FAILED_STRING);
+            return;
         }
 
         ElectrifyObjectAction ele = new ElectrifyObjectAction(selected);
@@ -63,7 +64,7 @@ public class AIOverchargeAction extends Action {
         for (Room r :  gameData.getMap().getRoomsForLevel("ss13")) {
             for (GameObject ob : r.getObjects()) {
                 if (ob instanceof ElectricalMachinery) {
-                    if (args.get(0).equals(ob.getPublicName(performingClient) + " (" + ob.getPosition().getName() + ")")) {
+                    if (args.get(0).contains(ob.getPublicName(performingClient) + " (" + ob.getPosition().getName() + ")")) {
                         selected = (ElectricalMachinery)ob;
                     }
                 }
