@@ -65,7 +65,7 @@ public abstract class RockObject extends GameObject {
         for (int i = 0; i < MyRandom.nextInt(3); ++i) {
             list.add(new RegolithShard());
         }
-        for (double d = 0.9; d < MyRandom.nextDouble(); d=d/2.0) {
+        for (double d = 0.9; d > MyRandom.nextDouble(); d=d/2.0) {
             list.add(splitOff());
         }
         getPosition().removeObject(this);
