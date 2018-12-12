@@ -5,6 +5,8 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.general.ActionGroup;
+import model.actions.general.SensoryLevel;
 import model.actions.objectactions.ClonePersonAction;
 import model.actions.objectactions.StuffCorpseIntoClonerAction;
 import model.map.rooms.Room;
@@ -29,6 +31,11 @@ public class CloneOMatic extends ElectricalMachinery {
 
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+
+        //TODO: combine these three into one "Clone-O-Matic action"
+        Action check = new CloneOMatic.CheckChargeAction();
+        at.add(check);
+
         if (!isInUse()) {
             Action stuff = new StuffCorpseIntoClonerAction(this, cl);
             if (stuff.getOptions(gameData, cl).numberOfSuboptions() > 0) {
@@ -72,5 +79,31 @@ public class CloneOMatic extends ElectricalMachinery {
 
     public List<Actor> getStoredActors() {
         return storedActors;
+    }
+
+    public double getCharge() {
+        return charge;
+    }
+
+    private class CheckChargeAction extends Action {
+
+        public CheckChargeAction() {
+            super("Check Charge " + charge, SensoryLevel.OPERATE_DEVICE);
+        }
+
+        @Override
+        protected String getVerb(Actor whosAsking) {
+            return "Checked the Clone-O-Matic";
+        }
+
+        @Override
+        protected void execute(GameData gameData, Actor performingClient) {
+
+        }
+
+        @Override
+        public void setArguments(List<String> args, Actor performingClient) {
+
+        }
     }
 }

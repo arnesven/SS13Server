@@ -18,7 +18,7 @@ public class StuffCorpseIntoClonerAction extends TargetingAction {
     private final CloneOMatic cloner;
 
     public StuffCorpseIntoClonerAction(CloneOMatic cloner, Actor ap) {
-        super("Stuff Corpse", SensoryLevel.PHYSICAL_ACTIVITY, ap);
+        super("Stuff Corpse into Clone-O-Matic", SensoryLevel.PHYSICAL_ACTIVITY, ap);
         this.cloner = cloner;
     }
 

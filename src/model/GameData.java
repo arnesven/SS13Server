@@ -391,13 +391,16 @@ public class GameData implements Serializable {
 		eventsToExecute.addAll(events);
 		
 		for (Event e : eventsToExecute) {
+		    Logger.log("Running event " + e.toString());
 			e.apply(this);
 			if (e.shouldBeRemoved(this)) {
 				eventsToRemove.add(e);
 			}
 		}
+        Logger.log("Events done!");
 		
 		for (Event e2 : eventsToRemove) {
+            Logger.log("Possibly removing event " + e2.toString());
 			events.remove(e2);
 		}
 	    this.runningEvents = false;

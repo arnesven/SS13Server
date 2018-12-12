@@ -3,13 +3,11 @@ package model;
 import java.io.Serializable;
 import java.util.*;
 
+import model.actions.DragAction;
 import model.actions.general.*;
 import model.actions.general.PickupAndUseAction;
+import model.characters.decorators.*;
 import model.characters.general.GameCharacter;
-import model.characters.decorators.CharacterDecorator;
-import model.characters.decorators.InfectedCharacter;
-import model.characters.decorators.InstanceChecker;
-import model.characters.decorators.NoSuchInstanceException;
 import model.items.general.GameItem;
 import model.items.general.HidableItem;
 import model.items.suits.SuitItem;
@@ -366,6 +364,7 @@ public abstract class Actor  implements ItemHolder, Serializable {
             addPickUpActions(gameData, at2);
             addPickUpAndUseActions(gameData, at2);
             addPutOnActions(at2);
+            addDragAction(gameData, at2);
         }
         this.getPosition().addActionsFor(gameData, this, at2);
         roomActions.addAll(at2);
@@ -374,6 +373,15 @@ public abstract class Actor  implements ItemHolder, Serializable {
         }
 
 
+    }
+
+    private void addDragAction(GameData gameData, ArrayList<Action> at2) {
+        if (!getCharacter().checkInstance((GameCharacter gc) -> gc instanceof DraggingDecorator)) {
+            TargetingAction drag = new DragAction(this, gameData);
+            if (drag.getNoOfTargets() > 0) {
+                at2.add(drag);
+            }
+        }
     }
 
     private void addWatchAction(ArrayList<Action> at) {

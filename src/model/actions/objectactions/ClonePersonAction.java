@@ -6,6 +6,8 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.characters.general.GameCharacter;
+import model.characters.general.HumanCharacter;
 import model.events.Event;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
@@ -47,10 +49,19 @@ public class ClonePersonAction extends Action {
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption opts = super.getOptions(gameData, whosAsking);
         for (Actor a : targets) {
-            opts.addOption(a.getBaseName());
+            if (cloner.getCharge() >= getChargeForCharacter(a)) {
+                opts.addOption(a.getBaseName());
+            }
         }
 
-        return super.getOptions(gameData, whosAsking);
+        return opts;
+    }
+
+    private double getChargeForCharacter(Actor a) {
+        if (a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) {
+            return 1.0;
+        }
+        return 0.5;
     }
 
     @Override
@@ -87,6 +98,7 @@ public class ClonePersonAction extends Action {
 
                     cloner.setJustStuffed(false);
                     cloner.setInUse(false);
+                    cloner.addCharge(-1.0 * getChargeForCharacter(selectedTarget));
                 }
             }
 

@@ -16,6 +16,10 @@ public class ActionGroup extends Action {
 	public void addAll(List<Action> acts) {
 		actions.addAll(acts);
 	}
+
+	public void add(Action a) {
+	    actions.add(a);
+    }
 	
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {

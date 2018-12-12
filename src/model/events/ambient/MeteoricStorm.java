@@ -84,6 +84,7 @@ public class MeteoricStorm extends AmbientEvent {
                 }
 
                 while (MyRandom.nextDouble() < ROCK_CHANCE*multiplier) {
+                    // TODO: sometimes the game hangs around here... why?
                     RockObject rock = (RockObject) RockFactory.randomRock(r);
                     Logger.log("... " + r.getName() + " got a " + rock.getBaseName());
                     if (MyRandom.nextDouble() < SHATTER_ON_INPACT_CHANCE) {
