@@ -75,6 +75,10 @@ public class MutateSyringeAction extends ConsoleAction {
     }
 
     private String getNameFor(Syringe gi) {
+        if (!gi.isFilled()) {
+             return gi.getBaseName();
+        }
+
         return gi.getBaseName() + " (" + gi.getMutation().getName() + ")";
     }
 

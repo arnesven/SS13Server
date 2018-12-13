@@ -74,6 +74,7 @@ public class PulseRifleDisplayCase extends BreakableObject {
         protected void execute(GameData gameData, Actor performingClient) {
             if (PulseRifleDisplayCase.this.getEmpty()) {
                 performingClient.addTolastTurnInfo("What, the pulse rifle no longer there? " + Action.FAILED_STRING);
+                return;
             }
 
             performingClient.addTolastTurnInfo("You retrieved a pulse rifle from the display case.");

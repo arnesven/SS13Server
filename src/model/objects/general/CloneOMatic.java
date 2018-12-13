@@ -6,6 +6,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionGroup;
+import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.actions.objectactions.ClonePersonAction;
 import model.actions.objectactions.StuffCorpseIntoClonerAction;
@@ -32,21 +33,9 @@ public class CloneOMatic extends ElectricalMachinery {
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 
-        //TODO: combine these three into one "Clone-O-Matic action"
-        Action check = new CloneOMatic.CheckChargeAction();
-        at.add(check);
+        Action cloneAction = new CloneOMaticAction(cl, this, gameData);
 
-        if (!isInUse()) {
-            Action stuff = new StuffCorpseIntoClonerAction(this, cl);
-            if (stuff.getOptions(gameData, cl).numberOfSuboptions() > 0) {
-                at.add(stuff);
-            }
-
-            Action clone = new ClonePersonAction(this, cl, geneticsConsole);
-            if (clone.getOptions(gameData, cl).numberOfSuboptions() > 0) {
-                at.add(clone);
-            }
-        }
+        at.add(cloneAction);
 
     }
 
@@ -88,7 +77,7 @@ public class CloneOMatic extends ElectricalMachinery {
     private class CheckChargeAction extends Action {
 
         public CheckChargeAction() {
-            super("Check Charge " + charge, SensoryLevel.OPERATE_DEVICE);
+            super("Check Charge (" + (int)(charge*100) + "%)", SensoryLevel.OPERATE_DEVICE);
         }
 
         @Override
@@ -98,12 +87,72 @@ public class CloneOMatic extends ElectricalMachinery {
 
         @Override
         protected void execute(GameData gameData, Actor performingClient) {
-
+            performingClient.addTolastTurnInfo("Clone-O-Matic at " + (int)(charge*100) + "% biomass.");
         }
 
         @Override
         public void setArguments(List<String> args, Actor performingClient) {
 
+        }
+    }
+
+    private class CloneOMaticAction extends Action {
+
+        private final CloneOMatic cloner;
+        private List<Action> innerActions = new ArrayList<>();
+        private Action selectedAction;
+
+        public CloneOMaticAction(Actor cl, CloneOMatic cloner, GameData gameData) {
+            super("Clone-O-Matic", SensoryLevel.OPERATE_DEVICE);
+            this.cloner = cloner;
+            Action check = new CloneOMatic.CheckChargeAction();
+            innerActions.add(check);
+
+            if (!isInUse()) {
+                Action stuff = new StuffCorpseIntoClonerAction(cloner, cl);
+                if (stuff.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+                    innerActions.add(stuff);
+                }
+
+                Action clone = new ClonePersonAction(cloner, cl, geneticsConsole);
+                if (clone.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+                    innerActions.add(clone);
+                }
+            }
+        }
+
+        @Override
+        public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+
+            ActionOption opts = super.getOptions(gameData, whosAsking);
+
+            for (Action a : innerActions) {
+                opts.addOption(a.getOptions(gameData, whosAsking));
+            }
+
+            return opts;
+        }
+
+        @Override
+        protected String getVerb(Actor whosAsking) {
+            return "Fiddled with " + cloner.getPublicName(whosAsking);
+        }
+
+        @Override
+        protected void execute(GameData gameData, Actor performingClient) {
+            selectedAction.doTheAction(gameData, performingClient);
+        }
+
+        @Override
+        public void setArguments(List<String> args, Actor performingClient) {
+            List<String> subList = args.subList(1, args.size());
+            for (Action a : innerActions) {
+                if (args.get(0).equals(a.getName())) {
+                    selectedAction = a;
+                    break;
+                }
+            }
+            selectedAction.setArguments(subList, performingClient);
         }
     }
 }

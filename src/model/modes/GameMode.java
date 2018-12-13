@@ -332,6 +332,7 @@ public abstract class GameMode implements Serializable {
             listOfClients.remove(aIPlayer);
             events.remove("corrupt ai");
             gameData.getRoom("AI Core").addObject(new AIMemory(aIPlayer, gameData.getRoom("AI Core")));
+            gameData.getComputerSystem().createLogin(aIPlayer, console, gameData);
 
         } catch (NoSuchThingException e) {
             e.printStackTrace();

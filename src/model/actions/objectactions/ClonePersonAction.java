@@ -93,7 +93,7 @@ public class ClonePersonAction extends Action {
                     } else {
                         NPC clonedNPC = (NPC) selectedTarget;
                         gameData.addNPC(clonedNPC.clone());
-                        clonedNPC.moveIntoRoom(clonedNPC.getPosition());
+                        //clonedNPC.moveIntoRoom(clonedNPC.getPosition());
                     }
 
                     cloner.setJustStuffed(false);

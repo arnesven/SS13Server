@@ -8,6 +8,7 @@ import model.GameData;
 import model.Player;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
+import model.map.rooms.ElevatorRoom;
 import model.objects.consoles.Console;
 
 import java.io.Serializable;
@@ -83,5 +84,9 @@ public class ComputerSystemSession implements Serializable {
         console.setLoggedInAt(null);
         gameData.getChat().serverSay("You logged out from the console", user);
         user.removeInstance((GameCharacter gc) -> gc instanceof LoggedInDecorator);
+    }
+
+    public Console getConsole() {
+        return console;
     }
 }

@@ -18,7 +18,7 @@ public class StuffCorpseIntoClonerAction extends TargetingAction {
     private final CloneOMatic cloner;
 
     public StuffCorpseIntoClonerAction(CloneOMatic cloner, Actor ap) {
-        super("Stuff Corpse into Clone-O-Matic", SensoryLevel.PHYSICAL_ACTIVITY, ap);
+        super("Stuff Corpse into", SensoryLevel.PHYSICAL_ACTIVITY, ap);
         this.cloner = cloner;
     }
 
@@ -34,6 +34,7 @@ public class StuffCorpseIntoClonerAction extends TargetingAction {
                 } else {
                     cloner.addCharge(0.25);
                 }
+                performingClient.addTolastTurnInfo("You stuffed " + target.getName() + " into the Clone-O-Matic");
             } catch (NoSuchThingException e) {
                 e.printStackTrace();
             }
