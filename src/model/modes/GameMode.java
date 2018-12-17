@@ -442,14 +442,9 @@ public abstract class GameMode implements Serializable {
             e.printStackTrace();
         }
 
-		Room TARSRoom;
-		do {
-			TARSRoom = MyRandom.sample(gameData.getRooms());
-		} while (TARSRoom instanceof NukieShipRoom);
-		
-		NPC tars = new TARSNPC(TARSRoom);
-		gameData.addNPC(tars);
+        TARSNPC.addATarsToRandomRoom(gameData);
 
+        MouseNPC.addAMouseToRandomRoom(gameData);
 
 
 	//	testShortestDistance(gameData);
@@ -476,6 +471,8 @@ public abstract class GameMode implements Serializable {
 
 		}
 	}
+
+
 
     private int noOfNPCs() {
         return Math.min(MyRandom.nextInt(3) + 5, remainingChars.size());
