@@ -7,6 +7,7 @@ import model.map.rooms.Room;
 import model.npcs.animals.AnimalNPC;
 import model.npcs.behaviors.DoNothingBehavior;
 import model.npcs.behaviors.MeanderingMovement;
+import model.npcs.behaviors.SquakingBehavior;
 import util.Logger;
 import util.MyRandom;
 
@@ -16,7 +17,7 @@ public class MouseNPC extends AnimalNPC {
 
     public MouseNPC(Room starting) {
         super(new MouseCharacter(starting.getID()), new MeanderingMovement(0.5),
-                new DoNothingBehavior(), starting);
+                new SquakingBehavior(), starting);
         this.starting = starting;
     }
 
