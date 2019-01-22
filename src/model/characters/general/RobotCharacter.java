@@ -70,6 +70,10 @@ public class RobotCharacter extends GameCharacter {
         return false;
     }
 
+    public boolean isEncumbered() {
+        return getTotalWeight() >= 50.0;
+    }
+
     @Override
     public boolean isCrew() {
         return false;
