@@ -645,7 +645,9 @@ public abstract class GameCharacter implements Serializable {
             result.add(mp.makeButton(moveP));
         }
 	    result.add(mp.makeButton(new BlockMovement()));
-	    result.add(mp.makeButton(new AutoAttack()));
+        if (getsActions() && !isPassive()) {
+            result.add(mp.makeButton(new AutoAttack()));
+        }
     }
 
 

@@ -5,6 +5,7 @@ import comm.chat.plebOS.AIAlarmsCommand;
 import comm.chat.plebOS.PlebOSCommandHandler;
 import model.Actor;
 import model.GameData;
+import model.GameState;
 import model.Player;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
@@ -38,10 +39,12 @@ public class ComputerSystemSession implements Serializable {
         gameData.getChat().plebOSSay("Last login on 24/03/2113, 4.15 pm", sender);
         gameData.getChat().plebOSSay("Welcome " + sender.getCharacter().getBaseName().toLowerCase(), sender);
 
-        for (Actor a : sender.getPosition().getActors()) {
-            if (a != sender) {
-                a.addTolastTurnInfo(sender.getPublicName() +
-                        " fiddled with " + console.getPublicName(a) + ".");
+        if (gameData.getGameState() != GameState.PRE_GAME) {
+            for (Actor a : sender.getPosition().getActors()) {
+                if (a != sender) {
+                    a.addTolastTurnInfo(sender.getPublicName() +
+                            " fiddled with " + console.getPublicName(a) + ".");
+                }
             }
         }
     }

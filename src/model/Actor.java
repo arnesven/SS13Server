@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 
 import model.actions.DragAction;
+import model.actions.HighFiveAction;
 import model.actions.general.*;
 import model.actions.general.PickupAndUseAction;
 import model.characters.decorators.*;
@@ -227,6 +228,7 @@ public abstract class Actor  implements ItemHolder, Serializable {
 
             addAttackActions(generals);
             addWatchAction(generals);
+            addHighFiveAction(generals, gameData);
             if (this.hasInventory()) {
                 addManageItemActions(gameData, at);
             }
@@ -251,6 +253,12 @@ public abstract class Actor  implements ItemHolder, Serializable {
         return at;
     }
 
+    private void addHighFiveAction(ArrayList<Action> generals, GameData gameData) {
+        Action high5 = new HighFiveAction(this);
+        if (high5.getOptions(gameData, this).numberOfSuboptions() > 0) {
+            generals.add(high5);
+        }
+    }
 
 
     private void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
