@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by erini02 on 03/09/16.
  */
-public class DogCharacter extends GameCharacter {
+public class DogCharacter extends AnimalCharacter {
     public DogCharacter() {
         super("German Shepherd", 0, 17.5);
     }

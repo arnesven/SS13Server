@@ -41,6 +41,7 @@ public class VendingMachineCharacter extends RobotCharacter {
         return list;
     }
 
+
     @Override
     public void doAfterMovement(GameData gameData) {
         super.doAfterMovement(gameData);
