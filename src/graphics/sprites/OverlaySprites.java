@@ -106,6 +106,7 @@ public class OverlaySprites {
             sp.add(e.getSprite(player));
         }
 
+        addObjectsForRoom(sp, player, r);
         addActorsForRoom(sp, player, r);
         addItemsForRoom(sp, player, r);
 

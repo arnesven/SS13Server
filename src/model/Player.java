@@ -12,6 +12,7 @@ import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import model.map.rooms.RoomType;
 import model.movepowers.MovePowerRoom;
+import model.plebOS.LoggedInDecorator;
 import sounds.Sound;
 import sounds.SoundQueue;
 import graphics.sprites.OverlaySprites;
@@ -323,7 +324,7 @@ public class Player extends Actor implements Target, Serializable {
 				return;
 			}
 		}	
-		throw new IllegalStateException("Could not find action for this action string " + actionString + ".");
+		Logger.log(Logger.CRITICAL, "Could not find action for this action string " + actionString + ".");
 	}
 
 	/**
