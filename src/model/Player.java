@@ -1,10 +1,7 @@
 package model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import graphics.ClientInfo;
 import model.actions.general.ActionOption;
@@ -193,14 +190,12 @@ public class Player extends Actor implements Target, Serializable {
 			addTolastTurnInfo("You are carrying too much to be able to run!");
 		}
 
+		List<Room> list = new ArrayList<>();
+        getCharacter().getMovePowersIfPlayer(gameData, list);
         ArrayList<Integer> movablePlaces = new ArrayList<>();
-		for (Room r : getCharacter().getVisibleMap(gameData)) {
-		    if (r.getType() == RoomType.button) {
-		        movablePlaces.add(r.getID());
-            }
+		for (Room r : list) {
+		    movablePlaces.add(r.getID());
         }
-		
-
 
 		if (steps > 0) {
 			int[] neigbors = this.getPosition().getNeighbors();

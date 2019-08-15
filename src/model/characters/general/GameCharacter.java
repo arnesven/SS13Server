@@ -13,10 +13,12 @@ import model.*;
 import model.actions.general.AttackAction;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.NoSuchInstanceException;
+import model.characters.visitors.VisitorCharacter;
 import model.items.BodyPartFactory;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
 import model.map.rooms.RoomType;
+import model.map.rooms.SpaceRoom;
 import model.movepowers.*;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
@@ -582,7 +584,6 @@ public abstract class GameCharacter implements Serializable {
     public void doAtEndOfTurn(GameData gameData) {
 
     }
-
     public List<Room> getVisibleMap(GameData gameData) {
         String level = "ss13";
         try {
@@ -592,10 +593,53 @@ public abstract class GameCharacter implements Serializable {
         }
         Collection<Room> roomsToShow = gameData.getMap().getRoomsForLevel(level);
         roomsToShow.removeIf((Room r ) -> r.getType() == RoomType.hidden);
+
+
         List<Room> result = new ArrayList<>();
-        result.addAll(roomsToShow);
+        if (getActor() instanceof  Player && !(getActor().isDead() ||
+                getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof VisitorCharacter))) {
+            int[] moveableToRooms = ((Player) getActor()).getSelectableLocations(gameData);
+            int maxX = 0;
+            int maxY = 0;
+            int minY = 1000000;
+            int minX = 1000000;
+
+            for (Room r : roomsToShow) {
+                if (r.getX()+r.getWidth() > maxX) {
+                    maxX = r.getX();
+                }
+                if (r.getY()+r.getHeight() > maxY) {
+                    maxY = r.getY();
+                }
+                if (r.getX() < minX) {
+                    minX = r.getX();
+                }
+                if (r.getY() < minY) {
+                    minY = r.getY();
+                }
+
+                for (int i = 0; i < moveableToRooms.length; ++i) {
+                    if (r.getID() == moveableToRooms[i]) {
+                        result.add(r);
+                        break;
+                    }
+                }
+            }
 
 
+
+        } else {
+            result.addAll(roomsToShow);
+        }
+
+        getMovePowersIfPlayer(gameData, result);
+
+
+
+        return result;
+    }
+
+    public void getMovePowersIfPlayer(GameData gameData, List<Room> result) {
         if (getActor() instanceof Player && ((Player) getActor()).getSettings().get(PlayerSettings.ACTIVATE_MOVEMENT_POWERS)) {
             MovePowersHandler mp = new MovePowersHandler(result, 2);
             addMovepowersButtons(result, gameData, mp);
@@ -607,12 +651,7 @@ public abstract class GameCharacter implements Serializable {
             MovePowersHandler mp = new MovePowersHandler(result, 1);
             addStyleMovementButtons(result, gameData, mp);
         }
-
-        return result;
     }
-
-
-
 
 
     private void addStyleMovementButtons(List<Room> result, GameData gameData, MovePowersHandler mp) {

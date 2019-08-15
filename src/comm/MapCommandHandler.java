@@ -22,6 +22,7 @@ public class MapCommandHandler extends AbstractCommandHandler {
 			ObjectOutputStream oos) throws IOException {
 //		System.out.println("handling map command");
 		if (command.contains("MAP")) {
+	//	    Logger.log("Got MAP command");
 		    //List<String> strs = makeStringsList(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
 			//String result = MyStrings.join(strs);
             String result = MyStrings.join(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
