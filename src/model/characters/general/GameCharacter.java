@@ -637,26 +637,26 @@ public abstract class GameCharacter implements SpriteObject, Serializable {
             result.addAll(roomsToShow);
         }
 
-        getMovePowersIfPlayer(gameData, result);
+   //     getMovePowersIfPlayer(gameData, result);
 
 
 
         return result;
     }
 
-    public void getMovePowersIfPlayer(GameData gameData, List<Room> result) {
-        if (getActor() instanceof Player && ((Player) getActor()).getSettings().get(PlayerSettings.ACTIVATE_MOVEMENT_POWERS)) {
-            MovePowersHandler mp = new MovePowersHandler(result, 2);
-            addMovepowersButtons(result, gameData, mp);
-        }
-
-        if (getActor() instanceof  Player && ((Player) getActor()).getSettings().get(PlayerSettings.STYLE_BUTTONS_ON)) {
-            result.clear();
-            result.add(getPosition());
-            MovePowersHandler mp = new MovePowersHandler(result, 1);
-            addStyleMovementButtons(result, gameData, mp);
-        }
-    }
+//    public void getMovePowersIfPlayer(GameData gameData, List<Room> result) {
+//        if (getActor() instanceof Player && ((Player) getActor()).getSettings().get(PlayerSettings.ACTIVATE_MOVEMENT_POWERS)) {
+//            MovePowersHandler mp = new MovePowersHandler(result, 2);
+//            addMovepowersButtons(result, gameData, mp);
+//        }
+//
+//        if (getActor() instanceof  Player && ((Player) getActor()).getSettings().get(PlayerSettings.STYLE_BUTTONS_ON)) {
+//            result.clear();
+//            result.add(getPosition());
+//            MovePowersHandler mp = new MovePowersHandler(result, 1);
+//            addStyleMovementButtons(result, gameData, mp);
+//        }
+//    }
 
 
     private void addStyleMovementButtons(List<Room> result, GameData gameData, MovePowersHandler mp) {
