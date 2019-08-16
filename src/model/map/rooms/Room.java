@@ -46,6 +46,8 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 	private List<GameItem> items = new ArrayList<>();
 	private List<Event> events = new ArrayList<>();
 	private List<Event> eventsHappened = new ArrayList<>();
+	private final Sprite floorSprite;
+	private static final Sprite DOOR_SPRITE = new Sprite("doorsprite", "doors.png", 8, 18, null);
 
 	/**
 	 * These fields are purely for the GUI.
@@ -83,12 +85,13 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 		this.neighbors = neighbors;
 		this.doors=doors;
         this.roomType = roomType;
+        this.floorSprite = getfloorSpriteForColor();
 	}
-	
-	@Override
+
+    @Override
 	public String toString() {
 		String result = ID + ":" + name + ":" + shortname + ":" + x + ":" + y + ":" + 
-						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors) + ":" + getColor();
+						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors) + ":" + floorSprite.getName();
 		//Logger.log(result);
         return result;
 	}
@@ -493,6 +496,31 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
                 backgroundcolor = new Color(217, 217, 217);
         }
         return String.format("#%02X%02X%02X", backgroundcolor.getRed(), backgroundcolor.getGreen(), backgroundcolor.getBlue());
+    }
+
+
+    private Sprite getfloorSpriteForColor() {
+        switch (roomType) {
+            case command:
+                return new Sprite("floor"+getColor(), "floors.png", 27, 1, null);
+            case science:
+                return new Sprite("floor"+getColor(), "floors.png", 27, 2, null);
+            case security:
+                return new Sprite("floor"+getColor(), "floors.png", 1, 1, null);
+            case support:
+                return new Sprite("floor"+getColor(), "floors.png", 17, 7, null);
+            case tech:
+                return new Sprite("floor"+getColor(), "floors.png", 1, 4, null);
+            case space:
+                return new Sprite("floor"+getColor(), "floors.png", 18, 24, null);
+            case hall:
+                return new Sprite("floorhall", "floors.png", 0, 0, null);
+            case airlock:
+                return new Sprite("floorairlock", "floors.png", 22, 28, null);
+
+        }
+
+        return  new Sprite("floor"+getColor(), "floors.png", 29, 28, null);
     }
 
 
