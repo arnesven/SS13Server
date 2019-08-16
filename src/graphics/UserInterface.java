@@ -13,7 +13,7 @@ public class UserInterface {
         uiFrameSprite.setRotation(uiFrameSprite.getRotation());
 
         int col = 0;
-        for (int i = 30; i >= 10; i -= 5) {
+        for (int i = 30; i >= 5; i -= 5) {
             Sprite health = new Sprite("health" + i, "interface.png", col++, 1, null);
         }
         Sprite deadHealth = new Sprite("healthdead", "interface.png", 7, 1, null);
