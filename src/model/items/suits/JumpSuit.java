@@ -20,14 +20,14 @@ public class JumpSuit extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("jumpsuit", "uniforms.png", 5, 5);
+        return new Sprite("jumpsuit", "uniforms.png", 5, 5, this);
     }
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
         list.add(new RegularBlackShoesSprite());
-        return new Sprite("jumpsuitworn", "uniform.png", 11, 11, 32, 32, list);
+        return new Sprite("jumpsuitworn", "uniform.png", 11, 11, 32, 32, list, this);
     }
 
     @Override

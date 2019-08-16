@@ -35,7 +35,7 @@ public abstract class ExoticPlanet extends Room {
                 getBackgroundSpriteMap(),
                 0, 0, getBackgroundSpriteWidth(), getBackgroundSpriteHeight(),
                 (clientInfo.getWidth()*60)/100,
-                clientInfo.getHeight());
+                clientInfo.getHeight(), null);
 
         return sp;
     }

@@ -88,6 +88,6 @@ public class BananaPeelEvent extends Event {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("bananapeel", "items.png", 63);
+        return new Sprite("bananapeel", "items.png", 63, this);
     }
 }

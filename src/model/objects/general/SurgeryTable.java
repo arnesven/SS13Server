@@ -30,16 +30,16 @@ public class SurgeryTable extends GameObject {
     public Sprite getSprite(Player whosAsking) {
         if (isOccupied()) {
             List<Sprite> sp = new ArrayList<>();
-            Sprite table = new Sprite("surgerytable", "surgery.png", 1, 1);
+            Sprite table = new Sprite("surgerytable", "surgery.png", 1, 1, this);
             table.setRotation(-90.0);
             sp.add(table);
             sp.add(personOnTable.getCharacter().getSprite(whosAsking));
-            Sprite sp2 = new Sprite("humanontable", "human.png", 0, 0, 32, 32, sp);
+            Sprite sp2 = new Sprite("humanontable", "human.png", 0, 0, 32, 32, sp, this);
             sp2.setRotation(90.0);
             return sp2;
 
         }
-        return new Sprite("surgerytable", "surgery.png", 1, 1);
+        return new Sprite("surgerytable", "surgery.png", 1, 1, this);
     }
 
     public boolean isOccupied() {

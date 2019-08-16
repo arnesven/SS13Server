@@ -26,9 +26,9 @@ public class Defibrilator extends GameItem {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (charge) {
-            return new Sprite("defibrilatorcharged", "device.png", 61);
+            return new Sprite("defibrilatorcharged", "device.png", 61, this);
         }
-        return new Sprite("defibrilatoruncharged", "device.png", 58);
+        return new Sprite("defibrilatoruncharged", "device.png", 58, this);
     }
 
     @Override

@@ -50,7 +50,7 @@ public abstract class Weapon extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("weapon", "gun.png", 0);
+        return new Sprite("weapon", "gun.png", 0, this);
     }
 
     public boolean isAttackSuccessful(boolean reduced) {
@@ -173,7 +173,7 @@ public abstract class Weapon extends GameItem {
 
 
     public Sprite getHandHeldSprite() {
-        return new Sprite("weaponinhand", "items_righthand.png", 0, 4);
+        return new Sprite("weaponinhand", "items_righthand.png", 0, 4, this);
     }
 
     public void setHitChance(double hitChance) {

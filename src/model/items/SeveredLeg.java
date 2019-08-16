@@ -20,10 +20,10 @@ public class SeveredLeg extends BodyPart {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (side.equals("left")) {
-            return new Sprite("severedleftleg", "body_parts.png", 2, 0);
+            return new Sprite("severedleftleg", "body_parts.png", 2, 0, this);
         }
 
-        return new Sprite("severedrightleg", "body_parts.png", 3, 0);
+        return new Sprite("severedrightleg", "body_parts.png", 3, 0, this);
     }
 
     @Override

@@ -94,7 +94,7 @@ public class DrugDose extends Chemicals {
                 Sprite base = super.getSprite(whosAsking);
                 sp.add(base);
                 sp.add(mask);
-                Sprite sprt = new Sprite("hallucinatorhorse"+getFullName()+base.getName(), "human.png", 0, sp);
+                Sprite sprt = new Sprite("hallucinatorhorse"+getFullName()+base.getName(), "human.png", 0, sp, this);
                 return sprt;
             } else {
                 return super.getSprite(whosAsking);
@@ -105,11 +105,11 @@ public class DrugDose extends Chemicals {
         private Sprite randomMask() {
             int i = MyRandom.nextInt(3);
             if (i == 0) {
-                return new Sprite("horsemask", "mask.png", 8, 8);
+                return new Sprite("horsemask", "mask.png", 8, 8, null);
             } else if (i == 1) {
-                return new Sprite("wackymask", "mask.png", 13, 17);
+                return new Sprite("wackymask", "mask.png", 13, 17, null);
             } else {
-                return new Sprite("clownmask", "mask.png", 2, 2);
+                return new Sprite("clownmask", "mask.png", 2, 2, null);
             }
         }
     }

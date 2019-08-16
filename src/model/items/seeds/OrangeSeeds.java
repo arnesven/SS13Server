@@ -24,7 +24,7 @@ public class OrangeSeeds extends SeedsItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("orangeseeds", "seeds.png", 3, 4);
+        return new Sprite("orangeseeds", "seeds.png", 3, 4, this);
     }
 
     @Override

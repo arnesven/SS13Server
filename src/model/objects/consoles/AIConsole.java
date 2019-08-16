@@ -66,12 +66,12 @@ public class AIConsole extends Console {
     @Override
     public Sprite getSprite(Player whosAsking) {
         if (isShutDown()) {
-            return new Sprite("shutdownai", "computer2.png", 14);
+            return new Sprite("shutdownai", "computer2.png", 14, this);
         }
         if (isCorrupt()) {
-            return new Sprite("corruptai", "computer2.png", 23, 19);
+            return new Sprite("corruptai", "computer2.png", 23, 19, this);
         }
-        return new Sprite("normalaiconsole", "computer2.png", 15);
+        return new Sprite("normalaiconsole", "computer2.png", 15, this);
     }
 
 

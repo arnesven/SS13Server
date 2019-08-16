@@ -16,7 +16,7 @@ public class MiningDrill extends Weapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("miningdrill", "equipment.png", 6, 1);
+        return new Sprite("miningdrill", "equipment.png", 6, 1, this);
     }
 
     @Override

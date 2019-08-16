@@ -13,7 +13,7 @@ public class Orange extends HealingFood {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("orange", "harvest.png", 8, 3);
+        return new Sprite("orange", "harvest.png", 8, 3, this);
     }
 
     @Override

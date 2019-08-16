@@ -26,6 +26,6 @@ public class JunglePlanetPlant extends HideableObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("jungleplant", "jungle.png", 16, 7);
+        return new Sprite("jungleplant", "jungle.png", 16, 7, this);
     }
 }

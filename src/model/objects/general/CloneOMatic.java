@@ -42,12 +42,12 @@ public class CloneOMatic extends ElectricalMachinery {
     @Override
     public Sprite getSprite(Player whosAsking) {
         if (isInUse()) {
-            return new Sprite("clonerinuse", "cloning.png", 1, 0);
+            return new Sprite("clonerinuse", "cloning.png", 1, 0, this);
         }
         if (justStuffed()) {
-            return new Sprite("clonerstuffed", "cloning.png", 5, 0);
+            return new Sprite("clonerstuffed", "cloning.png", 5, 0, this);
         }
-        return new Sprite("cloner", "cloning.png", 0, 0);
+        return new Sprite("cloner", "cloning.png", 0, 0, this);
     }
 
     private boolean justStuffed() {

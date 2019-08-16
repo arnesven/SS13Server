@@ -52,12 +52,12 @@ public class Rapido extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("rapido", "vehicles.png", 2, 6);
+        return new Sprite("rapido", "vehicles.png", 2, 6, this);
     }
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        return new Sprite("rapido", "vehicles.png", 3, 6);
+        return new Sprite("rapido", "vehicles.png", 3, 6, this);
     }
 
     @Override
@@ -177,7 +177,7 @@ public class Rapido extends SuitItem {
 
         @Override
         public Sprite getSprite(Player whosAsking) {
-             return new Sprite("rapidobroken", "vehicles.png", 4, 6);
+             return new Sprite("rapidobroken", "vehicles.png", 4, 6, this);
         }
     }
 }

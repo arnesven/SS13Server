@@ -1,6 +1,7 @@
 package model.items;
 
 import graphics.sprites.Sprite;
+import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.Target;
@@ -23,17 +24,17 @@ public class CosmicArtifact extends GameItem {
 
     public CosmicArtifact() {
         super("Cosmic Artifact", 1.0, false, 1000);
-        this.sprite = MyRandom.sample(spritelist());
+        this.sprite = MyRandom.sample(spritelist(this));
         Logger.log(Logger.INTERESTING, "Cosmic Artifact Sprite is " + getSprite(null).getName());
     }
 
-    private static List<Sprite> spritelist() {
+    private static List<Sprite> spritelist(SpriteObject obj) {
         List<Sprite> sprs = new ArrayList<>();
         for (int i = 17; i < 29; ++i) {
-            sprs.add(new Sprite("cosmicartifact"+i, "weapons2.png", i, 24, 32, 32));
+            sprs.add(new Sprite("cosmicartifact"+i, "weapons2.png", i, 24, 32, 32, obj));
         }
-        sprs.add(new Sprite("cosmicartifacta", "weapons2.png", 7, 24, 32, 32));
-        sprs.add(new Sprite("cosmicartifactb", "weapons2.png", 11, 24, 32, 32));
+        sprs.add(new Sprite("cosmicartifacta", "weapons2.png", 7, 24, 32, 32, obj));
+        sprs.add(new Sprite("cosmicartifactb", "weapons2.png", 11, 24, 32, 32, obj));
         return sprs;
     }
 

@@ -29,7 +29,7 @@ public class LowPressureEvent extends Event {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("lowpressure", "screen2.png", 7, 2);
+        return new Sprite("lowpressure", "screen2.png", 7, 2, this);
     }
 
     @Override

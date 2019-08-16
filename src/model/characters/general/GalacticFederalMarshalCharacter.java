@@ -57,6 +57,6 @@ public class GalacticFederalMarshalCharacter extends HumanCharacter {
         list.add(super.getSprite(whosAsking));
         list.add(new Shotgun().getHandHeldSprite());
         return new Sprite(super.getSprite(whosAsking).getName() + "withshotgun",
-                "human.png", 0, list);
+                "human.png", 0, list, this);
     }
 }

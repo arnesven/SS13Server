@@ -76,21 +76,21 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
     @Override
     public Sprite getSprite(Player whosAsking) {
         if (getPowerOutput() < 0.01) {
-            return new Sprite("powersourcenothing", "stationobjs.png", 150);
+            return new Sprite("powersourcenothing", "stationobjs.png", 150, this);
         } else if (getPowerOutput() < 0.25) {
-            return new Sprite("powersourcelowest", "stationobjs.png", 156);
+            return new Sprite("powersourcelowest", "stationobjs.png", 156, this);
         } else if (getPowerOutput() < 0.5) {
-            return new Sprite("powersourcelower", "stationobjs.png", 157);
+            return new Sprite("powersourcelower", "stationobjs.png", 157, this);
         } else if (getPowerOutput() < 0.75) {
-            return new Sprite("powersourcelow", "stationobjs.png", 159);
+            return new Sprite("powersourcelow", "stationobjs.png", 159, this);
         } else if (getPowerOutput() < 1.1) {
-            return new Sprite("powersourcenormal", "stationobjs.png", 161);
+            return new Sprite("powersourcenormal", "stationobjs.png", 161, this);
         } else if (getPowerOutput() < 1.5) {
-            return new Sprite("powersourcehigh", "stationobjs.png", 167);
+            return new Sprite("powersourcehigh", "stationobjs.png", 167, this);
         } else if (getPowerOutput() < 1.5) {
-            return new Sprite("powersourcehigher", "stationobjs.png", 178);
+            return new Sprite("powersourcehigher", "stationobjs.png", 178, this);
         }
-        return new Sprite("powersource", "stationobjs.png", 160);
+        return new Sprite("powersource", "stationobjs.png", 160, this);
     }
 
     private double internalUpdater(double cp, double pp, List<? extends PowerConsumer> list) {

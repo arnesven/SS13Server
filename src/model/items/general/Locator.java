@@ -33,6 +33,6 @@ public class Locator extends UplinkItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("locator", "device.png", 68);
+        return new Sprite("locator", "device.png", 68, this);
     }
 }

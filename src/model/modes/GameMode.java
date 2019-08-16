@@ -89,9 +89,15 @@ public abstract class GameMode implements Serializable {
         availableChars.put("Janitor",          new JanitorCharacter());
         availableChars.put("Staff Assistant",  new StaffAssistantCharacter());
 		availableChars.put("Visitor",          new VisitorCharacter("Visitor", 0, 0.0){
+            @Override
+            public String getPublicName(Actor whosAsking) {
+                return getPublicName();
+            }
+
             public VisitorCharacter clone() {
                 throw new IllegalStateException("Should not have been called!");
             }
+
         });
 		return availableChars;
 	}
@@ -454,6 +460,11 @@ public abstract class GameMode implements Serializable {
 			GameCharacter gc;
 			if (remainingChars.size() == 0) {
 				gc = new VisitorCharacter("asdf") {
+                    @Override
+                    public String getPublicName(Actor whosAsking) {
+                        return null;
+                    }
+
                     @Override
                     public GameCharacter clone() {
                         return null;

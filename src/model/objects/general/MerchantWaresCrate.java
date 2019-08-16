@@ -37,7 +37,7 @@ public class MerchantWaresCrate extends ContainerObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("merchantwarescrates", "storage.png", 49);
+        return new Sprite("merchantwarescrates", "storage.png", 49, this);
     }
 
     @Override

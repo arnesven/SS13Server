@@ -20,7 +20,7 @@ public class Saxophone extends BluntWeapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("saxophone", "saxophone.png", 0);
+        return new Sprite("saxophone", "saxophone.png", 0, this);
     }
 
     @Override

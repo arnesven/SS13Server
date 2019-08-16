@@ -8,6 +8,6 @@ public class RegularBlackShoesSprite extends Sprite {
 
 
     public RegularBlackShoesSprite() {
-        super("standardshoes", "feet.png", 0);
+        super("standardshoes", "feet.png", 0, null);
     }
 }

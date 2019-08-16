@@ -58,7 +58,7 @@ public abstract class Chemicals extends FoodItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("chemicals"+spriteCol, "chemical.png", spriteCol);
+        return new Sprite("chemicals"+spriteCol, "chemical.png", spriteCol, this);
     }
 
     @Override

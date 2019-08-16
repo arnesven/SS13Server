@@ -35,7 +35,7 @@ public class NoPressureEvent extends Event {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("nopressure", "screen2.png", 6, 2);
+        return new Sprite("nopressure", "screen2.png", 6, 2, this);
     }
 
     private void removeFires(Room roomRef2) {

@@ -27,7 +27,7 @@ public class BlockMovement extends MovePower {
 
     @Override
     public Sprite getButtonSprite() {
-        return new Sprite("blockpathbutton", "buttons2.png", 1, 7);
+        return new Sprite("blockpathbutton", "buttons2.png", 1, 7, this);
     }
 
     private class BlockCharacterDecorator extends CharacterDecorator {

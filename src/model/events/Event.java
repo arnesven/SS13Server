@@ -2,6 +2,7 @@ package model.events;
 
 
 import graphics.sprites.Sprite;
+import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -9,7 +10,7 @@ import model.actions.general.SensoryLevel;
 
 import java.io.Serializable;
 
-public abstract class Event extends Experienceable implements Serializable {
+public abstract class Event extends Experienceable implements SpriteObject, Serializable {
 
     private boolean shouldBeRemoved = false;
 	public abstract void apply(GameData gameData);
@@ -34,7 +35,7 @@ public abstract class Event extends Experienceable implements Serializable {
 
 
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("event", "decals2.png", 5, 0, 32, 32);
+        return new Sprite("event", "decals2.png", 5, 0, 32, 32, this);
     }
 
     public double getProbability() {
@@ -51,6 +52,10 @@ public abstract class Event extends Experienceable implements Serializable {
 
     public void experienceNear(Player p) {
 
+    }
+
+    public String getPublicName(Actor whosAsking) {
+	    return howYouAppear(whosAsking);
     }
 
 

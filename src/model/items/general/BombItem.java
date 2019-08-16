@@ -55,7 +55,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("bombitem", "assemblies.png", 43);
+        return new Sprite("bombitem", "assemblies.png", 43, this);
     }
 	
 	@Override

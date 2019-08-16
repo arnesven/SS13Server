@@ -16,6 +16,6 @@ public class Beer extends Alcohol {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("beer", "drinks.png", 7, 4);
+        return new Sprite("beer", "drinks.png", 7, 4, this);
     }
 }

@@ -23,7 +23,7 @@ public class Revolver extends AmmoWeapon implements PiercingWeapon {
 
     @Override
     public Sprite getHandHeldSprite() {
-        return new Sprite("revolverinhand", "items_righthand.png", 12, 20);
+        return new Sprite("revolverinhand", "items_righthand.png", 12, 20, this);
     }
 
 

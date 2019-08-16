@@ -28,12 +28,12 @@ public class PowerSuit extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("powersuit", "mecha.png", 14);
+        return new Sprite("powersuit", "mecha.png", 14, this);
     }
 
     @Override
     public Sprite getWornSprite(Actor whosAsking) {
-        return new Sprite("powersuitworn", "mecha.png", 10);
+        return new Sprite("powersuitworn", "mecha.png", 10, this);
     }
 
 
@@ -132,7 +132,7 @@ public class PowerSuit extends SuitItem {
 
         @Override
         public Sprite getSprite(Player whosAsking) {
-            return new Sprite("brokenpowersuit", "mecha.png", 15);
+            return new Sprite("brokenpowersuit", "mecha.png", 15, this);
         }
     }
 }

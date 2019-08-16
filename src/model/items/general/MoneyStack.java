@@ -31,12 +31,12 @@ public class MoneyStack extends ItemStack {
         int i = 0;
         for (int lim : limits) {
             if (getAmount() < lim) {
-                return new Sprite("monestack"+getAmount(), "items2.png", 4+i, 3);
+                return new Sprite("monestack"+getAmount(), "items2.png", 4+i, 3, this);
             }
             i++;
         }
         i--;
-        return new Sprite("monestack"+getAmount(), "items2.png", 4+i, 3);
+        return new Sprite("monestack"+getAmount(), "items2.png", 4+i, 3, this);
 
 
     }

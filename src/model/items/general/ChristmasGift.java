@@ -23,11 +23,11 @@ public class ChristmasGift extends GameItem {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (innerItem.getWeight() < 0.5) {
-            return new Sprite("christmasgiftsmall", "items.png", 4);
+            return new Sprite("christmasgiftsmall", "items.png", 4, this);
         } else if (innerItem.getWeight() < 1.5) {
-            return new Sprite("chrustmasgiftmedium", "items.png", 5);
+            return new Sprite("chrustmasgiftmedium", "items.png", 5, this);
         }
-        return new Sprite("chrustmasgiftbif", "items.png", 6);
+        return new Sprite("chrustmasgiftbif", "items.png", 6, this);
     }
 
     @Override

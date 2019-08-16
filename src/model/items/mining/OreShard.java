@@ -17,7 +17,7 @@ public abstract class OreShard extends GameItem {
     public Sprite getSprite(Actor whosAsking) {
         int rand = MyRandom.nextInt(3);
 
-        return new Sprite(getShardTypeName() + "shard" + rand, "shards.png", rand, getSpriteRow());
+        return new Sprite(getShardTypeName() + "shard" + rand, "shards.png", rand, getSpriteRow(), this);
     }
 
     protected abstract String getShardTypeName();

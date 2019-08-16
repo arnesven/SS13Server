@@ -31,7 +31,7 @@ public class RadiationStorm extends AmbientEvent {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("radiationstorm", "decals2.png", 2, 6);
+        return new Sprite("radiationstorm", "decals2.png", 2, 6, this);
     }
 
     @Override

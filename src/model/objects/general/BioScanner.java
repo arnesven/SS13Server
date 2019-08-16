@@ -26,7 +26,7 @@ public class BioScanner extends ElectricalMachinery {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("bioscanner", "cryogenic.png", 104);
+        return new Sprite("bioscanner", "cryogenic.png", 104, this);
     }
 
     @Override

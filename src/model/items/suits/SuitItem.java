@@ -23,13 +23,13 @@ public abstract class SuitItem extends GameItem implements Wearable {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("suititem", "uniforms.png", 0);
+        return new Sprite("suititem", "uniforms.png", 0, this);
     }
 
     protected Sprite getWornSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
         list.add(new RegularBlackShoesSprite());
-        return new Sprite("suititemworn", "uniform.png", 0, list);
+        return new Sprite("suititemworn", "uniform.png", 0, list, this);
     }
 
     public final Sprite getGetup(Actor whosWearing, Actor whosAsking) {
@@ -45,7 +45,7 @@ public abstract class SuitItem extends GameItem implements Wearable {
         if (under == null) {
             Sprite naked = whosWearing.getCharacter().getNakedSprite();
             list.add(0, naked);
-            list.add(0, new Sprite("getupbase", "human.png", 0));
+            list.add(0, new Sprite("getupbase", "human.png", 0, this));
             buf.append(whosWearing.getBaseName());
             buf.append(naked.getName());
         } else {

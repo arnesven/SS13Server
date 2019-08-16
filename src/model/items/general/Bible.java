@@ -45,7 +45,7 @@ public class Bible extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("bible", "bible.png", 0);
+        return new Sprite("bible", "bible.png", 0, this);
     }
 
     public void addGodPoints(int i) {

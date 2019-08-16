@@ -30,7 +30,7 @@ public class OreShardBag extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("oreshardbag", "storage.png", 0);
+        return new Sprite("oreshardbag", "storage.png", 0, this);
     }
 
     @Override

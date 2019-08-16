@@ -13,12 +13,12 @@ public class AdventurersHat extends SuitItem {
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        return new Sprite("stetsonw", "head.png", 10, 5, 32, 32);
+        return new Sprite("stetsonw", "head.png", 10, 5, 32, 32, this);
     }
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("stetson", "hats.png", 6);
+        return new Sprite("stetson", "hats.png", 6, this);
     }
 
     @Override

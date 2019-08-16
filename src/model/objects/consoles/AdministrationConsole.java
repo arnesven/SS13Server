@@ -67,7 +67,7 @@ public class AdministrationConsole extends Console {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("adminconsole", "computer2.png", 1, 12);
+        return new Sprite("adminconsole", "computer2.png", 1, 12, this);
     }
 
     private boolean hasAdminPrivilege(Actor cl) {

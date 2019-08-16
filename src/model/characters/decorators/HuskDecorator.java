@@ -12,7 +12,7 @@ public class HuskDecorator extends CharacterDecorator {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("husk", "human.png", 137);
+        return new Sprite("husk", "human.png", 137, this);
     }
 
     @Override

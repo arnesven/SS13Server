@@ -64,7 +64,7 @@ public class SuperSuit extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("supersuit", "uniforms.png", 0, 5);
+        return new Sprite("supersuit", "uniforms.png", 0, 5, this);
     }
 
     @Override

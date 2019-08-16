@@ -20,9 +20,9 @@ public class TeleportingDecorator extends AlterMovement {
         Sprite sp = super.getSprite(whosAsking);
         List<Sprite> sps = new ArrayList<>();
         sps.add(sp);
-        Sprite tele = new Sprite("teleporting" + sp.getName(), "effects.png", 4, 15);
+        Sprite tele = new Sprite("teleporting" + sp.getName(), "effects.png", 4, 15, this);
         sps.add(tele);
-        Sprite res = new Sprite("tele" + tele.getName(), "blank.png", 0, sps);
+        Sprite res = new Sprite("tele" + tele.getName(), "blank.png", 0, sps, this);
         return res;
     }
 }

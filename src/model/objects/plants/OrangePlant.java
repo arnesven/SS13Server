@@ -27,7 +27,7 @@ public class OrangePlant extends StagePlant {
     protected List<Sprite> getSpriteStages() {
         List<Sprite> sprites = new ArrayList<>();
         for (int c = 14; c <= 17; c++) {
-            sprites.add(new Sprite("orangetree" + c, "hydroponics.png", c, 13));
+            sprites.add(new Sprite("orangetree" + c, "hydroponics.png", c, 13, this));
         }
         return sprites;
     }

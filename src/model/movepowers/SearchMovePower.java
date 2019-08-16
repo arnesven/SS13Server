@@ -19,6 +19,6 @@ public class SearchMovePower extends MovePower {
 
     @Override
     public Sprite getButtonSprite() {
-        return new Sprite("searchmovepower", "buttons1.png", 4, 2);
+        return new Sprite("searchmovepower", "buttons1.png", 4, 2, this);
     }
 }

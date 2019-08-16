@@ -11,7 +11,7 @@ import java.util.List;
 public class SpectatorSprite extends Sprite {
 
     public SpectatorSprite(String s, String s1, int i, int i1, int i2, int i3, List<Sprite> spriteList) {
-        super(s, s1, i, i1, i2, i3, spriteList);
+        super(s, s1, i, i1, i2, i3, spriteList, null);
     }
 
     @Override

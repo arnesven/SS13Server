@@ -60,6 +60,6 @@ public class BombDetonator extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("bombdetonator", "device.png", 16);
+        return new Sprite("bombdetonator", "device.png", 16, this);
     }
 }

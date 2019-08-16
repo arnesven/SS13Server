@@ -26,7 +26,7 @@ public class AutoAttack extends MovePower {
 
     @Override
     public Sprite getButtonSprite() {
-        return new Sprite("autoattackbutton", "buttons2.png", 3, 7);
+        return new Sprite("autoattackbutton", "buttons2.png", 3, 7, this);
     }
 
     private class AttackSomeoneWhoEntered extends CharacterDecorator {

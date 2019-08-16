@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import graphics.sprites.Sprite;
+import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -22,14 +23,14 @@ import util.Logger;
  * An item is an object which can be held, dropped, picked up or used
  * by a character.
  */
-public abstract class GameItem implements Locatable, Serializable {
+public abstract class GameItem implements Locatable, SpriteObject, Serializable {
 
     private final boolean usableFromFloor;
     private String name;
 	private double weight;
 	private Room position;
 	private GameCharacter holder = null;
-    private Sprite sprite = new Sprite("keycard", "card.png", 1);
+    private Sprite sprite = new Sprite("keycard", "card.png", 1, this);
     private int cost;
 
     public GameItem(String string, double weight, boolean usableFromFloor, int cost) {

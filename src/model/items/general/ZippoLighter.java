@@ -21,7 +21,7 @@ public class ZippoLighter extends LightItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("zippo", "items2.png", 3, 4);
+        return new Sprite("zippo", "items2.png", 3, 4, this);
     }
 
     @Override

@@ -56,7 +56,7 @@ public class OverlaySprites {
 
 
     public static List<String> dummyList() {
-        Sprite sp = new Sprite("dummy", "animal.png", 0);
+        Sprite sp = new Sprite("dummy", "animal.png", 0, null);
         ArrayList<String> dummyList = new ArrayList<>();
         dummyList.add(sp.getName()+",0.0,0.0");
         return dummyList;
@@ -112,7 +112,7 @@ public class OverlaySprites {
 
         strs.addAll(getStringsForSpritesInRoom(sp, r));
 
-        Sprite blurredCharacterSprite = new Sprite("blurredchar", "human.png", 138);
+        Sprite blurredCharacterSprite = new BlurredCharacter().getSprite(player);
         for (Room r2 : r.getNeighborList()) {
             List<Sprite> sp2 = new ArrayList<>();
             for (Actor a : r2.getActors()) {
@@ -300,7 +300,7 @@ public class OverlaySprites {
         for (GameObject ob : r.getObjects()) {
             if (ob instanceof ElectricalMachinery) {
                 if (!ElectricalMachinery.isPowered(gameData, (ElectricalMachinery) ob)) {
-                    sp.add(new Sprite("nopowerdecal", "decals2.png", 6));
+                    sp.add(new Sprite("nopowerdecal", "decals2.png", 6, null));
                     break;
                 }
             }

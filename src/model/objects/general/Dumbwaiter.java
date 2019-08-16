@@ -38,7 +38,7 @@ public class Dumbwaiter extends GameObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("dumbwaiter", "storage2.png", 3, 13);
+        return new Sprite("dumbwaiter", "storage2.png", 3, 13, this);
     }
 
     public List<Room> getDestinations(GameData gameData) {

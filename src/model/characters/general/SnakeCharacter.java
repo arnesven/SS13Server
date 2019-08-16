@@ -21,9 +21,9 @@ public class SnakeCharacter extends AnimalCharacter {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (isDead()) {
-            return new Sprite("snakedead", "alien.png", 26);
+            return new Sprite("snakedead", "alien.png", 26, this);
         }
-        return new Sprite("snake", "alien.png", 15);
+        return new Sprite("snake", "alien.png", 15, this);
     }
 
     @Override

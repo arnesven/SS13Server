@@ -18,7 +18,7 @@ public class LizardMutation extends Mutation {
         return new CharacterDecorator(forWhom.getCharacter(), "Lizard") {
             @Override
             public Sprite getNakedSprite() {
-                return new Sprite("lizardguy", "genetics.png", 47);
+                return new Sprite("lizardguy", "genetics.png", 47, this);
             }
 
             @Override

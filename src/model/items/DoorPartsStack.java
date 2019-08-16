@@ -23,7 +23,7 @@ public class DoorPartsStack extends ItemStack {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("doorparts", "items.png", 46);
+        return new Sprite("doorparts", "items.png", 46, this);
     }
 
     @Override

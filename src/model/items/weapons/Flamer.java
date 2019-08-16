@@ -32,12 +32,12 @@ public class Flamer extends Weapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("flamer", "weapons.png", 14);
+        return new Sprite("flamer", "weapons.png", 14, this);
     }
 
     @Override
     public Sprite getHandHeldSprite() {
-        return new Sprite("flamerhandheld", "items_righthand.png", 16, 18);
+        return new Sprite("flamerhandheld", "items_righthand.png", 16, 18, this);
     }
 
     @Override

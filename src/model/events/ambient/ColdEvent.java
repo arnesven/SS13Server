@@ -58,7 +58,7 @@ public class ColdEvent extends Event {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("coldevent", "screen1.png", 5, 2);
+        return new Sprite("coldevent", "screen1.png", 5, 2, this);
     }
 
     @Override

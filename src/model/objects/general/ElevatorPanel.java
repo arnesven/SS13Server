@@ -25,7 +25,7 @@ public class ElevatorPanel extends ElectricalMachinery {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("elevatorpanel", "power.png", 6, 10);
+        return new Sprite("elevatorpanel", "power.png", 6, 10, this);
     }
 
     @Override

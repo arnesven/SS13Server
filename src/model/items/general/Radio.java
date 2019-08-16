@@ -54,6 +54,6 @@ public abstract class Radio extends UplinkItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("radio", "device.png", 52);
+        return new Sprite("radio", "device.png", 52, this);
     }
 }

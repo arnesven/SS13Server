@@ -37,7 +37,7 @@ public class Refrigerator extends DispenserObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("cabinet", "closet.png", 45);
+        return new Sprite("cabinet", "closet.png", 45, this);
     }
 
     @Override

@@ -27,6 +27,6 @@ public class Tomato extends HealingFood {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("tomatosmall", "harvest.png", 1, 2);
+        return new Sprite("tomatosmall", "harvest.png", 1, 2, this);
     }
 }

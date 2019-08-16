@@ -25,14 +25,14 @@ public class SpaceSuit extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("spacesuit", "suits.png", 4);
+        return new Sprite("spacesuit", "suits.png", 4, this);
     }
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
-        list.add(new Sprite("spacesuithelmet", "head.png", 10));
-        return new Sprite("spacesuitworn", "suit.png", 20, list);
+        list.add(new Sprite("spacesuithelmet", "head.png", 10, this));
+        return new Sprite("spacesuitworn", "suit.png", 20, list, this);
     }
 
     @Override

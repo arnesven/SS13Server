@@ -69,6 +69,6 @@ public class DummyHivePlacer extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("keycard", "card.png", 1);
+        return new Sprite("keycard", "card.png", 1, this);
     }
 }

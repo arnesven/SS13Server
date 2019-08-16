@@ -49,6 +49,6 @@ public class HealyourselfMovePower extends MovePower {
 
     @Override
     public Sprite getButtonSprite() {
-        return new Sprite("healyourselfbutton", "buttons1.png", 4, 1);
+        return new Sprite("healyourselfbutton", "buttons1.png", 4, 1, this);
     }
 }

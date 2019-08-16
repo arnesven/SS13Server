@@ -57,8 +57,13 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public String getPublicName() {
 		return innerChar.getPublicName();
 	}
-	
-	@Override
+
+    public String getPublicName(Actor whosAsking) {
+        return innerChar.getPublicName(whosAsking);
+    }
+
+
+    @Override
 	public String getFullName() {
 		return innerChar.getFullName();
 	}

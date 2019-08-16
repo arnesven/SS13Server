@@ -44,7 +44,7 @@ public class Laptop extends UplinkItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("laptop", "computer2.png", 0, 18, 32, 32);
+        return new Sprite("laptop", "computer2.png", 0, 18, 32, 32, this);
     }
 
     @Override

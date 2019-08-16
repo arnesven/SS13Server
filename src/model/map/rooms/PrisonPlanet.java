@@ -20,6 +20,6 @@ public class PrisonPlanet extends Room {
         return new Sprite("prisonplanetback", "prisonplanet.png",
                 0, 0,
                 240, 180, (clientInfo.getWidth()*60)/100,
-                clientInfo.getHeight());
+                clientInfo.getHeight(), null);
     }
 }

@@ -34,7 +34,7 @@ public class MerchantSuit extends SuitItem {
     protected Sprite getWornSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
         list.add(new RegularBlackShoesSprite());
-        return new Sprite("merchantssuitworn", "uniform2.png", 32, 26, 32, 32, list);
+        return new Sprite("merchantssuitworn", "uniform2.png", 32, 26, 32, 32, list, this);
     }
 
     @Override

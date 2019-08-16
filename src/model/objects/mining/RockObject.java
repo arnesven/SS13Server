@@ -32,9 +32,9 @@ public abstract class RockObject extends GameObject {
     @Override
     public Sprite getSprite(Player whosAsking) {
         if (isBroken()) {
-            return new Sprite("regularrockbroken", "meteor.png", 1, 1);
+            return new Sprite("regularrockbroken", "meteor.png", 1, 1, this);
         }
-        return new Sprite("regularrock", "meteor.png", 1);
+        return new Sprite("regularrock", "meteor.png", 1, this);
     }
 
     public boolean isBroken() {

@@ -67,7 +67,7 @@ public class RedWeed extends StagePlant {
     protected List<Sprite> getSpriteStages() {
         List<Sprite> list = new ArrayList<>();
         for (int c = 18; c <= 23; c++) {
-            list.add(new Sprite("redweedstage" + c, "hydroponics.png", c, 6));
+            list.add(new Sprite("redweedstage" + c, "hydroponics.png", c, 6, this));
         }
         return list;
     }

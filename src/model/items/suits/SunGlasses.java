@@ -19,12 +19,12 @@ public class SunGlasses extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("sunglasses", "glasses.png", 1);
+        return new Sprite("sunglasses", "glasses.png", 1, this);
     }
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        return new Sprite("sunglassesworn", "eyes.png", 4);
+        return new Sprite("sunglassesworn", "eyes.png", 4, this);
     }
 
     @Override

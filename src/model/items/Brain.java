@@ -26,7 +26,7 @@ public class Brain extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new  Sprite("brain", "surgery.png", 2, 1);
+        return new  Sprite("brain", "surgery.png", 2, 1, this);
     }
 
     @Override

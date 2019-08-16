@@ -41,6 +41,7 @@ public class BotProgram implements Serializable {
         selectedBot.setMoveBehavior(this.moveBehave);
         selectedBot.setActionBehavior(this.actBehave);
         if (sprite != null) {
+            sprite.setObjectRef(selectedBot.getCharacter());
             selectedBot.setCharacter(new CharacterDecorator(selectedBot.getCharacter(), "sprite change") {
 
                 @Override
@@ -55,6 +56,6 @@ public class BotProgram implements Serializable {
         return new BotProgram("Hostile",
                 new MoveTowardsClosestActorMovement(gameData),
                 new AttackAllActorsNotSameClassBehavior(),
-                new Sprite("hostilebot", "robots2.png", 13, 15));
+                new Sprite("hostilebot", "robots2.png", 13, 15, null));
     }
 }

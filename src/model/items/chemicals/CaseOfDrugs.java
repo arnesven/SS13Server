@@ -20,7 +20,7 @@ public class CaseOfDrugs extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("caseofdrugs", "storage2.png", 6, 3);
+        return new Sprite("caseofdrugs", "storage2.png", 6, 3, this);
     }
 
     @Override

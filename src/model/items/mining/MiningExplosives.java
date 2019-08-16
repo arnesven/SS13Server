@@ -34,10 +34,10 @@ public class MiningExplosives extends BombItem {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
-        list.add(new Sprite("mineingexp1", "equipment.png", 4, 2));
-        list.add(new Sprite("mineingexp2", "equipment.png", 6, 3));
+        list.add(new Sprite("mineingexp1", "equipment.png", 4, 2, this));
+        list.add(new Sprite("mineingexp2", "equipment.png", 6, 3, this));
 
-        Sprite total = new Sprite("miningexptotal", "equipment.png", 3, 4, 32, 32, list);
+        Sprite total = new Sprite("miningexptotal", "equipment.png", 3, 4, 32, 32, list, this);
 
         return total;
     }

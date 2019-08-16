@@ -16,12 +16,12 @@ public class OxygenMask extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("oxymask", "hats.png", 2);
+        return new Sprite("oxymask", "hats.png", 2, this);
     }
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        return new Sprite("oxymaskworn", "mask.png", 8);
+        return new Sprite("oxymaskworn", "mask.png", 8, this);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class MailBox extends ElectricalMachinery {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("mailbox", "stationobjs.png", 0);
+        return new Sprite("mailbox", "stationobjs.png", 0, this);
     }
 
     private class SendAshesToRelatives extends Action {

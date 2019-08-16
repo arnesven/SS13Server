@@ -21,15 +21,15 @@ public class MinerSpaceSuit extends SpaceSuit {
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        Sprite body = new Sprite("minerspacesuitbody", "suit2.png", 15, 3);
+        Sprite body = new Sprite("minerspacesuitbody", "suit2.png", 15, 3, this);
         List<Sprite> sprs = new ArrayList<>();
         sprs.add(body);
-        Sprite feet = new Sprite("minerspacesuitfeet", "head2.png", 2, 3, 32, 32, sprs);
+        Sprite feet = new Sprite("minerspacesuitfeet", "head2.png", 2, 3, 32, 32, sprs, this);
         return feet;
     }
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("minerspacesuitfloor", "suits.png", 4);
+        return new Sprite("minerspacesuitfloor", "suits.png", 4, this);
     }
 }

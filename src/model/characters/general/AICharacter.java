@@ -78,9 +78,9 @@ public class AICharacter extends GhostCharacter {
     @Override
     public Sprite getNakedSprite() {
         if (isEvil) {
-            return new Sprite("aipresence", "AI.png", 0, 1);
+            return new Sprite("aipresence", "AI.png", 0, 1, this);
         }
-        return new Sprite("aipresence", "AI.png", 0);
+        return new Sprite("aipresence", "AI.png", 0, this);
     }
 
     @Override

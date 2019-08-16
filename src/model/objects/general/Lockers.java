@@ -22,6 +22,6 @@ public class Lockers extends ContainerObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("lockers", "closet.png", 0);
+        return new Sprite("lockers", "closet.png", 0, this);
     }
 }

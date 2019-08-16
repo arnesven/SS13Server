@@ -25,7 +25,7 @@ public class RedMushroom extends Mushroom {
     protected List<Sprite> getSpriteStages() {
         List<Sprite> sprs = new ArrayList<>();
         for (int c = 2; c <= 6; ++c) {
-            sprs.add(new Sprite("redmushroom" + c, "hydroponics.png", c, 5));
+            sprs.add(new Sprite("redmushroom" + c, "hydroponics.png", c, 5, this));
         }
         return sprs;
     }
@@ -57,7 +57,7 @@ public class RedMushroom extends Mushroom {
 
         @Override
         public Sprite getSprite(Actor whosAsking) {
-            return new Sprite("redmushroomitem", "harvest.png", 5);
+            return new Sprite("redmushroomitem", "harvest.png", 5, this);
         }
 
         @Override

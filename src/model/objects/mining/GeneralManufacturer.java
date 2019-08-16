@@ -42,7 +42,7 @@ public class GeneralManufacturer extends ElectricalMachinery {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("generalmanufacturer", "robotics.png", 4);
+        return new Sprite("generalmanufacturer", "robotics.png", 4, this);
     }
 
     @Override

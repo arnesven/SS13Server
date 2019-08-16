@@ -13,7 +13,7 @@ public class Snowman extends GameObject {
 	
 	@Override
 	public Sprite getSprite(Player whosAsking){
-		return new Sprite("snowman", "snowman.png", 0);
+		return new Sprite("snowman", "snowman.png", 0, this);
 		
 	}
 

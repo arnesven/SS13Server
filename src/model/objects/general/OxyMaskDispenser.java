@@ -28,6 +28,6 @@ public class OxyMaskDispenser extends DispenserObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("oxymaskdispenser", "closet.png", 18);
+        return new Sprite("oxymaskdispenser", "closet.png", 18, this);
     }
 }

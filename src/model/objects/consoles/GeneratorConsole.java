@@ -30,7 +30,7 @@ public class GeneratorConsole extends Console {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("powerconsole", "computer2.png", 16, 10);
+        return new Sprite("powerconsole", "computer2.png", 16, 10, this);
     }
 
 

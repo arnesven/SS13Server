@@ -15,6 +15,6 @@ public class Christmas_lights extends GameObject {
 
 	@Override
 	public Sprite getSprite(Player whosAsking){
-		return new Sprite("christmas_lights", "christmas_lights.png", 0);
+		return new Sprite("christmas_lights", "christmas_lights.png", 0, this);
 	}
 }

@@ -16,6 +16,6 @@ public class RedDimensionPortal extends DimensionPortal {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("portalred", "weapons2.png", 22, 10, 32, 32);
+        return new Sprite("portalred", "weapons2.png", 22, 10, 32, 32, this);
     }
 }

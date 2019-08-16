@@ -31,7 +31,7 @@ public class Tools extends BluntWeapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("tools", "storage.png", 15);
+        return new Sprite("tools", "storage.png", 15, this);
     }
 
     @Override

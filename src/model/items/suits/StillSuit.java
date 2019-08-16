@@ -19,15 +19,15 @@ public class StillSuit extends SuitItem {
     @Override
     public Sprite getSprite(Actor whosAsking) {
 
-        return new Sprite("stillsuit", "suits.png", 18);
+        return new Sprite("stillsuit", "suits.png", 18, this);
     }
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
         ArrayList<Sprite> list = new ArrayList<Sprite>();
         list.add(new RegularBlackShoesSprite());
-        list.add(new Sprite("blackmask", "mask.png", 7, 11));
-        return new Sprite("stillsuitworn", "suit2.png", 0, 20, 32, 32, list);
+        list.add(new Sprite("blackmask", "mask.png", 7, 11, this));
+        return new Sprite("stillsuitworn", "suit2.png", 0, 20, 32, 32, list, this);
 
     }
 

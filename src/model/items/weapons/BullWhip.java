@@ -24,7 +24,7 @@ public class BullWhip extends Weapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("bullwhip", "weapons2.png", 27, 29, 32, 32);
+        return new Sprite("bullwhip", "weapons2.png", 27, 29, 32, 32, this);
     }
 
     @Override

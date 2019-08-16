@@ -26,6 +26,6 @@ public class MiningStorage extends ContainerObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("miningstorage", "closet.png", 11);
+        return new Sprite("miningstorage", "closet.png", 11, this);
     }
 }

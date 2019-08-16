@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.programs.BotProgram;
 import util.Logger;
 import util.MyPaths;
 
@@ -18,6 +19,8 @@ import javax.security.auth.login.Configuration;
  * Created by erini02 on 24/04/16.
  */
 public class Sprite implements Serializable {
+
+    private SpriteObject objectReference;
     private List<Sprite> layers;
     private String name;
     private String mapPath;
@@ -33,7 +36,7 @@ public class Sprite implements Serializable {
 
 
     public Sprite(String name, String mapPath, int column, int row, int width, int height,
-                  List<Sprite> layers){
+                  List<Sprite> layers, SpriteObject objectRef){
         this.name = name;
         this.mapPath = mapPath;
         this.row = row;
@@ -43,6 +46,7 @@ public class Sprite implements Serializable {
         this.layers = layers;
         this.resizeWidth = width;
         this.resizeHeight = height;
+        this.objectReference = objectRef;
         SpriteManager.register(this);
         try {
             getImage();
@@ -52,7 +56,7 @@ public class Sprite implements Serializable {
     }
 
     public Sprite(Sprite other, String suffix) {
-        this(other.name + suffix, other.mapPath, other.getColumn(), other.getRow(), other.getWidth(), other.getHeight(), other.getLayers());
+        this(other.name + suffix, other.mapPath, other.getColumn(), other.getRow(), other.getWidth(), other.getHeight(), other.getLayers(), other.objectReference);
     }
 
     protected List<Sprite> getLayers() {
@@ -60,33 +64,34 @@ public class Sprite implements Serializable {
     }
 
 
-    public Sprite(String name, String mapPath, int column, int row, int width, int height){
-        this(name, mapPath, column, row, width, height, new ArrayList<>());
+    public Sprite(String name, String mapPath, int column, int row, int width, int height, SpriteObject objectRef){
+        this(name, mapPath, column, row, width, height, new ArrayList<>(), objectRef);
     }
 
 
-    public Sprite(String name, String mapPath, int column, int row) {
-        this(name, mapPath, column, row, 32, 32);
+    public Sprite(String name, String mapPath, int column, int row, SpriteObject objectRef) {
+        this(name, mapPath, column, row, 32, 32, objectRef);
     }
 
-    public Sprite(String name, String mapPath, int column, int row, int width, int height, int resizeW, int resizeH) {
-        this(name, mapPath, column, row, width, height);
+    public Sprite(String name, String mapPath, int column, int row, int width, int height, int resizeW, int resizeH, SpriteObject objectRef) {
+        this(name, mapPath, column, row, width, height, objectRef);
         this.resizeWidth = resizeW;
         this.resizeHeight = resizeH;
     }
 
-    public Sprite(String name, String mapPath, int column) {
-        this(name, mapPath, column, 0);
+    public Sprite(String name, String mapPath, int column, SpriteObject objectRef) {
+        this(name, mapPath, column, 0, objectRef);
     }
 
     public Sprite(String name, List<Sprite> list) {
         this(name, list.get(0).getMap(), list.get(0).getColumn(),
                 list.get(0).getRow(), list.get(0).getWidth(),
-                list.get(0).getHeight(), new ArrayList<Sprite>(list.subList(1, list.size())));
+                list.get(0).getHeight(), new ArrayList<Sprite>(list.subList(1, list.size())),
+                list.get(0).objectReference);
     }
 
-    public Sprite(String name, String mapPath, int column, List<Sprite> list) {
-        this(name, mapPath, column, 0, 32, 32, list);
+    public Sprite(String name, String mapPath, int column, List<Sprite> list, SpriteObject objectRef) {
+        this(name, mapPath, column, 0, 32, 32, list, objectRef);
     }
 
     public String getName(){
@@ -216,4 +221,7 @@ public class Sprite implements Serializable {
         return sp;
     }
 
+    public void setObjectRef(SpriteObject obj) {
+        this.objectReference = obj;
+    }
 }

@@ -67,7 +67,7 @@ public class Grenade extends GameItem implements Damager, ExplodableItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("grenade", "grenade.png", 0);
+        return new Sprite("grenade", "grenade.png", 0, this);
     }
 
     @Override

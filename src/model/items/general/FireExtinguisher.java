@@ -71,7 +71,7 @@ public class FireExtinguisher extends BluntWeapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("fireext", "items.png", 40);
+        return new Sprite("fireext", "items.png", 40, this);
     }
 
     public void decrementLevel() {

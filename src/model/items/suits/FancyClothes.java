@@ -15,12 +15,12 @@ public class FancyClothes extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("fancyclothes", "uniforms.png", 0, 6);
+        return new Sprite("fancyclothes", "uniforms.png", 0, 6, this);
     }
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        return new Sprite("fancyclothesworn", "uniform2.png", 7, 23);
+        return new Sprite("fancyclothesworn", "uniform2.png", 7, 23, this);
     }
 
     @Override

@@ -19,7 +19,7 @@ public abstract class FoodItem extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("fooditem", "food.png", 2);
+        return new Sprite("fooditem", "food.png", 2, this);
     }
 
     @Override

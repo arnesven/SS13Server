@@ -14,7 +14,7 @@ public class FlashLight extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("flashlight", "lighting.png", 12, 7);
+        return new Sprite("flashlight", "lighting.png", 12, 7, this);
     }
 
     @Override

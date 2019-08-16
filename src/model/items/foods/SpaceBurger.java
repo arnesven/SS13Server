@@ -13,7 +13,7 @@ public class SpaceBurger extends HealingFood {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("spaceburger", "food.png", 2);
+        return new Sprite("spaceburger", "food.png", 2, this);
     }
 
     @Override

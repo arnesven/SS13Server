@@ -29,6 +29,6 @@ public class ChemicalApparatus extends ElectricalMachinery {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("chemicalapparatus", "chemical.png", 64);
+        return new Sprite("chemicalapparatus", "chemical.png", 64, this);
     }
 }

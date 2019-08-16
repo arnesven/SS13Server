@@ -13,6 +13,6 @@ public class BloodyMess extends GameObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("bloodymess", "blood.png", 8, 9);
+        return new Sprite("bloodymess", "blood.png", 8, 9, this);
     }
 }

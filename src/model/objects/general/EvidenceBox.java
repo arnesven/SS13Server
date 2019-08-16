@@ -22,7 +22,7 @@ public class EvidenceBox extends ContainerObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("evidencebox", "storage.png", 42);
+        return new Sprite("evidencebox", "storage.png", 42, this);
     }
 
     public void addAffects(Actor owner, List<GameItem> affs) {

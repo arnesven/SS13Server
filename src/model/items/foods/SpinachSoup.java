@@ -21,7 +21,7 @@ public class SpinachSoup extends HealingFood {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("spinachsoup", "food.png", 19, 3);
+        return new Sprite("spinachsoup", "food.png", 19, 3, this);
     }
 
     @Override

@@ -40,7 +40,7 @@ public class SoilPatch extends BreakableObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        Sprite s = new Sprite("soilpatch", "hydroponics.png", 10, 17);
+        Sprite s = new Sprite("soilpatch", "hydroponics.png", 10, 17, this);
         
         if (plant == null) {
             return s;
@@ -48,7 +48,7 @@ public class SoilPatch extends BreakableObject {
         List<Sprite> sp = new ArrayList<>();
         sp.add(plant.getSprite(whosAsking));
         return new Sprite("soilpatch" + plant.getSprite(whosAsking).getName(),
-                "hydroponics.png", 10, 17, 32, 32, sp);
+                "hydroponics.png", 10, 17, 32, 32, sp, this);
     }
 
     @Override

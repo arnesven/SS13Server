@@ -22,6 +22,6 @@ public class RepeatMovePower extends MovePower {
 
     @Override
     public Sprite getButtonSprite() {
-        return new Sprite("repeatbutton", "buttons1.png", 1);
+        return new Sprite("repeatbutton", "buttons1.png", 1, this);
     }
 }

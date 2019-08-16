@@ -22,14 +22,14 @@ public class FireSuit extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("firesuit", "suits.png", 0);
+        return new Sprite("firesuit", "suits.png", 0, this);
     }
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
-        list.add(new Sprite("firesuithelmet", "head.png", 5));
-        return new Sprite("firesuitworn", "suit.png", 0, list);
+        list.add(new Sprite("firesuithelmet", "head.png", 5, this));
+        return new Sprite("firesuitworn", "suit.png", 0, list, this);
     }
 
     @Override

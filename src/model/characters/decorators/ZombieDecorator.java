@@ -19,9 +19,9 @@ public class ZombieDecorator extends CharacterDecorator {
    @Override
     public Sprite getSprite(Actor whosAsking) {
        if (isDead()) {
-           return new Sprite("gore", "human.png", 137);
+           return new Sprite("gore", "human.png", 137, this);
        }
-        return new Sprite("zombie", "human.png", 133);
+        return new Sprite("zombie", "human.png", 133, this);
     }
 
     @Override

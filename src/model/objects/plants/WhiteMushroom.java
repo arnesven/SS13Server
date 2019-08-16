@@ -24,10 +24,10 @@ public class WhiteMushroom extends Mushroom {
     protected List<Sprite> getSpriteStages() {
         List<Sprite> sprs = new ArrayList<>();
         for (int c = 21; c <= 23; c++) {
-            sprs.add(new Sprite("whitemushrooms"+c, "hydroponics.png", c, 4));
+            sprs.add(new Sprite("whitemushrooms"+c, "hydroponics.png", c, 4, this));
         }
-        sprs.add(new Sprite("whitemushrooms"+0, "hydroponics.png", 0, 5));
-        sprs.add(new Sprite("whitemushrooms"+1, "hydroponics.png", 1, 5));
+        sprs.add(new Sprite("whitemushrooms"+0, "hydroponics.png", 0, 5, this));
+        sprs.add(new Sprite("whitemushrooms"+1, "hydroponics.png", 1, 5, this));
 
         return sprs;
     }
@@ -51,7 +51,7 @@ public class WhiteMushroom extends Mushroom {
 
         @Override
         public Sprite getSprite(Actor whosAsking) {
-            return new Sprite("whitemushroomitem", "harvest.png", 6);
+            return new Sprite("whitemushroomitem", "harvest.png", 6, this);
         }
 
         @Override

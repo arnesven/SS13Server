@@ -29,15 +29,15 @@ public class PulseRifleDisplayCase extends BreakableObject {
     public Sprite getSprite(Player whosAsking) {
         if (!isBroken()) {
             if (!empty) {
-                return new Sprite("displaycase1", "stationobjs.png", 273);
+                return new Sprite("displaycase1", "stationobjs.png", 273, this);
             } else {
-                return new Sprite("displaycase2", "stationobjs.png", 272);
+                return new Sprite("displaycase2", "stationobjs.png", 272, this);
             }
         } else {
             if (!empty) {
-                return new Sprite("displaycase3", "stationobjs.png", 274);
+                return new Sprite("displaycase3", "stationobjs.png", 274, this);
             } else {
-                return new Sprite("displaycase4", "stationobjs.png", 275);
+                return new Sprite("displaycase4", "stationobjs.png", 275, this);
             }
         }
     }

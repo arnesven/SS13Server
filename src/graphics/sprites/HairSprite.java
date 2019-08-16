@@ -5,6 +5,6 @@ package graphics.sprites;
  */
 public class HairSprite extends Sprite {
     public HairSprite() {
-        super("hair", "human_face.png", 5);
+        super("hair", "human_face.png", 5, null);
     }
 }

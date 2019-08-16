@@ -45,9 +45,9 @@ public class StasisPod extends ElectricalMachinery {
     @Override
     public Sprite getSprite(Player whosAsking) {
         if (isVacant()) {
-            return new Sprite("stasispodvacant", "cryogenic.png", 116);
+            return new Sprite("stasispodvacant", "cryogenic.png", 116, this);
         } else {
-            return new Sprite("stasispodoccupied", "cryogenic.png", 119);
+            return new Sprite("stasispodoccupied", "cryogenic.png", 119, this);
         }
     }
 

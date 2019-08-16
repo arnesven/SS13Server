@@ -16,7 +16,7 @@ public class BlueMutation extends Mutation {
 		return new NameAddDecorator(forWhom.getCharacter(), "Blue") {
             @Override
             public Sprite getNakedSprite() {
-                return new Sprite("blueguy", "genetics.png", 4);
+                return new Sprite("blueguy", "genetics.png", 4, this);
             }
         };
 	}

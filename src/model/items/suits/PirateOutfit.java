@@ -24,13 +24,13 @@ public class PirateOutfit extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("piratesoutfit", "uniforms.png", 2, 2);
+        return new Sprite("piratesoutfit", "uniforms.png", 2, 2, this);
     }
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        Sprite spr = OutFit.makeOutfit("piratesoutfitworn", "uniform2.png", 2, 32);
-        spr.addToOver(new Sprite("piratemask", "mask.png", 13, 1));
+        Sprite spr = OutFit.makeOutfit("piratesoutfitworn", "uniform2.png", 2, 32, this);
+        spr.addToOver(new Sprite("piratemask", "mask.png", 13, 1, this));
         return spr;
     }
 

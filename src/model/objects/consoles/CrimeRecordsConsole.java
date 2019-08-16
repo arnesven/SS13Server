@@ -52,7 +52,7 @@ public class CrimeRecordsConsole extends Console {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("crimerecordsconsole", "computer2.png", 12, 12);
+        return new Sprite("crimerecordsconsole", "computer2.png", 12, 12, this);
     }
 
 	@Override

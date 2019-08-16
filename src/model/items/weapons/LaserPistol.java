@@ -22,12 +22,12 @@ public class LaserPistol extends AmmoWeapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("laserpistol", "gun.png", 8);
+        return new Sprite("laserpistol", "gun.png", 8, this);
     }
 
     @Override
     public Sprite getHandHeldSprite() {
-        return new Sprite("laserpistolinhand", "items_righthand.png", 0, 16);
+        return new Sprite("laserpistolinhand", "items_righthand.png", 0, 16, this);
     }
 
 

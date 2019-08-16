@@ -114,7 +114,7 @@ public class KeyCardLock extends ElectricalMachinery {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("keycardlock", "computer_complaints.png", 1, 0);
+        return new Sprite("keycardlock", "computer_complaints.png", 1, 0, this);
     }
 
     @Override

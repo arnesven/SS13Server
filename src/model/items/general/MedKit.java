@@ -32,6 +32,6 @@ public class MedKit extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("medkit", "storage.png", 4);
+        return new Sprite("medkit", "storage.png", 4, this);
     }
 }

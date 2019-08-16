@@ -33,7 +33,7 @@ public class GeneticsConsole extends Console {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("geneticsconsole", "computer2.png", 11, 7);
+        return new Sprite("geneticsconsole", "computer2.png", 11, 7, this);
     }
 
 	public void addKnownMutation(Mutation known) {

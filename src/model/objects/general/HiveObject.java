@@ -25,9 +25,9 @@ public class HiveObject extends HideableObject {
     @Override
     public Sprite getSprite(Player whosAsking) {
         if (isBroken()) {
-            return new Sprite("hivebroken", "alien.png", 25);
+            return new Sprite("hivebroken", "alien.png", 25, this);
         }
-        return new Sprite("hive", "alien.png", 24);
+        return new Sprite("hive", "alien.png", 24, this);
     }
 
     @Override

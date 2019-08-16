@@ -59,6 +59,6 @@ public class PDA extends UplinkItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("PDA", "pda.png", 24);
+        return new Sprite("PDA", "pda.png", 24, this);
     }
 }

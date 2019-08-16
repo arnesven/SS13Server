@@ -28,9 +28,9 @@ public class DerelictPowerSource extends PowerSource {
     @Override
     public Sprite getSprite(Player whosAsking) {
         if (getPowerOutput() < 0.05) {
-            return new Sprite("dpowersourcelow", "power.png", 7, 12);
+            return new Sprite("dpowersourcelow", "power.png", 7, 12, this);
         }
-        return new Sprite("dpowersourcenormal", "power.png", 8, 12);
+        return new Sprite("dpowersourcenormal", "power.png", 8, 12, this);
     }
 
     @Override

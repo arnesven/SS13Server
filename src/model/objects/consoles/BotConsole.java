@@ -37,7 +37,7 @@ public class BotConsole extends Console {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("botconsole", "computer2.png", 17, 14);
+        return new Sprite("botconsole", "computer2.png", 17, 14, this);
     }
 
     private static List<BotProgram> loadDefaultPrograms(GameData gameData, Actor whosAsking) {
@@ -46,27 +46,27 @@ public class BotConsole extends Console {
         bp.add(new BotProgram("Anti-Fire",
                 new GoTowardsFireMovement(gameData),
                 new PutOutFireBehavior(gameData),
-                new Sprite("firefighterbot", "robots2.png", 9, 2)));
+                new Sprite("firefighterbot", "robots2.png", 9, 2, null)));
         bp.add(new BotProgram("Friendly", new MeanderingMovement(0.5),
                 new RandomSpeechBehavior("resources/CHITCHAT.TXT")));
         bp.add(BotProgram.createHostileProgram(gameData));
         bp.add(new BotProgram("Nurse",
                 new MeanderingMovement(1.0),
                 new HealOtherBehavior(),
-                new Sprite("nursebot", "robots2.png", 10, 4)));
+                new Sprite("nursebot", "robots2.png", 10, 4, null)));
         bp.add(new BotProgram("Bodyguard",
                 new FollowMeBehavior(whosAsking, gameData),
                 new AttackBaddiesBehavior(),
-                new Sprite("bodyguardbot", "robots2.png", 14, 4)));
+                new Sprite("bodyguardbot", "robots2.png", 14, 4, null)));
         bp.add(new BotProgram("Repair",
                 new GoTowardsBrokenMovement(gameData),
                 new RepairStuffBehavior(gameData),
-                new Sprite("repairbot", "robots2.png", 13, 2)));
+                new Sprite("repairbot", "robots2.png", 13, 2, null)));
         try {
             bp.add(new BotProgram("Security",
                     new FollowCriminalBehavior(gameData.findObjectOfType(CrimeRecordsConsole.class)),
                     new ArrestCriminalBehavior(gameData.findObjectOfType(CrimeRecordsConsole.class)),
-                    new Sprite("securitybot", "robots2.png", 21, 2)));
+                    new Sprite("securitybot", "robots2.png", 21, 2, null)));
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "No crime console on station. Not adding security bot program.");
         }

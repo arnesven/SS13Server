@@ -21,7 +21,7 @@ public class UnobtainiumRock extends RockObject {
         if (isBroken()) {
             return super.getSprite(whosAsking);
         } else {
-            return new Sprite("unobtaniumrock", "meteor.png", 2, 0);
+            return new Sprite("unobtaniumrock", "meteor.png", 2, 0, this);
         }
     }
 

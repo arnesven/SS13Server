@@ -40,7 +40,7 @@ public class RoomPartsStack extends ItemStack {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("roomparts", "items.png", 45);
+        return new Sprite("roomparts", "items.png", 45, this);
     }
 
     @Override

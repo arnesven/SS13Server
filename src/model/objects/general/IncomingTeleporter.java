@@ -14,6 +14,6 @@ public class IncomingTeleporter extends GameObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("teleportfield", "effects.png", 5, 15);
+        return new Sprite("teleportfield", "effects.png", 5, 15, this);
     }
 }

@@ -36,7 +36,7 @@ public class AutoCremator extends Weapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("autocremator", "items.png", 26);
+        return new Sprite("autocremator", "items.png", 26, this);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class GeigerMeter extends UplinkItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("geigermeter", "device.png", 0);
+        return new Sprite("geigermeter", "device.png", 0, this);
     }
 
     @Override

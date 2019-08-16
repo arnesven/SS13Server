@@ -20,7 +20,7 @@ public class DogCharacter extends AnimalCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("dog", "animal.png", 15, 22, 32, 32);
+        return new Sprite("dog", "animal.png", 15, 22, 32, 32, this);
     }
 
     @Override

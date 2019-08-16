@@ -1,6 +1,7 @@
 package model.items.suits;
 
 import graphics.sprites.Sprite;
+import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.characters.visitors.GeishaCharacter;
 
@@ -32,12 +33,12 @@ public class Kimono extends OutFit {
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        return makeOutfit("kimono", "uniform2.png", 3, 27);
+        return makeOutfit("kimono", "uniform2.png", 3, 27, this);
     }
 
-    public static Sprite makeOutfit(String outfitname, String map, int i, int i1) {
+    public static Sprite makeOutfit(String outfitname, String map, int i, int i1, SpriteObject objRef) {
         List<Sprite> list = new ArrayList<>();
-        list.add(new Sprite("geishashoes", "feet.png", 5));
-        return new Sprite(outfitname, map, i, i1, 32, 32, list);
+        list.add(new Sprite("geishashoes", "feet.png", 5, objRef));
+        return new Sprite(outfitname, map, i, i1, 32, 32, list, objRef);
     }
 }

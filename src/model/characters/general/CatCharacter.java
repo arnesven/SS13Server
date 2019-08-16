@@ -21,7 +21,7 @@ public class CatCharacter extends AnimalCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("cat", "animal.png", 3, 20, 32, 32);
+        return new Sprite("cat", "animal.png", 3, 20, 32, 32, this);
     }
 
 

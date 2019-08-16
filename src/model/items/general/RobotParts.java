@@ -24,7 +24,7 @@ public class RobotParts extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("robotparts", "robots.png", 61);
+        return new Sprite("robotparts", "robots.png", 61, this);
     }
 
     @Override

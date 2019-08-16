@@ -22,6 +22,6 @@ public class ChemicalDispenser extends DispenserObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("chemdispenser", "closet.png", 5);
+        return new Sprite("chemdispenser", "closet.png", 5, this);
     }
 }

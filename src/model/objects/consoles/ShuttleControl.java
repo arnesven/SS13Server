@@ -27,6 +27,6 @@ public class ShuttleControl extends Console {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("shuttlecontrol", "computer2.png", 0, 23);
+        return new Sprite("shuttlecontrol", "computer2.png", 0, 23, this);
     }
 }

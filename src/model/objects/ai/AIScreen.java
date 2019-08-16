@@ -31,24 +31,24 @@ public class AIScreen extends GameObject {
 
     private Sprite getScreenSprite(Player whosAsking) {
         if (console.isCorrupt()) {
-            return new Sprite("aiscreencorrupt", "AI.png", 0, 1);
+            return new Sprite("aiscreencorrupt", "AI.png", 0, 1, this);
         } else if (console.isShutDown()) {
             double rand = MyRandom.nextDouble();
             if (rand < 0.33) {
-                return new Sprite("aiscreenshutdown", "AI.png", 3, 1);
+                return new Sprite("aiscreenshutdown", "AI.png", 3, 1, this);
             } else if (rand < 0.66) {
-                return new Sprite("aiscreenshutdown", "AI.png", 4, 1);
+                return new Sprite("aiscreenshutdown", "AI.png", 4, 1, this);
             } else {
-                return new Sprite("aiscreenshutdown", "AI.png", 25, 3);
+                return new Sprite("aiscreenshutdown", "AI.png", 25, 3, this);
             }
         }
 
         if (selectedScreen != null) {
             return new Sprite("aiselectedscreen" + selectedScreen.x+"x"+selectedScreen.y,
-                    "AI.png", selectedScreen.x, selectedScreen.y);
+                    "AI.png", selectedScreen.x, selectedScreen.y,  this);
         }
 
-        return new Sprite("aiscreenspritenormal", "AI.png", 0);
+        return new Sprite("aiscreenspritenormal", "AI.png", 0, this);
     }
 
     public void setSelectedScreen(Point selectedScreen) {

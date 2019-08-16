@@ -28,7 +28,7 @@ public class FollowMovePower extends MovePower {
 
     @Override
     public Sprite getButtonSprite() {
-        return new Sprite("followmovepowerbutton", "buttons2.png", 4, 7);
+        return new Sprite("followmovepowerbutton", "buttons2.png", 4, 7, this);
     }
 
     private class FollowOtherDecorator extends CharacterDecorator {

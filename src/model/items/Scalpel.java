@@ -11,6 +11,6 @@ public class Scalpel extends Knife {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("scalpel", "surgery2.png", 1);
+        return new Sprite("scalpel", "surgery2.png", 1, this);
     }
 }

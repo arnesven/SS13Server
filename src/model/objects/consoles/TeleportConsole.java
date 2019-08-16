@@ -32,7 +32,7 @@ public class TeleportConsole extends Console {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("teletronics", "teleporter.png", 1, 2);
+        return new Sprite("teletronics", "teleporter.png", 1, 2, this);
     }
 
     @Override

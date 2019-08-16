@@ -26,7 +26,7 @@ public class StunBaton extends AmmoWeapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("stunbaton", "weapons.png", 4);
+        return new Sprite("stunbaton", "weapons.png", 4, this);
     }
 
     @Override

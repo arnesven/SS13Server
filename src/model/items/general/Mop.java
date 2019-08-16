@@ -27,7 +27,7 @@ public class Mop extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("mop", "janitor.png", 3);
+        return new Sprite("mop", "janitor.png", 3, this);
     }
 
 }

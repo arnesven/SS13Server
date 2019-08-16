@@ -2,6 +2,7 @@ package model.items.suits;
 
 import graphics.sprites.RegularBlackShoesSprite;
 import graphics.sprites.Sprite;
+import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.characters.crew.*;
 import model.characters.decorators.DisguisedAs;
@@ -25,35 +26,35 @@ public class OutFit extends SuitItem {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (type instanceof DetectiveCharacter) {
-            return new Sprite("detectivesuniform", "uniforms.png", 4, 6);
+            return new Sprite("detectivesuniform", "uniforms.png", 4, 6, this);
         } else if (type instanceof BiologistCharacter) {
-                return new Sprite("biologistuniform", "uniforms.png", 3, 3);
+                return new Sprite("biologistuniform", "uniforms.png", 3, 3, this);
         } else if (type instanceof DoctorCharacter) {
-            return new Sprite("doctorsuniform", "uniforms.png", 6, 1);
+            return new Sprite("doctorsuniform", "uniforms.png", 6, 1, this);
         } else if (type instanceof EngineerCharacter) {
-            return new Sprite("engineersuniform", "uniforms.png", 5, 4);
+            return new Sprite("engineersuniform", "uniforms.png", 5, 4, this);
         } else if (type instanceof ScienceOfficerCharacter) {
-            return new Sprite("scioffuniform", "uniforms.png",  7, 6);
+            return new Sprite("scioffuniform", "uniforms.png",  7, 6, this);
         } else if (type instanceof GeneticistCharacter) {
-            return new Sprite("geneticistuniform", "uniforms.png", 5);
+            return new Sprite("geneticistuniform", "uniforms.png", 5, this);
         } else if (type instanceof ChemistCharacter) {
-            return new Sprite("chemistuniform", "uniforms.png", 4, 4);
+            return new Sprite("chemistuniform", "uniforms.png", 4, 4, this);
         } else if (type instanceof RoboticistCharacter) {
-            return new Sprite("roboticistuniform", "uniforms.png", 3, 4);
+            return new Sprite("roboticistuniform", "uniforms.png", 3, 4, this);
         } else if (type instanceof ArchitectCharacter) {
-            return new Sprite("techniciansuniform", "uniforms.png", 6, 4);
+            return new Sprite("techniciansuniform", "uniforms.png", 6, 4, this);
         } else if (type instanceof  ChefCharacter) {
-            return new Sprite("chefsuniform", "uniforms.png", 5, 1);
+            return new Sprite("chefsuniform", "uniforms.png", 5, 1, this);
         } else if (type instanceof  BartenderCharacter) {
-            return new Sprite("bartendersuniform", "uniforms.png", 6, 6);
+            return new Sprite("bartendersuniform", "uniforms.png", 6, 6, this);
         } else if (type instanceof JanitorCharacter) {
-            return new Sprite("janitorsuniform", "uniforms.png", 4, 1);
+            return new Sprite("janitorsuniform", "uniforms.png", 4, 1, this);
         } else if (type instanceof ChaplainCharacter) {
-            return new Sprite("chaplainsuniform", "uniforms.png", 7, 1);
+            return new Sprite("chaplainsuniform", "uniforms.png", 7, 1, this);
         } else if (type instanceof TouristCharacter) {
-            return new Sprite("touristuniform", "uniforms.png", 6, 7);
+            return new Sprite("touristuniform", "uniforms.png", 6, 7, this);
         } else if (type instanceof StaffAssistantCharacter) {
-            return new Sprite("staffassistantuniform", "uniforms.png", 0, 3);
+            return new Sprite("staffassistantuniform", "uniforms.png", 0, 3, this);
         }
         return super.getSprite(whosAsking);
     }
@@ -62,50 +63,50 @@ public class OutFit extends SuitItem {
     protected Sprite getWornSprite(Actor whosAsking) {
         if (type instanceof CaptainCharacter) {
             List<Sprite> list = new ArrayList<>();
-            list.add(makeOutfit("capclothesandshoes", "suit.png", 101, 0));
-            return new Sprite("captainsuniformworn", "head.png", 8, 6, 32, 32, list);
+            list.add(makeOutfit("capclothesandshoes", "suit.png", 101, 0, this));
+            return new Sprite("captainsuniformworn", "head.png", 8, 6, 32, 32, list, this);
         } else if (type instanceof HeadOfStaffCharacter) {
-            return makeOutfit("hosuniformworn", "uniform2.png", 23, 18);
+            return makeOutfit("hosuniformworn", "uniform2.png", 23, 18, this);
         } else if (type instanceof DetectiveCharacter) {
-            return makeOutfit("detectivesuniformworn", "uniform.png", 0, 15);
+            return makeOutfit("detectivesuniformworn", "uniform.png", 0, 15, this);
         } else if (type instanceof BiologistCharacter) {
-            return makeOutfit("biologistuniformworn", "uniform.png", 3, 3);
+            return makeOutfit("biologistuniformworn", "uniform.png", 3, 3, this);
         } else if (type instanceof DoctorCharacter) {
-            return makeOutfit("doctorsuniformworn", "uniform.png", 6, 1);
+            return makeOutfit("doctorsuniformworn", "uniform.png", 6, 1, this);
         } else if (type instanceof EngineerCharacter) {
-            return makeOutfit("engineersuniformworn", "uniform2.png", 2, 6);
+            return makeOutfit("engineersuniformworn", "uniform2.png", 2, 6, this);
         } else if (type instanceof ScienceOfficerCharacter) {
-            return makeOutfit("scieoffuniformworn", "uniform.png", 10, 15);
+            return makeOutfit("scieoffuniformworn", "uniform.png", 10, 15, this);
         } else if (type instanceof GeneticistCharacter) {
-            return makeOutfit("geneticistuniformworn", "uniform2.png", 9, 7);
+            return makeOutfit("geneticistuniformworn", "uniform2.png", 9, 7, this);
         } else if (type instanceof ChemistCharacter) {
-            return makeOutfit("chemistuniformworn", "uniform.png", 16, 6);
+            return makeOutfit("chemistuniformworn", "uniform.png", 16, 6, this);
         } else if (type instanceof RoboticistCharacter) {
-            return makeOutfit("roboticistsuniformworn", "uniform2.png", 1, 7);
+            return makeOutfit("roboticistsuniformworn", "uniform2.png", 1, 7, this);
         } else if (type instanceof ArchitectCharacter) {
-            return makeOutfit("techniciansuniformworn", "uniform2.png", 27, 5);
+            return makeOutfit("techniciansuniformworn", "uniform2.png", 27, 5, this);
         } else if (type instanceof ChefCharacter) {
-            return makeOutfit("chefsuniformworn", "uniform.png", 18, 13);
+            return makeOutfit("chefsuniformworn", "uniform.png", 18, 13, this);
         } else if (type instanceof  BartenderCharacter) {
-            return makeOutfit("bartenderuniformworn", "uniform.png", 17, 7);
+            return makeOutfit("bartenderuniformworn", "uniform.png", 17, 7, this);
         } else if (type instanceof  JanitorCharacter) {
-            return makeOutfit("janitorsuniformworn", "uniform.png", 6, 10);
+            return makeOutfit("janitorsuniformworn", "uniform.png", 6, 10, this);
         } else if (type instanceof  ChaplainCharacter) {
-            return makeOutfit("chaplainsuniformworn", "uniform.png", 2, 7);
+            return makeOutfit("chaplainsuniformworn", "uniform.png", 2, 7, this);
         } else if (type instanceof TouristCharacter) {
-            return makeOutfit("touristsuniformworn", "uniform2.png", 14, 14);
+            return makeOutfit("touristsuniformworn", "uniform2.png", 14, 14, this);
         } else if (type instanceof CaptainsDaughter) {
-            return makeOutfit("captainsdaughteruniformworn", "uniform2.png", 22, 14);
+            return makeOutfit("captainsdaughteruniformworn", "uniform2.png", 22, 14, this);
         } else if (type instanceof StaffAssistantCharacter) {
-            return makeOutfit("staffassuniformworn", "uniform2.png",19,5);
+            return makeOutfit("staffassuniformworn", "uniform2.png",19,5, this);
         }
         return super.getWornSprite(whosAsking);
     }
 
-    public static Sprite makeOutfit(String outfitname, String map, int col, int row) {
+    public static Sprite makeOutfit(String outfitname, String map, int col, int row, SpriteObject objRef) {
         List<Sprite> list = new ArrayList<>();
         list.add(new RegularBlackShoesSprite());
-        return new Sprite(outfitname, map, col, row, 32, 32, list);
+        return new Sprite(outfitname, map, col, row, 32, 32, list, objRef);
     }
 
     @Override

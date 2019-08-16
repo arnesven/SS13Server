@@ -17,7 +17,7 @@ public class MotionTracker extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("motiontracker", "device.png", 4);
+        return new Sprite("motiontracker", "device.png", 4, this);
     }
 
     @Override

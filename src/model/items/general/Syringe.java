@@ -38,7 +38,7 @@ public class Syringe extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("syringe", "items.png", 55);
+        return new Sprite("syringe", "items.png", 55, this);
     }
 
     public Mutation getMutation() {

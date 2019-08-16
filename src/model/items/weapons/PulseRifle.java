@@ -34,7 +34,7 @@ public class PulseRifle extends AmmoWeapon {
     public Sprite getSprite(Actor whosAsking) {
         double emptyness = 1.0 - ((double)getShots()) / getMaxShots();
         int offset = (int)Math.floor(6 * emptyness);
-        return new Sprite("pulserifle"+offset, "gun.png", 38 + offset);
+        return new Sprite("pulserifle"+offset, "gun.png", 38 + offset, this);
     }
 
     private void makeAdditionalAttacks(GameData gameData, Actor performingClient, List<Actor> alreadyAttacked) {

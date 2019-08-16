@@ -18,7 +18,7 @@ public class DarkEvent extends Event {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("darkeventspr", "buttons1.png", 1, 3);
+        return new Sprite("darkeventspr", "buttons1.png", 1, 3, this);
     }
 
     @Override

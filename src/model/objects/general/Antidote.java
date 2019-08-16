@@ -28,7 +28,7 @@ public class Antidote extends FoodItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("antidote", "chemical.png", 53);
+        return new Sprite("antidote", "chemical.png", 53, this);
     }
 
     @Override

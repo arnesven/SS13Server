@@ -20,6 +20,6 @@ public class CrateObject extends ContainerObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("crate", "storage.png", 39);
+        return new Sprite("crate", "storage.png", 39, this);
     }
 }

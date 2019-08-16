@@ -25,6 +25,6 @@ public class SeedVendingMachine extends VendingMachine {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("seedvending", "vending.png", 20);
+        return new Sprite("seedvending", "vending.png", 20, this);
     }
 }

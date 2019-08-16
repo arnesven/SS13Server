@@ -25,7 +25,7 @@ public class NuclearBomb extends GameObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("nuclearbomb", "stationobjs.png", 98);
+        return new Sprite("nuclearbomb", "stationobjs.png", 98, this);
     }
 
     @Override

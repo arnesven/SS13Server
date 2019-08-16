@@ -26,7 +26,7 @@ public class XeroxMachine extends GameObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("xeroxmachine", "stationobjs.png", 64);
+        return new Sprite("xeroxmachine", "stationobjs.png", 64, this);
     }
 
 

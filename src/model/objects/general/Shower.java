@@ -22,11 +22,11 @@ public class Shower extends GameObject {
     public Sprite getSprite(Player whosAsking) {
 
         List<Sprite> list = new ArrayList<>();
-        list.add(new Sprite("showerhead", "watercloset.png", 7, 2));
-        list.add(new Sprite("showerwater", "watercloset.png", 7, 3));
-        list.add(new Sprite("showersteam", "watercloset.png", 0, 5));
+        list.add(new Sprite("showerhead", "watercloset.png", 7, 2, this));
+        list.add(new Sprite("showerwater", "watercloset.png", 7, 3, this));
+        list.add(new Sprite("showersteam", "watercloset.png", 0, 5, this));
 
-        return new Sprite("totalshower", "watercloset.png", 1, list);
+        return new Sprite("totalshower", "watercloset.png", 1, list, this);
     }
 
     @Override

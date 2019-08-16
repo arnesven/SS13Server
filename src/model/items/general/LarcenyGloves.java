@@ -22,7 +22,7 @@ public class LarcenyGloves extends SuitItem {
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        return new Sprite("glovesworn", "human.png", 0);
+        return new Sprite("glovesworn", "human.png", 0, this);
     }
 
     @Override
@@ -52,6 +52,6 @@ public class LarcenyGloves extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("larcenygloves", "gloves.png", 0);
+        return new Sprite("larcenygloves", "gloves.png", 0, this);
     }
 }

@@ -25,7 +25,7 @@ public class BagOfSoil extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("bagofsoil", "seeds.png", 3, 7);
+        return new Sprite("bagofsoil", "seeds.png", 3, 7, this);
     }
 
     @Override

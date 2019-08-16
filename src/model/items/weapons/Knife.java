@@ -25,7 +25,7 @@ public class Knife extends SlashingWeapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("knife", "kitchen.png", 6);
+        return new Sprite("knife", "kitchen.png", 6, this);
     }
 
     @Override

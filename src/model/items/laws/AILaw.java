@@ -19,7 +19,7 @@ public class AILaw extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("law" + text + number, "numbers.png", number);
+        return new Sprite("law" + text + number, "numbers.png", number, this);
     }
 
     @Override

@@ -35,9 +35,9 @@ class JungleManCharacter extends GameCharacter {
     @Override
     public Sprite getNakedSprite() {
         if (isDead()) {
-            return new Sprite("junglemandead", "jungle.png", 6, 13);
+            return new Sprite("junglemandead", "jungle.png", 6, 13, this);
         }
-        return new Sprite("jungleman", "jungle.png", 11, 12);
+        return new Sprite("jungleman", "jungle.png", 11, 12, this);
     }
 
     @Override

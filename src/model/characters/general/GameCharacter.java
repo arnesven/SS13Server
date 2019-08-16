@@ -9,6 +9,7 @@ import java.util.List;
 import graphics.sprites.PhysicalBody;
 import graphics.sprites.OverlaySprites;
 import graphics.sprites.Sprite;
+import graphics.sprites.SpriteObject;
 import model.*;
 import model.actions.general.AttackAction;
 import model.characters.decorators.CharacterDecorator;
@@ -42,7 +43,7 @@ import model.map.rooms.Room;
  * Class for representing a character in the game. I.e. the physical representation
  * of a player or a NPC. 
  */
-public abstract class GameCharacter implements Serializable {
+public abstract class GameCharacter implements SpriteObject, Serializable {
 	
 	private double maxHealth = 3.0;
 	
@@ -79,6 +80,10 @@ public abstract class GameCharacter implements Serializable {
 	public String getPublicName() {
 		return getBaseName();
 	}
+
+	public String getPublicName(Actor whosAsking) {
+	    return getPublicName();
+    }
 	
 
 	/**

@@ -19,9 +19,9 @@ public class SantaSuit extends SuitItem {
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
         List<Sprite> sprs = new ArrayList<>();
-        sprs.add(new Sprite("santarobe", "suit2.png", 22, 6));
+        sprs.add(new Sprite("santarobe", "suit2.png", 22, 6, this));
 
-        return new Sprite("santahat", "head.png", 0, 5, 32, 32, sprs);
+        return new Sprite("santahat", "head.png", 0, 5, 32, 32, sprs, this);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class SantaSuit extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("santassuit", "uniforms.png", 5, 5);
+        return new Sprite("santassuit", "uniforms.png", 5, 5, this);
     }
 
     @Override

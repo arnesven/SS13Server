@@ -25,7 +25,7 @@ public class Teleporter extends UplinkItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("teleporter", "device.png", 4);
+        return new Sprite("teleporter", "device.png", 4, this);
     }
 
     @Override

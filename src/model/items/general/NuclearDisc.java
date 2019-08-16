@@ -38,7 +38,7 @@ public class NuclearDisc extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("nucleardisc","cloning.png", 9);
+        return new Sprite("nucleardisc","cloning.png", 9, this);
     }
 
 

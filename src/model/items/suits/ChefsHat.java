@@ -12,12 +12,12 @@ public class ChefsHat extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("chefshat", "hats.png", 14);
+        return new Sprite("chefshat", "hats.png", 14, this);
     }
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        return new Sprite("chefshatworn", "head.png", 1, 8);
+        return new Sprite("chefshatworn", "head.png", 1, 8, this);
     }
 
     @Override

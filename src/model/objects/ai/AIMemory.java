@@ -27,7 +27,7 @@ public class AIMemory extends GameObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("aimemory", "stationobjs.png", 192);
+        return new Sprite("aimemory", "stationobjs.png", 192, this);
     }
 
     @Override

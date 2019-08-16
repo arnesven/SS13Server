@@ -40,7 +40,7 @@ public class AirlockPanel extends ElectricalMachinery {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("pressurepanel", "monitors.png", 0);
+        return new Sprite("pressurepanel", "monitors.png", 0, this);
     }
 
     public Action makeApplicableAction(GameData gameData) {

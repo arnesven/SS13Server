@@ -17,11 +17,11 @@ public class Shotgun extends AmmoWeapon implements PiercingWeapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("shotgun", "gun.png", 7);
+        return new Sprite("shotgun", "gun.png", 7, this);
     }
 
     @Override
     public Sprite getHandHeldSprite() {
-        return new Sprite("shotgunhandheld", "items_righthand.png", 8, 23);
+        return new Sprite("shotgunhandheld", "items_righthand.png", 8, 23, this);
     }
 }

@@ -53,7 +53,7 @@ public class SpectatorCharacter extends GhostCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("spectator", "human.png", 2);
+        return new Sprite("spectator", "human.png", 2, this);
     }
 
     @Override

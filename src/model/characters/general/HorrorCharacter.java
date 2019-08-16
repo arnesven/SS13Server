@@ -31,9 +31,9 @@ public class HorrorCharacter extends GameCharacter {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (ling != null && ling.getPower() >= 3) {
-            return new Sprite("horrorgreater", "alien.png", 19);
+            return new Sprite("horrorgreater", "alien.png", 19, this);
         }
-        return new Sprite("horrorlesser", "alien.png", 0);
+        return new Sprite("horrorlesser", "alien.png", 0, this);
     }
 
     @Override

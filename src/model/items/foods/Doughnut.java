@@ -19,7 +19,7 @@ public class Doughnut extends HealingFood {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("doughnut", "food.png", 6);
+        return new Sprite("doughnut", "food.png", 6, this);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class SeveredButt extends BodyPart implements Wearable  {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("severedbutt", "body_parts.png", 4, 0);
+        return new Sprite("severedbutt", "body_parts.png", 4, 0, this);
     }
 
     @Override
@@ -56,8 +56,8 @@ public class SeveredButt extends BodyPart implements Wearable  {
             Sprite sp = getInner().getSprite(whosAsking);
             List<Sprite> sprs = new ArrayList<>();
             sprs.add(sp);
-            sprs.add(new Sprite(sp.getName() + "butt", "body_parts.png",  8, 1));
-            return new Sprite(sp.getName() + "withbuttonhead", "human.png", 0, sprs);
+            sprs.add(new Sprite(sp.getName() + "butt", "body_parts.png",  8, 1, this));
+            return new Sprite(sp.getName() + "withbuttonhead", "human.png", 0, sprs, this);
         }
     }
 }

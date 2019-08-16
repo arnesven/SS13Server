@@ -15,7 +15,7 @@ public class HorrorAppearance extends Mutation {
 		return new CharacterDecorator(forWhom.getCharacter(), "Horror Appearance") {
             @Override
             public Sprite getSprite(Actor whosAsking) {
-                return new Sprite("horrorappearance", "alien.png", 0);
+                return new Sprite("horrorappearance", "alien.png", 0, this);
             }
 
             @Override

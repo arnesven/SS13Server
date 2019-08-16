@@ -17,12 +17,12 @@ public class PrisonerSuit extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("prisonersuit", "uniforms.png", 2);
+        return new Sprite("prisonersuit", "uniforms.png", 2, this);
     }
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        return new Sprite("prisonersuitworn", "uniform.png", 12, 2);
+        return new Sprite("prisonersuitworn", "uniform.png", 12, 2, this);
     }
 
     @Override

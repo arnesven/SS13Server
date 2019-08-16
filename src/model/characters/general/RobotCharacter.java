@@ -44,7 +44,7 @@ public class RobotCharacter extends GameCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("robot", "robots.png", 51);
+        return new Sprite("robot", "robots.png", 51, this);
     }
 
     @Override

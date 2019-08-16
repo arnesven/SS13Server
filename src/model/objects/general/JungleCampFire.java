@@ -28,7 +28,7 @@ public class JungleCampFire extends GameObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("campfire", "jungle.png", 7, 13);
+        return new Sprite("campfire", "jungle.png", 7, 13, this);
     }
 
     @Override

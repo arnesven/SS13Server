@@ -4,16 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import graphics.sprites.Sprite;
+import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.map.rooms.Room;
 
-public class GameObject implements Serializable {
+public class GameObject implements SpriteObject, Serializable {
 	private String name;
 	private Room position;
-    private Sprite sprite = new Sprite("gameobject", "computer.png", 0);
+    private Sprite sprite = new Sprite("gameobject", "computer.png", 0, this);
 
     public GameObject(String name, Room position) {
 		this.name = name;
@@ -23,8 +24,10 @@ public class GameObject implements Serializable {
 	public String getBaseName() {
 		return name;
 	}
-	
-	public String getPublicName(Actor whosAsking) {
+
+
+
+    public String getPublicName(Actor whosAsking) {
 		return getBaseName();
 	}
 	
@@ -43,6 +46,11 @@ public class GameObject implements Serializable {
 
     public Sprite getSprite(Player whosAsking) {
         return sprite;
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return getSprite((Player)whosAsking);
     }
 
 

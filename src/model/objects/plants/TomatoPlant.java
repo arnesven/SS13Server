@@ -25,7 +25,7 @@ public class TomatoPlant extends Plant {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("tomatoplant", "hydroponics.png", 2, 1);
+        return new Sprite("tomatoplant", "hydroponics.png", 2, 1, this);
     }
 
 

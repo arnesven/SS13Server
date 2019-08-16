@@ -16,7 +16,7 @@ public class SeveredHead extends BodyPart {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("severedhead", "body_parts.png", 5, 0);
+        return new Sprite("severedhead", "body_parts.png", 5, 0, this);
     }
 
     @Override

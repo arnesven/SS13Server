@@ -19,6 +19,6 @@ public class Baton extends BluntWeapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("regularbaton", "weapons.png", 3);
+        return new Sprite("regularbaton", "weapons.png", 3, this);
     }
 }

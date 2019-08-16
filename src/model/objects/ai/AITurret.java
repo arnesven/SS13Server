@@ -81,7 +81,7 @@ public class AITurret extends ElectricalMachinery implements RemotelyOperateable
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("autoturret", "turret.png", 0, 10);
+        return new Sprite("autoturret", "turret.png", 0, 10, this);
     }
 
     @Override

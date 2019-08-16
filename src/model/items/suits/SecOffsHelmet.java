@@ -15,12 +15,12 @@ public class SecOffsHelmet extends SuitItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("secoffshelmet", "hats.png", 1);
+        return new Sprite("secoffshelmet", "hats.png", 1, this);
     }
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        return new Sprite("secoffshelmetworn", "head.png", 0);
+        return new Sprite("secoffshelmetworn", "head.png", 0, this);
     }
 
     @Override

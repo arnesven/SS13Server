@@ -93,7 +93,7 @@ public class SlotMachine extends ElectricalMachinery {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("slotmachine", "vending2.png", 6, 13);
+        return new Sprite("slotmachine", "vending2.png", 6, 13, this);
     }
 
     private  List<String> generateResult() {

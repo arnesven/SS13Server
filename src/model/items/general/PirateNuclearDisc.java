@@ -13,7 +13,7 @@ public class PirateNuclearDisc extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("piratesnucleardisc", "items.png", 53);
+        return new Sprite("piratesnucleardisc", "items.png", 53, this);
     }
 
     @Override

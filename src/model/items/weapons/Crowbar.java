@@ -19,6 +19,6 @@ public class Crowbar extends BluntWeapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("crowbar", "items.png", 48);
+        return new Sprite("crowbar", "items.png", 48, this);
     }
 }

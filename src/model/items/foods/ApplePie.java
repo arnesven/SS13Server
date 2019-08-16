@@ -16,7 +16,7 @@ public class ApplePie extends HealingFood {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("applepie", "food.png", 15, 12);
+        return new Sprite("applepie", "food.png", 15, 12, this);
     }
 
     @Override

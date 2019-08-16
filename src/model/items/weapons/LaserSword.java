@@ -15,7 +15,7 @@ public class LaserSword extends SlashingWeapon {
 
     @Override
     public Sprite getHandHeldSprite() {
-        return new Sprite("laserswordinhand", "items_righthand.png", 37, 37);
+        return new Sprite("laserswordinhand", "items_righthand.png", 37, 37, this);
     }
 
     @Override
@@ -25,6 +25,6 @@ public class LaserSword extends SlashingWeapon {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("lasersword", "weapons.png", 1);
+        return new Sprite("lasersword", "weapons.png", 1, this);
     }
 }

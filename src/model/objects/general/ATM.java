@@ -32,7 +32,7 @@ public class ATM extends ElectricalMachinery {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("atm", "computer.png", 58);
+        return new Sprite("atm", "computer.png", 58, this);
     }
 
     @Override

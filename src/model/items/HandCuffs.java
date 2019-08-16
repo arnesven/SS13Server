@@ -19,7 +19,7 @@ public class HandCuffs extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("handcuffs", "items.png", 47);
+        return new Sprite("handcuffs", "items.png", 47, this);
     }
 
 

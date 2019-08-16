@@ -13,7 +13,7 @@ public class PackOfSmokes extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return  new Sprite("packofsmokes", "storage.png", 13);
+        return  new Sprite("packofsmokes", "storage.png", 13, this);
     }
 
     @Override

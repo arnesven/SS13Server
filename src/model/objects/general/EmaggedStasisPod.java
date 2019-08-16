@@ -22,7 +22,7 @@ public class EmaggedStasisPod extends StasisPod {
         if (isVacant()) {
             return super.getSprite(whosAsking);
         } else {
-            return new Sprite("emaggedstasispodoccupied", "Cryogenic2.png", 1, 17);
+            return new Sprite("emaggedstasispodoccupied", "Cryogenic2.png", 1, 17, this);
         }
     }
 

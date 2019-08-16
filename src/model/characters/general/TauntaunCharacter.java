@@ -16,7 +16,7 @@ public class TauntaunCharacter extends AnimalCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("tauntaun", "tauntaun.png", 0, 0, 82, 82);
+        return new Sprite("tauntaun", "tauntaun.png", 0, 0, 82, 82, this);
     }
 
     @Override

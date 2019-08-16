@@ -42,8 +42,8 @@ public class EmaggedVendingMachine extends ElectricalMachinery {
     public Sprite getSprite(Player whosAsking) {
         List<Sprite> sprs = new ArrayList<>();
         sprs.add(inner.getSprite(whosAsking));
-        sprs.add(new Sprite("emaggedfix", "vending2.png", 2, 4));
-        return new Sprite("emaggedq"+inner.getBaseName(), "human.png", 0, 0, 32, 32, sprs);
+        sprs.add(new Sprite("emaggedfix", "vending2.png", 2, 4, this));
+        return new Sprite("emaggedq"+inner.getBaseName(), "human.png", 0, 0, 32, 32, sprs, this);
     }
 
     @Override

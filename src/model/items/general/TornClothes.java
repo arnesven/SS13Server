@@ -11,7 +11,7 @@ public class TornClothes extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("tornclothes", "uniform2.png", 4);
+        return new Sprite("tornclothes", "uniform2.png", 4, this);
     }
 
     @Override

@@ -62,7 +62,7 @@ public class SetHairColorPower extends MovePower {
 
     @Override
     public Sprite getButtonSprite() {
-        Sprite sp = new Sprite("colorblob"+color.getRed()+"x"+color.getGreen()+"x"+color.getBlue(), "human_face.png", 0);
+        Sprite sp = new Sprite("colorblob"+color.getRed()+"x"+color.getGreen()+"x"+color.getBlue(), "human_face.png", 0, this);
         sp.setColor(color);
         return sp;
     }

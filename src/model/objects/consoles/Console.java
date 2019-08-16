@@ -24,7 +24,7 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
 
 	@Override
 	public Sprite getSprite(Player whosAsking) {
-		return new Sprite("console", "computer2.png", 10);
+		return new Sprite("console", "computer2.png", 10, this);
 	}
 
     @Override

@@ -28,7 +28,7 @@ public class MedkitDispenser extends DispenserObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("medkitdispenser", "closet.png", 30);
+        return new Sprite("medkitdispenser", "closet.png", 30, this);
     }
 
 

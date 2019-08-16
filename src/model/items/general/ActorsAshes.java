@@ -16,7 +16,7 @@ public class ActorsAshes extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite(belongedTo.getBaseName() + "sashes", "drinks.png", 11);
+        return new Sprite(belongedTo.getBaseName() + "sashes", "drinks.png", 11, this);
     }
 
     @Override

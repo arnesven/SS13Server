@@ -19,7 +19,7 @@ public class Banana extends HealingFood {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("banana", "items.png", 62);
+        return new Sprite("banana", "items.png", 62, this);
     }
 
     @Override
