@@ -78,7 +78,7 @@ public class PowerRadio extends Radio {
         @Override
         public List<String> getOverlayStrings(Player player, GameData gameData) {
             List<String> strs = super.getOverlayStrings(player, gameData);
-            strs.addAll(OverlaySprites.seePower(gameData));
+            strs.addAll(OverlaySprites.seePower(gameData, player));
             return strs;
         }
     }

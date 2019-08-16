@@ -47,7 +47,7 @@ public class OverlaySprites {
                 addItemsForRoom(sprites, player, r);
             }
 
-            strs.addAll(getStringsForSpritesInRoom(sprites, r));
+            strs.addAll(getStringsForSpritesInRoom(sprites, r, player));
 
         }
         return strs;
@@ -88,7 +88,7 @@ public class OverlaySprites {
             if (parasites.size() > 2) {
                 sp.addAll(parasites);
             }
-            strs.addAll(getStringsForSpritesInRoom(sp, r));
+            strs.addAll(getStringsForSpritesInRoom(sp, r, player));
         }
         if (strs.isEmpty()) {
             return dummyList();
@@ -110,7 +110,7 @@ public class OverlaySprites {
         addActorsForRoom(sp, player, r);
         addItemsForRoom(sp, player, r);
 
-        strs.addAll(getStringsForSpritesInRoom(sp, r));
+        strs.addAll(getStringsForSpritesInRoom(sp, r, player));
 
         Sprite blurredCharacterSprite = new BlurredCharacter().getSprite(player);
         for (Room r2 : r.getNeighborList()) {
@@ -127,7 +127,7 @@ public class OverlaySprites {
                     sp2.add(e.getSprite(player));
                 }
             }
-            strs.addAll(getStringsForSpritesInRoom(sp2, r2));
+            strs.addAll(getStringsForSpritesInRoom(sp2, r2, player));
         }
 
         if (strs.isEmpty()) {
@@ -151,7 +151,7 @@ public class OverlaySprites {
                     sp.add(a.getCharacter().getSprite(player));
                 }
             }
-            strs.addAll(getStringsForSpritesInRoom(sp, r));
+            strs.addAll(getStringsForSpritesInRoom(sp, r, player));
             sp.clear();
         }
 
@@ -176,7 +176,7 @@ public class OverlaySprites {
                     sp.add(ob.getSprite(player));
                 }
             }
-            strs.addAll(getStringsForSpritesInRoom(sp, r));
+            strs.addAll(getStringsForSpritesInRoom(sp, r, player));
             sp.clear();
         }
         if (strs.isEmpty()) {
@@ -196,7 +196,7 @@ public class OverlaySprites {
                 }
             }
 
-            strs.addAll(getStringsForSpritesInRoom(sp, r));
+            strs.addAll(getStringsForSpritesInRoom(sp, r, player));
             sp.clear();
         }
         if (strs.isEmpty()) {
@@ -240,7 +240,7 @@ public class OverlaySprites {
                     sp.add(ob.getSprite(player));
                 }
             }
-            strs.addAll(getStringsForSpritesInRoom(sp, r));
+            strs.addAll(getStringsForSpritesInRoom(sp, r, player));
             sp.clear();
         }
 
@@ -253,7 +253,7 @@ public class OverlaySprites {
 
 
 
-    private static List<String> getStringsForSpritesInRoom(List<Sprite> sprites, Room r) {
+    private static List<String> getStringsForSpritesInRoom(List<Sprite> sprites, Room r, Player forWhom) {
         ArrayList<String> strs = new ArrayList<>();
         double roomX = (double)r.getX();
         double roomY = (double)r.getY();
@@ -267,7 +267,7 @@ public class OverlaySprites {
             double finalY = roomY + gridY*yIncr;
             String pos = "," +
                     String.format("%1$.1f", finalX) + "," +
-                    String.format("%1$.1f", finalY);
+                    String.format("%1$.1f", finalY) + sp.getObjectReference().getPublicName(forWhom);
             strs.add(sp.getName() + pos);
             gridX += xIncr;
             if (gridX >= r.getWidth()) {
@@ -326,12 +326,12 @@ public class OverlaySprites {
     }
 
 
-    public static List<String> seePower(GameData gameData) {
+    public static List<String> seePower(GameData gameData, Player player) {
         List<String> strs = new ArrayList<>();
         for (Room r : gameData.getMap().getRoomsForLevel("ss13")) {
             ArrayList<Sprite> sprs = new ArrayList<>();
             addPowerForRoom(sprs, r, gameData);
-            strs.addAll(getStringsForSpritesInRoom(sprs, r));
+            strs.addAll(getStringsForSpritesInRoom(sprs, r, player));
         }
         return strs;
     }
@@ -340,7 +340,7 @@ public class OverlaySprites {
         List<String> strs = new ArrayList<>();
 
         for (Room r : player.getVisibleMap(gameData)) {
-            strs.addAll(getStringsForSpritesInRoom(r.getAlwaysSprites(), r));
+            strs.addAll(getStringsForSpritesInRoom(r.getAlwaysSprites(), r, player));
         }
         return strs;
 

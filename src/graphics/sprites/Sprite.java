@@ -224,4 +224,8 @@ public class Sprite implements Serializable {
     public void setObjectRef(SpriteObject obj) {
         this.objectReference = obj;
     }
+
+    public SpriteObject getObjectReference() {
+        return objectReference;
+    }
 }
