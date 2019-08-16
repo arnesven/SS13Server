@@ -45,7 +45,7 @@ public abstract class SuitItem extends GameItem implements Wearable {
         if (under == null) {
             Sprite naked = whosWearing.getCharacter().getNakedSprite();
             list.add(0, naked);
-            list.add(0, new Sprite("getupbase", "human.png", 0, this));
+            list.add(0, new Sprite("getupbase", "human.png", 0, whosWearing.getCharacter()));
             buf.append(whosWearing.getBaseName());
             buf.append(naked.getName());
         } else {

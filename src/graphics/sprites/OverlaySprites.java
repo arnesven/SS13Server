@@ -107,6 +107,7 @@ public class OverlaySprites {
         }
 
         addObjectsForRoom(sp, player, r);
+
         addActorsForRoom(sp, player, r);
         addItemsForRoom(sp, player, r);
 
@@ -265,9 +266,10 @@ public class OverlaySprites {
         for (Sprite sp : sprites) {
             double finalX = roomX + gridX*xIncr;
             double finalY = roomY + gridY*yIncr;
-            String pos = "," +
-                    String.format("%1$.1f", finalX) + "," +
-                    String.format("%1$.1f", finalY) + sp.getObjectReference().getPublicName(forWhom);
+            String delim = "<overlay-part>";
+            String pos = delim +
+                    String.format("%1$.1f", finalX) + delim +
+                    String.format("%1$.1f", finalY) + delim + sp.getObjectReference().getPublicName(forWhom);
             strs.add(sp.getName() + pos);
             gridX += xIncr;
             if (gridX >= r.getWidth()) {

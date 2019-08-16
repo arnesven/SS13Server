@@ -9,6 +9,7 @@ import java.util.Locale;
 
 import comm.ServiceHandler;
 
+import graphics.UserInterface;
 import graphics.pdf.MapPDFMaker;
 import model.GameData;
 import util.GameRecovery;
@@ -44,6 +45,7 @@ public class SS13ServerMain {
             dorecover = args[2].equals("recover");
         }
 
+        new UserInterface(); // needed for some sprites to be initialized
 		GameData gameData = new GameData(dorecover);
 		
 	  if (args.length == 3) {
