@@ -264,8 +264,8 @@ public class OverlaySprites {
         double gridX = 0;
         double gridY = 0;
         for (Sprite sp : sprites) {
-            double finalX = roomX + gridX*xIncr;
-            double finalY = roomY + gridY*yIncr;
+            double finalX = roomX + gridX*xIncr + 0.5;
+            double finalY = roomY + gridY*yIncr + 0.5;
             String delim = "<overlay-part>";
             String pos = delim +
                     String.format("%1$.1f", finalX) + delim +
