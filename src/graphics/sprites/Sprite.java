@@ -30,7 +30,6 @@ public class Sprite implements Serializable {
     private int height;
     private int resizeWidth;
     private int resizeHeight;
- //   private BufferedImage image;
     private Color color;
     private double rotation = 0.0;
 
