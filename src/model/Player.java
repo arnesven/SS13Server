@@ -553,6 +553,22 @@ public class Player extends Actor implements Target, Serializable {
         }
     }
 
+
+    public List<Room> getMiniMap(GameData gameData) {
+	    List<Room> res = new ArrayList<>();
+        try {
+            if (getCharacter() == null) {
+                res.addAll(gameData.getMap().getStationRooms());
+            } else {
+                res.addAll(gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(getPosition())));
+            }
+            res.removeIf((Room r) -> (r.getType() == RoomType.hidden || r.getType() == RoomType.space));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
     public void setNextMovePower(int selected, GameData gameData) {
         Logger.log("TRIGGERED A Move-Power BUTTON: " + selected);
         for (Room r : getCharacter().getVisibleMap(gameData)) {
@@ -566,4 +582,5 @@ public class Player extends Actor implements Target, Serializable {
             }
         }
     }
+
 }

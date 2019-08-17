@@ -25,9 +25,14 @@ public class MapCommandHandler extends AbstractCommandHandler {
 	//	    Logger.log("Got MAP command");
 		    //List<String> strs = makeStringsList(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
 			//String result = MyStrings.join(strs);
-            String result = MyStrings.join(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
+            String result;
+            if (rest.contains("VISI")) {
+                result = MyStrings.join(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
+            } else {
+                result = MyStrings.join(gameData.getPlayerForClid(clid).getMiniMap(gameData));
+            }
 			//Logger.log("MAPCOMMAND:" + rest);
-            rest = rest.substring(1);
+            rest = rest.substring(6);
 
                 Scanner scan = new Scanner(rest);
                 int width = scan.nextInt();
