@@ -243,7 +243,10 @@ public class GameData implements Serializable {
 	public void setPlayerReady(String clid, boolean equals) {
 		players.get(clid).setReady(equals);
 		if (allClientsReadyOrPassive()) {
-			increaseGameState();	
+			increaseGameState();
+			if (getGameState() == GameState.MOVEMENT) {
+			    increaseGameState();
+            }
 		}
 		
 	}
@@ -330,7 +333,7 @@ public class GameData implements Serializable {
 			gameMode.setStartingLastTurnInfo();
             sendLostMessages();
             forEachCharacter(((GameCharacter ch) -> ch.doAfterMovement(this)));
-			allClearReady();
+			 allClearReady();
 			clearAllDeadNPCs();
 			gameState = GameState.ACTIONS;
 			

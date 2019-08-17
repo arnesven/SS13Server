@@ -184,6 +184,7 @@ public class Player extends Actor implements Target, Serializable {
 	 * Currently, all clients can move two rooms at a time.
 	 * @param gameData the Game's data
 	 * @return the locations IDs as an array
+     * @deprecated
 	 */
 	public int[] getSelectableLocations(GameData gameData) {
 		int steps = getCharacter().getMovementSteps();
