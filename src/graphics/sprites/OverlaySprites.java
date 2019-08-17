@@ -16,6 +16,7 @@ import model.map.rooms.Room;
 import model.objects.general.DimensionPortal;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
+import util.Logger;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -100,7 +101,7 @@ public class OverlaySprites {
         ArrayList<String> strs = new ArrayList<>();
 
         ArrayList<Sprite> sp = new ArrayList<>();
-        addBackgroundForRoom(sp, player, r);
+        //addBackgroundForRoom(sp, player, r);
 
         for (Event e : r.getEvents()) {
             sp.add(e.getSprite(player));
@@ -137,11 +138,11 @@ public class OverlaySprites {
         return strs;
     }
 
-    private static void addBackgroundForRoom(ArrayList<Sprite> sp, Player player, Room r) {
-        if (r.hasBackgroundSprite()) {
-            sp.add(r.getBackgroundSprite(player.getClientInfo()));
-        }
-    }
+//    private static void addBackgroundForRoom(ArrayList<Sprite> sp, Player player, Room r) {
+//        if (r.hasBackgroundSprite()) {
+//            sp.add(r.getBackgroundSprite(player.getClientInfo()));
+//        }
+//    }
 
     public static List<String> seeActorsInAdjacentRooms(Player player, Room room) {
         ArrayList<String> strs = new ArrayList<>();
@@ -269,7 +270,13 @@ public class OverlaySprites {
             String delim = "<overlay-part>";
             String pos = delim +
                     String.format("%1$.1f", finalX) + delim +
-                    String.format("%1$.1f", finalY) + delim + sp.getObjectReference().getPublicName(forWhom);
+                    String.format("%1$.1f", finalY) + delim;
+            if (sp.getObjectReference() != null) {
+                pos += sp.getObjectReference().getPublicName(forWhom);
+            } else {
+                pos += "Unknown";
+                Logger.log("Could not find object refernce for sprite: " + sp.getName());
+            }
             strs.add(sp.getName() + pos);
             gridX += xIncr;
             if (gridX >= r.getWidth()) {

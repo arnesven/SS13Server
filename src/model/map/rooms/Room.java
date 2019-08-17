@@ -512,11 +512,12 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
             case tech:
                 return new Sprite("floor"+getColor(), "floors.png", 1, 4, null);
             case space:
-                return new Sprite("floor"+getColor(), "floors.png", 18, 24, null);
+                return new Sprite("outdoor"+getColor(), "floors.png", 18, 24, null);
             case hall:
                 return new Sprite("floorhall", "floors.png", 0, 0, null);
             case airlock:
                 return new Sprite("floorairlock", "floors.png", 22, 28, null);
+
 
         }
 
@@ -568,13 +569,13 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 
     }
 
-    public boolean hasBackgroundSprite() {
-	    return false;
-    }
-
-    public Sprite getBackgroundSprite(ClientInfo clientInfo) {
-        return null;
-    }
+//    public boolean hasBackgroundSprite() {
+//	    return false;
+//    }
+//
+//    public Sprite getBackgroundSprite(ClientInfo clientInfo) {
+//        return null;
+//    }
 
     public List<Sprite> getAlwaysSprites() {return new ArrayList<>();};
 }

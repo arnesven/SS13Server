@@ -76,15 +76,15 @@ public abstract class ExoticPlanet extends Room {
         }
     }
 
-    @Override
-    public boolean hasBackgroundSprite() {
-        return explored;
-    }
-
-    @Override
-    public Sprite getBackgroundSprite(ClientInfo clientInfo) {
-        return getBackground(clientInfo);
-    }
+//    @Override
+//    public boolean hasBackgroundSprite() {
+//        return explored;
+//    }
+//
+//    @Override
+//    public Sprite getBackgroundSprite(ClientInfo clientInfo) {
+//        return getBackground(clientInfo);
+//    }
 
 
 }

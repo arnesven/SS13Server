@@ -9,6 +9,7 @@ import java.util.Locale;
 
 import comm.ServiceHandler;
 
+import graphics.BackgroundSprites;
 import graphics.UserInterface;
 import graphics.pdf.MapPDFMaker;
 import model.GameData;
@@ -46,6 +47,7 @@ public class SS13ServerMain {
         }
 
         new UserInterface(); // needed for some sprites to be initialized
+        new BackgroundSprites();
 		GameData gameData = new GameData(dorecover);
 		
 	  if (args.length == 3) {
