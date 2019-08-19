@@ -136,7 +136,9 @@ public class  PersonalGoalAssigner implements Serializable {
             gameData.addMovementEvent(new BackgroundEvent() {
                 @Override
                 public void apply(GameData gameData) {
-                    a.addTolastTurnInfo("PG: " + finalGoal.getText() + ".");
+                    if (gameData.getRound() == 1) {
+                        a.addTolastTurnInfo("PG: " + finalGoal.getText() + ".");
+                    }
                 }
             });
         }

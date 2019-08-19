@@ -54,7 +54,7 @@ public class GameData implements Serializable {
 	private List<NPC> npcs = new ArrayList<>();
 	private GameMode gameMode;
 	private int round = 0;
-	private int noOfRounds = 20;
+	private int noOfRounds = 40;
 	private List<Pair<Actor, Action>> lateActions;
 	// Map must be built before first game, client needs it.
 	private GameMap map;
@@ -320,7 +320,8 @@ public class GameData implements Serializable {
             }
 
 		} else if (gameState == GameState.MOVEMENT) {
-            allClearLastTurn();
+           // allClearLastTurn();
+            addToLostMessages("=== ROUND " + getRound() + " ===");
             forEachCharacter(((GameCharacter ch) -> ch.doBeforeMovement(this)));
             MovementData moveData = new MovementData(this);
 			moveAllNPCs();
@@ -330,13 +331,23 @@ public class GameData implements Serializable {
             moveData.informPlayersOfMovements(this);
 			runMovementEvents();
 
-			gameMode.setStartingLastTurnInfo();
+			if (getRound() == 1) {
+                gameMode.setStartingLastTurnInfo();
+            }
             sendLostMessages();
             forEachCharacter(((GameCharacter ch) -> ch.doAfterMovement(this)));
 			 allClearReady();
 			clearAllDeadNPCs();
 			gameState = GameState.ACTIONS;
-			
+            try {
+                if (recover) {
+                    GameRecovery.saveData(this);
+                }
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+
+
 		} else if (gameState == GameState.ACTIONS) {
 			executeAllActions();
 			forEachCharacter((GameCharacter ch) -> ch.doAfterActions(this));
@@ -354,13 +365,7 @@ public class GameData implements Serializable {
 				gameState = GameState.MOVEMENT;
 				round = round + 1;
                 getChat().serverSay("Starting round " + round + " (of " + noOfRounds + ")");
-                try {
-                    if (recover) {
-                        GameRecovery.saveData(this);
-                    }
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                }
+
 			}
             forEachCharacter((GameCharacter ch) -> ch.doAtEndOfTurn(this));
 			allClearReady();

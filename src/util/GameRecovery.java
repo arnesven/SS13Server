@@ -16,6 +16,7 @@ public class GameRecovery {
         ObjectInputStream oyester = new ObjectInputStream(
                 new FileInputStream(new File(PATH)));
          GameData gd = (GameData)oyester.readObject();
+
         //TODO: set all players not ready...
         return gd;
     }

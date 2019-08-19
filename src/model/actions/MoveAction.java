@@ -7,6 +7,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.map.rooms.Room;
+import util.Logger;
 
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +18,7 @@ public class MoveAction extends Action {
 
     public MoveAction(Actor actor) {
         super("Move", SensoryLevel.PHYSICAL_ACTIVITY);
+        Logger.log("Creating Move action object for " + actor.getPublicName());
     }
 
     @Override
@@ -41,17 +43,26 @@ public class MoveAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (performingClient instanceof Player) {
-            ((Player) performingClient).setNextMove(destination.getID());
-            performingClient.addTolastTurnInfo("You are moving towards " + destination.getName());
+            if (destination != null) {
+                ((Player) performingClient).setNextMove(destination.getID());
+                performingClient.addTolastTurnInfo("You are moving towards " + destination.getName());
+            } else {
+                Logger.log(Logger.CRITICAL, "Destination was null!");
+            }
         }
     }
 
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
+        Logger.log("Searching for destination: " + args.get(0));
         for (Room r : findMoveToAblePositions(performingClient)) {
             if (args.get(0).equals(r.getName())) {
+                Logger.log("  -> Destination found!");
                 destination = r;
             }
+        }
+        if (destination == null) {
+            Logger.log(Logger.CRITICAL, "Destination not found!");
         }
     }
 
