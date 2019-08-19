@@ -320,8 +320,6 @@ public class GameData implements Serializable {
             }
 
 		} else if (gameState == GameState.MOVEMENT) {
-           // allClearLastTurn();
-            addToLostMessages("=== ROUND " + getRound() + " ===");
             forEachCharacter(((GameCharacter ch) -> ch.doBeforeMovement(this)));
             MovementData moveData = new MovementData(this);
 			moveAllNPCs();
@@ -349,6 +347,7 @@ public class GameData implements Serializable {
 
 
 		} else if (gameState == GameState.ACTIONS) {
+            allClearLastTurn();
 			executeAllActions();
 			forEachCharacter((GameCharacter ch) -> ch.doAfterActions(this));
 			runEvents();

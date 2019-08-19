@@ -20,6 +20,13 @@ public class UserInterface {
         Sprite overhealth = new Sprite("healthover", "interface.png", 16, 0, null);
 
         Sprite backpack = new Sprite("backpack", "interface.png", 2, 13, null);
+
+        Sprite door1 = new Sprite("skeweddoorleft", "newdoor.png", 0, null);
+        Sprite door2 = new Sprite("skeweddoorright", "newdoor.png", 1, null);
+
+        Sprite door3 = new Sprite("skeweddoortop", "newdoor.png", 2, null);
+        Sprite door4 = new Sprite("skeweddoorbottom", "newdoor.png", 2, 1, null);
+
     }
 
 }
