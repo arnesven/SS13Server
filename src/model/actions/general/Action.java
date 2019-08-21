@@ -33,8 +33,8 @@ public abstract class Action extends Experienceable implements Serializable {
 		this.name = name;
 		this.senses = senses;
 	}
-	
-	public void setName(String string) {
+
+    public void setName(String string) {
 		this.name = string;
 	}
 
@@ -168,4 +168,18 @@ public abstract class Action extends Experienceable implements Serializable {
     public boolean wasDeadBeforeApplied() {
         return this.wasDeadBeforeApplied;
     }
+
+
+    public static String makeActionListString(GameData gameData, List<Action> list, Actor whosAsking) {
+        String result = "{";
+        for (Action a : list) {
+            ActionOption opts = a.getOptions(gameData, whosAsking);
+            opts.uniquefy();
+
+            result += opts.makeBracketedString();
+        }
+        result += "}";
+        return result;
+    }
+
 }

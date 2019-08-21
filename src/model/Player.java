@@ -272,18 +272,12 @@ public class Player extends Actor implements Target, Serializable {
 	 * @param gameData the Game's data
 	 * @return the string representing the selectable actions.
 	 */
-	public String getActionListString(GameData gameData) {		
-		String result = "{";
-		for (Action a : getActionList(gameData)) {
-
-            ActionOption opts = a.getOptions(gameData, this);
-            opts.uniquefy();
-
-			result += opts.makeBracketedString();
-		}
-		result += "}";
-		return result;
+	public String getActionListString(GameData gameData) {
+		return Action.makeActionListString(gameData, getActionList(gameData), this);
 	}
+
+
+
 
 
 	/**
