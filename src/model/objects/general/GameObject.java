@@ -2,6 +2,7 @@ package model.objects.general;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
@@ -68,5 +69,10 @@ public class GameObject implements SpriteObject, Serializable {
 
     public GameObject getTrueObject() {
         return this;
+    }
+
+
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        return new ArrayList<>();
     }
 }

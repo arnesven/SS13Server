@@ -1,6 +1,10 @@
 package graphics.sprites;
 
 import model.Actor;
+import model.GameData;
+import model.Player;
+import model.actions.general.Action;
+import model.map.rooms.Room;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -54,5 +58,10 @@ public class LifeBarSprite extends Sprite implements SpriteObject {
     @Override
     public String getPublicName(Actor whosAsking) {
         return "Life: " + String.format("%1$.1f");
+    }
+
+
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        return new ArrayList<>();
     }
 }

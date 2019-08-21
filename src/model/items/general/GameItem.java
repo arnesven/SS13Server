@@ -12,6 +12,7 @@ import model.Player;
 import model.Target;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
+import model.actions.general.PickUpAction;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
@@ -221,5 +222,12 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 
     public boolean canBePickedUp() {
         return true;
+    }
+
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        PickUpAction pu = new PickUpAction(forWhom);
+        List<Action> list = new ArrayList<>();
+        list.add(pu);
+        return list;
     }
 }

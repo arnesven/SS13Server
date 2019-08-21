@@ -1,5 +1,6 @@
 package model.characters.decorators;
 
+import graphics.OverlaySprite;
 import graphics.sprites.OverlaySprites;
 import model.GameData;
 import model.Player;
@@ -17,9 +18,9 @@ public class SenseActorsInOtherRoomsDecorator extends CharacterDecorator {
     }
 
     @Override
-    public List<String> getOverlayStrings(Player player, GameData gameData) {
-        List<String> list =  super.getOverlayStrings(player, gameData);
-        list.addAll(OverlaySprites.seeActorsInAdjacentRooms(player, player.getPosition()));
+    public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
+        List<OverlaySprite> list =  super.getOverlayStrings(player, gameData);
+        list.addAll(OverlaySprites.seeActorsInAdjacentRooms(gameData, player, player.getPosition()));
         return list;
     }
 }

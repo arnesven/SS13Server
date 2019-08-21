@@ -34,6 +34,7 @@ public abstract class Action extends Experienceable implements Serializable {
 		this.senses = senses;
 	}
 
+
     public void setName(String string) {
 		this.name = string;
 	}
@@ -177,6 +178,19 @@ public abstract class Action extends Experienceable implements Serializable {
             opts.uniquefy();
 
             result += opts.makeBracketedString();
+        }
+        result += "}";
+        return result;
+    }
+
+
+    public static String makeActionListStringNoOptions(GameData gameData, List<Action> list, Player whosAsking) {
+        String result = "{";
+        for (Action a : list) {
+            ActionOption opts = a.getOptions(gameData, whosAsking);
+            opts.uniquefy();
+
+            result += a.getName() + "{}";
         }
         result += "}";
         return result;

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 
 import graphics.ClientInfo;
+import graphics.OverlaySprite;
 import model.actions.general.ActionOption;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
@@ -318,6 +319,10 @@ public class Player extends Actor implements Target, Serializable {
 		Logger.log(Logger.CRITICAL, "Could not find action for this action string " + actionString + ".");
 	}
 
+    public void parseOverlayActionFromString(String actionStr, GameData gameData) {
+
+    }
+
 	/**
 	 * Applies the action previously selected in the action string.
 	 * This method finds the corresponding action in the action tree
@@ -475,9 +480,9 @@ public class Player extends Actor implements Target, Serializable {
     }
 
 
-    public List<String> getOverlayStrings(GameData gameData) {
+    public List<OverlaySprite> getOverlayStrings(GameData gameData) {
 
-	    List<String> strs = OverlaySprites.dummyList();
+	    List<OverlaySprite> strs = OverlaySprites.dummyList();
 
         if (isDead() ||
                 (gameData.getGameMode().gameOver(gameData) &&

@@ -6,6 +6,11 @@ import model.Actor;
 import model.GameData;
 import model.MovementData;
 import model.Player;
+import model.actions.general.Action;
+import model.map.rooms.Room;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class MovePower implements SpriteObject {
     private String name;
@@ -35,5 +40,10 @@ public abstract class MovePower implements SpriteObject {
     @Override
     public String getPublicName(Actor whosAsking) {
         return getName();
+    }
+
+
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        return new ArrayList<>();
     }
 }

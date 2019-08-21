@@ -1,5 +1,6 @@
 package model.characters.decorators;
 
+import graphics.OverlaySprite;
 import graphics.sprites.OverlaySprites;
 import model.GameData;
 import model.Player;
@@ -20,7 +21,7 @@ public class AlarmOverlayDecorator extends CharacterDecorator {
     }
 
     @Override
-    public List<String> getOverlayStrings(Player player, GameData gameData) {
+    public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
         if (round == gameData.getRound()-1) {
             return OverlaySprites.seeAlarms(player, gameData);
         }

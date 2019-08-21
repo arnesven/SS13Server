@@ -3,6 +3,7 @@ package model.characters.decorators;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.OverlaySprite;
 import graphics.sprites.PhysicalBody;
 import graphics.sprites.Sprite;
 import model.Actor;
@@ -365,7 +366,7 @@ public abstract class CharacterDecorator extends GameCharacter {
     }
 
     @Override
-    public List<String> getOverlayStrings(Player player, GameData gameData) {
+    public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
         return innerChar.getOverlayStrings(player, gameData);
     }
 

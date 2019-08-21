@@ -469,4 +469,5 @@ public abstract class Actor  implements ItemHolder, Serializable {
 
         return gameData.getRooms();
     }
+
 }

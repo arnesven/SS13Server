@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import comm.chat.ChatMessages;
+import graphics.OverlaySprite;
 import model.characters.GameCharacterLambda;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
@@ -565,7 +566,7 @@ public class GameData implements Serializable {
 					   delim + MyStrings.join(cl.getItemsAsFullNameList()) +
 					   delim + MyStrings.join(cl.getRoomInfo()) +
 					   delim + MyStrings.join(cl.getLastTurnInfo()) +
-                       delim + MyStrings.join(cl.getOverlayStrings(this));
+                       delim + OverlaySprite.join(cl.getOverlayStrings(this), this);
 		return result;	
 		
 	}

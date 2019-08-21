@@ -55,6 +55,8 @@ public class ServiceHandler {
         handlers.add(new SoundHandler(gameData));
 
         handlers.add(new ServerInfoCommandHandler(gameData, new ServerInfoFactory(name, port)));
+
+        handlers.add(new OverlayActionCommandHandler(gameData));
 		
 	}
 

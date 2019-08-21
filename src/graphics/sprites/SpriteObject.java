@@ -1,6 +1,12 @@
 package graphics.sprites;
 
 import model.Actor;
+import model.GameData;
+import model.Player;
+import model.actions.general.Action;
+import model.map.rooms.Room;
+
+import java.util.List;
 
 public interface SpriteObject {
 
@@ -8,4 +14,5 @@ public interface SpriteObject {
 
     String getPublicName(Actor whosAsking);
 
+    List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom);
 }

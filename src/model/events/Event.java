@@ -6,9 +6,13 @@ import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.map.rooms.Room;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Event extends Experienceable implements SpriteObject, Serializable {
 
@@ -85,5 +89,10 @@ public abstract class Event extends Experienceable implements SpriteObject, Seri
                 return true;
             }
         });
+    }
+
+
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        return new ArrayList<>();
     }
 }

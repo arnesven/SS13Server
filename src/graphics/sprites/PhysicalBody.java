@@ -1,7 +1,11 @@
 package graphics.sprites;
 
 import model.Actor;
+import model.GameData;
+import model.Player;
+import model.actions.general.Action;
 import model.items.BodyPart;
+import model.map.rooms.Room;
 import util.MyRandom;
 
 import java.awt.*;
@@ -286,5 +290,10 @@ public class PhysicalBody implements SpriteObject, Serializable {
     @Override
     public String getPublicName(Actor whosAsking) {
         return "Physical Body";
+    }
+
+
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        return new ArrayList<>();
     }
 }

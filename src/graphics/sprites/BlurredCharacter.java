@@ -1,6 +1,13 @@
 package graphics.sprites;
 
 import model.Actor;
+import model.GameData;
+import model.Player;
+import model.actions.general.Action;
+import model.map.rooms.Room;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlurredCharacter implements SpriteObject {
     @Override
@@ -11,5 +18,10 @@ public class BlurredCharacter implements SpriteObject {
     @Override
     public String getPublicName(Actor whosAsking) {
         return "Somebody";
+    }
+
+
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        return new ArrayList<>();
     }
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import graphics.OverlaySprite;
 import graphics.sprites.PhysicalBody;
 import graphics.sprites.OverlaySprites;
 import graphics.sprites.Sprite;
@@ -567,7 +568,7 @@ public abstract class GameCharacter implements SpriteObject, Serializable {
         return true;
     }
 
-    public List<String> getOverlayStrings(Player player, GameData gameData) {
+    public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
         if (getActor() instanceof  Player && ((Player) getActor()).getSettings().get(PlayerSettings.CURRENT_ROOM_STUFF_IN_MAP)) {
             return OverlaySprites.normalVision(((Player)getActor()), gameData, getPosition());
         }
@@ -740,5 +741,10 @@ public abstract class GameCharacter implements SpriteObject, Serializable {
 
     public CharacterDecorator getDecorator(InstanceChecker check) {
         throw new NoSuchInstanceException("Can't call getDecorator on GameCharacter");
+    }
+
+
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        return new ArrayList<>();
     }
 }

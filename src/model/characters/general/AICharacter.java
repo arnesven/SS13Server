@@ -1,5 +1,6 @@
 package model.characters.general;
 
+import graphics.OverlaySprite;
 import graphics.sprites.OverlaySprites;
 import graphics.sprites.Sprite;
 import model.Actor;
@@ -116,7 +117,7 @@ public class AICharacter extends GhostCharacter {
     }
 
 
-    public List<String> getOverlayStrings(Player player, GameData gameData) {
+    public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
         return OverlaySprites.seeAIVision(player, gameData);
     }
 

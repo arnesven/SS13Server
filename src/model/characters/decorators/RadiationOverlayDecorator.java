@@ -1,5 +1,6 @@
 package model.characters.decorators;
 
+import graphics.OverlaySprite;
 import graphics.sprites.OverlaySprites;
 import model.GameData;
 import model.Player;
@@ -17,9 +18,9 @@ public class RadiationOverlayDecorator extends CharacterDecorator {
     }
 
     @Override
-    public List<String> getOverlayStrings(Player player, GameData gameData) {
-        List<String> strs = super.getOverlayStrings(player, gameData);
-        strs.addAll(OverlaySprites.seeRadiationAndPortalsInRoomAndAdjacent(player));
+    public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
+        List<OverlaySprite> strs = super.getOverlayStrings(player, gameData);
+        strs.addAll(OverlaySprites.seeRadiationAndPortalsInRoomAndAdjacent(gameData, player));
         return strs;
     }
 }
