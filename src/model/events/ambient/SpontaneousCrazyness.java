@@ -16,7 +16,7 @@ import model.npcs.behaviors.MeanderingMovement;
 public class SpontaneousCrazyness extends AmbientEvent {
 
 	private List<NPC> crazyPeople = new ArrayList<>();
-    private static double occurrenceChance = 0.01;
+    private static double occurrenceChance = 0.005;
 
     @Override
     protected double getStaticProbability() {

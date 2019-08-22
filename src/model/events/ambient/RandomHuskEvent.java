@@ -21,7 +21,7 @@ public class RandomHuskEvent extends Event {
 			if (MyRandom.nextDouble() < 0.33) {
 				 addAHusk(gameData);
 			}	
-		} else if (MyRandom.nextDouble() < 0.05) {
+		} else if (MyRandom.nextDouble() < 0.025) {
 			 addAHusk(gameData);
 		} 
 		

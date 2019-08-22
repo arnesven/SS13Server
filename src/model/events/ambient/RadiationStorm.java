@@ -21,7 +21,7 @@ public class RadiationStorm extends AmbientEvent {
 	private int roundsLeft = -1;
 	private double damage;
 	private int side;
-    private static final double occurenceChance = 0.03;
+    private static final double occurenceChance = 0.015;
 
     @Override
     protected double getStaticProbability() {

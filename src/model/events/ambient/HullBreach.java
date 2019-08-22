@@ -15,7 +15,7 @@ import util.Logger;
 
 public class HullBreach extends OngoingEvent {
 
-    private static final double occurenceChance = 0.15;
+    private static final double occurenceChance = 0.075;
 
     public double getStaticProbability() {
 		return occurenceChance;
