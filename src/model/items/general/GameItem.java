@@ -227,7 +227,9 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
         PickUpAction pu = new PickUpAction(forWhom);
         List<Action> list = new ArrayList<>();
-        list.add(pu);
+        if (pu.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+            list.add(pu);
+        }
         return list;
     }
 }

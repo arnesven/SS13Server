@@ -96,5 +96,8 @@ public class PickUpAction extends Action {
 		throw new NoSuchElementException("No such item found for pick up action");
 	}
 
-
+    @Override
+    public boolean hasSpecialOptions() {
+        return false;
+    }
 }

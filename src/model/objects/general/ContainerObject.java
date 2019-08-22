@@ -10,6 +10,7 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
+import util.Logger;
 
 public class ContainerObject extends GameObject {
 
@@ -51,6 +52,7 @@ private List<GameItem> inventory = new ArrayList<>();
 				
 				@Override
 				public void setArguments(List<String> args, Actor performingClient) {
+                    Logger.log(args.toString());
 					for (GameItem it : inventory) {
 						if (args.get(0).contains(it.getPublicName(performingClient))) {
 							selectedItem = it;

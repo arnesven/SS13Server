@@ -90,7 +90,10 @@ public class SecurityConsoleAction extends ConsoleAction {
 	@Override
 	public void setArguments(List<String> args, Actor p) {
 		chosen = args.get(0);
-
 	}
 
+    @Override
+    public void setOverlayArguments(List<String> args, Actor performingClient) {
+        chosen = args.get(1);
+    }
 }

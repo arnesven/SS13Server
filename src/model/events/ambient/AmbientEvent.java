@@ -37,7 +37,7 @@ public abstract class AmbientEvent extends Event {
     }
 
     public static double everyNGames(int n) {
-        double d = 1 - Math.pow(1 - 1.0/n, (1.0/20.0));
+        double d = 1 - Math.pow(1 - 1.0/n, (1.0/40.0));
         Logger.log(Logger.INTERESTING, "Some event hade prob " + d);
         return d;
     }

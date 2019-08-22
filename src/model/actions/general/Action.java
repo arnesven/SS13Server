@@ -184,16 +184,36 @@ public abstract class Action extends Experienceable implements Serializable {
     }
 
 
-    public static String makeActionListStringNoOptions(GameData gameData, List<Action> list, Player whosAsking) {
+    public static String makeActionListStringSpecOptions(GameData gameData, List<Action> list, Player whosAsking) {
         String result = "{";
         for (Action a : list) {
             ActionOption opts = a.getOptions(gameData, whosAsking);
             opts.uniquefy();
 
-            result += a.getName() + "{}";
+            if (a.hasSpecialOptions()) {
+                result += opts.makeBracketedString();
+            } else {
+                result += a.getName() + "{}";
+            }
         }
         result += "}";
         return result;
     }
 
+    public boolean hasSpecialOptions() {
+	    return true;
+    }
+
+    public void setOverlayArguments(List<String> args,  Actor performingClient) {
+	    setArguments(args, performingClient);
+    }
+
+    public boolean isAmongOptions(GameData gameData, Actor whosAsking, String publicName) {
+        for (ActionOption opts : getOptions(gameData, whosAsking).getSuboptions()) {
+            if (opts.getName().contains(publicName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

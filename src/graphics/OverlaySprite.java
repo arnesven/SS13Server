@@ -24,16 +24,24 @@ public class OverlaySprite {
         this.forWhom = forWhom;
     }
 
+    public Sprite getSprite() {
+        return sprite;
+    }
 
     public String getStringRepresentation(GameData gameData) {
         String actiondata = "NoRef";
         if (sprite.getObjectReference() != null) {
-            actiondata = Action.makeActionListStringNoOptions(gameData,
+            actiondata = Action.makeActionListStringSpecOptions(gameData,
                     sprite.getObjectReference().getOverlaySpriteActionList(gameData, room, forWhom),
                     forWhom);
         }
+        String spriteObjName = "Unknown";
+        if (sprite.getObjectReference() != null) {
+            spriteObjName = sprite.getObjectReference().getPublicName(forWhom);
+        }
+
         return sprite.getName() + delim +  String.format("%1$.1f", x) + delim + String.format("%1$1f", y) +
-                delim + sprite.getObjectReference().getPublicName(forWhom) + delim + actiondata;
+                delim + spriteObjName + delim + actiondata;
     }
 
 
@@ -52,4 +60,7 @@ public class OverlaySprite {
         return buf.toString();
     }
 
+    public Room getRoom() {
+        return room;
+    }
 }

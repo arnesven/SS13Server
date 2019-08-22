@@ -15,7 +15,6 @@ import model.events.ambient.RadiationStorm;
 import model.items.general.GameItem;
 import model.items.general.HidableItem;
 import model.map.rooms.Room;
-import model.modes.GameStats;
 import model.objects.general.DimensionPortal;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
@@ -298,7 +297,7 @@ public class OverlaySprites {
         if (sp.getObjectReference() == null) {
             return "NoRef";
         }
-        return Action.makeActionListStringNoOptions(gameData,
+        return Action.makeActionListStringSpecOptions(gameData,
                 sp.getObjectReference().getOverlaySpriteActionList(gameData, r, forWhom),
                 forWhom);
     }

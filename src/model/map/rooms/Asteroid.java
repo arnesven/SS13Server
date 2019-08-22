@@ -22,7 +22,7 @@ public class Asteroid extends Room {
     private static final double WORM_SPAWN_CHANCE = 0.05;
 
     public Asteroid(int id, int x, int y, int w, int h, GameData gameData) {
-        super(id, "Asteroid " + id, "AST", x, y, w, h, new int[]{}, new double[]{}, RoomType.hall);
+        super(id, "Asteroid " + id, "AST", x, y, w, h, new int[]{}, new double[]{}, RoomType.planet);
 
         for (double d = 0.9; d > MyRandom.nextDouble(); d = d/2.0) {
             addObject(RockFactory.randomRock(this));

@@ -5,6 +5,7 @@ import java.util.*;
 
 import graphics.ClientInfo;
 import graphics.OverlaySprite;
+import graphics.sprites.SpriteObject;
 import model.actions.general.ActionOption;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
@@ -320,6 +321,26 @@ public class Player extends Actor implements Target, Serializable {
 	}
 
     public void parseOverlayActionFromString(String actionStr, GameData gameData) {
+        List<OverlaySprite> overlaySprites = getOverlayStrings(gameData);
+        String actionString = actionStr.replaceFirst("root,", "");
+        List<String> args = new ArrayList<>();
+        args.addAll(Arrays.asList(actionString.split(",")));
+
+        for (OverlaySprite sp : overlaySprites) {
+            if (sp.getSprite().getObjectReference() != null) {
+                SpriteObject obj = sp.getSprite().getObjectReference();
+                for (Action a : obj.getOverlaySpriteActionList(gameData, sp.getRoom(), this)) {
+                    if (a.getName().equals(args.get(0))) {
+                        List<String> newArgs = args.subList(1, args.size());
+                        String last = newArgs.remove(newArgs.size()-1);
+                        newArgs.add(0, last);
+                        a.setOverlayArguments(newArgs, this);
+                        this.nextAction = a;
+                        break;
+                    }
+                }
+            }
+        }
 
     }
 

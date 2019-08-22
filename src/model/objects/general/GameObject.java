@@ -73,6 +73,8 @@ public class GameObject implements SpriteObject, Serializable {
 
 
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
-        return new ArrayList<>();
+        ArrayList<Action> acts = new ArrayList<>();
+        addSpecificActionsFor(gameData, forWhom, acts);
+        return acts;
     }
 }

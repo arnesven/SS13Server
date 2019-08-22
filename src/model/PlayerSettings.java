@@ -25,7 +25,7 @@ public class PlayerSettings implements Serializable {
     public static final String AUTO_READY_ME_IN_60_SECONDS = "Auto-ready me after 60 secs";
     public static final String ACTIVATE_MOVEMENT_POWERS    = "Activate Movement Powers";
     public static final String STYLE_BUTTONS_ON            = "Style Buttons On";
-    public static final String NOT_BEING_A_WOMAN           = "Not being a woman";
+    public static final String NOT_BEING_A_WOMAN           = "Not being a anti-man";
 
     private HashMap<String, Boolean> settings = new HashMap<>();
 

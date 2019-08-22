@@ -87,4 +87,9 @@ public class AccessAccountAction extends Action {
             this.withdraw = false;
         }
     }
+
+    @Override
+    public boolean hasSpecialOptions() {
+        return true;
+    }
 }

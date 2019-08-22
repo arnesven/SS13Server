@@ -37,6 +37,7 @@ public class AirlockOverrideAction extends ConsoleAction {
 
 	@Override
 	public void setArguments(List<String> args, Actor p) {
+	    Logger.log("Setting args: " + args.toString());
 		for (int i = 0 ; i < rooms.size() ; ++i) {
 			if (args.get(0).contains(rooms.get(i).getName())) {
 				selected = panels.get(i);
@@ -62,10 +63,18 @@ public class AirlockOverrideAction extends ConsoleAction {
 		selected.makeApplicableAction(gameData).doTheAction(gameData, performingClient);
 	}
 
+    @Override
+    public void setOverlayArguments(List<String> args, Actor performingClient) {
+        super.setOverlayArguments(args.subList(1, args.size()), performingClient);
+    }
 
-	@Override
+    @Override
 	protected String getVerb(Actor whosAsking) {
 		return "Fiddeled with the Airlock Override";
 	}
 
+    @Override
+    public boolean hasSpecialOptions() {
+        return true;
+    }
 }

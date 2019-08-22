@@ -256,7 +256,9 @@ public abstract class Actor  implements ItemHolder, Serializable {
 
     private void addMoveActions(GameData gameData, ArrayList<Action> at) {
         Action move = new MoveAction(this);
-        at.add(move);
+        if (move.getOptions(gameData, this).getSuboptions().size() > 0) {
+            at.add(move);
+        }
     }
 
     private void addHighFiveAction(ArrayList<Action> generals, GameData gameData) {

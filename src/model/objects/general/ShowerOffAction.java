@@ -11,7 +11,7 @@ import java.util.List;
 
     public class ShowerOffAction extends Action {
         public ShowerOffAction() {
-            super("Shower Off", SensoryLevel.PHYSICAL_ACTIVITY);
+            super("Take a Shower", SensoryLevel.PHYSICAL_ACTIVITY);
         }
 
         @Override

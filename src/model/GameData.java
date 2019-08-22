@@ -336,7 +336,7 @@ public class GameData implements Serializable {
             sendLostMessages();
             forEachCharacter(((GameCharacter ch) -> ch.doAfterMovement(this)));
 			 allClearReady();
-			clearAllDeadNPCs();
+			//clearAllDeadNPCs();
 			gameState = GameState.ACTIONS;
             try {
                 if (recover) {
@@ -399,7 +399,7 @@ public class GameData implements Serializable {
 		eventsToExecute.addAll(events);
 		
 		for (Event e : eventsToExecute) {
-		    Logger.log("Running event " + e.toString());
+		    //Logger.log("Running event " + e.toString());
 			e.apply(this);
 			if (e.shouldBeRemoved(this)) {
 				eventsToRemove.add(e);
