@@ -131,8 +131,5 @@ public class CookFoodAction extends Action {
         }
 	}
 
-    @Override
-    public void setOverlayArguments(List<String> args, Actor performingClient) {
-        setArguments(args.subList(1, args.size()), performingClient);
-    }
+
 }

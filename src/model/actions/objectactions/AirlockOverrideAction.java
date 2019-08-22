@@ -64,11 +64,6 @@ public class AirlockOverrideAction extends ConsoleAction {
 	}
 
     @Override
-    public void setOverlayArguments(List<String> args, Actor performingClient) {
-        super.setOverlayArguments(args.subList(1, args.size()), performingClient);
-    }
-
-    @Override
 	protected String getVerb(Actor whosAsking) {
 		return "Fiddeled with the Airlock Override";
 	}
