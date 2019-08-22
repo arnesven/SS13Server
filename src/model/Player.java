@@ -190,9 +190,6 @@ public class Player extends Actor implements Target, Serializable {
 	 */
 	public int[] getSelectableLocations(GameData gameData) {
 		int steps = getCharacter().getMovementSteps();
-		if (getCharacter().isEncumbered()) {
-			addTolastTurnInfo("You are carrying too much to be able to run!");
-		}
 
 		List<Room> list = new ArrayList<>();
 		// TODO: Work these back into actions.
