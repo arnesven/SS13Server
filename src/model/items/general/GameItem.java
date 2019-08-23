@@ -87,8 +87,9 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
     }
 
 	public String howDoYouAppearInGUI(Player whosAsking) {
-		return getSprite(whosAsking).getName() + "<img>" + getFullName(whosAsking);
+		return getSprite(whosAsking).getName() + "<img>" + getFullName(whosAsking) + "<img>" + getInventoryActionData();
 	}
+
 
 
 
@@ -231,5 +232,9 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
             list.add(pu);
         }
         return list;
+    }
+
+    private String getInventoryActionData() {
+        return "{ServerStuff{}}";
     }
 }
