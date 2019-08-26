@@ -378,7 +378,7 @@ public abstract class Actor  implements ItemHolder, Serializable {
         ArrayList<Action> at2 = new ArrayList<>();
         if (this.hasInventory()) {
             addPickUpActions(gameData, at2);
-            addPickUpAndUseActions(gameData, at2);
+            //addPickUpAndUseActions(gameData, at2);
             addPutOnActions(at2);
             addDragAction(gameData, at2);
         }

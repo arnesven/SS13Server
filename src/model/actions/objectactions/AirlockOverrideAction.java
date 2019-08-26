@@ -22,13 +22,13 @@ public class AirlockOverrideAction extends ConsoleAction {
 	
 	public AirlockOverrideAction(GameData gameData) {
 		super("Airlock Override", SensoryLevel.OPERATE_DEVICE);
-        Logger.log("Created airlock override action");
+        //Logger.log("Created airlock override action");
 		for (Room r : gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME)) {
 			for (GameObject ob : r.getObjects()) {
 				if (ob instanceof AirlockPanel) {
 					rooms.add(r);
 					panels.add((AirlockPanel)ob);
-                    Logger.log("   found an airlock panel in" + r.getName());
+                    //Logger.log("   found an airlock panel in" + r.getName());
 				}
 			}
 		}

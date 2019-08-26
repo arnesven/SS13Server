@@ -10,10 +10,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
-import model.actions.general.Action;
-import model.actions.general.ActionOption;
-import model.actions.general.PickUpAction;
-import model.actions.general.PutOnAction;
+import model.actions.general.*;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
@@ -233,10 +230,18 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
             list.add(pu);
         }
 
+        PickupAndUseAction pua = new PickupAndUseAction(forWhom, gameData);
+        if (pua.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+            list.add(pua);
+        }
+
+
+
         PutOnAction po = new PutOnAction(forWhom);
         if (po.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
             list.add(po);
         }
+
 
         return list;
     }

@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.items.general.GameItem;
 import model.items.general.HidableItem;
+import util.Logger;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -42,18 +43,23 @@ public class PickupAndUseAction extends Action {
 
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
+        Logger.log("Setting arguments for pickupanduse" + args.toString());
         for (GameItem it : performingClient.getPosition().getItems()) {
             if (it instanceof HidableItem && ((HidableItem) it).isHidden()) {
                 continue;
             }
 
             if (args.get(0).equals(it.getPublicName(performingClient))) {
+                Logger.log("  -> Found item " + it.getPublicName(performingClient));
                 this.item = it;
                 ArrayList<Action> tmp = new ArrayList<>();
-                it.addYourActions(gameData, tmp, performingClient);
+                tmp.addAll(it.getInventoryActions(gameData, performingClient));
+                //it.addYourActions(gameData, tmp, performingClient);
 
                 for (Action a : tmp) {
-                    if (args.get(1).equals(a.getName())) {
+                    Logger.log("   ... Smurfing: " + a.getName());
+                    if (args.get(2).equals(a.getName())) {
+                        Logger.log("  -> Found action " + a.getName());
                         finalAction = a;
                         finalAction.setArguments(args.subList(2, args.size()), performingClient);
                     }
