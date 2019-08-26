@@ -57,6 +57,8 @@ public class ServiceHandler {
         handlers.add(new ServerInfoCommandHandler(gameData, new ServerInfoFactory(name, port)));
 
         handlers.add(new OverlayActionCommandHandler(gameData));
+
+        handlers.add(new InventoryActionCommandHandler(gameData));
 		
 	}
 

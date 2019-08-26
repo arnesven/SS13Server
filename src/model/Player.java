@@ -338,8 +338,30 @@ public class Player extends Actor implements Target, Serializable {
                 }
             }
         }
-
     }
+
+    public void parseInventoryActionFromString(String actionStr, GameData gameData) {
+        List<GameItem> gis = getItems();
+        String actionString = actionStr.replaceFirst("root,", "");
+        List<String> args = new ArrayList<>();
+        args.addAll(Arrays.asList(actionString.split(",")));
+        Logger.log(args.toString());
+        for (GameItem gi : gis) {
+           List<Action> acts = gi.getInventoryActions(gameData, this);
+           for (Action a : acts) {
+               if (a.getName().equals(args.get(0))) {
+                   List<String> newArgs = args.subList(1, args.size());
+//                   String last = newArgs.remove(newArgs.size()-1);
+//                   newArgs.add(0, last);
+                   a.setInventoryArguments(newArgs, this);
+                   this.nextAction = a;
+                   break;
+               }
+
+            }
+        }
+    }
+
 
 	/**
 	 * Applies the action previously selected in the action string.
@@ -464,10 +486,10 @@ public class Player extends Actor implements Target, Serializable {
 		return getCharacter().isHealable();
 	}
 
-	public List<String> getItemsAsFullNameList() {
+	public List<String> getItemsAsFullNameList(GameData gameData) {
 		List<String> strs = new ArrayList<>();
 		for (GameItem gi : getItems()) {
-			strs.add(gi.howDoYouAppearInGUI(this));
+			strs.add(gi.howDoYouAppearInGUI(gameData, this));
 		}
 		return strs;
 	}
@@ -599,5 +621,6 @@ public class Player extends Actor implements Target, Serializable {
             }
         }
     }
+
 
 }

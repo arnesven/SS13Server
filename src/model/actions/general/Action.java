@@ -208,6 +208,10 @@ public abstract class Action extends Experienceable implements Serializable {
 	    setArguments(args, performingClient);
     }
 
+    public void setInventoryArguments(List<String> newArgs, Player player) {
+        setArguments(newArgs, player);
+    }
+
     public boolean isAmongOptions(GameData gameData, Actor whosAsking, String publicName) {
         for (ActionOption opts : getOptions(gameData, whosAsking).getSuboptions()) {
             if (opts.getName().contains(publicName)) {
@@ -216,4 +220,6 @@ public abstract class Action extends Experienceable implements Serializable {
         }
         return false;
     }
+
+
 }

@@ -86,8 +86,8 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
         info.add(getSprite(whosAsking).getName() + "<img>" + getPublicName(whosAsking));
     }
 
-	public String howDoYouAppearInGUI(Player whosAsking) {
-		return getSprite(whosAsking).getName() + "<img>" + getFullName(whosAsking) + "<img>" + getInventoryActionData();
+	public String howDoYouAppearInGUI(GameData gameData, Player whosAsking) {
+		return getSprite(whosAsking).getName() + "<img>" + getFullName(whosAsking) + "<img>" + getInventoryActionData(gameData, whosAsking);
 	}
 
 
@@ -234,7 +234,15 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
         return list;
     }
 
-    private String getInventoryActionData() {
-        return "{ServerStuff{}}";
+    private String getInventoryActionData(GameData gameData, Player forWhom) {
+        return Action.makeActionListStringSpecOptions(gameData, getInventoryActions(gameData, forWhom), forWhom);
+    }
+
+    public List<Action> getInventoryActions(GameData gameData, Actor forWhom) {
+        ArrayList<Action> acts = new ArrayList<>();
+
+        addYourActions(gameData, acts, forWhom);
+
+        return acts;
     }
 }
