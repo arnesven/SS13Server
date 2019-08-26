@@ -20,7 +20,7 @@ public class EscapeAlienCharacter extends GameCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("escapealien", "alien.png", 0, this);
+        return new Sprite("escapealien", "alien.png", 0, getActor());
     }
 
     @Override

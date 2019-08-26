@@ -41,9 +41,9 @@ public class AlienCharacter extends GameCharacter {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (isDead()) {
-            return new Sprite("eyeballaliendead", "weapons2.png", 44, 7, 32, 32, this);
+            return new Sprite("eyeballaliendead", "weapons2.png", 44, 7, 32, 32, getActor());
         }
-        return new Sprite("eyeballalien", "weapons2.png", 46, 5, 32, 32, this);
+        return new Sprite("eyeballalien", "weapons2.png", 46, 5, 32, 32, getActor());
     }
 
     @Override

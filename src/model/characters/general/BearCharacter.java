@@ -19,9 +19,9 @@ public class BearCharacter extends GameCharacter {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (isDead()) {
-            return new Sprite("beardead", "animal.png", 5, 4, 32, 32, this);
+            return new Sprite("beardead", "animal.png", 5, 4, 32, 32, getActor());
         }
-        return new Sprite("bear", "animal.png", 1, 4, 32, 32, this);
+        return new Sprite("bear", "animal.png", 1, 4, 32, 32, getActor());
     }
 
     @Override

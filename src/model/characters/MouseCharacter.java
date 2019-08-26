@@ -29,8 +29,8 @@ public class MouseCharacter extends AnimalCharacter {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (isDead()) {
-            return new Sprite("mousedead", "animal.png", 8, 9, this);
+            return new Sprite("mousedead", "animal.png", 8, 9, getActor());
         }
-        return new Sprite("mouse", "animal.png", 5, 9, this);
+        return new Sprite("mouse", "animal.png", 5, 9, getActor());
     }
 }

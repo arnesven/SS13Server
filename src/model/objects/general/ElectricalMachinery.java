@@ -43,10 +43,10 @@ public abstract class ElectricalMachinery extends BreakableObject
 	@Override
 	public void addSpecificActionsFor(GameData gameData, Actor cl,
                                       ArrayList<Action> at) {
-		Logger.log("## adding specific action for electrical");
+		//Logger.log("## adding specific action for electrical");
 		ArrayList<Action> at2 = new ArrayList<>();
 		if (!isPowered(gameData, this)) {
-			Logger.log("####" + this.getName() + " isn't powered! no power actions!");
+			//Logger.log("####" + this.getName() + " isn't powered! no power actions!");
 			super.addSpecificActionsFor(gameData, cl, at2);
 			for (Action a : at2) {
 				NoPowerAction npa = new NoPowerAction(a);

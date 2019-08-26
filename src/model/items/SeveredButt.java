@@ -56,8 +56,8 @@ public class SeveredButt extends BodyPart implements Wearable  {
             Sprite sp = getInner().getSprite(whosAsking);
             List<Sprite> sprs = new ArrayList<>();
             sprs.add(sp);
-            sprs.add(new Sprite(sp.getName() + "butt", "body_parts.png",  8, 1, this));
-            return new Sprite(sp.getName() + "withbuttonhead", "human.png", 0, sprs, this);
+            sprs.add(new Sprite(sp.getName() + "butt", "body_parts.png",  8, 1, getActor()));
+            return new Sprite(sp.getName() + "withbuttonhead", "human.png", 0, sprs, getActor());
         }
     }
 }

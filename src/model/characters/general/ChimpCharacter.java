@@ -45,9 +45,9 @@ public class ChimpCharacter extends AnimalCharacter {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (isDead()) {
-            return new Sprite("chimpdead", "monkey.png", 4, this);
+            return new Sprite("chimpdead", "monkey.png", 4, getActor());
         }
-        return new Sprite("chimp", "monkey.png", 0, this);
+        return new Sprite("chimp", "monkey.png", 0, getActor());
     }
 
     private static Weapon feces = new Feces();

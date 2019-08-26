@@ -58,6 +58,6 @@ public class PirateCharacter extends HumanCharacter {
         list.add(super.getSprite(whosAsking));
         list.add(weapon.getHandHeldSprite());
         return new Sprite(super.getSprite(whosAsking).getName() + "holding" + weapon.getBaseName(),
-                "human.png", 0, list, this);
+                "human.png", 0, list, getActor());
     }
 }

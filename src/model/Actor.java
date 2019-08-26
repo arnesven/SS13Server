@@ -3,6 +3,8 @@ package model;
 import java.io.Serializable;
 import java.util.*;
 
+import graphics.sprites.Sprite;
+import graphics.sprites.SpriteObject;
 import model.actions.DragAction;
 import model.actions.HighFiveAction;
 import model.actions.MoveAction;
@@ -18,7 +20,7 @@ import model.items.weapons.Weapon;
 import model.map.rooms.Room;
 import util.Logger;
 
-public abstract class Actor  implements ItemHolder, Serializable {
+public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 
 	private GameCharacter character = null;
 	
@@ -104,7 +106,21 @@ public abstract class Actor  implements ItemHolder, Serializable {
 		return getCharacter().getPublicName();
 	}
 
-	/**
+    public String getPublicName(Actor whosAsking) {
+        return getCharacter().getPublicName();
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return getCharacter().getSprite(whosAsking);
+    }
+
+    @Override
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        return getCharacter().getOverlaySpriteActionList(gameData, r, forWhom);
+    }
+
+    /**
 	 * Gets the base name of the character of this actor.
 	 * The base name is the name of the character in its simplest
 	 * form, e.g. "Doctor" or "Chaplain".

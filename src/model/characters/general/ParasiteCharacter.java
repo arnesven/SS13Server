@@ -23,9 +23,9 @@ public class ParasiteCharacter extends GameCharacter {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (isDead()) {
-            return new Sprite("parasitedead", "alien.png", 27, this);
+            return new Sprite("parasitedead", "alien.png", 27, getActor());
         }
-        return new Sprite("parasite", "alien.png", 11, this);
+        return new Sprite("parasite", "alien.png", 11, getActor());
     }
 
     @Override

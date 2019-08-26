@@ -207,19 +207,26 @@ public class GameMap implements Serializable {
 //
 
     public int getMaxX() {
+        return getMaxX(getRooms());
+    }
+
+    public static int getMaxX(List<Room> rooms) {
         int maxX = 0;
-        for (Room r : getRooms()) {
+        for (Room r : rooms) {
             if (r.getX() + r.getWidth() > maxX) {
                 maxX = r.getX() + r.getWidth();
             }
         }
         return maxX;
-
     }
 
     public int getMinX() {
+        return getMinX(getRooms());
+    }
+
+    public static int getMinX(List<Room> rooms) {
         int minX = 10000;
-        for (Room r : getRooms()) {
+        for (Room r : rooms) {
             if (r.getX() < minX) {
                 minX = r.getX();
             }
@@ -229,8 +236,12 @@ public class GameMap implements Serializable {
 
 
     public int getMaxY() {
+        return getMaxY(getRooms());
+    }
+
+    public static int getMaxY(List<Room> rooms) {
         int maxY = 0;
-        for (Room r : getRooms()) {
+        for (Room r : rooms) {
             if (r.getY() + r.getHeight() > maxY) {
                 maxY = r.getY() + r.getHeight();
             }
@@ -239,8 +250,12 @@ public class GameMap implements Serializable {
     }
 
     public int getMinY() {
+        return getMinY(getRooms());
+    }
+
+    public static int getMinY(List<Room> rooms) {
         int minY = 0;
-        for (Room r : getRooms()) {
+        for (Room r : rooms) {
             if (r.getY() < minY) {
                 minY = r.getY();
             }

@@ -43,9 +43,9 @@ public class OnFireCharacterDecorator extends CharacterDecorator {
         Sprite s = super.getSprite(whosAsking);
 
         List<Sprite> list = new ArrayList<>();
-        list.add(0, new Sprite("burner", "fire.png", 4, 9, this));
+        list.add(0, new Sprite("burner", "fire.png", 4, 9, getActor()));
         list.add(0, s);
-        list.add(0, new Sprite("getupbase", "human.png", 0, this));
+        list.add(0, new Sprite("getupbase", "human.png", 0, getActor()));
         Sprite res = new Sprite("burning" + s.getName(), list);
         return res;
     }

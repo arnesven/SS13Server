@@ -14,10 +14,12 @@ import model.events.ambient.HullBreach;
 import model.events.ambient.RadiationStorm;
 import model.items.general.GameItem;
 import model.items.general.HidableItem;
+import model.map.GameMap;
 import model.map.rooms.Room;
 import model.objects.general.DimensionPortal;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
+import model.objects.general.HideableObject;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -264,6 +266,7 @@ public class OverlaySprites {
         double xIncr = 0.75;
         double yIncr = 0.75;
 
+
         double gridX = 0;
         double gridY = 0;
         for (Sprite sp : sprites) {
@@ -340,7 +343,13 @@ public class OverlaySprites {
 
     private static void addObjectsForRoom(ArrayList<Sprite> sprites, Player player, Room r) {
         for (GameObject ob : r.getObjects()) {
-            sprites.add(ob.getSprite(player));
+            if (ob instanceof HideableObject) {
+                if (((HideableObject) ob).isFound()) {
+                    sprites.add(ob.getSprite(player));
+                }
+            } else {
+                sprites.add(ob.getSprite(player));
+            }
         }
     }
 

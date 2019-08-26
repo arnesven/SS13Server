@@ -94,7 +94,7 @@ public class DrugDose extends Chemicals {
                 Sprite base = super.getSprite(whosAsking);
                 sp.add(base);
                 sp.add(mask);
-                Sprite sprt = new Sprite("hallucinatorhorse"+getFullName()+base.getName(), "human.png", 0, sp, this);
+                Sprite sprt = new Sprite("hallucinatorhorse"+getFullName()+base.getName(), "human.png", 0, sp, getActor());
                 return sprt;
             } else {
                 return super.getSprite(whosAsking);

@@ -17,7 +17,7 @@ public class AsteroidWormCharacter extends AnimalCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("asteroidworm", "synthetic.png", 15, 26, this);
+        return new Sprite("asteroidworm", "synthetic.png", 15, 26, getActor());
     }
 
     @Override

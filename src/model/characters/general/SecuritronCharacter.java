@@ -21,7 +21,7 @@ public class SecuritronCharacter extends RobotCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("securitron", "aibots.png", 51, this);
+        return new Sprite("securitron", "aibots.png", 51, getActor());
     }
 
     @Override

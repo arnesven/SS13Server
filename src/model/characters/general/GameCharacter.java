@@ -46,7 +46,7 @@ import model.map.rooms.Room;
  * Class for representing a character in the game. I.e. the physical representation
  * of a player or a NPC. 
  */
-public abstract class GameCharacter implements SpriteObject, Serializable {
+public abstract class GameCharacter implements Serializable {
 	
 	private double maxHealth = 3.0;
 	

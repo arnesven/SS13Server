@@ -19,7 +19,7 @@ public class WampaCharacter extends AnimalCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("wampa", "wampa.png", 0, 0, 32, 69, this);
+        return new Sprite("wampa", "wampa.png", 0, 0, 32, 69, getActor());
     }
 
     @Override

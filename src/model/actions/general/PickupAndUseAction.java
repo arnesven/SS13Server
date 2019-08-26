@@ -58,11 +58,18 @@ public class PickupAndUseAction extends Action {
 
                 for (Action a : tmp) {
                     Logger.log("   ... Smurfing: " + a.getName());
-                    if (args.get(2).equals(a.getName())) {
+                    if (args.get(1).equals(a.getName())) {
                         Logger.log("  -> Found action " + a.getName());
                         finalAction = a;
                         finalAction.setArguments(args.subList(2, args.size()), performingClient);
+                    } else if (args.size() > 2) {
+                        if (args.get(2).equals(a.getName())) {
+                            Logger.log("  -> Found action " + a.getName());
+                            finalAction = a;
+                            finalAction.setArguments(args.subList(3, args.size()), performingClient);
+                        }
                     }
+
                 }
             }
         }

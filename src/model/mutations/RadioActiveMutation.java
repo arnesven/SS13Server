@@ -22,7 +22,7 @@ public class RadioActiveMutation extends Mutation {
 
             @Override
             public Sprite getSprite(Actor whosAsking) {
-                return new Sprite("radioactiveguy", "genetics.png", 12, this);
+                return new Sprite("radioactiveguy", "genetics.png", 12, getActor());
             }
 
             @Override

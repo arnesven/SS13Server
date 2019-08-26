@@ -36,7 +36,10 @@ public class CaseOfDrugs extends GameItem {
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
-        at.add(new DealDrugsAction(cl));
+        DealDrugsAction dda = new DealDrugsAction(cl);
+        if (dda.getNoOfTargets() > 0) {
+            at.add(new DealDrugsAction(cl));
+        }
         at.add(new ExtractDose(this));
     }
 

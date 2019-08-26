@@ -77,7 +77,7 @@ public class DonutSS13Builder extends MapBuilder {
         Room airLock2 = new AirLockRoom(21, 2   ,13,  2, 1, 1, new int[]{19}        ,         new double[]{13.0, 2.5} );
         gm.addRoom(airLock2, ss13, "port");
         gm.addRoom(airLock2, ss13, "front");
-        Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{22}        ,         new double[]{11.0, 4.0});
+        Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{}        ,         new double[]{11.0, 4.0});
         {
             KeyCardLock l1 = new KeyCardLock(army, gate, true, 4.0);
             gate.addObject(l1);

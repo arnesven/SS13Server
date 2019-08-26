@@ -19,7 +19,7 @@ public class MutatedTomatoCharacter extends AnimalCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("mutatedtomato", "animal.png", 22, 5, this);
+        return new Sprite("mutatedtomato", "animal.png", 22, 5, getActor());
     }
 
     @Override

@@ -15,7 +15,7 @@ public class ChimpAppearance extends Mutation {
 		return new CharacterDecorator(forWhom.getCharacter(), "Chimp Appearance") {
             @Override
             public Sprite getSprite(Actor whosAsking) {
-                return new Sprite("chimpappearance", "monkey.png", 0, this);
+                return new Sprite("chimpappearance", "monkey.png", 0, getActor());
             }
 
             @Override
