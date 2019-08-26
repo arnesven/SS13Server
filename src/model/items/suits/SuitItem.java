@@ -3,6 +3,9 @@ package model.items.suits;
 import graphics.sprites.RegularBlackShoesSprite;
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.actions.general.Action;
+import model.actions.general.PutOnAction;
 import model.items.general.GameItem;
 import util.Logger;
 
@@ -93,5 +96,14 @@ public abstract class SuitItem extends GameItem implements Wearable {
             sum++;
         }
         return sum;
+    }
+
+    public List<Action> getInventoryActions(GameData gameData, Actor forWhom) {
+        List<Action> acts = super.getInventoryActions(gameData, forWhom);
+        PutOnAction po = new PutOnAction(forWhom);
+        if (po.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+            acts.add(po);
+        }
+        return acts;
     }
 }
