@@ -289,7 +289,7 @@ public class PhysicalBody implements SpriteObject, Serializable {
 
     @Override
     public String getPublicName(Actor whosAsking) {
-        return "Physical Body";
+        return "Naked " + (gender?"Man":"Woman");
     }
 
 

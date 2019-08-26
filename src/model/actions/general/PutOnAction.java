@@ -103,7 +103,7 @@ public class PutOnAction extends Action {
 
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
-        Logger.log("Setting arg for put on" + args.get(0));
+        Logger.log("Setting arg for put on: " + args.get(0));
 		for (GameItem it : putOnner.getItems()) {
 			if (it.getPublicName(performingClient).equals(args.get(0))) {
 				selectedItem = (Wearable)it;
@@ -156,5 +156,9 @@ public class PutOnAction extends Action {
 		}
 		return opt;
 	}
-	
+
+    @Override
+    public boolean hasSpecialOptions() {
+        return false;
+    }
 }
