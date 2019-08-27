@@ -1,9 +1,15 @@
 package model.events.ambient;
 
 import graphics.sprites.Sprite;
+import model.Player;
+import model.actions.general.Action;
+import model.actions.itemactions.PutOutFireAction;
 import model.characters.decorators.OnFireCharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.events.damage.FireDamage;
+import model.items.NoSuchThingException;
+import model.items.general.FireExtinguisher;
+import model.items.general.GameItem;
 import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
@@ -12,6 +18,9 @@ import model.GameData;
 import model.Target;
 import model.actions.general.SensoryLevel;
 import model.map.rooms.Room;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ElectricalFire extends OngoingEvent {
 
@@ -107,5 +116,22 @@ public class ElectricalFire extends OngoingEvent {
     @Override
     public Sound getRealSound() {
         return new Sound("http://www.ida.liu.se/~erini02/ss13/fire-burning.mp3");
+    }
+
+    @Override
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        List<Action> acts = new ArrayList<>();
+
+        if (this.getRoom() == forWhom.getPosition()) {
+            try {
+                FireExtinguisher fe = GameItem.getItemFromActor(forWhom, new FireExtinguisher());
+                PutOutFireAction putOutFireAction = new PutOutFireAction(fe);
+                acts.add(putOutFireAction);
+            } catch (NoSuchThingException e) {
+                Logger.log("No fire ext found for " + forWhom);
+            }
+        }
+
+        return acts;
     }
 }

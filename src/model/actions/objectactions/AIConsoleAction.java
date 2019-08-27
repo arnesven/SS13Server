@@ -6,7 +6,6 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
-import model.characters.decorators.AlarmOverlayDecorator;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
 import model.modes.GameMode;
@@ -104,8 +103,8 @@ public class AIConsoleAction extends ConsoleAction {
 
         if (alarms == null || alarms.size() == 0) {
             performingClient.addTolastTurnInfo("No alarms.");
-        } else {
-            performingClient.setCharacter(new AlarmOverlayDecorator(performingClient.getCharacter(), gameData));
+//        } else {
+//            performingClient.setCharacter(new AlarmOverlayDecorator(performingClient.getCharacter(), gameData));
         }
 
 		console.setInUse(false);

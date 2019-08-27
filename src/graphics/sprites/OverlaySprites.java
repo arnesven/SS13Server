@@ -68,38 +68,38 @@ public class OverlaySprites {
     }
 
 
-    public static List<OverlaySprite> seeAlarms(Player player, GameData gameData) {
-        ArrayList<OverlaySprite> strs = new ArrayList<>();
-        for (Room r : gameData.getRooms()) {
-            ArrayList<Sprite> sp = new ArrayList<>();
-            List<Event> list = new ArrayList<>();
-            list.addAll(r.getEvents());
-            for (Event e : list) {
-                if (e instanceof ElectricalFire || e instanceof HullBreach) {
-                    sp.add(e.getSprite(player));
-                }
-            }
-
-            ArrayList<Sprite> parasites = new ArrayList<>();
-            for (Actor a : r.getActors()) {
-                if (a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof PirateCharacter) && !a.isDead()) {
-                    sp.add(a.getCharacter().getSprite(player));
-                } else if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof HorrorCharacter)) {
-                    sp.add(a.getCharacter().getSprite(player));
-                } else if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof ParasiteCharacter)) {
-                    parasites.add(a.getCharacter().getSprite(player));
-                }
-            }
-            if (parasites.size() > 2) {
-                sp.addAll(parasites);
-            }
-            strs.addAll(getStringsForSpritesInRoom(gameData, sp, r, player));
-        }
-        if (strs.isEmpty()) {
-            return dummyList();
-        }
-        return strs;
-    }
+//    public static List<OverlaySprite> seeAlarms(Player player, GameData gameData) {
+//        ArrayList<OverlaySprite> strs = new ArrayList<>();
+//        for (Room r : gameData.getRooms()) {
+//            ArrayList<Sprite> sp = new ArrayList<>();
+//            List<Event> list = new ArrayList<>();
+//            list.addAll(r.getEvents());
+//            for (Event e : list) {
+//                if (e instanceof ElectricalFire || e instanceof HullBreach) {
+//                    sp.add(e.getSprite(player));
+//                }
+//            }
+//
+//            ArrayList<Sprite> parasites = new ArrayList<>();
+//            for (Actor a : r.getActors()) {
+//                if (a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof PirateCharacter) && !a.isDead()) {
+//                    sp.add(a.getCharacter().getSprite(player));
+//                } else if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof HorrorCharacter)) {
+//                    sp.add(a.getCharacter().getSprite(player));
+//                } else if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof ParasiteCharacter)) {
+//                    parasites.add(a.getCharacter().getSprite(player));
+//                }
+//            }
+//            if (parasites.size() > 2) {
+//                sp.addAll(parasites);
+//            }
+//            strs.addAll(getStringsForSpritesInRoom(gameData, sp, r, player));
+//        }
+//        if (strs.isEmpty()) {
+//            return dummyList();
+//        }
+//        return strs;
+//    }
 
     public static List<OverlaySprite> normalVision(Player player, GameData gameData, Room r) {
         ArrayList<OverlaySprite> strs = new ArrayList<>();

@@ -3,15 +3,27 @@ package model.events.ambient;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
+import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
+import model.actions.itemactions.PutOutFireAction;
+import model.actions.itemactions.SealHullBreachAction;
 import model.events.NoPressureEvent;
 import model.events.damage.AsphyxiationDamage;
+import model.items.NoSuchThingException;
+import model.items.general.FireExtinguisher;
+import model.items.general.GameItem;
+import model.items.general.Tools;
 import model.map.rooms.Room;
 import util.Logger;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HullBreach extends OngoingEvent {
 
@@ -78,5 +90,21 @@ public class HullBreach extends OngoingEvent {
         Logger.log(Logger.CRITICAL, "Low pressure all around " + getRoom().getName());
         return true;
     }
-	
+
+    @Override
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        List<Action> acts = new ArrayList<>();
+
+        if (this.getRoom() == forWhom.getPosition()) {
+            try {
+                Tools fe = GameItem.getItemFromActor(forWhom, new Tools());
+                SealHullBreachAction seal = new SealHullBreachAction();
+                acts.add(seal);
+            } catch (NoSuchThingException e) {
+                Logger.log("No fire ext found for " + forWhom);
+            }
+        }
+
+        return acts;
+    }
 }

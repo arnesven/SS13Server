@@ -1,6 +1,8 @@
 package model.events.ambient;
 
 import model.GameData;
+import model.Player;
+import model.actions.general.Action;
 import model.events.*;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
@@ -8,7 +10,9 @@ import model.objects.consoles.PowerSource;
 import model.objects.general.GameObject;
 import util.Logger;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -83,5 +87,11 @@ public abstract class AmbientEvent extends Event {
                 throw new NoSuchThingException("Did not find power source");
             }
         };
+    }
+
+    @Override
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        List<Action> acts = new ArrayList<>();
+        return acts;
     }
 }
