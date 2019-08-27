@@ -239,10 +239,10 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
             //addBasicActions(generals);
 
             addRoomActions(gameData, at);
-            //addMoveActions(gameData, at);
-            //addAttackActions(generals);
-            //addWatchAction(generals);
-            //addHighFiveAction(generals, gameData);
+            addMoveActions(gameData, at);
+            addAttackActions(generals);
+            addWatchAction(generals);
+            addHighFiveAction(generals, gameData);
             if (this.hasInventory()) {
                 addManageItemActions(gameData, at);
             }
@@ -503,6 +503,13 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         if (highFive.isAmongOptions(gameData, forWhom, this.getPublicName())) {
             highFive.stripAllTargetsBut(this.getAsTarget());
             list.add(highFive);
+        }
+
+        GiveAction give = new GiveAction(forWhom);
+        if (give.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+            give.stripAllTargetsBut(this.getAsTarget());
+            give.addClientsItemsToAction(forWhom);
+            list.add(give);
         }
         return list;
     }
