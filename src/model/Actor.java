@@ -115,10 +115,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         return getCharacter().getSprite(whosAsking);
     }
 
-    @Override
-    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
-        return getCharacter().getOverlaySpriteActionList(gameData, r, forWhom);
-    }
+
 
     /**
 	 * Gets the base name of the character of this actor.
@@ -486,6 +483,18 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         }
 
         return gameData.getRooms();
+    }
+
+    @Override
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        List<Action> list = new ArrayList<>();
+        AttackAction atk = new AttackAction(forWhom);
+        if (atk.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+            atk.stripAllTargetsBut(this.getAsTarget());
+            atk.addClientsItemsToAction(forWhom);
+            list.add(atk);
+        }
+        return list;
     }
 
 }

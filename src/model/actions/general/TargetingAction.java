@@ -214,4 +214,8 @@ public abstract class TargetingAction extends Action {
     public GameItem getItem() {
         return item;
     }
+
+    public void stripAllTargetsBut(Target target) {
+	    targets.removeIf((Target t) -> t != target);
+    }
 }

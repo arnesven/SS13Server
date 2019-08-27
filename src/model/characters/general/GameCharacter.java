@@ -743,8 +743,4 @@ public abstract class GameCharacter implements Serializable {
         throw new NoSuchInstanceException("Can't call getDecorator on GameCharacter");
     }
 
-
-    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
-        return new ArrayList<>();
-    }
 }
