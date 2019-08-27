@@ -40,6 +40,10 @@ public class HighFiveAction extends TargetingAction {
 
     @Override
     protected String getVerb(Actor whosAsking) {
+        if (getTarget() == null) {
+            return "High fived " + (whosAsking.getCharacter().getGender().equals("man")?"himself":"herself");
+        }
+
         if (successful) {
             return "high fived " + getTarget().getName();
         }

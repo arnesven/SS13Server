@@ -499,6 +499,11 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
             watchAction.stripAllTargetsBut(this.getAsTarget());
             list.add(watchAction);
         }
+        HighFiveAction highFive = new HighFiveAction(forWhom);
+        if (highFive.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+            highFive.stripAllTargetsBut(this.getAsTarget());
+            list.add(highFive);
+        }
         return list;
     }
 
