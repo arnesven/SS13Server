@@ -218,4 +218,8 @@ public abstract class TargetingAction extends Action {
     public void stripAllTargetsBut(Target target) {
 	    targets.removeIf((Target t) -> t != target);
     }
+
+    public void stripAllTargets() {
+        targets.clear();
+    }
 }

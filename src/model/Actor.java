@@ -494,6 +494,11 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
             atk.addClientsItemsToAction(forWhom);
             list.add(atk);
         }
+        TargetingAction watchAction = new WatchAction(forWhom);
+        if (watchAction.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+            watchAction.stripAllTargetsBut(this.getAsTarget());
+            list.add(watchAction);
+        }
         return list;
     }
 
