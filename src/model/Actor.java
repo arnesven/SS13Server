@@ -511,6 +511,20 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
             give.addClientsItemsToAction(forWhom);
             list.add(give);
         }
+
+
+        ArrayList<Action> tmpList = new ArrayList<>();
+        forWhom.getCharacter().addCharacterSpecificActions(gameData, tmpList);
+        for (Action a : tmpList) {
+            if (a.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
+                if (a.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+                    list.add(a);
+                }
+            } else {
+                list.add(a);
+            }
+        }
+
         return list;
     }
 
