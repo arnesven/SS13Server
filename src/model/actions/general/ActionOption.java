@@ -74,4 +74,8 @@ public class ActionOption {
             a.uniquefy();
         }
     }
+
+    public void clearAll() {
+        suboptions.clear();
+    }
 }
