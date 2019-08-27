@@ -488,49 +488,50 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
     @Override
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
         List<Action> list = new ArrayList<>();
-        AttackAction atk = new AttackAction(forWhom);
-        if (atk.isAmongOptions(gameData, forWhom, this.getPublicName())) {
-            atk.stripAllTargetsBut(this.getAsTarget());
-            atk.addClientsItemsToAction(forWhom);
-            list.add(atk);
-        }
-        TargetingAction watchAction = new WatchAction(forWhom);
-        if (watchAction.isAmongOptions(gameData, forWhom, this.getPublicName())) {
-            watchAction.stripAllTargetsBut(this.getAsTarget());
-            list.add(watchAction);
-        }
-        HighFiveAction highFive = new HighFiveAction(forWhom);
-        if (highFive.isAmongOptions(gameData, forWhom, this.getPublicName())) {
-            highFive.stripAllTargetsBut(this.getAsTarget());
-            list.add(highFive);
-        }
+        if (forWhom.getsActions()) {
+            AttackAction atk = new AttackAction(forWhom);
+            if (atk.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+                atk.stripAllTargetsBut(this.getAsTarget());
+                atk.addClientsItemsToAction(forWhom);
+                list.add(atk);
+            }
+            TargetingAction watchAction = new WatchAction(forWhom);
+            if (watchAction.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+                watchAction.stripAllTargetsBut(this.getAsTarget());
+                list.add(watchAction);
+            }
+            HighFiveAction highFive = new HighFiveAction(forWhom);
+            if (highFive.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+                highFive.stripAllTargetsBut(this.getAsTarget());
+                list.add(highFive);
+            }
 
-        GiveAction give = new GiveAction(forWhom);
-        if (give.isAmongOptions(gameData, forWhom, this.getPublicName())) {
-            give.stripAllTargetsBut(this.getAsTarget());
-            give.addClientsItemsToAction(forWhom);
-            list.add(give);
-        }
+            GiveAction give = new GiveAction(forWhom);
+            if (give.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+                give.stripAllTargetsBut(this.getAsTarget());
+                give.addClientsItemsToAction(forWhom);
+                list.add(give);
+            }
 
 
-        ArrayList<Action> tmpList = new ArrayList<>();
-        forWhom.getCharacter().addCharacterSpecificActions(gameData, tmpList);
-        for (Action a : tmpList) {
-            if (a.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
-                if (a.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+            ArrayList<Action> tmpList = new ArrayList<>();
+            forWhom.getCharacter().addCharacterSpecificActions(gameData, tmpList);
+            for (Action a : tmpList) {
+                if (a.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
+                    if (a.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+                        list.add(a);
+                    }
+                } else {
                     list.add(a);
                 }
-            } else {
-                list.add(a);
             }
-        }
 
-        if (this == forWhom) {
-            DropAction drop = new OverlayDropAction(forWhom);
-            list.add(drop);
+            if (this == forWhom) {
+                DropAction drop = new OverlayDropAction(forWhom);
+                list.add(drop);
+            }
+            //for (drop.getOptions(gameData, watchAction).)
         }
-        //for (drop.getOptions(gameData, watchAction).)
-
         return list;
     }
 

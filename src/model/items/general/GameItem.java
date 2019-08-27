@@ -252,11 +252,12 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 
     public List<Action> getInventoryActions(GameData gameData, Actor forWhom) {
         ArrayList<Action> acts = new ArrayList<>();
-
-        addYourActions(gameData, acts, forWhom);
-        DropAction drop = new DropAction(forWhom);
-        if (drop.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
-            acts.add(drop);
+        if (forWhom.getsActions()) {
+            addYourActions(gameData, acts, forWhom);
+            DropAction drop = new DropAction(forWhom);
+            if (drop.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+                acts.add(drop);
+            }
         }
 
         return acts;
