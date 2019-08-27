@@ -42,7 +42,7 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
     public GameItem(String string, double weight, int cost) {
         this(string, weight, false, cost);
     }
-	
+
 	public abstract GameItem clone();
 
 	/**
@@ -54,7 +54,7 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 	public String getFullName(Actor whosAsking) {
 		return name;
 	}
-	
+
 
 	/**
 	 * Gets the name of this item as it appears from a distance.
@@ -64,7 +64,7 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 	public String getPublicName(Actor whosAsking) {
 		return name;
 	}
-	
+
 	/**
 	 * Gets the true name of this item, as it was instanciated.
 	 * @return
@@ -72,9 +72,9 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 	public String getBaseName() {
 		return name;
 	}
-	
-	
-	
+
+
+
 	@Override
 	public final String toString() {
 		return super.toString();
@@ -112,7 +112,7 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 	protected void setWeight(double weight) {
 		this.weight = weight;
 	}
-	
+
 	@Override
 	public Room getPosition() {
 		if (holder != null) {
@@ -120,14 +120,14 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 		}
 		return position;
 	}
-	
+
 	public void setPosition(Room p) {
 		position = p;
 	}
 
 	public void setHolder(GameCharacter gameCharacter) {
 		this.holder = gameCharacter;
-		
+
 	}
 
     public static <E extends Class> boolean hasAnItemOfClass(Actor act, E className) {
@@ -254,6 +254,10 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
         ArrayList<Action> acts = new ArrayList<>();
 
         addYourActions(gameData, acts, forWhom);
+        DropAction drop = new DropAction(forWhom);
+        if (drop.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+            acts.add(drop);
+        }
 
         return acts;
     }

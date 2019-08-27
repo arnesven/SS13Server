@@ -236,13 +236,13 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 
         ArrayList<Action> generals = new ArrayList<>();
         if (getsActions()) {
-            addBasicActions(generals);
+            //addBasicActions(generals);
 
             addRoomActions(gameData, at);
-            addMoveActions(gameData, at);
-            addAttackActions(generals);
-            addWatchAction(generals);
-            addHighFiveAction(generals, gameData);
+            //addMoveActions(gameData, at);
+            //addAttackActions(generals);
+            //addWatchAction(generals);
+            //addHighFiveAction(generals, gameData);
             if (this.hasInventory()) {
                 addManageItemActions(gameData, at);
             }
@@ -369,14 +369,14 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
             at.add(pickUpAction);
         }
     }
-
-    private void addPickUpAndUseActions(GameData gameData, ArrayList<Action> at) {
-        PickupAndUseAction pickUpUse = new PickupAndUseAction(this, gameData);
-        if (pickUpUse.getOptions(gameData, this).numberOfSuboptions() > 0) {
-            at.add(pickUpUse);
-        }
-
-    }
+//
+//    private void addPickUpAndUseActions(GameData gameData, ArrayList<Action> at) {
+//        PickupAndUseAction pickUpUse = new PickupAndUseAction(this, gameData);
+//        if (pickUpUse.getOptions(gameData, this).numberOfSuboptions() > 0) {
+//            at.add(pickUpUse);
+//        }
+//
+//    }
 
     private void addDropActions(GameData gameData, ArrayList<Action> at) {
         DropAction dropAction = new DropAction(this);
