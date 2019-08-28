@@ -49,7 +49,7 @@ public class InjectionAction extends TargetingAction {
             }
 
             Actor targetAsActor = (Actor) target;
-            CharacterDecorator mutation = s.getMutationDecorator(targetAsActor);
+            CharacterDecorator mutation = s.getMutationDecorator(targetAsActor, performingClient);
             targetAsActor.setCharacter(mutation);
             s.empty();
 

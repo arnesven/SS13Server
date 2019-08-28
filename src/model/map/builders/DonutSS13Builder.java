@@ -99,7 +99,7 @@ public class DonutSS13Builder extends MapBuilder {
         Room nukieShip = new NukieShipRoom(28, new int[]{7, 21, 25}, new double[]{-1.0, -1.0});
         gm.addRoom(nukieShip, ss13, "nuke");
 
-        Room brig = new BrigRoom(29, 15, 4, 1, 1, new int[]{29}, new double[]{15.0, 4.5});
+        Room brig = new BrigRoom(29, 15, 4, 1, 1, new int[]{}, new double[]{15.0, 4.5});
         gm.addRoom(brig, ss13, "center");
         {
             KeyCardLock l1 = new KeyCardLock(brig, portHallFront, true, 3.0);

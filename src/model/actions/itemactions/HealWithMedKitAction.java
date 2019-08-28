@@ -14,7 +14,7 @@ import model.items.general.MedKit;
 public class HealWithMedKitAction extends TargetingAction {
 
 	private MedKit objectRef;
-	private static final double HEAL_AMOUNT = 1.0;
+	private static final double HEAL_AMOUNT = 1.5;
 
 	public HealWithMedKitAction(Actor ap, MedKit objectRef) {
 		super("Heal", SensoryLevel.PHYSICAL_ACTIVITY, ap);

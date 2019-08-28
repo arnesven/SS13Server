@@ -247,7 +247,9 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
     }
 
     private String getInventoryActionData(GameData gameData, Player forWhom) {
-        return Action.makeActionListStringSpecOptions(gameData, getInventoryActions(gameData, forWhom), forWhom);
+        String res =  Action.makeActionListStringSpecOptions(gameData, getInventoryActions(gameData, forWhom), forWhom);
+        //Logger.log(res);
+        return res;
     }
 
     public List<Action> getInventoryActions(GameData gameData, Actor forWhom) {

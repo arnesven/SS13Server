@@ -4,7 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.itemactions.PoisonFoodAction;
-import model.items.foods.FoodItem;
+import model.characters.decorators.CharacterDecorator;
 import model.mutations.PoisonMutation;
 
 import java.util.ArrayList;
@@ -51,8 +51,11 @@ public class PoisonSyringe extends Syringe {
                 at.add(pfa);
             }
         }
+    }
 
-
+    @Override
+    public CharacterDecorator getMutationDecorator(Actor forWhom, Actor maker) {
+        return new PoisonMutation(maker).getDecorator(forWhom);
     }
 
     @Override

@@ -99,6 +99,10 @@ public class Syringe extends GameItem {
 		return this.mutation.getDecorator(forWhom);
 	}
 
+    public CharacterDecorator getMutationDecorator(Actor targetAsActor, Actor performingClient) {
+        return getMutationDecorator(targetAsActor, null);
+    }
+
 	public static boolean hasBloodToDraw(Target target2) {
 		if (target2 instanceof Player || target2 instanceof NPC) {
 			Actor targetAsActor = (Actor)target2;
@@ -141,4 +145,6 @@ public class Syringe extends GameItem {
     public Actor getOriginalActor() {
         return originalActor;
     }
+
+
 }
