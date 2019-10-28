@@ -257,7 +257,8 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
         if (forWhom.getsActions()) {
             addYourActions(gameData, acts, forWhom);
             DropAction drop = new DropAction(forWhom);
-            if (drop.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+            if (drop.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom)) ||
+                    drop.isAmongOptions(gameData, forWhom, this.getFullName(forWhom))) {
                 acts.add(drop);
             }
         }

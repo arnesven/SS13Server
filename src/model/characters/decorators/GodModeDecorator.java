@@ -7,6 +7,7 @@ import model.characters.crew.ArchitectCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.items.general.GameItem;
+import model.items.general.Grenade;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class GodModeDecorator extends CharacterDecorator {
                 }
             }
         }
+        getActor().addItem(new Grenade(), null);
         this.gameData = gameData;
 
     }

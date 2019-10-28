@@ -15,13 +15,19 @@ public class OverlaySprite {
     private static final String delim = "<overlay-part>";
     private final Room room;
     private final Player forWhom;
+    private final int frames;
 
-    public OverlaySprite(Sprite sp, double x, double y, Room r, Player forWhom) {
+    public OverlaySprite(Sprite sp, double x, double y, Room r, Player forWhom, int frames) {
         this.sprite = sp;
         this.x = x;
         this.y = y;
         this.room = r;
         this.forWhom = forWhom;
+        this.frames = frames;
+    }
+
+    public OverlaySprite(Sprite sp, double x, double y, Room r, Player forWhom) {
+        this(sp, x, y, r, forWhom, 1);
     }
 
     public Sprite getSprite() {
@@ -41,7 +47,7 @@ public class OverlaySprite {
         }
 
         return sprite.getName() + delim +  String.format("%1$.1f", x) + delim + String.format("%1$1f", y) +
-                delim + spriteObjName + delim + actiondata;
+                delim + spriteObjName + delim + actiondata + delim + this.frames;
     }
 
 

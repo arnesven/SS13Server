@@ -282,7 +282,7 @@ public class OverlaySprites {
                 pos += "Unknown";
                 Logger.log("Could not find object reference for sprite: " + sp.getName());
             }
-            strs.add(new OverlaySprite(sp, finalX, finalY, r, forWhom));
+            strs.add(new OverlaySprite(sp, finalX, finalY, r, forWhom, sp.getFrames()));
             gridX += xIncr;
             if (gridX >= r.getWidth()) {
                 gridY += yIncr;

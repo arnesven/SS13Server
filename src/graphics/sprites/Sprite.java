@@ -32,6 +32,7 @@ public class Sprite implements Serializable {
     private int resizeHeight;
     private Color color;
     private double rotation = 0.0;
+    private int frames = 1;
 
 
     public Sprite(String name, String mapPath, int column, int row, int width, int height,
@@ -102,11 +103,11 @@ public class Sprite implements Serializable {
      }
 
     protected BufferedImage internalGetImage() throws IOException {
-        BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage result = new BufferedImage(width*frames, height, BufferedImage.TYPE_INT_ARGB);
 
         Graphics g = result.getGraphics();
         BufferedImage img = SpriteManager.getFile(MyPaths.makePath(new String[]{"resources", "sprites"}) + mapPath);
-        img = img.getSubimage(column * width, row * height, width, height);
+        img = img.getSubimage(column * width, row * height, width*frames, height);
 
         Graphics2D g2d = (Graphics2D) g;
 
@@ -227,4 +228,13 @@ public class Sprite implements Serializable {
     public SpriteObject getObjectReference() {
         return objectReference;
     }
+
+    public int getFrames() {
+        return frames;
+    }
+
+    protected void setFrames(int frames) {
+        this.frames = frames;
+    }
+
 }

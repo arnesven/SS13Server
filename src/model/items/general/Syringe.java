@@ -100,7 +100,7 @@ public class Syringe extends GameItem {
 	}
 
     public CharacterDecorator getMutationDecorator(Actor targetAsActor, Actor performingClient) {
-        return getMutationDecorator(targetAsActor, null);
+        return getMutationDecorator(targetAsActor);
     }
 
 	public static boolean hasBloodToDraw(Target target2) {

@@ -513,6 +513,7 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
                 return new Sprite("floor"+getColor(), "floors.png", 1, 4, null);
             case space:
                 return new Sprite("outdoor"+getColor(), "floors.png", 18, 24, null);
+            case derelict:
             case hall:
                 return new Sprite("floorhall", "floors.png", 0, 0, null);
             case airlock:

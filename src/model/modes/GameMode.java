@@ -362,7 +362,8 @@ public abstract class GameMode implements Serializable {
 			playersWhoSelectedCaptain.addAll(clientsRemaining);
 		}
 
-		Player capCl = playersWhoSelectedCaptain.remove(MyRandom.nextInt(playersWhoSelectedCaptain.size()));
+
+		Player capCl = MyRandom.sample(playersWhoSelectedCaptain);
 		
 		clientsRemaining.remove(capCl);
 		GameCharacter gc = null;

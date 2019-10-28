@@ -236,7 +236,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 
         ArrayList<Action> generals = new ArrayList<>();
         if (getsActions()) {
-            //addBasicActions(generals);
+            addBasicActions(generals);
 
             addRoomActions(gameData, at);
             addMoveActions(gameData, at);

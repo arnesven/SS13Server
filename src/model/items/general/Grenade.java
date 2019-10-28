@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.Target;
+import model.events.animation.AnimatedSprite;
+import model.events.animation.AnimationEvent;
 import model.items.foods.ExplodingFood;
 import model.map.rooms.Room;
 import model.objects.general.BreakableObject;
@@ -28,7 +30,7 @@ public class Grenade extends GameItem implements Damager, ExplodableItem {
 
 	@Override
 	public String getText() {
-		return "A grenade exploaded!";
+		return "A grenade exploded!";
 	}
 
 	
@@ -85,6 +87,9 @@ public class Grenade extends GameItem implements Damager, ExplodableItem {
                 ((BreakableObject) o).beExposedTo(maker, this);
             }
         }
+        room.addEvent(new AnimationEvent(this, gameData, room,
+                new AnimatedSprite("explosion", "effects.png",
+                        11, 7, 32, 32, this, 13)));
     }
 
     @Override
