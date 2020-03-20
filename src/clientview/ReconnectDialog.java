@@ -1,5 +1,7 @@
 package clientview;
 
+import main.SS13Client;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

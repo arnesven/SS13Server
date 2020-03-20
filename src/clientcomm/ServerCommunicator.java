@@ -1,7 +1,7 @@
 package clientcomm;
 
 import clientlogic.GameData;
-import clientview.SS13Client;
+import main.SS13Client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

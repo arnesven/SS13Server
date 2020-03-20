@@ -1,9 +1,12 @@
-package clientview;
+package main;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.Cookies;
 import clientlogic.GameData;
+import clientview.ConnectData;
+import clientview.GameUIPanel;
+import clientview.ReturningPlayerPanel;
 
 import javax.swing.*;
 import java.awt.*;
