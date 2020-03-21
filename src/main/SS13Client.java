@@ -38,6 +38,7 @@ public class SS13Client extends JFrame {
         JMenuBar menubar = new JMenuBar();
         JMenu file = new JMenu("File");
         JMenuItem item = new JMenuItem("Connect");
+        JMenu server = new JMenu("Server");
 
         item.addActionListener(new ActionListener() {
             @Override
@@ -71,6 +72,18 @@ public class SS13Client extends JFrame {
         });
         file.add(item);
         menubar.add(file);
+
+        JMenuItem startServer = new JMenuItem("Host Game");
+        startServer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                new SS13ServerMain(55444, "Local Game", true).start();
+                startServer.setEnabled(false);
+            }
+        });
+        server.add(startServer);
+        menubar.add(server);
+
         this.setJMenuBar(menubar);
         this.setVisible(true);
 

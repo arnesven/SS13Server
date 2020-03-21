@@ -15,11 +15,7 @@ public class SimulationTest {
 
             @Override
             public void run() {
-                try {
-                    SS13ServerMain.main(new String[]{"Simulation Server", "55555"});
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    SS13ServerMain.main(new String[]{"Simulation Server", "55555", "norecover"});
             }
 
         };

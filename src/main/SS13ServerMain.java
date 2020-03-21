@@ -22,38 +22,29 @@ import util.Logger;
      * the instance of GameData.
  */
 
-public class SS13ServerMain {
+public class SS13ServerMain extends Thread {
+
+    private final int port;
+    private final String name;
+    private final boolean dorecover;
+
+    public SS13ServerMain(int port, String name, boolean recover) {
+        this.port = port;
+        this.name = name;
+        this.dorecover = recover;
+        Locale.setDefault(Locale.US);
+    }
 
 
-	
-	/**
-	 * @param args
-	 * @throws IOException 
-	 */
-	public static void main(String[] args) throws IOException {
-		Locale.setDefault(Locale.US);
-		int port = 55444;
-		String name = "Donut SS13";
-		ServerSocket listener = null;
-		if (args.length >= 2) { // wi fixar
-			name = args[0];
-			port = Integer.parseInt(args[1]);
-		}
-
-
-        boolean dorecover = false;
-        if (args.length > 2) {
-            dorecover = args[2].equals("recover");
-        }
+    @Override
+    public void run() {
+        ServerSocket listener = null;
 
         new UserInterface(); // needed for some sprites to be initialized
         new BackgroundSprites();
-		GameData gameData = new GameData(dorecover);
-		
-	  if (args.length == 3) {
-            if (args[2].equals("pdf")) {
-                MapPDFMaker.generate(gameData);
-            } else if (args[2].equals("recover")) {
+        GameData gameData = new GameData(dorecover);
+
+        if (this.dorecover) {
                 try {
                     Logger.log(Logger.CRITICAL, "TRYING TO RECOVER DATA");
                     gameData = GameRecovery.recover();
@@ -64,32 +55,48 @@ public class SS13ServerMain {
                     e.printStackTrace();
                 } catch (FileNotFoundException fnfe) {
                     Logger.log(Logger.CRITICAL, "Recovery file not found :-(");
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+        }
+
+        ServiceHandler serviceHandler = new ServiceHandler(name, gameData, port);
+
+        try {
+            listener = new ServerSocket(port);
+            Logger.log("SS13 server \"" + name + "\" running on " + port + "...");
+
+            do {
+                Socket socket = listener.accept();
+                serviceHandler.serv(socket);
+                socket.close();
+            } while (true);
+
+        } catch (Exception e) {
+            Logger.log(Logger.CRITICAL, e.getMessage());
+            e.printStackTrace();
+
+        } finally {
+            try {
+                listener.close();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
             }
         }
 
+    }
 
-            ServiceHandler serviceHandler = new ServiceHandler(name, gameData, port);
+    /**
+	 * @param args port name recover
+	 */
+	public static void main(String[] args) {
+        if (args.length >= 3) {
+            new SS13ServerMain(Integer.parseInt(args[1]), args[0], args[2].equals("recover")).run();
+        } else {
+            throw new IllegalArgumentException("Correct number of arguments are 3: [name] [port] recover");
+        }
 
-            try {
-                listener = new ServerSocket(port);
-                Logger.log("SS13 server \"" + name + "\" running on " + port + "...");
 
-                do {
-                    Socket socket = listener.accept();
 
-                    serviceHandler.serv(socket);
-
-                    socket.close();
-                } while (true);
-
-            } catch (Exception e) {
-                Logger.log(Logger.CRITICAL, e.getMessage());
-                e.printStackTrace();
-
-            } finally {
-                listener.close();
-            }
-
-	}
+    }
 }
