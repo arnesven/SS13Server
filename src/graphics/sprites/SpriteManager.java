@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -81,7 +82,8 @@ public class SpriteManager {
     public static BufferedImage getFile(String s) throws IOException {
         BufferedImage img = filemap.get(s);
         if (img == null) {
-            img = ImageIO.read(new File(s));
+            InputStream is = SpriteManager.class.getResourceAsStream("/" + s.replace("resources/", ""));
+            img = ImageIO.read(is);
             filemap.put(s, img);
         }
         return img;
