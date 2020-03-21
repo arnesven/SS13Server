@@ -10,6 +10,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.general.AttackAction;
 import model.map.rooms.Room;
 
 public class GameObject implements SpriteObject, Serializable {

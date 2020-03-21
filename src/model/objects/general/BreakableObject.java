@@ -5,8 +5,10 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.actions.general.Action;
+import model.actions.general.AttackAction;
 import model.events.damage.Damager;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
@@ -192,5 +194,20 @@ public abstract class BreakableObject extends GameObject implements Target {
     public boolean canBeDismantled() {
         return true;
     }
-	
+
+	@Override
+	public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+		List<Action> actions = super.getOverlaySpriteActionList(gameData, r, forWhom);
+		if (r == forWhom.getPosition()) {
+			if (forWhom.getsActions()) {
+				AttackAction atk = new AttackAction(forWhom);
+				if (atk.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+					atk.stripAllTargetsBut(this);
+					atk.addClientsItemsToAction(forWhom);
+					actions.add(atk);
+				}
+			}
+		}
+		return actions;
+	}
 }
