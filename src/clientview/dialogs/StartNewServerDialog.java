@@ -77,9 +77,6 @@ public class StartNewServerDialog extends JDialog  {
             fieldBox.add(removeOldData);
             midPanel.add(fieldBox);
         }
-
-
-
         midPanel.add(Box.createVerticalGlue());
         this.add(midPanel);
 

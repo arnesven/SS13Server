@@ -7,6 +7,7 @@ import clientlogic.GameData;
 import clientview.ConnectData;
 import clientview.GameUIPanel;
 import clientview.ReturningPlayerPanel;
+import clientview.dialogs.ConnectToServerDialog;
 import clientview.dialogs.StartNewServerDialog;
 
 import javax.swing.*;
@@ -44,31 +45,7 @@ public class SS13Client extends JFrame {
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                int res = JOptionPane.showConfirmDialog(SS13Client.this, "Are you returning to a server?", "Returning", JOptionPane.YES_NO_OPTION);
-
-                boolean returning;
-                returning = res == JOptionPane.YES_OPTION;
-
-                String name = JOptionPane.showInputDialog(SS13Client.this, "Enter name", Cookies.getCookie("last_user_name"));
-                if (!name.matches("[a-zA-Z]*?") || name.equals("")) {
-                    JOptionPane.showMessageDialog(SS13Client.this, "Illegal user name");
-                    return;
-                }
-                Cookies.setCookie("last_user_name", name);
-
-                String result =  JOptionPane.showInputDialog(SS13Client.this, "Enter server (name:port)", Cookies.getCookie("default_server"));
-                System.out.println(result);
-                if (result.contains(":")) {
-                    String[] parts = result.split(":");
-                    int port = Integer.parseInt(parts[1]);
-                    GameData.getInstance().setHost(parts[0]);
-                    GameData.getInstance().setPort(port);
-                    Cookies.setCookie("default_server", result);
-                    cont(returning, false, name, retPan);
-                } else {
-                    JOptionPane.showMessageDialog(SS13Client.this, "Illegal server name");
-                }
+                ConnectToServerDialog ctsd = new ConnectToServerDialog(SS13Client.this);
             }
         });
         file.add(item);
@@ -130,7 +107,7 @@ public class SS13Client extends JFrame {
 		this.repaint();
 	}
 
-	public void cont(boolean returning, Boolean spectator, String clid, final ReturningPlayerPanel returnPanel) {
+	public void cont(boolean returning, Boolean spectator, String clid) {
         String message = "IDENT ME" + clid;
         if (spectator) {
             message += " SPECTATOR";
@@ -140,13 +117,13 @@ public class SS13Client extends JFrame {
             message = clid + " RETURNING";
         }
 
-        connectData = new ConnectData(returning, spectator, clid, returnPanel);
+        connectData = new ConnectData(returning, spectator, clid, retPan);
         ServerCommunicator.send(message, new MyCallback() {
 
             @Override
             public void onSuccess(String result) {
                 if (result.equals("ID ERROR")) {
-                    returnPanel.setIDError();
+                    retPan.setIDError();
                 } else if (result.contains("ERROR") || result.contains("error")) {
                     JOptionPane.showMessageDialog(SS13Client.this,
                             result.replace("ERROR", ""));
@@ -202,6 +179,6 @@ public class SS13Client extends JFrame {
 //    }
 
     public void reconnect() {
-        cont(connectData.returning, connectData.spectator, connectData.clid, connectData.returnPanel);
+        cont(connectData.returning, connectData.spectator, connectData.clid);
     }
 }
