@@ -17,7 +17,7 @@ public class ConnectToServerDialog extends JDialog {
 
     public ConnectToServerDialog(SS13Client parent) {
         super(parent, "Connect to server", true);
-        setSize(new Dimension(250, 150));
+        setSize(new Dimension(250, 130));
         setLocationRelativeTo(parent);
         this.setLayout(new BorderLayout());
         {
@@ -33,10 +33,10 @@ public class ConnectToServerDialog extends JDialog {
                 }
             });
             box.add(Box.createHorizontalGlue());
-            box.add(button);
             JButton cancel = new JButton("Cancel");
-            box.add(Box.createHorizontalStrut(5));
             box.add(cancel);
+            box.add(Box.createHorizontalStrut(5));
+            box.add(button);
             cancel.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {

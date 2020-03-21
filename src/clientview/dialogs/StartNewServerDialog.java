@@ -12,6 +12,7 @@ public class StartNewServerDialog extends JDialog  {
     private final JTextField serverPort;
     private final JCheckBox tryToRecover;
     private final JCheckBox removeOldData;
+    private final JCheckBox alsoConnect;
     private boolean started = false;
 
     public StartNewServerDialog(JFrame parent) {
@@ -19,7 +20,7 @@ public class StartNewServerDialog extends JDialog  {
         this.setLayout(new BorderLayout());
         Box southPanel = new Box(BoxLayout.X_AXIS);
         this.add(southPanel, BorderLayout.SOUTH);
-        this.setSize(new Dimension(250, 150));
+        this.setSize(new Dimension(250, 170));
         this.setLocationRelativeTo(parent);
         JButton start = new JButton("Start");
         JButton cancel = new JButton("Cancel");
@@ -77,6 +78,14 @@ public class StartNewServerDialog extends JDialog  {
             fieldBox.add(removeOldData);
             midPanel.add(fieldBox);
         }
+        {
+            Box fieldBox = new Box(BoxLayout.X_AXIS);
+            fieldBox.add(new JLabel("Also connect me as client: "));
+            this.alsoConnect = new JCheckBox("", true);
+            fieldBox.add(alsoConnect);
+            midPanel.add(fieldBox);
+        }
+
         midPanel.add(Box.createVerticalGlue());
         this.add(midPanel);
 
@@ -85,5 +94,17 @@ public class StartNewServerDialog extends JDialog  {
 
     public boolean didStart() {
         return started;
+    }
+
+    public boolean alsoConnectMe() {
+        return alsoConnect.isSelected();
+    }
+
+    public String getHost() {
+        return serverName.getText();
+    }
+
+    public int getPort() {
+        return Integer.parseInt(serverPort.getText());
     }
 }

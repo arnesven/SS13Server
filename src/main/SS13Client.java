@@ -38,7 +38,7 @@ public class SS13Client extends JFrame {
         ServerCommunicator.setFrameReference(this);
 
         JMenuBar menubar = new JMenuBar();
-        JMenu file = new JMenu("File");
+        JMenu file = new JMenu("Client");
         JMenuItem item = new JMenuItem("Connect");
         JMenu server = new JMenu("Server");
 
@@ -59,6 +59,22 @@ public class SS13Client extends JFrame {
 
                 if (snsd.didStart()) {
                     startServer.setEnabled(false);
+
+                    if (snsd.alsoConnectMe()) {
+                        if (Cookies.getCookie("last_user_name") != null) {
+                            GameData.getInstance().setHost("localhost");
+                            GameData.getInstance().setPort(snsd.getPort());
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            cont(false, false, Cookies.getCookie("last_user_name"));
+                        } else {
+                            new ConnectToServerDialog(SS13Client.this);
+                        }
+                    }
+
                 }
             }
         });
