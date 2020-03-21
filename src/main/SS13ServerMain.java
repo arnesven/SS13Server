@@ -4,14 +4,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Locale;
 
 import comm.ServiceHandler;
 
 import graphics.BackgroundSprites;
 import graphics.UserInterface;
-import graphics.pdf.MapPDFMaker;
 import model.GameData;
 import util.GameRecovery;
 import util.Logger;
@@ -27,11 +25,13 @@ public class SS13ServerMain extends Thread {
     private final int port;
     private final String name;
     private final boolean dorecover;
+    private final boolean removeOldData;
 
-    public SS13ServerMain(int port, String name, boolean recover) {
+    public SS13ServerMain(int port, String name, boolean recover, boolean removeOldData) {
         this.port = port;
         this.name = name;
         this.dorecover = recover;
+        this.removeOldData = removeOldData;
         Locale.setDefault(Locale.US);
     }
 
@@ -58,6 +58,15 @@ public class SS13ServerMain extends Thread {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+        } else if (this.removeOldData) {
+
+                if (GameRecovery.removeDataFile()) {
+                    Logger.log(Logger.CRITICAL, "REMOVED OLD GAME DATA.");
+                } else {
+
+                    Logger.log(Logger.CRITICAL, "Tried to remove old game data, but none was found.");
+                }
+
         }
 
         ServiceHandler serviceHandler = new ServiceHandler(name, gameData, port);
@@ -91,7 +100,7 @@ public class SS13ServerMain extends Thread {
 	 */
 	public static void main(String[] args) {
         if (args.length >= 3) {
-            new SS13ServerMain(Integer.parseInt(args[1]), args[0], args[2].equals("recover")).run();
+            new SS13ServerMain(Integer.parseInt(args[1]), args[0], args[2].equals("recover"), false).run();
         } else {
             throw new IllegalArgumentException("Correct number of arguments are 3: [name] [port] recover");
         }

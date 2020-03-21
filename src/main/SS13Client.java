@@ -7,6 +7,7 @@ import clientlogic.GameData;
 import clientview.ConnectData;
 import clientview.GameUIPanel;
 import clientview.ReturningPlayerPanel;
+import clientview.dialogs.StartNewServerDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -77,8 +78,11 @@ public class SS13Client extends JFrame {
         startServer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                new SS13ServerMain(55444, "Local Game", true).start();
-                startServer.setEnabled(false);
+                StartNewServerDialog snsd = new StartNewServerDialog(SS13Client.this);
+
+                if (snsd.didStart()) {
+                    startServer.setEnabled(false);
+                }
             }
         });
         server.add(startServer);

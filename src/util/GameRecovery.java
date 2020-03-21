@@ -28,4 +28,7 @@ public class GameRecovery {
         rooster.close();
     }
 
+    public static boolean removeDataFile() {
+        return new File(PATH).delete();
+    }
 }
