@@ -68,7 +68,7 @@ public class PlayerSettings implements Serializable {
         return MyStrings.join(strs);
     }
 
-    private static class Setting {
+    private static class Setting implements Serializable {
         private boolean on;
         private boolean hidden;
 
