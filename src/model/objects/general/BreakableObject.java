@@ -201,7 +201,7 @@ public abstract class BreakableObject extends GameObject implements Target {
 		if (r == forWhom.getPosition()) {
 			if (forWhom.getsActions()) {
 				AttackAction atk = new AttackAction(forWhom);
-				if (atk.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+				if (atk.isAmongOptions(gameData, forWhom, this.getBaseName())) {
 					atk.stripAllTargetsBut(this);
 					atk.addClientsItemsToAction(forWhom);
 					actions.add(atk);

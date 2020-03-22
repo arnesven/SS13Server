@@ -323,21 +323,30 @@ public class Player extends Actor implements Target, Serializable {
         List<String> args = new ArrayList<>();
         args.addAll(Arrays.asList(actionString.split(",")));
 
+        boolean actionFound = false;
         for (OverlaySprite sp : overlaySprites) {
             if (sp.getSprite().getObjectReference() != null) {
                 SpriteObject obj = sp.getSprite().getObjectReference();
                 for (Action a : obj.getOverlaySpriteActionList(gameData, sp.getRoom(), this)) {
                     if (a.getName().equals(args.get(0))) {
-                        List<String> newArgs = args.subList(1, args.size());
+                    	if (args.size() == 1 || a.isAmongOptions(gameData, this, args.get(1))) {
+							// TODO: How can we really be sure we found the right action? There could be several "attack" for instance.
+							List<String> newArgs = args.subList(1, args.size());
 //                        String last = newArgs.remove(newArgs.size()-1);
 //                        newArgs.add(0, last);
-                        a.setOverlayArguments(newArgs, this);
-                        this.nextAction = a;
-                        break;
+							a.setOverlayArguments(newArgs, this);
+							this.nextAction = a;
+							actionFound = true;
+							break;
+						}
                     }
                 }
             }
         }
+        if (!actionFound) {
+        	Logger.log(Logger.CRITICAL, "WARNING: Overlay action could not be parsed!");
+		}
+
     }
 
     public void parseInventoryActionFromString(String actionStr, GameData gameData) {

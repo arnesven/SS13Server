@@ -21,8 +21,12 @@ public class CatCharacter extends AnimalCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("cat", "animal.png", 3, 20, 32, 32, getActor());
-    }
+        if (isDead()) {
+			return new Sprite("catdead", "animal.png", 2, 20, 32, 32, getActor());
+		}
+		return new Sprite("cat", "animal.png", 3, 20, 32, 32, getActor());
+
+	}
 
 
 
