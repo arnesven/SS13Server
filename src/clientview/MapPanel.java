@@ -213,7 +213,6 @@ public class MapPanel extends JPanel implements Observer {
                         GameData.getInstance().getCurrentPos() == r.getID(),
                         xOffset, yOffset, 0, inventoryPanel.getHeight(), shadow);
 
-
         }
 
 
@@ -242,10 +241,6 @@ public class MapPanel extends JPanel implements Observer {
         if (toc != null) {
             toc.drawYourself(g);
         }
-
-
-
-
 
     }
 

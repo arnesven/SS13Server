@@ -17,7 +17,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     public static final Color WALL_COLOR = new Color(0x303030);
     private static final Color SELECTED_ROOM_COLOR = Color.YELLOW;
     private static double DOOR_SIZE = 0.5;
-    private final String floorSpriteName;
+    private final String floorSpriteBaseName;
 
     private int width;
     private int height;
@@ -49,7 +49,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         highLight = false;
         this.doors = doors;
         //originalBackgroundColor = new Color(Integer.parseInt(color.replace("#", ""), 16));
-        floorSpriteName = color;
+        floorSpriteBaseName = color;
     }
 
 
@@ -67,9 +67,8 @@ public class Room extends MouseInteractable implements Comparable<Room> {
             }
 //
 
-        ImageIcon background = SpriteManager.getSprite(floorSpriteName);
+        ImageIcon background = SpriteManager.getSprite(floorSpriteBaseName);
 
-        //System.out.println("Drawing room " + getName() + " at " + getXPos() + "," + getYPos() + " wh=" + getWidth() +"x" + getHeight());
         int x = (int) ((xPos - xOffset) * getXScale()) + xOffPx;
         int y = (int) ((yPos - yOffset) * getYScale()) + yOffPx;
         int finalW = (int) (getWidth() * getXScale());
@@ -78,7 +77,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         super.setHitBox(x, y, finalW, finalH);
 
         int startSpritePaint = 0;
-        if (!floorSpriteName.contains("outdoor")) {
+        if (!floorSpriteBaseName.contains("outdoor")) {
             startSpritePaint = 1;
             drawWalls(g, x, y, finalW, finalH, background, shadow);
         }
@@ -86,9 +85,14 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         if (!shadow) {
             for (int row = startSpritePaint; row < height * (yscale / background.getIconHeight()) + 1; ++row) {
                 for (int col = startSpritePaint; col < width * (xscale / background.getIconWidth()) + 1; ++col) {
-                    g.drawImage(background.getImage(),
-                            x + col * background.getIconWidth(),
-                            y + row * background.getIconHeight(), null);
+                    ImageIcon imgToDraw = background;
+                    imgToDraw = getFloorForPos(row == startSpritePaint, row == (height * (yscale / background.getIconHeight())),
+                                               col == startSpritePaint, col == width * (xscale / background.getIconWidth()),
+                                               background);
+
+                    g.drawImage(imgToDraw.getImage(),
+                            x + col * imgToDraw.getIconWidth(),
+                            y + row * imgToDraw.getIconHeight(), null);
                 }
             }
         } else {
@@ -99,6 +103,28 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         }
 
 
+    }
+
+    private ImageIcon getFloorForPos(boolean rowStart, boolean rowEnd, boolean colStart, boolean colEnd, ImageIcon background) {
+        String baseName = floorSpriteBaseName.substring(0, floorSpriteBaseName.length()-1);
+        if (rowStart && colStart) { // UL corner
+            return SpriteManager.getSprite(baseName + "UL0");
+        } else if (rowStart && colEnd) { // UR corner
+            return SpriteManager.getSprite(baseName + "UR0");
+        } else if (rowEnd && colStart) { // LL corner
+            return SpriteManager.getSprite(baseName + "LL0");
+        } else if (rowEnd && colEnd) { // LR corner
+            return SpriteManager.getSprite(baseName + "LR0");
+        } else if (rowStart) { // TOP
+            return SpriteManager.getSprite(baseName + "TOP0");
+        } else if (rowEnd) { // BOTTOM
+            return SpriteManager.getSprite(baseName + "BOTTOM0");
+        } else if (colStart) { // LEFT
+            return SpriteManager.getSprite(baseName + "LEFT0");
+        } else if (colEnd) { // RIGHT
+            return SpriteManager.getSprite(baseName + "RIGHT0");
+        }
+        return background;
     }
 
     private void drawWalls(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, boolean shadow) {

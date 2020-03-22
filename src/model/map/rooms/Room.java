@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 
-import graphics.ClientInfo;
 import graphics.sprites.Sprite;
 import model.*;
 import model.actions.general.Action;
@@ -502,24 +501,24 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
     private Sprite getfloorSpriteForColor() {
         switch (roomType) {
             case command:
-                return new Sprite("floor"+getColor(), "floors.png", 27, 1, null);
+            	return new FloorSet("floor" + getColor(), 23, 1).getMainSprite();
             case science:
-                return new Sprite("floor"+getColor(), "floors.png", 27, 2, null);
+                return new FloorSet("floor" + getColor(), 2, 3).getMainSprite();
             case security:
-                return new Sprite("floor"+getColor(), "floors.png", 1, 1, null);
+                return new FloorSet("floor" + getColor(), 27, 0).getMainSprite();
             case support:
-                return new Sprite("floor"+getColor(), "floors.png", 17, 7, null);
+                return new FloorSet("floor" + getColor(), 11, 7).getMainSprite();
             case tech:
-                return new Sprite("floor"+getColor(), "floors.png", 1, 4, null);
+                return new FloorSet("floor" + getColor(), 27, 3).getMainSprite();
             case space:
-                return new Sprite("outdoor"+getColor(), "floors.png", 18, 24, null);
+                return new SingleSpriteFloorSet("outdoor" + getColor(), 18, 24).getMainSprite();
             case derelict:
             case hall:
-                return new Sprite("floorhall", "floors.png", 0, 0, null);
+                return new SingleSpriteFloorSet("floorhall", 0, 0).getMainSprite();
             case airlock:
-                return new Sprite("floorairlock", "floors.png", 22, 28, null);
+                return new FloorSet("floor" + getColor(), 16, 14).getMainSprite();
             case planet:
-                return new Sprite("outdoorplanet", "floors.png", 0, 24,null);
+                return new SingleSpriteFloorSet("outdoorplanet", 0, 24).getMainSprite();
 
         }
 
