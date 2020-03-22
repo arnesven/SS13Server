@@ -27,36 +27,37 @@ public class PlayerSettings implements Serializable {
     public static final String STYLE_BUTTONS_ON            = "Style Buttons On";
     public static final String NOT_BEING_A_WOMAN           = "Not being a anti-man";
 
-    private HashMap<String, Boolean> settings = new HashMap<>();
+    private HashMap<String, Setting> settings = new HashMap<>();
 
     public PlayerSettings() {
-        settings.put(AUTO_LOOT_ON_KILL, false);
-        settings.put(SHOW_ITEMS_IN_MAP_WHEN_DEAD, true);
-        settings.put(AUTO_DROP_ITEMS_ON_PICK_UP, false);
-        settings.put(ALWAYS_REFUSE_GIFTS, false);
-        settings.put(CURRENT_ROOM_STUFF_IN_MAP, true);
-        settings.put(MAKE_ME_AI_IF_ABLE, false);
-        settings.put(GIVE_ME_A_TASK, true);
-        settings.put(PLAY_SOUND_IF_SUPPORTED, true);
-        settings.put(MAKE_ME_A_SPECTATOR, false);
-        settings.put(ACTIVATE_MOVEMENT_POWERS, true);
-        //settings.put(AUTO_READY_ME_IN_60_SECONDS, true);
-        settings.put(STYLE_BUTTONS_ON, false);
-        settings.put(NOT_BEING_A_WOMAN, MyRandom.nextBoolean());
+        settings.put(AUTO_LOOT_ON_KILL, new Setting(false, false));
+        settings.put(SHOW_ITEMS_IN_MAP_WHEN_DEAD, new Setting(true, true));
+        settings.put(AUTO_DROP_ITEMS_ON_PICK_UP, new Setting(false, false));
+        settings.put(ALWAYS_REFUSE_GIFTS, new Setting(false, false));
+        settings.put(CURRENT_ROOM_STUFF_IN_MAP, new Setting(true, true));
+        settings.put(MAKE_ME_AI_IF_ABLE, new Setting(false, false));
+        settings.put(GIVE_ME_A_TASK, new Setting(true, false));
+        settings.put(PLAY_SOUND_IF_SUPPORTED, new Setting(true, true));
+        settings.put(MAKE_ME_A_SPECTATOR, new Setting(false, true));
+        settings.put(ACTIVATE_MOVEMENT_POWERS, new Setting(false, true));
+        settings.put(STYLE_BUTTONS_ON, new Setting(false, true));
+        settings.put(NOT_BEING_A_WOMAN, new Setting(MyRandom.nextBoolean(), false));
     }
 
     public void set(String key, boolean value) {
-        settings.put(key, value);
+        settings.get(key).setOn(value);
     }
 
     public boolean get(String key) {
-        return settings.get(key);
+        return settings.get(key).isOn();
     }
 
     public String makeIntoString() {
         List<String> strs = new ArrayList<>();
-        for (Map.Entry<String, Boolean> entry : settings.entrySet()) {
-            strs.add(entry.getKey() + "," + entry.getValue());
+        for (Map.Entry<String, Setting> entry : settings.entrySet()) {
+            if (!entry.getValue().isHidden()) {
+                strs.add(entry.getKey() + "," + entry.getValue().isOn());
+            }
         }
         strs.sort(new Comparator<String>() {
             @Override
@@ -65,5 +66,27 @@ public class PlayerSettings implements Serializable {
             }
         });
         return MyStrings.join(strs);
+    }
+
+    private static class Setting {
+        private boolean on;
+        private boolean hidden;
+
+        public Setting(boolean on, boolean hidden) {
+            this.on = on;
+            this.hidden = hidden;
+        }
+
+        public void setOn(boolean value) {
+            on = value;
+        }
+
+        public boolean isOn() {
+            return on;
+        }
+
+        public boolean isHidden() {
+            return hidden;
+        }
     }
 }
