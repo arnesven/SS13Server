@@ -386,9 +386,13 @@ public class Player extends Actor implements Target, Serializable {
                    this.nextAction = a;
                    break;
                }
-
             }
         }
+		try {
+			gameData.setPlayerReady(gameData.getClidForPlayer(this), true);
+		} catch (NoSuchThingException e) {
+			e.printStackTrace(); // should not happen
+		}
     }
 
 
