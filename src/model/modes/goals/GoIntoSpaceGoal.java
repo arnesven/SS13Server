@@ -5,7 +5,7 @@ import model.GameData;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.map.rooms.Room;
-import model.map.rooms.RoomType;
+import model.map.rooms.SpaceRoom;
 
 /**
  * Created by erini02 on 05/12/16.
@@ -38,7 +38,7 @@ public class GoIntoSpaceGoal extends PersonalGoal {
         @Override
         public void setPosition(Room room) {
             super.setPosition(room);
-            if (room.getType() == RoomType.space) {
+            if (room instanceof SpaceRoom) {
                 completed = true;
             }
         }

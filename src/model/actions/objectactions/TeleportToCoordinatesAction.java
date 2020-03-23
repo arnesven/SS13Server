@@ -10,12 +10,10 @@ import model.characters.decorators.TumblingThroughSpaceDecorator;
 import model.items.general.Teleporter;
 import model.map.GameMap;
 import model.map.rooms.Room;
-import model.map.rooms.RoomType;
+import model.map.rooms.SpaceRoom;
 import util.Logger;
 import util.MyRandom;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -62,7 +60,7 @@ public class TeleportToCoordinatesAction extends Action {
         Action a = new TeleportAction(tele);
         ((TeleportAction)a).setTarget(performingClient);
         a.doTheAction(gameData, performingClient);
-        if (r.getType() == RoomType.space) {
+        if (r instanceof SpaceRoom) {
             performingClient.setCharacter(new TumblingThroughSpaceDecorator(performingClient.getCharacter()));
         }
     }

@@ -6,12 +6,10 @@ import java.util.*;
 import graphics.ClientInfo;
 import graphics.OverlaySprite;
 import graphics.sprites.SpriteObject;
-import model.actions.general.ActionOption;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
-import model.map.rooms.RoomType;
+import model.map.rooms.SpaceRoom;
 import model.movepowers.MovePowerRoom;
-import model.plebOS.LoggedInDecorator;
 import sounds.Sound;
 import sounds.SoundQueue;
 import graphics.sprites.OverlaySprites;
@@ -634,7 +632,7 @@ public class Player extends Actor implements Target, Serializable {
             } else {
                 res.addAll(gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(getPosition())));
             }
-            res.removeIf((Room r) -> (r.getType() == RoomType.hidden || r.getType() == RoomType.space));
+            res.removeIf((Room r) -> (r.isHidden() || r instanceof SpaceRoom));
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

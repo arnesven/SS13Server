@@ -17,8 +17,8 @@ import model.items.foods.FoodItem;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
+import model.map.rooms.RemoteRoom;
 import model.map.rooms.Room;
-import model.map.rooms.RoomType;
 import model.movepowers.MovePowersHandler;
 import model.npcs.behaviors.ActionBehavior;
 import util.Logger;
@@ -397,7 +397,7 @@ public abstract class CharacterDecorator extends GameCharacter {
     }
 
     public List<Room> getVisibleMap(GameData gameData) {
-        if (getPosition().getType() == RoomType.outer) {
+        if (getPosition() instanceof RemoteRoom) {
             List<Room> arr = new ArrayList<>();
             arr.add(getPosition());
             return arr;

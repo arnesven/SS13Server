@@ -4,9 +4,6 @@ import java.io.ObjectOutputStream;
 import java.util.*;
 
 import model.GameData;
-import model.map.rooms.Room;
-import model.map.rooms.RoomType;
-import util.Logger;
 import util.MyStrings;
 
 

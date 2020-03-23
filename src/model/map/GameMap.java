@@ -7,7 +7,6 @@ import model.events.ambient.ColdEvent;
 import model.items.NoSuchThingException;
 import model.events.NoPressureEverEvent;
 import model.map.rooms.Room;
-import model.map.rooms.RoomType;
 import model.map.rooms.SpaceRoom;
 import util.Logger;
 import util.MyRandom;
@@ -448,7 +447,7 @@ public class GameMap implements Serializable {
             Logger.log("Tumbling player to " + level);
             Set<Room> set = new HashSet<>();
             set.addAll(getRoomsForLevel(level));
-            set.removeIf((Room r) -> r.getType() == RoomType.hidden);
+            set.removeIf((Room r) -> r.isHidden());
             Room r = MyRandom.sample(set);
             performingClient.moveIntoRoom(r);
 

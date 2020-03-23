@@ -18,11 +18,11 @@ import java.util.List;
 /**
  * Created by erini02 on 16/09/17.
  */
-public class Asteroid extends Room {
+public class Asteroid extends PlanetRoom {
     private static final double WORM_SPAWN_CHANCE = 0.05;
 
     public Asteroid(int id, int x, int y, int w, int h, GameData gameData) {
-        super(id, "Asteroid " + id, "AST", x, y, w, h, new int[]{}, new double[]{}, RoomType.planet);
+        super(id, "Asteroid " + id, "AST", x, y, w, h, new int[]{}, new double[]{});
 
         for (double d = 0.9; d > MyRandom.nextDouble(); d = d/2.0) {
             addObject(RockFactory.randomRock(this));

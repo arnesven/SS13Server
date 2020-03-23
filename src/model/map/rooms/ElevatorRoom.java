@@ -29,8 +29,8 @@ public class ElevatorRoom extends Room {
     private int nextFloor = 1;
     private ElectricalMachinery panel;
 
-    public ElevatorRoom(GameData gameData, int id, String name, String shortName, int[] coordinates, Room[] rooms, String[] strings, double[] doors, RoomType type) {
-        super(id, name, shortName, coordinates[0], coordinates[1], 1, 1, new int[]{}, doors, type);
+    public ElevatorRoom(GameData gameData, int id, String name, String shortName, int[] coordinates, Room[] rooms, String[] strings, double[] doors) {
+        super(id, name, shortName, coordinates[0], coordinates[1], 1, 1, new int[]{}, doors);
         this.floors = new ArrayList<>();
         this.coordinates = coordinates;
         Collections.addAll(floors, rooms);
@@ -92,6 +92,11 @@ public class ElevatorRoom extends Room {
 
     public void hold() {
         this.nextFloor = currentFloor;
+    }
+
+    @Override
+    protected FloorSet getFloorSet() {
+        return new FloorSet("floorelevator", 11, 15);
     }
 
     private class MoveElevatorBetweenFloorsEvent extends Event {

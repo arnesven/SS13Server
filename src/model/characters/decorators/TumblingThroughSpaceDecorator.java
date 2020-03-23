@@ -10,7 +10,7 @@ import model.items.NoSuchThingException;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
 import model.map.GameMap;
-import model.map.rooms.RoomType;
+import model.map.rooms.SpaceRoom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +77,7 @@ public class TumblingThroughSpaceDecorator extends CharacterDecorator {
             performingClient.getItems().remove(selected);
             gameData.getMap().tumbleIntoLevel(gameData, performingClient, GameMap.getOppositeDirection(direction));
             performingClient.addTolastTurnInfo("You tumbled through space.");
-            if (performingClient.getPosition().getType() != RoomType.space) {
+            if (!(performingClient.getPosition() instanceof SpaceRoom)) {
                 performingClient.removeInstance((GameCharacter gc) -> gc instanceof TumblingThroughSpaceDecorator);
             }
         }
@@ -122,7 +122,7 @@ public class TumblingThroughSpaceDecorator extends CharacterDecorator {
             ext.decrementLevel();
             gameData.getMap().tumbleIntoLevel(gameData, performingClient, GameMap.getOppositeDirection(direction));
             performingClient.addTolastTurnInfo("You tumbled through space.");
-            if (performingClient.getPosition().getType() != RoomType.space) {
+            if (!(performingClient.getPosition() instanceof SpaceRoom)) {
                 performingClient.removeInstance((GameCharacter gc) -> gc instanceof TumblingThroughSpaceDecorator);
             }
         }

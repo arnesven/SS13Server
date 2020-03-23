@@ -9,11 +9,11 @@ import model.objects.general.ChemicalDispenser;
 import model.objects.consoles.GeneticsConsole;
 import model.objects.general.CloneOMatic;
 
-public class LabRoom extends Room {
+public class LabRoom extends ScienceRoom {
 
 	public LabRoom(int ID, int x, int y,
 			int width, int height, int[] neighbors, double[] doors) {
-		super(ID, "Lab", "Lab", x, y, width, height, neighbors, doors, RoomType.science);
+		super(ID, "Lab", "Lab", x, y, width, height, neighbors, doors);
 
 		this.addObject(new ChemicalDispenser("Lab Storage", 2, this));
         GeneticsConsole gc = new GeneticsConsole(this);

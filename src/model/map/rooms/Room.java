@@ -30,11 +30,9 @@ import util.Logger;
  * @author erini02
  * Class for representing a room on the space station.
  */
-public class Room implements ItemHolder, PowerConsumer, Serializable {
+public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
 
-
-    private final RoomType roomType;
     private String name;
 	private int[] neighbors;
 	private List<Player> players = new ArrayList<>();
@@ -45,7 +43,7 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 	private List<GameItem> items = new ArrayList<>();
 	private List<Event> events = new ArrayList<>();
 	private List<Event> eventsHappened = new ArrayList<>();
-	private final Sprite floorSprite;
+	private final FloorSet floorSprite;
 	private static final Sprite DOOR_SPRITE = new Sprite("doorsprite", "doors.png", 8, 18, null);
 
 	/**
@@ -61,19 +59,7 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
     private String shortName;
 
 
-    /**
-	 * Constructor for a Room
-	 * @param ID, the numeric ID of the room. This is used for the most part when identifying it
-	 * @param name, the full name of the room.
-	 * @param shortname, the short name for the room as it shows up on the client's map, for some rooms this short name is "".
-	 * @param x, the rooms x-position (upper left corner).
-	 * @param y, the rooms y-position (upper left corner).
-	 * @param width the width of the room.
-	 * @param height the height of the room
-	 * @param neighbors what hidden rooms (their IDs) are connected to this room by doors.
-	 * @param doors where doors should show up visually on the map (no game effect) 
-	 */
-	public Room(int ID, String name, String shortname, int x, int y, int width, int height, int[] neighbors, double[] doors, RoomType roomType) {
+	public Room(int ID, String name, String shortname, int x, int y, int width, int height, int[] neighbors, double[] doors) {
 		this.name = name;
 		this.shortname = shortname;
 		this.x = x;
@@ -83,14 +69,15 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 		this.ID = ID;
 		this.neighbors = neighbors;
 		this.doors=doors;
-        this.roomType = roomType;
-        this.floorSprite = getfloorSpriteForColor();
+        this.floorSprite = getFloorSet();
 	}
 
-    @Override
+	protected abstract FloorSet getFloorSet();
+
+	@Override
 	public String toString() {
 		String result = ID + ":" + name + ":" + shortname + ":" + x + ":" + y + ":" + 
-						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors) + ":" + floorSprite.getName();
+						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors) + ":" + floorSprite.getMainSprite().getName();
 		//Logger.log(result);
         return result;
 	}
@@ -459,74 +446,80 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 
     }
 
-    public RoomType getType() {
-        return roomType;
-    }
 
 
-    public String getColor() {
-        Color backgroundcolor;
-        switch (roomType) {
-            case command:
-                backgroundcolor = new Color(100, 190, 255);
-                break;
-            case science:
-                backgroundcolor = new Color(70, 200, 150);
-                break;
-            case security:
-                backgroundcolor = new Color(255, 130, 100);
-                break;
-            case support:
-                backgroundcolor = new Color(200, 150, 200);
-                break;
-            case tech:
-                backgroundcolor = new Color(255, 210, 0);
-                break;
-            case space:
-                backgroundcolor = new Color(0, 0, 0);
-                break;
-            case basestar:
-                backgroundcolor = new Color(100, 100, 140);
-                break;
-            case button:
-                backgroundcolor = new Color(17, 17, 17);
-                break;
-			case airlock:
-				backgroundcolor = new Color(150, 0 ,0);
-				break;
-            default:
-                backgroundcolor = new Color(217, 217, 217);
-        }
-        return String.format("#%02X%02X%02X", backgroundcolor.getRed(), backgroundcolor.getGreen(), backgroundcolor.getBlue());
-    }
+ //   protected String getColor() {
+//		Color c = new Color(217, 217, 217);
+//		return String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue());
+//	}
+
+//    public String getColor() {
+//        Color backgroundcolor;
+//        switch (roomType) {
+//            case command:
+//                backgroundcolor = new Color(100, 190, 255);
+//                break;
+//            case science:
+//                backgroundcolor = new Color(70, 200, 150);
+//                break;
+//            case security:
+//                backgroundcolor = new Color(255, 130, 100);
+//                break;
+//            case support:
+//                backgroundcolor = new Color(200, 150, 200);
+//                break;
+//            case tech:
+//                backgroundcolor = new Color(255, 210, 0);
+//                break;
+//            case space:
+//                backgroundcolor = new Color(0, 0, 0);
+//                break;
+//            case basestar:
+//                backgroundcolor = new Color(100, 100, 140);
+//                break;
+//            case button:
+//                backgroundcolor = new Color(17, 17, 17);
+//                break;
+//			case airlock:
+//				backgroundcolor = new Color(150, 0 ,0);
+//				break;
+//            default:
+//                backgroundcolor = new Color(217, 217, 217);
+//        }
+//        return String.format("#%02X%02X%02X", backgroundcolor.getRed(), backgroundcolor.getGreen(), backgroundcolor.getBlue());
+//    }
 
 
-    private Sprite getfloorSpriteForColor() {
-        switch (roomType) {
-            case command:
-            	return new FloorSet("floor" + getColor(), 23, 1).getMainSprite();
-            case science:
-                return new ScienceFloorSet("floor" + getColor(), 2, 3).getMainSprite();
-            case security:
-                return new FloorSet("floor" + getColor(), 27, 0).getMainSprite();
-            case support:
-                return new FloorSet("floor" + getColor(), 11, 7).getMainSprite();
-            case tech:
-                return new FloorSet("floor" + getColor(), 27, 3).getMainSprite();
-            case space:
-                return new SingleSpriteFloorSet("outdoor" + getColor(), 18, 24).getMainSprite();
-            case derelict:
-            case hall:
-                return new SingleSpriteFloorSet("floorhall", 0, 0).getMainSprite();
-            case airlock:
-                return new AirlockFloorSet("floor" + getColor(), 16, 14).getMainSprite();
-            case planet:
-                return new SingleSpriteFloorSet("outdoorplanet", 0, 24).getMainSprite();
+//    private Sprite getfloorSpriteForColor() {
+//        switch (roomType) {
+//            case command:
+//            	return new FloorSet("floor" + getColor(), 23, 1).getMainSprite();
+//            case science:
+//                return new ScienceFloorSet("floor" + getColor(), 2, 3).getMainSprite();
+//            case security:
+//                return new FloorSet("floor" + getColor(), 27, 0).getMainSprite();
+//            case support:
+//                return new FloorSet("floor" + getColor(), 11, 7).getMainSprite();
+//            case tech:
+//                return new FloorSet("floor" + getColor(), 27, 3).getMainSprite();
+//            case space:
+//                return new SingleSpriteFloorSet("outdoor" + getColor(), 18, 24).getMainSprite();
+//            case derelict:
+//            case hall:
+//                return new SingleSpriteFloorSet("floorhall", 0, 0).getMainSprite();
+//            case airlock:
+//                return new NukieFloorSet("floor" + getColor(), 16, 14).getMainSprite();
+//            case planet:
+//                return new SingleSpriteFloorSet("outdoorplanet", 0, 24).getMainSprite();
+//
+//        }
+//
+//        return  new Sprite("floor"+getColor(), "floors.png", 29, 28, null);
+//    }
 
-        }
-
-        return  new Sprite("floor"+getColor(), "floors.png", 29, 28, null);
-    }
+//	protected Sprite getfloorSpriteForColor() {
+//		return  new Sprite("floor"+getColor(), "floors.png", 29, 28, null);
+//	}
 
 
     @Override
@@ -582,4 +575,8 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
 //    }
 
     public List<Sprite> getAlwaysSprites() {return new ArrayList<>();};
+
+	public boolean isHidden() {
+		return false;
+	}
 }

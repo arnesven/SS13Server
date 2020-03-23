@@ -10,28 +10,7 @@ public class DesertPlanet extends ExoticPlanet {
     public DesertPlanet(int i, GameData gameData) {
         super(i, gameData, "Desert Planet");
     }
-
-
-    @Override
-    protected int getBackgroundSpriteHeight() {
-        return 300;
-    }
-
-    @Override
-    protected int getBackgroundSpriteWidth() {
-        return 240;
-    }
-
-    @Override
-    protected String getBackgroundSpriteMap() {
-        return "desertplanet.png";
-    }
-
-    @Override
-    protected String getBackroundSpriteName() {
-        return "desertplanetbackground";
-    }
-
+    
     @Override
     public String getDescription() {
         return "This is a hot, dry planet where rain is rare. It is said that a mysterious race rules this planet with a strange power - desert power!";

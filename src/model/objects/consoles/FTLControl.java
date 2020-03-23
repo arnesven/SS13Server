@@ -4,13 +4,10 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
-import model.characters.crew.CaptainCharacter;
-import model.characters.general.AICharacter;
-import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
+import model.map.rooms.BaseStarRoom;
 import model.map.rooms.Room;
-import model.map.rooms.RoomType;
 import util.Logger;
 import util.MyRandom;
 
@@ -115,7 +112,7 @@ public class FTLControl extends Console {
 
             Set<Room> baseStarRooms = new HashSet<>();
             for (Room r : gameData.getAllRooms()) {
-                if (r.getType() == RoomType.basestar) {
+                if (r instanceof BaseStarRoom) {
                     baseStarRooms.add(r);
                 }
             }

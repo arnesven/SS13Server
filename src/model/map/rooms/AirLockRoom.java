@@ -8,10 +8,14 @@ public class AirLockRoom extends Room {
 	public AirLockRoom(int ID, int number, int x, int y,
 			int width, int height, int[] neighbors, double[] doors) {
 		super(ID, "Air Lock #"+number         , number+"" , 
-				x, y, width, height, neighbors, doors, RoomType.airlock);
+				x, y, width, height, neighbors, doors);
 		
 		this.addObject(new AirlockPanel(this));
         this.addObject(new OxyMaskDispenser(this));
 	}
 
+	@Override
+	protected FloorSet getFloorSet() {
+		return new AirLockFloorSet();
+	}
 }

@@ -2,12 +2,12 @@ package model.misc;
 
 import java.util.Collection;
 
+import model.map.rooms.HallwayRoom;
 import util.Logger;
 import model.GameData;
 import model.events.SantaClauseEvent;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
-import model.map.rooms.RoomType;
 import model.objects.christmas.Christmas_lights;
 import model.objects.christmas.Snowman;
 
@@ -29,7 +29,7 @@ public class ChristmasBooster {
 		Collection<Room> ss13Rooms = gameData.getMap().getRoomsForLevel("ss13");
 		
 		for (Room eachRoom : ss13Rooms){
-			if (eachRoom.getType().equals(RoomType.hall)){
+			if (eachRoom instanceof HallwayRoom) {
 				eachRoom.addObject(new Christmas_lights(eachRoom));	
 			}
 			

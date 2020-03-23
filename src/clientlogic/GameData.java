@@ -241,9 +241,11 @@ public class GameData {
 
 	private static int getMapWidthHelper(List<Room> rooms) {
 		int maxX = 0;
+		Room maxRoom = null;
 		for (Room r : rooms) {
 			if (r.getXPos() + r.getWidth() > maxX) {
 				maxX = r.getXPos() + r.getWidth();
+				maxRoom = r;
 			}
 		}
 		return maxX-getMinXHelper(rooms);

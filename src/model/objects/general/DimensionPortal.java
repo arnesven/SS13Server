@@ -9,7 +9,6 @@ import model.actions.general.SensoryLevel;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.map.rooms.Room;
-import model.map.rooms.RoomType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,30 +79,4 @@ public class DimensionPortal extends GameObject {
         }
     }
 
-    private class SeeOnlyThisRoomTypeDecorator extends CharacterDecorator {
-        private final RoomType type;
-
-        public SeeOnlyThisRoomTypeDecorator(GameCharacter character, RoomType outer) {
-            super(character, "see only certain rooms");
-            this.type = outer;
-        }
-
-        @Override
-        public List<Room> getVisibleMap(GameData gameData) {
-            List<Room> list = new ArrayList<>();
-            for (Room r : gameData.getAllRooms()) {
-                if (r.getType().equals(type)) {
-                    list.add(r);
-                }
-            }
-            return list;
-        }
-
-        @Override
-        public void doAtEndOfTurn(GameData gameData) {
-            if (!getPosition().getType().equals(type)) {
-                getActor().removeInstance((GameCharacter gc ) -> gc instanceof SeeOnlyThisRoomTypeDecorator);
-            }
-        }
-    }
 }

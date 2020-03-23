@@ -12,7 +12,7 @@ import util.MyRandom;
 /**
  * Created by erini02 on 06/09/17.
  */
-public class PirateShipRoom extends Room {
+public class PirateShipRoom extends DerelictRoom {
     private final int airlock;
 
     public PirateShipRoom(GameData gameData, int randAirLock) {
@@ -20,7 +20,7 @@ public class PirateShipRoom extends Room {
                 getXForAirLock(randAirLock, gameData),
                 getYForAirLock(randAirLock, gameData),
                 2, 1, new int[]{},
-                new double[]{}, RoomType.derelict);
+                new double[]{});
         this.airlock = randAirLock;
         this.addItem(new SpaceRum());
 

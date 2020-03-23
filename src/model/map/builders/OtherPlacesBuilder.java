@@ -18,15 +18,15 @@ public class OtherPlacesBuilder extends MapBuilder {
 
     @Override
     protected void buildPart(GameData gameData, GameMap gm) {
-        Room dummy = new Room(31, "Dummy", "", 18, 1, 0, 0,
-                new int[]{28}, new double[]{-1.0, -1.0}, RoomType.hidden);
+
+        Room dummy = new DummyRoom(31, 18, 1, 0, 0, new int[]{28}, new double[]{-1.0, -1.0});
         gm.addRoom(dummy, ss13, "dummy");
         Room otherDim = new OtherDimension(32, new int[]{30}, new double[]{-1.0, -1.0});
         Room prisonPlanet = new PrisonPlanet(33);
         gm.addRoom(otherDim, "other dimension", "other dimension");
         gm.addRoom(prisonPlanet, "prison planet", "prison planet");
 
-        Room deepspace = new Room(41, "Deep Space", "D E E P   S P A C E", 6, 8, 3, 3, new int[]{}, new double[]{}, RoomType.space);
+        Room deepspace = new SpaceRoom(41, 6, 8, 3, 3);
         addEventsToSpaceRoom(deepspace, gameData);
         gm.addRoom(deepspace, "deep space", "deep space");
 
@@ -102,10 +102,10 @@ public class OtherPlacesBuilder extends MapBuilder {
                     miningStation = new MiningStationRoom(x, y);
                     gm.addRoom(miningStation, "asteroid field", "mining station");
                 } else if (matrix[x][y] == 4) {
-                    cabin = new Room(id++, "Cabin", "", x, y, 1, 1, new int[]{}, new double[]{}, RoomType.support);
+                    cabin = new SupportRoom(id++, "Cabin", "", x, y, 1, 1, new int[]{}, new double[]{});
                     gm.addRoom(cabin, "asteroid field", "mining station");
                 } else if (matrix[x][y] == 5) {
-                    shuttle = new ShuttleRoom(id++, "Mining Shuttle", "SHTL", x, y, 2, 1, new int[]{}, new double[]{}, RoomType.tech, gameData);
+                    shuttle = new ShuttleRoom(id++, "Mining Shuttle", "SHTL", x, y, 2, 1, new int[]{}, new double[]{}, gameData);
                     gm.addRoom(shuttle, "asteroid field", "mining station");
                 }
             }

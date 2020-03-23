@@ -12,7 +12,7 @@ import model.events.Event;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
 import model.map.rooms.Room;
-import model.map.rooms.RoomType;
+import model.map.rooms.SpaceRoom;
 import model.objects.general.AirlockPanel;
 import model.objects.general.GameObject;
 import util.Logger;
@@ -76,7 +76,7 @@ public class MoveToOtherAirlocks extends Action {
                 gameData.getMap().tumbleIntoLevel(gameData, performingClient, MyRandom.sample(GameMap.getDirectionStrings()));
                 performingClient.addTolastTurnInfo("You tumbled through space.");
 
-                if (performingClient.getPosition().getType() != RoomType.space) {
+                if (! (performingClient.getPosition() instanceof SpaceRoom)) {
                     performingClient.removeInstance((GameCharacter gc) -> gc instanceof TumblingThroughSpaceDecorator);
                 }
             }

@@ -16,13 +16,13 @@ import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.objects.general.GameObject;
 
-public class RoomDecorator extends Room {
+public abstract class RoomDecorator extends Room {
 
 	private Room innerRoom;
 	
 	public RoomDecorator(Room inner) {
 		super(inner.getID(), inner.getName(), inner.getShortname(), inner.getX(), inner.getY(), 
-				inner.getWidth(), inner.getHeight(), inner.getNeighbors(), inner.getDoors(), inner.getType());
+				inner.getWidth(), inner.getHeight(), inner.getNeighbors(), inner.getDoors());
 		innerRoom = inner;
 	}
 

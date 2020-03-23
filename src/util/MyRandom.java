@@ -9,7 +9,6 @@ import java.util.List;
 
 import model.GameData;
 import model.items.HandCuffs;
-import model.items.NoSuchThingException;
 import model.items.foods.*;
 import model.items.general.*;
 import model.items.seeds.OrangeSeeds;
@@ -17,8 +16,8 @@ import model.items.seeds.RedWeedSeeds;
 import model.items.seeds.TomatoSeeds;
 import model.items.suits.*;
 import model.items.weapons.*;
+import model.map.rooms.HallwayRoom;
 import model.map.rooms.Room;
-import model.map.rooms.RoomType;
 import model.movepowers.SetHairColorPower;
 import model.objects.general.Antidote;
 
@@ -215,7 +214,7 @@ public class MyRandom {
         List<Room> roomList = new ArrayList<>();
 
         roomList.addAll(gameData.getMap().getRoomsForLevel("ss13"));
-        roomList.removeIf((Room r) -> r.getType() != RoomType.hall);
+        roomList.removeIf((Room r) -> !(r instanceof HallwayRoom));
 
         return sample(roomList);
     }

@@ -5,11 +5,11 @@ import model.items.general.Grenade;
 import model.items.weapons.LaserPistol;
 import model.items.weapons.Revolver;
 
-public class ArmoryRoom extends Room {
+public class ArmoryRoom extends SecurityRoom {
 
 	public ArmoryRoom(int ID, int x, int y,
 			int width, int height, int[] neighbors, double[] doors) {
-		super(ID, "Armory", "Army", x, y, width, height, neighbors, doors, RoomType.security);
+		super(ID, "Armory", "Army", x, y, width, height, neighbors, doors);
 		this.addItem(new Flamer());
 		this.addItem(new Flamer());
 		this.addItem(new Revolver());

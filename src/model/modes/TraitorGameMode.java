@@ -15,7 +15,7 @@ import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
 import model.map.rooms.ExoticPlanet;
-import model.map.rooms.RoomType;
+import model.map.rooms.HallwayRoom;
 import model.modes.objectives.*;
 import model.npcs.*;
 import model.npcs.animals.CatNPC;
@@ -175,7 +175,7 @@ public class TraitorGameMode extends GameMode {
         } else if (val < 0.9) {
             List<Room> funRoomsToDestroy = new ArrayList<>();
             funRoomsToDestroy.addAll(gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME));
-            funRoomsToDestroy.removeIf((Room r) -> r.getType() == RoomType.hall || r.getType() == RoomType.hidden);
+            funRoomsToDestroy.removeIf((Room r) -> r instanceof HallwayRoom || r.isHidden());
 
             return new DestroyRoomObjective(gameData, MyRandom.sample(funRoomsToDestroy));
 		} else {

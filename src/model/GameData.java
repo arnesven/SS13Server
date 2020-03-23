@@ -13,11 +13,10 @@ import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.characters.special.SpectatorCharacter;
 import model.items.NoSuchThingException;
-import model.map.rooms.RoomType;
+import model.map.rooms.DerelictRoom;
+import model.map.rooms.RemoteRoom;
+import model.map.rooms.SpaceRoom;
 import model.modes.GameCouldNotBeStartedException;
-import model.modes.GameStats;
-import model.objects.consoles.AIConsole;
-import model.objects.consoles.Console;
 import model.objects.general.ContainerObject;
 
 import model.plebOS.ComputerSystem;
@@ -109,10 +108,7 @@ public class GameData implements Serializable {
 	public List<Room> getRooms() {
 		Set<Room> set = new HashSet<>();
 		set.addAll(getMap().getRoomsForLevel("ss13"));
-        set.removeIf((Room r) -> r.getType() == RoomType.derelict ||
-                        r.getType() == RoomType.hidden ||
-                        r.getType() == RoomType.outer ||
-                        r.getType() == RoomType.space);
+        set.removeIf((Room r) -> r instanceof DerelictRoom || r instanceof RemoteRoom || r instanceof SpaceRoom || r.isHidden());
 
         List<Room> list = new ArrayList<>();
         list.addAll(set);

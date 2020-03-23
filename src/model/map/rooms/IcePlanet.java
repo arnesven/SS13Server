@@ -14,26 +14,6 @@ public class IcePlanet extends ExoticPlanet {
 
 
     @Override
-    protected int getBackgroundSpriteHeight() {
-        return 179;
-    }
-
-    @Override
-    protected int getBackgroundSpriteWidth() {
-        return 270;
-    }
-
-    @Override
-    protected String getBackgroundSpriteMap() {
-        return "iceplanet.png";
-    }
-
-    @Override
-    protected String getBackroundSpriteName() {
-        return "iceplanetbackground";
-    }
-
-    @Override
     public void setExplored(boolean explored, GameData gameData) {
         super.setExplored(explored, gameData);
         if (explored) {

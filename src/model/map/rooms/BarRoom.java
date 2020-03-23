@@ -9,9 +9,9 @@ import model.objects.general.SlotMachine;
 /**
  * Created by erini02 on 28/04/16.
  */
-public class BarRoom extends Room {
-    public BarRoom(GameData gameData, int id, int x, int y, int w, int h, int[] ints, double[] doubles, RoomType support) {
-        super(id, "Bar", "Bar", x, y, w, h, ints, doubles, support);
+public class BarRoom extends SupportRoom {
+    public BarRoom(GameData gameData, int id, int x, int y, int w, int h, int[] ints, double[] doubles) {
+        super(id, "Bar", "Bar", x, y, w, h, ints, doubles);
         this.addObject(new Refrigerator(this));
         this.addObject(new SlotMachine(this));
         RobotNPC bar2d2 = new BAR2D2Robot(this.getID(), this);

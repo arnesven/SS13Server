@@ -12,7 +12,6 @@ import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.NuclearDisc;
 import model.map.rooms.Room;
-import model.map.rooms.RoomType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,7 @@ public class NuclearBomb extends GameObject {
         }
 
         for (Room r : gameData.getMap().getRoomsForLevel(level)) {
-            if (r.getType() != RoomType.hidden) {
+            if (! r.isHidden()) {
                 for (Actor a : r.getActors()) {
                     a.getCharacter().beExposedTo(null, new NuclearExplosiveDamage());
                 }

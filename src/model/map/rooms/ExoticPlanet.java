@@ -6,11 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ExplorePlanetAction;
-import model.npcs.JungleManNPC;
-import model.npcs.NPC;
 import model.objects.general.HideableObject;
-import model.objects.plants.JunglePlanetPlant;
-import util.MyRandom;
 import util.MyStrings;
 
 import java.util.ArrayList;
@@ -20,36 +16,22 @@ import java.util.Set;
 /**
  * Created by erini02 on 15/09/17.
  */
-public abstract class ExoticPlanet extends Room {
+public abstract class ExoticPlanet extends RemoteRoom {
     private boolean explored;
     private String realName;
     private Set<HideableObject> hos = new HashSet<>();
 
     public ExoticPlanet(int id, GameData gameData, String realName) {
-        super(id, "Exotic Planet", "E X O T I C   P L A N E T", 2, 2, 10, 10, new int[]{}, new double[]{}, RoomType.outer);
+        super(id, "Exotic Planet", "E X O T I C   P L A N E T", 2, 2, 10, 10, new int[]{}, new double[]{});
         this.realName = realName;
     }
 
-    private Sprite getBackground(ClientInfo clientInfo) {
-        Sprite sp = new Sprite(getBackroundSpriteName()+clientInfo.getWidth()+"x"+clientInfo.getHeight(),
-                getBackgroundSpriteMap(),
-                0, 0, getBackgroundSpriteWidth(), getBackgroundSpriteHeight(),
-                (clientInfo.getWidth()*60)/100,
-                clientInfo.getHeight(), null);
-
-        return sp;
-    }
-
-    protected abstract int getBackgroundSpriteHeight();
-
-    protected abstract int getBackgroundSpriteWidth();
-
-    protected abstract String getBackgroundSpriteMap();
-
-    protected abstract String getBackroundSpriteName();
-
     public abstract String getDescription();
 
+    @Override
+    protected FloorSet getFloorSet() {
+        return new PlanetFloorSet();
+    }
 
     protected void addHiddenObject(HideableObject ho) {
         hos.add(ho);
@@ -75,16 +57,5 @@ public abstract class ExoticPlanet extends Room {
             }
         }
     }
-
-//    @Override
-//    public boolean hasBackgroundSprite() {
-//        return explored;
-//    }
-//
-//    @Override
-//    public Sprite getBackgroundSprite(ClientInfo clientInfo) {
-//        return getBackground(clientInfo);
-//    }
-
 
 }

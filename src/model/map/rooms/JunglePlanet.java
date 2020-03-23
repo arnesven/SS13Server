@@ -43,24 +43,4 @@ public class JunglePlanet extends ExoticPlanet {
         }
     }
 
-
-    @Override
-    protected int getBackgroundSpriteHeight() {
-        return 275;
-    }
-
-    @Override
-    protected int getBackgroundSpriteWidth() {
-        return 365;
-    }
-
-    @Override
-    protected String getBackgroundSpriteMap() {
-        return "jungleplanet3.png";
-    }
-
-    @Override
-    protected String getBackroundSpriteName() {
-        return "junglebackground";
-    }
 }

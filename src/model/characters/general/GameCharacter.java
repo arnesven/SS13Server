@@ -10,7 +10,6 @@ import graphics.OverlaySprite;
 import graphics.sprites.PhysicalBody;
 import graphics.sprites.OverlaySprites;
 import graphics.sprites.Sprite;
-import graphics.sprites.SpriteObject;
 import model.*;
 import model.actions.general.AttackAction;
 import model.characters.decorators.CharacterDecorator;
@@ -19,8 +18,6 @@ import model.characters.visitors.VisitorCharacter;
 import model.items.BodyPartFactory;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
-import model.map.rooms.RoomType;
-import model.map.rooms.SpaceRoom;
 import model.movepowers.*;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
@@ -598,7 +595,7 @@ public abstract class GameCharacter implements Serializable {
             e.printStackTrace();
         }
         Collection<Room> roomsToShow = gameData.getMap().getRoomsForLevel(level);
-        roomsToShow.removeIf((Room r ) -> r.getType() == RoomType.hidden);
+        roomsToShow.removeIf((Room r ) -> r.isHidden());
 
 
         List<Room> result = new ArrayList<>();

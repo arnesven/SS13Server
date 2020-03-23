@@ -19,8 +19,18 @@ public class SpectatorRoom extends Room {
     private final GameData gameData;
 
     public SpectatorRoom(GameData gameData) {
-        super(999, "Players", "", 5, 5, 0, 0, new int[]{999}, new double[]{}, RoomType.hidden);
+        super(999, "Players", "", 5, 5, 0, 0, new int[]{999}, new double[]{});
         this.gameData = gameData;
+    }
+
+    @Override
+    public boolean isHidden() {
+        return true;
+    }
+
+    @Override
+    protected FloorSet getFloorSet() {
+        return new SingleSpriteFloorSet("spectatorroomfloor", 0, 0);
     }
 
     @Override
@@ -58,7 +68,7 @@ public class SpectatorRoom extends Room {
 
     private String getPositionName(Player p) {
         if (p.getPosition().getShortname().equals("")) {
-            return p.getPosition().getType().toString().toUpperCase();
+            return p.getPosition().getClass().getName().toUpperCase();
         }
         return p.getPosition().getShortname();
     }
