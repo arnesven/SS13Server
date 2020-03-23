@@ -491,6 +491,9 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
             case button:
                 backgroundcolor = new Color(17, 17, 17);
                 break;
+			case airlock:
+				backgroundcolor = new Color(150, 0 ,0);
+				break;
             default:
                 backgroundcolor = new Color(217, 217, 217);
         }
@@ -503,7 +506,7 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
             case command:
             	return new FloorSet("floor" + getColor(), 23, 1).getMainSprite();
             case science:
-                return new FloorSet("floor" + getColor(), 2, 3).getMainSprite();
+                return new ScienceFloorSet("floor" + getColor(), 2, 3).getMainSprite();
             case security:
                 return new FloorSet("floor" + getColor(), 27, 0).getMainSprite();
             case support:
@@ -516,7 +519,7 @@ public class Room implements ItemHolder, PowerConsumer, Serializable {
             case hall:
                 return new SingleSpriteFloorSet("floorhall", 0, 0).getMainSprite();
             case airlock:
-                return new FloorSet("floor" + getColor(), 16, 14).getMainSprite();
+                return new AirlockFloorSet("floor" + getColor(), 16, 14).getMainSprite();
             case planet:
                 return new SingleSpriteFloorSet("outdoorplanet", 0, 24).getMainSprite();
 

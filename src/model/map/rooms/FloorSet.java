@@ -5,7 +5,7 @@ import util.Logger;
 
 public class FloorSet {
     protected static final String[] SET_NAMES = new String[]{"BOTTOM", "TOP", "RIGHT", "LEFT",
-            "LR", "LL", "UR", "UL", "ILR", "ILL", "IUR", "IUL", ""};
+            "LR", "LL", "UR", "UL", "ILR", "ILL", "IUR", "IUL"};
     private final String name;
     private final int column;
     private final int row;
@@ -15,13 +15,13 @@ public class FloorSet {
         this.name = name;
         this.column = column;
         this.row = row;
-
+        this.mainSprite = new Sprite(this.name, "floors.png", 0, 0, null);
         makeSet(column, row);
     }
 
     protected void makeSet(int column, int row) {
         for (String part : SET_NAMES) {
-            this.mainSprite = new Sprite(this.name + part, "floors.png", column, row, null);
+            new Sprite(this.name + part, "floors.png", column, row, null);
             column++;
             if (column == 30) {
                 column = 0;

@@ -12,7 +12,7 @@ public class SingleSpriteFloorSet extends FloorSet {
     @Override
     protected void makeSet(int column, int row) {
         for (String part : SET_NAMES) {
-            setMainSprite(new Sprite(getName() + part, "floors.png", column, row, null));
+            new Sprite(getName() + part, "floors.png", column, row, null);
         }
     }
 }
