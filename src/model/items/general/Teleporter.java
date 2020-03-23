@@ -51,7 +51,7 @@ public class Teleporter extends UplinkItem {
         at.add(new TeleportAction(this));
     }
 
-    private void addMarkCoordinatesAction(GameData gameData, ArrayList<Action> at, final Actor cl) {
+    protected void addMarkCoordinatesAction(GameData gameData, ArrayList<Action> at, final Actor cl) {
         at.add(new Action("Mark Coordinates", new SensoryLevel(SensoryLevel.VisualLevel.STEALTHY,
                 SensoryLevel.AudioLevel.INAUDIBLE, SensoryLevel.OlfactoryLevel.UNSMELLABLE)) {
             @Override
