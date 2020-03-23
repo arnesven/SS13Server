@@ -311,10 +311,16 @@ public class Player extends Actor implements Target, Serializable {
                 args = args.subList(1, args.size());
 				a.setArguments(args, this);
 				this.nextAction = a;
+				try {
+					gameData.setPlayerReady(gameData.getClidForPlayer(this), true);
+				} catch (NoSuchThingException e) {
+					e.printStackTrace(); // should not happen
+				}
 				return;
 			}
 		}	
 		Logger.log(Logger.CRITICAL, "Could not find action for this action string " + actionString + ".");
+
 	}
 
     public void parseOverlayActionFromString(String actionStr, GameData gameData) {
@@ -322,7 +328,7 @@ public class Player extends Actor implements Target, Serializable {
         String actionString = actionStr.replaceFirst("root,", "");
         List<String> args = new ArrayList<>();
         args.addAll(Arrays.asList(actionString.split(",")));
-
+		Action bestGuess = null;
         boolean actionFound = false;
         for (OverlaySprite sp : overlaySprites) {
             if (sp.getSprite().getObjectReference() != null) {
@@ -338,16 +344,30 @@ public class Player extends Actor implements Target, Serializable {
 							this.nextAction = a;
 							actionFound = true;
 							break;
+						} else {
+                    		bestGuess = a;
 						}
                     }
                 }
             }
         }
         if (!actionFound) {
-        	Logger.log(Logger.CRITICAL, "WARNING: Overlay action could not be parsed!");
+        	if (bestGuess == null) {
+				Logger.log(Logger.CRITICAL, "WARNING: Overlay action could not be parsed!");
+			} else {
+        		Logger.log(Logger.INTERESTING, "Using best guess for next action: " + bestGuess.getName());
+				List<String> newArgs = args.subList(1, args.size());
+				bestGuess.setArguments(newArgs,  this);
+				this.nextAction = bestGuess;
+			}
+		}
+		try {
+			gameData.setPlayerReady(gameData.getClidForPlayer(this), true);
+		} catch (NoSuchThingException e) {
+			e.printStackTrace(); // should not happen
 		}
 
-    }
+	}
 
     public void parseInventoryActionFromString(String actionStr, GameData gameData) {
         List<GameItem> gis = getItems();
