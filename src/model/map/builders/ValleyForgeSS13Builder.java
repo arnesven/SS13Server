@@ -76,7 +76,7 @@ public class ValleyForgeSS13Builder extends MapBuilder {
         gm.addRoom(new ElevatorRoom(gameData, 19, "Elevator", "E", new int[]{2,  8, 14, 8}, new Room[]{gate, deck}, new String[]{"C-DECK", "A-DECK"}, new double[]{} ), ss13, "front");
 
         // HIDDEN
-        gm.addRoom(new NukieShipRoom(28, new int[]{7, 21, 25}, new double[]{}), ss13, "space");
+        gm.addRoom(new NukieShipRoom(28, 16, 13, 2, 1, new int[]{7, 21, 25}, new double[]{}), ss13, "space");
         Room space = new SpaceRoom(30, 2, 1, 2, 1);
         gm.addRoom(space, ss13, "space");
         addEventsToSpaceRoom(space, gameData);

@@ -10,6 +10,7 @@ import model.items.suits.SpaceSuit;
 import model.actions.characteractions.EscapeAndSetNukeAction;
 import model.actions.characteractions.StealAction;
 import model.items.weapons.Revolver;
+import model.map.rooms.NukieShipRoom;
 import model.map.rooms.Room;
 import model.objects.general.AirlockPanel;
 import model.objects.general.GameObject;
@@ -71,7 +72,11 @@ public class OperativeCharacter extends HumanCharacter {
     @Override
     public List<Room> getVisibleMap(GameData gameData) {
         List<Room> rooms = super.getVisibleMap(gameData);
-        rooms.add(getStartingRoom(gameData));
+        for (Room r : gameData.getAllRooms()) {
+        	if (r instanceof NukieShipRoom) {
+				rooms.add(r);
+			}
+		}
         return rooms;
     }
 

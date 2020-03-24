@@ -29,9 +29,12 @@ public class Locator extends UplinkItem {
 	public void setTarget(Locatable locatable) {
 		this.target = locatable;
 	}
-	
 
-    @Override
+	public Locatable getTarget() {
+		return target;
+	}
+
+	@Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("locator", "device.png", 68, this);
     }

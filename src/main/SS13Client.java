@@ -35,6 +35,7 @@ public class SS13Client extends JFrame {
         super("SS13 Client 0.01a");
         errorShowing = false;
         this.setSize(originalSize);
+        this.setLocation(new Point(250, 50));
         //this.setLayout(new BorderLayout());
         this.retPan = new ReturningPlayerPanel();
         this.add(retPan);

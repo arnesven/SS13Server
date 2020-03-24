@@ -633,6 +633,13 @@ public class Player extends Actor implements Target, Serializable {
                 res.addAll(gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(getPosition())));
             }
             res.removeIf((Room r) -> (r.isHidden() || r instanceof SpaceRoom));
+            if (getCharacter() != null) {
+				for (Room extra : getCharacter().getVisibleMap(gameData)) {
+					if (!res.contains(extra)) {
+						res.add(extra);
+					}
+				}
+			}
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

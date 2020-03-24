@@ -96,8 +96,10 @@ public class DonutSS13Builder extends MapBuilder {
         Room panorama = new PanoramaRoom(27, 1,  3, 1, 3, new int[]{1, 3}      ,         new double[]{} );
         gm.addRoom(panorama, ss13, "aft");
 
-        Room nukieShip = new NukieShipRoom(28, new int[]{7, 21, 25}, new double[]{-1.0, -1.0});
+        Room nukieShip = new NukieShipRoom(28, 16, 13, 2, 1, new int[]{7, 21, 25, 128}, new double[]{18.0, 13.5});
         gm.addRoom(nukieShip, ss13, "nuke");
+        Room nukieShip2 = new NukieShipStorageRoom(128, 18, 12, 1, 2, new int[]{28}, new double[]{});
+        gm.addRoom(nukieShip2, ss13, "nuke");
 
         Room brig = new BrigRoom(29, 15, 4, 1, 1, new int[]{}, new double[]{15.0, 4.5});
         gm.addRoom(brig, ss13, "center");

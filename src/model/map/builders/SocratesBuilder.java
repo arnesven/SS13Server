@@ -106,7 +106,7 @@ public class SocratesBuilder extends MapBuilder {
 
 
 
-        Room nukieShip = new NukieShipRoom(28, new int[]{7, 21, 25}, new double[]{-1.0, -1.0});
+        Room nukieShip = new NukieShipRoom(28, 16, 13, 2, 1, new int[]{7, 21, 25}, new double[]{-1.0, -1.0});
         gm.addRoom(nukieShip, ss13, "nuke");
 
         Room space = new SpaceRoom(30, 0, 0, 1, 1);

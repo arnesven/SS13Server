@@ -316,7 +316,6 @@ public class Room extends MouseInteractable implements Comparable<Room> {
             if (doors == null) {
                    return;
             }
-
             for (int i = 0; i < doors.length; i+=2) {
                 ImageIcon ic = null;
                 ImageIcon ic2 = null;

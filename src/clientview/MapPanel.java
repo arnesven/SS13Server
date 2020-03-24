@@ -205,10 +205,14 @@ public class MapPanel extends JPanel implements Observer {
 
             Room.setXScale((double) xscale);
             Room.setYScale((double) yscale);
+            xOffset = GameData.getInstance().getMinX();
+            yOffset = GameData.getInstance().getMinY();
+        } else {
+            xOffset = xTrans;
+            yOffset = yTrans;
         }
        // System.out.println("Scale is " + Room.getXScale() + " " + Room.getYScale());
-        xOffset = GameData.getInstance().getMinX() + xTrans;
-        yOffset = GameData.getInstance().getMinY() + yTrans;
+
 
         drawSpace(g);
       //  System.out.println("Room scale: X:" + Room.getXScale() +", Y:" + Room.getYScale());
