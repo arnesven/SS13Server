@@ -19,6 +19,8 @@ public class MapPanel extends JPanel implements Observer {
 
     public static final int WIDTH = 350;
     private static final int MAP_REFRESH_DELAY = 5000;
+    private static int xTrans;
+    private static int yTrans;
 
     private final Timer timer;
     private final InventoryPanel inventoryPanel;
@@ -122,6 +124,13 @@ public class MapPanel extends JPanel implements Observer {
 //
     }
 
+    public static void addXTranslation(int i) {
+        xTrans += i;
+    }
+
+    public static void addYTranslation(int i) {
+        yTrans += i;
+    }
 
 
     private void createSpaceSprites() {
@@ -187,17 +196,19 @@ public class MapPanel extends JPanel implements Observer {
     @Override
     protected void paintComponent(Graphics g) {
 
-        int zoom = 32;
-        int mapWidth = GameData.getInstance().getMapWidth();
-        int xscale = (getWidth() / (mapWidth*zoom)) * zoom;
-        int mapHeight = GameData.getInstance().getMapHeight();
-        int yscale = ((getHeight() - inventoryPanel.getHeight()) / (mapHeight*zoom))*zoom;
+        int zoom = getZoom();
+        if (Room.isAutomaticScaling()) {
+            int mapWidth = GameData.getInstance().getMapWidth();
+            int xscale = (getWidth() / (mapWidth*zoom)) * zoom;
+            int mapHeight = GameData.getInstance().getMapHeight();
+            int yscale = ((getHeight() - inventoryPanel.getHeight()) / (mapHeight*zoom))*zoom;
 
-        Room.setXScale((double)xscale);
-        Room.setYScale((double)yscale);
+            Room.setXScale((double) xscale);
+            Room.setYScale((double) yscale);
+        }
        // System.out.println("Scale is " + Room.getXScale() + " " + Room.getYScale());
-        xOffset = GameData.getInstance().getMinX();
-        yOffset = GameData.getInstance().getMinY();
+        xOffset = GameData.getInstance().getMinX() + xTrans;
+        yOffset = GameData.getInstance().getMinY() + yTrans;
 
         drawSpace(g);
       //  System.out.println("Room scale: X:" + Room.getXScale() +", Y:" + Room.getYScale());
@@ -242,6 +253,10 @@ public class MapPanel extends JPanel implements Observer {
             toc.drawYourself(g);
         }
 
+    }
+
+    public static int getZoom() {
+        return 32;
     }
 
     private void drawSpace(Graphics g) {

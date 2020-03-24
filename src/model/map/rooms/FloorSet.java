@@ -3,7 +3,9 @@ package model.map.rooms;
 import graphics.sprites.Sprite;
 import util.Logger;
 
-public class FloorSet {
+import java.io.Serializable;
+
+public class FloorSet implements Serializable {
     protected static final String[] SET_NAMES = new String[]{"BOTTOM", "TOP", "RIGHT", "LEFT",
             "LR", "LL", "UR", "UL", "ILR", "ILL", "IUR", "IUL"};
     private final String name;

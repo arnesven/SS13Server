@@ -4,8 +4,10 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.Cookies;
 import clientlogic.GameData;
+import clientlogic.Room;
 import clientview.ConnectData;
 import clientview.GameUIPanel;
+import clientview.MapPanel;
 import clientview.ReturningPlayerPanel;
 import clientview.dialogs.ConnectToServerDialog;
 import clientview.dialogs.StartNewServerDialog;
@@ -38,8 +40,10 @@ public class SS13Client extends JFrame {
         ServerCommunicator.setFrameReference(this);
 
         JMenuBar menubar = new JMenuBar();
-        JMenu file = new JMenu("Client");
+        JMenu file = new JMenu("File");
         JMenuItem item = new JMenuItem("Connect");
+        JMenu view = new JMenu("View");
+        makeScaleMenu(view);
         JMenu server = new JMenu("Server");
 
         item.addActionListener(new ActionListener() {
@@ -50,6 +54,7 @@ public class SS13Client extends JFrame {
         });
         file.add(item);
         menubar.add(file);
+        menubar.add(view);
 
         JMenuItem startServer = new JMenuItem("Host Game");
         startServer.addActionListener(new ActionListener() {
@@ -97,7 +102,15 @@ public class SS13Client extends JFrame {
                     if (guiPanel != null) {
                         guiPanel.toggleReady();
                     }
-
+                } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    MapPanel.addXTranslation(1);
+                    repaint();
+                } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    MapPanel.addXTranslation(-1);
+                } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    MapPanel.addYTranslation(1);
+                } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+                    MapPanel.addYTranslation(-1);
                 }
             }
         });
@@ -106,6 +119,39 @@ public class SS13Client extends JFrame {
        // MyDialog d = new MyDialog(this, "Test", new Dimension(200, 200), Color.GRAY, true);
       //  ReconnectDialog rd = new ReconnectDialog(this);
 
+    }
+
+    private void makeScaleMenu(JMenu view) {
+        JMenu jmenu = new JMenu("Map Scale");
+
+
+        JMenuItem auto = new JRadioButtonMenuItem("Auto");
+
+
+        JMenuItem twobytwo = new JRadioButtonMenuItem("2x2");
+        JMenuItem threebytwo = new JRadioButtonMenuItem("3x2");
+        JMenuItem threebythree = new JRadioButtonMenuItem("3x3");
+        JMenuItem fourbythree = new JRadioButtonMenuItem("4x3");
+        auto.setSelected(true);
+        auto.addActionListener((ActionEvent e) -> Room.setAutomaticScaling(true));
+        twobytwo.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(2*32); Room.setYScale(2*32);});
+        threebytwo.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(3*32); Room.setYScale(2*32);});
+        threebythree.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(3*32); Room.setYScale(3*32);});
+        fourbythree.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(4*32); Room.setYScale(3*32);});
+
+        ButtonGroup grp = new ButtonGroup();
+        grp.add(auto);
+        grp.add(twobytwo);
+        grp.add(threebythree);
+        grp.add(threebytwo);
+        grp.add(fourbythree);
+
+        jmenu.add(twobytwo);
+        jmenu.add(threebytwo);
+        jmenu.add(threebythree);
+        jmenu.add(fourbythree);
+        jmenu.add(auto);
+        view.add(jmenu);
     }
 
     public static void main(String[] args) {

@@ -5,6 +5,7 @@ import clientcomm.ServerCommunicator;
 import clientview.MapPanel;
 import clientview.MyLabel;
 import clientview.SpriteManager;
+import util.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     public static final Color WALL_COLOR = new Color(0x303030);
     private static final Color SELECTED_ROOM_COLOR = Color.YELLOW;
     private static double DOOR_SIZE = 0.5;
+    private static boolean automaticScaling = true;
     private final String floorSpriteBaseName;
 
     private int width;
@@ -52,6 +54,14 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         floorSpriteBaseName = color;
     }
 
+    public static void setAutomaticScaling(boolean b) {
+        automaticScaling = b;
+    }
+
+    public static boolean isAutomaticScaling() {
+        return automaticScaling;
+    }
+
 
     protected boolean isSelectable() {
         return selectable;
@@ -71,8 +81,8 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
         int x = (int) ((xPos - xOffset) * getXScale()) + xOffPx;
         int y = (int) ((yPos - yOffset) * getYScale()) + yOffPx;
-        int finalW = (int) (getWidth() * getXScale());
-        int finalH = (int) (getHeight() * getYScale());
+        int finalW = getScaledWidthPX();
+        int finalH = getScaledHeightPX();
 
         super.setHitBox(x, y, finalW, finalH);
 
@@ -103,6 +113,23 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         }
 
 
+    }
+
+    private int getScaledHeightPX() {
+        return (int) (getHeight() * getYScale());
+    }
+
+    private int getScaledHeight() {
+        return getScaledHeightPX() / MapPanel.getZoom();
+    }
+
+
+    public int getScaledWidthPX() {
+        return (int) (getWidth() * getXScale());
+    }
+
+    private int getScaledWidth() {
+        return getScaledWidthPX() / MapPanel.getZoom();
     }
 
     private ImageIcon getFloorForPos(boolean rowStart, boolean rowEnd, boolean colStart, boolean colEnd, ImageIcon background) {
@@ -158,6 +185,72 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         g.drawLine(x, y, x + background.getIconWidth(), y + background.getIconHeight());
         g.drawLine(x, y+finalH, x+background.getIconWidth(), y+finalH+background.getIconWidth());
         g.drawLine(x+finalW, y, x+finalW+background.getIconWidth(), y+background.getIconHeight());
+
+        decorateWallsWithWindows(g, x, y, finalW, finalH, background, shadow);
+    }
+
+    private void decorateWallsWithWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, boolean shadow) {
+        ImageIcon left = SpriteManager.getSprite("skewedwindowleft0");
+        ImageIcon right = SpriteManager.getSprite("skewedwindowright0");
+        ImageIcon top = SpriteManager.getSprite("skewedwindowtop0");
+        ImageIcon bottom = SpriteManager.getSprite("skewedwindowbottom0");
+
+      //  for (int xpos = x + left.getIconWidth()/5; xpos < finalW; xpos += left.getIconWidth()*2) {
+        if (!shadow) {
+            for (int i = 0; i < (finalW / (left.getIconWidth() * 2)); ++i) {
+                int xposleft = 15 + x + left.getIconWidth() * i * 2;
+                int xposright = 15 + x + left.getIconWidth() * (i * 2 + 1);
+
+                if ((i == 0 && isBothSuitableForWindow(i)) || (i > 0 && isTopSuitableForWindow(i))) {
+                    g.drawImage(left.getImage(), xposleft, y, null);
+                    g.drawImage(right.getImage(), xposright, y, null);
+                }
+            }
+
+            for (int i = 0; i < (finalH / (left.getIconHeight() * 2)); ++i) {
+                int ypostop = 10 + y + left.getIconHeight() * i * 2;
+                int yposbot = 10 + y + left.getIconHeight() * (i * 2 + 1);
+
+                if ((i == 0 && isBothSuitableForWindow(i)) || (i > 0 && isLeftSuitableForWindow(i))) {
+                    g.drawImage(top.getImage(), x, ypostop, null);
+                    g.drawImage(bottom.getImage(), x, yposbot, null);
+                }
+            }
+
+
+        }
+      //     g.drawImage(right.getImage(), xpos+left.getIconWidth(), y+finalH, null);
+    //}
+
+
+    }
+
+    private boolean isBothSuitableForWindow(int i) {
+        return isLeftSuitableForWindow(i) && isTopSuitableForWindow(i);
+    }
+
+    private boolean isLeftSuitableForWindow(int i) {
+        for (Room r : GameData.getInstance().getMiniMap()) {
+            if (r.xPos + r.getWidth() == this.xPos) {
+                if (r.yPos <= this.yPos + i && this.yPos + i <= r.yPos + r.getScaledHeight() + 1) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private boolean isTopSuitableForWindow(int i) {
+        for (Room r : GameData.getInstance().getMiniMap()) {
+            if (r.yPos + r.getHeight() == this.yPos) {
+                if (r.xPos <= this.xPos + i && this.xPos + i <= r.xPos + r.getScaledWidth() + 1) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 
@@ -235,10 +328,13 @@ public class Room extends MouseInteractable implements Comparable<Room> {
                     ic2 = SpriteManager.getSprite("skeweddoorbottom0");
                 }
 
-                int xpos = (int)((doors[i]-xOffset) * getXScale()) + xOffPx;
-                if (xpos < 0) {
-                    xpos = -xpos;
+                int xpos;
+                if (doors[i] < 0.0) { // dummy door (for locked doors)
+                    xpos = (int)((-doors[i]-xOffset) * getXScale()) + xOffPx;
+                } else {
+                    xpos = (int)((doors[i]-xOffset) * getXScale()) + xOffPx;
                 }
+
                 int ypos = (int)((doors[i+1]-yOffset) * getYScale()) + yOffPx;
                 //g.setColor(doorColor);
                 //g.fillRect(xpos, ypos, width, height);
@@ -267,7 +363,9 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         } else {
             g.setColor(WALL_COLOR);
         }
-        g.drawRect(x, y, finalW, finalH);
+        if (!floorSpriteBaseName.contains("outdoor")) {
+            g.drawRect(x, y, finalW, finalH);
+        }
 
         ((Graphics2D)g).setStroke(new BasicStroke(1));
     }
@@ -290,11 +388,17 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         }
 
         public static void setXScale(double d) {
+        if (d != xscale) {
+            Logger.log("New x-scale is: " + d);
             xscale = d;
+        }
         }
 
         public static void setYScale(double d) {
+        if (d != yscale) {
+            Logger.log("New y-scale is " + d);
             yscale = d;
+        }
         }
 
         protected void setHighLight(boolean b) {

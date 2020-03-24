@@ -58,7 +58,7 @@ public class GameData implements Serializable {
 	private List<Pair<Actor, Action>> lateActions;
 	// Map must be built before first game, client needs it.
 	private GameMap map;
-	private String selectedMode = "Secret";  // TODO: change back to Secret
+	private String selectedMode = "Traitor";  // TODO: change back to Secret
 	private List<Event> events = new ArrayList<>();
 	private List<Event> moveEvents = new ArrayList<>();
     private boolean runningEvents;

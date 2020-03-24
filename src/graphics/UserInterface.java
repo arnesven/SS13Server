@@ -27,6 +27,11 @@ public class UserInterface {
         Sprite door3 = new Sprite("skeweddoortop", "newdoor.png", 2, null);
         Sprite door4 = new Sprite("skeweddoorbottom", "newdoor.png", 2, 1, null);
 
+        Sprite window1 = new Sprite("skewedwindowtop", "newdoor.png", 0, 1, null);
+        Sprite window2 = new Sprite("skewedwindowbottom", "newdoor.png", 0, 2, null);
+        Sprite window3 = new Sprite("skewedwindowleft", "newdoor.png", 1, 2, null);
+        Sprite window4 = new Sprite("skewedwindowright", "newdoor.png", 2, 2, null);
+
     }
 
 }
