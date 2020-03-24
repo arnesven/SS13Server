@@ -37,13 +37,13 @@ public class SouthButtonPanel extends Box implements Observer {
           gameButton = new JToggleButton("Game");
           gameButton.setPreferredSize(new Dimension(100, gameButton.getPreferredSize().height));
           this.add(gameButton);
-//        gameButton.setEnabled(false);
+        gameButton.setEnabled(false);
         gameButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent event) {
                 SouthButtonPanel.this.toggleView();
-
+                parent.getFrame().requestFocus();
             }
         });
 //
@@ -51,10 +51,10 @@ public class SouthButtonPanel extends Box implements Observer {
 
 
         readyButton.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent event) {
                readyButtonPressed();
+               parent.getFrame().requestFocus();
             }
         });
         readyButton.setBackground(new Color(0x999999));

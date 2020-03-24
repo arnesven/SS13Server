@@ -69,7 +69,6 @@ public class SimulationClient extends Thread {
     }
 
 
-
     private void handleMovementData(String movementData) {
         String[] parts = movementData.split("<player-data-part>");
         Collection<Integer> possibleDestination = MyArrays.parseIntArray(parts[0]);
@@ -172,7 +171,7 @@ public class SimulationClient extends Thread {
     }
 
     public void getMapData() {
-        mapdata = sendToServer(clid + " MAP 1000 1000");;
+        mapdata = sendToServer(clid + " MAP VISI 1000 1000");;
     }
 
     public String getGameStateName() {

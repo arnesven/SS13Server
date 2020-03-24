@@ -7,10 +7,13 @@ import clientlogic.Observer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GameUIPanel extends JPanel implements Observer {
 
     private final String username;
+    private final JFrame parent;
     private boolean stateUpdating;
     private int state = -1;
     private InGameView inGameView ;
@@ -20,13 +23,13 @@ public class GameUIPanel extends JPanel implements Observer {
     private int oldRound = -1;
 
 
-    public GameUIPanel(String username) {
+    public GameUIPanel(String username, JFrame parent) {
         this.setLayout(new BorderLayout());
         stateUpdating = false;
         this.username = username;
         inGameView = new InGameView(this);
         lobbyView = new LobbyView(username);
-
+        this.parent = parent;
         buttPanel = new SouthButtonPanel(this);
         this.add(buttPanel, BorderLayout.SOUTH);
 
@@ -35,8 +38,13 @@ public class GameUIPanel extends JPanel implements Observer {
 
         GameData.getInstance().subscribe(this);
 
+
+
     }
 
+    public JFrame getFrame() {
+        return parent;
+    }
 
     public String getUsername() {
         return username;
@@ -54,7 +62,7 @@ public class GameUIPanel extends JPanel implements Observer {
             this.add(lobbyView);
         }
         viewLobby = !viewLobby;
-        revalidate();
+        revalidate();  // this messed up the key-listener on the frame?
         repaint();
 
     }
@@ -184,6 +192,8 @@ public class GameUIPanel extends JPanel implements Observer {
     public void toggleReady() {
         buttPanel.readyButtonPressed();
     }
+
+
 //
 //    protected void toggleMapView() {
 //        inGameView.toggleMapView();

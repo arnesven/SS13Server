@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 public class StartNewServerDialog extends JDialog  {
     private final JTextField serverName;
     private final JTextField serverPort;
-    private final JCheckBox tryToRecover;
-    private final JCheckBox removeOldData;
+    private final JRadioButton tryToRecover;
+    private final JRadioButton removeOldData;
     private final JCheckBox alsoConnect;
     private boolean started = false;
 
@@ -64,18 +64,22 @@ public class StartNewServerDialog extends JDialog  {
             fieldBox.add(serverPort);
             midPanel.add(fieldBox);
         }
+        ButtonGroup grp = new ButtonGroup();
         {
             Box fieldBox = new Box(BoxLayout.X_AXIS);
             fieldBox.add(new JLabel("Try to recover old game: "));
-            this.tryToRecover = new JCheckBox("", true);
+            this.tryToRecover = new JRadioButton("");
+            this.tryToRecover.setSelected(true);
+            grp.add(tryToRecover);
             fieldBox.add(this.tryToRecover);
             midPanel.add(fieldBox);
         }
         {
             Box fieldBox = new Box(BoxLayout.X_AXIS);
             fieldBox.add(new JLabel("Remove old game data: "));
-            this.removeOldData = new JCheckBox("", false);
+            this.removeOldData = new JRadioButton("");
             fieldBox.add(removeOldData);
+            grp.add(removeOldData);
             midPanel.add(fieldBox);
         }
         {

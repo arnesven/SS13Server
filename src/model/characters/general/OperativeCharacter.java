@@ -74,4 +74,6 @@ public class OperativeCharacter extends HumanCharacter {
         rooms.add(getStartingRoom(gameData));
         return rooms;
     }
+
+
 }

@@ -11,6 +11,7 @@ import clientview.MapPanel;
 import clientview.ReturningPlayerPanel;
 import clientview.dialogs.ConnectToServerDialog;
 import clientview.dialogs.StartNewServerDialog;
+import tests.SimulationClient;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +28,8 @@ public class SS13Client extends JFrame {
     private static ConnectData connectData;
     private boolean errorShowing;
     private GameUIPanel guiPanel = null;
+    private int lastPortUsed;
+    private int botNumber = 1;
 
     public SS13Client() {
         super("SS13 Client 0.01a");
@@ -57,13 +60,16 @@ public class SS13Client extends JFrame {
         menubar.add(view);
 
         JMenuItem startServer = new JMenuItem("Host Game");
+        JMenuItem bot = new JMenuItem("Add Bot");
         startServer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 StartNewServerDialog snsd = new StartNewServerDialog(SS13Client.this);
+                lastPortUsed = snsd.getPort();
 
                 if (snsd.didStart()) {
                     startServer.setEnabled(false);
+                    bot.setEnabled(true);
 
                     if (snsd.alsoConnectMe()) {
                         if (Cookies.getCookie("last_user_name") != null) {
@@ -84,10 +90,17 @@ public class SS13Client extends JFrame {
             }
         });
         server.add(startServer);
+        bot.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                SimulationClient sc = new SimulationClient(lastPortUsed, "Botty" + botNumber++);
+            }
+        });
+        bot.setEnabled(false);
+        server.add(bot);
         menubar.add(server);
 
         this.setJMenuBar(menubar);
-        this.setVisible(true);
 
 
         this.setFocusable(true);
@@ -96,7 +109,7 @@ public class SS13Client extends JFrame {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println("pressed" +    e.getKeyCode());
+                System.out.println("Pressed" + e.getKeyCode());
                 if (e.getKeyCode() == KeyEvent.VK_R && e.isControlDown()) {
                     System.out.println("Pressed R");
                     if (guiPanel != null) {
@@ -114,10 +127,9 @@ public class SS13Client extends JFrame {
                 }
             }
         });
+        this.requestFocus();
 
-
-       // MyDialog d = new MyDialog(this, "Test", new Dimension(200, 200), Color.GRAY, true);
-      //  ReconnectDialog rd = new ReconnectDialog(this);
+        this.setVisible(true);
 
     }
 
@@ -162,7 +174,7 @@ public class SS13Client extends JFrame {
     protected void switchToGameUI(String username) {
         System.out.println("Switching views");
 		getContentPane().remove(retPan);
-		guiPanel = new GameUIPanel(username);
+		guiPanel = new GameUIPanel(username, this);
 		getContentPane().add(guiPanel);
 		this.setSize(ingameSize);
 		this.revalidate();

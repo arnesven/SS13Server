@@ -629,8 +629,6 @@ public abstract class GameCharacter implements Serializable {
                 }
             }
 
-
-
         } else {
             result.addAll(roomsToShow);
         }
