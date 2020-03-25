@@ -35,7 +35,7 @@ public class StartNewServerDialog extends JDialog  {
             public void actionPerformed(ActionEvent actionEvent) {
                 new SS13ServerMain(Integer.parseInt(serverPort.getText()),
                         serverName.getText(),
-                        tryToRecover.isSelected(),
+                        true,
                         removeOldData.isSelected()).start();
                 started = true;
                 StartNewServerDialog.this.dispose();

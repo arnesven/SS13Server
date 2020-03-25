@@ -44,7 +44,16 @@ public class SS13ServerMain extends Thread {
         new BackgroundSprites();
         GameData gameData = new GameData(dorecover);
 
-        if (this.dorecover) {
+        if (this.removeOldData) {
+
+            if (GameRecovery.removeDataFile()) {
+                Logger.log(Logger.CRITICAL, "REMOVED OLD GAME DATA.");
+            } else {
+
+                Logger.log(Logger.CRITICAL, "Tried to remove old game data, but none was found.");
+            }
+
+        } else if (this.dorecover && !removeOldData) {
                 try {
                     Logger.log(Logger.CRITICAL, "TRYING TO RECOVER DATA");
                     gameData = GameRecovery.recover();
@@ -58,15 +67,6 @@ public class SS13ServerMain extends Thread {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-        } else if (this.removeOldData) {
-
-                if (GameRecovery.removeDataFile()) {
-                    Logger.log(Logger.CRITICAL, "REMOVED OLD GAME DATA.");
-                } else {
-
-                    Logger.log(Logger.CRITICAL, "Tried to remove old game data, but none was found.");
-                }
-
         }
 
         ServiceHandler serviceHandler = new ServiceHandler(name, gameData, port);

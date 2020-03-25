@@ -22,6 +22,7 @@ import model.npcs.animals.CatNPC;
 import model.npcs.animals.ChimpNPC;
 import model.npcs.behaviors.CrazyBehavior;
 import model.npcs.robots.TARSNPC;
+import model.objects.Altar;
 import model.objects.consoles.CrimeRecordsConsole;
 import model.objects.general.*;
 import model.objects.mining.GeneralManufacturer;
@@ -431,6 +432,14 @@ public class TraitorGameMode extends GameMode {
         } catch (NoSuchThingException e) {
             Logger.log("Mailbox not found");
         }
+
+        int altarpoints = 0;
+        try {
+        	Altar altar = gameData.findObjectOfType(Altar.class);
+        	altarpoints = altar.getPoints();
+		} catch (NoSuchThingException nste) {
+        	Logger.log("No altar found");
+		}
 
         return biblePoints + mailboxpoints;
 	}

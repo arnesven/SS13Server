@@ -44,4 +44,12 @@ public class FloorSet implements Serializable {
         return name;
     }
 
+    protected int getRow() {
+        return row;
+    }
+
+    protected int getColumn () {
+        return column;
+    }
+
 }

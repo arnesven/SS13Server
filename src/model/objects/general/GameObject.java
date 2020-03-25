@@ -51,7 +51,7 @@ public class GameObject implements SpriteObject, Serializable {
     }
 
     @Override
-    public Sprite getSprite(Actor whosAsking) {
+    public final Sprite getSprite(Actor whosAsking) {
         return getSprite((Player)whosAsking);
     }
 

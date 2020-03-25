@@ -43,7 +43,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	private List<GameItem> items = new ArrayList<>();
 	private List<Event> events = new ArrayList<>();
 	private List<Event> eventsHappened = new ArrayList<>();
-	private final FloorSet floorSprite;
+	private FloorSet floorSprite;
 	private static final Sprite DOOR_SPRITE = new Sprite("doorsprite", "doors.png", 8, 18, null);
 
 	/**
@@ -578,5 +578,9 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
 	public boolean isHidden() {
 		return false;
+	}
+
+	public void setFloorSet(FloorSet fs) {
+		this.floorSprite = fs;
 	}
 }

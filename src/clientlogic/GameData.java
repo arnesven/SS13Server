@@ -337,7 +337,6 @@ public class GameData {
 
 	public static int makeStringIntoTree(String treeString, MyTreeNode node) {
 		int start = 0;
-	//	Window.alert(treeString);
 		if (treeString.charAt(0) != '}') {
 			while (treeString.charAt(start) != '}') {
 				int ptr = start;

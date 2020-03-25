@@ -1,5 +1,6 @@
 package model.map.rooms;
 
+import model.objects.Altar;
 import model.objects.general.MailBox;
 
 /**
@@ -8,7 +9,12 @@ import model.objects.general.MailBox;
 public class ChapelRoom extends SupportRoom {
     public ChapelRoom(int id, int x, int y, int w, int h, int[] ints, double[] doubles) {
         super(id, "Chapel", "Chap", x, y, w, h, ints, doubles);
-        MailBox mail = new MailBox(this);
-        addObject(mail);
+        Altar altar = new Altar(this);
+        addObject(altar);
+    }
+
+    @Override
+    protected FloorSet getFloorSet() {
+        return new ChapelFloorSet();
     }
 }
