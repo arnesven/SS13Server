@@ -4,14 +4,20 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientview.MapPanel;
 import clientview.MyLabel;
+import clientview.OverlaySprite;
 import clientview.SpriteManager;
 import util.Logger;
+import util.Pair;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Set;
 
 public class Room extends MouseInteractable implements Comparable<Room> {
 
@@ -115,7 +121,27 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     }
 
-    private int getScaledHeightPX() {
+    public Set<OverlaySprite> drawYourOverlays(Graphics g, int xOffset, int yOffset, int xoffPX, int yoffPX, boolean shadow) {
+        Set<OverlaySprite> drawn = new HashSet<>();
+        SpriteSlotTable slots = new SpriteSlotTable(this);
+        if (!shadow) {
+            for (OverlaySprite sp : GameData.getInstance().getOverlaySprites()) {
+                if (sp.getRoomid() == this.getID()) {
+                    drawn.add(sp);
+                    drawInOpenSlot(g, sp, slots, xOffset, yOffset, xoffPX, yoffPX);
+                }
+            }
+        }
+
+        return drawn;
+    }
+
+    private void drawInOpenSlot(Graphics g, OverlaySprite sp, SpriteSlotTable slots, int xOffset, int yOffset, int xoffPX, int yoffPX) {
+        Pair<Double, Double> slotPos = slots.getSlot(sp.getHash());
+        sp.drawYourselfInRoom(g, this, slotPos, xOffset, yOffset, xoffPX, yoffPX);
+    }
+
+    public int getScaledHeightPX() {
         return (int) (getHeight() * getYScale());
     }
 

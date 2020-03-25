@@ -47,7 +47,7 @@ public class OverlaySprite {
         }
 
         return sprite.getName() + delim +  String.format("%1$.1f", x) + delim + String.format("%1$1f", y) +
-                delim + spriteObjName + delim + actiondata + delim + this.frames;
+                delim + spriteObjName + delim + actiondata + delim + this.frames + delim + this.getRoom().getID();
     }
 
 

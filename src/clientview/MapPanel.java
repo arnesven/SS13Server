@@ -9,10 +9,10 @@ import clientview.overlays.OverlayButton;
 import clientview.overlays.TitledOverlayComponent;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
 
 public class MapPanel extends JPanel implements Observer {
@@ -222,11 +222,13 @@ public class MapPanel extends JPanel implements Observer {
         Collections.sort(roomList);
 
 
+        Set<OverlaySprite> drawnSprites = new HashSet<>();
         for (Room r : roomList) {
                 boolean shadow = !GameData.getInstance().isASelectableRoom(r.getID());
                 r.drawYourself(g, GameData.getInstance().getSelectableRooms().contains(r.getID()),
                         GameData.getInstance().getCurrentPos() == r.getID(),
                         xOffset, yOffset, 0, inventoryPanel.getHeight(), shadow);
+                drawnSprites.addAll(r.drawYourOverlays(g, xOffset, yOffset, 0, inventoryPanel.getHeight(), shadow));
 
         }
 
@@ -241,8 +243,11 @@ public class MapPanel extends JPanel implements Observer {
         }
 
 
+        // Draw overlay sprites which did not belong to any drawn rooms.
         for (OverlaySprite sp : GameData.getInstance().getOverlaySprites()) {
-            sp.drawYourself(g, this, xOffset, yOffset, 0, inventoryPanel.getHeight());
+            if (!drawnSprites.contains(sp)) {
+                sp.drawYourself(g, xOffset, yOffset, 0, inventoryPanel.getHeight());
+            }
         }
 
         for (Room r : roomList) {

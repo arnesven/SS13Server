@@ -402,7 +402,7 @@ public class GameData {
 			overlays.add(new OverlaySprite(strs[0],
 								Double.parseDouble(strs[1]),
 								Double.parseDouble(strs[2]),
-                                strs[3], strs[4], Integer.parseInt(strs[5])));
+                                strs[3], strs[4], Integer.parseInt(strs[5]), Integer.parseInt(strs[6])));
 		}
 
 	}
