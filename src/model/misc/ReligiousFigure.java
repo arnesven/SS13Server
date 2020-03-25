@@ -21,6 +21,7 @@ public class ReligiousFigure implements Serializable {
     public void doWhenPrayedTo(GameData gameData, Actor prayer, Altar altar) {
         altar.getPosition().setFloorSet(new ImprovedChapelFloorSet("chapelfloor"+name, floorsetCol));
         altar.addToPoints(1);
+        altar.setChristian(false);
     }
 
     public String getName() {

@@ -9,8 +9,8 @@ import model.objects.general.GameObject;
 public class Pedestals extends GameObject {
     private boolean isBurning;
 
-    public Pedestals(Room position) {
-        super("Pedestal", position);
+    public Pedestals(String nameSuffix, Room position) {
+        super("Pedestal " + nameSuffix, position);
         isBurning = false;
     }
 

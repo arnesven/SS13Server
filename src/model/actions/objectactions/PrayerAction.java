@@ -36,6 +36,7 @@ public class PrayerAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         performingClient.addTolastTurnInfo("You prayed to " + selectedGod.getName());
+        altar.setLastPrayed(selectedGod);
         selectedGod.doWhenPrayedTo(gameData, performingClient, altar);
     }
 
