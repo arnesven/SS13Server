@@ -8,7 +8,7 @@ import model.objects.consoles.ShuttleControl;
  */
 public class ShuttleRoom extends Room {
     public ShuttleRoom(int id, String name, String shortname, int x, int y, int w, int h, int[] ints, double[] doubles, GameData gameData) {
-        super(id, name, shortname, x, y, w, h, ints, doubles);
+        super(id, name, x, y, w, h, ints, doubles);
         this.addObject(new ShuttleControl(this));
     }
 

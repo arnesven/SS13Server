@@ -1,5 +1,4 @@
 package model.map.rooms;
-import java.awt.*;
 import java.io.Serializable;
 import java.util.*;
 import java.util.List;
@@ -49,7 +48,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	/**
 	 * These fields are purely for the GUI.
 	 */
-	private String shortname;
+	//private String effectName;
 	private int x;
 	private int y;
 	private int width;
@@ -57,11 +56,11 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	private int ID;
 	private double[] doors;
     private String shortName;
+    private Sprite effect;
 
 
-	public Room(int ID, String name, String shortname, int x, int y, int width, int height, int[] neighbors, double[] doors) {
+	public Room(int ID, String name, int x, int y, int width, int height, int[] neighbors, double[] doors) {
 		this.name = name;
-		this.shortname = shortname;
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -76,7 +75,14 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
 	@Override
 	public String toString() {
-		String result = ID + ":" + name + ":" + shortname + ":" + x + ":" + y + ":" + 
+		String effectStr;
+		if (effect == null) {
+			effectStr = "";
+		} else {
+			effectStr = effect.getName();
+		}
+
+		String result = ID + ":" + name + ":" + effectStr + ":" + x + ":" + y + ":" +
 						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors) + ":" + floorSprite.getMainSprite().getName();
 		//Logger.log(result);
         return result;
@@ -389,8 +395,12 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		
 	}
 
-	public String getShortname() {
-		return shortname;
+	public Sprite getEffect() {
+		return effect;
+	}
+
+	public void setEffect(Sprite effect) {
+		this.effect = effect;
 	}
 
 	public int getX() {
@@ -536,9 +546,6 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
         this.name = name;
     }
 
-    public void setShortname(String shortName) {
-        this.shortName = shortName;
-    }
 
     public void destroy(GameData gameData) {
         Iterator<Event> roomIter = this.getEvents().iterator();

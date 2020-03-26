@@ -5,7 +5,7 @@ package model.map.rooms;
  */
 public class SpaceRoom extends Room {
     public SpaceRoom(int id, int x, int y, int w, int h) {
-        super(id, "Deep Space", "D E E P   S P A C E", x, y, w, h, new int[]{}, new double[]{});
+        super(id, "Deep Space", x, y, w, h, new int[]{}, new double[]{});
     }
 
     @Override

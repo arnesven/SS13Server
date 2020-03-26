@@ -71,7 +71,7 @@ public class MapCommandHandler extends AbstractCommandHandler {
 //            Logger.log(" SENDING ARRAY TO CLIENT " + Arrays.toString(newNeighs));
 //
 //            String result = r.getID() + ":" + r.getName() + ":" +
-//                    r.getShortname() + ":" + r.getX() + ":" + r.getY() + ":" +
+//                    r.getEffectName() + ":" + r.getX() + ":" + r.getY() + ":" +
 //                    r.getWidth() + ":" + r.getHeight() + ":" + Arrays.toString(newNeighs) + ":" + Arrays.toString(r.getDoors()) + ":" + r.getColor();
 //            strs.add(result);
 //        }

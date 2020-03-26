@@ -4,7 +4,7 @@ package model.map.rooms;
 public class NukieShipRoom extends Room {
 
 	public NukieShipRoom(int i, int x, int y, int w, int h, int[] js, double[] ds) {
-		super(i, "Nuclear Ship", "Nuke", x, y, w, h, js, ds);
+		super(i, "Nuclear Ship", x, y, w, h, js, ds);
 	}
 
 

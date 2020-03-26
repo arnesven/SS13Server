@@ -1,5 +1,6 @@
 package model.map.rooms;
 
+import graphics.sprites.Sprite;
 import model.GameData;
 import model.items.general.MoneyStack;
 import model.items.general.NuclearDisc;
@@ -18,6 +19,7 @@ public class CaptainsQuartersRoom extends CommandRoom {
         addItem(new MoneyStack(300));
         addObject(new PulseRifleDisplayCase(this));
         gameData.addNPC(cat);
+        //this.setEffect(new Sprite("someeffect", "alert.png", 3, 2, null));
     }
 
     @Override

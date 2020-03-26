@@ -6,10 +6,8 @@ import model.Player;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
 import model.map.GameMap;
-import model.objects.consoles.PowerSource;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.ElevatorPanel;
-import model.objects.general.GameObject;
 import sounds.Sound;
 import util.HTMLText;
 
@@ -30,7 +28,7 @@ public class ElevatorRoom extends Room {
     private ElectricalMachinery panel;
 
     public ElevatorRoom(GameData gameData, int id, String name, String shortName, int[] coordinates, Room[] rooms, String[] strings, double[] doors) {
-        super(id, name, shortName, coordinates[0], coordinates[1], 1, 1, new int[]{}, doors);
+        super(id, name, coordinates[0], coordinates[1], 1, 1, new int[]{}, doors);
         this.floors = new ArrayList<>();
         this.coordinates = coordinates;
         Collections.addAll(floors, rooms);

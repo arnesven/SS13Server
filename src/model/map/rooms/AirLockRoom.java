@@ -7,8 +7,8 @@ public class AirLockRoom extends Room {
 
 	public AirLockRoom(int ID, int number, int x, int y,
 			int width, int height, int[] neighbors, double[] doors) {
-		super(ID, "Air Lock #"+number         , number+"" , 
-				x, y, width, height, neighbors, doors);
+		super(ID, "Air Lock #"+number         ,
+                x, y, width, height, neighbors, doors);
 		
 		this.addObject(new AirlockPanel(this));
         this.addObject(new OxyMaskDispenser(this));

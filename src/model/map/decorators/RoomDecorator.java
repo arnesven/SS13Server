@@ -21,7 +21,7 @@ public abstract class RoomDecorator extends Room {
 	private Room innerRoom;
 	
 	public RoomDecorator(Room inner) {
-		super(inner.getID(), inner.getName(), inner.getShortname(), inner.getX(), inner.getY(), 
+		super(inner.getID(), inner.getName(), inner.getX(), inner.getY(),
 				inner.getWidth(), inner.getHeight(), inner.getNeighbors(), inner.getDoors());
 		innerRoom = inner;
 	}

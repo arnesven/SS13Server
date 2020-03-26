@@ -1,7 +1,5 @@
 package model.map.rooms;
 
-import graphics.ClientInfo;
-import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -51,7 +49,6 @@ public abstract class ExoticPlanet extends RemoteRoom {
         this.explored = explored;
         if (explored) {
             this.setName(realName);
-            this.setShortname(MyStrings.capitalize(realName));
             for (HideableObject ho : hos) {
                 ho.setFound(true);
             }

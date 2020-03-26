@@ -14,9 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.Set;
 
 public class Room extends MouseInteractable implements Comparable<Room> {
@@ -40,16 +38,16 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     private static double yscale = 32;
     private double[] doors;
 
-    private String shortname;
+    private String effectName;
 
     //private Color originalBackgroundColor;
 
 
-    public Room(int ID, String name, String shortname, int x, int y, int width, int height,
+    public Room(int ID, String name, String effectName, int x, int y, int width, int height,
                 double[] doors, String color) {
         this.ID = ID;
         this.name = name;
-        this.shortname = shortname;
+        this.effectName = effectName;
         xPos = x;
         yPos = y;
         this.width = width;
@@ -99,18 +97,9 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         }
 
         if (!shadow) {
-            for (int row = startSpritePaint; row < height * (yscale / background.getIconHeight()) + 1; ++row) {
-                for (int col = startSpritePaint; col < width * (xscale / background.getIconWidth()) + 1; ++col) {
-                    ImageIcon imgToDraw = background;
-                    imgToDraw = getFloorForPos(row == startSpritePaint, row == (height * (yscale / background.getIconHeight())),
-                                               col == startSpritePaint, col == width * (xscale / background.getIconWidth()),
-                                               background);
+            drawFloors(g, startSpritePaint, background, x, y);
 
-                    g.drawImage(imgToDraw.getImage(),
-                            x + col * imgToDraw.getIconWidth(),
-                            y + row * imgToDraw.getIconHeight(), null);
-                }
-            }
+
         } else {
             g.setColor(Color.BLACK);
 
@@ -120,6 +109,37 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
 
     }
+
+    private void drawFloors(Graphics g, int startSpritePaint, ImageIcon background, int x, int y) {
+        for (int row = startSpritePaint; row < height * (yscale / background.getIconHeight()) + 1; ++row) {
+            for (int col = startSpritePaint; col < width * (xscale / background.getIconWidth()) + 1; ++col) {
+                ImageIcon imgToDraw = getFloorForPos(row == startSpritePaint, row == (height * (yscale / background.getIconHeight())),
+                        col == startSpritePaint, col == width * (xscale / background.getIconWidth()),
+                        background);
+
+                g.drawImage(imgToDraw.getImage(),
+                        x + col * imgToDraw.getIconWidth(),
+                        y + row * imgToDraw.getIconHeight(), null);
+            }
+        }
+    }
+
+
+    public void drawYourEffect(Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx, boolean shadow)  {
+        if (!effectName.equals("") && !shadow) {
+            int x = (int) ((xPos - xOffset) * getXScale()) + xOffPx;
+            int y = (int) ((yPos - yOffset) * getYScale()) + yOffPx;
+            ImageIcon effect = SpriteManager.getSprite(effectName);
+            for (int row = 0; row < height * (yscale / effect.getIconHeight()) + 1; ++row) {
+                for (int col = 0; col < width * (xscale / effect.getIconWidth()) + 1; ++col) {
+                    g.drawImage(effect.getImage(),
+                            x + col * effect.getIconWidth(),
+                            y + row * effect.getIconHeight(), null);
+                }
+            }
+        }
+    }
+
 
     public Set<OverlaySprite> drawYourOverlays(Graphics g, int xOffset, int yOffset, int xoffPX, int yoffPX, boolean shadow) {
         Set<OverlaySprite> drawn = new HashSet<>();

@@ -229,10 +229,9 @@ public class MapPanel extends JPanel implements Observer {
                         GameData.getInstance().getCurrentPos() == r.getID(),
                         xOffset, yOffset, 0, inventoryPanel.getHeight(), shadow);
                 drawnSprites.addAll(r.drawYourOverlays(g, xOffset, yOffset, 0, inventoryPanel.getHeight(), shadow));
+                r.drawYourEffect(g, xOffset, yOffset, 0, inventoryPanel.getHeight(), shadow);
 
         }
-
-
 
         for (Room r : roomList) {
             // r.addYourDoors(this, xOffset, yOffset);
