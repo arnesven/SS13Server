@@ -108,7 +108,9 @@ public class OverlaySprites {
         //addBackgroundForRoom(sp, player, r);
 
         for (Event e : r.getEvents()) {
-            sp.add(e.getSprite(player));
+            if (e.hasVisableSprite()) {
+                sp.add(e.getSprite(player));
+            }
         }
 
         addObjectsForRoom(sp, player, r);
@@ -130,7 +132,9 @@ public class OverlaySprites {
                 if (e.getSense().sound == SensoryLevel.AudioLevel.VERY_LOUD ||
                         e.getSense().visual == SensoryLevel.VisualLevel.CLEARLY_VISIBLE ||
                         e.getSense().smell == SensoryLevel.OlfactoryLevel.SHARP) {
-                    sp2.add(e.getSprite(player));
+                    if (e.hasVisableSprite()) {
+                        sp2.add(e.getSprite(player));
+                    }
                 }
             }
             strs.addAll(getStringsForSpritesInRoom(gameData, sp2, r2, player));

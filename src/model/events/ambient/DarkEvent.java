@@ -5,8 +5,11 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
+import model.map.rooms.Room;
 
 public class DarkEvent extends Event {
+
+	private final static Sprite darkSprite = new Sprite("darksprite", "alert.png", 3, 2, null);
 
 	@Override
 	public void apply(GameData gameData) { }
@@ -18,7 +21,8 @@ public class DarkEvent extends Event {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("darkeventspr", "buttons1.png", 1, 3, this);
+        // Should not be used anymore since hasVisableSprite() returns false;
+		return new Sprite("darkeventspr", "buttons1.png", 1, 3, this);
     }
 
     @Override
@@ -28,4 +32,18 @@ public class DarkEvent extends Event {
 								SensoryLevel.OlfactoryLevel.UNSMELLABLE);
 	}
 
+	@Override
+	public boolean hasVisableSprite() {
+		return false;
+	}
+
+	@Override
+	public void gotAddedToRoom(Room room) {
+		room.addEffect(darkSprite);
+	}
+
+	@Override
+	public void gotRemovedFromRoom(Room room) {
+		room.getEffects().remove(darkSprite);
+	}
 }

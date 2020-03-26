@@ -15,6 +15,7 @@ import util.MyRandom;
 public class ColdEvent extends Event {
 
 	private Room room;
+	private static final Sprite noLifeSupportSprite = new Sprite("nolifesupporteffect", "alert.png", 5, 0, null);
 
 	public ColdEvent(Room r) {
 		this.room = r;
@@ -66,4 +67,20 @@ public class ColdEvent extends Event {
 		return SensoryLevel.NO_SENSE;
 	}
 
+	@Override
+	public void gotAddedToRoom(Room room) {
+
+			room.addEffect(noLifeSupportSprite);
+	}
+
+	@Override
+	public boolean hasVisableSprite() {
+		return false;
+	}
+
+	@Override
+	public void gotRemovedFromRoom(Room room) {
+			room.getEffects().remove(noLifeSupportSprite);
+
+	}
 }

@@ -1,6 +1,8 @@
 package model.events.ambient;
 
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import model.Actor;
 import model.GameData;
@@ -58,11 +60,15 @@ public abstract class DarknessEvent extends Event {
 	}
 
 	private void removeDarkness(Room r) {
-		Iterator<Event> it = r.getEvents().iterator();
-		while (it.hasNext()) {
-			if (it.next() instanceof DarkEvent) {
-				it.remove();
+		Set<Event> eventsToRemove = new HashSet<>();
+		for (Event e : r.getEvents()) {
+			if (e instanceof DarkEvent) {
+				eventsToRemove.add(e);
 			}
+		}
+
+		for (Event e : eventsToRemove) {
+			r.removeEvent(e);
 		}
 	}
 

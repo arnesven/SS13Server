@@ -62,6 +62,14 @@ public abstract class Event extends Experienceable implements SpriteObject, Seri
 	    return howYouAppear(whosAsking);
     }
 
+    public void gotAddedToRoom(Room room) { }
+
+    public void gotRemovedFromRoom(Room room) { }
+
+    public boolean hasVisableSprite() {
+        return true;
+    }
+
 
     public interface EventRunner {
         void doEvent(GameData gd);

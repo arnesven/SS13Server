@@ -56,7 +56,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	private int ID;
 	private double[] doors;
     private String shortName;
-    private Sprite effect;
+    private List<Sprite> effect = new ArrayList<>();
 
 
 	public Room(int ID, String name, int x, int y, int width, int height, int[] neighbors, double[] doors) {
@@ -76,10 +76,10 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	@Override
 	public String toString() {
 		String effectStr;
-		if (effect == null) {
+		if (effect.size() == 0) {
 			effectStr = "";
 		} else {
-			effectStr = effect.getName();
+			effectStr = effect.get(0).getName();
 		}
 
 		String result = ID + ":" + name + ":" + effectStr + ":" + x + ":" + y + ":" +
@@ -350,6 +350,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
 	public void addEvent(Event e) {
 		this.events.add(e);
+		e.gotAddedToRoom(this);
 	}
 
 	public List<Target> getTargets() {
@@ -369,7 +370,8 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	}
 
 	public void removeEvent(Event e) {
-		events.remove(e);		
+		events.remove(e);
+		e.gotRemovedFromRoom(this);
 	}
 
 	public boolean hasFire() {
@@ -395,12 +397,12 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		
 	}
 
-	public Sprite getEffect() {
+	public List<Sprite> getEffects() {
 		return effect;
 	}
 
-	public void setEffect(Sprite effect) {
-		this.effect = effect;
+	public void addEffect(Sprite effect) {
+		this.effect.add(effect);
 	}
 
 	public int getX() {
