@@ -18,6 +18,10 @@ public class CaptainsQuartersRoom extends CommandRoom {
         addItem(new MoneyStack(300));
         addObject(new PulseRifleDisplayCase(this));
         gameData.addNPC(cat);
+    }
 
+    @Override
+    protected FloorSet getFloorSet() {
+        return new CaptainsQuartersFloorSet();
     }
 }

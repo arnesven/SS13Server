@@ -6,6 +6,7 @@ import model.actions.general.Action;
 import model.actions.itemactions.PutOutFireAction;
 import model.characters.decorators.OnFireCharacterDecorator;
 import model.characters.general.GameCharacter;
+import model.events.animation.AnimatedSprite;
 import model.events.damage.FireDamage;
 import model.items.NoSuchThingException;
 import model.items.general.FireExtinguisher;
@@ -94,7 +95,9 @@ public class ElectricalFire extends OngoingEvent {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("electricalfire", "screen2.png", 5, 2, this);
+        return new AnimatedSprite("electricalfire", "fire2.png", 0, 0, 32, 32, this, 3);
+        //return new AnimatedSprite("electricalfire", "fire.png", 5, 8, 32, 32, this, 10);
+        //return new Sprite("electricalfire", "screen2.png", 5, 2, this);
     }
 
     @Override

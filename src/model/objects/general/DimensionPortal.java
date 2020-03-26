@@ -8,6 +8,7 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
+import model.events.animation.AnimatedSprite;
 import model.map.rooms.Room;
 
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public class DimensionPortal extends GameObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("portalblue", "weapons2.png", 19, 10, 32, 32, this);
+        return new AnimatedSprite("portalblue", "weapons2.png", 17, 10, 32, 32, this, 3);
+        //return new Sprite("portalblue", "weapons2.png", 19, 10, 32, 32, this);
     }
 
     @Override

@@ -53,7 +53,7 @@ public class InGameView extends JSplitPane  {
        // this.setDividerLocation(500);
         this.setResizeWeight(1.0);
 
-        Timer t = new Timer(50, new ActionListener() {
+        Timer t = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 AnimationHandler.step();

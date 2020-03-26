@@ -16,7 +16,6 @@ import java.awt.event.MouseEvent;
 
 public class OverlaySprite extends MouseInteractable {
 
-
     private final String name;
     private final String actionData;
     private final int frames;
