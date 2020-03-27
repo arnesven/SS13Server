@@ -22,6 +22,7 @@ public abstract class VendingMachine extends ElectricalMachinery {
     private ArrayList<GameItem> selection;
     private GameItem selectedItem;
     private int cost;
+    private GameData gameData = null;
 
     public VendingMachine(String name, Room r) {
         super(name,  r);
@@ -39,11 +40,17 @@ public abstract class VendingMachine extends ElectricalMachinery {
         if (isBroken()) {
             return new Sprite("vendingmachinebroken", "vending.png", 4, this);
         }
+        if (gameData != null) {
+            if (!isPowered(gameData)) {
+                return new Sprite("vendingmachinenopower", "vending.png", 5, this);
+            }
+        }
         return new Sprite("vendingmachine", "vending.png", 3, this);
     }
 
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+        this.gameData = gameData;
         at.add(new Action("Use " + getName(), SensoryLevel.OPERATE_DEVICE) {
             @Override
             protected String getVerb(Actor whosAsking) {

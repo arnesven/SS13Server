@@ -64,7 +64,7 @@ public class AIConsole extends Console {
 	}
 
     @Override
-    public Sprite getSprite(Player whosAsking) {
+    public Sprite getNormalSprite(Player whosAsking) {
         if (isShutDown()) {
             return new Sprite("shutdownai", "computer2.png", 14, this);
         }

@@ -122,19 +122,15 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		actors.addAll(npcs);
 		Collections.shuffle(actors);
 		for (Actor a : actors) {
-            a.addYourselfToRoomInfo(info, whosAsking);
+			if (a == whosAsking) {
+				a.addYourselfToRoomInfo(info, whosAsking);
+			}
 		}
-		
-		for (GameObject ob : objects) {
-			ob.addYourselfToRoomInfo(info, whosAsking);	
-		}
-		for (GameItem it : items) {
-			it.addYourselfToRoomInfo(info, whosAsking);
-		}
-		
-		//Collections.sort(info);
+
 		for (Event event : events) {
-			info.add(0, event.addYourselfToRoomInfo(whosAsking));
+			if (event.showSpriteInTopPanel()) {
+				info.add(0, event.addYourselfToRoomInfo(whosAsking));
+			}
 		}
 		
 		return info;

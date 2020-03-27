@@ -36,7 +36,7 @@ public class BotConsole extends Console {
     }
 
     @Override
-    public Sprite getSprite(Player whosAsking) {
+    public Sprite getNormalSprite(Player whosAsking) {
         return new Sprite("botconsole", "computer2.png", 17, 14, this);
     }
 

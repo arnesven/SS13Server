@@ -74,7 +74,7 @@ public class ColdEvent extends Event {
 	}
 
 	@Override
-	public boolean hasVisableSprite() {
+	public boolean showSpriteInRoom() {
 		return false;
 	}
 

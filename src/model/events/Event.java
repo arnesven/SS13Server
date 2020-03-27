@@ -42,6 +42,10 @@ public abstract class Event extends Experienceable implements SpriteObject, Seri
         return new Sprite("event", "decals2.png", 5, 0, 32, 32, this);
     }
 
+    public Sprite getRoomSprite(Actor whosAsking) {
+	    return getSprite(whosAsking);
+    }
+
     public double getProbability() {
         return 0.0;
     }
@@ -66,8 +70,12 @@ public abstract class Event extends Experienceable implements SpriteObject, Seri
 
     public void gotRemovedFromRoom(Room room) { }
 
-    public boolean hasVisableSprite() {
+    public boolean showSpriteInRoom() {
         return true;
+    }
+
+    public boolean showSpriteInTopPanel() {
+	    return !showSpriteInRoom();
     }
 
 

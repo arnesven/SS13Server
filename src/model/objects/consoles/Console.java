@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public abstract class Console extends ElectricalMachinery implements RemotelyOperateable {
 
     private Actor loggedInAt;
+    private GameData gameData = null;
 
     public Console(String name, Room r) {
 		super(name, r);
@@ -23,12 +24,25 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
 	}
 
 	@Override
-	public Sprite getSprite(Player whosAsking) {
-		return new Sprite("console", "computer2.png", 10, this);
+	public final Sprite getSprite(Player whosAsking) {
+        if (isBroken()) {
+            return new Sprite("consolebroken", "computer2.png", 12, this);
+        }
+        if (gameData != null) {
+            if (!isPowered(gameData)) {
+                return new Sprite("consolenopower", "computer2.png", 13, this);
+            }
+        }
+		return getNormalSprite(whosAsking);
 	}
+
+    public Sprite getNormalSprite(Player whosAsking) {
+        return new Sprite("console", "computer2.png", 10, this);
+    }
 
     @Override
     protected final void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+        this.gameData = gameData;
         if (cl.getCharacter().isCrew() && cl instanceof Player && !PlebOSCommandHandler.isLoggedIn((Player)cl)) {
             if (!isBroken() && isPowered(gameData) && loggedInAt==null) {
                 at.add(new LoginAction(this, cl));

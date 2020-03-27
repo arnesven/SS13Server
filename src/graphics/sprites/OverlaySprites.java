@@ -9,12 +9,9 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.general.*;
 import model.events.Event;
-import model.events.ambient.ElectricalFire;
-import model.events.ambient.HullBreach;
 import model.events.ambient.RadiationStorm;
 import model.items.general.GameItem;
 import model.items.general.HidableItem;
-import model.map.GameMap;
 import model.map.rooms.Room;
 import model.objects.general.DimensionPortal;
 import model.objects.general.ElectricalMachinery;
@@ -42,7 +39,9 @@ public class OverlaySprites {
             evs.addAll(r.getEvents());
 
             for (Event e : evs) {  // TODO: got a concurrent modification here!!
-                sprites.add(e.getSprite(player));
+                if (e.showSpriteInRoom()) {
+                    sprites.add(e.getRoomSprite(player));
+                }
             }
 
             addActorsForRoom(sprites, player, r);
@@ -68,39 +67,6 @@ public class OverlaySprites {
     }
 
 
-//    public static List<OverlaySprite> seeAlarms(Player player, GameData gameData) {
-//        ArrayList<OverlaySprite> strs = new ArrayList<>();
-//        for (Room r : gameData.getRooms()) {
-//            ArrayList<Sprite> sp = new ArrayList<>();
-//            List<Event> list = new ArrayList<>();
-//            list.addAll(r.getEvents());
-//            for (Event e : list) {
-//                if (e instanceof ElectricalFire || e instanceof HullBreach) {
-//                    sp.add(e.getSprite(player));
-//                }
-//            }
-//
-//            ArrayList<Sprite> parasites = new ArrayList<>();
-//            for (Actor a : r.getActors()) {
-//                if (a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof PirateCharacter) && !a.isDead()) {
-//                    sp.add(a.getCharacter().getSprite(player));
-//                } else if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof HorrorCharacter)) {
-//                    sp.add(a.getCharacter().getSprite(player));
-//                } else if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof ParasiteCharacter)) {
-//                    parasites.add(a.getCharacter().getSprite(player));
-//                }
-//            }
-//            if (parasites.size() > 2) {
-//                sp.addAll(parasites);
-//            }
-//            strs.addAll(getStringsForSpritesInRoom(gameData, sp, r, player));
-//        }
-//        if (strs.isEmpty()) {
-//            return dummyList();
-//        }
-//        return strs;
-//    }
-
     public static List<OverlaySprite> normalVision(Player player, GameData gameData, Room r) {
         ArrayList<OverlaySprite> strs = new ArrayList<>();
 
@@ -108,8 +74,8 @@ public class OverlaySprites {
         //addBackgroundForRoom(sp, player, r);
 
         for (Event e : r.getEvents()) {
-            if (e.hasVisableSprite()) {
-                sp.add(e.getSprite(player));
+            if (e.showSpriteInRoom()) {
+                sp.add(e.getRoomSprite(player));
             }
         }
 
@@ -132,8 +98,8 @@ public class OverlaySprites {
                 if (e.getSense().sound == SensoryLevel.AudioLevel.VERY_LOUD ||
                         e.getSense().visual == SensoryLevel.VisualLevel.CLEARLY_VISIBLE ||
                         e.getSense().smell == SensoryLevel.OlfactoryLevel.SHARP) {
-                    if (e.hasVisableSprite()) {
-                        sp2.add(e.getSprite(player));
+                    if (e.showSpriteInRoom()) {
+                        sp2.add(e.getRoomSprite(player));
                     }
                 }
             }
@@ -178,7 +144,7 @@ public class OverlaySprites {
         for (Room r : player.getPosition().getNeighborList()) {
             for (Event e : r.getEvents()) {
                 if (e instanceof RadiationStorm) {
-                    sp.add(e.getSprite(player));
+                    sp.add(e.getRoomSprite(player));
                 }
             }
             for (GameObject ob : r.getObjects()) {
@@ -243,7 +209,7 @@ public class OverlaySprites {
             addItemsForRoom(sp, player, r);
             addPowerForRoom(sp, r, gameData);
             for (Event e : r.getEvents()) {
-                sp.add(e.getSprite(player));
+                sp.add(e.getRoomSprite(player));
             }
             for (GameObject ob : r.getObjects()) {
                 if (ob instanceof DimensionPortal) {

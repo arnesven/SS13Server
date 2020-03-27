@@ -16,7 +16,10 @@ public class InventoryPanel {
     private Rectangle youBox;
     private Rectangle healthBox;
     private Rectangle backpackBox;
+    private Rectangle roomIcons;
     private ArrayList<Rectangle> itemBoxes = new ArrayList<>();
+    private ArrayList<Rectangle> roomBoxes = new ArrayList<>();
+    private ArrayList<String> roomNames = new ArrayList<>();
     private ArrayList<String> itemNames = new ArrayList<>();
     private ArrayList<String> itemActions = new ArrayList<>();
     private int finalHeightRows;
@@ -55,6 +58,19 @@ public class InventoryPanel {
             g.drawString(GameData.getInstance().getCharacter(), img.getIconWidth()*2, yOffset+g.getFontMetrics().getHeight()-5);
             g.drawString(GameData.getInstance().getSuit(), img.getIconWidth()*2, yOffset+2*g.getFontMetrics().getHeight()-5);
 
+            int index = 0;
+            for (String s : GameData.getInstance().getRoomInfo()) {
+                String strs[] = s.split("<img>");
+                if (!strs[1].contains("You")) {
+                    int iconWidth = MapPanel.getZoom();
+                    SpriteManager.drawSprite(strs[0], g, width - MapPanel.getZoom()*++index, yOffset);
+                    roomBoxes.add(new Rectangle(width - index*iconWidth, yOffset, iconWidth, iconWidth));
+                    roomNames.add(strs[1]);
+                }
+            }
+            roomIcons = new Rectangle(width-img.getIconWidth()*index, yOffset, img.getIconWidth()*index, img.getIconHeight());
+
+
             int newY = yOffset + img.getIconHeight();
             ImageIcon backpack = SpriteManager.getSprite("backpack0");
             g.drawImage(backpack.getImage(), 0, newY, null);
@@ -92,6 +108,14 @@ public class InventoryPanel {
             mapPanel.setToolTipText("Life: " + String.format("%1.1f", GameData.getInstance().getHealth()));
         } else if (boxContains(backpackBox, e)) {
             mapPanel.setToolTipText("Inventory - " + GameData.getInstance().getWeight());
+        } else if (boxContains(roomIcons, e)) {
+            int i = 0;
+            for (Rectangle r : roomBoxes) {
+                if (boxContains(r, e)) {
+                    mapPanel.setToolTipText(roomNames.get(i));
+                }
+                i++;
+            }
         } else {
             int i = 0;
             for (Rectangle r : itemBoxes) {

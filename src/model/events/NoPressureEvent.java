@@ -38,6 +38,11 @@ public class NoPressureEvent extends Event {
         return new Sprite("nopressure", "screen2.png", 6, 2, this);
     }
 
+    @Override
+    public boolean showSpriteInRoom() {
+        return false;
+    }
+
     private void removeFires(Room roomRef2) {
 		for (Iterator<Event> it = roomRef2.getEvents().iterator(); it.hasNext(); ) {
 			Event e = it.next();

@@ -51,7 +51,7 @@ public class CrimeRecordsConsole extends Console {
 	}
 
     @Override
-    public Sprite getSprite(Player whosAsking) {
+    public Sprite getNormalSprite(Player whosAsking) {
         return new Sprite("crimerecordsconsole", "computer2.png", 12, 12, this);
     }
 

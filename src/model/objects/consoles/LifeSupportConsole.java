@@ -26,7 +26,7 @@ public class LifeSupportConsole extends Console {
 
 
     @Override
-    public Sprite getSprite(Player whosAsking) {
+    public Sprite getNormalSprite(Player whosAsking) {
         return new Sprite("lifesupportconsole", "computer2.png", 3, 8, this);
     }
 }

@@ -44,8 +44,13 @@ public class HullBreach extends OngoingEvent {
         if (lowPressureInAllAdjacent()) {
             return new NoPressureEvent(null, getRoom(), null, false).howYouAppear(performingClient);
         }
-		return "Low Pressure!";
+		return "Low Pressure";
 	}
+
+    @Override
+    public String getPublicName(Actor whosAsking) {
+        return "Hull Breach";
+    }
 
     @Override
 	public void maintain(GameData gameData) {
@@ -59,12 +64,22 @@ public class HullBreach extends OngoingEvent {
 	}
 
     @Override
+    public boolean showSpriteInTopPanel() {
+        return true;
+    }
+
+    @Override
     public Sprite getSprite(Actor whosAsking) {
         if (lowPressureInAllAdjacent()) {
             return new NoPressureEvent(null, getRoom(), null, false).getSprite(whosAsking);
 
         }
         return new LowPressureEvent(getRoom()).getSprite(whosAsking);
+    }
+
+    @Override
+    public Sprite getRoomSprite(Actor whosAsking) {
+        return new Sprite("hullbreachinroom", "floors.png", 10, 10, this);
     }
 
     @Override

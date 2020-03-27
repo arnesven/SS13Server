@@ -22,8 +22,9 @@ public class RadiationStorm extends AmbientEvent {
 	private double damage;
 	private int side;
     private static final double occurenceChance = 0.015;
+	private static final Sprite radStormeffect = new Sprite("radiationstormeffect", "alert.png", 5, 1, null);
 
-    @Override
+	@Override
     protected double getStaticProbability() {
         return occurenceChance;
     }
@@ -34,7 +35,12 @@ public class RadiationStorm extends AmbientEvent {
         return new Sprite("radiationstorm", "decals2.png", 2, 6, this);
     }
 
-    @Override
+	@Override
+	public boolean showSpriteInRoom() {
+		return false;
+	}
+
+	@Override
 	public void apply(GameData gameData) {
 		if (roundsLeft > 0) {
 			maintainStorm(gameData);
@@ -142,5 +148,14 @@ public class RadiationStorm extends AmbientEvent {
 	public double getDamage() {
 		return damage;
 	}
-	
+
+	@Override
+	public void gotAddedToRoom(Room room) {
+		room.addEffect(radStormeffect);
+	}
+
+	@Override
+	public void gotRemovedFromRoom(Room room) {
+		room.getEffects().remove(radStormeffect);
+	}
 }

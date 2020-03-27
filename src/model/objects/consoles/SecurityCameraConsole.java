@@ -32,7 +32,7 @@ public class SecurityCameraConsole extends Console {
 	}
 
     @Override
-    public Sprite getSprite(Player whosAsking) {
+    public Sprite getNormalSprite(Player whosAsking) {
         return new Sprite("securitycamerconsole", "computer2.png", 0, 2, this);
     }
 

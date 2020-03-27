@@ -21,7 +21,7 @@ public class DarkEvent extends Event {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        // Should not be used anymore since hasVisableSprite() returns false;
+        // Should not be used anymore since showSpriteInRoom() returns false;
 		return new Sprite("darkeventspr", "buttons1.png", 1, 3, this);
     }
 
@@ -33,9 +33,10 @@ public class DarkEvent extends Event {
 	}
 
 	@Override
-	public boolean hasVisableSprite() {
+	public boolean showSpriteInRoom() {
 		return false;
 	}
+
 
 	@Override
 	public void gotAddedToRoom(Room room) {

@@ -6,6 +6,7 @@ import clientlogic.GameData;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -122,4 +123,8 @@ public class SpriteManager {
         return ic;
     }
 
+	public static void drawSprite(String spriteName, Graphics g, int x, int y) {
+		ImageIcon ic = SpriteManager.getSprite(spriteName);
+		g.drawImage(ic.getImage(), x, y, null);
+	}
 }

@@ -32,7 +32,7 @@ public class GeneticsConsole extends Console {
     }
 
     @Override
-    public Sprite getSprite(Player whosAsking) {
+    public Sprite getNormalSprite(Player whosAsking) {
         return new Sprite("geneticsconsole", "computer2.png", 11, 7, this);
     }
 
