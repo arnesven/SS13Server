@@ -111,7 +111,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     private void drawFloors(Graphics g, int startSpritePaint, ImageIcon background, int x, int y) {
         for (int row = startSpritePaint; row < height * (yscale / background.getIconHeight()) + 1; ++row) {
-            for (int col = startSpritePaint; col < width * (xscale / background.getIconWidth()) + 1; ++col) {
+            for (int col = startSpritePaint; col < width * (xscale / background.getIconWidth()); ++col) {
                 ImageIcon imgToDraw = getFloorForPos(row == startSpritePaint, row == (height * (yscale / background.getIconHeight())),
                         col == startSpritePaint, col == width * (xscale / background.getIconWidth()),
                         background);
@@ -208,14 +208,17 @@ public class Room extends MouseInteractable implements Comparable<Room> {
             for (int i = 1; i < finalW / top.getIconWidth(); ++i) {
                 g.drawImage(top.getImage(), x + top.getIconWidth()*i, y, null);
             }
-            ImageIcon left = SpriteManager.getSprite("walldarkleft0");
+            ImageIcon left = SpriteManager.getSprite("walldarkside0");
             for (int i = 1; i < finalH / left.getIconHeight(); ++i) {
                 g.drawImage(left.getImage(), x, y + left.getIconHeight()*i, null);
+                g.drawImage(left.getImage(), x+finalW, y + left.getIconHeight()*i, null);
             }
             ImageIcon ll = SpriteManager.getSprite("walldarkLL0");
             g.drawImage(ll.getImage(), x, y+finalH, null);
+            g.drawImage(ll.getImage(), x+finalW, y+finalH, null);
             ImageIcon ur = SpriteManager.getSprite("walldarkUR0");
             g.drawImage(ur.getImage(), x+finalW, y, null);
+
 
         if (!shadow) {
             g.setColor(backgroundColor);
@@ -366,34 +369,17 @@ public class Room extends MouseInteractable implements Comparable<Room> {
                 ImageIcon ic2 = null;
 
                 ic = SpriteManager.getSprite("normaldoor0");
-                //if (isTopBottomDoor(doors[i], doors[i+1])) {
-                //    ic = SpriteManager.getSprite("skeweddoorleft0");
-                //    ic2 = SpriteManager.getSprite("skeweddoorright0");
-                //} else {
-                //    ic = SpriteManager.getSprite("skeweddoortop0");
-                //    ic2 = SpriteManager.getSprite("skeweddoorbottom0");
-                //}
-
                 int xpos;
                 if (doors[i] < 0.0) { // dummy door (for locked doors)
+                    ic = SpriteManager.getSprite("lockeddoor0");
                     xpos = (int)((-doors[i]-xOffset) * getXScale()) + xOffPx;
                 } else {
                     xpos = (int)((doors[i]-xOffset) * getXScale()) + xOffPx;
                 }
 
                 int ypos = (int)((doors[i+1]-yOffset) * getYScale()) + yOffPx;
-                //g.setColor(doorColor);
-                //g.fillRect(xpos, ypos, width, height);
-
 
                 g.drawImage(ic.getImage(), xpos, ypos, null);
-               // if (isTopBottomDoor(doors[i], doors[i+1])) {
-               //     g.drawImage(ic.getImage(), xpos - ic2.getIconWidth() / 2, ypos, null);
-               //     g.drawImage(ic2.getImage(), xpos + ic2.getIconWidth() / 2, ypos, null);
-               // } else {
-               //     g.drawImage(ic.getImage(), xpos, ypos-ic2.getIconHeight() / 2, null);
-               //     g.drawImage(ic2.getImage(), xpos, ypos+ic2.getIconHeight() / 2, null);
-               // }
                 g.setColor(Color.BLACK);
                 //g.drawRect(xpos, ypos, width, height);
             }
@@ -483,13 +469,13 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     @Override
     public int compareTo(Room o) {
-        return this.getDistance() - o.getDistance();
+        if (this.getYPos() == o.getYPos()) {
+            return this.getXPos() - o.getXPos();
+        }
+        return this.getYPos() - o.getYPos();
 
     }
 
-    private int getDistance() {
-        return this.xPos*this.xPos + this.yPos*this.yPos;
-    }
 
 
 
