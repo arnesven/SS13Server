@@ -6,6 +6,11 @@ public class DummyRoom extends Room {
     }
 
     @Override
+    public boolean isHidden() {
+        return true;
+    }
+
+    @Override
     protected FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("dummyfloor", 0, 0);
     }

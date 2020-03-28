@@ -47,7 +47,6 @@ public class OverlaySprite extends MouseInteractable {
         ImageIcon image = SpriteManager.getSprite(sprite);
         if (this.frames == 1) {
             g.drawImage(image.getImage(), finalX, finalY, null);
-            setHitBox(finalX, finalY, image.getIconWidth(), image.getIconHeight());
         } else {
             int state = AnimationHandler.getState() % (frames);
             if (state < frames) {
@@ -55,6 +54,7 @@ public class OverlaySprite extends MouseInteractable {
                         state * 32, 0, (state + 1) * 32, 32, null);
             }
         }
+        setHitBox(finalX, finalY, image.getIconWidth(), image.getIconHeight());
     }
 
 

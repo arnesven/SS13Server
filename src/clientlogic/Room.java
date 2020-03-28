@@ -99,7 +99,6 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         if (!shadow) {
             drawFloors(g, startSpritePaint, background, x, y);
 
-
         } else {
             g.setColor(Color.BLACK);
 
@@ -202,50 +201,50 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     private void drawWalls(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, boolean shadow) {
 
-//        g.setColor(WALL_COLOR);
+            g.setColor(backgroundColor);
+            ImageIcon corner = SpriteManager.getSprite("walldarkcorner0");
+            g.drawImage(corner.getImage(), x, y, null);
+            ImageIcon top = SpriteManager.getSprite("walldarktop0");
+            for (int i = 1; i < finalW / top.getIconWidth(); ++i) {
+                g.drawImage(top.getImage(), x + top.getIconWidth()*i, y, null);
+            }
+            ImageIcon left = SpriteManager.getSprite("walldarkleft0");
+            for (int i = 1; i < finalH / left.getIconHeight(); ++i) {
+                g.drawImage(left.getImage(), x, y + left.getIconHeight()*i, null);
+            }
+            ImageIcon ll = SpriteManager.getSprite("walldarkLL0");
+            g.drawImage(ll.getImage(), x, y+finalH, null);
+            ImageIcon ur = SpriteManager.getSprite("walldarkUR0");
+            g.drawImage(ur.getImage(), x+finalW, y, null);
 
         if (!shadow) {
             g.setColor(backgroundColor);
-        } else {
-            g.setColor(Color.BLACK);
         }
-
-        g.fillPolygon(new int[]{x, x + background.getIconWidth(), x + background.getIconWidth()},
-                new int[]{y + finalH, y + finalH, y + finalH + background.getIconHeight()}, 3);
-        g.fillPolygon(new int[]{x + finalW, x + finalW + background.getIconWidth(), x + finalW},
-                new int[]{y, y + background.getIconHeight(), y + background.getIconHeight()}, 3);
-        g.setColor(Color.BLACK);
-        g.drawLine(x + finalW, y + finalH,
-                x + finalW + background.getIconWidth(), y + finalH + background.getIconHeight());
-        g.drawLine(x, y + finalH, x + background.getIconHeight(), y + finalH + background.getIconHeight());
-        g.drawLine(x + finalW, y, x + finalW + background.getIconWidth(), y + background.getIconHeight());
-
-        if (!shadow) {
-            g.setColor(backgroundColor);
-
-        }
-        g.fillRect(x, y, finalW, finalH);
 
         g.setColor(WALL_COLOR);
 
-        g.drawLine(x, y, x + background.getIconWidth(), y + background.getIconHeight());
-        g.drawLine(x, y+finalH, x+background.getIconWidth(), y+finalH+background.getIconWidth());
-        g.drawLine(x+finalW, y, x+finalW+background.getIconWidth(), y+background.getIconHeight());
-
         decorateWallsWithWindows(g, x, y, finalW, finalH, background, shadow);
+
+    }
+
+    private void decorateWallsWithPosters(Graphics g, int x, int y, int finalW, int finalH, boolean shadow) {
+        ImageIcon poster = SpriteManager.getSprite("poster1left0");
+        g.drawImage(poster.getImage(), x, y, null);
+        poster = SpriteManager.getSprite("poster1right0");
+        g.drawImage(poster.getImage(), x+poster.getIconWidth(), y, null);
     }
 
     private void decorateWallsWithWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, boolean shadow) {
-        ImageIcon left = SpriteManager.getSprite("skewedwindowleft0");
-        ImageIcon right = SpriteManager.getSprite("skewedwindowright0");
-        ImageIcon top = SpriteManager.getSprite("skewedwindowtop0");
-        ImageIcon bottom = SpriteManager.getSprite("skewedwindowbottom0");
+        ImageIcon left = SpriteManager.getSprite("walldarkwindowleft0");
+        ImageIcon right = SpriteManager.getSprite("walldarkwindowright0");
+        ImageIcon top = SpriteManager.getSprite("walldarkwindowtop0");
+        ImageIcon bottom = SpriteManager.getSprite("walldarkwindowbottom0");
 
       //  for (int xpos = x + left.getIconWidth()/5; xpos < finalW; xpos += left.getIconWidth()*2) {
-        if (!shadow) {
-            for (int i = 0; i < (finalW / (left.getIconWidth() * 2)); ++i) {
-                int xposleft = 15 + x + left.getIconWidth() * i * 2;
-                int xposright = 15 + x + left.getIconWidth() * (i * 2 + 1);
+      //  if (!shadow) {
+            for (int i = 1; i < (finalW / (left.getIconWidth() * 2)); ++i) {
+                int xposleft = x + left.getIconWidth() * (i * 2 - 1);
+                int xposright = x + left.getIconWidth() * (i * 2);
 
                 if ((i == 0 && isBothSuitableForWindow(i)) || (i > 0 && isTopSuitableForWindow(i))) {
                     g.drawImage(left.getImage(), xposleft, y, null);
@@ -253,9 +252,9 @@ public class Room extends MouseInteractable implements Comparable<Room> {
                 }
             }
 
-            for (int i = 0; i < (finalH / (left.getIconHeight() * 2)); ++i) {
-                int ypostop = 10 + y + left.getIconHeight() * i * 2;
-                int yposbot = 10 + y + left.getIconHeight() * (i * 2 + 1);
+            for (int i = 1; i < (finalH / (left.getIconHeight() * 2)); ++i) {
+                int ypostop = y + left.getIconHeight() * (i * 2 - 1);
+                int yposbot = y + left.getIconHeight() * (i * 2);
 
                 if ((i == 0 && isBothSuitableForWindow(i)) || (i > 0 && isLeftSuitableForWindow(i))) {
                     g.drawImage(top.getImage(), x, ypostop, null);
@@ -264,7 +263,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
             }
 
 
-        }
+       // }
       //     g.drawImage(right.getImage(), xpos+left.getIconWidth(), y+finalH, null);
     //}
 
@@ -365,13 +364,15 @@ public class Room extends MouseInteractable implements Comparable<Room> {
             for (int i = 0; i < doors.length; i+=2) {
                 ImageIcon ic = null;
                 ImageIcon ic2 = null;
-                if (isTopBottomDoor(doors[i], doors[i+1])) {
-                    ic = SpriteManager.getSprite("skeweddoorleft0");
-                    ic2 = SpriteManager.getSprite("skeweddoorright0");
-                } else {
-                    ic = SpriteManager.getSprite("skeweddoortop0");
-                    ic2 = SpriteManager.getSprite("skeweddoorbottom0");
-                }
+
+                ic = SpriteManager.getSprite("normaldoor0");
+                //if (isTopBottomDoor(doors[i], doors[i+1])) {
+                //    ic = SpriteManager.getSprite("skeweddoorleft0");
+                //    ic2 = SpriteManager.getSprite("skeweddoorright0");
+                //} else {
+                //    ic = SpriteManager.getSprite("skeweddoortop0");
+                //    ic2 = SpriteManager.getSprite("skeweddoorbottom0");
+                //}
 
                 int xpos;
                 if (doors[i] < 0.0) { // dummy door (for locked doors)
@@ -385,13 +386,14 @@ public class Room extends MouseInteractable implements Comparable<Room> {
                 //g.fillRect(xpos, ypos, width, height);
 
 
-                if (isTopBottomDoor(doors[i], doors[i+1])) {
-                    g.drawImage(ic.getImage(), xpos - ic2.getIconWidth() / 2, ypos, null);
-                    g.drawImage(ic2.getImage(), xpos + ic2.getIconWidth() / 2, ypos, null);
-                } else {
-                    g.drawImage(ic.getImage(), xpos, ypos-ic2.getIconHeight() / 2, null);
-                    g.drawImage(ic2.getImage(), xpos, ypos+ic2.getIconHeight() / 2, null);
-                }
+                g.drawImage(ic.getImage(), xpos, ypos, null);
+               // if (isTopBottomDoor(doors[i], doors[i+1])) {
+               //     g.drawImage(ic.getImage(), xpos - ic2.getIconWidth() / 2, ypos, null);
+               //     g.drawImage(ic2.getImage(), xpos + ic2.getIconWidth() / 2, ypos, null);
+               // } else {
+               //     g.drawImage(ic.getImage(), xpos, ypos-ic2.getIconHeight() / 2, null);
+               //     g.drawImage(ic2.getImage(), xpos, ypos+ic2.getIconHeight() / 2, null);
+               // }
                 g.setColor(Color.BLACK);
                 //g.drawRect(xpos, ypos, width, height);
             }
@@ -400,15 +402,11 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     public void drawYourFrame(Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx, boolean selected) {
         int x = (int) ((xPos - xOffset) * getXScale()) + xOffPx;
         int y = (int) ((yPos - yOffset) * getYScale()) + yOffPx;
-        int finalW = (int) (getWidth() * getXScale());
-        int finalH = (int) (getHeight() * getYScale());
+        int finalW = (int) (getWidth() * getXScale()) + MapPanel.getZoom();
+        int finalH = (int) (getHeight() * getYScale()) + MapPanel.getZoom();
         if (selected) {
             ((Graphics2D)g).setStroke(new BasicStroke(4));
             g.setColor(SELECTED_ROOM_COLOR);
-        } else {
-            g.setColor(WALL_COLOR);
-        }
-        if (!floorSpriteBaseName.contains("outdoor")) {
             g.drawRect(x, y, finalW, finalH);
         }
 

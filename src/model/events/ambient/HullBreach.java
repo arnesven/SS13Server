@@ -13,6 +13,7 @@ import model.actions.general.SensoryLevel.VisualLevel;
 import model.actions.itemactions.PutOutFireAction;
 import model.actions.itemactions.SealHullBreachAction;
 import model.events.NoPressureEvent;
+import model.events.animation.AnimatedSprite;
 import model.events.damage.AsphyxiationDamage;
 import model.items.NoSuchThingException;
 import model.items.general.FireExtinguisher;
@@ -79,7 +80,7 @@ public class HullBreach extends OngoingEvent {
 
     @Override
     public Sprite getRoomSprite(Actor whosAsking) {
-        return new Sprite("hullbreachinroom", "floors.png", 10, 10, this);
+        return new AnimatedSprite("animatedhullbreach", "objects2.png", 2, 0, 32, 32, this, 8);
     }
 
     @Override

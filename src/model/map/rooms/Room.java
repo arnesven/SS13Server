@@ -44,6 +44,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	private List<Event> eventsHappened = new ArrayList<>();
 	private FloorSet floorSprite;
 	private static final Sprite DOOR_SPRITE = new Sprite("doorsprite", "doors.png", 8, 18, null);
+	private static RoomPosters poster = new RoomPosters();
 
 	/**
 	 * These fields are purely for the GUI.
