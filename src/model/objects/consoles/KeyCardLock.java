@@ -21,6 +21,8 @@ import util.Logger;
 
 public class KeyCardLock extends ElectricalMachinery {
 
+	private final double fromDoorNegXpos;
+	private final double toDoorNegXpos;
 	private Room to;
 	private Room from;
 	boolean locked;
@@ -33,8 +35,12 @@ public class KeyCardLock extends ElectricalMachinery {
 		this.setMaxHealth(hp);
 		this.setHealth(hp);
 		this.setPowerPriority(1);
+		this.fromDoorNegXpos = findNegXpos(from);
+		this.toDoorNegXpos = findNegXpos(to);
 	}
-	
+
+
+
 	@Override
 	public boolean canBeInteractedBy(Actor performingClient) {
 		return performingClient.getPosition() == to || performingClient.getPosition() == from ||
@@ -78,6 +84,8 @@ public class KeyCardLock extends ElectricalMachinery {
 		}
 		GameMap.separateRooms(to, from);
 		setLocked(true);
+		lockUnlockedDoor(to, toDoorNegXpos);
+		lockUnlockedDoor(from, fromDoorNegXpos);
 	}
 
 
@@ -87,8 +95,13 @@ public class KeyCardLock extends ElectricalMachinery {
 		}
 		GameMap.joinRooms(to, from);
 		setLocked(false);
+		unlockLockedDoor(to, toDoorNegXpos);
+		unlockLockedDoor(from, fromDoorNegXpos);
 	}
-	
+
+
+
+
 	@Override
 	public void thisJustBroke() {
 		Logger.log(Logger.INTERESTING, " room unlocked because of lock broke!");
@@ -121,4 +134,31 @@ public class KeyCardLock extends ElectricalMachinery {
     public boolean canBeDismantled() {
         return false;
     }
+
+	private void unlockLockedDoor(Room room, double doorNegXpos) {
+		for (int i = 0; i < room.getDoors().length; ++i) {
+			if (room.getDoors()[i] == doorNegXpos) {
+				room.getDoors()[i] = -doorNegXpos;
+				break;
+			}
+		}
+	}
+
+
+	private void lockUnlockedDoor(Room room, double negXpos) {
+		for (int i = 0; i < room.getDoors().length; ++i) {
+			if (room.getDoors()[i] == -negXpos) {
+				room.getDoors()[i] = negXpos;
+				break;
+			}
+		}
+	}
+	private double findNegXpos(Room room) {
+		for (double d : room.getDoors()) {
+			if (d < 0) {
+				return d;
+			}
+		}
+		return 0;
+	}
 }

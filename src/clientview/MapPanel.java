@@ -234,11 +234,7 @@ public class MapPanel extends JPanel implements Observer {
         }
 
         for (Room r : roomList) {
-            // r.addYourDoors(this, xOffset, yOffset);
-            //if (GameData.getInstance().isASelectableRoom(r.getID())) {
                 r.drawYourDoors(g, this, xOffset, yOffset, 0, inventoryPanel.getHeight());
-            //}
-            //r.addDecorations();
         }
 
 

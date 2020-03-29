@@ -49,7 +49,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(office, ss13, "front");
         gm.addRoom(office, ss13, "starboard");
 
-        Room frontHall = new HallwayRoom(13, "Front Hall"          , "FRONT"     ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{13.5, 10.0, 12.0, 8.0, 13.5, 6.0});
+        Room frontHall = new HallwayRoom(13, "Front Hall"          , "FRONT"     ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{-13.5, 10.0, 12.0, 8.0, 13.5, 6.0});
         gm.addRoom(frontHall, ss13, "front");
 
 
@@ -77,7 +77,7 @@ public class DonutSS13Builder extends MapBuilder {
         Room airLock2 = new AirLockRoom(21, 2   ,13,  2, 1, 1, new int[]{19}        ,         new double[]{13.0, 2.5} );
         gm.addRoom(airLock2, ss13, "port");
         gm.addRoom(airLock2, ss13, "front");
-        Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{}        ,         new double[]{11.0, 4.0});
+        Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{}        ,         new double[]{-11.0, 4.0});
         {
             KeyCardLock l1 = new KeyCardLock(army, gate, true, 4.0);
             gate.addObject(l1);
@@ -101,7 +101,7 @@ public class DonutSS13Builder extends MapBuilder {
         Room nukieShip2 = new NukieShipStorageRoom(128, 18, 12, 1, 2, new int[]{28}, new double[]{});
         gm.addRoom(nukieShip2, ss13, "nuke");
 
-        Room brig = new BrigRoom(29, 15, 4, 1, 1, new int[]{}, new double[]{15.0, 4.5});
+        Room brig = new BrigRoom(29, 15, 4, 1, 1, new int[]{}, new double[]{-15.0, 4.5});
         gm.addRoom(brig, ss13, "center");
         {
             KeyCardLock l1 = new KeyCardLock(brig, portHallFront, true, 3.0);
