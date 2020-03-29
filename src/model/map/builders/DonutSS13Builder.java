@@ -49,7 +49,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(office, ss13, "front");
         gm.addRoom(office, ss13, "starboard");
 
-        Room frontHall = new HallwayRoom(13, "Front Hall"          , "FRONT"     ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{-13.5, 10.0, 12.0, 8.0, 13.5, 6.0});
+        Room frontHall = new HallwayRoom(13, "Front Hall"          , "FRONT"     ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{13.5, 10.0, 12.0, 8.0, 13.5, 6.0});
         gm.addRoom(frontHall, ss13, "front");
 
 

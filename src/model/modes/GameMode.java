@@ -326,7 +326,7 @@ public abstract class GameMode implements Serializable {
 
         try {
             AIConsole console = gameData.findObjectOfType(AIConsole.class);
-            if (playersWhoWantToBeAI.size() == 0 || MyRandom.nextDouble() < 0.25) {
+            if (playersWhoWantToBeAI.size() == 0 || MyRandom.nextDouble() < 0.25) { // chance of no AI even though at least one person wanted to be one.
                 gameData.findObjectOfType(AITurret.class).addPassiveTurretEvent(console, gameData);
                 return;
             }

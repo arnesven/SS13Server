@@ -68,22 +68,17 @@ public class OverlaySprites {
 
 
     public static List<OverlaySprite> normalVision(Player player, GameData gameData, Room r) {
-        ArrayList<OverlaySprite> strs = new ArrayList<>();
-
         ArrayList<Sprite> sp = new ArrayList<>();
-        //addBackgroundForRoom(sp, player, r);
-
         for (Event e : r.getEvents()) {
             if (e.showSpriteInRoom()) {
                 sp.add(e.getRoomSprite(player));
             }
         }
-
         addObjectsForRoom(sp, player, r);
-
         addActorsForRoom(sp, player, r);
         addItemsForRoom(sp, player, r);
 
+        ArrayList<OverlaySprite> strs = new ArrayList<>();
         strs.addAll(getStringsForSpritesInRoom(gameData, sp, r, player));
 
         Sprite blurredCharacterSprite = new BlurredCharacter().getSprite(player);
@@ -111,12 +106,6 @@ public class OverlaySprites {
         }
         return strs;
     }
-
-//    private static void addBackgroundForRoom(ArrayList<Sprite> sp, Player player, Room r) {
-//        if (r.hasBackgroundSprite()) {
-//            sp.add(r.getBackgroundSprite(player.getClientInfo()));
-//        }
-//    }
 
     public static List<OverlaySprite> seeActorsInAdjacentRooms(GameData gameData, Player player, Room room) {
         ArrayList<OverlaySprite> strs = new ArrayList<>();
@@ -202,18 +191,14 @@ public class OverlaySprites {
             allRooms.add(player.getPosition());
         }
 
-
-
         for (Room r : allRooms) {
             addActorsForRoom(sp, player, r);
             addItemsForRoom(sp, player, r);
+            addObjectsForRoom(sp, player, r);
             addPowerForRoom(sp, r, gameData);
             for (Event e : r.getEvents()) {
-                sp.add(e.getRoomSprite(player));
-            }
-            for (GameObject ob : r.getObjects()) {
-                if (ob instanceof DimensionPortal) {
-                    sp.add(ob.getSprite(player));
+                if (e.showSpriteInRoom()) {
+                    sp.add(e.getRoomSprite(player));
                 }
             }
             strs.addAll(getStringsForSpritesInRoom(gameData, sp, r, player));
