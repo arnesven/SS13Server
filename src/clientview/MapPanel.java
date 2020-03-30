@@ -184,4 +184,8 @@ public class MapPanel extends JPanel implements Observer {
     public int getYTrans() {
         return yTrans;
     }
+
+    public DrawingStrategy getDrawingStrategy() {
+        return drawingStrategy;
+    }
 }

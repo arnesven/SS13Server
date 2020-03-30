@@ -5,10 +5,7 @@ import clientcomm.ServerCommunicator;
 import clientlogic.Cookies;
 import clientlogic.GameData;
 import clientlogic.Room;
-import clientview.ConnectData;
-import clientview.GameUIPanel;
-import clientview.MapPanel;
-import clientview.ReturningPlayerPanel;
+import clientview.*;
 import clientview.dialogs.ConnectToServerDialog;
 import clientview.dialogs.StartNewServerDialog;
 import tests.SimulationClient;
@@ -26,6 +23,7 @@ public class SS13Client extends JFrame {
     private static final Dimension originalSize = new Dimension(960, 960);
     private static final Dimension ingameSize = new Dimension(1200, 960);
     private static ConnectData connectData;
+    private JMenu view;
     private boolean errorShowing;
     private GameUIPanel guiPanel = null;
     private int lastPortUsed;
@@ -46,8 +44,10 @@ public class SS13Client extends JFrame {
         JMenuBar menubar = new JMenuBar();
         JMenu file = new JMenu("File");
         JMenuItem item = new JMenuItem("Connect");
-        JMenu view = new JMenu("View");
+        view = new JMenu("View");
         makeScaleMenu(view);
+        makeBackgroundMenu(view);
+        view.setEnabled(false);
         JMenu server = new JMenu("Server");
 
         item.addActionListener(new ActionListener() {
@@ -134,6 +134,22 @@ public class SS13Client extends JFrame {
 
     }
 
+    private void makeBackgroundMenu(JMenu view) {
+        JMenu menu = new JMenu("Background");
+        JMenuItem space = new JRadioButtonMenuItem("Space");
+        space.setSelected(true);
+        space.addActionListener((ActionEvent e) -> guiPanel.getInGameView().getMapPanel().getDrawingStrategy().setBackgroundDrawingStrategy(new DrawSpaceBackgroundStrategy()));
+        JMenuItem black = new JRadioButtonMenuItem("Black");
+        black.addActionListener((ActionEvent e) -> guiPanel.getInGameView().getMapPanel().getDrawingStrategy().setBackgroundDrawingStrategy(new BlackBackgroundStrategy()));
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(space);
+        bg.add(black);
+        menu.add(space);
+        menu.add(black);
+        view.add(menu);
+
+    }
+
     private void makeScaleMenu(JMenu view) {
         JMenu jmenu = new JMenu("Map Scale");
 
@@ -176,13 +192,18 @@ public class SS13Client extends JFrame {
         System.out.println("Switching views");
 		getContentPane().remove(retPan);
 		guiPanel = new GameUIPanel(username, this);
+		enableView();
 		getContentPane().add(guiPanel);
 		this.setSize(ingameSize);
 		this.revalidate();
 		this.repaint();
 	}
 
-	public void cont(boolean returning, Boolean spectator, String clid) {
+    private void enableView() {
+        this.view.setEnabled(true);
+    }
+
+    public void cont(boolean returning, Boolean spectator, String clid) {
         String message = "IDENT ME" + clid;
         if (spectator) {
             message += " SPECTATOR";

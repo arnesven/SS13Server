@@ -4,12 +4,23 @@ import java.awt.*;
 
 public abstract class DrawingStrategy {
     private final MapPanel mapPanel;
+    private BackgroundDrawingStrategy bgStrategy;
 
-    public DrawingStrategy(MapPanel mapPanel) {
+
+    public DrawingStrategy(MapPanel mapPanel, BackgroundDrawingStrategy bgStrat) {
         this.mapPanel = mapPanel;
+        this.bgStrategy = bgStrat;
     }
 
     public abstract void paint(Graphics g);
+
+    public BackgroundDrawingStrategy getBackgroundDrawingStrategy() {
+        return bgStrategy;
+    }
+
+    public void setBackgroundDrawingStrategy(BackgroundDrawingStrategy strat) {
+        bgStrategy = strat;
+    }
 
     public MapPanel getMapPanel() {
         return mapPanel;

@@ -85,4 +85,8 @@ public class InGameView extends JSplitPane  {
     public LastTurnPanel getLastTurnPanel() {
         return ltp;
     }
+
+    public MapPanel getMapPanel() {
+        return mp;
+    }
 }

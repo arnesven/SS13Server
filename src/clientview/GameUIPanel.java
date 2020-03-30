@@ -193,6 +193,10 @@ public class GameUIPanel extends JPanel implements Observer {
         buttPanel.readyButtonPressed();
     }
 
+    public InGameView getInGameView() {
+        return inGameView;
+    }
+
 
 //
 //    protected void toggleMapView() {

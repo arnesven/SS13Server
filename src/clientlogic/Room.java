@@ -443,7 +443,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
             }
     }
 
-    public void drawYourFrame(Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx, boolean selected) {
+    public void drawFrameIfSelected(Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx, boolean selected) {
         int x = (int) ((xPos - xOffset) * getXScale()) + xOffPx;
         int y = (int) ((yPos - yOffset) * getYScale()) + yOffPx;
         int finalW = (int) (getWidth() * getXScale()) + MapPanel.getZoom();
