@@ -26,6 +26,7 @@ public class DerelictBuilder extends MapBuilder {
         ShipsLogsConsole capsLog = new ShipsLogsConsole(derelictBridge);
         derelictBridge.addItem(new SpaceSuit());
         derelictBridge.addObject(capsLog);
+        gm.createLevel("derelict", "Space");
         gm.addRoom(derelictBridge, "derelict", "derelict");
         Room derelictHall =  new DerelictRoom(35, "Derelict Hall", "", 41, 41, 1, 5, new int[]{34, 36, 37, 38}, new double[]{41.5, 41.0});
         gm.addRoom(derelictHall, "derelict", "derelict");

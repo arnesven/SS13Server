@@ -2,8 +2,7 @@ package model.misc;
 
 import model.Actor;
 import model.GameData;
-import model.map.rooms.FloorSet;
-import model.map.rooms.ImprovedChapelFloorSet;
+import model.map.floors.ImprovedChapelFloorSet;
 import model.objects.Altar;
 
 import java.io.Serializable;

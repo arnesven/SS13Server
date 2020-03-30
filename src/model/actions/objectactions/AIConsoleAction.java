@@ -62,7 +62,7 @@ public class AIConsoleAction extends ConsoleAction {
                         for (Actor a : r.getActors()) {
                             if (a.getBaseName().equals(crew)) {
                                 try {
-                                    Integer[] pos = gameData.getMap().getPositionForLevel(gameData.getMap().getLevelForRoom(r));
+                                    Integer[] pos = gameData.getMap().getPositionForLevel(gameData.getMap().getLevelForRoom(r).getName());
                                     performingClient.addTolastTurnInfo("-->" + crew + " is off station, at coordinates " +
                                             (pos[0] * 100 + MyRandom.nextInt(100)) + "-" +
                                             (pos[1] * 100 + MyRandom.nextInt(100)) + "-" +

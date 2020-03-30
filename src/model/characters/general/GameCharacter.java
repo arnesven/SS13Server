@@ -590,7 +590,7 @@ public abstract class GameCharacter implements Serializable {
     public List<Room> getVisibleMap(GameData gameData) {
         String level = "ss13";
         try {
-            level = gameData.getMap().getLevelForRoom(getPosition());
+            level = gameData.getMap().getLevelForRoom(getPosition()).getName();
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

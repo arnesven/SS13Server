@@ -1,4 +1,4 @@
-package model.map.rooms;
+package model.map.floors;
 
 import graphics.sprites.Sprite;
 import util.Logger;

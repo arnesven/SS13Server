@@ -1,6 +1,6 @@
 package model.map.rooms;
 
-import model.objects.general.Lockers;
+import model.map.floors.FloorSet;
 import model.objects.mining.GeneralManufacturer;
 import model.objects.mining.MiningStorage;
 

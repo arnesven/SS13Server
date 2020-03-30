@@ -146,16 +146,12 @@ public class SS13Client extends JFrame {
             menu.add(it);
         }
         view.add(menu);
-
     }
+
 
     private void makeScaleMenu(JMenu view) {
         JMenu jmenu = new JMenu("Map Scale");
-
-
         JMenuItem auto = new JRadioButtonMenuItem("Auto");
-
-
         JMenuItem twobytwo = new JRadioButtonMenuItem("2x2");
         JMenuItem threebytwo = new JRadioButtonMenuItem("3x2");
         JMenuItem threebythree = new JRadioButtonMenuItem("3x3");

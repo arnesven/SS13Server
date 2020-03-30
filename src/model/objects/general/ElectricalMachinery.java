@@ -60,7 +60,7 @@ public abstract class ElectricalMachinery extends BreakableObject
 	public static boolean isPowered(GameData gameData, ElectricalMachinery machine) {
 
         try {
-            for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(machine.getPosition()))) {
+            for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(machine.getPosition()).getName())) {
                 for (GameObject obj : r.getObjects()) {
                     if (obj instanceof PowerSource) {
                         if (((PowerSource) obj).getNoPowerObjects().contains(machine)) {

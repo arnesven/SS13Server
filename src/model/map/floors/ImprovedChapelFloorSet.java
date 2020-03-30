@@ -1,6 +1,7 @@
-package model.map.rooms;
+package model.map.floors;
 
 import graphics.sprites.Sprite;
+import model.map.floors.ChapelFloorSet;
 
 public class ImprovedChapelFloorSet extends ChapelFloorSet {
     public ImprovedChapelFloorSet(String newName, int col) {

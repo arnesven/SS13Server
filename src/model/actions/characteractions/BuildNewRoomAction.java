@@ -119,7 +119,7 @@ public class BuildNewRoomAction extends Action {
         Point roomPlacement = new Point(0, 0);
         Architecture architecture = null;
         try {
-            architecture = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(current));
+            architecture = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(current).getName());
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
@@ -135,7 +135,7 @@ public class BuildNewRoomAction extends Action {
         GameMap.joinRooms(newRoom, current);
         String level = null;
         try {
-            level = gameData.getMap().getLevelForRoom(current);
+            level = gameData.getMap().getLevelForRoom(current).getName();
             gameData.getMap().addRoom(newRoom, level,
                     gameData.getMap().getAreaForRoom(level, current));
         } catch (NoSuchThingException e) {

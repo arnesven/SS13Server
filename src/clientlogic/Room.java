@@ -24,6 +24,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     private static double DOOR_SIZE = 0.5;
     private static boolean automaticScaling = true;
     private final String floorSpriteBaseName;
+    private final String backgroundType;
 
     private int width;
     private int height;
@@ -44,7 +45,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
 
     public Room(int ID, String name, String effectName, int x, int y, int width, int height,
-                double[] doors, String color) {
+                double[] doors, String color, String backgroundType) {
         this.ID = ID;
         this.name = name;
         this.effectName = effectName;
@@ -54,8 +55,8 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         this.height = height;
         highLight = false;
         this.doors = doors;
-        //originalBackgroundColor = new Color(Integer.parseInt(color.replace("#", ""), 16));
         floorSpriteBaseName = color;
+        this.backgroundType = backgroundType;
     }
 
     public static void setAutomaticScaling(boolean b) {
@@ -75,12 +76,9 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     public void drawYourself(Graphics g, boolean selectable, boolean selected, int xOffset,
                              int yOffset, int xOffPx, int yOffPx, boolean shadow) {
 
-            if (selectable) {
-//                g.setColor(selectableColor);
-                this.selectable = selectable;
-            }
-//
-
+        if (selectable) {
+            this.selectable = selectable;
+        }
         ImageIcon background = SpriteManager.getSprite(floorSpriteBaseName);
 
         int x = (int) ((xPos - xOffset) * getXScale()) + xOffPx;
@@ -535,8 +533,9 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     }
 
 
-
-
+    public String getBackgroundType() {
+        return backgroundType;
+    }
 }
 
 

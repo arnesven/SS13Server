@@ -5,9 +5,6 @@ import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientlogic.Observer;
 import clientlogic.Room;
-import clientview.overlays.OverlayButton;
-import clientview.overlays.TitledOverlayComponent;
-import graphics.sprites.Sprite;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -160,8 +157,21 @@ public class MapPanel extends JPanel implements Observer {
 
     @Override
     protected void paintComponent(Graphics g) {
-        drawingStrategy.paint(g);
-        inventoryPanel.drawYourself(g, 0, getWidth());
+       checkBackgroundStrategy();
+       drawingStrategy.paint(g);
+       inventoryPanel.drawYourself(g, 0, getWidth());
+    }
+
+    private void checkBackgroundStrategy() {
+        for (Room r : GameData.getInstance().getRooms()) {
+            if (r.getID() == GameData.getInstance().getCurrentPos()) {
+                if (!drawingStrategy.getBackgroundDrawingStrategy().getName().equals(r.getBackgroundType())) {
+                    System.out.println("Changing background to...");
+                    drawingStrategy.setBackgroundDrawingStrategy(BackgroundDrawingStrategy.makeStrategy(r.getBackgroundType()));
+                    break;
+                }
+            }
+        }
     }
 
     public static int getZoom() {

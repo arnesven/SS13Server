@@ -10,7 +10,8 @@ public abstract class SpriteBackgroundDrawingStrategy extends BackgroundDrawingS
 
     private List<ImageIcon> backgroundSprites;
 
-    public SpriteBackgroundDrawingStrategy() {
+    public SpriteBackgroundDrawingStrategy(String name) {
+        super(name);
         backgroundSprites = createSpriteList();
         while (backgroundSprites.size() < 500) {
             backgroundSprites.addAll(backgroundSprites);

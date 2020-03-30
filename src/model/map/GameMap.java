@@ -26,7 +26,7 @@ public class GameMap implements Serializable {
     public static final String STATION_LEVEL_NAME = "ss13";
     private static String[] SS13AreaNames;
     //private List<Room> roomsList;
-    private Map<String, Map<String, Set<Room>>> levels = new TreeMap<>();
+    private Map<String, MapLevel> levels = new TreeMap<>();
     private String[][][] levelMatrix = new String[3][3][3];
     private int levelCount = 0;
     public static final int MATRIX_DIM_MAX = 3;
@@ -55,7 +55,7 @@ public class GameMap implements Serializable {
 
     public void addRoom(Room room, String level, String area) {
         if (!levels.containsKey(level)) {
-            createLevel(level);
+            throw new NoSuchElementException("No level '" + level + "'");
 
         }
 
@@ -70,21 +70,19 @@ public class GameMap implements Serializable {
 	}
 
 
-    private void createLevel(String level, Integer x, Integer y, Integer z) {
+    private void createLevel(String level, String bgType, Integer x, Integer y, Integer z) {
         if (levelCount == MAX_LEVELS) {
             throw new MapOverflowException("Too many levels (max " + MAX_LEVELS + ")");
         }
-        levels.put(level, new HashMap<>());
+        levels.put(level, new MapLevel(level, bgType));
         levelCount++;
 
         levelMatrix[x][y][z] = level;
 
         Logger.log("Level " + level + " created on coordinates " + x + " " + y + " " + z + " ");
-
-
     }
 
-    private void createLevel(String level) {
+    public void createLevel(String level, String bgType) {
         int x, y, z;
         do {
             x = MyRandom.nextInt(3);
@@ -94,9 +92,14 @@ public class GameMap implements Serializable {
                 break;
             }
         } while (true);
-        createLevel(level, x, y, z);
+        createLevel(level, bgType, x, y, z);
 
     }
+
+    private void createLevel(String firstLevelName) {
+        createLevel(firstLevelName, "Space");
+    }
+
 
     public List<Room> getRooms() {
         Set<Room> list = new HashSet<>();
@@ -361,12 +364,12 @@ public class GameMap implements Serializable {
         throw new NoSuchThingException("Room not found in any area in level " + ss13);
     }
 
-    public String getLevelForRoom(Room current) throws NoSuchThingException {
-        for (Map.Entry<String, Map<String, Set<Room>>> entry : levels.entrySet()) {
+    public MapLevel getLevelForRoom(Room current) throws NoSuchThingException {
+        for (Map.Entry<String, MapLevel> entry : levels.entrySet()) {
             for (Set<Room> entry2 : entry.getValue().values()) {
                 for (Room r : entry2) {
                     if (r == current) {
-                        return entry.getKey();
+                        return entry.getValue();
                     }
                 }
             }
@@ -429,7 +432,7 @@ public class GameMap implements Serializable {
         Integer[] dir = directions.get(oppositeDirection);
 
         try {
-            Integer[] current = getPositionForLevel(this.getLevelForRoom(performingClient.getPosition()));
+            Integer[] current = getPositionForLevel(this.getLevelForRoom(performingClient.getPosition()).getName());
 
             for (int dim = 0; dim < MATRIX_DIM_MAX; ++dim) {
                 current[dim] += dir[dim];
@@ -460,7 +463,7 @@ public class GameMap implements Serializable {
 
     private String createEmptyLevel(Integer[] current, GameData gameData) {
         String level = "emptylevel" + current[0] + "-" + current[1] + "-" + current[2];
-        createLevel(level, current[0], current[1], current[2]);
+        createLevel(level, "Space", current[0], current[1], current[2]);
         Room r = new SpaceRoom(getMaxID()+1, 0, 0, 2,2);
         this.addRoom(r, level, "space");
         Event noPress = new NoPressureEverEvent(r);

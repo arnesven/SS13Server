@@ -3,6 +3,13 @@ package clientview;
 import java.awt.*;
 
 public abstract class BackgroundDrawingStrategy {
+
+    private final String name;
+
+    public BackgroundDrawingStrategy(String name) {
+        this.name = name;
+    }
+
     public static String[] getAllTypesAsStrings() {
         return new String[]{"Black", "Planet", "Space"};
     }
@@ -18,4 +25,7 @@ public abstract class BackgroundDrawingStrategy {
 
     public abstract void drawBackground(Graphics g, int width, int height);
 
+    public String getName() {
+        return name;
+    }
 }

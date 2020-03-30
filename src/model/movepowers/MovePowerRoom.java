@@ -3,9 +3,9 @@ package model.movepowers;
 import graphics.sprites.Sprite;
 import model.GameData;
 import model.Player;
-import model.map.rooms.FloorSet;
+import model.map.floors.FloorSet;
 import model.map.rooms.Room;
-import model.map.rooms.SingleSpriteFloorSet;
+import model.map.floors.SingleSpriteFloorSet;
 
 import java.util.ArrayList;
 import java.util.List;

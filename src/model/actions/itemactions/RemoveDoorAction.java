@@ -72,7 +72,7 @@ public class RemoveDoorAction extends Action {
 
         Architecture arc = null;
         try {
-            arc = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(performingClient.getPosition()));
+            arc = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(performingClient.getPosition()).getName());
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

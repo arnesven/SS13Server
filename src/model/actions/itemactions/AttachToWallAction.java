@@ -27,7 +27,7 @@ public class AttachToWallAction extends Action {
         super("Attach Bomb to Wall", SensoryLevel.OPERATE_DEVICE);
         Architecture arch = null;
         try {
-            arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(cl.getPosition()));
+            arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(cl.getPosition()).getName());
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

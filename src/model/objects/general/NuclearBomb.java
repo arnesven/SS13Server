@@ -37,7 +37,7 @@ public class NuclearBomb extends GameObject {
     public void detonate(GameData gameData) {
         String level = "ss13";
         try {
-            level = gameData.getMap().getLevelForRoom(this.getPosition());
+            level = gameData.getMap().getLevelForRoom(this.getPosition()).getName();
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

@@ -18,6 +18,7 @@ import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.RoomPartsStack;
 import model.map.GameMap;
+import model.map.floors.FloorSet;
 import model.npcs.NPC;
 import model.objects.general.PowerConsumer;
 import model.objects.general.ContainerObject;
@@ -84,10 +85,24 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		}
 
 		String result = ID + ":" + name + ":" + effectStr + ":" + x + ":" + y + ":" +
-						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors) + ":" + floorSprite.getMainSprite().getName();
+						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors) + ":" +
+				floorSprite.getMainSprite().getName() + ":" + getBackgroundType();
 		//Logger.log(result);
         return result;
 	}
+
+	private String getBackgroundType() {
+		if (map == null) {
+			return "Space";
+		}
+		try {
+			return map.getLevelForRoom(this).getBackgroundType();
+		} catch (NoSuchThingException e) {
+			e.printStackTrace();
+		}
+		throw new IllegalStateException("Should not happen!");
+	}
+
 
 	/**
 	 * Gets the ID of the room.

@@ -1,5 +1,8 @@
 package model.map.rooms;
 
+import model.map.floors.FloorSet;
+import model.map.floors.SingleSpriteFloorSet;
+
 /**
  * Created by erini02 on 15/09/17.
  */

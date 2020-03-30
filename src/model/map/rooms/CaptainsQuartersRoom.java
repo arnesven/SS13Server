@@ -1,9 +1,10 @@
 package model.map.rooms;
 
-import graphics.sprites.Sprite;
 import model.GameData;
 import model.items.general.MoneyStack;
 import model.items.general.NuclearDisc;
+import model.map.floors.CaptainsQuartersFloorSet;
+import model.map.floors.FloorSet;
 import model.npcs.NPC;
 import model.npcs.animals.CatNPC;
 import model.objects.general.PulseRifleDisplayCase;

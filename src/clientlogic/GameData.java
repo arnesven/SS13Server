@@ -224,7 +224,7 @@ public class GameData {
 			rooms.add(new Room(Integer.parseInt(parts[0]), parts[1], parts[2],
 					Integer.parseInt(parts[3]), Integer.parseInt(parts[4]),
 					Integer.parseInt(parts[5]), Integer.parseInt(parts[6]), doors,
-					parts[9]));
+					parts[9], parts[10]));
 
 
 		}
@@ -360,19 +360,14 @@ public class GameData {
 	}
 
 	private void deconstructPlayerData(String indata) {
-		//int index = indata.indexOf(':');
-		//String result = "dummy<player-data-part>" + indata.substring(index+1);
-		//Window.alert(result);
 		String[] parts = indata.split("<player-data-part>");
 		GameData.getInstance().setCharacter(parts[1]);
 		GameData.getInstance().setCurrentPos(Integer.parseInt(parts[2]));
 		GameData.getInstance().setHealth(Double.parseDouble(parts[3]));
 		GameData.getInstance().setWeight(parts[4]);
 		GameData.getInstance().setSuit(parts[5]);
-
 		deconstructItems(parts[6]);
 		deconstructRoomInfo(parts[7]);
-
 		deconstructLastTurnInfo(parts[8]);
 		deconstructOverlaySprites(parts[9]);
 	}

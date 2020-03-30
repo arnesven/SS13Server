@@ -7,6 +7,10 @@ import java.util.List;
 public class DrawSpaceBackgroundStrategy extends SpriteBackgroundDrawingStrategy {
 
 
+    public DrawSpaceBackgroundStrategy() {
+        super("Space");
+    }
+
     @Override
     protected List<ImageIcon> createSpriteList() {
         ArrayList<ImageIcon> spaceSprites;

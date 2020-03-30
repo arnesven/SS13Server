@@ -1,7 +1,7 @@
 package model.map.rooms;
 
-import graphics.ClientInfo;
-import graphics.sprites.Sprite;
+import model.map.floors.FloorSet;
+import model.map.floors.PlanetFloorSet;
 
 public class PrisonPlanet extends RemoteRoom {
     public PrisonPlanet(int i) {

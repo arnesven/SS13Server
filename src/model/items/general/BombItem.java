@@ -271,7 +271,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
                 if (attatchedToRoomWall != null) {
                     Architecture arch = null;
                     try {
-                        arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(bombRoom));
+                        arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(bombRoom).getName());
                     } catch (NoSuchThingException e) {
                         e.printStackTrace();
                     }

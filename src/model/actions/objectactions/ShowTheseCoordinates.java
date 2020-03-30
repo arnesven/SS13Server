@@ -24,7 +24,7 @@ public class ShowTheseCoordinates extends Action {
         super("Local Coordinates", SensoryLevel.OPERATE_DEVICE);
         this.teleporter = teleportConsole;
         try {
-            Integer[] coordinates = gameData.getMap().getPositionForLevel(gameData.getMap().getLevelForRoom(teleportConsole.getPosition()));
+            Integer[] coordinates = gameData.getMap().getPositionForLevel(gameData.getMap().getLevelForRoom(teleportConsole.getPosition()).getName());
             setName("Local Coordinates = (" + (coordinates[0]*100+xoff) + "-" +
                     (coordinates[1]*100+yoff) + "-" +
                     (coordinates[2]*100+zoff) + ")");

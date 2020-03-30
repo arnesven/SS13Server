@@ -7,6 +7,8 @@ import model.GameData;
 import model.Player;
 import model.characters.special.SpectatorCharacter;
 import model.items.NoSuchThingException;
+import model.map.floors.FloorSet;
+import model.map.floors.SingleSpriteFloorSet;
 
 import java.util.ArrayList;
 import java.util.List;

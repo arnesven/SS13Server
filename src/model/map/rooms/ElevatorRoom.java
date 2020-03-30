@@ -6,6 +6,7 @@ import model.Player;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
 import model.map.GameMap;
+import model.map.floors.FloorSet;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.ElevatorPanel;
 import sounds.Sound;

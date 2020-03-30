@@ -1,6 +1,8 @@
 package model.map.rooms;
 
 import model.GameData;
+import model.map.floors.FloorSet;
+import model.map.floors.SingleSpriteFloorSet;
 import model.objects.consoles.ShuttleControl;
 
 /**

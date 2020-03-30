@@ -1,7 +1,8 @@
 package model.map.rooms;
 
+import model.map.floors.ChapelFloorSet;
+import model.map.floors.FloorSet;
 import model.objects.Altar;
-import model.objects.general.MailBox;
 
 /**
  * Created by erini02 on 15/12/16.

@@ -23,11 +23,14 @@ public class OtherPlacesBuilder extends MapBuilder {
         gm.addRoom(dummy, ss13, "dummy");
         Room otherDim = new OtherDimension(32, new int[]{30}, new double[]{-1.0, -1.0});
         Room prisonPlanet = new PrisonPlanet(33);
+        gm.createLevel("other dimension", "Planet");
         gm.addRoom(otherDim, "other dimension", "other dimension");
+        gm.createLevel("prison planet", "Planet");
         gm.addRoom(prisonPlanet, "prison planet", "prison planet");
 
         Room deepspace = new SpaceRoom(41, 6, 8, 3, 3);
         addEventsToSpaceRoom(deepspace, gameData);
+        gm.createLevel("deep space", "Space");
         gm.addRoom(deepspace, "deep space", "deep space");
 
 
@@ -35,6 +38,7 @@ public class OtherPlacesBuilder extends MapBuilder {
         gm.addRoom(spectatorBench, "ss13", "hidden");
 
         Room exoticPlanet = buildExoticPlanet(gameData, 42);
+        gm.createLevel("exotic planet", "Planet");
         gm.addRoom(exoticPlanet, "exotic planet", "exotic planet");
 
         buildAsteroidField(gameData, gm);
@@ -78,6 +82,8 @@ public class OtherPlacesBuilder extends MapBuilder {
         Room miningStation = null;
         Room cabin = null;
         Room shuttle = null;
+
+        gm.createLevel("asteroid field", "Space");
 
         int id = 43;
         for (int x = 0; x < FIELD_SIZE; ++x) {

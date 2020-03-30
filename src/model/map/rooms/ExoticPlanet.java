@@ -4,8 +4,9 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ExplorePlanetAction;
+import model.map.floors.FloorSet;
+import model.map.floors.PlanetFloorSet;
 import model.objects.general.HideableObject;
-import util.MyStrings;
 
 import java.util.ArrayList;
 import java.util.HashSet;

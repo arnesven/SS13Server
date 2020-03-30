@@ -34,7 +34,7 @@ public class MoveToOtherAirlocks extends Action {
         super("Go EVA", SensoryLevel.PHYSICAL_ACTIVITY);
         this.pos = position;
         try {
-            for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(position))) {
+            for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(position).getName())) {
                 for (GameObject obj : r.getObjects()) {
                     if (obj instanceof AirlockPanel && r != pos) {
                         moveableRoomsTo.add(r);

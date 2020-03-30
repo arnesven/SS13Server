@@ -7,6 +7,10 @@ import java.util.List;
 
 public class PlanetBackgroundStrategy extends SpriteBackgroundDrawingStrategy {
 
+    public PlanetBackgroundStrategy() {
+        super("Planet");
+    }
+
     @Override
     protected List<ImageIcon> createSpriteList() {
         ArrayList<ImageIcon> spaceSprites;
