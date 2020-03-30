@@ -7,6 +7,7 @@ import clientlogic.Observer;
 import clientlogic.Room;
 import clientview.overlays.OverlayButton;
 import clientview.overlays.TitledOverlayComponent;
+import graphics.sprites.Sprite;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -24,15 +25,13 @@ public class MapPanel extends JPanel implements Observer {
 
     private final Timer timer;
     private final InventoryPanel inventoryPanel;
+    private final DrawingStrategy drawingStrategy;
 
     private GameUIPanel parent;
-    private int xOffset;
-    private int yOffset;
-    private ArrayList<ImageIcon> spaceSprites;
-    private TitledOverlayComponent toc;
 
     public MapPanel(GameUIPanel parent) {
         this.parent = parent;
+        this.drawingStrategy = new StationDrawingStrategy(this);
 
         timer = new Timer(MAP_REFRESH_DELAY, new ActionListener() {
             @Override
@@ -43,8 +42,6 @@ public class MapPanel extends JPanel implements Observer {
         timer.start();
         this.inventoryPanel = new InventoryPanel();
         createRooms();
-        createSpaceSprites();
-        //this.add(new JLabel("MapPanel"));
         GameData.getInstance().subscribe(this);
 
         this.addMouseListener(new MouseAdapter() {
@@ -55,11 +52,6 @@ public class MapPanel extends JPanel implements Observer {
                     return;
                 }
 
-                if (toc != null) {
-                    if (toc.handleMouseClick(e)) {
-                        return;
-                    }
-                }
 
                 MyPopupMenu mpm = null;
                 for (OverlaySprite ps : GameData.getInstance().getOverlaySprites()) {
@@ -96,11 +88,6 @@ public class MapPanel extends JPanel implements Observer {
 
             @Override
             public void mouseMoved(MouseEvent e) {
-                if (toc != null) {
-                    if (toc.handleMouseMove(e)) {
-                        return;
-                    }
-                }
 
                   List<Room> l = new ArrayList<Room>();
                 l.addAll(GameData.getInstance().getMiniMap());
@@ -117,11 +104,6 @@ public class MapPanel extends JPanel implements Observer {
             }
         });
 
-
-       // addAPopup();
-
-
-//
     }
 
     public static void addXTranslation(int i) {
@@ -133,18 +115,6 @@ public class MapPanel extends JPanel implements Observer {
     }
 
 
-    private void createSpaceSprites() {
-        spaceSprites = new ArrayList<>();
-        for (int i = 0; i < 74; i++) {
-            spaceSprites.add(SpriteManager.getSprite("spacebackground" + i + "" + 0));
-        }
-
-        for (int i = 0; i < 4; i++) {
-            spaceSprites.addAll(spaceSprites);
-        }
-
-        Collections.shuffle(spaceSprites);
-    }
 
 
     private void createRooms() {
@@ -186,126 +156,32 @@ public class MapPanel extends JPanel implements Observer {
 
     private void drawRooms() {
         this.repaint();
-     //   this.removeAll();
-
-        // TODO
-
     }
-
 
     @Override
     protected void paintComponent(Graphics g) {
-
-        int zoom = getZoom();
-        if (Room.isAutomaticScaling()) {
-            int mapWidth = GameData.getInstance().getMapWidth();
-            int xscale = (getWidth() / (mapWidth*zoom)) * zoom;
-            int mapHeight = GameData.getInstance().getMapHeight();
-            int yscale = ((getHeight() - inventoryPanel.getHeight()) / (mapHeight*zoom))*zoom;
-
-            Room.setXScale((double) xscale);
-            Room.setYScale((double) yscale);
-            xOffset = GameData.getInstance().getMinX();
-            yOffset = GameData.getInstance().getMinY();
-        } else {
-            xOffset = xTrans;
-            yOffset = yTrans;
-        }
-       // System.out.println("Scale is " + Room.getXScale() + " " + Room.getYScale());
-
-
-        drawSpace(g);
-      //  System.out.println("Room scale: X:" + Room.getXScale() +", Y:" + Room.getYScale());
-
-        List<Room> roomList = new ArrayList<>();
-        roomList.addAll(GameData.getInstance().getMiniMap());
-        Collections.sort(roomList);
-
-
-        Set<OverlaySprite> drawnSprites = new HashSet<>();
-        for (Room r : roomList) {
-                boolean shadow = !GameData.getInstance().isASelectableRoom(r.getID());
-                r.drawYourself(g, GameData.getInstance().getSelectableRooms().contains(r.getID()),
-                        GameData.getInstance().getCurrentPos() == r.getID(),
-                        xOffset, yOffset, 0, inventoryPanel.getHeight(), shadow);
-                drawnSprites.addAll(r.drawYourOverlays(g, xOffset, yOffset, 0, inventoryPanel.getHeight(), shadow));
-                r.drawYourEffect(g, xOffset, yOffset, 0, inventoryPanel.getHeight(), shadow);
-
-        }
-
-        for (Room r : roomList) {
-                r.drawYourDoors(g, this, xOffset, yOffset, 0, inventoryPanel.getHeight());
-        }
-
-
-        // Draw overlay sprites which did not belong to any drawn rooms.
-        for (OverlaySprite sp : GameData.getInstance().getOverlaySprites()) {
-            if (!drawnSprites.contains(sp)) {
-                sp.drawYourself(g, xOffset, yOffset, 0, inventoryPanel.getHeight());
-            }
-        }
-
-        for (Room r : roomList) {
-            r.drawYourFrame(g, xOffset, yOffset, 0, inventoryPanel.getHeight(),
-                    GameData.getInstance().getCurrentPos() == r.getID());
-        }
-
-
+        drawingStrategy.paint(g);
         inventoryPanel.drawYourself(g, 0, getWidth());
-
-        if (toc != null) {
-            toc.drawYourself(g);
-        }
-
     }
 
     public static int getZoom() {
         return 32;
     }
 
-    private void drawSpace(Graphics g) {
-        g.setColor(new Color(0x111199));
-        g.fillRect(0, 0, getWidth(), getHeight());
-
-
-
-        int counter = 0;
-        for (int y = 0; y < getHeight(); y += spaceSprites.get(0).getIconHeight()) {
-            for (int x = 0; x < getWidth(); x += spaceSprites.get(0).getIconWidth()) {
-                ImageIcon ic = spaceSprites.get(counter % 98);
-                counter++;
-                g.drawImage(ic.getImage(), x, y, null);
-            }
-        }
-
-
-    }
-
-
     @Override
     public void update() {
             createRooms();
     }
 
-    private void addAPopup() {
-        this.toc = new TitledOverlayComponent(new Dimension(200, 133), "My Test",
-                true, this, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                toc = null;
-                System.out.println("Disposed");
-                repaint();
-            }
-        });
+    public InventoryPanel getInventoryPanel() {
+        return inventoryPanel;
+    }
 
-        this.toc.addText("This is a test of a popup.");
-        this.toc.addButton(new OverlayButton("OK", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                toc = null;
-                repaint();
-            }
-        }));
+    public int getXTrans() {
+        return xTrans;
+    }
 
+    public int getYTrans() {
+        return yTrans;
     }
 }
