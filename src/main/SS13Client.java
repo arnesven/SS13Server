@@ -136,16 +136,15 @@ public class SS13Client extends JFrame {
 
     private void makeBackgroundMenu(JMenu view) {
         JMenu menu = new JMenu("Background");
-        JMenuItem space = new JRadioButtonMenuItem("Space");
-        space.setSelected(true);
-        space.addActionListener((ActionEvent e) -> guiPanel.getInGameView().getMapPanel().getDrawingStrategy().setBackgroundDrawingStrategy(new DrawSpaceBackgroundStrategy()));
-        JMenuItem black = new JRadioButtonMenuItem("Black");
-        black.addActionListener((ActionEvent e) -> guiPanel.getInGameView().getMapPanel().getDrawingStrategy().setBackgroundDrawingStrategy(new BlackBackgroundStrategy()));
         ButtonGroup bg = new ButtonGroup();
-        bg.add(space);
-        bg.add(black);
-        menu.add(space);
-        menu.add(black);
+        for (String backgroundType : BackgroundDrawingStrategy.getAllTypesAsStrings()) {
+            JMenuItem it = new JRadioButtonMenuItem(backgroundType);
+            it.addActionListener((ActionEvent e) ->
+                    guiPanel.getInGameView().getMapPanel().getDrawingStrategy().setBackgroundDrawingStrategy(BackgroundDrawingStrategy.makeStrategy(backgroundType)));
+            bg.add(it);
+            it.setSelected(true);
+            menu.add(it);
+        }
         view.add(menu);
 
     }

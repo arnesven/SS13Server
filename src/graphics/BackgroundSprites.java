@@ -7,7 +7,24 @@ import java.util.List;
 
 public class BackgroundSprites {
 
-    private List<Sprite> sprites = generateSpaceSprites();
+    private List<Sprite> space = generateSpaceSprites();
+    private List<Sprite> planet = generatePlanetSprites();
+
+    private List<Sprite> generatePlanetSprites() {
+        List<Sprite> lst = new ArrayList<>();
+        int counter = 0;
+        int row = 23;
+        int col = 24;
+        while (counter < 15) {
+            lst.add(new Sprite("planetbackground" + counter++, "floors.png", col, row, null));
+            col++;
+            if (col == 30) {
+                col = 0;
+                row++;
+            }
+        }
+        return lst;
+    }
 
     private List<Sprite> generateSpaceSprites() {
         List<Sprite> lst = new ArrayList<>();
