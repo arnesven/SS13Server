@@ -19,6 +19,7 @@ import model.items.general.GameItem;
 import model.items.general.RoomPartsStack;
 import model.map.GameMap;
 import model.map.doors.Door;
+import model.map.doors.NormalDoor;
 import model.map.floors.FloorSet;
 import model.npcs.NPC;
 import model.objects.general.PowerConsumer;
@@ -67,7 +68,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		this.height = height;
 		this.ID = ID;
 		this.neighbors = neighbors;
-		this.doors = Door.makeArrFromDoubleArr(doors);
+		this.doors = NormalDoor.makeArrFromDoubleArr(doors);
         this.floorSprite = getFloorSet();
 	}
 
@@ -436,7 +437,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	}
 
     //public void setDoors(double[] doors) {
-    //    this.doors = Door.makeArrFromDoubleArr(doors);
+    //    this.doors = NormalDoor.makeArrFromDoubleArr(doors);
     //}
 
 

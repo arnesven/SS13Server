@@ -1,10 +1,42 @@
 package clientlogic;
 
-import model.map.doors.Door;
+public class ClientDoor {
 
-public class ClientDoor extends Door {
+    private double x;
+    private double y;
+    private String name;
+
 
     public ClientDoor(double x, double y, String name) {
-        super(x, y, name);
+       this.x = x;
+       this.y = y;
+       this.name = name;
     }
+
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
 }

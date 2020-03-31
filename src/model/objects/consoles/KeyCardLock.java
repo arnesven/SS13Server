@@ -16,6 +16,7 @@ import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.GameMap;
 import model.map.doors.Door;
+import model.map.doors.NormalDoor;
 import model.map.doors.LockedDoor;
 import model.map.rooms.Room;
 import model.objects.general.ElectricalMachinery;
@@ -137,10 +138,10 @@ public class KeyCardLock extends ElectricalMachinery {
         return false;
     }
 
-	private Door unlockLockedDoor(Room room, Door targetDoor) {
+	private NormalDoor unlockLockedDoor(Room room, Door targetDoor) {
 		for (int i = 0; i < room.getRealDoors().length; ++i) {
 			if (room.getRealDoors()[i] == targetDoor) {
-				Door newDoor = new Door(targetDoor.getX(), targetDoor.getY());
+				NormalDoor newDoor = new NormalDoor(targetDoor.getX(), targetDoor.getY());
 				room.getRealDoors()[i] = newDoor;
 				return newDoor;
 			}

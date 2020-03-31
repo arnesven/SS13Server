@@ -2,7 +2,6 @@ package model.items.general;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import graphics.sprites.Sprite;
@@ -15,9 +14,6 @@ import model.actions.general.Action;
 import model.actions.itemactions.AttachToWallAction;
 import model.characters.general.GameCharacter;
 import model.characters.crew.*;
-import model.events.Event;
-import model.events.ambient.ColdEvent;
-import model.events.ambient.DarkEvent;
 import model.events.ambient.ElectricalFire;
 import model.events.ambient.HullBreach;
 import model.events.damage.ExplosiveDamage;
@@ -25,9 +21,9 @@ import model.items.NoSuchThingException;
 import model.items.foods.ExplodingFood;
 import model.map.Architecture;
 import model.map.GameMap;
+import model.map.doors.HoleInTheWallDoor;
 import model.map.rooms.Room;
 import model.events.SpontaneousExplosionEvent;
-import model.events.NoPressureEverEvent;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 import util.Logger;
@@ -277,7 +273,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
                     }
                     Point2D doorPos = arch.getPossibleNewDoors(bombRoom).get(attatchedToRoomWall);
                     if (doorPos != null) {
-                        GameMap.addDoor(attatchedToRoomWall, doorPos.getX(), doorPos.getY());
+                        GameMap.addDoor(attatchedToRoomWall, new HoleInTheWallDoor(doorPos.getX(), doorPos.getY()));
                         GameMap.joinRooms(bombRoom, attatchedToRoomWall);
                         Logger.log(Logger.INTERESTING, "Bomb blew a hole from " + bombRoom.getName() + " to " + attatchedToRoomWall.getName() + "!");
                     }

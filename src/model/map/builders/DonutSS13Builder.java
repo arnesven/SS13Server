@@ -3,6 +3,7 @@ package model.map.builders;
 import model.GameData;
 import model.map.GameMap;
 import model.map.doors.Door;
+import model.map.doors.NormalDoor;
 import model.map.doors.LockedDoor;
 import model.map.rooms.*;
 import model.objects.consoles.KeyCardLock;

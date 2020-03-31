@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class DoorPartsStack extends ItemStack {
     public DoorPartsStack(int i) {
-        super("Door Parts", 10.0, 485, i);
+        super("NormalDoor Parts", 10.0, 485, i);
     }
 
     @Override

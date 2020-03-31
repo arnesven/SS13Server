@@ -54,7 +54,7 @@ public class Architecture {
     public void checkPlacement(Room current, int width, int height, Point direction, Point2D doorPoint, Point roomPlacement) throws NoLegalPlacementForRoom {
 
         innerCheckPlacement(current, width, height, direction, doorPoint, roomPlacement);
-        Logger.log(Logger.INTERESTING, "Door at " + doorPoint.getX() + ", " + doorPoint.getY());
+        Logger.log(Logger.INTERESTING, "NormalDoor at " + doorPoint.getX() + ", " + doorPoint.getY());
        doorPoint.setLocation(doorPoint.getX() + 0.5*Math.abs(direction.getY()),
                              doorPoint.getY() + 0.5*Math.abs(direction.getX()));
         Logger.log(Logger.INTERESTING, "door shifted to " + doorPoint.getX() + ", " + doorPoint.getY());

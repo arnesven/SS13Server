@@ -27,7 +27,7 @@ public class RemoveDoorAction extends Action {
     private Room selected;
 
     public RemoveDoorAction(Actor actionPerformer) {
-        super("Remove Door", SensoryLevel.NO_SENSE);
+        super("Remove NormalDoor", SensoryLevel.NO_SENSE);
 
         this.doorRooms = findDoorRooms(actionPerformer);
     }

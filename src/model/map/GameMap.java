@@ -7,6 +7,7 @@ import model.events.ambient.ColdEvent;
 import model.items.NoSuchThingException;
 import model.events.NoPressureEverEvent;
 import model.map.doors.Door;
+import model.map.doors.NormalDoor;
 import model.map.rooms.Room;
 import model.map.rooms.SpaceRoom;
 import util.Logger;
@@ -318,13 +319,13 @@ public class GameMap implements Serializable {
         return max;
     }
 
-    public static void addDoor(Room position, double x, double y) {
+    public static void addDoor(Room position, Door newDoor) {
         Door[] newDoorArr = new Door[position.getRealDoors().length + 1];
         int i = 0;
         for ( ; i < position.getRealDoors().length ; ++i) {
             newDoorArr[i] = position.getRealDoors()[i];
         }
-        newDoorArr[i] = new Door(x, y);
+        newDoorArr[i] = newDoor;
         position.setRealDoors(newDoorArr);
     }
 

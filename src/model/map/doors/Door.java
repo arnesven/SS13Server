@@ -4,14 +4,14 @@ import graphics.sprites.Sprite;
 
 import java.io.Serializable;
 
-public class Door implements Serializable {
+public abstract class Door implements Serializable {
 
-     private static final Sprite NORMAL_DOOR = new Sprite("normaldoor", "doors.png", 11, 17, null);
-     private static final Sprite LOCKED_DOOR = new Sprite("lockeddoor", "doors.png", 12, 17, null);
+    private final Sprite sprite = getSprite();
 
     private double x;
     private double y;
     private String name;
+
 
     public Door(double x, double y, String name) {
         this.x = x;
@@ -19,10 +19,7 @@ public class Door implements Serializable {
         this.name = name;
     }
 
-    public Door(double x, double y) {
-        this(x, y, "normal");
-    }
-
+    protected abstract Sprite getSprite();
 
     public double getY() {
         return y;
@@ -41,10 +38,11 @@ public class Door implements Serializable {
         return x + ", " + y + ", " + name;
     }
 
+
     public static Door[] makeArrFromDoubleArr(double[] doors) {
-        Door[] result = new Door[doors.length/2];
+        NormalDoor[] result = new NormalDoor[doors.length/2];
         for (int i = 0; i < result.length; ++i) {
-            result[i] = new Door(doors[2*i], doors[2*i+1]);
+            result[i] = new NormalDoor(doors[2*i], doors[2*i+1]);
         }
         return result;
     }

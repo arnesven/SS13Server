@@ -11,6 +11,7 @@ import model.items.general.GameItem;
 import model.items.general.ItemStackDepletedException;
 import model.map.Architecture;
 import model.map.GameMap;
+import model.map.doors.NormalDoor;
 import model.map.rooms.Room;
 
 import java.awt.geom.Point2D;
@@ -26,7 +27,7 @@ public class BuildDoorAction extends Action {
     private Room selected;
 
     public BuildDoorAction(GameData gameData, Actor performingClient) {
-        super("Build Door", SensoryLevel.PHYSICAL_ACTIVITY);
+        super("Build NormalDoor", SensoryLevel.PHYSICAL_ACTIVITY);
 
 
         Architecture arch = null;
@@ -61,7 +62,7 @@ public class BuildDoorAction extends Action {
         try {
             doorParts = GameItem.getItemFromActor(performingClient, new DoorPartsStack(0));
         } catch (NoSuchThingException e) {
-            performingClient.addTolastTurnInfo("What no Door Parts?" + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What no NormalDoor Parts?" + Action.FAILED_STRING);
             return;
         }
 
@@ -73,7 +74,7 @@ public class BuildDoorAction extends Action {
 
         performingClient.addTolastTurnInfo("You built a new door to " + selected.getName());
 
-        GameMap.addDoor(performingClient.getPosition(), arc.get(selected).getX(), arc.get(selected).getY());
+        GameMap.addDoor(performingClient.getPosition(), new NormalDoor(arc.get(selected).getX(), arc.get(selected).getY()));
         GameMap.joinRooms(performingClient.getPosition(), selected);
 
 
