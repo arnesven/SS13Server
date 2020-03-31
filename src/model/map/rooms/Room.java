@@ -431,13 +431,13 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		return height;
 	}
 
-	public double[] getDoors() {
+	public double[] getDoorsAsDoubleArr() {
 		return Door.makeDoubleArr(doors);
 	}
 
-    public void setDoors(double[] doors) {
-        this.doors = Door.makeArrFromDoubleArr(doors);
-    }
+    //public void setDoors(double[] doors) {
+    //    this.doors = Door.makeArrFromDoubleArr(doors);
+    //}
 
 
     public void removeFromRoom(GameItem searched) {
@@ -467,82 +467,6 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
         Logger.log(Logger.INTERESTING, "Did not find object " + searched.getBaseName() + " anywhere n room");
 
     }
-
-
-
- //   protected String getColor() {
-//		Color c = new Color(217, 217, 217);
-//		return String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue());
-//	}
-
-//    public String getColor() {
-//        Color backgroundcolor;
-//        switch (roomType) {
-//            case command:
-//                backgroundcolor = new Color(100, 190, 255);
-//                break;
-//            case science:
-//                backgroundcolor = new Color(70, 200, 150);
-//                break;
-//            case security:
-//                backgroundcolor = new Color(255, 130, 100);
-//                break;
-//            case support:
-//                backgroundcolor = new Color(200, 150, 200);
-//                break;
-//            case tech:
-//                backgroundcolor = new Color(255, 210, 0);
-//                break;
-//            case space:
-//                backgroundcolor = new Color(0, 0, 0);
-//                break;
-//            case basestar:
-//                backgroundcolor = new Color(100, 100, 140);
-//                break;
-//            case button:
-//                backgroundcolor = new Color(17, 17, 17);
-//                break;
-//			case airlock:
-//				backgroundcolor = new Color(150, 0 ,0);
-//				break;
-//            default:
-//                backgroundcolor = new Color(217, 217, 217);
-//        }
-//        return String.format("#%02X%02X%02X", backgroundcolor.getRed(), backgroundcolor.getGreen(), backgroundcolor.getBlue());
-//    }
-
-
-//    private Sprite getfloorSpriteForColor() {
-//        switch (roomType) {
-//            case command:
-//            	return new FloorSet("floor" + getColor(), 23, 1).getMainSprite();
-//            case science:
-//                return new ScienceFloorSet("floor" + getColor(), 2, 3).getMainSprite();
-//            case security:
-//                return new FloorSet("floor" + getColor(), 27, 0).getMainSprite();
-//            case support:
-//                return new FloorSet("floor" + getColor(), 11, 7).getMainSprite();
-//            case tech:
-//                return new FloorSet("floor" + getColor(), 27, 3).getMainSprite();
-//            case space:
-//                return new SingleSpriteFloorSet("outdoor" + getColor(), 18, 24).getMainSprite();
-//            case derelict:
-//            case hall:
-//                return new SingleSpriteFloorSet("floorhall", 0, 0).getMainSprite();
-//            case airlock:
-//                return new NukieFloorSet("floor" + getColor(), 16, 14).getMainSprite();
-//            case planet:
-//                return new SingleSpriteFloorSet("outdoorplanet", 0, 24).getMainSprite();
-//
-//        }
-//
-//        return  new Sprite("floor"+getColor(), "floors.png", 29, 28, null);
-//    }
-
-//	protected Sprite getfloorSpriteForColor() {
-//		return  new Sprite("floor"+getColor(), "floors.png", 29, 28, null);
-//	}
-
 
     @Override
     public double getPowerConsumptionFactor() {

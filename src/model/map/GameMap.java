@@ -6,6 +6,7 @@ import model.events.Event;
 import model.events.ambient.ColdEvent;
 import model.items.NoSuchThingException;
 import model.events.NoPressureEverEvent;
+import model.map.doors.Door;
 import model.map.rooms.Room;
 import model.map.rooms.SpaceRoom;
 import util.Logger;
@@ -318,33 +319,31 @@ public class GameMap implements Serializable {
     }
 
     public static void addDoor(Room position, double x, double y) {
-        double[] newDoorArr = new double[position.getDoors().length + 2];
+        Door[] newDoorArr = new Door[position.getRealDoors().length + 1];
         int i = 0;
-        for ( ; i < position.getDoors().length ; ++i) {
-            newDoorArr[i] = position.getDoors()[i];
+        for ( ; i < position.getRealDoors().length ; ++i) {
+            newDoorArr[i] = position.getRealDoors()[i];
         }
-        newDoorArr[i] = x;
-        newDoorArr[i+1] = y;
-        position.setDoors(newDoorArr);
+        newDoorArr[i] = new Door(x, y);
+        position.setRealDoors(newDoorArr);
     }
 
     public static void removeDoor(Room position, double x, double y) {
-        double[] newDoorArr = new double[position.getDoors().length - 2];
+        Door[] newDoorArr = new Door[position.getRealDoors().length - 1];
         int i = 0;
         int index = 0;
         for ( ; i < newDoorArr.length ; i+=2) {
-            if (position.getDoors()[i] != x || position.getDoors()[i+1] != y) {
-                newDoorArr[index]   = position.getDoors()[i];
-                newDoorArr[index+1] = position.getDoors()[i+1];
-                index += 2;
+            if (position.getRealDoors()[i].getX() != x || position.getRealDoors()[i].getY() != y) {
+                newDoorArr[index] = position.getRealDoors()[i];
+                index += 1;
             }
         }
-        position.setDoors(newDoorArr);
+        position.setRealDoors(newDoorArr);
     }
 
     public static boolean hasDoor(Room position, double x, double y) {
-        for (int i = 0; i < position.getDoors().length ; i+=2) {
-            if (position.getDoors()[i] == x && position.getDoors()[i+1] == y) {
+        for (int i = 0; i < position.getRealDoors().length ; i+=1) {
+            if (position.getRealDoors()[i].getX() == x && position.getRealDoors()[i].getY() == y) {
                 return true;
             }
         }

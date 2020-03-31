@@ -2,6 +2,7 @@ package model.map.builders;
 
 import model.GameData;
 import model.map.GameMap;
+import model.map.doors.Door;
 import model.map.rooms.*;
 import util.MyRandom;
 
@@ -129,7 +130,7 @@ public class OtherPlacesBuilder extends MapBuilder {
         GameMap.joinRooms(miningStation, shuttle);
         GameMap.joinRooms(miningStation, GameMap.findClosest(asteroids, miningStation));
 
-        cabin.setDoors(new double[]{cabin.getX() + cabin.getWidth(), cabin.getY() + 0.5});
+        cabin.setRealDoors(new Door[]{new Door(cabin.getX() + cabin.getWidth(), cabin.getY() + 0.5)});
     }
 
 
