@@ -48,8 +48,9 @@ public class MiniMapPanel extends JComponent {
         int yOffset = GameData.getInstance().getMiniMapMinY()-1;
 
         this.hitBoxes = new ArrayList<>();
+        int currZ = GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation();
         for (Room r : GameData.getInstance().getMiniMap()) {
-            if (r.getZPos() == GameData.getInstance().getCurrentZ()) {
+            if (r.getZPos() == currZ) {
                 int finalX = (int) ((r.getXPos() - xOffset) * xscale);
                 int finalY = (int) ((r.getYPos() - yOffset) * yscale);
                 if (r.getID() == GameData.getInstance().getCurrentPos()) {
@@ -66,6 +67,9 @@ public class MiniMapPanel extends JComponent {
                 hitBoxes.add(new MiniMapRoome(r, finalX, finalY, (int) (r.getWidth() * xscale), (int) (r.getHeight() * yscale)));
             }
         }
+        g.setColor(Color.YELLOW);
+        g.drawString("Z = " + currZ, 3, getHeight()-10);
+        g.setColor(Color.BLACK);
     }
 
 

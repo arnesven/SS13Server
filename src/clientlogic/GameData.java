@@ -49,6 +49,7 @@ public class GameData {
     private String nextMove = "";
     private List<Room> miniMap = new ArrayList<>();
 	private Room currentRoom;
+	private int zShift = 0;
 
 	private GameData() {
 		modeAlternatives.add("Default");

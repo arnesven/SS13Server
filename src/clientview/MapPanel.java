@@ -19,6 +19,7 @@ public class MapPanel extends JPanel implements Observer {
     private static final int MAP_REFRESH_DELAY = 5000;
     private static int xTrans;
     private static int yTrans;
+    private static int zTrans;
 
     private final Timer timer;
     private final InventoryPanel inventoryPanel;
@@ -111,7 +112,13 @@ public class MapPanel extends JPanel implements Observer {
         yTrans += i;
     }
 
+    public static void addZTranslation(int i) {
+        zTrans += i;
+    }
 
+    public static int getZTranslation() {
+        return zTrans;
+    }
 
 
     private void createRooms() {

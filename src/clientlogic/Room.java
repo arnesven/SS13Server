@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -77,7 +78,6 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     public void drawYourself(Graphics g, boolean selectable, boolean selected, int xOffset,
                              int yOffset, int xOffPx, int yOffPx, boolean shadow) {
-
         if (selectable) {
             this.selectable = selectable;
         }
@@ -87,7 +87,6 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         int y = (int) ((yPos - yOffset) * getYScale()) + yOffPx;
         int finalW = getScaledWidthPX();
         int finalH = getScaledHeightPX();
-
         super.setHitBox(x, y, finalW, finalH);
 
         int startSpritePaint = 0;
@@ -105,8 +104,24 @@ public class Room extends MouseInteractable implements Comparable<Room> {
             g.fillRect(x + background.getIconWidth(), y + background.getIconHeight(),
                 finalW-MapPanel.getZoom(), finalH-MapPanel.getZoom());
         }
+    }
 
+    public void drawYourselfFromAbove(Graphics g, int xOffset, int yOffset, int yOffPx) {
+        int x = (int) ((xPos - xOffset) * getXScale());
+        int y = (int) ((yPos - yOffset) * getYScale()) + yOffPx;
+        int finalW = getScaledWidthPX();
+        int finalH = getScaledHeightPX();
+        super.setHitBox(x, y, finalW, finalH);
 
+        ImageIcon background = SpriteManager.getSprite("walldarkroof0");
+
+        for (int row = 0; row < height * (yscale / background.getIconHeight())+1; ++row) {
+            for (int col = 0; col < width * (xscale / background.getIconWidth())+1; ++col) {
+                g.drawImage(background.getImage(),
+                        x + col * background.getIconWidth(),
+                        y + row * background.getIconHeight(), null);
+            }
+        }
     }
 
     private void drawFloors(Graphics g, int startSpritePaint, ImageIcon background, int x, int y) {
@@ -139,12 +154,18 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         }
     }
 
+    public ArrayList<OverlaySprite> getOverlaySprites() {
+        ArrayList<OverlaySprite> result = new ArrayList<>();
+        result.addAll(GameData.getInstance().getOverlaySprites());
+        result.removeIf((OverlaySprite sp) -> sp.getRoomid() != this.getID());
+        return result;
+    }
 
     public Set<OverlaySprite> drawYourOverlays(Graphics g, int xOffset, int yOffset, int xoffPX, int yoffPX, boolean shadow) {
         Set<OverlaySprite> drawn = new HashSet<>();
         SpriteSlotTable slots = new SpriteSlotTable(this);
         if (!shadow) {
-            for (OverlaySprite sp : GameData.getInstance().getOverlaySprites()) {
+            for (OverlaySprite sp : getOverlaySprites()) {
                 if (sp.getRoomid() == this.getID()) {
                     drawn.add(sp);
                     drawInOpenSlot(g, sp, slots, xOffset, yOffset, xoffPX, yoffPX);

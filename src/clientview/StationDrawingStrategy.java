@@ -63,18 +63,28 @@ public class StationDrawingStrategy extends DrawingStrategy {
     }
 
     private void drawRooms(Graphics g, List<Room> roomList, Set<OverlaySprite> drawnSprites, int xOffset, int yOffset) {
+        int currZ = GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation();
         for (Room r : roomList) {
-            boolean shadow = !GameData.getInstance().isASelectableRoom(r.getID());
-            r.drawYourself(g, GameData.getInstance().getSelectableRooms().contains(r.getID()),
-                    GameData.getInstance().getCurrentPos() == r.getID(),
-                    xOffset, yOffset, 0, inventoryPanelHeight(), shadow);
-            drawnSprites.addAll(r.drawYourOverlays(g, xOffset, yOffset, 0, inventoryPanelHeight(), shadow));
-            r.drawYourEffect(g, xOffset, yOffset, 0, inventoryPanelHeight(), shadow);
+            if (r.getZPos() == currZ) {
+                boolean shadow = !GameData.getInstance().isASelectableRoom(r.getID());
+                r.drawYourself(g, GameData.getInstance().getSelectableRooms().contains(r.getID()),
+                        GameData.getInstance().getCurrentPos() == r.getID(),
+                        xOffset, yOffset, 0, inventoryPanelHeight(), shadow);
+                drawnSprites.addAll(r.drawYourOverlays(g, xOffset, yOffset, 0, inventoryPanelHeight(), shadow));
+                r.drawYourEffect(g, xOffset, yOffset, 0, inventoryPanelHeight(), shadow);
+            } else if (r.getZPos() < currZ) {
+                r.drawYourselfFromAbove(g, xOffset, yOffset, inventoryPanelHeight());
+                drawnSprites.addAll(r.getOverlaySprites());
+            } else { // stuff above
+                drawnSprites.addAll(r.getOverlaySprites());
+            }
 
         }
 
         for (Room r : roomList) {
-            r.drawYourDoors(g, getMapPanel(), xOffset, yOffset, 0, inventoryPanelHeight());
+            if (r.getZPos() == currZ) {
+                r.drawYourDoors(g, getMapPanel(), xOffset, yOffset, 0, inventoryPanelHeight());
+            }
         }
 
     }

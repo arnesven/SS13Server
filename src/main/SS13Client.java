@@ -125,6 +125,10 @@ public class SS13Client extends JFrame {
                     MapPanel.addYTranslation(1);
                 } else if (e.getKeyCode() == KeyEvent.VK_UP) {
                     MapPanel.addYTranslation(-1);
+                } else if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
+                    MapPanel.addZTranslation(-1);
+                } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP) {
+                    MapPanel.addZTranslation(1);
                 }
             }
         });
@@ -225,8 +229,8 @@ public class SS13Client extends JFrame {
                     GameData.getInstance().setClid(result);
                     switchToGameUI(result);
                     errorShowing = false;
-
                 }
+                SS13Client.this.requestFocus();
             }
 
             @Override
