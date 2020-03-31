@@ -7,7 +7,6 @@ import model.events.ambient.ColdEvent;
 import model.items.NoSuchThingException;
 import model.events.NoPressureEverEvent;
 import model.map.doors.Door;
-import model.map.doors.NormalDoor;
 import model.map.rooms.Room;
 import model.map.rooms.SpaceRoom;
 import util.Logger;
@@ -320,31 +319,16 @@ public class GameMap implements Serializable {
     }
 
     public static void addDoor(Room position, Door newDoor) {
-        Door[] newDoorArr = new Door[position.getRealDoors().length + 1];
-        int i = 0;
-        for ( ; i < position.getRealDoors().length ; ++i) {
-            newDoorArr[i] = position.getRealDoors()[i];
-        }
-        newDoorArr[i] = newDoor;
-        position.setRealDoors(newDoorArr);
+        position.addDoor(newDoor);
     }
 
     public static void removeDoor(Room position, double x, double y) {
-        Door[] newDoorArr = new Door[position.getRealDoors().length - 1];
-        int i = 0;
-        int index = 0;
-        for ( ; i < newDoorArr.length ; i+=2) {
-            if (position.getRealDoors()[i].getX() != x || position.getRealDoors()[i].getY() != y) {
-                newDoorArr[index] = position.getRealDoors()[i];
-                index += 1;
-            }
-        }
-        position.setRealDoors(newDoorArr);
+        position.removeDoorAt(x, y);
     }
 
     public static boolean hasDoor(Room position, double x, double y) {
-        for (int i = 0; i < position.getRealDoors().length ; i+=1) {
-            if (position.getRealDoors()[i].getX() == x && position.getRealDoors()[i].getY() == y) {
+        for (int i = 0; i < position.getDoors().length ; i+=1) {
+            if (position.getDoors()[i].getX() == x && position.getDoors()[i].getY() == y) {
                 return true;
             }
         }

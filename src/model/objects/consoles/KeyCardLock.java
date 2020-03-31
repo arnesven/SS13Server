@@ -139,10 +139,10 @@ public class KeyCardLock extends ElectricalMachinery {
     }
 
 	private NormalDoor unlockLockedDoor(Room room, Door targetDoor) {
-		for (int i = 0; i < room.getRealDoors().length; ++i) {
-			if (room.getRealDoors()[i] == targetDoor) {
+		for (int i = 0; i < room.getDoors().length; ++i) {
+			if (room.getDoors()[i] == targetDoor) {
 				NormalDoor newDoor = new NormalDoor(targetDoor.getX(), targetDoor.getY());
-				room.getRealDoors()[i] = newDoor;
+				room.getDoors()[i] = newDoor;
 				return newDoor;
 			}
 		}
@@ -152,10 +152,10 @@ public class KeyCardLock extends ElectricalMachinery {
 
 
 	private Door lockUnlockedDoor(Room room, Door targetDoor) {
-		for (int i = 0; i < room.getRealDoors().length; ++i) {
-			if (room.getRealDoors()[i] == targetDoor) {
+		for (int i = 0; i < room.getDoors().length; ++i) {
+			if (room.getDoors()[i] == targetDoor) {
 				Door newDoor = new LockedDoor(targetDoor.getX(), targetDoor.getY());
-				room.getRealDoors()[i] = newDoor;
+				room.getDoors()[i] = newDoor;
 				return newDoor;
 			}
 		}
@@ -164,7 +164,7 @@ public class KeyCardLock extends ElectricalMachinery {
 	}
 
 	private Door findLockedDoor(Room room) {
-		for (Door d : room.getRealDoors()) {
+		for (Door d : room.getDoors()) {
 			if (d instanceof LockedDoor) {
 				return d;
 			}

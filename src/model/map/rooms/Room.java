@@ -521,11 +521,34 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		this.floorSprite = fs;
 	}
 
-	public void setRealDoors(Door[] doors) {
+	public void setDoors(Door[] doors) {
 		this.doors = doors;
 	}
 
-	public Door[] getRealDoors() {
+	public Door[] getDoors() {
 		return doors;
+	}
+
+	public void addDoor(Door newDoor) {
+		Door[] newDoorArr = new Door[getDoors().length + 1];
+		int i = 0;
+		for (; i < getDoors().length ; ++i) {
+			newDoorArr[i] = getDoors()[i];
+		}
+		newDoorArr[i] = newDoor;
+		setDoors(newDoorArr);
+	}
+
+	public void removeDoorAt(double x, double y) {
+		Door[] newDoorArr = new Door[getDoors().length - 1];
+		int i = 0;
+		int index = 0;
+		for ( ; i < newDoorArr.length ; i+=2) {
+			if (getDoors()[i].getX() != x || getDoors()[i].getY() != y) {
+				newDoorArr[index] = getDoors()[i];
+				index += 1;
+			}
+		}
+		setDoors(newDoorArr);
 	}
 }

@@ -130,7 +130,7 @@ public class OtherPlacesBuilder extends MapBuilder {
         GameMap.joinRooms(miningStation, shuttle);
         GameMap.joinRooms(miningStation, GameMap.findClosest(asteroids, miningStation));
 
-        cabin.setRealDoors(new NormalDoor[]{new NormalDoor(cabin.getX() + cabin.getWidth(), cabin.getY() + 0.5)});
+        cabin.setDoors(new NormalDoor[]{new NormalDoor(cabin.getX() + cabin.getWidth(), cabin.getY() + 0.5)});
     }
 
 

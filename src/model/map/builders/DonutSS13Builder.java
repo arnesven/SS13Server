@@ -3,7 +3,6 @@ package model.map.builders;
 import model.GameData;
 import model.map.GameMap;
 import model.map.doors.Door;
-import model.map.doors.NormalDoor;
 import model.map.doors.LockedDoor;
 import model.map.rooms.*;
 import model.objects.consoles.KeyCardLock;
@@ -81,7 +80,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(airLock2, ss13, "port");
         gm.addRoom(airLock2, ss13, "front");
         Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{}        ,         new double[]{});
-        army.setRealDoors(new Door[]{new LockedDoor(11.0, 4.0)});
+        army.setDoors(new Door[]{new LockedDoor(11.0, 4.0)});
         {
             KeyCardLock l1 = new KeyCardLock(army, gate, true, 4.0);
             gate.addObject(l1);
@@ -106,7 +105,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(nukieShip2, ss13, "nuke");
 
         Room brig = new BrigRoom(29, 15, 4, 1, 1, new int[]{}, new double[]{});
-        brig.setRealDoors(new Door[]{new LockedDoor(15.0, 4.5)});
+        brig.setDoors(new Door[]{new LockedDoor(15.0, 4.5)});
         gm.addRoom(brig, ss13, "center");
         {
             KeyCardLock l1 = new KeyCardLock(brig, portHallFront, true, 3.0);

@@ -200,17 +200,17 @@ public class Architecture {
         Set<Point2D> setB = getPerimiterPointsForRoom(selected);
         setB.retainAll(setA);
 
-        for (int doorIndex = 0; doorIndex < position.getRealDoors().length; doorIndex +=1) {
-            Point2D possibleDoor = new Point2D.Double(position.getRealDoors()[doorIndex].getX(),
-                                                      position.getRealDoors()[doorIndex].getY());
+        for (int doorIndex = 0; doorIndex < position.getDoors().length; doorIndex +=1) {
+            Point2D possibleDoor = new Point2D.Double(position.getDoors()[doorIndex].getX(),
+                                                      position.getDoors()[doorIndex].getY());
             if (setB.contains(possibleDoor)) {
                 return possibleDoor;
             }
         }
 
-        for (int doorIndex = 0; doorIndex < selected.getRealDoors().length; doorIndex +=1) {
-            Point2D possibleDoor = new Point2D.Double(selected.getRealDoors()[doorIndex].getX(),
-                                                      selected.getRealDoors()[doorIndex].getY());
+        for (int doorIndex = 0; doorIndex < selected.getDoors().length; doorIndex +=1) {
+            Point2D possibleDoor = new Point2D.Double(selected.getDoors()[doorIndex].getX(),
+                                                      selected.getDoors()[doorIndex].getY());
             if (setB.contains(possibleDoor)) {
                 return possibleDoor;
             }
