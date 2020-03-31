@@ -37,7 +37,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     private boolean selectable = false;
     private static double xscale = 32;
     private static double yscale = 32;
-    private double[] doors;
+    private ClientDoor[] doors;
 
     private String effectName;
 
@@ -45,7 +45,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
 
     public Room(int ID, String name, String effectName, int x, int y, int width, int height,
-                double[] doors, String color, String backgroundType) {
+                ClientDoor[] doors, String color, String backgroundType) {
         this.ID = ID;
         this.name = name;
         this.effectName = effectName;
@@ -420,24 +420,16 @@ public class Room extends MouseInteractable implements Comparable<Room> {
             if (doors == null) {
                    return;
             }
-            for (int i = 0; i < doors.length; i+=2) {
+            for (int i = 0; i < doors.length; i++) {
                 ImageIcon ic = null;
 
-                ic = SpriteManager.getSprite("normaldoor0");
-                int xpos;
-                if (doors[i] < 0.0) { // dummy door (for locked doors)
-                    ic = SpriteManager.getSprite("lockeddoor0");
-                    xpos = (int)((-doors[i]-xOffset) * getXScale()) + xOffPx;
-                } else {
-                    xpos = (int)((doors[i]-xOffset) * getXScale()) + xOffPx;
-                }
-
-                int ypos = (int)((doors[i+1]-yOffset) * getYScale()) + yOffPx;
+                ic = SpriteManager.getSprite(doors[i].getName() + "door0");
+                int xpos = (int)((doors[i].getX()-xOffset) * getXScale()) + xOffPx;
+                int ypos = (int)((doors[i].getY()-yOffset) * getYScale()) + yOffPx;
 
                 g.drawImage(SpriteManager.getSprite(floorSpriteBaseName).getImage(), xpos, ypos, null);
                 g.drawImage(ic.getImage(), xpos, ypos, null);
                 g.setColor(Color.BLACK);
-                //g.drawRect(xpos, ypos, width, height);
             }
     }
 

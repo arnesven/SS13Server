@@ -18,6 +18,7 @@ import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.RoomPartsStack;
 import model.map.GameMap;
+import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.npcs.NPC;
 import model.objects.general.PowerConsumer;
@@ -32,6 +33,7 @@ import util.Logger;
  */
 public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
+	private static final RoomWalls walls = new RoomWalls();
 
     private String name;
 	private int[] neighbors;
@@ -44,20 +46,16 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	private List<Event> events = new ArrayList<>();
 	private List<Event> eventsHappened = new ArrayList<>();
 	private FloorSet floorSprite;
-	private static final Sprite DOOR_SPRITE = new Sprite("doorsprite", "doors.png", 8, 18, null);
-	private static RoomPosters poster = new RoomPosters();
 
 	/**
 	 * These fields are purely for the GUI.
 	 */
-	//private String effectName;
 	private int x;
 	private int y;
 	private int width;
 	private int height;
 	private int ID;
-	private double[] doors;
-    private String shortName;
+	private Door[] doors;
     private List<Sprite> effect = new ArrayList<>();
 
 
@@ -69,7 +67,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		this.height = height;
 		this.ID = ID;
 		this.neighbors = neighbors;
-		this.doors=doors;
+		this.doors = Door.makeArrFromDoubleArr(doors);
         this.floorSprite = getFloorSet();
 	}
 
@@ -434,11 +432,11 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	}
 
 	public double[] getDoors() {
-		return doors;
+		return Door.makeDoubleArr(doors);
 	}
 
     public void setDoors(double[] doors) {
-        this.doors = doors;
+        this.doors = Door.makeArrFromDoubleArr(doors);
     }
 
 
@@ -587,13 +585,6 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
     }
 
-//    public boolean hasBackgroundSprite() {
-//	    return false;
-//    }
-//
-//    public Sprite getBackgroundSprite(ClientInfo clientInfo) {
-//        return null;
-//    }
 
     public List<Sprite> getAlwaysSprites() {return new ArrayList<>();};
 
@@ -603,5 +594,13 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
 	public void setFloorSet(FloorSet fs) {
 		this.floorSprite = fs;
+	}
+
+	public void setRealDoors(Door[] doors) {
+		this.doors = doors;
+	}
+
+	public Door[] getRealDoors() {
+		return doors;
 	}
 }

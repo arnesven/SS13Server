@@ -15,14 +15,16 @@ import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.GameMap;
+import model.map.doors.Door;
+import model.map.doors.LockedDoor;
 import model.map.rooms.Room;
 import model.objects.general.ElectricalMachinery;
 import util.Logger;
 
 public class KeyCardLock extends ElectricalMachinery {
 
-	private final double fromDoorNegXpos;
-	private final double toDoorNegXpos;
+	private Door lockedDoorFrom;
+	private Door lockedDoorTo;
 	private Room to;
 	private Room from;
 	boolean locked;
@@ -35,8 +37,8 @@ public class KeyCardLock extends ElectricalMachinery {
 		this.setMaxHealth(hp);
 		this.setHealth(hp);
 		this.setPowerPriority(1);
-		this.fromDoorNegXpos = findNegXpos(from);
-		this.toDoorNegXpos = findNegXpos(to);
+		this.lockedDoorFrom = findLockedDoor(from);
+		this.lockedDoorTo = findLockedDoor(to);
 	}
 
 
@@ -84,8 +86,8 @@ public class KeyCardLock extends ElectricalMachinery {
 		}
 		GameMap.separateRooms(to, from);
 		setLocked(true);
-		lockUnlockedDoor(to, toDoorNegXpos);
-		lockUnlockedDoor(from, fromDoorNegXpos);
+		lockedDoorTo = lockUnlockedDoor(to, lockedDoorTo);
+		lockedDoorFrom = lockUnlockedDoor(from, lockedDoorFrom);
 	}
 
 
@@ -95,8 +97,8 @@ public class KeyCardLock extends ElectricalMachinery {
 		}
 		GameMap.joinRooms(to, from);
 		setLocked(false);
-		unlockLockedDoor(to, toDoorNegXpos);
-		unlockLockedDoor(from, fromDoorNegXpos);
+		lockedDoorTo = unlockLockedDoor(to, lockedDoorTo);
+		lockedDoorFrom = unlockLockedDoor(from, lockedDoorFrom);
 	}
 
 
@@ -135,30 +137,37 @@ public class KeyCardLock extends ElectricalMachinery {
         return false;
     }
 
-	private void unlockLockedDoor(Room room, double doorNegXpos) {
-		for (int i = 0; i < room.getDoors().length; ++i) {
-			if (room.getDoors()[i] == doorNegXpos) {
-				room.getDoors()[i] = -doorNegXpos;
-				break;
+	private Door unlockLockedDoor(Room room, Door targetDoor) {
+		for (int i = 0; i < room.getRealDoors().length; ++i) {
+			if (room.getRealDoors()[i] == targetDoor) {
+				Door newDoor = new Door(targetDoor.getX(), targetDoor.getY());
+				room.getRealDoors()[i] = newDoor;
+				return newDoor;
 			}
 		}
+		Logger.log(Logger.CRITICAL, "Could not find door to unlock!");
+		return null;
 	}
 
 
-	private void lockUnlockedDoor(Room room, double negXpos) {
-		for (int i = 0; i < room.getDoors().length; ++i) {
-			if (room.getDoors()[i] == -negXpos) {
-				room.getDoors()[i] = negXpos;
-				break;
+	private Door lockUnlockedDoor(Room room, Door targetDoor) {
+		for (int i = 0; i < room.getRealDoors().length; ++i) {
+			if (room.getRealDoors()[i] == targetDoor) {
+				Door newDoor = new LockedDoor(targetDoor.getX(), targetDoor.getY());
+				room.getRealDoors()[i] = newDoor;
+				return newDoor;
 			}
 		}
+		Logger.log(Logger.CRITICAL, "Could not find door to lock!");
+		return null;
 	}
-	private double findNegXpos(Room room) {
-		for (double d : room.getDoors()) {
-			if (d < 0) {
+
+	private Door findLockedDoor(Room room) {
+		for (Door d : room.getRealDoors()) {
+			if (d instanceof LockedDoor) {
 				return d;
 			}
 		}
-		return 0;
+		return null;
 	}
 }

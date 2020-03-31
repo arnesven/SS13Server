@@ -211,13 +211,16 @@ public class GameData {
 		for (String roomStr : roomParts) {
 			String[] parts = roomStr.split(":");
 
-			double[] doors = null;
+			ClientDoor[] doors = null;
 			if (parts[8].contains(",")) {
 				String[] dArr = parts[8].substring(1, parts[8].length()).split(", ");
-				doors = new double[dArr.length];
+				doors = new ClientDoor[dArr.length/3];
 
-				for (int i = 0; i < dArr.length; ++i) {
-					doors[i] = Double.parseDouble(dArr[i].replaceAll("]", ""));
+				for (int i = 0; i < dArr.length; i+=3) {
+					doors[i/3] = new ClientDoor(Double.parseDouble(dArr[i].replaceAll("]", "")),
+							Double.parseDouble(dArr[i+1].replaceAll("]", "")),
+							dArr[i+2].replaceAll("]", ""));
+
 				}
 			}
 
@@ -225,8 +228,6 @@ public class GameData {
 					Integer.parseInt(parts[3]), Integer.parseInt(parts[4]),
 					Integer.parseInt(parts[5]), Integer.parseInt(parts[6]), doors,
 					parts[9], parts[10]));
-
-
 		}
 
 	}
