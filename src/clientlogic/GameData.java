@@ -2,10 +2,7 @@ package clientlogic;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
-import clientview.ChatPanel;
-import clientview.LastTurnPanel;
-import clientview.MyUtils;
-import clientview.OverlaySprite;
+import clientview.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -240,6 +237,11 @@ public class GameData {
 	}
 
 	private void setCurrentRoom(Room r) {
+		if (currentRoom != null) {
+			if (r.getZPos() != currentRoom.getZPos()) {
+				MapPanel.setZTranslation(0);
+			}
+		}
 		this.currentRoom = r;
 	}
 

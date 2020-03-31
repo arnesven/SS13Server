@@ -1,10 +1,19 @@
 package model.map.doors;
 
+import graphics.OverlaySprite;
 import graphics.sprites.Sprite;
+import graphics.sprites.SpriteObject;
+import model.Actor;
+import model.GameData;
+import model.Player;
+import model.actions.general.Action;
+import model.map.rooms.Room;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class Door implements Serializable {
+public abstract class Door implements Serializable, SpriteObject {
 
     private final Sprite sprite = getSprite();
 
@@ -58,4 +67,18 @@ public abstract class Door implements Serializable {
         return result;
     }
 
+    @Override
+    public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return getSprite();
+    }
+
+    @Override
+    public String getPublicName(Actor whosAsking) {
+        return getName() + " door";
+    }
 }

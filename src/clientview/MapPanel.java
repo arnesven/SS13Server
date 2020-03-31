@@ -120,6 +120,10 @@ public class MapPanel extends JPanel implements Observer {
         return zTrans;
     }
 
+    public static void setZTranslation(int i) {
+        zTrans = i;
+    }
+
 
     private void createRooms() {
         ServerCommunicator.send(parent.getUsername() + " MAP VISI " + getWidth() + " " +

@@ -87,7 +87,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         int y = (int) ((yPos - yOffset) * getYScale()) + yOffPx;
         int finalW = getScaledWidthPX();
         int finalH = getScaledHeightPX();
-        super.setHitBox(x, y, finalW, finalH);
+        super.setHitBox(x, y, getZPos(), finalW, finalH);
 
         int startSpritePaint = 0;
         if (!floorSpriteBaseName.contains("outdoor")) {
@@ -111,7 +111,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         int y = (int) ((yPos - yOffset) * getYScale()) + yOffPx;
         int finalW = getScaledWidthPX();
         int finalH = getScaledHeightPX();
-        super.setHitBox(x, y, finalW, finalH);
+        super.setHitBox(x, y, getZPos(), finalW, finalH);
 
         ImageIcon background = SpriteManager.getSprite("walldarkroof0");
 
@@ -461,7 +461,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         int y = (int) ((yPos - yOffset) * getYScale()) + yOffPx;
         int finalW = (int) (getWidth() * getXScale()) + MapPanel.getZoom();
         int finalH = (int) (getHeight() * getYScale()) + MapPanel.getZoom();
-        if (selected) {
+        if (selected && getZPos() == GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation()) {
             ((Graphics2D)g).setStroke(new BasicStroke(4));
             g.setColor(SELECTED_ROOM_COLOR);
             g.drawRect(x, y, finalW, finalH);
