@@ -48,8 +48,9 @@ public class GameData {
     private String nextAction = "Do Nothing";
     private String nextMove = "";
     private List<Room> miniMap = new ArrayList<>();
+	private Room currentRoom;
 
-    private GameData() {
+	private GameData() {
 		modeAlternatives.add("Default");
 
 	}
@@ -212,8 +213,8 @@ public class GameData {
 			String[] parts = roomStr.split(":");
 
 			ClientDoor[] doors = null;
-			if (parts[8].contains(",")) {
-				String[] dArr = parts[8].substring(1, parts[8].length()).split(", ");
+			if (parts[9].contains(",")) {
+				String[] dArr = parts[9].substring(1, parts[9].length()).split(", ");
 				doors = new ClientDoor[dArr.length/3];
 
 				for (int i = 0; i < dArr.length; i+=3) {
@@ -224,12 +225,21 @@ public class GameData {
 				}
 			}
 
-			rooms.add(new Room(Integer.parseInt(parts[0]), parts[1], parts[2],
+			Room r = new Room(Integer.parseInt(parts[0]), parts[1], parts[2],
 					Integer.parseInt(parts[3]), Integer.parseInt(parts[4]),
-					Integer.parseInt(parts[5]), Integer.parseInt(parts[6]), doors,
-					parts[9], parts[10]));
+					Integer.parseInt(parts[5]), Integer.parseInt(parts[6]),
+					Integer.parseInt(parts[7]), doors,
+					parts[10], parts[11]);
+			rooms.add(r);
+			if (r.getID() == getInstance().getCurrentPos()) {
+				GameData.getInstance().setCurrentRoom(r);
+			}
 		}
 
+	}
+
+	private void setCurrentRoom(Room r) {
+		this.currentRoom = r;
 	}
 
 	public int getMapWidth() {
@@ -744,4 +754,11 @@ public class GameData {
             }
             return false;
     }
+
+	public int getCurrentZ() {
+		if (currentRoom != null) {
+			return currentRoom.getZPos();
+		}
+		return 0;
+	}
 }

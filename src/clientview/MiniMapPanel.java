@@ -49,22 +49,22 @@ public class MiniMapPanel extends JComponent {
 
         this.hitBoxes = new ArrayList<>();
         for (Room r : GameData.getInstance().getMiniMap()) {
-            //System.out.println("Final data: " +  (int)(r.getXPos()*xscale) + " " + (int)(r.getYPos()*yscale) + " " +
-            //        (int)(r.getWidth()*xscale) + " " + (int)(r.getHeight()*yscale));
-            int finalX = (int)((r.getXPos()-xOffset)*xscale);
-            int finalY = (int)((r.getYPos()-yOffset)*yscale);
-            if (r.getID() == GameData.getInstance().getCurrentPos()) {
-                g.setColor(Color.YELLOW);
-            } else if (GameData.getInstance().isASelectableRoom(r.getID())) {
-                g.setColor(Color.BLUE);
-            } else {
-                g.setColor(Color.LIGHT_GRAY);
+            if (r.getZPos() == GameData.getInstance().getCurrentZ()) {
+                int finalX = (int) ((r.getXPos() - xOffset) * xscale);
+                int finalY = (int) ((r.getYPos() - yOffset) * yscale);
+                if (r.getID() == GameData.getInstance().getCurrentPos()) {
+                    g.setColor(Color.YELLOW);
+                } else if (GameData.getInstance().isASelectableRoom(r.getID())) {
+                    g.setColor(Color.BLUE);
+                } else {
+                    g.setColor(Color.LIGHT_GRAY);
+                }
+                g.fillRect(finalX, finalY,
+                        (int) (r.getWidth() * xscale), (int) (r.getHeight() * yscale));
+                g.setColor(Color.DARK_GRAY);
+                g.drawRect(finalX, finalY, (int) (r.getWidth() * xscale), (int) (r.getHeight() * yscale));
+                hitBoxes.add(new MiniMapRoome(r, finalX, finalY, (int) (r.getWidth() * xscale), (int) (r.getHeight() * yscale)));
             }
-            g.fillRect(finalX, finalY,
-                    (int)(r.getWidth()*xscale), (int)(r.getHeight()*yscale));
-            g.setColor(Color.DARK_GRAY);
-            g.drawRect(finalX, finalY,   (int)(r.getWidth()*xscale), (int)(r.getHeight()*yscale));
-            hitBoxes.add(new MiniMapRoome(r, finalX, finalY, (int)(r.getWidth()*xscale), (int)(r.getHeight()*yscale)));
         }
     }
 

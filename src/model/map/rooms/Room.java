@@ -53,6 +53,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	 */
 	private int x;
 	private int y;
+	private int z;
 	private int width;
 	private int height;
 	private int ID;
@@ -64,6 +65,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		this.name = name;
 		this.x = x;
 		this.y = y;
+		this.z = 0;
 		this.width = width;
 		this.height = height;
 		this.ID = ID;
@@ -83,7 +85,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 			effectStr = effect.get(0).getName();
 		}
 
-		String result = ID + ":" + name + ":" + effectStr + ":" + x + ":" + y + ":" +
+		String result = ID + ":" + name + ":" + effectStr + ":" + x + ":" + y + ":" + z + ":" +
 						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors) + ":" +
 				floorSprite.getMainSprite().getName() + ":" + getBackgroundType();
 		//Logger.log(result);
@@ -424,6 +426,12 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		return y;
 	}
 
+	public int getZ() { return z; }
+
+	protected void setZ(int i) {
+		this.z = i;
+	}
+
 	public int getWidth() {
 		return width;
 	}
@@ -551,4 +559,5 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		}
 		setDoors(newDoorArr);
 	}
+
 }

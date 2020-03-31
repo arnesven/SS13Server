@@ -30,6 +30,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     private int height;
     private int xPos;
     private int yPos;
+    private int zPos;
     private String name;
     private boolean highLight = true;
     private int ID;
@@ -44,13 +45,14 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     //private Color originalBackgroundColor;
 
 
-    public Room(int ID, String name, String effectName, int x, int y, int width, int height,
+    public Room(int ID, String name, String effectName, int x, int y, int z, int width, int height,
                 ClientDoor[] doors, String color, String backgroundType) {
         this.ID = ID;
         this.name = name;
         this.effectName = effectName;
         xPos = x;
         yPos = y;
+        zPos = z;
         this.width = width;
         this.height = height;
         highLight = false;
@@ -502,6 +504,10 @@ public class Room extends MouseInteractable implements Comparable<Room> {
             return height;
         }
 
+        public int getZPos() {
+            return zPos;
+        }
+
         public int getID() {
             return ID;
         }
@@ -517,17 +523,19 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     @Override
     public int compareTo(Room o) {
-        if (this.getYPos() == o.getYPos()) {
-            return this.getXPos() - o.getXPos();
-        }
-        return this.getYPos() - o.getYPos();
+        return this.getComparissionScore() - o.getComparissionScore();
+    }
 
+    private int getComparissionScore() {
+        return this.zPos*100000 + this.yPos*1000 + this.xPos;
     }
 
 
     public String getBackgroundType() {
         return backgroundType;
     }
+
+
 }
 
 
