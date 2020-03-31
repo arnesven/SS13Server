@@ -557,6 +557,9 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     }
 
 
+    public ClientDoor[] getDoors() {
+        return doors;
+    }
 }
 
 

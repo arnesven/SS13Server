@@ -31,10 +31,12 @@ public class MoveAction extends Action {
         ActionOption opts = super.getOptions(gameData, whosAsking);
 
         Set<Room> canMoveTo = findMoveToAblePositions(whosAsking);
-
+        String optstr = "";
         for (Room r : canMoveTo) {
             opts.addOption(r.getName());
+            optstr += r.getName() + ",";
         }
+        Logger.log("MoveAction options are: " + optstr);
 
         return opts;
     }

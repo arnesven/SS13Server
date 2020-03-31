@@ -3,6 +3,7 @@ package clientlogic;
 import clientview.MapPanel;
 import util.Pair;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +35,7 @@ public class SpriteSlotTable {
                 extended.add(0);
             }
         }
+
     }
 
 

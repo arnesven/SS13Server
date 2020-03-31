@@ -70,6 +70,7 @@ public class StationDrawingStrategy extends DrawingStrategy {
                 r.drawYourself(g, GameData.getInstance().getSelectableRooms().contains(r.getID()),
                         GameData.getInstance().getCurrentPos() == r.getID(),
                         xOffset, yOffset, 0, inventoryPanelHeight(), shadow);
+                r.drawYourDoors(g, getMapPanel(), xOffset, yOffset, 0, inventoryPanelHeight());
                 drawnSprites.addAll(r.drawYourOverlays(g, xOffset, yOffset, 0, inventoryPanelHeight(), shadow));
                 r.drawYourEffect(g, xOffset, yOffset, 0, inventoryPanelHeight(), shadow);
             } else if (r.getZPos() < currZ) {
@@ -79,12 +80,6 @@ public class StationDrawingStrategy extends DrawingStrategy {
                 drawnSprites.addAll(r.getOverlaySprites());
             }
 
-        }
-
-        for (Room r : roomList) {
-            if (r.getZPos() == currZ) {
-                r.drawYourDoors(g, getMapPanel(), xOffset, yOffset, 0, inventoryPanelHeight());
-            }
         }
 
     }
