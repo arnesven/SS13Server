@@ -39,11 +39,11 @@ public class OverlaySprite extends MouseInteractable {
          int finalX = (int)((x - xOffset) * Room.getXScale()) + xOffPx;
          int finalY = (int)((y - yOffset) * Room.getYScale()) + yOffPx;
       //  System.out.println("Frames for " + sprite + ": " + frames + ", size= " + image.getIconWidth() + "x" + image.getIconHeight());
-        drawAt(g, finalX, finalY);
+        drawAt(g, finalX, finalY, 0);
 
     }
 
-    private void drawAt(Graphics g, int finalX, int finalY) {
+    private void drawAt(Graphics g, int finalX, int finalY, int currZ) {
         ImageIcon image = SpriteManager.getSprite(sprite);
         if (this.frames == 1) {
             g.drawImage(image.getImage(), finalX, finalY, null);
@@ -54,14 +54,14 @@ public class OverlaySprite extends MouseInteractable {
                         state * 32, 0, (state + 1) * 32, 32, null);
             }
         }
-        setHitBox(finalX, finalY, image.getIconWidth(), image.getIconHeight());
+        setHitBox(finalX, finalY, currZ, image.getIconWidth(), image.getIconHeight());
     }
 
 
-    public void drawYourselfInRoom(Graphics g, Room r, Pair<Double, Double> slotPos, int xOffset, int yOffset, int xOffPx, int yOffPx) {
+    public void drawYourselfInRoom(Graphics g, Room r, Pair<Double, Double> slotPos, int xOffset, int yOffset, int xOffPx, int yOffPx, int currZ) {
         int finalX = (int)((slotPos.first + r.getXPos() - xOffset) * Room.getXScale()) + xOffPx;
         int finalY = (int)((slotPos.second + r.getYPos() - yOffset) * Room.getYScale()) + yOffPx;
-        drawAt(g, finalX, finalY);
+        drawAt(g, finalX, finalY, currZ);
     }
 
     @Override

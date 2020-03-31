@@ -161,14 +161,14 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         return result;
     }
 
-    public Set<OverlaySprite> drawYourOverlays(Graphics g, int xOffset, int yOffset, int xoffPX, int yoffPX, boolean shadow) {
+    public Set<OverlaySprite> drawYourOverlays(Graphics g, int xOffset, int yOffset, int xoffPX, int yoffPX, boolean shadow, int currZ) {
         Set<OverlaySprite> drawn = new HashSet<>();
         SpriteSlotTable slots = new SpriteSlotTable(this);
         if (!shadow) {
             for (OverlaySprite sp : getOverlaySprites()) {
                 if (sp.getRoomid() == this.getID()) {
                     drawn.add(sp);
-                    drawInOpenSlot(g, sp, slots, xOffset, yOffset, xoffPX, yoffPX);
+                    drawInOpenSlot(g, sp, slots, xOffset, yOffset, xoffPX, yoffPX, currZ);
                 }
             }
         }
@@ -176,9 +176,9 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         return drawn;
     }
 
-    private void drawInOpenSlot(Graphics g, OverlaySprite sp, SpriteSlotTable slots, int xOffset, int yOffset, int xoffPX, int yoffPX) {
+    private void drawInOpenSlot(Graphics g, OverlaySprite sp, SpriteSlotTable slots, int xOffset, int yOffset, int xoffPX, int yoffPX, int currZ) {
         Pair<Double, Double> slotPos = slots.getSlot(sp.getHash());
-        sp.drawYourselfInRoom(g, this, slotPos, xOffset, yOffset, xoffPX, yoffPX);
+        sp.drawYourselfInRoom(g, this, slotPos, xOffset, yOffset, xoffPX, yoffPX, currZ);
     }
 
     public int getScaledHeightPX() {

@@ -71,7 +71,7 @@ public class StationDrawingStrategy extends DrawingStrategy {
                         GameData.getInstance().getCurrentPos() == r.getID(),
                         xOffset, yOffset, 0, inventoryPanelHeight(), shadow);
                 r.drawYourDoors(g, getMapPanel(), xOffset, yOffset, 0, inventoryPanelHeight());
-                drawnSprites.addAll(r.drawYourOverlays(g, xOffset, yOffset, 0, inventoryPanelHeight(), shadow));
+                drawnSprites.addAll(r.drawYourOverlays(g, xOffset, yOffset, 0, inventoryPanelHeight(), shadow, currZ));
                 r.drawYourEffect(g, xOffset, yOffset, 0, inventoryPanelHeight(), shadow);
             } else if (r.getZPos() < currZ) {
                 r.drawYourselfFromAbove(g, xOffset, yOffset, inventoryPanelHeight());
