@@ -1,5 +1,6 @@
 package model.map.rooms;
 
+import model.map.doors.DowngoingStairsDoor;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
 

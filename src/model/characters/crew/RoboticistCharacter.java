@@ -17,7 +17,7 @@ import util.Logger;
 public class RoboticistCharacter extends CrewCharacter {
 
 	public RoboticistCharacter() {
-		super("Roboticist", 15, 7.0);
+		super("Roboticist", 448, 7.0);
 	}
 
     @Override

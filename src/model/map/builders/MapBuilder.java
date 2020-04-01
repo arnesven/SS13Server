@@ -61,7 +61,9 @@ public abstract class MapBuilder {
         otherPlaces.buildPart(gameData, gm);
         station.buildPart(gameData, gm);
         derelict.buildPart(gameData, gm);
+        gm.checkAllIDAreUnique();
         gm.setMapReferenceForAllRooms();
+
 
 		return gm;
 	}

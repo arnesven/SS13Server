@@ -2,6 +2,7 @@ package clientview;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
+import clientlogic.ClientDoor;
 import clientlogic.GameData;
 import clientlogic.Observer;
 import clientlogic.Room;
@@ -69,6 +70,19 @@ public class MapPanel extends JPanel implements Observer {
 
                 List<Room> l = new ArrayList<Room>();
                 l.addAll(GameData.getInstance().getMiniMap());
+                // Check if any door in any room was clicked
+                for (Room r : l) {
+                    if (r.getDoors() != null) {
+                        for (ClientDoor d : r.getDoors()) {
+                            if (d.actOnClick(e)) {
+                                return;
+                            }
+                        }
+                    }
+                }
+
+
+                // Check if any room was clicked
                 for (Room r : l) {
                         if (r.actOnClick(e)) {
                             return;

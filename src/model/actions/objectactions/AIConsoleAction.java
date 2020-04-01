@@ -7,6 +7,7 @@ import model.GameData;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
+import model.map.floors.SingleSpriteFloorSet;
 import model.map.rooms.Room;
 import model.modes.GameMode;
 import model.objects.consoles.AIConsole;
@@ -45,6 +46,7 @@ public class AIConsoleAction extends ConsoleAction {
             console.shutDown(gameData);
             console.setShutdowner(performingClient);
             performingClient.addTolastTurnInfo("You shut down the AI! You're on your own now.");
+			console.getPosition().setFloorSet( new SingleSpriteFloorSet("aifloorshutdown", 8, 5));
 
 		} else {
 			boolean found = false;

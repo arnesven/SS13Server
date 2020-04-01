@@ -78,4 +78,8 @@ public class GameObject implements SpriteObject, Serializable {
         addSpecificActionsFor(gameData, forWhom, acts);
         return acts;
     }
+
+    public boolean shouldBeSeenWhenNotInRoomBy(Player player) {
+        return false;
+    }
 }

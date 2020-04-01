@@ -537,4 +537,15 @@ public class GameMap implements Serializable {
         }
         return closest;
     }
+
+    public void checkAllIDAreUnique() {
+        Map<Integer, Room> idset = new HashMap<>();
+        for (Room r : getRooms()) {
+            if (idset.keySet().contains(r.getID())) {
+                throw new IllegalRoomIDException("Two rooms with id " + r.getID() +
+                        " (" + r.getName() + " and " + idset.get(r.getID()).getName() + ")");
+            }
+            idset.put(r.getID(), r);
+        }
+    }
 }

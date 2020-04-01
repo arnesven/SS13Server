@@ -1,6 +1,5 @@
 package model.map.doors;
 
-import graphics.OverlaySprite;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;

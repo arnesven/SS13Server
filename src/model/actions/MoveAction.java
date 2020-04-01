@@ -68,7 +68,7 @@ public class MoveAction extends Action {
         }
     }
 
-    private Set<Room> findMoveToAblePositions(Actor whosAsking) {
+    protected Set<Room> findMoveToAblePositions(Actor whosAsking) {
         HashSet<Room> canMoveTo = new HashSet<>();
         canMoveTo.add(whosAsking.getPosition());
         int movement = whosAsking.getCharacter().getMovementSteps();

@@ -43,15 +43,17 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(bar, ss13, "starboard");
 
         Room shallFront = new HallwayRoom(11, "Starboard Hall Front", "B O A R D"       , 9,  9, 3, 2, new int[]{9, 12, 13, 446} ,         new double[]{12.0, 9.5} );
-        shallFront.addDoor(new DowngoingStairsDoor(11.5, 10.5));
+        shallFront.addObject(new DowngoingStairsDoor(shallFront));
         gm.addRoom(shallFront, ss13, "starboard");
 
-        Room underpass = new UnderpassRoom(445, 10, 5, 1, 5, new int[]{446}, new double[]{});
+        Room underpass = new UnderpassRoom(445, 10, 4, 1, 6, new int[]{446}, new double[]{});
         gm.addRoom(underpass, ss13, "center");
 
         Room cargoBay = new CargoBayRoom(446, 8, 10, 4, 3, new int[]{445, 11}, new double[]{10.5, 10.0});
-        cargoBay.addDoor(new UpgoingStairsDoor(11.5, 10.5));
         gm.addRoom(cargoBay, ss13, "starboard");
+
+        Room loungeRoom = new LoungeRoom(447, 10, 2, 2, 2, new int[]{19, 445}, new double[]{10.5, 4.0});
+        gm.addRoom(loungeRoom, ss13, "port");
 
         Room dorms = new DormsRoom(12, 9, 11, 4, 3, new int[]{10, 11, 14},         new double[]{10.5, 11.0, 13.0, 11.5} );
         gm.addRoom(dorms, ss13, "starboard");
@@ -60,12 +62,15 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(office, ss13, "front");
         gm.addRoom(office, ss13, "starboard");
 
-        Room frontHall = new HallwayRoom(13, "Front Hall"          , "FRONT"     ,12,  6, 2, 4, new int[]{11, 14, 15, 16},     new double[]{13.5, 10.0, 12.0, 8.0, 13.5, 6.0});
+        Room frontHall = new HallwayRoom(13, "Front Hall"          , "FRONT"     ,12,  6, 2, 4, new int[]{11, 14, 15, 16, 448},     new double[]{13.5, 10.0, 12.0, 8.0, 13.5, 6.0});
         gm.addRoom(frontHall, ss13, "front");
 
 
-        Room aiCore = new AIRoom(gameData, 15, 10,  7, 2, 2, new int[]{13}        ,         new double[]{} );
+        Room aiCore = new AIRoom(gameData, 15, 10,  7, 2, 2, new int[]{448}        ,         new double[]{} );
         gm.addRoom(aiCore, ss13, "center");
+
+        Room robotics = new RoboticsRoom(448, 10, 7, 2, 2, new int[]{13}, new double[]{});
+        gm.addRoom(robotics, ss13, "center");
 
         Room portHallFront = new HallwayRoom(16, "Port Hall Front"     , ""       ,13,  3, 2, 3, new int[]{13, 17, 18, 19},     new double[]{15.0, 5.5, 15.0, 3.5} );
         gm.addRoom(portHallFront, ss13, "front");
@@ -78,7 +83,8 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(ss, ss13, "front");
         gm.addRoom(ss, ss13, "port");
 
-        Room gate = new HallwayRoom(19, "Shuttle Gate"        , "Gate"   ,10,  2, 3, 2, new int[]{16, 21, 23},         new double[]{10.0, 3.5, 13.0, 3.5});
+        Room gate = new HallwayRoom(19, "Shuttle Gate"        , "Gate"   ,10,  2, 3, 2, new int[]{16, 21, 23, 447},         new double[]{10.0, 3.5, 13.0, 3.5});
+        gate.addObject(new DowngoingStairsDoor(gate));
         gm.addRoom(gate, ss13, "port");
 
 

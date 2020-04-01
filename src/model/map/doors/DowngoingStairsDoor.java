@@ -2,25 +2,17 @@ package model.map.doors;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.Player;
+import model.map.rooms.Room;
 
-public class DowngoingStairsDoor extends Door {
-    public DowngoingStairsDoor(double x, double y) {
-        super(x, y, "downstairs");
+public class DowngoingStairsDoor extends StairsObject {
+    public DowngoingStairsDoor(Room pos) {
+        super("Stairs Down", pos);
     }
 
     @Override
-    protected Sprite getSprite() {
+    public Sprite getSprite(Player whosAsking) {
         return new Sprite("downstairsdoor", "floors.png", 13, 24, this);
-    }
-
-    @Override
-    public Sprite getSprite(Actor whosAsking) {
-        return getSprite();
-    }
-
-    @Override
-    public String getPublicName(Actor whosAsking) {
-        return "Downstairs";
     }
 
 }

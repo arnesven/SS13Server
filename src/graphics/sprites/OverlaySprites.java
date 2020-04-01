@@ -89,6 +89,11 @@ public class OverlaySprites {
                     sp2.add(blurredCharacterSprite);
                 }
             }
+            for (GameObject obj : r2.getObjects()) {
+                if (obj.shouldBeSeenWhenNotInRoomBy(player)) {
+                    sp2.add(obj.getSprite(player));
+                }
+            }
             for (Event e : r2.getEvents()) {
                 if (e.getSense().sound == SensoryLevel.AudioLevel.VERY_LOUD ||
                         e.getSense().visual == SensoryLevel.VisualLevel.CLEARLY_VISIBLE ||

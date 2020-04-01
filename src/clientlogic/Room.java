@@ -433,6 +433,17 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     }
 
+    private ClientDoor doorHitByClick(MouseEvent e) {
+        if (doors != null) {
+            for (ClientDoor d : doors) {
+                if (d.actOnClick(e)) {
+                    return d;
+                }
+            }
+        }
+        return null;
+    }
+
     @Override
     protected void doOnHover(MouseEvent e, MapPanel mapPanel) {
         mapPanel.setToolTipText(getName());
@@ -444,15 +455,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
                    return;
             }
             for (int i = 0; i < doors.length; i++) {
-                ImageIcon ic = null;
-
-                ic = SpriteManager.getSprite(doors[i].getName() + "door0");
-                int xpos = (int)((doors[i].getX()-xOffset) * getXScale()) + xOffPx;
-                int ypos = (int)((doors[i].getY()-yOffset) * getYScale()) + yOffPx;
-
-                g.drawImage(SpriteManager.getSprite(floorSpriteBaseName).getImage(), xpos, ypos, null);
-                g.drawImage(ic.getImage(), xpos, ypos, null);
-                g.setColor(Color.BLACK);
+                doors[i].drawYourself(g, this, xOffset, yOffset, xOffPx, yOffPx);
             }
     }
 
@@ -559,6 +562,10 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     public ClientDoor[] getDoors() {
         return doors;
+    }
+
+    public String getFloorSpriteBaseName() {
+        return floorSpriteBaseName;
     }
 }
 
