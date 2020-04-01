@@ -3,6 +3,7 @@ package model.map.rooms;
 import model.map.doors.UpgoingStairsDoor;
 import model.map.floors.ChapelFloorSet;
 import model.map.floors.FloorSet;
+import model.objects.general.JunkVendingMachine;
 
 public class LoungeRoom extends SupportRoom {
 
@@ -10,6 +11,7 @@ public class LoungeRoom extends SupportRoom {
         super(ID, "Lounge", "", x, y, width, height, neighbors, doors);
         setZ(-1);
         addObject(new UpgoingStairsDoor(this));
+        addObject(new JunkVendingMachine(this));
     }
 
     @Override

@@ -46,7 +46,7 @@ public class DonutSS13Builder extends MapBuilder {
         shallFront.addObject(new DowngoingStairsDoor(shallFront));
         gm.addRoom(shallFront, ss13, "starboard");
 
-        Room underpass = new UnderpassRoom(445, 10, 4, 1, 6, new int[]{446}, new double[]{});
+        Room underpass = new UnderpassRoom(445, 10, 4, 1, 6, new int[]{446, 447}, new double[]{});
         gm.addRoom(underpass, ss13, "center");
 
         Room cargoBay = new CargoBayRoom(446, 8, 10, 4, 3, new int[]{445, 11}, new double[]{10.5, 10.0});

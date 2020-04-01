@@ -320,7 +320,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
 
     private boolean isLeftSuitableForWindow(double from, double to) {
-        for (Room r : GameData.getInstance().getMiniMap()) {
+        for (Room r : getRoomsOnSameZ()) {
             if (r.xPos + r.getWidth() == this.xPos) {
                 if (r.yPos <= this.yPos + from && this.yPos + from <= r.yPos + r.getHeight()) {
                     return false;
@@ -334,9 +334,16 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         return true;
     }
 
+    private ArrayList<Room> getRoomsOnSameZ() {
+        ArrayList<Room> list = new ArrayList<>();
+        list.addAll(GameData.getInstance().getMiniMap());
+        list.removeIf((Room r) -> r.getZPos() != this.getZPos());
+        return list;
+    }
+
 
     private boolean isRightSuitableForWindow(double from, double to) {
-        for (Room r : GameData.getInstance().getMiniMap()) {
+        for (Room r : getRoomsOnSameZ()) {
             if (r.xPos == this.xPos + this.getWidth()) {
                 if (r.yPos <= this.yPos + from && this.yPos + from <= r.yPos + r.getHeight()) {
                     return false;
@@ -351,7 +358,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
 
     private boolean isTopSuitableForWindow(double from, double to) {
-        for (Room r : GameData.getInstance().getMiniMap()) {
+        for (Room r : getRoomsOnSameZ()) {
             if (r.yPos + r.getHeight() == this.getYPos()) {
                 if (r.xPos <= this.xPos + from && this.xPos + from <= r.xPos + r.getWidth()) {
                     return false;
@@ -365,7 +372,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     }
 
     private boolean isBottomSuitableForWindow(double from, double to) {
-        for (Room r : GameData.getInstance().getMiniMap()) {
+        for (Room r : getRoomsOnSameZ()) {
             if (r.yPos == this.getYPos() + this.getHeight()) {
                 if (r.xPos <= this.xPos + from && this.xPos + from <= r.xPos + r.getWidth()) {
                     return false;
