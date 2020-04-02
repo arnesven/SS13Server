@@ -79,7 +79,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
 
     public void drawYourself(Graphics g, boolean selectable, boolean selected, int xOffset,
-                             int yOffset, int xOffPx, int yOffPx, boolean shadow) {
+                             int yOffset, int xOffPx, int yOffPx, boolean shadow, boolean withWalls) {
         if (selectable) {
             this.selectable = selectable;
         }
@@ -92,14 +92,19 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         super.setHitBox(x, y, getZPos(), finalW, finalH);
 
         int startSpritePaint = 0;
-        if (!floorSpriteBaseName.contains("outdoor")) {
-            startSpritePaint = 1;
-            drawWalls(g, x, y, finalW, finalH, background, shadow);
+        if (withWalls) {
+            startSpritePaint++;
         }
 
         if (!shadow) {
             drawFloors(g, startSpritePaint, background, x, y);
-        } else {
+        }
+
+        if (withWalls) {
+            drawWalls(g, x, y, finalW, finalH, background, shadow);
+        }
+
+        if (shadow) {
             g.setColor(Color.BLACK);
             g.fillRect(x + background.getIconWidth(), y + background.getIconHeight(),
                 finalW-MapPanel.getZoom(), finalH-MapPanel.getZoom());
@@ -152,8 +157,8 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     }
 
     private void drawFloors(Graphics g, int startSpritePaint, ImageIcon background, int x, int y) {
-        for (int row = startSpritePaint; row < height * (yscale / background.getIconHeight()); ++row) {
-            for (int col = startSpritePaint; col < width * (xscale / background.getIconWidth()); ++col) {
+        for (int row = startSpritePaint; row < height * (yscale / background.getIconHeight()) + 1; ++row) {
+            for (int col = startSpritePaint; col < width * (xscale / background.getIconWidth()) + 1; ++col) {
                 ImageIcon imgToDraw = getFloorForPos(row == startSpritePaint, row == (height * (yscale / background.getIconHeight())) - 1,
                         col == startSpritePaint, col == width * (xscale / background.getIconWidth()) - 1,
                         background);
@@ -624,6 +629,10 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     public String getBackgroundType() {
         return backgroundType;
+    }
+
+    public String getRoomStyle() {
+        return roomStyle;
     }
 
 

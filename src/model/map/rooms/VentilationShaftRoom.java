@@ -11,7 +11,7 @@ public class VentilationShaftRoom extends Room {
 
     @Override
     protected String getAppearanceScheme() {
-        return "Compact-Black";
+        return "NoWallsNoDoors-Black";
     }
 
     @Override

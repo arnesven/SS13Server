@@ -15,9 +15,9 @@ public abstract class BackgroundDrawingStrategy {
     }
 
     public static BackgroundDrawingStrategy makeStrategy(String type) {
-        if (type.equals("Black")) {
+        if (type.toLowerCase().equals("black")) {
             return new BlackBackgroundStrategy();
-        } else if (type.equals("Planet")) {
+        } else if (type.toLowerCase().equals("planet")) {
             return new PlanetBackgroundStrategy();
         }
         return new DrawSpaceBackgroundStrategy();

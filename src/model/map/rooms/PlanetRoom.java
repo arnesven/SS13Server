@@ -9,6 +9,11 @@ public class PlanetRoom extends Room {
     }
 
     @Override
+    protected String getAppearanceScheme() {
+        return "NoWallsNoDoors-Planet";
+    }
+
+    @Override
     protected FloorSet getFloorSet() {
         return new PlanetFloorSet();
     }
