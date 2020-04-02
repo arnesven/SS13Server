@@ -1,6 +1,9 @@
 package model.map;
 
+import model.actions.objectactions.MiningShuttleAction;
+import model.map.doors.Door;
 import model.map.rooms.Room;
+import model.map.rooms.ShuttleRoom;
 import util.Logger;
 
 import java.awt.*;
@@ -13,6 +16,7 @@ import java.util.*;
 public class Architecture {
 
     private final Collection<Room> allRooms;
+    private final GameMap map;
     private int xOffset;
     private int yOffset;
     private int width;
@@ -26,6 +30,7 @@ public class Architecture {
         xOffset = map.getMinX();
         yOffset = map.getMinY();
         this.allRooms = map.getRoomsForLevel(level);
+        this.map = map;
         zeroOut(map);
 
         fillInActualRooms(map);
@@ -217,6 +222,19 @@ public class Architecture {
         }
 
         throw new DoorNotFoundBetweenRooms();
+    }
+
+    public boolean joinRoomsWithDoor(Room a, Room b, Door newDoor) {
+        Point2D pos = getPossibleNewDoors(a).get(b);
+        if (pos == null) {
+            Logger.log(Logger.CRITICAL, "No place to connect rooms " + a.getName() + " and " + b.getName() + " with a door!");
+            return false;
+        } else {
+            newDoor.setPosition(pos.getX(), pos.getY());
+            GameMap.addDoor(a, newDoor);
+            map.joinRooms(a, b);
+            return true;
+        }
     }
 
     public static class NoLegalPlacementForRoom extends Exception {

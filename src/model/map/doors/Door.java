@@ -80,4 +80,9 @@ public abstract class Door implements Serializable, SpriteObject {
     public String getPublicName(Actor whosAsking) {
         return getName() + " door";
     }
+
+    public void setPosition(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 }

@@ -23,14 +23,15 @@ import java.util.Map;
  */
 public class BuildDoorAction extends Action {
 
+    private Architecture arch;
     private Map<Room, Point2D> arc;
     private Room selected;
 
     public BuildDoorAction(GameData gameData, Actor performingClient) {
-        super("Build NormalDoor", SensoryLevel.PHYSICAL_ACTIVITY);
+        super("Build Door", SensoryLevel.PHYSICAL_ACTIVITY);
 
 
-        Architecture arch = null;
+        this.arch = null;
         try {
             arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(performingClient.getPosition()).getName());
         } catch (NoSuchThingException e) {
@@ -72,13 +73,8 @@ public class BuildDoorAction extends Action {
             performingClient.getItems().remove(doorParts);
         }
 
+        arch.joinRoomsWithDoor(performingClient.getPosition(), selected, new NormalDoor(0.0, 0.0));
         performingClient.addTolastTurnInfo("You built a new door to " + selected.getName());
-
-        GameMap.addDoor(performingClient.getPosition(), new NormalDoor(arc.get(selected).getX(), arc.get(selected).getY()));
-        GameMap.joinRooms(performingClient.getPosition(), selected);
-
-
-        //gameData.getMap().joinRooms();
 
     }
 

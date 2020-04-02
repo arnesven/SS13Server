@@ -271,10 +271,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
                     } catch (NoSuchThingException e) {
                         e.printStackTrace();
                     }
-                    Point2D doorPos = arch.getPossibleNewDoors(bombRoom).get(attatchedToRoomWall);
-                    if (doorPos != null) {
-                        GameMap.addDoor(attatchedToRoomWall, new HoleInTheWallDoor(doorPos.getX(), doorPos.getY()));
-                        GameMap.joinRooms(bombRoom, attatchedToRoomWall);
+                    if (arch.joinRoomsWithDoor(bombRoom, attatchedToRoomWall, new HoleInTheWallDoor(0.0, 0.0))) {
                         Logger.log(Logger.INTERESTING, "Bomb blew a hole from " + bombRoom.getName() + " to " + attatchedToRoomWall.getName() + "!");
                     }
                 }

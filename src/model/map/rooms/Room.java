@@ -550,12 +550,21 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
 	public void removeDoorAt(double x, double y) {
 		Door[] newDoorArr = new Door[getDoors().length - 1];
-		int i = 0;
 		int index = 0;
-		for ( ; i < newDoorArr.length ; i+=2) {
-			if (getDoors()[i].getX() != x || getDoors()[i].getY() != y) {
+		for (int i = 0; i < getDoors().length ; i+=1) {
+			if (!(getDoors()[i].getX() == x && getDoors()[i].getY() == y)) {
 				newDoorArr[index] = getDoors()[i];
 				index += 1;
+			}
+		}
+	}
+
+	public void removeDoor(Door oldDoor) {
+		Door[] newDoorArr = new Door[getDoors().length - 1];
+		int index = 0;
+		for (int i = 0; i < getDoors().length; ++i) {
+			if (getDoors()[i] != oldDoor) {
+				newDoorArr[index++] = getDoors()[i];
 			}
 		}
 		setDoors(newDoorArr);

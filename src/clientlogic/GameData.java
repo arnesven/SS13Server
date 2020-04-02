@@ -5,6 +5,7 @@ import clientcomm.ServerCommunicator;
 import clientview.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GameData {
@@ -214,7 +215,6 @@ public class GameData {
 			if (parts[9].contains(",")) {
 				String[] dArr = parts[9].substring(1, parts[9].length()).split(", ");
 				doors = new ClientDoor[dArr.length/3];
-
 				for (int i = 0; i < dArr.length; i+=3) {
 					doors[i/3] = new ClientDoor(Double.parseDouble(dArr[i].replaceAll("]", "")),
 							Double.parseDouble(dArr[i+1].replaceAll("]", "")),
