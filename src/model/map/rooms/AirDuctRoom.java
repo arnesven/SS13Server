@@ -18,10 +18,10 @@ public class AirDuctRoom extends Room {
         setZ(-1);
     }
 
-    @Override
-    public boolean isHidden() {
-        return true;
-    }
+  //  @Override
+  //  public boolean isHidden() {
+  //      return true;
+  //  }
 
     @Override
     protected String getAppearanceScheme() {
