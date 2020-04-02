@@ -1,6 +1,6 @@
 package clientview.animation;
 
-import clientview.MapPanel;
+import clientview.components.MapPanel;
 
 public interface MyAnimation {
 

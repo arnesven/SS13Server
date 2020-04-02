@@ -1,4 +1,6 @@
-package clientview;
+package clientview.dialogs;
+
+import clientview.components.MyHtmlPane;
 
 import javax.swing.*;
 import java.awt.*;

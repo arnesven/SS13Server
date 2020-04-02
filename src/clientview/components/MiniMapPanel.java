@@ -1,4 +1,4 @@
-package clientview;
+package clientview.components;
 
 import clientlogic.GameData;
 import clientlogic.MouseInteractable;

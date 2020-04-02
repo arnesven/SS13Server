@@ -1,7 +1,10 @@
-package clientview;
+package clientview.components;
 
 import clientlogic.GameData;
 import clientlogic.Observer;
+import clientview.HeartIcon;
+import clientview.SmallHeartIcon;
+import clientview.SpriteManager;
 
 import javax.swing.*;
 import java.awt.*;

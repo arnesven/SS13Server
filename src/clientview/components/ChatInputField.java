@@ -1,4 +1,4 @@
-package clientview;
+package clientview.components;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;

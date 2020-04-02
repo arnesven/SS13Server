@@ -1,9 +1,8 @@
 package clientlogic;
 
-import clientview.MapPanel;
+import clientview.components.MapPanel;
 import util.Pair;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

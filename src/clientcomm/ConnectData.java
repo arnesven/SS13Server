@@ -1,4 +1,6 @@
-package clientview;
+package clientcomm;
+
+import clientview.components.ReturningPlayerPanel;
 
 public class ConnectData {
     public final boolean returning;

@@ -1,7 +1,7 @@
 package clientview.overlays;
 
 import clientview.GraphicsUtils;
-import clientview.MapPanel;
+import clientview.components.MapPanel;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

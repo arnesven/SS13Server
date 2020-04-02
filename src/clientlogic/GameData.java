@@ -3,9 +3,11 @@ package clientlogic;
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientview.*;
+import clientview.components.ChatPanel;
+import clientview.components.LastTurnPanel;
+import clientview.components.MapPanel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GameData {

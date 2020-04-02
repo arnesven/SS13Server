@@ -1,6 +1,6 @@
 package clientview.overlays;
 
-import clientview.MapPanel;
+import clientview.components.MapPanel;
 
 import javax.swing.*;
 import java.awt.*;

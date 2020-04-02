@@ -2,7 +2,7 @@ package clientview.strategies;
 
 import clientlogic.GameData;
 import clientlogic.Room;
-import clientview.MapPanel;
+import clientview.components.MapPanel;
 import clientview.OverlaySprite;
 
 import java.awt.*;

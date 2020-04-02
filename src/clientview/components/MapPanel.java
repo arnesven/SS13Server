@@ -1,4 +1,4 @@
-package clientview;
+package clientview.components;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
@@ -6,6 +6,7 @@ import clientlogic.ClientDoor;
 import clientlogic.GameData;
 import clientlogic.Observer;
 import clientlogic.Room;
+import clientview.OverlaySprite;
 import clientview.strategies.BackgroundDrawingStrategy;
 import clientview.strategies.DrawingStrategy;
 import clientview.strategies.StationDrawingStrategy;

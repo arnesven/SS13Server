@@ -1,6 +1,7 @@
-package clientview;
+package clientview.components;
 
 import clientlogic.GameData;
+import clientview.PlayersPanel;
 import clientview.animation.AnimationHandler;
 
 import javax.swing.*;

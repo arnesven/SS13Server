@@ -2,8 +2,8 @@ package clientlogic;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
-import clientview.MapPanel;
-import clientview.MyLabel;
+import clientview.components.MapPanel;
+import clientview.components.MyLabel;
 import clientview.OverlaySprite;
 import clientview.SpriteManager;
 import util.Logger;
@@ -99,10 +99,8 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
         if (!shadow) {
             drawFloors(g, startSpritePaint, background, x, y);
-
         } else {
             g.setColor(Color.BLACK);
-
             g.fillRect(x + background.getIconWidth(), y + background.getIconHeight(),
                 finalW-MapPanel.getZoom(), finalH-MapPanel.getZoom());
         }

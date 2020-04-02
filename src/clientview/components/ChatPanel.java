@@ -1,4 +1,4 @@
-package clientview;
+package clientview.components;
 
 import javax.swing.*;
 import java.awt.*;

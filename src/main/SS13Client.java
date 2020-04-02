@@ -1,11 +1,14 @@
 package main;
 
+import clientcomm.ConnectData;
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.Cookies;
 import clientlogic.GameData;
 import clientlogic.Room;
-import clientview.*;
+import clientview.components.GameUIPanel;
+import clientview.components.MapPanel;
+import clientview.components.ReturningPlayerPanel;
 import clientview.dialogs.ConnectToServerDialog;
 import clientview.dialogs.StartNewServerDialog;
 import clientview.strategies.BackgroundDrawingStrategy;

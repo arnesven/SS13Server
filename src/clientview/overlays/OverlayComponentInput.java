@@ -2,7 +2,7 @@ package clientview.overlays;
 
 
 import clientview.GraphicsUtils;
-import clientview.MapPanel;
+import clientview.components.MapPanel;
 import clientview.animation.AnimationHandler;
 
 import java.awt.*;

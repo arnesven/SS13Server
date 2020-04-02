@@ -1,4 +1,4 @@
-package clientview;
+package clientview.dialogs;
 
 import main.SS13Client;
 

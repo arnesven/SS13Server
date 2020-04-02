@@ -1,4 +1,4 @@
-package clientview;
+package clientview.components;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
@@ -7,8 +7,6 @@ import clientlogic.Observer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class GameUIPanel extends JPanel implements Observer {
 

@@ -1,6 +1,6 @@
 package clientview.strategies;
 
-import clientview.MapPanel;
+import clientview.components.MapPanel;
 
 import java.awt.*;
 

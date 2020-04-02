@@ -6,6 +6,8 @@ import clientlogic.GameData;
 import clientlogic.MouseInteractable;
 import clientlogic.Room;
 import clientview.animation.AnimationHandler;
+import clientview.components.MapPanel;
+import clientview.components.MyPopupMenu;
 import util.Pair;
 
 import javax.swing.*;

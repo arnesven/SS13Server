@@ -4,6 +4,7 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientlogic.Observer;
+import clientview.components.GameUIPanel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;

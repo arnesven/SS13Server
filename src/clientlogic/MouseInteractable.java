@@ -1,6 +1,6 @@
 package clientlogic;
 
-import clientview.MapPanel;
+import clientview.components.MapPanel;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

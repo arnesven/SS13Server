@@ -1,7 +1,9 @@
-package clientview;
+package clientview.components;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
+import clientview.PlayersPanel;
+import clientview.ServerSettings;
 
 import javax.swing.*;
 import java.awt.*;

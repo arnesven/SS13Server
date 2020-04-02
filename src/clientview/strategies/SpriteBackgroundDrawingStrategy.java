@@ -1,4 +1,4 @@
-package clientview;
+package clientview.strategies;
 
 import clientview.strategies.BackgroundDrawingStrategy;
 
