@@ -10,8 +10,8 @@ public class VentilationShaftRoom extends Room {
     }
 
     @Override
-    protected String getBackgroundType() {
-        return "Black";
+    protected String getAppearanceScheme() {
+        return "Compact-Black";
     }
 
     @Override

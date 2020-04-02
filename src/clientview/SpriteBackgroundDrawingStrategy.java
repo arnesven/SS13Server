@@ -1,5 +1,7 @@
 package clientview;
 
+import clientview.strategies.BackgroundDrawingStrategy;
+
 import javax.swing.*;
 import java.util.Collections;
 import java.util.List;

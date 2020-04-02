@@ -1,4 +1,4 @@
-package clientview;
+package clientview.strategies;
 
 import java.awt.*;
 

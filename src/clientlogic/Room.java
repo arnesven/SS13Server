@@ -26,6 +26,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     private static boolean automaticScaling = true;
     private final String floorSpriteBaseName;
     private final String backgroundType;
+    private final String roomStyle;
 
     private int width;
     private int height;
@@ -47,7 +48,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
 
     public Room(int ID, String name, String effectName, int x, int y, int z, int width, int height,
-                ClientDoor[] doors, String color, String backgroundType) {
+                ClientDoor[] doors, String color, String appearence) {
         this.ID = ID;
         this.name = name;
         this.effectName = effectName;
@@ -59,7 +60,8 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         highLight = false;
         this.doors = doors;
         floorSpriteBaseName = color;
-        this.backgroundType = backgroundType;
+        this.backgroundType = appearence.split("-")[1];
+        this.roomStyle = appearence.split("-")[0];
     }
 
     public static void setAutomaticScaling(boolean b) {

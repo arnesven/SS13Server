@@ -8,6 +8,7 @@ import clientlogic.Room;
 import clientview.*;
 import clientview.dialogs.ConnectToServerDialog;
 import clientview.dialogs.StartNewServerDialog;
+import clientview.strategies.BackgroundDrawingStrategy;
 import tests.SimulationClient;
 
 import javax.swing.*;

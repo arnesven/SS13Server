@@ -1,15 +1,19 @@
-package clientview;
+package clientview.strategies;
+
+import clientview.MapPanel;
 
 import java.awt.*;
 
 public abstract class DrawingStrategy {
     private final MapPanel mapPanel;
     private BackgroundDrawingStrategy bgStrategy;
+    private RoomDrawingStrategy roomStrategy;
 
 
-    public DrawingStrategy(MapPanel mapPanel, BackgroundDrawingStrategy bgStrat) {
+    public DrawingStrategy(MapPanel mapPanel, BackgroundDrawingStrategy bgStrat, RoomDrawingStrategy roomStrat) {
         this.mapPanel = mapPanel;
         this.bgStrategy = bgStrat;
+        this.roomStrategy = roomStrat;
     }
 
     public abstract void paint(Graphics g);
@@ -21,6 +25,10 @@ public abstract class DrawingStrategy {
     public void setBackgroundDrawingStrategy(BackgroundDrawingStrategy strat) {
         bgStrategy = strat;
     }
+
+    public RoomDrawingStrategy getRoomDrawingStrategy() { return roomStrategy; }
+
+    public void setRoomDrawingStrategy(RoomDrawingStrategy roomStrat) { roomStrategy = roomStrat; }
 
     public MapPanel getMapPanel() {
         return mapPanel;

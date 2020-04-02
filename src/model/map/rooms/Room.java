@@ -34,7 +34,6 @@ import util.Logger;
  */
 public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
-	private static final RoomWalls walls = new RoomWalls();
 
     private String name;
 	private int[] neighbors;
@@ -59,6 +58,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	private int ID;
 	private Door[] doors;
     private List<Sprite> effect = new ArrayList<>();
+	private static final RoomWalls walls = new RoomWalls();
 
 
 	public Room(int ID, String name, int x, int y, int width, int height, int[] neighbors, double[] doors) {
@@ -87,17 +87,18 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
 		String result = ID + ":" + name + ":" + effectStr + ":" + x + ":" + y + ":" + z + ":" +
 						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors) + ":" +
-				floorSprite.getMainSprite().getName() + ":" + getBackgroundType();
+				floorSprite.getMainSprite().getName() + ":" + getAppearanceScheme();
 		//Logger.log(result);
         return result;
 	}
 
-	protected String getBackgroundType() {
+	protected String getAppearanceScheme() {
+		String defaultApperance = "WallsAndWindows";
 		if (map == null) {
-			return "Space";
+			return defaultApperance + "-Space";
 		}
 		try {
-			return map.getLevelForRoom(this).getBackgroundType();
+			return defaultApperance + "-" + map.getLevelForRoom(this).getBackgroundType();
 		} catch (NoSuchThingException e) {
 			e.printStackTrace();
 		}
