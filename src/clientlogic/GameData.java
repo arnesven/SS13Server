@@ -246,10 +246,17 @@ public class GameData {
 	}
 
 	public int getMapWidth() {
-        return getMapWidthHelper(rooms);
+        return getMapWidthHelper(getScalingRooms());
     }
 
-    public int getMiniMapWidth() {
+	private List<Room> getScalingRooms() {
+		List<Room> roomsToCheck = new ArrayList<>();
+		roomsToCheck.addAll(rooms);
+		roomsToCheck.removeIf((Room r) -> r.getZPos() != getCurrentZ());
+		return roomsToCheck;
+	}
+
+	public int getMiniMapWidth() {
         return getMapWidthHelper(miniMap);
     }
 
@@ -266,7 +273,7 @@ public class GameData {
 	}
 
 	public int getMapHeight() {
-        return getMapHeightHelper(rooms);
+		return getMapHeightHelper(getScalingRooms());
     }
 
     public int getMiniMapHeight() {
@@ -675,7 +682,7 @@ public class GameData {
 	}
 
 	public int getMinY() {
-        return getMinYHelper(rooms);
+        return getMinYHelper(getScalingRooms());
     }
 
     public int getMiniMapMinY() {
@@ -693,7 +700,7 @@ public class GameData {
 	}
 
 	public int getMinX() {
-        return getMinXHelper(rooms);
+        return getMinXHelper(getScalingRooms());
     }
 
     public int getMiniMapMinX() {

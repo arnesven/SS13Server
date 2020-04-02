@@ -88,7 +88,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(gate, ss13, "port");
 
 
-        Room CQ = new CaptainsQuartersRoom(gameData, 20, 15,  8, 2, 2, new int[]{17}        ,         new double[]{16.0, 8.0} );
+        Room CQ = new CaptainsQuartersRoom(gameData, 20, 15,  8, 2, 2, new int[]{17, 449}        ,         new double[]{16.0, 8.0} );
         gm.addRoom(CQ, ss13, "front");
 
         Room airLock2 = new AirLockRoom(21, 2   ,13,  2, 1, 1, new int[]{19}        ,         new double[]{13.0, 2.5} );
@@ -131,7 +131,9 @@ public class DonutSS13Builder extends MapBuilder {
         Room space = new SpaceRoom(30, 0, 0, 1, 1);
 
         addEventsToSpaceRoom(space, gameData);
-
         gm.addRoom(space, ss13, "space");
+
+        Room ventilationShaft = new VentilationShaftRoom(449, 4, 0, 1, 8, new int[]{20}, new double[]{});
+        gm.addRoom(ventilationShaft, ss13, "center");
     }
 }

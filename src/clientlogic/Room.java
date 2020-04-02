@@ -556,17 +556,19 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         }
 
         public static void setXScale(double d) {
-        if (d != xscale) {
-            Logger.log("New x-scale is: " + d);
-            xscale = d;
-        }
+            d = Math.max(d, 32.0);
+            if (d != xscale) {
+                Logger.log("New x-scale is: " + d);
+                xscale = d;
+            }
         }
 
         public static void setYScale(double d) {
-        if (d != yscale) {
-            Logger.log("New y-scale is " + d);
-            yscale = d;
-        }
+            d = Math.max(d, 32.0);
+            if (d != yscale) {
+                Logger.log("New y-scale is " + d);
+                yscale = d;
+            }
         }
 
         protected void setHighLight(boolean b) {

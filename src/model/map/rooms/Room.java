@@ -92,7 +92,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
         return result;
 	}
 
-	private String getBackgroundType() {
+	protected String getBackgroundType() {
 		if (map == null) {
 			return "Space";
 		}
