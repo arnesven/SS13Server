@@ -18,7 +18,6 @@ public class MoveAction extends Action {
 
     public MoveAction(Actor actor) {
         super("Move", SensoryLevel.PHYSICAL_ACTIVITY);
-        Logger.log("Creating Move action object for " + actor.getPublicName());
     }
 
     @Override
@@ -36,7 +35,6 @@ public class MoveAction extends Action {
             opts.addOption(r.getName());
             optstr += r.getName() + ",";
         }
-        Logger.log("MoveAction options are: " + optstr);
 
         return opts;
     }
@@ -81,5 +79,9 @@ public class MoveAction extends Action {
         }
         canMoveTo.remove(whosAsking.getPosition());
         return canMoveTo;
+    }
+
+    protected void setDestination(Room r) {
+        destination = r;
     }
 }

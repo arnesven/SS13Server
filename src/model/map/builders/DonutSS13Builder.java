@@ -88,7 +88,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(gate, ss13, "port");
 
 
-        Room CQ = new CaptainsQuartersRoom(gameData, 20, 15,  8, 2, 2, new int[]{17, 449}        ,         new double[]{16.0, 8.0} );
+        Room CQ = new CaptainsQuartersRoom(gameData, 20, 15,  8, 2, 2, new int[]{17}        ,         new double[]{16.0, 8.0} );
         gm.addRoom(CQ, ss13, "front");
 
         Room airLock2 = new AirLockRoom(21, 2   ,13,  2, 1, 1, new int[]{19}        ,         new double[]{13.0, 2.5} );
@@ -133,7 +133,16 @@ public class DonutSS13Builder extends MapBuilder {
         addEventsToSpaceRoom(space, gameData);
         gm.addRoom(space, ss13, "space");
 
-        Room ventilationShaft = new VentilationShaftRoom(449, 4, 0, 1, 8, new int[]{20}, new double[]{});
-        gm.addRoom(ventilationShaft, ss13, "center");
+        Room ventilationShaft = new AirDuctRoom(499, 3, 2, 1, 5, new int[]{500, 501, 502, 503}, new double[]{});
+        gm.addRoom(ventilationShaft, ss13, "aft");
+        Room vent2 = new AirDuctRoom(500, 2, 7, 13, 1, new int[]{499, 501, 502, 503}, new double[]{});
+        gm.addRoom(vent2, ss13, "center");
+        Room vent3 = new AirDuctRoom(501, 7, 8, 1, 4, new int[]{499, 500, 502, 503}, new double[]{});
+        gm.addRoom(vent3, ss13, "starboard");
+        Room vent4 = new AirDuctRoom(502, 15, 3, 1, 7, new int[]{499, 500, 501, 503}, new double[]{});
+        gm.addRoom(vent4, ss13, "front");
+        Room vent5 = new AirDuctRoom(503, 9, 4, 1, 3, new int[]{499, 500, 501, 502}, new double[]{});
+        gm.addRoom(vent5, ss13, "port");
+
     }
 }

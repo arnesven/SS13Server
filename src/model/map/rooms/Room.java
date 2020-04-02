@@ -76,6 +76,8 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
 	protected abstract FloorSet getFloorSet();
 
+	public void doSetup(GameData gameData) { }
+
 	@Override
 	public String toString() {
 		String effectStr;
@@ -570,5 +572,6 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		}
 		setDoors(newDoorArr);
 	}
+
 
 }

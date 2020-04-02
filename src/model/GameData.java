@@ -428,13 +428,12 @@ public class GameData implements Serializable {
         this.moveEvents = new ArrayList<>();
         this.lateActions = new ArrayList<>();
 		this.map = MapBuilder.createMap(this);
+		map.runSetupForAllRooms(this);
 		Logger.log("Map built");
 		for (Player p : getPlayersAsList()) {
 			p.prepForNewGame();
 		}
 		Logger.log("Players prepped");
-
-
 
 		this.gameMode = GameModeFactory.create(selectedMode);
 		Logger.log("Got game mode from factory.");
@@ -443,7 +442,8 @@ public class GameData implements Serializable {
 		gameMode.setup(this);
 		Logger.log("Game mode set-upped!");
         computerSystem.setUpGame(this);
-        Logger.log("Computer System setupped.");
+
+		Logger.log("Computer System setupped.");
         getChat().serverSay("New game started, mode: " + selectedMode);
 	}
 

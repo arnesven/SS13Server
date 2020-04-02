@@ -43,5 +43,8 @@ public class CaptainCharacter extends CrewCharacter {
         return 50;
     }
 
-
+    @Override
+    public int getSize() {
+        return SMALL_SIZE; // TODO: remove this later.
+    }
 }

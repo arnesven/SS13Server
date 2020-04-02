@@ -64,7 +64,6 @@ public abstract class MapBuilder {
         gm.checkAllIDAreUnique();
         gm.setMapReferenceForAllRooms();
 
-
 		return gm;
 	}
 

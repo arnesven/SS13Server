@@ -561,7 +561,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         }
 
         public static void setXScale(double d) {
-            d = Math.max(d, 32.0);
+            d = Math.max(d, 64.0);
             if (d != xscale) {
                 Logger.log("New x-scale is: " + d);
                 xscale = d;
@@ -569,7 +569,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         }
 
         public static void setYScale(double d) {
-            d = Math.max(d, 32.0);
+            d = Math.max(d, 64.0);
             if (d != yscale) {
                 Logger.log("New y-scale is " + d);
                 yscale = d;

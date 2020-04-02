@@ -458,4 +458,9 @@ public abstract class CharacterDecorator extends GameCharacter {
                 return getInner().getDecorator(check);
             }
     }
+
+	@Override
+	public int getSize() {
+		return innerChar.getSize();
+	}
 }

@@ -44,8 +44,11 @@ import model.map.rooms.Room;
  * of a player or a NPC. 
  */
 public abstract class GameCharacter implements Serializable {
-	
-	private double maxHealth = 3.0;
+
+    public static final int SMALL_SIZE = 0;
+    public static final int NORMAL_SIZE = 1;
+    public static final int LARGE_SIZE = 2;
+    private double maxHealth = 3.0;
 	
 	private static final double ENCUMBERANCE_LEVEL = 5.0;
 	private String name;
@@ -738,4 +741,7 @@ public abstract class GameCharacter implements Serializable {
         throw new NoSuchInstanceException("Can't call getDecorator on GameCharacter");
     }
 
+	public int getSize() {
+		return NORMAL_SIZE;
+	}
 }

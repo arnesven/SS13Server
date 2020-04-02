@@ -548,4 +548,10 @@ public class GameMap implements Serializable {
             idset.put(r.getID(), r);
         }
     }
+
+    public void runSetupForAllRooms(GameData gameData) {
+            for (Room r : getRooms()) {
+                r.doSetup(gameData);
+            }
+    }
 }
