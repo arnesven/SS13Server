@@ -117,11 +117,38 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
         for (int row = 0; row < height * (yscale / background.getIconHeight())+1; ++row) {
             for (int col = 0; col < width * (xscale / background.getIconWidth())+1; ++col) {
-                g.drawImage(background.getImage(),
-                        x + col * background.getIconWidth(),
-                        y + row * background.getIconHeight(), null);
+                ImageIcon spriteToDraw = getAboveSprite(row == 0, row == height * (yscale / background.getIconHeight()),
+                                            col == 0, col ==  width * (xscale / background.getIconWidth()));
+                g.drawImage(spriteToDraw.getImage(),
+                        x + col * spriteToDraw.getIconWidth(),
+                        y + row * spriteToDraw.getIconHeight(), null);
             }
         }
+
+        ImageIcon floorUnderneath = SpriteManager.getSprite(floorSpriteBaseName);
+        decorateWithLeftRightWindows(g, x, y, finalW, finalH, floorUnderneath, "above");
+        decorateWithBottomWindows(g, x, y, finalW, finalH, floorUnderneath);
+    }
+
+    private ImageIcon getAboveSprite(boolean rowstart, boolean rowend, boolean colstart, boolean colend) {
+        String spriteName = "walldarkroof0";
+        if (rowstart && colstart) {
+            spriteName = "walldarkcorner0";
+        } else if (rowstart && colend) {
+            spriteName = "walldarkUR0";
+        } else if (rowend && colstart) {
+            spriteName = "walldarkLL0";
+        } else if (rowend && colend) {
+            spriteName = "walldarkLR0";
+        } else if (colstart || colend) {
+            spriteName = "walldarkside0";
+        } else if (colend) {
+            spriteName = "walldarkright0";
+        } else if (rowend) {
+            spriteName = "walldarktop0";
+        }
+
+        return SpriteManager.getSprite(spriteName);
     }
 
     private void drawFloors(Graphics g, int startSpritePaint, ImageIcon background, int x, int y) {
@@ -262,54 +289,85 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     }
 
     private void decorateWallsWithWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, boolean shadow) {
-        ImageIcon left = SpriteManager.getSprite("walldarkwindowleft0");
-        ImageIcon right = SpriteManager.getSprite("walldarkwindowright0");
-        ImageIcon topleft = SpriteManager.getSprite("walldarkwindowtop0");
-        ImageIcon bottomleft = SpriteManager.getSprite("walldarkwindowbottom0");
-        ImageIcon topright = SpriteManager.getSprite("walldarkwindowup0");
-        ImageIcon bottomright = SpriteManager.getSprite("walldarkwindowdown0");
-        ImageIcon links = SpriteManager.getSprite("walldarkwindowlinks0");
-        ImageIcon rechts = SpriteManager.getSprite("walldarkwindowrechts0");
+        decorateWithTopBottomWindows(g, x, y, finalW, finalH, background);
+        decorateWithLeftRightWindows(g, x, y, finalW, finalH, background, "");
+    }
 
-      //  for (int xpos = x + left.getIconWidth()/5; xpos < finalW; xpos += left.getIconWidth()*2) {
-      //  if (!shadow) {
-        int noOfWindowsX = ((finalW-MapPanel.getZoom()) / (left.getIconWidth() * 2));
-      //  System.out.println("Adding windows for " + getName() + ", no of windows: " + noOfWindowsX);
-            for (int i = 1; i <= noOfWindowsX; ++i) {
-                int xposleft = x + left.getIconWidth() * (i * 2 - 1);
-                int xposright = x + left.getIconWidth() * (i * 2);
-                double from = (double)(i*2-1) * (double)MapPanel.getZoom() / getXScale();
-                double to = (double)(i*2) * (double)MapPanel.getZoom() / getXScale();
-             //   System.out.println("... Window at " + xposleft);
-                if (isTopSuitableForWindow(from, to)) {
-                    drawWindowSprite(g, left.getImage(), xposleft, y, background);
-                    drawWindowSprite(g, right.getImage(), xposright, y, background);
-                }
-                if (isBottomSuitableForWindow(from, to)) {
-                    drawWindowSprite(g, links.getImage(), xposleft, y+finalH, background);
-                    drawWindowSprite(g, rechts.getImage(), xposright, y+finalH, background);
-                }
-            }
-
-            int noOfWindowsY = ((finalH-MapPanel.getZoom()) / (left.getIconHeight() * 2));
-            for (int i = 1; i <= noOfWindowsY; ++i) {
-                int ypostop = y + left.getIconHeight() * (i * 2 - 1);
-                int yposbot = y + left.getIconHeight() * (i * 2);
-                double from = (double)(i*2-1) * (double)MapPanel.getZoom() / getYScale();
-                double to = (double)(i*2) * (double)MapPanel.getZoom() / getYScale();
-                if (isLeftSuitableForWindow(from, to)) {
-                    drawWindowSprite(g, topleft.getImage(), x, ypostop, background);
-                    drawWindowSprite(g, bottomleft.getImage(), x, yposbot, background);
-                }
-                if (isRightSuitableForWindow(from, to)) {
-                    drawWindowSprite(g, topright.getImage(), x+finalW, ypostop, background);
-                    drawWindowSprite(g, bottomright.getImage(), x+finalW, yposbot, background);
-                }
-            }
-
+    private void decorateWithLeftRightWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, String above) {
+        decorateWithLeftWindows(g, x, y, finalW, finalH, background, above);
+        decorateWithRightWindows(g, x, y, finalW, finalH, background, above);
 
     }
 
+    private void decorateWithRightWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, String above) {
+        int noOfWindowsX = ((finalH - MapPanel.getZoom()) / (background.getIconHeight() * 2));
+        ImageIcon topright = SpriteManager.getSprite("walldarkwindowup" + above + "0");
+        ImageIcon bottomright = SpriteManager.getSprite("walldarkwindowdown" + above + "0");
+        for (int i = 1; i <= noOfWindowsX; ++i) {
+            int ypostop = y + topright.getIconHeight() * (i * 2 - 1);
+            int yposbot = y + topright.getIconHeight() * (i * 2);
+            double from = (double) (i * 2 - 1) * (double) MapPanel.getZoom() / getYScale();
+            double to = (double) (i * 2) * (double) MapPanel.getZoom() / getYScale();
+            if (isRightSuitableForWindow(from, to)) {
+                drawWindowSprite(g, topright.getImage(), x + finalW, ypostop, background);
+                drawWindowSprite(g, bottomright.getImage(), x + finalW, yposbot, background);
+            }
+        }
+    }
+
+    private void decorateWithLeftWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, String above) {
+        int noOfWindowsX = ((finalH - MapPanel.getZoom()) / (background.getIconHeight() * 2));
+        ImageIcon topleft = SpriteManager.getSprite("walldarkwindowtop" + above + "0");
+        ImageIcon bottomleft = SpriteManager.getSprite("walldarkwindowbottom" + above + "0");
+        for (int i = 1; i <= noOfWindowsX; ++i) {
+            int ypostop = y + topleft.getIconHeight() * (i * 2 - 1);
+            int yposbot = y + topleft.getIconHeight() * (i * 2);
+            double from = (double) (i * 2 - 1) * (double) MapPanel.getZoom() / getYScale();
+            double to = (double) (i * 2) * (double) MapPanel.getZoom() / getYScale();
+            if (isLeftSuitableForWindow(from, to)) {
+                drawWindowSprite(g, topleft.getImage(), x, ypostop, background);
+                drawWindowSprite(g, bottomleft.getImage(), x, yposbot, background);
+            }
+        }
+    }
+
+    private void decorateWithTopBottomWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background) {
+        decorateWithTopWindows(g, x, y, finalW, finalH, background);
+        decorateWithBottomWindows(g, x, y, finalW, finalH, background);
+
+    }
+
+    private void decorateWithBottomWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background) {
+        ImageIcon links = SpriteManager.getSprite("walldarkwindowlinks0");
+        ImageIcon rechts = SpriteManager.getSprite("walldarkwindowrechts0");
+        int noOfWindowsX = ((finalW - MapPanel.getZoom()) / (background.getIconWidth() * 2));
+        for (int i = 1; i <= noOfWindowsX; ++i) {
+            int xposleft = x + background.getIconWidth() * (i * 2 - 1);
+            int xposright = x + background.getIconWidth() * (i * 2);
+            double from = (double) (i * 2 - 1) * (double) MapPanel.getZoom() / getXScale();
+            double to = (double) (i * 2) * (double) MapPanel.getZoom() / getXScale();
+            if (isBottomSuitableForWindow(from, to)) {
+                drawWindowSprite(g, links.getImage(), xposleft, y + finalH, background);
+                drawWindowSprite(g, rechts.getImage(), xposright, y + finalH, background);
+            }
+        }
+    }
+
+    private void decorateWithTopWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background) {
+        ImageIcon left = SpriteManager.getSprite("walldarkwindowleft0");
+        ImageIcon right = SpriteManager.getSprite("walldarkwindowright0");
+        int noOfWindowsX = ((finalW - MapPanel.getZoom()) / (left.getIconWidth() * 2));
+        for (int i = 1; i <= noOfWindowsX; ++i) {
+            int xposleft = x + left.getIconWidth() * (i * 2 - 1);
+            int xposright = x + left.getIconWidth() * (i * 2);
+            double from = (double) (i * 2 - 1) * (double) MapPanel.getZoom() / getXScale();
+            double to = (double) (i * 2) * (double) MapPanel.getZoom() / getXScale();
+            if (isTopSuitableForWindow(from, to)) {
+                drawWindowSprite(g, left.getImage(), xposleft, y, background);
+                drawWindowSprite(g, right.getImage(), xposright, y, background);
+            }
+        }
+    }
 
 
     private void drawWindowSprite(Graphics g, Image image, int x, int y, ImageIcon background) {
