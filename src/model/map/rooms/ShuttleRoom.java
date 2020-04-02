@@ -14,8 +14,8 @@ public class ShuttleRoom extends Room {
         this.addObject(new ShuttleControl(this));
     }
 
-    public void moveTo(int x, int y) {
-        setCoordinates(x, y);
+    public void moveTo(int x, int y, int z) {
+        setCoordinates(x, y, z);
     }
 
     @Override

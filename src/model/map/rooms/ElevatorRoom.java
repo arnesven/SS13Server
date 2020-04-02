@@ -46,7 +46,7 @@ public class ElevatorRoom extends Room {
     private void increaseFloor(GameData gameData) {
         gameData.getMap().separateRooms(ElevatorRoom.this, getCurrentFloor());
         Room next = getNextFloor();
-        ElevatorRoom.this.setCoordinates(coordinates[2*nextFloor], coordinates[2*nextFloor+1]);
+        ElevatorRoom.this.setCoordinates(coordinates[2*nextFloor], coordinates[2*nextFloor+1], getZ());
         gameData.getMap().joinRooms(ElevatorRoom.this, next);
 
         currentFloor = nextFloor;

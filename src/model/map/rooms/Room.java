@@ -482,9 +482,10 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
         return 1.0;
     }
 
-    protected void setCoordinates(int newX, int newY) {
+    protected void setCoordinates(int newX, int newY, int z) {
         x = newX;
         y = newY;
+        this.z = z;
     }
 
     public void setName(String name) {
