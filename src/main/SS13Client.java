@@ -47,6 +47,7 @@ public class SS13Client extends JFrame {
         view = new JMenu("View");
         makeScaleMenu(view);
         makeBackgroundMenu(view);
+        makeHeightMenu(view);
         view.setEnabled(false);
         JMenu server = new JMenu("Server");
 
@@ -136,6 +137,22 @@ public class SS13Client extends JFrame {
 
         this.setVisible(true);
 
+    }
+
+    private void makeHeightMenu(JMenu view) {
+        JMenu height = new JMenu("View Depth");
+
+        JMenuItem stepDown = new JMenuItem("Step Down", KeyEvent.VK_PAGE_DOWN);
+        stepDown.addActionListener((ActionEvent e) -> MapPanel.addZTranslation(-1));
+
+        JMenuItem stepUp = new JMenuItem("Step Up", KeyEvent.VK_PAGE_UP);
+        stepUp.setMnemonic(KeyEvent.VK_PAGE_UP);
+        stepUp.addActionListener((ActionEvent e) -> MapPanel.addZTranslation(1));
+        height.add(stepUp);
+        height.add(stepDown);
+
+
+        view.add(height);
     }
 
     private void makeBackgroundMenu(JMenu view) {

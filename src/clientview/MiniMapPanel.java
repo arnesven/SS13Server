@@ -68,7 +68,7 @@ public class MiniMapPanel extends JComponent {
             }
         }
         g.setColor(Color.YELLOW);
-        g.drawString("Z = " + currZ, 3, getHeight()-10);
+        g.drawString("Z = " + currZ, 3, getHeight()-g.getFontMetrics().getHeight());
         g.setColor(Color.BLACK);
     }
 
