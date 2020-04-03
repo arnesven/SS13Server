@@ -29,8 +29,8 @@ public class StationDrawingStrategy extends DrawingStrategy {
 
             Room.setXScale((double) xscale);
             Room.setYScale((double) yscale);
-            xOffset = GameData.getInstance().getMinX();
-            yOffset = GameData.getInstance().getMinY();
+            xOffset = GameData.getInstance().getMinX() + getXTrans();
+            yOffset = GameData.getInstance().getMinY() + getYTrans();
         } else {
             xOffset = getXTrans();
             yOffset = getYTrans();

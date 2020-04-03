@@ -142,6 +142,14 @@ public class MapPanel extends JPanel implements Observer {
         zTrans = i;
     }
 
+    public static void setXTranslation(int i) {
+        xTrans = i;
+    }
+
+    public static void setYTranslation(int i) {
+        yTrans = i;
+    }
+
 
     private void createRooms() {
         ServerCommunicator.send(parent.getUsername() + " MAP VISI " + getWidth() + " " +

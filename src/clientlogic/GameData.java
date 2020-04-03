@@ -425,6 +425,10 @@ public class GameData {
 	}
 
 	private void setCurrentPos(int pos) {
+		if (pos != currentPos) {
+			MapPanel.setXTranslation(0);
+			MapPanel.setYTranslation(0);
+		}
 		this.currentPos = pos;
 	}
 
