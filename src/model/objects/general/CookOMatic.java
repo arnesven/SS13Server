@@ -16,6 +16,7 @@ import model.items.foods.*;
 import model.items.general.ExplodableItem;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
+import model.items.foods.SliceOfPizza;
 
 public class CookOMatic extends ElectricalMachinery {
 
@@ -47,6 +48,8 @@ public class CookOMatic extends ElectricalMachinery {
         foods.add(new Doughnut(maker));
         foods.add(new SpaceBurger(maker));
 		foods.add(new SpinachSoup(maker));
+		foods.add(new SliceOfPizza(maker));
+		foods.add(new Pizza(maker));
 		foods.add(new DoubleFlambeSteakDiane(maker));
 		return foods;
 	}

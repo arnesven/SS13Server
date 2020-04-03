@@ -6,6 +6,8 @@ import java.util.List;
 
 import graphics.sprites.Sprite;
 import model.characters.general.*;
+import model.items.foods.BananaPeelItem;
+import model.items.general.GameItem;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -33,11 +35,20 @@ public class BananaPeelEvent extends Event {
 		acts.addAll(room.getActors());
 		Collections.shuffle(acts);
 		for (Actor c : acts) {
-			if (canSlip(c) && c != leftBy && MyRandom.nextDouble() < 0.75) {
+			if (canSlip(c) && c != leftBy && MyRandom.nextDouble() < 0.75 && hasBananaPeel(room)) {
 				slipsOnPeel(c, gameData);
 				break;
 			}
 		}
+	}
+
+	private boolean hasBananaPeel(Room room) {
+		for (GameItem it : room.getItems()) {
+			if (it instanceof BananaPeelItem) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean canSlip(Actor c) {

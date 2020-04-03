@@ -20,6 +20,7 @@ import model.map.rooms.HallwayRoom;
 import model.map.rooms.Room;
 import model.movepowers.SetHairColorPower;
 import model.objects.general.Antidote;
+import model.objects.general.BloodyMess;
 
 public class MyRandom {
 	public static Random random = new Random();
@@ -249,5 +250,21 @@ public class MyRandom {
             result.append(hexdecs.charAt(nextInt(16)));
         }
         return result.toString();
+    }
+
+    public static GameItem getRandomTrash(GameData gameData) {
+	    List<GameItem> trashItems = new ArrayList<>();
+	    trashItems.add(new TornClothes());
+	    trashItems.add(new PaperItem());
+	    trashItems.add(new Syringe());
+	    trashItems.add(new BananaPeelItem());
+	    ZippoLighter zl = new ZippoLighter();
+	    zl.setUses(1);
+	    trashItems.add(zl);
+	    trashItems.add(new PackOfSmokes());
+	    trashItems.add(new SliceOfPizza(null));
+	    trashItems.add(new SpaceCheetos(null));
+
+        return sample(trashItems);
     }
 }

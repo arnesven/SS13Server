@@ -19,6 +19,10 @@ public class ZippoLighter extends LightItem {
         this.uses = 8;
     }
 
+    public void setUses(int uses) {
+        this.uses = uses;
+    }
+
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("zippo", "items2.png", 3, 4, this);

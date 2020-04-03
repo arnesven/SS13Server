@@ -32,6 +32,7 @@ public class Banana extends HealingFood {
 		BananaPeelEvent bpe = new BananaPeelEvent(eatenBy);
 		gameData.addEvent(bpe);
 		eatenBy.getPosition().addEvent(bpe);
+		eatenBy.getPosition().addItem(new BananaPeelItem());
 	}
 
 }
