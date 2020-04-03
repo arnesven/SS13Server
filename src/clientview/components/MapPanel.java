@@ -7,6 +7,7 @@ import clientlogic.GameData;
 import clientlogic.Observer;
 import clientlogic.Room;
 import clientview.OverlaySprite;
+import clientview.animation.AnimationHandler;
 import clientview.strategies.BackgroundDrawingStrategy;
 import clientview.strategies.DrawingStrategy;
 import clientview.strategies.StationDrawingStrategy;
@@ -194,6 +195,7 @@ public class MapPanel extends JPanel implements Observer {
 
     @Override
     protected void paintComponent(Graphics g) {
+        AnimationHandler.step();
        checkBackgroundStrategy();
        drawingStrategy.paint(g);
        inventoryPanel.drawYourself(g, 0, getWidth());

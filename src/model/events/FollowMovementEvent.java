@@ -57,7 +57,7 @@ public class FollowMovementEvent extends Event {
             }
 		} else {
 			performingClient.addTolastTurnInfo("You stopped following " + target.getName() + ".");
-
+			remove = true;
 		}
 	}
 

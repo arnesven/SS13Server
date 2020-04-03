@@ -57,11 +57,10 @@ public class InGameView extends JSplitPane  {
         Timer t = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                AnimationHandler.step();
                 repaint();
             }
         });
-        t.start();
+        //t.start();
 
     }
 
