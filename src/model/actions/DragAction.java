@@ -9,7 +9,7 @@ import model.characters.decorators.DraggingDecorator;
 import model.items.general.GameItem;
 
 public class DragAction extends TargetingAction {
-    public DragAction(Actor actor, GameData gameData) {
+    public DragAction(Actor actor) {
         super("Drag Body", SensoryLevel.PHYSICAL_ACTIVITY, actor);
     }
 

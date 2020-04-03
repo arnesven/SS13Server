@@ -5,9 +5,7 @@ import java.util.*;
 
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
-import model.actions.DragAction;
-import model.actions.HighFiveAction;
-import model.actions.MoveAction;
+import model.actions.*;
 import model.actions.general.*;
 import model.actions.general.PickupAndUseAction;
 import model.characters.decorators.*;
@@ -247,7 +245,6 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
                 addManageItemActions(gameData, at);
             }
 
-
            addCharacterSpecificActions(gameData, at);
 
         }
@@ -394,6 +391,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
             //addPickUpAndUseActions(gameData, at2);
             addPutOnActions(at2);
             addDragAction(gameData, at2);
+            addFollowAction(gameData, at2);
         }
         this.getPosition().addActionsFor(gameData, this, at2);
         roomActions.addAll(at2);
@@ -404,9 +402,21 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 
     }
 
+    private void addFollowAction(GameData gameData, ArrayList<Action> at2) {
+        FollowAction follow = new FollowAction(this);
+        if (follow.getNoOfTargets() > 0) {
+            at2.add(follow);
+        }
+        StopFollowingAction unfollow = new StopFollowingAction(this);
+        if (unfollow.getNoOfTargets() > 0) {
+            at2.add(unfollow);
+        }
+
+    }
+
     private void addDragAction(GameData gameData, ArrayList<Action> at2) {
         if (!getCharacter().checkInstance((GameCharacter gc) -> gc instanceof DraggingDecorator)) {
-            TargetingAction drag = new DragAction(this, gameData);
+            TargetingAction drag = new DragAction(this);
             if (drag.getNoOfTargets() > 0) {
                 at2.add(drag);
             }
@@ -496,21 +506,39 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
                     atk.addClientsItemsToAction(forWhom);
                     list.add(atk);
                 }
-                TargetingAction watchAction = new WatchAction(forWhom);
-                if (watchAction.isAmongOptions(gameData, forWhom, this.getPublicName())) {
-                    watchAction.stripAllTargetsBut(this.getAsTarget());
-                    list.add(watchAction);
+                List<TargetingAction> simpleTargetingActions = new ArrayList<>();
+                simpleTargetingActions.add(new WatchAction(forWhom));
+                simpleTargetingActions.add(new DragAction(forWhom));
+                simpleTargetingActions.add(new FollowAction(forWhom));
+                simpleTargetingActions.add(new StopFollowingAction(forWhom));
+                simpleTargetingActions.add(new HighFiveAction(forWhom));
+                for (TargetingAction ta : simpleTargetingActions) {
+                    if (ta.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+                        ta.stripAllTargetsBut(this.getAsTarget());
+                        list.add(ta);
+                    }
                 }
-                TargetingAction dragAction = new DragAction(forWhom, gameData);
-                if (dragAction.isAmongOptions(gameData, forWhom, this.getPublicName())) {
-                    dragAction.stripAllTargetsBut(this.getAsTarget());
-                    list.add(dragAction);
-                }
-                HighFiveAction highFive = new HighFiveAction(forWhom);
-                if (highFive.isAmongOptions(gameData, forWhom, this.getPublicName())) {
-                    highFive.stripAllTargetsBut(this.getAsTarget());
-                    list.add(highFive);
-                }
+
+//                TargetingAction watchAction = new WatchAction(forWhom);
+//                if (watchAction.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+//                    watchAction.stripAllTargetsBut(this.getAsTarget());
+//                    list.add(watchAction);
+//                }
+//                TargetingAction dragAction = new DragAction(forWhom, gameData);
+//                if (dragAction.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+//                    dragAction.stripAllTargetsBut(this.getAsTarget());
+//                    list.add(dragAction);
+//                }
+//                TargetingAction followAction = new FollowAction(forWhom);
+//                if (followAction.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+//                    followAction.stripAllTargetsBut(this.getAsTarget());
+//                    list.add(followAction);
+//                }
+//                HighFiveAction highFive = new HighFiveAction(forWhom);
+//                if (highFive.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+//                    highFive.stripAllTargetsBut(this.getAsTarget());
+//                    list.add(highFive);
+//                }
 
                 GiveAction give = new GiveAction(forWhom);
                 if (give.isAmongOptions(gameData, forWhom, this.getPublicName())) {

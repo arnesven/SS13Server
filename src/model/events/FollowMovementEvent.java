@@ -35,6 +35,9 @@ public class FollowMovementEvent extends Event {
 
 	@Override
 	public void apply(GameData gameData) {
+		if (remove) {
+			return;
+		}
 		if (shadowedInRoom == performingClient.getPosition()) {
             if (GameMap.shortestDistance(target.getPosition(), performingClient.getPosition()) <=
                     performingClient.getCharacter().getMovementSteps()) {
@@ -53,7 +56,7 @@ public class FollowMovementEvent extends Event {
                 performingClient.addTolastTurnInfo("You couldn't follow " + target.getName() + "!");
             }
 		} else {
-			performingClient.addTolastTurnInfo("You stopped shadowing " + target.getName() + ".");
+			performingClient.addTolastTurnInfo("You stopped following " + target.getName() + ".");
 
 		}
 	}
