@@ -16,7 +16,13 @@ public class JanitorCharacter extends CrewCharacter {
 		super("Janitor", 23, 3.0);
 		
 	}
-	
+
+
+	@Override
+	public int getSize() {
+		return SMALL_SIZE;
+	}
+
 	@Override
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {

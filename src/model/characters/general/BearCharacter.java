@@ -24,6 +24,13 @@ public class BearCharacter extends GameCharacter {
         return new Sprite("bear", "animal.png", 1, 4, 32, 32, getActor());
     }
 
+
+    @Override
+    public int getSize() {
+        return LARGE_SIZE;
+    }
+
+
     @Override
     public List<GameItem> getStartingItems() {
         return new ArrayList<>();

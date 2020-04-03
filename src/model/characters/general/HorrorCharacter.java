@@ -36,7 +36,13 @@ public class HorrorCharacter extends GameCharacter {
         return new Sprite("horrorlesser", "alien.png", 0, getActor());
     }
 
-    @Override
+	@Override
+	public int getSize() {
+		return LARGE_SIZE;
+	}
+
+
+	@Override
 	public List<GameItem> getStartingItems() {
 		return new ArrayList<>();
 	}

@@ -28,8 +28,6 @@ public class CatCharacter extends AnimalCharacter {
 
 	}
 
-
-
 	@Override
 	public List<GameItem> getStartingItems() {
 		return new ArrayList<>();

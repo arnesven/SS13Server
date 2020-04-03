@@ -33,6 +33,10 @@ public class CaptainsDaughter extends VisitorCharacter {
         return new CaptainsDaughter();
     }
 
+    @Override
+    public int getSize() {
+        return SMALL_SIZE;
+    }
 
     @Override
     public void doAfterActions(GameData gameData) {

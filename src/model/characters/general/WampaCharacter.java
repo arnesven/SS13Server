@@ -31,4 +31,9 @@ public class WampaCharacter extends AnimalCharacter {
     public boolean isVisibileFromAdjacentRoom() {
         return true;
     }
+
+    @Override
+    public int getSize() {
+        return LARGE_SIZE;
+    }
 }

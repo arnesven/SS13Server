@@ -30,6 +30,11 @@ public class AsteroidWormCharacter extends AnimalCharacter {
     }
 
     @Override
+    public int getSize() {
+        return LARGE_SIZE;
+    }
+
+    @Override
     public GameCharacter clone() {
         return new AsteroidWormCharacter(getStartingRoom());
     }

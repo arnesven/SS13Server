@@ -37,7 +37,6 @@ public class ChangelingCharacter extends GameCharacter {
 		setHealth(2.0);
 		current = new ParasiteCharacter();
 		forms.add(current);
-
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class ConnectToServerDialog extends JDialog {
 
     public ConnectToServerDialog(SS13Client parent) {
         super(parent, "Connect to server", true);
-        setSize(new Dimension(250, 130));
+        setSize(new Dimension(300, 130));
         setLocationRelativeTo(parent);
         this.setLayout(new BorderLayout());
         {

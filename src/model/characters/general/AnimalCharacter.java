@@ -19,7 +19,12 @@ public abstract class AnimalCharacter extends GameCharacter implements Trainable
 		}
 		return getBaseName();
 	}
-	
+
+	@Override
+	public int getSize() {
+		return SMALL_SIZE;
+	}
+
 	@Override
 	public List<GameItem> getStartingItems() {
 		return new ArrayList<>();
