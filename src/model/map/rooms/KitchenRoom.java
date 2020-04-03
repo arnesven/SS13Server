@@ -17,11 +17,4 @@ public class KitchenRoom extends SupportRoom {
         this.addItem(new FireExtinguisher());
 	}
 
-	@Override
-	public void doSetup(GameData gameData) {
-		ChimpNPC ch = new ChimpNPC(this);
-		gameData.addNPC(ch);
-		this.addItem(new SeveredButt(ch));
-
-	}
 }
