@@ -2,6 +2,11 @@ package model.items.foods;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.actions.general.Action;
+import model.characters.general.ChimpCharacter;
+import model.events.damage.FireDamage;
+import model.items.NoSuchThingException;
 
 public class GrilledMonkeyDeluxe extends HealingFood {
 
@@ -22,5 +27,23 @@ public class GrilledMonkeyDeluxe extends HealingFood {
     @Override
     public FoodItem clone() {
         return new GrilledMonkeyDeluxe(getMaker());
+    }
+
+    @Override
+    public boolean canBeCooked(GameData gameData, Actor performingClient) {
+        for (Actor a : performingClient.getPosition().getActors()) {
+            if (a.getInnermostCharacter() instanceof ChimpCharacter) {
+                a.getAsTarget().beExposedTo(performingClient, new FireDamage(300.0));
+                try {
+                    a.getPosition().removeActor(a);
+                } catch (NoSuchThingException e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
+        }
+
+        performingClient.addTolastTurnInfo("What, no monkey to use? " + Action.FAILED_STRING);
+        return false;
     }
 }

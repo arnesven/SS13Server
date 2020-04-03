@@ -43,5 +43,9 @@ public abstract class FoodItem extends GameItem {
 		triggerSpecificReaction(eatenBy, gameData);
 	}
 
-	
+
+    public boolean canBeCooked(GameData gameData, Actor performingClient) {
+	    return true;
+    }
+
 }

@@ -14,7 +14,7 @@ import util.MyRandom;
 
 public class AirDuctRoom extends Room {
 
-    private static final double VENT_CHANCE = 0.4;
+    private static final double VENT_CHANCE = 0.33;
     private double MICE_CHANCE = 0.33;
     private double PARASITE_CHANCE = 0.15;
     private double TRASH_CHANCE = 0.4;

@@ -73,21 +73,8 @@ public class CookFoodAction extends Action {
 			performingClient.addTolastTurnInfo("You are a master in the kitchen!");
 		}
 		
-		if (MyRandom.nextDouble() > selectedItem.getFireRisk()*factor) {
-			boolean monkeyFound = false;
-			if (selectedItem instanceof GrilledMonkeyDeluxe) {
-				for (Actor a : performingClient.getPosition().getActors()) {
-					if (a.getInnermostCharacter() instanceof ChimpCharacter) {
-						a.getAsTarget().beExposedTo(performingClient, new FireDamage(300.0));
-						monkeyFound = true;
-						break;
-					}
-				}
-			}
-			if (!monkeyFound) {
-				performingClient.addTolastTurnInfo("What, no monkey to use? " + Action.FAILED_STRING);
-				return;
-			}
+		if (MyRandom.nextDouble() > selectedItem.getFireRisk()*factor && selectedItem.canBeCooked(gameData, performingClient)) {
+
 
             String result = "You successfully cooked a " +
                     selectedItem.getPublicName(performingClient);
