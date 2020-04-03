@@ -7,7 +7,9 @@ import model.Player;
 import model.actions.MoveAction;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
+import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
+import model.items.NoSuchThingException;
 import model.map.rooms.AirDuctRoom;
 import model.map.rooms.Room;
 import model.objects.general.GameObject;
@@ -38,19 +40,35 @@ public class VentObject extends GameObject {
 
     @Override
     public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
-        at.add(new VentMoveAction(cl));
+        if (cl.getCharacter().getSize() == GameCharacter.SMALL_SIZE) {
+            at.add(new VentMoveAction(cl));
+        }
     }
 
     private class VentMoveAction extends MoveAction {
 
+        boolean intoVent;
+
         public VentMoveAction(Actor actor) {
             super(actor);
             String prep = " out to ";
+            intoVent = false;
             if (toRoom instanceof AirDuctRoom) {
                 prep = " into ";
+                intoVent = true;
             }
             setName("Crawl" + prep + toRoom.getName());
             setDestination(toRoom);
+        }
+
+        @Override
+        protected void execute(GameData gameData, Actor performingClient) {
+            super.execute(gameData, performingClient);
+            if (intoVent) {
+                performingClient.setCharacter(new SeeAirDuctsDecorator(performingClient.getCharacter()));
+            } else {
+                performingClient.removeInstance((GameCharacter gc) -> gc instanceof SeeAirDuctsDecorator);
+            }
         }
 
         @Override
@@ -60,5 +78,31 @@ public class VentObject extends GameObject {
         }
 
 
+    }
+
+    private class SeeAirDuctsDecorator extends CharacterDecorator {
+        public SeeAirDuctsDecorator(GameCharacter character) {
+            super(character, "SeeAirDuctsDecorator");
+        }
+
+        @Override
+        public String getFullName() {
+            return super.getFullName() + " (Crawling)";
+        }
+
+        @Override
+        public List<Room> getVisibleMap(GameData gameData) {
+            List<Room> result = super.getVisibleMap(gameData);
+            try {
+                for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(getPosition()).getName())) {
+                    if (r instanceof AirDuctRoom) {
+                        result.add(r);
+                    }
+                }
+            } catch (NoSuchThingException e) {
+                e.printStackTrace();
+            } ;
+            return result;
+        }
     }
 }
