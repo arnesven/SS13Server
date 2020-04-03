@@ -20,4 +20,9 @@ public class NukieShipRoom extends Room {
 	public boolean isHidden() {
 		return true;
 	}
+
+	@Override
+	public boolean isPartOfStation() {
+		return false;
+	}
 }

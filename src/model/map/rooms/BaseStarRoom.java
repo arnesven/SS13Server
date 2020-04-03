@@ -15,4 +15,9 @@ public class BaseStarRoom extends Room {
     protected FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("basestarfloor", 9, 19);
     }
+
+    @Override
+    public boolean isPartOfStation() {
+        return false;
+    }
 }

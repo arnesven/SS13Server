@@ -12,4 +12,9 @@ public class DerelictRoom extends Room {
     protected FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("derelictfloorhall", 13, 9);
     }
+
+    @Override
+    public boolean isPartOfStation() {
+        return false;
+    }
 }

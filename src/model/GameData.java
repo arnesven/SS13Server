@@ -108,7 +108,7 @@ public class GameData implements Serializable {
 	public List<Room> getRooms() {
 		Set<Room> set = new HashSet<>();
 		set.addAll(getMap().getRoomsForLevel("ss13"));
-        set.removeIf((Room r) -> r instanceof DerelictRoom || r instanceof RemoteRoom || r instanceof SpaceRoom || r.isHidden());
+        set.removeIf((Room r) -> !r.isPartOfStation() || r.isHidden());
 
         List<Room> list = new ArrayList<>();
         list.addAll(set);

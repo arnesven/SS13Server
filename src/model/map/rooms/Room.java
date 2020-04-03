@@ -529,6 +529,8 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		return false;
 	}
 
+	public boolean isPartOfStation() { return true; }
+
 	public void setFloorSet(FloorSet fs) {
 		this.floorSprite = fs;
 	}

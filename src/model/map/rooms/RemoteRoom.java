@@ -12,4 +12,9 @@ public class RemoteRoom extends Room {
     protected FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("outdoorouterfloor", 18, 24);
     }
+
+    @Override
+    public boolean isPartOfStation() {
+        return false;
+    }
 }

@@ -16,4 +16,8 @@ public class SpaceRoom extends Room {
         return new SingleSpriteFloorSet("outdoorfloor", 18, 24);
     }
 
+    @Override
+    public boolean isPartOfStation() {
+        return false;
+    }
 }
