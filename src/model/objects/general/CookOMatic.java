@@ -11,6 +11,7 @@ import model.actions.general.Action;
 import model.actions.objectactions.CookBodyPartIntoFoodAction;
 import model.actions.objectactions.CookFoodAction;
 import model.actions.objectactions.CookGrenadeIntoFoodAction;
+import model.characters.general.ChimpCharacter;
 import model.items.BodyPart;
 import model.items.foods.*;
 import model.items.general.ExplodableItem;
@@ -51,7 +52,19 @@ public class CookOMatic extends ElectricalMachinery {
 		foods.add(new SliceOfPizza(maker));
 		foods.add(new Pizza(maker));
 		foods.add(new DoubleFlambeSteakDiane(maker));
+		if (hasAMonkey(maker.getPosition())) {
+			foods.add(new GrilledMonkeyDeluxe(maker));
+		}
 		return foods;
+	}
+
+	private static boolean hasAMonkey(Room position) {
+		for (Actor a: position.getActors()) {
+			if (a.getInnermostCharacter() instanceof ChimpCharacter) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 

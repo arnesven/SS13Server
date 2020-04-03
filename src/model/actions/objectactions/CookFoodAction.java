@@ -2,7 +2,10 @@ package model.actions.objectactions;
 
 import java.util.List;
 
+import model.characters.general.ChimpCharacter;
+import model.events.damage.FireDamage;
 import model.items.NoSuchThingException;
+import model.items.foods.GrilledMonkeyDeluxe;
 import model.map.rooms.Room;
 import model.objects.general.Dumbwaiter;
 import model.objects.general.GameObject;
@@ -71,6 +74,21 @@ public class CookFoodAction extends Action {
 		}
 		
 		if (MyRandom.nextDouble() > selectedItem.getFireRisk()*factor) {
+			boolean monkeyFound = false;
+			if (selectedItem instanceof GrilledMonkeyDeluxe) {
+				for (Actor a : performingClient.getPosition().getActors()) {
+					if (a.getInnermostCharacter() instanceof ChimpCharacter) {
+						a.getAsTarget().beExposedTo(performingClient, new FireDamage(300.0));
+						monkeyFound = true;
+						break;
+					}
+				}
+			}
+			if (!monkeyFound) {
+				performingClient.addTolastTurnInfo("What, no monkey to use? " + Action.FAILED_STRING);
+				return;
+			}
+
             String result = "You successfully cooked a " +
                     selectedItem.getPublicName(performingClient);
             if (chosenDestination == null || chosenDestination.contains("inventory")) {
