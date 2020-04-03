@@ -6,6 +6,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.items.BodyPart;
 import model.map.rooms.Room;
+import util.Logger;
 import util.MyRandom;
 
 import java.awt.*;

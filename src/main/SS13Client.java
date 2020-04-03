@@ -115,9 +115,7 @@ public class SS13Client extends JFrame {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println("Pressed" + e.getKeyCode());
                 if (e.getKeyCode() == KeyEvent.VK_R && e.isControlDown()) {
-                    System.out.println("Pressed R");
                     if (guiPanel != null) {
                         guiPanel.toggleReady();
                     }

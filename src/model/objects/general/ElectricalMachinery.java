@@ -59,6 +59,10 @@ public abstract class ElectricalMachinery extends BreakableObject
 
 	public static boolean isPowered(GameData gameData, ElectricalMachinery machine) {
 
+		if (machine.getPosition() == null) {
+			Logger.log(Logger.CRITICAL, "Warning, position for machine " + machine.getName() + " was null! Cannot determine if it is powered or not.");
+			return false;
+		}
         try {
             for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(machine.getPosition()).getName())) {
                 for (GameObject obj : r.getObjects()) {

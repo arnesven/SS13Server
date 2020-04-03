@@ -75,7 +75,7 @@ public class SurgeryAction extends Action {
         }
 
 
-        if (target != null && target.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnSurgeryTableDecorator)) {
+        if (target != null && (target.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnSurgeryTableDecorator) || target.isDead())) {
             this.bodyPart = args.get(1);
             if (operationType.contains("Reattach")) {
                 for (GameItem it : performingClient.getItems()) {

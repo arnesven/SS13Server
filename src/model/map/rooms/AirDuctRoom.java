@@ -14,7 +14,7 @@ import util.MyRandom;
 
 public class AirDuctRoom extends Room {
 
-    private static final double VENT_CHANCE = 0.33;
+    private static final double VENT_CHANCE = 0.4;
     private double MICE_CHANCE = 0.33;
     private double PARASITE_CHANCE = 0.15;
     private double TRASH_CHANCE = 0.4;
@@ -72,8 +72,11 @@ public class AirDuctRoom extends Room {
                 if (r != this) {
                     if (MyRandom.nextDouble() < VENT_CHANCE) {
                         Logger.log("... Adding a vent to " + r.getName());
-                        this.addObject(new VentObject(this, r));
-                        r.addObject(new VentObject(r, this));
+                        VentObject vent = new VentObject(this, r, null);
+                        this.addObject(vent);
+                        VentObject vent2 = new VentObject(r, this, vent);
+                        r.addObject(vent2);
+                        vent.setOtherSide(vent2);
                     }
                 }
             }

@@ -26,6 +26,7 @@ public class BodyPartFood extends FoodItem {
 
     @Override
     protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
+        innerItem.triggerSpecificReaction(eatenBy, gameData);
         eatenBy.addTolastTurnInfo("Wait a minute... what's this? A " + bodyPart.getEatString() + "?");
     }
 }

@@ -27,8 +27,6 @@ public abstract class VendingMachine extends ElectricalMachinery {
     public VendingMachine(String name, Room r) {
         super(name,  r);
         selection = new ArrayList<>();
-
-
     }
 
     public void addSelection(GameItem it) {

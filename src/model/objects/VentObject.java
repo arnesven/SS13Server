@@ -7,9 +7,12 @@ import model.Player;
 import model.actions.MoveAction;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
+import model.actions.general.SensoryLevel;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
+import model.items.general.GameItem;
+import model.items.general.Tools;
 import model.map.rooms.AirDuctRoom;
 import model.map.rooms.Room;
 import model.objects.general.GameObject;
@@ -19,20 +22,41 @@ import java.util.List;
 
 public class VentObject extends GameObject {
     private final Room toRoom;
+    private VentObject buddy;
+    private boolean isOpen;
 
-    public VentObject(Room here, Room to) {
+    public VentObject(Room here, Room to, VentObject otherSide) {
         super("Air Vent", here);
         this.toRoom = to;
+        this.isOpen = false;
+        this.buddy = otherSide;
     }
+
+    private void setIsOpen(boolean b) {
+        isOpen = b;
+    }
+
+    private VentObject getOtherSide() {
+        return buddy;
+    }
+
+
+    public void setOtherSide(VentObject vent2) {
+        this.buddy = vent2;
+    }
+
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("airvent", "power.png", 10, 12, this);
+        if (isOpen) {
+            return new Sprite("airventopen", "power.png", 11, 12, this);
+        }
+        return new Sprite("airventshut", "power.png", 10, 12, this);
     }
 
     @Override
     public String getPublicName(Actor whosAsking) {
-        if (whosAsking.getCharacter().getSize() == GameCharacter.SMALL_SIZE) {
+        if (whosAsking.getCharacter().getSize() == GameCharacter.SMALL_SIZE || isOpen) {
             return super.getPublicName(whosAsking) + " to " + toRoom.getName();
         }
         return super.getPublicName(whosAsking);
@@ -40,8 +64,15 @@ public class VentObject extends GameObject {
 
     @Override
     public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
-        if (cl.getCharacter().getSize() == GameCharacter.SMALL_SIZE) {
+        if (cl.getCharacter().getSize() == GameCharacter.SMALL_SIZE || isOpen) {
             at.add(new VentMoveAction(cl));
+        }
+        if (GameItem.hasAnItemOfClass(cl, Tools.class)) {
+            if (!isOpen) {
+                at.add(new OpenVentAction(this));
+            } else {
+                at.add(new CloseVentAction(this));
+            }
         }
     }
 
@@ -103,6 +134,67 @@ public class VentObject extends GameObject {
                 e.printStackTrace();
             } ;
             return result;
+        }
+    }
+
+    private class OpenVentAction extends Action {
+
+        private final VentObject vent;
+
+        public OpenVentAction(VentObject ventObject) {
+            super("Open Air Vent", SensoryLevel.PHYSICAL_ACTIVITY);
+            this.vent = ventObject;
+        }
+
+        @Override
+        protected String getVerb(Actor whosAsking) {
+            return "open the air vent";
+        }
+
+        @Override
+        protected void execute(GameData gameData, Actor performingClient) {
+            if (GameItem.hasAnItemOfClass(performingClient, Tools.class)) {
+                performingClient.addTolastTurnInfo("You opened the air vent. Wow, it's filthy in there.");
+                vent.setIsOpen(true);
+                getOtherSide().setIsOpen(true);
+            } else {
+                performingClient.addTolastTurnInfo("What no tools? " + Action.FAILED_STRING);
+            }
+        }
+
+        @Override
+        public void setArguments(List<String> args, Actor performingClient) {
+
+        }
+    }
+
+    private class CloseVentAction extends Action {
+        private final VentObject vent;
+
+        public CloseVentAction(VentObject ventObject) {
+            super("Close Air Vent", SensoryLevel.PHYSICAL_ACTIVITY);
+            this.vent = ventObject;
+        }
+
+        @Override
+        protected String getVerb(Actor whosAsking) {
+            return "closed the air vent";
+        }
+
+        @Override
+        protected void execute(GameData gameData, Actor performingClient) {
+            if (GameItem.hasAnItemOfClass(performingClient, Tools.class)) {
+                performingClient.addTolastTurnInfo("You closed the air vent. We don't want crawling in there.");
+                vent.setIsOpen(false);
+                getOtherSide().setIsOpen(false);
+            } else {
+                performingClient.addTolastTurnInfo("What no tools? " + Action.FAILED_STRING);
+            }
+        }
+
+        @Override
+        public void setArguments(List<String> args, Actor performingClient) {
+
         }
     }
 }
