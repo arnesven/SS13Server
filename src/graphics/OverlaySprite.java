@@ -36,7 +36,7 @@ public class OverlaySprite {
 
     public String getStringRepresentation(GameData gameData) {
         String actiondata = "NoRef";
-        if (sprite.getObjectReference() != null) {
+        if (sprite.getObjectReference() != null && forWhom.getsActions()) {
             actiondata = Action.makeActionListStringSpecOptions(gameData,
                     sprite.getObjectReference().getOverlaySpriteActionList(gameData, room, forWhom),
                     forWhom);

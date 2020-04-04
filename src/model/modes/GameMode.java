@@ -222,6 +222,13 @@ public abstract class GameMode implements Serializable {
 		Logger.log("Game Modes: Going to assign roles");
 		remainingChars = assignCharactersToPlayers(gameData);
 		Logger.log(" Game Mode: Setup: Characters assigned");
+		for (Player p : gameData.getPlayersAsList()) {
+			try {
+				Logger.log("  " + gameData.getClidForPlayer(p) + " - " + p.getCharacter().getFullName());
+			} catch (NoSuchThingException e) {
+				e.printStackTrace();
+			}
+		}
 		moveCharactersIntoStartingRooms(gameData);
 		Logger.log(" Game Mode: Setup: Characters moved into starting rooms");
 		addNPCs(gameData, remainingChars);

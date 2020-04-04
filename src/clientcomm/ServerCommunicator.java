@@ -15,7 +15,7 @@ public class ServerCommunicator {
     private static SS13Client client;
 
     public synchronized static void send(String message, MyCallback callback) {
-        System.out.println("Making server request :" + message);
+      //  System.out.println("Making server request :" + message);
         long dt = System.currentTimeMillis();
 		String res = login(message, GameData.getInstance().getHost(), GameData.getInstance().getPort());
 		dt = System.currentTimeMillis() - dt;

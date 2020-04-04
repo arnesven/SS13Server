@@ -34,7 +34,7 @@ public class SS13Client extends JFrame {
     private int botNumber = 1;
 
     public SS13Client() {
-        super("SS13 Client 1.2b");
+        super("SS13 Client 1.21b");
         errorShowing = false;
         this.setSize(originalSize);
         this.setLocation(new Point(250, 50));

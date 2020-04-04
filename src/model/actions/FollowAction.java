@@ -37,7 +37,7 @@ public class FollowAction extends TargetingAction {
 
     @Override
     public boolean isViableForThisAction(Target target2) {
-        return !target2.isDead() && !isFollowing(performer, target2);
+        return !target2.isDead() && !isFollowing(performer, target2) && target2 instanceof Actor;
     }
 
     private boolean isFollowing(Actor performer, Target target2) {
