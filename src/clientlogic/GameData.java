@@ -188,6 +188,7 @@ public class GameData {
 	}
 
 	private void notifyObservers() {
+		System.out.println("Game Data has changed, notifying subscribers.");
 		for (Observer o : instance.observers) {
 			o.update();
 		}

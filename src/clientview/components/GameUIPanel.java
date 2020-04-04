@@ -30,14 +30,8 @@ public class GameUIPanel extends JPanel implements Observer {
         this.parent = parent;
         buttPanel = new SouthButtonPanel(this);
         this.add(buttPanel, BorderLayout.SOUTH);
-
-        //this.add(contentPane);
         toggleView();
-
         GameData.getInstance().subscribe(this);
-
-
-
     }
 
     public JFrame getFrame() {
@@ -49,7 +43,6 @@ public class GameUIPanel extends JPanel implements Observer {
     }
 
     public void toggleView() {
-       // MyUtils.removeAllWidgets(this);
         if (viewLobby) {
             System.out.println("Showing In-game-clientview");
             this.remove(lobbyView);
@@ -62,25 +55,19 @@ public class GameUIPanel extends JPanel implements Observer {
         viewLobby = !viewLobby;
         revalidate();  // this messed up the key-listener on the frame?
         repaint();
-
     }
 
 
     @Override
     public void update() {
         int newState = GameData.getInstance().getState();
-        // state has changed
         if (!stateUpdating) {
            if (newState == 0 || (newState >=1 && oldRound != GameData.getInstance().getRound())) {
-              // System.out.println("Updating in GameUIPanel, old state: " + state + ", new state: " + newState);
                 stateUpdating = true;
                 oldRound = GameData.getInstance().getRound();
 
                 if (state < 1 && GameData.getInstance().getRound() == 1) {
                     System.out.println("Looks like a new game now...");
-//                    if (!inGameView.isInMapMode() && !iAmSpectator()) {
-//                        toggleMapView();
-//                    }
                     if (viewLobby) {
                         System.out.println("Toggling away from lobby, into map");
                         toggleView();
@@ -91,10 +78,8 @@ public class GameUIPanel extends JPanel implements Observer {
                     buttPanel.toggleViewButton();
                 }
 
-
-                //buttPanel.setUnready();
                 if (newState == 1 || newState == 2) {    // state is now movement
-                    System.out.println("State is now movement, asking for movement data");
+                    System.out.println("State is now movement/actions, asking for movement data");
                     pollServerMovement();
                     System.out.println("Old state is " + state);
                     if (viewLobby && !iAmSpectator()) {
@@ -106,7 +91,7 @@ public class GameUIPanel extends JPanel implements Observer {
                         GameData.getInstance().clearActionList();
 
                     }
-                //} else if (newState == 2) { // state is now actions
+                    System.out.println("Asking server for action data");
                     pollServerActions();
                 } else if (newState == 0) { // state is now pre-game
                     if (state == 2 || state == 1) { // went to pre-game from non-pregame state
@@ -122,7 +107,6 @@ public class GameUIPanel extends JPanel implements Observer {
 
                 }
 
-               //System.out.println("Setting state to " + newState);
                this.state = newState;
             }
             stateUpdating = false;
@@ -143,8 +127,6 @@ public class GameUIPanel extends JPanel implements Observer {
             public void onSuccess(String result) {
                 if (result.contains("ERROR")) {
                     JOptionPane.showMessageDialog(null, result);
-//                    Window.alert(result);
-//                    Window.Location.reload();
                 }
                 GameData.getInstance().setSummaryString(result);
             }
@@ -158,8 +140,6 @@ public class GameUIPanel extends JPanel implements Observer {
             public void onSuccess(String result) {
                 if (result.contains("ERROR")) {
                     JOptionPane.showMessageDialog(null, result);
-//                    Window.alert(result);
-//                    Window.Location.reload();
                 }
                 GameData.getInstance().deconstructMovementData(result);
             }
@@ -172,14 +152,10 @@ public class GameUIPanel extends JPanel implements Observer {
             @Override
             public void onSuccess(String result) {
                 if (result.contains("ERROR")) {
-//                    Window.alert(result);
-//                    Window.Location.reload();
                     JOptionPane.showMessageDialog(null, result);
                 }
                 GameData.getInstance().deconstructActionData(result);
                 if (inGameView.isInMapMode() && !iAmSpectator()) {
-                    //System.out.println("Got action data, toggling map clientview");
-                    //toggleMapView();
                 }
                 GameData.getInstance().clearRoomColors();
             }
@@ -194,13 +170,6 @@ public class GameUIPanel extends JPanel implements Observer {
     public InGameView getInGameView() {
         return inGameView;
     }
-
-
-//
-//    protected void toggleMapView() {
-//        inGameView.toggleMapView();
-//
-//    }
 
 
 

@@ -38,13 +38,116 @@ public class SS13Client extends JFrame {
         errorShowing = false;
         this.setSize(originalSize);
         this.setLocation(new Point(250, 50));
-        //this.setLayout(new BorderLayout());
         this.retPan = new ReturningPlayerPanel();
         this.add(retPan);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
         ServerCommunicator.setFrameReference(this);
+        makeMenuBar();
+        setUpKeyListener();
+    }
 
+    public static void main(String[] args) {
+        new SS13Client();
+    }
+
+    public void LoginToServer(boolean returning, Boolean spectator, String clid) {
+        String message = "IDENT ME" + clid;
+        if (spectator) {
+            message += " SPECTATOR";
+        }
+
+        if (returning) {
+            message = clid + " RETURNING";
+        }
+
+        connectData = new ConnectData(returning, spectator, clid, retPan);
+        ServerCommunicator.send(message, new MyCallback() {
+
+            @Override
+            public void onSuccess(String result) {
+                if (result.equals("ID ERROR")) {
+                    retPan.setIDError();
+                } else if (result.contains("ERROR") || result.contains("error")) {
+                    JOptionPane.showMessageDialog(SS13Client.this,
+                            result.replace("ERROR", ""));
+                } else if (result.contains("fail")) {
+                    JOptionPane.showMessageDialog(SS13Client.this, "Could not connect to server.");
+
+                } else {
+                    GameData.getInstance().setClid(result);
+                    switchToGameUI(result);
+                    errorShowing = false;
+                }
+                SS13Client.this.requestFocus();
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+    public void switchBackToStart() {
+        System.out.println("Switching views back");
+        GameData.resetAllData();
+        getContentPane().remove(0);
+        getContentPane().add(retPan);
+        this.setSize(originalSize);
+        revalidate();
+        repaint();
+    }
+
+    public void showConnectionError() {
+        if (!errorShowing) {
+            errorShowing = true;
+            JOptionPane.showMessageDialog(this, "Connection to server lost.");
+        }
+    }
+
+    protected void switchToGameUI(String username) {
+        System.out.println("Switching views");
+        getContentPane().remove(retPan);
+        guiPanel = new GameUIPanel(username, this);
+        enableView();
+        getContentPane().add(guiPanel);
+        this.setSize(ingameSize);
+        this.revalidate();
+        this.repaint();
+    }
+
+
+    private void setUpKeyListener() {
+        this.setFocusable(true);
+        this.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_R && e.isControlDown()) {
+                    if (guiPanel != null) {
+                        guiPanel.toggleReady();
+                    }
+                } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    MapPanel.addXTranslation(1);
+                } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    MapPanel.addXTranslation(-1);
+                } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    MapPanel.addYTranslation(1);
+                } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+                    MapPanel.addYTranslation(-1);
+                } else if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
+                    MapPanel.addZTranslation(-1);
+                } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP) {
+                    MapPanel.addZTranslation(1);
+                }
+                repaint();
+            }
+        });
+        this.requestFocus();
+        this.setVisible(true);
+    }
+
+    private void makeMenuBar() {
         JMenuBar menubar = new JMenuBar();
         JMenu file = new JMenu("File");
         JMenuItem item = new JMenuItem("Connect");
@@ -86,7 +189,7 @@ public class SS13Client extends JFrame {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            cont(false, false, Cookies.getCookie("last_user_name"));
+                            LoginToServer(false, false, Cookies.getCookie("last_user_name"));
                         } else {
                             new ConnectToServerDialog(SS13Client.this);
                         }
@@ -107,38 +210,6 @@ public class SS13Client extends JFrame {
         menubar.add(server);
 
         this.setJMenuBar(menubar);
-
-
-        this.setFocusable(true);
-
-        this.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_R && e.isControlDown()) {
-                    if (guiPanel != null) {
-                        guiPanel.toggleReady();
-                    }
-                } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    MapPanel.addXTranslation(1);
-                } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    MapPanel.addXTranslation(-1);
-                } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    MapPanel.addYTranslation(1);
-                } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    MapPanel.addYTranslation(-1);
-                } else if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
-                    MapPanel.addZTranslation(-1);
-                } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP) {
-                    MapPanel.addZTranslation(1);
-                }
-                repaint();
-            }
-        });
-        this.requestFocus();
-
-        this.setVisible(true);
-
     }
 
     private void makeHeightMenu(JMenu view) {
@@ -152,7 +223,6 @@ public class SS13Client extends JFrame {
         stepUp.addActionListener((ActionEvent e) -> MapPanel.addZTranslation(1));
         height.add(stepUp);
         height.add(stepDown);
-
 
         view.add(height);
     }
@@ -201,98 +271,11 @@ public class SS13Client extends JFrame {
         view.add(jmenu);
     }
 
-    public static void main(String[] args) {
-        new SS13Client();
-
-    }
-
-    protected void switchToGameUI(String username) {
-        System.out.println("Switching views");
-		getContentPane().remove(retPan);
-		guiPanel = new GameUIPanel(username, this);
-		enableView();
-		getContentPane().add(guiPanel);
-		this.setSize(ingameSize);
-		this.revalidate();
-		this.repaint();
-	}
 
     private void enableView() {
         this.view.setEnabled(true);
     }
 
-    public void cont(boolean returning, Boolean spectator, String clid) {
-        String message = "IDENT ME" + clid;
-        if (spectator) {
-            message += " SPECTATOR";
-        }
 
-        if (returning) {
-            message = clid + " RETURNING";
-        }
 
-        connectData = new ConnectData(returning, spectator, clid, retPan);
-        ServerCommunicator.send(message, new MyCallback() {
-
-            @Override
-            public void onSuccess(String result) {
-                if (result.equals("ID ERROR")) {
-                    retPan.setIDError();
-                } else if (result.contains("ERROR") || result.contains("error")) {
-                    JOptionPane.showMessageDialog(SS13Client.this,
-                            result.replace("ERROR", ""));
-                } else if (result.contains("fail")) {
-                    JOptionPane.showMessageDialog(SS13Client.this, "Could not connect to server.");
-
-                } else {
-                    GameData.getInstance().setClid(result);
-                    switchToGameUI(result);
-                    errorShowing = false;
-                }
-                SS13Client.this.requestFocus();
-            }
-
-            @Override
-            public void onFail() {
-               // tryReconnect();
-            }
-        });
-    }
-
-    public void switchBackToStart() {
-        System.out.println("Switching views back");
-        GameData.resetAllData();
-        getContentPane().remove(0);
-        getContentPane().add(retPan);
-        this.setSize(originalSize);
-        revalidate();
-        repaint();
-    }
-
-    public void showConnectionError() {
-        if (!errorShowing) {
-            errorShowing = true;
-            JOptionPane.showMessageDialog(this, "Connection to server lost.");
-          // tryReconnect();
-//            if (res == JOptionPane.OK_OPTION) {
-//                tryReconnect();
-//            }
-        }
-    }
-
-//    private void tryReconnect() {
-//        ReconnectDialog dialog = new ReconnectDialog(SS13Client.this);
-//        while (dialog.isActive()) {
-//            try {
-//                Thread.sleep(100);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        reconnect();
-//    }
-
-    public void reconnect() {
-        cont(connectData.returning, connectData.spectator, connectData.clid);
-    }
 }

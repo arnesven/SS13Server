@@ -21,13 +21,10 @@ import java.util.List;
 
 public class MapPanel extends JPanel implements Observer {
 
-    public static final int WIDTH = 350;
-    private static final int MAP_REFRESH_DELAY = 5000;
     private static int xTrans;
     private static int yTrans;
     private static int zTrans;
 
-    private final Timer timer;
     private final InventoryPanel inventoryPanel;
     private final DrawingStrategy drawingStrategy;
 
@@ -37,90 +34,13 @@ public class MapPanel extends JPanel implements Observer {
         this.parent = parent;
         this.drawingStrategy = new StationDrawingStrategy(this);
 
-        timer = new Timer(MAP_REFRESH_DELAY, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createRooms();
-            }
-        });
-        timer.start();
         this.inventoryPanel = new InventoryPanel();
         createRooms();
         GameData.getInstance().subscribe(this);
 
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-                if (inventoryPanel.mouseClicked(e, MapPanel.this)) {
-                    return;
-                }
-
-
-                MyPopupMenu mpm = null;
-                for (OverlaySprite ps : GameData.getInstance().getOverlaySprites()) {
-                    if (ps.mouseHitsThis(e)) {
-                        if (mpm == null) {
-                            mpm = ps.getPopupMenu(e);
-                        } else {
-                            mpm.addAll(ps.getPopupMenu(e));
-                        }
-
-                    }
-                }
-                if (mpm != null) {
-                    mpm.showYourself();
-                    return;
-                }
-
-                List<Room> l = new ArrayList<Room>();
-                l.addAll(GameData.getInstance().getMiniMap());
-                // Check if any door in any room was clicked
-                for (Room r : l) {
-                    if (r.getDoors() != null) {
-                        for (ClientDoor d : r.getDoors()) {
-                            if (d.actOnClick(e)) {
-                                return;
-                            }
-                        }
-                    }
-                }
-
-
-                // Check if any room was clicked
-                for (Room r : l) {
-                        if (r.actOnClick(e)) {
-                            return;
-                        }
-                }
-
-            }
-        });
-
-        this.addMouseMotionListener(new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent e) {
-
-                  List<Room> l = new ArrayList<Room>();
-                l.addAll(GameData.getInstance().getMiniMap());
-                for (Room r : l) {
-                    r.isHoveredOver(e, MapPanel.this);
-                }
-                for (OverlaySprite os : GameData.getInstance().getOverlaySprites()) {
-                    os.isHoveredOver(e, MapPanel.this);
-                }
-                if (inventoryPanel != null) {
-                    inventoryPanel.mouseHover(e, MapPanel.this);
-                }
-
-            }
-        });
-
+        MapPanelMouseListener mpml = new MapPanelMouseListener(this);
+        this.addMouseListener(mpml);
+        this.addMouseMotionListener(mpml);
     }
 
     public static void addXTranslation(int i) {
@@ -160,14 +80,9 @@ public class MapPanel extends JPanel implements Observer {
             @Override
             public void onSuccess(String result) {
                 GameData.getInstance().deconstructRoomList(result, GameData.getInstance().getRooms());
-                //	Window.alert(Window.getClientWidth() + "");
                 drawRooms();
             }
 
-            @Override
-            public void onFail() {
-                timer.stop();
-            }
             });
 
         ServerCommunicator.send(parent.getUsername() + " MAP MINI " + + getWidth() + " " +
@@ -177,14 +92,9 @@ public class MapPanel extends JPanel implements Observer {
                     @Override
                     public void onSuccess(String result) {
                         GameData.getInstance().deconstructRoomList(result, GameData.getInstance().getMiniMap());
-                        //	Window.alert(Window.getClientWidth() + "");
                         parent.repaint();
                     }
 
-                    @Override
-                    public void onFail() {
-                        timer.stop();
-                    }
                 });
 
     }
@@ -219,7 +129,7 @@ public class MapPanel extends JPanel implements Observer {
 
     @Override
     public void update() {
-            createRooms();
+        createRooms();
     }
 
     public InventoryPanel getInventoryPanel() {

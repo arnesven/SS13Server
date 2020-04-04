@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class PlayersPanel extends JPanel implements Observer {
 
-    private static final int TIME_INTERVAL = 3000;
+    private static final int TIME_INTERVAL = 1000;
 
     private final JTable ft;
     private int selectedIndex = -1;

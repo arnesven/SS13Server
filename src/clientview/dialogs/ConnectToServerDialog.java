@@ -27,7 +27,7 @@ public class ConnectToServerDialog extends JDialog {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     if (verify()) {
-                        parent.cont(returnBox.isSelected(), false, nameTextField.getText());
+                        parent.LoginToServer(returnBox.isSelected(), false, nameTextField.getText());
                     }
                     dispose();
                 }

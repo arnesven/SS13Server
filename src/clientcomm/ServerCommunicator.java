@@ -15,7 +15,11 @@ public class ServerCommunicator {
     private static SS13Client client;
 
     public synchronized static void send(String message, MyCallback callback) {
+        System.out.println("Making server request :" + message);
+        long dt = System.currentTimeMillis();
 		String res = login(message, GameData.getInstance().getHost(), GameData.getInstance().getPort());
+		dt = System.currentTimeMillis() - dt;
+      //  System.out.println(" ... took " + dt + " ms");
 		if (!res.equals("fail")) {
             callback.onSuccess(res);
         } else {
@@ -30,7 +34,6 @@ public class ServerCommunicator {
     }
 
     private static synchronized String sendMess(String message, String host, int port) {
-
         String response = "fail";
         try {
             Socket socket = new Socket(host, port);
@@ -43,9 +46,6 @@ public class ServerCommunicator {
             System.err.println("Got IO exception " + response);
             //e.printStackTrace();
             client.showConnectionError();
-
-
-
 
             client.switchBackToStart();
         } catch (ClassNotFoundException e) {
