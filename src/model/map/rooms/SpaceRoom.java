@@ -20,4 +20,9 @@ public class SpaceRoom extends Room {
     public boolean isPartOfStation() {
         return false;
     }
+
+    @Override
+    protected String getAppearanceScheme() {
+        return "NoWallsNoDoors-Space";
+    }
 }

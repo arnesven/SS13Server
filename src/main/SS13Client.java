@@ -34,7 +34,7 @@ public class SS13Client extends JFrame {
     private int botNumber = 1;
 
     public SS13Client() {
-        super("SS13 Client 1.0b");
+        super("SS13 Client 1.2b");
         errorShowing = false;
         this.setSize(originalSize);
         this.setLocation(new Point(250, 50));
@@ -121,7 +121,6 @@ public class SS13Client extends JFrame {
                     }
                 } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                     MapPanel.addXTranslation(1);
-                    repaint();
                 } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
                     MapPanel.addXTranslation(-1);
                 } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -133,6 +132,7 @@ public class SS13Client extends JFrame {
                 } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP) {
                     MapPanel.addZTranslation(1);
                 }
+                repaint();
             }
         });
         this.requestFocus();

@@ -32,7 +32,6 @@ public class HiveObject extends HideableObject {
 
     @Override
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
-		
 		if (isFound()){
 			super.addYourselfToRoomInfo(info, whosAsking);
 		} else if (whosAsking.isInfected()) {

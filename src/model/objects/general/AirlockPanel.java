@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import graphics.sprites.Sprite;
+import model.actions.characteractions.EscapeAndSetNukeAction;
 import model.actions.general.SensoryLevel;
 import model.Actor;
 import model.GameData;
@@ -13,6 +14,7 @@ import model.actions.objectactions.MoveToOtherAirlocks;
 import model.characters.decorators.SpaceProtection;
 import model.characters.general.GameCharacter;
 import model.characters.general.HorrorCharacter;
+import model.characters.general.OperativeCharacter;
 import model.characters.general.RobotCharacter;
 import model.events.Event;
 import model.events.NoPressureEvent;
@@ -36,6 +38,9 @@ public class AirlockPanel extends ElectricalMachinery {
                 cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof RobotCharacter)) {
             at.add(new MoveToOtherAirlocks(this.getPosition(), gameData));
         }
+        if (cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OperativeCharacter)) {
+			at.add(new EscapeAndSetNukeAction());
+		}
 	}
 
     @Override

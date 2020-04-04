@@ -12,6 +12,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SpriteManager {
 
@@ -41,12 +43,13 @@ public class SpriteManager {
 		"X", "q", "Q", "S", "0", "z", "Z", "_", "7", "Y", "$", "<",
 		">", "*", "1", ",", "-", "J", "G"};
 
-	private static ArrayList<String> keyList = new ArrayList<>();
-	private static ArrayList<String> valList = new ArrayList<>();
+	//private static ArrayList<String> keyList = new ArrayList<>();
+	//private static ArrayList<String> valList = new ArrayList<>();
+	private static Map<String, ImageIcon> map = new HashMap<>();
 
 	public static ImageIcon getSprite(final String spriteKey) {
 
-		String val = lookUp(spriteKey);
+		ImageIcon val = lookUp(spriteKey);
 
 		final ImageIcon ic = getBackUpSprite(spriteKey);
 		if (val == null) {
@@ -55,15 +58,13 @@ public class SpriteManager {
 				@Override
 				public void onSuccess(String result) {
 					if (!result.contains("ERROR")) {
-						addToDic(spriteKey, result);
 						ic.setImage(setBase64(result));
-
+						addToDic(spriteKey, ic);
 					}
 				}
 			});
 		} else {
-            BufferedImage image = setBase64(val);
-			ic.setImage(image);
+			return val;
 		}
 
 		return ic;
@@ -84,21 +85,14 @@ public class SpriteManager {
 
 	}
 
-	protected static void addToDic(String spriteKey, String result) {
-		keyList.add(spriteKey);
-		valList.add(result);
+	protected static void addToDic(String spriteKey, ImageIcon image) {
+		//keyList.add(spriteKey);
+		//valList.add(result);
+		map.put(spriteKey, image);
 	}
 
-	private static String lookUp(String string) {
-		int i = 0;
-
-		for (String key : keyList) {
-			if (string.equals(key)) {
-				return valList.get(i);
-			}
-			i++;
-		}
-		return null;
+	private static ImageIcon lookUp(String string) {
+		return map.get(string);
 	}
 
     private static ImageIcon getBackUpSprite(String string) {

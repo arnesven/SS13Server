@@ -108,7 +108,7 @@ public abstract class GameCharacter implements Serializable {
 	 * @return the name of the character as it appears for anyone knowing the TRUTH.
 	 */
 	public String getFullName() {
-		return getBaseName() + (isDead()?" (dead)":"");
+		return getBaseName() + (isEncumbered()?" (encumbered)":"") + (isDead()?" (dead)":"");
 	}
 
 	public boolean isDead() {
