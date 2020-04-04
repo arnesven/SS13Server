@@ -36,15 +36,6 @@ public class InGameView extends JSplitPane  {
 
         this.setDividerLocation(0.65);
         this.setResizeWeight(1.0);
-
-        // // Animation timer...
-        //Timer t = new Timer(100, new ActionListener() {
-        //    @Override
-        //    public void actionPerformed(ActionEvent actionEvent) {
-        //        repaint();
-        //    }
-        //});
-        //t.start();
     }
 
     public boolean isInMapMode() {

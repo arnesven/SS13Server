@@ -30,7 +30,6 @@ public class ServerCommunicator {
     //private final String serverFilePath;
     private static String login(String message, String host, int port) {
         return sendMess(message, host, port);
-
     }
 
     private static synchronized String sendMess(String message, String host, int port) {

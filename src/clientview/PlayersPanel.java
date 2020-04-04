@@ -141,27 +141,11 @@ public class PlayersPanel extends JPanel implements Observer {
                     color = new Color(0xDDDDDD);
                 }
             }
-           // tableModel.setValueAt(readyLabel, i, 1);
             tableModel.addRow(new String[]{clientArr.get(i), readyLabel});
-            //Component comp = ft.getCellRenderer(i, 1).getTableCellRendererComponent()
-            //comp.setBackground(color);
-
-            //ft.getColorModel().
-            //ft.setHTML(i, 1, readyLabel);
             if (selectedIndex == i) {
                 ft.getSelectionModel().setSelectionInterval(selectedIndex, selectedIndex);
             }
-//            } else {
-//                ft.getRowFormatter().getElement(i).getStyle().setBackgroundColor("#FFFFFF");
-//            }
         }
-
-
-//        for (int r = clientArr.size(); r < ft.getRowCount(); ++r) {
-//            ft.removeRow(r);
-//        }
-
-
 
 
     }

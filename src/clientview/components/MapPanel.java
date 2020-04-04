@@ -106,9 +106,9 @@ public class MapPanel extends JPanel implements Observer {
     @Override
     protected void paintComponent(Graphics g) {
         AnimationHandler.step();
-       checkBackgroundStrategy();
-       drawingStrategy.paint(g);
-       inventoryPanel.drawYourself(g, 0, getWidth());
+        checkBackgroundStrategy();
+        drawingStrategy.paint(g);
+        inventoryPanel.drawYourself(g, 0, getWidth());
     }
 
     private void checkBackgroundStrategy() {
