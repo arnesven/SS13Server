@@ -23,6 +23,7 @@ import java.awt.event.KeyEvent;
 
 public class SS13Client extends JFrame {
 
+    public static final String CLIENT_VERSION_STRING = "1.21b";
     private final ReturningPlayerPanel retPan;
     private static final Dimension originalSize = new Dimension(960, 960);
     private static final Dimension ingameSize = new Dimension(1200, 960);
@@ -34,7 +35,7 @@ public class SS13Client extends JFrame {
     private int botNumber = 1;
 
     public SS13Client() {
-        super("SS13 Client 1.21b");
+        super("SS13 Client " + CLIENT_VERSION_STRING);
         errorShowing = false;
         this.setSize(originalSize);
         this.setLocation(new Point(250, 50));

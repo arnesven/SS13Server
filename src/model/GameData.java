@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import comm.chat.ChatMessages;
 import graphics.OverlaySprite;
+import main.SS13Client;
 import model.characters.GameCharacterLambda;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
@@ -638,7 +639,7 @@ public class GameData implements Serializable {
 		return makeStringFromReadyClients()+ del + getGameState().val + del +
                 getRound() + del + getNoOfRounds() + del + chatMessages.getLastMessageIndex(getPlayerForClid(clid)) + del +
                 getPlayerForClid(clid).getSoundQueue().getCurrentIndex() + del +
-                getSelectedMode() + del +
+                getSelectedMode() + del + SS13Client.CLIENT_VERSION_STRING + del +
                 GameMode.getAvailableModesAsString();
 	}
 

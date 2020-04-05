@@ -50,6 +50,7 @@ public class GameData {
     private List<Room> miniMap = new ArrayList<>();
 	private Room currentRoom;
 	private int zShift = 0;
+	private String serversSuggestedClientVersion;
 
 	private GameData() {
 		modeAlternatives.add("Default");
@@ -76,7 +77,6 @@ public class GameData {
 	}
 
 	public void deconstructReadyListAndStateAndRoundAndSettings(String result) {
-
 		String[] parts = result.split("<player-data-part>");
 		instance.setState(Integer.parseInt(parts[1]));
 		instance.setRound(Integer.parseInt(parts[2]));
@@ -125,11 +125,14 @@ public class GameData {
             System.out.println("Problem parsing sound-index");
 		}
 
-		selectedMode = parts[5];
+		selectedMode = parts[6];
+		serversSuggestedClientVersion = parts[7];
 		modeAlternatives.clear();
-		for (int i = 6; i < parts.length; ++i) {
+		for (int i = 8 ; i < parts.length; ++i) {
 			instance.modeAlternatives.add(parts[i]);
 		}
+
+
 
 		notifyObservers();
 	}
@@ -519,7 +522,10 @@ public class GameData {
 
 	public void setSummaryString(String result) {
 		this.summaryString  = result;
+	}
 
+	public String getServersSuggestedClientVersion() {
+		return serversSuggestedClientVersion;
 	}
 
 	public String getSummaryString() {

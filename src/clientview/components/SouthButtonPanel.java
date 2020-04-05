@@ -4,6 +4,7 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientlogic.Observer;
+import main.SS13Client;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,8 @@ public class SouthButtonPanel extends Box implements Observer {
     public static final int LOBBY = 1;
     private final JLabel clidLabel;
     private final JLabel gameStateLabel;
-   // private final JToggleButton mapButton;
+    private final JLabel clientVersionLabel;
+    // private final JToggleButton mapButton;
 
     private boolean ready = false;
     private boolean inLobby = true;
@@ -79,6 +81,11 @@ public class SouthButtonPanel extends Box implements Observer {
           gameStateLabel = new JLabel("?");
           this.add(new JLabel(", "));
           this.add(gameStateLabel);
+
+          clientVersionLabel = new JLabel("..version?..");
+          clientVersionLabel.setForeground(Color.RED);
+          this.add(Box.createHorizontalGlue());
+          this.add(clientVersionLabel);
 
 //        HorizontalPanel hp = new HorizontalPanel();
          this.add(Box.createHorizontalGlue());
@@ -184,6 +191,14 @@ public class SouthButtonPanel extends Box implements Observer {
             if (ready) {
                 toggleReady();
             }
+        }
+
+        if (GameData.getInstance().getServersSuggestedClientVersion().equals(SS13Client.CLIENT_VERSION_STRING)) {
+            clientVersionLabel.setForeground(Color.GRAY);
+            clientVersionLabel.setText("Your client is up to date.");
+        } else {
+            clientVersionLabel.setForeground(Color.RED);
+            clientVersionLabel.setText("Your client is out of date. Server is running v. " + GameData.getInstance().getServersSuggestedClientVersion());
         }
 
         roundNumberLabel.setText(GameData.getInstance().getRound() + "");
