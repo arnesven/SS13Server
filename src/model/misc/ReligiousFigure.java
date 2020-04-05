@@ -11,10 +11,12 @@ public class ReligiousFigure implements Serializable {
 
     private final String name;
     private final int floorsetCol;
+    private final String practitioner;
 
-    public ReligiousFigure(String name, int floorsetCol) {
+    public ReligiousFigure(String name, int floorsetCol, String practicioner) {
         this.name = name;
         this.floorsetCol = floorsetCol;
+        this.practitioner = practicioner;
     }
 
     public void doWhenPrayedTo(GameData gameData, Actor prayer, Altar altar) {
@@ -26,4 +28,9 @@ public class ReligiousFigure implements Serializable {
     public String getName() {
         return name;
     }
+
+    public String getPracticionerName() {
+        return practitioner;
+    }
+
 }

@@ -29,12 +29,11 @@ public class Altar extends GameObject {
     public Altar(Room room) {
         super("Altar", room);
         this.gods = new ArrayList<ReligiousFigure>();
-        gods.add(new BabyJesus());
-        gods.add(new ReligiousFigure("Moses", 6));
-        gods.add(new ReligiousFigure("Allah", 7));
-        gods.add(new KaliGod());
-        gods.add(new Satan());
-        gods.add(new ReligiousFigure("L. Ron Hubbard", 8));
+
+        for (ReligiousFigure r : getReligiousFigures()) {
+            gods.add(r);
+        }
+
 
         pedestals = new ArrayList<>();
         pedestals.add(new Pedestals("Left", room));
@@ -43,6 +42,17 @@ public class Altar extends GameObject {
             room.addObject(p);
         }
 
+    }
+
+    public static List<ReligiousFigure> getReligiousFigures() {
+        List<ReligiousFigure> gods = new ArrayList<>();
+        gods.add(new BabyJesus());
+        gods.add(new ReligiousFigure("Moses", 6, "jew"));
+        gods.add(new ReligiousFigure("Allah", 7, "muslim"));
+        gods.add(new KaliGod());
+        gods.add(new Satan());
+        gods.add(new ReligiousFigure("L. Ron Hubbard", 8, "scientologist"));
+        return gods;
     }
 
     @Override

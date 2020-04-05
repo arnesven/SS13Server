@@ -6,7 +6,7 @@ import model.objects.Altar;
 
 public class BabyJesus extends ReligiousFigure {
     public BabyJesus() {
-        super("Baby Jesus", 5);
+        super("Baby Jesus", 5, "catholic");
     }
 
     @Override

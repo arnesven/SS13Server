@@ -6,7 +6,7 @@ import model.objects.Altar;
 
 public class KaliGod extends ReligiousFigure {
     public KaliGod() {
-        super("Kali", 10);
+        super("Kali", 10, "hindu");
     }
 
     @Override

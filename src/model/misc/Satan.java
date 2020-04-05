@@ -9,7 +9,7 @@ public class Satan extends ReligiousFigure {
     private boolean firstTime = true;
 
     public Satan() {
-        super("Satan", 9);
+        super("Satan", 9, "satan worshipper");
     }
 
     @Override

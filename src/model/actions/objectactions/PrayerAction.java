@@ -48,4 +48,8 @@ public class PrayerAction extends Action {
             }
         }
     }
+
+    public ReligiousFigure getSelectedGod() {
+        return selectedGod;
+    }
 }
