@@ -50,22 +50,21 @@ public class ServerSettings extends JPanel implements Observer {
         Box hp = new Box(BoxLayout.X_AXIS);
         hp.add(new JLabel("Game mode: "));
         modeBox = new JComboBox<String>();
+        modeBox.addActionListener((ActionEvent e) -> {
+            if (modeBox.getSelectedItem() != null) {
+                if (modeBox.isEnabled()) {
+                    if (!modeBox.getSelectedItem().equals(GameData.getInstance().getSelectedMode())) {
+                        GameData.getInstance().setSelectedMode((String) (modeBox.getSelectedItem()));
+                    }
+                }
+            }
+        });
         modeBox.setMaximumSize(new Dimension(150, 25));
         //modeBox.getElement().getStyle().setFontSize(14, Unit.PT);
 
 
         hp.add(modeBox);
 
-        JButton changeMode = new JButton("Change Mode");
-        changeMode.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                  GameData.getInstance().setSelectedMode((String) (modeBox.getSelectedItem()));
-                    System.out.println("Actionperformed");
-
-            }
-        });
-        this.add(changeMode);
 
         this.add(hp);
     }
@@ -94,21 +93,21 @@ public class ServerSettings extends JPanel implements Observer {
     public void update() {
         roundsBox.setText(GameData.getInstance().getNoOfRounds()+"");
 
-        modeBox.setEnabled(false);
-        modeBox.removeAllItems();
-//
-
-        int i = 0;
-        int ind = 0;
-        for (String s : GameData.getInstance().getModeAlternatives()) {
-            modeBox.addItem(s);
-            if (s.equals(GameData.getInstance().getSelectedMode())) {
-                ind = i;
+        if (!GameData.getInstance().getSelectedMode().equals(modeBox.getSelectedItem())) {
+            modeBox.setEnabled(false);
+            modeBox.removeAllItems();
+            int i = 0;
+            int ind = 0;
+            for (String s : GameData.getInstance().getModeAlternatives()) {
+                modeBox.addItem(s);
+                if (s.equals(GameData.getInstance().getSelectedMode())) {
+                    ind = i;
+                }
+                i++;
             }
-            i++;
+            modeBox.setSelectedIndex(ind);
+            modeBox.setEnabled(true);
         }
-        modeBox.setEnabled(true);
-        modeBox.setSelectedIndex(ind);
 
         playerSettingsPanel.setEnabled(false);
         playerSettingsPanel.removeAll();

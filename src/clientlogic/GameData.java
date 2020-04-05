@@ -35,7 +35,7 @@ public class GameData {
 	private ArrayList<String> jobNames = new ArrayList<String>();
 	private ArrayList<Boolean> jobVals = new ArrayList<>();
 	private int noOfRounds;
-	private String selectedMode;
+	private String selectedMode = "Unknown";
 	private ArrayList<String> modeAlternatives = new ArrayList<>();
 	private int port;
 	private int lastMessage = -1;
