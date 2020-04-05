@@ -14,6 +14,8 @@ import model.characters.visitors.VisitorCharacter;
 import model.items.NoSuchThingException;
 import model.items.suits.OutFit;
 import model.items.suits.SuitItem;
+import model.map.GameMap;
+import model.map.MapLevel;
 import model.modes.GameMode;
 import model.objects.consoles.AdministrationConsole;
 
@@ -99,7 +101,7 @@ public class ChangeJobAction extends ConsoleAction {
         }
 
         try {
-            if (gameData.getMap().getLevelForRoom(selectedActor.getPosition()).equals("ss13")) {
+            if (gameData.getMap().getLevelForRoom(selectedActor.getPosition()).getName().equals(GameMap.STATION_LEVEL_NAME)) {
 
                 boolean demotion = adminConsole.getToBeDemoted().contains(selectedActor);
                 if (adminConsole.getAcceptedActors().contains(selectedActor) || demotion) {

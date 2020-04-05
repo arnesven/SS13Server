@@ -28,7 +28,7 @@ public class LeaveStationGoal extends PersonalGoal {
     @Override
     public boolean isCompleted(GameData gameData) {
         try {
-            return wentOffStation && gameData.getMap().getLevelForRoom(getBelongsTo().getPosition()).equals(GameMap.STATION_LEVEL_NAME);
+            return wentOffStation && gameData.getMap().getLevelForRoom(getBelongsTo().getPosition()).getName().equals(GameMap.STATION_LEVEL_NAME);
         } catch (NoSuchThingException e) {
             e.printStackTrace();
             return false;
@@ -45,7 +45,7 @@ public class LeaveStationGoal extends PersonalGoal {
         @Override
         public void doAfterMovement(GameData gameData) {
             try {
-                if (!gameData.getMap().getLevelForRoom(getActor().getPosition()).equals(GameMap.STATION_LEVEL_NAME)) {
+                if (!gameData.getMap().getLevelForRoom(getActor().getPosition()).getName().equals(GameMap.STATION_LEVEL_NAME)) {
                     wentOffStation = true;
                 }
             } catch (NoSuchThingException e) {

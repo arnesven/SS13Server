@@ -6,6 +6,7 @@ import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
 import model.items.NoSuchThingException;
+import model.map.GameMap;
 import util.Logger;
 
 public class NuclearDisc extends GameItem {
@@ -54,7 +55,7 @@ public class NuclearDisc extends GameItem {
             Logger.log("Checking that disc is still on station...");
             if (getHolder() != null) {
                 try {
-                    if (!gameData.getMap().getLevelForRoom(getHolder().getPosition()).equals("ss13")) {
+                    if (!gameData.getMap().getLevelForRoom(getHolder().getPosition()).getName().equals(GameMap.STATION_LEVEL_NAME)) {
                         Logger.log(Logger.INTERESTING, "disc is held by soneone, not on ss13 any more! Respawning disc in CQ");
                         getHolder().getItems().remove(disc);
                         gameData.getRoom("Captain's Quarters").addItem(disc);
