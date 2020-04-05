@@ -23,7 +23,7 @@ import java.awt.event.KeyEvent;
 
 public class SS13Client extends JFrame {
 
-    public static final String CLIENT_VERSION_STRING = "1.221b";
+    public static final String CLIENT_VERSION_STRING = "1.222b";
     private final ReturningPlayerPanel retPan;
     private static final Dimension originalSize = new Dimension(960, 960);
     private static final Dimension ingameSize = new Dimension(1200, 960);
@@ -231,12 +231,21 @@ public class SS13Client extends JFrame {
     private void makeBackgroundMenu(JMenu view) {
         JMenu menu = new JMenu("Background");
         ButtonGroup bg = new ButtonGroup();
+        JMenuItem auto = new JRadioButtonMenuItem("Auto");
+        auto.addActionListener((ActionEvent e) -> MapPanel.setAutomaticBackground(true));
+        bg.add(auto);
+        auto.setSelected(true);
+        menu.add(auto);
+
         for (String backgroundType : BackgroundDrawingStrategy.getAllTypesAsStrings()) {
             JMenuItem it = new JRadioButtonMenuItem(backgroundType);
-            it.addActionListener((ActionEvent e) ->
-                    guiPanel.getInGameView().getMapPanel().getDrawingStrategy().setBackgroundDrawingStrategy(BackgroundDrawingStrategy.makeStrategy(backgroundType)));
+            it.addActionListener((ActionEvent e) -> {
+                guiPanel.getInGameView().getMapPanel().getDrawingStrategy().
+                        setBackgroundDrawingStrategy(BackgroundDrawingStrategy.makeStrategy(backgroundType));
+                MapPanel.setAutomaticBackground(false);
+                    }
+            );
             bg.add(it);
-            it.setSelected(true);
             menu.add(it);
         }
         view.add(menu);

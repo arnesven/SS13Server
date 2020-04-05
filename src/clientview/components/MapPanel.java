@@ -25,6 +25,8 @@ public class MapPanel extends JPanel implements Observer {
     private static int yTrans;
     private static int zTrans;
 
+    private static boolean automaticBackground = true;
+
     private final InventoryPanel inventoryPanel;
     private final DrawingStrategy drawingStrategy;
 
@@ -71,6 +73,10 @@ public class MapPanel extends JPanel implements Observer {
         yTrans = i;
     }
 
+    public static void setAutomaticBackground(boolean b) {
+        automaticBackground = b;
+    }
+
 
     private void createRooms() {
         ServerCommunicator.send(parent.getUsername() + " MAP VISI " + getWidth() + " " +
@@ -106,7 +112,9 @@ public class MapPanel extends JPanel implements Observer {
     @Override
     protected void paintComponent(Graphics g) {
         AnimationHandler.step();
-        checkBackgroundStrategy();
+        if (automaticBackground) {
+            checkBackgroundStrategy();
+        }
         drawingStrategy.paint(g);
         inventoryPanel.drawYourself(g, 0, getWidth());
     }
