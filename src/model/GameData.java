@@ -559,7 +559,7 @@ public class GameData implements Serializable {
 				       delim + cl.getPosition().getID() +
 					   delim + cl.getCurrentHealth() +
 					   delim + cl.getWeightString() +
-					   delim + cl.getSuit() +
+					   delim + MyStrings.join(cl.getEquippedItems(this)) +
 					   delim + MyStrings.join(cl.getItemsAsFullNameList(this)) +
 					   delim + MyStrings.join(cl.getRoomInfo()) +
 					   delim + MyStrings.join(cl.getLastTurnInfo()) +

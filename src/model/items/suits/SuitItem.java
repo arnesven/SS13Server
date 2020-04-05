@@ -4,7 +4,9 @@ import graphics.sprites.RegularBlackShoesSprite;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
+import model.actions.general.DropAction;
 import model.actions.general.PutOnAction;
 import model.items.general.GameItem;
 import util.Logger;
@@ -105,5 +107,28 @@ public abstract class SuitItem extends GameItem implements Wearable {
             acts.add(po);
         }
         return acts;
+    }
+
+    public String howDoYouAppearEquipped(GameData gameData, Player player) {
+        return getSprite(player).getName() + "<img>" +
+                getFullName(player) + "<img>" +
+                getEquipmentActionsData(player, gameData);
+    }
+
+    private String getEquipmentActionsData(Player player, GameData gameData) {
+        String res =  Action.makeActionListStringSpecOptions(gameData, getEquippedActions(gameData, player), player);
+        return res;
+    }
+
+    private List<Action> getEquippedActions(GameData gameData, Player forWhom) {
+        ArrayList<Action> acts = new ArrayList<>();
+        if (forWhom.getsActions()) {
+            DropAction drop = new DropAction(forWhom);
+            if (drop.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom)) ||
+                    drop.isAmongOptions(gameData, forWhom, this.getFullName(forWhom))) {
+                acts.add(drop);
+            }
+        }
+        return acts; // TODO: at least add drop and unequip
     }
 }

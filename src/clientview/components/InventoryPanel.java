@@ -4,6 +4,7 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientview.SpriteManager;
+import model.characters.general.GameCharacter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,82 +26,21 @@ public class InventoryPanel {
     private ArrayList<String> itemActions = new ArrayList<>();
     private int finalHeightRows;
 
+    public int getHeight() {
+        return (finalHeightRows)*MapPanel.getZoom();
+    }
+
     public void drawYourself(Graphics g, int yOffset, int width) {
 
-            finalHeightRows = 1+(int)(Math.ceil((double)((GameData.getInstance().getItems().size()+1) * 32)/(double)width));
-            g.setColor(Color.BLACK);
-            g.fillRect(0, yOffset, width, getHeight());
-            ImageIcon frame = SpriteManager.getSprite("uiframe0");
-            g.drawImage(frame.getImage(), 0, yOffset, null);
+        drawYou(g, yOffset, width);
+        drawHealth(g, yOffset, width);
+        drawName(g, yOffset);
+        drawRoomEffectIcons(g, yOffset, width);
+        int xOffset = drawEquipment(g, yOffset, width);
+        drawInventory(g, xOffset, yOffset, width);
 
-            for (String s : GameData.getInstance().getRoomInfo()) {
-                String strs[] = s.split("<img>");
-                if (strs[1].contains("You")) {
-                    g.drawImage(SpriteManager.getSprite(strs[0]).getImage(), 0, yOffset, null);
-                    break;
-                }
-            }
-            youBox = new Rectangle(0, yOffset, frame.getIconWidth(), frame.getIconHeight());
+    }
 
-            ImageIcon img;
-            if (GameData.getInstance().getHealth() > 3.0) {
-                img = SpriteManager.getSprite("healthover0");
-            } else if (GameData.getInstance().getHealth() == 0) {
-                img = SpriteManager.getSprite("healthdead0");
-            } else {
-                img = SpriteManager.getSprite("health" + (int)(GameData.getInstance().getHealth()*10.0) + "0");
-            }
-
-            g.drawImage(img.getImage(), frame.getIconWidth(), yOffset, null);
-            healthBox = new Rectangle(frame.getIconWidth(), yOffset, img.getIconWidth(), img.getIconHeight());
-
-            g.setFont(new Font("Arial", Font.ITALIC, 14));
-            g.setColor(Color.YELLOW);
-            g.drawString(GameData.getInstance().getCharacter(), img.getIconWidth()*2, yOffset+g.getFontMetrics().getHeight()-5);
-            g.drawString(GameData.getInstance().getSuit(), img.getIconWidth()*2, yOffset+2*g.getFontMetrics().getHeight()-5);
-
-            int index = 0;
-            for (String s : GameData.getInstance().getRoomInfo()) {
-                String strs[] = s.split("<img>");
-                if (!strs[1].contains("You")) {
-                    int iconWidth = MapPanel.getZoom();
-                    SpriteManager.drawSprite(strs[0], g, width - MapPanel.getZoom()*++index, yOffset);
-                    roomBoxes.add(new Rectangle(width - index*iconWidth, yOffset, iconWidth, iconWidth));
-                    roomNames.add(strs[1]);
-                }
-            }
-            roomIcons = new Rectangle(width-img.getIconWidth()*index, yOffset, img.getIconWidth()*index, img.getIconHeight());
-
-
-            int newY = yOffset + img.getIconHeight();
-            ImageIcon backpack = SpriteManager.getSprite("backpack0");
-            g.drawImage(backpack.getImage(), 0, newY, null);
-            backpackBox = new Rectangle(0, newY,
-                    backpack.getIconWidth(), backpack.getIconHeight());
-
-            int startX = backpack.getIconWidth();
-            itemBoxes = new ArrayList<Rectangle>();
-            itemNames = new ArrayList<String>();
-            itemActions = new ArrayList<>();
-            for (String item : GameData.getInstance().getItems()) {
-                if (item.contains("<img>")) {
-                    String[] parts = item.split("<img>");
-                    ImageIcon itemPic = SpriteManager.getSprite(parts[0]);
-                    g.drawImage(frame.getImage(), startX, newY, null);
-                    g.drawImage(itemPic.getImage(), startX, newY, null);
-                    itemBoxes.add(new Rectangle(startX, newY, itemPic.getIconWidth(), itemPic.getIconHeight()));
-                    itemNames.add(parts[1]);
-                    itemActions.add(parts[2]);
-                    startX += itemPic.getIconWidth();
-                    if (startX > width - itemPic.getIconWidth()) {
-                        startX = 0;
-                        newY += itemPic.getIconHeight();
-                    }
-                } else {
-                    System.err.println("Weird item: " + item);
-                }
-            }
-        }
 
     public void mouseHover(MouseEvent e, MapPanel mapPanel) {
         if (boxContains(youBox, e)) {
@@ -177,6 +117,118 @@ public class InventoryPanel {
         return false;
     }
 
+    private void drawYou(Graphics g, int yOffset, int width) {
+        finalHeightRows = 1+(int)(Math.ceil((double)((GameData.getInstance().getItems().size()+1) * 32)/(double)width));
+        g.setColor(Color.BLACK);
+        g.fillRect(0, yOffset, width, getHeight());
+        ImageIcon frame = SpriteManager.getSprite("uiframe0");
+        g.drawImage(frame.getImage(), 0, yOffset, null);
+
+        for (String s : GameData.getInstance().getRoomInfo()) {
+            String strs[] = s.split("<img>");
+            if (strs[1].contains("You")) {
+                g.drawImage(SpriteManager.getSprite(strs[0]).getImage(), 0, yOffset, null);
+                break;
+            }
+        }
+        youBox = new Rectangle(0, yOffset, frame.getIconWidth(), frame.getIconHeight());
+    }
+
+    private void drawHealth(Graphics g, int yOffset, int width) {
+        ImageIcon img;
+        if (GameData.getInstance().getHealth() > 3.0) {
+            img = SpriteManager.getSprite("healthover0");
+        } else if (GameData.getInstance().getHealth() == 0) {
+            img = SpriteManager.getSprite("healthdead0");
+        } else {
+            img = SpriteManager.getSprite("health" + (int)(GameData.getInstance().getHealth()*10.0) + "0");
+        }
+
+        g.drawImage(img.getImage(), img.getIconWidth(), yOffset, null);
+        healthBox = new Rectangle(img.getIconWidth(), yOffset, img.getIconWidth(), img.getIconHeight());
+    }
+
+    private void drawName(Graphics g, int yOffset) {
+        g.setFont(new Font("Arial", Font.ITALIC, 14));
+        g.setColor(Color.YELLOW);
+        g.drawString(GameData.getInstance().getCharacter(), MapPanel.getZoom()*2, yOffset+g.getFontMetrics().getHeight()-5);
+        //g.drawString(GameData.getInstance().getSuit(), MapPanel.getZoom()*2, yOffset+2*g.getFontMetrics().getHeight()-5);
+    }
+
+    private void drawRoomEffectIcons(Graphics g, int yOffset, int width) {
+        int index = 0;
+        for (String s : GameData.getInstance().getRoomInfo()) {
+            String strs[] = s.split("<img>");
+            if (!strs[1].contains("You")) {
+                int iconWidth = MapPanel.getZoom();
+                SpriteManager.drawSprite(strs[0], g, width - MapPanel.getZoom()*++index, yOffset);
+                roomBoxes.add(new Rectangle(width - index*iconWidth, yOffset, iconWidth, iconWidth));
+                roomNames.add(strs[1]);
+            }
+        }
+        roomIcons = new Rectangle(width-MapPanel.getZoom()*index, yOffset,
+                MapPanel.getZoom()*index,
+                MapPanel.getZoom());
+    }
+
+
+    private int drawEquipment(Graphics g, int yOffset, int width) {
+        int newY = yOffset + MapPanel.getZoom();
+        ImageIcon suit = SpriteManager.getSprite("suiteqslot0");
+        g.drawImage(suit.getImage(), 0, newY, null);
+
+        ImageIcon gloves = SpriteManager.getSprite("gloveseqslot0");
+        g.drawImage(gloves.getImage(), suit.getIconWidth(), newY, null);
+        ImageIcon helmet = SpriteManager.getSprite("helmeteqslot0");
+        g.drawImage(helmet.getImage(), 2*gloves.getIconWidth(), newY, null);
+
+        itemBoxes = new ArrayList<Rectangle>();
+        itemNames = new ArrayList<String>();
+        itemActions = new ArrayList<>();
+        int startX = 0;
+        for (String eqItem : GameData.getInstance().getEquipment()) {
+            String[] parts = eqItem.split("<img>");
+            ImageIcon pic = SpriteManager.getSprite(parts[0]);
+            g.drawImage(pic.getImage(), startX, newY, null);
+            itemBoxes.add(new Rectangle(startX, newY, pic.getIconWidth(), pic.getIconHeight()));
+            itemNames.add(parts[1]);
+            itemActions.add(parts[2]);
+            startX += pic.getIconWidth();
+        }
+
+        return 3*gloves.getIconWidth();
+    }
+
+
+    private void drawInventory(Graphics g, int xOffset, int yOffset, int width) {
+        ImageIcon frame = SpriteManager.getSprite("uiframe0");
+        int newY = yOffset + MapPanel.getZoom();
+        ImageIcon backpack = SpriteManager.getSprite("backpack0");
+        g.drawImage(backpack.getImage(), xOffset, newY, null);
+        backpackBox = new Rectangle(xOffset, newY,
+                backpack.getIconWidth(), backpack.getIconHeight());
+
+        int startX = backpack.getIconWidth()+xOffset;
+        for (String item : GameData.getInstance().getItems()) {
+            if (item.contains("<img>")) {
+                String[] parts = item.split("<img>");
+                ImageIcon itemPic = SpriteManager.getSprite(parts[0]);
+                g.drawImage(frame.getImage(), startX, newY, null);
+                g.drawImage(itemPic.getImage(), startX, newY, null);
+                itemBoxes.add(new Rectangle(startX, newY, itemPic.getIconWidth(), itemPic.getIconHeight()));
+                itemNames.add(parts[1]);
+                itemActions.add(parts[2]);
+                startX += itemPic.getIconWidth();
+                if (startX > width - itemPic.getIconWidth()) {
+                    startX = 0;
+                    newY += itemPic.getIconHeight();
+                }
+            } else {
+                System.err.println("Weird item: " + item);
+            }
+        }
+    }
+
     private void makeInventoryActionMenu(MouseEvent e, String itemName, String actionData) {
          MyPopupMenu mpm = new MyPopupMenu(itemName, actionData, e)  {
 
@@ -202,7 +254,4 @@ public class InventoryPanel {
     }
 
 
-    public int getHeight() {
-        return (finalHeightRows)*32;
-    }
 }

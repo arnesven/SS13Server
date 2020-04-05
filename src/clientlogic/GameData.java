@@ -23,9 +23,9 @@ public class GameData {
 	private ArrayList<Integer> selectableRooms = new ArrayList<>();
 	private String character;
 	private double health;
-	private String suit;
 	private int currentPos;
 	private String host = Cookies.getCookie("host");
+	private ArrayList<String> equipment = new ArrayList<>();
 	private ArrayList<String> items = new ArrayList<>();
 	private ArrayList<String> roomInfo = new ArrayList<>();
 	private ArrayList<String> lastTurnInfo = new ArrayList<>();
@@ -391,7 +391,7 @@ public class GameData {
 		GameData.getInstance().setCurrentPos(Integer.parseInt(parts[2]));
 		GameData.getInstance().setHealth(Double.parseDouble(parts[3]));
 		GameData.getInstance().setWeight(parts[4]);
-		GameData.getInstance().setSuit(parts[5]);
+		deconstructEquipment(parts[5]);
 		deconstructItems(parts[6]);
 		deconstructRoomInfo(parts[7]);
 		deconstructLastTurnInfo(parts[8]);
@@ -415,6 +415,11 @@ public class GameData {
 		this.items.addAll(MyUtils.deconstructList(string));
 	}
 
+	private void deconstructEquipment(String string) {
+		this.equipment.clear();
+		this.equipment.addAll(MyUtils.deconstructList(string));
+	}
+
 	private void deconstructOverlaySprites(String string) {
 		this.overlays.clear();
 		for (String str : MyUtils.deconstructList(string)) {
@@ -435,10 +440,6 @@ public class GameData {
 		this.currentPos = pos;
 	}
 
-	private void setSuit(String s) {
-		this.suit = s;
-	}
-
 	private void setHealth(double d) {
 		this.health = d;
 	}
@@ -457,10 +458,6 @@ public class GameData {
 
 	public double getHealth() {
 		return this.health;
-	}
-
-	public String getSuit() {
-		return this.suit;
 	}
 
 	public String getCurrentRoom() {
@@ -782,5 +779,9 @@ public class GameData {
 			return currentRoom.getZPos();
 		}
 		return 0;
+	}
+
+	public List<String> getEquipment() {
+		return equipment;
 	}
 }

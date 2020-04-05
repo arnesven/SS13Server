@@ -8,6 +8,7 @@ import graphics.OverlaySprite;
 import graphics.sprites.*;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
+import model.items.suits.SuitItem;
 import model.map.rooms.SpaceRoom;
 import model.movepowers.MovePowerRoom;
 import sounds.Sound;
@@ -123,12 +124,12 @@ public class Player extends Actor implements Target, Serializable {
 	 * Gets the suit of the player as a string.
 	 * @return the suit of the player
 	 */
-	public String getSuit() {
-		if (this.getCharacter().getSuit() == null) {
-			return "*None*";
-		}
-		return this.getCharacter().getSuit().getFullName(this);
-	}
+//	public String getSuit() {
+//		if (this.getCharacter().getSuit() == null) {
+//			return "*None*";
+//		}
+//		return this.getCharacter().getSuit().getFullName(this);
+//	}
 
 	/**
 	 * Sets the ID of the next move which the player will make.
@@ -656,4 +657,12 @@ public class Player extends Actor implements Target, Serializable {
     }
 
 
+	public List<String> getEquippedItems(GameData gameData) {
+		SuitItem it = getCharacter().getSuit();
+        List<String> result = new ArrayList<>();
+		if (it != null) {
+            result.add(it.howDoYouAppearEquipped(gameData, this));
+        }
+		return result;
+	}
 }
