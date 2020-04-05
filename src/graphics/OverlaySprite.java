@@ -5,6 +5,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.map.rooms.Room;
+import util.Logger;
 
 import java.util.List;
 
@@ -46,8 +47,13 @@ public class OverlaySprite {
             spriteObjName = sprite.getObjectReference().getPublicName(forWhom);
         }
 
+        int roomid = -1;
+        if (this.getRoom() != null) {
+            roomid = this.getRoom().getID();
+        }
+
         return sprite.getName() + delim +  String.format("%1$.1f", x) + delim + String.format("%1$1f", y) +
-                delim + spriteObjName + delim + actiondata + delim + this.frames + delim + this.getRoom().getID();
+                delim + spriteObjName + delim + actiondata + delim + this.frames + delim + roomid;
     }
 
 
