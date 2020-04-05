@@ -37,7 +37,7 @@ public class AnimationEvent extends Event {
 
     @Override
     public SensoryLevel getSense() {
-        return null;
+        return SensoryLevel.EXPLOSION;
     }
 
     @Override

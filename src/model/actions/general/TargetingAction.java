@@ -176,7 +176,7 @@ public abstract class TargetingAction extends Action {
 		withWhats.add(it);
 	}
 
-	private GameItem findItem(String string, Actor whosAsking) throws NoSuchThingException {
+	protected GameItem findItem(String string, Actor whosAsking) throws NoSuchThingException {
 		for (GameItem g : withWhats) {
             if (g.getFullName(whosAsking).equals(string) || string.contains(g.getPublicName(whosAsking))) {
                 return g;
@@ -187,7 +187,7 @@ public abstract class TargetingAction extends Action {
 		throw new NoSuchThingException("Did not find object for this targeting action.");
 	}
 
-	private Target findTarget(String name) throws NoSuchThingException {
+	protected Target findTarget(String name) throws NoSuchThingException {
 		for (Target c : targets) {
 			if (name.contains(c.getName()) || c.getName().contains(name)) {
 				return c;

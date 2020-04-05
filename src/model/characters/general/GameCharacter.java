@@ -168,11 +168,11 @@ public abstract class GameCharacter implements Serializable {
             this.killerItem = killItem;
         }
 
-        if (killer instanceof Player && ((Player)killer).getSettings().get(PlayerSettings.AUTO_LOOT_ON_KILL)) {
-            transferAllItemsTo(killer);
-        } else {
-            dropAllItems();
-        }
+//        if (killer instanceof Player && ((Player)killer).getSettings().get(PlayerSettings.AUTO_LOOT_ON_KILL)) {
+//            transferAllItemsTo(killer);
+//        } else {
+//            dropAllItems();
+//        }
         Logger.log(Logger.INTERESTING, getActor().getBaseName() + " just died! ");
         if (killer != null) {
             setKiller(killer);

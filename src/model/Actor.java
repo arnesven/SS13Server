@@ -240,6 +240,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
             addMoveActions(gameData, at);
             addAttackActions(generals);
             addWatchAction(generals);
+            addLootAction(generals, gameData);
             addHighFiveAction(generals, gameData);
             if (this.hasInventory()) {
                 addManageItemActions(gameData, at);
@@ -264,6 +265,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         return at;
     }
 
+
     private void addMoveActions(GameData gameData, ArrayList<Action> at) {
         Action move = new MoveAction(this);
         if (move.getOptions(gameData, this).getSuboptions().size() > 0) {
@@ -277,6 +279,14 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
             generals.add(high5);
         }
     }
+
+    private void addLootAction(ArrayList<Action> generals, GameData gameData) {
+        TargetingAction loot = new LootAction(this);
+        if (loot.getOptions(gameData, this).numberOfSuboptions() > 0) {
+            generals.add(loot);
+        }
+    }
+
 
 
     private void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
@@ -512,6 +522,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
                 simpleTargetingActions.add(new FollowAction(forWhom));
                 simpleTargetingActions.add(new StopFollowingAction(forWhom));
                 simpleTargetingActions.add(new HighFiveAction(forWhom));
+                simpleTargetingActions.add(new LootAction(forWhom));
                 for (TargetingAction ta : simpleTargetingActions) {
                     if (ta.isAmongOptions(gameData, forWhom, this.getPublicName())) {
                         ta.stripAllTargetsBut(this.getAsTarget());

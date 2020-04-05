@@ -16,6 +16,7 @@ import model.items.foods.Vodka;
 import model.items.general.*;
 import model.items.suits.CaptainsOutfit;
 import model.items.weapons.Knife;
+import model.items.weapons.LaserSword;
 import model.items.weapons.Weapon;
 import model.npcs.JungleManNPC;
 
@@ -31,7 +32,6 @@ public class CaptainCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
         ArrayList<GameItem> list = new ArrayList<GameItem>();
         list.add(new KeyCard());
-        list.add(new Grenade());
 
         return list;
     }

@@ -46,6 +46,10 @@ public class SensoryLevel implements Serializable {
 			  												  AudioLevel.SAME_ROOM, 
 			  												  OlfactoryLevel.SHARP);
 
+	public static final SensoryLevel EXPLOSION =  new SensoryLevel(VisualLevel.CLEARLY_VISIBLE,
+			AudioLevel.VERY_LOUD,
+			OlfactoryLevel.UNSMELLABLE);
+
     public static final SensoryLevel SCREAM = new SensoryLevel(VisualLevel.INVISIBLE,
                                                                 AudioLevel.VERY_LOUD,
                                                                 OlfactoryLevel.UNSMELLABLE);
