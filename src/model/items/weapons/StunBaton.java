@@ -7,6 +7,7 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.itemactions.CancelAction;
+import model.characters.decorators.StunnedDecorator;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.AlterMovement;
 import model.characters.decorators.InstanceChecker;
@@ -66,15 +67,14 @@ public class StunBaton extends AmmoWeapon {
 	}
 
 	private void reduceMovement(final GameData gameData, final Actor victim) {
-		victim.setCharacter(new AlterMovement(victim.getCharacter(), 
-								"Stunned", true, 0));
+		victim.setCharacter(new StunnedDecorator(victim.getCharacter()));
 		
 		gameData.addEvent(new RemoveInstanceLaterEvent(victim, gameData.getRound(), 
 				1, new InstanceChecker() {
 					
 					@Override
 					public boolean checkInstanceOf(GameCharacter ch) {
-						return ch instanceof AlterMovement;
+						return ch instanceof StunnedDecorator;
 					}
 				}));
 		

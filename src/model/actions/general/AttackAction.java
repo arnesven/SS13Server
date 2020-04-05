@@ -3,7 +3,7 @@ package model.actions.general;
 import model.Actor;
 import model.GameData;
 import model.Target;
-import model.events.AttackOfOpportunityEvent;
+import model.characters.decorators.PinnedDecorator;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 import model.objects.general.BreakableObject;
@@ -50,9 +50,13 @@ public class AttackAction extends TargetingAction {
                                           Actor performingClient,
                                           Actor target, Weapon w) {
         if (performingClient.getCharacter().getsAttackOfOpportunity(w)) {
-            gameData.addMovementEvent(new AttackOfOpportunityEvent(performingClient, target, w));
+            //gameData.addMovementEvent(new AttackOfOpportunityEvent(performingClient, target, w));
             performingClient.addTolastTurnInfo("You've got " + target.getPublicName() + " pinned!");
             target.addTolastTurnInfo(performingClient.getPublicName() + " has got you pinned!");
+            if (target instanceof Actor) {
+				Actor victim = (Actor)target;
+				victim.setCharacter(new PinnedDecorator(victim.getCharacter(), performingClient, w));
+			}
         }
     }
 

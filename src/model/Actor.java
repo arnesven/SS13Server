@@ -530,34 +530,12 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
                     }
                 }
 
-//                TargetingAction watchAction = new WatchAction(forWhom);
-//                if (watchAction.isAmongOptions(gameData, forWhom, this.getPublicName())) {
-//                    watchAction.stripAllTargetsBut(this.getAsTarget());
-//                    list.add(watchAction);
-//                }
-//                TargetingAction dragAction = new DragAction(forWhom, gameData);
-//                if (dragAction.isAmongOptions(gameData, forWhom, this.getPublicName())) {
-//                    dragAction.stripAllTargetsBut(this.getAsTarget());
-//                    list.add(dragAction);
-//                }
-//                TargetingAction followAction = new FollowAction(forWhom);
-//                if (followAction.isAmongOptions(gameData, forWhom, this.getPublicName())) {
-//                    followAction.stripAllTargetsBut(this.getAsTarget());
-//                    list.add(followAction);
-//                }
-//                HighFiveAction highFive = new HighFiveAction(forWhom);
-//                if (highFive.isAmongOptions(gameData, forWhom, this.getPublicName())) {
-//                    highFive.stripAllTargetsBut(this.getAsTarget());
-//                    list.add(highFive);
-//                }
-
                 GiveAction give = new GiveAction(forWhom);
                 if (give.isAmongOptions(gameData, forWhom, this.getPublicName())) {
                     give.stripAllTargetsBut(this.getAsTarget());
                     give.addClientsItemsToAction(forWhom);
                     list.add(give);
                 }
-
 
                 ArrayList<Action> tmpList = new ArrayList<>();
                 forWhom.getCharacter().addCharacterSpecificActions(gameData, tmpList);

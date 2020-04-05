@@ -220,7 +220,7 @@ public abstract class GameCharacter implements Serializable {
         if (success) {
             internalAttackSuccess(performingClient, weapon, frag, crit, "You", getActor().getPublicName(), critMess);
         } else {
-            performingClient.addTolastTurnInfo("Your attacked missed!");
+            performingClient.addTolastTurnInfo("Your attack missed!");
         }
     }
 

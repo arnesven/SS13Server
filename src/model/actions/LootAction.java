@@ -6,6 +6,10 @@ import model.Target;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
+import model.characters.decorators.HandCuffedDecorator;
+import model.characters.decorators.PinnedDecorator;
+import model.characters.decorators.StunnedDecorator;
+import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import util.Logger;
@@ -77,7 +81,12 @@ public class LootAction extends TargetingAction {
             return false;
         }
         Actor actorTarget = (Actor)target2;
-        return actorTarget != performer && (actorTarget.isDead() || !actorTarget.getsActions());
+        if (actorTarget == performer) {
+            return false;
+        }
+        return actorTarget.isDead() || !actorTarget.getsActions() ||
+                actorTarget.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof PinnedDecorator ||
+                        gc instanceof StunnedDecorator || gc instanceof HandCuffedDecorator);
     }
 
     @Override
