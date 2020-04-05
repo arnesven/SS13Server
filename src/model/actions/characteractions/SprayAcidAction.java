@@ -6,6 +6,8 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.general.ChangelingCharacter;
 import model.events.damage.CorrosiveDamage;
+import model.objects.general.BreakableObject;
+import model.objects.general.GameObject;
 
 import java.util.List;
 
@@ -33,8 +35,16 @@ public class SprayAcidAction extends Action {
             if (a != performingClient) {
                 ling.setAcidSprayed(true);
                 a.getCharacter().beExposedTo(performingClient, new CorrosiveDamage());
+                performingClient.addTolastTurnInfo("You sprayed acid on " + a.getPublicName(performingClient));
             }
         }
+        for (GameObject o : performingClient.getPosition().getObjects()) {
+            if (o instanceof BreakableObject) {
+                ((BreakableObject) o).beExposedTo(performingClient, new CorrosiveDamage());
+                performingClient.addTolastTurnInfo("You sprayed acid on " + o.getPublicName(performingClient));
+            }
+        }
+
 
     }
 

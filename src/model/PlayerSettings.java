@@ -30,7 +30,7 @@ public class PlayerSettings implements Serializable {
     private HashMap<String, Setting> settings = new HashMap<>();
 
     public PlayerSettings() {
-        settings.put(AUTO_LOOT_ON_KILL, new Setting(false, false));
+        settings.put(AUTO_LOOT_ON_KILL, new Setting(false, true));
         settings.put(SHOW_ITEMS_IN_MAP_WHEN_DEAD, new Setting(true, true));
         settings.put(AUTO_DROP_ITEMS_ON_PICK_UP, new Setting(false, false));
         settings.put(ALWAYS_REFUSE_GIFTS, new Setting(false, false));

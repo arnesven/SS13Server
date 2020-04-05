@@ -71,7 +71,7 @@ public abstract class GameCharacter implements Serializable {
 		this.startingRoom = startRoom;
 		this.speed = speed;
         gender = MyRandom.randomGender();
-        physBody = new PhysicalBody(gender.equals("man"));
+        physBody = new PhysicalBody(gender.equals("man"), this);
         killerItem = null;
 	}
 

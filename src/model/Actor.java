@@ -557,6 +557,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
             }
         }
         return list;
+
     }
 
 }

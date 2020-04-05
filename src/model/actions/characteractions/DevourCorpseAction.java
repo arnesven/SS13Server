@@ -33,7 +33,7 @@ public class DevourCorpseAction extends Action {
 	protected void execute(GameData gameData, Actor performingClient) {
 		Actor husk = getAHusk();
         try {
-
+			performingClient.addTolastTurnInfo("You devoured the husk. Yum!");
                 performingClient.getPosition().removeActor(husk);
             ling.addToPower(1);
         } catch (NoSuchThingException nste) {

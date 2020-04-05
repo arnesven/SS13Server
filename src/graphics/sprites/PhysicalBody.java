@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.characters.general.GameCharacter;
 import model.items.BodyPart;
 import model.map.rooms.Room;
 import util.Logger;
@@ -23,6 +24,7 @@ public class PhysicalBody implements SpriteObject, Serializable {
 
     private static List<Sprite> hairSprites = collectHairSprites();
     private static List<Sprite> facialHairSprites = collectFacialHairSprites();
+    private final GameCharacter belongingTo;
     private boolean hasABrain;
     //private static List<Sprite> nakedSprites = nakedSpriteList();
 
@@ -38,7 +40,7 @@ public class PhysicalBody implements SpriteObject, Serializable {
 
 
 
-    public PhysicalBody(boolean gender, int hairNum, Color color, int facialHairNum, Color facialHairColor) {
+    public PhysicalBody(boolean gender, int hairNum, Color color, int facialHairNum, Color facialHairColor, GameCharacter belong) {
         this.gender = gender;
         this.hairColor = color;
         this.hairNum = hairNum;
@@ -49,11 +51,12 @@ public class PhysicalBody implements SpriteObject, Serializable {
             hasBodyParts.put(part, true);
         }
         this.hasABrain = true;
+        this.belongingTo = belong;
     }
 
-    public PhysicalBody(boolean gender) {
+    public PhysicalBody(boolean gender, GameCharacter belongingTo) {
         this(gender, MyRandom.nextInt(hairSprites.size()), MyRandom.randomHairColor(),
-                MyRandom.nextInt(facialHairSprites.size()), MyRandom.randomHairColor());
+                MyRandom.nextInt(facialHairSprites.size()), MyRandom.randomHairColor(), belongingTo);
     }
 
 //    private static List<Sprite> getHairNumber(int hairNum, Color color) {
@@ -295,6 +298,6 @@ public class PhysicalBody implements SpriteObject, Serializable {
 
 
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
-        return new ArrayList<>();
+        return belongingTo.getActor().getOverlaySpriteActionList(gameData, r, forWhom);
     }
 }

@@ -68,7 +68,11 @@ public class ChangelingCharacter extends GameCharacter {
         return getForm().getSprite(whosAsking);
     }
 
-	
+	@Override
+	public int getSize() {
+		return getForm().getSize();
+	}
+
 	@Override
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {

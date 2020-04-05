@@ -5,6 +5,7 @@ import model.characters.crew.CrewCharacter;
 import model.characters.crew.TouristCharacter;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
+import model.map.rooms.ArmoryRoom;
 import model.map.rooms.NukieShipRoom;
 import model.map.rooms.Room;
 import util.MyRandom;
@@ -37,7 +38,7 @@ public abstract class VisitorCharacter extends CrewCharacter {
         Room room;
         do {
             room = MyRandom.sample(gameData.getRooms());
-        } while (room instanceof NukieShipRoom);
+        } while (room instanceof NukieShipRoom || room instanceof ArmoryRoom);
 
         return room;
     }
