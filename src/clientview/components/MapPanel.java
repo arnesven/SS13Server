@@ -79,29 +79,19 @@ public class MapPanel extends JPanel implements Observer {
 
 
     private void createRooms() {
-        ServerCommunicator.send(parent.getUsername() + " MAP VISI " + getWidth() + " " +
+        ServerCommunicator.send(parent.getUsername() + " MAP VIMI " + getWidth() + " " +
                         (getHeight()-inventoryPanel.getHeight()),
                 new MyCallback<String>() {
 
             @Override
             public void onSuccess(String result) {
-                GameData.getInstance().deconstructRoomList(result, GameData.getInstance().getRooms());
-                drawRooms();
+                String[] parts = result.split("<vimi>");
+                GameData.getInstance().deconstructRoomList(parts[0], GameData.getInstance().getRooms());
+                GameData.getInstance().deconstructRoomList(parts[1], GameData.getInstance().getMiniMap());
+                parent.repaint();
             }
 
             });
-
-        ServerCommunicator.send(parent.getUsername() + " MAP MINI " + + getWidth() + " " +
-                        (getHeight()-inventoryPanel.getHeight()),
-                new MyCallback<String>() {
-
-                    @Override
-                    public void onSuccess(String result) {
-                        GameData.getInstance().deconstructRoomList(result, GameData.getInstance().getMiniMap());
-                        parent.repaint();
-                    }
-
-                });
 
     }
 

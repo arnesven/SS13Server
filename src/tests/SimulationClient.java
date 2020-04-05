@@ -171,7 +171,7 @@ public class SimulationClient extends Thread {
     }
 
     public void getMapData() {
-        mapdata = sendToServer(clid + " MAP VISI 1000 1000");;
+        mapdata = sendToServer(clid + " MAP VISI 1000 1000");
     }
 
     public String getGameStateName() {

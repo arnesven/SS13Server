@@ -17,27 +17,23 @@ public class MapCommandHandler extends AbstractCommandHandler {
 	@Override
 	public boolean handleCommand(String command, String clid, String rest,
 			ObjectOutputStream oos) throws IOException {
-//		System.out.println("handling map command");
+
 		if (command.contains("MAP")) {
-	//	    Logger.log("Got MAP command");
-		    //List<String> strs = makeStringsList(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
-			//String result = MyStrings.join(strs);
-            String result;
-            if (rest.contains("VISI")) {
+			String result;
+			if (rest.contains("VIMI")) {
+				result = MyStrings.join(gameData.getPlayerForClid(clid).getVisibleMap(gameData)) + "<vimi>" +
+						MyStrings.join(gameData.getPlayerForClid(clid).getMiniMap(gameData));
+			} else if (rest.contains("VISI")) {
                 result = MyStrings.join(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
             } else {
                 result = MyStrings.join(gameData.getPlayerForClid(clid).getMiniMap(gameData));
             }
-			//Logger.log("MAPCOMMAND:" + rest);
             rest = rest.substring(6);
 
-                Scanner scan = new Scanner(rest);
-                int width = scan.nextInt();
-                int height = scan.nextInt();
-//                int width = Integer.parseInt(rest.substring(0, (int) Math.ceil(rest.length() / 2.0)));
-//                int height = Integer.parseInt(rest.substring((int) Math.ceil(rest.length() / 2.0)+1, rest.length()));
+			Scanner scan = new Scanner(rest);
+			int width = scan.nextInt();
+			int height = scan.nextInt();
 
-               // Logger.log("Clients dimension is " + width + "x" + height);
             gameData.getPlayerForClid(clid).setClientDimension(width, height);
 
 			oos.writeObject(result);
