@@ -1,7 +1,7 @@
 package model.characters.decorators;
 
 import graphics.OverlaySprite;
-import graphics.sprites.OverlaySprites;
+import graphics.sprites.alsoSeeAnimalsInAdjacentRooms;
 import model.GameData;
 import model.Player;
 import model.characters.general.GameCharacter;
@@ -18,8 +18,8 @@ public class AnimalOverlayDecorator extends CharacterDecorator {
 
     @Override
     public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
-        List<OverlaySprite> strs = super.getOverlayStrings(player, gameData);
-        strs.addAll(OverlaySprites.seeAnimalsInAdjacentRooms(player, gameData));
-        return strs;
+
+        return new alsoSeeAnimalsInAdjacentRooms().getOverlaySprites(player, gameData);
+
     }
 }

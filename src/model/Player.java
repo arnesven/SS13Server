@@ -5,14 +5,13 @@ import java.util.*;
 
 import graphics.ClientInfo;
 import graphics.OverlaySprite;
-import graphics.sprites.SpriteObject;
+import graphics.sprites.*;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import model.map.rooms.SpaceRoom;
 import model.movepowers.MovePowerRoom;
 import sounds.Sound;
 import sounds.SoundQueue;
-import graphics.sprites.OverlaySprites;
 import model.actions.general.Action;
 import model.actions.general.ActionGroup;
 import model.characters.general.GameCharacter;
@@ -553,19 +552,15 @@ public class Player extends Actor implements Target, Serializable {
 
     public List<OverlaySprite> getOverlayStrings(GameData gameData) {
 
-	    List<OverlaySprite> strs = OverlaySprites.dummyList();
-
-        if (isDead() ||
+	   if (isDead() ||
                 (gameData.getGameMode().gameOver(gameData) &&
                 gameData.getGameState() == GameState.PRE_GAME)) {
-            strs = OverlaySprites.seeAllOverlay(this, gameData);
+        	return new SeeAllVision().getOverlaySprites(this, gameData);
         } else if (getCharacter() != null) {
-            strs = getCharacter().getOverlayStrings(this, gameData);
+            return getCharacter().getOverlayStrings(this, gameData);
         }
+        return new OnlyTheAlwaysSpritesVision().getOverlaySprites(this, gameData);
 
-        strs.addAll(OverlaySprites.getAlwaysSprites(this, gameData));
-
-        return strs;
     }
 
     public PlayerSettings getSettings() {

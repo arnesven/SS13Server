@@ -1,7 +1,7 @@
 package model.characters.general;
 
 import graphics.OverlaySprite;
-import graphics.sprites.OverlaySprites;
+import graphics.sprites.AIVision;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
@@ -14,7 +14,6 @@ import model.actions.ai.ChangeScreenAction;
 import model.actions.characteractions.NuclearExplosiveDamage;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
-import model.actions.general.WatchAction;
 import model.characters.special.GhostCharacter;
 import model.events.damage.Damager;
 import model.items.general.GameItem;
@@ -118,7 +117,7 @@ public class AICharacter extends GhostCharacter {
 
 
     public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
-        return OverlaySprites.seeAIVision(player, gameData);
+        return new AIVision().getOverlaySprites(player, gameData);
     }
 
     @Override

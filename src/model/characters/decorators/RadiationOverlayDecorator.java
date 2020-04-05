@@ -1,7 +1,7 @@
 package model.characters.decorators;
 
 import graphics.OverlaySprite;
-import graphics.sprites.OverlaySprites;
+import graphics.sprites.AlsoSeeRadiationAndPortalsVision;
 import model.GameData;
 import model.Player;
 import model.characters.general.GameCharacter;
@@ -19,8 +19,6 @@ public class RadiationOverlayDecorator extends CharacterDecorator {
 
     @Override
     public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
-        List<OverlaySprite> strs = super.getOverlayStrings(player, gameData);
-        strs.addAll(OverlaySprites.seeRadiationAndPortalsInRoomAndAdjacent(gameData, player));
-        return strs;
+        return new AlsoSeeRadiationAndPortalsVision().getOverlaySprites(player, gameData);
     }
 }

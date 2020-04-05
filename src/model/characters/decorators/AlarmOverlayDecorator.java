@@ -1,13 +1,5 @@
 package model.characters.decorators;
 
-import graphics.OverlaySprite;
-import graphics.sprites.OverlaySprites;
-import model.GameData;
-import model.Player;
-import model.characters.general.GameCharacter;
-
-import java.util.List;
-
 /**
  * Created by erini02 on 13/10/16.
  */

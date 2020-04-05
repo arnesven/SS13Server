@@ -1,13 +1,12 @@
 package model.characters.special;
 
 import graphics.OverlaySprite;
-import graphics.sprites.OverlaySprites;
+import graphics.sprites.SeeAllVision;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
 import model.characters.general.GameCharacter;
-import model.characters.general.OperativeCharacter;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
@@ -49,7 +48,7 @@ public class SpectatorCharacter extends GhostCharacter {
 
 
     public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
-        return OverlaySprites.seeAllOverlay(player, gameData);
+        return new SeeAllVision().getOverlaySprites(player, gameData);
     }
 
     @Override

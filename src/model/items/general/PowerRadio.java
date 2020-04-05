@@ -1,7 +1,7 @@
 package model.items.general;
 
 import graphics.OverlaySprite;
-import graphics.sprites.OverlaySprites;
+import graphics.sprites.AlsoSeePowerVision;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -13,7 +13,6 @@ import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
 import model.objects.consoles.Console;
-import model.objects.consoles.CrimeRecordsConsole;
 import model.objects.consoles.GeneratorConsole;
 
 import java.util.List;
@@ -79,7 +78,7 @@ public class PowerRadio extends Radio {
         @Override
         public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
             List<OverlaySprite> strs = super.getOverlayStrings(player, gameData);
-            strs.addAll(OverlaySprites.seePower(gameData, player));
+            strs.addAll(new AlsoSeePowerVision().getOverlaySprites(player, gameData));
             return strs;
         }
     }

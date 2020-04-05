@@ -7,9 +7,7 @@ import java.util.Collection;
 import java.util.List;
 
 import graphics.OverlaySprite;
-import graphics.sprites.PhysicalBody;
-import graphics.sprites.OverlaySprites;
-import graphics.sprites.Sprite;
+import graphics.sprites.*;
 import model.*;
 import model.actions.general.AttackAction;
 import model.characters.decorators.CharacterDecorator;
@@ -570,9 +568,9 @@ public abstract class GameCharacter implements Serializable {
 
     public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
         if (getActor() instanceof  Player && ((Player) getActor()).getSettings().get(PlayerSettings.CURRENT_ROOM_STUFF_IN_MAP)) {
-            return OverlaySprites.normalVision(((Player)getActor()), gameData, getPosition());
+            return new NormalVision().getOverlaySprites(((Player)getActor()), gameData);
         }
-        return OverlaySprites.dummyList();
+        return OverlaySpriteCollector.noVision();
     }
 
     public void doBeforeMovement(GameData gameData) {

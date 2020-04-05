@@ -1,7 +1,7 @@
 package model.characters.decorators;
 
 import graphics.OverlaySprite;
-import graphics.sprites.OverlaySprites;
+import graphics.sprites.AlsoSeeSpecificRoomVision;
 import model.GameData;
 import model.Player;
 import model.characters.general.GameCharacter;
@@ -26,7 +26,7 @@ public class SeeRoomOverlayDecorator extends CharacterDecorator {
     @Override
     public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
         if (round == gameData.getRound() - 1) {
-            return OverlaySprites.normalVision(player, gameData, room);
+            return new AlsoSeeSpecificRoomVision(room).getOverlaySprites(player, gameData);
         }
         player.removeInstance(new InstanceChecker() {
             @Override

@@ -1,9 +1,6 @@
 package model.characters.special;
 
-import graphics.sprites.OverlaySprites;
 import model.Actor;
-import model.GameData;
-import model.Player;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
