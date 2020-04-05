@@ -193,12 +193,13 @@ public class SouthButtonPanel extends Box implements Observer {
             }
         }
 
-        if (GameData.getInstance().getServersSuggestedClientVersion().equals(SS13Client.CLIENT_VERSION_STRING)) {
+        String serverversion = GameData.getInstance().getServersSuggestedClientVersion();
+        if (serverversion.equals(SS13Client.CLIENT_VERSION_STRING)) {
             clientVersionLabel.setForeground(Color.GRAY);
-            clientVersionLabel.setText("Your client is up to date.");
+            clientVersionLabel.setText("Your client is up to date (v. " + serverversion + ")");
         } else {
             clientVersionLabel.setForeground(Color.RED);
-            clientVersionLabel.setText("Your client is out of date. Server is running v. " + GameData.getInstance().getServersSuggestedClientVersion());
+            clientVersionLabel.setText("Your client is out of date. Server is running v. " + serverversion);
         }
 
         roundNumberLabel.setText(GameData.getInstance().getRound() + "");
