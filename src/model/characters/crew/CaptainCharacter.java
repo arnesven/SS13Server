@@ -31,6 +31,7 @@ public class CaptainCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
         ArrayList<GameItem> list = new ArrayList<GameItem>();
         list.add(new KeyCard());
+        list.add(new Grenade());
 
         return list;
     }

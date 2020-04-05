@@ -6,6 +6,7 @@ import clientcomm.ServerCommunicator;
 import clientlogic.Cookies;
 import clientlogic.GameData;
 import clientlogic.Room;
+import clientview.animation.AnimationHandler;
 import clientview.components.GameUIPanel;
 import clientview.components.MapPanel;
 import clientview.components.ReturningPlayerPanel;
@@ -23,7 +24,7 @@ import java.awt.event.KeyEvent;
 
 public class SS13Client extends JFrame {
 
-    public static final String CLIENT_VERSION_STRING = "1.222b";
+    public static final String CLIENT_VERSION_STRING = "1.223b";
     private final ReturningPlayerPanel retPan;
     private static final Dimension originalSize = new Dimension(960, 960);
     private static final Dimension ingameSize = new Dimension(1200, 960);
@@ -156,6 +157,7 @@ public class SS13Client extends JFrame {
         makeScaleMenu(view);
         makeBackgroundMenu(view);
         makeHeightMenu(view);
+        makeAnimationMenu(view);
         view.setEnabled(false);
         JMenu server = new JMenu("Server");
 
@@ -211,6 +213,25 @@ public class SS13Client extends JFrame {
         menubar.add(server);
 
         this.setJMenuBar(menubar);
+    }
+
+    private void makeAnimationMenu(JMenu view) {
+        JMenu ani = new JMenu("Animations");
+
+        final Timer t = new Timer(100, ((ActionEvent e) -> {AnimationHandler.step(); repaint();}));
+
+        JMenuItem slow = new JRadioButtonMenuItem("Slow and laggy");
+        slow.addActionListener((ActionEvent e) -> t.stop());
+        JMenuItem fast = new JRadioButtonMenuItem("Fast and not so laggy");
+        fast.addActionListener((ActionEvent e) -> t.start());
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(slow);
+        bg.add(fast);
+        slow.setSelected(true);
+        ani.add(slow);
+        ani.add(fast);
+
+        view.add(ani);
     }
 
     private void makeHeightMenu(JMenu view) {
