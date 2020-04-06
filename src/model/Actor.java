@@ -202,15 +202,10 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 	public void putOnSuit(Wearable selectedItem) {
 	    if (selectedItem instanceof SuitItem) {
 	        this.getCharacter().putOnEquipment((SuitItem) selectedItem);
+        } else {
+            selectedItem.beingPutOn(this);
         }
-		selectedItem.beingPutOn(this);	
 	}
-	
-//	public void takeOffSuit() {
-//		SuitItem item = getCharacter().getSuit();
-//		this.getCharacter().removeEquipment(item);
-//		item.beingTakenOff(this);
-//	}
 
     public void addToHealth(double d) {
         getCharacter().setHealth(Math.min(getMaxHealth(),
@@ -399,6 +394,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         if (this.hasInventory()) {
             addPickUpActions(gameData, at2);
             //addPickUpAndUseActions(gameData, at2);
+            addUnequipAction(gameData, at2);
             addPutOnActions(at2);
             addDragAction(gameData, at2);
             addFollowAction(gameData, at2);
@@ -410,6 +406,13 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         }
 
 
+    }
+
+    private void addUnequipAction(GameData gameData, ArrayList<Action> at2) {
+        Action unequip = new UnequipAction();
+        if (unequip.getOptions(gameData, this).numberOfSuboptions() > 0) {
+            at2.add(unequip);
+        }
     }
 
     private void addFollowAction(GameData gameData, ArrayList<Action> at2) {

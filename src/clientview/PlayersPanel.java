@@ -26,6 +26,7 @@ public class PlayersPanel extends JPanel implements Observer {
 
     public PlayersPanel(final String username) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         ft = new JTable(new String[][]{new String[]{"Pelle", "Kalle"}, new String[]{"kjdaf", "soa"}}, new String[]{"kjdf", "gurgle"});
 

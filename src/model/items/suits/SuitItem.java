@@ -6,6 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.PlayerSettings;
+import model.actions.UnequipAction;
 import model.actions.general.Action;
 import model.actions.general.DropAction;
 import model.actions.general.PutOnAction;
@@ -116,7 +117,7 @@ public abstract class SuitItem extends GameItem implements Wearable {
         return res;
     }
 
-    private List<Action> getEquippedActions(GameData gameData, Player forWhom) {
+    public List<Action> getEquippedActions(GameData gameData, Player forWhom) {
         ArrayList<Action> acts = new ArrayList<>();
         if (forWhom.getsActions()) {
             DropAction drop = new DropAction(forWhom);
@@ -125,7 +126,14 @@ public abstract class SuitItem extends GameItem implements Wearable {
                 acts.add(drop);
             }
         }
-        return acts; // TODO: at least add drop and unequip
+        if (forWhom.getsActions()) {
+            Action unequip = new UnequipAction();
+            if (unequip.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom)) ||
+                    unequip.isAmongOptions(gameData, forWhom, this.getFullName(forWhom))) {
+                acts.add(unequip);
+            }
+        }
+        return acts;
     }
 
     @Override

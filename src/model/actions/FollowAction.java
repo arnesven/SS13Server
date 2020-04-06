@@ -30,7 +30,9 @@ public class FollowAction extends TargetingAction {
     private void removeAllFollowings(Actor performingClient) {
         for (FollowingDecorator fd = StopFollowingAction.getFollowingDecorator(performer); fd != null; fd = StopFollowingAction.getFollowingDecorator(performer)) {
             fd.getFollowEvent().setShouldBeRemoved(true);
-            performingClient.removeInstance((GameCharacter gc) -> gc instanceof FollowingDecorator);
+            if (performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof FollowingDecorator)) {
+                performingClient.removeInstance((GameCharacter gc) -> gc instanceof FollowingDecorator);
+            }
         }
 
     }

@@ -24,25 +24,14 @@ public class LobbyView extends JPanel {
 
         tlp.add(new JobsPanel(username), "Jobs");
 
-        tlp.add(new PlayersPanel(username), "Players");
+        //tlp.add(new PlayersPanel(username), "Players");
+        tlp.add(new PlayersAndChatPanel(username), "Players");
         tlp.setSelectedIndex(1);
 
         getServerInfo();
 
-
-        tlp.add(new SummaryPanel(), "Summary");
-
         tlp.add(new ServerSettings(username), "Settings");
-
-        tlp.add(new ChatPanel(), "Chat");
-//
-//        tlp.addSelectionHandler(new SelectionHandler<Integer>() {
-//
-//            @Override
-//            public void onSelection(SelectionEvent<Integer> event) {
-//                cp.scrollToBottom();
-//            }
-//        });
+        tlp.add(new SummaryPanel(), "Summary");
 
         this.add(tlp);
     }

@@ -151,8 +151,14 @@ public class InventoryPanel {
     private void drawName(Graphics g, int yOffset) {
         g.setFont(new Font("Arial", Font.ITALIC, 14));
         g.setColor(Color.YELLOW);
-        g.drawString(GameData.getInstance().getCharacter(), MapPanel.getZoom()*2, yOffset+g.getFontMetrics().getHeight()-5);
-        //g.drawString(GameData.getInstance().getSuit(), MapPanel.getZoom()*2, yOffset+2*g.getFontMetrics().getHeight()-5);
+        int paren = GameData.getInstance().getCharacter().indexOf("(");
+        if (paren == -1) {
+            g.drawString(GameData.getInstance().getCharacter(), MapPanel.getZoom() * 2, yOffset + g.getFontMetrics().getHeight() - 5);
+        } else {
+            g.drawString(GameData.getInstance().getCharacter().substring(0, paren), MapPanel.getZoom() * 2, yOffset + g.getFontMetrics().getHeight() - 5);
+            g.drawString(GameData.getInstance().getCharacter().substring(paren), MapPanel.getZoom()*2, yOffset+2*g.getFontMetrics().getHeight()-5);
+        }
+
     }
 
     private void drawRoomEffectIcons(Graphics g, int yOffset, int width) {

@@ -110,13 +110,13 @@ public class PutOnAction extends Action {
 	public void setArguments(List<String> args, Actor performingClient) {
         Logger.log("Setting arg for put on: " + args.get(0));
 		for (GameItem it : putOnner.getItems()) {
-			if (it.getPublicName(performingClient).equals(args.get(0))) {
+			if (args.get(0).contains(it.getPublicName(performingClient))) {
 				selectedItem = (Wearable)it;
 				return;
 			}
 		}
 		for (GameItem it : putOnner.getPosition().getItems()) {
-			if (it.getPublicName(performingClient).equals(args.get(0))) {
+			if (args.get(0).contains(it.getPublicName(performingClient))) {
 				selectedItem = (SuitItem)it;
 				return;
 			}
@@ -125,7 +125,7 @@ public class PutOnAction extends Action {
 			if (actor.isDead() && actor.getCharacter().getEquipment().hasAnyEquipment()) {
 				for (SuitItem s : actor.getCharacter().getEquipment().getSuitsAsList()) {
 					Logger.log("Dead guys suit: "  + s.getPublicName(performingClient));
-					if (s.getPublicName(performingClient).equals(args.get(0))) {
+					if (args.get(0).contains(s.getPublicName(performingClient))) {
 						selectedItem = s;
 						Logger.log("Looting a suit of a dead body " + selectedItem.getPublicName(performingClient));
 						lootVictim = actor;

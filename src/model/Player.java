@@ -368,18 +368,25 @@ public class Player extends Actor implements Target, Serializable {
 	}
 
     public void parseInventoryActionFromString(String actionStr, GameData gameData) {
-        List<GameItem> gis = getItems();
+        List<GameItem> gis = new ArrayList<>();
+        gis.addAll(getItems());
+        gis.addAll(getCharacter().getEquipment().getSuitsAsList());
+
         String actionString = actionStr.replaceFirst("root,", "");
         List<String> args = new ArrayList<>();
         args.addAll(Arrays.asList(actionString.split(",")));
-        Logger.log(args.toString());
+        Logger.log("Parsing inventory action:" + args.toString());
         for (GameItem gi : gis) {
            List<Action> acts = gi.getInventoryActions(gameData, this);
+           if (gi instanceof SuitItem) {
+           		if (getCharacter().getEquipment().getSuitsAsList().contains(gi)) {
+           			acts.addAll(((SuitItem) gi).getEquippedActions(gameData, this));
+				}
+		   }
            for (Action a : acts) {
                if (a.getName().equals(args.get(0))) {
+               	   Logger.log("Action found! " + a.getName());
                    List<String> newArgs = args.subList(1, args.size());
-//                   String last = newArgs.remove(newArgs.size()-1);
-//                   newArgs.add(0, last);
                    a.setInventoryArguments(newArgs, this);
                    this.nextAction = a;
                    break;

@@ -41,7 +41,6 @@ public class Equipment implements Serializable {
     private String getGUIStringForSlot(int slotIndex, GameData gameData, Player player) {
         SuitItem w = slots[slotIndex];
         if (w == null && !otherSlotCovers(slotIndex, gameData, player)) {
-            Logger.log("Slot was null and no other slot covers it, " + slotIndex);
             return Sprite.blankSprite().getName() + "<img>" + slotNames[slotIndex] + "<img>" +
                     Action.makeActionListStringSpecOptions(gameData, new ArrayList<>(), player);
         } else {
@@ -110,6 +109,9 @@ public class Equipment implements Serializable {
     }
 
     public void putOnEquipmentInSlot(SuitItem newSuit, int slot) {
+        if (character.getActor() != null) {
+            newSuit.beingPutOn(character.getActor());
+        }
         newSuit.setUnder(getEquipmentForSlot(slot));
         slots[slot] = newSuit;
     }
@@ -129,12 +131,10 @@ public class Equipment implements Serializable {
         List<Sprite> sprites = new ArrayList<>();
         sprites.add(0, new Sprite("getupbase", "human.png", 0, character.getActor()));
         StringBuilder finalName = new StringBuilder();
-        Logger.log("Getting getup for " + whosAsking.getPublicName());
         int index = 0;
         for (SuitItem it : slots) {
             if (it != null) {
                 if (index == TORSO_SLOT) {
-                    Logger.log("...Finding " + it.getPublicName(whosAsking));
                     Sprite spriteToAdd = it.getGetup(character.getActor(), whosAsking);
                     sprites.add(spriteToAdd);
                     finalName.append(spriteToAdd.getName());
@@ -144,7 +144,6 @@ public class Equipment implements Serializable {
                     finalName.append(spriteToAdd.getName());
                 }
             } else if (index == TORSO_SLOT) {
-                Logger.log("... Finding nakedness");
                 Sprite nakedSprite = character.getActor().getCharacter().getNakedSprite();
                 sprites.add(nakedSprite);
                 finalName.append(nakedSprite.getName());
@@ -179,6 +178,7 @@ public class Equipment implements Serializable {
                 SuitItem s2 = s;
                 while (s2.getUnder() != null) {
                     result.add(s2.getUnder());
+                    s2 = s2.getUnder();
                 }
                 result.add(s);
             }

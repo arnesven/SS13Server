@@ -3,6 +3,7 @@ package model.actions;
 import model.Actor;
 import model.GameData;
 import model.Target;
+import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
@@ -12,6 +13,7 @@ import model.characters.decorators.StunnedDecorator;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
+import model.items.suits.SuitItem;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -26,10 +28,20 @@ public class LootAction extends TargetingAction {
 
     @Override
     protected void applyTargetingAction(GameData gameData, Actor performingClient, Target target, GameItem item) {
-        performingClient.addTolastTurnInfo("You looted a " + item.getFullName(performingClient) + " from " + target.getName());
-        performingClient.getCharacter().giveItem(item, target);
-        target.getItems().remove(item);
+        if (target.getItems().contains(item)) {
+            performingClient.addTolastTurnInfo("You looted a " + item.getFullName(performingClient) + " from " + target.getName());
+            performingClient.getCharacter().giveItem(item, target);
+            target.getItems().remove(item);
+        } else {
+            Actor targetAsActor = (Actor)target;
+                SuitItem s = (SuitItem)item;
+                s.removeYourself(targetAsActor.getCharacter().getEquipment());
+                performingClient.getCharacter().giveItem(s, target);
+                performingClient.addTolastTurnInfo("You looted a " + item.getFullName(performingClient) + " from " + target.getName());
+
+        }
     }
+
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
@@ -40,6 +52,11 @@ public class LootAction extends TargetingAction {
             List<GameItem> itemsToRemove = new ArrayList<>();
             itemsToRemove.addAll(target.getItems());
             for (GameItem it : itemsToRemove) {
+                applyTargetingAction(gameData, performingClient, target, it);
+            }
+            List<SuitItem> suitsToRemove = new ArrayList<>();
+            suitsToRemove.addAll(((Actor)target).getCharacter().getEquipment().getTopEquipmentAsList());
+            for (SuitItem it : suitsToRemove) {
                 applyTargetingAction(gameData, performingClient, target, it);
             }
         }
@@ -67,6 +84,11 @@ public class LootAction extends TargetingAction {
            for (GameItem it : a.getItems()) {
                opts2.addOption(it.getPublicName(whosAsking));
            }
+            if (a.isDead() || !a.getsActions()) {
+                for (SuitItem s : a.getCharacter().getEquipment().getTopEquipmentAsList()) {
+                    opts2.addOption(s.getPublicName(whosAsking));
+                }
+            }
            if (opts2.numberOfSuboptions() > 0) {
                opts2.addOption("All Items");
                opts.addOption(opts2);
@@ -127,11 +149,16 @@ public class LootAction extends TargetingAction {
                 return it;
             }
         }
+        for (SuitItem it : victim.getCharacter().getEquipment().getTopEquipmentAsList()) {
+            if (it.getPublicName(performer).equals(itemName)) {
+                return it;
+            }
+        }
         throw new NoSuchThingException("Did not find item '" + itemName + "' in " + victim.getPublicName() + "'s inventory...");
     }
 
     protected boolean itemAvailable(Actor performingClient, GameItem it) {
-        return target.getItems().contains(it);
+        return target.getItems().contains(it) || ((Actor)target).getCharacter().getEquipment().getTopEquipmentAsList().contains(it);
     }
 
 

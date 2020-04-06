@@ -50,7 +50,7 @@ public class FancyClothes extends TorsoSuit {
 
 	@Override
 	public boolean permitsOver() {
-		return true;
+		return false;
 	}
 
 }

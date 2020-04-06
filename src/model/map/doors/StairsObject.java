@@ -24,7 +24,11 @@ public abstract class StairsObject extends GameObject {
 
     @Override
     public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
-        at.add(new StairsMoveAction(cl, this));
+
+        Action a = new StairsMoveAction(cl, this);
+        if (a.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+            at.add(a);
+        }
     }
 
     private class StairsMoveAction extends MoveAction {

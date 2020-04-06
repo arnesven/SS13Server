@@ -15,4 +15,9 @@ public class OtherDimension extends RemoteRoom {
     protected FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("otherdimension", 13, 17);
     }
+
+    @Override
+    protected String getAppearanceScheme() {
+        return "NoWallsNoDoors-Space";
+    }
 }

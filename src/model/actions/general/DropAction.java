@@ -47,6 +47,8 @@ public class DropAction extends Action {
             if (!performingClient.getItems().contains(item)) {
                 performingClient.addTolastTurnInfo("What? the " + item.getPublicName(performingClient) + " was no longer there! Your action failed.");
                 return;
+            } else {
+                performingClient.getItems().remove(item);
             }
         }
 
