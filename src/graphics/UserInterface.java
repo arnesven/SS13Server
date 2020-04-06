@@ -23,6 +23,7 @@ public class UserInterface {
         Sprite gloves = new Sprite("gloveseqslot", "interface.png", 2, 12, null);
         Sprite suiteqslot = new Sprite("suiteqslot", "interface.png", 12, 12, null);
         Sprite helmet = new Sprite("helmeteqslot", "interface.png", 14, 12, null);
+        Sprite bootseqslot = new Sprite("bootseqslot", "interface.png", 7, 12, null);
 
     }
 

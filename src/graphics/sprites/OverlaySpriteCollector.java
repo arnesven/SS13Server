@@ -28,7 +28,7 @@ public abstract class OverlaySpriteCollector {
 
 
     private static List<OverlaySprite> dummyList() {
-        Sprite sp = new Sprite("dummy", "animal.png", 0, null);
+        Sprite sp = Sprite.blankSprite();
         ArrayList<OverlaySprite> dummyList = new ArrayList<>();
         dummyList.add(new OverlaySprite(sp, 0, 0, null, null));
         return dummyList;

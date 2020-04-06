@@ -12,11 +12,10 @@ import java.util.List;
 
 public interface Wearable {
 
-    public abstract void beingPutOn(Actor actionPerformer);
-    public abstract void beingTakenOff(Actor actionPerformer);
-    public abstract boolean permitsOver();
+    void beingPutOn(Actor actionPerformer);
+    void beingTakenOff(Actor actionPerformer);
+    boolean permitsOver();
     String getPublicName(Actor whosAsking);
-
-   // public String howDoYouAppearEquipped(GameData gameData, Player player);
+    Sprite getSprite(Actor whosAsking);
 
 }

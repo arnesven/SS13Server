@@ -1,5 +1,7 @@
 package model.items.suits;
 
+import graphics.sprites.Sprite;
+import model.Actor;
 import model.characters.general.GameCharacter;
 
 /**
@@ -14,5 +16,10 @@ public class CaptainsOutfit extends OutFit {
     @Override
     public boolean permitsOver() {
         return false;
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("captainsuniform", "uniform2.png", 26, 32, null);
     }
 }

@@ -59,6 +59,10 @@ public class Sprite implements Serializable {
         this(other.name + suffix, other.mapPath, other.getColumn(), other.getRow(), other.getWidth(), other.getHeight(), other.getLayers(), other.objectReference);
     }
 
+    public static Sprite blankSprite() {
+        return new Sprite("dummy", "animal.png", 0, null);
+    }
+
     protected List<Sprite> getLayers() {
         return layers;
     }

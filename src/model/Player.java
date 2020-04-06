@@ -658,11 +658,16 @@ public class Player extends Actor implements Target, Serializable {
 
 
 	public List<String> getEquippedItems(GameData gameData) {
-		SuitItem it = getCharacter().getSuit();
-        List<String> result = new ArrayList<>();
-		if (it != null) {
-            result.add(it.howDoYouAppearEquipped(gameData, this));
-        }
-		return result;
+		if (getCharacter() == null) {
+			return new ArrayList<>();
+		} else {
+			return getCharacter().getEquipment().getGUIData(gameData, this);
+		}
+//		SuitItem it = getCharacter().getSuit();
+//        List<String> result = new ArrayList<>();
+//		if (it != null) {
+//            result.add(it.howDoYouAppearEquipped(gameData, this));
+//        }
+
 	}
 }

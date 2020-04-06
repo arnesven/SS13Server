@@ -16,6 +16,7 @@ import model.characters.visitors.VisitorCharacter;
 import model.items.BodyPartFactory;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
+import model.items.suits.Equipment;
 import model.movepowers.*;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
@@ -56,7 +57,8 @@ public abstract class GameCharacter implements Serializable {
 	private Room position = null;
 	private double speed;
 	private List<GameItem> items = new ArrayList<>();
-	private SuitItem suit;
+	//private SuitItem suit;
+	private Equipment equipment;
 	private Actor killer;
 	private String killString;
     private GameItem killerItem;
@@ -64,12 +66,11 @@ public abstract class GameCharacter implements Serializable {
     private PhysicalBody physBody;
 
 
-
-
     public GameCharacter(String name, int startRoom, double speed) {
 		this.name = name;
 		this.startingRoom = startRoom;
 		this.speed = speed;
+		this.equipment = new Equipment(this);
         gender = MyRandom.randomGender();
         physBody = new PhysicalBody(gender.equals("man"), this);
         killerItem = null;
@@ -435,22 +436,20 @@ public abstract class GameCharacter implements Serializable {
 		return totalWeight;
 	}
 
+	public Equipment getEquipment() {
+		return equipment;
+	}
+
 	public SuitItem getSuit() {
-		return suit;
+		return equipment.getEquipmentForSlot(Equipment.TORSO_SLOT);
 	}
 	
 	public void putOnSuit(SuitItem gameItem) {
-		gameItem.setUnder(this.suit);
-		this.suit = gameItem;
-
+		equipment.putOnEquipmentInSlot(gameItem, Equipment.TORSO_SLOT);
 	}
 
 	public void removeSuit() {
-		if (this.suit != null) {
-			SuitItem underSuit = suit.getUnder();
-			this.suit.setUnder(null);
-			this.suit = underSuit;
-		}
+		equipment.removeEquipmentForSlot(Equipment.TORSO_SLOT);
 	}
 
 	/**
@@ -532,14 +531,7 @@ public abstract class GameCharacter implements Serializable {
     }
 
     public Sprite getSprite(Actor whosAsking) {
-        Sprite sp;
-        if (suit == null) {
-            sp = getActor().getCharacter().getNakedSprite();
-		} else {
-            sp = suit.getGetup(getActor(), whosAsking);
-        }
-
-        return sp;
+		return equipment.getGetup(whosAsking);
     }
 
     public char getIcon(Player whosAsking) {
@@ -742,4 +734,6 @@ public abstract class GameCharacter implements Serializable {
 	public int getSize() {
 		return NORMAL_SIZE;
 	}
+
+
 }

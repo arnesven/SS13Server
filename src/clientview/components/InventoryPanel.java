@@ -174,13 +174,19 @@ public class InventoryPanel {
 
     private int drawEquipment(Graphics g, int yOffset, int width) {
         int newY = yOffset + MapPanel.getZoom();
-        ImageIcon suit = SpriteManager.getSprite("suiteqslot0");
-        g.drawImage(suit.getImage(), 0, newY, null);
+        ImageIcon helmet = SpriteManager.getSprite("helmeteqslot0");
+        g.drawImage(helmet.getImage(), 0, newY, null);
 
         ImageIcon gloves = SpriteManager.getSprite("gloveseqslot0");
-        g.drawImage(gloves.getImage(), suit.getIconWidth(), newY, null);
-        ImageIcon helmet = SpriteManager.getSprite("helmeteqslot0");
-        g.drawImage(helmet.getImage(), 2*gloves.getIconWidth(), newY, null);
+        g.drawImage(gloves.getImage(), helmet.getIconWidth(), newY, null);
+
+        ImageIcon suit = SpriteManager.getSprite("suiteqslot0");
+        g.drawImage(suit.getImage(), 2*gloves.getIconWidth(), newY, null);
+
+        ImageIcon boots = SpriteManager.getSprite("bootseqslot0");
+        g.drawImage(boots.getImage(), 3*gloves.getIconWidth(), newY, null);
+
+
 
         itemBoxes = new ArrayList<Rectangle>();
         itemNames = new ArrayList<String>();
@@ -196,7 +202,7 @@ public class InventoryPanel {
             startX += pic.getIconWidth();
         }
 
-        return 3*gloves.getIconWidth();
+        return 4*gloves.getIconWidth();
     }
 
 

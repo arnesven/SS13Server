@@ -15,6 +15,7 @@ import model.characters.general.GameCharacter;
 import model.events.damage.Damager;
 import model.items.foods.FoodItem;
 import model.items.general.GameItem;
+import model.items.suits.Equipment;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
 import model.map.rooms.RemoteRoom;
@@ -462,5 +463,10 @@ public abstract class CharacterDecorator extends GameCharacter {
 	@Override
 	public int getSize() {
 		return innerChar.getSize();
+	}
+
+	@Override
+	public Equipment getEquipment() {
+		return innerChar.getEquipment();
 	}
 }
