@@ -4,6 +4,7 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientlogic.Observer;
+import main.SS13Client;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.awt.*;
 public class GameUIPanel extends JPanel implements Observer {
 
     private final String username;
-    private final JFrame parent;
+    private final SS13Client parent;
     private boolean stateUpdating;
     private int state = -1;
     private InGameView inGameView ;
@@ -21,13 +22,13 @@ public class GameUIPanel extends JPanel implements Observer {
     private int oldRound = -1;
 
 
-    public GameUIPanel(String username, JFrame parent) {
+    public GameUIPanel(String username, SS13Client parent) {
+        this.parent = parent;
+        this.username = username;
         this.setLayout(new BorderLayout());
         stateUpdating = false;
-        this.username = username;
         inGameView = new InGameView(this);
-        lobbyView = new LobbyView(username);
-        this.parent = parent;
+        lobbyView = new LobbyView(username, parent);
         buttPanel = new SouthButtonPanel(this);
         this.add(buttPanel, BorderLayout.SOUTH);
         toggleView();
@@ -115,6 +116,9 @@ public class GameUIPanel extends JPanel implements Observer {
     }
 
 
+    public LobbyView getLobbyView() {
+        return lobbyView;
+    }
 
     private boolean iAmSpectator() {
         return GameData.getInstance().amISpectator();
@@ -172,5 +176,7 @@ public class GameUIPanel extends JPanel implements Observer {
     }
 
 
-
+    public SS13Client getParentMain() {
+        return parent;
+    }
 }

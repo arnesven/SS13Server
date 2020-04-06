@@ -5,6 +5,7 @@ import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientlogic.Observer;
 import clientview.components.GameUIPanel;
+import main.SS13Client;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -21,10 +22,12 @@ public class PlayersPanel extends JPanel implements Observer {
     private static final int TIME_INTERVAL = 1000;
 
     private final JTable ft;
+    private final SS13Client parentMain;
     private int selectedIndex = -1;
-    private Timer timer;
+    private static Timer timer;
 
-    public PlayersPanel(final String username) {
+    public PlayersPanel(final String username, SS13Client parent) {
+        this.parentMain = parent;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -71,13 +74,15 @@ public class PlayersPanel extends JPanel implements Observer {
 
     private void setUpPollingTimer(final String username) {
         pollServerWithList(username);
-        timer = new Timer(TIME_INTERVAL, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pollServerWithList(username);
-            }
-        });
-        timer.start();
+        if (timer == null) {
+            timer = new Timer(TIME_INTERVAL, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    pollServerWithList(username);
+                }
+            });
+            timer.start();
+        }
     }
 
     private void pollServerWithList(String username) {
@@ -86,9 +91,12 @@ public class PlayersPanel extends JPanel implements Observer {
             public void onSuccess(String result) {
                 if (result.contains("ERROR")) {
                     JOptionPane.showMessageDialog(null, result);
+                    timer.stop();
+                    parentMain.switchBackToStart();
+                } else {
+                    GameData.getInstance().deconstructReadyListAndStateAndRoundAndSettings(result);
+                    fillTable();
                 }
-                GameData.getInstance().deconstructReadyListAndStateAndRoundAndSettings(result);
-                fillTable();
             }
 
             @Override
@@ -158,4 +166,7 @@ public class PlayersPanel extends JPanel implements Observer {
     }
 
 
+    public void stopTimer() {
+        timer.stop();
+    }
 }

@@ -2,11 +2,8 @@ package clientview.components;
 
 import clientlogic.GameData;
 import clientview.PlayersPanel;
-import clientview.animation.AnimationHandler;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class InGameView extends JSplitPane  {
 
@@ -25,7 +22,7 @@ public class InGameView extends JSplitPane  {
 
         JTabbedPane jtp = new JTabbedPane();
         jtp.add("Map", new MiniMapPanel());
-        jtp.add("Players", new PlayersPanel(GameData.getInstance().getClid()));
+        jtp.add("Players", new PlayersPanel(GameData.getInstance().getClid(), parent.getParentMain()));
         lp2.add(new JScrollPane(jtp));
         ltp = new LastTurnPanel();
         lp2.add(ltp);

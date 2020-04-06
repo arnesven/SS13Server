@@ -1,16 +1,23 @@
 package clientview.components;
 
 import clientview.PlayersPanel;
+import main.SS13Client;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class PlayersAndChatPanel extends JPanel {
-    public PlayersAndChatPanel(String username) {
-        PlayersPanel players = new PlayersPanel(username);
+    private final PlayersPanel players;
+
+    public PlayersAndChatPanel(String username, SS13Client parent) {
+        players = new PlayersPanel(username, parent);
         ChatPanel chat = new ChatPanel();
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.add(players);
         this.add(chat);
+    }
+
+    public void stopTimer() {
+        players.stopTimer();
     }
 }

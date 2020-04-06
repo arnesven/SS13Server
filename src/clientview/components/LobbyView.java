@@ -4,6 +4,7 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientview.PlayersPanel;
 import clientview.ServerSettings;
+import main.SS13Client;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,10 +15,11 @@ import java.io.IOException;
 public class LobbyView extends JPanel {
 
     private final String clid;
+    private final PlayersAndChatPanel pacp;
     private JTabbedPane tlp;
  //   private final ChatPanel cp;
 
-    public LobbyView(String username) {
+    public LobbyView(String username, SS13Client parent) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             tlp = new JTabbedPane();
             this.clid = username;
@@ -25,7 +27,8 @@ public class LobbyView extends JPanel {
         tlp.add(new JobsPanel(username), "Jobs");
 
         //tlp.add(new PlayersPanel(username), "Players");
-        tlp.add(new PlayersAndChatPanel(username), "Players");
+        pacp = new PlayersAndChatPanel(username, parent);
+        tlp.add(pacp, "Players");
         tlp.setSelectedIndex(1);
 
         getServerInfo();
@@ -63,4 +66,7 @@ public class LobbyView extends JPanel {
     }
 
 
+    public PlayersAndChatPanel getPlayersPanel() {
+        return pacp;
+    }
 }

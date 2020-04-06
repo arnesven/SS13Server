@@ -199,7 +199,7 @@ public class SouthButtonPanel extends Box implements Observer {
             clientVersionLabel.setText("Your client is up to date (v. " + serverversion + ")");
         } else {
             clientVersionLabel.setForeground(Color.RED);
-            clientVersionLabel.setText("Your client is out of date. Server is running v. " + serverversion);
+            clientVersionLabel.setText("Your client is out of date. Server requires v. " + serverversion);
         }
 
         roundNumberLabel.setText(GameData.getInstance().getRound() + "");
