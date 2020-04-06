@@ -9,9 +9,11 @@ import model.characters.decorators.SpaceProtection;
 import util.Logger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class SpaceSuit extends SuitItem {
+public class SpaceSuit extends FullBodySuit {
 
 	public SpaceSuit() {
 		super("Space Suit", 4.0, 500);
@@ -31,7 +33,7 @@ public class SpaceSuit extends SuitItem {
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
-        list.add(new Sprite("spacesuithelmet", "head.png", 10, this));
+        list.add(getFullBodySprites().get(Equipment.HEAD_SLOT));
         return new Sprite("spacesuitworn", "suit.png", 20, list, this);
     }
 
@@ -50,6 +52,13 @@ public class SpaceSuit extends SuitItem {
 	@Override
 	public boolean permitsOver() {
 		return false;
+	}
+
+	@Override
+	protected Map<Integer, Sprite> getFullBodySprites() {
+		Map<Integer, Sprite> map = new HashMap<>();
+		map.put(Equipment.HEAD_SLOT, new Sprite("spacesuithelmet", "head.png", 10, this));
+		return map;
 	}
 
 	@Override

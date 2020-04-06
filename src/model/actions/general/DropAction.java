@@ -34,33 +34,34 @@ public class DropAction extends Action {
             return;
         }
 
+        boolean wasEquipped = false;
+        for (SuitItem s : performingClient.getCharacter().getEquipment().getTopEquipmentAsList()) {
+            if (item == s) {
+                performingClient.getCharacter().removeEquipment(s);
+                wasEquipped = true;
+                break;
+            }
+        }
 
-		SuitItem suit = performingClient.getCharacter().getSuit();
-		if (item == suit) {
-			performingClient.takeOffSuit();
-		} else {
-			if (!performingClient.getItems().contains(item)) {
-				performingClient.addTolastTurnInfo("What? the " + item.getPublicName(performingClient) + " was no longer there! Your action failed.");
-				return;
-			}
-			performingClient.getItems().remove(item);
-		}
-		performingClient.getPosition().addItem(item);
+        if (!wasEquipped) {
+            if (!performingClient.getItems().contains(item)) {
+                performingClient.addTolastTurnInfo("What? the " + item.getPublicName(performingClient) + " was no longer there! Your action failed.");
+                return;
+            }
+        }
+
+        performingClient.getPosition().addItem(item);
         item.setPosition(performingClient.getPosition());
         item.setHolder(null);
 		performingClient.addTolastTurnInfo("You dropped the " + item.getPublicName(performingClient) + ".");
 	}
 
     private void stripNaked(GameData gameData, Actor performingClient) {
-        do {
-            SuitItem s = performingClient.getCharacter().getSuit();
-            if (s != null) {
-                performingClient.takeOffSuit();
-                performingClient.getPosition().addItem(s);
-            } else {
-                break;
-            }
-        } while (true);
+        List<SuitItem> allThingsWorn = performingClient.getCharacter().getEquipment().getSuitsAsList();
+        performingClient.getCharacter().getEquipment().removeEverything();
+        for (SuitItem it : allThingsWorn) {
+            performingClient.getPosition().addItem(it);
+        }
         performingClient.addTolastTurnInfo("You stripped naked.");
     }
 
@@ -98,16 +99,17 @@ public class DropAction extends Action {
 			opt.addOption(gi.getFullName(whosAsking) 
 					+ " ("+ String.format("%.1f", gi.getWeight()) + " kg)");
 		}
-		
-		if (ap.getCharacter().getSuit() != null) {
-			opt.addOption(ap.getCharacter().getSuit().getPublicName(whosAsking)  
-					+ " ("+ String.format("%.1f", ap.getCharacter().getSuit().getWeight()) + " kg)");
-		}
+
+		for (SuitItem s : ap.getCharacter().getEquipment().getTopEquipmentAsList()) {
+                opt.addOption(s.getPublicName(whosAsking)
+                        + " (" + String.format("%.1f", s.getWeight()) + " kg)");
+
+        }
 
         if (whosAsking.getItems().size() > 0) {
             opt.addOption("All Items");
         }
-        if (whosAsking.getCharacter().getSuit() != null) {
+        if (whosAsking.getCharacter().getEquipment().hasAnyEquipment()) {
             opt.addOption("Strip Naked");
         }
 		return opt;
@@ -124,13 +126,12 @@ public class DropAction extends Action {
             return;
         }
 
-
-		if (ap.getCharacter().getSuit() != null) {
-			if (args.get(0).contains(ap.getCharacter().getSuit().getPublicName(performingClient))) {
-				this.item = ap.getCharacter().getSuit();
-				return;
-			}
-		}
+        for (SuitItem s : ap.getCharacter().getEquipment().getTopEquipmentAsList()) {
+            if (args.get(0).contains(s.getPublicName(performingClient))) {
+                this.item = s;
+                return;
+            }
+        }
 		for (GameItem it : ap.getItems()){
 			if (args.get(0).contains(it.getFullName(performingClient))) {
 				this.item = it;

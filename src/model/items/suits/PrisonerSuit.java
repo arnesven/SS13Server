@@ -6,7 +6,7 @@ import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import util.Logger;
 
-public class PrisonerSuit extends SuitItem {
+public class PrisonerSuit extends TorsoSuit {
 
 	private int number;
 

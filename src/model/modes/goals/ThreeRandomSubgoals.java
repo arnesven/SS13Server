@@ -195,7 +195,7 @@ public class ThreeRandomSubgoals extends CompositePersonalGoal {
 
         @Override
         public boolean isCompleted(GameData gameData) {
-            return getBelongsTo().getCharacter().getSuit() == null;
+            return getBelongsTo().getCharacter().getEquipment().isNaked();
         }
     }
 

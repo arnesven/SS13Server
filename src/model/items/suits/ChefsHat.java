@@ -3,7 +3,7 @@ package model.items.suits;
 import graphics.sprites.Sprite;
 import model.Actor;
 
-public class ChefsHat extends SuitItem {
+public class ChefsHat extends HatItem {
 
 	public ChefsHat() {
 		super("Chef's Hat", 0.2, 10);

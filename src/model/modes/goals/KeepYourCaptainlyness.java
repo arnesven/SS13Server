@@ -5,6 +5,7 @@ import model.GameData;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.items.suits.CaptainsOutfit;
+import model.items.suits.Equipment;
 import model.items.suits.SuitItem;
 
 /**
@@ -43,7 +44,7 @@ public class KeepYourCaptainlyness extends PersonalGoal {
     }
 
     private boolean hasCaptainsSuit(GameCharacter character) {
-        return isCaptainsSuit(character.getSuit());
+        return isCaptainsSuit(character.getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT));
     }
 
     private boolean isCaptainsSuit(SuitItem suit) {

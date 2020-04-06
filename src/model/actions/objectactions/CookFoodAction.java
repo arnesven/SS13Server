@@ -6,6 +6,7 @@ import model.characters.general.ChimpCharacter;
 import model.events.damage.FireDamage;
 import model.items.NoSuchThingException;
 import model.items.foods.GrilledMonkeyDeluxe;
+import model.items.suits.Equipment;
 import model.map.rooms.Room;
 import model.objects.general.Dumbwaiter;
 import model.objects.general.GameObject;
@@ -104,7 +105,7 @@ public class CookFoodAction extends Action {
 	
 	
 	private boolean hasAChefsHatOn(Actor performingClient) {
-		return performingClient.getCharacter().getSuit() instanceof ChefsHat;
+		return performingClient.getCharacter().getEquipment().getEquipmentForSlot(Equipment.HEAD_SLOT) instanceof ChefsHat;
 	}
 
 	public FoodItem getSelectedItem() {

@@ -5,9 +5,10 @@ import model.Actor;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.LarcenistCharacter;
+import model.items.suits.GlovesItem;
 import model.items.suits.SuitItem;
 
-public class LarcenyGloves extends SuitItem {
+public class LarcenyGloves extends GlovesItem {
 
 	public LarcenyGloves() {
 		super("Larceny Gloves", 0.1, 299);

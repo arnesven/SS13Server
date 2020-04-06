@@ -13,6 +13,7 @@ import model.characters.crew.CrewCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
+import model.items.suits.Equipment;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.CrimeRecordsConsole;
 import util.Logger;
@@ -58,7 +59,8 @@ public class TellRumorsBehavior implements ActionBehavior {
                         if (pl.getNextAction() instanceof AttackAction) {
                             gossip.add("I hear " + pl.getBaseName() + " is a violent person.");
                         }
-                        if (pl.getCharacter().getSuit() != null && ! pl.getCharacter().getSuit().permitsOver()) {
+                        if (pl.getCharacter().getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT) != null &&
+                                !pl.getCharacter().getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT).permitsOver()) {
                             gossip.add("I hear " + pl.getBaseName() + " likes to dress up.");
                         }
                         if (pl.getNextAction() instanceof RepairAction ||

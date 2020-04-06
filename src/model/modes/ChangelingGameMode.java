@@ -99,8 +99,7 @@ public class ChangelingGameMode extends GameMode {
 		lingChar = new ChangelingCharacter(startRoom);
 		ling.setCharacter(lingChar);
         lingChar.getForm().setActor(ling);
-		lingChar.removeSuit();
-		
+		lingChar.getEquipment().removeEverything();
 	}
 
 	private boolean lockedRoom(Room startRoom, GameData gameData) {

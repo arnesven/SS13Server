@@ -17,5 +17,8 @@ public interface Wearable {
     boolean permitsOver();
     String getPublicName(Actor whosAsking);
     Sprite getSprite(Actor whosAsking);
+    void putYourselfOn(Equipment eq);
+    void removeYourself(Equipment eq);
+    boolean canBeWornBy(Actor actor);
 
 }

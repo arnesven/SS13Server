@@ -15,6 +15,7 @@ import model.events.Event;
 import model.events.damage.ColdDamage;
 import model.events.damage.Damager;
 import model.items.NoSuchThingException;
+import model.items.suits.Equipment;
 import model.map.rooms.Room;
 import util.Logger;
 
@@ -54,9 +55,9 @@ public class StasisPod extends ElectricalMachinery {
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (isVacant()) {
-            if (cl.getCharacter().getSuit() == null ||
-                    (cl.getCharacter().getSuit() != null &&
-                    cl.getCharacter().getSuit().permitsOver())) {
+            if (!cl.getCharacter().getEquipment().hasAnyEquipment() ||
+                    (cl.getCharacter().getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT) != null &&
+                    cl.getCharacter().getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT).permitsOver())) {
                 at.add(new FreezeYourselfAction(this));
             }
         } else {

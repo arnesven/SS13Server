@@ -24,28 +24,32 @@ public class PutOnAction extends Action {
     public PutOnAction(Actor ap) {
 		super("Put on", SensoryLevel.PHYSICAL_ACTIVITY);
 		this.putOnner = ap;
-		if (ap.getCharacter().getSuit() == null) {
-			addOptions(ap);
-		} else if (ap.getCharacter().getSuit().permitsOver()) {
-			addOptions(ap);
-		}
+		addOptions(ap);
 	}
 
 	private void addOptions(Actor ap) {
 		for (GameItem it : ap.getItems()) {
 			if (it instanceof Wearable) {
-				options.add((Wearable)it);
+				if (((Wearable) it).canBeWornBy(ap)) {
+					options.add((Wearable) it);
+				}
 			}
 		}
 		for (GameItem it : ap.getPosition().getItems()) {
 			if (it instanceof Wearable) {
-				options.add((Wearable) it);
+				if (((Wearable) it).canBeWornBy(ap)) {
+					options.add((Wearable) it);
+				}
 			}
 		}
 		
 		for (Actor actor : ap.getPosition().getActors()) {
-			if (actor.isDead() && actor.getCharacter().getSuit() != null && actor.getCharacter().isVisible()) {
-				options.add(actor.getCharacter().getSuit());
+			if (actor.isDead() && actor.getCharacter().isVisible()) {
+				for (SuitItem s : actor.getCharacter().getEquipment().getSuitsAsList()) {
+					if (s.canBeWornBy(ap)) {
+						options.add(s);
+					}
+				}
 			}
 		}
 
@@ -55,7 +59,9 @@ public class PutOnAction extends Action {
                 if (container.accessibleTo(ap)) {
                     for (GameItem it : container.getInventory()) {
                         if (it instanceof Wearable) {
-                            options.add((Wearable) it);
+                        	if (((Wearable) it).canBeWornBy(ap)) {
+								options.add((Wearable) it);
+							}
                         }
                     }
                 }
@@ -82,8 +88,8 @@ public class PutOnAction extends Action {
 			performingClient.getItems().remove(selectedItem);
 		} else if (performingClient.getPosition().getItems().contains(selectedItem)) {
 			performingClient.getPosition().getItems().remove(selectedItem);
-		} else if (lootVictim != null && lootVictim.getCharacter().getSuit() == selectedItem) {
-			lootVictim.getCharacter().removeSuit();
+		} else if (lootVictim != null && lootVictim.getCharacter().getEquipment().getSuitsAsList().contains(selectedItem)) {
+			selectedItem.removeYourself(lootVictim.getCharacter().getEquipment());
 		} else if (lootObject != null && lootObject.getInventory().contains(selectedItem)) {
             lootObject.getInventory().remove(selectedItem);
         } else {
@@ -91,12 +97,11 @@ public class PutOnAction extends Action {
 			return;
 		}
 
-        if (selectedItem == performingClient.getCharacter().getSuit()) {
+        if (performingClient.getCharacter().getEquipment().getSuitsAsList().contains(selectedItem)) {
             throw new IllegalStateException("Tried putting the same item on itself!");
         }
 
 		performingClient.putOnSuit(selectedItem);
-	
 		performingClient.addTolastTurnInfo("You put on the " + selectedItem.getPublicName(performingClient) + ".");
 		
 	}
@@ -117,13 +122,15 @@ public class PutOnAction extends Action {
 			}
 		}
 		for (Actor actor : putOnner.getPosition().getActors()) {
-			if (actor.isDead() && actor.getCharacter().getSuit() != null) {
-				Logger.log("Dead guys suit: " + actor.getCharacter().getSuit());
-				if (actor.getCharacter().getSuit().getPublicName(performingClient).equals(args.get(0))) {
-					selectedItem = actor.getCharacter().getSuit();
-					Logger.log("Looting a suit of a dead body " + selectedItem.getPublicName(performingClient));
-					lootVictim  = actor;
-					return;
+			if (actor.isDead() && actor.getCharacter().getEquipment().hasAnyEquipment()) {
+				for (SuitItem s : actor.getCharacter().getEquipment().getSuitsAsList()) {
+					Logger.log("Dead guys suit: "  + s.getPublicName(performingClient));
+					if (s.getPublicName(performingClient).equals(args.get(0))) {
+						selectedItem = s;
+						Logger.log("Looting a suit of a dead body " + selectedItem.getPublicName(performingClient));
+						lootVictim = actor;
+						return;
+					}
 				}
 			}
 		}

@@ -6,7 +6,7 @@ import model.characters.general.GameCharacter;
 import model.characters.decorators.CoolDecorator;
 import model.characters.decorators.InstanceChecker;
 
-public class SunGlasses extends SuitItem {
+public class SunGlasses extends HeadGear {
 
 	public SunGlasses() {
 		super("Sun Glasses", 0.1, 19);

@@ -4,6 +4,7 @@ import model.GameData;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.ChilledDecorator;
 import model.characters.general.GameCharacter;
+import model.items.suits.Equipment;
 import model.items.suits.SunGlasses;
 
 public class BeColdGoal extends PersonalGoal {
@@ -14,7 +15,7 @@ public class BeColdGoal extends PersonalGoal {
 
     @Override
     public boolean isCompleted(GameData gameData) {
-        return getBelongsTo().getCharacter().getSuit() instanceof SunGlasses &&
+        return getBelongsTo().getCharacter().getEquipment().getEquipmentForSlot(Equipment.HEAD_SLOT) instanceof SunGlasses &&
                 getBelongsTo().getCharacter().checkInstance((GameCharacter cd) -> cd instanceof ChilledDecorator);
     }
 }

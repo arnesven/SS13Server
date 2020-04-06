@@ -9,7 +9,7 @@ import model.characters.decorators.InstanceChecker;
 /**
  * Created by erini02 on 13/04/16.
  */
-public class Sweater extends SuitItem {
+public class Sweater extends TorsoSuit {
     public Sweater() {
         super("Sweater", 0.5, 25);
     }

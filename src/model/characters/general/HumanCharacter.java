@@ -6,6 +6,7 @@ import model.actions.general.Action;
 import model.events.damage.Damager;
 import model.events.damage.ExplosiveDamage;
 import model.events.damage.ScreamingAction;
+import model.items.suits.Equipment;
 import model.items.weapons.*;
 import model.objects.general.BloodyMess;
 import util.MyRandom;
@@ -18,7 +19,7 @@ public abstract class HumanCharacter extends GameCharacter {
 
 	public String getPublicName() {
 		String res = getBaseName();
-		if (getSuit() == null) {
+		if (getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT) == null) {
 			res = "Naked " + getGender() ;
 		}
 		if (isDead()) {

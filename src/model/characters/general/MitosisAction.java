@@ -40,12 +40,8 @@ public class MitosisAction extends Action {
         }
         NPC npc = new MitosisNPC(chara, mov, ab, performingClient.getPosition());
         gameData.addNPC(npc);
-        if (performingClient.getCharacter().getSuit() != null) {
-            if (npc.getCharacter().getSuit() != null) {
-                npc.takeOffSuit();
-            }
-            npc.putOnSuit(performingClient.getCharacter().getSuit().clone());
-        }
+        npc.getCharacter().getEquipment().removeEverything();
+        npc.getCharacter().setEquipment(performingClient.getCharacter().getEquipment().copyAll(npc.getCharacter()));
     }
 
     @Override

@@ -13,8 +13,8 @@ import java.util.List;
 public class LawyerCharacter extends VisitorCharacter {
     public LawyerCharacter() {
         super("Lawyer");
-        removeSuit();
-        putOnSuit(new LawyerSuit(this));
+        getEquipment().removeEverything();
+        new LawyerSuit(this).putYourselfOn(getEquipment());
     }
 
     @Override

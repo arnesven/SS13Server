@@ -1,6 +1,7 @@
 package model.modes.goals;
 
 import model.GameData;
+import model.items.suits.Equipment;
 import model.items.suits.Rapido;
 
 /**
@@ -14,6 +15,6 @@ public class BeOnARapido extends PersonalGoal {
 
     @Override
     public boolean isCompleted(GameData gameData) {
-        return getBelongsTo().getCharacter().getSuit() instanceof Rapido;
+        return getBelongsTo().getCharacter().getEquipment().getEquipmentForSlot(Equipment.FEET_SLOT) instanceof Rapido;
     }
 }

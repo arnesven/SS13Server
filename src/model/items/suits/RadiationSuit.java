@@ -7,9 +7,11 @@ import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.RadiationProtection;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class RadiationSuit extends SuitItem {
+public class RadiationSuit extends FullBodySuit {
 
 	public RadiationSuit() {
 		super("Radiation Suit", 2.0, 99);
@@ -28,7 +30,7 @@ public class RadiationSuit extends SuitItem {
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
-        list.add(new Sprite("radiationsuithelmet", "head.png", 5, this));
+        list.add(getFullBodySprites().get(Equipment.HEAD_SLOT));
         return new Sprite("radiationsuitworn", "suit2.png", 11, 2, 32, 32, list, this);
     }
 
@@ -55,5 +57,13 @@ public class RadiationSuit extends SuitItem {
 	public boolean permitsOver() {
 		return false;
 	}
+
+    @Override
+    protected Map<Integer, Sprite> getFullBodySprites() {
+	    Map<Integer, Sprite> map = new HashMap<>();
+	    map.put(Equipment.HEAD_SLOT, new Sprite("radiationsuithelmet", "head.png", 5, this));
+
+        return map;
+    }
 
 }

@@ -15,9 +15,10 @@ import java.util.List;
 public class AdventurerCharacter extends VisitorCharacter {
     public AdventurerCharacter() {
         super("Adventurer");
-        removeSuit();
-        putOnSuit(new AdventurersHat());
-        putOnSuit(new AdventurersOutfit(this));
+        getEquipment().removeEverything();
+
+        new AdventurersHat().putYourselfOn(getEquipment());
+        new AdventurersOutfit(this).putYourselfOn(getEquipment());
     }
 
     @Override

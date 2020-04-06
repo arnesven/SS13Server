@@ -14,7 +14,7 @@ public class SeeAllVision extends NormalVision {
     protected List<OverlaySprite> getSpritesForSpecificVision(Player player, GameData gameData) {
         ArrayList<OverlaySprite> strs = new ArrayList<>();
         for (Room r : player.getVisibleMap(gameData)) {
-            if (r != player.getPosition()) {
+            //if (r != player.getPosition()) {
                 ArrayList<Sprite> sprites = new ArrayList<>();
                 addEventsForRoom(sprites, player, r);
                 addActorsForRoom(sprites, player, r);
@@ -26,7 +26,7 @@ public class SeeAllVision extends NormalVision {
                 }
 
                 strs.addAll(getOverlaysForSpritesInRoom(gameData, sprites, r, player));
-            }
+            //}
         }
         return strs;
     }

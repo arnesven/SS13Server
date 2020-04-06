@@ -5,10 +5,13 @@ import model.Actor;
 import model.characters.decorators.*;
 import model.characters.general.GameCharacter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by erini02 on 11/11/16.
  */
-public class PirateCaptainOutfit extends SuitItem {
+public class PirateCaptainOutfit extends FullBodySuit {
     public PirateCaptainOutfit() {
         super("Pirate Captain's Armor", 5.0, 699);
     }
@@ -26,7 +29,7 @@ public class PirateCaptainOutfit extends SuitItem {
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
         Sprite spr = new Sprite("piratecaptainsarmorworn", "suit.png", 60, this);
-        spr.addToOver(new Sprite("piratecapshead", "head.png", 9, 1, this));
+        spr.addToOver(getFullBodySprites().get(Equipment.HEAD_SLOT));
         return spr;
     }
 
@@ -47,5 +50,12 @@ public class PirateCaptainOutfit extends SuitItem {
     @Override
     public boolean permitsOver() {
         return false;
+    }
+
+    @Override
+    protected Map<Integer, Sprite> getFullBodySprites() {
+        Map<Integer, Sprite> map = new HashMap<>();
+        map.put(Equipment.HEAD_SLOT, new Sprite("piratecapshead", "head.png", 9, 1, this));
+        return map;
     }
 }

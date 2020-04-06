@@ -27,6 +27,16 @@ public class PowerSuit extends SuitItem {
     }
 
     @Override
+    protected int getEquipmentSlot() {
+        return Equipment.TORSO_SLOT;
+    }
+
+    @Override
+    public boolean blocksSlot(int targetSlot) {
+        return true;
+    }
+
+    @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("powersuit", "mecha.png", 14, this);
     }
@@ -114,7 +124,7 @@ public class PowerSuit extends SuitItem {
         suitHealth = Math.max(0.0, suitHealth - v);
 
         if (suitHealth == 0) {
-            whosWearing.takeOffSuit();
+            removeYourself(whosWearing.getCharacter().getEquipment());
             whosWearing.getPosition().addObject(new BrokenPowerSuitObject(whosWearing.getPosition()));
         }
 

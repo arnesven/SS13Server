@@ -1,7 +1,9 @@
 package model.items.laws;
 
 import model.Actor;
+import model.items.suits.Equipment;
 import model.items.suits.SuitItem;
+import model.items.suits.TorsoSuit;
 
 /**
  * Created by erini02 on 26/10/16.
@@ -9,6 +11,16 @@ import model.items.suits.SuitItem;
 public class AISuit extends SuitItem {
     public AISuit() {
         super("Your laws are...", 0.0, 0);
+    }
+
+    @Override
+    protected int getEquipmentSlot() {
+        return Equipment.HEAD_SLOT;
+    }
+
+    @Override
+    public boolean blocksSlot(int targetSlot) {
+        return true;
     }
 
     @Override

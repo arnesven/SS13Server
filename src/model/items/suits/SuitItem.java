@@ -5,6 +5,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.PlayerSettings;
 import model.actions.general.Action;
 import model.actions.general.DropAction;
 import model.actions.general.PutOnAction;
@@ -12,7 +13,9 @@ import model.items.general.GameItem;
 import util.Logger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class SuitItem extends GameItem implements Wearable {
 
@@ -25,6 +28,10 @@ public abstract class SuitItem extends GameItem implements Wearable {
 	public SuitItem getUnder() {
 		return under;
 	}
+
+    protected abstract int getEquipmentSlot();
+
+    public abstract boolean blocksSlot(int targetSlot);
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
@@ -91,13 +98,7 @@ public abstract class SuitItem extends GameItem implements Wearable {
 	}
 
     public static int countSuits(Actor belongsTo) {
-        SuitItem suit = belongsTo.getCharacter().getSuit();
-        int sum = 0;
-        while (suit != null) {
-            suit = suit.getUnder();
-            sum++;
-        }
-        return sum;
+	    return belongsTo.getCharacter().getEquipment().getSuitsAsList().size();
     }
 
     public List<Action> getInventoryActions(GameData gameData, Actor forWhom) {
@@ -109,13 +110,8 @@ public abstract class SuitItem extends GameItem implements Wearable {
         return acts;
     }
 
-    public String howDoYouAppearEquipped(GameData gameData, Player player) {
-        return getSprite(player).getName() + "<img>" +
-                getFullName(player) + "<img>" +
-                getEquipmentActionsData(player, gameData);
-    }
 
-    private String getEquipmentActionsData(Player player, GameData gameData) {
+    public String getEquipmentActionsData(Player player, GameData gameData) {
         String res =  Action.makeActionListStringSpecOptions(gameData, getEquippedActions(gameData, player), player);
         return res;
     }
@@ -130,5 +126,30 @@ public abstract class SuitItem extends GameItem implements Wearable {
             }
         }
         return acts; // TODO: at least add drop and unequip
+    }
+
+    @Override
+    public void putYourselfOn(Equipment eq) {
+	    eq.putOnEquipmentInSlot(this, getEquipmentSlot());
+    }
+
+    @Override
+    public void removeYourself(Equipment eq) {
+	    eq.removeEquipmentForSlot(getEquipmentSlot());
+    }
+
+    @Override
+    public boolean canBeWornBy(Actor actor) {
+	    Equipment eq = actor.getCharacter().getEquipment();
+	    return eq.canWear(this);
+    }
+
+
+    public boolean hasAdditionalSprites() {
+        return getAdditionalSprites().isEmpty();
+    }
+
+    public Map<Integer, Sprite> getAdditionalSprites() {
+	    return new HashMap<>();
     }
 }

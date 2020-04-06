@@ -12,7 +12,7 @@ public class BeHotGoal extends PersonalGoal {
 
     @Override
     public boolean isCompleted(GameData gameData) {
-        return getBelongsTo().getCharacter().getSuit() == null &&
+        return getBelongsTo().getCharacter().getEquipment().isNaked() &&
                 getBelongsTo().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnFireCharacterDecorator);
     }
 }

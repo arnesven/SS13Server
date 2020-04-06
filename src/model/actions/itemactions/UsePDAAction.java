@@ -8,6 +8,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.items.general.*;
+import model.items.suits.Equipment;
 import model.items.suits.SuperSuit;
 import model.modes.TraitorGameMode;
 import model.modes.objectives.TraitorObjective;
@@ -63,7 +64,8 @@ public class UsePDAAction extends Action {
                         " appeared! You put it in your inventory.");
             } else if (orderedItem instanceof SuperSuit) {
                 gi = orderedItem.clone();
-                boolean couldSet = ((SuperSuit) gi).setAppearance(performingClient.getCharacter().getSuit(), performingClient);
+                boolean couldSet = ((SuperSuit) gi).setAppearance(performingClient.getCharacter().getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT),
+						performingClient);
                 if (couldSet) {
                     performingClient.putOnSuit((SuperSuit) gi);
                     performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) +

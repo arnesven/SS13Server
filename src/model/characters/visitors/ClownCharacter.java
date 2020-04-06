@@ -14,8 +14,8 @@ public class ClownCharacter extends VisitorCharacter {
 
     public ClownCharacter() {
         super("Clown", 0, 1.0);
-        removeSuit();
-        putOnSuit(new ClownSuit(this));
+        getEquipment().removeEverything();
+        new ClownSuit(this).putYourselfOn(getEquipment());
     }
 
     @Override

@@ -25,7 +25,8 @@ import java.lang.management.GarbageCollectorMXBean;
 /**
  * Created by erini02 on 09/09/17.
  */
-public class Rapido extends SuitItem {
+public class Rapido extends FootGear {
+
     private static final double CRASH_CHANCE = 0.25;
     private CharacterDecorator cd;
     private double rapidoHealth = 2.0;
@@ -161,8 +162,8 @@ public class Rapido extends SuitItem {
     }
 
     private void eject(Actor victim) {
-        if (victim.getCharacter().getSuit() == this) {
-            victim.takeOffSuit();
+        if (victim.getCharacter().getEquipment().getEquipmentForSlot(Equipment.FEET_SLOT) == this) {
+            victim.getCharacter().getEquipment().removeEquipmentForSlot(Equipment.FEET_SLOT);
         }
         victim.getPosition().addObject(new BrokenRapido(victim.getPosition()));
     }

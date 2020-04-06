@@ -36,11 +36,12 @@ public class LarcenyObjective implements TraitorObjective {
 	}
 
     private boolean wearingItem(GameItem item, Player traitor) {
-        if (item instanceof SuitItem) {
-            if (recursiveIsWearing((SuitItem)item, traitor.getCharacter().getSuit())) {
-                return true;
-            }
-        }
+		for (SuitItem it : traitor.getCharacter().getEquipment().getSuitsAsList()) {
+			if (item instanceof SuitItem && it == item) {
+				return true;
+			}
+		}
+
         return false;
     }
 

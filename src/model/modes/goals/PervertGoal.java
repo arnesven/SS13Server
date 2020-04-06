@@ -44,7 +44,7 @@ public class PervertGoal extends PersonalGoal {
                 if (pl.getNextAction() instanceof WatchAction) {
                     Actor actorWatched = (Actor)((WatchAction) pl.getNextAction()).getTarget();
 
-                    if (actorWatched.getCharacter().getSuit() == null) {
+                    if (actorWatched.getCharacter().getEquipment().isNaked()) {
                         String gender = actorWatched.getCharacter().getGender();
                         man = man || gender.equals("man");
                         woman = woman || gender.equals("woman");

@@ -430,9 +430,7 @@ public abstract class GameCharacter implements Serializable {
 		for (GameItem it : getItems()) {
 			totalWeight += it.getWeight();
 		}
-		if (getSuit() != null) {
-			totalWeight += getSuit().getWeight();
-		}
+		totalWeight += equipment.getTotalWeight();
 		return totalWeight;
 	}
 
@@ -440,17 +438,29 @@ public abstract class GameCharacter implements Serializable {
 		return equipment;
 	}
 
-	public SuitItem getSuit() {
-		return equipment.getEquipmentForSlot(Equipment.TORSO_SLOT);
-	}
-	
-	public void putOnSuit(SuitItem gameItem) {
-		equipment.putOnEquipmentInSlot(gameItem, Equipment.TORSO_SLOT);
+	public void setEquipment(Equipment newEq) {
+	    equipment = newEq;
+    }
+
+	public void putOnEquipment(SuitItem eqItem) {
+		eqItem.putYourselfOn(equipment);
 	}
 
-	public void removeSuit() {
-		equipment.removeEquipmentForSlot(Equipment.TORSO_SLOT);
+	public void removeEquipment(SuitItem eqItem) {
+		eqItem.removeYourself(equipment);
 	}
+
+//	public SuitItem getSuit() {
+//		return equipment.getEquipmentForSlot(Equipment.TORSO_SLOT);
+//	}
+//
+//	public void putOnSuit(SuitItem gameItem) {
+//		equipment.putOnEquipmentInSlot(gameItem, Equipment.TORSO_SLOT);
+//	}
+//
+//	public void removeSuit() {
+//		equipment.removeEquipmentForSlot(Equipment.TORSO_SLOT);
+//	}
 
 	/**
 	 * Either "man" or "woman"

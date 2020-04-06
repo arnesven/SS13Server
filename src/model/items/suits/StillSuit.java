@@ -5,8 +5,10 @@ import graphics.sprites.Sprite;
 import model.Actor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class StillSuit extends SuitItem {
+public class StillSuit extends HeadShoesAndTorsoSuit {
     public StillSuit() {
         super("Stillsuit", 1.0, 500);
     }
@@ -26,7 +28,7 @@ public class StillSuit extends SuitItem {
     protected Sprite getWornSprite(Actor whosAsking) {
         ArrayList<Sprite> list = new ArrayList<Sprite>();
         list.add(new RegularBlackShoesSprite());
-        list.add(new Sprite("blackmask", "mask.png", 7, 11, this));
+        list.add(getExtraSprites().get(Equipment.HEAD_SLOT));
         return new Sprite("stillsuitworn", "suit2.png", 0, 20, 32, 32, list, this);
 
     }
@@ -44,5 +46,14 @@ public class StillSuit extends SuitItem {
     @Override
     public boolean permitsOver() {
         return false;
+    }
+
+    @Override
+    protected Map<Integer, Sprite> getExtraSprites() {
+        Map<Integer, Sprite> map = new HashMap<>();
+        map.put(Equipment.FEET_SLOT, new RegularBlackShoesSprite());
+        map.put(Equipment.HEAD_SLOT, new Sprite("blackmask", "mask.png", 7, 11, this));
+
+        return map;
     }
 }

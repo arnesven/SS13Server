@@ -5,12 +5,14 @@ import graphics.sprites.Sprite;
 import model.Actor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by erini02 on 15/11/16.
  */
-public class MerchantSuit extends SuitItem {
+public class MerchantSuit extends TorsoAndShoesSuit {
     public MerchantSuit() {
         super("Merchant's Suit", 0.5, 49);
     }
@@ -40,5 +42,12 @@ public class MerchantSuit extends SuitItem {
     @Override
     public boolean permitsOver() {
         return false;
+    }
+
+    @Override
+    protected Map<Integer, Sprite> getOtherSprites() {
+        Map<Integer, Sprite> map = new HashMap<>();
+        map.put(Equipment.FEET_SLOT, new RegularBlackShoesSprite());
+        return map;
     }
 }

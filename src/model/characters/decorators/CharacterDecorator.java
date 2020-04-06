@@ -212,22 +212,7 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public int getMovementSteps() {
 		return innerChar.getMovementSteps();
 	}
-	
-	@Override
-	public SuitItem getSuit() {
-		return innerChar.getSuit();
-	}
-	
-	@Override
-	public void putOnSuit(SuitItem gameItem) {
-		innerChar.putOnSuit(gameItem);
-	}
-	
-	@Override
-	public void removeSuit() {
-		innerChar.removeSuit();
-	}
-	
+
 	@Override
 	public double getTotalWeight() {
 		return innerChar.getTotalWeight();
@@ -469,4 +454,20 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public Equipment getEquipment() {
 		return innerChar.getEquipment();
 	}
+
+	@Override
+	public void setEquipment(Equipment newEq) {
+		innerChar.setEquipment(newEq);
+	}
+
+	@Override
+	public void putOnEquipment(SuitItem eqItem) {
+    	innerChar.putOnEquipment(eqItem);
+	}
+
+	@Override
+	public void removeEquipment(SuitItem eqItem) {
+		innerChar.removeEquipment(eqItem);
+	}
+
 }

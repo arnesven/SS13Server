@@ -6,7 +6,8 @@ import model.Actor;
 /**
  * Created by erini02 on 26/04/16.
  */
-public class CaptainsHat extends SuitItem {
+public class CaptainsHat extends HatItem {
+
     public CaptainsHat() {
         super("Captain's Hat", 0.1, 20);
     }

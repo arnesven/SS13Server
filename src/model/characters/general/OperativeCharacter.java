@@ -6,6 +6,7 @@ import java.util.List;
 import model.GameData;
 import model.actions.general.Action;
 import model.items.general.GameItem;
+import model.items.suits.Equipment;
 import model.items.suits.SpaceSuit;
 import model.actions.characteractions.EscapeAndSetNukeAction;
 import model.actions.characteractions.StealAction;
@@ -60,7 +61,7 @@ public class OperativeCharacter extends HumanCharacter {
 
 
     private boolean hasASpaceSuitOn() {
-		return getSuit() instanceof SpaceSuit;
+		return getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT) instanceof SpaceSuit;
 	}
 
 	@Override

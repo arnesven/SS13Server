@@ -5,6 +5,7 @@ import model.Actor;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
+import model.items.suits.Equipment;
 import model.items.suits.Wearable;
 
 import java.util.ArrayList;
@@ -23,6 +24,21 @@ public class SeveredButt extends BodyPart implements Wearable  {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("severedbutt", "body_parts.png", 4, 0, this);
+    }
+
+    @Override
+    public void putYourselfOn(Equipment eq) {
+
+    }
+
+    @Override
+    public void removeYourself(Equipment eq) {
+
+    }
+
+    @Override
+    public boolean canBeWornBy(Actor actor) {
+        return actor.getCharacter().getEquipment().getEquipmentForSlot(Equipment.HEAD_SLOT).permitsOver();
     }
 
     @Override

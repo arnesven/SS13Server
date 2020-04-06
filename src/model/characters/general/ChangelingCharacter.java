@@ -154,10 +154,8 @@ public class ChangelingCharacter extends GameCharacter {
 		}
 		GameCharacter copy = other.getCharacter().clone();
 		copy.setNakedness(copy.getPhysicalBody());
+		copy.getEquipment().removeEverything();
 
-		while (copy.getSuit() != null) {
-			copy.removeSuit();
-		}
 		while (copy.getItems().size() > 0) {
 			copy.getItems().remove(0);
 		}
@@ -212,12 +210,12 @@ public class ChangelingCharacter extends GameCharacter {
 	public GameCharacter clone() {
 		return new ChangelingCharacter(startRoom);
 	}
-	
-	
+
+
 	@Override
-	public void putOnSuit(SuitItem gameItem) {
-		if (!isAlien()) {
-			getForm().putOnSuit(gameItem);
+	public void putOnEquipment(SuitItem eqItem) {
+    	if (!isAlien()) {
+			super.putOnEquipment(eqItem);
 		}
 	}
 	
@@ -249,12 +247,9 @@ public class ChangelingCharacter extends GameCharacter {
 	}
 
 	private void transferClothes(GameCharacter gc) {
-		List<SuitItem> suits = new ArrayList<>();
-		while (current.getSuit() != null) {
-            current.getSuit().beingTakenOff(getActor());
-			suits.add(0, current.getSuit());
-			current.removeSuit();
-		}
+		List<SuitItem> suits = current.getEquipment().getSuitsAsList();
+		current.getEquipment().removeEverything();
+
 		
 		while (suits.size() > 0) {
 			if (gc instanceof ParasiteCharacter) {
@@ -262,7 +257,7 @@ public class ChangelingCharacter extends GameCharacter {
 			} else if (gc instanceof HorrorCharacter) {
 				this.getPosition().addItem(new TornClothes());
 			} else { 
-				gc.putOnSuit(suits.get(0));
+				gc.putOnEquipment(suits.get(0));
 			}
 			suits.remove(0);
 		}

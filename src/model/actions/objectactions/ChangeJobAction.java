@@ -105,8 +105,7 @@ public class ChangeJobAction extends ConsoleAction {
 
                 boolean demotion = adminConsole.getToBeDemoted().contains(selectedActor);
                 if (adminConsole.getAcceptedActors().contains(selectedActor) || demotion) {
-                    Stack<SuitItem> wornStuff = new Stack<>();
-                    undressToStack(selectedActor, wornStuff);
+                    List<SuitItem> wornStuff = undressToStack(selectedActor);
                     performingClient.addTolastTurnInfo("You changed " + selectedActor.getBaseName() + "'s job to " + selectedJob.getBaseName() + ".");
 
 
@@ -133,16 +132,13 @@ public class ChangeJobAction extends ConsoleAction {
 
     }
 
-    private void undressToStack(Actor selectedActor, Stack<SuitItem> stack) {
-        while (selectedActor.getCharacter().getSuit() != null) {
-            if (! (selectedActor.getCharacter().getSuit() instanceof OutFit)) {
-                stack.push(selectedActor.getCharacter().getSuit());
-            }
-            selectedActor.takeOffSuit();
-        }
+    private List<SuitItem> undressToStack(Actor selectedActor) {
+        List<SuitItem> stack = selectedActor.getCharacter().getEquipment().getSuitsAsList();
+        selectedActor.getCharacter().getEquipment().removeEverything();
+        return stack;
     }
 
-    private void makeSwitch(Actor selectedActor, GameCharacter selectedJob, GameData gameData, Stack<SuitItem> suits) {
+    private void makeSwitch(Actor selectedActor, GameCharacter selectedJob, GameData gameData, List<SuitItem> suits) {
         selectedActor.getCharacter().moveDecoratorsAndCopy(selectedJob);
         if (selectedActor.getCharacter() instanceof CharacterDecorator) {
             // nothing needs doing, inner most char is changed,
@@ -150,8 +146,8 @@ public class ChangeJobAction extends ConsoleAction {
             selectedActor.setCharacter(selectedJob);
         }
 
-        while (!suits.empty()) {
-            selectedActor.putOnSuit(suits.pop());
+        for (SuitItem s : suits) {
+            s.putYourselfOn(selectedActor.getCharacter().getEquipment());
         }
 
     }

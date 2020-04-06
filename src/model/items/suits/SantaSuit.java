@@ -6,12 +6,14 @@ import model.characters.decorators.NameChangeDecorator;
 import model.characters.general.GameCharacter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by erini02 on 22/11/16.
  */
-public class SantaSuit extends SuitItem {
+public class SantaSuit extends TorsoAndHatSuit {
     public SantaSuit() {
         super("Santa suit", 1.0, 100);
     }
@@ -20,8 +22,8 @@ public class SantaSuit extends SuitItem {
     protected Sprite getWornSprite(Actor whosAsking) {
         List<Sprite> sprs = new ArrayList<>();
         sprs.add(new Sprite("santarobe", "suit2.png", 22, 6, this));
-
-        return new Sprite("santahat", "head.png", 0, 5, 32, 32, sprs, this);
+        sprs.add(getExtraSprites().get(Equipment.HEAD_SLOT));
+        return new Sprite("santatotalgetup", sprs);
     }
 
     @Override
@@ -47,5 +49,12 @@ public class SantaSuit extends SuitItem {
     @Override
     public boolean permitsOver() {
         return false;
+    }
+
+    @Override
+    protected Map<Integer, Sprite> getExtraSprites() {
+        Map<Integer, Sprite> map = new HashMap<>();
+        map.put(Equipment.HEAD_SLOT, new Sprite("santahat", "head.png", 0, 5, 32, 32,this));
+        return map;
     }
 }

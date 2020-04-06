@@ -33,7 +33,8 @@ public class AICharacter extends GhostCharacter {
     public AICharacter(int startRoom, AIConsole console, boolean isEvil) {
         super("Artificial Intelligence", startRoom, 0.0);
         this.console = console;
-        putOnSuit(new AISuit());
+
+        new AISuit().putYourselfOn(getEquipment());
         this.isEvil = isEvil;
     }
 

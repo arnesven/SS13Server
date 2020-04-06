@@ -61,6 +61,21 @@ public class SuperSuit extends SuitItem {
     }
 
 
+    @Override
+    protected int getEquipmentSlot() {
+        if (appearance == null) {
+            return Equipment.TORSO_SLOT;
+        }
+        return appearance.getEquipmentSlot();
+    }
+
+    @Override
+    public boolean blocksSlot(int targetSlot) {
+        if (appearance == null) {
+            return false;
+        }
+        return appearance.blocksSlot(targetSlot);
+    }
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
@@ -82,8 +97,8 @@ public class SuperSuit extends SuitItem {
             return (new SantaSuit()).getWornSprite(whosAsking);
         }
 
-        if (appearAsCharacter.getSuit() != null) {
-            return appearAsCharacter.getSuit().getWornSprite(whosAsking);
+        if (appearAsCharacter.getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT) != null) {
+            return appearAsCharacter.getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT).getWornSprite(whosAsking);
         }
         return appearAsCharacter.getSprite(whosAsking);
     }

@@ -7,9 +7,11 @@ import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.FireProtection;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class FireSuit extends SuitItem {
+public class FireSuit extends FullBodySuit {
 
 	public FireSuit() {
 		super("Fire suit", 1.5, 119);
@@ -28,7 +30,7 @@ public class FireSuit extends SuitItem {
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
-        list.add(new Sprite("firesuithelmet", "head.png", 5, this));
+        list.add(getFullBodySprites().get(Equipment.HEAD_SLOT));
         return new Sprite("firesuitworn", "suit.png", 0, list, this);
     }
 
@@ -47,6 +49,13 @@ public class FireSuit extends SuitItem {
 	@Override
 	public boolean permitsOver() {
 		return false;
+	}
+
+	@Override
+	protected Map<Integer, Sprite> getFullBodySprites() {
+		Map<Integer, Sprite> map = new HashMap<>();
+		map.put(Equipment.HEAD_SLOT, new Sprite("firesuithelmet", "head.png", 5, this));
+		return map;
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import model.characters.general.GameCharacter;
 /**
  * Created by erini02 on 26/04/16.
  */
-public class SecOffsVest extends SuitItem {
+public class SecOffsVest extends TorsoSuit {
     public SecOffsVest() {
         super("Vest", 1.0, 139);
     }

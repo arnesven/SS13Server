@@ -9,7 +9,7 @@ import model.characters.general.GameCharacter;
 /**
  * Created by erini02 on 30/04/16.
  */
-public class OxygenMask extends SuitItem {
+public class OxygenMask extends HeadGear {
     public OxygenMask() {
         super("Oxygen Mask", 0.5, 69);
     }

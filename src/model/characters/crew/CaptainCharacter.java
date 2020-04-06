@@ -24,8 +24,8 @@ public class CaptainCharacter extends CrewCharacter {
 
     public CaptainCharacter() {
         super("Captain", 20, 16.0);
-        removeSuit();
-        putOnSuit(new CaptainsOutfit(this));
+        getEquipment().removeEverything();
+        new CaptainsOutfit(this).putYourselfOn(getEquipment());
     }
 
     @Override

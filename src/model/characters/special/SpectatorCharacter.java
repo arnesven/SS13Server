@@ -85,7 +85,7 @@ public class SpectatorCharacter extends GhostCharacter {
         return "Game Mode: " + gameData.getGameMode().getName();
     }
 
-    @Override
+   // @Override
     public SuitItem getSuit() {
         return new SpectatorSuit(gameData.getGameMode().getSpectatorSubInfo(gameData));
     }
@@ -103,6 +103,16 @@ public class SpectatorCharacter extends GhostCharacter {
     private class SpectatorSuit extends SuitItem {
         public SpectatorSuit(String spectatorSubInfo) {
             super(spectatorSubInfo, 0, 0);
+        }
+
+        @Override
+        protected int getEquipmentSlot() {
+            return 0;
+        }
+
+        @Override
+        public boolean blocksSlot(int targetSlot) {
+            return false;
         }
 
         @Override

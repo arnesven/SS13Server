@@ -9,8 +9,8 @@ import model.items.suits.Kimono;
 public class GeishaCharacter extends VisitorCharacter {
     public GeishaCharacter() {
         super("Geisha");
-        removeSuit();
-        putOnSuit(new Kimono(this));
+        getEquipment().removeEverything();
+        putOnEquipment(new Kimono(this));
     }
 
     @Override

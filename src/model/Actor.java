@@ -201,16 +201,16 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 	
 	public void putOnSuit(Wearable selectedItem) {
 	    if (selectedItem instanceof SuitItem) {
-            this.getCharacter().putOnSuit((SuitItem) selectedItem);
+	        this.getCharacter().putOnEquipment((SuitItem) selectedItem);
         }
 		selectedItem.beingPutOn(this);	
 	}
 	
-	public void takeOffSuit() {
-		SuitItem item = getCharacter().getSuit();
-		this.getCharacter().removeSuit();
-		item.beingTakenOff(this);
-	}
+//	public void takeOffSuit() {
+//		SuitItem item = getCharacter().getSuit();
+//		this.getCharacter().removeEquipment(item);
+//		item.beingTakenOff(this);
+//	}
 
     public void addToHealth(double d) {
         getCharacter().setHealth(Math.min(getMaxHealth(),

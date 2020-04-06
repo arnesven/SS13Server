@@ -11,9 +11,11 @@ import model.characters.general.GameCharacter;
 import model.characters.visitors.CaptainsDaughter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class OutFit extends SuitItem {
+public class OutFit extends TorsoAndShoesSuit {
 
 	private GameCharacter type;
 
@@ -22,6 +24,16 @@ public class OutFit extends SuitItem {
 		this.type = chara;
 	}
 
+
+    @Override
+    protected int getEquipmentSlot() {
+        return Equipment.TORSO_SLOT;
+    }
+
+    @Override
+    public boolean blocksSlot(int targetSlot) {
+        return false;
+    }
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
@@ -128,7 +140,14 @@ public class OutFit extends SuitItem {
 		return true;
 	}
 
-	@Override
+    @Override
+    protected Map<Integer, Sprite> getOtherSprites() {
+	    Map<Integer, Sprite> map = new HashMap<>();
+	    map.put(Equipment.FEET_SLOT, new RegularBlackShoesSprite());
+        return map;
+    }
+
+    @Override
 	public void beingPutOn(Actor actionPerformer) {
 		actionPerformer.setCharacter(new DisguisedAs(actionPerformer.getCharacter(), type.getBaseName()));
 	}

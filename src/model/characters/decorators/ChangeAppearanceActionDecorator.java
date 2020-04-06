@@ -9,6 +9,7 @@ import model.characters.crew.CrewCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.HorrorCharacter;
 import model.characters.general.OperativeCharacter;
+import model.items.suits.Equipment;
 import model.items.suits.OperativeSpaceSuit;
 import model.items.suits.SuperSuit;
 
@@ -51,10 +52,10 @@ public class ChangeAppearanceActionDecorator extends CharacterDecorator {
                 if (chosen instanceof HorrorCharacter) {
                     suit.setAppearAsCharacter(chosen, performingClient);
                 } else if (chosen instanceof OperativeCharacter) {
-                    chosen.putOnSuit(new OperativeSpaceSuit());
+                    new OperativeSpaceSuit().putYourselfOn(chosen.getEquipment());
                     suit.setAppearAsCharacter(chosen, performingClient);
                 } else if (chosen.checkInstance((GameCharacter ch) -> ch instanceof CrewCharacter)){
-                    suit.setAppearance(chosen.getSuit(), performingClient);
+                    suit.setAppearance(chosen.getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT), performingClient);
                 } else {
                     suit.setAppearAsCharacter(chosen, performingClient);
                 }

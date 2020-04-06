@@ -8,7 +8,7 @@ import model.characters.general.GameCharacter;
 /**
  * Created by erini02 on 26/04/16.
  */
-public class SecOffsHelmet extends SuitItem {
+public class SecOffsHelmet extends HatItem {
     public SecOffsHelmet() {
         super("Helmet", 0.5, 50);
     }

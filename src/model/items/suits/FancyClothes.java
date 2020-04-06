@@ -6,14 +6,15 @@ import model.characters.general.GameCharacter;
 import model.characters.decorators.FancyClothesDecorator;
 import model.characters.decorators.InstanceChecker;
 
-public class FancyClothes extends SuitItem {
+public class FancyClothes extends TorsoSuit {
 
 	
 	public FancyClothes() {
 		super("Fancy Clothes", 0.5, 129);
 	}
 
-    @Override
+
+	@Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("fancyclothes", "uniforms.png", 0, 6, this);
     }

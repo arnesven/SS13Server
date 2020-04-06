@@ -16,6 +16,7 @@ import model.characters.general.GameCharacter;
 import model.events.SentenceCountdownEvent;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
+import model.items.suits.Equipment;
 import model.items.suits.PrisonerSuit;
 import model.map.rooms.Room;
 import model.npcs.NPC;
@@ -145,13 +146,14 @@ public class CrimeRecordsConsole extends Console {
 			EvidenceBox ev = gameData.findObjectOfType(EvidenceBox.class);
 			transferItems(worst, ev);
 			Logger.log("Prisoners affects were stored in the evidence box");
-			if (worst.getCharacter().getSuit() != null && 
-					!worst.getCharacter().getSuit().permitsOver()) {
-				ev.addAffect(worst, worst.getCharacter().getSuit());
-				worst.takeOffSuit();
+			PrisonerSuit prisonSuit = new PrisonerSuit(noOfSentenced++);
+			if (worst.getCharacter().getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT) != null &&
+					!worst.getCharacter().getEquipment().canWear(prisonSuit)) {
+				ev.addAffect(worst, worst.getCharacter().getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT));
+				worst.getCharacter().getEquipment().removeEquipmentForSlot(Equipment.TORSO_SLOT);
 				Logger.log("Suit was removed from prisoner so prison clothes could be put over");
 			}
-			worst.putOnSuit(new PrisonerSuit(noOfSentenced++));
+			worst.putOnSuit(prisonSuit);
 		} catch (NoSuchThingException nse) {
 			Logger.log(Logger.CRITICAL, "No evidence box found on station. Prisoner keeps items.");
 		}
@@ -189,8 +191,8 @@ public class CrimeRecordsConsole extends Console {
 			for (GameItem it : ev.removeAffects(inmate)) {
 				inmate.addItem(it, null);
 			}
-			if (inmate.getCharacter().getSuit() instanceof PrisonerSuit) {
-				inmate.takeOffSuit();
+			if (inmate.getCharacter().getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT) instanceof PrisonerSuit) {
+				inmate.getCharacter().getEquipment().removeEquipmentForSlot(Equipment.TORSO_SLOT);
 			}
 		} catch (NoSuchThingException nse) {
 			Logger.log(Logger.CRITICAL, "No evindencebox found on station, nothing to retrieve.");

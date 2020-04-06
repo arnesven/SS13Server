@@ -5,9 +5,11 @@ import graphics.sprites.Sprite;
 import model.Actor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class JumpSuit extends SuitItem {
+public class JumpSuit extends TorsoAndShoesSuit {
 
 	public JumpSuit() {
 		super("Jump Suit", 0.5, 39);
@@ -39,6 +41,13 @@ public class JumpSuit extends SuitItem {
 	@Override
 	public boolean permitsOver() {
 		return true;
+	}
+
+	@Override
+	protected Map<Integer, Sprite> getOtherSprites() {
+		Map<Integer, Sprite> map = new HashMap<>();
+		map.put(Equipment.FEET_SLOT, new RegularBlackShoesSprite());
+		return map;
 	}
 
 }

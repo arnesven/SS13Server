@@ -12,7 +12,7 @@ public abstract class CrewCharacter extends HumanCharacter {
 
 	public CrewCharacter(String name, int startRoom, double speed) {
 		super(name, startRoom, speed);
-		putOnSuit(new OutFit(this));
+		putOnEquipment(new OutFit(this));
 	}
 
 

@@ -73,7 +73,7 @@ public class HorrorCharacter extends GameCharacter {
 	}
 	
 	@Override
-	public void putOnSuit(SuitItem gameItem) {
+	public void putOnEquipment(SuitItem gameItem) {
 		//Do nothing 
 	}
 
