@@ -19,7 +19,7 @@ import java.util.List;
  * Created by erini02 on 23/12/16.
  */
 public class ServerInfoFactory {
-    private static final int MAX_RSS_ITEMS = 8;
+    private static final int MAX_RSS_ITEMS = 32;
     private final String name;
     private final int port;
 

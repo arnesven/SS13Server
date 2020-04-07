@@ -63,6 +63,8 @@ public class Equipment implements Serializable {
                 if (slots[index] != null) {
                     if (slots[index].hasAdditionalSprites() && slots[index].getAdditionalSprites().get(slotIndex) != null) {
                         return true;
+                    } else if (slots[index].blocksSlot(slotIndex)) {
+                        return true;
                     }
                 }
             }
@@ -88,7 +90,7 @@ public class Equipment implements Serializable {
             sprites.add(slots[slotIndex].getSprite(player));
             finalName.append(slots[slotIndex].getSprite(player).getName());
         }
-        int slotindex = 0;
+
         for (SuitItem others : slots) {
             if (others != null) {
                 if (others.hasAdditionalSprites() && others.getAdditionalSprites().get(slotIndex) != null) {
@@ -99,8 +101,20 @@ public class Equipment implements Serializable {
                     }
                 }
             }
-            slotIndex++;
         } // TODO: we may need to change the order on this.
+
+        for (int i = 0; i < slots.length; ++i) {
+            if (i != slotIndex) {
+                if (slots[i] != null) {
+                    if (slots[i].blocksSlot(slotIndex)) {
+                        if (slots[i].getAdditionalSprites().get(slotIndex) == null) {
+                            sprites.add(new Sprite("blockedcross", "interface.png", 8, 2, null));
+                            finalName.append("blockedcross");
+                        }
+                    }
+                }
+            }
+        }
 
         Sprite combination = new Sprite(finalName.toString(), sprites);
         return combination;

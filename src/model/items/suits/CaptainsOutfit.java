@@ -1,5 +1,6 @@
 package model.items.suits;
 
+import graphics.sprites.RegularBlackShoesSprite;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.characters.general.GameCharacter;
@@ -30,6 +31,7 @@ public class CaptainsOutfit extends OutFit {
     public Map<Integer, Sprite> getAdditionalSprites() {
         Map<Integer, Sprite> map = new HashMap<>();
         map.put(Equipment.HEAD_SLOT, new CaptainsHat().getSprite(getType().getActor()));
+        map.put(Equipment.FEET_SLOT, new RegularBlackShoesSprite());
         return map;
     }
 }
