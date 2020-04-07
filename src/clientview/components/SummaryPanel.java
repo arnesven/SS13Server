@@ -13,15 +13,26 @@ import java.io.IOException;
 
 public class SummaryPanel extends JPanel implements Observer {
 
+    private JEditorPane jed;
+
     public SummaryPanel() {
-        JButton button = new JButton("See Summary");
+        setLayout(new BorderLayout());
+        jed = new JEditorPane();
+        jed.setContentType("text/html");
+        JScrollPane jsp = new JScrollPane(jed);
+        this.add(jsp);
+        JButton button = new JButton("View In Browser");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 writeFileAndBrowser();
             }
         });
-        this.add(button);
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+        panel.add(button);
+        this.add(panel, BorderLayout.SOUTH);
+        GameData.getInstance().subscribe(this);
     }
 
     private void writeFileAndBrowser() {
@@ -39,7 +50,7 @@ public class SummaryPanel extends JPanel implements Observer {
 
     @Override
     public void update() {
-
-
+        jed.setText(GameData.getInstance().getSummaryString());
+        jed.setCaretPosition(0);
     }
 }

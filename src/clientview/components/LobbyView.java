@@ -71,8 +71,7 @@ public class LobbyView extends JPanel {
 
 
     public void flipToSummary() {
-        tlp.setSelectedIndex(2);
-       // tlp.selectTab(2);
+        tlp.setSelectedIndex(4);
 
     }
 

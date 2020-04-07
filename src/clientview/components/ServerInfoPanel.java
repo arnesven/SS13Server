@@ -18,5 +18,6 @@ public class ServerInfoPanel extends JPanel {
 
     public void addContent(String result) {
         jed.setText(result);
+        jed.setCaretPosition(0);
     }
 }
