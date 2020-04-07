@@ -23,7 +23,7 @@ public class StaffAssistantCharacter extends CrewCharacter {
     private List<Action> learned = new ArrayList<>();
 
     public StaffAssistantCharacter() {
-        super("Staff Assistant", 12, 1.0);
+        super("Staff Assistant", SUPPORT_TYPE, 12, 1.0);
     }
 
     @Override
@@ -90,5 +90,12 @@ public class StaffAssistantCharacter extends CrewCharacter {
     public void addLearnedActions(List<Action> acts) {
         learned.addAll(acts);
     }
+
+
+    @Override
+    public String getJobDescription() {
+        return new JobDescriptionMaker(this, "Help out in any way you can.", "Learning").makeString();
+    }
+
 
 }

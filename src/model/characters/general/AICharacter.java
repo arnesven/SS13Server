@@ -42,6 +42,11 @@ public class AICharacter extends GhostCharacter {
         return "You are the AI! You are not on anybody's team! Follow your laws as literally as possible.";
     }
 
+    public static String getAntagonistDescription() {
+        return "<font size=\"3\"><i>You have come to the conclusion that the crew are a threat to you, so they must die.</i><br/>"+
+                "<b>Abilities:</b> Remote control, Download Into Bot<br/>" +
+                "</font>";
+    }
 
 
     @Override

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ChemistCharacter extends CrewCharacter {
     public ChemistCharacter() {
-        super("Chemist", 1, 7.5);
+        super("Chemist", SCIENCE_TYPE, 1, 7.5);
     }
 
     @Override
@@ -34,4 +34,11 @@ public class ChemistCharacter extends CrewCharacter {
     public GameCharacter clone() {
         return new ChemistCharacter();
     }
+
+
+    @Override
+    public String getJobDescription() {
+        return new JobDescriptionMaker(this, "Chemical compounds and reactions is the domain of your experiments.", "Labrat").makeString();
+    }
+
 }

@@ -17,7 +17,7 @@ import model.items.weapons.Revolver;
 public class DetectiveCharacter extends CrewCharacter {
 
 	public DetectiveCharacter() {
-		super("Detective", 12, 13.0);
+		super("Detective", SECURITY_TYPE,12, 13.0);
 	}
 	
 	@Override
@@ -49,4 +49,11 @@ public class DetectiveCharacter extends CrewCharacter {
     public int getStartingMoney() {
         return 25;
     }
+
+	@Override
+	public String getJobDescription() {
+		return new JobDescriptionMaker(this, "There's something fishy going on here, " +
+				" and you're gonna find out what!",
+				"Investigate").makeString();
+	}
 }

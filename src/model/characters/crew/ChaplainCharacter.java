@@ -15,7 +15,7 @@ import model.items.weapons.AutoCremator;
 public class ChaplainCharacter extends CrewCharacter {
 
 	public ChaplainCharacter() {
-		super("Chaplain", 2, 2.0);
+		super("Chaplain", SUPPORT_TYPE, 2, 2.0);
 	}
 
     @Override
@@ -43,6 +43,13 @@ public class ChaplainCharacter extends CrewCharacter {
         if (a.getOptions(gameData, getActor()).numberOfSuboptions() > 0) {
             at.add(a);
         }
+    }
 
+    @Override
+    public String getJobDescription() {
+        return new JobDescriptionMaker(this, "When the crew needs spiritual " +
+                "guidance or consolation they come to the chapel and to you." +
+                " For those who don't, it's your duty to preach the holy words.",
+                "Sing Sermon").makeString();
     }
 }

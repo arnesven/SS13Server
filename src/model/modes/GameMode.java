@@ -8,7 +8,8 @@ import java.util.*;
 import graphics.sprites.Sprite;
 import model.*;
 import model.characters.crew.*;
-import model.characters.general.AICharacter;
+import model.characters.decorators.HostCharacter;
+import model.characters.general.*;
 import model.characters.special.SpectatorCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.events.*;
@@ -28,8 +29,6 @@ import model.objects.general.JunkVendingMachine;
 import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
-import model.characters.general.CharacterSpeedComparator;
-import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.map.rooms.NukieShipRoom;
 import model.map.rooms.Room;
@@ -547,11 +546,11 @@ public abstract class GameMode implements Serializable {
 		for (GameCharacter gc : list) {
 			res.append("p" + gc.getBaseName() + delim + ((CrewCharacter)gc).getJobDescription() + delim);
 		}
-		res.append("aTraitor" + delim + "Baddie!" + delim);
-		res.append("aHost" + delim + "Baddie!" + delim);
-		res.append("aOperative" + delim + "Baddie!" + delim);
-		res.append("aChangeling" + delim + "Baddie!" + delim);
-        res.append("aRogue AI" + delim + "Baddie!" + delim);
+		res.append("aTraitor" + delim + JobDescriptionMaker.getTraitorDescription() + delim);
+		res.append("aHost" + delim + HostCharacter.getAntagonistDescription() + delim);
+		res.append("aOperative" + delim + OperativeCharacter.getAntagonistDescription() + delim);
+		res.append("aChangeling" + delim + ChangelingCharacter.getAntagonistDescription() + delim);
+        res.append("aRogue AI" + delim + AICharacter.getAntagonistDescription() + delim);
 
 
         return res.toString();

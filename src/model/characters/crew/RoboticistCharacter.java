@@ -17,7 +17,7 @@ import util.Logger;
 public class RoboticistCharacter extends CrewCharacter {
 
 	public RoboticistCharacter() {
-		super("Roboticist", 448, 7.0);
+		super("Roboticist", TECHNICAL_TYPE,448, 7.0);
 	}
 
     @Override
@@ -50,5 +50,11 @@ public class RoboticistCharacter extends CrewCharacter {
     @Override
     public int getStartingMoney() {
         return 100;
+    }
+
+    @Override
+    public String getJobDescription() {
+        return new JobDescriptionMaker(this, "The station needs robots for dangerous or unwanted jobs."+
+                " You build and program them. Also cyborgs!", "Reporgramming, Build Robot").makeString();
     }
 }

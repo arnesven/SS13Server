@@ -44,6 +44,7 @@ public class JobDescriptionBox extends Box {
         JEditorPane jed = new JEditorPane();
         jed.setContentType("text/html");
         jed.setText(description);
+        jed.setCaretPosition(0);
         this.add(new JScrollPane(jed));
 
     }

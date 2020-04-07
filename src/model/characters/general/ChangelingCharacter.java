@@ -39,7 +39,17 @@ public class ChangelingCharacter extends GameCharacter {
 		forms.add(current);
 	}
 
-	@Override
+	public static String getAntagonistDescription() {
+		return "<font size=\"3\"><i>You are an alien with shape-shifting powers, " +
+				"hell-bent on killing the crew of SS13! You start as a parasite-like " +
+				"creature but as you suck the life out of other creatures you can take " +
+				"their shape. You also have an Ultimate form which is very powerful. </i><br/>"+
+				"<b>Abilities: </b> Change Form, Hunting, Spray Acid<br/>" +
+				"<b>Initiative</b> 21.0<br/>" +
+				"</font>";
+	}
+
+    @Override
 	public List<GameItem> getStartingItems() {
 		return new ArrayList<>();
 	}

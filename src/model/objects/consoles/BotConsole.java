@@ -25,7 +25,7 @@ public class BotConsole extends Console {
     private List<BotProgram> programs;
 
     public BotConsole(Room r) {
-        super("Mainframe Console", r);
+        super("Robot Console", r);
     }
 
     public List<BotProgram> getPrograms(GameData gameData, Actor whosAsking) {

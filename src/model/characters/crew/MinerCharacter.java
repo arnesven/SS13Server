@@ -21,7 +21,7 @@ import java.util.List;
 public class MinerCharacter extends CrewCharacter {
 
     public MinerCharacter() {
-        super("Miner", MiningStationRoom.DEFAULT_ID, 1.5);
+        super("Miner", TECHNICAL_TYPE, MiningStationRoom.DEFAULT_ID, 1.5);
     }
 
     @Override
@@ -41,12 +41,18 @@ public class MinerCharacter extends CrewCharacter {
 
     @Override
     public int getStartingMoney() {
-        return 150;
+        return 100;
     }
 
 
     @Override
     public ActionBehavior getDefaultActionBehavior() {
         return new PutOnSuitBehavior(MinerSpaceSuit.class);
+    }
+
+    @Override
+    public String getJobDescription() {
+        return new JobDescriptionMaker(this, "You work out on the Mining station, hacking asteroids into bits. " +
+                "Collect them and make cool stuff out of the raw materials", "").makeString();
     }
 }

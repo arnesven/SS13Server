@@ -17,7 +17,7 @@ import model.npcs.animals.Trainable;
 public class BiologistCharacter extends CrewCharacter {
 
 	public BiologistCharacter() {
-		super("Biologist", 3, 11.0);
+		super("Biologist", SCIENCE_TYPE, 3, 11.0);
 	}
 
     @Override
@@ -27,7 +27,7 @@ public class BiologistCharacter extends CrewCharacter {
 		list.add(new MotionTracker());
 		return list;
 	}
-	
+
 	@Override
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {
@@ -56,4 +56,12 @@ public class BiologistCharacter extends CrewCharacter {
     public int getStartingMoney() {
         return 50;
     }
+
+
+	@Override
+	public String getJobDescription() {
+		return new JobDescriptionMaker(this, "You study plant life and animal behavior when put on a space station.",
+				"Train Animal").makeString();
+	}
+
 }

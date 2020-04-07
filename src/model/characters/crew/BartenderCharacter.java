@@ -13,7 +13,7 @@ import model.items.weapons.Shotgun;
 public class BartenderCharacter extends CrewCharacter {
 
 	public BartenderCharacter() {
-		super("Bartender", 10, 4.0);
+		super("Bartender", SUPPORT_TYPE, 10, 4.0);
 	}
 
     @Override
@@ -33,4 +33,9 @@ public class BartenderCharacter extends CrewCharacter {
 		return new BartenderCharacter();
 	}
 
+	@Override
+	public String getJobDescription() {
+		return new JobDescriptionMaker(this, "The crew is always thirsty." +
+				" Your job is to serve them drinks and listen to their stories.", "Refrigerator Access").makeString();
+	}
 }

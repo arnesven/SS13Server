@@ -25,10 +25,6 @@ public class JobsPanel extends JPanel implements Observer {
         JLabel title = new JLabel("Please check the jobs you prefer.");
         title.setFont(new Font("Arial", Font.ITALIC, 22));
         Box box = new Box(BoxLayout.X_AXIS);
-        box.add(title);
-        box.add(Box.createHorizontalGlue());
-        this.add(box);
-        this.add(gridPanel);
 
         tb = new Button("Check None");
 
@@ -39,9 +35,13 @@ public class JobsPanel extends JPanel implements Observer {
                 checkAll();
             }
         });
-        JPanel buttBox = new JPanel(new FlowLayout());
-        buttBox.add(tb);
-        this.add(buttBox);
+
+        box.add(title);
+        tb.setPreferredSize(new Dimension(80, 0));
+        box.add(Box.createHorizontalGlue());
+        box.add(tb);
+        this.add(box);
+        this.add(gridPanel);
 
         ServerCommunicator.send(GameData.getInstance().getClid() + " JOBS", new MyCallback<String>() {
 
@@ -50,6 +50,7 @@ public class JobsPanel extends JPanel implements Observer {
                 fillGrid(result);
             }
         });
+
     }
 
     private void checkAll() {

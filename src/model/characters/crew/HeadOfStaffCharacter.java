@@ -15,7 +15,7 @@ import model.items.suits.Sweater;
 public class HeadOfStaffCharacter extends CrewCharacter {
 
 	public HeadOfStaffCharacter() {
-		super("Head of Staff", 14, 15.0);
+		super("Head of Staff", COMMAND_TYPE,14, 15.0);
 	}
 
     @Override
@@ -42,4 +42,9 @@ public class HeadOfStaffCharacter extends CrewCharacter {
     public int getStartingMoney() {
         return 150;
     }
+
+	@Override
+	public String getJobDescription() {
+		return new JobDescriptionMaker(this, "As the executive officer on the station, your job is making sure everyone else is doing theirs. You also handle requisitions, job changes and demotions.", "Inform Crew").makeString();
+	}
 }

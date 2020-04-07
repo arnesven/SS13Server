@@ -16,7 +16,7 @@ import util.Logger;
 public class ScienceOfficerCharacter extends CrewCharacter {
 
 	public ScienceOfficerCharacter() {
-		super("Science Officer", 1, 9.0);
+		super("Science Officer", SCIENCE_TYPE, 1, 9.0);
 	}
 
     @Override
@@ -63,4 +63,11 @@ public class ScienceOfficerCharacter extends CrewCharacter {
     public int getStartingMoney() {
         return 250;
     }
+
+
+    @Override
+    public String getJobDescription() {
+        return new JobDescriptionMaker(this, "There's lots of experiments that need overseeing, and some that don't (mainly your own).", "Hacker").makeString();
+    }
+
 }

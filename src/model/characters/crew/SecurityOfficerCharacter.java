@@ -24,7 +24,7 @@ public class SecurityOfficerCharacter extends CrewCharacter {
     private boolean actorSet;
 
     public SecurityOfficerCharacter() {
-		super("Security Officer", 18, 14.0);
+		super("Security Officer", SECURITY_TYPE, 18, 14.0);
         actorSet = false;
 	}
 
@@ -93,4 +93,12 @@ public class SecurityOfficerCharacter extends CrewCharacter {
 
         }
     }
+
+
+    @Override
+    public String getJobDescription() {
+        return new JobDescriptionMaker(this,
+                "Any obtrusive, lewd or criminal activity is handled by you. Keep the crewmembers safe from each other!", "Suit up!").makeString();
+    }
+
 }

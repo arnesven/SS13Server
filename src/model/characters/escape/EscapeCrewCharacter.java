@@ -9,7 +9,7 @@ import java.util.List;
 
 public class EscapeCrewCharacter extends CrewCharacter {
     public EscapeCrewCharacter() {
-        super("Human", 1, 19.0);
+        super("Human", CIVILIAN_TYPE, 1, 19.0);
     }
 
     @Override
@@ -25,5 +25,10 @@ public class EscapeCrewCharacter extends CrewCharacter {
     @Override
     public GameCharacter clone() {
         return new EscapeCrewCharacter();
+    }
+
+    @Override
+    public String getJobDescription() {
+        return "";
     }
 }

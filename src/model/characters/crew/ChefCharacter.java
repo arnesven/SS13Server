@@ -13,7 +13,7 @@ import model.objects.general.CookOMatic;
 public class ChefCharacter extends CrewCharacter {
 
 	public ChefCharacter() {
-		super("Chef", 8, 5.0);
+		super("Chef", SUPPORT_TYPE, 8, 5.0);
 	}
 
     @Override
@@ -41,4 +41,11 @@ public class ChefCharacter extends CrewCharacter {
     public int getStartingMoney() {
         return 50;
     }
+
+	@Override
+	public String getJobDescription() {
+		return new JobDescriptionMaker(this, "Something's cooking! Keep those crewmembers fed." +
+				" The station's kitchen is well stocked so just keep churning out the pizzas, burgers and pies.",
+				"Double Serving").makeString();
+	}
 }

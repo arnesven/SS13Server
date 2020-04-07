@@ -13,7 +13,7 @@ import model.items.general.Syringe;
 public class GeneticistCharacter extends CrewCharacter {
 
 	public GeneticistCharacter() {
-		super("Geneticist", 1, 8.0);
+		super("Geneticist", SCIENCE_TYPE, 1, 8.0);
 	}
 
     @Override
@@ -35,4 +35,13 @@ public class GeneticistCharacter extends CrewCharacter {
     public int getStartingMoney() {
         return 100;
     }
+
+
+	@Override
+	public String getJobDescription() {
+		return new JobDescriptionMaker(this, "What strange and/or useful mutations and genetic " +
+				"alterations can you find? Just find a suitable test subject for genetical experiments",
+				"Pro Injector, GeneTIX Expert").makeString();
+	}
+
 }

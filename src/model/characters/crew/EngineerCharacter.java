@@ -13,7 +13,7 @@ import model.items.suits.FireSuit;
 public class EngineerCharacter extends CrewCharacter {
 
 	public EngineerCharacter() {
-		super("Engineer", 26, 10.0);
+		super("Engineer", TECHNICAL_TYPE,26, 10.0);
 	}
 
 
@@ -35,6 +35,15 @@ public class EngineerCharacter extends CrewCharacter {
 
     @Override
     public int getStartingMoney() {
-        return 150;
+        return 120;
     }
+
+
+	@Override
+	public String getJobDescription() {
+		return new JobDescriptionMaker(this,
+				"Craving Power? The Engineer's got it all in his/her hands." +
+						" Make sure the power level is just right, or bad things WILL happen.", "Craft Electronics").makeString();
+	}
+
 }

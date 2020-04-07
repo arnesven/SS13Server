@@ -10,8 +10,17 @@ import java.util.List;
 
 public abstract class CrewCharacter extends HumanCharacter {
 
-	public CrewCharacter(String name, int startRoom, double speed) {
+    public static String COMMAND_TYPE = "Command";
+    public static String SCIENCE_TYPE = "Science";
+    public static String SECURITY_TYPE = "Security";
+    public static String TECHNICAL_TYPE = "Technical";
+    public static String SUPPORT_TYPE = "Support";
+    public static String CIVILIAN_TYPE = "Civilian";
+    private final String type;
+
+    public CrewCharacter(String name, String type, int startRoom, double speed) {
 		super(name, startRoom, speed);
+		this.type = type;
 		putOnEquipment(new OutFit(this));
 	}
 
@@ -36,5 +45,9 @@ public abstract class CrewCharacter extends HumanCharacter {
     }
 
 
-    public String getJobDescription() {return "Stuff";}
+    public abstract String getJobDescription();
+
+    public String getType() {
+        return type;
+    }
 }

@@ -101,8 +101,21 @@ public class AdministrationConsole extends Console {
         if (a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof ChangelingCharacter)) {
             return 0;
         }
-        if (a.getInnermostCharacter() instanceof CrewCharacter) {
-            return ((CrewCharacter)a.getInnermostCharacter()).getStartingMoney() / 5;
+
+        return getWageForCharacter(a.getInnermostCharacter());
+
+
+    }
+
+    public static int getWageForCharacter(GameCharacter innermostCharacter) {
+        if (innermostCharacter instanceof CaptainCharacter) {
+            return 35;
+        }
+        if (innermostCharacter instanceof VisitorCharacter) {
+            return 0;
+        }
+        if (innermostCharacter instanceof CrewCharacter) {
+            return ((CrewCharacter) innermostCharacter).getStartingMoney() / 5;
         }
         return 0;
     }

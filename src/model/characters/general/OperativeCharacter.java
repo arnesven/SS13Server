@@ -25,7 +25,8 @@ public class OperativeCharacter extends HumanCharacter {
 		this.num = num;
 	}
 
-	@Override
+
+    @Override
 	public List<GameItem> getStartingItems() {
 		List<GameItem> gi = new ArrayList<>();
 		gi.add(new Revolver());
@@ -81,5 +82,13 @@ public class OperativeCharacter extends HumanCharacter {
         return rooms;
     }
 
+
+	public static String getAntagonistDescription() {
+		return "<font size=\"3\"><i>You are part of a team of operatives sent by the syndicate to " +
+				"obtain the nuclear activation codes protected by the station's commanding officer. " +
+				"If you are able to obtain them you can set off your high-jacked nuke and blow SS13 to hell.</i><br/>" +
+				"<b>Abilities:</b> Pickpocketing <br/>" +
+				"<b>Initiative:</b> 17.0</font>";
+	}
 
 }

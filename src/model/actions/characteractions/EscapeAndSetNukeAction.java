@@ -20,7 +20,7 @@ public class EscapeAndSetNukeAction extends Action {
 
 
 	public EscapeAndSetNukeAction() {
-		super("Leave SS13 and Activate Nuke", SensoryLevel.PHYSICAL_ACTIVITY);
+		super("Return to Your Ship and Activate Nuke", SensoryLevel.PHYSICAL_ACTIVITY);
 	}
 		
 	

@@ -15,7 +15,7 @@ import model.items.weapons.Knife;
 public class DoctorCharacter extends CrewCharacter {
 
 	public DoctorCharacter() {
-		super("Doctor", 24, 12.0);
+		super("Doctor", SCIENCE_TYPE, 24, 12.0);
 	}
 
     @Override
@@ -49,4 +49,10 @@ public class DoctorCharacter extends CrewCharacter {
     public int getStartingMoney() {
         return 50;
     }
+
+	@Override
+	public String getJobDescription() {
+		return new JobDescriptionMaker(this, "Injuries are common for those working on the station. Patch people up and send them back to work again.",
+				"Pro Injector, MedKit Conservation").makeString();
+	}
 }

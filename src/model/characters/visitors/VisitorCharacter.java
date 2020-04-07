@@ -2,6 +2,7 @@ package model.characters.visitors;
 
 import model.GameData;
 import model.characters.crew.CrewCharacter;
+import model.characters.crew.JobDescriptionMaker;
 import model.characters.crew.TouristCharacter;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
@@ -9,6 +10,7 @@ import model.map.rooms.ArmoryRoom;
 import model.map.rooms.NukieShipRoom;
 import model.map.rooms.Room;
 import util.MyRandom;
+import util.MyStrings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ import java.util.List;
 public abstract class VisitorCharacter extends CrewCharacter {
 
     public VisitorCharacter(String s, int i, double v) {
-        super(s, i, v);
+        super(s, CIVILIAN_TYPE, i, v);
     }
 
     public VisitorCharacter(String str) {
@@ -56,8 +58,22 @@ public abstract class VisitorCharacter extends CrewCharacter {
         return chars;
     }
 
+    private static List<String> getSubtypeNames() {
+        List<String> lst = new ArrayList<>();
+        for (GameCharacter gc : getSubtypes()) {
+            lst.add(gc.getBaseName());
+        }
+        return lst;
+    }
+
     @Override
     public boolean isCrew() {
         return true;
+    }
+
+    @Override
+    public String getJobDescription() {
+        return new JobDescriptionMaker(this, "You are one of the following visitors on the station: " +
+                MyStrings.join(getSubtypeNames(), ", "), "Varies").makeString();
     }
 }

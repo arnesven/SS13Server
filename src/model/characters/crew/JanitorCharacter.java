@@ -14,8 +14,7 @@ import util.HTMLText;
 public class JanitorCharacter extends CrewCharacter {
 
 	public JanitorCharacter() {
-		super("Janitor", 23, 3.0);
-		
+		super("Janitor", SUPPORT_TYPE,23, 3.0);
 	}
 
 
@@ -60,7 +59,7 @@ public class JanitorCharacter extends CrewCharacter {
     }
 
 	public  String getJobDescription() {
-		return new JobDescriptionMaker(HTMLText.makeText("purple", "support"), getStartingItems(),"When all goes to hell, it's your duty to clean up the mess. Make sure the station really shines.",
+		return new JobDescriptionMaker(this,"When all goes to hell, it's your duty to clean up the mess. Make sure the station really shines.",
 				"Pick upp all, Extra carrying capacity").makeString();
 	}
 

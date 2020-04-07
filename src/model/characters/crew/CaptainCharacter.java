@@ -23,7 +23,7 @@ import model.npcs.JungleManNPC;
 public class CaptainCharacter extends CrewCharacter {
 
     public CaptainCharacter() {
-        super("Captain", 20, 16.0);
+        super("Captain", COMMAND_TYPE, 20, 16.0);
         getEquipment().removeEverything();
         new CaptainsOutfit(this).putYourselfOn(getEquipment());
     }
@@ -44,6 +44,14 @@ public class CaptainCharacter extends CrewCharacter {
     @Override
     public int getStartingMoney() {
         return 50;
+    }
+
+
+    @Override
+    public String getJobDescription() {
+        return new JobDescriptionMaker(this,
+                "You're in charge. Keep your crew alive and the station in one piece." +
+                        " Don't forget to guard the nuclear disk!", "Parent, ").makeString();
     }
 
 

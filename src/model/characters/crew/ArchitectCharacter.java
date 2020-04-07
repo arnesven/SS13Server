@@ -13,7 +13,7 @@ import model.items.suits.PowerSuit;
 public class ArchitectCharacter extends CrewCharacter {
 
 	public ArchitectCharacter() {
-		super("Architect", 26, 6.0);
+		super("Architect", TECHNICAL_TYPE,26, 6.0);
 	}
 
     @Override
@@ -35,4 +35,11 @@ public class ArchitectCharacter extends CrewCharacter {
     public int getStartingMoney() {
         return 75;
     }
+
+
+	@Override
+	public String getJobDescription() {
+		return new JobDescriptionMaker(this, "When you need more space out in space, you're the man/woman for the job.", "Roombuilding, Doorbuilding").makeString();
+	}
+
 }
