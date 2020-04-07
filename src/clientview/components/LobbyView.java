@@ -24,7 +24,9 @@ public class LobbyView extends JPanel {
             tlp = new JTabbedPane();
             this.clid = username;
 
-        tlp.add(new JobsPanel(username), "Jobs");
+        JobsPanel jobs = new JobsPanel(username, this);
+        //JScrollPane jsp = new JScrollPane(jobs);
+        tlp.add(jobs, "Jobs");
 
         //tlp.add(new PlayersPanel(username), "Players");
         pacp = new PlayersAndChatPanel(username, parent);

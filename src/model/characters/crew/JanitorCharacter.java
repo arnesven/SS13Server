@@ -9,6 +9,7 @@ import model.actions.characteractions.PickUpAllAction;
 import model.characters.general.GameCharacter;
 import model.items.chemicals.HydrogenPeroxideChemicals;
 import model.items.general.*;
+import util.HTMLText;
 
 public class JanitorCharacter extends CrewCharacter {
 
@@ -57,4 +58,10 @@ public class JanitorCharacter extends CrewCharacter {
     public int getStartingMoney() {
         return 25;
     }
+
+	public  String getJobDescription() {
+		return new JobDescriptionMaker(HTMLText.makeText("purple", "support"), getStartingItems(),"When all goes to hell, it's your duty to clean up the mess. Make sure the station really shines.",
+				"Pick upp all, Extra carrying capacity").makeString();
+	}
+
 }

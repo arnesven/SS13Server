@@ -36,4 +36,5 @@ public abstract class CrewCharacter extends HumanCharacter {
     }
 
 
+    public String getJobDescription() {return "Stuff";}
 }

@@ -545,13 +545,13 @@ public abstract class GameMode implements Serializable {
 		Collections.sort(list, new CharacterSpeedComparator());
         String delim = "<player-data-part>";
 		for (GameCharacter gc : list) {
-			res.append("p" + gc.getBaseName() + delim);
+			res.append("p" + gc.getBaseName() + delim + ((CrewCharacter)gc).getJobDescription() + delim);
 		}
-		res.append("aTraitor" + delim);
-		res.append("aHost" + delim);
-		res.append("aOperative" + delim);
-		res.append("aChangeling" + delim);
-        res.append("aRogue AI" + delim);
+		res.append("aTraitor" + delim + "Baddie!" + delim);
+		res.append("aHost" + delim + "Baddie!" + delim);
+		res.append("aOperative" + delim + "Baddie!" + delim);
+		res.append("aChangeling" + delim + "Baddie!" + delim);
+        res.append("aRogue AI" + delim + "Baddie!" + delim);
 
 
         return res.toString();

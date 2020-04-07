@@ -13,16 +13,21 @@ import java.util.ArrayList;
 
 public class JobsPanel extends JPanel implements Observer {
 
+    private final JPanel parent;
     private JPanel gridPanel = new JPanel();
     private ArrayList<JCheckBox> checkboxes = new ArrayList<>();
     boolean allCheck = true;
     private Button tb;
 
-    public JobsPanel(String username) {
+    public JobsPanel(String username, JPanel parent) {
+        this.parent = parent;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(new Label("Please check the jobs you prefer."));
-
-        //fillGrid();
+        JLabel title = new JLabel("Please check the jobs you prefer.");
+        title.setFont(new Font("Arial", Font.ITALIC, 22));
+        Box box = new Box(BoxLayout.X_AXIS);
+        box.add(title);
+        box.add(Box.createHorizontalGlue());
+        this.add(box);
         this.add(gridPanel);
 
         tb = new Button("Check None");
@@ -36,9 +41,7 @@ public class JobsPanel extends JPanel implements Observer {
         });
         JPanel buttBox = new JPanel(new FlowLayout());
         buttBox.add(tb);
-        buttBox.add(Box.createHorizontalGlue());
         this.add(buttBox);
-        this.add(Box.createVerticalGlue());
 
         ServerCommunicator.send(GameData.getInstance().getClid() + " JOBS", new MyCallback<String>() {
 
@@ -63,50 +66,22 @@ public class JobsPanel extends JPanel implements Observer {
 
     private void fillGrid(String result) {
 
-        String[] jobs = result.split("<player-data-part>");
+        String[] jobsAndDescriptions = result.split("<player-data-part>");
 
-
-        int noItems = jobs.length;// + antagonist.length;
+        int noItems = jobsAndDescriptions.length;// + antagonist.length;
         int columns = 4;
         int rows = (int)Math.ceil(((double)noItems)/columns);
         gridPanel.setLayout(new GridLayout(columns, rows));
-      //  Grid grid = new Grid(rows, columns);
 
-        //grid.setCellPadding(3);
-
-        int row = 0;
-        int col = 0;
         checkboxes = new ArrayList<>();
-        for (String s : jobs) {
-            final JCheckBox cb = new JCheckBox(s.substring(1));
-            checkboxes.add(cb);
-            GameData.getInstance().putJob(s.substring(1), true);
+        for (int i = 0; i < jobsAndDescriptions.length ; i+=2 ) {
+            String s = jobsAndDescriptions[i];
+            String description = jobsAndDescriptions[i+1];
 
-            cb.setSelected(true);
-
-            cb.addActionListener(new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent event) {
-                    GameData.getInstance().putJob(cb.getText(), cb.isSelected());
-                    GameData.getInstance().sendJobs();
-                }
-            });
-
-            if (s.charAt(0) == 'a') {
-                cb.setForeground(new Color(0xFF4444));
-//                cb.getElement().getStyle().setColor("#FF4444");
-            }
-            //grid.setWidget(row++, col, cb);
-
-            gridPanel.add(cb);//, row++, col);
-            if (row % rows == 0) {
-                col += 1;
-                row = 0;
-            }
+            JobDescriptionBox jdb = new JobDescriptionBox(s, description, columns, this);
+            gridPanel.add(jdb);//, row++, col);
+            checkboxes.add(jdb.getCheckBox());
         }
-        col++;
-        row = 0;
 
     }
 
