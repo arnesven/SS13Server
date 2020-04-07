@@ -19,6 +19,7 @@ public class SummaryPanel extends JPanel implements Observer {
         setLayout(new BorderLayout());
         jed = new JEditorPane();
         jed.setContentType("text/html");
+        jed.setEditable(false);
         JScrollPane jsp = new JScrollPane(jed);
         this.add(jsp);
         JButton button = new JButton("View In Browser");
