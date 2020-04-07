@@ -91,7 +91,12 @@ public class MapPanel extends JPanel implements Observer {
                 parent.repaint();
             }
 
-            });
+                    @Override
+                    public void onFail() {
+                        System.out.println("Failed to send MAP VIMI message to server");
+                    }
+
+                });
 
     }
 

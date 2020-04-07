@@ -133,8 +133,6 @@ public class GameData {
 			instance.modeAlternatives.add(parts[i]);
 		}
 
-
-
 		notifyObservers();
 	}
 
@@ -155,6 +153,11 @@ public class GameData {
                         LastTurnPanel.addToChatMessages(messes);
 						GameData.this.setLastMessage(newLastMessage);
 					}
+
+			@Override
+			public void onFail() {
+				System.out.println("Failed to send CHATGET message to server");
+			}
 
 		});
 	}
@@ -553,12 +556,18 @@ public class GameData {
 			}
 		}
 		res += "}";
+		Cookies.setCookie("jobselections", res);
 
 		ServerCommunicator.send(getClid() + " JOBS " + res, new MyCallback<String>() {
 
 			@Override
 			public void onSuccess(String result) {
 
+			}
+
+			@Override
+			public void onFail() {
+				System.out.println("Failed to send JOBS message to server");
 			}
 		});
 
@@ -601,7 +610,12 @@ public class GameData {
 					settingBools.add(Boolean.parseBoolean(parts[1]));
 				}
 			}
-		});
+
+					@Override
+					public void onFail() {
+						System.out.println("Failed to send SETTINGS message to server.");
+					}
+				});
 	}
 
 	private String getPlayerSettings() {

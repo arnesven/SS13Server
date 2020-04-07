@@ -57,6 +57,11 @@ public class LobbyView extends JPanel {
                 }
 
             }
+
+            @Override
+            public void onFail() {
+                System.out.println("Failed to send INFOGET message to server");
+            }
         });
     }
 

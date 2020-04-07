@@ -2,14 +2,18 @@ package clientview.components;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
+import clientlogic.Cookies;
 import clientlogic.GameData;
 import clientlogic.Observer;
+import model.characters.general.GameCharacter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JobsPanel extends JPanel implements Observer {
 
@@ -49,6 +53,11 @@ public class JobsPanel extends JPanel implements Observer {
             public void onSuccess(String result) {
                 fillGrid(result);
             }
+
+            @Override
+            public void onFail() {
+                System.out.println("Failed to send JOBS message to server");
+            }
         });
 
     }
@@ -74,15 +83,32 @@ public class JobsPanel extends JPanel implements Observer {
         int rows = (int)Math.ceil(((double)noItems)/columns);
         gridPanel.setLayout(new GridLayout(columns, rows));
 
+
+        Map<String, Boolean> oldChoices = new HashMap<>();
+        if (Cookies.getCookie("jobselections") != null) {
+            String jobSelections = Cookies.getCookie("jobselections");
+            jobSelections = jobSelections.substring(1, jobSelections.length()-1);
+            String[] jobArr = jobSelections.split(",");
+            for (String job : jobArr) {
+                String[] parts = job.split("=");
+                oldChoices.put(parts[0], Boolean.parseBoolean(parts[1]));
+            }
+        }
+
         checkboxes = new ArrayList<>();
         for (int i = 0; i < jobsAndDescriptions.length ; i+=2 ) {
             String s = jobsAndDescriptions[i];
             String description = jobsAndDescriptions[i+1];
 
-            JobDescriptionBox jdb = new JobDescriptionBox(s, description, columns, this);
+            boolean checked = true;
+            if (oldChoices.get(s.substring(1)) != null) {
+                checked = oldChoices.get(s.substring(1));
+            }
+            JobDescriptionBox jdb = new JobDescriptionBox(s, description, columns, this, checked);
             gridPanel.add(jdb);//, row++, col);
             checkboxes.add(jdb.getCheckBox());
         }
+
 
     }
 

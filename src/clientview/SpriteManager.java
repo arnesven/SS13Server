@@ -62,6 +62,11 @@ public class SpriteManager {
 						addToDic(spriteKey, ic);
 					}
 				}
+
+				@Override
+				public void onFail() {
+					System.out.println("Failed to send RESOURCE message to server");
+				}
 			});
 		} else {
 			return val;

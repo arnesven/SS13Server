@@ -5,6 +5,7 @@ import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientlogic.Observer;
 import main.SS13Client;
+import util.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -82,7 +83,7 @@ public class SouthButtonPanel extends Box implements Observer {
           this.add(new JLabel(", "));
           this.add(gameStateLabel);
 
-          clientVersionLabel = new JLabel("..version?..");
+          clientVersionLabel = new JLabel("ERROR! Could not determine server-required version!");
           clientVersionLabel.setForeground(Color.RED);
           this.add(Box.createHorizontalGlue());
           this.add(clientVersionLabel);
@@ -114,10 +115,14 @@ public class SouthButtonPanel extends Box implements Observer {
         }
 //
         ServerCommunicator.send(parent.getUsername() + " " + message, new MyCallback<String>() {
-
             @Override
             public void onSuccess(String result) {
                 GameData.getInstance().deconstructReadyListAndStateAndRoundAndSettings(result);
+            }
+
+            @Override
+            public void onFail() {
+                System.out.println("Failed to send READY message to server.");
             }
         });
     }

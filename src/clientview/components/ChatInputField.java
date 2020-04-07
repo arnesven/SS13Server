@@ -36,6 +36,11 @@ public class ChatInputField extends JTextField {
 
             }
 
+            @Override
+            public void onFail() {
+                System.out.println("Failed to send CHATPUT message to server");
+            }
+
         });
     }
 

@@ -95,6 +95,11 @@ public class InventoryPanel {
                                         GameData.getInstance().setNextAction(newActionString.replace("root,", ""));
 
                                     }
+
+                                    @Override
+                                    public void onFail() {
+                                        System.out.println("Failed to send NEXTACTION message to server");
+                                    }
                                 });
                             }
                         };
@@ -255,7 +260,11 @@ public class InventoryPanel {
                              @Override
                              public void onSuccess(String result) {
                                  GameData.getInstance().setNextAction(newActionString.replace("root,", "")+","+itemName);
+                             }
 
+                             @Override
+                             public void onFail() {
+                                 System.out.println("Failed to send INVENTORYACTION to server");
                              }
                          });
                      }

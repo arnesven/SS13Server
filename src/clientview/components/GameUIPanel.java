@@ -134,6 +134,11 @@ public class GameUIPanel extends JPanel implements Observer {
                 }
                 GameData.getInstance().setSummaryString(result);
             }
+
+            @Override
+            public void onFail() {
+                System.out.println("Failed to send SUMMARY message to server.");
+            }
         });
     }
 
@@ -146,6 +151,11 @@ public class GameUIPanel extends JPanel implements Observer {
                     JOptionPane.showMessageDialog(null, result);
                 }
                 GameData.getInstance().deconstructMovementData(result);
+            }
+
+            @Override
+            public void onFail() {
+                System.out.println("Failed to send MOVEMENT message to server");
             }
         });
     }
@@ -164,6 +174,10 @@ public class GameUIPanel extends JPanel implements Observer {
                 GameData.getInstance().clearRoomColors();
             }
 
+            @Override
+            public void onFail() {
+                System.out.println("Failed to send ACTIONS message to server");
+            }
         });
     }
 

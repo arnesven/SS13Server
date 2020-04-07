@@ -90,6 +90,11 @@ public class OverlaySprite extends MouseInteractable {
                                 GameData.getInstance().setNextAction(newActionString.replace("root,", "") +
                                         "," + OverlaySprite.this.name);
                             }
+
+                            @Override
+                            public void onFail() {
+                                System.out.println("Failed to send OVERLAYACTION to server");
+                            }
                         });
                     }
                 };

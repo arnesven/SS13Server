@@ -13,7 +13,7 @@ public class JobDescriptionBox extends Box {
     private final JobsPanel parent;
 
 
-    public JobDescriptionBox(String s, String description, int columns, JobsPanel jobsPanel) {
+    public JobDescriptionBox(String s, String description, int columns, JobsPanel jobsPanel, boolean checked) {
         super(BoxLayout.Y_AXIS);
         this.columns = columns;
         this.parent = jobsPanel;
@@ -21,18 +21,11 @@ public class JobDescriptionBox extends Box {
         setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         cb = new JCheckBox(s.substring(1));
         cb.setFont(new Font("Arial", Font.BOLD, 16));
-        GameData.getInstance().putJob(s.substring(1), true);
+        GameData.getInstance().putJob(s.substring(1), checked);
 
-        cb.setSelected(true);
+        cb.setSelected(checked);
 
-        cb.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                GameData.getInstance().putJob(cb.getText(), cb.isSelected());
-                GameData.getInstance().sendJobs();
-            }
-        });
 
         if (s.charAt(0) == 'a') {
             cb.setForeground(new Color(0xFF4444));
@@ -45,7 +38,18 @@ public class JobDescriptionBox extends Box {
         jed.setContentType("text/html");
         jed.setText(description);
         jed.setCaretPosition(0);
+        jed.setEnabled(checked);
         this.add(new JScrollPane(jed));
+
+        cb.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                jed.setEnabled(cb.isSelected());
+                GameData.getInstance().putJob(cb.getText(), cb.isSelected());
+                GameData.getInstance().sendJobs();
+            }
+        });
 
     }
 

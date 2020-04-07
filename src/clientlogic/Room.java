@@ -470,7 +470,13 @@ public class Room extends MouseInteractable implements Comparable<Room> {
                                 GameData.getInstance().setNextAction("Searching in " + getName());
 
                             }
+
+                            @Override
+                            public void onFail() {
+                                System.out.println("Failed to send NEXTACTION (search) message to server.");
+                            }
                         });
+
                     }
                 });
                 if (GameData.getInstance().getHealth() > 0.0) {
@@ -488,6 +494,11 @@ public class Room extends MouseInteractable implements Comparable<Room> {
                             public void onSuccess(String result) {
                                 GameData.getInstance().setNextAction("Move to " + getName());
 
+                            }
+
+                            @Override
+                            public void onFail() {
+                                System.out.println("Failed to send NEXTACTION (move) to server");
                             }
                         });
                     }

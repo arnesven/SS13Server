@@ -58,6 +58,11 @@ public class PlayersPanel extends JPanel implements Observer {
                                 }
                                 selectedIndex = -1;
                             }
+
+                            @Override
+                            public void onFail() {
+                                System.out.println("Failed to send KICK message to server");
+                            }
                         });
             }
         });
