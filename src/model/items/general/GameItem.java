@@ -85,7 +85,7 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
     }
 
 	public String howDoYouAppearInGUI(GameData gameData, Player whosAsking) {
-		return getSprite(whosAsking).getName() + "<img>" + getFullName(whosAsking) + " (" + String.format("%1.2f", getWeight()) + " kg)" + "<img>" + getInventoryActionData(gameData, whosAsking);
+		return getSprite(whosAsking).getName() + "<img>" + getFullName(whosAsking) + "<img>" + getInventoryActionData(gameData, whosAsking);
 	}
 
 

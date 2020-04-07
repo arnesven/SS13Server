@@ -72,35 +72,37 @@ public class Equipment implements Serializable {
 
     private Sprite getCombinedSpritesForSlot(int slotIndex, GameData gameData, Player player) {
         List<Sprite> sprites = new ArrayList<>();
-        String finalName = "";
+        StringBuilder finalName = new StringBuilder();
         for (SuitItem others : slots) {
             if (others != null) {
                 if (others.hasAdditionalSprites() && others.getAdditionalSprites().get(slotIndex) != null) {
                     if (others.permitsOver()) {
                         Sprite spriteToAdd = others.getAdditionalSprites().get(slotIndex);
                         sprites.add(spriteToAdd);
-                        finalName += spriteToAdd.getName();
+                        finalName.append(spriteToAdd.getName());
                     }
                 }
             }
         }
         if (slots[slotIndex] != null) {
             sprites.add(slots[slotIndex].getSprite(player));
-            finalName += slots[slotIndex].getSprite(player).getName();
+            finalName.append(slots[slotIndex].getSprite(player).getName());
         }
+        int slotindex = 0;
         for (SuitItem others : slots) {
             if (others != null) {
                 if (others.hasAdditionalSprites() && others.getAdditionalSprites().get(slotIndex) != null) {
                     if (!others.permitsOver()) {
                         Sprite spriteToAdd = others.getAdditionalSprites().get(slotIndex);
                         sprites.add(spriteToAdd);
-                        finalName += spriteToAdd.getName();
+                        finalName.append(spriteToAdd.getName());
                     }
                 }
             }
+            slotIndex++;
         } // TODO: we may need to change the order on this.
 
-        Sprite combination = new Sprite(finalName, sprites);
+        Sprite combination = new Sprite(finalName.toString(), sprites);
         return combination;
     }
 
@@ -189,14 +191,6 @@ public class Equipment implements Serializable {
     public boolean canWear(SuitItem suitItem) {
         int targetSlot = suitItem.getEquipmentSlot();
 
-        if (slots[targetSlot] == null) {
-            return true;
-        }
-
-        if (!slots[targetSlot].permitsOver()) {
-            return false;
-        }
-
         for (int slotNum = 0; slotNum < slots.length; ++slotNum) {
             if (slotNum != targetSlot) {
                 if (slots[slotNum] != null) {
@@ -205,6 +199,14 @@ public class Equipment implements Serializable {
                     }
                 }
             }
+        }
+
+        if (slots[targetSlot] == null) {
+            return true;
+        }
+
+        if (!slots[targetSlot].permitsOver()) {
+            return false;
         }
 
         return true;

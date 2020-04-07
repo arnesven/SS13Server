@@ -15,15 +15,7 @@ public class CoolDecorator extends CharacterDecorator {
 	@Override
 	public String getPublicName() {
 		String res = "Cool ";
-		if (suit.getUnder() == null) {
-			res += "Naked " + getGender() ;
-            if (isDead()) {
-                return res + " (dead)";
-            }
-		} else {
-			res += getInner().getPublicName();
-		}
-
+		res += getInner().getPublicName();
 		return res;
 	}
 
