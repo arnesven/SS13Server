@@ -52,11 +52,11 @@ public class OverlaySprite extends MouseInteractable {
         } else {
             int state = AnimationHandler.getState() % (frames);
             if (state < frames) {
-                g.drawImage(image.getImage(), finalX, finalY, finalX + 32, finalY + 32,
-                        state * 32, 0, (state + 1) * 32, 32, null);
+                g.drawImage(image.getImage(), finalX, finalY, finalX + MapPanel.getZoom(), finalY + MapPanel.getZoom(),
+                        state * MapPanel.getZoom(), 0, (state + 1) * MapPanel.getZoom(), MapPanel.getZoom(), null);
             }
         }
-        setHitBox(finalX, finalY, currZ, image.getIconWidth(), image.getIconHeight());
+        setHitBox(finalX, finalY, currZ, MapPanel.getZoom(), MapPanel.getZoom());
     }
 
 
