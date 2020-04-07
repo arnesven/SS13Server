@@ -17,12 +17,18 @@ public class LobbyView extends JPanel {
     private final String clid;
     private final PlayersAndChatPanel pacp;
     private JTabbedPane tlp;
- //   private final ChatPanel cp;
+    private ServerInfoPanel serverInfoPanel;
+    //   private final ChatPanel cp;
 
     public LobbyView(String username, SS13Client parent) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             tlp = new JTabbedPane();
             this.clid = username;
+
+        serverInfoPanel = new ServerInfoPanel();
+        tlp.add(serverInfoPanel, "Info");
+        getServerInfo();
+        tlp.setSelectedIndex(0);
 
         JobsPanel jobs = new JobsPanel(username, this);
         //JScrollPane jsp = new JScrollPane(jobs);
@@ -31,9 +37,6 @@ public class LobbyView extends JPanel {
         //tlp.add(new PlayersPanel(username), "Players");
         pacp = new PlayersAndChatPanel(username, parent);
         tlp.add(pacp, "Players");
-        tlp.setSelectedIndex(1);
-
-        getServerInfo();
 
         tlp.add(new ServerSettings(username), "Settings");
         tlp.add(new SummaryPanel(), "Summary");
@@ -51,7 +54,8 @@ public class LobbyView extends JPanel {
                     FileWriter writer = new FileWriter(file);
                     writer.write(result);
                     writer.close();
-                    Desktop.getDesktop().browse(file.toURI());
+                    //Desktop.getDesktop().browse(file.toURI());
+                    serverInfoPanel.addContent(result);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
