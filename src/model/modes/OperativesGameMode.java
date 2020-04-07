@@ -103,7 +103,7 @@ public class OperativesGameMode extends GameMode {
             }
 
 
-            for (int i = 0; i < getNoOfOperatives(gameData); ++i) {
+            for (int i = 0; i < getNoOfOperatives(gameData) && i < opPlayers.size(); ++i) {
                 Player p = opPlayers.get(i);
 
                 // Turn Character into decoy-npc
