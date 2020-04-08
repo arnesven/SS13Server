@@ -29,7 +29,7 @@ public class Dumbwaiter extends GameObject {
     @Override
     public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
         super.addSpecificActionsFor(gameData, cl, at);
-        at.add(new MakeBombAction(this));
+        //at.add(new MakeBombAction(this));
         if (cl.getItems().size() > 0) {
             at.add(new DumbwaiterAction(this));
         }
