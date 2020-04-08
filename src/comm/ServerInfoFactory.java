@@ -5,6 +5,7 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
+import util.HTMLText;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -94,7 +95,7 @@ public class ServerInfoFactory {
                 "<center><img src=\"https://vignette4.wikia.nocookie.net/simpsonstappedout/images/0/02/Donut.jpg/revision/latest?cb=20141006072944\"></center>"+
                 "<h2>'" + name + "' running on " + machineName +":"+port + "</h2>"+
                 "<b>What the hell is this?</b>" + "" +
-                "<p>Check out the <a target=\"_blank\" href=\"https://gitlab.ida.liu.se/erini02/ss13/wikis/home\">wiki</a>.</p>"+
+                "<p>Check out the " + HTMLText.makeWikiLink("", "wiki") + "</p>"+
                 makeNiceFeed();
     }
 }
