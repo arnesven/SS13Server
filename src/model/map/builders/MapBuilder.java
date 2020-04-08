@@ -25,8 +25,8 @@ public abstract class MapBuilder {
     public static Map<String, MapBuilder> getBuilders() {
         Map<String, MapBuilder> res = new HashMap<>();
         res.put("Donut", new DonutSS13Builder());
-        res.put("ValleyForge", new ValleyForgeSS13Builder());
-        res.put("Socrates", new SocratesBuilder());
+        //res.put("ValleyForge", new ValleyForgeSS13Builder());
+        //res.put("Socrates", new SocratesBuilder());
 
         return res;
     }
