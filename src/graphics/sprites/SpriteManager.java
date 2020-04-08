@@ -88,4 +88,8 @@ public class SpriteManager {
         }
         return img;
     }
+
+    public static boolean isRegistered(Sprite sprite) {
+        return nameMap.containsValue(sprite);
+    }
 }

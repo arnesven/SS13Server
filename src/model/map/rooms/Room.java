@@ -87,6 +87,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 			effectStr = effect.get(0).getName();
 		}
 
+		floorSprite.registerSprites();
 		String result = ID + ":" + name + ":" + effectStr + ":" + x + ":" + y + ":" + z + ":" +
 						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors) + ":" +
 				floorSprite.getMainSprite().getName() + ":" + getAppearanceScheme();

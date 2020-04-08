@@ -4,6 +4,8 @@ import graphics.sprites.Sprite;
 import util.Logger;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FloorSet implements Serializable {
     protected static final String[] SET_NAMES = new String[]{"BOTTOM", "TOP", "RIGHT", "LEFT",
@@ -12,18 +14,20 @@ public class FloorSet implements Serializable {
     private final int column;
     private final int row;
     private Sprite mainSprite;
+    private List<Sprite> otherSprites;
 
     public FloorSet(String name, int column, int row) {
         this.name = name;
         this.column = column;
         this.row = row;
+        otherSprites = new ArrayList<>();
         this.mainSprite = new Sprite(this.name, "floors.png", 0, 0, null);
         makeSet(column, row);
     }
 
     protected void makeSet(int column, int row) {
         for (String part : SET_NAMES) {
-            new Sprite(this.name + part, "floors.png", column, row, null);
+            otherSprites.add(new Sprite(this.name + part, "floors.png", column, row, null));
             column++;
             if (column == 30) {
                 column = 0;
@@ -52,4 +56,14 @@ public class FloorSet implements Serializable {
         return column;
     }
 
+    public void registerSprites() {
+        for (Sprite s : otherSprites) {
+            if (!s.isRegistered()) {
+                s.registerYourself();
+            }
+        }
+        if (!mainSprite.isRegistered()) {
+            mainSprite.registerYourself();
+        }
+    }
 }

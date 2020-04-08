@@ -241,4 +241,16 @@ public class Sprite implements Serializable {
         this.frames = frames;
     }
 
+    public void registerYourself() {
+        SpriteManager.register(this);
+        try {
+            getImage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isRegistered() {
+        return SpriteManager.isRegistered(this);
+    }
 }
