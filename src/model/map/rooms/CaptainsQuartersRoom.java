@@ -7,6 +7,8 @@ import model.map.floors.CaptainsQuartersFloorSet;
 import model.map.floors.FloorSet;
 import model.npcs.NPC;
 import model.npcs.animals.CatNPC;
+import model.objects.decorations.ComfyChair;
+import model.objects.decorations.NiceBed;
 import model.objects.general.PulseRifleDisplayCase;
 
 /**
@@ -20,6 +22,8 @@ public class CaptainsQuartersRoom extends CommandRoom {
         addItem(new MoneyStack(300));
         addObject(new PulseRifleDisplayCase(this));
         gameData.addNPC(cat);
+        addObject(new ComfyChair(this));
+        addObject(new NiceBed(this));
         //this.setEffect(new Sprite("someeffect", "alert.png", 3, 2, null));
     }
 

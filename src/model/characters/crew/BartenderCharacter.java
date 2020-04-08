@@ -8,6 +8,7 @@ import model.items.foods.Beer;
 import model.items.foods.Vodka;
 import model.items.foods.Wine;
 import model.items.general.GameItem;
+import model.items.general.ZippoLighter;
 import model.items.weapons.Shotgun;
 
 public class BartenderCharacter extends CrewCharacter {
@@ -24,7 +25,7 @@ public class BartenderCharacter extends CrewCharacter {
         list.add(new Beer());
         list.add(new Vodka());
         list.add(new Wine());
-		return list;
+        return list;
 	}
 
 

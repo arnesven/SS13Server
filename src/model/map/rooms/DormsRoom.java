@@ -1,5 +1,6 @@
 package model.map.rooms;
 
+import model.objects.decorations.BunkBed;
 import model.objects.general.StasisPod;
 import model.objects.general.Lockers;
 import model.objects.general.Shower;
@@ -13,5 +14,7 @@ public class DormsRoom extends SupportRoom {
         addObject(new Lockers(this));
         addObject((new StasisPod(this)));
         addObject(new Shower(this));
+        addObject(new BunkBed(this));
+        addObject(new BunkBed(this));
     }
 }

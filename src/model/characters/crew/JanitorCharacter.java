@@ -14,7 +14,7 @@ import util.HTMLText;
 public class JanitorCharacter extends CrewCharacter {
 
 	public JanitorCharacter() {
-		super("Janitor", SUPPORT_TYPE,23, 3.0);
+		super("Janitor", SUPPORT_TYPE,450, 3.0);
 	}
 
 

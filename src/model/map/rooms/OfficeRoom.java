@@ -2,6 +2,7 @@ package model.map.rooms;
 
 import model.GameData;
 import model.objects.consoles.AdministrationConsole;
+import model.objects.decorations.OfficeChair;
 import model.objects.general.MailBox;
 
 /**
@@ -13,6 +14,7 @@ public class OfficeRoom extends CommandRoom {
         this.addObject(new AdministrationConsole(this, gameData));
         MailBox mail = new MailBox(this);
         addObject(mail);
+        addObject(new OfficeChair(this));
 
     }
 }
