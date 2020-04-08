@@ -3,9 +3,13 @@ package clientview.components;
 import clientlogic.GameData;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class JobDescriptionBox extends Box {
     final JCheckBox cb;
@@ -43,12 +47,17 @@ public class JobDescriptionBox extends Box {
         this.add(new JScrollPane(jed));
 
         cb.addActionListener(new ActionListener() {
-
             @Override
-            public void actionPerformed(ActionEvent event) {
-                jed.setEnabled(cb.isSelected());
+            public void actionPerformed(ActionEvent actionEvent) {
                 GameData.getInstance().putJob(cb.getText(), cb.isSelected());
                 GameData.getInstance().sendJobs();
+            }
+        });
+
+        cb.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent itemEvent) {
+                jed.setEnabled(cb.isSelected());
             }
         });
 

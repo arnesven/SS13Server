@@ -66,4 +66,8 @@ public class FloorSet implements Serializable {
             mainSprite.registerYourself();
         }
     }
+
+    protected void addOtherSprite(Sprite sprite) {
+        otherSprites.add(sprite);
+    }
 }

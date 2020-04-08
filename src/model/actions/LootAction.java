@@ -26,10 +26,15 @@ public class LootAction extends TargetingAction {
         super("Loot", SensoryLevel.PHYSICAL_ACTIVITY, actor);
     }
 
+
+    protected String getLootVerb() {
+        return "looted";
+    }
+
     @Override
     protected void applyTargetingAction(GameData gameData, Actor performingClient, Target target, GameItem item) {
         if (target.getItems().contains(item)) {
-            performingClient.addTolastTurnInfo("You looted a " + item.getFullName(performingClient) + " from " + target.getName());
+            performingClient.addTolastTurnInfo("You " + getLootVerb() + " a " + item.getFullName(performingClient) + " from " + target.getName());
             performingClient.getCharacter().giveItem(item, target);
             target.getItems().remove(item);
         } else {
@@ -37,7 +42,7 @@ public class LootAction extends TargetingAction {
                 SuitItem s = (SuitItem)item;
                 s.removeYourself(targetAsActor.getCharacter().getEquipment());
                 performingClient.getCharacter().giveItem(s, target);
-                performingClient.addTolastTurnInfo("You looted a " + item.getFullName(performingClient) + " from " + target.getName());
+                performingClient.addTolastTurnInfo("You " + getLootVerb() + " a " + item.getFullName(performingClient) + " from " + target.getName());
 
         }
     }
@@ -46,7 +51,6 @@ public class LootAction extends TargetingAction {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (!lootall) {
-            performingClient.addTolastTurnInfo("You looted " + target.getName());
             super.execute(gameData, performingClient);
         } else {
             List<GameItem> itemsToRemove = new ArrayList<>();
@@ -113,7 +117,7 @@ public class LootAction extends TargetingAction {
 
     @Override
     protected String getVerb(Actor whosAsking) {
-        return "looted";
+        return getLootVerb();
     }
 
     @Override

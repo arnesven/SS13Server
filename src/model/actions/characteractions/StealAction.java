@@ -2,6 +2,12 @@ package model.actions.characteractions;
 
 import java.util.List;
 
+import model.Target;
+import model.actions.LootAction;
+import model.characters.decorators.HandCuffedDecorator;
+import model.characters.decorators.PinnedDecorator;
+import model.characters.decorators.StunnedDecorator;
+import model.characters.general.GameCharacter;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -14,81 +20,72 @@ import model.actions.general.SensoryLevel;
 import model.actions.general.WatchAction;
 import model.items.general.GameItem;
 
-public class StealAction extends Action {
+public class StealAction extends LootAction {
 
-	private Actor victim;
-	private GameItem item;
-	
-	private static final double BASE_STEAL_CHANCE = 0.90;
+	private static final double BASE_STEAL_CHANCE = 0.85;
 	private static final double REDUCED_STEAL_CHANCE = 0.10;
+	private double EXTRA_STEAL_CHANCE = 1.00;
 
-	
+
 	public StealAction(Actor performer) {
-		super("Pickpocket", SensoryLevel.NO_SENSE);
+		super(performer);
+		setName("Pickpocket");
 		this.performer = performer;
 	}
 
-	
+	@Override
+	protected String getLootVerb() {
+		return "stole";
+	}
 
 	@Override
-	protected String getVerb(Actor whosAsking) {
-		return "stole";
+	public boolean isViableForThisAction(Target target2) {
+
+		if (!(target2 instanceof Actor)) {
+			return false;
+		}
+
+		Actor actorTarget = (Actor) target2;
+		if (actorTarget == performer || !target2.isTargetable()) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = super.getOptions(gameData, whosAsking);
-		
-		for (Actor a : performer.getPosition().getActors()) {
-			if (a != performer && a.getAsTarget().isTargetable()) {
-				ActionOption subopt = new ActionOption(a.getPublicName());
-				for (GameItem it : a.getItems()) {
-					subopt.addOption(it.getPublicName(whosAsking));
-				}
-				if (subopt.numberOfSuboptions() > 0) {
-					opt.addOption(subopt);
-				}
-			}
+		for (ActionOption opt2 : opt.getSuboptions()) {
+			opt2.getSuboptions().removeIf((ActionOption opt3) -> opt3.getName().equals("All Items"));
 		}
 		return opt;
 	}
 
-
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-        if (victim == null) {
-            performingClient.addTolastTurnInfo("What? the target isn't there! Your action failed.");
-            return;
-        }
 
-        if (item == null) {
-            performingClient.addTolastTurnInfo("What? the item isn't there! Your action failed.");
-            return;
-        }
-
-		if (performingClient.getPosition() != victim.getPosition()) {
-			performingClient.addTolastTurnInfo("What? " + victim.getPublicName() + " isn't there! Your action failed.");
-		} else if (!victim.getItems().contains(item)) {
-			performingClient.addTolastTurnInfo("What? The " + item.getPublicName(performingClient) + " is gone!. Your action failed!");
-		} else {
-		
 			double chance = BASE_STEAL_CHANCE;
 			
-			if (victimIsWatching(performingClient) || 
+			if (victimIsWatching(performingClient, getTarget()) ||
 					victimIsAttacking(performingClient)) {
 				chance = REDUCED_STEAL_CHANCE;
+			} else if (victimIsExposed((Actor)getTarget())) {
+				chance = EXTRA_STEAL_CHANCE;
 			}
-			
+
 			if (MyRandom.nextDouble() < chance) {
-				performingClient.getCharacter().giveItem(item, victim.getAsTarget());
-				victim.getCharacter().getItems().remove(item);
-				performingClient.addTolastTurnInfo("You stole the " + item.getPublicName(performingClient) + " from " + victim.getPublicName());
+				super.execute(gameData, performingClient);
 			} else {
-				performingClient.addTolastTurnInfo("You failed to steal from " + victim.getPublicName());
-				victim.addTolastTurnInfo(performingClient.getPublicName() + " tried to pickpocket you!");
+				performingClient.addTolastTurnInfo("You failed to steal from " + getTarget().getName());
+				((Actor)getTarget()).addTolastTurnInfo(performingClient.getPublicName() + " tried to pickpocket you!");
 			}
 		}
+
+	private boolean victimIsExposed(Actor actorTarget) {
+		return  actorTarget.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof PinnedDecorator ||
+			gc instanceof StunnedDecorator || gc instanceof HandCuffedDecorator);
 	}
+
 
 
 	private boolean victimIsAttacking(Actor performingClient) {
@@ -106,7 +103,7 @@ public class StealAction extends Action {
 
 
 
-	private boolean victimIsWatching(Actor performingClient) {
+	private boolean victimIsWatching(Actor performingClient, Target victim) {
 		if (victim instanceof Player) {
 			if (((Player)victim).getNextAction() instanceof WatchAction) {
 				if (((WatchAction)((Player)victim).getNextAction()).isArgumentOf(performingClient.getAsTarget())) {
@@ -120,24 +117,5 @@ public class StealAction extends Action {
 		return false;
 	}
 
-
-
-	@Override
-	public void setArguments(List<String> args, Actor performingClient) {
-		for (Actor a : performer.getPosition().getActors()) {
-			if (a.getPublicName().equals(args.get(0))) {
-				victim = a;
-				
-				for (GameItem it : a.getItems()) {
-					if (it.getPublicName(performingClient).equals(args.get(1))) {
-						this.item = it;
-					}
-				}
-				break;
-			}
-		}
-	}
-
-	
 	
 }

@@ -10,7 +10,7 @@ public class CaptainsQuartersFloorSet extends FloorSet {
     protected void makeSet(int column, int row) {
         for (String part :  new String[]{"UL", "TOP", "UR", "LEFT",
                 "", "RIGHT", "LL", "BOTTOM", "LR"}) {
-            new Sprite(this.getName() + part, "floors.png", column, row, null);
+            super.addOtherSprite(new Sprite(this.getName() + part, "floors.png", column, row, null));
             column++;
             if (column == 30) {
                 column = 0;
