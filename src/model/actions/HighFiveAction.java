@@ -22,7 +22,7 @@ public class HighFiveAction extends TargetingAction {
             if (((Player) target).getNextAction() instanceof HighFiveAction) {
                 Target otherPerson = ((HighFiveAction) ((Player) target).getNextAction()).getTarget();
                 if (otherPerson == performer) {
-                    performingClient.addTolastTurnInfo("SMACK! You and " + otherPerson.getName() + " high fived! Right on!");
+                    performingClient.addTolastTurnInfo("SMACK! You and " + ((Player)target).getPublicName(performingClient) + " high fived! Right on!");
                     successful = true;
                     return;
                 }
