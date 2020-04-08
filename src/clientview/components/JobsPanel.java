@@ -80,7 +80,9 @@ public class JobsPanel extends JPanel implements Observer {
         int noItems = jobsAndDescriptions.length;// + antagonist.length;
         int columns = 4;
         int rows = (int)Math.ceil(((double)noItems)/columns);
-        gridPanel.setLayout(new GridLayout(columns, rows));
+        gridPanel.setLayout(new FlowLayout());
+        gridPanel.setAlignmentY(TOP_ALIGNMENT);
+        gridPanel.setAlignmentX(LEFT_ALIGNMENT);
 
 
         Map<String, Boolean> oldChoices = new HashMap<>();
