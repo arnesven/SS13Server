@@ -23,8 +23,6 @@ public class ReprogramAction extends Action {
     private RobotNPC selectedBot;
     private String progString;
 
-
-
     private BotProgram selectedProgram;
 
     public ReprogramAction() {

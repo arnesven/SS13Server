@@ -39,6 +39,7 @@ public class JobDescriptionBox extends Box {
         jed.setText(description);
         jed.setCaretPosition(0);
         jed.setEnabled(checked);
+        jed.setEditable(false);
         this.add(new JScrollPane(jed));
 
         cb.addActionListener(new ActionListener() {

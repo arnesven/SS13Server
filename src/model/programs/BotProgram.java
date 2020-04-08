@@ -41,12 +41,12 @@ public class BotProgram implements Serializable {
         selectedBot.setMoveBehavior(this.moveBehave);
         selectedBot.setActionBehavior(this.actBehave);
         if (sprite != null) {
-            sprite.setObjectRef(selectedBot);
-            selectedBot.setCharacter(new CharacterDecorator(selectedBot.getCharacter(), "sprite change") {
 
+            selectedBot.setCharacter(new CharacterDecorator(selectedBot.getCharacter(), "sprite change") {
+                private Sprite sp = new Sprite(sprite.getName() + getName(), sprite.getMap(), sprite.getColumn(), sprite.getRow(), selectedBot);
                 @Override
                 public Sprite getSprite(Actor whosAsking) {
-                    return BotProgram.this.sprite;
+                    return sp;
                 }
             });
         }
