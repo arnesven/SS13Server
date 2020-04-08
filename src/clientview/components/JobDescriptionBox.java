@@ -25,6 +25,7 @@ public class JobDescriptionBox extends Box {
     private final JEditorPane jed;
     private final Box newBox;
     private final JButton expand;
+    private final Color color;
     private boolean jedVisible = false;
 
 
@@ -37,17 +38,23 @@ public class JobDescriptionBox extends Box {
         setAlignmentY(TOP_ALIGNMENT);
         setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         cb = new JCheckBox(s.substring(1));
-        if (checked) {
-            cb.setFont(ORIGINAL_FONT);
-        } else {
-            cb.setFont(STRIKE_THROUGH);
-        }
+
         GameData.getInstance().putJob(s.substring(1), checked);
 
         cb.setSelected(checked);
 
         if (s.charAt(0) == 'a') {
-            cb.setForeground(new Color(0xFF4444));
+            this.color = new Color(0xFF4444);
+        } else {
+            this.color = Color.BLACK;
+        }
+
+        if (checked) {
+            cb.setFont(ORIGINAL_FONT);
+            cb.setForeground(this.color);
+        } else {
+            cb.setFont(STRIKE_THROUGH);
+            cb.setForeground(Color.GRAY);
         }
         cb.setBackground(Color.WHITE);
         newBox = new Box(BoxLayout.X_AXIS);
@@ -101,10 +108,11 @@ public class JobDescriptionBox extends Box {
             public void itemStateChanged(ItemEvent itemEvent) {
                 jed.setEnabled(cb.isSelected());
                 if (!cb.isSelected()) {
-
                     cb.setFont(STRIKE_THROUGH);
+                    cb.setForeground(Color.GRAY);
                 } else {
                     cb.setFont(ORIGINAL_FONT);
+                    cb.setForeground(JobDescriptionBox.this.color);
                 }
             }
         });
