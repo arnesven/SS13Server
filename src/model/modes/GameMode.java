@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.*;
 
+import clientview.components.JobDescriptionBox;
 import graphics.sprites.Sprite;
 import model.*;
 import model.characters.crew.*;
@@ -547,7 +548,7 @@ public abstract class GameMode implements Serializable {
 			res.append("p" + gc.getBaseName() + delim + ((CrewCharacter)gc).getJobDescription() + delim);
 		}
 		for (String gc : availableAntagonists()) {
-			res.append("a" + gc + delim + JobDescriptionMaker.getTraitorDescription() + delim);
+			res.append("a" + gc + delim + getAntagonistDescription(gc) + delim);
 		}
 
 
@@ -555,7 +556,18 @@ public abstract class GameMode implements Serializable {
 	}
 
 	public static List<String> availableAntagonists() {
-		return List.of("Traitor", "Host", "Changeling", "Rogue AI");
+		return List.of("Traitor", "Host", "Operative", "Changeling", "Rogue AI");
+	}
+
+
+	private static String getAntagonistDescription(String gc) {
+		Map<String, String> map = new HashMap<>();
+		map.put("Traitor", JobDescriptionMaker.getTraitorDescription());
+		map.put("Host", HostCharacter.getAntagonistDescription());
+		map.put("Operative", OperativeCharacter.getAntagonistDescription());
+		map.put("Changeling", ChangelingCharacter.getAntagonistDescription());
+		map.put("Rogue AI", AICharacter.getAntagonistDescription());
+		return map.get(gc);
 	}
 
 

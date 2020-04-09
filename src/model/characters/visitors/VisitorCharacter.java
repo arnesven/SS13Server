@@ -76,4 +76,9 @@ public abstract class VisitorCharacter extends CrewCharacter {
         return new JobDescriptionMaker(this, "You are one of the following visitors on the station: " +
                 MyStrings.join(getSubtypeNames(), ", "), "Varies").makeString();
     }
+
+    @Override
+    public String getMugshotName() {
+        return "Visitor";
+    }
 }

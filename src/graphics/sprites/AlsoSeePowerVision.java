@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlsoSeePowerVision extends NormalVision {
+
+    // TODO: some how all the OverlaySprites for the players current room get added twice
+    // TODO: probably once in the super class and once here....
     @Override
     protected void addExtraSensoryPerception(Player player, GameData gameData, ArrayList<OverlaySprite> strs) {
         for (Room r : gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME)) {

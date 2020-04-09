@@ -152,7 +152,8 @@ public class Equipment implements Serializable {
             if (it != null) {
                 if (index == TORSO_SLOT) {
                     Sprite spriteToAdd = it.getGetup(character.getActor(), whosAsking);
-                    sprites.add(spriteToAdd);
+                    sprites.add(0, spriteToAdd);
+                    sprites.add(0, new Sprite("getupbase", "human.png", 0, character.getActor()));
                     finalName.append(spriteToAdd.getName());
                 } else {
                     Sprite spriteToAdd = it.getWornSprite(whosAsking);

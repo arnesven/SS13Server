@@ -25,4 +25,8 @@ public class HostCharacter extends InfectedCharacter {
 				"destroy the hive once they've found it - you must protect it!</i></font>";
 	}
 
+	@Override
+	public String getMugshotName() {
+		return "Host";
+	}
 }

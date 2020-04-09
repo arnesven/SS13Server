@@ -91,4 +91,8 @@ public class OperativeCharacter extends HumanCharacter {
 				"<b>Initiative:</b> 17.0</font>";
 	}
 
+	@Override
+	public String getMugshotName() {
+		return "Operative";
+	}
 }

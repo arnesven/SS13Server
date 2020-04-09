@@ -8,6 +8,7 @@ import model.actions.general.SensoryLevel;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
+import model.characters.decorators.HoldingWeaponDecorator;
 import model.items.general.GameItem;
 import sounds.Sound;
 import util.MyRandom;
@@ -99,7 +100,10 @@ public abstract class Weapon extends GameItem {
 	 * @param performingClient
 	 */
 	protected void usedOnBy(Target target, Actor performingClient,
-			GameData gameData) { }
+			GameData gameData) {
+	    performingClient.setCharacter(new HoldingWeaponDecorator(performingClient.getCharacter(), this));
+
+    }
 
 
     protected void checkHazard(Actor performingClient, GameData gameData) { }
