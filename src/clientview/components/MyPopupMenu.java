@@ -73,7 +73,7 @@ public abstract class MyPopupMenu extends JPopupMenu  {
         }
     }
 
-    public void addAll(MyPopupMenu popupMenu) {
+    public void addAll(JPopupMenu popupMenu) {
         for (Component c : popupMenu.getComponents()) {
             this.add(c);
         }

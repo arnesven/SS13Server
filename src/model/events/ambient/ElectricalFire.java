@@ -89,7 +89,7 @@ public class ElectricalFire extends OngoingEvent {
         
         if (!isRaging && MyRandom.nextDouble() < RAGING_CHANCE) {
 		    isRaging = true;
-		   // getRoom().setFloorSet(new BurntFloorSet(getRoom().getFloorSet())); // TODO
+		   getRoom().setFloorSet(new BurntFloorSet(getRoom().getFloorSet()));
         }
 		
 		getRoom().addToEventsHappened(this);

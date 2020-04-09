@@ -70,4 +70,12 @@ public class FloorSet implements Serializable {
     protected void addOtherSprite(Sprite sprite) {
         otherSprites.add(sprite);
     }
+
+    protected List<Sprite> getOtherSprites() {
+        return otherSprites;
+    }
+
+    protected void setOtherSprites(List<Sprite> newOthers) {
+        otherSprites = newOthers;
+    }
 }

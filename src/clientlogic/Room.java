@@ -6,6 +6,7 @@ import clientview.components.MapPanel;
 import clientview.components.MyLabel;
 import clientview.OverlaySprite;
 import clientview.SpriteManager;
+import clientview.components.MyPopupMenu;
 import util.Logger;
 import util.Pair;
 
@@ -43,6 +44,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     private ClientDoor[] doors;
 
     private String effectName;
+    private JPopupMenu popupMenu;
 
     //private Color originalBackgroundColor;
 
@@ -454,7 +456,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     @Override
     protected void doOnClick(MouseEvent e) {
-        JPopupMenu popupMenu = new JPopupMenu();
+        this.popupMenu = new JPopupMenu();
         popupMenu.add(new MyLabel(getName()));
         popupMenu.addSeparator();
         if (GameData.getInstance().isASelectableRoom(getID())) {
@@ -510,7 +512,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
             }
         }
 
-        popupMenu.show(e.getComponent(), e.getX(), e.getY());
+       // popupMenu.show(e.getComponent(), e.getX(), e.getY());
 
 
     }
@@ -654,6 +656,10 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     public String getFloorSpriteBaseName() {
         return floorSpriteBaseName;
+    }
+
+    public JPopupMenu getPopupMenu() {
+        return popupMenu;
     }
 }
 

@@ -38,10 +38,7 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
 
             }
         }
-        if (mpm != null) {
-            mpm.showYourself();
-            return;
-        }
+
 
         List<Room> l = new ArrayList<Room>();
         l.addAll(GameData.getInstance().getMiniMap());
@@ -50,7 +47,7 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
             if (r.getDoors() != null) {
                 for (ClientDoor d : r.getDoors()) {
                     if (d.actOnClick(e)) {
-                        return;
+                       return;
                     }
                 }
             }
@@ -60,8 +57,17 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
         // Check if any room was clicked
         for (Room r : l) {
             if (r.actOnClick(e)) {
-                return;
+                if (mpm == null) {
+                    r.getPopupMenu().show(e.getComponent(), e.getX(), e.getY());
+                } else {
+                    mpm.addAll(r.getPopupMenu());
+                }
             }
+        }
+
+        if (mpm != null) {
+            mpm.showYourself();
+            return;
         }
     }
 
