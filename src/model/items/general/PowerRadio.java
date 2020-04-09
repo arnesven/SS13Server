@@ -15,6 +15,7 @@ import model.map.rooms.Room;
 import model.objects.consoles.Console;
 import model.objects.consoles.GeneratorConsole;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -77,7 +78,7 @@ public class PowerRadio extends Radio {
 
         @Override
         public List<OverlaySprite> getOverlayStrings(Player player, GameData gameData) {
-            List<OverlaySprite> strs = super.getOverlayStrings(player, gameData);
+            List<OverlaySprite> strs = new ArrayList<>();
             strs.addAll(new AlsoSeePowerVision().getOverlaySprites(player, gameData));
             return strs;
         }
