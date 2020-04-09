@@ -41,7 +41,7 @@ public class MinerCharacter extends CrewCharacter {
 
     @Override
     public int getStartingMoney() {
-        return 100;
+        return 50;
     }
 
 

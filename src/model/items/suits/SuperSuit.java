@@ -114,6 +114,9 @@ public class SuperSuit extends SuitItem {
         }
 
         if (appearance instanceof OutFit) {
+            if (!appearance.permitsOver()) {
+                return false;
+            }
             this.appearAsCharacter = ((OutFit)appearance).getType();
         }
         removeDisguise(who);

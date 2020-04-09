@@ -12,16 +12,16 @@ import java.awt.font.TextAttribute;
 import java.util.Map;
 
 public class JobDescriptionBox extends Box {
-    private static final Font ORIGINAL_FONT = new Font("Arial", Font.BOLD, 16);
+    private static final Font ORIGINAL_FONT = new Font("Arial", Font.BOLD, 14);
     final JCheckBox cb;
     private static final Font STRIKE_THROUGH = makeStrikeThroughFont();
 
 
     private final int columns;
     private final JobsPanel parent;
-    private static final int PREFERRED_WIDTH = 250;
+    private static final int PREFERRED_WIDTH = 260;
     private static final int COLLAPSED_HEIGHT = 45;
-    private static final int EXPANDED_HEIGHT =  250;
+    private static final int EXPANDED_HEIGHT =  230;
     private final JScrollPane jsp;
     private final JEditorPane jed;
     private final Box newBox;
@@ -65,9 +65,13 @@ public class JobDescriptionBox extends Box {
         newBox.add(icon);
         newBox.add(cb);
         newBox.add(Box.createHorizontalGlue());
-        expand = new JButton("Show");
-        expand.setFont(new Font("Arial", Font.PLAIN, 10));
+        expand = new JButton();
+        expand.setMargin(new Insets(0, 0, 0, 0));
+        expand.setPreferredSize(new Dimension(25, 25));
+        expand.setFont(new Font("Arial", Font.PLAIN, 9));
+        expand.setText("v");
         newBox.add(expand);
+        newBox.add(Box.createHorizontalStrut(2));
         this.add(newBox);
         jed = new JEditorPane();
         jed.setContentType("text/html");
@@ -87,11 +91,11 @@ public class JobDescriptionBox extends Box {
                 if (jedVisible) {
                     JobDescriptionBox.this.remove(jsp);
                     JobDescriptionBox.this.setPreferredSize(new Dimension(PREFERRED_WIDTH, COLLAPSED_HEIGHT));
-                    expand.setText("Show");
+                    expand.setText("v");
                 } else {
-                    expand.setText("Hide");
                     JobDescriptionBox.this.add(jsp);
                     JobDescriptionBox.this.setPreferredSize(new Dimension(PREFERRED_WIDTH, EXPANDED_HEIGHT));
+                    expand.setText("^");
                 }
                 jedVisible = !jedVisible;
                 JobDescriptionBox.this.revalidate();

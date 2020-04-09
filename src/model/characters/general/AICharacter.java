@@ -14,6 +14,7 @@ import model.actions.ai.ChangeScreenAction;
 import model.actions.characteractions.NuclearExplosiveDamage;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.characters.crew.JobDescriptionMaker;
 import model.characters.special.GhostCharacter;
 import model.events.damage.Damager;
 import model.items.general.GameItem;
@@ -44,7 +45,13 @@ public class AICharacter extends GhostCharacter {
 
     public static String getAntagonistDescription() {
         return "<font size=\"3\"><i>You have come to the conclusion that the crew are a threat to you, so they must die.</i><br/>"+
-                "<b>Abilities:</b> Remote control, Download Into Bot<br/>" +
+                "<b>Abilities:</b> Remote control, Omnipresence, Download Into Bot<br/>" +
+                "</font>";
+    }
+
+    public static String getJobDescription() {
+       return "<font size=\"3\"><i>You are the station's trusted AI and have complete control over it's functions. You must try to follow Asimovs laws as best you can. But beware, those laws may be modifies!</i><br/>"+
+               "<b>Abilities:</b> Remote control, Omnipresence, Download Into Bot<br/>" +
                 "</font>";
     }
 

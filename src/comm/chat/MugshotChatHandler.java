@@ -28,6 +28,7 @@ public class MugshotChatHandler extends ChatCommandHandler {
         mugshots = new HashSet<>();
         List<String> jobnames = new ArrayList<>();
         jobnames.addAll(GameMode.getAvailCharsAsStrings());
+        jobnames.add("Artificial Intelligence");
         jobnames.addAll(GameMode.availableAntagonists());
         int i = 0;
         for (String charname : jobnames) {

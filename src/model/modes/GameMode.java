@@ -99,6 +99,7 @@ public abstract class GameMode implements Serializable {
             }
 
         });
+
 		return availableChars;
 	}
 
@@ -326,7 +327,7 @@ public abstract class GameMode implements Serializable {
     protected void selectAIPlayer(ArrayList<Player> listOfClients, GameData gameData) {
         List<Player> playersWhoWantToBeAI = new ArrayList<>();
         for (Player pl : listOfClients) {
-            if (pl.getSettings().get(PlayerSettings.MAKE_ME_AI_IF_ABLE)) {
+            if (pl.checkedJob("Artificial Intelligence")) {
                 playersWhoWantToBeAI.add(pl);
             }
         }
@@ -547,10 +548,10 @@ public abstract class GameMode implements Serializable {
 		for (GameCharacter gc : list) {
 			res.append("p" + gc.getBaseName() + delim + ((CrewCharacter)gc).getJobDescription() + delim);
 		}
+		res.append("p" + "Artificial Intelligence" + delim + AICharacter.getJobDescription() + delim);
 		for (String gc : availableAntagonists()) {
 			res.append("a" + gc + delim + getAntagonistDescription(gc) + delim);
 		}
-
 
         return res.toString();
 	}
