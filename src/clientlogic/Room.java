@@ -204,12 +204,13 @@ public class Room extends MouseInteractable implements Comparable<Room> {
                 }
             }
         }
+        slots.fillTheRest(g, this, xOffset, yOffset, xoffPX, yoffPX, currZ);
 
         return drawn;
     }
 
     private void drawInOpenSlot(Graphics g, OverlaySprite sp, SpriteSlotTable slots, int xOffset, int yOffset, int xoffPX, int yoffPX, int currZ) {
-        Pair<Double, Double> slotPos = slots.getSlot(sp.getHash());
+        Pair<Double, Double> slotPos = slots.getSlot(sp);
         sp.drawYourselfInRoom(g, this, slotPos, xOffset, yOffset, xoffPX, yoffPX, currZ);
     }
 

@@ -10,6 +10,7 @@ import clientview.components.MapPanel;
 import clientview.components.MyPopupMenu;
 import util.Pair;
 
+import javax.naming.directory.Attribute;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,6 +26,7 @@ public class OverlaySprite extends MouseInteractable {
     private String sprite;
     private double x;
     private double y;
+    private int frameShift = 0;
 
 
     public OverlaySprite(String sprite, double x, double y, String name, String actionData, int frames, int roomid) {
@@ -50,7 +52,7 @@ public class OverlaySprite extends MouseInteractable {
         if (this.frames == 1) {
             g.drawImage(image.getImage(), finalX, finalY, null);
         } else {
-            int state = AnimationHandler.getState() % (frames);
+            int state = (AnimationHandler.getState() + frameShift) % (frames);
             if (state < frames) {
                 g.drawImage(image.getImage(), finalX, finalY, finalX + MapPanel.getZoom(), finalY + MapPanel.getZoom(),
                         state * MapPanel.getZoom(), 0, (state + 1) * MapPanel.getZoom(), MapPanel.getZoom(), null);
@@ -118,5 +120,21 @@ public class OverlaySprite extends MouseInteractable {
             sum += name.charAt(i);
         }
         return sum;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSprite() {
+        return sprite;
+    }
+
+    public void setFrameShift(int frameShift) {
+        this.frameShift = frameShift;
+    }
+
+    public int getFrames() {
+        return frames;
     }
 }

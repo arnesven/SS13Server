@@ -1,8 +1,11 @@
 package clientlogic;
 
+import clientview.OverlaySprite;
 import clientview.components.MapPanel;
+import util.MyRandom;
 import util.Pair;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +18,7 @@ public class SpriteSlotTable {
     private Map<Integer, Boolean> available;
     private List<Integer> extended;
     private int size;
+    private OverlaySprite fillerSprite;
 
     public SpriteSlotTable(Room room) {
         this.room = room;
@@ -38,11 +42,14 @@ public class SpriteSlotTable {
     }
 
 
-    public Pair<Double, Double> getSlot(int hash) {
+    public Pair<Double, Double> getSlot(OverlaySprite sp) {
+        if (sp.getSprite().contains("fillwholeroom")) {
+            this.fillerSprite = sp;
+        }
         if (table.size() == 0) {
             return new Pair<>(0.0, 0.0);
         }
-        int index = hash % table.size();
+        int index = sp.getHash() % table.size();
         if (isFull()) {
             return getExtendedSlots(index);
         }
@@ -68,4 +75,15 @@ public class SpriteSlotTable {
         return slot;
     }
 
+    public void fillTheRest(Graphics g, Room r, int xOffset, int yOffset, int xoffPX, int yoffPX, int currZ) {
+        if (fillerSprite != null) {
+            for (Integer i : available.keySet()) {
+                if (available.get(i)) {
+                    Pair<Double, Double> pos = table.get(i);
+                    fillerSprite.setFrameShift(MyRandom.nextInt(fillerSprite.getFrames()));
+                    fillerSprite.drawYourselfInRoom(g, r, pos, xOffset, yOffset, xoffPX, yoffPX, currZ);
+                }
+            }
+        }
+    }
 }
