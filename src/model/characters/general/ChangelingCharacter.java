@@ -337,4 +337,14 @@ public class ChangelingCharacter extends GameCharacter {
     public void addToPower(int i) {
         extra += i;
     }
+
+	@Override
+	public Sprite getMugshotSprite(GameData gameData, Actor player) {
+		return getForm().getMugshotSprite(gameData, player);
+	}
+
+	@Override
+	public String getMugshotName() {
+		return "Changeling";
+	}
 }

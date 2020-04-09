@@ -23,8 +23,6 @@ public class ChangeScreenAction extends Action {
         super("Change Screen", SensoryLevel.NO_SENSE);
         selected = new Point(0, 0);
 
-
-
     }
 
     public static Collection<Point> getAvailableScreens() {

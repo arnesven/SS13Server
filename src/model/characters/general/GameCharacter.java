@@ -745,5 +745,9 @@ public abstract class GameCharacter implements Serializable {
 		return NORMAL_SIZE;
 	}
 
+    public Sprite getMugshotSprite(GameData gameData, Actor player) { return getSprite(player); }
 
+	public String getMugshotName() {
+		return getBaseName();
+	}
 }

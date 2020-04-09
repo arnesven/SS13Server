@@ -470,4 +470,10 @@ public abstract class CharacterDecorator extends GameCharacter {
 		innerChar.removeEquipment(eqItem);
 	}
 
+	public Sprite getMugshotSprite(GameData gameData, Actor player) { return innerChar.getMugshotSprite(gameData, player); }
+
+	@Override
+	public String getMugshotName() {
+		return innerChar.getMugshotName();
+	}
 }

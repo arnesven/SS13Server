@@ -671,4 +671,6 @@ public class Player extends Actor implements Target, Serializable {
 			return getCharacter().getEquipment().getGUIData(gameData, this);
 		}
 	}
+
+
 }

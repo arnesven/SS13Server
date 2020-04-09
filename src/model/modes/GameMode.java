@@ -546,14 +546,16 @@ public abstract class GameMode implements Serializable {
 		for (GameCharacter gc : list) {
 			res.append("p" + gc.getBaseName() + delim + ((CrewCharacter)gc).getJobDescription() + delim);
 		}
-		res.append("aTraitor" + delim + JobDescriptionMaker.getTraitorDescription() + delim);
-		res.append("aHost" + delim + HostCharacter.getAntagonistDescription() + delim);
-		res.append("aOperative" + delim + OperativeCharacter.getAntagonistDescription() + delim);
-		res.append("aChangeling" + delim + ChangelingCharacter.getAntagonistDescription() + delim);
-        res.append("aRogue AI" + delim + AICharacter.getAntagonistDescription() + delim);
+		for (String gc : availableAntagonists()) {
+			res.append("a" + gc + delim + JobDescriptionMaker.getTraitorDescription() + delim);
+		}
 
 
         return res.toString();
+	}
+
+	public static List<String> availableAntagonists() {
+		return List.of("Traitor", "Host", "Changeling", "Rogue AI");
 	}
 
 

@@ -1,15 +1,13 @@
 package graphics.sprites;
 
 import util.Logger;
+import util.MyPaths;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -82,9 +80,20 @@ public class SpriteManager {
     public static BufferedImage getFile(String s) throws IOException {
         BufferedImage img = filemap.get(s);
         if (img == null) {
-            InputStream is = SpriteManager.class.getResourceAsStream("/" + s.replace("resources/", ""));
-            img = ImageIO.read(is);
-            filemap.put(s, img);
+            try {
+                File f = new File(s);
+                InputStream is;
+                if (f.exists()) {
+                    is = new FileInputStream(new File(s));
+                } else {
+                    is = SpriteManager.class.getResourceAsStream("/" + s.replace("resources/", ""));
+                }
+                img = ImageIO.read(is);
+                filemap.put(s, img);
+            } catch (IllegalArgumentException iae) {
+                Logger.log("Got exception when reading " + s);
+                throw iae;
+            }
         }
         return img;
     }

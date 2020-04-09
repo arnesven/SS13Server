@@ -11,7 +11,8 @@ public class HelpChatHandler extends ChatCommandHandler {
     @Override
     protected void internalHandle(GameData gameData, Player sender, String rest) {
         gameData.getChat().serverSay("Available commands are:", sender);
-        gameData.getChat().serverSay("  /style [on/off]      - turns style customization on/off", sender);
+        //gameData.getChat().serverSay("  /style [on/off]      - turns style customization on/off", sender);
+        gameData.getChat().serverSay("  /mugshot             - take a mugshot of your current character", sender);
         gameData.getChat().serverSay("  /map [mapname]       - changes the map", sender);
         gameData.getChat().serverSay("  /maps                - Prints current map and a list of available maps", sender);
     }

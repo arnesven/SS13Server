@@ -130,4 +130,20 @@ public class AICharacter extends GhostCharacter {
     public void modifyActionList(GameData gameData, ArrayList<Action> at) {
         at.removeIf((Action a) -> a.getName().equals("General"));
     }
+
+    @Override
+    public Sprite getMugshotSprite(GameData gameData, Actor player) {
+        if (isEvil) {
+            return new Sprite("aiscreencorrupt", "AI.png", 0, 1, null);
+        }
+        return new Sprite("aiscreenspritenormal", "AI.png", 0, null);
+    }
+
+    @Override
+    public String getMugshotName() {
+        if (isEvil) {
+            return "Rogue AI";
+        }
+        return super.getMugshotName();
+    }
 }

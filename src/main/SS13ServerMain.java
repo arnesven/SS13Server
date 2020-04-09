@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import comm.ServiceHandler;
 
+import comm.chat.MugshotChatHandler;
 import graphics.BackgroundSprites;
 import graphics.UserInterface;
 import model.GameData;
@@ -42,6 +43,7 @@ public class SS13ServerMain extends Thread {
 
         new UserInterface(); // needed for some sprites to be initialized
         new BackgroundSprites();
+        MugshotChatHandler.loadMugshots();
         GameData gameData = new GameData(dorecover);
 
         if (this.removeOldData) {

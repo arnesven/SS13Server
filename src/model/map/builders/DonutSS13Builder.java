@@ -72,7 +72,7 @@ public class DonutSS13Builder extends MapBuilder {
         Room aiCore = new AIRoom(gameData, 15, 10,  7, 2, 2, new int[]{448}        ,         new double[]{} );
         gm.addRoom(aiCore, ss13, "center");
 
-        Room robotics = new RoboticsRoom(448, 10, 7, 2, 2, new int[]{13}, new double[]{});
+        Room robotics = new RoboticsRoom(448, 10, 7, 2, 2, new int[]{13, 448}, new double[]{});
         gm.addRoom(robotics, ss13, "center");
 
         Room portHallFront = new HallwayRoom(16, "Port Hall Front"     , ""       ,13,  3, 2, 3, new int[]{13, 17, 18, 19},     new double[]{15.0, 5.5, 15.0, 3.5} );

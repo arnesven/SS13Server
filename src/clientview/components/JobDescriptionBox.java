@@ -1,6 +1,7 @@
 package clientview.components;
 
 import clientlogic.GameData;
+import clientview.SpriteManager;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -18,7 +19,7 @@ public class JobDescriptionBox extends Box {
 
     private final int columns;
     private final JobsPanel parent;
-    private static final int PREFERRED_WIDTH = 230;
+    private static final int PREFERRED_WIDTH = 250;
     private static final int COLLAPSED_HEIGHT = 45;
     private static final int EXPANDED_HEIGHT =  250;
     private final JScrollPane jsp;
@@ -59,6 +60,9 @@ public class JobDescriptionBox extends Box {
         cb.setBackground(Color.WHITE);
         newBox = new Box(BoxLayout.X_AXIS);
         newBox.setBackground(Color.WHITE);
+        JLabel icon = new JLabel();
+        icon.setIcon(SpriteManager.getSprite(s.substring(1)+"mugshot0"));
+        newBox.add(icon);
         newBox.add(cb);
         newBox.add(Box.createHorizontalGlue());
         expand = new JButton("Show");
