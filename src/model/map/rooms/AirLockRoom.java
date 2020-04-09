@@ -17,7 +17,7 @@ public class AirLockRoom extends Room {
 	}
 
 	@Override
-	protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
 		return new AirLockFloorSet();
 	}
 }

@@ -9,7 +9,7 @@ public class RemoteRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("outdoorouterfloor", 18, 24);
     }
 

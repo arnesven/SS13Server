@@ -28,7 +28,7 @@ public class CaptainsQuartersRoom extends CommandRoom {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new CaptainsQuartersFloorSet();
     }
 }

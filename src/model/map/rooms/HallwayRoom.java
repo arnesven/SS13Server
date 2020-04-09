@@ -10,7 +10,7 @@ public class HallwayRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("floorhall", 0, 0);
     }
 }

@@ -8,7 +8,7 @@ public class SupportRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new FloorSet("floorsupport", 11, 7);
     }
 }

@@ -4,16 +4,24 @@ import clientview.components.MapPanel;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class MouseInteractable {
 
-    private Rectangle hitBox;
+    private List<Rectangle> hitBoxex;
     private int z = 0;
 
+    public MouseInteractable() {
+        hitBoxex = new ArrayList<>();
+    }
+
     public boolean mouseHitsThis(MouseEvent e) {
-        if (hitBox != null && this.z == GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation()) {
-            if (hitBox.contains(e.getPoint())) {
-                return true;
+        for (Rectangle hitBox : hitBoxex) {
+            if (hitBox != null && this.z == GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation()) {
+                if (hitBox.contains(e.getPoint())) {
+                    return true;
+                }
             }
         }
         return false;
@@ -42,11 +50,11 @@ public abstract class MouseInteractable {
 
 
     protected void setHitBox(int x, int y, int z, int finalW, int finalH) {
-        this.hitBox = new Rectangle(x, y, finalW, finalH);
+        this.hitBoxex.add(new Rectangle(x, y, finalW, finalH));
         this.z = z;
     }
 
     protected void setHitBox(int x, int y, int finalW, int finalH) {
-        this.hitBox = new Rectangle(x, y, finalW, finalH);
+        this.hitBoxex.add(new Rectangle(x, y, finalW, finalH));
     }
 }

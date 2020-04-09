@@ -19,7 +19,7 @@ public class MiningStationRoom extends TechRoom {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new FloorSet("miningfloor",  24, 10);
     }
 }

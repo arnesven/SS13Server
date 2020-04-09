@@ -74,7 +74,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
         this.floorSprite = getFloorSet();
 	}
 
-	protected abstract FloorSet getFloorSet();
+	public abstract FloorSet getFloorSet();
 
 	public void doSetup(GameData gameData) { }
 

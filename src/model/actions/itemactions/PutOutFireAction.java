@@ -51,8 +51,19 @@ public class PutOutFireAction extends Action {
                     return;
                 }
                 fire.fix();
+                if (fire.isRaging()) {
+                    if (fireExtinguisher.getUsesRemaining() == 1) {
+                        fire.setRaging(false);
+                        performingClient.addTolastTurnInfo("Your fire extinguisher ran out! The fire is still burning though...");
+                    } else {
+                        fireExtinguisher.decrementLevel();
+                        performingClient.addTolastTurnInfo("You put out the fire.");
+                    }
+                } else {
+                    performingClient.addTolastTurnInfo("You put out the fire.");
+                }
                 fireExtinguisher.decrementLevel();
-                performingClient.addTolastTurnInfo("You put out the fire.");
+
             } catch (NoSuchElementException nse) {
                 performingClient.addTolastTurnInfo("No fire to put out.");
             }

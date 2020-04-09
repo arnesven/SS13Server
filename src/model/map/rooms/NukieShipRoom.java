@@ -12,7 +12,7 @@ public class NukieShipRoom extends Room {
 
 
 	@Override
-	protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
 		return new NukieFloorSet();
 	}
 

@@ -6,11 +6,14 @@ import model.actions.general.Action;
 import model.actions.itemactions.PutOutFireAction;
 import model.characters.decorators.OnFireCharacterDecorator;
 import model.characters.general.GameCharacter;
+import model.events.Event;
+import model.events.NoPressureEvent;
 import model.events.animation.AnimatedSprite;
 import model.events.damage.FireDamage;
 import model.items.NoSuchThingException;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
+import model.map.floors.BurntFloorSet;
 import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
@@ -29,7 +32,13 @@ public class ElectricalFire extends OngoingEvent {
     private static final double BURNOUT_CHANCE = 0.025;
     private static final double occurenceChance = 0.075;
     private static final double BURN_CHANCE = 0.05;
-    //private static final double SPREAD_CHANCE = 0.1;
+    private static final double RAGING_CHANCE = 0.25;
+
+    private boolean isRaging;
+
+    public ElectricalFire() {
+        isRaging = false;
+    }
 
     @Override
     protected double getStaticProbability() {
@@ -45,7 +54,10 @@ public class ElectricalFire extends OngoingEvent {
 	
 	@Override
 	public String howYouAppear(Actor whosAsking) {
-		return "Fire!";
+		if (isRaging) {
+		    return "FIRE!!!";
+        }
+        return "Fire!";
 	}
 	
 	@Override
@@ -55,8 +67,75 @@ public class ElectricalFire extends OngoingEvent {
 
 	protected void maintain(GameData gameData) {
         Logger.log("Maintaining fire in " + getRoom().getName());
-		for (Target t : getRoom().getTargets()) {
+        affectActors(gameData);
 
+        boolean anyAroundHasFire = false;
+		for (Room neighbor : getRoom().getNeighborList()) {
+			if (MyRandom.nextDouble() < getSpreadChance()) {
+				Logger.log(Logger.INTERESTING,
+                        "  Fire spread to " + neighbor.getName() + "!");
+				startNewEvent(neighbor);
+			}
+            if (neighbor.hasFire()) {
+                anyAroundHasFire = true;
+            }
+		}
+
+        if (!anyAroundHasFire) {
+		    if (MyRandom.nextDouble() < getBurnoutChance()) {
+                this.setShouldBeRemoved(true);
+            }
+        }
+        
+        if (!isRaging && MyRandom.nextDouble() < RAGING_CHANCE) {
+		    isRaging = true;
+		   // getRoom().setFloorSet(new BurntFloorSet(getRoom().getFloorSet())); // TODO
+        }
+		
+		getRoom().addToEventsHappened(this);
+	}
+
+    private double getBurnoutChance() {
+        double isRagingModifier = 0.25;
+        if (roomHasNoPressure()) {
+            return BURNOUT_CHANCE * 10.0 * isRagingModifier;
+        }
+        if (getRoom().hasHullBreach() || roomHasLowPressure()) {
+            return BURNOUT_CHANCE * 3.0 * isRagingModifier;
+        }
+        if (isRaging) {
+            return BURNOUT_CHANCE * isRagingModifier;
+        }
+        return BURNOUT_CHANCE;
+    }
+
+    private boolean roomHasNoPressure() {
+        for (Event e : getRoom().getEvents()) {
+            if (e instanceof NoPressureEvent) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean roomHasLowPressure() {
+        for (Event e : getRoom().getEvents()) {
+            if (e instanceof LowPressureEvent) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private double getSpreadChance() {
+        if (isRaging) {
+            return SPREAD_CHANCE * 1.25;
+        }
+        return SPREAD_CHANCE * 0.75;
+    }
+
+    private void affectActors(GameData gameData) {
+        for (Target t : getRoom().getTargets()) {
             if (t instanceof Actor) {
                 Actor targetAsActor = (Actor)t;
                 if (! targetAsActor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnFireCharacterDecorator)) {
@@ -71,31 +150,16 @@ public class ElectricalFire extends OngoingEvent {
             } else {
                 t.beExposedTo(null, new FireDamage());
             }
-		}
-
-        boolean anyAroundHasFire = false;
-		for (Room neighbor : getRoom().getNeighborList()) {
-			if (MyRandom.nextDouble() < SPREAD_CHANCE) {
-				Logger.log(Logger.INTERESTING,
-                        "  Fire spread to " + neighbor.getName() + "!");
-				startNewEvent(neighbor);
-			}
-            if (neighbor.hasFire()) {
-                anyAroundHasFire = true;
-            }
-		}
-
-        if (!anyAroundHasFire & MyRandom.nextDouble() < BURNOUT_CHANCE) {
-            this.setShouldBeRemoved(true);
         }
-		
-		getRoom().addToEventsHappened(this);
-	}
+    }
 
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new AnimatedSprite("electricalfirefillwholeroom", "fire.png", 5, 8, 32, 32, this, 10);
+        if (isRaging) {
+            return new AnimatedSprite("electricalfirefillwholeroom", "fire.png", 5, 8, 32, 32, this, 10);
+        }
+        return new AnimatedSprite("electricalfire", "fire.png", 5, 8, 32, 32, this, 10);
     }
 
     @Override
@@ -106,7 +170,10 @@ public class ElectricalFire extends OngoingEvent {
 
 	@Override
 	public String getDistantDescription() {
-		return "Something is burning...";
+		if (isRaging) {
+		    return "You hear a roaring fire!";
+        }
+        return "Something is burning...";
 	}
 
     @Override
@@ -134,5 +201,13 @@ public class ElectricalFire extends OngoingEvent {
         }
 
         return acts;
+    }
+
+    public boolean isRaging() {
+        return isRaging;
+    }
+
+    public void setRaging(boolean b) {
+        isRaging = b;
     }
 }

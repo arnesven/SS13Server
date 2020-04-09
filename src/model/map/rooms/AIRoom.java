@@ -28,7 +28,7 @@ public class AIRoom extends TechRoom {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("aifloor", 7, 5);
     }
 }

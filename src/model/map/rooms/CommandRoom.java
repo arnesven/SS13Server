@@ -9,7 +9,7 @@ public abstract class CommandRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new FloorSet("floorcommand", 23, 1);
     }
 }

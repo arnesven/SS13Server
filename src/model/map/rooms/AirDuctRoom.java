@@ -35,7 +35,7 @@ public class AirDuctRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("ventshaftfloor", 13, 9);
     }
 

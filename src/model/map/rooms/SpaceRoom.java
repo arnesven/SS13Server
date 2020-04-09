@@ -12,7 +12,7 @@ public class SpaceRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("outdoorfloor", 18, 24);
     }
 

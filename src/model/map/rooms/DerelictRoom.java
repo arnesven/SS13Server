@@ -9,7 +9,7 @@ public class DerelictRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("derelictfloorhall", 13, 9);
     }
 

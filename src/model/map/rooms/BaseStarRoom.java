@@ -12,7 +12,7 @@ public class BaseStarRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("basestarfloor", 9, 19);
     }
 

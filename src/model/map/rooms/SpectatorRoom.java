@@ -31,7 +31,7 @@ public class SpectatorRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("spectatorroomfloor", 0, 0);
     }
 

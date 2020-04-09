@@ -11,7 +11,7 @@ public class PrisonPlanet extends RemoteRoom {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new PlanetFloorSet();
     }
 }

@@ -28,7 +28,7 @@ public abstract class ExoticPlanet extends RemoteRoom {
     public abstract String getDescription();
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new PlanetFloorSet();
     }
 

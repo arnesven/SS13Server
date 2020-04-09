@@ -94,7 +94,7 @@ public class ElevatorRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new FloorSet("floorelevator", 11, 15);
     }
 

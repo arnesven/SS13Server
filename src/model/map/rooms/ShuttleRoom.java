@@ -19,7 +19,7 @@ public class ShuttleRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("shuttlefloor", 19, 28);
     }
 }

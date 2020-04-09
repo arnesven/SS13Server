@@ -15,7 +15,7 @@ public class ChapelRoom extends SupportRoom {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new ChapelFloorSet();
     }
 }

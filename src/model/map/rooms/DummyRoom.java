@@ -14,7 +14,7 @@ public class DummyRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("dummyfloor", 0, 0);
     }
 }

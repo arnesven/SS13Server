@@ -8,7 +8,7 @@ public abstract class SecurityRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new FloorSet("floorsecurity", 27, 0);
     }
 }

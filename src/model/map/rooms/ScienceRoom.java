@@ -10,7 +10,7 @@ public abstract class ScienceRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new ScienceFloorSet("floorscience", 2, 3);
     }
 }

@@ -12,7 +12,7 @@ public class OtherDimension extends RemoteRoom {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("otherdimension", 13, 17);
     }
 

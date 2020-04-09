@@ -14,7 +14,7 @@ public class PlanetRoom extends Room {
     }
 
     @Override
-    protected FloorSet getFloorSet() {
+    public FloorSet getFloorSet() {
         return new PlanetFloorSet();
     }
 }
