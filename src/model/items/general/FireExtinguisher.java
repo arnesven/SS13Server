@@ -16,7 +16,8 @@ import model.map.rooms.Room;
 
 public class FireExtinguisher extends BluntWeapon {
 
-	private int level = 4;
+    private static final int MAX_LEVEL = 6;
+    private int level = MAX_LEVEL;
 	
 	public FireExtinguisher() {
 		super("Fire ext.", 1.0, 45, 0.85);
@@ -29,16 +30,10 @@ public class FireExtinguisher extends BluntWeapon {
 	
 	@Override
 	public String getFullName(Actor whosAsking) {
-		if (level == 4) {
-            return super.getBaseName() + "(4/4)";
-        } else if (level == 3) {
-            return super.getBaseName() + "(3/4)";
-        } else if (level == 2) {
-            return super.getBaseName() + "(2/4)";
-		} else if (level == 1) {
-			return super.getBaseName() + "(1/4)";
-		} 
-		
+		if (level > 0) {
+            return super.getBaseName() + "(" + level + "/" + MAX_LEVEL + ")";
+        }
+
 		return super.getBaseName() + "(empty)";
 	}
 	

@@ -62,17 +62,17 @@ public class AdminConsoleAction extends ConsoleAction {
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
         if (!checkedfunds) {
-            Room gate = null;
+            Room targetRoom = null;
             try {
-                gate = gameData.getRoom("Shuttle Gate");
+                targetRoom = gameData.getRoom("Cargo Hold");
             } catch (NoSuchThingException e) {
-                gate = MyRandom.sample(gameData.getRooms());
+                targetRoom = MyRandom.sample(gameData.getRooms());
             }
             Shipment s = selectedShip.clone();
-            gate.addObject(new CrateObject(gate, s, gameData));
+            targetRoom.addObject(new CrateObject(targetRoom, s, gameData));
             pc.setMoney(pc.getMoney() - s.getCost());
             pc.addHistory(performingClient, selectedShip);
-            performingClient.addTolastTurnInfo("You ordered a shipment! It has arrived in the Shuttle Gate. Station funds; " + pc.getMoney());
+            performingClient.addTolastTurnInfo("You ordered a shipment! It has arrived in the " + targetRoom.getName() + ". Station funds; " + pc.getMoney());
         } else {
             performingClient.addTolastTurnInfo("The station's account balance is $$ " + pc.getMoney() + ".");
         }

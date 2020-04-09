@@ -14,6 +14,7 @@ import model.items.NoSuchThingException;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
 import model.map.floors.BurntFloorSet;
+import model.objects.decorations.BurnMark;
 import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
@@ -32,7 +33,7 @@ public class ElectricalFire extends OngoingEvent {
     private static final double BURNOUT_CHANCE = 0.025;
     private static final double occurenceChance = 0.075;
     private static final double BURN_CHANCE = 0.05;
-    private static final double RAGING_CHANCE = 0.25;
+    private static final double RAGING_CHANCE = 0.15;
 
     private boolean isRaging;
 
@@ -45,6 +46,13 @@ public class ElectricalFire extends OngoingEvent {
         return occurenceChance;
     }
 
+    @Override
+    public void fix() {
+        super.fix();
+        if (!isRaging) {
+            this.getRoom().addObject(new BurnMark(getRoom()));
+        }
+    }
 
     @Override
 	public SensoryLevel getSense() {
@@ -84,6 +92,9 @@ public class ElectricalFire extends OngoingEvent {
         if (!anyAroundHasFire) {
 		    if (MyRandom.nextDouble() < getBurnoutChance()) {
                 this.setShouldBeRemoved(true);
+                if (!isRaging) {
+                    getRoom().addObject(new BurnMark(getRoom()));
+                }
             }
         }
         

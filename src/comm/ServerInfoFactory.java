@@ -91,8 +91,8 @@ public class ServerInfoFactory {
     }
 
     public String getInfoHTML() {
-        return "<h1>Welcome to SS13</h1>" +
-                "<center><img src=\"https://vignette4.wikia.nocookie.net/simpsonstappedout/images/0/02/Donut.jpg/revision/latest?cb=20141006072944\"></center>"+
+        return "<center><h1>Welcome back to SS13!</h1></center>" +
+                "<center><img src=\"https://wiki.ss13.ru/images/7/76/Animus-logo.png\"></center>"+
                 "<h2>'" + name + "' running on " + machineName +":"+port + "</h2>"+
                 "<b>What the hell is this?</b>" + "" +
                 "<p>Check out the " + HTMLText.makeWikiLink("", "wiki") + "</p>"+

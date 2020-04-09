@@ -1,6 +1,7 @@
 package model.programs;
 
 import graphics.sprites.Sprite;
+import graphics.sprites.SpriteManager;
 import model.Actor;
 import model.GameData;
 import model.characters.decorators.CharacterDecorator;
@@ -46,6 +47,9 @@ public class BotProgram implements Serializable {
                 private Sprite sp = new Sprite(sprite.getName() + getName(), sprite.getMap(), sprite.getColumn(), sprite.getRow(), selectedBot);
                 @Override
                 public Sprite getSprite(Actor whosAsking) {
+                    if (!sp.isRegistered()) {
+                        sp.registerYourself();
+                    }
                     return sp;
                 }
             });
