@@ -59,6 +59,8 @@ public class ServiceHandler {
         handlers.add(new InventoryActionCommandHandler(gameData));
 
         handlers.add(new StyleCommandHandler(gameData));
+
+        handlers.add(new FancyFrameCommandHandler(gameData));
 		
 	}
 

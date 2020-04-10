@@ -20,6 +20,7 @@ public class UsePDAAction extends Action {
 	private PDA pda;
 	boolean order = true;
 	private GameItem orderedItem;
+	private boolean show = false;
 
 	public UsePDAAction(TraitorGameMode traitorMode, PDA pda) {
 		super("Use PDA", SensoryLevel.OPERATE_DEVICE);
@@ -53,7 +54,7 @@ public class UsePDAAction extends Action {
 			} else {
 				performingClient.addTolastTurnInfo("You are the only traitor.");
 			}
-		} else {
+		} else if (!show) {
             GameItem gi = null;
             if (orderedItem instanceof OrderBundle) {
                 for (int i = ((OrderBundle) orderedItem).getNum(); i > 0; --i) {
@@ -110,6 +111,7 @@ public class UsePDAAction extends Action {
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = new ActionOption("Use PDA");
+		opt.addOption("Show Objective (Free Action)");
 		opt.addOption("Request Info");
 		if (pda.getUsesLeft() > 0) {
 			ActionOption order = new ActionOption("Order Item (" + pda.getUsesLeft() + " left)");
@@ -127,6 +129,11 @@ public class UsePDAAction extends Action {
 	public void setArguments(List<String> args, Actor p) {
 		if (args.get(0).equals("Request Info")) {
 			order = false;
+		} else if (args.get(0).contains("Show Objective")) {
+			if (p instanceof Player) {
+				traitorMode.setAntagonistFancyFrame((Player)p);
+			}
+			show = true;
 		} else {
 			for (GameItem it : PDA.getOrderableItems()) {
 				if (it.getBaseName().equals(args.get(1))) {

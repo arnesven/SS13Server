@@ -8,6 +8,7 @@ import graphics.OverlaySprite;
 import graphics.sprites.*;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
+import model.fancyframe.FancyFrame;
 import model.items.suits.SuitItem;
 import model.map.rooms.SpaceRoom;
 import model.movepowers.MovePowerRoom;
@@ -43,10 +44,12 @@ public class Player extends Actor implements Target, Serializable {
     private ClientInfo clientInf0 = new ClientInfo();
     private PhysicalBody styleBody = new PhysicalBody();
     private String selectedMovePower;
+	private FancyFrame fancyFrame;
 
 
-    public Player(GameData gameData) {
+	public Player(GameData gameData) {
 		Sprite charPreview = styleBody.getSprite(); // DON'T REMOVE!
+		fancyFrame = new FancyFrame();
 	}
 
 
@@ -496,8 +499,9 @@ public class Player extends Actor implements Target, Serializable {
 
 	public void beInfected(Actor performingClient) {
 		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
-		this.addTolastTurnInfo("You were " + HTMLText.makeText("green", "infected") + " by " + performingClient.getPublicName() +
-				"! You are now on the " + HTMLText.makeWikiLink("modes/host", "Host") + " team. Keep the humans from destroying the hive!");
+		performingClient.addTolastTurnInfo("You were " + HTMLText.makeText("Green", "infected") + " by " + performingClient.getPublicName(this));
+		this.fancyFrame.setData("Important!", false, HTMLText.makeColoredBackground("LimeGreen", HTMLText.makeCentered("You were just infected") + " by " + performingClient.getPublicName() +
+				"! You are now on the " + HTMLText.makeWikiLink("modes/host", "Host") + " team. Keep the humans from destroying the hive!"));
 
 	}
 
@@ -683,5 +687,9 @@ public class Player extends Actor implements Target, Serializable {
 
 	public Object getStylePreviewName() {
 		return styleBody.getSprite().getName();
+	}
+
+	public FancyFrame getFancyFrame() {
+		return this.fancyFrame;
 	}
 }

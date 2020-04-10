@@ -584,8 +584,15 @@ public class TraitorGameMode extends GameMode {
 
 	@Override
 	protected void addAntagonistStartingMessage(Player c) {
-		c.addTolastTurnInfo(TRAITOR_START_STRING);
-		c.addTolastTurnInfo(getObjectiveText(c));
+		//c.addTolastTurnInfo(TRAITOR_START_STRING);
+		//c.addTolastTurnInfo(getObjectiveText(c));
+		setAntagonistFancyFrame(c);
+	}
+
+	public void setAntagonistFancyFrame(Player c) {
+		c.getFancyFrame().setData("Important!", false, HTMLText.makeColoredBackground("Pink", HTMLText.makeCentered("<br/><br/>" +
+				TRAITOR_START_STRING + "<br/><br/>" + getObjectiveText(c) + "<br/><br/><i>You can access this dialog again by using your PDA.</i>") + "<br/>" +
+				"<a href=\"https://DISMISS\">(dismiss)</a>"));
 	}
 
 	@Override

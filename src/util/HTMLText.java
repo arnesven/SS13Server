@@ -26,4 +26,12 @@ public class HTMLText {
     public static String makeWikiLink(String addr, String title) {
         return "<a style=\"text-decoration:underline;\" target=\"_info\" href=\""+wikiURL+"/"+addr+"\">"+title+"</a>";
     }
+
+    public static String makeColoredBackground(String color, String s) {
+        return "<body style=\"background-color:" + color + ";\">" + s + "</body>";
+    }
+
+    public static String makeCentered(String s) {
+        return "<center>" + s + "</center>";
+    }
 }

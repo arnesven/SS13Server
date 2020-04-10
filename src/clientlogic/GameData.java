@@ -53,6 +53,8 @@ public class GameData {
 	private int zShift = 0;
 	private String serversSuggestedClientVersion;
 	private CharacterStyle characterStyle = new CharacterStyle();
+	private int fancyFrameState = 0;
+	private String fancyFrameData = "BLANK";
 
 	private GameData() {
 		modeAlternatives.add("Default");
@@ -117,9 +119,10 @@ public class GameData {
 		int index = 4;
 
 		try {
-			int serverLastSound = Integer.parseInt(parts[index+1]);
-			if (serverLastSound > getLastSound()) {
-			    // TODO: sounds
+			int fancyFrameState = Integer.parseInt(parts[index+1]);
+			if (fancyFrameState != getFancyFrameState()) {
+			    getFancyFrame();
+			    this.fancyFrameState = fancyFrameState;
 				//getSoundsFromServer(serverLastSound);
 			}
 			index++;
@@ -137,11 +140,30 @@ public class GameData {
 		notifyObservers();
 	}
 
+	private void getFancyFrame() {
+		ServerCommunicator.send(GameData.getInstance().getClid() + " FANCYFRAME GET", new MyCallback() {
+			@Override
+			public void onSuccess(String result) {
+				System.out.println("Got fancyframe result: " + result);
+				GameData.getInstance().setFancyFrameData(result);
+			}
 
-
-	private int getLastSound() {
-		return lastSound;
+			@Override
+			public void onFail() {
+				System.out.println("Failed while doing FANCYFRAME");
+			}
+		});
 	}
+
+	private void setFancyFrameData(String result) {
+		this.fancyFrameData = result;
+		notifyObservers();
+	}
+
+	public int getFancyFrameState() {
+		return fancyFrameState;
+	}
+
 
 	private void getChatMessagesFromServer(final int newLastMessage) {
 		ServerCommunicator.send(GameData.getInstance().getClid() + " CHATGET " +
@@ -805,5 +827,9 @@ public class GameData {
 
 	public CharacterStyle getStyle() {
 		return characterStyle;
+	}
+
+	public String getFancyFrameData() {
+		return fancyFrameData;
 	}
 }

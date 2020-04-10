@@ -6,6 +6,7 @@ import clientcomm.ServerCommunicator;
 import clientlogic.Cookies;
 import clientlogic.GameData;
 import clientlogic.Room;
+import clientview.FancyFrame;
 import clientview.animation.AnimationHandler;
 import clientview.components.GameUIPanel;
 import clientview.components.MapPanel;
@@ -34,6 +35,7 @@ public class SS13Client extends JFrame {
     private GameUIPanel guiPanel = null;
     private int lastPortUsed;
     private int botNumber = 1;
+    private JFrame fancyFrame;
 
     public SS13Client() {
         super("SS13 Client " + CLIENT_VERSION_STRING);
@@ -46,6 +48,12 @@ public class SS13Client extends JFrame {
         ServerCommunicator.setFrameReference(this);
         makeMenuBar();
         setUpKeyListener();
+        makeFancyFrame();
+    }
+
+    private void makeFancyFrame() {
+        this.fancyFrame = new FancyFrame(this);
+
     }
 
     public static void main(String[] args) {

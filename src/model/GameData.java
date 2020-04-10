@@ -646,7 +646,7 @@ public class GameData implements Serializable {
         //int numModes = GameMode.getNumberOfAvailableModes();
 		return makeStringFromReadyClients()+ del + getGameState().val + del +
                 getRound() + del + getNoOfRounds() + del + chatMessages.getLastMessageIndex(getPlayerForClid(clid)) + del +
-                getPlayerForClid(clid).getSoundQueue().getCurrentIndex() + del +
+                getPlayerForClid(clid).getFancyFrame().getState() + del +
                 getSelectedMode() + del + SS13Client.CLIENT_VERSION_STRING + del +
                 GameMode.getAvailableModesAsString();
 	}
