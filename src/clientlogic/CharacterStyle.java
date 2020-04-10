@@ -19,13 +19,13 @@ public class CharacterStyle {
         System.out.println(result);
         String[] parts = result.split("<style-delim>");
         preview = parts[0];
-        System.out.println(parts[1]);
+        //System.out.println(parts[1]);
         String[] hairs = parts[1].substring(1, parts[1].length()-1).split("<list-part>");
         hairList = new ArrayList<>();
         for (String hair : hairs) {
             hairList.add(hair);
         }
-        System.out.println(parts[2]);
+        //System.out.println(parts[2]);
         String[] facials = parts[2].substring(1, parts[2].length()-1).split("<list-part>");
         facialList = new ArrayList<>();
         for (String facial : facials) {

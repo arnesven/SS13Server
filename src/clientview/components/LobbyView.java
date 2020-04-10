@@ -7,6 +7,8 @@ import clientview.ServerSettings;
 import main.SS13Client;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
@@ -38,10 +40,24 @@ public class LobbyView extends JPanel {
         pacp = new PlayersAndChatPanel(username, parent);
         tlp.add(pacp, "Players");
 
-        tlp.add(new StylePanel(username, parent), "Style");
+        StylePanel sp = new StylePanel(username, parent);
+        tlp.add(sp, "Style");
 
         tlp.add(new ServerSettings(username), "Settings");
         tlp.add(new SummaryPanel(), "Summary");
+
+        tlp.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                JTabbedPane sourceTabbedPane = (JTabbedPane) changeEvent.getSource();
+                int index = sourceTabbedPane.getSelectedIndex();
+                if (index == 3) {
+                    sp.load();
+                } else if (index == 1) {
+                    jobs.load();
+                }
+            }
+        });
 
         this.add(tlp);
     }

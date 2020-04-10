@@ -16,36 +16,41 @@ import java.util.Scanner;
 
 public class StylePanel extends Box {
     private final SS13Client parent;
-    private final StyleDrawingArea previewArea;
+    private StyleDrawingArea previewArea;
+    private boolean loaded;
 
     public StylePanel(String username, SS13Client parent) {
         super(BoxLayout.X_AXIS);
         setAlignmentX(CENTER_ALIGNMENT);
-        //setResizeWeight(1.0);
-        //setDividerLocation(parent.getWidth() - parent.getWidth()/3);
         this.parent = parent;
-
-        ServerCommunicator.send(GameData.getInstance().getClid() + " STYLE LOAD", new MyCallback<String>() {
-
-            @Override
-            public void onSuccess(String result) {
-                GameData.getInstance().getStyle().parseStyleData(result);
-            }
-
-            @Override
-            public void onFail() {
-                System.out.println("Failed to send STYLE LOAD message to server");
-            }
-        });
-        setStyleFromCookies();
-        JPanel controlPanel = makeControlPanel();
-        controlPanel.setAlignmentX(CENTER_ALIGNMENT);
-        this.add(controlPanel,0);
-
-        this.previewArea = new StyleDrawingArea();
-        this.add(previewArea, 1);
+        this.loaded = false;
+    }
 
 
+    public void load() {
+        if (!loaded) {
+            ServerCommunicator.send(GameData.getInstance().getClid() + " STYLE LOAD", new MyCallback<String>() {
+
+                @Override
+                public void onSuccess(String result) {
+                    GameData.getInstance().getStyle().parseStyleData(result);
+                }
+
+                @Override
+                public void onFail() {
+                    System.out.println("Failed to send STYLE LOAD message to server");
+                }
+            });
+            setStyleFromCookies();
+            JPanel controlPanel = makeControlPanel();
+            controlPanel.setAlignmentX(CENTER_ALIGNMENT);
+            this.add(controlPanel, 0);
+
+            this.previewArea = new StyleDrawingArea();
+            this.add(previewArea, 1);
+            parent.repaint();
+            this.loaded = true;
+        }
     }
 
     private void setStyleFromCookies() {
@@ -165,8 +170,6 @@ public class StylePanel extends Box {
             }
         });
     }
-
-
 
 
 }

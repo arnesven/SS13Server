@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class StyleDrawingArea extends JComponent  {
 
-    private static final int MAGNIFICATION = 7;
+    private static final int MAGNIFICATION = 8;
 
     public StyleDrawingArea() {
         setPreferredSize(new Dimension(MAGNIFICATION*MapPanel.getZoom(), 500));

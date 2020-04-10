@@ -18,6 +18,7 @@ import java.util.Map;
 public class JobsPanel extends JPanel implements Observer {
 
     private final JPanel parent;
+    private  boolean loaded;
     private JPanel gridPanel = new JPanel();
     private ArrayList<JCheckBox> checkboxes = new ArrayList<>();
     boolean allCheck = true;
@@ -26,40 +27,47 @@ public class JobsPanel extends JPanel implements Observer {
     public JobsPanel(String username, JPanel parent) {
         this.parent = parent;
         this.setLayout(new BorderLayout());
-        JLabel title = new JLabel("Please check the jobs you prefer.");
-        title.setFont(new Font("Arial", Font.ITALIC, 22));
-        Box box = new Box(BoxLayout.X_AXIS);
+        this.loaded = false;
+    }
 
-        tb = new Button("Check None");
+    public void load() {
+        if (!loaded) {
+            JLabel title = new JLabel("Please check the jobs you prefer.");
+            title.setFont(new Font("Arial", Font.ITALIC, 22));
+            Box box = new Box(BoxLayout.X_AXIS);
 
-        tb.addActionListener(new ActionListener() {
+            tb = new Button("Check None");
 
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                checkAll();
-            }
-        });
+            tb.addActionListener(new ActionListener() {
 
-        box.add(title);
-        tb.setPreferredSize(new Dimension(80, 0));
-        box.add(Box.createHorizontalGlue());
-        box.add(tb);
-        this.add(box, BorderLayout.NORTH);
-        this.add(gridPanel);
+                @Override
+                public void actionPerformed(ActionEvent event) {
+                    checkAll();
+                }
+            });
 
-        ServerCommunicator.send(GameData.getInstance().getClid() + " JOBS", new MyCallback<String>() {
+            box.add(title);
+            tb.setPreferredSize(new Dimension(80, 0));
+            box.add(Box.createHorizontalGlue());
+            box.add(tb);
+            this.add(box, BorderLayout.NORTH);
+            this.add(gridPanel);
 
-            @Override
-            public void onSuccess(String result) {
-                fillGrid(result);
-            }
+            ServerCommunicator.send(GameData.getInstance().getClid() + " JOBS", new MyCallback<String>() {
 
-            @Override
-            public void onFail() {
-                System.out.println("Failed to send JOBS message to server");
-            }
-        });
+                @Override
+                public void onSuccess(String result) {
+                    fillGrid(result);
+                }
 
+                @Override
+                public void onFail() {
+                    System.out.println("Failed to send JOBS message to server");
+                }
+            });
+            parent.repaint();
+            this.loaded = true;
+        }
     }
 
     private void checkAll() {
