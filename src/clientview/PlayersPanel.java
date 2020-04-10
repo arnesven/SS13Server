@@ -106,6 +106,7 @@ public class PlayersPanel extends JPanel implements Observer {
 
             @Override
             public void onFail() {
+                System.out.println("Client: Failed to poll server!");
                 timer.stop();
             }
         });
