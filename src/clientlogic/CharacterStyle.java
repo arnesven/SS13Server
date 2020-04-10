@@ -103,4 +103,20 @@ public class CharacterStyle {
     public void setSelectedHairColor(Color selected) {
         hairColor = selected;
     }
+
+    public void setSelectedGender(boolean equals) {
+        this.selectedGender = equals;
+    }
+
+    public void setSelectedHair(int hairNum) {
+        selectedHair = hairNum;
+    }
+
+    public void setSelectedFacialHair(int faceNum) {
+        selectedFacial = faceNum;
+    }
+
+    public void setSelectedFacialHairColor(Color col) {
+        facialColor = col;
+    }
 }

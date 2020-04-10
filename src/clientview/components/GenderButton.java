@@ -1,5 +1,7 @@
 package clientview.components;
 
+import clientlogic.Cookies;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +16,7 @@ public class GenderButton extends JRadioButton {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 StylePanel.sendToServer("GENDER", man.toUpperCase());
+                Cookies.setCookie("selectedgender", man.toLowerCase());
             }
         });
     }

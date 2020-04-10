@@ -2,14 +2,17 @@ package clientview.components;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
+import clientlogic.Cookies;
 import clientlogic.GameData;
 import main.SS13Client;
+import model.items.general.GameItem;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Scanner;
 
 public class StylePanel extends Box {
     private final SS13Client parent;
@@ -34,14 +37,49 @@ public class StylePanel extends Box {
                 System.out.println("Failed to send STYLE LOAD message to server");
             }
         });
-
+        setStyleFromCookies();
         JPanel controlPanel = makeControlPanel();
         controlPanel.setAlignmentX(CENTER_ALIGNMENT);
         this.add(controlPanel,0);
 
-
         this.previewArea = new StyleDrawingArea();
         this.add(previewArea, 1);
+
+
+    }
+
+    private void setStyleFromCookies() {
+        if (Cookies.getCookie("selectedgender") != null) {
+            String gender = Cookies.getCookie("selectedgender");
+            GameData.getInstance().getStyle().setSelectedGender(gender.equals("man"));
+            sendToServer("GENDER", gender.toUpperCase());
+        }
+
+        if (Cookies.getCookie("selectedhair") != null) {
+            int hairNum = Integer.parseInt(Cookies.getCookie("selectedhair"));
+            GameData.getInstance().getStyle().setSelectedHair(hairNum);
+            sendToServer("HAIR", hairNum+"");
+        }
+
+        if (Cookies.getCookie("selectedface") != null) {
+            int faceNum = Integer.parseInt(Cookies.getCookie("selectedface"));
+            GameData.getInstance().getStyle().setSelectedFacialHair(faceNum);
+            sendToServer("FACE", faceNum+"");
+        }
+
+        if (Cookies.getCookie("selectedhcolor") != null) {
+            Scanner scan = new Scanner(Cookies.getCookie("selectedhcolor"));
+            Color col = new Color(scan.nextInt(), scan.nextInt(), scan.nextInt());
+            GameData.getInstance().getStyle().setSelectedHairColor(col);
+            sendToServer("HCOLOR", col.getRed() + " " + col.getGreen() + " " + col.getBlue());
+        }
+
+        if (Cookies.getCookie("selectedfcolor") != null) {
+            Scanner scan = new Scanner(Cookies.getCookie("selectedfcolor"));
+            Color col = new Color(scan.nextInt(), scan.nextInt(), scan.nextInt());
+            GameData.getInstance().getStyle().setSelectedFacialHairColor(col);
+            sendToServer("FCOLOR", col.getRed() + " " + col.getGreen() + " " + col.getBlue());
+        }
     }
 
     private JPanel makeControlPanel() {
@@ -127,5 +165,8 @@ public class StylePanel extends Box {
             }
         });
     }
+
+
+
 
 }

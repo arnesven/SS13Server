@@ -1,5 +1,6 @@
 package clientview.components;
 
+import clientlogic.Cookies;
 import clientview.SpriteManager;
 
 import javax.swing.*;
@@ -16,6 +17,7 @@ public class StyleButton extends JToggleButton {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 StylePanel.sendToServer(type, index +"");
+                Cookies.setCookie("selected" + type.toLowerCase(), index+"");
             }
         });
     }

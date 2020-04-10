@@ -1,6 +1,7 @@
 package clientview.components;
 
 
+import clientlogic.Cookies;
 import clientlogic.GameData;
 
 import javax.swing.*;
@@ -47,5 +48,6 @@ public class StyleColorButton extends JButton {
         StylePanel.sendToServer(type, selected.getRed() + " " + selected.getGreen() + " " + selected.getBlue());
         StyleColorButton.this.setBackground(selected);
         setAntiColor(selected);
+        Cookies.setCookie("selected" + type.toLowerCase(), selected.getRed() + " " + selected.getGreen() + " " + selected.getBlue());
     }
 }
