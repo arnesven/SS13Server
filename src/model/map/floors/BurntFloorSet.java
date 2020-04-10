@@ -6,8 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BurntFloorSet extends FloorSet {
+    private final FloorSet old;
+
     public BurntFloorSet(FloorSet floorSet) {
         super("dirtyfloor" + floorSet.getName(), floorSet.getColumn(), floorSet.getRow());
+        this.old = floorSet;
         makeDirty();
     }
 
@@ -28,4 +31,7 @@ public class BurntFloorSet extends FloorSet {
         return new Sprite("dirtyfloor" + sprite.getName().replace("0", ""), "human.png", 0, sprs, null);
     }
 
+    public FloorSet getUnburntFloorSet() {
+        return old;
+    }
 }

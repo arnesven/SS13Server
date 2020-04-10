@@ -4,6 +4,8 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SearchAction;
+import model.map.floors.BurntFloorSet;
+import model.objects.decorations.BurnMark;
 import model.objects.general.BloodyMess;
 import model.objects.general.GameObject;
 
@@ -31,13 +33,17 @@ public class CleanUpBloodAction extends SearchAction {
         List<GameObject> toBeRemoved = new ArrayList<>();
 
         for (GameObject obj : performingClient.getPosition().getObjects()) {
-            if (obj instanceof BloodyMess) {
+            if (obj instanceof BloodyMess || obj instanceof BurnMark) {
                 toBeRemoved.add(obj);
             }
         }
         performingClient.getPosition().getObjects().removeAll(toBeRemoved);
         if (toBeRemoved.size() > 0) {
-            performingClient.addTolastTurnInfo("You cleaned up a bloody mess.");
+            performingClient.addTolastTurnInfo("You cleaned up the floors.");
+        }
+
+        if (performingClient.getPosition().getFloorSet() instanceof BurntFloorSet) {
+            performingClient.getPosition().setFloorSet(((BurntFloorSet)performingClient.getPosition().getFloorSet()).getUnburntFloorSet());
         }
         super.execute(gameData, performingClient);
 

@@ -2,6 +2,7 @@ package model.events.ambient;
 
 import graphics.sprites.Sprite;
 import model.Player;
+import model.actions.MoveAction;
 import model.actions.general.Action;
 import model.actions.itemactions.PutOutFireAction;
 import model.characters.decorators.OnFireCharacterDecorator;
@@ -32,7 +33,7 @@ public class ElectricalFire extends OngoingEvent {
 	private static final double SPREAD_CHANCE = 0.05;
     private static final double BURNOUT_CHANCE = 0.025;
     private static final double occurenceChance = 0.075;
-    private static final double BURN_CHANCE = 0.05;
+    private static final double IGNITE_CHANCE = 0.05;
     private static final double RAGING_CHANCE = 0.15;
 
     private boolean isRaging;
@@ -150,10 +151,12 @@ public class ElectricalFire extends OngoingEvent {
             if (t instanceof Actor) {
                 Actor targetAsActor = (Actor)t;
                 if (! targetAsActor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnFireCharacterDecorator)) {
-                    if (MyRandom.nextDouble() < BURN_CHANCE) {
+                    if (MyRandom.nextDouble() < getIgniteChance(targetAsActor)) {
                         targetAsActor.setCharacter(new OnFireCharacterDecorator(targetAsActor.getCharacter()));
                     } else {
-                        t.beExposedTo(null, new FireDamage());
+                        if (MyRandom.nextDouble() < getDamageChance(targetAsActor)) {
+                            t.beExposedTo(null, new FireDamage());
+                        }
                     }
                 } else {
                     // Do nothing, burn decorator will damage actor this round.
@@ -162,6 +165,24 @@ public class ElectricalFire extends OngoingEvent {
                 t.beExposedTo(null, new FireDamage());
             }
         }
+    }
+
+    private double getDamageChance(Actor targetAsActor) {
+        if (targetAsActor instanceof Player) {
+            if (((Player) targetAsActor).getNextAction() instanceof MoveAction) { // Moved this round.
+                if (isRaging) {
+                    return 0.75;
+                } else {
+                    return 0.25;
+                }
+            }
+        }
+
+        return 1.0;
+    }
+
+    private double getIgniteChance(Actor targetAsActor) {
+        return IGNITE_CHANCE;
     }
 
 
