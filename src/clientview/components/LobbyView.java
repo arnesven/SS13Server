@@ -38,6 +38,8 @@ public class LobbyView extends JPanel {
         pacp = new PlayersAndChatPanel(username, parent);
         tlp.add(pacp, "Players");
 
+        tlp.add(new StylePanel(username, parent), "Style");
+
         tlp.add(new ServerSettings(username), "Settings");
         tlp.add(new SummaryPanel(), "Summary");
 

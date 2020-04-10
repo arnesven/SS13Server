@@ -57,6 +57,8 @@ public class ServiceHandler {
         handlers.add(new OverlayActionCommandHandler(gameData));
 
         handlers.add(new InventoryActionCommandHandler(gameData));
+
+        handlers.add(new StyleCommandHandler(gameData));
 		
 	}
 

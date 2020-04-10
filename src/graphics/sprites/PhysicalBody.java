@@ -9,6 +9,7 @@ import model.items.BodyPart;
 import model.map.rooms.Room;
 import util.Logger;
 import util.MyRandom;
+import util.MyStrings;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -28,7 +29,7 @@ public class PhysicalBody implements SpriteObject, Serializable {
     private boolean hasABrain;
     //private static List<Sprite> nakedSprites = nakedSpriteList();
 
-    private boolean gender;
+    private boolean gender; // True => Man, False => Woman
     private Color hairColor;
     private int hairNum;
     private Color facialHairColor;
@@ -59,26 +60,9 @@ public class PhysicalBody implements SpriteObject, Serializable {
                 MyRandom.nextInt(facialHairSprites.size()), MyRandom.randomHairColor(), belongingTo);
     }
 
-//    private static List<Sprite> getHairNumber(int hairNum, Color color) {
-//        List<Sprite> res = new ArrayList<>();
-//        res.add(hairSprites.get(hairNum));
-//        // Logger.log("Ran Random Hair");
-//        res.get(0).setColor(color);
-//        return res;
-//    }
-//
-//    private static List<Sprite> getRandomHair() {
-//        List<Sprite> res = new ArrayList<>();
-//        res.add(MyRandom.sample(hairSprites));
-//       // Logger.log("Ran Random Hair");
-//        Color c = new Color(MyRandom.nextInt(255), MyRandom.nextInt(255), MyRandom.nextInt(255));
-//        Sprite sp = new Sprite(res.get(0).getName() + c.getRed() + "x" + c.getBlue() + "x" + c.getGreen(), "human.png", 0, res);
-//        sp.setColor(c);
-//        List<Sprite> sprs = new ArrayList<>();
-//        return sprs;
-//    }
-
-
+    public PhysicalBody() {
+        this(MyRandom.randomGender().equals("man"), null);
+    }
 
     private static List<Sprite> collectHairSprites() {
         List<Sprite> list = new ArrayList<>();
@@ -135,6 +119,8 @@ public class PhysicalBody implements SpriteObject, Serializable {
         return facialHairSprites.size();
     }
 
+
+
 //    public static List<Sprite> getNakedSprites() {
 //        return nakedSprites;
 //    }
@@ -177,7 +163,7 @@ public class PhysicalBody implements SpriteObject, Serializable {
 
 
 
-        if (!gender) {
+        if (gender) {
             nameString += "mantorso";
             list.add(bodyPartSprites.get("man torso"));
             if (hasBodyParts.get("head")) {
@@ -208,7 +194,7 @@ public class PhysicalBody implements SpriteObject, Serializable {
     }
 
     public String getNameString() {
-        return (gender ? "woman" : "man") + hairNum +"-"+colorToString(hairColor)+"-"
+        return (gender ? "man" : "woman") + hairNum +"-"+colorToString(hairColor)+"-"
                 + facialHairNum + colorToString(facialHairColor);
     }
 
@@ -220,9 +206,13 @@ public class PhysicalBody implements SpriteObject, Serializable {
         this.hairNum = hairNumber;
     }
 
+
     public void setHairColor(Color hairColor) {
         this.hairColor = hairColor;
-        this.facialHairColor = hairColor;
+    }
+
+    public void setFacialHairColor(Color color) {
+        this.facialHairColor = color;
     }
 
     public static Sprite getFacialHairSprite(int target) {
@@ -299,5 +289,23 @@ public class PhysicalBody implements SpriteObject, Serializable {
 
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
         return belongingTo.getActor().getOverlaySpriteActionList(gameData, r, forWhom);
+    }
+
+    public static String getContentAsStrings() {
+        List<String> hairs = new ArrayList<>();
+        for (Sprite sp : hairSprites) {
+            hairs.add(sp.getName());
+        }
+        List<String> face = new ArrayList<>();
+        for (Sprite sp : facialHairSprites) {
+            face.add(sp.getName());
+        }
+
+        return MyStrings.join(hairs) + "<style-delim>" + MyStrings.join(face);
+    }
+
+
+    public void setGender(boolean man) {
+        this.gender = man;
     }
 }

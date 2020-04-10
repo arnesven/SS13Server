@@ -750,4 +750,8 @@ public abstract class GameCharacter implements Serializable {
 	public String getMugshotName() {
 		return getBaseName();
 	}
+
+	public void setPhysicalBody(PhysicalBody body) {
+		this.physBody = body;
+	}
 }

@@ -476,4 +476,9 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public String getMugshotName() {
 		return innerChar.getMugshotName();
 	}
+
+	@Override
+	public void setPhysicalBody(PhysicalBody body) {
+		innerChar.setPhysicalBody(body);
+	}
 }

@@ -35,19 +35,18 @@ public class Player extends Actor implements Target, Serializable {
 
 	private boolean ready = false;
 	private int nextMove = 0;
-	//private List<String> lastTurnInfo = new ArrayList<>();
 	private List<String> personalHistory = new ArrayList<>();
 	private Action nextAction;
 	private HashMap<String, Boolean> jobChoices = new HashMap<>();
-
     private PlayerSettings settings = new PlayerSettings();
     private SoundQueue soundQueue = new SoundQueue(this);
     private ClientInfo clientInf0 = new ClientInfo();
+    private PhysicalBody styleBody = new PhysicalBody();
     private String selectedMovePower;
 
 
     public Player(GameData gameData) {
-
+		Sprite charPreview = styleBody.getSprite(); // DON'T REMOVE!
 	}
 
 
@@ -673,4 +672,16 @@ public class Player extends Actor implements Target, Serializable {
 	}
 
 
+	public void setCharacterStyle() {
+		getCharacter().setPhysicalBody(styleBody);
+	}
+
+
+	public PhysicalBody getStyleBody() {
+		return styleBody;
+	}
+
+	public Object getStylePreviewName() {
+		return styleBody.getSprite().getName();
+	}
 }

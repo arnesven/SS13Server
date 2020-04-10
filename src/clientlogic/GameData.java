@@ -52,6 +52,7 @@ public class GameData {
 	private Room currentRoom;
 	private int zShift = 0;
 	private String serversSuggestedClientVersion;
+	private CharacterStyle characterStyle = new CharacterStyle();
 
 	private GameData() {
 		modeAlternatives.add("Default");
@@ -800,5 +801,9 @@ public class GameData {
 
 	public List<String> getEquipment() {
 		return equipment;
+	}
+
+	public CharacterStyle getStyle() {
+		return characterStyle;
 	}
 }
