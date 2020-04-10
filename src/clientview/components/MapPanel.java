@@ -26,6 +26,7 @@ public class MapPanel extends JPanel implements Observer {
     private static int zTrans;
 
     private static boolean automaticBackground = true;
+    private static int zoom = 32;
 
     private final InventoryPanel inventoryPanel;
     private final DrawingStrategy drawingStrategy;
@@ -78,6 +79,7 @@ public class MapPanel extends JPanel implements Observer {
     }
 
 
+
     private void createRooms() {
         ServerCommunicator.send(parent.getUsername() + " MAP VIMI " + getWidth() + " " +
                         (getHeight()-inventoryPanel.getHeight()),
@@ -127,7 +129,11 @@ public class MapPanel extends JPanel implements Observer {
     }
 
     public static int getZoom() {
-        return 32;
+        return zoom;
+    }
+
+    public static void setZoom(int i) {
+        zoom = i;
     }
 
     @Override

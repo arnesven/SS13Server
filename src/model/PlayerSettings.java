@@ -41,7 +41,7 @@ public class PlayerSettings implements Serializable {
         settings.put(MAKE_ME_A_SPECTATOR, new Setting(false, true));
         settings.put(ACTIVATE_MOVEMENT_POWERS, new Setting(false, true));
         settings.put(STYLE_BUTTONS_ON, new Setting(false, true));
-        settings.put(NOT_BEING_A_WOMAN, new Setting(MyRandom.nextBoolean(), false));
+        settings.put(NOT_BEING_A_WOMAN, new Setting(MyRandom.nextBoolean(), true));
     }
 
     public void set(String key, boolean value) {
