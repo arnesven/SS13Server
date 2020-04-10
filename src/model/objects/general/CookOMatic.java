@@ -28,7 +28,10 @@ public class CookOMatic extends ElectricalMachinery {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("cookomatic", "kitchen.png", 8, this);
+        if (isBroken()) {
+        	return new Sprite("cookomaticbroken", "kitchen.png", 11, this);
+		}
+		return new Sprite("cookomatic", "kitchen.png", 8, this);
     }
 
     @Override
