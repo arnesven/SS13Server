@@ -43,7 +43,8 @@ public class LobbyView extends JPanel {
         StylePanel sp = new StylePanel(username, parent);
         tlp.add(sp, "Style");
 
-        tlp.add(new ServerSettings(username), "Settings");
+        ServerSettings settings = new ServerSettings(username);
+        tlp.add(settings, "Settings");
         tlp.add(new SummaryPanel(), "Summary");
 
         tlp.addChangeListener(new ChangeListener() {

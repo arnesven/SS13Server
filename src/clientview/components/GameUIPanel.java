@@ -8,8 +8,14 @@ import main.SS13Client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GameUIPanel extends JPanel implements Observer {
+
+
+    private static Timer timer;
+    private static final int TIME_INTERVAL = 1000;
 
     private final String username;
     private final SS13Client parent;
@@ -33,6 +39,42 @@ public class GameUIPanel extends JPanel implements Observer {
         this.add(buttPanel, BorderLayout.SOUTH);
         toggleView();
         GameData.getInstance().subscribe(this);
+        GameUIPanel.pollServerSummary();
+        setUpPollingTimer(username);
+    }
+
+    private void setUpPollingTimer(final String username) {
+        pollServerWithList(username);
+        if (timer == null) {
+            timer = new Timer(TIME_INTERVAL, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    pollServerWithList(username);
+                }
+            });
+            timer.start();
+        }
+    }
+
+    private void pollServerWithList(String username) {
+        ServerCommunicator.send(username + " LIST", new MyCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if (result.contains("ERROR")) {
+                    JOptionPane.showMessageDialog(null, result);
+                    timer.stop();
+                    parent.switchBackToStart();
+                } else {
+                    GameData.getInstance().deconstructReadyListAndStateAndRoundAndSettings(result);
+                }
+            }
+
+            @Override
+            public void onFail() {
+                System.out.println("Client: Failed to poll server!");
+                timer.stop();
+            }
+        });
     }
 
     public JFrame getFrame() {

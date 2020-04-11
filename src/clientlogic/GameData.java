@@ -51,7 +51,7 @@ public class GameData {
     private List<Room> miniMap = new ArrayList<>();
 	private Room currentRoom;
 	private int zShift = 0;
-	private String serversSuggestedClientVersion;
+	private String serversSuggestedClientVersion = "Unknown Version";
 	private CharacterStyle characterStyle = new CharacterStyle();
 	private int fancyFrameState = 0;
 	private String fancyFrameData = "BLANK";

@@ -83,14 +83,14 @@ public class ServerSettings extends JPanel implements Observer {
 
         this.add(Box.createVerticalGlue());
 
-
-        GameData.getInstance().sendSettings();
+        //GameData.getInstance().sendSettings();
         GameData.getInstance().subscribe(this);
-}
+    }
 
 
     @Override
     public void update() {
+
         roundsBox.setText(GameData.getInstance().getNoOfRounds()+"");
 
         if (!GameData.getInstance().getSelectedMode().equals(modeBox.getSelectedItem())) {

@@ -19,12 +19,10 @@ import java.util.ArrayList;
 
 public class PlayersPanel extends JPanel implements Observer {
 
-    private static final int TIME_INTERVAL = 1000;
 
     private final JTable ft;
     private final SS13Client parentMain;
     private int selectedIndex = -1;
-    private static Timer timer;
 
     public PlayersPanel(final String username, SS13Client parent) {
         this.parentMain = parent;
@@ -72,46 +70,9 @@ public class PlayersPanel extends JPanel implements Observer {
         this.add(buttBox);
         this.add(Box.createVerticalGlue());
         GameData.getInstance().subscribe(this);
-        GameUIPanel.pollServerSummary();
-        setUpPollingTimer(username);
-    }
-
-
-    private void setUpPollingTimer(final String username) {
-        pollServerWithList(username);
-        if (timer == null) {
-            timer = new Timer(TIME_INTERVAL, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    pollServerWithList(username);
-                }
-            });
-            timer.start();
-        }
-    }
-
-    private void pollServerWithList(String username) {
-        ServerCommunicator.send(username + " LIST", new MyCallback<String>(){
-            @Override
-            public void onSuccess(String result) {
-                if (result.contains("ERROR")) {
-                    JOptionPane.showMessageDialog(null, result);
-                    timer.stop();
-                    parentMain.switchBackToStart();
-                } else {
-                    GameData.getInstance().deconstructReadyListAndStateAndRoundAndSettings(result);
-                    fillTable();
-                }
-            }
-
-            @Override
-            public void onFail() {
-                System.out.println("Client: Failed to poll server!");
-                timer.stop();
-            }
-        });
 
     }
+
     private void fillTable() {
 
         ArrayList<String> clientArr = GameData.getInstance().getClientList();
@@ -172,7 +133,4 @@ public class PlayersPanel extends JPanel implements Observer {
     }
 
 
-    public void stopTimer() {
-        timer.stop();
-    }
 }

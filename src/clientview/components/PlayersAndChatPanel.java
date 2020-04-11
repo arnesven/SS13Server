@@ -17,7 +17,4 @@ public class PlayersAndChatPanel extends JPanel {
         this.add(chat);
     }
 
-    public void stopTimer() {
-        players.stopTimer();
-    }
 }
