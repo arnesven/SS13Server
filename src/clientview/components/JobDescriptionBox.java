@@ -47,6 +47,9 @@ public class JobDescriptionBox extends Box {
         if (s.charAt(0) == 'a') {
             this.color = new Color(0xFF4444);
         } else {
+            if (s.charAt(0) == 'u'){
+                cb.setSelected(false);
+            }
             this.color = Color.BLACK;
         }
 
