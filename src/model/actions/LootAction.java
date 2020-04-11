@@ -37,13 +37,12 @@ public class LootAction extends TargetingAction {
             performingClient.addTolastTurnInfo("You " + getLootVerb() + " a " + item.getFullName(performingClient) + " from " + target.getName());
             performingClient.getCharacter().giveItem(item, target);
             target.getItems().remove(item);
-        } else {
+        } else if (item != null) {
             Actor targetAsActor = (Actor)target;
-                SuitItem s = (SuitItem)item;
-                s.removeYourself(targetAsActor.getCharacter().getEquipment());
-                performingClient.getCharacter().giveItem(s, target);
-                performingClient.addTolastTurnInfo("You " + getLootVerb() + " a " + item.getFullName(performingClient) + " from " + target.getName());
-
+            SuitItem s = (SuitItem)item;
+            s.removeYourself(targetAsActor.getCharacter().getEquipment());
+            performingClient.getCharacter().giveItem(s, target);
+            performingClient.addTolastTurnInfo("You " + getLootVerb() + " a " + item.getFullName(performingClient) + " from " + target.getName());
         }
     }
 
@@ -137,7 +136,7 @@ public class LootAction extends TargetingAction {
                try {
                    this.item = findItem(args.get(1), (Actor) this.target);
                } catch (NoSuchThingException e) {
-                   Logger.log(Logger.CRITICAL, "What, item wasn't there?");
+                   Logger.log(Logger.CRITICAL, "What, item wasn't there? " + e.getMessage());
                    return;
                }
            }

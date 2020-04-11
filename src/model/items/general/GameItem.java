@@ -219,6 +219,8 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
         return cost;
     }
 
+    public void setCost(int c) { cost = c;}
+
     public boolean canBePickedUp() {
         return true;
     }

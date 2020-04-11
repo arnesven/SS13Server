@@ -25,7 +25,7 @@ import java.awt.event.KeyEvent;
 
 public class SS13Client extends JFrame {
 
-    public static final String CLIENT_VERSION_STRING = "1.23";
+    public static final String CLIENT_VERSION_STRING = "1.232";
     private final ReturningPlayerPanel retPan;
     private static final Dimension originalSize = new Dimension(960, 960);
     private static final Dimension ingameSize = new Dimension(1200, 960);
@@ -121,6 +121,7 @@ public class SS13Client extends JFrame {
         guiPanel = new GameUIPanel(username, this);
         enableView();
         getContentPane().add(guiPanel);
+        guiPanel.setUpPollingTimer(username);
         this.setSize(ingameSize);
         this.revalidate();
         this.repaint();
@@ -183,6 +184,7 @@ public class SS13Client extends JFrame {
 
         JMenuItem startServer = new JMenuItem("Host Game");
         JMenuItem bot = new JMenuItem("Add Bot");
+        JMenuItem tenBots = new JMenuItem("Add 10 Bots");
         startServer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -192,7 +194,7 @@ public class SS13Client extends JFrame {
                 if (snsd.didStart()) {
                     startServer.setEnabled(false);
                     bot.setEnabled(true);
-
+                    tenBots.setEnabled(true);
                     if (snsd.alsoConnectMe()) {
                         if (Cookies.getCookie("last_user_name") != null) {
                             GameData.getInstance().setHost("localhost");
@@ -220,6 +222,17 @@ public class SS13Client extends JFrame {
         });
         bot.setEnabled(false);
         server.add(bot);
+
+        tenBots.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                for (int i = 0; i < 10; ++i) {
+                    SimulationClient sc = new SimulationClient(lastPortUsed, "Botty" + botNumber++);
+                }
+            }
+        });
+        tenBots.setEnabled(false);
+        server.add(tenBots);
         menubar.add(server);
 
         this.setJMenuBar(menubar);

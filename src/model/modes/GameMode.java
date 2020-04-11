@@ -407,6 +407,22 @@ public abstract class GameMode implements Serializable {
 			GameCharacter selected = candidates.remove(MyRandom.nextInt(candidates.size()));
             setPlayersCharacter(cl, selected, remainingCharacters);
 
+            if (remainingCharacters.size() == 0) {
+            	Logger.log(Logger.CRITICAL, "Ran out of characters! Adding a...");
+            	if (MyRandom.nextDouble() < 0.5) {
+					remainingCharacters.add(new StaffAssistantCharacter());
+					Logger.log(Logger.CRITICAL, "... Staff Assistant");
+				} else {
+					Logger.log(Logger.CRITICAL, "... Visitor");
+            		remainingCharacters.add(new VisitorCharacter("Visitor", 0, 0.0) {
+						@Override
+						public GameCharacter clone() {
+							throw new IllegalStateException("Should not have been called!");
+						}
+					});
+				}
+			}
+
 		}
 	}
 

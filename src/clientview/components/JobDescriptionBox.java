@@ -40,7 +40,6 @@ public class JobDescriptionBox extends Box {
         setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         cb = new JCheckBox(s.substring(1));
 
-        GameData.getInstance().putJob(s.substring(1), checked);
 
         cb.setSelected(checked);
         if (s.charAt(0) == 'a') {
@@ -51,6 +50,9 @@ public class JobDescriptionBox extends Box {
             }
             this.color = Color.BLACK;
         }
+
+        GameData.getInstance().putJob(s.substring(1), cb.isSelected());
+
 
         if (cb.isSelected()) {
             cb.setFont(ORIGINAL_FONT);

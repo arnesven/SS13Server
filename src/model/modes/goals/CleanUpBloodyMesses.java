@@ -9,7 +9,7 @@ public class CleanUpBloodyMesses extends DidAnActionGoal {
 
     @Override
     protected String getNoun() {
-        return "bloody Messes";
+        return "dirty rooms";
     }
 
     @Override

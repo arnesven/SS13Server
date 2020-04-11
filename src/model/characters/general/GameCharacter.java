@@ -12,11 +12,13 @@ import model.*;
 import model.actions.general.AttackAction;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.NoSuchInstanceException;
+import model.characters.special.SpectatorCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.items.BodyPartFactory;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
 import model.items.suits.Equipment;
+import model.map.rooms.SpectatorRoom;
 import model.movepowers.*;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
@@ -197,7 +199,7 @@ public abstract class GameCharacter implements Serializable {
                 verb + "ed " + second + " with " +
                 weapon.getPublicName(getActor()) + ".";
         if (verb.equals("kill") && second.equals("you")) {
-            msg = HTMLText.makeText("red", "black", "bold", 12, msg);
+            msg = HTMLText.makeText("red", "black", "bold", 4, msg);
         }
 
         whom.addTolastTurnInfo(HTMLText.makeText("red", msg));
@@ -603,7 +605,7 @@ public abstract class GameCharacter implements Serializable {
 
         List<Room> result = new ArrayList<>();
         if (getActor() instanceof  Player && !(getActor().isDead() ||
-                getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof VisitorCharacter))) {
+                getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof SpectatorCharacter))) {
             int[] moveableToRooms = ((Player) getActor()).getSelectableLocations(gameData);
             int maxX = 0;
             int maxY = 0;

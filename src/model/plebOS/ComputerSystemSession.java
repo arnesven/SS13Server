@@ -86,7 +86,9 @@ public class ComputerSystemSession implements Serializable {
         user.addTolastTurnInfo("You logged out from the console.");
         console.setLoggedInAt(null);
         gameData.getChat().serverSay("You logged out from the console", user);
-        user.removeInstance((GameCharacter gc) -> gc instanceof LoggedInDecorator);
+        if (user.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof LoggedInDecorator)) {
+            user.removeInstance((GameCharacter gc) -> gc instanceof LoggedInDecorator);
+        }
     }
 
     public Console getConsole() {

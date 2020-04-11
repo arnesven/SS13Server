@@ -16,7 +16,7 @@ import model.map.rooms.Room;
 
 public class FireExtinguisher extends BluntWeapon {
 
-    private static final int MAX_LEVEL = 6;
+    private static int MAX_LEVEL = 6;
     private int level = MAX_LEVEL;
 	
 	public FireExtinguisher() {
@@ -36,6 +36,12 @@ public class FireExtinguisher extends BluntWeapon {
 
 		return super.getBaseName() + "(empty)";
 	}
+
+	protected void setUses(int uses) {
+	    level = uses;
+    }
+
+    protected void setMaxUses(int uses) { MAX_LEVEL = uses;}
 	
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {

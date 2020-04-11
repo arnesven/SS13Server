@@ -13,6 +13,6 @@ public class WetWarningSign extends GameObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("wetwarningsign", "janitor.png", 0, null);
+        return new Sprite("wetwarningsign", "janitor.png", 0, this);
     }
 }

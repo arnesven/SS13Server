@@ -40,12 +40,13 @@ public class GameUIPanel extends JPanel implements Observer {
         toggleView();
         GameData.getInstance().subscribe(this);
         GameUIPanel.pollServerSummary();
-        setUpPollingTimer(username);
     }
 
-    private void setUpPollingTimer(final String username) {
+    public void setUpPollingTimer(final String username) {
         pollServerWithList(username);
-        if (timer == null) {
+        if (timer != null && timer.isRunning()) {
+            throw new IllegalStateException("Tried starting polling timer when it is already running!");
+        } else {
             timer = new Timer(TIME_INTERVAL, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -54,9 +55,11 @@ public class GameUIPanel extends JPanel implements Observer {
             });
             timer.start();
         }
+
     }
 
     private void pollServerWithList(String username) {
+        System.out.println("Polling server at " + System.currentTimeMillis());
         ServerCommunicator.send(username + " LIST", new MyCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -71,7 +74,7 @@ public class GameUIPanel extends JPanel implements Observer {
 
             @Override
             public void onFail() {
-                System.out.println("Client: Failed to poll server!");
+                System.out.println("Client: Failed to poll server, stopping timer!");
                 timer.stop();
             }
         });

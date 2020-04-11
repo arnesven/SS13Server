@@ -12,6 +12,8 @@ import model.characters.general.RobotCharacter;
 import model.items.NoSuchThingException;
 import model.items.foods.Banana;
 import model.items.foods.Doughnut;
+import model.items.foods.NukaCola;
+import model.items.foods.SpaceCheetos;
 import model.items.general.*;
 import model.items.weapons.Weapon;
 import model.objects.general.JunkVendingMachine;
@@ -38,6 +40,8 @@ public class VendingMachineCharacter extends RobotCharacter {
         list.add(new Banana(null));
         list.add(new PackOfSmokes());
         list.add(new ZippoLighter());
+        list.add(new NukaCola(null));
+        list.add(new SpaceCheetos(null));
         return list;
     }
 

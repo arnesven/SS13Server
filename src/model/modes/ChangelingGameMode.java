@@ -176,7 +176,8 @@ public class ChangelingGameMode extends GameMode {
 
     @Override
 	public void setStartingLastTurnInfo() {
-		ling.addTolastTurnInfo("You are a " + HTMLText.makeLink(HTMLText.wikiURL + "/modes/changeling", "changeling!") + " " + LING_START_STRING + decoyString());
+		ling.addTolastTurnInfo("You are a " + HTMLText.makeLink(HTMLText.wikiURL + "/modes/changeling", "changeling!") + " " +
+				LING_START_STRING + decoyString());
 	}
 
 	private String decoyString() {

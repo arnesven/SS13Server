@@ -64,7 +64,7 @@ public class AdminConsoleAction extends ConsoleAction {
         if (!checkedfunds) {
             Room targetRoom = null;
             try {
-                targetRoom = gameData.getRoom("Cargo Hold");
+                targetRoom = gameData.getRoom("Cargo Bay");
             } catch (NoSuchThingException e) {
                 targetRoom = MyRandom.sample(gameData.getRooms());
             }
