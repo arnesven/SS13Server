@@ -3,6 +3,7 @@ package model.npcs.behaviors;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.FollowAction;
 import model.actions.general.Action;
 import model.actions.general.ActionGroup;
 import model.actions.general.ActionOption;
@@ -27,8 +28,8 @@ public class RandomActionBehavior implements ActionBehavior {
         do {
             args.clear();
             selected = randomAction(args, gameData, npc);
-            Logger.log("Random behavior gave action which attacked itself.");
-        } while (selected instanceof AttackAction && args.contains(npc.getBaseName()));
+            Logger.log("Random behavior gave action which attacked or followed itself.");
+        } while ((selected instanceof AttackAction || selected instanceof FollowAction) && args.contains(npc.getBaseName()));
 
         Logger.log("Random behavior selected " + selected.getName() + " with args " + args.toString());
         selected.setArguments(args, npc);

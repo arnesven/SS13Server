@@ -37,7 +37,12 @@ public class FireExtinguisher extends BluntWeapon {
 		return super.getBaseName() + "(empty)";
 	}
 
-	protected void setUses(int uses) {
+    @Override
+    public Sprite getHandHeldSprite() {
+        return new Sprite("handheldfireext", "items_righthand.png", 28, 17, this);
+    }
+
+    protected void setUses(int uses) {
 	    level = uses;
     }
 

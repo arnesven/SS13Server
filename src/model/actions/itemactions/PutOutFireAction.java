@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.characters.decorators.HoldingItemDecorator;
 import model.characters.general.GameCharacter;
 import model.characters.general.RobotCharacter;
 import model.events.NoSuchEventException;
@@ -63,6 +64,7 @@ public class PutOutFireAction extends Action {
                     performingClient.addTolastTurnInfo("You put out the fire.");
                 }
                 fireExtinguisher.decrementLevel();
+                performingClient.setCharacter(new HoldingItemDecorator(performingClient.getCharacter(), fireExtinguisher));
 
             } catch (NoSuchElementException nse) {
                 performingClient.addTolastTurnInfo("No fire to put out.");

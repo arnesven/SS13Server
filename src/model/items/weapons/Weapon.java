@@ -8,7 +8,8 @@ import model.actions.general.SensoryLevel;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
-import model.characters.decorators.HoldingWeaponDecorator;
+import model.characters.decorators.HoldingItemDecorator;
+import model.items.HandheldItem;
 import model.items.general.GameItem;
 import sounds.Sound;
 import util.MyRandom;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class Weapon extends GameItem {
+public abstract class Weapon extends GameItem implements HandheldItem {
 
 	public static final Weapon FISTS      = new Fist();
     public static final Weapon TENTACLE   = new Tentacle();
@@ -101,7 +102,7 @@ public abstract class Weapon extends GameItem {
 	 */
 	protected void usedOnBy(Target target, Actor performingClient,
 			GameData gameData) {
-	    performingClient.setCharacter(new HoldingWeaponDecorator(performingClient.getCharacter(), this));
+	    performingClient.setCharacter(new HoldingItemDecorator(performingClient.getCharacter(), this));
 
     }
 

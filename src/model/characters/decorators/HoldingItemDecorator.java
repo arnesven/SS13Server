@@ -4,28 +4,26 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.characters.general.GameCharacter;
-import model.items.general.GameItem;
-import model.items.weapons.LaserSword;
-import model.items.weapons.Weapon;
+import model.items.HandheldItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HoldingWeaponDecorator extends CharacterDecorator {
-    private final Weapon weapon;
+public class HoldingItemDecorator extends CharacterDecorator {
+    private final HandheldItem hhitem;
 
-    public HoldingWeaponDecorator(GameCharacter gc, Weapon w) {
+    public HoldingItemDecorator(GameCharacter gc, HandheldItem w) {
               super(gc, "Laser sword holder");
-              this.weapon = w;
+              this.hhitem = w;
         }
 
         @Override
         public Sprite getSprite(Actor whosAsking) {
-            if (whosAsking.getItems().contains(weapon)) {
+            if (whosAsking.getItems().contains(hhitem)) {
                 List<Sprite> look = new ArrayList<>();
                 look.add(super.getSprite(whosAsking));
-                look.add(weapon.getHandHeldSprite());
-                return new Sprite(super.getSprite(whosAsking).getName() + "holding" + weapon.getBaseName().toLowerCase(),
+                look.add(hhitem.getHandHeldSprite());
+                return new Sprite(super.getSprite(whosAsking).getName() + "holding" + hhitem.getBaseName().toLowerCase(),
                         "human.png", 0, look, whosAsking);
             }
 
