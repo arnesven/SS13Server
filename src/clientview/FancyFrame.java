@@ -4,6 +4,7 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientlogic.Observer;
+import clientview.components.FancyFrameHtmlPane;
 import clientview.components.MyHtmlPane;
 
 import javax.swing.*;
@@ -18,7 +19,7 @@ public class FancyFrame extends JFrame implements Observer {
 
     private static final int FF_WIDTH = 300;
     private static final int FF_HEIGHT = 250;
-    private final MyHtmlPane jed;
+    private final FancyFrameHtmlPane jed;
     private JTextField inputField;
     private int lastState = 0;
 
@@ -30,47 +31,14 @@ public class FancyFrame extends JFrame implements Observer {
         this.setSize(new Dimension(FF_WIDTH, FF_HEIGHT));
         this.setTitle("Unknown");
         this.setResizable(false);
-        this.jed = new MyHtmlPane();
+        this.jed = new FancyFrameHtmlPane();
         jed.setMargin(new Insets(0,0,0,0));
-        jed.addHyperlinkListener(new HyperlinkListener() {
-            @Override
-            public void hyperlinkUpdate(HyperlinkEvent e) {
-                if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-                    System.out.println("Got URL: " + e.getURL());
-                    gotMouseClick(e.getURL());
-
-                }
-            }
-        });
         this.add(jed);
         inputField = new JTextField();
         GameData.getInstance().subscribe(this);
     }
 
-    private void gotMouseClick(URL url) {
-        if (url.toString().contains("EVENT")) {
-            String command = url.toString().replace("https://EVENT.", "");
-            ServerCommunicator.send(GameData.getInstance().getClid() + " FANCYFRAME EVENT " + command, new MyCallback() {
-                @Override
-                public void onSuccess(String result) {
-                    GameData.getInstance().deconstructFancyFrameData(result);
-                }
 
-                @Override
-                public void onFail() {
-                    System.out.println("Client: Failed during FANCYFRAME EVENT");
-                }
-            });
-        } else {
-            try {
-                Desktop.getDesktop().browse(url.toURI());
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } catch (URISyntaxException e1) {
-                e1.printStackTrace();
-            }
-        }
-    }
 
     @Override
     public void update() {
