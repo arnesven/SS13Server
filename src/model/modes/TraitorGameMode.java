@@ -58,7 +58,7 @@ public class TraitorGameMode extends GameMode {
     private final List<GameItem> stealableItems;
     private List<Player> traitors = new ArrayList<>();
 	private HashMap<Player, TraitorObjective> objectives = new HashMap<>();
-	private String TRAITOR_START_STRING = HTMLText.makeText("orange", "You are a " + HTMLText.makeWikiLink("modes/traitor", "traitor") + "!");
+	private String TRAITOR_START_STRING = "You are a " + HTMLText.makeWikiLink("modes/traitor", "traitor") + "!";
 	private String CREW_START_STRING = "There are traitors on the station. Find them and stop them before they ruin everything!";
 
     public  TraitorGameMode() {
@@ -590,9 +590,9 @@ public class TraitorGameMode extends GameMode {
 	}
 
 	public void setAntagonistFancyFrame(Player c) {
-		c.getFancyFrame().setData("Important!", false, HTMLText.makeColoredBackground("Pink", HTMLText.makeCentered("<br/><br/>" +
+		c.getFancyFrame().setData("Important!", false, HTMLText.makeColoredBackground("Red", HTMLText.makeCentered("<br/><br/>" +
 				TRAITOR_START_STRING + "<br/><br/>" + getObjectiveText(c) + "<br/><br/><i>You can access this dialog again by using your PDA.</i>") + "<br/>" +
-				"<a href=\"https://DISMISS\">(dismiss)</a>"));
+				"<a href=\"https://EVENT.DISMISS\">(dismiss)</a>"));
 	}
 
 	@Override

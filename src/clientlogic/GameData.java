@@ -832,4 +832,10 @@ public class GameData {
 	public String getFancyFrameData() {
 		return fancyFrameData;
 	}
+
+	public void deconstructFancyFrameData(String result) {
+		String[] parts = result.split("<part>");
+		fancyFrameState = Integer.parseInt(parts[0]);
+		setFancyFrameData(parts[1]);
+	}
 }

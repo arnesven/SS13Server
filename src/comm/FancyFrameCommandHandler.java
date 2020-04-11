@@ -17,7 +17,7 @@ public class FancyFrameCommandHandler extends AbstractCommandHandler {
                 oos.writeObject(gameData.getPlayerForClid(clid).getFancyFrame().getData());
             } else if (rest.contains("EVENT")) {
                 gameData.getPlayerForClid(clid).getFancyFrame().handleEvent(rest.replace("EVENT ", ""));
-                oos.writeObject("ACK");
+                oos.writeObject(gameData.getPlayerForClid(clid).getFancyFrame().getState() + "<part>" + gameData.getPlayerForClid(clid).getFancyFrame().getData());
             }
             return true;
         }

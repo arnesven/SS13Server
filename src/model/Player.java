@@ -500,8 +500,8 @@ public class Player extends Actor implements Target, Serializable {
 	public void beInfected(Actor performingClient) {
 		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
 		performingClient.addTolastTurnInfo("You were " + HTMLText.makeText("Green", "infected") + " by " + performingClient.getPublicName(this));
-		this.fancyFrame.setData("Important!", false, HTMLText.makeColoredBackground("LimeGreen", HTMLText.makeCentered("You were just infected") + " by " + performingClient.getPublicName() +
-				"! You are now on the " + HTMLText.makeWikiLink("modes/host", "Host") + " team. Keep the humans from destroying the hive!"));
+		this.fancyFrame.setData("Important!", false, HTMLText.makeColoredBackground("Lime", HTMLText.makeCentered("<br/>You were just infected by " + performingClient.getPublicName() +
+				"!</b><br/>You are now on the " + HTMLText.makeWikiLink("modes/host", "Host") + " team. <br/>Keep the humans from destroying the hive!")));
 
 	}
 
