@@ -362,7 +362,9 @@ public class Player extends Actor implements Target, Serializable {
 			}
 		}
 		try {
-			gameData.setPlayerReady(gameData.getClidForPlayer(this), true);
+        	if (nextAction.doesSetPlayerReady()) {
+				gameData.setPlayerReady(gameData.getClidForPlayer(this), true);
+			}
 		} catch (NoSuchThingException e) {
 			e.printStackTrace(); // should not happen
 		}
@@ -396,7 +398,9 @@ public class Player extends Actor implements Target, Serializable {
             }
         }
 		try {
-			gameData.setPlayerReady(gameData.getClidForPlayer(this), true);
+        	if (nextAction.doesSetPlayerReady()) {
+				gameData.setPlayerReady(gameData.getClidForPlayer(this), true);
+			}
 		} catch (NoSuchThingException e) {
 			e.printStackTrace(); // should not happen
 		}

@@ -181,16 +181,18 @@ public class OperativesGameMode extends GameMode {
 				decoyStr.append(npc.getBaseName() + ", ");
 			}
 		}
-		
-		c.addTolastTurnInfo(HTMLText.makeText("red", "You are a nuclear " +
-                            HTMLText.makeLink(HTMLText.wikiURL + "/modes/operatives", "operative") +
-							"!") + " Infiltrate the station and find the nuclear disk. " +
-							"Then leave the station through an airlock. " + 
+
+		StringBuilder data = new StringBuilder( HTMLText.makeCentered(HTMLText.makeText("White", "<br/><b>You are a nuclear " +
+                            HTMLText.makeLink(HTMLText.wikiURL + "/modes/operatives", "operative") + "!</b><br/>") +
+							HTMLText.makeText("Black", "<br/>Infiltrate the station and find the nuclear disk.<br/>" +
+							"Then leave the station through an airlock.<br/>" +
 							"You can pretend to be the " + decoys.get(c).getBaseName() + 
-							" (in " + decoys.get(c).getPosition().getName() + ")");
+							" (in " + decoys.get(c).getPosition().getName() + ")<br/><br/>")));
 		if (!decoyStr.toString().equals("")) {
-			c.addTolastTurnInfo("The hidden decoys are " + decoyStr.toString());
+			data.append("Other decoys are " + decoyStr.toString());
 		}
+
+		c.getFancyFrame().setData("Important!", false, HTMLText.makeColoredBackground("Red", data.toString()));
 	}
 
 	@Override

@@ -144,4 +144,8 @@ public class UsePDAAction extends Action {
 		}
 	}
 
+	@Override
+	public boolean doesSetPlayerReady() {
+		return !show;
+	}
 }

@@ -89,9 +89,10 @@ public class HostGameMode extends GameMode {
 
 	private void addHostStartingMessage(Player cl) {
 		hiveString = "The " + HTMLText.makeWikiLink("modes/host", "hive") + " is in " + hiveRoom.getName() + ".";
-		hostClient.addTolastTurnInfo(HTMLText.makeText("green", "You are the host!") + " (Only you know this, so keep it a secret.) " +
-									 hiveString + 
-									 " Protect it by killing humans or infecting them, turning them over to your side.");
+		cl.getFancyFrame().setData("Important!" , false, HTMLText.makeColoredBackground("Lime", HTMLText.makeCentered(
+				"<br/><br/><b>You are the host!</b><br/>" + " (Only you know this, so keep it a secret.)<br/><br/>" +
+				hiveString +
+				"<br/>Protect it by killing humans or infecting them, turning them over to your side.")));
 	}
 
 	

@@ -28,8 +28,10 @@ public class FancyFrame extends JFrame implements Observer {
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.setSize(new Dimension(FF_WIDTH, FF_HEIGHT));
         this.setTitle("Unknown");
+        this.setResizable(false);
         this.jed = new JEditorPane();
         jed.setEditable(false);
+        jed.setMargin(new Insets(0,0,0,0));
         jed.setContentType("text/html");
         jed.addHyperlinkListener(new HyperlinkListener() {
             @Override

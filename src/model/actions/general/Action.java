@@ -222,4 +222,7 @@ public abstract class Action extends Experienceable implements Serializable {
     }
 
 
+    public boolean doesSetPlayerReady() {
+        return true;
+    }
 }

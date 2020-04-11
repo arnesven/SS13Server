@@ -230,9 +230,9 @@ public class TraitorGameMode extends GameMode {
 
 	@Override
 	public void setStartingLastTurnInfo() {
-		for (Player traitor : traitors) {
-			traitor.addTolastTurnInfo(getObjectiveText(traitor));
-		}
+		//for (Player traitor : traitors) {
+		//	traitor.addTolastTurnInfo(getObjectiveText(traitor));
+		//}
 	}
 
 	private String getObjectiveText(Player traitor) {
@@ -590,8 +590,8 @@ public class TraitorGameMode extends GameMode {
 	}
 
 	public void setAntagonistFancyFrame(Player c) {
-		c.getFancyFrame().setData("Important!", false, HTMLText.makeColoredBackground("Red", HTMLText.makeCentered("<br/><br/>" +
-				TRAITOR_START_STRING + "<br/><br/>" + getObjectiveText(c) + "<br/><br/><i>You can access this dialog again by using your PDA.</i>") + "<br/>" +
+		c.getFancyFrame().setData("Important!", false, HTMLText.makeColoredBackground("Yellow", HTMLText.makeCentered("<br/><br/><b>" +
+				HTMLText.makeText("Red", TRAITOR_START_STRING) + "</b><br/><br/>" + getObjectiveText(c) + "<br/><br/><i>You can access this dialog again by using your PDA.</i>") + "<br/>" +
 				"<a href=\"https://EVENT.DISMISS\">(dismiss)</a>"));
 	}
 
