@@ -21,6 +21,7 @@ public class JobsPanel extends JPanel implements Observer {
     private  boolean loaded;
     private JPanel gridPanel = new JPanel();
     private ArrayList<JCheckBox> checkboxes = new ArrayList<>();
+    private ArrayList<JCheckBox> jobcheckboxes = new ArrayList<>();
     boolean allCheck = true;
     private Button tb;
 
@@ -72,7 +73,7 @@ public class JobsPanel extends JPanel implements Observer {
     }
 
     private void checkAll() {
-        for (JCheckBox cb : checkboxes) {
+        for (JCheckBox cb : jobcheckboxes) {
             cb.setSelected(!allCheck);
         }
         GameData.getInstance().setAllJobs(!allCheck);
@@ -117,6 +118,9 @@ public class JobsPanel extends JPanel implements Observer {
             JobDescriptionBox jdb = new JobDescriptionBox(s, description, columns, this, checked);
             gridPanel.add(jdb);//, row++, col);
             checkboxes.add(jdb.getCheckBox());
+            if (jobsAndDescriptions[i].startsWith("p")) {
+                jobcheckboxes.add(jdb.getCheckBox());
+            }
         }
 
 
