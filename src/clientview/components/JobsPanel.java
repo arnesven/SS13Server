@@ -66,6 +66,7 @@ public class JobsPanel extends JPanel implements Observer {
                 }
             });
             parent.repaint();
+            GameData.getInstance().sendJobs();
             this.loaded = true;
         }
     }

@@ -5,6 +5,7 @@ import model.GameData;
 import model.Player;
 import model.PlayerSettings;
 import model.characters.crew.*;
+import model.characters.decorators.PersonalGoalDecorator;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.VisitorCharacter;
@@ -134,14 +135,7 @@ public class  PersonalGoalAssigner implements Serializable {
         }
         if (goal != null) {
             PersonalGoal finalGoal = goal;
-            gameData.addMovementEvent(new BackgroundEvent() {
-                @Override
-                public void apply(GameData gameData) {
-                    if (gameData.getRound() == 1) {
-                        a.addTolastTurnInfo("PG: " + finalGoal.getText() + ".");
-                    }
-                }
-            });
+            a.setCharacter(new PersonalGoalDecorator(a.getCharacter(), finalGoal));
         }
     }
 
@@ -153,7 +147,7 @@ public class  PersonalGoalAssigner implements Serializable {
             if (pt.isApplicable(gameData, a)) {
                 pt.setBelongsTo(a);
                 goalsForActors.put(a, pt);
-                a.addTolastTurnInfo(pt.getText());
+                a.addTolastTurnInfo("Personal Goal: " + pt.getText());
                 break;
             }
         } while (setOfGoals.size() > 0);
