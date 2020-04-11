@@ -75,7 +75,7 @@ public class SpriteManager {
 		return ic;
 	}
 
-	protected static BufferedImage setBase64(String result) {
+	public static BufferedImage setBase64(String result) {
         byte[] data = Base64.getDecoder().decode(result);
         ByteArrayInputStream bai = new ByteArrayInputStream(data);
         BufferedImage img = null;

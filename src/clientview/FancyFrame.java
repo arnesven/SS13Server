@@ -4,6 +4,7 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientlogic.Observer;
+import clientview.components.MyHtmlPane;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
@@ -17,7 +18,7 @@ public class FancyFrame extends JFrame implements Observer {
 
     private static final int FF_WIDTH = 300;
     private static final int FF_HEIGHT = 250;
-    private final JEditorPane jed;
+    private final MyHtmlPane jed;
     private JTextField inputField;
     private int lastState = 0;
 
@@ -29,10 +30,8 @@ public class FancyFrame extends JFrame implements Observer {
         this.setSize(new Dimension(FF_WIDTH, FF_HEIGHT));
         this.setTitle("Unknown");
         this.setResizable(false);
-        this.jed = new JEditorPane();
-        jed.setEditable(false);
+        this.jed = new MyHtmlPane();
         jed.setMargin(new Insets(0,0,0,0));
-        jed.setContentType("text/html");
         jed.addHyperlinkListener(new HyperlinkListener() {
             @Override
             public void hyperlinkUpdate(HyperlinkEvent e) {

@@ -14,10 +14,11 @@ import java.io.IOException;
 public class SummaryPanel extends JPanel implements Observer {
 
     private JEditorPane jed;
+    private String old = "";
 
     public SummaryPanel() {
         setLayout(new BorderLayout());
-        jed = new JEditorPane();
+        jed = new MyHtmlPane();
         jed.setContentType("text/html");
         jed.setEditable(false);
         JScrollPane jsp = new JScrollPane(jed);
@@ -51,7 +52,10 @@ public class SummaryPanel extends JPanel implements Observer {
 
     @Override
     public void update() {
-        jed.setText(GameData.getInstance().getSummaryString());
-        jed.setCaretPosition(0);
+        if (!GameData.getInstance().getSummaryString().equals(old)) {
+            jed.setText(GameData.getInstance().getSummaryString());
+            jed.setCaretPosition(0);
+            this.old = GameData.getInstance().getSummaryString();
+        }
     }
 }

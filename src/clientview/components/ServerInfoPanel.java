@@ -9,11 +9,11 @@ import java.net.URISyntaxException;
 
 public class ServerInfoPanel extends JPanel {
 
-    private final JEditorPane jed;
+    private final MyHtmlPane jed;
 
     public ServerInfoPanel() {
         this.setLayout(new BorderLayout());
-        jed = new JEditorPane();
+        jed = new MyHtmlPane();
         jed.setContentType("text/html");
         jed.setEditable(false);
         jed.addHyperlinkListener(new HyperlinkListener() {

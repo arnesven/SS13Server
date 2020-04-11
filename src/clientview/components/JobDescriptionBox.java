@@ -23,7 +23,7 @@ public class JobDescriptionBox extends Box {
     private static final int COLLAPSED_HEIGHT = 45;
     private static final int EXPANDED_HEIGHT =  230;
     private final JScrollPane jsp;
-    private final JEditorPane jed;
+    private final MyHtmlPane jed;
     private final Box newBox;
     private final JButton expand;
     private final Color color;
@@ -76,7 +76,7 @@ public class JobDescriptionBox extends Box {
         newBox.add(expand);
         newBox.add(Box.createHorizontalStrut(2));
         this.add(newBox);
-        jed = new JEditorPane();
+        jed = new MyHtmlPane();
         jed.setContentType("text/html");
         jed.setText(description);
         jed.setCaretPosition(0);

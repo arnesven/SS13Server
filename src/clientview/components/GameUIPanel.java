@@ -175,6 +175,7 @@ public class GameUIPanel extends JPanel implements Observer {
                     JOptionPane.showMessageDialog(null, result);
                 }
                 GameData.getInstance().setSummaryString(result);
+
             }
 
             @Override
