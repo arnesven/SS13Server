@@ -185,8 +185,12 @@ public class ChangelingGameMode extends GameMode {
 
 	@Override
 	protected void addAntagonistStartingMessage(Player c) {
-		c.addTolastTurnInfo(HTMLText.makeText("purple", "verdana", 3, "You are a " + HTMLText.makeLink(HTMLText.wikiURL + "/changelingmode", "changeling!")) + "Use your suction attack to absorb the essence of hidden creatures. You must be the sole survivor to win!" + decoyString());
-	}
+		//c.addTolastTurnInfo(HTMLText.makeText("purple", "verdana", 3,
+		c.getFancyFrame().setData("Important!", false, HTMLText.makeColoredBackground("purple",
+				HTMLText.makeCentered(HTMLText.makeText("Aqua",
+				"<br/><b>You are a " + HTMLText.makeLink(HTMLText.wikiURL + "/changelingmode", "changeling!</b><br/><br/>") +
+				"Use your suction attack to absorb the essence of other creatures. When you feel strong enough, transform into your Ultimate Form. You must kill all the crew to win!" + decoyString()))));
+    }
 
 	@Override
 	protected void addProtagonistStartingMessage(Player c) {
