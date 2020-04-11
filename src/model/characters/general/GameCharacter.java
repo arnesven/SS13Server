@@ -197,10 +197,10 @@ public abstract class GameCharacter implements Serializable {
                 verb + "ed " + second + " with " +
                 weapon.getPublicName(getActor()) + ".";
         if (verb.equals("kill") && second.equals("you")) {
-            msg = HTMLText.makeText("red", msg);
+            msg = HTMLText.makeText("red", "black", "bold", 12, msg);
         }
 
-        whom.addTolastTurnInfo(msg);
+        whom.addTolastTurnInfo(HTMLText.makeText("red", msg));
         if (weapon.wasCriticalHit()) {
             whom.addTolastTurnInfo(HTMLText.makeText("red", critMess + "!"));
         }
@@ -279,7 +279,7 @@ public abstract class GameCharacter implements Serializable {
 		boolean reduced = false;
         Logger.log(this.getFullName() + " got hit by " + damager.getName());
         if (!isDead()) {
-            getActor().addTolastTurnInfo(damager.getText());
+            getActor().addTolastTurnInfo(HTMLText.makeText("Red", damager.getText()));
         }
 
 		if (damager.isDamageSuccessful(reduced)) {

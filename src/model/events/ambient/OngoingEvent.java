@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import graphics.sprites.Sprite;
 import model.events.Event;
 import model.events.NoPressureEvent;
 import util.Logger;

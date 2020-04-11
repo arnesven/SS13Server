@@ -242,4 +242,15 @@ public class ElectricalFire extends OngoingEvent {
     public void setRaging(boolean b) {
         isRaging = b;
     }
+
+    @Override
+    public void gotRemovedFromRoom(Room room) {
+        super.gotRemovedFromRoom(room);
+        room.getEffects().remove(Sprite.blankSprite());
+    }
+
+    @Override
+    public void gotAddedToRoom(Room room) {
+        room.addEffect(Sprite.blankSprite());
+    }
 }
