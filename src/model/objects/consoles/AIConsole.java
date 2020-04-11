@@ -141,7 +141,6 @@ public class AIConsole extends Console {
     }
 
 
-
     public boolean isShutDown() {
         return shutDown;
     }

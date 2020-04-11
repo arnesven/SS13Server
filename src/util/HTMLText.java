@@ -1,5 +1,8 @@
 package util;
 
+import graphics.sprites.Sprite;
+import graphics.sprites.SpriteManager;
+
 /**
  * Created by erini02 on 13/11/16.
  */
@@ -33,5 +36,10 @@ public class HTMLText {
 
     public static String makeCentered(String s) {
         return "<center>" + s + "</center>";
+    }
+
+    public static String makeImage(Sprite sprite) {
+        String decodeded = SpriteManager.encode64(sprite);
+        return "<img src=\"data:image/png;base64,"+ decodeded + "\"></img>";
     }
 }

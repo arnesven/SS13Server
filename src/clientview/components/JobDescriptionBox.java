@@ -43,7 +43,6 @@ public class JobDescriptionBox extends Box {
         GameData.getInstance().putJob(s.substring(1), checked);
 
         cb.setSelected(checked);
-
         if (s.charAt(0) == 'a') {
             this.color = new Color(0xFF4444);
         } else {
@@ -53,7 +52,7 @@ public class JobDescriptionBox extends Box {
             this.color = Color.BLACK;
         }
 
-        if (checked) {
+        if (cb.isSelected()) {
             cb.setFont(ORIGINAL_FONT);
             cb.setForeground(this.color);
         } else {

@@ -6,6 +6,7 @@ import java.util.List;
 import model.GameData;
 import model.actions.general.Action;
 import model.items.general.GameItem;
+import model.items.general.NuclearDisc;
 import model.items.suits.Equipment;
 import model.items.suits.SpaceSuit;
 import model.actions.characteractions.EscapeAndSetNukeAction;
@@ -42,7 +43,7 @@ public class OperativeCharacter extends HumanCharacter {
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {
 		super.addCharacterSpecificActions(gameData, at);
-		if (hasAirlockPanel(getPosition()) && hasASpaceSuitOn()) {
+		if (hasAirlockPanel(getPosition()) && hasASpaceSuitOn() && GameItem.hasAnItemOfClass(getActor(), NuclearDisc.class)) {
 			at.add(new EscapeAndSetNukeAction());
 		}
 		Action stealAction = new StealAction(this.getActor());

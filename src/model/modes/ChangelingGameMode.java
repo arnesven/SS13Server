@@ -189,6 +189,7 @@ public class ChangelingGameMode extends GameMode {
 		c.getFancyFrame().setData("Important!", false, HTMLText.makeColoredBackground("purple",
 				HTMLText.makeCentered(HTMLText.makeText("Aqua",
 				"<br/><b>You are a " + HTMLText.makeLink(HTMLText.wikiURL + "/changelingmode", "changeling!</b><br/><br/>") +
+						HTMLText.makeImage(ling.getSprite(null)) + "<br/>" +
 				"Use your suction attack to absorb the essence of other creatures. When you feel strong enough, transform into your Ultimate Form. You must kill all the crew to win!" + decoyString()))));
     }
 

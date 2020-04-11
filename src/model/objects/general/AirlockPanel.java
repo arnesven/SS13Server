@@ -18,6 +18,10 @@ import model.characters.general.OperativeCharacter;
 import model.characters.general.RobotCharacter;
 import model.events.Event;
 import model.events.NoPressureEvent;
+import model.items.general.GameItem;
+import model.items.general.NuclearDisc;
+import model.items.suits.Equipment;
+import model.items.suits.SpaceSuit;
 import model.map.rooms.Room;
 
 public class AirlockPanel extends ElectricalMachinery {
@@ -39,11 +43,17 @@ public class AirlockPanel extends ElectricalMachinery {
             at.add(new MoveToOtherAirlocks(this.getPosition(), gameData));
         }
         if (cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OperativeCharacter)) {
-			at.add(new EscapeAndSetNukeAction());
+			if (GameItem.hasAnItemOfClass(cl, NuclearDisc.class) && hasASpacesuitOn(cl)) {
+				at.add(new EscapeAndSetNukeAction());
+			}
 		}
 	}
 
-    @Override
+	private boolean hasASpacesuitOn(Actor cl) {
+		return cl.getCharacter().getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT) instanceof SpaceSuit;
+	}
+
+	@Override
     public Sprite getSprite(Player whosAsking) {
         return new Sprite("pressurepanel", "monitors.png", 0, this);
     }

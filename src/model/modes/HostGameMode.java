@@ -91,6 +91,7 @@ public class HostGameMode extends GameMode {
 		hiveString = "The " + HTMLText.makeWikiLink("modes/host", "hive") + " is in " + hiveRoom.getName() + ".";
 		cl.getFancyFrame().setData("Important!" , false, HTMLText.makeColoredBackground("Lime", HTMLText.makeCentered(
 				"<br/><br/><b>You are the host!</b><br/>" + " (Only you know this, so keep it a secret.)<br/><br/>" +
+						HTMLText.makeImage(hive.getSprite(null)) + "<br/>" +
 				hiveString +
 				"<br/>Protect it by killing humans or infecting them, turning them over to your side.")));
 	}

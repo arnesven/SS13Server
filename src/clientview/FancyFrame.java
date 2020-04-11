@@ -46,15 +46,17 @@ public class FancyFrame extends JFrame implements Observer {
         if (data.startsWith("BLANK")) {
             if (isVisible()) {
                 this.setVisible(false);
+                lastState = GameData.getInstance().getFancyFrameState();
             }
         } else {
             if (!isVisible() && GameData.getInstance().getFancyFrameState() != lastState) {
                 makeContent(data);
                 this.setVisible(true);
                 repaint();
+                lastState = GameData.getInstance().getFancyFrameState();
             }
         }
-        lastState = GameData.getInstance().getFancyFrameState();
+
     }
 
     private void makeContent(String data) {
