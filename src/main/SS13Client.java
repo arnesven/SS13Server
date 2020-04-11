@@ -162,6 +162,7 @@ public class SS13Client extends JFrame {
         JMenu file = new JMenu("File");
         JMenuItem item = new JMenuItem("Connect");
         view = new JMenu("View");
+        makeCenterOnMe(view);
         makeScaleMenu(view);
      //   makeZoomMenu(view);
         makeBackgroundMenu(view);
@@ -222,6 +223,21 @@ public class SS13Client extends JFrame {
         menubar.add(server);
 
         this.setJMenuBar(menubar);
+    }
+
+    private void makeCenterOnMe(JMenu view) {
+        JMenuItem center = new JMenuItem("Center Camera");
+        center.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                MapPanel.setXTranslation(GameData.getInstance().getCurrentRoom().getXPos() / (int)(Room.getXScale() / MapPanel.getZoom()));
+                MapPanel.setYTranslation(GameData.getInstance().getCurrentRoom().getYPos() / (int)(Room.getYScale() / MapPanel.getZoom()));
+                MapPanel.setZTranslation(GameData.getInstance().getCurrentRoom().getZPos());
+                repaint();
+            }
+        });
+
+        view.add(center);
     }
 
 //    private void makeZoomMenu(JMenu view) {

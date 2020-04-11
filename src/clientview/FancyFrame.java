@@ -1,19 +1,11 @@
 package clientview;
 
-import clientcomm.MyCallback;
-import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientlogic.Observer;
 import clientview.components.FancyFrameHtmlPane;
-import clientview.components.MyHtmlPane;
 
 import javax.swing.*;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
 import java.awt.*;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 public class FancyFrame extends JFrame implements Observer {
 
@@ -42,14 +34,20 @@ public class FancyFrame extends JFrame implements Observer {
 
     @Override
     public void update() {
+      //  System.out.println("Fancy frame update!");
         String data = GameData.getInstance().getFancyFrameData();
         if (data.startsWith("BLANK")) {
+         //   System.out.println("Fancy frame is blank");
             if (isVisible()) {
+          //      System.out.println("But visible, so hiding it");
                 this.setVisible(false);
                 lastState = GameData.getInstance().getFancyFrameState();
             }
         } else {
+        //    System.out.println("Fancy frame has content, last state is: " + lastState);
+        //    System.out.println("...and game data says it is " + GameData.getInstance().getFancyFrameState());
             if (!isVisible() && GameData.getInstance().getFancyFrameState() != lastState) {
+         //       System.out.println("Was not visibile and we need to turn it on");
                 makeContent(data);
                 this.setVisible(true);
                 repaint();

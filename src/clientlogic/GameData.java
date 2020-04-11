@@ -54,7 +54,7 @@ public class GameData {
 	private String serversSuggestedClientVersion = "Unknown Version";
 	private CharacterStyle characterStyle = new CharacterStyle();
 	private int fancyFrameState = 0;
-	private String fancyFrameData = "BLANK";
+	private String fancyFrameData = "NOTHING";
 
 	private GameData() {
 		modeAlternatives.add("Default");
@@ -489,13 +489,13 @@ public class GameData {
 		return this.health;
 	}
 
-	public String getCurrentRoom() {
+	public Room getCurrentRoom() {
 		for (Room r : rooms) {
 			if (r.getID() == this.currentPos) {
-				return r.getName();
+				return r;
 			}
 		}
-		return "Unknown room!";
+		return null;
 	}
 
 	public ArrayList<String> getItems() {

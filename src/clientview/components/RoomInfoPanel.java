@@ -54,7 +54,7 @@ public class RoomInfoPanel extends JPanel implements Observer {
 
 	@Override
 	public void update() {
-		roomTitle.setText(GameData.getInstance().getCurrentRoom());
+		//roomTitle.setText(GameData.getInstance().getCurrentRoom());
 		fillTable(GameData.getInstance().getRoomInfo());
 
 	}
