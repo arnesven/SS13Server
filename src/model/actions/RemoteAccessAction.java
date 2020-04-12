@@ -53,7 +53,7 @@ public abstract class RemoteAccessAction extends Action {
         for (GameObject o : getRemotes(gameData)) {
             for (Action a : getActionsForRemote(gameData, performingClient, o)) {
                 if (selectedAction.contains(a.getName())) {
-                    a.setArguments(args, performingClient);
+                    a.setActionTreeArguments(args, performingClient);
                     a.doTheAction(gameData, performingClient);
                     break;
                 }

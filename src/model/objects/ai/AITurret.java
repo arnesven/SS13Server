@@ -142,7 +142,7 @@ public class AITurret extends ElectricalMachinery implements RemotelyOperateable
                             if (!hasFiredThisTurn(gameData)) {
                                 ArrayList<String> args = new ArrayList<>();
                                 args.add(attack.getOptions(gameData, performingClient).getRandomOption().getName());
-                                attack.setArguments(args, performingClient);
+                                attack.setActionTreeArguments(args, performingClient);
                                 attack.doTheAction(gameData, performingClient);
                                 lastFiredOnTurn = gameData.getRound();
                             }

@@ -59,7 +59,7 @@ public class GeneTIXAction extends ConsoleAction {
 		for (ConsoleAction a : subActs) {
 			if (a.getName().equals(args.get(0))) {
 				selected = a;
-				a.setArguments(args.subList(1, args.size()), performingClient);
+				a.setActionTreeArguments(args.subList(1, args.size()), performingClient);
 				break;
 			}
 		}

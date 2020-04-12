@@ -41,7 +41,7 @@ public class ArrestLoadOrCounterAttack implements ActionBehavior {
         for (Action a : actionList) {
              if (a instanceof CounterAttackAction) {
                  List<String> args = new ArrayList<>();
-                 a.setArguments(args, npc);
+                 a.setActionTreeArguments(args, npc);
                  a.doTheAction(gameData, npc);
              }
         }
@@ -57,7 +57,7 @@ public class ArrestLoadOrCounterAttack implements ActionBehavior {
                 if (a instanceof ArrestAndTeleportToPrisonPlanetAction) {
                     List<String> args = new ArrayList<>();
                     args.add(mostWanted.getMostWanted().getPublicName());
-                    a.setArguments(args, npc);
+                    a.setActionTreeArguments(args, npc);
                     a.doTheAction(gameData, npc);
                 }
             }
@@ -77,7 +77,7 @@ public class ArrestLoadOrCounterAttack implements ActionBehavior {
                 shells.addYourActions(gameData, actionList, npc);
                 List<String> args = new ArrayList<>();
                 args.add(shotgun.getPublicName(npc));
-                actionList.get(actionList.size()-1).setArguments(args, npc);
+                actionList.get(actionList.size()-1).setActionTreeArguments(args, npc);
                 actionList.get(actionList.size()-1).doTheAction(gameData, npc);
                 return true;
             }

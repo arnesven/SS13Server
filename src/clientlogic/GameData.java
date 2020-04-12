@@ -133,9 +133,11 @@ public class GameData {
 		selectedMode = parts[6];
 		serversSuggestedClientVersion = parts[7];
 		modeAlternatives.clear();
-		for (int i = 8 ; i < parts.length; ++i) {
+		int i = 8;
+		for (; i < parts.length - 1; ++i) {
 			instance.modeAlternatives.add(parts[i]);
 		}
+		setNextAction(parts[i]);
 
 		notifyObservers();
 	}
@@ -787,15 +789,10 @@ public class GameData {
         return nextAction;
     }
 
-    public void setNextAction(String replace) {
+    private void setNextAction(String replace) {
         nextAction = replace;
-        notifyObservers();
     }
 
-    public void setNextMove(String name) {
-        nextMove = name;
-        notifyObservers();
-    }
 
     public String getNextMove() {
         return nextMove;

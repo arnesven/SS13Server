@@ -643,12 +643,16 @@ public class GameData implements Serializable {
 
 	public String getPollData(String clid) {
         String del = "<player-data-part>";
-        //int numModes = GameMode.getNumberOfAvailableModes();
+        String nextAct = "Do Nothing";
+        if (getPlayerForClid(clid).getNextAction() != null) {
+        	nextAct = getPlayerForClid(clid).getNextAction().getFullName();
+		}
+
 		return makeStringFromReadyClients()+ del + getGameState().val + del +
                 getRound() + del + getNoOfRounds() + del + chatMessages.getLastMessageIndex(getPlayerForClid(clid)) + del +
                 getPlayerForClid(clid).getFancyFrame().getState() + del +
                 getSelectedMode() + del + SS13Client.CLIENT_VERSION_STRING + del +
-                GameMode.getAvailableModesAsString();
+                GameMode.getAvailableModesAsString() + del + nextAct;
 	}
 
 	public void setSettings(String rest, Player pl) {

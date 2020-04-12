@@ -152,7 +152,7 @@ public class CloneOMatic extends ElectricalMachinery {
                     break;
                 }
             }
-            selectedAction.setArguments(subList, performingClient);
+            selectedAction.setActionTreeArguments(subList, performingClient);
         }
     }
 }

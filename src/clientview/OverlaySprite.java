@@ -89,8 +89,8 @@ public class OverlaySprite extends MouseInteractable {
 
                             @Override
                             public void onSuccess(String result) {
-                                GameData.getInstance().setNextAction(newActionString.replace("root,", "") +
-                                        "," + OverlaySprite.this.name);
+                                //GameData.getInstance().setNextAction(newActionString.replace("root,", "") +
+                                //        "," + OverlaySprite.this.name);
                             }
 
                             @Override

@@ -112,7 +112,7 @@ public class TeleportConsole extends Console {
             for (Action a : innerActions) {
                 if (args.get(0).equals(a.getName())) {
                     selected = a;
-                    selected.setArguments(args.subList(1, args.size()), performingClient);
+                    selected.setActionTreeArguments(args.subList(1, args.size()), performingClient);
                 }
             }
         }

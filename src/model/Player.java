@@ -310,7 +310,7 @@ public class Player extends Actor implements Target, Serializable {
 
 
                 args = args.subList(1, args.size());
-				a.setArguments(args, this);
+				a.setActionTreeArguments(args, this);
 				this.nextAction = a;
 				try {
 					gameData.setPlayerReady(gameData.getClidForPlayer(this), true);
@@ -358,7 +358,7 @@ public class Player extends Actor implements Target, Serializable {
 			} else {
         		Logger.log(Logger.INTERESTING, "Using best guess for next action: " + bestGuess.getName());
 				List<String> newArgs = args.subList(1, args.size());
-				bestGuess.setArguments(newArgs,  this);
+				bestGuess.setOverlayArguments(newArgs,  this);
 				this.nextAction = bestGuess;
 			}
 		}

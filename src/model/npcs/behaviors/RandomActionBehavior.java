@@ -32,7 +32,7 @@ public class RandomActionBehavior implements ActionBehavior {
         } while ((selected instanceof AttackAction || selected instanceof FollowAction) && args.contains(npc.getBaseName()));
 
         Logger.log("Random behavior selected " + selected.getName() + " with args " + args.toString());
-        selected.setArguments(args, npc);
+        selected.setActionTreeArguments(args, npc);
         selected.doTheAction(gameData, npc);
     }
 

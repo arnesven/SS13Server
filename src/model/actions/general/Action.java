@@ -10,6 +10,7 @@ import model.Player;
 import model.Target;
 import model.events.Experienceable;
 import util.Logger;
+import util.MyStrings;
 
 /**
  * @author erini02
@@ -23,6 +24,7 @@ public abstract class Action extends Experienceable implements Serializable {
 	private SensoryLevel senses;
 	protected Actor performer;
     private boolean wasDeadBeforeApplied = false;
+    private List<String> savedArgs;
 
 
     /**
@@ -100,7 +102,7 @@ public abstract class Action extends Experienceable implements Serializable {
 	 * MUST be called before execute
 	 * @param args the arguments
 	 */
-	public abstract void setArguments(List<String> args, Actor performingClient);
+	protected abstract void setArguments(List<String> args, Actor performingClient);
 
 	public SensoryLevel getSense() {
 		return senses;
@@ -205,11 +207,25 @@ public abstract class Action extends Experienceable implements Serializable {
     }
 
     public void setOverlayArguments(List<String> args,  Actor performingClient) {
+	    saveArgs(args);
 	    setArguments(args, performingClient);
     }
 
+    private void saveArgs(List<String> args) {
+        savedArgs = new ArrayList<>();
+        for (String arg : args) {
+            savedArgs.add(arg);
+        }
+    }
+
     public void setInventoryArguments(List<String> newArgs, Player player) {
+	    saveArgs(newArgs);
         setArguments(newArgs, player);
+    }
+
+    public void setActionTreeArguments(List<String> args, Actor performer) {
+	    saveArgs(args);
+	    setArguments(args, performer);
     }
 
     public boolean isAmongOptions(GameData gameData, Actor whosAsking, String publicName) {
@@ -224,5 +240,14 @@ public abstract class Action extends Experienceable implements Serializable {
 
     public boolean doesSetPlayerReady() {
         return true;
+    }
+
+    public String getFullName() {
+	    String argString = "";
+	    if (savedArgs != null) {
+            String args = MyStrings.join(savedArgs, ", ");
+            argString = ", " + args.substring(1, args.length()-1);
+        }
+        return getName() +  argString;
     }
 }

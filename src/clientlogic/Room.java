@@ -470,7 +470,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
                             @Override
                             public void onSuccess(String result) {
-                                GameData.getInstance().setNextAction("Searching in " + getName());
+                                //GameData.getInstance().setNextAction("Searching in " + getName());
 
                             }
 
@@ -495,7 +495,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
                             @Override
                             public void onSuccess(String result) {
-                                GameData.getInstance().setNextAction("Move to " + getName());
+                                //GameData.getInstance().setNextAction("Move to " + getName());
 
                             }
 

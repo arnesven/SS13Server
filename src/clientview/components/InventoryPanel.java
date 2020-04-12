@@ -92,7 +92,7 @@ public class InventoryPanel {
 
                                     @Override
                                     public void onSuccess(String result) {
-                                        GameData.getInstance().setNextAction(newActionString.replace("root,", ""));
+                                        //GameData.getInstance().setNextAction(newActionString.replace("root,", ""));
 
                                     }
 
@@ -259,7 +259,7 @@ public class InventoryPanel {
 
                              @Override
                              public void onSuccess(String result) {
-                                 GameData.getInstance().setNextAction(newActionString.replace("root,", "")+","+itemName);
+                                 //GameData.getInstance().setNextAction(newActionString.replace("root,", "")+","+itemName);
                              }
 
                              @Override

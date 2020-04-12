@@ -131,7 +131,7 @@ public class EmaggedVendingMachine extends ElectricalMachinery {
                 Logger.log("arg is now" + arg);
                 newArgs.add(arg);
             }
-            innerAction.setArguments(newArgs, performingClient);
+            innerAction.setActionTreeArguments(newArgs, performingClient);
         }
     }
 }
