@@ -104,7 +104,6 @@ public class BuildElectronicObjectAction extends Action {
         for (Room r : performer.getPosition().getNeighborList()) {
             set.add(new KeyCardLock(r, performer.getPosition(), false, 1.0));
         }
-        set.add(new BarSign(null));
 
 
         return set;
