@@ -42,4 +42,8 @@ public class HTMLText {
         String decodeded = SpriteManager.encode64(sprite);
         return "<img src=\"data:image/png;base64,"+ decodeded + "\"></img>";
     }
+
+    public static String makeFancyFrameLink(String command, String text) {
+        return "<a href=\"https://EVENT." + command + "\">" + text + "</a>";
+    }
 }

@@ -9,16 +9,14 @@ import model.items.general.GameItem;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class FancyFrame extends JFrame implements Observer {
 
     private static final int FF_WIDTH = 300;
     private static final int FF_HEIGHT = 250;
     private final FancyFrameHtmlPane jed;
+    private final JFrame parent;
     private JTextField inputField;
     private int lastState = 0;
     private boolean forceShow = false;
@@ -26,6 +24,7 @@ public class FancyFrame extends JFrame implements Observer {
     public FancyFrame(JFrame parent) {
         this.setLocation((int)parent.getLocation().getX() + ((parent.getWidth() - FF_WIDTH)/2),
                 (int)parent.getLocation().getY() + ((parent.getHeight() - FF_HEIGHT)/2));
+        this.parent = parent;
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.setSize(new Dimension(FF_WIDTH, FF_HEIGHT));
@@ -55,34 +54,39 @@ public class FancyFrame extends JFrame implements Observer {
                 handleMouseEvent(e.getX(), e.getY());
             }
         });
+
+        this.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                forceShow = false;
+                FancyFrame.this.setVisible(false);
+                serverSend("FANCYFRAME EVENT DISMISS");
+            }
+        });
+
+    }
+
+    private void serverSend(String mess) {
+        ServerCommunicator.send(GameData.getInstance().getClid() + " " + mess, new MyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                GameData.getInstance().deconstructFancyFrameData(result);
+            }
+
+            @Override
+            public void onFail() {
+                System.out.println("Failed during " + mess);
+            }
+        });
     }
 
     private void handleMouseEvent(int x, int y) {
-        ServerCommunicator.send(GameData.getInstance().getClid() + " FANCYFRAME CLICK " + x + " " + y, new MyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                GameData.getInstance().deconstructFancyFrameData(result);
-            }
-
-            @Override
-            public void onFail() {
-                System.out.println("Failed during FANCYFRAME CLICK");
-            }
-        });
+        serverSend("FANCYFRAME CLICK " + x + " " + y);
     }
 
     private void handleInputEvent(String inputData) {
-        ServerCommunicator.send(GameData.getInstance().getClid() + " FANCYFRAME INPUT " + inputData, new MyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                GameData.getInstance().deconstructFancyFrameData(result);
-            }
-
-            @Override
-            public void onFail() {
-                System.out.println("Failed during FANCYFRAME INPUT");
-            }
-        });
+        serverSend("FANCYFRAME INPUT " + inputData);
     }
 
 
@@ -91,6 +95,8 @@ public class FancyFrame extends JFrame implements Observer {
         String data = GameData.getInstance().getFancyFrameData();
         if (data.startsWith("BLANK")) {
             if (isVisible()) {
+                jed.setText("");
+                jed.setBackground(Color.WHITE);
                 this.setVisible(false);
                 lastState = GameData.getInstance().getFancyFrameState();
             }
@@ -117,5 +123,9 @@ public class FancyFrame extends JFrame implements Observer {
         }
         jed.setText(parts[2]);
         jed.setCaretPosition(0);
+        String[] dim = parts[3].split(":");
+        this.setSize(Integer.parseInt(dim[0]), Integer.parseInt(dim[1]));
+        this.setLocation((int)parent.getLocation().getX() + ((parent.getWidth() - getWidth())/2),
+                (int)parent.getLocation().getY() + ((parent.getHeight() - getHeight())/2));
     }
 }

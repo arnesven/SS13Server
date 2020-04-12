@@ -17,6 +17,7 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
 
     private Actor loggedInAt;
     private GameData gameData = null;
+    private boolean ffVacant = true;
 
     public Console(String name, Room r) {
 		super(name, r);
@@ -58,4 +59,18 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
     public void setLoggedInAt(Player performingClient) {
         this.loggedInAt = performingClient;
     }
+
+    public boolean isFancyFrameVacant() {
+        return this.ffVacant;
+    }
+
+    public void setFancyFrameOccupied() {
+        this.ffVacant = false;
+    }
+
+
+    public void setFancyFrameVacant() {
+        this.ffVacant = true;
+    }
+
 }

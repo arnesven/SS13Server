@@ -697,4 +697,8 @@ public class Player extends Actor implements Target, Serializable {
 	public FancyFrame getFancyFrame() {
 		return this.fancyFrame;
 	}
+
+	public void setFancyFrame(FancyFrame ff) {
+		this.fancyFrame = ff;
+	}
 }
