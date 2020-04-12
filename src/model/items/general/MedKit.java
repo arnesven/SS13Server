@@ -12,7 +12,9 @@ import model.actions.general.TargetingAction;
 
 public class MedKit extends GameItem {
 
-	
+	private int uses = 2;
+	private int max_uses = 4;
+
 	public MedKit() {
 		super("MedKit", 1.0, true, 50);
 	}
@@ -23,6 +25,14 @@ public class MedKit extends GameItem {
 		if (act.getTargets().size() > 0) {
 			at.add(act);
 		}
+	}
+
+	public void decrementUses() {
+		this.uses--;
+	}
+
+	public boolean isEmpty() {
+		return uses == 0;
 	}
 
 	@Override

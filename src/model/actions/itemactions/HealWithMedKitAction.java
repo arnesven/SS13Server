@@ -1,5 +1,6 @@
 package model.actions.itemactions;
 
+import model.characters.general.GameCharacter;
 import util.MyRandom;
 import model.Actor;
 import model.Player;
@@ -31,20 +32,25 @@ public class HealWithMedKitAction extends TargetingAction {
 		}
 		
 		if (! target.hasSpecificReaction(objectRef)) {
-
-			
-			if ((!(performingClient.getCharacter() instanceof DoctorCharacter)) ||
-					MyRandom.nextDouble() < 0.5) {
-                if ( performingClient.getItems().contains(objectRef)) {
-                    performingClient.getItems().remove(objectRef);
+			if (!performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof DoctorCharacter) ||
+					MyRandom.nextDouble() < DoctorCharacter.MEDKIT_USAGE_CHANCE) {
+				if ( performingClient.getItems().contains(objectRef)) {
+                	objectRef.decrementUses();
+                	if (objectRef.isEmpty()) {
+						performingClient.getItems().remove(objectRef);
+						performingClient.addTolastTurnInfo("The MedKit was used up.");
+					}
                 } else if (performingClient.getPosition().getItems().contains(objectRef)) {
-                    performingClient.getPosition().getItems().remove(objectRef);
+                	objectRef.decrementUses();
+					if (objectRef.isEmpty()) {
+						performingClient.getPosition().getItems().remove(objectRef);
+						performingClient.addTolastTurnInfo("The MedKit was used up.");
+					}
                 } else {
                     performingClient.addTolastTurnInfo("What? The MedKit was missing! Your action failed!");
                 }
-			} else {
-				performingClient.addTolastTurnInfo("The MedKit wasn't used up.");
 			}
+
             target.addToHealth(HEAL_AMOUNT);
 			
 			if (target == performingClient) {

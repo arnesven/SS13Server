@@ -14,7 +14,9 @@ import model.items.weapons.Knife;
 
 public class DoctorCharacter extends CrewCharacter {
 
-	public DoctorCharacter() {
+    public static final double MEDKIT_USAGE_CHANCE = 0.25;
+
+    public DoctorCharacter() {
 		super("Doctor", SCIENCE_TYPE, 24, 12.0);
 	}
 
