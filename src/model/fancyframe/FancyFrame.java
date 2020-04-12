@@ -2,6 +2,7 @@ package model.fancyframe;
 
 import graphics.sprites.SpriteManager;
 import model.items.general.Tools;
+import util.HTMLText;
 import util.Logger;
 
 import java.io.Serializable;
@@ -9,6 +10,11 @@ import java.io.Serializable;
 public class FancyFrame implements Serializable {
     private int state = 0;
     private String data;
+
+    public FancyFrame() {
+        // TODO: Remove this test
+        setData("Test", true, HTMLText.makeImage(new Tools().getSprite(null)));
+    }
 
     public int getState() {
         return state;
@@ -29,5 +35,13 @@ public class FancyFrame implements Serializable {
             state++;
             data = "BLANK";
         }
+    }
+
+    public void handleInput(String data) {
+        Logger.log("Fancy frame handling input \"" + data + "\"");
+    }
+
+    public void handleClick(int x, int y) {
+        Logger.log("Fancy frame handling click x=" + x + " y=" + y);
     }
 }

@@ -1,11 +1,18 @@
 package clientview;
 
+import clientcomm.MyCallback;
+import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientlogic.Observer;
 import clientview.components.FancyFrameHtmlPane;
+import model.items.general.GameItem;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class FancyFrame extends JFrame implements Observer {
 
@@ -28,9 +35,56 @@ public class FancyFrame extends JFrame implements Observer {
         jed.setMargin(new Insets(0,0,0,0));
         this.add(jed);
         inputField = new JTextField();
+        inputField.setBackground(Color.BLACK);
+        inputField.setForeground(Color.GREEN);
+        inputField.getCaret().
         GameData.getInstance().subscribe(this);
+
+        inputField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("Got action event from input field!");
+                String inputData = inputField.getText();
+                handleInputEvent(inputData);
+                inputField.setText("");
+            }
+        });
+
+        jed.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                handleMouseEvent(e.getX(), e.getY());
+            }
+        });
     }
 
+    private void handleMouseEvent(int x, int y) {
+        ServerCommunicator.send(GameData.getInstance().getClid() + " FANCYFRAME CLICK " + x + " " + y, new MyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                GameData.getInstance().deconstructFancyFrameData(result);
+            }
+
+            @Override
+            public void onFail() {
+                System.out.println("Failed during FANCYFRAME CLICK");
+            }
+        });
+    }
+
+    private void handleInputEvent(String inputData) {
+        ServerCommunicator.send(GameData.getInstance().getClid() + " FANCYFRAME INPUT " + inputData, new MyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                GameData.getInstance().deconstructFancyFrameData(result);
+            }
+
+            @Override
+            public void onFail() {
+                System.out.println("Failed during FANCYFRAME INPUT");
+            }
+        });
+    }
 
 
     @Override
