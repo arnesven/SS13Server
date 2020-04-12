@@ -11,6 +11,7 @@ import model.actions.itemactions.DefuseBombAction;
 import model.actions.itemactions.DismantleAction;
 import model.actions.itemactions.RepairAction;
 import model.actions.itemactions.SealHullBreachAction;
+import model.items.NoSuchThingException;
 import model.items.weapons.BluntWeapon;
 import model.map.rooms.Room;
 import model.objects.general.GameObject;
@@ -22,7 +23,9 @@ public class Tools extends BluntWeapon {
 	public Tools() {
 		super("Toolkit", 0.5, 80, 0.80);
 	}
-	
+
+
+
 	@Override
 	public Tools clone() {
 		return new Tools();
@@ -51,7 +54,12 @@ public class Tools extends BluntWeapon {
         }
 	}
 
-    private boolean positionHasBomb(Room position) {
+	@Override
+	public Sprite getHandHeldSprite() {
+		return new Sprite("toolsheldinhand", "items_righthand.png", 11, 42, null);
+	}
+
+	private boolean positionHasBomb(Room position) {
         for (GameItem it : position.getItems()) {
             if (it instanceof BombItem  && !((BombItem) it).isHidden()) {
                 return true;
@@ -72,6 +80,19 @@ public class Tools extends BluntWeapon {
 			}
 		}
 		return false;
+	}
+
+	public static void holdInHand(Actor performingClient) {
+		if (GameItem.hasAnItemOfClass(performingClient, Tools.class)) {
+			Tools t = null;
+			try {
+				t = GameItem.getItemFromActor(performingClient, new Tools());
+				t.makeHoldInHand(performingClient);
+			} catch (NoSuchThingException e) {
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 }

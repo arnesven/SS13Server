@@ -32,6 +32,7 @@ public class AdministrationConsole extends Console {
         acceptedActors = new HashSet<>();
         toBeDemoted = new HashSet<>();
         this.bank = Bank.getInstance(gameData);
+        shipments.add(new FoodShipment());
         shipments.add(new FireFighterShipment());
 		shipments.add(new MedicalShipment());
 		shipments.add(new ExterminationShipment());

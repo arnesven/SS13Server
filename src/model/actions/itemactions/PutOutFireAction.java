@@ -64,7 +64,7 @@ public class PutOutFireAction extends Action {
                     performingClient.addTolastTurnInfo("You put out the fire.");
                 }
                 fireExtinguisher.decrementLevel();
-                performingClient.setCharacter(new HoldingItemDecorator(performingClient.getCharacter(), fireExtinguisher));
+                fireExtinguisher.makeHoldInHand(performingClient);
 
             } catch (NoSuchElementException nse) {
                 performingClient.addTolastTurnInfo("No fire to put out.");

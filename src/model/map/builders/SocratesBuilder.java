@@ -31,7 +31,7 @@ public class SocratesBuilder extends MapBuilder {
         gm.addRoom(panorama, ss13, "aft");
         gm.addRoom(panorama, ss13, "port");
 
-        KitchenRoom kitch = new KitchenRoom(8,  2, 4, 2, 1, new int[]{27, 12, 2}, new double[]{3.5, 4.0, 3.5, 5.0} );
+        KitchenRoom kitch = new KitchenRoom(gameData, 8,  2, 4, 2, 1, new int[]{27, 12, 2}, new double[]{3.5, 4.0, 3.5, 5.0} );
         gm.addRoom(kitch, ss13, "aft");
         Room dorms = new DormsRoom(12, 0, 5, 3, 2, new int[]{8, 5},  new double[]{2.5, 5.0});
         gm.addRoom(dorms, ss13, "aft");

@@ -43,6 +43,7 @@ public class SealHullBreachAction extends Action {
                 }
             }
             performingClient.addTolastTurnInfo("You sealed the breach.");
+            Tools.holdInHand(performingClient);
         } else {
             performingClient.addTolastTurnInfo("What? The tools are gone! Your action failed.");
         }

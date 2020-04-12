@@ -164,6 +164,7 @@ public class SS13Client extends JFrame {
         JMenuItem item = new JMenuItem("Connect");
         view = new JMenu("View");
         makeCenterOnMe(view);
+        makeForeceShowFancyFrame(view);
         makeScaleMenu(view);
      //   makeZoomMenu(view);
         makeBackgroundMenu(view);
@@ -236,6 +237,18 @@ public class SS13Client extends JFrame {
         menubar.add(server);
 
         this.setJMenuBar(menubar);
+    }
+
+    private void makeForeceShowFancyFrame(JMenu view) {
+        JMenuItem forceShow = new JMenuItem("Show Small Window");
+        forceShow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                fancyFrame.setVisible(true);
+            }
+        });
+
+        view.add(forceShow);
     }
 
     private void makeCenterOnMe(JMenu view) {

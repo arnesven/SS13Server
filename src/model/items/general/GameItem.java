@@ -11,7 +11,9 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.general.*;
+import model.characters.decorators.HoldingItemDecorator;
 import model.characters.general.GameCharacter;
+import model.items.HandheldItem;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
 import util.Logger;
@@ -266,5 +268,13 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
         }
 
         return acts;
+    }
+
+    public void makeHoldInHand(Actor performingClient) {
+        if (this instanceof HandheldItem) {
+            performingClient.setCharacter(new HoldingItemDecorator(performingClient.getCharacter(), (HandheldItem) this));
+        } else {
+            throw new IllegalStateException(getBaseName() + " can't be held in hand!");
+        }
     }
 }

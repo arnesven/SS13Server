@@ -1,5 +1,7 @@
 package model.map.rooms;
 
+import model.items.EmptyContainer;
+import model.items.general.Chemicals;
 import model.map.doors.UpgoingStairsDoor;
 import model.objects.decorations.OldChair;
 import model.objects.decorations.TrashBag;
@@ -13,5 +15,7 @@ public class JanitorialRoom extends SupportRoom {
         this.addObject(new WetWarningSign(this));
         this.addObject(new TrashBag(this));
         this.addObject(new OldChair(this));
+        this.addItem(new EmptyContainer());
+        this.addItem(Chemicals.createRandomChemicals());
     }
 }

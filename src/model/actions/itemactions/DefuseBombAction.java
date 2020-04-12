@@ -44,6 +44,7 @@ public class DefuseBombAction extends Action {
                     ((BombItem) it).defuse(gameData);
                     performingClient.getPosition().getItems().remove(it);
                 }
+                Tools.holdInHand(performingClient);
                 return;
             }
         }

@@ -8,6 +8,7 @@ import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
 import model.items.general.ElectronicParts;
 import model.items.general.GameItem;
+import model.items.general.Tools;
 import model.objects.general.BreakableObject;
 import model.objects.general.GameObject;
 import util.MyRandom;
@@ -31,6 +32,7 @@ public class DismantleAction extends TargetingAction {
         }
         performingClient.addTolastTurnInfo("You salvaged some parts from the " +
                 ((GameObject) target).getPublicName(performingClient) + ".");
+        Tools.holdInHand(performingClient);
     }
 
 

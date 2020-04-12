@@ -2,6 +2,7 @@ package model.objects.general;
 
 import graphics.sprites.Sprite;
 import model.Player;
+import model.items.chemicals.GeneratorStartedFluid;
 import model.items.general.Chemicals;
 import model.items.general.FireExtinguisher;
 import model.items.general.Tools;
@@ -15,7 +16,8 @@ public class ChemicalDispenser extends DispenserObject {
 		this.addItem(Chemicals.createRandomChemicals());
 		this.addItem(Chemicals.createRandomChemicals());
         this.addItem(Chemicals.createRandomChemicals());
-        this.addItem(Chemicals.createRandomChemicals());
+        this.addItem(new GeneratorStartedFluid());
+        this.addItem(new GeneratorStartedFluid());
         this.addItem(new FireExtinguisher());
 
 	}

@@ -1,6 +1,7 @@
 package model.map.rooms;
 
 import model.GameData;
+import model.items.EmptyContainer;
 import model.items.general.FireExtinguisher;
 import model.items.general.Tools;
 import model.items.suits.FireSuit;
@@ -18,6 +19,7 @@ public class GeneratorRoom extends TechRoom {
         this.addObject(new LifeSupportConsole(this, gameData));
         this.addItem(new Tools());
         this.addItem(new FireSuit());
+        this.addItem(new EmptyContainer());
 	}
 
 }

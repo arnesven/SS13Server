@@ -58,7 +58,7 @@ public class ValleyForgeSS13Builder extends MapBuilder {
         // C DECK
         Room gate = new HallwayRoom(13, "Shuttle Gate", "Gate", 2,  6, 3, 3, new int[]{14, 8, 6}, new double[]{} );
         gm.addRoom(gate, ss13, "C-DECK");
-        gm.addRoom(new KitchenRoom(8,  5, 4, 2, 3, new int[]{25, 12, 13}, new double[]{5, 6.5}), ss13, "C-DECK");
+        gm.addRoom(new KitchenRoom(gameData, 8,  5, 4, 2, 3, new int[]{25, 12, 13}, new double[]{5, 6.5}), ss13, "C-DECK");
         Room army = new ArmoryRoom(22, 3, 9, 3, 2, new int[]{22}, new double[]{4, 9});
         gm.addRoom(army, ss13, "C-DECK");
         {

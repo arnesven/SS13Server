@@ -4,10 +4,14 @@ import java.util.List;
 
 import model.characters.general.ChimpCharacter;
 import model.events.damage.FireDamage;
+import model.items.EmptyContainer;
 import model.items.NoSuchThingException;
 import model.items.foods.GrilledMonkeyDeluxe;
+import model.items.foods.RawFoodContainer;
+import model.items.general.GameItem;
 import model.items.suits.Equipment;
 import model.map.rooms.Room;
+import model.objects.general.CrateObject;
 import model.objects.general.Dumbwaiter;
 import model.objects.general.GameObject;
 import util.Logger;
@@ -73,37 +77,89 @@ public class CookFoodAction extends Action {
 			factor = 0.25;
 			performingClient.addTolastTurnInfo("You are a master in the kitchen!");
 		}
-		
-		if (MyRandom.nextDouble() > selectedItem.getFireRisk()*factor && selectedItem.canBeCooked(gameData, performingClient)) {
+
+		if ( removeRawFoodIfAble(gameData, performingClient)) {
+			if (MyRandom.nextDouble() > selectedItem.getFireRisk() * factor && selectedItem.canBeCooked(gameData, performingClient)) {
+				String result = "You successfully cooked a " +
+						selectedItem.getPublicName(performingClient);
+				if (chosenDestination == null || chosenDestination.contains("inventory")) {
+					performingClient.addItem(selectedItem, cooker);
+					performingClient.addTolastTurnInfo(result + ".");
+				} else {
+					try {
+						List<Room> dumbwaiterRooms = gameData.findObjectOfType(Dumbwaiter.class).getDestinations(gameData);
+						for (Room r : dumbwaiterRooms) {
+							if (chosenDestination.contains(r.getName())) {
+								r.addItem(selectedItem);
+								performingClient.addTolastTurnInfo(result + ", it was sent to " + r.getName() + ".");
+							}
+						}
+					} catch (NoSuchThingException e) {
+						Logger.log(Logger.CRITICAL, "WHAT? No dumbwaiter found? But cooker got to choose destinations!!!");
+					}
+				}
 
 
-            String result = "You successfully cooked a " +
-                    selectedItem.getPublicName(performingClient);
-            if (chosenDestination == null || chosenDestination.contains("inventory")) {
-                performingClient.addItem(selectedItem, cooker);
-                performingClient.addTolastTurnInfo(result + ".");
-            } else {
-                try {
-                    List<Room> dumbwaiterRooms = gameData.findObjectOfType(Dumbwaiter.class).getDestinations(gameData);
-                    for (Room r : dumbwaiterRooms) {
-                        if (chosenDestination.contains(r.getName())) {
-                            r.addItem(selectedItem);
-                            performingClient.addTolastTurnInfo(result + ", it was sent to " + r.getName() + ".");
-                        }
-                    }
-                } catch (NoSuchThingException e) {
-                    Logger.log(Logger.CRITICAL, "WHAT? No dumbwaiter found? But cooker got to choose destinations!!!");
-                }
-            }
-
+			} else {
+				gameData.getGameMode().addFire(performingClient.getPosition());
+				performingClient.addTolastTurnInfo("You accidentally started a fire while cooking!");
+			}
 		} else {
-			gameData.getGameMode().addFire(performingClient.getPosition());
-			performingClient.addTolastTurnInfo("You accidentally started a fire while cooking!");
+			performingClient.addTolastTurnInfo("No raw food to use! " + Action.FAILED_STRING);
 		}
 		
 	}
-	
-	
+
+	private boolean removeRawFoodIfAble(GameData gameData, Actor performingClient) {
+		GameItem itToRemove = null;
+		// First look for raw food in room itself
+    	for (GameItem it : performingClient.getPosition().getItems()) {
+			if (it instanceof RawFoodContainer) {
+				itToRemove = it;
+				break;
+			}
+		}
+		if (itToRemove != null) {
+    		performingClient.getPosition().getItems().remove(itToRemove);
+    		performingClient.getPosition().addItem(new EmptyContainer());
+    		return true;
+    	}
+
+
+		// next look for raw food in crates in the room
+		for (GameObject ob : performingClient.getPosition().getObjects()) {
+    		if (ob instanceof CrateObject) {
+    			for (GameItem it : ((CrateObject) ob).getInventory()) {
+    				if (it instanceof RawFoodContainer) {
+    					itToRemove = it;
+    					break;
+					}
+				}
+				if (itToRemove != null) {
+					((CrateObject) ob).getInventory().remove(itToRemove);
+					performingClient.getPosition().addItem(new EmptyContainer());
+					return true;
+				}
+			}
+		}
+
+		// finally look for raw food in player's inventory
+		for (GameItem it : performingClient.getItems()) {
+    		if (it instanceof RawFoodContainer) {
+    			itToRemove = it;
+    			break;
+			}
+		}
+		if (itToRemove != null) {
+			performingClient.getItems().remove(itToRemove);
+			performingClient.getPosition().addItem(new EmptyContainer());
+			return true;
+		}
+		Logger.log("Could not find raw food object to use up!");
+		return false;
+	}
+
+
 	private boolean hasAChefsHatOn(Actor performingClient) {
 		return performingClient.getCharacter().getEquipment().getEquipmentForSlot(Equipment.HEAD_SLOT) instanceof ChefsHat;
 	}

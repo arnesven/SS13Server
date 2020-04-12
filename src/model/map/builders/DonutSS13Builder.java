@@ -33,7 +33,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(airLock1, ss13, "aft");
         gm.addRoom(airLock1, ss13, "starboard");
 
-        KitchenRoom kitch = new KitchenRoom(8,  4, 10, 2, 3, new int[]{6, 9, 10}  ,         new double[]{6.0, 11.5, 5.5, 10.0} );
+        KitchenRoom kitch = new KitchenRoom(gameData, 8,  4, 10, 2, 3, new int[]{6, 9, 10}  ,         new double[]{6.0, 11.5, 5.5, 10.0} );
         gm.addRoom(kitch, ss13, "starboard");
 
         Room sHallAft = new HallwayRoom( 9, "Starboard Hall Aft"  , "S T A R -" , 5,  8, 4, 2, new int[]{5, 8, 10, 11},       new double[]{9.0, 9.5} );
