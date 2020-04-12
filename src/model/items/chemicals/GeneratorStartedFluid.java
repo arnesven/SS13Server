@@ -12,7 +12,7 @@ public class GeneratorStartedFluid extends Chemicals {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("generatorstarterfluid", "items2.png", 9, 4, this);
+        return new Sprite("generatorstarterfluid", "tank.png", 2, 0, this);
     }
 
     @Override

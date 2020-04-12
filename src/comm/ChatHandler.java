@@ -2,6 +2,8 @@ package comm;
 
 import comm.chat.ChatCommands;
 import model.GameData;
+import model.GameState;
+import model.Talking;
 import util.MyStrings;
 
 import java.io.IOException;
@@ -26,6 +28,9 @@ public class ChatHandler extends AbstractCommandHandler {
                 boolean wasCommand = ChatCommands.chatWasCommand(gameData, rest, clid);
                 if (!wasCommand) {
                     gameData.getChat().addAll(clid + ": " + rest);
+                    if (gameData.getGameState() != GameState.PRE_GAME) {
+                        Talking.decorateWithTalk(gameData, gameData.getPlayerForClid(clid), rest);
+                    }
                 }
             }
 

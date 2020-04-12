@@ -4,6 +4,7 @@ import model.GameData;
 import model.npcs.BAR2D2Robot;
 import model.npcs.robots.RobotNPC;
 import model.objects.consoles.BarSignControl;
+import model.objects.decorations.JukeBox;
 import model.objects.general.Refrigerator;
 import model.objects.general.SlotMachine;
 
@@ -16,6 +17,7 @@ public class BarRoom extends SupportRoom {
         this.addObject(new Refrigerator(this));
         this.addObject(new SlotMachine(this));
         this.addObject(new BarSignControl(this));
+        this.addObject(new JukeBox(this));
         RobotNPC bar2d2 = new BAR2D2Robot(this.getID(), this);
         gameData.addNPC(bar2d2);
     }
