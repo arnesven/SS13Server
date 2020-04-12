@@ -9,6 +9,7 @@ import model.items.NoSuchThingException;
 import model.items.general.ElectronicParts;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
+import model.objects.BarSign;
 import model.objects.ai.AITurret;
 import model.objects.general.ATM;
 import model.objects.general.StasisPod;
@@ -103,6 +104,7 @@ public class BuildElectronicObjectAction extends Action {
         for (Room r : performer.getPosition().getNeighborList()) {
             set.add(new KeyCardLock(r, performer.getPosition(), false, 1.0));
         }
+        set.add(new BarSign(null));
 
 
         return set;
