@@ -12,8 +12,7 @@ public class FancyFrame implements Serializable {
     private String data;
 
     public FancyFrame() {
-        // TODO: Remove this test
-        setData("Test", true, HTMLText.makeImage(new Tools().getSprite(null)));
+       // setData("Test", true, HTMLText.makeImage(new Tools().getSprite(null)));
     }
 
     public int getState() {

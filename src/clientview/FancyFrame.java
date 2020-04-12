@@ -33,11 +33,10 @@ public class FancyFrame extends JFrame implements Observer {
         this.setResizable(false);
         this.jed = new FancyFrameHtmlPane();
         jed.setMargin(new Insets(0,0,0,0));
-        this.add(jed);
+        this.add(new JScrollPane(jed));
         inputField = new JTextField();
         inputField.setBackground(Color.BLACK);
         inputField.setForeground(Color.GREEN);
-        inputField.getCaret().
         GameData.getInstance().subscribe(this);
 
         inputField.addActionListener(new ActionListener() {
@@ -117,5 +116,6 @@ public class FancyFrame extends JFrame implements Observer {
             this.add(inputField, BorderLayout.SOUTH);
         }
         jed.setText(parts[2]);
+        jed.setCaretPosition(0);
     }
 }
