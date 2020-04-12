@@ -4,6 +4,7 @@ import model.GameData;
 import model.map.GameMap;
 import model.map.doors.*;
 import model.map.rooms.*;
+import model.objects.BarSign;
 import model.objects.consoles.KeyCardLock;
 
 /**
@@ -37,6 +38,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(kitch, ss13, "starboard");
 
         Room sHallAft = new HallwayRoom( 9, "Starboard Hall Aft"  , "S T A R -" , 5,  8, 4, 2, new int[]{5, 8, 10, 11},       new double[]{9.0, 9.5} );
+        sHallAft.addObject(new BarSign(sHallAft));
         gm.addRoom(sHallAft, ss13, "starboard");
 
         Room bar = new BarRoom(gameData, 10, 6, 10, 3, 2, new int[]{8, 9, 12}  ,         new double[]{7.5, 10.0, 9.0, 11.5});

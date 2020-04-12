@@ -253,4 +253,8 @@ public class Sprite implements Serializable {
     public boolean isRegistered() {
         return SpriteManager.isRegistered(this);
     }
+
+    public void setColumn(int i) {
+        this.column = i;
+    }
 }
