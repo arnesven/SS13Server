@@ -4,6 +4,7 @@ import model.items.EmptyContainer;
 import model.items.general.Chemicals;
 import model.map.doors.UpgoingStairsDoor;
 import model.objects.decorations.OldChair;
+import model.objects.decorations.PosterObject;
 import model.objects.decorations.TrashBag;
 import model.objects.decorations.WetWarningSign;
 
