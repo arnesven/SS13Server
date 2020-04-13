@@ -96,4 +96,9 @@ public class OperativeCharacter extends HumanCharacter {
 	public String getMugshotName() {
 		return "Operative";
 	}
+
+	@Override
+	public String getRadioName() {
+		return "Somebody";
+	}
 }

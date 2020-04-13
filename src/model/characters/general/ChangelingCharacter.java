@@ -347,4 +347,12 @@ public class ChangelingCharacter extends GameCharacter {
 	public String getMugshotName() {
 		return "Changeling";
 	}
+
+	@Override
+	public String getRadioName() {
+    	if (current instanceof HorrorCharacter) {
+    		return "Something";
+		}
+		return super.getRadioName();
+	}
 }

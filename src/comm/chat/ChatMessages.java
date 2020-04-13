@@ -1,7 +1,10 @@
 package comm.chat;
 
 import model.Actor;
+import model.GameData;
 import model.Player;
+import model.items.NoSuchThingException;
+import model.map.rooms.Room;
 import util.HTMLText;
 import util.Logger;
 
@@ -53,8 +56,12 @@ public class ChatMessages implements Serializable {
     }
 
     public void addAll(String s) {
+       addAll(s, true);
+    }
+
+    public void addAll(String s, boolean timeStamp) {
         for (Player p : chatMessages.keySet()) {
-            add(s, p);
+            add(s, p, timeStamp);
         }
     }
 
@@ -148,6 +155,24 @@ public class ChatMessages implements Serializable {
                     this.add(sender.getCharacter().getPublicName() + " said " + "\"" + rest + "\"", (Player)a, false);
                 }
             }
+        }
+    }
+
+    public void overRadioSay(GameData gameData, Player sender, String whatWasSaid) {
+        try {
+            for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(sender.getPosition()).getName())) {
+                for (Actor a : r.getActors()) {
+                    if (a instanceof Player) {
+                        if (a == sender) {
+                            this.add(HTMLText.makeText("blue", "You said " + "\"" + whatWasSaid + "\""), (Player) a, false);
+                        } else {
+                            this.add(HTMLText.makeText("blue", sender.getCharacter().getRadioName() + " said " + "\"" + whatWasSaid + "\""), (Player) a, false);
+                        }
+                    }
+                }
+            }
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -756,4 +756,8 @@ public abstract class GameCharacter implements Serializable {
 	public void setPhysicalBody(PhysicalBody body) {
 		this.physBody = body;
 	}
+
+	public String getRadioName() {
+		return getBaseName();
+	}
 }

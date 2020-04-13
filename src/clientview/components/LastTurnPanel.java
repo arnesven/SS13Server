@@ -14,8 +14,8 @@ public class LastTurnPanel extends JPanel implements Observer {
 
     //private ScrollPanel scrollPane;
 	private static StringBuffer previous = new StringBuffer();
-	private static JEditorPane pane;
-    private final ChatInputField inputField;
+	private static MyHtmlPane pane;
+    private final InGameChatInputField inputField;
     private String last = "";
 
 	public LastTurnPanel() {
@@ -25,7 +25,7 @@ public class LastTurnPanel extends JPanel implements Observer {
 		//this.getElement().getStyle().setFontSize(12, Unit.PT);
 		//scrollPane.setAlwaysShowScrollBars(true);
 
-        pane = new JEditorPane();
+        pane = new MyHtmlPane();
 
 
         //this.setPreferredSize(new Dimension(300, -1));
@@ -46,7 +46,7 @@ public class LastTurnPanel extends JPanel implements Observer {
             }
         });
 		this.add(new JScrollPane(pane));
-		this.inputField = new ChatInputField();
+		this.inputField = new InGameChatInputField();
 		this.add(inputField, BorderLayout.SOUTH);
 		GameData.getInstance().subscribe(this);
 	}

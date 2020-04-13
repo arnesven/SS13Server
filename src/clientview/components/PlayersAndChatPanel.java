@@ -12,6 +12,7 @@ public class PlayersAndChatPanel extends JPanel {
     public PlayersAndChatPanel(String username, SS13Client parent) {
         players = new PlayersPanel(username, parent);
         ChatPanel chat = new ChatPanel();
+        chat.setPreferredSize(new Dimension((parent.getWidth() * 2) / 3, parent.getHeight()));
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.add(players);
         this.add(chat);

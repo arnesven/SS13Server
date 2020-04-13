@@ -481,4 +481,9 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public void setPhysicalBody(PhysicalBody body) {
 		innerChar.setPhysicalBody(body);
 	}
+
+	@Override
+	public String getRadioName() {
+		return innerChar.getRadioName();
+	}
 }

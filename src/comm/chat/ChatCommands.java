@@ -44,13 +44,6 @@ public class ChatCommands {
                         + "\".", sender);
             }
             return true;
-        } else if (gameData.getGameState() == GameState.ACTIONS) {
-            for (Player p : gameData.getPlayersAsList()) {
-                p.addTolastTurnInfo(HTMLText.makeText("purple", clid + ": " + rest));
-            }
-        } else if (gameData.getGameState() == GameState.MOVEMENT) {
-            gameData.addToLostMessages(HTMLText.makeText("purple", clid + ": " + rest));
-
         }
         return false;
 
@@ -61,6 +54,7 @@ public class ChatCommands {
         list.add(new MugshotChatHandler());
         list.add(new MapsChatHandler());
         list.add(new ChangeMapChatHandler());
+        list.add(new OverRadioSayChatHandler());
         list.add(new InCharacterSayChatHandler());
         list.add(new HelpChatHandler());
         return list;
