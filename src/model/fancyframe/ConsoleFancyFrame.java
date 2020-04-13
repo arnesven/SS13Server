@@ -4,7 +4,7 @@ import model.GameData;
 import model.Player;
 import model.objects.consoles.Console;
 
-public class ConsoleFancyFrame extends FancyFrame {
+public abstract class ConsoleFancyFrame extends FancyFrame {
 
     private final Console console;
 
@@ -15,7 +15,13 @@ public class ConsoleFancyFrame extends FancyFrame {
 
 
     public void leaveFancyFrame(GameData gameData, Player pl) {
-        console.setFancyFrameVacant();
         pl.setFancyFrame(new FancyFrame(this));
     }
+
+    @Override
+    protected void beingDisposed() {
+        console.setFancyFrameVacant();
+    }
+
+    public abstract void rebuildInterface(GameData gameData, Player player);
 }

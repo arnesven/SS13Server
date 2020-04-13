@@ -143,6 +143,10 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
         Logger.log("Powerlevel is now " + getLevel());
     }
 
+    public double getOngoing() {
+        return dlevel;
+    }
+
     public List<String> getPrios() {
         return prios;
     }

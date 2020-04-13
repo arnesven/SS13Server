@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.general.DoNothingAction;
 import model.actions.general.SensoryLevel;
 import model.fancyframe.ConsoleFancyFrame;
 import model.fancyframe.FancyFrame;
@@ -35,6 +36,8 @@ public class SitDownAtPowerConsoleAction extends FancyFrameAction {
             ConsoleFancyFrame ff = new PowerGeneratorFancyFrame(console, ((Player) performingClient));
             ((Player) performingClient).setFancyFrame(ff);
             performingClient.setCharacter(new UsingConsoleFancyFrameDecorator(performingClient.getCharacter(), ff));
+            ((Player) performingClient).setNextAction(new DoNothingAction());
+            ((Player) performingClient).refreshClientData();
         } else if (performingClient instanceof Player) {
             gameData.getChat().serverSay(console.getPublicName(performingClient) +
                     " is occupied right now, try again later.", (Player)performingClient);

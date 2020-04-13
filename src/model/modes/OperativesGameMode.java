@@ -9,6 +9,7 @@ import graphics.sprites.Sprite;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import model.events.NoPressureEverEvent;
+import model.fancyframe.SinglePageFancyFrame;
 import model.items.NoSuchThingException;
 import model.objects.general.NuclearBomb;
 import util.HTMLText;
@@ -193,7 +194,7 @@ public class OperativesGameMode extends GameMode {
 			data.append("Other decoys are " + decoyStr.toString());
 		}
 
-		c.getFancyFrame().setData("Important!", false, HTMLText.makeColoredBackground("Red", data.toString()));
+		c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Important!", HTMLText.makeColoredBackground("Red", data.toString())));
 	}
 
 	@Override

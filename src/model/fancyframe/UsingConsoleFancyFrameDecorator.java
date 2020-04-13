@@ -17,6 +17,14 @@ public class UsingConsoleFancyFrameDecorator extends CharacterDecorator {
     }
 
     @Override
+    public void doAfterActions(GameData gameData) {
+        super.doAfterActions(gameData);
+        if (getActor() instanceof Player) {
+            fancyFrame.rebuildInterface(gameData, (Player) getActor());
+        }
+    }
+
+    @Override
     public void doAfterMovement(GameData gameData) {
         super.doAfterActions(gameData);
         System.out.println("Checking position for player using fancy frame");

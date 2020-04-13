@@ -17,7 +17,8 @@ public class FancyFrame implements Serializable {
 
     public FancyFrame(FancyFrame old) {
         if (old != null) {
-            this.state = old.state++;
+            old.beingDisposed();
+            this.state = old.state + 1;
             data = "BLANK";
         }
     }
@@ -30,7 +31,7 @@ public class FancyFrame implements Serializable {
         return data;
     }
 
-    public void setData(String title, boolean hasInput, String html) {
+    protected void setData(String title, boolean hasInput, String html) {
         data = title + "<part>" + (hasInput?"HAS INPUT":"NO INPUT") + "<part>" + html + "<part>" + width + ":" + height;
         state++;
     }
@@ -59,4 +60,10 @@ public class FancyFrame implements Serializable {
         this.width = width;
         this.height = height;
     }
+
+
+    protected void beingDisposed() {
+
+    }
+
 }

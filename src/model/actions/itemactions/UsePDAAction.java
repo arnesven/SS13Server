@@ -7,6 +7,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
+import model.actions.general.DoNothingAction;
 import model.items.general.*;
 import model.items.suits.Equipment;
 import model.items.suits.SuperSuit;
@@ -132,6 +133,7 @@ public class UsePDAAction extends Action {
 		} else if (args.get(0).contains("Show Objective")) {
 			if (p instanceof Player) {
 				traitorMode.setAntagonistFancyFrame((Player)p);
+				((Player) p).setNextAction(new DoNothingAction());
 			}
 			show = true;
 		} else {

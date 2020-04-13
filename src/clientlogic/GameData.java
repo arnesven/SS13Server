@@ -122,10 +122,10 @@ public class GameData {
 
 		try {
 			int fancyFrameState = Integer.parseInt(parts[index+1]);
-			if (fancyFrameState != getFancyFrameState()) {
+			if (fancyFrameState != this.fancyFrameState) {
+				System.out.println("Fancy frame needs update, getting from server.");
 			    getFancyFrame();
 			    this.fancyFrameState = fancyFrameState;
-				//getSoundsFromServer(serverLastSound);
 			}
 			index++;
 		} catch (NumberFormatException nfe) {
@@ -842,7 +842,11 @@ public class GameData {
 	public void deconstructFancyFrameData(String result) {
 		String[] parts = result.split("<part>");
 		fancyFrameState = Integer.parseInt(parts[0]);
-		setFancyFrameData(parts[1]);
+		if (result.contains("BLANK")) {
+			setFancyFrameData("BLANK");
+		} else {
+			setFancyFrameData(parts[1] + "<part>" + parts[2] + "<part>" + parts[3] + "<part>" + parts[4]);
+		}
 		notifyObservers();
 	}
 }

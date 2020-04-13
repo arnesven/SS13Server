@@ -9,6 +9,7 @@ import model.Actor;
 import model.characters.decorators.InfectedCharacter;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
+import model.fancyframe.SinglePageFancyFrame;
 import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
@@ -89,11 +90,11 @@ public class HostGameMode extends GameMode {
 
 	private void addHostStartingMessage(Player cl) {
 		hiveString = "The " + HTMLText.makeWikiLink("modes/host", "hive") + " is in " + hiveRoom.getName() + ".";
-		cl.getFancyFrame().setData("Important!" , false, HTMLText.makeColoredBackground("Lime", HTMLText.makeCentered(
+		cl.setFancyFrame(new SinglePageFancyFrame(cl.getFancyFrame(), "Important!" ,  HTMLText.makeColoredBackground("Lime", HTMLText.makeCentered(
 				"<br/><br/><b>You are the host!</b><br/>" + " (Only you know this, so keep it a secret.)<br/><br/>" +
 						HTMLText.makeImage(hive.getSprite(null)) + "<br/>" +
 				hiveString +
-				"<br/>Protect it by killing humans or infecting them, turning them over to your side.")));
+				"<br/>Protect it by killing humans or infecting them, turning them over to your side."))));
 	}
 
 	

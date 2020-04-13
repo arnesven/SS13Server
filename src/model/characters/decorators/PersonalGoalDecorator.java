@@ -4,8 +4,10 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.general.DoNothingAction;
 import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
+import model.fancyframe.SinglePageFancyFrame;
 import model.modes.goals.PersonalGoal;
 import util.HTMLText;
 
@@ -44,9 +46,11 @@ public class PersonalGoalDecorator extends CharacterDecorator {
         @Override
         public void setArguments(List<String> args, Actor performingClient) {
             if (performingClient instanceof Player) {
-                ((Player) performingClient).getFancyFrame().setData("Personal Goal", false, "<br/>" +
+                Player p = ((Player) performingClient);
+                p.setFancyFrame(new SinglePageFancyFrame(p.getFancyFrame(), "Personal Goal", "<br/>" +
                         HTMLText.makeCentered(goal.getText()) +
-                        "<br/><br/><i>Personal goals can earn you a Hall of Fame point if you do not receive any other points.");
+                        "<br/><br/><i>Personal goals can earn you a Hall of Fame point if you do not receive any other points."));
+                p.setNextAction(new DoNothingAction());
             }
         }
 

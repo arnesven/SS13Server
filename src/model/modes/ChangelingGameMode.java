@@ -8,6 +8,7 @@ import model.characters.decorators.CharacterDecorator;
 import model.characters.general.*;
 import model.characters.special.SpectatorCharacter;
 import model.events.Event;
+import model.fancyframe.SinglePageFancyFrame;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
 import util.HTMLText;
@@ -187,11 +188,11 @@ public class ChangelingGameMode extends GameMode {
 	@Override
 	protected void addAntagonistStartingMessage(Player c) {
 		//c.addTolastTurnInfo(HTMLText.makeText("purple", "verdana", 3,
-		c.getFancyFrame().setData("Important!", false, HTMLText.makeColoredBackground("purple",
+		c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Important!",  HTMLText.makeColoredBackground("purple",
 				HTMLText.makeCentered(HTMLText.makeText("Aqua",
 				"<br/><b>You are a " + HTMLText.makeLink(HTMLText.wikiURL + "/changelingmode", "changeling!</b><br/><br/>") +
 						HTMLText.makeImage(ling.getSprite(null)) + "<br/>" +
-				"Use your suction attack to absorb the essence of other creatures. When you feel strong enough, transform into your Ultimate Form. You must kill all the crew to win!" + decoyString()))));
+				"Use your suction attack to absorb the essence of other creatures. When you feel strong enough, transform into your Ultimate Form. You must kill all the crew to win!" + decoyString())))));
     }
 
 	@Override

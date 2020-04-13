@@ -11,6 +11,7 @@ import graphics.sprites.Sprite;
 import model.characters.decorators.NoSuchInstanceException;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
+import model.fancyframe.SinglePageFancyFrame;
 import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
@@ -590,9 +591,9 @@ public class TraitorGameMode extends GameMode {
 	}
 
 	public void setAntagonistFancyFrame(Player c) {
-		c.getFancyFrame().setData("Important!", false, HTMLText.makeColoredBackground("Yellow", HTMLText.makeCentered("<br/><br/><b>" +
+		c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Important!", HTMLText.makeColoredBackground("Yellow", HTMLText.makeCentered("<br/><br/><b>" +
 				HTMLText.makeText("Red", TRAITOR_START_STRING) + "</b><br/>" + HTMLText.makeImage(new PDA(this).getSprite(null)) + "<br/>" + getObjectiveText(c) + "<br/>" + "<i>You can access this dialog again by using your PDA.</i>") + "<br/>" +
-				HTMLText.makeFancyFrameLink("DISMISS", "(dismiss)")));
+				HTMLText.makeFancyFrameLink("DISMISS", "(dismiss)"))));
 	}
 
 	@Override

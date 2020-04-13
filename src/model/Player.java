@@ -9,6 +9,7 @@ import graphics.sprites.*;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import model.fancyframe.FancyFrame;
+import model.fancyframe.SinglePageFancyFrame;
 import model.items.suits.SuitItem;
 import model.map.rooms.SpaceRoom;
 import model.movepowers.MovePowerRoom;
@@ -506,8 +507,8 @@ public class Player extends Actor implements Target, Serializable {
 	public void beInfected(Actor performingClient) {
 		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
 		performingClient.addTolastTurnInfo("You were " + HTMLText.makeText("Green", "infected") + " by " + performingClient.getPublicName(this));
-		this.fancyFrame.setData("Important!", false, HTMLText.makeColoredBackground("Lime", HTMLText.makeCentered("<br/>You were just infected by " + performingClient.getPublicName() +
-				"!</b><br/>You are now on the " + HTMLText.makeWikiLink("modes/host", "Host") + " team. <br/>Keep the humans from destroying the hive!")));
+		setFancyFrame(new SinglePageFancyFrame(getFancyFrame(),"Important!", HTMLText.makeColoredBackground("Lime", HTMLText.makeCentered("<br/>You were just infected by " + performingClient.getPublicName() +
+				"!</b><br/>You are now on the " + HTMLText.makeWikiLink("modes/host", "Host") + " team. <br/>Keep the humans from destroying the hive!"))));
 
 	}
 

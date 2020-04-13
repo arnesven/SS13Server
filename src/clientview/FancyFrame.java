@@ -29,6 +29,7 @@ public class FancyFrame extends JFrame implements Observer {
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.setSize(new Dimension(FF_WIDTH, FF_HEIGHT));
         this.setTitle("Unknown");
+        this.setAlwaysOnTop(true);
         this.setResizable(false);
         this.jed = new FancyFrameHtmlPane();
         jed.setMargin(new Insets(0,0,0,0));
@@ -95,15 +96,20 @@ public class FancyFrame extends JFrame implements Observer {
         String data = GameData.getInstance().getFancyFrameData();
         if (data.startsWith("BLANK")) {
             if (isVisible()) {
+                System.out.println("Fancy frame went from some content to blank, hiding it.");
                 jed.setText("");
                 jed.setBackground(Color.WHITE);
                 this.setVisible(false);
                 lastState = GameData.getInstance().getFancyFrameState();
             }
         } else {
-            if (!isVisible() && GameData.getInstance().getFancyFrameState() != lastState) {
+            if (GameData.getInstance().getFancyFrameState() != lastState) {
+                System.out.println("Fancy frame got new content.");
                 makeContent(data);
-                this.setVisible(true);
+                if (!isVisible()) {
+                    System.out.println("Showing fancy frame.");
+                    this.setVisible(true);
+                }
                 repaint();
                 lastState = GameData.getInstance().getFancyFrameState();
             }
@@ -116,6 +122,7 @@ public class FancyFrame extends JFrame implements Observer {
     }
 
     private void makeContent(String data) {
+        System.out.println("Making content, data is: " + data);
         String[] parts = data.split("<part>");
         this.setTitle(parts[0]);
         if (parts[1].equals("HAS INPUT")) {
@@ -125,7 +132,7 @@ public class FancyFrame extends JFrame implements Observer {
         jed.setCaretPosition(0);
         String[] dim = parts[3].split(":");
         this.setSize(Integer.parseInt(dim[0]), Integer.parseInt(dim[1]));
-        this.setLocation((int)parent.getLocation().getX() + ((parent.getWidth() - getWidth())/2),
-                (int)parent.getLocation().getY() + ((parent.getHeight() - getHeight())/2));
+      //  this.setLocation((int)parent.getLocation().getX() + ((parent.getWidth() - getWidth())/2),
+      //          (int)parent.getLocation().getY() + ((parent.getHeight() - getHeight())/2));
     }
 }
