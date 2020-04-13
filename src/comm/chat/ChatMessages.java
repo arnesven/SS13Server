@@ -1,5 +1,6 @@
 package comm.chat;
 
+import model.Actor;
 import model.Player;
 import util.HTMLText;
 import util.Logger;
@@ -136,5 +137,17 @@ public class ChatMessages implements Serializable {
             buf.append('▒');
         }
         return buf.toString();
+    }
+
+    public void inCharacterSay(Player sender, String rest) {
+        for (Actor a : sender.getPosition().getActors()) {
+            if (a instanceof Player) {
+                if (a == sender) {
+                    this.add("You said " + "\"" + rest + "\"", (Player)a, false);
+                } else {
+                    this.add(sender.getCharacter().getPublicName() + " said " + "\"" + rest + "\"", (Player)a, false);
+                }
+            }
+        }
     }
 }

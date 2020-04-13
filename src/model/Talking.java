@@ -15,8 +15,9 @@ public class Talking {
         Logger.log("Added talking for " + player.getCharacter().getBaseName());
         if (player.getCharacter() != null) {
             player.setCharacter(new TalkingDecorator(player.getCharacter(), whatWasSaid.endsWith("?"), whatWasSaid.endsWith("!")));
+            player.refreshClientData();
         }
-        gameData.addEvent(new RemoveInstanceLaterEvent(player, gameData.getRound(), 1, new InstanceChecker() {
+        gameData.addEvent(new RemoveInstanceLaterEvent(player, gameData.getRound(), 0, new InstanceChecker() {
             @Override
             public boolean checkInstanceOf(GameCharacter ch) {
                 return ch instanceof TalkingDecorator;

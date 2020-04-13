@@ -4,6 +4,7 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientview.*;
 import clientview.components.ChatPanel;
+import clientview.components.GameUIPanel;
 import clientview.components.LastTurnPanel;
 import clientview.components.MapPanel;
 
@@ -55,6 +56,7 @@ public class GameData {
 	private CharacterStyle characterStyle = new CharacterStyle();
 	private int fancyFrameState = 0;
 	private String fancyFrameData = "NOTHING";
+	private int playerDataState = 0;
 
 	private GameData() {
 		modeAlternatives.add("Default");
@@ -134,12 +136,20 @@ public class GameData {
 		serversSuggestedClientVersion = parts[7];
 		modeAlternatives.clear();
 		int i = 8;
-		for (; i < parts.length - 1; ++i) {
+		for (; i < parts.length - 2; ++i) {
 			instance.modeAlternatives.add(parts[i]);
 		}
-		setNextAction(parts[i]);
+		setNextAction(parts[i++]);
+		setPlayerDataState(Integer.parseInt(parts[i]));
 
 		notifyObservers();
+	}
+
+	private void setPlayerDataState(int i) {
+		if (i > this.playerDataState) {
+			GameUIPanel.pollServerActions();
+			this.playerDataState = i;
+		}
 	}
 
 	private void getFancyFrame() {
@@ -159,7 +169,7 @@ public class GameData {
 
 	private void setFancyFrameData(String result) {
 		this.fancyFrameData = result;
-		notifyObservers();
+		//notifyObservers();
 	}
 
 	public int getFancyFrameState() {
@@ -366,7 +376,7 @@ public class GameData {
 		highlightCurrentRoom();
 		nextMove = "";
 
-		this.notifyObservers();
+		//this.notifyObservers(); // is probably not needed since actions will follow soon.
 	}
 
 	private void highlightCurrentRoom() {
@@ -411,7 +421,7 @@ public class GameData {
 		this.selectableRooms.clear();
 		this.selectableRooms.addAll(selectableRooms);
 		this.unHighlightAllRoom();
-		this.notifyObservers();
+		//this.notifyObservers();
 	}
 
 	private void deconstructPlayerData(String indata) {
@@ -516,7 +526,6 @@ public class GameData {
 		for (Room r : rooms) {
 			r.setHighlight(false);
 		}
-		notifyObservers();
 	}
 
 	public MyTreeNode getActionTree() {
@@ -721,7 +730,7 @@ public class GameData {
 			room.setHighlight(false);
 			//room.setGrayBackground();
 		}
-		notifyObservers();
+		//notifyObservers();
 	}
 
 	public void setSelectedRoom(int id) {
@@ -834,5 +843,6 @@ public class GameData {
 		String[] parts = result.split("<part>");
 		fancyFrameState = Integer.parseInt(parts[0]);
 		setFancyFrameData(parts[1]);
+		notifyObservers();
 	}
 }

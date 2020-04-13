@@ -10,12 +10,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 public class GameUIPanel extends JPanel implements Observer {
 
 
     private static Timer timer;
-    private static final int TIME_INTERVAL = 1000;
+    private static final int TIME_INTERVAL = 500;
 
     private final String username;
     private final SS13Client parent;
@@ -26,6 +27,7 @@ public class GameUIPanel extends JPanel implements Observer {
     private LobbyView lobbyView;
     private SouthButtonPanel buttPanel;
     private int oldRound = -1;
+    private long oldPollTime = 0;
 
 
     public GameUIPanel(String username, SS13Client parent) {
@@ -59,7 +61,10 @@ public class GameUIPanel extends JPanel implements Observer {
     }
 
     private void pollServerWithList(String username) {
-        System.out.println("Polling server at " + System.currentTimeMillis());
+        if (System.currentTimeMillis() - 10000 > oldPollTime) {
+            oldPollTime = System.currentTimeMillis();
+            System.out.println("Client is still polling at " + new Date().toString());
+        }
         ServerCommunicator.send(username + " LIST", new MyCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -206,7 +211,7 @@ public class GameUIPanel extends JPanel implements Observer {
         });
     }
 
-    private void pollServerActions() {
+    public static void pollServerActions() {
         ServerCommunicator.send(GameData.getInstance().getClid() + " ACTIONS", new MyCallback<String>() {
 
             @Override
@@ -214,10 +219,10 @@ public class GameUIPanel extends JPanel implements Observer {
                 if (result.contains("ERROR")) {
                     JOptionPane.showMessageDialog(null, result);
                 }
-                GameData.getInstance().deconstructActionData(result);
-                if (inGameView.isInMapMode() && !iAmSpectator()) {
-                }
                 GameData.getInstance().clearRoomColors();
+                GameData.getInstance().deconstructActionData(result);
+
+
             }
 
             @Override

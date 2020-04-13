@@ -45,6 +45,7 @@ public class Player extends Actor implements Target, Serializable {
     private PhysicalBody styleBody = new PhysicalBody();
     private String selectedMovePower;
 	private FancyFrame fancyFrame;
+	private int dataState = 0;
 
 
 	public Player(GameData gameData) {
@@ -701,4 +702,13 @@ public class Player extends Actor implements Target, Serializable {
 	public void setFancyFrame(FancyFrame ff) {
 		this.fancyFrame = ff;
 	}
+
+    public int getDataState() {
+		return this.dataState;
+    }
+
+	public void refreshClientData() {
+		this.dataState++;
+	}
+
 }

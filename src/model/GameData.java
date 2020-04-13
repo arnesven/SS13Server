@@ -652,7 +652,7 @@ public class GameData implements Serializable {
                 getRound() + del + getNoOfRounds() + del + chatMessages.getLastMessageIndex(getPlayerForClid(clid)) + del +
                 getPlayerForClid(clid).getFancyFrame().getState() + del +
                 getSelectedMode() + del + SS13Client.CLIENT_VERSION_STRING + del +
-                GameMode.getAvailableModesAsString() + del + nextAct;
+                GameMode.getAvailableModesAsString() + del + nextAct + del + getPlayerForClid(clid).getDataState();
 	}
 
 	public void setSettings(String rest, Player pl) {
@@ -789,9 +789,9 @@ public class GameData implements Serializable {
 
     public List<GameObject> getObjectsForLevel(String level) {
         List<GameObject> list = new ArrayList<>();
-        Logger.log("Getting objects for level: Rooms:");
+        //Logger.log("Getting objects for level: Rooms:");
         for (Room room : getMap().getRoomsForLevel(level)) {
-            Logger.log("     " + room.getName());
+            //Logger.log("     " + room.getName());
             for (GameObject ob : room.getObjects()) {
                 list.add(ob);
             }

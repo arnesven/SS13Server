@@ -58,10 +58,10 @@ public class ChatCommands {
 
     private static List<ChatCommandHandler> fillWithHandlers() {
         List<ChatCommandHandler> list = new ArrayList<>();
-        //list.add(new StyleChatHandler());
         list.add(new MugshotChatHandler());
         list.add(new MapsChatHandler());
         list.add(new ChangeMapChatHandler());
+        list.add(new InCharacterSayChatHandler());
         list.add(new HelpChatHandler());
         return list;
     }
