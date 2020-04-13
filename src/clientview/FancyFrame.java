@@ -36,7 +36,7 @@ public class FancyFrame extends JFrame implements Observer {
         this.add(new JScrollPane(jed));
         inputField = new JTextField();
         inputField.setBackground(Color.BLACK);
-        inputField.setForeground(Color.GREEN);
+        inputField.setForeground(Color.YELLOW);
         GameData.getInstance().subscribe(this);
 
         inputField.addActionListener(new ActionListener() {
@@ -127,11 +127,15 @@ public class FancyFrame extends JFrame implements Observer {
         this.setTitle(parts[0]);
         if (parts[1].equals("HAS INPUT")) {
             this.add(inputField, BorderLayout.SOUTH);
+        } else {
+            this.remove(inputField);
         }
         jed.setText(parts[2]);
         jed.setCaretPosition(0);
         String[] dim = parts[3].split(":");
         this.setSize(Integer.parseInt(dim[0]), Integer.parseInt(dim[1]));
+        revalidate();
+        repaint();
       //  this.setLocation((int)parent.getLocation().getX() + ((parent.getWidth() - getWidth())/2),
       //          (int)parent.getLocation().getY() + ((parent.getHeight() - getHeight())/2));
     }

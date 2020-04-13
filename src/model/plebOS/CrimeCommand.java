@@ -29,14 +29,14 @@ public class CrimeCommand extends PlebOSCommandHandler {
             boolean stuff = false;
             if (console.getSentenceMap().size() > 0) {
                 stuff = true;
-                gameData.getChat().plebOSSay("SENTENCED ----- ROUNDS ", sender);
+                loginInstance.getConsole().plebOSSay("SENTENCED ----- ROUNDS ", sender);
                 for (Map.Entry<Actor, Integer> e : console.getSentenceMap().entrySet()) {
-                    gameData.getChat().plebOSSay("-> " + e.getKey().getBaseName() + " - " + e.getValue(), sender);
+                    loginInstance.getConsole().plebOSSay("-> " + e.getKey().getBaseName() + " - " + e.getValue(), sender);
                 }
             }
 
             if (console.getReportedActors().size() > 0) {
-                gameData.getChat().plebOSSay("REPORTS ----- OFFENSE (REPORTED BY) ", sender);
+                loginInstance.getConsole().plebOSSay("REPORTS ----- OFFENSE (REPORTED BY) ", sender);
                 stuff = true;
                 for (Map.Entry<Actor, List<Pair<String, Actor>>> e : console.getReportedActors().entrySet()) {
                     StringBuffer buf = new StringBuffer();
@@ -44,16 +44,16 @@ public class CrimeCommand extends PlebOSCommandHandler {
                         buf.append(p.first + " (" + p.second.getBaseName() + "), ");
                     }
 
-                    gameData.getChat().plebOSSay("-> " + e.getKey().getBaseName() + " - " + buf.toString(), sender);
+                    loginInstance.getConsole().plebOSSay("-> " + e.getKey().getBaseName() + " - " + buf.toString(), sender);
                 }
             }
 
             if (!stuff) {
-                gameData.getChat().plebOSSay("No sentences or reports found", sender);
+                loginInstance.getConsole().plebOSSay("No sentences or reports found", sender);
             }
 
         } catch (NoSuchThingException e) {
-            gameData.getChat().plebOSSay("Error - No connection to crime records", sender);
+            loginInstance.getConsole().plebOSSay("Error - No connection to crime records", sender);
         }
 
     }

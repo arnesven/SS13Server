@@ -12,16 +12,19 @@ import model.objects.general.ElectricalMachinery;
 import model.objects.general.RemotelyOperateable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Console extends ElectricalMachinery implements RemotelyOperateable {
 
     private Actor loggedInAt;
     private GameData gameData = null;
     private boolean ffVacant = true;
+    private List<String> plebosTexts;
 
     public Console(String name, Room r) {
 		super(name, r);
 		this.loggedInAt = null;
+		plebosTexts = new ArrayList<>();
 	}
 
 	@Override
@@ -46,7 +49,7 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
         this.gameData = gameData;
         if (cl.getCharacter().isCrew() && cl instanceof Player && !PlebOSCommandHandler.isLoggedIn((Player)cl)) {
             if (!isBroken() && isPowered(gameData) && loggedInAt==null) {
-                at.add(new LoginAction(this, cl));
+                //at.add(new LoginAction(this, cl, consoleFancyFrame));
 
             }
         }
@@ -73,4 +76,19 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
         this.ffVacant = true;
     }
 
+    public Actor getLoggedInActor() {
+        return loggedInAt;
+    }
+
+    public void plebOSSay(String s, Player sender) {
+        this.plebosTexts.add(s);
+    }
+
+    public List<String> getPlebosTexts() {
+        return this.plebosTexts;
+    }
+
+    public void clearPlebosTexts() {
+        this.plebosTexts.clear();
+    }
 }

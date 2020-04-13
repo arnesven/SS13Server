@@ -25,14 +25,14 @@ public class AIAlarmsCommand extends PlebOSCommandHandler {
             alarms = gameData.findObjectOfType(AIConsole.class).getAlarms(gameData);
             if (alarms.size() > 0) {
                 for (String alarm : alarms) {
-                    gameData.getChat().plebOSSay(alarm, sender);
+                    loginInstance.getConsole().plebOSSay(alarm, sender);
                 }
             } else {
-                gameData.getChat().plebOSSay("No alarms.", sender);
+                loginInstance.getConsole().plebOSSay("No alarms.", sender);
             }
         } catch (NoSuchThingException e) {
             e.printStackTrace();
-            gameData.getChat().plebOSSay("No connection to AI.", sender);
+            loginInstance.getConsole().plebOSSay("No connection to AI.", sender);
         }
 
 

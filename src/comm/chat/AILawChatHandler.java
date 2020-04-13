@@ -22,7 +22,7 @@ public class AILawChatHandler extends PlebOSCommandHandler  {
     protected void internalHandle(GameData gameData, Player sender, String rest, ComputerSystemSession loginInstance) {
         try {
             gameData.findObjectOfType(AIConsole.class).addCustomLawToAvailable(rest.replace("$ailaw ", ""));
-            gameData.getChat().plebOSSay("New AI Law added", sender);
+            loginInstance.getConsole().plebOSSay("New AI Law added", sender);
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

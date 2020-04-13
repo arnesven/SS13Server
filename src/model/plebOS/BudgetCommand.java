@@ -24,16 +24,16 @@ public class BudgetCommand extends PlebOSCommandHandler {
                                   String rest, ComputerSystemSession loginInstance) {
         try {
             AdministrationConsole cons = gameData.findObjectOfType(AdministrationConsole.class);
-            gameData.getChat().plebOSSay("Station funds: $$" + cons.getMoney(), sender);
+            loginInstance.getConsole().plebOSSay("Station funds: $$" + cons.getMoney(), sender);
             if (cons.getHistory().size() > 0) {
-                gameData.getChat().plebOSSay("SHIPMENT HISTORY (ORDERED BY)", sender);
+                loginInstance.getConsole().plebOSSay("SHIPMENT HISTORY (ORDERED BY)", sender);
                 for (Pair<Actor, Shipment> p : cons.getHistory()) {
-                    gameData.getChat().plebOSSay("$$" + p.second.getCost() + " - " +
+                    loginInstance.getConsole().plebOSSay("$$" + p.second.getCost() + " - " +
                             p.second.getName() + " (" + p.first.getBaseName() + ")", sender);
                 }
             }
         } catch (NoSuchThingException e) {
-            gameData.getChat().plebOSSay("Error - No connection to Admin console", sender);
+            loginInstance.getConsole().plebOSSay("Error - No connection to Admin console", sender);
             e.printStackTrace();
         }
 

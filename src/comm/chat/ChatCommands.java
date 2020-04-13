@@ -27,23 +27,6 @@ public class ChatCommands {
             }
             gameData.getChat().serverSay("Unknown command \"" + rest + "\".");
             return true;
-        } else if (rest.startsWith("$")) {
-            if (sender.getCharacter() == null || !PlebOSCommandHandler.isLoggedIn(sender)) {
-                gameData.getChat().serverSay("You are not logged in at a console." , sender);
-                return true;
-            }
-            ComputerSystemSession login = ComputerSystemSession.getLogin(sender);
-            for (ChatCommandHandler posc : login.getAvailableCommands()) {
-                if (posc.handle(gameData, sender, rest)) {
-                   return true;
-                }
-            }
-            if (PlebOSCommandHandler.isLoggedIn(sender)) {
-                gameData.getChat().plebOSSay(rest, sender);
-                gameData.getChat().plebOSSay("Unknown command \"" + rest.replace("$", "")
-                        + "\".", sender);
-            }
-            return true;
         }
         return false;
 

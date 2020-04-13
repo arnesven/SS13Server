@@ -8,6 +8,7 @@ import comm.chat.plebOS.PwdCommand;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.fancyframe.ConsoleFancyFrame;
 import model.objects.consoles.Console;
 import util.Logger;
 import util.MyRandom;
@@ -46,9 +47,9 @@ public class ComputerSystem implements Serializable {
 
     }
 
-    public void createLogin(Player performingClient, Console con, GameData gameData) {
+    public void createLogin(Player performingClient, Console con, GameData gameData, ConsoleFancyFrame cff) {
         con.setLoggedInAt(performingClient);
-        new ComputerSystemSession(performingClient, con, gameData);
+        new ComputerSystemSession(performingClient, con, gameData, cff);
     }
 
     public Directory getRootDirectory() {

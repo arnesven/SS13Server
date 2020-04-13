@@ -29,7 +29,7 @@ public class CdCommand extends PlebOSCommandHandler {
             for (FileSystemNode fsn : loginInstance.getCurrentDirectory().getContents()) {
                 if (fsn.getName().equals(path)) {
                     if (! (fsn instanceof Directory)) {
-                        gameData.getChat().plebOSSay(fsn.getName() + ": not a directory", sender);
+                        loginInstance.getConsole().plebOSSay(fsn.getName() + ": not a directory", sender);
                     } else {
                         loginInstance.setCurrentDirectory((Directory)fsn);
                     }
@@ -37,7 +37,7 @@ public class CdCommand extends PlebOSCommandHandler {
                 }
             }
             if (!found) {
-                gameData.getChat().plebOSSay(path + ": No such file or directory", sender);
+                loginInstance.getConsole().plebOSSay(path + ": No such file or directory", sender);
             }
 
         }

@@ -22,10 +22,10 @@ public class PowerCommand extends PlebOSCommandHandler {
                                   String rest, ComputerSystemSession loginInstance) {
         try {
             for (String s : gameData.findObjectOfType(GeneratorConsole.class).getSource().getStatusMessages()) {
-                gameData.getChat().plebOSSay(s, sender);
+                loginInstance.getConsole().plebOSSay(s, sender);
             }
         } catch (NoSuchThingException e) {
-            gameData.getChat().plebOSSay("Error - No connection to power source", sender);
+            loginInstance.getConsole().plebOSSay("Error - No connection to power source", sender);
         }
     }
 }

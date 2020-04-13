@@ -17,6 +17,6 @@ public class PwdCommand extends PlebOSCommandHandler {
     @Override
     protected void internalHandle(GameData gameData, Player sender, String rest, ComputerSystemSession csl) {
         String path =  csl.getCurrentDirectory().getPath();
-        gameData.getChat().plebOSSay(path, sender);
+        csl.getConsole().plebOSSay(path, sender);
     }
 }

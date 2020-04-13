@@ -16,7 +16,7 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
     private final GeneratorConsole console;
 
     public PowerGeneratorFancyFrame(GeneratorConsole console, GameData gameData, Player player) {
-        super(player.getFancyFrame(), console);
+        super(player.getFancyFrame(), console, "#02558c");
         this.console = console;
         buildContent(gameData, player);
     }
@@ -54,9 +54,7 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
         String demand = parts[1];
 
         setData(console.getPublicName(player), false,
-                HTMLText.makeColoredBackground("#02558c",
                         HTMLText.makeText("white",
-                                HTMLText.makeFancyFrameLink("LOGIN", "[log in]") + "" +
                                         HTMLText.makeCentered("<b>" + title + "</b><br/>(" + demand + ")<br/>") +
                                         "Current Power Output: " + HTMLText.makeText(getColorForPower(), String.format("%.1f MW", console.getSource().getPowerLevel())) + "<br/>" +
                                         HTMLText.makeCentered(
@@ -66,7 +64,7 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
                                                         HTMLText.makeFancyFrameLink("SETPOWER Fixed Decrease", "[Fixed Decrease]")) + "<br/>" +
                                         "Power Priority:<br/>" + prios.toString() + "<br/>" +
                                         status.toString()
-                        )));
+                        ));
     }
 
     private String getColorForPower() {
@@ -91,23 +89,16 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
     }
 
     @Override
-    public void handleEvent(GameData gameData, Player pl, String event) {
-        if (event.contains("DISMISS")) {
-            leaveFancyFrame(gameData, pl);
-        } else if (event.contains("SETPOWER")) {
-
+    public void consoleHandleEvent(GameData gameData, Player pl, String event) {
+        super.handleEvent(gameData, pl, event);
+        if (event.contains("SETPOWER")) {
             PowerLevelAction pla = new PowerLevelAction(console);
             List<String> args = new ArrayList<>();
             args.add(event.replace("SETPOWER ", ""));
             pla.setActionTreeArguments(args, pl);
             pl.setNextAction(pla);
             buildContent(gameData, pl);
-            try {
-                gameData.setPlayerReady(gameData.getClidForPlayer(pl), true);
-            } catch (NoSuchThingException e) {
-                e.printStackTrace();
-            }
-
+            readyThePlayer(gameData, pl);
         } else if (event.contains("SETPRIO")) {
             PowerPrioAction ppa = new PowerPrioAction(console);
             List<String> args = new ArrayList<>();
@@ -115,20 +106,14 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
             ppa.setActionTreeArguments(args, pl);
             pl.setNextAction(ppa);
             buildContent(gameData, pl);
-            try {
-                gameData.setPlayerReady(gameData.getClidForPlayer(pl), true);
-            } catch (NoSuchThingException e) {
-                e.printStackTrace();
-            }
-        } else {
-            super.handleEvent(gameData, pl, event);
+            readyThePlayer(gameData, pl);
         }
 
     }
 
 
     @Override
-    public void rebuildInterface(GameData gameData, Player player) {
+    public void concreteRebuild(GameData gameData, Player player) {
         buildContent(gameData, player);
     }
 }

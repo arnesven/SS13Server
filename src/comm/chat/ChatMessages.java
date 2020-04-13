@@ -95,34 +95,34 @@ public class ChatMessages implements Serializable {
         return chatMessages.get(player).subList(Math.max(0, i-offsets.get(player)), chatMessages.get(player).size());
     }
 
-    public void plebOSSay(String s, boolean center, Player player) {
-        if (s.length() < 80) {
-            if (center) {
-                s = padCenter(s);
-            } else {
-                s = pad(s);
-            }
-        }
-        //s = s.replace(" ", "");
-        this.add(HTMLText.makeText("yellow", "black",
-                "Courier", 4, s), player, false);
-    }
-
-    public void plebOSSay(String s, Player player) {
-        if (s.length() == 0) {
-            plebOSSay(s, false, player);
-            return;
-        }
-
-        while (s.length() > 80) {
-            StringBuffer buf = new StringBuffer(s.substring(0, 80));
-            plebOSSay(buf.toString(), false, player);
-            s = buf.toString();
-        }
-        if (s.length() > 0) {
-            plebOSSay(s, false, player);
-        }
-    }
+//    public void plebOSSay(String s, boolean center, Player player) {
+//        if (s.length() < 80) {
+//            if (center) {
+//                s = padCenter(s);
+//            } else {
+//                s = pad(s);
+//            }
+//        }
+//        //s = s.replace(" ", "");
+//        this.add(HTMLText.makeText("yellow", "black",
+//                "Courier", 4, s), player, false);
+//    }
+//
+//    public void plebOSSay(String s, Player player) {
+//        if (s.length() == 0) {
+//            plebOSSay(s, false, player);
+//            return;
+//        }
+//
+//        while (s.length() > 80) {
+//            StringBuffer buf = new StringBuffer(s.substring(0, 80));
+//            plebOSSay(buf.toString(), false, player);
+//            s = buf.toString();
+//        }
+//        if (s.length() > 0) {
+//            plebOSSay(s, false, player);
+//        }
+//    }
 
     private String padCenter(String s) {
         StringBuffer buf = new StringBuffer(s);

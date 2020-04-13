@@ -16,11 +16,11 @@ public class LsCommand extends PlebOSCommandHandler {
     }
 
     @Override
-    protected void internalHandle(GameData gameData, Player sender, String rest, ComputerSystemSession csl) {
-        gameData.getChat().plebOSSay(".", sender);
-        gameData.getChat().plebOSSay("..", sender);
-        for (FileSystemNode fsn : csl.getCurrentDirectory().getContents()) {
-            gameData.getChat().plebOSSay(fsn.getName(), sender);
+    protected void internalHandle(GameData gameData, Player sender, String rest, ComputerSystemSession loginInstance) {
+        loginInstance.getConsole().plebOSSay(".", sender);
+        loginInstance.getConsole().plebOSSay("..", sender);
+        for (FileSystemNode fsn : loginInstance.getCurrentDirectory().getContents()) {
+            loginInstance.getConsole().plebOSSay(fsn.getName(), sender);
         }
     }
 

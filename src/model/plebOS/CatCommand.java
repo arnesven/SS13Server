@@ -22,17 +22,17 @@ public class CatCommand extends PlebOSCommandHandler {
             FileSystemNode d = loginInstance.getCurrentDirectory().getNodeForeName(rest);
             if (d instanceof PlebosFile) {
                 if (((PlebosFile)d).isExecutable()) {
-                    gameData.getChat().plebOSSay(rest + ": Is a binary", sender);
+                    loginInstance.getConsole().plebOSSay(rest + ": Is a binary", sender);
                 } else {
                     for (String line : ((PlebosFile)d).getTextualContents()) {
-                        gameData.getChat().plebOSSay(line, sender);
+                        loginInstance.getConsole().plebOSSay(line, sender);
                     }
                 }
             } else {
-                gameData.getChat().plebOSSay(rest + ": Is a directory", sender);
+                loginInstance.getConsole().plebOSSay(rest + ": Is a directory", sender);
             }
         } catch (Directory.NoSubDirectoryFoundException nsedfe) {
-            gameData.getChat().plebOSSay(rest + ": No such file or directory", sender);
+            loginInstance.getConsole().plebOSSay(rest + ": No such file or directory", sender);
         }
     }
 }

@@ -30,7 +30,7 @@ public class LoginChatHandler extends ChatCommandHandler {
                         } else {
                             gameData.getChat().serverSay("You logged in at the " + obj.getBaseName(), sender);
                             // do fun log in stuff!
-                            new ComputerSystemSession(sender, con, gameData);
+                            //new ComputerSystemSession(sender, con, gameData, cff);
                         }
                         break;
                     }
