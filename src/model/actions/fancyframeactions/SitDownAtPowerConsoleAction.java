@@ -19,7 +19,7 @@ public class SitDownAtPowerConsoleAction extends FancyFrameAction {
     private final GameData gameData;
 
     public SitDownAtPowerConsoleAction(GameData gameData, GeneratorConsole generatorConsole) {
-        super("Sit Down at Console", SensoryLevel.PHYSICAL_ACTIVITY);
+        super("Sit Down at Console (Free action)", SensoryLevel.PHYSICAL_ACTIVITY);
         this.console = generatorConsole;
         this.gameData = gameData;
     }
@@ -33,7 +33,7 @@ public class SitDownAtPowerConsoleAction extends FancyFrameAction {
     public void setArguments(List<String> args, Actor performingClient) {
         if (performingClient instanceof Player && console.isFancyFrameVacant()) {
             console.setFancyFrameOccupied();
-            ConsoleFancyFrame ff = new PowerGeneratorFancyFrame(console, ((Player) performingClient));
+            ConsoleFancyFrame ff = new PowerGeneratorFancyFrame(console, gameData, ((Player) performingClient));
             ((Player) performingClient).setFancyFrame(ff);
             performingClient.setCharacter(new UsingConsoleFancyFrameDecorator(performingClient.getCharacter(), ff));
             ((Player) performingClient).setNextAction(new DoNothingAction());
