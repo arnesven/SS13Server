@@ -7,12 +7,23 @@ import model.map.rooms.Room;
 import model.objects.general.GameObject;
 
 public class PosterObject extends GameObject  {
-    public PosterObject(Room room) {
-        super("Poster", room);
+    private final int col;
+    private final int row;
+    private final double wallPos;
+    private final String name;
+
+    public PosterObject(Room room, String name, int column, int row, double wallPosition) {
+        super(name + " Poster", room);
+        this.col = column;
+        this.row = row;
+        this.wallPos = wallPosition;
+        this.setAbsolutePosition(room.getX() + wallPos, room.getY());
+        this.name = name;
     }
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("someposter", "posters2.png", 1, 1, this);
+        return new Sprite(name.toLowerCase().replaceAll(" ", "_") + "poster",
+                "posters.png", col, row, this);
     }
 }

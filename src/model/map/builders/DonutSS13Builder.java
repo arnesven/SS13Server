@@ -55,9 +55,6 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(shallFront, ss13, "starboard");
 
         Room underpass = new UnderpassRoom(445, 10, 4, 1, 6, new int[]{446, 450}, new double[]{});
-        PosterObject poster = new PosterObject(underpass);
-        poster.setAbsolutePosition(10.25, 4);
-        underpass.addObject(poster);
         gm.addRoom(underpass, ss13, "center");
 
         Room janitorial = new JanitorialRoom(450, 10, 2, 2, 2, new int[]{19, 445}, new double[]{10.5, 4.0});
