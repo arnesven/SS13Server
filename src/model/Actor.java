@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.*;
 
+import graphics.ClientInfo;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.actions.*;
@@ -567,6 +568,26 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         }
         return list;
 
+    }
+
+    @Override
+    public boolean hasAbsolutePosition() {
+        return false;
+    }
+
+    @Override
+    public void setAbsolutePosition(double x, double y) {
+        //TODO
+    }
+
+    @Override
+    public double getAbsoluteX(ClientInfo clientInfo) {
+        return 0;
+    }
+
+    @Override
+    public double getAbsoluteY(ClientInfo clientInfo) {
+        return 0;
     }
 
 }

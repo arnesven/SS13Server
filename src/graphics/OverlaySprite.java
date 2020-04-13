@@ -48,7 +48,7 @@ public class OverlaySprite {
         }
 
         int roomid = -1;
-        if (this.getRoom() != null) {
+        if (this.getRoom() != null && !sprite.getObjectReference().hasAbsolutePosition()) {
             roomid = this.getRoom().getID();
         }
 

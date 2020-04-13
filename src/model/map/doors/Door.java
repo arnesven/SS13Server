@@ -1,5 +1,6 @@
 package model.map.doors;
 
+import graphics.ClientInfo;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
@@ -84,5 +85,25 @@ public abstract class Door implements Serializable, SpriteObject {
     public void setPosition(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    @Override
+    public boolean hasAbsolutePosition() {
+        return false;
+    }
+
+    @Override
+    public void setAbsolutePosition(double x, double y) {
+        //TODO
+    }
+
+    @Override
+    public double getAbsoluteX(ClientInfo clientInfo) {
+        return 0;
+    }
+
+    @Override
+    public double getAbsoluteY(ClientInfo clientInfo) {
+        return 0;
     }
 }

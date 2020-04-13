@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.ClientInfo;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
@@ -17,10 +18,14 @@ public class GameObject implements SpriteObject, Serializable {
 	private String name;
 	private Room position;
     private Sprite sprite = new Sprite("gameobject", "computer.png", 0, this);
+    private boolean hasAbsolutePosition;
+    private double absX;
+    private double absY;
 
     public GameObject(String name, Room position) {
 		this.name = name;
 		this.position = position;
+		hasAbsolutePosition = false;
 	}
 
 	public String getBaseName() {
@@ -81,5 +86,27 @@ public class GameObject implements SpriteObject, Serializable {
 
     public boolean shouldBeSeenWhenNotInRoomBy(Player player) {
         return false;
+    }
+
+    @Override
+    public void setAbsolutePosition(double x, double y) {
+        this.hasAbsolutePosition = true;
+        this.absX = x;
+        this.absY = y;
+    }
+
+    @Override
+    public double getAbsoluteX(ClientInfo clientInfo) {
+        return absX;
+    }
+
+    @Override
+    public double getAbsoluteY(ClientInfo clientInfo) {
+        return absY;
+    }
+
+    @Override
+    public boolean hasAbsolutePosition() {
+        return hasAbsolutePosition;
     }
 }

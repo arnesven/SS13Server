@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.ClientInfo;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
@@ -276,5 +277,25 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
         } else {
             throw new IllegalStateException(getBaseName() + " can't be held in hand!");
         }
+    }
+
+    @Override
+    public boolean hasAbsolutePosition() {
+        return false;
+    }
+
+    @Override
+    public void setAbsolutePosition(double x, double y) {
+        //TODO
+    }
+
+    @Override
+    public double getAbsoluteX(ClientInfo clientInfo) {
+        return 0;
+    }
+
+    @Override
+    public double getAbsoluteY(ClientInfo clientInfo) {
+        return 0;
     }
 }

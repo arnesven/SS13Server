@@ -1,5 +1,6 @@
 package model.movepowers;
 
+import graphics.ClientInfo;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
@@ -45,5 +46,25 @@ public abstract class MovePower implements SpriteObject {
 
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
         return new ArrayList<>();
+    }
+
+    @Override
+    public boolean hasAbsolutePosition() {
+        return false;
+    }
+
+    @Override
+    public void setAbsolutePosition(double x, double y) {
+        //TODO
+    }
+
+    @Override
+    public double getAbsoluteX(ClientInfo clientInfo) {
+        return 0;
+    }
+
+    @Override
+    public double getAbsoluteY(ClientInfo clientInfo) {
+        return 0;
     }
 }

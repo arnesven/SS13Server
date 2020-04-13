@@ -1,6 +1,7 @@
 package model.events;
 
 
+import graphics.ClientInfo;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
@@ -110,5 +111,25 @@ public abstract class Event extends Experienceable implements SpriteObject, Seri
 
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
         return new ArrayList<>();
+    }
+
+    @Override
+    public boolean hasAbsolutePosition() {
+        return false;
+    }
+
+    @Override
+    public void setAbsolutePosition(double x, double y) {
+        //TODO
+    }
+
+    @Override
+    public double getAbsoluteX(ClientInfo clientInfo) {
+        return 0;
+    }
+
+    @Override
+    public double getAbsoluteY(ClientInfo clientInfo) {
+        return 0;
     }
 }

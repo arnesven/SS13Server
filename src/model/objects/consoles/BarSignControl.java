@@ -76,9 +76,10 @@ public class BarSignControl extends Console {
 
     private static Map<String, Sprite> getSigns() {
         HashMap<String, Sprite> map = new HashMap<>();
-        map.put("The Orchard", new Sprite("theorchardbarsign1", "barsigns.png", 0, 3, null));
-        map.put("Mead Bay", new Sprite("meadbaybarsign1", "barsigns.png", 0, 2, null));
-        map.put("Whiskey Implant", new Sprite("whiskeybarsign1", "barsigns.png", 0, 4, null));
+        map.put("Armok's Bar N Grill", new Sprite("armoksbarsign1", "barsigns.png", 0, 0, 64, 32, null));
+        map.put("The Orchard", new Sprite("theorchardbarsign1", "barsigns.png", 0, 3, 64, 32, null));
+        map.put("Mead Bay", new Sprite("meadbaybarsign1", "barsigns.png", 0, 2, 64, 32, null));
+        map.put("Whiskey Implant", new Sprite("whiskeybarsign1", "barsigns.png", 0, 4, 64, 32, null));
 
         return map;
     }

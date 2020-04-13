@@ -1,5 +1,6 @@
 package graphics.sprites;
 
+import graphics.ClientInfo;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -63,5 +64,25 @@ public class LifeBarSprite extends Sprite implements SpriteObject {
 
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
         return new ArrayList<>();
+    }
+
+    @Override
+    public boolean hasAbsolutePosition() {
+        return false;
+    }
+
+    @Override
+    public void setAbsolutePosition(double x, double y) {
+        //TODO
+    }
+
+    @Override
+    public double getAbsoluteX(ClientInfo clientInfo) {
+        return 0;
+    }
+
+    @Override
+    public double getAbsoluteY(ClientInfo clientInfo) {
+        return 0;
     }
 }

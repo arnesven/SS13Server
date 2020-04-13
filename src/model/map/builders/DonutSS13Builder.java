@@ -38,10 +38,15 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(kitch, ss13, "starboard");
 
         Room sHallAft = new HallwayRoom( 9, "Starboard Hall Aft"  , "S T A R -" , 5,  8, 4, 2, new int[]{5, 8, 10, 11},       new double[]{9.0, 9.5} );
-        sHallAft.addObject(new BarSign(sHallAft));
+        BarSign barSign = new BarSign(sHallAft);
+        barSign.setAbsolutePosition(6.5, 10);
+        sHallAft.addObject(barSign);
         gm.addRoom(sHallAft, ss13, "starboard");
 
         Room bar = new BarRoom(gameData, 10, 6, 10, 3, 2, new int[]{8, 9, 12}  ,         new double[]{7.5, 10.0, 9.0, 11.5});
+        BarSign barSign2 = new BarSign(bar);
+        barSign2.setAbsolutePosition(8, 10);
+        bar.addObject(barSign2);
         gm.addRoom(bar, ss13, "starboard");
 
         Room shallFront = new HallwayRoom(11, "Starboard Hall Front", "B O A R D"       , 9,  9, 3, 2, new int[]{9, 12, 13, 446} ,         new double[]{12.0, 9.5} );
