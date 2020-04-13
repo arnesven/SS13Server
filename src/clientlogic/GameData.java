@@ -169,7 +169,7 @@ public class GameData {
 
 	private void setFancyFrameData(String result) {
 		this.fancyFrameData = result;
-		//notifyObservers();
+	//	notifyObservers();
 	}
 
 	public int getFancyFrameState() {

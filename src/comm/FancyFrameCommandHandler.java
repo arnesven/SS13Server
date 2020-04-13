@@ -1,6 +1,7 @@
 package comm;
 
 import model.GameData;
+import model.Player;
 import util.Logger;
 
 import java.io.IOException;
@@ -14,20 +15,21 @@ public class FancyFrameCommandHandler extends AbstractCommandHandler {
 
     @Override
     public boolean handleCommand(String command, String clid, String rest, ObjectOutputStream oos) throws IOException {
+        Player pl = gameData.getPlayerForClid(clid);
         if (command.contains("FANCYFRAME")) {
             if (rest.contains("GET")) {
-                oos.writeObject(gameData.getPlayerForClid(clid).getFancyFrame().getData());
+                oos.writeObject(pl.getFancyFrame().getData());
             } else if (rest.contains("EVENT")) {
-                gameData.getPlayerForClid(clid).getFancyFrame().handleEvent(rest.replace("EVENT ", ""));
+                pl.getFancyFrame().handleEvent(gameData, pl, rest.replace(" EVENT ", ""));
                 respondWithNewData(oos, gameData, clid);
             } else if (rest.contains("INPUT")) {
                 String data = rest.replace(" INPUT ", "");
-                gameData.getPlayerForClid(clid).getFancyFrame().handleInput(data);
+                pl.getFancyFrame().handleInput(gameData, pl, data);
                 respondWithNewData(oos, gameData, clid);
             } else if (rest.contains("CLICK")) {
-                String data = rest.replace("CLICK ", "");
+                String data = rest.replace(" CLICK ", "");
                 Scanner scan = new Scanner(data);
-                gameData.getPlayerForClid(clid).getFancyFrame().handleClick(scan.nextInt(), scan.nextInt());
+                pl.getFancyFrame().handleClick(gameData, pl, scan.nextInt(), scan.nextInt());
                 respondWithNewData(oos, gameData, clid);
             } else {
                 Logger.log(Logger.CRITICAL, "Unknown type of fancy frame command " + rest);

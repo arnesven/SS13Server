@@ -5,7 +5,10 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.fancyframe.ConsoleFancyFrame;
+import model.fancyframe.FancyFrame;
 import model.fancyframe.PowerGeneratorFancyFrame;
+import model.fancyframe.UsingConsoleFancyFrameDecorator;
 import model.objects.consoles.GeneratorConsole;
 
 import java.util.List;
@@ -29,7 +32,9 @@ public class SitDownAtPowerConsoleAction extends FancyFrameAction {
     public void setArguments(List<String> args, Actor performingClient) {
         if (performingClient instanceof Player && console.isFancyFrameVacant()) {
             console.setFancyFrameOccupied();
-            ((Player) performingClient).setFancyFrame(new PowerGeneratorFancyFrame(console, ((Player) performingClient)));
+            ConsoleFancyFrame ff = new PowerGeneratorFancyFrame(console, ((Player) performingClient));
+            ((Player) performingClient).setFancyFrame(ff);
+            performingClient.setCharacter(new UsingConsoleFancyFrameDecorator(performingClient.getCharacter(), ff));
         } else if (performingClient instanceof Player) {
             gameData.getChat().serverSay(console.getPublicName(performingClient) +
                     " is occupied right now, try again later.", (Player)performingClient);

@@ -1,6 +1,8 @@
 package model.fancyframe;
 
 import graphics.sprites.SpriteManager;
+import model.GameData;
+import model.Player;
 import model.items.general.Tools;
 import util.HTMLText;
 import util.Logger;
@@ -13,8 +15,11 @@ public class FancyFrame implements Serializable {
     private int width = 300;
     private int height = 250;
 
-    public FancyFrame() {
-       // setData("Test", true, HTMLText.makeImage(new Tools().getSprite(null)));
+    public FancyFrame(FancyFrame old) {
+        if (old != null) {
+            this.state = old.state++;
+            data = "BLANK";
+        }
     }
 
     public int getState() {
@@ -30,7 +35,7 @@ public class FancyFrame implements Serializable {
         state++;
     }
 
-    public void handleEvent(String event) {
+    public void handleEvent(GameData gameData, Player player, String event) {
         Logger.log("Fancy frame handling event " + event);
         if (event.contains("DISMISS")) {
             state++;
@@ -38,11 +43,11 @@ public class FancyFrame implements Serializable {
         }
     }
 
-    public void handleInput(String data) {
+    public void handleInput(GameData gameData, Player player, String data) {
         Logger.log("Fancy frame handling input \"" + data + "\"");
     }
 
-    public void handleClick(int x, int y) {
+    public void handleClick(GameData gameData, Player player, int x, int y) {
         Logger.log("Fancy frame handling click x=" + x + " y=" + y);
     }
 

@@ -50,7 +50,7 @@ public class Player extends Actor implements Target, Serializable {
 
 	public Player(GameData gameData) {
 		Sprite charPreview = styleBody.getSprite(); // DON'T REMOVE!
-		fancyFrame = new FancyFrame();
+		fancyFrame = new FancyFrame(null);
 		jobChoices.put("Artificial Intelligence", false);
 	}
 
