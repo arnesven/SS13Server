@@ -25,7 +25,7 @@ public abstract class StairsObject extends GameObject {
     @Override
     public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
 
-        Action a = new StairsMoveAction(cl, this);
+        Action a = new StairsMoveAction(gameData, cl, this);
         if (a.getOptions(gameData, cl).numberOfSuboptions() > 0) {
             at.add(a);
         }
@@ -34,14 +34,14 @@ public abstract class StairsObject extends GameObject {
     private class StairsMoveAction extends MoveAction {
         private final StairsObject stairs;
 
-        public StairsMoveAction(Actor cl, StairsObject stairs) {
-            super(cl);
+        public StairsMoveAction(GameData gameData, Actor cl, StairsObject stairs) {
+            super(gameData, cl);
             this.stairs = stairs;
         }
 
         @Override
         public ActionOption getOptions(GameData gameData, Actor whosAsking) {
-            Set<Room> movableTo = findMoveToAblePositions(whosAsking);
+            Set<Room> movableTo = findMoveToAblePositions(gameData, whosAsking);
             if (stairs instanceof UpgoingStairsDoor) {
                 movableTo.removeIf((Room r) -> r.getZ() <= getPosition().getZ());
             } else {

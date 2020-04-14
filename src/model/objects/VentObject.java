@@ -65,7 +65,7 @@ public class VentObject extends GameObject {
     @Override
     public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (cl.getCharacter().getSize() == GameCharacter.SMALL_SIZE || isOpen) {
-            at.add(new VentMoveAction(cl));
+            at.add(new VentMoveAction(gameData, cl));
         }
         if (GameItem.hasAnItemOfClass(cl, Tools.class)) {
             if (!isOpen) {
@@ -80,8 +80,8 @@ public class VentObject extends GameObject {
 
         boolean intoVent;
 
-        public VentMoveAction(Actor actor) {
-            super(actor);
+        public VentMoveAction(GameData gameData, Actor actor) {
+            super(gameData, actor);
             String prep = " out to ";
             intoVent = false;
             if (toRoom instanceof AirDuctRoom) {

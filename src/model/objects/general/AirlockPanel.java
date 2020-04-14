@@ -42,11 +42,11 @@ public class AirlockPanel extends ElectricalMachinery {
                 cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof RobotCharacter)) {
             at.add(new MoveToOtherAirlocks(this.getPosition(), gameData));
         }
-        if (cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OperativeCharacter)) {
-			if (GameItem.hasAnItemOfClass(cl, NuclearDisc.class) && hasASpacesuitOn(cl)) {
-				at.add(new EscapeAndSetNukeAction());
-			}
-		}
+//        if (cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OperativeCharacter)) {
+//			if (GameItem.hasAnItemOfClass(cl, NuclearDisc.class) && hasASpacesuitOn(cl)) {
+//				at.add(new EscapeAndSetNukeAction());
+//			}
+//		}
 	}
 
 	private boolean hasASpacesuitOn(Actor cl) {

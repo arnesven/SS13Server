@@ -16,10 +16,11 @@ import model.objects.general.GameObject;
 import model.objects.general.NuclearBomb;
 import util.MyRandom;
 
+@Deprecated
 public class EscapeAndSetNukeAction extends Action {
 
 
-	public EscapeAndSetNukeAction() {
+	private EscapeAndSetNukeAction() {
 		super("Return to Your Ship and Activate Nuke", SensoryLevel.PHYSICAL_ACTIVITY);
 	}
 		

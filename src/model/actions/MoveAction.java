@@ -14,10 +14,12 @@ import java.util.List;
 import java.util.Set;
 
 public class MoveAction extends Action {
+    private final GameData gameData;
     private Room destination;
 
-    public MoveAction(Actor actor) {
+    public MoveAction(GameData gameData, Actor actor) {
         super("Move", SensoryLevel.PHYSICAL_ACTIVITY);
+        this.gameData = gameData;
     }
 
     @Override
@@ -29,7 +31,7 @@ public class MoveAction extends Action {
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption opts = super.getOptions(gameData, whosAsking);
 
-        Set<Room> canMoveTo = findMoveToAblePositions(whosAsking);
+        Set<Room> canMoveTo = findMoveToAblePositions(gameData, whosAsking);
         String optstr = "";
         for (Room r : canMoveTo) {
             opts.addOption(r.getName());
@@ -55,7 +57,7 @@ public class MoveAction extends Action {
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
         Logger.log("Searching for destination: " + args.get(0));
-        for (Room r : findMoveToAblePositions(performingClient)) {
+        for (Room r : findMoveToAblePositions(gameData, performingClient)) {
             if (args.get(0).equals(r.getName())) {
                 Logger.log("  -> Destination found!");
                 destination = r;
@@ -66,7 +68,7 @@ public class MoveAction extends Action {
         }
     }
 
-    protected Set<Room> findMoveToAblePositions(Actor whosAsking) {
+    protected Set<Room> findMoveToAblePositions(GameData gameData, Actor whosAsking) {
         HashSet<Room> canMoveTo = new HashSet<>();
         canMoveTo.add(whosAsking.getPosition());
         int movement = whosAsking.getCharacter().getMovementSteps();
@@ -78,6 +80,7 @@ public class MoveAction extends Action {
             canMoveTo.addAll(newLocations);
         }
         canMoveTo.remove(whosAsking.getPosition());
+        canMoveTo.addAll(whosAsking.getCharacter().getExtraMoveToLocations(gameData));
         return canMoveTo;
     }
 

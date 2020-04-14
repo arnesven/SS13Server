@@ -486,4 +486,9 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public String getRadioName() {
 		return innerChar.getRadioName();
 	}
+
+	@Override
+	public List<Room> getExtraMoveToLocations(GameData gameData) {
+		return innerChar.getExtraMoveToLocations(gameData);
+	}
 }

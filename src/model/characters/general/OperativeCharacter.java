@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
+import model.characters.decorators.SpaceProtection;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.NuclearDisc;
 import model.items.suits.Equipment;
@@ -12,10 +15,13 @@ import model.items.suits.SpaceSuit;
 import model.actions.characteractions.EscapeAndSetNukeAction;
 import model.actions.characteractions.StealAction;
 import model.items.weapons.Revolver;
+import model.map.GameMap;
+import model.map.rooms.AirLockRoom;
 import model.map.rooms.NukieShipRoom;
 import model.map.rooms.Room;
 import model.objects.general.AirlockPanel;
 import model.objects.general.GameObject;
+import model.objects.general.NuclearBomb;
 
 public class OperativeCharacter extends HumanCharacter {
 
@@ -43,9 +49,9 @@ public class OperativeCharacter extends HumanCharacter {
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {
 		super.addCharacterSpecificActions(gameData, at);
-		if (hasAirlockPanel(getPosition()) && hasASpaceSuitOn() && GameItem.hasAnItemOfClass(getActor(), NuclearDisc.class)) {
-			at.add(new EscapeAndSetNukeAction());
-		}
+//		if (hasAirlockPanel(getPosition()) && hasASpaceSuitOn() && GameItem.hasAnItemOfClass(getActor(), NuclearDisc.class)) {
+//			at.add(new EscapeAndSetNukeAction());
+//		}
 		Action stealAction = new StealAction(this.getActor());
 		if (stealAction.getOptions(gameData, this.getActor()).numberOfSuboptions() > 0) {
 			at.add(stealAction);
@@ -100,5 +106,53 @@ public class OperativeCharacter extends HumanCharacter {
 	@Override
 	public String getRadioName() {
 		return "Somebody";
+	}
+
+	@Override
+	public List<Room> getExtraMoveToLocations(GameData gameData) {
+		try {
+			if (gameData.getMap().getLevelForRoom(getPosition()).getName().equals(GameMap.STATION_LEVEL_NAME)) {
+				if (getPosition() instanceof AirLockRoom) {
+					List<Room> rooms = new ArrayList<>();
+					for (Room r : gameData.getAllRooms()) {
+						if (r instanceof NukieShipRoom) {
+							rooms.add(r);
+						}
+					}
+					return rooms;
+				}
+			}
+		} catch (NoSuchThingException e) {
+			e.printStackTrace();
+		}
+		return super.getExtraMoveToLocations(gameData);
+	}
+
+	@Override
+	public void doAfterMovement(GameData gameData) {
+		super.doAfterMovement(gameData);
+		if (!isDead() && getPosition() instanceof NukieShipRoom && !getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof SpaceProtection)) {
+			try {
+				Room r = gameData.getRoom("Deep Space");
+				getActor().moveIntoRoom(r);
+				getActor().addTolastTurnInfo("You jumped out into space without a space suit!");
+			} catch (NoSuchThingException e) {
+				e.printStackTrace();
+			}
+		} else if (getPosition() instanceof NukieShipRoom && isBombRoom(getPosition())) {
+			if (NukieShipRoom.hasTheDisk(getActor()) != null) {
+				((NukieShipRoom)(getPosition())).activateNuke(gameData, (Player)getActor());
+			}
+		}
+
+	}
+
+	private boolean isBombRoom(Room position) {
+		for (GameObject obj : position.getObjects()) {
+			if (obj instanceof NuclearBomb) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

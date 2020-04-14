@@ -5,7 +5,7 @@ import model.events.damage.ExplosiveDamage;
 public class NuclearExplosiveDamage extends ExplosiveDamage {
 
 	public NuclearExplosiveDamage() {
-		super(6.0);
+		super(60.0);
 	}
 	
 	@Override

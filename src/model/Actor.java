@@ -263,7 +263,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 
 
     private void addMoveActions(GameData gameData, ArrayList<Action> at) {
-        Action move = new MoveAction(this);
+        Action move = new MoveAction(gameData, this);
         if (move.getOptions(gameData, this).getSuboptions().size() > 0) {
             at.add(move);
         }

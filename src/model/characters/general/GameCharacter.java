@@ -760,4 +760,8 @@ public abstract class GameCharacter implements Serializable {
 	public String getRadioName() {
 		return getBaseName();
 	}
+
+    public List<Room> getExtraMoveToLocations(GameData gameData) { return new ArrayList<>(); }
+
+
 }

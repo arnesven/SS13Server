@@ -128,7 +128,7 @@ public class DonutSS13Builder extends MapBuilder {
 
         Room nukieShip = new NukieShipRoom(28, 16, 13, 2, 1, new int[]{7, 21, 25, 128}, new double[]{18.0, 13.5});
         gm.addRoom(nukieShip, ss13, "nuke");
-        Room nukieShip2 = new NukieShipStorageRoom(128, 18, 12, 1, 2, new int[]{28}, new double[]{});
+        Room nukieShip2 = new NukieShipStorageRoom(128, 18, 12, 1, 2, new int[]{28, 7, 21, 25}, new double[]{});
         gm.addRoom(nukieShip2, ss13, "nuke");
 
         Room brig = new BrigRoom(29, 15, 4, 1, 1, new int[]{}, new double[]{});

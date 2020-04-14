@@ -1,8 +1,17 @@
 package model.map.rooms;
 
 
+import model.Actor;
+import model.GameData;
+import model.Player;
+import model.events.NukeSetByOperativesEvent;
+import model.items.general.GameItem;
+import model.items.general.NuclearDisc;
 import model.map.floors.FloorSet;
 import model.map.floors.NukieFloorSet;
+import model.objects.general.GameObject;
+import model.objects.general.NuclearBomb;
+import util.MyRandom;
 
 public class NukieShipRoom extends Room {
 
@@ -25,4 +34,29 @@ public class NukieShipRoom extends Room {
 	public boolean isPartOfStation() {
 		return false;
 	}
+
+	public void activateNuke(GameData gameData, Player performingClient) {
+		performingClient.getItems().remove(hasTheDisk(performingClient));
+		NuclearBomb nuke = null;
+		for (GameObject ob : getObjects()) {
+			if (ob instanceof NuclearBomb) {
+				nuke = (NuclearBomb) ob;
+				gameData.addEvent(new NukeSetByOperativesEvent(nuke));
+				break;
+			}
+		}
+		performingClient.addTolastTurnInfo("You activated the nuke and sent it to SS13.");
+		getObjects().remove(nuke);
+		MyRandom.sample(gameData.getRooms()).addObject(nuke);
+	}
+
+	public static NuclearDisc hasTheDisk(Actor performingClient) {
+		for (GameItem it : performingClient.getItems()) {
+			if (it instanceof NuclearDisc) {
+				return (NuclearDisc) it;
+			}
+		}
+		return null;
+	}
+
 }
