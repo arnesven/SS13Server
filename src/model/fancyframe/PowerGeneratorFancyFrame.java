@@ -80,7 +80,6 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
 
     @Override
     public void consoleHandleEvent(GameData gameData, Player pl, String event) {
-        super.handleEvent(gameData, pl, event);
         if (event.contains("SETPOWER")) {
             PowerLevelAction pla = new PowerLevelAction(console);
             List<String> args = new ArrayList<>();

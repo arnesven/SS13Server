@@ -1,11 +1,14 @@
 package model.fancyframe;
 
+import graphics.sprites.BlurredCharacter;
+import graphics.sprites.CombinedSprite;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.Player;
 import model.events.Event;
+import model.events.ambient.DarkEvent;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
@@ -20,6 +23,7 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
     private final SecurityCameraConsole cons;
     private Room shownRoom;
     private final ArrayList<Room> roomsToShow;
+    private static int uid = 1;
 
     public SecurityCameraFancyFrame(Console console, GameData gameData, Player performingClient) {
         super(performingClient.getFancyFrame(), console, gameData, "black", "#0cff00");
@@ -63,7 +67,10 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
             }
 
             int maxCol = 5;
-            int maxRows = (int)Math.max(2, Math.ceil(stuffToShow.size() / (double)(maxCol)));
+            if (stuffToShow.size() > 10) {
+                maxCol = 7;
+            }
+            int maxRows = (int)Math.max(3, Math.ceil(stuffToShow.size() / (double)(maxCol)));
             int totalSlots = maxCol * maxRows;
             for (int i = totalSlots - stuffToShow.size(); i > 0; --i) {
                 stuffToShow.add(SpriteObject.BLANK);
@@ -71,30 +78,49 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
 
             Collections.shuffle(stuffToShow);
 
-            content.append("<br/><center>");
+            content.append("<br/><center> " + r.getName() + "<br/>");
 
-            int colCount = 1;
-            int rowCount = 1;
-            List<List<Sprite>> sprs = new ArrayList<>();
-            sprs.add(new ArrayList<>());
-            for (SpriteObject obj : stuffToShow) {
-                Sprite sp = makeOnFloor(obj, r, player, colCount, maxCol, rowCount, maxRows);
-                content.append(HTMLText.makeImage(sp));
-                sprs.get(rowCount-1).add(sp);
-                colCount++;
-                if (colCount > maxCol) {
-                    sprs.add(new ArrayList<>());
-                    content.append("<br/>");
-                    colCount = 1;
-                    rowCount++;
+                int colCount = 1;
+                int rowCount = 1;
+                List<List<Sprite>> sprs = new ArrayList<>();
+                sprs.add(new ArrayList<>());
+                for (SpriteObject obj : stuffToShow) {
+                    Sprite sp;
+                    if (roomHasDarkness(r)) {
+                        if (obj instanceof Actor) {
+                            sp = new BlurredCharacter().getSprite(player);
+                        } else {
+                            sp = Sprite.blankSprite();
+                        }
+                    } else {
+                        sp = makeOnFloor(obj, r, player, colCount, maxCol, rowCount, maxRows);
+                    }
+                    sprs.get(rowCount - 1).add(sp);
+                    colCount++;
+                    if (colCount > maxCol) {
+                        colCount = 1;
+                        rowCount++;
+                        if (rowCount <= maxRows) {
+                            sprs.add(new ArrayList<>());
+                        }
+                    }
                 }
-            }
-            //content.append(HTMLText.makeImage(Sprite.combine32PXIntoLarge(sprs)));
+                content.append(HTMLText.makeImage(new CombinedSprite("securitycamerapicnr" + (uid++), sprs)));
+
             content.append("</center>");
             setData(cons.getPublicName(player), false, content.toString());
         }
 
 
+    }
+
+    private boolean roomHasDarkness(Room r) {
+        for (Event e : r.getEvents()) {
+            if (e instanceof DarkEvent) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Sprite makeOnFloor(SpriteObject obj, Room r, Player player, int colCount, int maxCol, int rowCount, int maxRows) {
