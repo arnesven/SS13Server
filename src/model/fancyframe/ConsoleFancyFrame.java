@@ -2,6 +2,7 @@ package model.fancyframe;
 
 import comm.chat.ChatCommandHandler;
 import comm.chat.plebOS.PlebOSCommandHandler;
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.objectactions.LoginAction;
@@ -51,6 +52,10 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
 
     @Override
     protected void beingDisposed() {
+        if (console.getLoggedInActor() != null) {
+            ComputerSystemSession login = ComputerSystemSession.getLogin((Player)console.getLoggedInActor());
+            login.logOut(gameData);
+        }
         console.setFancyFrameVacant();
     }
 
@@ -130,4 +135,5 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
                 HTMLText.makeText("yellow", "black",
                         "Courier", 4, totalOutput.toString())));
     }
+
 }
