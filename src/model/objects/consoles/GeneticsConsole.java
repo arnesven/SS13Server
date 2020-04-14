@@ -29,6 +29,7 @@ public class GeneticsConsole extends Console {
         if (cons.getOptions(gameData, cl).numberOfSuboptions() > 0) {
             at.add(cons);
         }
+
     }
 
     @Override

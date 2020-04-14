@@ -5,8 +5,9 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.fancyframeactions.SitDownAtConsoleAction;
 import model.actions.general.Action;
-import model.actions.objectactions.LoginAction;
+import model.actions.objectactions.GeneralSitDownAtConsoleAction;
 import model.map.rooms.Room;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.RemotelyOperateable;
@@ -50,12 +51,16 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
         if (cl.getCharacter().isCrew() && cl instanceof Player && !PlebOSCommandHandler.isLoggedIn((Player)cl)) {
             if (!isBroken() && isPowered(gameData) && loggedInAt==null) {
                 //at.add(new LoginAction(this, cl, consoleFancyFrame));
-
             }
         }
 
         addConsoleActions(gameData, cl, at);
+        if (!hasSitDownAction(at)) {
+            at.add(new GeneralSitDownAtConsoleAction(gameData, this));
+        }
     }
+
+
 
     protected abstract void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at);
 
@@ -90,5 +95,14 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
 
     public void clearPlebosTexts() {
         this.plebosTexts.clear();
+    }
+
+    private boolean hasSitDownAction(ArrayList<Action> at) {
+        for (Action a : at) {
+            if (a instanceof SitDownAtConsoleAction) {
+                return true;
+            }
+        }
+        return false;
     }
 }
