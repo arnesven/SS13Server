@@ -275,7 +275,7 @@ public abstract class GameMode implements Serializable {
         if (aIPlayer != null) {
             try {
                 if (c == aIPlayer) {
-                    c.addTolastTurnInfo(AICharacter.getStartingMessage());
+                    c.setFancyFrame(((AICharacter)c.getInnermostCharacter()).getStartingFancyFrame());
                     c.addTolastTurnInfo(gameData.getClidForPlayer(capCl) + " is the Captain.");
                 } else {
                     c.addTolastTurnInfo(HTMLText.makeText("blue", gameData.getClidForPlayer(aIPlayer) + " is the AI."));

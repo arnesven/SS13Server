@@ -1,5 +1,6 @@
 package model.items.laws;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.items.suits.Equipment;
 import model.items.suits.SuitItem;
@@ -10,7 +11,17 @@ import model.items.suits.TorsoSuit;
  */
 public class AISuit extends SuitItem {
     public AISuit() {
-        super("Your laws are...", 0.0, 0);
+        super("No Equipment", 0.0, 0);
+    }
+
+    @Override
+    protected Sprite getWornSprite(Actor whosAsking) {
+        return new Sprite("blockedcross", "interface.png", 8, 2, null);
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("blockedcross", "interface.png", 8, 2, null);
     }
 
     @Override

@@ -17,9 +17,12 @@ import model.actions.general.SensoryLevel;
 import model.characters.crew.JobDescriptionMaker;
 import model.characters.special.GhostCharacter;
 import model.events.damage.Damager;
+import model.fancyframe.FancyFrame;
+import model.fancyframe.SinglePageFancyFrame;
 import model.items.general.GameItem;
 import model.items.laws.AISuit;
 import model.objects.consoles.AIConsole;
+import util.HTMLText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +42,6 @@ public class AICharacter extends GhostCharacter {
         this.isEvil = isEvil;
     }
 
-    public static String getStartingMessage() {
-        return "You are the AI! You are not on anybody's team! Follow your laws as literally as possible.";
-    }
 
     public static String getAntagonistDescription() {
         return "<font size=\"3\"><i>You have come to the conclusion that the crew are a threat to you, so they must die.</i><br/>"+
@@ -54,6 +54,18 @@ public class AICharacter extends GhostCharacter {
                "<b>Abilities:</b> Remote control, Omnipresence, Download Into Bot<br/>" +
                 "</font>";
     }
+
+    public FancyFrame getStartingFancyFrame() {
+        return new SinglePageFancyFrame(null, "Important!", HTMLText.makeColoredBackground("#86e0ff",
+                HTMLText.makeCentered(getStartingMessage())));
+    }
+
+    private String getStartingMessage() {
+        return "<br/>You are the AI!<br/><br/>" + HTMLText.makeImage(getNakedSprite()) + "<br/><br/>" +
+                "You are not on anybody's team! Follow your laws as literally as possible.<br/><br/>" +
+                HTMLText.makeFancyFrameLink("DISMISS", "[OK]");
+    }
+
 
 
     @Override

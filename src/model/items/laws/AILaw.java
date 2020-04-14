@@ -2,7 +2,12 @@ package model.items.laws;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.actions.general.Action;
 import model.items.general.GameItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by erini02 on 26/10/16.
@@ -19,7 +24,15 @@ public class AILaw extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("law" + text + number, "numbers.png", number, this);
+        List<Sprite> sprs = new ArrayList<>();
+        sprs.add(new Sprite("law" + text + number, "numbers.png", number, this));
+        sprs.add(new Sprite("lawtext", "numbers.png", 0, 2, this));
+        return new Sprite("lawnumberandtext" + number, "human.png", 0, sprs, this);
+    }
+
+    @Override
+    public List<Action> getInventoryActions(GameData gameData, Actor forWhom) {
+        return new ArrayList<>();
     }
 
     @Override
