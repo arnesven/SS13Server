@@ -15,16 +15,26 @@ import util.Logger;
 public abstract class ConsoleFancyFrame extends FancyFrame {
 
     private final Console console;
+    private final GameData gameData;
     private String bgColor;
 
-    public ConsoleFancyFrame(FancyFrame old, Console console, String bgColor) {
+    public ConsoleFancyFrame(FancyFrame old, Console console, GameData gameData, String bgColor) {
         super(old);
         this.console = console;
         this.bgColor = bgColor;
+        this.gameData = gameData;
     }
 
     @Override
     protected void setData(String title, boolean hasInput, String html) {
+        if (console.isBroken()) {
+            super.setData(console.getName(), false, HTMLText.makeColoredBackground("Blue", HTMLText.makeCentered(HTMLText.makeText("yellow", "(Broken)"))));
+            return;
+        } else if (!console.isPowered(gameData)) {
+            super.setData(console.getName(), false, HTMLText.makeColoredBackground("Black", HTMLText.makeCentered(HTMLText.makeText("white", "(No Power)"))));
+            return;
+        }
+
         if (console.getLoggedInActor() == null) {
             String newHtml = HTMLText.makeColoredBackground(this.bgColor,
                     HTMLText.makeFancyFrameLink("LOGIN", "[log in]") + "" + html);
@@ -84,7 +94,12 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
                 console.plebOSSay("Unknown command \"" + data + "\".", player);
             }
         }
-        buildPlebosInterface(gameData, player);
+        if (PlebOSCommandHandler.isLoggedIn(player)) {
+            buildPlebosInterface(gameData, player);
+        } else {
+            rebuildInterface(gameData, player);
+        }
+        player.refreshClientData();
     }
 
     private void handleLogin(GameData gameData, Player player, ConsoleFancyFrame consoleFancyFrame) {

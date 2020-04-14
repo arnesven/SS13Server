@@ -12,6 +12,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.CrimeRecordsAction;
 import model.actions.objectactions.GeneralSitDownAtConsoleAction;
+import model.actions.objectactions.SitDownAtConsoleAtCrimeConsoleAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.events.SentenceCountdownEvent;
@@ -60,7 +61,7 @@ public class CrimeRecordsConsole extends Console {
 	protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		if (cl.getCharacter().isCrew() || cl.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof AICharacter))) {
 			at.add(new CrimeRecordsAction(this));
-			at.add(new GeneralSitDownAtConsoleAction(gameData, this));
+			at.add(new SitDownAtConsoleAtCrimeConsoleAction(gameData, this));
 		}
 	}
 

@@ -16,20 +16,12 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
     private final GeneratorConsole console;
 
     public PowerGeneratorFancyFrame(GeneratorConsole console, GameData gameData, Player player) {
-        super(player.getFancyFrame(), console, "#02558c");
+        super(player.getFancyFrame(), console, gameData, "#02558c");
         this.console = console;
         buildContent(gameData, player);
     }
 
     private void buildContent(GameData gameData, Player player) {
-        if (console.isBroken()) {
-            setData(console.getPublicName(player), false, HTMLText.makeColoredBackground("Black", HTMLText.makeCentered(HTMLText.makeText("white", "(Broken)"))));
-            return;
-        } else if (!console.isPowered(gameData)) {
-            setData(console.getPublicName(player), false, HTMLText.makeColoredBackground("Black", HTMLText.makeCentered(HTMLText.makeText("white", "(No Power)"))));
-            return;
-        }
-
         StringBuilder prios = new StringBuilder();
         for (String prio : console.getSource().getPrios()) {
             prios.append(HTMLText.makeFancyFrameLink("SETPRIO " + prio, "[" + prio + "] "));

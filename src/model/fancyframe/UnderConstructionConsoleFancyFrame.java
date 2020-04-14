@@ -11,7 +11,7 @@ public class UnderConstructionConsoleFancyFrame extends ConsoleFancyFrame {
     private final Console console;
 
     public UnderConstructionConsoleFancyFrame(Console console, GameData gameData, Player performingClient) {
-        super(performingClient.getFancyFrame(), console, "#ad402a");
+        super(performingClient.getFancyFrame(), console, gameData,"gray");
         this.console = console;
         concreteRebuild(gameData, performingClient);
     }

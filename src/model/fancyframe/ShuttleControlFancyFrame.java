@@ -14,7 +14,7 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
     private final ShuttleControl console;
 
     public ShuttleControlFancyFrame(ShuttleControl console, GameData gameData, Player performingClient) {
-        super(performingClient.getFancyFrame(), console, "#ca9f21");
+        super(performingClient.getFancyFrame(), console, gameData,"#ca9f21");
         this.console = console;
         buildContent(gameData, performingClient);
     }

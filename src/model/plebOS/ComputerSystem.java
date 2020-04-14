@@ -38,6 +38,7 @@ public class ComputerSystem implements Serializable {
         bin.add(new PlebosFile("pwd", true, new PwdCommand()));
         bin.add(new PlebosFile("cd", true, new CdCommand()));
         bin.add(new PlebosFile("cat", true, new CatCommand()));
+        bin.add(new PlebosFile("logout", true, new LogoutCommand()));
         fileSystemRoot.add(bin);
 
         Directory etc = new Directory("etc", fileSystemRoot);
