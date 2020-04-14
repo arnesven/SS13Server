@@ -31,7 +31,7 @@ public class HTMLText {
     }
 
     public static String makeColoredBackground(String color, String s) {
-        return "<body style=\"background-color:" + color + ";\">" + s + "</body>";
+        return "<body style=\"background-color:" + color + "\">" + s + "</body>";
     }
 
     public static String makeCentered(String s) {

@@ -8,6 +8,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.SecurityConsoleAction;
+import model.actions.objectactions.SitDownatSecurityConsoleAction;
 import model.map.rooms.Room;
 
 public class SecurityCameraConsole extends Console {
@@ -21,6 +22,7 @@ public class SecurityCameraConsole extends Console {
 	@Override
 	public void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(new SecurityConsoleAction(this));
+		at.add(new SitDownatSecurityConsoleAction(gameData, this));
 	}
 
 	public void setChosen(String chosen) {

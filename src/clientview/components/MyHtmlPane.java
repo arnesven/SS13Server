@@ -6,6 +6,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import javax.swing.text.Document;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.StyleSheet;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,6 +21,8 @@ public class MyHtmlPane extends JEditorPane {
     public MyHtmlPane() {
         this.setContentType("text/html");
         this.setEditable(false);
+
+
         this.addHyperlinkListener(new HyperlinkListener() {
             @Override
             public void hyperlinkUpdate(HyperlinkEvent e) {

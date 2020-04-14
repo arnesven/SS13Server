@@ -6,7 +6,6 @@ import model.actions.objectactions.MiningShuttleAction;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
 import model.map.rooms.ShuttleRoom;
-import model.modes.GameMode;
 import model.objects.consoles.ShuttleControl;
 import util.HTMLText;
 
@@ -14,7 +13,7 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
     private final ShuttleControl console;
 
     public ShuttleControlFancyFrame(ShuttleControl console, GameData gameData, Player performingClient) {
-        super(performingClient.getFancyFrame(), console, gameData,"#ca9f21");
+        super(performingClient.getFancyFrame(), console, gameData,"#ca9f21", "black");
         this.console = console;
         buildContent(gameData, performingClient);
     }

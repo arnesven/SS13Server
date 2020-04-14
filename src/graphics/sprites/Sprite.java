@@ -63,6 +63,7 @@ public class Sprite implements Serializable {
         return new Sprite("dummy", "animal.png", 0, null);
     }
 
+
     protected List<Sprite> getLayers() {
         return layers;
     }
@@ -257,4 +258,5 @@ public class Sprite implements Serializable {
     public void setColumn(int i) {
         this.column = i;
     }
+
 }

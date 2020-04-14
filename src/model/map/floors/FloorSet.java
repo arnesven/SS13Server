@@ -78,4 +78,45 @@ public class FloorSet implements Serializable {
     protected void setOtherSprites(List<Sprite> newOthers) {
         otherSprites = newOthers;
     }
+
+    private Sprite getSpriteWithName(String name) {
+        for (Sprite sp : otherSprites) {
+            if (sp.getName().contains(name)) {
+                return sp;
+            }
+        }
+        return null;
+    }
+
+    public Sprite getUpperLeft() {
+        return getSpriteWithName("UL");
+    }
+
+    public Sprite getUpperRight() {
+        return getSpriteWithName("UR");
+    }
+
+    public Sprite getTop() {
+        return getSpriteWithName("TOP");
+    }
+
+    public Sprite getLowerLeft() {
+        return getSpriteWithName("LL");
+    }
+
+    public Sprite getLowerRight() {
+        return getSpriteWithName("LR");
+    }
+
+    public Sprite getBottom() {
+        return getSpriteWithName("BOTTOM");
+    }
+
+    public Sprite getLeft() {
+        return getSpriteWithName("LEFT");
+    }
+
+    public Sprite getRight() {
+        return getSpriteWithName("RIGHT");
+    }
 }

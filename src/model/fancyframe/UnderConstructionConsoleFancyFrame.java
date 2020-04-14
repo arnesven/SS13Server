@@ -3,7 +3,6 @@ package model.fancyframe;
 import model.GameData;
 import model.Player;
 import model.objects.consoles.Console;
-import model.objects.consoles.CrimeRecordsConsole;
 import util.HTMLText;
 
 public class UnderConstructionConsoleFancyFrame extends ConsoleFancyFrame {
@@ -11,7 +10,7 @@ public class UnderConstructionConsoleFancyFrame extends ConsoleFancyFrame {
     private final Console console;
 
     public UnderConstructionConsoleFancyFrame(Console console, GameData gameData, Player performingClient) {
-        super(performingClient.getFancyFrame(), console, gameData,"gray");
+        super(performingClient.getFancyFrame(), console, gameData,"gray", "green");
         this.console = console;
         concreteRebuild(gameData, performingClient);
     }

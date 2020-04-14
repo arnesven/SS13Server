@@ -4,10 +4,8 @@ import model.GameData;
 import model.Player;
 import model.actions.objectactions.PowerLevelAction;
 import model.actions.objectactions.PowerPrioAction;
-import model.items.NoSuchThingException;
 import model.objects.consoles.GeneratorConsole;
 import util.HTMLText;
-import util.MyStrings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +14,7 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
     private final GeneratorConsole console;
 
     public PowerGeneratorFancyFrame(GeneratorConsole console, GameData gameData, Player player) {
-        super(player.getFancyFrame(), console, gameData, "#02558c");
+        super(player.getFancyFrame(), console, gameData, "#02558c", "white");
         this.console = console;
         buildContent(gameData, player);
     }

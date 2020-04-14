@@ -3,7 +3,6 @@ package model.fancyframe;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.objects.consoles.Console;
 import model.objects.consoles.CrimeRecordsConsole;
 import util.HTMLText;
 import util.Pair;
@@ -16,7 +15,7 @@ public class CrimeRecordsFancyFrame extends ConsoleFancyFrame {
     private boolean onHistoryPage;
 
     public CrimeRecordsFancyFrame(CrimeRecordsConsole console, Player performingClient, GameData gameData) {
-        super(performingClient.getFancyFrame(), console, gameData, "#ad402a");
+        super(performingClient.getFancyFrame(), console, gameData, "#ad402a", "Yellow");
         this.console = console;
         concreteRebuild(gameData, performingClient);
         onHistoryPage = false;

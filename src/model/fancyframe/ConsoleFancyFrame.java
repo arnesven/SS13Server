@@ -7,7 +7,6 @@ import model.Player;
 import model.actions.objectactions.LoginAction;
 import model.items.NoSuchThingException;
 import model.objects.consoles.Console;
-import model.plebOS.ComputerSystem;
 import model.plebOS.ComputerSystemSession;
 import util.HTMLText;
 import util.Logger;
@@ -16,13 +15,15 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
 
     private final Console console;
     private final GameData gameData;
+    private final String fgColor;
     private String bgColor;
 
-    public ConsoleFancyFrame(FancyFrame old, Console console, GameData gameData, String bgColor) {
+    public ConsoleFancyFrame(FancyFrame old, Console console, GameData gameData, String bgColor, String fgColor) {
         super(old);
         this.console = console;
         this.bgColor = bgColor;
         this.gameData = gameData;
+        this.fgColor = fgColor;
     }
 
     @Override
@@ -36,8 +37,8 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
         }
 
         if (console.getLoggedInActor() == null) {
-            String newHtml = HTMLText.makeColoredBackground(this.bgColor,
-                    HTMLText.makeFancyFrameLink("LOGIN", "[log in]") + "" + html);
+            String newHtml = HTMLText.makeColoredBackground(this.bgColor, HTMLText.makeText(fgColor,
+                    HTMLText.makeFancyFrameLink("LOGIN", "[log in]") + "" + html));
             super.setData(title, hasInput, newHtml);
         } else {
             super.setData(title, hasInput, html);
