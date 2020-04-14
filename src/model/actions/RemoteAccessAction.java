@@ -3,6 +3,7 @@ package model.actions;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.fancyframeactions.SitDownAtConsoleAction;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
@@ -81,10 +82,13 @@ public abstract class RemoteAccessAction extends Action {
         return remotes;
     }
 
-    private List<Action> getActionsForRemote(GameData gameData, Actor whosAsking, GameObject ob) {
-        ArrayList<Action> at = new ArrayList<>();
-        ob.addSpecificActionsFor(gameData, whosAsking, at);
-        return at;
+
+    protected List<Action> getActionsForRemote(GameData gameData, Actor whosAsking, GameObject ob) {
+        ArrayList<Action> lst = new ArrayList<>();
+        ob.addSpecificActionsFor(gameData, whosAsking, lst);
+        lst.removeIf((Action a) -> a instanceof SitDownAtConsoleAction);
+        return lst;
     }
+
 
 }

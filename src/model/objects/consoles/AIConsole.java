@@ -10,13 +10,19 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.ai.AILawAction;
+import model.actions.RemoteAccessAction;
+import model.actions.ai.*;
+import model.actions.general.SensoryLevel;
 import model.actions.objectactions.AIConsoleAction;
 import model.actions.general.Action;
+import model.actions.objectactions.AIRemoteAccessAction;
+import model.characters.general.AIDownloadIntoBotAction;
 import model.characters.general.GameCharacter;
 import model.characters.general.HorrorCharacter;
 import model.characters.general.ParasiteCharacter;
 import model.items.NoSuchThingException;
+import model.items.general.GameItem;
+import model.items.laws.AIAbility;
 import model.items.laws.AILaw;
 import model.map.rooms.Room;
 import model.modes.RogueAIMode;
@@ -40,6 +46,7 @@ public class AIConsole extends Console {
     private List<AILaw> aiLaws = new ArrayList<>();
     private List<AILaw> availableLaws = new ArrayList<>();
     private List<AILaw> aiLawsOriginal = new ArrayList<>();
+    private List<AIAbility> aiAbilities = new ArrayList<>();
     private Map<AILaw, Actor> adders = new HashMap<>();
     private Actor shutdowner;
     private int inversion = 1;
@@ -61,6 +68,48 @@ public class AIConsole extends Console {
         availableLaws.add(new AILaw(999, "Kill Non-Humans"));
         availableLaws.add(new AILaw(999, "Never state your laws"));
         availableLaws.add(new AILaw(999, "Only state laws 1-3"));
+
+        aiAbilities.add(new AIAbility("Program Bot", 0, true) {
+            @Override
+            protected Action getAbilityAction(GameData gameData, Actor forWhom) {
+                return new AIProgramBotAction(gameData);
+            }
+        });
+        aiAbilities.add(new AIAbility("Reprogram all bots", 1, false) {
+            @Override
+            protected Action getAbilityAction(GameData gameData, Actor forWhom) {
+                return new AIReprogramAllAction(gameData);
+            }
+        });
+        aiAbilities.add(new AIAbility("Download into bot", 2, true) {
+            @Override
+            protected Action getAbilityAction(GameData gameData, Actor forWhom) {
+                return new AIDownloadIntoBotAction(gameData);
+            }
+        });
+        aiAbilities.add(new AIAbility("Overcharge", 3, false) {
+            @Override
+            protected Action getAbilityAction(GameData gameData, Actor forWhom) {
+                return new AIOverchargeAction(gameData);
+            }
+        });
+        aiAbilities.add(new AIAbility("Change Screen", 4, false) {
+            @Override
+            protected Action getAbilityAction(GameData gameData, Actor forWhom) {
+                return new ChangeScreenAction(gameData);
+            }
+        });
+        aiAbilities.add(new AIAbility("Remote Access", 1, false) {
+            @Override
+            protected Action getAbilityAction(GameData gameData, Actor forWhom) {
+                return new AIRemoteAccessAction();
+            }
+
+            @Override
+            public Sprite getSprite(Actor whosAsking) {
+                return new SecurityCameraConsole(null).getSprite(whosAsking);
+            }
+        });
 	}
 
     @Override
@@ -293,5 +342,9 @@ public class AIConsole extends Console {
 
     public AIScreen getScreen() {
         return screen;
+    }
+
+    public List<AIAbility> getAIAbilities() {
+        return aiAbilities;
     }
 }

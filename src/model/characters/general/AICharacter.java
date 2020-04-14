@@ -6,15 +6,13 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.RemoteAccessAction;
 import model.actions.ai.AIOverchargeAction;
 import model.actions.ai.AIProgramBotAction;
 import model.actions.ai.AIReprogramAllAction;
 import model.actions.ai.ChangeScreenAction;
 import model.actions.characteractions.NuclearExplosiveDamage;
 import model.actions.general.Action;
-import model.actions.general.SensoryLevel;
-import model.characters.crew.JobDescriptionMaker;
+import model.actions.objectactions.AIRemoteAccessAction;
 import model.characters.special.GhostCharacter;
 import model.events.damage.Damager;
 import model.fancyframe.FancyFrame;
@@ -79,6 +77,7 @@ public class AICharacter extends GhostCharacter {
     public List<GameItem> getItems() {
         List<GameItem> list = new ArrayList<>();
         list.addAll(console.getLaws());
+        list.addAll(console.getAIAbilities());
         return list;
     }
 
@@ -116,8 +115,6 @@ public class AICharacter extends GhostCharacter {
     @Override
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
 
-
-
         // TODO:
         Action a = new AIProgramBotAction(gameData);
         try {
@@ -129,12 +126,7 @@ public class AICharacter extends GhostCharacter {
 
         }
         at.add(new AIReprogramAllAction(gameData));
-        at.add(new RemoteAccessAction(SensoryLevel.NO_SENSE) {
-            @Override
-            protected String getVerb(Actor whosAsking) {
-                return "";
-            }
-        });
+        at.add(new AIRemoteAccessAction());
         at.add(new AIDownloadIntoBotAction(gameData));
         at.add(new AIOverchargeAction(gameData));
         at.add(new ChangeScreenAction(gameData));
