@@ -16,7 +16,7 @@ import model.map.rooms.Room;
 
 public class FireExtinguisher extends BluntWeapon {
 
-    private static int MAX_LEVEL = 6;
+    private int MAX_LEVEL = 6;
     private int level = MAX_LEVEL;
 	
 	public FireExtinguisher() {

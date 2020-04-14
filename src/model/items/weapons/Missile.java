@@ -7,7 +7,7 @@ import model.items.general.BombItem;
  */
 public class Missile extends BombItem {
     public Missile() {
-        super("Missle", 12300);
+        super("Missile", 12300);
     }
 
 //    @Override

@@ -353,6 +353,6 @@ public class ChangelingCharacter extends GameCharacter {
     	if (current instanceof HorrorCharacter) {
     		return "Something";
 		}
-		return super.getRadioName();
+		return getForm().getRadioName();
 	}
 }

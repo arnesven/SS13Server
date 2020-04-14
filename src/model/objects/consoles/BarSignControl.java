@@ -42,7 +42,10 @@ public class BarSignControl extends Console {
         @Override
         protected void execute(GameData gameData, Actor performingClient) {
             boolean didStuff = false;
-            for (Room r : BarSignControl.this.getPosition().getNeighborList()) {
+            List<Room> roomsToLookAt = new ArrayList<>();
+            roomsToLookAt.addAll(BarSignControl.this.getPosition().getNeighborList());
+            roomsToLookAt.add(BarSignControl.this.getPosition());
+            for (Room r : roomsToLookAt) {
                 for (GameObject obj : r.getObjects()) {
                     if (obj instanceof BarSign) {
                         ((BarSign)obj).setAppearance(getSigns().get(selected));

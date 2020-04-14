@@ -266,21 +266,6 @@ public class SS13Client extends JFrame {
         view.add(center);
     }
 
-//    private void makeZoomMenu(JMenu view) {
-//        JMenu zoom = new JMenu("Zoom");
-//        JMenuItem item32 = new JRadioButtonMenuItem("x1 (32 px)");
-//        item32.addActionListener((ActionEvent e) -> MapPanel.setZoom(32));
-//        JMenuItem item64 = new JRadioButtonMenuItem("x2 (64 px)");
-//        item64.addActionListener((ActionEvent e) -> MapPanel.setZoom(64));
-//        ButtonGroup bg = new ButtonGroup();
-//        bg.add(item32);
-//        bg.add(item64);
-//        item32.setSelected(true);
-//        zoom.add(item32);
-//        zoom.add(item64);
-//        view.add(zoom);
-//    }
-
     private void makeAnimationMenu(JMenu view) {
         JMenu ani = new JMenu("Animations");
 
