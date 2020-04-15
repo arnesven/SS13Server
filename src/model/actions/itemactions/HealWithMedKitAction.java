@@ -40,7 +40,7 @@ public class HealWithMedKitAction extends TargetingAction {
 						performingClient.getItems().remove(objectRef);
 						performingClient.addTolastTurnInfo("The MedKit was used up.");
 					}
-                } else if (performingClient.getPosition().getItems().contains(objectRef)) {
+			    } else if (performingClient.getPosition().getItems().contains(objectRef)) {
                 	objectRef.decrementUses();
 					if (objectRef.isEmpty()) {
 						performingClient.getPosition().getItems().remove(objectRef);
@@ -48,11 +48,13 @@ public class HealWithMedKitAction extends TargetingAction {
 					}
                 } else {
                     performingClient.addTolastTurnInfo("What? The MedKit was missing! Your action failed!");
+                    return;
                 }
 			}
 
             target.addToHealth(HEAL_AMOUNT);
-			
+			objectRef.makeHoldInHand(performingClient);
+
 			if (target == performingClient) {
 				performingClient.addTolastTurnInfo("You " + getVerb(performingClient) + " yourself with the " + objectRef.getPublicName(performingClient) + ".");
 			} else {

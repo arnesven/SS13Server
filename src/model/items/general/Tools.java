@@ -56,7 +56,7 @@ public class Tools extends BluntWeapon {
 
 	@Override
 	public Sprite getHandHeldSprite() {
-		return new Sprite("toolsheldinhand", "items_righthand.png", 11, 42, null);
+		return new Sprite("toolsheldinhand", "items_righthand.png", 9, 42, null);
 	}
 
 	private boolean positionHasBomb(Room position) {

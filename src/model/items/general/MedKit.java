@@ -8,9 +8,10 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.itemactions.HealWithMedKitAction;
 import model.actions.general.TargetingAction;
+import model.items.HandheldItem;
 
 
-public class MedKit extends GameItem {
+public class MedKit extends GameItem implements HandheldItem {
 
 	private int uses = 2;
 	private int max_uses = 4;
@@ -44,4 +45,9 @@ public class MedKit extends GameItem {
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("medkit", "storage.png", 4, this);
     }
+
+	@Override
+	public Sprite getHandHeldSprite() {
+		return new Sprite("medkithandheld", "items_righthand.png", 0, 17, this);
+	}
 }

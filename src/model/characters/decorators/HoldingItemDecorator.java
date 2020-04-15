@@ -13,7 +13,7 @@ public class HoldingItemDecorator extends CharacterDecorator {
     private final HandheldItem hhitem;
 
     public HoldingItemDecorator(GameCharacter gc, HandheldItem w) {
-              super(gc, "Laser sword holder");
+              super(gc, "item holder");
               this.hhitem = w;
         }
 

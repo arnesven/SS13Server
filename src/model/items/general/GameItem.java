@@ -273,6 +273,9 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 
     public void makeHoldInHand(Actor performingClient) {
         if (this instanceof HandheldItem) {
+            while (performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HoldingItemDecorator)) {
+                performingClient.removeInstance((GameCharacter gc) -> gc instanceof HoldingItemDecorator);
+            }
             performingClient.setCharacter(new HoldingItemDecorator(performingClient.getCharacter(), (HandheldItem) this));
         } else {
             throw new IllegalStateException(getBaseName() + " can't be held in hand!");

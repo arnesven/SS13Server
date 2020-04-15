@@ -102,7 +102,7 @@ public abstract class Weapon extends GameItem implements HandheldItem {
 	 */
 	protected void usedOnBy(Target target, Actor performingClient,
 			GameData gameData) {
-	    performingClient.setCharacter(new HoldingItemDecorator(performingClient.getCharacter(), this));
+	    makeHoldInHand(performingClient);
 
     }
 
@@ -178,7 +178,8 @@ public abstract class Weapon extends GameItem implements HandheldItem {
 
 
     public Sprite getHandHeldSprite() {
-        return new Sprite("weaponinhand", "items_righthand.png", 0, 4, this);
+        return Sprite.blankSprite();
+	    //return new Sprite("weaponinhand", "items_righthand.png", 0, 4, this);
     }
 
     public void setHitChance(double hitChance) {
