@@ -2,6 +2,7 @@ package model.objects.shipments;
 
 import java.util.HashSet;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.items.general.GameItem;
@@ -73,4 +74,11 @@ public abstract class Shipment extends HashSet<GameItem> {
     public void hasArrivedIn(Room position, GameData gameData) {
 
     }
+
+    public Sprite getSprite() {
+		if (isEmpty()) {
+			return Sprite.blankSprite();
+		}
+		return iterator().next().getSprite(null);
+	}
 }

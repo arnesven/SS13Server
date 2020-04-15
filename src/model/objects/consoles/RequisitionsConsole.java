@@ -6,13 +6,6 @@ import graphics.sprites.Sprite;
 import model.*;
 import model.actions.general.Action;
 import model.actions.objectactions.*;
-import model.characters.crew.CaptainCharacter;
-import model.characters.crew.CrewCharacter;
-import model.characters.general.ChangelingCharacter;
-import model.characters.general.GameCharacter;
-import model.characters.visitors.VisitorCharacter;
-import model.items.general.GameItem;
-import model.items.general.KeyCard;
 import model.map.rooms.Room;
 import model.objects.shipments.*;
 import util.Pair;
@@ -40,11 +33,11 @@ public class RequisitionsConsole extends Console {
 	
 	@Override
 	public void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-		Action a = new AdminConsoleAction(this);
+		Action a = new OrderShipmentAction(this);
 		if (a.getOptions(gameData, cl).numberOfSuboptions() > 0) {
 			at.add(a);
 		}
-
+        at.add(new SitDownAtRequisitionsConsoleAction(gameData, this));
 
 	}
 

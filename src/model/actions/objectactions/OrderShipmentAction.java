@@ -7,6 +7,7 @@ import model.GameData;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.crew.CaptainCharacter;
+import model.events.Event;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
 import model.objects.general.CrateObject;
@@ -14,14 +15,14 @@ import model.objects.consoles.RequisitionsConsole;
 import model.objects.shipments.Shipment;
 import util.MyRandom;
 
-public class AdminConsoleAction extends ConsoleAction {
+public class OrderShipmentAction extends ConsoleAction {
 
 
 	private RequisitionsConsole pc;
 	private Shipment selectedShip;
     private boolean checkedfunds;
 
-    public AdminConsoleAction(RequisitionsConsole console) {
+    public OrderShipmentAction(RequisitionsConsole console) {
 		super("Order Shipment", SensoryLevel.OPERATE_DEVICE);
 		this.pc = console;
 	}
@@ -69,10 +70,10 @@ public class AdminConsoleAction extends ConsoleAction {
                 targetRoom = MyRandom.sample(gameData.getRooms());
             }
             Shipment s = selectedShip.clone();
-            targetRoom.addObject(new CrateObject(targetRoom, s, gameData));
             pc.setMoney(pc.getMoney() - s.getCost());
             pc.addHistory(performingClient, selectedShip);
-            performingClient.addTolastTurnInfo("You ordered a shipment! It has arrived in the " + targetRoom.getName() + ". Station funds; " + pc.getMoney());
+            performingClient.addTolastTurnInfo("You ordered a shipment! It will arrive in the " + targetRoom.getName() + " in 2 turns. Station funds; " + pc.getMoney());
+        	gameData.addEvent(new ShipmentArrivesEvent(gameData, targetRoom, s));
         } else {
             performingClient.addTolastTurnInfo("The station's account balance is $$ " + pc.getMoney() + ".");
         }
@@ -84,4 +85,40 @@ public class AdminConsoleAction extends ConsoleAction {
 	}
 
 
+	private class ShipmentArrivesEvent extends Event {
+		private final int startRound;
+		private final Room targetRoom;
+		private final Shipment shipment;
+		private boolean remove;
+
+		public ShipmentArrivesEvent(GameData gameData, Room targetRoom, Shipment s) {
+			super();
+			this.startRound = gameData.getRound();
+			this.targetRoom = targetRoom;
+			this.shipment = s;
+		}
+
+		@Override
+		public void apply(GameData gameData) {
+			if (gameData.getRound() == startRound+2) {
+				targetRoom.addObject(new CrateObject(targetRoom, shipment, gameData));
+				remove = true;
+			}
+		}
+
+		@Override
+		public String howYouAppear(Actor performingClient) {
+			return "";
+		}
+
+		@Override
+		public SensoryLevel getSense() {
+			return SensoryLevel.NO_SENSE;
+		}
+
+		@Override
+		public boolean shouldBeRemoved(GameData gameData) {
+			return remove;
+		}
+	}
 }
