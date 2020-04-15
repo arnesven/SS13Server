@@ -6,6 +6,10 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
+import model.actions.objectactions.VendingMachineAction;
+import model.actions.objectactions.WalkUpToVendingMachine;
+import model.fancyframe.EmaggedVendingMachineFancyFrame;
+import model.fancyframe.FancyFrame;
 import model.items.HandCuffs;
 import model.items.general.GameItem;
 import model.items.general.Grenade;
@@ -23,7 +27,7 @@ import java.util.List;
 /**
  * Created by erini02 on 15/12/16.
  */
-public class EmaggedVendingMachine extends ElectricalMachinery {
+public class EmaggedVendingMachine extends VendingMachine {
     private final VendingMachine inner;
     private final ArrayList<GameItem> newSelection;
     private final ArrayList<String> selectionNames = new ArrayList<>();
@@ -53,12 +57,10 @@ public class EmaggedVendingMachine extends ElectricalMachinery {
         inner.addSpecificActionsFor(gameData, cl, before);
         before.removeAll(at);
 
-
-
         if (before.size() > 0) {
             Action a = before.get(0);
             at.add(new EmaggedVendingAction(a));
-
+            at.add(new WalkUpToVendingMachine(gameData, cl, this));
         }
     }
 
@@ -133,5 +135,19 @@ public class EmaggedVendingMachine extends ElectricalMachinery {
             }
             innerAction.setActionTreeArguments(newArgs, performingClient);
         }
+    }
+
+    @Override
+    public List<GameItem> getItems() {
+        return newSelection;
+    }
+
+    @Override
+    public FancyFrame getFancyFrame(Actor performingClient) {
+        return new EmaggedVendingMachineFancyFrame((Player)performingClient, this);
+    }
+
+    public VendingMachine getInner() {
+        return inner;
     }
 }

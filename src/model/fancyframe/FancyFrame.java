@@ -3,6 +3,7 @@ package model.fancyframe;
 import graphics.sprites.SpriteManager;
 import model.GameData;
 import model.Player;
+import model.items.NoSuchThingException;
 import model.items.general.Tools;
 import util.HTMLText;
 import util.Logger;
@@ -66,4 +67,11 @@ public class FancyFrame implements Serializable {
 
     }
 
+    protected void readyThePlayer(GameData gameData, Player player) {
+        try {
+            gameData.setPlayerReady(gameData.getClidForPlayer(player), true);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+    }
 }

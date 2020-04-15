@@ -20,7 +20,6 @@ public class JunkVendingMachine extends VendingMachine {
         addSelection(new ZippoLighter());
         addSelection(new NukaCola(null));
         addSelection(new SpaceCheetos(null));
-
     }
 
 

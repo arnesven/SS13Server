@@ -43,7 +43,7 @@ public abstract class SitDownAtConsoleAction extends Action {
             ((Player) performingClient).setNextAction(new DoNothingAction());
             ((Player) performingClient).refreshClientData();
         } else if (performingClient instanceof Player) {
-            gameData.getChat().serverSay(console.getPublicName(performingClient) +
+            gameData.getChat().serverInSay(console.getPublicName(performingClient) +
                     " is occupied right now, try again later.", (Player)performingClient);
         }
     }

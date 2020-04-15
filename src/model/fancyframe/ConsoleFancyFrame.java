@@ -116,13 +116,6 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
 
     protected abstract void consoleHandleEvent(GameData gameData, Player player, String event);
 
-    protected void readyThePlayer(GameData gameData, Player player) {
-        try {
-            gameData.setPlayerReady(gameData.getClidForPlayer(player), true);
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void buildPlebosInterface(GameData gameData, Player sender) {
         Logger.log("Building plebOS interface for " + sender.getName());

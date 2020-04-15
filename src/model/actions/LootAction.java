@@ -14,6 +14,7 @@ import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
+import model.objects.general.BreakableObject;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -102,6 +103,9 @@ public class LootAction extends TargetingAction {
 
     @Override
     public boolean isViableForThisAction(Target target2) {
+        if (target2 instanceof BreakableObject) {
+            return ((BreakableObject)target2).isLootable();
+        }
         if (!(target2 instanceof Actor)) {
             return false;
         }

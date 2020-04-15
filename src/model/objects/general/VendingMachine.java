@@ -1,13 +1,13 @@
 package model.objects.general;
 import graphics.sprites.Sprite;
 import model.Actor;
-import model.Bank;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
-import model.actions.general.ActionOption;
-import model.actions.general.SensoryLevel;
-import model.items.NoSuchThingException;
+import model.actions.objectactions.VendingMachineAction;
+import model.actions.objectactions.WalkUpToVendingMachine;
+import model.fancyframe.FancyFrame;
+import model.fancyframe.VendingMachineFancyFrame;
 import model.items.general.*;
 import model.map.rooms.Room;
 
@@ -20,8 +20,6 @@ import java.util.List;
 public abstract class VendingMachine extends ElectricalMachinery {
 
     private ArrayList<GameItem> selection;
-    private GameItem selectedItem;
-    private int cost;
     private GameData gameData = null;
 
     public VendingMachine(String name, Room r) {
@@ -49,57 +47,16 @@ public abstract class VendingMachine extends ElectricalMachinery {
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         this.gameData = gameData;
-        at.add(new Action("Use " + getName(), SensoryLevel.OPERATE_DEVICE) {
-            @Override
-            protected String getVerb(Actor whosAsking) {
-                return "Fiddled with Vending Machine";
-            }
+        at.add(new VendingMachineAction(this));
+        at.add(new WalkUpToVendingMachine(gameData, cl, this));
+    }
 
-            @Override
-            protected void execute(GameData gameData, Actor performingClient) {
-                MoneyStack money;
-                try {
-                    money = MoneyStack.getActorsMoney(performingClient);
-                } catch (NoSuchThingException e) {
-                    performingClient.addTolastTurnInfo("You don't have any money!");
-                    return;
-                }
-                if (cost > money.getAmount()) {
-                    performingClient.addTolastTurnInfo("Sorry, you don't have enough money.");
-                    return;
-                }
+    @Override
+    public List<GameItem> getItems() {
+        return selection;
+    }
 
-                try {
-                    money.subtractFrom(cost);
-                    Bank.getInstance(gameData).addToStationMoney(cost);
-                } catch (ItemStackDepletedException e) {
-                    performingClient.getItems().remove(money);
-                }
-
-                performingClient.addItem(selectedItem.clone(), null);
-                performingClient.addTolastTurnInfo("You got a " + selectedItem.getBaseName() + " from the Vending Machine.");
-            }
-
-            @Override
-            public ActionOption getOptions(GameData gameData, Actor whosAsking) {
-                ActionOption aop = super.getOptions(gameData, whosAsking);
-                for (GameItem it : selection) {
-                    aop.addOption(it.getBaseName() + " ($$ " + it.getCost() + ")");
-                }
-                return aop;
-            }
-
-            @Override
-            public void setArguments(List<String> args, Actor performingClient) {
-                for (GameItem it : selection) {
-                    if (args.get(0).contains(it.getBaseName())) {
-                        selectedItem = it;
-                        String costStr = args.get(0).split("\\$\\$ ")[1];
-                        cost = Integer.parseInt(costStr.substring(0, costStr.length()-1));
-                        break;
-                    }
-                }
-            }
-        });
+    public FancyFrame getFancyFrame(Actor performingClient) {
+        return new VendingMachineFancyFrame((Player)performingClient, this);
     }
 }
