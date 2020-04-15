@@ -5,9 +5,11 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
+import model.PlayerSettings;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.map.GameMap;
+import model.map.rooms.AirLockRoom;
 import model.map.rooms.Room;
 import model.objects.general.GameObject;
 import model.objects.general.AirlockPanel;
@@ -65,11 +67,19 @@ public class AirlockOverrideAction extends ConsoleAction {
 
     @Override
 	protected String getVerb(Actor whosAsking) {
-		return "Fiddeled with the Airlock Override";
+		return "Fiddled with the Airlock Override";
 	}
 
     @Override
     public boolean hasSpecialOptions() {
         return true;
     }
+
+	public List<Room> getRooms() {
+		return rooms;
+	}
+
+	public List<AirlockPanel> getPanels() {
+		return panels;
+	}
 }
