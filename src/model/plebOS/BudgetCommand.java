@@ -5,7 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.items.NoSuchThingException;
-import model.objects.consoles.AdministrationConsole;
+import model.objects.consoles.RequisitionsConsole;
 import model.objects.shipments.Shipment;
 import util.Pair;
 
@@ -23,7 +23,7 @@ public class BudgetCommand extends PlebOSCommandHandler {
     protected void internalHandle(GameData gameData, Player sender,
                                   String rest, ComputerSystemSession loginInstance) {
         try {
-            AdministrationConsole cons = gameData.findObjectOfType(AdministrationConsole.class);
+            RequisitionsConsole cons = gameData.findObjectOfType(RequisitionsConsole.class);
             loginInstance.getConsole().plebOSSay("Station funds: $$" + cons.getMoney(), sender);
             if (cons.getHistory().size() > 0) {
                 loginInstance.getConsole().plebOSSay("SHIPMENT HISTORY (ORDERED BY)", sender);

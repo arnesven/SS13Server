@@ -53,7 +53,7 @@ public class FindObjectTest extends TestCase {
         GameData gameData = TestUtil.makeAGame(2);
 
         Class<? extends GameObject>[] classes = new Class[]{
-                BotConsole.class, StasisPod.class, AIConsole.class, AdministrationConsole.class,
+                BotConsole.class, StasisPod.class, AIConsole.class, RequisitionsConsole.class,
                 Dumbwaiter.class, EvidenceBox.class
         };
 

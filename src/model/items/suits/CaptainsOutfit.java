@@ -31,7 +31,7 @@ public class CaptainsOutfit extends OutFit {
     public Map<Integer, Sprite> getAdditionalSprites() {
         Map<Integer, Sprite> map = new HashMap<>();
         map.put(Equipment.HEAD_SLOT, new CaptainsHat().getSprite(getType().getActor()));
-        map.put(Equipment.FEET_SLOT, new RegularBlackShoesSprite());
+        map.put(Equipment.FEET_SLOT, RegularBlackShoesSprite.EQ_SPRITE);
         return map;
     }
 }

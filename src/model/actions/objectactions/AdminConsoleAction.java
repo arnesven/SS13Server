@@ -10,19 +10,19 @@ import model.characters.crew.CaptainCharacter;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
 import model.objects.general.CrateObject;
-import model.objects.consoles.AdministrationConsole;
+import model.objects.consoles.RequisitionsConsole;
 import model.objects.shipments.Shipment;
 import util.MyRandom;
 
 public class AdminConsoleAction extends ConsoleAction {
 
 
-	private AdministrationConsole pc;
+	private RequisitionsConsole pc;
 	private Shipment selectedShip;
     private boolean checkedfunds;
 
-    public AdminConsoleAction(AdministrationConsole console) {
-		super("Admin Console", SensoryLevel.OPERATE_DEVICE);
+    public AdminConsoleAction(RequisitionsConsole console) {
+		super("Order Shipment", SensoryLevel.OPERATE_DEVICE);
 		this.pc = console;
 	}
 	

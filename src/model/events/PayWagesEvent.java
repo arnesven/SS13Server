@@ -6,7 +6,8 @@ import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.objects.consoles.AIConsole;
-import model.objects.consoles.AdministrationConsole;
+import model.objects.consoles.PersonnelConsole;
+import model.objects.consoles.RequisitionsConsole;
 import util.Logger;
 
 /**
@@ -22,7 +23,7 @@ public class PayWagesEvent extends Event {
     public void apply(GameData gameData) {
         Logger.log("Applying paychecks. - ran once");
         try {
-            AdministrationConsole adminConsole = gameData.findObjectOfType(AdministrationConsole.class);
+            PersonnelConsole adminConsole = gameData.findObjectOfType(PersonnelConsole.class);
             if ((gameData.getRound()-1) % 3 == 0) {
                 if (adminConsole.canPayAllWages(gameData)) {
                     for (Actor a : gameData.getActors()) {

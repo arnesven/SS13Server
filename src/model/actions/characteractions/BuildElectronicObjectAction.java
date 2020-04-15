@@ -9,7 +9,6 @@ import model.items.NoSuchThingException;
 import model.items.general.ElectronicParts;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
-import model.objects.BarSign;
 import model.objects.ai.AITurret;
 import model.objects.general.ATM;
 import model.objects.general.StasisPod;
@@ -85,7 +84,7 @@ public class BuildElectronicObjectAction extends Action {
         set.add(new BioScanner(null));
         set.add(new CookOMatic(null));
         set.add(new Dumbwaiter(null));
-        set.add(new AdministrationConsole(null, gameData));
+        set.add(new RequisitionsConsole(null, gameData));
         set.add(new NuclearBomb(null));
         set.add(new AirlockPanel(null));
         set.add(new SlotMachine(null));

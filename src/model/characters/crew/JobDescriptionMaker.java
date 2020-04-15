@@ -3,7 +3,8 @@ package model.characters.crew;
 import model.characters.visitors.VisitorCharacter;
 import model.items.general.GameItem;
 import model.items.general.MoneyStack;
-import model.objects.consoles.AdministrationConsole;
+import model.objects.consoles.PersonnelConsole;
+import model.objects.consoles.RequisitionsConsole;
 import util.HTMLText;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class JobDescriptionMaker {
 
 
     private String getSalaryStringFromWage(CrewCharacter chara) {
-        int wage = AdministrationConsole.getWageForCharacter(chara);
+        int wage = PersonnelConsole.getWageForCharacter(chara);
         String[] words = new String[]{"None", "Poor", "Poor", "Poor", "Poor", "Poor",
                 "Meager", "Meager", "Meager", "Meager", "Fair", "Fair", "Fair", "Good", "Good", "Good", "Good", "Good",
                 "Good", "Good", "Very Good", "Very Good", "Very Good", "Very Good", "Very Good", "Very Good", "Very Good", "Very Good"};

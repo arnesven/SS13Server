@@ -47,7 +47,7 @@ public class MarshalOutfit extends TorsoAndShoesSuit {
     @Override
     protected Map<Integer, Sprite> getOtherSprites() {
         Map<Integer, Sprite> map = new HashMap<>();
-        map.put(Equipment.FEET_SLOT, new RegularBlackShoesSprite());
+        map.put(Equipment.FEET_SLOT, RegularBlackShoesSprite.EQ_SPRITE);
         return map;
     }
 }

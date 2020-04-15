@@ -63,7 +63,7 @@ public class PirateOutfit extends HeadShoesAndTorsoSuit {
     @Override
     protected Map<Integer, Sprite> getExtraSprites() {
         Map<Integer, Sprite> map = new HashMap<>();
-        map.put(Equipment.FEET_SLOT, new RegularBlackShoesSprite());
+        map.put(Equipment.FEET_SLOT, RegularBlackShoesSprite.EQ_SPRITE);
         map.put(Equipment.HEAD_SLOT, new Sprite("piratemask", "mask.png", 13, 1, this));
 
         return map;

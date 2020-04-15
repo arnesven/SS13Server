@@ -51,7 +51,7 @@ public class StillSuit extends HeadShoesAndTorsoSuit {
     @Override
     protected Map<Integer, Sprite> getExtraSprites() {
         Map<Integer, Sprite> map = new HashMap<>();
-        map.put(Equipment.FEET_SLOT, new RegularBlackShoesSprite());
+        map.put(Equipment.FEET_SLOT, RegularBlackShoesSprite.EQ_SPRITE);
         map.put(Equipment.HEAD_SLOT, new Sprite("blackmask", "mask.png", 7, 11, this));
 
         return map;

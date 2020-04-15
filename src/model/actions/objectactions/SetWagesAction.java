@@ -5,7 +5,8 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
-import model.objects.consoles.AdministrationConsole;
+import model.objects.consoles.PersonnelConsole;
+import model.objects.consoles.RequisitionsConsole;
 
 import java.util.List;
 
@@ -13,12 +14,12 @@ import java.util.List;
  * Created by erini02 on 15/11/16.
  */
 public class SetWagesAction extends Action {
-    private final AdministrationConsole admin;
+    private final PersonnelConsole admin;
     private final GameData gameData;
     private Actor selectedActor;
     private int newWage;
 
-    public SetWagesAction(AdministrationConsole administrationConsole,
+    public SetWagesAction(PersonnelConsole administrationConsole,
                           GameData gameData) {
         super("Modify Paychecks", SensoryLevel.OPERATE_DEVICE);
         this.admin = administrationConsole;

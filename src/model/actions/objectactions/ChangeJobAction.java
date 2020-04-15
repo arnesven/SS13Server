@@ -12,12 +12,11 @@ import model.characters.visitors.ClownCharacter;
 import model.characters.visitors.LawyerCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.items.NoSuchThingException;
-import model.items.suits.OutFit;
 import model.items.suits.SuitItem;
 import model.map.GameMap;
-import model.map.MapLevel;
 import model.modes.GameMode;
-import model.objects.consoles.AdministrationConsole;
+import model.objects.consoles.PersonnelConsole;
+import model.objects.consoles.RequisitionsConsole;
 
 import java.util.*;
 
@@ -25,12 +24,12 @@ import java.util.*;
  * Created by erini02 on 05/12/16.
  */
 public class ChangeJobAction extends ConsoleAction {
-    private final AdministrationConsole adminConsole;
+    private final PersonnelConsole adminConsole;
     private final GameData gameData;
     private Actor selectedActor = null;
     private GameCharacter selectedJob = null;
 
-    public ChangeJobAction(AdministrationConsole administrationConsole, GameData gameData) {
+    public ChangeJobAction(PersonnelConsole administrationConsole, GameData gameData) {
         super("Change Job", SensoryLevel.OPERATE_DEVICE);
         this.adminConsole = administrationConsole;
         this.gameData = gameData;

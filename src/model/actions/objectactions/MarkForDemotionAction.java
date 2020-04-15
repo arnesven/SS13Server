@@ -7,7 +7,8 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.crew.HeadOfStaffCharacter;
 import model.characters.general.GameCharacter;
-import model.objects.consoles.AdministrationConsole;
+import model.objects.consoles.PersonnelConsole;
+import model.objects.consoles.RequisitionsConsole;
 import util.HTMLText;
 
 import java.util.List;
@@ -16,11 +17,11 @@ import java.util.List;
  * Created by erini02 on 05/12/16.
  */
 public class MarkForDemotionAction extends Action {
-    private final AdministrationConsole admin;
+    private final PersonnelConsole admin;
     private final GameData gameData;
     private Actor selected = null;
 
-    public MarkForDemotionAction(AdministrationConsole administrationConsole, GameData gameData) {
+    public MarkForDemotionAction(PersonnelConsole administrationConsole, GameData gameData) {
         super("Mark For Demotion", SensoryLevel.OPERATE_DEVICE);
         this.admin = administrationConsole;
         this.gameData = gameData;

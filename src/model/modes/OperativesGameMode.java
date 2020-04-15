@@ -186,7 +186,7 @@ public class OperativesGameMode extends GameMode {
 		StringBuilder data = new StringBuilder( HTMLText.makeCentered(HTMLText.makeText("White", "<br/><b>You are a nuclear " +
                             HTMLText.makeLink(HTMLText.wikiURL + "/modes/operatives", "operative") + "!</b><br/>") +
 							HTMLText.makeImage(new NuclearBomb(null).getSprite(null)) + "<br/>" +
-							HTMLText.makeText("Black", "Infiltrate the station and find the nuclear disk.<br/>" +
+							HTMLText.makeText("Black", "Infiltrate the station and find the nuclear disk. " +
 							"Then leave the station through an airlock.<br/>" +
 							"You can pretend to be the " + decoys.get(c).getBaseName() + 
 							" (in " + decoys.get(c).getPosition().getName() + ")<br/>")));

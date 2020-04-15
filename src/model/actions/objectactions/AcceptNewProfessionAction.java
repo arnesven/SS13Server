@@ -6,7 +6,8 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.crew.HeadOfStaffCharacter;
 import model.characters.general.GameCharacter;
-import model.objects.consoles.AdministrationConsole;
+import model.objects.consoles.PersonnelConsole;
+import model.objects.consoles.RequisitionsConsole;
 import util.HTMLText;
 
 import java.util.List;
@@ -15,9 +16,9 @@ import java.util.List;
  * Created by erini02 on 05/12/16.
  */
 public class AcceptNewProfessionAction extends Action {
-    private final AdministrationConsole adminConsole;
+    private final PersonnelConsole adminConsole;
 
-    public AcceptNewProfessionAction(AdministrationConsole administrationConsole) {
+    public AcceptNewProfessionAction(PersonnelConsole administrationConsole) {
         super("Apply Job Change", SensoryLevel.OPERATE_DEVICE);
         this.adminConsole = administrationConsole;
     }
