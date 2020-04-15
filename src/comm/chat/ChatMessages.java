@@ -175,4 +175,12 @@ public class ChatMessages implements Serializable {
             e.printStackTrace();
         }
     }
+
+    public void serverInSay(String sayWhat, Player receiver) {
+        this.add(sayWhat, receiver);
+    }
+
+    public void serverInSay(String sayWhat) {
+        this.addAll(sayWhat);
+    }
 }

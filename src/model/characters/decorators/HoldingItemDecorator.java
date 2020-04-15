@@ -22,7 +22,11 @@ public class HoldingItemDecorator extends CharacterDecorator {
             if (whosAsking.getItems().contains(hhitem)) {
                 List<Sprite> look = new ArrayList<>();
                 look.add(super.getSprite(whosAsking));
-                look.add(hhitem.getHandHeldSprite());
+                Sprite hhSprite = hhitem.getHandHeldSprite();
+                if (whosAsking.isDead()) {
+                    hhSprite.setRotation(90.0);
+                }
+                look.add(hhSprite);
                 return new Sprite(super.getSprite(whosAsking).getName() + "holding" + hhitem.getBaseName().toLowerCase(),
                         "human.png", 0, look, whosAsking);
             }
