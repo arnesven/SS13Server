@@ -129,4 +129,5 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
                         "Courier", 4, totalOutput.toString())));
     }
 
+    public void doAtEndOfTurn(GameData gameData, Player actor) { }
 }

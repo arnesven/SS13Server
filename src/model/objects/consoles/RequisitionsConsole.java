@@ -37,7 +37,9 @@ public class RequisitionsConsole extends Console {
 		if (a.getOptions(gameData, cl).numberOfSuboptions() > 0) {
 			at.add(a);
 		}
-        at.add(new SitDownAtRequisitionsConsoleAction(gameData, this));
+		if (cl instanceof Player) {
+            at.add(new SitDownAtRequisitionsConsoleAction(gameData, this));
+        }
 
 	}
 

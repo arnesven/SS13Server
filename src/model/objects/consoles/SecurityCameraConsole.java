@@ -22,7 +22,9 @@ public class SecurityCameraConsole extends Console {
 	@Override
 	public void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(new SecurityConsoleAction(this));
-		at.add(new SitDownatSecurityConsoleAction(gameData, this));
+		if (cl instanceof Player) {
+			at.add(new SitDownatSecurityConsoleAction(gameData, this));
+		}
 	}
 
 	public void setChosen(String chosen) {

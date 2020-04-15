@@ -74,5 +74,9 @@ public class TriggerAction extends Action {
 	public void setSense(SensoryLevel sensedAs) {
 		innerAction.setSense(sensedAs);
 	}
-	
+
+	@Override
+	public boolean doesSetPlayerReady() {
+		return innerAction.doesSetPlayerReady();
+	}
 }

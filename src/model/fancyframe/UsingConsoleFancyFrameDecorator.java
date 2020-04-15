@@ -21,6 +21,7 @@ public class UsingConsoleFancyFrameDecorator extends CharacterDecorator {
         super.doAfterActions(gameData);
         if (getActor() instanceof Player) {
             fancyFrame.rebuildInterface(gameData, (Player) getActor());
+            fancyFrame.doAtEndOfTurn(gameData, (Player)getActor());
         }
     }
 
