@@ -16,18 +16,31 @@ import java.util.Scanner;
 
 public class VendingMachineFancyFrame extends FancyFrame {
     private final VendingMachine vending;
+    private final String title;
+    private final String bgColor;
     private int selectedIndex = -1;
 
-    public VendingMachineFancyFrame(Player performingClient, VendingMachine vending) {
+    public VendingMachineFancyFrame(Player performingClient, VendingMachine vending, String title, String bgColor) {
         super(performingClient.getFancyFrame());
         this.vending = vending;
+        this.title = title;
+        this.bgColor = bgColor;
         buildContent(performingClient, vending);
+    }
+
+    public VendingMachineFancyFrame(Player pl, VendingMachine v) {
+        this(pl, v, "<b>Bell's Quality Goods</b><br/><i>Great Prices!</i>", "#a7281e");
     }
 
     protected void buildContent(Player performingClient, VendingMachine vending) {
         StringBuilder content = new StringBuilder();
 
-        content.append("<center>" + HTMLText.makeText("Yellow", "<b>Bell's Quality Stuff</b><br/><i>Great Prices!</i>") + "<br/><br/><table bgcolor=\"#000000\"><tr>");
+        String poweredColor = "Yellow";
+        if (!vending.isPowered()) {
+            poweredColor = "Black";
+        }
+        content.append("<center>" + HTMLText.makeText(poweredColor, "Courier", 5,
+                this.title) + "<br/><br/><table bgcolor=\"#000000\"><tr>");
         int col = 0;
         List<GameItem> rowList = new ArrayList<>();
         for (GameItem it : vending.getItems()) {
@@ -43,7 +56,7 @@ public class VendingMachineFancyFrame extends FancyFrame {
             if (col % 3 == 0) {
                 content.append("</tr><tr>");
                 for (GameItem it2: rowList) {
-                    content.append("<td>" + HTMLText.makeText("Yellow", "$$ " + it2.getCost()) + "</td>");
+                    content.append("<td>" + HTMLText.makeText(poweredColor, "$$ " + it2.getCost()) + "</td>");
                 }
                 content.append("</tr><tr>");
                 rowList.clear();
@@ -52,14 +65,14 @@ public class VendingMachineFancyFrame extends FancyFrame {
         if (col % 3 != 0) {
             content.append("</tr><tr>");
             for (GameItem it2: rowList) {
-                content.append("<td>" + HTMLText.makeText("Yellow", "$$ " + it2.getCost()) + "</td>");
+                content.append("<td>" + HTMLText.makeText(poweredColor, "$$ " + it2.getCost()) + "</td>");
             }
             content.append("</tr><tr>");
             rowList.clear();
         }
         content.append("</tr></table></center>");
 
-        setData(vending.getPublicName(performingClient), false, HTMLText.makeColoredBackground("#a7281e", content.toString()));
+        setData(vending.getPublicName(performingClient), false, HTMLText.makeColoredBackground(this.bgColor, content.toString()));
     }
 
     protected Sprite getLookForItem(int col, Player p) {
@@ -69,7 +82,7 @@ public class VendingMachineFancyFrame extends FancyFrame {
     @Override
     public void handleEvent(GameData gameData, Player player, String event) {
         super.handleEvent(gameData, player, event);
-        if (event.contains("BUY")) {
+        if (event.contains("BUY") && vending.isPowered()) {
             Logger.log(player.getName() + " is getting snacks!");
             selectedIndex = new Scanner(event.replace("BUY ", "")).nextInt();
             List<String> args = new ArrayList<>();

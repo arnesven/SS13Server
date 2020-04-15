@@ -1,7 +1,10 @@
 package model.objects.general;
 
 import graphics.sprites.Sprite;
+import model.Actor;
 import model.Player;
+import model.fancyframe.FancyFrame;
+import model.fancyframe.SeedsAreUsFancyFrame;
 import model.items.general.BagOfSoil;
 import model.items.seeds.MushroomSpores;
 import model.items.seeds.OrangeSeeds;
@@ -26,5 +29,10 @@ public class SeedVendingMachine extends VendingMachine {
     @Override
     public Sprite getSprite(Player whosAsking) {
         return new Sprite("seedvending", "vending.png", 20, this);
+    }
+
+    @Override
+    public FancyFrame getFancyFrame(Actor performingClient) {
+        return new SeedsAreUsFancyFrame(performingClient, this);
     }
 }

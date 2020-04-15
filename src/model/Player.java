@@ -6,6 +6,7 @@ import java.util.*;
 import graphics.ClientInfo;
 import graphics.OverlaySprite;
 import graphics.sprites.*;
+import model.actions.objectactions.LoginAction;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import model.fancyframe.FancyFrame;
@@ -418,6 +419,7 @@ public class Player extends Actor implements Target, Serializable {
 	 */
 	public void applyAction(GameData gameData) {
 		if (!isDead()) {
+			Logger.log(getName() + "'s action is " + nextAction.getName());
 			this.nextAction.doTheAction(gameData, this);
 		} else {
             this.nextAction.setDeadBeforeApplied();
