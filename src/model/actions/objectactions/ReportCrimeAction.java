@@ -59,7 +59,7 @@ public class ReportCrimeAction extends ConsoleAction {
 				break;
 			}
 		}
-		if (console.isPowered(gameData) && !console.isBroken()) {
+		if (console.isPowered() && !console.isBroken()) {
 			console.addReport(guy, selectedCrime, performingClient);
 			performingClient.addTolastTurnInfo("You reported " + guy.getBaseName() + " for \"" + selectedCrime + "\".");
 		} else {

@@ -34,7 +34,7 @@ public abstract class Radio extends UplinkItem {
         Console console;
         try {
             console = getSpecificConsole(gameData);
-            if (console.isPowered(gameData) && !console.isBroken()) {
+            if (console.isPowered() && !console.isBroken()) {
                 noConnect = false;
                 at.add(getSpecificAction(gameData));
 

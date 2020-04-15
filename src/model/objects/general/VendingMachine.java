@@ -37,7 +37,7 @@ public abstract class VendingMachine extends ElectricalMachinery {
             return new Sprite("vendingmachinebroken", "vending.png", 4, this);
         }
         if (gameData != null) {
-            if (!isPowered(gameData)) {
+            if (!isPowered()) {
                 return new Sprite("vendingmachinenopower", "vending.png", 5, this);
             }
         }

@@ -17,6 +17,7 @@ public abstract class ElectricalMachinery extends BreakableObject
 
 	private boolean inUse = false;
 	private int powerPriority = 5; // lowest priority
+	private PowerSource source = null;
 
 	public ElectricalMachinery(String name, Room r) {
 		super(name, 1.5, r);
@@ -29,7 +30,26 @@ public abstract class ElectricalMachinery extends BreakableObject
 	public boolean isInUse() {
 		return inUse;
 	}
-	
+
+	public PowerSource getPowerSource() {
+		return source;
+	}
+
+	public void setPowerSource(PowerSource src) {
+		this.source = src;
+	}
+
+	public boolean isPowered() {
+		if (getPosition() == null) {
+			Logger.log(Logger.CRITICAL, "Warning, position for machine " + getName() + " was null! Cannot determine if it is powered or not.");
+			return false;
+		}
+		if (source == null) {
+			return false;
+		}
+		return !source.getNoPowerObjects().contains(this);
+	}
+
 	@Override
 	public int compareTo(ElectricalMachinery arg0) {
 		return this.powerPriority - arg0.powerPriority;
@@ -57,8 +77,8 @@ public abstract class ElectricalMachinery extends BreakableObject
 		}
 	}
 
-	public static boolean isPowered(GameData gameData, ElectricalMachinery machine) {
-
+	@Deprecated
+	private static boolean isPowered(GameData gameData, ElectricalMachinery machine) {
 		if (machine.getPosition() == null) {
 			Logger.log(Logger.CRITICAL, "Warning, position for machine " + machine.getName() + " was null! Cannot determine if it is powered or not.");
 			return false;
@@ -79,8 +99,9 @@ public abstract class ElectricalMachinery extends BreakableObject
         }
         return true;
     }
-	
-	public boolean isPowered(GameData gameData) {
+
+    @Deprecated
+	private boolean isPowered(GameData gameData) {
 		return isPowered(gameData, this);
 	}
 	
@@ -97,4 +118,5 @@ public abstract class ElectricalMachinery extends BreakableObject
     public double getPowerConsumptionFactor() {
         return 1.0;
     }
+
 }

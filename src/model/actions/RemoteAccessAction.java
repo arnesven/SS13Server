@@ -73,8 +73,7 @@ public abstract class RemoteAccessAction extends Action {
         List<GameObject> remotes = new ArrayList<>();
         for (GameObject o : gameData.getObjectsForLevel("ss13")) {
             if (o instanceof RemotelyOperateable) {
-                if (!(o instanceof ElectricalMachinery) ||
-                        ElectricalMachinery.isPowered(gameData, (ElectricalMachinery)o)) {
+                if (!(o instanceof ElectricalMachinery) || ((ElectricalMachinery) o).isPowered()) {
                     remotes.add(o);
                 }
             }

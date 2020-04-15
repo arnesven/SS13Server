@@ -27,7 +27,7 @@ public class AlsoSeePowerVision extends NormalVision {
     protected static void addPowerForRoom(List<Sprite> sp, Room r, GameData gameData) {
         for (GameObject ob : r.getObjects()) {
             if (ob instanceof ElectricalMachinery) {
-                if (!ElectricalMachinery.isPowered(gameData, (ElectricalMachinery) ob)) {
+                if (!((ElectricalMachinery) ob).isPowered()) {
                     sp.add(new Sprite("nopowerdecal", "decals2.png", 6, null));
                     break;
                 }

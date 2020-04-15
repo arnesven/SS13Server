@@ -34,7 +34,7 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
             return new Sprite("consolebroken", "computer2.png", 12, this);
         }
         if (gameData != null) {
-            if (!isPowered(gameData)) {
+            if (!isPowered()) {
                 return new Sprite("consolenopower", "computer2.png", 13, this);
             }
         }
@@ -49,7 +49,7 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
     protected final void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         this.gameData = gameData;
         if (cl.getCharacter().isCrew() && cl instanceof Player && !PlebOSCommandHandler.isLoggedIn((Player)cl)) {
-            if (!isBroken() && isPowered(gameData) && loggedInAt==null) {
+            if (!isBroken() && isPowered() && loggedInAt==null) {
                 //at.add(new LoginAction(this, cl, consoleFancyFrame));
             }
         }

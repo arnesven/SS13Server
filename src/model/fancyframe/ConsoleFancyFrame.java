@@ -32,7 +32,7 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
         if (console.isBroken()) {
             super.setData(console.getName(), false, HTMLText.makeColoredBackground("Blue", HTMLText.makeCentered(HTMLText.makeText("yellow", "(Broken)"))));
             return;
-        } else if (!console.isPowered(gameData)) {
+        } else if (!console.isPowered()) {
             super.setData(console.getName(), false, HTMLText.makeColoredBackground("Black", HTMLText.makeCentered(HTMLText.makeText("white", "(No Power)"))));
             return;
         }

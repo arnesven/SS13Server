@@ -86,7 +86,7 @@ public class ElevatorRoom extends Room {
     }
 
     private boolean hasPower(GameData gameData) {
-        return !needsPowerToRun || ElectricalMachinery.isPowered(gameData, panel);
+        return !needsPowerToRun || panel.isPowered();
     }
 
     public void hold() {

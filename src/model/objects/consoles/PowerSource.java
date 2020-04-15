@@ -186,8 +186,13 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
 
         for (Room room : getAffectedRooms(gameData)) {
             for (GameObject obj : room.getObjects()) {
-                if (obj instanceof ElectricalMachinery && !(obj instanceof GeneratorConsole)) {
-                    noPower.add((ElectricalMachinery) obj);
+                if (obj instanceof ElectricalMachinery) {
+                    if (((ElectricalMachinery)obj).getPowerSource() == null) {
+                        ((ElectricalMachinery) obj).setPowerSource(this);
+                    }
+                    if (!(obj instanceof GeneratorConsole)) {
+                        noPower.add((ElectricalMachinery) obj);
+                    }
                 }
             }
         }

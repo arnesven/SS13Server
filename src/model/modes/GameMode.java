@@ -220,6 +220,8 @@ public abstract class GameMode implements Serializable {
 	}
 
 	public void setup(GameData gameData) {
+		Logger.log("Game Modes: Running power simulation once");
+		events.get("simulate power").apply(gameData);
 		Logger.log("Game Modes: Going to assign roles");
 		remainingChars = assignCharactersToPlayers(gameData);
 		Logger.log(" Game Mode: Setup: Characters assigned");

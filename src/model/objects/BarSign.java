@@ -26,7 +26,7 @@ public class BarSign extends ElectricalMachinery {
     @Override
     public Sprite getSprite(Player whosAsking) {
         if (gameData != null) {
-            if (!ElectricalMachinery.isPowered(gameData, this)) {
+            if (!isPowered()) {
                 return new Sprite("unpoweredbarsign1", "barsigns.png", 2, 5, 64, 32, this);
             }
         }

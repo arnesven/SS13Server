@@ -25,7 +25,7 @@ public class LoginChatHandler extends ChatCommandHandler {
                         Console con = (Console) obj;
                         if (con.isBroken()) {
                             gameData.getChat().serverSay("The console is broken, can't login!", sender);
-                        } else if (!con.isPowered(gameData)) {
+                        } else if (!con.isPowered()) {
                             gameData.getChat().serverSay("The console has no power, can't login!", sender);
                         } else {
                             gameData.getChat().serverSay("You logged in at the " + obj.getBaseName(), sender);
