@@ -20,7 +20,7 @@ public abstract class PlebOSCommandHandler extends ChatCommandHandler {
         ComputerSystemSession loginInstance = ComputerSystemSession.getLogin(sender);
 
         if (rest.contains(getCommand())) {
-            loginInstance.getConsole().plebOSSay("$ rest", sender);
+            loginInstance.getConsole().plebOSSay("$ " + rest, sender);
             internalHandle(gameData, sender, rest, loginInstance);
             if (doesReadyUser()) {
                 try {

@@ -6,6 +6,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.crew.JanitorCharacter;
+import model.characters.crew.StaffAssistantCharacter;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.ClownCharacter;
@@ -45,10 +46,12 @@ public class ChangeJobAction extends ConsoleAction {
         ActionOption opts = super.getOptions(gameData, whosAsking);
 
         for (Actor a : gameData.getActors()) {
-            if (a.getPosition() == whosAsking.getPosition() || adminConsole.getToBeDemoted().contains(a)) {
+            if ((a.getPosition() == whosAsking.getPosition() && adminConsole.getAcceptedActors().contains(a)) || adminConsole.getToBeDemoted().contains(a)) {
                 if (a != whosAsking && a.getAsTarget().isTargetable() && a.getCharacter().isCrew()) {
-                    ActionOption newOpt = new ActionOption(a.getPublicName());
-                    addJobs(newOpt, a.getCharacter(), adminConsole.getToBeDemoted().contains(a));
+                    ActionOption newOpt = new ActionOption(a.getBaseName());
+                    for (GameCharacter newJob : adminConsole.getAvailableJobs(a.getCharacter(), adminConsole.getToBeDemoted().contains(a))) {
+                        newOpt.addOption(newJob.getBaseName());
+                    }
                     opts.addOption(newOpt);
                 }
             }
@@ -57,16 +60,6 @@ public class ChangeJobAction extends ConsoleAction {
         return opts;
     }
 
-    private void addJobs(ActionOption newOpt, GameCharacter character, boolean demotion) {
-        for (GameCharacter gc : getAvailableJobs()) {
-            if (character.getSpeed() > gc.getSpeed() || !demotion) {
-                newOpt.addOption(gc.getBaseName());
-            }
-        }
-        if (newOpt.numberOfSuboptions() == 0) {
-            newOpt.addOption(new JanitorCharacter().getBaseName());
-        }
-    }
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
@@ -77,13 +70,14 @@ public class ChangeJobAction extends ConsoleAction {
     public void setArguments(List<String> args, Actor performingClient) {
         for (Actor a : gameData.getActors()) {
             if (a.getPosition() == performingClient.getPosition() || adminConsole.getToBeDemoted().contains(a)) {
-                if (args.get(0).equals(a.getPublicName())) {
+                if (args.get(0).equals(a.getBaseName())) {
                     selectedActor = a;
                 }
             }
         }
 
-        for (GameCharacter gc : getAvailableJobs()) {
+        for (GameCharacter gc : adminConsole.getAvailableJobs(selectedActor.getCharacter(),
+                adminConsole.getToBeDemoted().contains(selectedActor))) {
             if (args.get(1).equals(gc.getBaseName())) {
                 selectedJob = gc;
             }
@@ -151,12 +145,4 @@ public class ChangeJobAction extends ConsoleAction {
 
     }
 
-    public Set<GameCharacter> getAvailableJobs() {
-        Set<GameCharacter> jobSet = new HashSet<>();
-        jobSet.addAll(GameMode.getAllCrew());
-        jobSet.removeIf((GameCharacter gc) -> gc instanceof VisitorCharacter);
-        jobSet.add(new ClownCharacter());
-        jobSet.add(new LawyerCharacter());
-        return jobSet;
-    }
 }

@@ -65,6 +65,6 @@ public class FTLControlFancyFrame extends ConsoleFancyFrame {
     @Override
     public void doAtEndOfTurn(GameData gameData, Player actor) {
         pushedButton = false;
-        concreteRebuild(gameData, actor);
+     //   concreteRebuild(gameData, actor); // this ruins login..
     }
 }

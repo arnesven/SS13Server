@@ -84,29 +84,35 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
     }
 
     @Override
-    public void handleInput(GameData gameData, Player player, String data) {
+    public final void handleInput(GameData gameData, Player player, String data) {
         super.handleInput(gameData, player, data);
-        ComputerSystemSession login = ComputerSystemSession.getLogin(player);
-        boolean handled = false;
-        for (ChatCommandHandler posc : login.getAvailableCommands()) {
-            if (posc.handle(gameData, player, data)) {
-                handled = true;
-                break;
-            }
-        }
-        if (!handled) {
-            if (PlebOSCommandHandler.isLoggedIn(player)) {
-                console.plebOSSay(data, player);
-                console.plebOSSay("Unknown command \"" + data + "\".", player);
-            }
-        }
         if (PlebOSCommandHandler.isLoggedIn(player)) {
-            buildPlebosInterface(gameData, player);
+            ComputerSystemSession login = ComputerSystemSession.getLogin(player);
+            boolean handled = false;
+            for (ChatCommandHandler posc : login.getAvailableCommands()) {
+                if (posc.handle(gameData, player, data)) {
+                    handled = true;
+                    break;
+                }
+            }
+            if (!handled) {
+                if (PlebOSCommandHandler.isLoggedIn(player)) {
+                    console.plebOSSay(data, player);
+                    console.plebOSSay("Unknown command \"" + data + "\".", player);
+                }
+            }
+            if (PlebOSCommandHandler.isLoggedIn(player)) {
+                buildPlebosInterface(gameData, player);
+            } else {
+                rebuildInterface(gameData, player);
+            }
+            player.refreshClientData();
         } else {
-            rebuildInterface(gameData, player);
+            consoleHandleInput(gameData, player, data);
         }
-        player.refreshClientData();
     }
+
+    protected void consoleHandleInput(GameData gameData, Player player, String data) { }
 
     private void handleLogin(GameData gameData, Player player, ConsoleFancyFrame consoleFancyFrame) {
         LoginAction la = new LoginAction(console, player, consoleFancyFrame);

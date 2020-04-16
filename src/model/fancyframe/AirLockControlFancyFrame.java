@@ -19,6 +19,7 @@ public class AirLockControlFancyFrame extends ConsoleFancyFrame {
     private final AirlockOverrideAction airlockAction;
     private String selected = "";
     private boolean showVenting = false;
+    private boolean approved;
 
     public AirLockControlFancyFrame(Player pl, Console console, GameData gameData, String bgColor, String fgColor) {
         super(pl.getFancyFrame(), console, gameData, bgColor, fgColor);
@@ -42,10 +43,14 @@ public class AirLockControlFancyFrame extends ConsoleFancyFrame {
         content.append("________________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE LOCKS", "[airlocks]"));
         content.append(HTMLText.makeCentered("<br/><b>Station Venting:</b><br/>"));
         if (airLockControl.mayApproveVenting(player)) {
+            String buttonColor = "gray";
+            if (approved) {
+                buttonColor = "white";
+            }
             content.append(HTMLText.makeCentered(HTMLText.makeText("red", "Yellow", "Arial", 4,
                     "ATTENTION!<br/>Do not approve venting unless personnel safety has been confirmed!<br/><br/>") +
                             "(Approval last only this round and actual venting is done at Life Support console.)<br/><br/>" +
-            HTMLText.makeFancyFrameLink("APPROVE", HTMLText.makeText("black", "gray", "Courier", 4, "[APPROVE]"))));
+            HTMLText.makeFancyFrameLink("APPROVE", HTMLText.makeText("black", buttonColor, "Courier", 4, "[APPROVE]"))));
         } else {
             content.append(HTMLText.makeCentered("<i>Permission Denied</i>"));
         }
@@ -90,12 +95,13 @@ public class AirLockControlFancyFrame extends ConsoleFancyFrame {
             selected = args.get(0);
             player.setNextAction(aoa);
             concreteRebuild(gameData, player);
-            player.refreshClientData();
+            readyThePlayer(gameData, player);
         } else if (event.contains("APPROVE")) {
             ApproveVentStation avs = new ApproveVentStation(airLockControl);
+            approved = true;
             player.setNextAction(avs);
             concreteRebuild(gameData, player);
-            player.refreshClientData();
+            readyThePlayer(gameData, player);
         }
         player.refreshClientData();
     }
@@ -103,6 +109,7 @@ public class AirLockControlFancyFrame extends ConsoleFancyFrame {
     @Override
     public void doAtEndOfTurn(GameData gameData, Player actor) {
         selected = "";
-        concreteRebuild(gameData, actor);
+        approved = false;
+      //  concreteRebuild(gameData, actor);
     }
 }

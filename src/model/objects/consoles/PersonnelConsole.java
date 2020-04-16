@@ -3,21 +3,22 @@ package model.objects.consoles;
 import model.Actor;
 import model.Bank;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
-import model.actions.objectactions.AcceptNewProfessionAction;
-import model.actions.objectactions.ChangeJobAction;
-import model.actions.objectactions.MarkForDemotionAction;
-import model.actions.objectactions.SetWagesAction;
+import model.actions.general.ActionOption;
+import model.actions.objectactions.*;
 import model.characters.crew.CaptainCharacter;
 import model.characters.crew.CrewCharacter;
+import model.characters.crew.StaffAssistantCharacter;
 import model.characters.general.ChangelingCharacter;
 import model.characters.general.GameCharacter;
+import model.characters.visitors.ClownCharacter;
+import model.characters.visitors.LawyerCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
-import model.map.rooms.OfficeRoom;
 import model.map.rooms.Room;
-import model.objects.general.GameObject;
+import model.modes.GameMode;
 
 import java.util.*;
 
@@ -52,9 +53,12 @@ public class PersonnelConsole extends Console {
 
         }
         at.add(new AcceptNewProfessionAction(this));
+        if (cl instanceof Player) {
+            at.add(new SitDownAtPersonnelConsoleAction(gameData, this));
+        }
     }
 
-    private boolean hasAdminPrivilege(Actor cl) {
+    public boolean hasAdminPrivilege(Actor cl) {
         return GameItem.hasAnItem(cl, new KeyCard());
     }
 
@@ -115,5 +119,32 @@ public class PersonnelConsole extends Console {
     public void subtractFromBudget(int amount) {
         bank.subtractFromStationMoney(amount);
     }
+
+
+    private void addJobs(ActionOption newOpt, GameCharacter character, boolean demotion) {
+
+    }
+
+    public List<GameCharacter> getAvailableJobs(GameCharacter forWhom, boolean demotion) {
+        Set<GameCharacter> jobSet = new HashSet<>();
+        jobSet.addAll(GameMode.getAllCrew());
+        jobSet.removeIf((GameCharacter gc) -> gc instanceof VisitorCharacter);
+        jobSet.add(new ClownCharacter());
+        jobSet.add(new LawyerCharacter());
+
+
+        List<GameCharacter> result = new ArrayList<>();
+        for (GameCharacter gc : jobSet) {
+            if (forWhom.getSpeed() > gc.getSpeed() || !demotion) {
+                result.add(gc);
+            }
+        }
+        if (result.size() == 0) {
+            result.add(new StaffAssistantCharacter());
+        }
+
+        return result;
+    }
+
 
 }
