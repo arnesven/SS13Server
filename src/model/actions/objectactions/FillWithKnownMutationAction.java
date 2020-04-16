@@ -50,7 +50,7 @@ public class FillWithKnownMutationAction extends ConsoleAction {
 		if (GameItem.hasAnItem(whosAsking, new Syringe()) && 
 				console.nuOfKnown() > 0) {
 			Mutation m;
-			for (Iterator<Mutation> it = console.getKwonMutationsIterator() ; it.hasNext() ; ) {
+			for (Iterator<Mutation> it = console.getKnownMutationsIterator(); it.hasNext() ; ) {
 				m = it.next();
 				opt.addOption(m.getName());
 			}
@@ -67,7 +67,7 @@ public class FillWithKnownMutationAction extends ConsoleAction {
 	public void setArguments(List<String> args, Actor performingClient) {
 		selected = null;
 		Mutation m;
-		for (Iterator<Mutation> it = console.getKwonMutationsIterator() ; it.hasNext() ; ) {
+		for (Iterator<Mutation> it = console.getKnownMutationsIterator(); it.hasNext() ; ) {
 			m = it.next();
 			if (args.get(0).equals(m.getName())) {
 				this.selected = m;

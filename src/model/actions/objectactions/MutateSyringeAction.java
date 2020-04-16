@@ -51,7 +51,7 @@ public class MutateSyringeAction extends ConsoleAction {
     }
 
     private void addGeneticistOpts(ActionOption subopt, Actor whosAsking, GameData gameData) {
-        if (isGeneticist(whosAsking)) {
+        if (GeneticsConsole.isGeneticist(whosAsking)) {
             geneticistsOptions = new ArrayList<>();
             while (geneticistsOptions.size() < 3) {
                 Mutation mut = MutationFactory.getRandomMutation(gameData);
@@ -65,16 +65,8 @@ public class MutateSyringeAction extends ConsoleAction {
         }
     }
 
-    private boolean isGeneticist(Actor whosAsking) {
-        return whosAsking.getCharacter().checkInstance(new InstanceChecker() {
-            @Override
-            public boolean checkInstanceOf(GameCharacter ch) {
-                return ch instanceof GeneticistCharacter;
-            }
-        });
-    }
 
-    private String getNameFor(Syringe gi) {
+    public static String getNameFor(Syringe gi) {
         if (!gi.isFilled()) {
              return gi.getBaseName();
         }
@@ -88,7 +80,7 @@ public class MutateSyringeAction extends ConsoleAction {
             performingClient.addTolastTurnInfo(GeneticsConsole.BLAST_STRING);
             console.addKnownMutation(syringe.getMutation());
             console.storeDNA(syringe.getOriginalActor());
-            if (isGeneticist(performingClient)) {
+            if (GeneticsConsole.isGeneticist(performingClient)) {
                 for (Mutation m : MutationFactory.getAllMutations(gameData)) {
                     if (m.getName().equals(genOptStr)) {
                         syringe.setMutation(m);
@@ -115,7 +107,7 @@ public class MutateSyringeAction extends ConsoleAction {
                 }
             }
         }
-        if (args.size() > 1 && isGeneticist(performingClient)) {
+        if (args.size() > 1 && GeneticsConsole.isGeneticist(performingClient)) {
             genOptStr = args.get(1);
         }
 

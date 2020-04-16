@@ -243,6 +243,11 @@ public class MyRandom {
         return sample(SetHairColorPower.getHairColors());
     }
 
+    public static Color randomFunColor() {
+	    Set<Color> set = Set.of(Color.RED, Color.CYAN, Color.MAGENTA, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.PINK);
+	    return sample(set);
+    }
+
     public static String randomHexString(int i) {
         String hexdecs = "0123456789abcdef";
         StringBuffer result = new StringBuffer();

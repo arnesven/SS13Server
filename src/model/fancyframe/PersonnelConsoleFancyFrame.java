@@ -102,7 +102,7 @@ public class PersonnelConsoleFancyFrame extends ConsoleFancyFrame {
                 String jobChange = "";
                 if (player.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof CaptainCharacter)) {
                     if (!console.getToBeDemoted().contains(a) && !console.getAcceptedActors().contains(a)) {
-                        jobChange = HTMLText.makeFancyFrameLink("DEMOTE " + a.getPublicName(), "[DEMOTE]");
+                        jobChange = HTMLText.makeFancyFrameLink("DEMOTE " + a.getBaseName(), "[DEMOTE]");
                     }
                 }
                 if (console.getAcceptedActors().contains(a) || console.getToBeDemoted().contains(a)) {
@@ -181,6 +181,7 @@ public class PersonnelConsoleFancyFrame extends ConsoleFancyFrame {
             args.add(parts[2]);
             cja.setActionTreeArguments(args, player);
             player.setNextAction(cja);
+            showJobChange = false;
             this.selectedJobChange = parts[2];
             concreteRebuild(gameData, player);
             readyThePlayer(gameData, player);
