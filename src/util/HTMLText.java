@@ -46,4 +46,8 @@ public class HTMLText {
     public static String makeFancyFrameLink(String command, String text) {
         return "<a href=\"https://EVENT." + command + "\">" + text + "</a>";
     }
+
+    public static String makeGrayButton(boolean isPushed, String command, String buttonText) {
+        return makeFancyFrameLink(command, makeText(isPushed?"white":"black", isPushed?"black":"gray", "Courier", 4, buttonText));
+    }
 }

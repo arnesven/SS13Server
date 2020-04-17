@@ -14,23 +14,14 @@ import java.util.List;
  * Created by erini02 on 27/11/16.
  */
 public class ShowTheseCoordinates extends Action {
-    private static final int xoff = MyRandom.nextInt(100);
-    private static final int yoff = MyRandom.nextInt(100);
-    private static final int zoff = MyRandom.nextInt(100);
     private final TeleportConsole teleporter;
 
 
     public ShowTheseCoordinates(TeleportConsole teleportConsole, GameData gameData) {
         super("Local Coordinates", SensoryLevel.OPERATE_DEVICE);
         this.teleporter = teleportConsole;
-        try {
-            Integer[] coordinates = gameData.getMap().getPositionForLevel(gameData.getMap().getLevelForRoom(teleportConsole.getPosition()).getName());
-            setName("Local Coordinates = (" + (coordinates[0]*100+xoff) + "-" +
-                    (coordinates[1]*100+yoff) + "-" +
-                    (coordinates[2]*100+zoff) + ")");
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
+        Integer[] coordinates = teleportConsole.getLocalCoordinates(gameData);
+        setName("Local Coordinates = (" + (coordinates[0]) + "-" + (coordinates[1]) + "-" + (coordinates[2]) + ")");
 
     }
 

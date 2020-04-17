@@ -50,7 +50,7 @@ public class BeamUpAction extends ConsoleAction {
                 }
                 if (actors.size() > 0) {
                     Integer[] ints = gameData.getMap().getPositionForLevel(level);
-                    actorMap.put(ints[0] + "**-" + ints[1] + "**-" + ints[2], actors);
+                    actorMap.put(ints[0] + "**-" + ints[1] + "**-" + ints[2] + "**", actors);
                 }
             }
         }

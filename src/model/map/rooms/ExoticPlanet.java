@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * Created by erini02 on 15/09/17.
  */
-public abstract class ExoticPlanet extends RemoteRoom {
+public abstract class ExoticPlanet extends PlanetRoom {
     private boolean explored;
     private String realName;
     private Set<HideableObject> hos = new HashSet<>();
