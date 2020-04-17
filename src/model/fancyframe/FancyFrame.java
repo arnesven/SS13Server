@@ -20,7 +20,7 @@ public class FancyFrame implements Serializable {
         if (old != null) {
             old.beingDisposed();
             this.state = old.state + 1;
-            data = "BLANK";
+            data = "(none)<part>NO INPUT<part>BLANK<part>0:0";
         }
     }
 

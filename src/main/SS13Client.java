@@ -89,7 +89,6 @@ public class SS13Client extends JFrame {
                     switchToGameUI(result);
                     errorShowing = false;
                 }
-                SS13Client.this.requestFocus();
             }
 
             @Override

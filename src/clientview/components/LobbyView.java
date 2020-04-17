@@ -2,6 +2,7 @@ package clientview.components;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
+import clientlogic.GameData;
 import clientview.PlayersPanel;
 import clientview.ServerSettings;
 import main.SS13Client;
@@ -74,7 +75,7 @@ public class LobbyView extends JPanel {
                     writer.write(result);
                     writer.close();
                     //Desktop.getDesktop().browse(file.toURI());
-                    serverInfoPanel.addContent(result);
+                    serverInfoPanel.addContent(GameData.getInstance().decodeBase64Images(result));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

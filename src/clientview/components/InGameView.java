@@ -1,6 +1,7 @@
 package clientview.components;
 
 import clientlogic.GameData;
+import clientview.FancyFrame;
 import clientview.PlayersPanel;
 
 import javax.swing.*;
@@ -23,6 +24,7 @@ public class InGameView extends JSplitPane  {
         JTabbedPane jtp = new JTabbedPane();
         jtp.add("Map", new MiniMapPanel());
         jtp.add("Players", new PlayersPanel(GameData.getInstance().getClid(), parent.getParentMain()));
+       // jtp.add("Small Window", new FancyFrame())
         lp2.add(new JScrollPane(jtp));
         ltp = new LastTurnPanel();
         lp2.add(ltp);

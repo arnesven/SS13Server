@@ -83,16 +83,18 @@ public class LootAction extends TargetingAction {
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption opts = new ActionOption(getName());
         for (Target t : getTargets()) {
-           Actor a = (Actor)t;
-           ActionOption opts2 = new ActionOption(a.getPublicName());
-           for (GameItem it : a.getItems()) {
+           ActionOption opts2 = new ActionOption(t.getName());
+           for (GameItem it : t.getItems()) {
                opts2.addOption(it.getPublicName(whosAsking));
            }
-            if (a.isDead() || !a.getsActions()) {
-                for (SuitItem s : a.getCharacter().getEquipment().getTopEquipmentAsList()) {
-                    opts2.addOption(s.getPublicName(whosAsking));
-                }
-            }
+           if (t instanceof Actor) {
+               Actor a = (Actor) t;
+               if (a.isDead() || !a.getsActions()) {
+                   for (SuitItem s : a.getCharacter().getEquipment().getTopEquipmentAsList()) {
+                       opts2.addOption(s.getPublicName(whosAsking));
+                   }
+               }
+           }
            if (opts2.numberOfSuboptions() > 0) {
                opts2.addOption("All Items");
                opts.addOption(opts2);

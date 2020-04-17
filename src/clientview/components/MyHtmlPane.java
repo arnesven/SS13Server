@@ -45,27 +45,5 @@ public class MyHtmlPane extends JEditorPane {
             }
         }
     }
-
-    @Override
-    public void setText(String t) {
-        if (t.contains("<img src=\"data:image/png;base64")) {
-            Pattern pattern = Pattern.compile("<img src=\"data:image/png;base64,[\\w\\+/=]*\"></img>");
-            Matcher matcher = pattern.matcher(t);
-            int uid = 0;
-            while (matcher.find()) {
-                String datapart = matcher.group().replace("<img src=\"data:image/png;base64,", "");
-                datapart = datapart.replace("\"></img>", "");
-                BufferedImage buf = SpriteManager.setBase64(datapart);
-                try {
-                    File file = File.createTempFile("ss13img_" + (uid++) + "_", ".png");
-                    ImageIO.write(buf, "png", file);
-                    t = t.replace("data:image/png;base64," + datapart, "file://" + file.getAbsolutePath());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }
-        super.setText(t);
-    }
+    
 }

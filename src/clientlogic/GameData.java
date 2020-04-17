@@ -8,9 +8,17 @@ import clientview.components.GameUIPanel;
 import clientview.components.LastTurnPanel;
 import clientview.components.MapPanel;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GameData {
 
@@ -55,8 +63,11 @@ public class GameData {
 	private String serversSuggestedClientVersion = "Unknown Version";
 	private CharacterStyle characterStyle = new CharacterStyle();
 	private int fancyFrameState = 0;
-	private String fancyFrameData = "NOTHING";
 	private int playerDataState = 0;
+	private String fancyFrameTitle = "Default";
+	private boolean fancyFrameHasInput = false;
+	private String fancyFrameContent = "BLANK";
+	private Dimension fancyFrameDimension = new Dimension(0, 0);
 
 	private GameData() {
 		modeAlternatives.add("Default");
@@ -157,7 +168,7 @@ public class GameData {
 			@Override
 			public void onSuccess(String result) {
 				System.out.println("Got fancyframe result: " + result);
-				GameData.getInstance().setFancyFrameData(result);
+				GameData.getInstance().deconstructFancyFrameData(result);
 			}
 
 			@Override
@@ -166,16 +177,6 @@ public class GameData {
 			}
 		});
 	}
-
-	private void setFancyFrameData(String result) {
-		this.fancyFrameData = result;
-	//	notifyObservers();
-	}
-
-	public int getFancyFrameState() {
-		return fancyFrameState;
-	}
-
 
 	private void getChatMessagesFromServer(final int newLastMessage) {
 		ServerCommunicator.send(GameData.getInstance().getClid() + " CHATGET " +
@@ -558,7 +559,7 @@ public class GameData {
 	}
 
 	public void setSummaryString(String result) {
-		this.summaryString  = result;
+		this.summaryString  = decodeBase64Images(result);
 	}
 
 	public String getServersSuggestedClientVersion() {
@@ -835,18 +836,54 @@ public class GameData {
 		return characterStyle;
 	}
 
-	public String getFancyFrameData() {
-		return fancyFrameData;
-	}
 
 	public void deconstructFancyFrameData(String result) {
 		String[] parts = result.split("<part>");
 		fancyFrameState = Integer.parseInt(parts[0]);
-		if (result.contains("BLANK")) {
-			setFancyFrameData("BLANK");
-		} else {
-			setFancyFrameData(parts[1] + "<part>" + parts[2] + "<part>" + parts[3] + "<part>" + parts[4]);
-		}
+		fancyFrameTitle = parts[1];
+		fancyFrameHasInput = parts[2].equals("HAS INPUT");
+		fancyFrameContent = decodeBase64Images(parts[3]);
+		Scanner scan = new Scanner(parts[4]);
+		scan.useDelimiter(":");
+		fancyFrameDimension = new Dimension(scan.nextInt(), scan.nextInt());
 		notifyObservers();
+	}
+
+	public String decodeBase64Images(String t) {
+		if (t.contains("<img src=\"data:image/png;base64")) {
+			Pattern pattern = Pattern.compile("<img src=\"data:image/png;base64,[\\w\\+/=]*\"></img>");
+			Matcher matcher = pattern.matcher(t);
+			int uid = 0;
+			while (matcher.find()) {
+				String datapart = matcher.group().replace("<img src=\"data:image/png;base64,", "");
+				datapart = datapart.replace("\"></img>", "");
+				BufferedImage buf = SpriteManager.setBase64(datapart);
+				try {
+					File file = File.createTempFile("ss13img_" + (uid++) + "_", ".png");
+					ImageIO.write(buf, "png", file);
+					t = t.replace("data:image/png;base64," + datapart, "file://" + file.getAbsolutePath());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+		return t;
+	}
+
+	public String getFancyFrameContent() {
+		return fancyFrameContent;
+	}
+
+	public String getFancyFrameTitle() {
+		return fancyFrameTitle;
+	}
+
+	public boolean getFancyFrameInputField() {
+		return fancyFrameHasInput;
+	}
+
+	public Dimension getFancyFrameDimensions() {
+		return fancyFrameDimension;
 	}
 }

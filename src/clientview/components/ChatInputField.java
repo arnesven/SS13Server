@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 public class ChatInputField extends JTextField {
 
     public ChatInputField() {
-        setFocusable(true);
+        //setFocusable(true);
         //grabFocus();
         addKeyListener(new KeyAdapter() {
 

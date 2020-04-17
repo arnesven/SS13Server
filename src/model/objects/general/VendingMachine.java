@@ -59,4 +59,9 @@ public abstract class VendingMachine extends ElectricalMachinery {
     public FancyFrame getFancyFrame(Actor performingClient) {
         return new VendingMachineFancyFrame((Player)performingClient, this);
     }
+
+    @Override
+    public boolean isLootable() {
+        return isBroken();
+    }
 }

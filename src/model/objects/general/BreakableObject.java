@@ -212,6 +212,6 @@ public abstract class BreakableObject extends GameObject implements Target {
 	}
 
 	public boolean isLootable() {
-		return isBroken();
+		return false;
 	}
 }
