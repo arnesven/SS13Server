@@ -20,7 +20,7 @@ public class FancyFrameComponent extends JComponent implements Observer {
     private String oldcontent = "";
 
 
-    public FancyFrameComponent(FancyFrame fancyFrame) {
+    public FancyFrameComponent() {
         this.setLayout(new BorderLayout());
         this.jed = new FancyFrameHtmlPane();
         jed.setMargin(new Insets(0,0,0,0));
@@ -100,7 +100,8 @@ public class FancyFrameComponent extends JComponent implements Observer {
                 System.out.println("Removed input field");
             }
 
-            this.setSize(GameData.getInstance().getFancyFrameDimensions());
+            this.setPreferredSize(GameData.getInstance().getFancyFrameDimensions());
+            this.setMaximumSize(GameData.getInstance().getFancyFrameDimensions());
             revalidate();
             repaint();
         }

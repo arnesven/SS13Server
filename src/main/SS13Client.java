@@ -27,8 +27,8 @@ public class SS13Client extends JFrame {
 
     public static final String CLIENT_VERSION_STRING = "1.234";
     private final ReturningPlayerPanel retPan;
-    private static final Dimension originalSize = new Dimension(960, 960);
-    private static final Dimension ingameSize = new Dimension(1200, 960);
+    public static final Dimension originalSize = new Dimension(960, 960);
+    public static final Dimension ingameSize = new Dimension(1200, 960);
     private static ConnectData connectData;
     private JMenu view;
     private boolean errorShowing;

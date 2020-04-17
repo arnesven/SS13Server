@@ -2,7 +2,9 @@ package clientview.components;
 
 import clientlogic.GameData;
 import clientview.FancyFrame;
+import clientview.FancyFrameComponent;
 import clientview.PlayersPanel;
+import main.SS13Client;
 
 import javax.swing.*;
 
@@ -24,7 +26,7 @@ public class InGameView extends JSplitPane  {
         JTabbedPane jtp = new JTabbedPane();
         jtp.add("Map", new MiniMapPanel());
         jtp.add("Players", new PlayersPanel(GameData.getInstance().getClid(), parent.getParentMain()));
-       // jtp.add("Small Window", new FancyFrame())
+        jtp.add("Small Window", new FancyFrameComponent());
         lp2.add(new JScrollPane(jtp));
         ltp = new LastTurnPanel();
         lp2.add(ltp);
@@ -33,7 +35,7 @@ public class InGameView extends JSplitPane  {
 
         this.add(lp2, 1);
 
-        this.setDividerLocation(0.65);
+        this.setDividerLocation(SS13Client.ingameSize.width - 320);
         this.setResizeWeight(1.0);
     }
 

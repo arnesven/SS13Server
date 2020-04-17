@@ -24,7 +24,7 @@ public class FancyFrame extends JFrame implements Observer {
         this.setLocation((int)parent.getLocation().getX() + ((parent.getWidth() - FF_WIDTH)/2),
                 (int)parent.getLocation().getY() + ((parent.getHeight() - FF_HEIGHT)/2));
         this.parent = parent;
-        this.ffc = new FancyFrameComponent(this);
+        this.ffc = new FancyFrameComponent();
         this.add(ffc);
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.setSize(new Dimension(FF_WIDTH, FF_HEIGHT));
@@ -49,6 +49,7 @@ public class FancyFrame extends JFrame implements Observer {
     public void update() {
         String data = GameData.getInstance().getFancyFrameContent();
         this.setTitle(GameData.getInstance().getFancyFrameTitle());
+        this.setSize(GameData.getInstance().getFancyFrameDimensions());
         if (data.startsWith("BLANK")) {
             if (isVisible()) {
                 System.out.println("Fancy frame went from some content to blank, hiding it.");
