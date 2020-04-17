@@ -1,4 +1,4 @@
 package model.items.weapons;
 
-public interface BludgeoningWeapon {
+public interface BludgeoningWeapon extends PhysicalWeapon {
 }

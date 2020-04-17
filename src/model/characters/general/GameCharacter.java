@@ -10,14 +10,19 @@ import graphics.OverlaySprite;
 import graphics.sprites.*;
 import model.*;
 import model.actions.general.AttackAction;
+import model.characters.decorators.BloodyPoolDecorator;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.NoSuchInstanceException;
 import model.characters.special.SpectatorCharacter;
 import model.characters.visitors.VisitorCharacter;
+import model.events.damage.PhysicalDamage;
 import model.items.BodyPartFactory;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
 import model.items.suits.Equipment;
+import model.items.weapons.BludgeoningWeapon;
+import model.items.weapons.PhysicalWeapon;
+import model.items.weapons.PiercingWeapon;
 import model.map.rooms.SpectatorRoom;
 import model.movepowers.*;
 import model.npcs.NPC;
@@ -135,6 +140,9 @@ public abstract class GameCharacter implements Serializable {
 			if (this.isDead() && !wasDeadAlready) { // you died! Too bad!
 				frag = true;
                 getActor().getCharacter().doUponDeath(performingClient, weapon);
+                if (weapon instanceof PhysicalWeapon) {
+					getActor().setCharacter(new BloodyPoolDecorator(getActor().getCharacter()));
+				}
 			}
 
         }

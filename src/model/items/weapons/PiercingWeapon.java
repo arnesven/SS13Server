@@ -1,4 +1,4 @@
 package model.items.weapons;
 
-public interface PiercingWeapon {
+public interface PiercingWeapon extends PhysicalWeapon {
 }

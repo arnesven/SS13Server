@@ -43,6 +43,7 @@ public class FancyFrame implements Serializable {
         if (event.contains("DISMISS")) {
             state++;
             data = BLANK_DATA;
+            beingDisposed();
         }
     }
 

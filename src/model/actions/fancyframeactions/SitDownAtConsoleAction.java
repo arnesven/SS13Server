@@ -18,7 +18,7 @@ public abstract class SitDownAtConsoleAction extends Action {
     private final GameData gameData;
 
     public SitDownAtConsoleAction(GameData gameData, Console console) {
-        super("Sit Down at Console " + console.getName() + " (Free Action)", SensoryLevel.PHYSICAL_ACTIVITY);
+        super("Use " + console.getName() + " (Free Action)", SensoryLevel.PHYSICAL_ACTIVITY);
         this.console = console;
         this.gameData = gameData;
     }
