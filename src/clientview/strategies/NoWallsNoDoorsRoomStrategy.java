@@ -12,12 +12,12 @@ public class NoWallsNoDoorsRoomStrategy extends RoomDrawingStrategy {
     }
 
     @Override
-    public void drawRoomFromAbove(Room r, Graphics g, int xOffset, int yOffset, int inventoryHeight) {
-        r.drawYourselfFromAbove(g, xOffset, yOffset, inventoryHeight);
+    public void drawRoomFromAbove(Room r, Graphics g, int xOffset, int yOffset, int xOffpx, int inventoryHeight) {
+        r.drawYourselfFromAbove(g, xOffset, yOffset, xOffpx, inventoryHeight);
     }
 
     @Override
-    public void drawDoors(Room r, Graphics g, MapPanel mapPanel, int xOffset, int yOffset, int inventoryHeight) {
+    public void drawDoors(Room r, Graphics g, MapPanel mapPanel, int xOffset, int yOffset, int xoffpx, int inventoryHeight) {
 
     }
 }

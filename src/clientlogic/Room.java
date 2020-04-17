@@ -113,8 +113,8 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         }
     }
 
-    public void drawYourselfFromAbove(Graphics g, int xOffset, int yOffset, int yOffPx) {
-        int x = (int) ((xPos - xOffset) * getXScale());
+    public void drawYourselfFromAbove(Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx) {
+        int x = (int) ((xPos - xOffset) * getXScale()) + xOffPx;
         int y = (int) ((yPos - yOffset) * getYScale()) + yOffPx;
         int finalW = getScaledWidthPX();
         int finalH = getScaledHeightPX();

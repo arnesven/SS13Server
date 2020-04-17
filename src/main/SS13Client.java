@@ -128,36 +128,6 @@ public class SS13Client extends JFrame {
         this.repaint();
     }
 
-
-//    private void setUpKeyListener() {
-//        this.setFocusable(true);
-//        this.addKeyListener(new KeyAdapter() {
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                if (e.getKeyCode() == KeyEvent.VK_R && e.isControlDown()) {
-//                    if (guiPanel != null) {
-//                        guiPanel.toggleReady();
-//                    }
-//                } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-//                    MapPanel.addXTranslation(1);
-//                } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-//                    MapPanel.addXTranslation(-1);
-//                } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-//                    MapPanel.addYTranslation(1);
-//                } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-//                    MapPanel.addYTranslation(-1);
-//                } else if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
-//                    MapPanel.addZTranslation(-1);
-//                } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP) {
-//                    MapPanel.addZTranslation(1);
-//                }
-//                repaint();
-//            }
-//        });
-//        this.requestFocus();
-//    }
-
     private void makeMenuBar() {
         JMenuBar menubar = new JMenuBar();
         JMenu file = new JMenu("File");

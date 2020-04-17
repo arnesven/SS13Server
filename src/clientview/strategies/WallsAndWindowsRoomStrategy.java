@@ -13,12 +13,12 @@ public class WallsAndWindowsRoomStrategy extends RoomDrawingStrategy {
     }
 
     @Override
-    public void drawRoomFromAbove(Room r, Graphics g, int xOffset, int yOffset, int inventoryHeight) {
-        r.drawYourselfFromAbove(g, xOffset, yOffset, inventoryHeight);
+    public void drawRoomFromAbove(Room r, Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx) {
+        r.drawYourselfFromAbove(g, xOffset, yOffset, xOffPx, yOffPx);
     }
 
     @Override
-    public void drawDoors(Room r, Graphics g, MapPanel mapPanel, int xOffset, int yOffset, int inventoryHeight) {
-        r.drawYourDoors(g, mapPanel, xOffset, yOffset, 0, inventoryHeight);
+    public void drawDoors(Room r, Graphics g, MapPanel mapPanel, int xOffset, int yOffset, int xoffPx, int yOffPx) {
+        r.drawYourDoors(g, mapPanel, xOffset, yOffset, xoffPx, yOffPx);
     }
 }

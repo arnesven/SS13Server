@@ -5,6 +5,7 @@ import clientlogic.GameData;
 import clientlogic.Room;
 import clientview.OverlaySprite;
 
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class MapPanelMouseListener extends MouseAdapter implements MouseMotionListener {
     private final MapPanel mp;
+    private Point dragStartPint;
 
     public MapPanelMouseListener(MapPanel mapPanel) {
         this.mp = mapPanel;
@@ -25,7 +27,6 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
         if (mp.getInventoryPanel().mouseClicked(e, mp)) {
             return;
         }
-
 
         MyPopupMenu mpm = null;
         for (OverlaySprite ps : GameData.getInstance().getOverlaySprites()) {
@@ -73,6 +74,22 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
 
     @Override
     public void mouseDragged(MouseEvent e) {
+       // System.out.println("Dragging " + e.getPoint());
+        if (dragStartPint != null) {
+            MapPanel.addXTranslation((int) (e.getX() - dragStartPint.getX()));
+            MapPanel.addYTranslation((int) (e.getY()- dragStartPint.getY()));
+            dragStartPint = e.getPoint();
+        }
+        mp.repaint();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        this.dragStartPint = e.getPoint();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
 
     }
 
