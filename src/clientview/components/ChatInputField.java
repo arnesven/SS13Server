@@ -12,7 +12,7 @@ public class ChatInputField extends JTextField {
 
     public ChatInputField() {
         setFocusable(true);
-        grabFocus();
+        //grabFocus();
         addKeyListener(new KeyAdapter() {
 
             @Override

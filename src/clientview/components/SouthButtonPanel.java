@@ -46,7 +46,7 @@ public class SouthButtonPanel extends Box implements Observer {
             @Override
             public void actionPerformed(ActionEvent event) {
                 SouthButtonPanel.this.toggleView();
-                parent.getFrame().requestFocus();
+                //parent.getFrame().requestFocus();
             }
         });
 //
@@ -57,7 +57,7 @@ public class SouthButtonPanel extends Box implements Observer {
             @Override
             public void actionPerformed(ActionEvent event) {
                readyButtonPressed();
-               parent.getFrame().requestFocus();
+               //parent.getFrame().requestFocus();
             }
         });
         readyButton.setBackground(new Color(0x999999));
