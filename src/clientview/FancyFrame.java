@@ -19,6 +19,7 @@ public class FancyFrame extends JFrame implements Observer {
     private final FancyFrameComponent ffc;
     private int lastState = 0;
     private boolean forceShow = false;
+    private boolean dontShow = false;
 
     public FancyFrame(JFrame parent) {
         this.setLocation((int)parent.getLocation().getX() + ((parent.getWidth() - FF_WIDTH)/2),
@@ -37,8 +38,9 @@ public class FancyFrame extends JFrame implements Observer {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                forceShow = false;
-                FancyFrame.this.setVisible(false);
+                if (!forceShow) {
+                    FancyFrame.this.setVisible(false);
+                }
                 ffc.serverSend("FANCYFRAME EVENT DISMISS");
             }
         });
@@ -60,16 +62,23 @@ public class FancyFrame extends JFrame implements Observer {
                 }
             }
         } else {
-            if (!isVisible()) {
+            if (!isVisible() && !dontShow) {
                 System.out.println("Showing fancy frame.");
                 this.setVisible(true);
             }
             repaint();
         }
 
-        if (forceShow) {
+        if (forceShow && !dontShow) {
             setVisible(true);
         }
     }
 
+    public void setForceShow(boolean forceShow) {
+        this.forceShow = forceShow;
+    }
+
+    public void setDontShow(boolean b) {
+        this.dontShow = b;
+    }
 }

@@ -20,7 +20,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class SS13Client extends JFrame {
@@ -35,7 +34,7 @@ public class SS13Client extends JFrame {
     private GameUIPanel guiPanel = null;
     private int lastPortUsed;
     private int botNumber = 1;
-    private JFrame fancyFrame;
+    private FancyFrame fancyFrame;
 
     public SS13Client() {
         super("SS13 Client " + CLIENT_VERSION_STRING);
@@ -133,7 +132,7 @@ public class SS13Client extends JFrame {
         JMenuItem item = new JMenuItem("Connect");
         view = new JMenu("View");
         makeCenterOnMe(view);
-        makeForeceShowFancyFrame(view);
+        makeSmallWindowMenu(view);
         makeScaleMenu(view);
         makeDepthMenu(view);
      //   makeZoomMenu(view);
@@ -220,16 +219,46 @@ public class SS13Client extends JFrame {
         view.add(mapDepth);
     }
 
-    private void makeForeceShowFancyFrame(JMenu view) {
-        JMenuItem forceShow = new JMenuItem("Show Small Window");
+    private void makeSmallWindowMenu(JMenu view) {
+        JMenu smallWindowMenu = new JMenu("Small Window");
+        ButtonGroup bg = new ButtonGroup();
+
+        JMenuItem popup = new JRadioButtonMenuItem("Pop-Up");
+        popup.addActionListener((ActionEvent e) -> {
+            guiPanel.getInGameView().removeDockedSmallWindow();
+            fancyFrame.setForceShow(false);
+        });
+        popup.setSelected(true);
+        bg.add(popup);
+        smallWindowMenu.add(popup);
+
+        JMenuItem forceShow = new JRadioButtonMenuItem("Show Always");
         forceShow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                guiPanel.getInGameView().removeDockedSmallWindow();
                 fancyFrame.setVisible(true);
+                fancyFrame.setForceShow(true);
+                fancyFrame.setDontShow(false);
+
             }
         });
+        smallWindowMenu.add(forceShow);
+        bg.add(forceShow);
 
-        view.add(forceShow);
+        JMenuItem docked = new JRadioButtonMenuItem("Docked");
+        docked.addActionListener((ActionEvent e) -> {
+                    if (docked.isSelected()) {
+                        guiPanel.getInGameView().addDockedSmallWindow();
+                        fancyFrame.setVisible(false);
+                        fancyFrame.setForceShow(false);
+                        fancyFrame.setDontShow(true);
+                    }
+                });
+        bg.add(docked);
+        smallWindowMenu.add(docked);
+
+        view.add(smallWindowMenu);
     }
 
     private void makeCenterOnMe(JMenu view) {

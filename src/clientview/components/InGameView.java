@@ -11,6 +11,7 @@ import javax.swing.*;
 public class InGameView extends JSplitPane  {
 
     private final LastTurnPanel ltp;
+    private final JTabbedPane jtp;
     private Box leftPanel = new Box(BoxLayout.X_AXIS);
     private MapPanel mp;
     private boolean inMapMode = true;
@@ -23,10 +24,9 @@ public class InGameView extends JSplitPane  {
 
         JSplitPane lp2 = new JSplitPane(VERTICAL_SPLIT);
 
-        JTabbedPane jtp = new JTabbedPane();
+        jtp = new JTabbedPane();
         jtp.add("Map", new MiniMapPanel());
         jtp.add("Players", new PlayersPanel(GameData.getInstance().getClid(), parent.getParentMain()));
-        jtp.add("Small Window", new FancyFrameComponent());
         lp2.add(new JScrollPane(jtp));
         ltp = new LastTurnPanel();
         lp2.add(ltp);
@@ -35,7 +35,7 @@ public class InGameView extends JSplitPane  {
 
         this.add(lp2, 1);
 
-        this.setDividerLocation(SS13Client.ingameSize.width - 320);
+        this.setDividerLocation(SS13Client.ingameSize.width - 330);
         this.setResizeWeight(1.0);
     }
 
@@ -49,5 +49,20 @@ public class InGameView extends JSplitPane  {
 
     public MapPanel getMapPanel() {
         return mp;
+    }
+
+    public void addDockedSmallWindow() {
+        jtp.add("Small Window", new FancyFrameComponent());
+        jtp.setSelectedIndex(2);
+        revalidate();
+        repaint();
+    }
+
+    public void removeDockedSmallWindow() {
+        if (jtp.getTabCount() == 3) {
+            jtp.removeTabAt(jtp.getTabCount() - 1);
+            revalidate();
+            repaint();
+        }
     }
 }

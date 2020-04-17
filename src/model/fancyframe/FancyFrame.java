@@ -11,7 +11,7 @@ import util.Logger;
 import java.io.Serializable;
 
 public class FancyFrame implements Serializable {
-    private static final String BLANK_DATA = "(none)<part>NO INPUT<part>BLANK<part>0:0";
+    private static final String BLANK_DATA = "(none)<part>NO INPUT<part>BLANK<part>300:250";
     private int state = 0;
     private String data;
     private int width = 300;
