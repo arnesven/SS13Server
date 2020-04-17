@@ -52,7 +52,9 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
 
     @Override
     protected void beingDisposed() {
+        Logger.log("Console fancy frame was disposed, logged in actor is: " + console.getLoggedInActor());
         if (console.getLoggedInActor() != null) {
+            ((Player) console.getLoggedInActor()).refreshClientData();
             ComputerSystemSession login = ComputerSystemSession.getLogin((Player)console.getLoggedInActor());
             login.logOut(gameData);
         }

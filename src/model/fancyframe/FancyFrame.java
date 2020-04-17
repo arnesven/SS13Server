@@ -11,6 +11,7 @@ import util.Logger;
 import java.io.Serializable;
 
 public class FancyFrame implements Serializable {
+    private static final String BLANK_DATA = "(none)<part>NO INPUT<part>BLANK<part>0:0";
     private int state = 0;
     private String data;
     private int width = 300;
@@ -20,7 +21,7 @@ public class FancyFrame implements Serializable {
         if (old != null) {
             old.beingDisposed();
             this.state = old.state + 1;
-            data = "(none)<part>NO INPUT<part>BLANK<part>0:0";
+            data = BLANK_DATA;
         }
     }
 
@@ -41,7 +42,7 @@ public class FancyFrame implements Serializable {
         Logger.log("Fancy frame handling event " + event);
         if (event.contains("DISMISS")) {
             state++;
-            data = "BLANK";
+            data = BLANK_DATA;
         }
     }
 

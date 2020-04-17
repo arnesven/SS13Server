@@ -177,10 +177,10 @@ public class ChatMessages implements Serializable {
     }
 
     public void serverInSay(String sayWhat, Player receiver) {
-        this.add(sayWhat, receiver);
+        this.add(sayWhat, receiver, false);
     }
 
     public void serverInSay(String sayWhat) {
-        this.addAll(sayWhat);
+        this.addAll(sayWhat, false);
     }
 }
