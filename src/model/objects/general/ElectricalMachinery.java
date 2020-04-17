@@ -36,6 +36,7 @@ public abstract class ElectricalMachinery extends BreakableObject
 	}
 
 	public void setPowerSource(PowerSource src) {
+		Logger.log(Logger.INTERESTING, getName() + " hooked into power source!");
 		this.source = src;
 	}
 
@@ -65,7 +66,7 @@ public abstract class ElectricalMachinery extends BreakableObject
                                       ArrayList<Action> at) {
 		//Logger.log("## adding specific action for electrical");
 		ArrayList<Action> at2 = new ArrayList<>();
-		if (isPowered()) {
+		if (!isPowered()) {
 			//Logger.log("####" + this.getName() + " isn't powered! no power actions!");
 			super.addSpecificActionsFor(gameData, cl, at2);
 			for (Action a : at2) {

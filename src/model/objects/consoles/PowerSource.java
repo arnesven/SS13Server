@@ -12,6 +12,7 @@ import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
 import model.objects.general.Repairable;
 import util.Logger;
+import util.MyStrings;
 
 import java.io.Serializable;
 import java.util.*;
@@ -210,7 +211,6 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
         Collections.shuffle(noLifeSupport);
 
         Collections.sort(noPower);
-
         lightBefore = noLight.size();
         lsBefore = noLifeSupport.size();
         eqBefore = noPower.size();
@@ -231,6 +231,7 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
 
         Logger.log(getEquipmentString());
         runPowerOnOrOffFunctions(gameData, oldNoPower);
+        Logger.log("POWER: objects without power are: "+ MyStrings.join(noPower, ", "));
     }
 
 

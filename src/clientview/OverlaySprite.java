@@ -137,4 +137,8 @@ public class OverlaySprite extends MouseInteractable {
     public int getFrames() {
         return frames;
     }
+
+    public OverlaySprite copyYourself() {
+        return new OverlaySprite(this.sprite, this.x, this.y, this.name, this.actionData, this.frames, this.roomid);
+    }
 }

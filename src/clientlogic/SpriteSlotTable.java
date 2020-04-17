@@ -80,8 +80,10 @@ public class SpriteSlotTable {
             for (Integer i : available.keySet()) {
                 if (available.get(i)) {
                     Pair<Double, Double> pos = table.get(i);
-                    fillerSprite.setFrameShift(MyRandom.nextInt(fillerSprite.getFrames()));
-                    fillerSprite.drawYourselfInRoom(g, r, pos, xOffset, yOffset, xoffPX, yoffPX, currZ);
+                    OverlaySprite copy = fillerSprite.copyYourself();
+                    copy.setFrameShift(MyRandom.nextInt(fillerSprite.getFrames()));
+                    copy.drawYourselfInRoom(g, r, pos, xOffset, yOffset, xoffPX, yoffPX, currZ);
+                    fillerSprite.addAdditionalHitbox(copy.getHitBox());
                 }
             }
         }

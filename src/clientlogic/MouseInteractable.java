@@ -1,6 +1,7 @@
 package clientlogic;
 
 import clientview.components.MapPanel;
+import org.w3c.dom.css.Rect;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -9,21 +10,28 @@ import java.util.List;
 
 public abstract class MouseInteractable {
 
-    private List<Rectangle> hitBoxex;
+    private List<Rectangle> extraHitboxes;
+    private Rectangle hitBox;
     private int z = 0;
 
     public MouseInteractable() {
-        hitBoxex = new ArrayList<>();
+        extraHitboxes = new ArrayList<>();
     }
 
     public boolean mouseHitsThis(MouseEvent e) {
-        for (Rectangle hitBox : hitBoxex) {
-            if (hitBox != null && this.z == GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation()) {
-                if (hitBox.contains(e.getPoint())) {
-                    return true;
-                }
+        if (hitBox != null && this.z == GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation()) {
+            if (hitBox.contains(e.getPoint())) {
+                return true;
             }
         }
+        for (Rectangle hitBox : extraHitboxes) {
+              if (this.z == GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation()) {
+                  if (hitBox.contains(e.getPoint())) {
+                      return true;
+                  }
+              }
+        }
+
         return false;
     }
 
@@ -50,11 +58,19 @@ public abstract class MouseInteractable {
 
 
     protected void setHitBox(int x, int y, int z, int finalW, int finalH) {
-        this.hitBoxex.add(new Rectangle(x, y, finalW, finalH));
+        this.hitBox = new Rectangle(x, y, finalW, finalH);
         this.z = z;
     }
 
     protected void setHitBox(int x, int y, int finalW, int finalH) {
-        this.hitBoxex.add(new Rectangle(x, y, finalW, finalH));
+        this.hitBox = new Rectangle(x, y, finalW, finalH);
+    }
+
+    public Rectangle getHitBox() {
+        return hitBox;
+    }
+
+    public void addAdditionalHitbox(Rectangle r) {
+        this.extraHitboxes.add(r);
     }
 }

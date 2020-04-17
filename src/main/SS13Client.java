@@ -25,7 +25,7 @@ import java.awt.event.KeyEvent;
 
 public class SS13Client extends JFrame {
 
-    public static final String CLIENT_VERSION_STRING = "1.233";
+    public static final String CLIENT_VERSION_STRING = "1.234";
     private final ReturningPlayerPanel retPan;
     private static final Dimension originalSize = new Dimension(960, 960);
     private static final Dimension ingameSize = new Dimension(1200, 960);
@@ -136,6 +136,7 @@ public class SS13Client extends JFrame {
         makeCenterOnMe(view);
         makeForeceShowFancyFrame(view);
         makeScaleMenu(view);
+        makeDepthMenu(view);
      //   makeZoomMenu(view);
         makeBackgroundMenu(view);
         makeHeightMenu(view);
@@ -207,6 +208,17 @@ public class SS13Client extends JFrame {
         menubar.add(server);
 
         this.setJMenuBar(menubar);
+    }
+
+    private void makeDepthMenu(JMenu view) {
+        JMenu mapDepth = new JMenu("Map Depth");
+        JMenuItem stepDown = new JMenuItem("Go Down");
+        stepDown.addActionListener((ActionEvent e) -> {MapPanel.addZTranslation(-1); repaint();});
+        mapDepth.add(stepDown);
+        JMenuItem stepUp = new JMenuItem("Go Up");
+        stepUp.addActionListener((ActionEvent e) -> {MapPanel.addZTranslation(1); repaint(); });
+        mapDepth.add(stepUp);
+        view.add(mapDepth);
     }
 
     private void makeForeceShowFancyFrame(JMenu view) {
