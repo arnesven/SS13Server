@@ -74,11 +74,17 @@ public class LockedDoor extends ElectricalDoor {
     private void unlockLockedDoor(Room room, Door targetDoor) {
         for (int i = 0; i < room.getDoors().length; ++i) {
             if (room.getDoors()[i] == targetDoor) {
-                NormalDoor newDoor = new NormalDoor(targetDoor.getX(), targetDoor.getY(), targetDoor.getFromId(), targetDoor.getToId());
+                NormalDoor newDoor = makeIntoNormalDoor(targetDoor);
                 room.getDoors()[i] = newDoor;
                 return;
             }
         }
+    }
+
+    private NormalDoor makeIntoNormalDoor(Door targetDoor) {
+        NormalDoor d = new NormalDoor(targetDoor.getX(), targetDoor.getY(), targetDoor.getFromId(), targetDoor.getToId());
+        d.setBreakableObject(((ElectricalDoor)targetDoor).getBreakableObject());
+        return d;
     }
 
     private class ElectricalLock extends ElectricalMachinery {

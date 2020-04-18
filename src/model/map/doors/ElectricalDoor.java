@@ -57,4 +57,11 @@ public abstract class ElectricalDoor extends Door {
 
     }
 
+    protected BreakableObject getBreakableObject() {
+        return breakableObject;
+    }
+
+    protected void setBreakableObject(BreakableObject breakableObject) {
+        this.breakableObject = breakableObject;
+    }
 }
