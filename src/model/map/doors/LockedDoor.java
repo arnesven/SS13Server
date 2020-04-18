@@ -90,6 +90,7 @@ public class LockedDoor extends ElectricalDoor {
     private class ElectricalLock extends ElectricalMachinery {
         public ElectricalLock(GameData gameData) throws NoSuchThingException {
             super("Lock (" + gameData.getRoomForId(getToId()).getName() + " / " + gameData.getRoomForId(getFromId()).getName() + ")", null);
+            setPowerPriority(1);
         }
 
         @Override

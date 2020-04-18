@@ -1,10 +1,13 @@
 package model.map.doors;
 
+import comm.chat.AILawChatHandler;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.AttackAction;
 import model.actions.roomactions.AttackDoorAction;
+import model.characters.general.AICharacter;
+import model.characters.general.GameCharacter;
 import model.objects.general.BreakableObject;
 
 import java.util.ArrayList;
@@ -45,11 +48,13 @@ public abstract class ElectricalDoor extends Door {
     @Override
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
         List<Action> at = super.getDoorActions(gameData, forWhom);
-        AttackAction act = new AttackDoorAction(forWhom, this);
-        act.addTarget(breakableObject);
-        act.stripAllTargetsBut(breakableObject);
-        act.addClientsItemsToAction(forWhom);
-        at.add(act);
+        if (!forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
+            AttackAction act = new AttackDoorAction(forWhom, this);
+            act.addTarget(breakableObject);
+            act.stripAllTargetsBut(breakableObject);
+            act.addClientsItemsToAction(forWhom);
+            at.add(act);
+        }
         return at;
     }
 
