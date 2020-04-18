@@ -30,9 +30,9 @@ public abstract class Door implements Serializable, SpriteObject {
     public Door(double x, double y, String name, int fromID, int toID) {
         this.x = x;
         this.y = y;
-        this.name = name;
         this.fromID = fromID;
         this.toID = toID;
+        this.name = name + " Door #" + (fromID*100 + toID);
     }
 
     protected abstract Sprite getSprite();
@@ -51,7 +51,7 @@ public abstract class Door implements Serializable, SpriteObject {
 
     @Override
     public String toString() {
-        return x + ", " + y + ", " + name + " Door #" + (fromID*100 + toID) + ", " + getSprite().getName();
+        return x + ", " + y + ", " + name + ", " + getSprite().getName();
     }
 
     private String getActionData(GameData gameData, Actor forWhom) {
@@ -108,5 +108,13 @@ public abstract class Door implements Serializable, SpriteObject {
     @Override
     public double getAbsoluteY(ClientInfo clientInfo) {
         return 0;
+    }
+
+    public int getToId() {
+        return toID;
+    }
+
+    public int getFromId() {
+        return fromID;
     }
 }

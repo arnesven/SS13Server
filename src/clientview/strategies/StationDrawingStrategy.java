@@ -4,6 +4,7 @@ import clientlogic.GameData;
 import clientlogic.Room;
 import clientview.components.MapPanel;
 import clientview.OverlaySprite;
+import model.items.general.GameItem;
 
 import java.awt.*;
 import java.util.*;
@@ -32,8 +33,11 @@ public class StationDrawingStrategy extends DrawingStrategy {
             xOffset = GameData.getInstance().getMinX();// + getXTrans();
             yOffset = GameData.getInstance().getMinY();// + getYTrans();
         } else {
-            //xOffset = getXTrans();
-            //yOffset = getYTrans();
+            Room current = GameData.getInstance().getCurrentRoom();
+            int viewPortWith = (int)(getWidth() / Room.getXScale());
+            int viewPortHeight = (int)(getHeight() / Room.getYScale());
+            xOffset = current.getXPos() + (current.getWidth() - viewPortWith) / 2;
+            yOffset = current.getYPos() + (current.getHeight() - viewPortHeight) / 2;
         }
 
         getBackgroundDrawingStrategy().drawBackground(g, getWidth(), getHeight());

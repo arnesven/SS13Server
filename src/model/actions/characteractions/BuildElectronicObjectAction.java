@@ -100,9 +100,7 @@ public class BuildElectronicObjectAction extends Action {
         set.add(new SeedVendingMachine(null));
         set.add(new GeneralManufacturer(null));
 
-        for (Room r : performer.getPosition().getNeighborList()) {
-            set.add(new KeyCardLock(r, performer.getPosition(), false, 1.0));
-        }
+
 
 
         return set;

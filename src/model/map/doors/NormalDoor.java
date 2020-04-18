@@ -5,8 +5,13 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.roomactions.LockDoorAction;
+import model.characters.general.AICharacter;
+import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
+import model.map.GameMap;
+import model.map.rooms.Room;
+import util.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,9 +34,12 @@ public class NormalDoor extends Door {
 
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
         List<Action> at = new ArrayList<>();
-        if (GameItem.hasAnItemOfClass(forWhom, KeyCard.class)) {
+        if (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) ||
+                forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
             at.add(new LockDoorAction(this));
         }
         return at;
     }
+
+
 }

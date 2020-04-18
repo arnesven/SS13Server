@@ -23,7 +23,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     public static final Color WALL_COLOR = new Color(0x303030);
     private static final Color SELECTED_ROOM_COLOR = Color.YELLOW;
-    private static boolean automaticScaling = true;
+    private static boolean automaticScaling = false;
     private final String floorSpriteBaseName;
     private final String backgroundType;
     private final String roomStyle;
@@ -38,8 +38,8 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     private int ID;
     private static final Color backgroundColor = new Color(0x999999);
     private boolean selectable = false;
-    private static double xscale = 32;
-    private static double yscale = 32;
+    private static double xscale = 32*3;
+    private static double yscale = 32*3;
     private ClientDoor[] doors;
 
     private String effectName;

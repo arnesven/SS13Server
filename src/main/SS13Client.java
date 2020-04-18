@@ -341,7 +341,7 @@ public class SS13Client extends JFrame {
         JMenuItem threebytwo = new JRadioButtonMenuItem("3x2");
         JMenuItem threebythree = new JRadioButtonMenuItem("3x3");
         JMenuItem fourbythree = new JRadioButtonMenuItem("4x3");
-        auto.setSelected(true);
+        threebythree.setSelected(true);
         auto.addActionListener((ActionEvent e) -> Room.setAutomaticScaling(true));
         twobytwo.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(2*32); Room.setYScale(2*32);});
         threebytwo.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(3*32); Room.setYScale(2*32);});

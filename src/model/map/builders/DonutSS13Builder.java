@@ -144,11 +144,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(airLock2, ss13, "front");
         Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{}        ,         new Door[]{});
         army.setDoors(new Door[]{new LockedDoor(11.0, 4.0, 22, 19)});
-        {
-            KeyCardLock l1 = new KeyCardLock(army, gate, true, 4.0);
-            gate.addObject(l1);
-            army.addObject(l1);
-        }
+
         gm.addRoom(army, ss13, "center");
 
         gm.addRoom(new HallwayRoom(23, "Port Hall Aft"       , "P O R T"       , 6,  3, 4, 2, new int[]{19, 24, 5} ,
@@ -173,11 +169,6 @@ public class DonutSS13Builder extends MapBuilder {
         Room brig = new BrigRoom(29, 15, 4, 1, 1, new int[]{}, new Door[]{});
         brig.setDoors(new Door[]{new LockedDoor(15.0, 4.5, 29, 16)});
         gm.addRoom(brig, ss13, "center");
-        {
-            KeyCardLock l1 = new KeyCardLock(brig, portHallFront, true, 3.0);
-            brig.addObject(l1);
-            portHallFront.addObject(l1);
-        }
 
         Room space = new SpaceRoom(30, 0, 0, 1, 1);
 

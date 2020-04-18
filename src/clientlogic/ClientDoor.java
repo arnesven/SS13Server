@@ -86,7 +86,7 @@ public class ClientDoor extends MouseInteractable {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
                         ServerCommunicator.send(GameData.getInstance().getClid() + " NEXTACTION " +
-                                "root,Room,Doors,"+newActionString, new MyCallback<String>() {
+                                "root,Room,Doors,"+newActionString.replace("root,", ""), new MyCallback<String>() {
 
                             @Override
                             public void onSuccess(String result) {

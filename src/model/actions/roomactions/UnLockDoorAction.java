@@ -14,35 +14,33 @@ import model.map.doors.Door;
 import model.map.doors.LockedDoor;
 import model.map.doors.NormalDoor;
 import model.map.rooms.Room;
-import util.Logger;
 
 import java.util.List;
 
-public class LockDoorAction extends Action {
+public class UnLockDoorAction extends Action {
+    private final Door door;
 
-    private final NormalDoor door;
-
-    public LockDoorAction(NormalDoor normalDoor) {
-        super("Lock " + normalDoor.getName(), SensoryLevel.OPERATE_DEVICE);
-        this.door = normalDoor;
+    public UnLockDoorAction(LockedDoor lockedDoor) {
+        super("Unlock " + lockedDoor.getName(), SensoryLevel.OPERATE_DEVICE);
+        this.door = lockedDoor;
     }
 
     @Override
     protected String getVerb(Actor whosAsking) {
-        return "locked a door";
+        return "unlocked a door";
     }
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         boolean isAI = performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter);
         if (GameItem.hasAnItemOfClass(performingClient, KeyCard.class) || isAI) {
-            performingClient.addTolastTurnInfo("You locked the door");
+            performingClient.addTolastTurnInfo("You unlocked the door");
         } else if (!isAI) {
             performingClient.addTolastTurnInfo("What, the key card was gone? " + Action.FAILED_STRING);
             return;
         }
         try {
-            lockRooms(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
+            unlockRooms(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
@@ -53,22 +51,20 @@ public class LockDoorAction extends Action {
 
     }
 
-    public void lockRooms(Room from, Room to) {
-        GameMap.separateRooms(to, from);
-        lockUnlockedDoor(to, door);
-        lockUnlockedDoor(from, door);
+    public void unlockRooms(Room from, Room to) {
+        GameMap.joinRooms(to, from);
+        unlockLockedDoor(to, door);
+        unlockLockedDoor(from, door);
     }
 
-
-
-
-    private void lockUnlockedDoor(Room room, Door targetDoor) {
+    private void unlockLockedDoor(Room room, Door targetDoor) {
         for (int i = 0; i < room.getDoors().length; ++i) {
             if (room.getDoors()[i] == targetDoor) {
-                Door newDoor = new LockedDoor(targetDoor.getX(), targetDoor.getY(), targetDoor.getFromId(), targetDoor.getToId());
+                NormalDoor newDoor = new NormalDoor(targetDoor.getX(), targetDoor.getY(), targetDoor.getFromId(), targetDoor.getToId());
                 room.getDoors()[i] = newDoor;
                 return;
             }
         }
     }
+
 }
