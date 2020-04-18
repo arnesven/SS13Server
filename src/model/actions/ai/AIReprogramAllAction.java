@@ -1,5 +1,6 @@
 package model.actions.ai;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -71,5 +72,11 @@ public class AIReprogramAllAction extends Action {
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public Sprite getAbilitySprite() {
+        return new Sprite("aiprogrambotallabisprite", "interface_robot.png", 6, 5, null);
     }
 }

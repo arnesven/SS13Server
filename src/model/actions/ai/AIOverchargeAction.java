@@ -1,5 +1,6 @@
 package model.actions.ai;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -70,5 +71,10 @@ public class AIOverchargeAction extends Action {
                 }
             }
         }
+    }
+
+    @Override
+    public Sprite getAbilitySprite() {
+        return new Sprite("aioverchargeabi", "interface_robot.png", 7, 2, null);
     }
 }

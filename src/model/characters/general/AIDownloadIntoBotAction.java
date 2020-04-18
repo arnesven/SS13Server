@@ -1,5 +1,6 @@
 package model.characters.general;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -85,5 +86,10 @@ public class AIDownloadIntoBotAction extends Action {
             }
         }
 
+    }
+
+    @Override
+    public Sprite getAbilitySprite() {
+        return new Sprite("aidownloadintobot", "interface_robot.png", 7, 4, null);
     }
 }

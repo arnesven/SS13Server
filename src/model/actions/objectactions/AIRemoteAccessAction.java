@@ -1,5 +1,6 @@
 package model.actions.objectactions;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.RemoteAccessAction;
@@ -16,4 +17,8 @@ public class AIRemoteAccessAction extends RemoteAccessAction  {
     }
 
 
+    @Override
+    public Sprite getAbilitySprite() {
+        return new Sprite("airemoteaccessabi", "interface_robot.png", 0, 6, null);
+    }
 }
