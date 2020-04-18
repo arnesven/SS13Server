@@ -9,6 +9,8 @@ import model.actions.general.Action;
 import model.actions.general.ActionGroup;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
+import model.characters.general.AICharacter;
+import model.characters.general.GameCharacter;
 import model.events.NoPressureEverEvent;
 import model.events.ambient.ColdEvent;
 import model.events.ambient.DarkEvent;
@@ -299,7 +301,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		try {
 			for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(this).getName())) {
 				for (Door d : r.getDoors()) {
-					if (d.getToId() == getID()) {
+					if (d.getToId() == getID() || client.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
 						doorsAG.addAll(d.getDoorActions(gameData, client));
 					}
 				}
