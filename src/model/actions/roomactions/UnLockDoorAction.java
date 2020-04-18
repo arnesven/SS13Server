@@ -18,7 +18,7 @@ import model.map.rooms.Room;
 import java.util.List;
 
 public class UnLockDoorAction extends Action {
-    private final Door door;
+    private final LockedDoor door;
 
     public UnLockDoorAction(LockedDoor lockedDoor) {
         super("Unlock " + lockedDoor.getName(), SensoryLevel.OPERATE_DEVICE);
@@ -40,7 +40,7 @@ public class UnLockDoorAction extends Action {
             return;
         }
         try {
-            unlockRooms(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
+            door.unlockRooms(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
@@ -51,20 +51,6 @@ public class UnLockDoorAction extends Action {
 
     }
 
-    public void unlockRooms(Room from, Room to) {
-        GameMap.joinRooms(to, from);
-        unlockLockedDoor(to, door);
-        unlockLockedDoor(from, door);
-    }
 
-    private void unlockLockedDoor(Room room, Door targetDoor) {
-        for (int i = 0; i < room.getDoors().length; ++i) {
-            if (room.getDoors()[i] == targetDoor) {
-                NormalDoor newDoor = new NormalDoor(targetDoor.getX(), targetDoor.getY(), targetDoor.getFromId(), targetDoor.getToId());
-                room.getDoors()[i] = newDoor;
-                return;
-            }
-        }
-    }
 
 }

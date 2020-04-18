@@ -5,6 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.map.doors.Door;
 import model.map.rooms.Room;
 import model.objects.general.PowerConsumer;
 import model.objects.general.BreakableObject;
@@ -177,7 +178,6 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
         List<ElectricalMachinery> oldNoPower = noPower;
         noPower       = new ArrayList<ElectricalMachinery>();
 
-
         List<Room> allRooms = new ArrayList<>();
         allRooms.addAll(getAffectedRooms(gameData));
 
@@ -194,6 +194,12 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
                     if (!(obj instanceof GeneratorConsole)) {
                         noPower.add((ElectricalMachinery) obj);
                     }
+                }
+            }
+            for (Door d : room.getDoors()) {
+                if (d.requiresPower()) {
+                    Logger.log("POWER: this door requires power " + d.getName());
+                    noPower.add(d.getElectricalLock(gameData));
                 }
             }
         }
@@ -237,18 +243,33 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
 
     private void runPowerOnOrOffFunctions(GameData gameData,
                                           List<ElectricalMachinery> oldNoPower) {
-        for (Room r : getAffectedRooms(gameData)) {
-            for (GameObject obj : r.getObjects()) {
-                if (obj instanceof ElectricalMachinery) {
-                    ElectricalMachinery em = (ElectricalMachinery) obj;
-                    if (oldNoPower.contains(em) && !getNoPowerObjects().contains(em)) {
-                        em.onPowerOn(gameData);
-                    } else if (!oldNoPower.contains(em) && getNoPowerObjects().contains(em)) {
-                        em.onPowerOff(gameData);
-                    }
-                }
+//        for (Room r : getAffectedRooms(gameData)) {
+//            for (GameObject obj : r.getObjects()) {
+//                if (obj instanceof ElectricalMachinery) {
+//                    ElectricalMachinery em = (ElectricalMachinery) obj;
+//                    onPowerOnOrOff(gameData, em);
+//                    if (oldNoPower.contains(em) && !getNoPowerObjects().contains(em)) {
+//                        em.onPowerOn(gameData);
+//                    } else if (!oldNoPower.contains(em) && getNoPowerObjects().contains(em)) {
+//                        em.onPowerOff(gameData);
+//                    }
+//                }
+//            }
+//        }
+        for (ElectricalMachinery em : getNoPowerObjects()) {
+            if (!oldNoPower.contains(em)) {
+                em.onPowerOff(gameData);
             }
         }
+        for (ElectricalMachinery em : oldNoPower) {
+            if (getNoPowerObjects().contains(em)) {
+                em.onPowerOn(gameData);
+            }
+        }
+    }
+
+    private void onPowerOnOrOff(GameData gameData, ElectricalMachinery em) {
+
     }
 
     public List<Room> getNoLifeSupportRooms() {

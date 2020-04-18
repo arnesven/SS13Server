@@ -11,6 +11,7 @@ import model.actions.roomactions.LockDoorAction;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.rooms.Room;
+import model.objects.general.ElectricalMachinery;
 import util.MyStrings;
 
 import java.io.Serializable;
@@ -116,5 +117,13 @@ public abstract class Door implements Serializable, SpriteObject {
 
     public int getFromId() {
         return fromID;
+    }
+
+    public boolean requiresPower() {
+        return false;
+    }
+
+    public ElectricalMachinery getElectricalLock(GameData gameData) {
+        return null;
     }
 }
