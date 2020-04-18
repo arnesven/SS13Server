@@ -26,6 +26,7 @@ import model.objects.general.PowerConsumer;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 import util.Logger;
+import util.MyStrings;
 
 
 /**
@@ -78,8 +79,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
 	public void doSetup(GameData gameData) { }
 
-	@Override
-	public String toString() {
+	public String getStringRepresentation(GameData gameData, Player forWhom) {
 		String effectStr;
 		if (effect.size() == 0) {
 			effectStr = "";
@@ -89,13 +89,22 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
 		floorSprite.registerSprites();
 		String result = ID + ":" + name + ":" + effectStr + ":" + x + ":" + y + ":" + z + ":" +
-						width + ":" + height +":" + Arrays.toString(neighbors) + ":" + Arrays.toString(doors) + ":" +
+						width + ":" + height +":" + Arrays.toString(neighbors) + ":" +
+                MyStrings.join(getDoorStringList(doors, gameData, forWhom), ", ") + ":" +
 				floorSprite.getMainSprite().getName() + ":" + getAppearanceScheme();
 		//Logger.log(result);
         return result;
 	}
 
-	protected String getAppearanceScheme() {
+    private List<String> getDoorStringList(Door[] doors, GameData gameData, Player forWhom) {
+        List<String> result = new ArrayList<>();
+	    for (Door d : doors) {
+            result.add(d.getStringRepresentation(gameData, forWhom));
+        }
+        return result;
+    }
+
+    protected String getAppearanceScheme() {
 		String defaultApperance = "WallsAndWindows";
 		if (map == null) {
 			return defaultApperance + "-Space";

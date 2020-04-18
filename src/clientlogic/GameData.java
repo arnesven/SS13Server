@@ -259,11 +259,12 @@ public class GameData {
 			ClientDoor[] doors = null;
 			if (parts[9].contains(",")) {
 				String[] dArr = parts[9].substring(1, parts[9].length()).split(", ");
-				doors = new ClientDoor[dArr.length/3];
-				for (int i = 0; i < dArr.length; i+=3) {
-					doors[i/3] = new ClientDoor(Double.parseDouble(dArr[i].replaceAll("]", "")),
+				doors = new ClientDoor[dArr.length/4];
+				for (int i = 0; i < dArr.length; i+=4) {
+					doors[i/4] = new ClientDoor(Double.parseDouble(dArr[i].replaceAll("]", "")),
 							Double.parseDouble(dArr[i+1].replaceAll("]", "")),
-							dArr[i+2].replaceAll("]", ""));
+							dArr[i+2].replaceAll("]", ""),
+							dArr[i+3]);
 
 				}
 			}
@@ -374,20 +375,11 @@ public class GameData {
 
 		this.setSelectableRooms(selectableRooms);
 		deconstructPlayerData(result);
-		highlightCurrentRoom();
 		nextMove = "";
 
 		//this.notifyObservers(); // is probably not needed since actions will follow soon.
 	}
 
-	private void highlightCurrentRoom() {
-		for (Room r : rooms) {
-			if (r.getID() == currentPos) {
-				r.setHighlight(true);
-				break;
-			}
-		}
-	}
 
 	public void deconstructActionData(String result) {
 		// GWT.log("in deconstruct action data");
@@ -421,7 +413,6 @@ public class GameData {
 	private void setSelectableRooms(ArrayList<Integer> selectableRooms) {
 		this.selectableRooms.clear();
 		this.selectableRooms.addAll(selectableRooms);
-		this.unHighlightAllRoom();
 		//this.notifyObservers();
 	}
 
@@ -523,11 +514,6 @@ public class GameData {
 		return lastTurnInfo;
 	}
 
-	public void unHighlightAllRoom() {
-		for (Room r : rooms) {
-			r.setHighlight(false);
-		}
-	}
 
 	public MyTreeNode getActionTree() {
 		return tree;
@@ -728,7 +714,6 @@ public class GameData {
 	public void clearRoomColors() {
 		selectableRooms.clear();
 		for (Room room : rooms) {
-			room.setHighlight(false);
 			//room.setGrayBackground();
 		}
 		//notifyObservers();

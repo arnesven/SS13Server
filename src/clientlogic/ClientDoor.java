@@ -1,10 +1,16 @@
 package clientlogic;
 
+import clientcomm.MyCallback;
+import clientcomm.ServerCommunicator;
 import clientview.components.MapPanel;
 import clientview.SpriteManager;
+import clientview.components.MyPopupMenu;
+import util.MyStrings;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 public class ClientDoor extends MouseInteractable {
@@ -14,7 +20,7 @@ public class ClientDoor extends MouseInteractable {
     private String name;
 
 
-    public ClientDoor(double x, double y, String name) {
+    public ClientDoor(double x, double y, String name, String actionData) {
        this.x = x;
        this.y = y;
        this.name = name;
@@ -66,5 +72,34 @@ public class ClientDoor extends MouseInteractable {
 
         setHitBox(xpos, ypos, MapPanel.getZoom(), MapPanel.getZoom());
         g.setColor(Color.BLACK);
+    }
+
+    public MyPopupMenu getPopupMenu(MouseEvent e) {
+        MyPopupMenu pm = new MyPopupMenu(MyStrings.capitalize(getName()) + " Door", "NoRef", e) {
+            @Override
+            public ActionListener getActionListener(String newActionString) {
+                return new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        ServerCommunicator.send(GameData.getInstance().getClid() + " NEXTACTION " +
+                                "root,Room,Doors,"+newActionString, new MyCallback<String>() {
+
+                            @Override
+                            public void onSuccess(String result) {
+                                //GameData.getInstance().setNextAction("Searching in " + getName());
+                                System.out.println("Success in sending door action!");
+                            }
+
+                            @Override
+                            public void onFail() {
+                                System.out.println("Failed to send NEXTACTION (doors) message to server.");
+                            }
+                        });
+
+                    }
+                };
+            }
+        };
+        return pm;
     }
 }

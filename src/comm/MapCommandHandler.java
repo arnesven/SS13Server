@@ -4,6 +4,8 @@ import java.io.ObjectOutputStream;
 import java.util.*;
 
 import model.GameData;
+import model.Player;
+import model.map.rooms.Room;
 import util.MyStrings;
 
 
@@ -20,13 +22,14 @@ public class MapCommandHandler extends AbstractCommandHandler {
 
 		if (command.contains("MAP")) {
 			String result;
+			Player player = gameData.getPlayerForClid(clid);
 			if (rest.contains("VIMI")) {
-				result = MyStrings.join(gameData.getPlayerForClid(clid).getVisibleMap(gameData)) + "<vimi>" +
-						MyStrings.join(gameData.getPlayerForClid(clid).getMiniMap(gameData));
+				result = MyStrings.join(getVisibleMapStrings(player)) + "<vimi>" +
+						MyStrings.join(getMiniMapStrings(player));
 			} else if (rest.contains("VISI")) {
-                result = MyStrings.join(gameData.getPlayerForClid(clid).getVisibleMap(gameData));
+                result = MyStrings.join(getVisibleMapStrings(player));
             } else {
-                result = MyStrings.join(gameData.getPlayerForClid(clid).getMiniMap(gameData));
+                result = MyStrings.join(getMiniMapStrings(player));
             }
             rest = rest.substring(6);
 
@@ -41,6 +44,22 @@ public class MapCommandHandler extends AbstractCommandHandler {
 		}
 		
 		return false;
+	}
+
+	private List<String> getMiniMapStrings(Player player) {
+		List<String> result = new ArrayList<>();
+		for (Room r : player.getMiniMap(gameData)) {
+			result.add(r.getStringRepresentation(gameData, player));
+		}
+		return result;
+	}
+
+	private List<String> getVisibleMapStrings(Player player) {
+		List<String> result = new ArrayList<>();
+		for (Room r : player.getVisibleMap(gameData)) {
+			result.add(r.getStringRepresentation(gameData, player));
+		}
+		return result;
 	}
 
 //    private List<String> makeStringsList(List<Room> visibleMap) {

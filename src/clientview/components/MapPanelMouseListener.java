@@ -47,8 +47,12 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
         for (Room r : l) {
             if (r.getDoors() != null) {
                 for (ClientDoor d : r.getDoors()) {
-                    if (d.actOnClick(e)) {
-                       return;
+                    if (d.mouseHitsThis(e)) {
+                        if (mpm != null) {
+                            mpm.addAll(d.getPopupMenu(e));
+                        } else {
+                            mpm = d.getPopupMenu(e);
+                        }
                     }
                 }
             }

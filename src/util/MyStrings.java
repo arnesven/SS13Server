@@ -32,7 +32,7 @@ public class MyStrings {
 		return buf.toString();
 	}
 
-    public static String capitalize(String realName) {
+    public static String makeIntoSpacedCapitals(String realName) {
         StringBuffer buf = new StringBuffer();
         for (int i = 0; i < realName.length(); ++i) {
             buf.append(Character.toUpperCase(realName.charAt(i)));
@@ -41,6 +41,10 @@ public class MyStrings {
             }
         }
         return buf.toString();
+    }
+
+    public static String capitalize(String realName) {
+        return realName.substring(0,1).toUpperCase() + realName.substring(1).toLowerCase();
     }
 
 }

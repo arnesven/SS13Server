@@ -36,9 +36,6 @@ public abstract class MyPopupMenu extends JPopupMenu  {
     }
 
     private void makeActionMenu(MouseEvent e, MyTreeNode rootNode) {
-//        JLabel nameLabel = new JLabel(name);
-//        nameLabel.setFont(new Font(nameLabel.getFont().getFontName(), Font.ITALIC | Font.BOLD, nameLabel.getFont().getSize()));
-//        this.add(nameLabel);
         this.add(new MyLabel(name));
         this.addSeparator();
         for (MyTreeNode node : rootNode.children) {

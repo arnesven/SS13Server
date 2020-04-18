@@ -21,7 +21,6 @@ public abstract class Door implements Serializable, SpriteObject {
     private double y;
     private String name;
 
-
     public Door(double x, double y, String name) {
         this.x = x;
         this.y = y;
@@ -45,6 +44,14 @@ public abstract class Door implements Serializable, SpriteObject {
     @Override
     public String toString() {
         return x + ", " + y + ", " + name;
+    }
+
+    private String getActionData(GameData gameData, Player forWhom) {
+        return "NoRef";
+    }
+
+    public String getStringRepresentation(GameData gameData, Player forWhom) {
+        return toString() + ", " + getActionData(gameData, forWhom);
     }
 
 

@@ -23,7 +23,6 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     public static final Color WALL_COLOR = new Color(0x303030);
     private static final Color SELECTED_ROOM_COLOR = Color.YELLOW;
-    private static double DOOR_SIZE = 0.5;
     private static boolean automaticScaling = true;
     private final String floorSpriteBaseName;
     private final String backgroundType;
@@ -35,7 +34,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     private int yPos;
     private int zPos;
     private String name;
-    private boolean highLight = true;
+   // private boolean highLight;
     private int ID;
     private static final Color backgroundColor = new Color(0x999999);
     private boolean selectable = false;
@@ -59,7 +58,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         zPos = z;
         this.width = width;
         this.height = height;
-        highLight = false;
+        //highLight = false;
         this.doors = doors;
         floorSpriteBaseName = color;
         this.backgroundType = appearence.split("-")[1];
@@ -289,13 +288,6 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     }
 
-    private void decorateWallsWithPosters(Graphics g, int x, int y, int finalW, int finalH, boolean shadow) {
-        ImageIcon poster = SpriteManager.getSprite("poster1left0");
-        g.drawImage(poster.getImage(), x, y, null);
-        poster = SpriteManager.getSprite("poster1right0");
-        g.drawImage(poster.getImage(), x+poster.getIconWidth(), y, null);
-    }
-
     private void decorateWallsWithWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, boolean shadow) {
         decorateWithTopBottomWindows(g, x, y, finalW, finalH, background);
         decorateWithLeftRightWindows(g, x, y, finalW, finalH, background, "");
@@ -510,22 +502,13 @@ public class Room extends MouseInteractable implements Comparable<Room> {
                     popupMenu.add(item);
                 }
             }
+
+
         }
 
        // popupMenu.show(e.getComponent(), e.getX(), e.getY());
 
 
-    }
-
-    private ClientDoor doorHitByClick(MouseEvent e) {
-        if (doors != null) {
-            for (ClientDoor d : doors) {
-                if (d.actOnClick(e)) {
-                    return d;
-                }
-            }
-        }
-        return null;
     }
 
     @Override
@@ -557,15 +540,6 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         ((Graphics2D)g).setStroke(new BasicStroke(1));
     }
 
-    private boolean isTopBottomDoor(double doorX, double doorY) {
-        if (doorY == this.yPos || doorY == this.yPos+this.height) {
-            return true;
-        }
-        return false;
-
-    }
-
-
     public static double getXScale() {
             return xscale;
         }
@@ -588,14 +562,6 @@ public class Room extends MouseInteractable implements Comparable<Room> {
                 Logger.log("New y-scale is " + d);
                 yscale = d;
             }
-        }
-
-        protected void setHighLight(boolean b) {
-            this.highLight = b;
-        }
-
-        protected boolean getHighLight() {
-            return highLight;
         }
 
         public int getXPos() {
@@ -624,10 +590,6 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
         public String getName() {
             return this.name;
-        }
-
-        public void setHighlight(boolean b) {
-            this.highLight = b;
         }
 
 
