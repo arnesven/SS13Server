@@ -4,7 +4,6 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.events.damage.RadiationDamage;
-import model.items.general.GameItem;
 import util.MyRandom;
 
 public class NukaCola extends HealingFood {
@@ -34,7 +33,7 @@ public class NukaCola extends HealingFood {
     protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
         super.triggerSpecificReaction(eatenBy, gameData);
         if (MyRandom.nextDouble() < RAD_DAMAGE_CHANCE) {
-            eatenBy.getAsTarget().beExposedTo(eatenBy, new RadiationDamage(0.5, gameData));
+            eatenBy.getAsTarget().beExposedTo(eatenBy, new RadiationDamage(0.5, gameData), gameData);
         }
     }
 }

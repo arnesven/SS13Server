@@ -24,7 +24,7 @@ public interface Target extends Locatable {
 
 	boolean isTargetable();
 
-	boolean beAttackedBy(Actor performingClient, Weapon item);
+	boolean beAttackedBy(Actor performingClient, Weapon item, GameData gameData);
 
 	boolean isDead();
 
@@ -38,7 +38,7 @@ public interface Target extends Locatable {
 
 	List<GameItem> getItems();
 
-	void beExposedTo(Actor performingClient, Damager damager);
+	void beExposedTo(Actor performingClient, Damager damager, GameData gameData);
 
 	boolean hasInventory();
 

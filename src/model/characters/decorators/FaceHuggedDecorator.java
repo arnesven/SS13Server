@@ -6,7 +6,6 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
 import model.events.damage.InternalBleeding;
-import model.events.damage.PoisonDamage;
 import model.items.foods.FoodItem;
 import model.items.general.Chemicals;
 import model.items.general.GameItem;
@@ -45,7 +44,7 @@ public class FaceHuggedDecorator extends CharacterDecorator {
         } else if (gameData.getRound() - huggedInRound == 5 &&
                 targetActor.getCharacter().checkInstance((GameCharacter gc) -> gc == this)) {
             getActor().addTolastTurnInfo(HTMLText.makeText("red", "Parasites burst out of your abdomen!"));
-            getActor().getAsTarget().beExposedTo(null, new InternalBleeding(2.5));
+            getActor().getAsTarget().beExposedTo(null, new InternalBleeding(2.5), gameData);
             for (int i = 0; i < 3; i++) {
                 gameData.addNPC(new ParasiteNPC(getPosition()));
             }

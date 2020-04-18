@@ -59,7 +59,7 @@ public abstract class Door implements Serializable, SpriteObject {
         if (forWhom.getCharacter() == null) {
             return "NoRef";
         }
-        return Action.makeActionListString(gameData, getDoorActions(gameData, forWhom), forWhom);
+        return Action.makeActionListStringSpecOptions(gameData, getDoorActions(gameData, forWhom), (Player)forWhom);
     }
 
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {

@@ -17,7 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NormalDoor extends Door {
+public class NormalDoor extends ElectricalDoor {
 
      private static final Sprite NORMAL_DOOR = new Sprite("normaldoor", "doors.png", 11, 17, null);
 
@@ -29,13 +29,16 @@ public class NormalDoor extends Door {
 
     @Override
     protected Sprite getSprite() {
+        if (isBroken()) {
+            return new Sprite("brokennormaldoor", "doors.png", 0, 19, null);
+        }
         return NORMAL_DOOR;
     }
 
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
-        List<Action> at = new ArrayList<>();
-        if (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) ||
-                forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
+        List<Action> at = super.getDoorActions(gameData, forWhom);
+        if (!isBroken() && (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) ||
+                forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter))) {
             at.add(new LockDoorAction(this));
         }
         return at;

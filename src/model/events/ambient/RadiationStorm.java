@@ -65,7 +65,7 @@ public class RadiationStorm extends AmbientEvent {
 
 	public void hurtActorsInRoom(Room r, double damage2, GameData gameData) {
 		for (Actor a : r.getActors()) {
-			a.getAsTarget().beExposedTo(null, new RadiationDamage(damage2, gameData));
+			a.getAsTarget().beExposedTo(null, new RadiationDamage(damage2, gameData), gameData);
 		}
 	}
 

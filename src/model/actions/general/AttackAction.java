@@ -16,7 +16,6 @@ public class AttackAction extends TargetingAction {
 	}
 
 
-	
 	@Override
 	public void addClientsItemsToAction(Actor client) {
 		withWhats.add(client.getCharacter().getDefaultWeapon());

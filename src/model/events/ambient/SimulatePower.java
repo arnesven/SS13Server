@@ -90,7 +90,7 @@ public abstract class SimulatePower extends Event {
             Logger.log(Logger.INTERESTING,
                       "High power output (>150%) caused explosion in generator room");
 			SpontaneousExplosionEvent exp = new SpontaneousExplosionEvent();
-			exp.explode(gc.getPosition());
+			exp.explode(gc.getPosition(), gameData);
 		}
 	}
 

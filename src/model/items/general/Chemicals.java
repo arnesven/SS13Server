@@ -34,7 +34,7 @@ public abstract class Chemicals extends FoodItem {
     @Override
     protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
         if (isToxic()) {
-            eatenBy.getAsTarget().beExposedTo(eatenBy, new PoisonDamage(2.0));
+            eatenBy.getAsTarget().beExposedTo(eatenBy, new PoisonDamage(2.0), gameData);
             eatenBy.addTolastTurnInfo(HTMLText.makeText("red", "The chemicals burns your intestines!"));
         } else {
             eatenBy.addTolastTurnInfo("You consumed the " + getFullName(eatenBy));

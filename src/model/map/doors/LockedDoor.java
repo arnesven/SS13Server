@@ -20,7 +20,7 @@ import util.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LockedDoor extends Door {
+public class LockedDoor extends ElectricalDoor {
     private static final Sprite LOCKED_DOOR = new Sprite("lockeddoor", "doors.png", 12, 17, null);
 
     public LockedDoor(double x, double y, int fromID, int toID) {
@@ -33,7 +33,7 @@ public class LockedDoor extends Door {
     }
 
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
-        List<Action> at = new ArrayList<>();
+        List<Action> at = super.getDoorActions(gameData, forWhom);
         if (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) ||
                 forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
             at.add(new UnLockDoorAction(this));
@@ -44,6 +44,15 @@ public class LockedDoor extends Door {
     @Override
     public boolean requiresPower() {
         return true;
+    }
+
+    @Override
+    protected void thisJustBroke(GameData gameData) {
+        try {
+            unlockRooms(gameData.getRoomForId(getFromId()), gameData.getRoomForId(getToId()));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

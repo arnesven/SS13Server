@@ -9,7 +9,6 @@ import model.characters.general.ChangelingCharacter;
 import model.characters.decorators.HuskDecorator;
 import model.items.general.GameItem;
 import model.items.weapons.Probocis;
-import model.items.weapons.Weapon;
 
 public class SuctionAttackAction extends TargetingAction {
 
@@ -23,7 +22,7 @@ public class SuctionAttackAction extends TargetingAction {
 	@Override
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
-		boolean succ = target.beAttackedBy(performingClient, new Probocis());
+		boolean succ = target.beAttackedBy(performingClient, new Probocis(), gameData);
 		if (succ) {
 			Actor targetAsActor = ((Actor) target);
 			ling.addToSucked(targetAsActor);

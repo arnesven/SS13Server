@@ -44,7 +44,7 @@ public class SurgeryAction extends Action {
                     performingClient.addTolastTurnInfo("You amputated " + target.getPublicName() + "'s " + bodyPart + "!");
                     target.getCharacter().getPhysicalBody().removeBodyPart(bodyPart);
                     if (bodyPart.equals("head")) {
-                        target.beAttackedBy(performingClient, new SurgicalProceedureScalpel());
+                        target.beAttackedBy(performingClient, new SurgicalProceedureScalpel(), gameData);
                     }
                 } else {
                     performingClient.addTolastTurnInfo(target.getPublicName() + " doesn't have a " +

@@ -41,7 +41,7 @@ public class SprayAcidAction extends Action {
         }
         for (GameObject o : performingClient.getPosition().getObjects()) {
             if (o instanceof BreakableObject) {
-                ((BreakableObject) o).beExposedTo(performingClient, new CorrosiveDamage());
+                ((BreakableObject) o).beExposedTo(performingClient, new CorrosiveDamage(), gameData);
                 performingClient.addTolastTurnInfo("You sprayed acid on " + o.getPublicName(performingClient));
             }
         }

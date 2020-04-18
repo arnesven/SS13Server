@@ -49,7 +49,7 @@ public class NuclearBomb extends GameObject {
                 }
                 for (GameObject ob : r.getObjects()) {
                     if (ob instanceof BreakableObject) {
-                        ((BreakableObject) ob).beExposedTo(null, new NuclearExplosiveDamage());
+                        ((BreakableObject) ob).beExposedTo(null, new NuclearExplosiveDamage(), gameData);
                     }
                 }
             }

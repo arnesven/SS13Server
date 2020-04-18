@@ -121,11 +121,12 @@ public class StasisPod extends ElectricalMachinery {
         person = null;
     }
 
-    public void thisJustBroke() {
+    @Override
+    public void thisJustBroke(GameData gameData) {
         if (!isVacant()) {
             Actor a = this.getPerson();
             this.eject();
-            a.getAsTarget().beExposedTo(null, new ColdDamage(3.0));
+            a.getAsTarget().beExposedTo(null, new ColdDamage(3.0), gameData);
         }
     }
 
@@ -178,13 +179,13 @@ public class StasisPod extends ElectricalMachinery {
     }
 
     @Override
-    public void beExposedTo(Actor performingClient, Damager damage) {
+    public void beExposedTo(Actor performingClient, Damager damage, GameData gameData) {
         if (damage instanceof NuclearExplosiveDamage) {
             if (this.person != null) {
-                this.person.getAsTarget().beExposedTo(performingClient, damage);
+                this.person.getAsTarget().beExposedTo(performingClient, damage, gameData);
             }
         }
-        super.beExposedTo(performingClient, damage);
+        super.beExposedTo(performingClient, damage, gameData);
     }
 
     private void cancelTimer() {

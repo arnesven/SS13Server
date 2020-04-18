@@ -7,7 +7,6 @@ import model.Player;
 import model.Target;
 import model.characters.decorators.AlterMovement;
 import model.characters.decorators.CharacterDecorator;
-import model.characters.decorators.NameAddDecorator;
 import model.characters.decorators.NameChangeDecorator;
 import model.characters.general.GameCharacter;
 import model.events.damage.Damager;
@@ -19,8 +18,6 @@ import model.map.GameMap;
 import model.map.rooms.Room;
 import model.objects.general.GameObject;
 import util.MyRandom;
-
-import java.lang.management.GarbageCollectorMXBean;
 
 /**
  * Created by erini02 on 09/09/17.
@@ -145,7 +142,7 @@ public class Rapido extends FootGear {
             if (target instanceof Actor) {
                 ((Actor) target).addTolastTurnInfo(actor.getPublicName() + " crashed into you!");
             }
-            target.beExposedTo(actor, new PhysicalDamage(this));
+            target.beExposedTo(actor, new PhysicalDamage(this), gameData);
             actor.addTolastTurnInfo("You crashed into " + target.getName() + "!");
         }
         rapidoTakeDamage(1.0, actor);

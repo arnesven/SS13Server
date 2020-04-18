@@ -49,9 +49,9 @@ public class BullWhip extends Weapon {
         boolean success;
         if (MyRandom.nextDouble() > 0.5 ||
                 performingClient.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof AdventurerCharacter))) {
-            success = target.beAttackedBy(performingClient, this);
+            success = target.beAttackedBy(performingClient, this, gameData);
         } else {
-            success = performingClient.getAsTarget().beAttackedBy(performingClient, this);
+            success = performingClient.getAsTarget().beAttackedBy(performingClient, this, gameData);
         }
 
 

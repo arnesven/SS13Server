@@ -45,7 +45,7 @@ public abstract class BreakableObject extends GameObject implements Target {
     }
 
 	@Override
-	public boolean beAttackedBy(Actor performingClient, Weapon item) {
+	public boolean beAttackedBy(Actor performingClient, Weapon item, GameData gameData) {
 		boolean success;
 		boolean alreadyBroken = isBroken();
 		if (item.isAttackSuccessful(false)) {
@@ -56,7 +56,7 @@ public abstract class BreakableObject extends GameObject implements Target {
 				performingClient.addTolastTurnInfo("The " + super.getPublicName(performingClient) + " was destroyed!");				
 				this.breaker = performingClient;
 				this.brokenByWeapon = item;
-				thisJustBroke();
+				thisJustBroke(gameData);
 			}
 		} else {
 			performingClient.addTolastTurnInfo("You missed the " + super.getPublicName(performingClient) + ".");
@@ -65,7 +65,7 @@ public abstract class BreakableObject extends GameObject implements Target {
 		return success;
 	}
 	
-	public void thisJustBroke() {
+	public void thisJustBroke(GameData gameData) {
 		// can be overridden for fun
 	}
 
@@ -140,13 +140,13 @@ public abstract class BreakableObject extends GameObject implements Target {
 	}
 
 	@Override
-	public void beExposedTo(Actor performingClient, Damager damage) {
+	public void beExposedTo(Actor performingClient, Damager damage, GameData gameData) {
 		boolean alreadyBroken = isBroken();
 		if (damage.isDamageSuccessful(false)) {
             damage.doDamageOnMe(this);
         	if (hp == 0) { // broken :-)
                 if (!alreadyBroken) {
-                    thisJustBroke();
+                    thisJustBroke(gameData);
                 }
 				if (performingClient != null && !alreadyBroken) {
 					breaker = performingClient;

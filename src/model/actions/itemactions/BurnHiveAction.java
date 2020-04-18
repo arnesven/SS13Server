@@ -44,7 +44,7 @@ public class BurnHiveAction extends Action {
 
                 }
 
-			hive.beExposedTo(performingClient, new FireDamage(3.0));
+			hive.beExposedTo(performingClient, new FireDamage(3.0), gameData);
             hive.setBreaker(performingClient);
 			performingClient.addTolastTurnInfo("You destroyed the hive with the flamer!");
 		} else if (!GameItem.hasAnItem(performingClient, new Flamer())) {

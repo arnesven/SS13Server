@@ -8,11 +8,9 @@ import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.actions.*;
 import model.actions.general.*;
-import model.actions.general.PickupAndUseAction;
 import model.characters.decorators.*;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
-import model.items.general.HidableItem;
 import model.items.suits.SuitItem;
 import model.items.suits.Wearable;
 import model.items.weapons.Weapon;
@@ -39,7 +37,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 		return character;
 	}
 
-    public boolean beAttackedBy(Actor performingClient, Weapon item) {
+    public boolean beAttackedBy(Actor performingClient, Weapon item, GameData gameData) {
         boolean succ = getCharacter().beAttackedBy(performingClient, item);
         if (item.hasRealSound()) {
             if (this instanceof Player) {

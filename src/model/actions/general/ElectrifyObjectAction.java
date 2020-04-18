@@ -96,7 +96,7 @@ public class ElectrifyObjectAction extends Action {
         public void doTheAction(GameData gameData, Actor performingClient) {
             innerAction.doTheAction(gameData, performingClient);
             if (chargeLeft) {
-                performingClient.getAsTarget().beExposedTo(overCharger, new ElectricalDamage(1.0));
+                performingClient.getAsTarget().beExposedTo(overCharger, new ElectricalDamage(1.0), gameData);
                 chargeLeft = false;
                 overcharge.revert();
             }

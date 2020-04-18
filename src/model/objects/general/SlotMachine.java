@@ -60,8 +60,8 @@ public class SlotMachine extends ElectricalMachinery {
     }
 
     @Override
-    public void thisJustBroke() {
-        super.thisJustBroke();
+    public void thisJustBroke(GameData gameData) {
+        super.thisJustBroke(gameData);
         if (!alreadyBrokeOnce) {
             alreadyBrokeOnce = true;
             getPosition().addItem(new MoneyStack(MyRandom.nextInt(200)+100));

@@ -80,11 +80,11 @@ public class Grenade extends GameItem implements Damager, ExplodableItem {
     @Override
     public void explode(GameData gameData, Room room, Actor maker) {
         for (Actor a : room.getActors()) {
-            a.getAsTarget().beExposedTo(maker, this);
+            a.getAsTarget().beExposedTo(maker, this, gameData);
         }
         for (GameObject o : room.getObjects()) {
             if (o instanceof BreakableObject) {
-                ((BreakableObject) o).beExposedTo(maker, this);
+                ((BreakableObject) o).beExposedTo(maker, this, gameData);
             }
         }
         room.addEvent(new AnimationEvent(this, gameData, room,

@@ -27,7 +27,7 @@ public class SpontaneousExplosionEvent extends AmbientEvent {
 			return;
 		}
 		Room room = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
-		this.explode(room);
+		this.explode(room, gameData);
 
 	}
 
@@ -36,9 +36,9 @@ public class SpontaneousExplosionEvent extends AmbientEvent {
 		return "spontaneous explosion";
 	}
 	
-	public void explode(Room room) {
+	public void explode(Room room, GameData gameData) {
 		for (Target t : room.getTargets()) {
-			t.beExposedTo(null, new ExplosiveDamage(1.0));
+			t.beExposedTo(null, new ExplosiveDamage(1.0), gameData);
 		}
 		room.addToEventsHappened(this);
 	}

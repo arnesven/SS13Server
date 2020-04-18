@@ -34,11 +34,11 @@ public abstract class Plant extends BreakableObject {
     }
 
     @Override
-    public void beExposedTo(Actor performingClient, Damager damage) {
+    public void beExposedTo(Actor performingClient, Damager damage, GameData gameData) {
         if (damage instanceof RadiationDamage) {
             return;
         }
-        super.beExposedTo(performingClient, damage);
+        super.beExposedTo(performingClient, damage, gameData);
     }
 
     @Override

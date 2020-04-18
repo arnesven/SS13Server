@@ -59,7 +59,7 @@ public class ExplodingFood extends FoodItem {
 			public String getText() {
 				return "You exploded!";
 			}
-		});
+		}, gameData);
         eatenBy.getItems().remove(expel.getAsItem());
         eatenBy.getPosition().addItem(expel.getAsItem());
         expel.explode(gameData, eatenBy.getPosition(), maker);

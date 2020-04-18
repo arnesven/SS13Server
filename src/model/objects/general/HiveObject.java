@@ -40,9 +40,9 @@ public class HiveObject extends HideableObject {
 	}
 
     @Override
-    public void beExposedTo(Actor performingClient, Damager damage) {
+    public void beExposedTo(Actor performingClient, Damager damage, GameData gameData) {
         double healthBefore = getHealth();
-        super.beExposedTo(performingClient, damage);
+        super.beExposedTo(performingClient, damage, gameData);
         if (healthBefore > getHealth()) {
             if (performingClient == null) {
                 damageHistory.add(damage.getDamage() + " damage from " + damage.getName());
@@ -53,8 +53,8 @@ public class HiveObject extends HideableObject {
     }
 
     @Override
-    public boolean beAttackedBy(Actor performingClient, Weapon item) {
-        boolean succ = super.beAttackedBy(performingClient, item);
+    public boolean beAttackedBy(Actor performingClient, Weapon item, GameData gameData) {
+        boolean succ = super.beAttackedBy(performingClient, item, gameData);
         damageHistory.add(performingClient.getBaseName() + " did " + item.getDamage() + " damage with " + item.getBaseName());
         return succ;
     }

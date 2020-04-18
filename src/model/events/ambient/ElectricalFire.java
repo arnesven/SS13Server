@@ -155,14 +155,14 @@ public class ElectricalFire extends OngoingEvent {
                         targetAsActor.setCharacter(new OnFireCharacterDecorator(targetAsActor.getCharacter()));
                     } else {
                         if (MyRandom.nextDouble() < getDamageChance(targetAsActor)) {
-                            t.beExposedTo(null, new FireDamage());
+                            t.beExposedTo(null, new FireDamage(), gameData);
                         }
                     }
                 } else {
                     // Do nothing, burn decorator will damage actor this round.
                 }
             } else {
-                t.beExposedTo(null, new FireDamage());
+                t.beExposedTo(null, new FireDamage(), gameData);
             }
         }
     }

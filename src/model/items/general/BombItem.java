@@ -1,6 +1,5 @@
 package model.items.general;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import model.events.damage.ExplosiveDamage;
 import model.items.NoSuchThingException;
 import model.items.foods.ExplodingFood;
 import model.map.Architecture;
-import model.map.GameMap;
 import model.map.doors.HoleInTheWallDoor;
 import model.map.rooms.Room;
 import model.events.SpontaneousExplosionEvent;
@@ -150,7 +148,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
 		for (Object o : bombRoom.getObjects()) {
 			if (o instanceof Target) {
 				((Target)o).beExposedTo(performingClient, 
-						new ExplosiveDamage(getExplosiveDamage(), this));
+						new ExplosiveDamage(getExplosiveDamage(), this), gameData);
 			}
 		}
         exploded = true;

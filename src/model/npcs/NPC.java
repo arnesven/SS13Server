@@ -8,7 +8,6 @@ import model.characters.decorators.InfectedCharacter;
 import model.events.damage.Damager;
 import model.items.NoSuchThingException;
 import model.items.general.MedKit;
-import model.items.weapons.Weapon;
 import model.map.rooms.Room;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
@@ -139,7 +138,7 @@ public abstract class NPC extends Actor implements Target, Serializable {
 	}
 
 	@Override
-	public void beExposedTo(Actor performingClient, Damager damage) {
+	public void beExposedTo(Actor performingClient, Damager damage, GameData gameData) {
 		getCharacter().beExposedTo(performingClient, damage);
 	}
 

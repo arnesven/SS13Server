@@ -5,7 +5,6 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
-import model.characters.decorators.InstanceChecker;
 import model.characters.general.AnimalCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
@@ -55,7 +54,7 @@ public class MakeRitualSacrifice extends Action {
             performingClient.addTolastTurnInfo("Huh, nobody to sacrifice? " + Action.FAILED_STRING);
         } else {
             performingClient.addTolastTurnInfo("You sacrificed " + target.getPublicName() + " on the altar of Kali!");
-            target.getAsTarget().beExposedTo(performingClient, new SacrificeDamage());
+            target.getAsTarget().beExposedTo(performingClient, new SacrificeDamage(), gameData);
             altar.setSacrifice(true);
             altar.addToPoints(25);
         }

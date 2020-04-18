@@ -14,7 +14,6 @@ import model.events.ambient.LowPressureEvent;
 import model.events.damage.NoPressureDamage;
 import model.map.rooms.Room;
 import model.objects.general.AirlockPanel;
-import util.Logger;
 
 public class NoPressureEvent extends Event {
 
@@ -65,7 +64,7 @@ public class NoPressureEvent extends Event {
 		if (!shouldBeRemoved(gameData)) {
 			for (Target t : roomRef.getTargets()) {
                // Logger.log(" hit " + t.getName());
-				t.beExposedTo(performingClient, new NoPressureDamage(t));
+				t.beExposedTo(performingClient, new NoPressureDamage(t), gameData);
 			}
 		}
 

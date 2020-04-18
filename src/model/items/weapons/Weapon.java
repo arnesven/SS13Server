@@ -147,7 +147,7 @@ public abstract class Weapon extends GameItem implements HandheldItem {
     }
 
     public void doAttack(Actor performingClient, Target target, GameData gameData) {
-        boolean success = target.beAttackedBy(performingClient, this);
+        boolean success = target.beAttackedBy(performingClient, this, gameData);
         if (success) {
             usedOnBy(target, performingClient, gameData);
         } else {

@@ -60,7 +60,7 @@ public class AITurret extends ElectricalMachinery implements RemotelyOperateable
                     Target t = MyRandom.sample(targets);
                     ((Actor) t).addTolastTurnInfo("The AutoTurret fired at you!");
                     if (MyRandom.nextDouble() < 0.9) {
-                        t.beExposedTo((Actor) t, new LaserBlast());
+                        t.beExposedTo((Actor) t, new LaserBlast(), gameData);
                     } else {
                         ((Actor) t).addTolastTurnInfo("...but it missed.");
                     }
@@ -189,7 +189,7 @@ public class AITurret extends ElectricalMachinery implements RemotelyOperateable
             protected void execute(GameData gameData, Actor performingClient) {
                 if (targeted != null) {
                     targeted.addTolastTurnInfo("The AutoTurret fired at you!");
-                    targeted.getAsTarget().beAttackedBy(performingClient, new AutoTurretLaser());
+                    targeted.getAsTarget().beAttackedBy(performingClient, new AutoTurretLaser(), gameData);
                     lastFiredOnTurn = gameData.getRound();
                     for (Actor a : pos.getActors()) {
                         if (a != targeted) {

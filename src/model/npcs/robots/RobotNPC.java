@@ -80,11 +80,11 @@ public class RobotNPC extends NPC implements Repairable {
 	}
 	
 	@Override
-	public void beExposedTo(Actor performingClient, Damager damage) {
+	public void beExposedTo(Actor performingClient, Damager damage, GameData gameData) {
 		if (damage instanceof AsphyxiationDamage || damage instanceof RadiationDamage || damage instanceof ColdDamage) {
 			return;
 		}
-		super.beExposedTo(performingClient, damage);
+		super.beExposedTo(performingClient, damage, gameData);
 	}
 
     public static void removeRobotName(String chosenName) {

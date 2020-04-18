@@ -6,7 +6,6 @@ import java.util.*;
 import graphics.ClientInfo;
 import graphics.OverlaySprite;
 import graphics.sprites.*;
-import model.actions.objectactions.LoginAction;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import model.fancyframe.FancyFrame;
@@ -537,7 +536,7 @@ public class Player extends Actor implements Target, Serializable {
 	}
 
 	@Override
-	public void beExposedTo(Actor performingClient, Damager damager) {
+	public void beExposedTo(Actor performingClient, Damager damager, GameData gameData) {
 		getCharacter().beExposedTo(performingClient, damager);
         if (damager.hasRealSound()) {
             getSoundQueue().add(damager.getRealSound());

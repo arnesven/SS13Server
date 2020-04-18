@@ -21,7 +21,7 @@ public class LocalRadiationEvent extends RadiationStorm {
     @Override
     public void apply(GameData gameData) {
         for (Actor a : this.position.getActors()) {
-            a.getAsTarget().beExposedTo(causedBy, new RadiationDamage(0.5, gameData));
+            a.getAsTarget().beExposedTo(causedBy, new RadiationDamage(0.5, gameData), gameData);
         }
     }
 

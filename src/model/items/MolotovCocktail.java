@@ -62,7 +62,7 @@ public class MolotovCocktail extends GameItem implements Damager, ExplodableItem
     @Override
     public void explode(GameData gameData, Room room, Actor maker) {
         for (Actor a : room.getActors()) {
-            a.getAsTarget().beExposedTo(maker, this);
+            a.getAsTarget().beExposedTo(maker, this, gameData);
         }
         ElectricalFire fire = ((ElectricalFire)gameData.getGameMode().getEvents().get("fires"));
         fire.startNewEvent(room);

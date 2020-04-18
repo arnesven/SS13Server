@@ -30,8 +30,8 @@ public class DummyHive extends HiveObject {
 	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) { }
 
 	@Override
-	public boolean beAttackedBy(Actor performingClient, Weapon item) {
-		boolean success = super.beAttackedBy(performingClient, item);
+	public boolean beAttackedBy(Actor performingClient, Weapon item, GameData gameData) {
+		boolean success = super.beAttackedBy(performingClient, item, gameData);
 		if (success && this.isBroken()) {
 			performingClient.addTolastTurnInfo("What? This hive was made of paper!");
 		}

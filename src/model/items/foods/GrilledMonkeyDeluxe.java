@@ -33,7 +33,7 @@ public class GrilledMonkeyDeluxe extends HealingFood {
     public boolean canBeCooked(GameData gameData, Actor performingClient) {
         for (Actor a : performingClient.getPosition().getActors()) {
             if (a.getInnermostCharacter() instanceof ChimpCharacter) {
-                a.getAsTarget().beExposedTo(performingClient, new FireDamage(300.0));
+                a.getAsTarget().beExposedTo(performingClient, new FireDamage(300.0), gameData);
                 try {
                     a.getPosition().removeActor(a);
                 } catch (NoSuchThingException e) {

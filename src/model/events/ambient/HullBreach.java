@@ -10,19 +10,16 @@ import model.actions.general.SensoryLevel;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
-import model.actions.itemactions.PutOutFireAction;
 import model.actions.itemactions.SealHullBreachAction;
 import model.events.NoPressureEvent;
 import model.events.animation.AnimatedSprite;
 import model.events.damage.AsphyxiationDamage;
 import model.items.NoSuchThingException;
-import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
 import model.items.general.Tools;
 import model.map.rooms.Room;
 import util.Logger;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +56,7 @@ public class HullBreach extends OngoingEvent {
             new NoPressureEvent(null, getRoom(), null, false).apply(gameData);
         } else {
             for (Target t : getRoom().getTargets()) {
-                t.beExposedTo(null, new AsphyxiationDamage(t));
+                t.beExposedTo(null, new AsphyxiationDamage(t), gameData);
             }
         }
 	}

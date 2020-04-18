@@ -24,6 +24,6 @@ public class PoisonedDecorator extends CharacterDecorator {
     @Override
     public void doAtEndOfTurn(GameData gameData) {
         //getActor().addTolastTurnInfo("You don't feel so well...");
-        getActor().getAsTarget().beExposedTo(maker, new PoisonDamage(0.5));
+        getActor().getAsTarget().beExposedTo(maker, new PoisonDamage(0.5), gameData);
     }
 }

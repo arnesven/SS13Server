@@ -11,7 +11,6 @@ import model.items.general.GameItem;
 import model.items.seeds.SeedsItem;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
-import model.objects.general.BreakableObject;
 import model.objects.plants.Plant;
 
 import java.util.ArrayList;
@@ -87,11 +86,11 @@ public class SoilPatch extends BreakableObject {
     }
 
     @Override
-    public boolean beAttackedBy(Actor performingClient, Weapon item) {
+    public boolean beAttackedBy(Actor performingClient, Weapon item, GameData gameData) {
         if (!isPlanted()) {
             return false;
         }
-        boolean res = plant.beAttackedBy(performingClient, item);
+        boolean res = plant.beAttackedBy(performingClient, item, gameData);
         if (plant.isBroken()) {
             clearPlant();
         }
@@ -99,11 +98,11 @@ public class SoilPatch extends BreakableObject {
     }
 
     @Override
-    public void beExposedTo(Actor performingClient, Damager damage) {
+    public void beExposedTo(Actor performingClient, Damager damage, GameData gameData) {
         if (!isPlanted()) {
             return;
         }
-        plant.beExposedTo(performingClient, damage);
+        plant.beExposedTo(performingClient, damage, gameData);
         if (plant.isBroken()) {
             clearPlant();
         }
