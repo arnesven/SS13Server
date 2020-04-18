@@ -6,6 +6,7 @@ import java.util.List;
 import graphics.sprites.Sprite;
 import model.*;
 import model.actions.general.Action;
+import model.actions.general.ActionGroup;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.events.NoPressureEverEvent;
@@ -62,7 +63,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	private static final RoomWalls walls = new RoomWalls();
 
 
-	public Room(int ID, String name, int x, int y, int width, int height, int[] neighbors, double[] doors) {
+	public Room(int ID, String name, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
 		this.name = name;
 		this.x = x;
 		this.y = y;
@@ -71,7 +72,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		this.height = height;
 		this.ID = ID;
 		this.neighbors = neighbors;
-		this.doors = NormalDoor.makeArrFromDoubleArr(doors);
+		this.doors = doors;
         this.floorSprite = getFloorSet();
 	}
 
@@ -291,6 +292,14 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
             a.getCharacter().addActionsForActorsInRoom(gameData, client, at);
         }
 
+        ActionGroup doorsAG = new ActionGroup("Doors");
+        for (Door d : doors) {
+		    doorsAG.addAll(d.getDoorActions(gameData, client));
+        }
+        if (doorsAG.getOptions(gameData, client).numberOfSuboptions() > 0) {
+            at.add(doorsAG);
+        }
+
 	}
 
 	public void setMap(GameMap gameMap) {
@@ -461,13 +470,6 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		return height;
 	}
 
-	public double[] getDoorsAsDoubleArr() {
-		return Door.makeDoubleArr(doors);
-	}
-
-    //public void setDoors(double[] doors) {
-    //    this.doors = NormalDoor.makeArrFromDoubleArr(doors);
-    //}
 
 
     public void removeFromRoom(GameItem searched) {

@@ -3,8 +3,8 @@ package model.map.doors;
 import graphics.sprites.Sprite;
 
 public class HoleInTheWallDoor extends Door {
-    public HoleInTheWallDoor(double x, double y) {
-        super(x, y, "hole");
+    public HoleInTheWallDoor(double x, double y, int fromID, int toID) {
+        super(x, y, "hole", fromID, toID);
     }
 
     @Override

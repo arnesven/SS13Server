@@ -4,6 +4,7 @@ import model.GameData;
 import model.items.NoSuchThingException;
 import model.items.general.TornClothes;
 import model.map.GameMap;
+import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
 import model.npcs.MouseNPC;
@@ -19,7 +20,7 @@ public class AirDuctRoom extends Room {
     private double PARASITE_CHANCE = 0.15;
     private double TRASH_CHANCE = 0.4;
 
-    public AirDuctRoom(int ID, int x, int y, int width, int height, int[] neighbors, double[] doors) {
+    public AirDuctRoom(int ID, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
         super(ID, "Air Duct #" + ID, x, y, width, height, neighbors, doors);
         setZ(-1);
     }

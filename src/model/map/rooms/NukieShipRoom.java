@@ -7,6 +7,7 @@ import model.Player;
 import model.events.NukeSetByOperativesEvent;
 import model.items.general.GameItem;
 import model.items.general.NuclearDisc;
+import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.NukieFloorSet;
 import model.objects.general.GameObject;
@@ -15,7 +16,7 @@ import util.MyRandom;
 
 public class NukieShipRoom extends Room {
 
-	public NukieShipRoom(int i, int x, int y, int w, int h, int[] js, double[] ds) {
+	public NukieShipRoom(int i, int x, int y, int w, int h, int[] js, Door[] ds) {
 		super(i, "Nuclear Ship", x, y, w, h, js, ds);
 	}
 

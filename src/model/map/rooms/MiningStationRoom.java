@@ -1,5 +1,6 @@
 package model.map.rooms;
 
+import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.objects.mining.GeneralManufacturer;
 import model.objects.mining.MiningStorage;
@@ -13,7 +14,7 @@ public class MiningStationRoom extends TechRoom {
     public static final int DEFAULT_ID = 555;
 
     public MiningStationRoom(int x, int y) {
-        super(DEFAULT_ID, "Mining Station", "MS", x, y, MS_WIDTH, MS_HEIGHT, new int[]{}, new double[]{});
+        super(DEFAULT_ID, "Mining Station", "MS", x, y, MS_WIDTH, MS_HEIGHT, new int[]{}, new Door[]{});
         this.addObject(new MiningStorage(this));
         this.addObject(new GeneralManufacturer(this));
     }

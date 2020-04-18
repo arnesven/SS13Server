@@ -1,9 +1,10 @@
 package model.map.rooms;
 
+import model.map.doors.Door;
 import model.map.floors.FloorSet;
 
 public class SupportRoom extends Room {
-    public SupportRoom(int ID, String name, String shortname, int x, int y, int width, int height, int[] neighbors, double[] doors) {
+    public SupportRoom(int ID, String name, String shortname, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
         super(ID, name, x, y, width, height, neighbors, doors);
     }
 

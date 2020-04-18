@@ -5,6 +5,7 @@ import model.GameData;
 import model.items.NoSuchThingException;
 import model.items.mining.OreShard;
 import model.map.GameMap;
+import model.map.doors.Door;
 import model.npcs.animals.AsteroidWorm;
 import model.objects.general.GameObject;
 import model.objects.mining.RockFactory;
@@ -22,7 +23,7 @@ public class Asteroid extends PlanetRoom {
     private static final double WORM_SPAWN_CHANCE = 0.05;
 
     public Asteroid(int id, int x, int y, int w, int h, GameData gameData) {
-        super(id, "Asteroid " + id, "AST", x, y, w, h, new int[]{}, new double[]{});
+        super(id, "Asteroid " + id, "AST", x, y, w, h, new int[]{}, new Door[]{});
 
         for (double d = 0.9; d > MyRandom.nextDouble(); d = d/2.0) {
             addObject(RockFactory.randomRock(this));

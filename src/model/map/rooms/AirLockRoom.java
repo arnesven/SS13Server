@@ -1,5 +1,6 @@
 package model.map.rooms;
 
+import model.map.doors.Door;
 import model.map.floors.AirLockFloorSet;
 import model.map.floors.FloorSet;
 import model.objects.general.OxyMaskDispenser;
@@ -8,7 +9,7 @@ import model.objects.general.AirlockPanel;
 public class AirLockRoom extends Room {
 
 	public AirLockRoom(int ID, int number, int x, int y,
-			int width, int height, int[] neighbors, double[] doors) {
+			int width, int height, int[] neighbors, Door[] doors) {
 		super(ID, "Air Lock #"+number         ,
                 x, y, width, height, neighbors, doors);
 		

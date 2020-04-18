@@ -73,7 +73,8 @@ public class BuildDoorAction extends Action {
             performingClient.getItems().remove(doorParts);
         }
 
-        arch.joinRoomsWithDoor(performingClient.getPosition(), selected, new NormalDoor(0.0, 0.0));
+        arch.joinRoomsWithDoor(performingClient.getPosition(), selected,
+                new NormalDoor(0.0, 0.0, performingClient.getPosition().getID(), selected.getID()));
         performingClient.addTolastTurnInfo("You built a new door to " + selected.getName());
 
     }

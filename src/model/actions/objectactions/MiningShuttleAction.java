@@ -52,7 +52,7 @@ public class MiningShuttleAction extends ConsoleAction {
                 gameData.getMap().moveRoomToLevel(r, GameMap.STATION_LEVEL_NAME, "center");
                 r.moveTo(cargoBay.getX()+1, cargoBay.getY()+cargoBay.getHeight(), cargoBay.getZ());
                 Architecture stationArch = new Architecture(gameData.getMap(), GameMap.STATION_LEVEL_NAME);
-                Door oldDoor =  new ShuttleDoor(0.0, 0.0);
+                Door oldDoor =  new ShuttleDoor(0.0, 0.0, cargoBay.getID(), r.getID());
                 stationArch.joinRoomsWithDoor(r, cargoBay, oldDoor);
                 shuttleControl.setOldDoor(oldDoor);
 
@@ -66,7 +66,7 @@ public class MiningShuttleAction extends ConsoleAction {
                 gameData.getMap().moveRoomToLevel(r, "asteroid field", "mining station");
                 r.moveTo(miningStation.getX(), miningStation.getY()+miningStation.getHeight(), miningStation.getZ());
                 Architecture asteroidFieldArch = new Architecture(gameData.getMap(), "asteroid field");
-                Door oldDoor = new ShuttleDoor(0.0, 0.0);
+                Door oldDoor = new ShuttleDoor(0.0, 0.0, miningStation.getID(), r.getID());
                 asteroidFieldArch.joinRoomsWithDoor(r, miningStation, oldDoor);
                 shuttleControl.setOldDoor(oldDoor);
 

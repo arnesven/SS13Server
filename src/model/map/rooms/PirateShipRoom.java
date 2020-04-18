@@ -7,6 +7,7 @@ import model.items.suits.PirateOutfit;
 import model.items.weapons.Flamer;
 import model.items.weapons.LaserSword;
 import model.items.weapons.Revolver;
+import model.map.doors.Door;
 import util.MyRandom;
 
 /**
@@ -20,7 +21,7 @@ public class PirateShipRoom extends DerelictRoom {
                 getXForAirLock(randAirLock, gameData),
                 getYForAirLock(randAirLock, gameData),
                 2, 1, new int[]{},
-                new double[]{});
+                new Door[]{});
         this.airlock = randAirLock;
         this.addItem(new SpaceRum());
 

@@ -12,6 +12,8 @@ import model.items.general.RoomPartsStack;
 import model.items.general.Tools;
 import model.map.Architecture;
 import model.map.GameMap;
+import model.map.doors.Door;
+import model.map.doors.NormalDoor;
 import model.map.rooms.HallwayRoom;
 import model.map.rooms.Room;
 
@@ -128,7 +130,7 @@ public class BuildNewRoomAction extends Action {
 
         int id = gameData.getMap().getMaxID()+1;
         int[] neighs = new int[]{};
-        double[] doors = new double[]{doorPoint.getX(), doorPoint.getY()};
+        Door[] doors = new Door[]{new NormalDoor(doorPoint.getX(), doorPoint.getY(), current.getID(), id)};
         Room newRoom = new HallwayRoom(id, "Annex #" + id, "", (int)roomPlacement.getX(), (int)roomPlacement.getY(),
                                 width, height, neighs, doors);
         //newRoom.setMap(gameData.getMap());

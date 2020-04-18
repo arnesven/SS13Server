@@ -15,15 +15,19 @@ import java.awt.event.MouseEvent;
 
 public class ClientDoor extends MouseInteractable {
 
+    private final String actionData;
+    private final String sprite;
     private double x;
     private double y;
     private String name;
 
 
-    public ClientDoor(double x, double y, String name, String actionData) {
+    public ClientDoor(double x, double y, String name, String sprite, String actionData) {
        this.x = x;
        this.y = y;
        this.name = name;
+       this.actionData = actionData;
+       this.sprite = sprite;
     }
 
 
@@ -63,7 +67,7 @@ public class ClientDoor extends MouseInteractable {
     }
 
     public void drawYourself(Graphics g, Room room, int xOffset, int yOffset, int xOffPx, int yOffPx) {
-        ImageIcon ic = SpriteManager.getSprite(getName() + "door0");
+        ImageIcon ic = SpriteManager.getSprite(sprite);
         int xpos = (int)((getX()-xOffset) * room.getXScale()) + xOffPx;
         int ypos = (int)((getY()-yOffset) * room.getYScale()) + yOffPx;
 
@@ -75,7 +79,7 @@ public class ClientDoor extends MouseInteractable {
     }
 
     public MyPopupMenu getPopupMenu(MouseEvent e) {
-        MyPopupMenu pm = new MyPopupMenu(MyStrings.capitalize(getName()) + " Door", "NoRef", e) {
+        MyPopupMenu pm = new MyPopupMenu(MyStrings.capitalize(getName()), actionData, e) {
             @Override
             public ActionListener getActionListener(String newActionString) {
                 return new ActionListener() {

@@ -7,6 +7,7 @@ import model.GameData;
 import model.Player;
 import model.characters.special.SpectatorCharacter;
 import model.items.NoSuchThingException;
+import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
 
@@ -21,7 +22,7 @@ public class SpectatorRoom extends Room {
     private final GameData gameData;
 
     public SpectatorRoom(GameData gameData) {
-        super(999, "Players", 5, 5, 0, 0, new int[]{999}, new double[]{});
+        super(999, "Players", 5, 5, 0, 0, new int[]{999}, new Door[]{});
         this.gameData = gameData;
     }
 

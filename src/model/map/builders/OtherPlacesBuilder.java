@@ -2,6 +2,7 @@ package model.map.builders;
 
 import model.GameData;
 import model.map.GameMap;
+import model.map.doors.Door;
 import model.map.doors.NormalDoor;
 import model.map.rooms.*;
 import util.MyRandom;
@@ -20,9 +21,9 @@ public class OtherPlacesBuilder extends MapBuilder {
     @Override
     protected void buildPart(GameData gameData, GameMap gm) {
 
-        Room dummy = new DummyRoom(31, 18, 1, 0, 0, new int[]{28}, new double[]{-1.0, -1.0});
+        Room dummy = new DummyRoom(31, 18, 1, 0, 0, new int[]{28}, new Door[]{});
         gm.addRoom(dummy, ss13, "dummy");
-        Room otherDim = new OtherDimension(32, new int[]{30}, new double[]{-1.0, -1.0});
+        Room otherDim = new OtherDimension(32, new int[]{30}, new Door[]{});
         Room prisonPlanet = new PrisonPlanet(33);
         gm.createLevel("other dimension", "Planet");
         gm.addRoom(otherDim, "other dimension", "other dimension");
@@ -109,10 +110,10 @@ public class OtherPlacesBuilder extends MapBuilder {
                     miningStation = new MiningStationRoom(x, y);
                     gm.addRoom(miningStation, "asteroid field", "mining station");
                 } else if (matrix[x][y] == 4) {
-                    cabin = new SupportRoom(id++, "Cabin", "", x, y, 1, 1, new int[]{}, new double[]{});
+                    cabin = new SupportRoom(id++, "Cabin", "", x, y, 1, 1, new int[]{}, new Door[]{});
                     gm.addRoom(cabin, "asteroid field", "mining station");
                 } else if (matrix[x][y] == 5) {
-                    shuttle = new ShuttleRoom(id++, "Mining Shuttle", "SHTL", x, y, 2, 1, new int[]{}, new double[]{}, gameData);
+                    shuttle = new ShuttleRoom(id++, "Mining Shuttle", "SHTL", x, y, 2, 1, new int[]{}, new Door[]{}, gameData);
                     gm.addRoom(shuttle, "asteroid field", "mining station");
                 }
             }
@@ -128,9 +129,10 @@ public class OtherPlacesBuilder extends MapBuilder {
 
         GameMap.joinRooms(miningStation, cabin);
         GameMap.joinRooms(miningStation, shuttle);
-        GameMap.joinRooms(miningStation, GameMap.findClosest(asteroids, miningStation));
+        Room closestAsteroid = GameMap.findClosest(asteroids, miningStation);
+        GameMap.joinRooms(miningStation, closestAsteroid);
 
-        cabin.setDoors(new NormalDoor[]{new NormalDoor(cabin.getX() + cabin.getWidth(), cabin.getY() + 0.5)});
+        cabin.setDoors(new NormalDoor[]{new NormalDoor(cabin.getX() + cabin.getWidth(), cabin.getY() + 0.5, cabin.getID(), closestAsteroid.getID())});
     }
 
 

@@ -3,6 +3,7 @@ package model.map.rooms;
 import model.GameData;
 import model.items.general.FireExtinguisher;
 import model.items.general.Tools;
+import model.map.doors.Door;
 import model.npcs.NPC;
 import model.npcs.animals.ChimpNPC;
 import model.objects.decorations.GreenHousePlant;
@@ -13,7 +14,7 @@ import util.MyRandom;
 public class GreenhouseRoom extends ScienceRoom {
 
 	public GreenhouseRoom(GameData gameData, int id, int x, int y, int w, int h, int[] ns,
-                          double[] ds) {
+                          Door[] ds) {
 		super(id, "Greenhouse"          , "GH"     , x, y, w, h, ns, ds);
 		this.addItem(new FireExtinguisher());
 		this.addItem(new Tools());

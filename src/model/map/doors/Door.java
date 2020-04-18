@@ -7,7 +7,11 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.roomactions.LockDoorAction;
+import model.items.general.GameItem;
+import model.items.general.KeyCard;
 import model.map.rooms.Room;
+import util.MyStrings;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,15 +20,19 @@ import java.util.List;
 public abstract class Door implements Serializable, SpriteObject {
 
     private final Sprite sprite = getSprite();
+    private final int fromID;
+    private final int toID;
 
     private double x;
     private double y;
     private String name;
 
-    public Door(double x, double y, String name) {
+    public Door(double x, double y, String name, int fromID, int toID) {
         this.x = x;
         this.y = y;
         this.name = name;
+        this.fromID = fromID;
+        this.toID = toID;
     }
 
     protected abstract Sprite getSprite();
@@ -43,35 +51,23 @@ public abstract class Door implements Serializable, SpriteObject {
 
     @Override
     public String toString() {
-        return x + ", " + y + ", " + name;
+        return x + ", " + y + ", " + name + " Door #" + (fromID*100 + toID) + ", " + getSprite().getName();
     }
 
-    private String getActionData(GameData gameData, Player forWhom) {
-        return "NoRef";
+    private String getActionData(GameData gameData, Actor forWhom) {
+        if (forWhom.getCharacter() == null) {
+            return "NoRef";
+        }
+        return Action.makeActionListString(gameData, getDoorActions(gameData, forWhom), forWhom);
+    }
+
+    public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
+        List<Action> at = new ArrayList<>();
+        return at;
     }
 
     public String getStringRepresentation(GameData gameData, Player forWhom) {
         return toString() + ", " + getActionData(gameData, forWhom);
-    }
-
-
-    public static Door[] makeArrFromDoubleArr(double[] doors) {
-        NormalDoor[] result = new NormalDoor[doors.length/2];
-        for (int i = 0; i < result.length; ++i) {
-            result[i] = new NormalDoor(doors[2*i], doors[2*i+1]);
-        }
-        return result;
-    }
-
-    public static double[] makeDoubleArr(Door[] doors) {
-        double[] result = new double[doors.length*2];
-
-        for (int i = 0; i < result.length; i += 2) {
-            result[i]   = doors[i/2].getX();
-            result[i+1] = doors[i/2].getY();
-        }
-
-        return result;
     }
 
     @Override

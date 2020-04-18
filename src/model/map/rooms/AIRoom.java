@@ -1,12 +1,12 @@
 package model.map.rooms;
 
 import model.GameData;
+import model.map.doors.Door;
 import model.map.doors.DowngoingStairsDoor;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
 import model.objects.ai.AITurret;
 import model.objects.consoles.AIConsole;
-import model.objects.consoles.BotConsole;
 
 /**
  * Created by erini02 on 15/12/16.
@@ -14,7 +14,7 @@ import model.objects.consoles.BotConsole;
 public class AIRoom extends TechRoom {
     private AIConsole aiCons;
 
-    public AIRoom(GameData gameData, int id, int x, int y, int w, int h, int[] ints, double[] doubles) {
+    public AIRoom(GameData gameData, int id, int x, int y, int w, int h, int[] ints, Door[] doubles) {
         super(id, "AI Core", "AI", x, y, w, h, ints, doubles);
         setZ(+1);
         aiCons = new AIConsole(this);

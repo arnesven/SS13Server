@@ -3,6 +3,7 @@ package model.movepowers;
 import graphics.sprites.Sprite;
 import model.GameData;
 import model.Player;
+import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.rooms.Room;
 import model.map.floors.SingleSpriteFloorSet;
@@ -14,7 +15,7 @@ public class MovePowerRoom extends Room {
     private final MovePower movePower;
 
     public MovePowerRoom(int id, String name, int x, int y, MovePower mp, int width) {
-        super(id, name, x, y, width, 1, new int[0], new double[0]);
+        super(id, name, x, y, width, 1, new int[0], new Door[]{});
         this.movePower = mp;
     }
 

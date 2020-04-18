@@ -271,7 +271,7 @@ public class BombItem extends HidableItem implements ExplodableItem {
                     } catch (NoSuchThingException e) {
                         e.printStackTrace();
                     }
-                    if (arch.joinRoomsWithDoor(bombRoom, attatchedToRoomWall, new HoleInTheWallDoor(0.0, 0.0))) {
+                    if (arch.joinRoomsWithDoor(bombRoom, attatchedToRoomWall, new HoleInTheWallDoor(0.0, 0.0, bombRoom.getID(), attatchedToRoomWall.getID()))) {
                         Logger.log(Logger.INTERESTING, "Bomb blew a hole from " + bombRoom.getName() + " to " + attatchedToRoomWall.getName() + "!");
                     }
                 }

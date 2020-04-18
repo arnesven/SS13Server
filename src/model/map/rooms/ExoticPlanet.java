@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ExplorePlanetAction;
+import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.PlanetFloorSet;
 import model.objects.general.HideableObject;
@@ -21,7 +22,7 @@ public abstract class ExoticPlanet extends PlanetRoom {
     private Set<HideableObject> hos = new HashSet<>();
 
     public ExoticPlanet(int id, GameData gameData, String realName) {
-        super(id, "Exotic Planet", "E X O T I C   P L A N E T", 2, 2, 10, 10, new int[]{}, new double[]{});
+        super(id, "Exotic Planet", "E X O T I C   P L A N E T", 2, 2, 10, 10, new int[]{}, new Door[]{});
         this.realName = realName;
     }
 
