@@ -40,15 +40,5 @@ public class InvestigateAction extends WatchAction {
         return opt;
     }
 
-//    @Override
-//	protected void applyTargetingAction(GameData gameData,
-//			final Actor performingClient, final Target target,
-//			GameItem item) {
-//		super.applyTargetingAction(gameData, performingClient, target, item);
-//		performingClient.addTolastTurnInfo("You are shadowing " + target.getName());
-//		this.shadowedInRoom = performingClient.getPosition();
-//
-//		gameData.addMovementEvent(new FollowMovementEvent(shadowedInRoom, performingClient, target, true));
-//	}
 	
 }

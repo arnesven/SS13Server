@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -134,4 +135,8 @@ public class TrainNPCAction extends Action {
 		}
 	}
 
+	@Override
+	public Sprite getAbilitySprite() {
+		return new Sprite("trainnpcabi", "interface.png", 11, 14, null);
+	}
 }
