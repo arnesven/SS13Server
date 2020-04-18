@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -249,5 +250,9 @@ public abstract class Action extends Experienceable implements Serializable {
             argString = ", " + args.substring(1, args.length()-1);
         }
         return getName() +  argString;
+    }
+
+    public Sprite getAbilitySprite() {
+        return new Sprite("abilitysprite", "interface.png", 15, 16, null);
     }
 }

@@ -47,9 +47,10 @@ public class PersonalGoalDecorator extends CharacterDecorator {
         public void setArguments(List<String> args, Actor performingClient) {
             if (performingClient instanceof Player) {
                 Player p = ((Player) performingClient);
-                p.setFancyFrame(new SinglePageFancyFrame(p.getFancyFrame(), "Personal Goal", "<br/>" +
+                p.setFancyFrame(new SinglePageFancyFrame(p.getFancyFrame(), "Personal Goal",
+                        HTMLText.makeColoredBackground("white", HTMLText.makeCentered("<br/>" +
                         HTMLText.makeCentered(goal.getText()) +
-                        "<br/><br/><i>Personal goals can earn you a Hall of Fame point if you do not receive any other points."));
+                        "<br/><br/><i>Personal goals can earn you a Hall of Fame point if you do not receive any other points."))));
                 p.setNextAction(new DoNothingAction());
             }
         }

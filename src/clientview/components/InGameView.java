@@ -31,7 +31,7 @@ public class InGameView extends JSplitPane  {
         ltp = new LastTurnPanel();
         lp2.add(ltp);
         lp2.setResizeWeight(1.0);
-        lp2.setDividerLocation(250);
+        lp2.setDividerLocation(300);
 
         this.add(lp2, 1);
 

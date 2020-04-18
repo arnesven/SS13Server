@@ -4,7 +4,6 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientview.SpriteManager;
-import model.characters.general.GameCharacter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +34,10 @@ public class InventoryPanel {
         drawYou(g, yOffset, width);
         drawHealth(g, yOffset, width);
         drawName(g, yOffset);
-        drawRoomEffectIcons(g, yOffset, width);
+        itemBoxes = new ArrayList<Rectangle>();
+        itemNames = new ArrayList<String>();
+        itemActions = new ArrayList<>();
+        drawRoomEffectsAndAbilityIcons(g, yOffset, width);
         int xOffset = drawEquipment(g, yOffset, width);
         drawInventory(g, xOffset, yOffset, width);
 
@@ -166,20 +168,25 @@ public class InventoryPanel {
 
     }
 
-    private void drawRoomEffectIcons(Graphics g, int yOffset, int width) {
+    private void drawRoomEffectsAndAbilityIcons(Graphics g, int yOffset, int width) {
         int index = 0;
         for (String s : GameData.getInstance().getRoomInfo()) {
             String strs[] = s.split("<img>");
             if (!strs[1].contains("You")) {
                 int iconWidth = MapPanel.getZoom();
                 SpriteManager.drawSprite(strs[0], g, width - MapPanel.getZoom()*++index, yOffset);
-                roomBoxes.add(new Rectangle(width - index*iconWidth, yOffset, iconWidth, iconWidth));
+                Rectangle hitbox = new Rectangle(width - index*iconWidth, yOffset, iconWidth, iconWidth);
+                roomBoxes.add(hitbox);
+                itemBoxes.add(hitbox);
                 roomNames.add(strs[1]);
+                itemNames.add(strs[1]);
+                itemActions.add(strs[2]);
             }
         }
         roomIcons = new Rectangle(width-MapPanel.getZoom()*index, yOffset,
                 MapPanel.getZoom()*index,
                 MapPanel.getZoom());
+
     }
 
 
@@ -199,9 +206,6 @@ public class InventoryPanel {
 
 
 
-        itemBoxes = new ArrayList<Rectangle>();
-        itemNames = new ArrayList<String>();
-        itemActions = new ArrayList<>();
         int startX = 0;
         for (String eqItem : GameData.getInstance().getEquipment()) {
             String[] parts = eqItem.split("<img>");

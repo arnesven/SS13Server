@@ -136,7 +136,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	 * different information depending who is asking.
 	 * @return the information as a list of strings.
 	 */
-	public List<String> getInfo(Player whosAsking) {
+	public List<String> getInfo(GameData gameData, Player whosAsking) {
 		ArrayList<String> info = new ArrayList<>();
 		ArrayList<Actor> actors = new ArrayList<>();
 		actors.addAll(players);
@@ -153,7 +153,15 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 				info.add(0, event.addYourselfToRoomInfo(whosAsking));
 			}
 		}
-		
+
+		ArrayList<Action> actionList = new ArrayList<>();
+		whosAsking.getCharacter().addCharacterSpecificActions(gameData, actionList);
+		for (Action a : actionList) {
+			info.add(a.getAbilitySprite().getName() + "<img>" + a.getName() +  "<img>" +
+					Action.makeActionListStringSpecOptions(gameData, List.of(a), whosAsking));
+		}
+
+
 		return info;
 	}
 

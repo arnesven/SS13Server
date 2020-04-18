@@ -161,8 +161,8 @@ public class Player extends Actor implements Target, Serializable {
 	 * are in that same room with him/her.
 	 * @return the information as a list of strings.
 	 */
-	public List<String> getRoomInfo() {
-		return this.getPosition().getInfo(this);
+	public List<String> getRoomInfo(GameData gameData) {
+		return this.getPosition().getInfo(gameData, this);
 	}
 
 	/**
@@ -401,6 +401,20 @@ public class Player extends Actor implements Target, Serializable {
                }
             }
         }
+
+        // COuld also be ability!
+		ArrayList<Action> abilityActions = new ArrayList<>();
+        getCharacter().addCharacterSpecificActions(gameData, abilityActions);
+		for (Action a : abilityActions) {
+			if (a.getName().equals(args.get(0))) {
+				Logger.log("Ability action found! " + a.getName());
+				List<String> newArgs = args.subList(1, args.size());
+				a.setInventoryArguments(newArgs, this);
+				this.nextAction = a;
+				break;
+			}
+		}
+
 		try {
         	if (nextAction.doesSetPlayerReady()) {
 				gameData.setPlayerReady(gameData.getClidForPlayer(this), true);

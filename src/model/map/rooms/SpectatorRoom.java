@@ -36,7 +36,7 @@ public class SpectatorRoom extends Room {
     }
 
     @Override
-    public List<String> getInfo(Player whosAsking) {
+    public List<String> getInfo(GameData gameData, Player whosAsking) {
         ArrayList<String> info = new ArrayList<>();
         for (Player p : gameData.getPlayersAsList()) {
             if (!(p.getInnermostCharacter() instanceof SpectatorCharacter)) {

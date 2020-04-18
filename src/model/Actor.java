@@ -160,9 +160,9 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 	 */
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
 		if ( whosAsking == this) {
-            info.add(getCharacter().getSprite(whosAsking).getName() + "<img>" + "You" + (getCharacter().isVisible()?"":" (invisible)"));
+            info.add(getCharacter().getSprite(whosAsking).getName() + "<img>" + "You" + (getCharacter().isVisible()?"":" (invisible)") + "<img>{}");
         } else if (getCharacter().isVisible()){
-            info.add(getCharacter().getSprite(whosAsking).getName() + "<img>" + whosAsking.getCharacter().getHowPerceived(this));
+            info.add(getCharacter().getSprite(whosAsking).getName() + "<img>" + whosAsking.getCharacter().getHowPerceived(this) + "<img>{}");
         }
     }
 	

@@ -1,5 +1,6 @@
 package model.actions.characteractions;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -29,5 +30,10 @@ public class CommitSuicideAction extends Action {
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
 
+    }
+
+    @Override
+    public Sprite getAbilitySprite() {
+        return new Sprite("suicideability", "interface.png", 7, 1, null);
     }
 }

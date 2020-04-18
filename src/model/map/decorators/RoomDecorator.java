@@ -38,8 +38,8 @@ public abstract class RoomDecorator extends Room {
 		innerRoom.setNeighbors(newNArr);
 	}
 
-	public List<String> getInfo(Player whosAsking) {
-		return innerRoom.getInfo(whosAsking);
+	public List<String> getInfo(GameData gameData, Player whosAsking) {
+		return innerRoom.getInfo(gameData, whosAsking);
 	}
 
 	public void addPlayer(Player client) {
