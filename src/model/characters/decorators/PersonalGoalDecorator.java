@@ -1,5 +1,6 @@
 package model.characters.decorators;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -58,6 +59,11 @@ public class PersonalGoalDecorator extends CharacterDecorator {
         @Override
         public boolean doesSetPlayerReady() {
             return false;
+        }
+
+        @Override
+        public Sprite getAbilitySprite() {
+            return new Sprite("showpersonalgoal", "interface_retro.png", 2, 1, null);
         }
     }
 }

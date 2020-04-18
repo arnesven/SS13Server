@@ -3,6 +3,7 @@ package model.characters.crew;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -92,6 +93,11 @@ public class SecurityOfficerCharacter extends CrewCharacter {
         public void setArguments(List<String> args, Actor performingClient) {
 
         }
+
+        @Override
+        public Sprite getAbilitySprite() {
+            return new Sprite("securityoffsuitupabi", "interface_retro.png", 1, null);
+        }
     }
 
 
@@ -100,5 +106,7 @@ public class SecurityOfficerCharacter extends CrewCharacter {
         return new JobDescriptionMaker(this,
                 "Any obtrusive, lewd or criminal activity is handled by you. Keep the crewmembers safe from each other!", "Suit up!").makeString();
     }
+
+
 
 }

@@ -1,5 +1,6 @@
 package model.actions.characteractions;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -50,4 +51,9 @@ public class SprayAcidAction extends Action {
 
     @Override
     public void setArguments(List<String> args, Actor performingClient) { }
+
+    @Override
+    public Sprite getAbilitySprite() {
+        return new Sprite("changelingsprayacid", "interface_alien.png", 0, 2, null);
+    }
 }

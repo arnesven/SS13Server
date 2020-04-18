@@ -2,6 +2,7 @@ package model.actions.characteractions;
 
 import java.util.List;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -40,6 +41,8 @@ public class JackInAction extends Action {
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) { }
 
-	
-	
+	@Override
+	public Sprite getAbilitySprite() {
+		return new Sprite("jackinaction", "interface_robot.png", 0, 6, null);
+	}
 }

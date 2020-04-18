@@ -3,6 +3,7 @@ package model.actions.characteractions;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -38,6 +39,11 @@ public class LaptopRemoteAccessAction extends RemoteAccessAction {
 		} else {
 			performingClient.addTolastTurnInfo("What? the laptop is gone! Your action failed.");
 		}
+	}
+
+	@Override
+	public Sprite getAbilitySprite() {
+		return new Sprite("laptopremoteaction", "interface_robot.png", 5, 7, null);
 	}
 
 
