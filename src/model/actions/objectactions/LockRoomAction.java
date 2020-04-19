@@ -34,7 +34,7 @@ public class LockRoomAction { //extends Action {
 //	protected void execute(GameData gameData, Actor performingClient) {
 //		if (KeyCard.hasAnItem(performingClient, new KeyCard()) ||
 //                performingClient.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof AICharacter)) {
-//			lock.lockRooms();
+//			lock.shutFireDoor();
 //			performingClient.addTolastTurnInfo("You locked the " + to.getName() + ".");
 //		} else {
 //			performingClient.addTolastTurnInfo("What? The Key Card is gone! Your action failed.");

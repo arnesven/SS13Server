@@ -8,6 +8,7 @@ import model.actions.general.AttackAction;
 import model.actions.general.SensoryLevel;
 import model.actions.itemactions.RepairAction;
 import model.actions.roomactions.AttackDoorAction;
+import model.actions.roomactions.CloseFireDoorAction;
 import model.actions.roomactions.RepairDoorAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
@@ -68,6 +69,7 @@ public abstract class ElectricalDoor extends Door {
         if (GameItem.hasAnItemOfClass(forWhom, Tools.class) && isDamaged()) {
             at.add(new RepairDoorAction(gameData, forWhom, this));
         }
+        at.add(new CloseFireDoorAction(this));
         return at;
     }
 
