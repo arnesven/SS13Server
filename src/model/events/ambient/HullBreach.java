@@ -77,7 +77,7 @@ public class HullBreach extends OngoingEvent {
 
     @Override
     public Sprite getRoomSprite(Actor whosAsking) {
-        return new AnimatedSprite("animatedhullbreach", "objects2.png", 2, 0, 32, 32, this, 8);
+        return new AnimatedSprite("animatedhullbreach", "objects2.png", 2, 0, 32, 32, this, 8, true);
     }
 
     @Override

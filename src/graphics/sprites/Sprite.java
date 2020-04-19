@@ -33,6 +33,7 @@ public class Sprite implements Serializable {
     private Color color;
     private double rotation = 0.0;
     private int frames = 1;
+    private boolean looping;
 
 
     public Sprite(String name, String mapPath, int column, int row, int width, int height,
@@ -47,6 +48,7 @@ public class Sprite implements Serializable {
         this.resizeWidth = width;
         this.resizeHeight = height;
         this.objectReference = objectRef;
+        this.looping = false;
         SpriteManager.register(this);
         try {
             getImage();
@@ -240,6 +242,14 @@ public class Sprite implements Serializable {
 
     protected void setFrames(int frames) {
         this.frames = frames;
+    }
+
+    public void setLooping(boolean b) {
+        this.looping = b;
+    }
+
+    public boolean isLooping() {
+        return looping;
     }
 
     public void registerYourself() {

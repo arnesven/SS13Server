@@ -21,21 +21,26 @@ public class OverlaySprite extends MouseInteractable {
 
     private final String name;
     private final String actionData;
-    private final int frames;
+    private int frames;
+    private int currentFrame = 0;
+    private boolean looping;
     private final int roomid;
     private String sprite;
     private double x;
     private double y;
+    private double z;
     private int frameShift = 0;
 
 
-    public OverlaySprite(String sprite, double x, double y, String name, String actionData, int frames, int roomid) {
+    public OverlaySprite(String sprite, double x, double y, double z, String name, String actionData, int frames, int roomid, boolean looping) {
         this.sprite = sprite;
         this.x = x;
         this.y = y;
+        this.z = z;
         this.name = name;
         this.actionData = actionData;
         this.frames = frames;
+        this.looping = looping;
         this.roomid = roomid;
     }
 
@@ -48,14 +53,25 @@ public class OverlaySprite extends MouseInteractable {
     }
 
     private void drawAt(Graphics g, int finalX, int finalY, int currZ) {
+        if (currZ != (int)this.x) {
+            return;
+        }
         ImageIcon image = SpriteManager.getSprite(sprite);
         if (this.frames == 1) {
             g.drawImage(image.getImage(), finalX, finalY, null);
         } else {
-            int state = (AnimationHandler.getState() + frameShift) % (frames);
-            if (state < frames) {
+            int frameNo = 0;
+            if (this.looping) {
+                frameNo = (AnimationHandler.getState() + frameShift) % (frames);
+            } else {
+                frameNo = currentFrame;
+                if (currentFrame < frames-1) {
+                    currentFrame++;
+                }
+            }
+            if (frameNo < frames) {
                 g.drawImage(image.getImage(), finalX, finalY, finalX + MapPanel.getZoom(), finalY + MapPanel.getZoom(),
-                        state * MapPanel.getZoom(), 0, (state + 1) * MapPanel.getZoom(), MapPanel.getZoom(), null);
+                        frameNo * MapPanel.getZoom(), 0, (frameNo + 1) * MapPanel.getZoom(), MapPanel.getZoom(), null);
             }
         }
         setHitBox(finalX, finalY, currZ, MapPanel.getZoom(), MapPanel.getZoom());
@@ -139,6 +155,6 @@ public class OverlaySprite extends MouseInteractable {
     }
 
     public OverlaySprite copyYourself() {
-        return new OverlaySprite(this.sprite, this.x, this.y, this.name, this.actionData, this.frames, this.roomid);
+        return new OverlaySprite(this.sprite, this.x, this.y, this.z, this.name, this.actionData, this.frames, this.roomid, this.looping);
     }
 }

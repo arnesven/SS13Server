@@ -13,6 +13,7 @@ public class OverlaySprite {
     private final Sprite sprite;
     private final double x;
     private final double y;
+    private final double z;
     private static final String delim = "<overlay-part>";
     private final Room room;
     private final Player forWhom;
@@ -22,6 +23,7 @@ public class OverlaySprite {
         this.sprite = sp;
         this.x = x;
         this.y = y;
+        this.z = r.getZ();
         this.room = r;
         this.forWhom = forWhom;
         this.frames = frames;
@@ -52,8 +54,14 @@ public class OverlaySprite {
             roomid = this.getRoom().getID();
         }
 
-        return sprite.getName() + delim +  String.format("%1$.1f", x) + delim + String.format("%1$1f", y) +
-                delim + spriteObjName + delim + actiondata + delim + this.frames + delim + roomid;
+        return sprite.getName() +
+                delim + String.format("%1$.1f", x) +
+                delim + String.format("%1$.1f", y) +
+                delim + String.format("%1$.1f", z) +
+                delim + spriteObjName + delim + actiondata +
+                delim + this.frames +
+                delim + roomid +
+                delim + sprite.isLooping();
     }
 
 

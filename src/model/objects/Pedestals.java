@@ -19,7 +19,7 @@ public class Pedestals extends GameObject {
         if (!isBurning) {
             return new Sprite("pedestalnotburning", "altars.png", 21, this);
         }
-        return new AnimatedSprite("pedestalburning", "altars.png", 0, 0, 32, 32, this, 8);
+        return new AnimatedSprite("pedestalburning", "altars.png", 0, 0, 32, 32, this, 8, true);
     }
 
     public void setBurning(boolean b) {

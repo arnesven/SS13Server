@@ -9,6 +9,6 @@ public class ExplodingAnimation extends AnimationEvent {
     public ExplodingAnimation(GameData gameData, Room room) {
         super(gameData, room,
                 new AnimatedSprite("explosion", "effects.png",
-                        11, 7, 32, 32, null, 13));
+                        11, 7, 32, 32, null, 13, false));
     }
 }

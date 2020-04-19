@@ -458,7 +458,11 @@ public class GameData {
 			overlays.add(new OverlaySprite(strs[0],
 								Double.parseDouble(strs[1]),
 								Double.parseDouble(strs[2]),
-                                strs[3], strs[4], Integer.parseInt(strs[5]), Integer.parseInt(strs[6])));
+                                Double.parseDouble(strs[3]),
+                                strs[4], strs[5],
+								Integer.parseInt(strs[6]),
+								Integer.parseInt(strs[7]),
+								Boolean.parseBoolean(strs[8])));
 		}
 
 	}

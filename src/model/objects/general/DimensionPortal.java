@@ -31,7 +31,7 @@ public class DimensionPortal extends GameObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new AnimatedSprite("portalblue", "weapons2.png", 17, 10, 32, 32, this, 3);
+        return new AnimatedSprite("portalblue", "weapons2.png", 17, 10, 32, 32, this, 3, true);
         //return new Sprite("portalblue", "weapons2.png", 19, 10, 32, 32, this);
     }
 
