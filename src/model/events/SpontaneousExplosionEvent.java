@@ -37,7 +37,7 @@ public class SpontaneousExplosionEvent extends AmbientEvent {
 	}
 	
 	public void explode(Room room, GameData gameData) {
-		for (Target t : room.getTargets()) {
+		for (Target t : room.getTargets(gameData)) {
 			t.beExposedTo(null, new ExplosiveDamage(1.0), gameData);
 		}
 		room.addToEventsHappened(this);

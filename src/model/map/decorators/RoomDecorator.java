@@ -123,8 +123,8 @@ public abstract class RoomDecorator extends Room {
 		innerRoom.addEvent(e);
 	}
 
-	public List<Target> getTargets() {
-		return innerRoom.getTargets();
+	public List<Target> getTargets(GameData gameData) {
+		return innerRoom.getTargets(gameData);
 	}
 
 	public List<Event> getEvents() {

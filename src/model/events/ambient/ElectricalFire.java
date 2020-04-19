@@ -147,7 +147,7 @@ public class ElectricalFire extends OngoingEvent {
     }
 
     private void affectActors(GameData gameData) {
-        for (Target t : getRoom().getTargets()) {
+        for (Target t : getRoom().getTargets(gameData)) {
             if (t instanceof Actor) {
                 Actor targetAsActor = (Actor)t;
                 if (! targetAsActor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnFireCharacterDecorator)) {

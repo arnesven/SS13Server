@@ -22,9 +22,11 @@ import model.items.general.GameItem;
 import model.items.general.RoomPartsStack;
 import model.map.GameMap;
 import model.map.doors.Door;
+import model.map.doors.ElectricalDoor;
 import model.map.doors.NormalDoor;
 import model.map.floors.FloorSet;
 import model.npcs.NPC;
+import model.objects.general.BreakableObject;
 import model.objects.general.PowerConsumer;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
@@ -409,16 +411,37 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		e.gotAddedToRoom(this);
 	}
 
-	public List<Target> getTargets() {
+	public List<Target> getTargets(GameData gameData) {
 		List<Target> result = new ArrayList<>();
 		result.addAll(players);
         result.addAll(npcs);
+        result.addAll(getBreakableObjects(gameData));
+		return result;
+	}
+
+	private List<BreakableObject> getBreakableObjects(GameData gameData) {
+		List<BreakableObject> brobjs = new ArrayList<>();
 		for (GameObject o : objects) {
-			if (o instanceof Target) {
-				result.add((Target)o);
+			if (o instanceof BreakableObject) {
+				brobjs.add((BreakableObject) o);
 			}
 		}
-		return result;
+		for (Door d : doors) {
+			if (d instanceof ElectricalDoor) {
+				brobjs.add(((ElectricalDoor)d).getBreakableObject());
+			}
+		}
+		for (Room r : gameData.getMap().getAllRoomsOnSameLevel(this)) {
+			for (Door d : r.getDoors()) {
+				if (d.getToId() == getID()) {
+					if (d instanceof ElectricalDoor) {
+						brobjs.add(((ElectricalDoor)d).getBreakableObject());
+					}
+				}
+			}
+		}
+
+		return brobjs;
 	}
 
 	public List<Event> getEvents() {

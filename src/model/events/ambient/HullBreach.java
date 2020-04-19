@@ -55,7 +55,7 @@ public class HullBreach extends OngoingEvent {
         if (lowPressureInAllAdjacent()) {
             new NoPressureEvent(null, getRoom(), null, false).apply(gameData);
         } else {
-            for (Target t : getRoom().getTargets()) {
+            for (Target t : getRoom().getTargets(gameData)) {
                 t.beExposedTo(null, new AsphyxiationDamage(t), gameData);
             }
         }

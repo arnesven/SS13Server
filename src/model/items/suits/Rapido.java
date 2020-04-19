@@ -127,9 +127,9 @@ public class Rapido extends FootGear {
 
     private void crashIntoStuff(GameData gameData, Actor actor) {
         Target target = null;
-        if (actor.getPosition().getTargets().size() > 1) {
+        if (actor.getPosition().getTargets(gameData).size() > 1) {
             do {
-                target = MyRandom.sample(actor.getPosition().getTargets());
+                target = MyRandom.sample(actor.getPosition().getTargets(gameData));
             } while (target == actor);
 
 

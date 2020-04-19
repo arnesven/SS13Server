@@ -2,6 +2,7 @@ package model.actions.characteractions;
 
 import java.util.List;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -34,4 +35,8 @@ public class PickUpAllAction extends Action {
 		
 	}
 
+	@Override
+	public Sprite getAbilitySprite() {
+		return new Sprite("pickupallability", "interface.png", 11, 11, null);
+	}
 }

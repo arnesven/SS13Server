@@ -35,7 +35,7 @@ public class HeadOfStaffCharacter extends CrewCharacter {
     @Override
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         super.addCharacterSpecificActions(gameData, at);
-        at.add(new InformCrew(gameData));
+        //at.add(new InformCrew(gameData)); // not really necessary any more.
     }
 
     @Override

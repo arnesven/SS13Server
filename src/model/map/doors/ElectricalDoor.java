@@ -5,9 +5,12 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.AttackAction;
+import model.actions.general.SensoryLevel;
 import model.actions.roomactions.AttackDoorAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
+import model.events.damage.Damager;
+import model.events.damage.FireDamage;
 import model.objects.general.BreakableObject;
 
 import java.util.ArrayList;
@@ -35,6 +38,14 @@ public abstract class ElectricalDoor extends Door {
             public boolean canBeInteractedBy(Actor performingClient) {
                 return performingClient.getPosition().getID() == getFromId() || performingClient.getPosition().getID() == getToId();
             }
+
+            @Override
+            public void beExposedTo(Actor performingClient, Damager damage, GameData gameData) {
+                if (damage instanceof FireDamage) {
+                    damage = new FireDamage(0.25);
+                }
+                super.beExposedTo(performingClient, damage, gameData);
+            }
         };
     }
 
@@ -55,6 +66,22 @@ public abstract class ElectricalDoor extends Door {
             act.addClientsItemsToAction(forWhom);
             at.add(act);
         }
+        at.add(new Action("Health is " + getBreakableObject().getHealth(), SensoryLevel.NO_SENSE) {
+            @Override
+            protected String getVerb(Actor whosAsking) {
+                return "";
+            }
+
+            @Override
+            protected void execute(GameData gameData, Actor performingClient) {
+
+            }
+
+            @Override
+            protected void setArguments(List<String> args, Actor performingClient) {
+
+            }
+        });
         return at;
     }
 
@@ -62,7 +89,7 @@ public abstract class ElectricalDoor extends Door {
 
     }
 
-    protected BreakableObject getBreakableObject() {
+    public BreakableObject getBreakableObject() {
         return breakableObject;
     }
 

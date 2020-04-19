@@ -62,7 +62,7 @@ public class NoPressureEvent extends Event {
         }
 
 		if (!shouldBeRemoved(gameData)) {
-			for (Target t : roomRef.getTargets()) {
+			for (Target t : roomRef.getTargets(gameData)) {
                // Logger.log(" hit " + t.getName());
 				t.beExposedTo(performingClient, new NoPressureDamage(t), gameData);
 			}

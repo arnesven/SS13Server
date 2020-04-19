@@ -554,4 +554,14 @@ public class GameMap implements Serializable {
                 r.doSetup(gameData);
             }
     }
+
+    public Collection<Room> getAllRoomsOnSameLevel(Room room) {
+        try {
+            return getRoomsForLevel(getLevelForRoom(room).getName());
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        Logger.log(Logger.CRITICAL, "Could not find level for room " + room.getName());
+        return null;
+    }
 }

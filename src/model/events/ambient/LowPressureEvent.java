@@ -22,7 +22,7 @@ public class LowPressureEvent extends Event {
 
     @Override
     public void apply(GameData gameData) {
-        for (Target t : roomRef.getTargets()) {
+        for (Target t : roomRef.getTargets(gameData)) {
             t.beExposedTo(null, new AsphyxiationDamage(t), gameData);
         }
     }
