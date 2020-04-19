@@ -39,7 +39,7 @@ public class RepairStuffBehavior implements ActionBehavior {
     }
 
     private boolean fixDamagedEquipment(Actor npc, GameData gameData) {
-        for (GameObject ob : npc.getPosition().getObjects()) {
+        for (GameObject ob : npc.getPosition().getBreakableObjects(gameData)) {
             if (ob instanceof BreakableObject) {
                 if (((BreakableObject)ob).isDamaged() || ((BreakableObject)ob).isBroken()) {
                     ((BreakableObject)ob).addToHealth(1.0);

@@ -32,6 +32,10 @@ public class GameObject implements SpriteObject, Serializable {
 		return name;
 	}
 
+	public void setName(String name) {
+        this.name = name;
+    }
+
 
 
     public String getPublicName(Actor whosAsking) {

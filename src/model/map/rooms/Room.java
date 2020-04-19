@@ -419,7 +419,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		return result;
 	}
 
-	private List<BreakableObject> getBreakableObjects(GameData gameData) {
+	public List<BreakableObject> getBreakableObjects(GameData gameData) {
 		List<BreakableObject> brobjs = new ArrayList<>();
 		for (GameObject o : objects) {
 			if (o instanceof BreakableObject) {

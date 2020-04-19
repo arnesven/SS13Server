@@ -84,6 +84,7 @@ public class LockedDoor extends ElectricalDoor {
     private NormalDoor makeIntoNormalDoor(Door targetDoor) {
         NormalDoor d = new NormalDoor(targetDoor.getX(), targetDoor.getY(), targetDoor.getFromId(), targetDoor.getToId());
         d.setBreakableObject(((ElectricalDoor)targetDoor).getBreakableObject());
+        d.getBreakableObject().setName(d.getName());
         return d;
     }
 

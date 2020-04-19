@@ -1,6 +1,7 @@
 package model.events;
 
 import model.events.ambient.AmbientEvent;
+import model.events.animation.ExplodingAnimation;
 import model.events.damage.ExplosiveDamage;
 import sounds.Sound;
 import util.MyRandom;
@@ -41,6 +42,7 @@ public class SpontaneousExplosionEvent extends AmbientEvent {
 			t.beExposedTo(null, new ExplosiveDamage(1.0), gameData);
 		}
 		room.addToEventsHappened(this);
+		room.addEvent(new ExplodingAnimation(gameData, room));
 	}
 
 	@Override

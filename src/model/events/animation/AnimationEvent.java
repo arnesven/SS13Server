@@ -10,17 +10,16 @@ import model.items.general.Grenade;
 import model.map.rooms.Room;
 
 public class AnimationEvent extends Event {
-    private final SpriteObject obj;
     private final int roundCreated;
     private final Room room;
     private final Sprite sprite;
 
-    public AnimationEvent(SpriteObject obj, GameData gameData, Room r, Sprite sp) {
-        this.obj = obj;
+    public AnimationEvent(GameData gameData, Room r, Sprite sp) {
         this.roundCreated = gameData.getRound();
         gameData.addEvent(this);
         this.room = r;
         this.sprite = sp;
+        sp.setObjectRef(this);
     }
 
     @Override
