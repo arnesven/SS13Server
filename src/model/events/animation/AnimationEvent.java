@@ -19,7 +19,7 @@ public class AnimationEvent extends Event {
         gameData.addEvent(this);
         this.room = r;
         this.sprite = sp;
-        sp.setObjectRef(this);
+        this.sprite.setObjectRef(this);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class OpenFireDoorAction extends Action {
     private final FireDoor door;
 
     public OpenFireDoorAction(FireDoor fireDoor) {
-        super("Open Fire Door" + fireDoor.getName(), SensoryLevel.PHYSICAL_ACTIVITY);
+        super("Open Fire Door " + fireDoor.getNumber(), SensoryLevel.PHYSICAL_ACTIVITY);
         this.door = fireDoor;
     }
 
@@ -28,28 +28,10 @@ public class OpenFireDoorAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        try {
-            openFireDoor(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
+            door.openFireDoor(gameData, performingClient);
     }
 
-    public void openFireDoor(Room from, Room to) {
-        GameMap.joinRooms(to, from);
-        unwrapInnerDoor(to, door);
-        unwrapInnerDoor(from, door);
-    }
 
-    private void unwrapInnerDoor(Room room, Door targetDoor) {
-        for (int i = 0; i < room.getDoors().length; ++i) {
-            if (room.getDoors()[i] == targetDoor) {
-                Door newDoor = door.getInnerDoor();
-                room.getDoors()[i] = newDoor;
-                return;
-            }
-        }
-    }
 
     @Override
     protected void setArguments(List<String> args, Actor performingClient) {

@@ -1,9 +1,12 @@
 package model.actions.roomactions;
 
+import graphics.ClientInfo;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.events.animation.AnimatedSprite;
+import model.events.animation.AnimationEvent;
 import model.items.NoSuchThingException;
 import model.map.doors.FireDoor;
 import model.map.GameMap;
@@ -15,6 +18,7 @@ import java.util.List;
 
 public class CloseFireDoorAction extends Action {
     private final ElectricalDoor door;
+    private FireDoor theFireDoor;
 
     public CloseFireDoorAction(ElectricalDoor electricalDoor) {
         super("Close Fire Door " + electricalDoor.getNumber(), SensoryLevel.PHYSICAL_ACTIVITY);
@@ -28,11 +32,7 @@ public class CloseFireDoorAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        try {
-            shutFireDoor(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
+            door.shutFireDoor(gameData, performingClient);
     }
 
     @Override
@@ -40,19 +40,6 @@ public class CloseFireDoorAction extends Action {
 
     }
 
-    public void shutFireDoor(Room from, Room to) {
-        GameMap.separateRooms(to, from);
-        wrapInFireDoor(to, door);
-        wrapInFireDoor(from, door);
-    }
 
-    private void wrapInFireDoor(Room room, Door targetDoor) {
-        for (int i = 0; i < room.getDoors().length; ++i) {
-            if (room.getDoors()[i] == targetDoor) {
-                Door newDoor = new FireDoor(targetDoor);
-                room.getDoors()[i] = newDoor;
-                return;
-            }
-        }
-    }
+
 }

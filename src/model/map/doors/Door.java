@@ -28,6 +28,8 @@ public abstract class Door implements Serializable, SpriteObject {
     private double y;
     private String name;
 
+    private boolean isAnimating;
+
     public Door(double x, double y, String name, int fromID, int toID) {
         this.x = x;
         this.y = y;
@@ -129,5 +131,13 @@ public abstract class Door implements Serializable, SpriteObject {
 
     public ElectricalMachinery getElectricalLock(GameData gameData) {
         return null;
+    }
+
+    public void setIsAnimating(boolean b) {
+        isAnimating = b;
+    }
+
+    public boolean isAnimating() {
+        return isAnimating;
     }
 }

@@ -1,5 +1,6 @@
 package model.events.animation;
 
+import model.Actor;
 import model.GameData;
 import model.events.Event;
 import model.items.general.Grenade;
@@ -10,5 +11,10 @@ public class ExplodingAnimation extends AnimationEvent {
         super(gameData, room,
                 new AnimatedSprite("explosion", "effects.png",
                         11, 7, 32, 32, null, 13, false));
+    }
+
+    @Override
+    public String howYouAppear(Actor performingClient) {
+        return "Explosion";
     }
 }
