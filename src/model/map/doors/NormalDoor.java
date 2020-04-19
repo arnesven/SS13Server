@@ -29,6 +29,9 @@ public class NormalDoor extends ElectricalDoor {
 
     @Override
     protected Sprite getSprite() {
+        if (isAnimating()) {
+            return Sprite.blankSprite();
+        }
         if (isBroken()) {
             return new Sprite("brokennormaldoor", "doors.png", 0, 19, null);
         }
