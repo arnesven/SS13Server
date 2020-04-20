@@ -13,6 +13,7 @@ import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Tools;
+import model.map.GameMap;
 import model.map.rooms.AirDuctRoom;
 import model.map.rooms.Room;
 import model.objects.general.GameObject;
@@ -157,6 +158,7 @@ public class VentObject extends GameObject {
                 performingClient.addTolastTurnInfo("You opened the air vent. Wow, it's filthy in there.");
                 vent.setIsOpen(true);
                 getOtherSide().setIsOpen(true);
+                GameMap.joinRooms(getPosition(), getOtherSide().getPosition());
             } else {
                 performingClient.addTolastTurnInfo("What no tools? " + Action.FAILED_STRING);
             }
@@ -187,6 +189,7 @@ public class VentObject extends GameObject {
                 performingClient.addTolastTurnInfo("You closed the air vent. We don't want crawling in there.");
                 vent.setIsOpen(false);
                 getOtherSide().setIsOpen(false);
+                GameMap.separateRooms(getPosition(), getOtherSide().getPosition());
             } else {
                 performingClient.addTolastTurnInfo("What no tools? " + Action.FAILED_STRING);
             }

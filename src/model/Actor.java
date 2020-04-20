@@ -38,7 +38,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 	}
 
     public boolean beAttackedBy(Actor performingClient, Weapon item, GameData gameData) {
-        boolean succ = getCharacter().beAttackedBy(performingClient, item);
+        boolean succ = getCharacter().beAttackedBy(performingClient, item, gameData);
         if (item.hasRealSound()) {
             if (this instanceof Player) {
                 ((Player)this).getSoundQueue().add(item.getRealSound());
@@ -158,7 +158,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 	 */
 	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
 		if ( whosAsking == this) {
-            info.add(getCharacter().getSprite(whosAsking).getName() + "<img>" + "You" + (getCharacter().isVisible()?"":" (invisible)") + "<img>{}");
+            info.add(getCharacter().getUnanimatedSprite(whosAsking).getName() + "<img>" + "You" + (getCharacter().isVisible()?"":" (invisible)") + "<img>{}");
         } else if (getCharacter().isVisible()){
             info.add(getCharacter().getSprite(whosAsking).getName() + "<img>" + whosAsking.getCharacter().getHowPerceived(this) + "<img>{}");
         }

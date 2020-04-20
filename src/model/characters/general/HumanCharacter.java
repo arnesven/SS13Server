@@ -2,6 +2,7 @@ package model.characters.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
 import model.actions.general.Action;
 import model.events.damage.Damager;
 import model.events.damage.ExplosiveDamage;
@@ -58,9 +59,9 @@ public abstract class HumanCharacter extends GameCharacter {
     }
 
     @Override
-    public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
+    public boolean beAttackedBy(Actor performingClient, Weapon weapon, GameData gameData) {
 	    double hp = getHealth();
-        boolean succ = super.beAttackedBy(performingClient, weapon);
+        boolean succ = super.beAttackedBy(performingClient, weapon, gameData);
         if (weapon instanceof SlashingWeapon || weapon instanceof BludgeoningWeapon || weapon instanceof PiercingWeapon) {
             if (succ && hp > getHealth()  && MyRandom.nextDouble() < BloodyMess.SPAWN_CHANCE) {
                 performingClient.getPosition().addObject(new BloodyMess(performingClient.getPosition()));

@@ -216,11 +216,11 @@ public abstract class Weapon extends GameItem implements HandheldItem {
         return 0.25;
     }
 
-    public void applyAnimation(Actor actor, Actor performingClient) {
+    public void applyAnimation(Actor actor, Actor performingClient, GameData gameData) {
         if (this instanceof PhysicalWeapon &&
                 (actor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) ||
                 actor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AnimalCharacter)) {
-            actor.setCharacter(new BloodSplotchAnimationDecorator(actor.getCharacter()));
+            actor.setCharacter(new BloodSplotchAnimationDecorator(actor.getCharacter(), gameData));
         }
     }
 }

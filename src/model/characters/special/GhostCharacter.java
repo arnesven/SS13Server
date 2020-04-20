@@ -1,6 +1,7 @@
 package model.characters.special;
 
 import model.Actor;
+import model.GameData;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
@@ -27,7 +28,7 @@ public abstract class GhostCharacter extends GameCharacter {
     }
 
     @Override
-    public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
+    public boolean beAttackedBy(Actor performingClient, Weapon weapon, GameData gameData) {
         return false;
     }
 

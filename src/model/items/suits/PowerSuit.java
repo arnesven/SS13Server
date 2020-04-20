@@ -2,6 +2,7 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
 import model.Player;
 import model.characters.decorators.PiercingProtection;
 import model.characters.general.GameCharacter;
@@ -85,10 +86,10 @@ public class PowerSuit extends SuitItem {
 
 
         @Override
-        public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
+        public boolean beAttackedBy(Actor performingClient, Weapon weapon, GameData gameData) {
             double healthBefore = performingClient.getCharacter().getHealth();
 
-            boolean success = super.beAttackedBy(performingClient, weapon);
+            boolean success = super.beAttackedBy(performingClient, weapon, gameData);
 
             double healthAfter = performingClient.getCharacter().getHealth();
             if (healthAfter < healthBefore) {

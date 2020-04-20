@@ -74,9 +74,9 @@ public class CounterAttackAction extends Action {
         }
 
         @Override
-        public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
+        public boolean beAttackedBy(Actor performingClient, Weapon weapon, GameData gameData) {
             aggressors.add(performingClient);
-            return super.beAttackedBy(performingClient, weapon);
+            return super.beAttackedBy(performingClient, weapon, gameData);
         }
     }
 

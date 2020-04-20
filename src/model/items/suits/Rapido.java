@@ -98,8 +98,8 @@ public class Rapido extends FootGear {
         }
 
         @Override
-        public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
-            boolean res = super.beAttackedBy(performingClient, weapon);
+        public boolean beAttackedBy(Actor performingClient, Weapon weapon, GameData gameData) {
+            boolean res = super.beAttackedBy(performingClient, weapon, gameData);
             if (MyRandom.nextDouble() < 0.5) {
                 rapidoTakeDamage(weapon.getDamage(), getActor());
             }

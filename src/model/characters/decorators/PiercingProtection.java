@@ -1,6 +1,7 @@
 package model.characters.decorators;
 
 import model.Actor;
+import model.GameData;
 import model.characters.general.GameCharacter;
 import model.characters.general.HorrorCharacter;
 import model.events.damage.Damager;
@@ -17,14 +18,14 @@ public class PiercingProtection extends CharacterDecorator {
     }
 
     @Override
-    public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
+    public boolean beAttackedBy(Actor performingClient, Weapon weapon, GameData gameData) {
         double oldHealth = getActor().getCharacter().getHealth();
 
         if (getProtectionFrom(weapon)) {
             getActor().getCharacter().setHealth(oldHealth + 0.5);
             getActor().addTolastTurnInfo("Your armor protects you.");
         }
-        boolean res = super.beAttackedBy(performingClient, weapon);
+        boolean res = super.beAttackedBy(performingClient, weapon, gameData);
         if (!performingClient.isDead()) {
             if (getProtectionFrom(weapon)) {
                 if (getActor().getCharacter().getHealth() == oldHealth + 0.5) {

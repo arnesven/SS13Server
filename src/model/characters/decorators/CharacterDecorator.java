@@ -141,8 +141,8 @@ public abstract class CharacterDecorator extends GameCharacter {
 	}
 	
 	@Override
-	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
-		return innerChar.beAttackedBy(performingClient, weapon);
+	public boolean beAttackedBy(Actor performingClient, Weapon weapon, GameData gameData) {
+		return innerChar.beAttackedBy(performingClient, weapon, gameData);
 	}
 		
 	
@@ -490,5 +490,9 @@ public abstract class CharacterDecorator extends GameCharacter {
 	@Override
 	public List<Room> getExtraMoveToLocations(GameData gameData) {
 		return innerChar.getExtraMoveToLocations(gameData);
+	}
+
+	public Sprite getUnanimatedSprite(Player whosAsking) {
+		return innerChar.getUnanimatedSprite(whosAsking);
 	}
 }

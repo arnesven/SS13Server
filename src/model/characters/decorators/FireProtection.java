@@ -2,6 +2,7 @@ package model.characters.decorators;
 
 
 import model.Actor;
+import model.GameData;
 import model.characters.general.GameCharacter;
 import model.events.damage.Damager;
 import model.items.weapons.Flamer;
@@ -37,14 +38,14 @@ public class FireProtection extends CharacterDecorator {
 //    }
 
     @Override
-	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
+	public boolean beAttackedBy(Actor performingClient, Weapon weapon, GameData gameData) {
 		if (weapon instanceof Flamer) {
 			performingClient.addTolastTurnInfo(this.getPublicName() + " is unaffected by your attack!");
 			this.getActor().addTolastTurnInfo(performingClient.getPublicName() + 
 					" tried to attack you with " + weapon.getPublicName(this.getActor()));
 			return false;
 		}
-		return super.beAttackedBy(performingClient, weapon);
+		return super.beAttackedBy(performingClient, weapon, gameData);
 	}
 	
 	@Override

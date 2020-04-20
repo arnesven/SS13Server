@@ -21,6 +21,7 @@ import model.items.suits.Equipment;
 import model.items.weapons.BludgeoningWeapon;
 import model.items.weapons.PhysicalWeapon;
 import model.items.weapons.PiercingWeapon;
+import model.map.doors.Door;
 import model.map.rooms.SpectatorRoom;
 import model.movepowers.*;
 import model.npcs.NPC;
@@ -126,7 +127,7 @@ public abstract class GameCharacter implements Serializable {
 	}
 
 	
-	public boolean beAttackedBy(Actor performingClient, Weapon weapon) {
+	public boolean beAttackedBy(Actor performingClient, Weapon weapon, GameData gameData) {
 		boolean wasDeadAlready = isDead();
 		boolean success = getActor().getCharacter().isAttackerSuccessful(performingClient, weapon);
         boolean frag = false;
@@ -143,7 +144,7 @@ public abstract class GameCharacter implements Serializable {
 				}
 			}
 
-			weapon.applyAnimation(getActor(), performingClient);
+			weapon.applyAnimation(getActor(), performingClient, gameData);
 
         }
         String critMess = doCritical(getActor(), weapon, critical);
@@ -772,4 +773,7 @@ public abstract class GameCharacter implements Serializable {
     public List<Room> getExtraMoveToLocations(GameData gameData) { return new ArrayList<>(); }
 
 
+	public Sprite getUnanimatedSprite(Player whosAsking) {
+		return getSprite(whosAsking);
+	}
 }
