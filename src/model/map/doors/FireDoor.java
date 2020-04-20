@@ -56,8 +56,8 @@ public class FireDoor extends Door {
             Room from = gameData.getRoomForId(getFromId());
             Room to = gameData.getRoomForId(getToId());
             Door theDoor = openFireDoor(from, to);
-            from.addEvent(new OpenFireDoorAnimationEvent(gameData, from, theDoor));
-            to.addEvent(new OpenFireDoorAnimationEvent(gameData, to, theDoor));
+            from.addEvent(new OpenFireDoorAnimationEvent(gameData, from, this));
+            to.addEvent(new OpenFireDoorAnimationEvent(gameData, to, this));
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

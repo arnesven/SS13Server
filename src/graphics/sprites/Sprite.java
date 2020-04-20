@@ -32,7 +32,7 @@ public class Sprite implements Serializable {
     private int resizeHeight;
     private Color color;
     private double rotation = 0.0;
-    private int frames = 1;
+    private int frames;
     private boolean looping;
 
 
@@ -48,13 +48,24 @@ public class Sprite implements Serializable {
         this.resizeWidth = width;
         this.resizeHeight = height;
         this.objectReference = objectRef;
-        this.looping = false;
+        frames = 1;
+        this.looping =false;
         SpriteManager.register(this);
         try {
             getImage();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    private boolean allLooping() {
+        for (Sprite sp : layers) {
+            if (!isLooping()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public Sprite(Sprite other, String suffix) {
@@ -110,7 +121,9 @@ public class Sprite implements Serializable {
      }
 
     protected BufferedImage internalGetImage() throws IOException {
-        BufferedImage result = new BufferedImage(width*frames, height, BufferedImage.TYPE_INT_ARGB);
+        int maxFrames = findMaxFrames();
+
+        BufferedImage result = new BufferedImage(width*maxFrames, height, BufferedImage.TYPE_INT_ARGB);
 
         Graphics g = result.getGraphics();
         BufferedImage img = SpriteManager.getFile(MyPaths.makePath(new String[]{"resources", "sprites"}) + mapPath);
@@ -125,9 +138,15 @@ public class Sprite implements Serializable {
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
 // Drawing the rotated image at the required drawing locations
-        g2d.drawImage(op.filter(img, null), 0, 0, null);
+        for (int n = 0; n < maxFrames; ++n) {
+            g2d.drawImage(op.filter(img, null), n*img.getWidth(), 0, null);
+        }
         for (Sprite s : layers) {
-            g2d.drawImage(op.filter(s.internalGetImage(), null), 0, 0, null);
+            for (int n = 0; n < maxFrames; ++n) {
+                g2d.drawImage(op.filter(s.internalGetImage(), null), n * (s.getWidth()*s.getFrames()), 0, null);
+             //   g2d.drawImage(op.filter(s.internalGetImage(), null), n * s.getWidth(), 0, s.getWidth(), s.getHeight(),
+             //           n * s.getWidth(), 0, s.getWidth(), s.getHeight(), null);
+            }
         }
 
         if (color != null) {
@@ -140,6 +159,16 @@ public class Sprite implements Serializable {
         }
 
         return result;
+    }
+
+    private int findMaxFrames() {
+        int max = frames;
+        for (Sprite s : layers) {
+            if (s.frames > max) {
+                max = s.frames;
+            }
+        }
+        return max;
     }
 
     private BufferedImage resize(BufferedImage result) {

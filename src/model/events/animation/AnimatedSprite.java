@@ -13,4 +13,17 @@ public class AnimatedSprite extends Sprite {
         setFrames(frames);
         setLooping(looping);
     }
+
+    public AnimatedSprite(String name, String mapPath, int column, int row,
+                          int width, int height, List<Sprite> list, SpriteObject objectRef, int frames, boolean looping) {
+        super(name, mapPath, column, row, width, height, list, objectRef);
+        setFrames(frames);
+        setLooping(looping);
+    }
+
+    public AnimatedSprite(String shuttingfiredoorani, List<Sprite> sps, int i, boolean b) {
+        super(shuttingfiredoorani, sps);
+        setFrames(i);
+        setLooping(b);
+    }
 }
