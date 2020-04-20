@@ -26,6 +26,7 @@ public abstract class Weapon extends GameItem implements HandheldItem {
     public static final Weapon TEETH      = new Teeth();
     public static final Weapon TUSKS      = new Tusks();
     public static final Weapon FLYING_CREDIT = new FlyingCredit();
+    private static final double BOTCH_CHANCE = 0.02;
     public static Weapon CLAWS            = new Claws();
     public static Weapon BEAR_CLAWS       = new BearClaws();
 
@@ -62,6 +63,12 @@ public abstract class Weapon extends GameItem implements HandheldItem {
 		}
 		return lastRoll < getHitChance();
 	}
+
+
+    public boolean isAttackSuccessfulOnImmobileTarget() {
+        lastRoll = MyRandom.nextDouble();
+        return lastRoll < getHitChance()*1.25;
+    }
 
 	protected double getHitChance() {
 		return hitChance;
@@ -109,15 +116,20 @@ public abstract class Weapon extends GameItem implements HandheldItem {
 
     protected void checkHazard(Actor performingClient, GameData gameData) { }
 
-    protected void checkOnlyMissHazard(Actor performingClient, GameData gameData) { }
+    protected void checkOnlyMissHazard(Actor performingClient, GameData gameData, Target originalTarget) {
+	    if (MyRandom.nextDouble() < BOTCH_CHANCE) {
+            List<Target> otherTargets = new ArrayList<>();
+            otherTargets.addAll(performingClient.getPosition().getTargets(gameData));
+            otherTargets.remove(originalTarget);
+            otherTargets.remove(performingClient);
+            if (otherTargets.size() > 0) {
+                Target newTarge = MyRandom.sample(otherTargets);
+                performingClient.addTolastTurnInfo("You botched your attack!");
+                doAttack(performingClient, newTarge, gameData);
+            }
+        }
 
-
-//    @Override
-//	public Weapon clone() {
-//		return new Weapon(this.getBaseName(), this.getHitChance(),
-//						  this.getDamage(), this.makesBang, this.getWeight(), getCost());
-//	}
-
+    }
 
 
 	public void setDamage(double d) {
@@ -151,7 +163,7 @@ public abstract class Weapon extends GameItem implements HandheldItem {
         if (success) {
             usedOnBy(target, performingClient, gameData);
         } else {
-            checkOnlyMissHazard(performingClient, gameData);
+            checkOnlyMissHazard(performingClient, gameData, target);
         }
         checkHazard(performingClient, gameData);
     }
@@ -197,4 +209,5 @@ public abstract class Weapon extends GameItem implements HandheldItem {
     public double getAmpChance() {
         return 0.25;
     }
+
 }

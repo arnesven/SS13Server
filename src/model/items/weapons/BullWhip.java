@@ -58,7 +58,7 @@ public class BullWhip extends Weapon {
         if (success) {
             usedOnBy(target, performingClient, gameData);
         } else {
-            checkOnlyMissHazard(performingClient, gameData);
+            checkOnlyMissHazard(performingClient, gameData, target);
         }
         checkHazard(performingClient, gameData);
     }

@@ -33,7 +33,8 @@ public class LaserPistol extends AmmoWeapon {
 
 
     @Override
-    protected void checkOnlyMissHazard(final Actor performingClient, GameData gameData) {
+    protected void checkOnlyMissHazard(final Actor performingClient, GameData gameData, Target originalTarget) {
+	    super.checkOnlyMissHazard(performingClient, gameData, originalTarget);
         new Hazard(gameData) {
             @Override
             public void doHazard(GameData gameData) {

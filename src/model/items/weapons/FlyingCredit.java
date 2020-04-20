@@ -33,8 +33,8 @@ public class FlyingCredit extends Weapon implements PiercingWeapon {
 
 
     @Override
-    protected void checkOnlyMissHazard(Actor performingClient, GameData gameData) {
-        super.checkOnlyMissHazard(performingClient, gameData);
+    protected void checkOnlyMissHazard(Actor performingClient, GameData gameData, Target target) {
+        super.checkOnlyMissHazard(performingClient, gameData, target);
         performingClient.getPosition().addItem(new MoneyStack(1));
     }
 }

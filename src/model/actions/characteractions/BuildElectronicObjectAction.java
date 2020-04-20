@@ -10,6 +10,7 @@ import model.items.general.ElectronicParts;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
 import model.objects.ai.AITurret;
+import model.objects.ai.SecurityCamera;
 import model.objects.general.ATM;
 import model.objects.general.StasisPod;
 import model.objects.general.XeroxMachine;
@@ -99,8 +100,7 @@ public class BuildElectronicObjectAction extends Action {
         set.add(new TeleportConsole(null));
         set.add(new SeedVendingMachine(null));
         set.add(new GeneralManufacturer(null));
-
-
+        set.add(new SecurityCamera(null));
 
 
         return set;

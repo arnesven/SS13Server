@@ -5,6 +5,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Hazard;
+import model.Target;
 import model.events.ambient.HullBreach;
 import util.Logger;
 import util.MyRandom;
@@ -28,7 +29,8 @@ public class Revolver extends AmmoWeapon implements PiercingWeapon {
 
 
     @Override
-    protected void checkOnlyMissHazard(final Actor performingClient, GameData gameData) {
+    protected void checkOnlyMissHazard(final Actor performingClient, GameData gameData, Target originalTarget) {
+	    super.checkOnlyMissHazard(performingClient, gameData, originalTarget);
         new Hazard(gameData) {
             @Override
             public void doHazard(GameData gameData) {

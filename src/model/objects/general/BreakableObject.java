@@ -48,7 +48,7 @@ public abstract class BreakableObject extends GameObject implements Target {
 	public boolean beAttackedBy(Actor performingClient, Weapon item, GameData gameData) {
 		boolean success;
 		boolean alreadyBroken = isBroken();
-		if (item.isAttackSuccessful(false)) {
+		if (item.isAttackSuccessfulOnImmobileTarget()) {
 			success = true;
 			hp = Math.max(0.0, hp - item.getDamage());
 			performingClient.addTolastTurnInfo("You " + item.getSuccessfulMessage() + "ed the " + super.getPublicName(performingClient) + ".");
