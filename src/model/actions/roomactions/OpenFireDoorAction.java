@@ -28,7 +28,16 @@ public class OpenFireDoorAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-            door.openFireDoor(gameData, performingClient);
+        door.openFireDoor(gameData, performingClient);
+        String ending = "what, no fire in there?";
+        try {
+            if (gameData.getRoomForId(door.getToId()).hasFire()) {
+                ending = " it's burning in there!";
+            }
+            performingClient.addTolastTurnInfo("You opened the fire door, " + ending);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
     }
 
 

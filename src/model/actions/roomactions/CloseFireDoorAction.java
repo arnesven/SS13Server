@@ -33,6 +33,7 @@ public class CloseFireDoorAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
             door.shutFireDoor(gameData, performingClient);
+            performingClient.addTolastTurnInfo("You closed the fire door.");
     }
 
     @Override
