@@ -21,7 +21,10 @@ import model.items.general.GameItem;
 import model.items.laws.AISuit;
 import model.map.GameMap;
 import model.map.rooms.Room;
+import model.objects.ai.SecurityCamera;
 import model.objects.consoles.AIConsole;
+import model.objects.consoles.SecurityCameraConsole;
+import model.objects.general.GameObject;
 import util.HTMLText;
 
 import java.util.ArrayList;
@@ -162,8 +165,7 @@ public class AICharacter extends GhostCharacter {
 
     @Override
     public List<Room> getVisibleMap(GameData gameData) {
-        List<Room> result = new ArrayList<>();
-        result.addAll(gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME));
-        return result;
+
+        return SecurityCameraConsole.getConnectedCameraRooms(gameData);
     }
 }

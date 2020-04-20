@@ -42,6 +42,7 @@ public class AirDuctRoom extends Room {
 
     @Override
     public void doSetup(GameData gameData) {
+        super.doSetup(gameData);
         setupVents(gameData);
         addSomeVermin(gameData);
         addSomeTrash(gameData);

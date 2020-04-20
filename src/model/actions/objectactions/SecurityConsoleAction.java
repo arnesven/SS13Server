@@ -77,7 +77,7 @@ public class SecurityConsoleAction extends ConsoleAction {
 		ActionOption opt = new ActionOption(this.getName());
 		//GameMap gm = MapBuilder.createMap();
 		List<String> names = new ArrayList<>();
-		for (Room r : gameData.getRooms()) {
+		for (Room r : console.getConnectedCameraRooms(gameData)) {
 			names.add(r.getName());
 		}
 		Collections.sort(names);
