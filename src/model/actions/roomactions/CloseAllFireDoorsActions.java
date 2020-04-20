@@ -14,22 +14,15 @@ import java.util.List;
 
 public class CloseAllFireDoorsActions extends Action {
     private final Room room;
-    private final ArrayList<ElectricalDoor> targetDoors;
+    private List<ElectricalDoor> targetDoors;
 
     public CloseAllFireDoorsActions(GameData gameData, Player forWhom, Room room) {
         super("Close Fire Doors", SensoryLevel.OPERATE_DEVICE);
         this.room = room;
-        this.targetDoors = new ArrayList<ElectricalDoor>();
-        for (Room r : gameData.getMap().getAllRoomsOnSameLevel(room)) {
-            for (Door d : r.getDoors()) {
-                if (d.getFromId() == room.getID() || d.getToId() == room.getID()) {
-                    if (d instanceof ElectricalDoor) {
-                        targetDoors.add((ElectricalDoor) d);
-                    }
-                }
-            }
-        }
+        this.targetDoors = findDoors(gameData, room);
     }
+
+
 
     public int getNoOfDoors() {
         return targetDoors.size();
@@ -43,7 +36,7 @@ public class CloseAllFireDoorsActions extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         for (ElectricalDoor d : targetDoors) {
-            d.shutFireDoor(gameData, performingClient);
+            d.shutFireDoor(gameData);
         }
         performingClient.addTolastTurnInfo("You closed the fire doors to " + room.getName());
     }
@@ -51,5 +44,19 @@ public class CloseAllFireDoorsActions extends Action {
     @Override
     protected void setArguments(List<String> args, Actor performingClient) {
 
+    }
+
+    public static List<ElectricalDoor> findDoors(GameData gameData, Room room) {
+        List<ElectricalDoor> result = new ArrayList<ElectricalDoor>();
+        for (Room r : gameData.getMap().getAllRoomsOnSameLevel(room)) {
+            for (Door d : r.getDoors()) {
+                if (d.getFromId() == room.getID() || d.getToId() == room.getID()) {
+                    if (d instanceof ElectricalDoor) {
+                        result.add((ElectricalDoor) d);
+                    }
+                }
+            }
+        }
+        return result;
     }
 }

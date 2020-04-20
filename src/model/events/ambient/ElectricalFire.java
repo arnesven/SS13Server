@@ -5,8 +5,11 @@ import model.Player;
 import model.actions.MoveAction;
 import model.actions.general.Action;
 import model.actions.itemactions.PutOutFireAction;
+import model.actions.roomactions.CloseAllFireDoorsActions;
+import model.actions.roomactions.CloseFireDoorAction;
 import model.characters.decorators.OnFireCharacterDecorator;
 import model.characters.general.GameCharacter;
+import model.characters.general.HumanCharacter;
 import model.events.Event;
 import model.events.NoPressureEvent;
 import model.events.animation.AnimatedSprite;
@@ -14,8 +17,13 @@ import model.events.damage.FireDamage;
 import model.items.NoSuchThingException;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
+import model.map.doors.Door;
+import model.map.doors.ElectricalDoor;
 import model.map.floors.BurntFloorSet;
+import model.objects.consoles.AIConsole;
 import model.objects.decorations.BurnMark;
+import model.objects.general.ElectricalMachinery;
+import model.objects.general.GameObject;
 import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
@@ -35,8 +43,10 @@ public class ElectricalFire extends OngoingEvent {
     private static final double occurenceChance = 0.075;
     private static final double IGNITE_CHANCE = 0.05;
     private static final double RAGING_CHANCE = 0.15;
+    private static final double AI_INTERVENTION_CHANCE = 0.25;
 
     private boolean isRaging;
+    private boolean aiIntervened = false;
 
     public ElectricalFire() {
         isRaging = false;
@@ -103,9 +113,43 @@ public class ElectricalFire extends OngoingEvent {
 		    isRaging = true;
 		   getRoom().setFloorSet(new BurntFloorSet(getRoom().getFloorSet()));
         }
+        
+        checkForAIIntervention(gameData);
 		
 		getRoom().addToEventsHappened(this);
 	}
+
+    private void checkForAIIntervention(GameData gameData) {
+        try {
+            AIConsole cons = gameData.findObjectOfType(AIConsole.class);
+            if (cons.AIIsPlayer() && !aiIntervened) {
+                cons.informOnStation("Warning! Severe fire in " + getRoom().getName(), gameData);
+                aiIntervened = true;
+            } else {
+                if (noHumansInRoom() && MyRandom.nextDouble() < AI_INTERVENTION_CHANCE && isRaging && !aiIntervened) {
+                    cons.informOnStation("Warning! Severe fire in " + getRoom().getName() +
+                            ". Please keep out until fire is contained.", gameData);
+                    for (ElectricalDoor d : CloseAllFireDoorsActions.findDoors(gameData, getRoom())) {
+                       d.shutFireDoor(gameData);
+                    }
+                    aiIntervened = true;
+                }
+
+            }
+
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean noHumansInRoom() {
+        for (Actor a : getRoom().getActors()) {
+            if (a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     private double getBurnoutChance() {
         double isRagingModifier = 0.25;

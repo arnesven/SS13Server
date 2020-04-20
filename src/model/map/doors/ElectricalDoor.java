@@ -86,7 +86,7 @@ public abstract class ElectricalDoor extends Door {
         this.breakableObject = breakableObject;
     }
 
-    public void shutFireDoor(GameData gameData, Actor performingClient) {
+    public void shutFireDoor(GameData gameData) {
         Room from = null;
         try {
             from = gameData.getRoomForId(getFromId());
