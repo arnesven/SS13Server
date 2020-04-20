@@ -120,4 +120,7 @@ public abstract class ElectricalMachinery extends BreakableObject
         return 1.0;
     }
 
+	public boolean canBeOvercharged() {
+		return true;
+	}
 }

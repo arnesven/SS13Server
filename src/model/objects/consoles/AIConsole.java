@@ -347,4 +347,9 @@ public class AIConsole extends Console {
     public List<AIAbility> getAIAbilities() {
         return aiAbilities;
     }
+
+    @Override
+    public boolean canBeOvercharged() {
+        return false;
+    }
 }

@@ -33,7 +33,7 @@ public class AIOverchargeAction extends Action {
 
         for (Room r :  gameData.getMap().getRoomsForLevel("ss13")) {
             for (GameObject ob : r.getObjects()) {
-                if (ob instanceof ElectricalMachinery) {
+                if (ob instanceof ElectricalMachinery && ((ElectricalMachinery)ob).canBeOvercharged()) {
                     opt.addOption(ob.getPublicName(whosAsking) + " (" + ob.getPosition().getName() + ")");
                 }
             }
