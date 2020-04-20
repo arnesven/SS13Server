@@ -90,7 +90,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(loungeRoom, ss13, "port");
 
         Room dorms = new DormsRoom(12, 9, 11, 4, 3, new int[]{10, 11, 14},
-                new Door[]{new NormalDoor(10.5, 11.0, 12, 10),
+                new Door[]{new NormalDoor(10.5, 11.0, 12, 11),
                         new NormalDoor(13.0, 11.5, 12, 14)} );
         gm.addRoom(dorms, ss13, "starboard");
 

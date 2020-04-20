@@ -542,10 +542,8 @@ public class GameData implements Serializable {
             try {
                 if (cl.getNextMove() > 0) {
                 	Room target = map.getRoomByID(cl.getNextMove());
-                	if (cl.findMoveToAblePositions(this).contains(target)) {
+                	if (cl.findMoveToAblePositions(this).contains(target) || target == cl.getPosition()) {
 						cl.moveIntoRoom(target);
-					} else if (target == cl.getPosition()) {
-                		// Nothing, player stayed in position.
 					} else {
                 		Logger.log(cl.getName() + " tried moving to " + target.getName() + ", but can't!");
                 		cl.addTolastTurnInfo("Your movement has been blocked! You stayed in your current location.");

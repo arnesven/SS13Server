@@ -11,7 +11,9 @@ import model.actions.general.ActionGroup;
 import model.actions.general.SearchAction;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
+import model.actions.roomactions.CloseAllFireDoorsActions;
 import model.actions.roomactions.MoveToSpecificRoomAction;
+import model.actions.roomactions.OpenAllFireDoorsAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.events.NoPressureEverEvent;
@@ -108,11 +110,23 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	public List<Action> getActionData(GameData gameData, Player forWhom) {
 		List<Action> at = new ArrayList<>();
 		if (forWhom.getCharacter() != null) {
-			if (forWhom.findMoveToAblePositions(gameData).contains(this)) {
+			boolean isAI = forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter);
+			if (forWhom.findMoveToAblePositions(gameData).contains(this) && !isAI) {
 				at.add(new MoveToSpecificRoomAction(gameData, forWhom, this));
 			}
-			if (forWhom.getPosition() == this) {
+			if (forWhom.getPosition() == this && !isAI) {
 				at.add(new SearchAction());
+			}
+
+			if (isAI) {
+			    CloseAllFireDoorsActions cafda = new CloseAllFireDoorsActions(gameData, forWhom, this);
+			    if (cafda.getNoOfDoors() > 0) {
+                    at.add(cafda);
+                }
+                OpenAllFireDoorsAction oafda = new OpenAllFireDoorsAction(gameData, forWhom, this);
+			    if (oafda.getNoOfDoors() > 0) {
+			        at.add(oafda);
+                }
 			}
 			at.addAll(getSpecificRoomActions(gameData, forWhom, at));
 		}

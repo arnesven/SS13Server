@@ -19,6 +19,8 @@ import model.fancyframe.FancyFrame;
 import model.fancyframe.SinglePageFancyFrame;
 import model.items.general.GameItem;
 import model.items.laws.AISuit;
+import model.map.GameMap;
+import model.map.rooms.Room;
 import model.objects.consoles.AIConsole;
 import util.HTMLText;
 
@@ -156,5 +158,12 @@ public class AICharacter extends GhostCharacter {
             return "Rogue AI";
         }
         return super.getMugshotName();
+    }
+
+    @Override
+    public List<Room> getVisibleMap(GameData gameData) {
+        List<Room> result = new ArrayList<>();
+        result.addAll(gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME));
+        return result;
     }
 }

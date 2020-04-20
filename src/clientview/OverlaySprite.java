@@ -44,11 +44,11 @@ public class OverlaySprite extends MouseInteractable {
         this.roomid = roomid;
     }
 
-    public void drawYourself(Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx) {
+    public void drawYourself(Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx, int currentZ) {
          int finalX = (int)((x - xOffset) * Room.getXScale()) + xOffPx;
          int finalY = (int)((y - yOffset) * Room.getYScale()) + yOffPx;
       //  System.out.println("Frames for " + sprite + ": " + frames + ", size= " + image.getIconWidth() + "x" + image.getIconHeight());
-        drawAt(g, finalX, finalY, MapPanel.getZTranslation());
+        drawAt(g, finalX, finalY, currentZ + MapPanel.getZTranslation());
 
     }
 

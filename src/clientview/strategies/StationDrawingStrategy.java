@@ -49,7 +49,7 @@ public class StationDrawingStrategy extends DrawingStrategy {
         // Draw overlay sprites which did not belong to any drawn rooms.
         for (OverlaySprite sp : GameData.getInstance().getOverlaySprites()) {
             if (!drawnSprites.contains(sp)) {
-                sp.drawYourself(g, xOffset, yOffset, getXTrans(), inventoryPanelHeight() + getYTrans());
+                sp.drawYourself(g, xOffset, yOffset, getXTrans(), inventoryPanelHeight() + getYTrans(), GameData.getInstance().getCurrentZ());
             }
         }
 

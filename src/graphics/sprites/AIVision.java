@@ -15,19 +15,7 @@ public class AIVision extends AlsoSeePowerVision {
     protected void addExtraSensoryPerception(Player player, GameData gameData, ArrayList<OverlaySprite> strs) {
 
         List<Room> allRooms = new ArrayList<>();
-        allRooms.addAll(player.getPosition().getNeighborList());
-        for (Room r : player.getPosition().getNeighborList()) {
-            for (Room r2 : r.getNeighborList()) {
-                for (Room r3: r2.getNeighborList()) {
-                    if (!allRooms.contains(r3)) {
-                        allRooms.add(r3);
-                    }
-                }
-                if (!allRooms.contains(r2)) {
-                    allRooms.add(r2);
-                }
-            }
-        }
+        allRooms.addAll(player.getCharacter().getVisibleMap(gameData));
 
         for (Room r : allRooms) {
             if (r != player.getPosition()) {

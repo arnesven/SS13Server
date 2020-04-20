@@ -8,6 +8,8 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.roomactions.OpenAndMoveThroughFireDoorAction;
 import model.actions.roomactions.OpenFireDoorAction;
+import model.characters.general.AICharacter;
+import model.characters.general.GameCharacter;
 import model.events.animation.AnimatedSprite;
 import model.events.animation.AnimationEvent;
 import model.items.NoSuchThingException;
@@ -39,7 +41,7 @@ public class FireDoor extends Door {
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
         List<Action> at = super.getDoorActions(gameData, forWhom);
         at.add(new OpenFireDoorAction(this));
-        if (!(innerDoor instanceof LockedDoor)) {
+        if (!(innerDoor instanceof LockedDoor) && !forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
             at.add(new OpenAndMoveThroughFireDoorAction(this));
         }
 
