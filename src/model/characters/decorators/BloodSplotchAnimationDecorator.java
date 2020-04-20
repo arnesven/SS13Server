@@ -17,11 +17,12 @@ public class BloodSplotchAnimationDecorator extends CharacterDecorator {
     public BloodSplotchAnimationDecorator(GameCharacter character, GameData gameData) {
         super(character, "bloodysplotch");
         this.roundSet = gameData.getRound();
+        this.orig = character.getSprite(getActor());
     }
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        this.orig = super.getSprite(whosAsking);
+        Sprite orig = getInner().getSprite(whosAsking);
         List<Sprite> sps = new ArrayList<>();
         sps.add(AnimatedSprite.blankAnimationSprite());
         sps.add(orig);
@@ -34,14 +35,13 @@ public class BloodSplotchAnimationDecorator extends CharacterDecorator {
     @Override
     public void doAfterActions(GameData gameData) {
         super.doAfterActions(gameData);
-        if (roundSet > gameData.getRound()) {
-            getActor().removeInstance((GameCharacter gc) -> gc instanceof BloodSplotchAnimationDecorator);
+        if (roundSet < gameData.getRound()) {
+            getActor().removeInstance((GameCharacter gc) -> gc == this);
         }
     }
 
     @Override
     public Sprite getUnanimatedSprite(Actor whosAsking) {
-        getSprite(whosAsking);
         return orig;
     }
 }
