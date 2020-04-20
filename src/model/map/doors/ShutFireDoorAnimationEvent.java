@@ -1,18 +1,14 @@
 package model.map.doors;
 
-import graphics.ClientInfo;
 import graphics.sprites.Sprite;
-import model.Actor;
 import model.GameData;
-import model.actions.general.SensoryLevel;
 import model.events.animation.AnimatedSprite;
-import model.events.animation.AnimationEvent;
 import model.map.rooms.Room;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShutFireDoorAnimationEvent extends FireDoorAnimationEvent {
+public class ShutFireDoorAnimationEvent extends DoorAnimationEvent {
 
     private static Sprite ani;
 

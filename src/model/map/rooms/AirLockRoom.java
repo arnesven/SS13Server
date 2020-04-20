@@ -1,5 +1,8 @@
 package model.map.rooms;
 
+import model.Actor;
+import model.GameData;
+import model.map.doors.AirLockDoor;
 import model.map.doors.Door;
 import model.map.floors.AirLockFloorSet;
 import model.map.floors.FloorSet;
@@ -25,5 +28,13 @@ public class AirLockRoom extends StationRoom {
 	@Override
 	protected String getAppearanceScheme() {
 		return "WallsNoWindows-Space";
+	}
+
+	public void cycle(GameData gameData, Actor performingClient) {
+		for (Door d : getDoors()) {
+			if (d instanceof AirLockDoor) {
+				((AirLockDoor) d).cycle(gameData, performingClient);
+			}
+		}
 	}
 }

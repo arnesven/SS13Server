@@ -46,7 +46,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(aftWalk, ss13, "starboard");
 
         Room airLock1 = new AirLockRoom( 7,  1, 2, 11, 1, 1, new int[]{6}         ,
-                new Door[]{new NormalDoor(2.5, 11.0, 7, 6),
+                new Door[]{new FullyOpenAirLockDoor(2.5, 11.0, 7, 6),
                 new AirLockDoor(2.0, 11.5, 7, 30 ),
                 new AirLockDoor(2.5, 12.0, 7, 30)} );
         gm.addRoom(airLock1, ss13, "aft");
@@ -141,7 +141,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(CQ, ss13, "front");
 
         Room airLock2 = new AirLockRoom(21, 2   ,13,  2, 1, 1, new int[]{19}        ,
-                new Door[]{new NormalDoor(13.0, 2.5, 21, 19),
+                new Door[]{new FullyOpenAirLockDoor(13.0, 2.5, 21, 19),
                 new AirLockDoor(13.5, 2.0, 21, 30)} );
         gm.addRoom(airLock2, ss13, "port");
         gm.addRoom(airLock2, ss13, "front");
@@ -156,7 +156,7 @@ public class DonutSS13Builder extends MapBuilder {
         Room sickbay = new SickbayRoom(24, 6,  0, 3, 3, new int[]{23, 25, 1} ,         new Door[]{});
         gm.addRoom(sickbay, ss13, "port");
         gm.addRoom(new AirLockRoom(25, 3    , 5,  0, 1, 1, new int[]{24}        ,
-                new Door[]{new NormalDoor(6.0, 0.5, 25, 24),
+                new Door[]{new FullyOpenAirLockDoor(6.0, 0.5, 25, 24),
                 new AirLockDoor(5.0, 0.5, 25, 30),
                 new AirLockDoor(5.5, 0.0, 25, 30)}  ), ss13, "port");
 

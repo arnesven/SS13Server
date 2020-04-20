@@ -8,10 +8,10 @@ import model.actions.general.SensoryLevel;
 import model.events.animation.AnimationEvent;
 import model.map.rooms.Room;
 
-public class FireDoorAnimationEvent extends AnimationEvent {
+public class DoorAnimationEvent extends AnimationEvent {
     private final Door door;
 
-    public FireDoorAnimationEvent(GameData gameData, Room r, Door door, Sprite sp) {
+    public DoorAnimationEvent(GameData gameData, Room r, Door door, Sprite sp) {
         super(gameData, r, sp);
         this.door = door;
         door.setIsAnimating(true);

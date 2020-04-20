@@ -342,24 +342,27 @@ public class SS13Client extends JFrame {
         JMenuItem threebytwo = new JRadioButtonMenuItem("3x2");
         JMenuItem threebythree = new JRadioButtonMenuItem("3x3");
         JMenuItem fourbythree = new JRadioButtonMenuItem("4x3");
+        JMenuItem fivebyfive = new JRadioButtonMenuItem("5x5");
         threebythree.setSelected(true);
         auto.addActionListener((ActionEvent e) -> Room.setAutomaticScaling(true));
         twobytwo.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(2*32); Room.setYScale(2*32);});
         threebytwo.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(3*32); Room.setYScale(2*32);});
         threebythree.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(3*32); Room.setYScale(3*32);});
         fourbythree.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(4*32); Room.setYScale(3*32);});
-
+        fivebyfive.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(5*32); Room.setYScale(5*32);});
         ButtonGroup grp = new ButtonGroup();
         grp.add(auto);
         grp.add(twobytwo);
         grp.add(threebythree);
         grp.add(threebytwo);
         grp.add(fourbythree);
+        grp.add(fivebyfive);
 
         jmenu.add(twobytwo);
         jmenu.add(threebytwo);
         jmenu.add(threebythree);
         jmenu.add(fourbythree);
+        jmenu.add(fivebyfive);
         jmenu.add(auto);
         view.add(jmenu);
     }

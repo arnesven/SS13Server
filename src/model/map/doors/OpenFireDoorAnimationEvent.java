@@ -2,15 +2,13 @@ package model.map.doors;
 
 import graphics.sprites.Sprite;
 import model.GameData;
-import model.events.Event;
 import model.events.animation.AnimatedSprite;
-import model.events.animation.AnimationEvent;
 import model.map.rooms.Room;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OpenFireDoorAnimationEvent extends FireDoorAnimationEvent {
+public class OpenFireDoorAnimationEvent extends DoorAnimationEvent {
 
     private static Sprite ani;
 

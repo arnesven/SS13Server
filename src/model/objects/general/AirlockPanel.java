@@ -10,6 +10,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.objectactions.AirlockOverrideAction;
 import model.actions.objectactions.MoveToOtherAirlocks;
 import model.characters.decorators.SpaceProtection;
 import model.characters.general.GameCharacter;
@@ -22,6 +23,9 @@ import model.items.general.GameItem;
 import model.items.general.NuclearDisc;
 import model.items.suits.Equipment;
 import model.items.suits.SpaceSuit;
+import model.map.doors.AirLockDoor;
+import model.map.doors.Door;
+import model.map.rooms.AirLockRoom;
 import model.map.rooms.Room;
 
 public class AirlockPanel extends ElectricalMachinery {
@@ -42,11 +46,6 @@ public class AirlockPanel extends ElectricalMachinery {
                 cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof RobotCharacter)) {
             at.add(new MoveToOtherAirlocks(this.getPosition(), gameData));
         }
-//        if (cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OperativeCharacter)) {
-//			if (GameItem.hasAnItemOfClass(cl, NuclearDisc.class) && hasASpacesuitOn(cl)) {
-//				at.add(new EscapeAndSetNukeAction());
-//			}
-//		}
 	}
 
 	private boolean hasASpacesuitOn(Actor cl) {
@@ -79,6 +78,9 @@ public class AirlockPanel extends ElectricalMachinery {
 					AirlockPanel.this.getPosition().removeEvent(noPressureEvent);
 				}
 				performingClient.addTolastTurnInfo("Pressurized " + AirlockPanel.this.getPosition().getName());
+				if (AirlockPanel.this.getPosition() instanceof AirLockRoom) {
+					((AirLockRoom)AirlockPanel.this.getPosition()).cycle(gameData, performingClient);
+				}
 			}
 
 			@Override
@@ -102,6 +104,9 @@ public class AirlockPanel extends ElectricalMachinery {
 				AirlockPanel.this.getPosition().addEvent(e);
 				AirlockPanel.this.noPressureEvent = e;
 				performingClient.addTolastTurnInfo("Depressurized " + AirlockPanel.this.getPosition().getName());
+				if (AirlockPanel.this.getPosition() instanceof AirLockRoom) {
+					((AirLockRoom)AirlockPanel.this.getPosition()).cycle(gameData, performingClient);
+				}
 			}
 
 			@Override
