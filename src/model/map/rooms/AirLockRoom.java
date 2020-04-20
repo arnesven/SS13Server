@@ -21,4 +21,9 @@ public class AirLockRoom extends StationRoom {
     public FloorSet getFloorSet() {
 		return new AirLockFloorSet();
 	}
+
+	@Override
+	protected String getAppearanceScheme() {
+		return "WallsNoWindows-Space";
+	}
 }

@@ -165,7 +165,6 @@ public class AICharacter extends GhostCharacter {
 
     @Override
     public List<Room> getVisibleMap(GameData gameData) {
-
         return SecurityCameraConsole.getConnectedCameraRooms(gameData);
     }
 }

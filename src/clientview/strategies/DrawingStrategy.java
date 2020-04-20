@@ -56,6 +56,8 @@ public abstract class DrawingStrategy {
     protected RoomDrawingStrategy getRoomDrawingStrategy(Room r) {
         if (r.getRoomStyle().toLowerCase().equals("nowallsnodoors")) {
             return new NoWallsNoDoorsRoomStrategy();
+        } else if (r.getRoomStyle().toLowerCase().equals("wallsnowindows")) {
+            return new WallsNoWindowsRoomStrategy();
         }
         return new WallsAndWindowsRoomStrategy();
     }

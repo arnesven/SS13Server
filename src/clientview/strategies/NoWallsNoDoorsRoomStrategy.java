@@ -8,12 +8,12 @@ import java.awt.*;
 public class NoWallsNoDoorsRoomStrategy extends RoomDrawingStrategy {
     @Override
     public void drawRoom(Room r, Graphics g, boolean selectable, boolean isSelected, int xOffset, int yOffset, int xOffPx, int yOffPx, boolean shadow) {
-        r.drawYourself(g, selectable, isSelected, xOffset, yOffset, xOffPx, yOffPx, shadow, false);
+        r.drawYourself(g, selectable, isSelected, xOffset, yOffset, xOffPx, yOffPx, shadow, false, false);
     }
 
     @Override
     public void drawRoomFromAbove(Room r, Graphics g, int xOffset, int yOffset, int xOffpx, int inventoryHeight) {
-        r.drawYourselfFromAbove(g, xOffset, yOffset, xOffpx, inventoryHeight);
+        r.drawYourselfFromAbove(g, xOffset, yOffset, xOffpx, inventoryHeight, false);
     }
 
     @Override

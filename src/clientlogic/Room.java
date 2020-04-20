@@ -3,7 +3,6 @@ package clientlogic;
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientview.components.MapPanel;
-import clientview.components.MyLabel;
 import clientview.OverlaySprite;
 import clientview.SpriteManager;
 import clientview.components.MyPopupMenu;
@@ -82,7 +81,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
 
     public void drawYourself(Graphics g, boolean selectable, boolean selected, int xOffset,
-                             int yOffset, int xOffPx, int yOffPx, boolean shadow, boolean withWalls) {
+                             int yOffset, int xOffPx, int yOffPx, boolean shadow, boolean withWalls, boolean withWindows) {
         if (selectable) {
             this.selectable = selectable;
         }
@@ -104,7 +103,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         }
 
         if (withWalls) {
-            drawWalls(g, x, y, finalW, finalH, background, shadow);
+            drawWalls(g, x, y, finalW, finalH, background, shadow, withWindows);
         }
 
         if (shadow) {
@@ -114,7 +113,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         }
     }
 
-    public void drawYourselfFromAbove(Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx) {
+    public void drawYourselfFromAbove(Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx, boolean withWindows) {
         int x = (int) ((xPos - xOffset) * getXScale()) + xOffPx;
         int y = (int) ((yPos - yOffset) * getYScale()) + yOffPx;
         int finalW = getScaledWidthPX();
@@ -134,8 +133,10 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         }
 
         ImageIcon floorUnderneath = SpriteManager.getSprite(floorSpriteBaseName);
-        decorateWithLeftRightWindows(g, x, y, finalW, finalH, floorUnderneath, "above");
-        decorateWithBottomWindows(g, x, y, finalW, finalH, floorUnderneath);
+        if (withWindows) {
+            decorateWithLeftRightWindows(g, x, y, finalW, finalH, floorUnderneath, "above");
+            decorateWithBottomWindows(g, x, y, finalW, finalH, floorUnderneath);
+        }
     }
 
     private ImageIcon getAboveSprite(boolean rowstart, boolean rowend, boolean colstart, boolean colend) {
@@ -257,7 +258,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         return background;
     }
 
-    private void drawWalls(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, boolean shadow) {
+    private void drawWalls(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, boolean shadow, boolean withWindows) {
 
             g.setColor(backgroundColor);
             ImageIcon corner = SpriteManager.getSprite("walldarkcorner0");
@@ -286,7 +287,9 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
         g.setColor(WALL_COLOR);
 
-        decorateWallsWithWindows(g, x, y, finalW, finalH, background, shadow);
+        if (withWindows) {
+            decorateWallsWithWindows(g, x, y, finalW, finalH, background, shadow);
+        }
 
     }
 
