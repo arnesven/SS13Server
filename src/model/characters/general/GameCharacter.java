@@ -143,11 +143,7 @@ public abstract class GameCharacter implements Serializable {
 				}
 			}
 
-			if (weapon instanceof PhysicalWeapon &&
-					(getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) ||
-					getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AnimalCharacter)) {
-				getActor().setCharacter(new BloodSplotchAnimationDecorator(getActor().getCharacter()));
-			}
+			weapon.applyAnimation(getActor(), performingClient);
 
         }
         String critMess = doCritical(getActor(), weapon, critical);

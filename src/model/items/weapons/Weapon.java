@@ -8,7 +8,11 @@ import model.actions.general.SensoryLevel;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
+import model.characters.decorators.BloodSplotchAnimationDecorator;
 import model.characters.decorators.HoldingItemDecorator;
+import model.characters.general.AnimalCharacter;
+import model.characters.general.GameCharacter;
+import model.characters.general.HumanCharacter;
 import model.items.HandheldItem;
 import model.items.general.GameItem;
 import sounds.Sound;
@@ -212,4 +216,11 @@ public abstract class Weapon extends GameItem implements HandheldItem {
         return 0.25;
     }
 
+    public void applyAnimation(Actor actor, Actor performingClient) {
+        if (this instanceof PhysicalWeapon &&
+                (actor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) ||
+                actor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AnimalCharacter)) {
+            actor.setCharacter(new BloodSplotchAnimationDecorator(actor.getCharacter()));
+        }
+    }
 }
