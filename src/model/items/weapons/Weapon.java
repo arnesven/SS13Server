@@ -26,9 +26,11 @@ public abstract class Weapon extends GameItem implements HandheldItem {
     public static final Weapon TEETH      = new Teeth();
     public static final Weapon TUSKS      = new Tusks();
     public static final Weapon FLYING_CREDIT = new FlyingCredit();
-    private static final double BOTCH_CHANCE = 0.02;
     public static Weapon CLAWS            = new Claws();
     public static Weapon BEAR_CLAWS       = new BearClaws();
+
+    private static final double BOTCH_CHANCE = 0.02;
+
 
     private double criticalChance = 0.05;
     private double hitChance;
