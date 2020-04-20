@@ -19,7 +19,7 @@ public class BloodSplotchAnimationDecorator extends CharacterDecorator {
         List<Sprite> sps = new ArrayList<>();
         sps.add(AnimatedSprite.blankAnimationSprite());
         sps.add(orig);
-        sps.add(new AnimatedSprite("bloodsplotch", "effects2.png", 2, 23, 32, 32, null, 8, false));
-        return new AnimatedSprite(orig.getName() + "bloodsplotch", sps, 8, false);
+        sps.add(new AnimatedSprite("bloodsplotch", "effects2.png", 2, 23, 32, 32, null, 7, false));
+        return new AnimatedSprite(orig.getName() + "bloodsplotch", sps, 7, false);
     }
 }
