@@ -160,7 +160,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 		if ( whosAsking == this) {
             info.add(getCharacter().getUnanimatedSprite(whosAsking).getName() + "<img>" + "You" + (getCharacter().isVisible()?"":" (invisible)") + "<img>{}");
         } else if (getCharacter().isVisible()){
-            info.add(getCharacter().getSprite(whosAsking).getName() + "<img>" + whosAsking.getCharacter().getHowPerceived(this) + "<img>{}");
+            info.add(getCharacter().getUnanimatedSprite(whosAsking).getName() + "<img>" + whosAsking.getCharacter().getHowPerceived(this) + "<img>{}");
         }
     }
 	

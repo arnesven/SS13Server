@@ -492,7 +492,8 @@ public abstract class CharacterDecorator extends GameCharacter {
 		return innerChar.getExtraMoveToLocations(gameData);
 	}
 
-	public Sprite getUnanimatedSprite(Player whosAsking) {
+	@Override
+	public Sprite getUnanimatedSprite(Actor whosAsking) {
 		return innerChar.getUnanimatedSprite(whosAsking);
 	}
 }

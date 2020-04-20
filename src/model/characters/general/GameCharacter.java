@@ -772,8 +772,7 @@ public abstract class GameCharacter implements Serializable {
 
     public List<Room> getExtraMoveToLocations(GameData gameData) { return new ArrayList<>(); }
 
-
-	public Sprite getUnanimatedSprite(Player whosAsking) {
+	public Sprite getUnanimatedSprite(Actor whosAsking) {
 		return getSprite(whosAsking);
 	}
 }

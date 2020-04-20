@@ -103,7 +103,7 @@ public abstract class GameStats {
                 continue;
             }
 			buf.append("<tr><td>");
-            String img = SpriteManager.encode64(entry.getValue().getCharacter().getSprite(entry.getValue()));
+            String img = SpriteManager.encode64(entry.getValue().getCharacter().getUnanimatedSprite(entry.getValue()));
             buf.append("<img src=\"data:image/png;base64," + img +"\"></img>");
             buf.append("</td><td>");
 			buf.append(entry.getValue().getBaseName() + " (" + entry.getKey() + ")");
@@ -140,7 +140,7 @@ public abstract class GameStats {
 
     private void appendForNPC(StringBuffer buf, NPC npc) {
         buf.append("<tr><td>");
-        String img = SpriteManager.encode64(npc.getCharacter().getSprite(npc));
+        String img = SpriteManager.encode64(npc.getCharacter().getUnanimatedSprite(npc));
         buf.append("<img src=\"data:image/png;base64," + img +"\"></img>");
         buf.append("</td><td>");
         buf.append(npc.getBaseName());

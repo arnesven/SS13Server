@@ -25,8 +25,10 @@ public class BloodSplotchAnimationDecorator extends CharacterDecorator {
         List<Sprite> sps = new ArrayList<>();
         sps.add(AnimatedSprite.blankAnimationSprite());
         sps.add(orig);
-        sps.add(new AnimatedSprite("bloodsplotch", "effects2.png", 2, 23, 32, 32, null, 7, false));
-        return new AnimatedSprite(orig.getName() + "bloodsplotch", sps, 7, false);
+        sps.add(new AnimatedSprite("bloodsplotch", "effects2.png", 2, 23, 32, 32, getActor(), 7, false));
+        Sprite result = new AnimatedSprite(orig.getName() + "bloodsplotch", sps, 7, false);
+        result.setObjectRef(getActor());
+        return result;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class BloodSplotchAnimationDecorator extends CharacterDecorator {
     }
 
     @Override
-    public Sprite getUnanimatedSprite(Player whosAsking) {
+    public Sprite getUnanimatedSprite(Actor whosAsking) {
         getSprite(whosAsking);
         return orig;
     }
