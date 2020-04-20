@@ -26,4 +26,8 @@ public class AnimatedSprite extends Sprite {
         setFrames(i);
         setLooping(b);
     }
+
+    public static Sprite blankAnimationSprite() {
+        return new Sprite("blankani", "blankani.png", 0, null);
+    }
 }

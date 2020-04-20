@@ -10,9 +10,7 @@ import graphics.OverlaySprite;
 import graphics.sprites.*;
 import model.*;
 import model.actions.general.AttackAction;
-import model.characters.decorators.BloodyPoolDecorator;
-import model.characters.decorators.CharacterDecorator;
-import model.characters.decorators.NoSuchInstanceException;
+import model.characters.decorators.*;
 import model.characters.special.SpectatorCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.events.damage.PhysicalDamage;
@@ -37,7 +35,6 @@ import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
 import model.actions.general.WatchAction;
-import model.characters.decorators.InstanceChecker;
 import model.events.damage.Damager;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
@@ -140,9 +137,16 @@ public abstract class GameCharacter implements Serializable {
 			if (this.isDead() && !wasDeadAlready) { // you died! Too bad!
 				frag = true;
                 getActor().getCharacter().doUponDeath(performingClient, weapon);
-                if (weapon instanceof PhysicalWeapon && performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) {
+                if (weapon instanceof PhysicalWeapon &&
+						performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) {
 					getActor().setCharacter(new BloodyPoolDecorator(getActor().getCharacter()));
 				}
+			}
+
+			if (weapon instanceof PhysicalWeapon &&
+					(getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) ||
+					getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AnimalCharacter)) {
+				getActor().setCharacter(new BloodSplotchAnimationDecorator(getActor().getCharacter()));
 			}
 
         }
