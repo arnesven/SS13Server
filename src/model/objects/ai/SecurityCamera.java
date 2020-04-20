@@ -19,6 +19,8 @@ public class SecurityCamera extends ElectricalMachinery {
     public SecurityCamera(StationRoom stationRoom) {
         super("Security Camera", stationRoom);
         setPowerPriority(2);
+        this.setMaxHealth(1.0);
+        this.setHealth(1.0);
     }
 
     @Override

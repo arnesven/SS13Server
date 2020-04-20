@@ -12,10 +12,12 @@ import model.events.ambient.DarkEvent;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
+import model.objects.ai.SecurityCamera;
 import model.objects.consoles.Console;
 import model.objects.consoles.SecurityCameraConsole;
 import model.objects.general.GameObject;
 import util.HTMLText;
+import util.MyRandom;
 
 import java.util.*;
 
@@ -30,7 +32,7 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
         cons = (SecurityCameraConsole)console;
         this.shownRoom = null;
         this.roomsToShow = new ArrayList<>();
-        roomsToShow.addAll(gameData.getRooms());
+        roomsToShow.addAll(findRoomsWithCameras(gameData));
         Collections.sort(roomsToShow, new Comparator<Room>() {
             @Override
             public int compare(Room room, Room t1) {
@@ -39,6 +41,18 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
         });
         concreteRebuild(gameData, performingClient);
 
+    }
+
+    private List<Room> findRoomsWithCameras(GameData gameData) {
+        List<Room> result = new ArrayList<>();
+        for (Room r : gameData.getRooms()) {
+            for (GameObject obj : r.getObjects()) {
+                if (obj instanceof SecurityCamera) {
+                    result.add(r);
+                }
+            }
+        }
+        return result;
     }
 
     @Override
@@ -105,6 +119,10 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
                         }
                     }
                 }
+
+                checkForNoConnection(gameData, shownRoom, sprs);
+
+
                 content.append(HTMLText.makeImage(new CombinedSprite("securitycamerapicnr" + (uid++), sprs)));
 
             content.append("</center>");
@@ -112,6 +130,18 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
         }
 
 
+    }
+
+    private void checkForNoConnection(GameData gameData, Room shownRoom, List<List<Sprite>> sprs) {
+        if (!SecurityCameraConsole.getConnectedCameraRooms(gameData).contains(shownRoom)) {
+            for (int j = 0; j < sprs.size(); ++j) {
+                for (int i = 0; i < sprs.get(0).size(); ++i) {
+                    int randFrame = MyRandom.nextInt(15);
+                    sprs.get(j).set(i, new Sprite("staticyconnection"+randFrame, "interface.png",
+                            randFrame, 7, null));
+                }
+            }
+        }
     }
 
     private boolean roomHasDarkness(Room r) {
