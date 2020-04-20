@@ -273,7 +273,7 @@ public class GameData {
 					Integer.parseInt(parts[3]), Integer.parseInt(parts[4]),
 					Integer.parseInt(parts[5]), Integer.parseInt(parts[6]),
 					Integer.parseInt(parts[7]), doors,
-					parts[10], parts[11]);
+					parts[10], parts[11], parts[12]);
 			rooms.add(r);
 			if (r.getID() == getInstance().getCurrentPos()) {
 				GameData.getInstance().setCurrentRoom(r);

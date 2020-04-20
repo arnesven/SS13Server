@@ -27,6 +27,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     private final String floorSpriteBaseName;
     private final String backgroundType;
     private final String roomStyle;
+    private final String actionData;
 
     private int width;
     private int height;
@@ -49,7 +50,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
 
     public Room(int ID, String name, String effectName, int x, int y, int z, int width, int height,
-                ClientDoor[] doors, String color, String appearence) {
+                ClientDoor[] doors, String color, String appearence, String actiondata) {
         this.ID = ID;
         this.name = name;
         this.effectName = effectName;
@@ -63,6 +64,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         floorSpriteBaseName = color;
         this.backgroundType = appearence.split("-")[1];
         this.roomStyle = appearence.split("-")[0];
+        this.actionData = actiondata;
     }
 
     public static void setAutomaticScaling(boolean b) {
@@ -448,17 +450,15 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     @Override
     protected void doOnClick(MouseEvent e) {
-        this.popupMenu = new JPopupMenu();
-        popupMenu.add(new MyLabel(getName()));
-        popupMenu.addSeparator();
-        if (GameData.getInstance().isASelectableRoom(getID())) {
-            if (GameData.getInstance().getCurrentPos() == getID()) {
-                JMenuItem item = new JMenuItem("Search Room");
-                item.addActionListener(new ActionListener() {
+        this.popupMenu = new MyPopupMenu(getName(), actionData, e) {
+            @Override
+            public ActionListener getActionListener(String newActionString) {
+                return new ActionListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        ServerCommunicator.send(GameData.getInstance().getClid() + " NEXTACTION " +
-                                "root,General,Search Room", new MyCallback<String>() {
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        System.out.println("Clicked on " + newActionString);
+                        String finalCommand = "root,Room," + Room.this.getName() + "," + newActionString.replace("root,", "");
+                        ServerCommunicator.send(GameData.getInstance().getClid() + " NEXTACTION " + finalCommand, new MyCallback<String>() {
 
                             @Override
                             public void onSuccess(String result) {
@@ -468,47 +468,14 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
                             @Override
                             public void onFail() {
-                                System.out.println("Failed to send NEXTACTION (search) message to server.");
+                                System.out.println("Failed to send NEXTACTION (general) message to server.");
                             }
                         });
 
                     }
-                });
-                if (GameData.getInstance().getHealth() > 0.0) {
-                    popupMenu.add(item);
-                }
-            } else {
-                JMenuItem item = new JMenuItem("Move Here");
-                item.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        ServerCommunicator.send(GameData.getInstance().getClid() + " NEXTACTION " +
-                                "root,Move," + getName(), new MyCallback<String>() {
-
-                            @Override
-                            public void onSuccess(String result) {
-                                //GameData.getInstance().setNextAction("Move to " + getName());
-
-                            }
-
-                            @Override
-                            public void onFail() {
-                                System.out.println("Failed to send NEXTACTION (move) to server");
-                            }
-                        });
-                    }
-                });
-                if (GameData.getInstance().getHealth() > 0.0) {
-                    popupMenu.add(item);
-                }
+                };
             }
-
-
-        }
-
-       // popupMenu.show(e.getComponent(), e.getX(), e.getY());
-
-
+        };
     }
 
     @Override

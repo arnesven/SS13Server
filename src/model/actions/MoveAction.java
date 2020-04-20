@@ -87,4 +87,5 @@ public class MoveAction extends Action {
     protected void setDestination(Room r) {
         destination = r;
     }
+
 }

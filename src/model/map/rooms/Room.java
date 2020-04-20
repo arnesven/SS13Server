@@ -5,10 +5,13 @@ import java.util.List;
 
 import graphics.sprites.Sprite;
 import model.*;
+import model.actions.MoveAction;
 import model.actions.general.Action;
 import model.actions.general.ActionGroup;
+import model.actions.general.SearchAction;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
+import model.actions.roomactions.MoveToSpecificRoomAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.events.NoPressureEverEvent;
@@ -96,12 +99,32 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		String result = ID + ":" + name + ":" + effectStr + ":" + x + ":" + y + ":" + z + ":" +
 						width + ":" + height +":" + Arrays.toString(neighbors) + ":" +
                 MyStrings.join(getDoorStringList(doors, gameData, forWhom), ", ") + ":" +
-				floorSprite.getMainSprite().getName() + ":" + getAppearanceScheme();
+				floorSprite.getMainSprite().getName() + ":" + getAppearanceScheme() + ":" +
+				Action.makeActionListString(gameData, getActionData(gameData, forWhom), forWhom);
 		//Logger.log(result);
         return result;
 	}
 
-    private List<String> getDoorStringList(Door[] doors, GameData gameData, Player forWhom) {
+	public List<Action> getActionData(GameData gameData, Player forWhom) {
+		List<Action> at = new ArrayList<>();
+		if (forWhom.getCharacter() != null) {
+			MoveAction mov = new MoveAction(gameData, forWhom);
+			if (mov.isAmongOptions(gameData, forWhom, getName())) {
+				at.add(new MoveToSpecificRoomAction(gameData, forWhom, this));
+			}
+			if (forWhom.getPosition() == this) {
+				at.add(new SearchAction());
+			}
+			at.addAll(getSpecificRoomActions(gameData, forWhom, at));
+		}
+		return at;
+	}
+
+	protected List<Action> getSpecificRoomActions(GameData gameData, Player forWhom, List<Action> at) {
+		return new ArrayList<>();
+	}
+
+	private List<String> getDoorStringList(Door[] doors, GameData gameData, Player forWhom) {
         List<String> result = new ArrayList<>();
 	    for (Door d : doors) {
             result.add(d.getStringRepresentation(gameData, forWhom));
