@@ -31,7 +31,7 @@ public class MoveAction extends Action {
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption opts = super.getOptions(gameData, whosAsking);
 
-        Set<Room> canMoveTo = findMoveToAblePositions(gameData, whosAsking);
+        Set<Room> canMoveTo = whosAsking.findMoveToAblePositions(gameData);
         String optstr = "";
         for (Room r : canMoveTo) {
             opts.addOption(r.getName());
@@ -57,7 +57,7 @@ public class MoveAction extends Action {
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
         Logger.log("Searching for destination: " + args.get(0));
-        for (Room r : findMoveToAblePositions(gameData, performingClient)) {
+        for (Room r : performingClient.findMoveToAblePositions(gameData)) {
             if (args.get(0).equals(r.getName())) {
                 Logger.log("  -> Destination found!");
                 destination = r;
@@ -68,21 +68,6 @@ public class MoveAction extends Action {
         }
     }
 
-    protected Set<Room> findMoveToAblePositions(GameData gameData, Actor whosAsking) {
-        HashSet<Room> canMoveTo = new HashSet<>();
-        canMoveTo.add(whosAsking.getPosition());
-        int movement = whosAsking.getCharacter().getMovementSteps();
-        for (int i = 1; i <= movement; ++i) {
-            Set<Room> newLocations = new HashSet<>();
-            for (Room r : canMoveTo) {
-                newLocations.addAll(r.getNeighborList());
-            }
-            canMoveTo.addAll(newLocations);
-        }
-        canMoveTo.remove(whosAsking.getPosition());
-        canMoveTo.addAll(whosAsking.getCharacter().getExtraMoveToLocations(gameData));
-        return canMoveTo;
-    }
 
     protected void setDestination(Room r) {
         destination = r;

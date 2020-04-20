@@ -108,8 +108,7 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	public List<Action> getActionData(GameData gameData, Player forWhom) {
 		List<Action> at = new ArrayList<>();
 		if (forWhom.getCharacter() != null) {
-			MoveAction mov = new MoveAction(gameData, forWhom);
-			if (mov.isAmongOptions(gameData, forWhom, getName())) {
+			if (forWhom.findMoveToAblePositions(gameData).contains(this)) {
 				at.add(new MoveToSpecificRoomAction(gameData, forWhom, this));
 			}
 			if (forWhom.getPosition() == this) {

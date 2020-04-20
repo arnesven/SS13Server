@@ -41,7 +41,7 @@ public abstract class StairsObject extends GameObject {
 
         @Override
         public ActionOption getOptions(GameData gameData, Actor whosAsking) {
-            Set<Room> movableTo = findMoveToAblePositions(gameData, whosAsking);
+            Set<Room> movableTo = whosAsking.findMoveToAblePositions(gameData);
             if (stairs instanceof UpgoingStairsDoor) {
                 movableTo.removeIf((Room r) -> r.getZ() <= getPosition().getZ());
             } else {

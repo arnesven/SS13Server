@@ -56,7 +56,7 @@ public class FireDoor extends Door {
         try {
             Room from = gameData.getRoomForId(getFromId());
             Room to = gameData.getRoomForId(getToId());
-            Door theDoor = openFireDoor(from, to);
+            Door theDoor = openFireDoor(from, to, innerDoor instanceof LockedDoor);
             from.addEvent(new OpenFireDoorAnimationEvent(gameData, from, this));
             to.addEvent(new OpenFireDoorAnimationEvent(gameData, to, this));
         } catch (NoSuchThingException e) {
@@ -64,8 +64,10 @@ public class FireDoor extends Door {
         }
     }
 
-    public Door openFireDoor(Room from, Room to) {
-        GameMap.joinRooms(to, from);
+    public Door openFireDoor(Room from, Room to, boolean wasLocked) {
+        if (!wasLocked) {
+            GameMap.joinRooms(to, from);
+        }
         Door d = unwrapInnerDoor(to, this);
         if (d == null) {
             d = unwrapInnerDoor(from, this);

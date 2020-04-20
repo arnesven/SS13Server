@@ -600,4 +600,20 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         return 0;
     }
 
+    public Set<Room> findMoveToAblePositions(GameData gameData) {
+        HashSet<Room> canMoveTo = new HashSet<>();
+        canMoveTo.add(getPosition());
+        int movement = getCharacter().getMovementSteps();
+        for (int i = 1; i <= movement; ++i) {
+            Set<Room> newLocations = new HashSet<>();
+            for (Room r : canMoveTo) {
+                newLocations.addAll(r.getNeighborList());
+            }
+            canMoveTo.addAll(newLocations);
+        }
+        canMoveTo.remove(getPosition());
+        canMoveTo.addAll(getCharacter().getExtraMoveToLocations(gameData));
+        return canMoveTo;
+    }
+
 }
