@@ -8,6 +8,8 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.roomactions.LockDoorAction;
+import model.characters.general.AICharacter;
+import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.rooms.Room;
@@ -65,7 +67,15 @@ public abstract class Door implements Serializable, SpriteObject {
         if (forWhom.getCharacter() == null) {
             return "NoRef";
         }
-        return Action.makeActionListStringSpecOptions(gameData, getDoorActions(gameData, forWhom), (Player)forWhom);
+        return Action.makeActionListStringSpecOptions(gameData, getNearbyDoorActions(gameData, forWhom), (Player)forWhom);
+    }
+
+    private List<Action> getNearbyDoorActions(GameData gameData, Actor forWhom) {
+        if (getToId() == forWhom.getPosition().getID() || getFromId() == forWhom.getPosition().getID() ||
+                forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
+            return getDoorActions(gameData, forWhom);
+        }
+        return new ArrayList<>();
     }
 
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {

@@ -280,6 +280,7 @@ public class SS13Client extends JFrame {
         JMenu ani = new JMenu("Animations");
 
         final Timer t = new Timer(100, ((ActionEvent e) -> {AnimationHandler.step(); repaint();}));
+        t.start();
 
         JMenuItem slow = new JRadioButtonMenuItem("Slow and laggy");
         slow.addActionListener((ActionEvent e) -> t.stop());
@@ -288,7 +289,7 @@ public class SS13Client extends JFrame {
         ButtonGroup bg = new ButtonGroup();
         bg.add(slow);
         bg.add(fast);
-        slow.setSelected(true);
+        fast.setSelected(true);
         ani.add(slow);
         ani.add(fast);
 
