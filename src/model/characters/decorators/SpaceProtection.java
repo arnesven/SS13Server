@@ -21,14 +21,6 @@ public class SpaceProtection extends CharacterDecorator {
 		return res;
 	}
 
-//    @Override
-//    public Sprite getSprite(Actor whosAsking) {
-//        Sprite mult;
-//        ArrayList<Sprite> ontops = new ArrayList<>();
-//       mult = new Sprite("spaceprotection", "naked.png", 0, 0, 32, 32, ontops);
-//        SpriteManager.testSprite(mult);
-//        return mult;
-//    }
 
     @Override
 	public void beExposedTo(Actor something, Damager damager) {

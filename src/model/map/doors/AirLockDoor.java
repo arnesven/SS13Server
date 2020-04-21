@@ -3,6 +3,7 @@ package model.map.doors;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.events.animation.AnimatedSprite;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
 import model.map.rooms.Room;
@@ -10,6 +11,10 @@ import model.map.rooms.Room;
 public class AirLockDoor extends Door {
 
     private boolean isFullyOpen;
+    private static AnimatedSprite closingSprite = new AnimatedSprite("closeingairlockdoor", "doors.png",
+            10, 7, 32, 32, null, 6, false);
+    private static AnimatedSprite openingSprite = new AnimatedSprite("openingairlockdoor", "doors.png",
+            0, 9, 32, 32, null, 6, false);
 
     public AirLockDoor(double x, double y, int fromId, int toId, boolean isOpen) {
         super(x, y, "Airlock", fromId, toId);
@@ -35,8 +40,8 @@ public class AirLockDoor extends Door {
             Room from = gameData.getRoomForId(getFromId());
             Room to = gameData.getRoomForId(getToId());
             openAirlockDoor(from, to);
-            from.addEvent(new OpenAirlockDoorAnimationEvent(gameData, from, this));
-            to.addEvent(new OpenAirlockDoorAnimationEvent(gameData, to, this));
+            from.addEvent(new OpenAirlockDoorAnimationEvent(gameData, from, this, openingSprite));
+            to.addEvent(new OpenAirlockDoorAnimationEvent(gameData, to, this, openingSprite));
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
@@ -54,8 +59,8 @@ public class AirLockDoor extends Door {
             Room from = gameData.getRoomForId(getFromId());
             Room to = gameData.getRoomForId(getToId());
             closeAirlockDoor(from, to);
-            from.addEvent(new CloseAirlockDoorAnimationEvent(gameData, from, this));
-            to.addEvent(new CloseAirlockDoorAnimationEvent(gameData, to, this));
+            from.addEvent(new CloseAirlockDoorAnimationEvent(gameData, from, this, closingSprite));
+            to.addEvent(new CloseAirlockDoorAnimationEvent(gameData, to, this, closingSprite));
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

@@ -9,11 +9,13 @@ import graphics.sprites.SpriteObject;
 import model.actions.*;
 import model.actions.general.*;
 import model.characters.decorators.*;
+import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.suits.Wearable;
 import model.items.weapons.Weapon;
+import model.map.SpacePosition;
 import model.map.rooms.Room;
 import util.Logger;
 
@@ -582,22 +584,32 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 
     @Override
     public boolean hasAbsolutePosition() {
-        return false;
+        if (getCharacter() == null) {
+            return false;
+        }
+        return getCharacter().getSpacePosition() != null;
     }
 
     @Override
     public void setAbsolutePosition(double x, double y) {
-        //TODO
+        getCharacter().getSpacePosition().setX(x);
+        getCharacter().getSpacePosition().setY(y);
     }
 
     @Override
     public double getAbsoluteX(ClientInfo clientInfo) {
-        return 0;
+        if (getCharacter() == null || getCharacter().getSpacePosition() == null) {
+            return 0.0;
+        }
+        return getCharacter().getSpacePosition().getX();
     }
 
     @Override
     public double getAbsoluteY(ClientInfo clientInfo) {
-        return 0;
+        if (getCharacter() == null || getCharacter().getSpacePosition() == null) {
+            return 0.0;
+        }
+        return getCharacter().getSpacePosition().getY();
     }
 
     public Set<Room> findMoveToAblePositions(GameData gameData) {
@@ -616,4 +628,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         return canMoveTo;
     }
 
+    public boolean isAI() {
+        return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter);
+    }
 }

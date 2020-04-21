@@ -175,7 +175,7 @@ public class DonutSS13Builder extends MapBuilder {
         brig.setDoors(new Door[]{new LockedDoor(15.0, 4.5, 29, 16)});
         gm.addRoom(brig, ss13, "center");
 
-        Room space = new SpaceRoom(30, 0, 0, 1, 1);
+        Room space = new SpaceRoom(30, 0, 0, 0, 0);
 
         addEventsToSpaceRoom(space, gameData);
         gm.addRoom(space, ss13, "space");

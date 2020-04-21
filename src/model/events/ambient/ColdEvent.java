@@ -4,12 +4,14 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
+import model.characters.decorators.SpaceProtection;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.ChilledDecorator;
 import model.events.Event;
 import model.events.damage.ColdDamage;
 import model.map.rooms.Room;
+import util.Logger;
 import util.MyRandom;
 
 public class ColdEvent extends Event {
@@ -31,7 +33,6 @@ public class ColdEvent extends Event {
                     }
 				} else {
 					makeChilled(a);
-					a.addTolastTurnInfo("You are feeling very cold.");
 				}
 			}
 		}
@@ -49,7 +50,11 @@ public class ColdEvent extends Event {
 	}
 
 	private void makeChilled(Actor a) {
-		a.setCharacter(new ChilledDecorator(a.getCharacter()));	
+		if (!(a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof SpaceProtection))) {
+			a.setCharacter(new ChilledDecorator(a.getCharacter()));
+			a.addTolastTurnInfo("You are feeling very cold.");
+
+		}
 	}
 
 	@Override
@@ -69,7 +74,6 @@ public class ColdEvent extends Event {
 
 	@Override
 	public void gotAddedToRoom(Room room) {
-
 			room.addEffect(noLifeSupportSprite);
 	}
 
@@ -80,7 +84,8 @@ public class ColdEvent extends Event {
 
 	@Override
 	public void gotRemovedFromRoom(Room room) {
-			room.getEffects().remove(noLifeSupportSprite);
+		Logger.log("Removing no life support sprite");
+		room.getEffects().remove(noLifeSupportSprite);
 
 	}
 }

@@ -21,6 +21,7 @@ import model.items.suits.Equipment;
 import model.items.weapons.BludgeoningWeapon;
 import model.items.weapons.PhysicalWeapon;
 import model.items.weapons.PiercingWeapon;
+import model.map.SpacePosition;
 import model.map.doors.Door;
 import model.map.rooms.SpectatorRoom;
 import model.movepowers.*;
@@ -69,9 +70,10 @@ public abstract class GameCharacter implements Serializable {
     private GameItem killerItem;
 	private String gender;
     private PhysicalBody physBody;
+	private SpacePosition spacePosition = null;
 
 
-    public GameCharacter(String name, int startRoom, double speed) {
+	public GameCharacter(String name, int startRoom, double speed) {
 		this.name = name;
 		this.startingRoom = startRoom;
 		this.speed = speed;
@@ -774,5 +776,13 @@ public abstract class GameCharacter implements Serializable {
 
 	public Sprite getUnanimatedSprite(Actor whosAsking) {
 		return getSprite(whosAsking);
+	}
+
+	public SpacePosition getSpacePosition() {
+		return spacePosition;
+	}
+
+	public void setSpacePosition(SpacePosition spacePosition) {
+		this.spacePosition = spacePosition;
 	}
 }

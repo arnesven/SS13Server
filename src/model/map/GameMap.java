@@ -12,8 +12,12 @@ import model.map.rooms.SpaceRoom;
 import util.Logger;
 import util.MyRandom;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.*;
+import java.util.List;
 
 
 /**
@@ -563,5 +567,16 @@ public class GameMap implements Serializable {
         }
         Logger.log(Logger.CRITICAL, "Could not find level for room " + room.getName());
         return null;
+    }
+
+    public Room getRoomForCoordinates(double x, double y, double z, String level) throws NoSuchThingException {
+        for (Room r : getRoomsForLevel(level)) {
+            Rectangle2D rect = new Rectangle2D.Double(r.getX(), r.getY(), r.getWidth()+0.5, r.getHeight()+0.5);
+            Point2D.Double point = new Point2D.Double(x, y);
+            if (rect.contains(point) && r.getZ() == (int)z) {
+                return r;
+            }
+        }
+        throw new NoSuchThingException("No room found on coordinates " + x + " " + y + " " + z);
     }
 }

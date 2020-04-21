@@ -38,6 +38,11 @@ public class LowPressureEvent extends Event {
     }
 
     @Override
+    public boolean showSpriteInRoom() {
+        return false;
+    }
+
+    @Override
     public SensoryLevel getSense() {
         return new SensoryLevel(SensoryLevel.VisualLevel.INVISIBLE,
                 SensoryLevel.AudioLevel.SAME_ROOM, SensoryLevel.OlfactoryLevel.UNSMELLABLE);

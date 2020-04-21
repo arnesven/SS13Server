@@ -875,4 +875,14 @@ public class GameData {
 	public Dimension getFancyFrameDimensions() {
 		return fancyFrameDimension;
 	}
+
+	public boolean playerIsInSpace() {
+		return character.contains("(In Space at ");
+	}
+
+	public double[] getSpaceCoordinates() {
+		String[] rest = character.split("\\(In Space at ");
+		String[] strs = rest[1].substring(0, rest[1].length()-1).split(",");
+		return new double[]{Double.parseDouble(strs[0]), Double.parseDouble(strs[1]), Double.parseDouble(strs[2])};
+	}
 }

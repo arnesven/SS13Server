@@ -18,6 +18,7 @@ import model.items.general.GameItem;
 import model.items.suits.Equipment;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
+import model.map.SpacePosition;
 import model.map.rooms.RemoteRoom;
 import model.map.rooms.Room;
 import model.movepowers.MovePowersHandler;
@@ -495,5 +496,15 @@ public abstract class CharacterDecorator extends GameCharacter {
 	@Override
 	public Sprite getUnanimatedSprite(Actor whosAsking) {
 		return innerChar.getUnanimatedSprite(whosAsking);
+	}
+
+	@Override
+	public SpacePosition getSpacePosition() {
+		return innerChar.getSpacePosition();
+	}
+
+	@Override
+	public void setSpacePosition(SpacePosition spacePosition) {
+		innerChar.setSpacePosition(spacePosition);
 	}
 }

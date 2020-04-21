@@ -9,9 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OpenAirlockDoorAnimationEvent extends DoorAnimationEvent {
-    public OpenAirlockDoorAnimationEvent(GameData gameData, Room from, AirLockDoor airLockDoor) {
-        super(gameData, from, airLockDoor, new AnimatedSprite("openingairlockdoor", "doors.png",
-                0, 9, 32, 32, null, 6, false));
+    public OpenAirlockDoorAnimationEvent(GameData gameData, Room from, AirLockDoor airLockDoor, AnimatedSprite aniSprite) {
+        super(gameData, from, airLockDoor, aniSprite);
     }
 
 }

@@ -22,7 +22,13 @@ public class StationDrawingStrategy extends DrawingStrategy {
         int zoom = getZoom();
         int xOffset = 0;
         int yOffset = 0;
-        if (Room.isAutomaticScaling()) {
+        int viewPortWith = (int)(getWidth() / Room.getXScale());
+        int viewPortHeight = (int)(getHeight() / Room.getYScale());
+        if (GameData.getInstance().playerIsInSpace()) {
+            double[] coords = GameData.getInstance().getSpaceCoordinates();
+            xOffset = (int)coords[0] - viewPortWith / 2;
+            yOffset = (int)coords[1] - viewPortHeight / 2;
+        } else if (Room.isAutomaticScaling()) {
             int mapWidth = GameData.getInstance().getMapWidth();
             int xscale = (getWidth() / (mapWidth*zoom)) * zoom;
             int mapHeight = GameData.getInstance().getMapHeight();
@@ -34,8 +40,6 @@ public class StationDrawingStrategy extends DrawingStrategy {
             yOffset = GameData.getInstance().getMinY();// + getYTrans();
         } else {
             Room current = GameData.getInstance().getCurrentRoom();
-            int viewPortWith = (int)(getWidth() / Room.getXScale());
-            int viewPortHeight = (int)(getHeight() / Room.getYScale());
             xOffset = current.getXPos() + (current.getWidth() - viewPortWith) / 2;
             yOffset = current.getYPos() + (current.getHeight() - viewPortHeight) / 2;
         }
@@ -53,9 +57,11 @@ public class StationDrawingStrategy extends DrawingStrategy {
             }
         }
 
-        for (Room r : roomList) {
-            r.drawFrameIfSelected(g, xOffset, yOffset, getXTrans(), inventoryPanelHeight() + getYTrans(),
-                    GameData.getInstance().getCurrentPos() == r.getID());
+        if (!GameData.getInstance().playerIsInSpace()) {
+            for (Room r : roomList) {
+                r.drawFrameIfSelected(g, xOffset, yOffset, getXTrans(), inventoryPanelHeight() + getYTrans(),
+                        GameData.getInstance().getCurrentPos() == r.getID());
+            }
         }
     }
 
