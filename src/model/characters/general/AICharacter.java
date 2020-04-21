@@ -19,6 +19,7 @@ import model.fancyframe.FancyFrame;
 import model.fancyframe.SinglePageFancyFrame;
 import model.items.general.GameItem;
 import model.items.laws.AISuit;
+import model.items.weapons.Weapon;
 import model.map.GameMap;
 import model.map.rooms.Room;
 import model.objects.ai.SecurityCamera;
@@ -167,4 +168,11 @@ public class AICharacter extends GhostCharacter {
     public List<Room> getVisibleMap(GameData gameData) {
         return SecurityCameraConsole.getConnectedCameraRooms(gameData);
     }
+
+    @Override
+    public boolean beAttackedBy(Actor performingClient, Weapon weapon, GameData gameData) {
+        return false;
+    }
+
+
 }

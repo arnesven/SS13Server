@@ -17,7 +17,7 @@ public class Pizza extends HealingFood {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("fullpizza", "food.png", 1, 14, null);
+        return new Sprite("fullpizza", "food.png", 1, 14, this);
     }
 
     @Override

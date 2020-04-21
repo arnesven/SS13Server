@@ -95,7 +95,7 @@ public class AirlockPanel extends ElectricalMachinery {
 				if (AirlockPanel.this.getPosition() instanceof AirLockRoom) {
 					((AirLockRoom)AirlockPanel.this.getPosition()).cycle(gameData, performingClient);
 				}
-				if (!performingClient.isAI()) {
+				if (!performingClient.isAI() && performingClient.getPosition() == AirlockPanel.this.getPosition()) {
 					if (performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator)) {
 						performingClient.removeInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator);
 					}
@@ -130,7 +130,7 @@ public class AirlockPanel extends ElectricalMachinery {
 				if (AirlockPanel.this.getPosition() instanceof AirLockRoom) {
 					((AirLockRoom)AirlockPanel.this.getPosition()).cycle(gameData, performingClient);
 				}
-				if (!performingClient.isAI()) {
+				if (!performingClient.isAI() && performingClient.getPosition() == AirlockPanel.this.getPosition()) {
 					performingClient.setCharacter(new InSpaceCharacterDecorator(performingClient.getCharacter(), gameData));
 				}
 			}

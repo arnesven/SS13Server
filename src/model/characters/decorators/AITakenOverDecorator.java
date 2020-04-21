@@ -70,7 +70,7 @@ public class AITakenOverDecorator extends CharacterDecorator {
                     }
                     performingClient.getPosition().addNPC(oldNpc);
 
-
+                    // TODO: some bug here... the switcheroo is not really working right...
                     try {
                         performingClient.getPosition().removeActor(performingClient);
                         oldPos.addActor(performingClient);

@@ -55,7 +55,7 @@ public class ServerInfoFactory {
             feed = input.build(new XmlReader(feedUrl));
 
             List<SyndEntry> entries =  feed.getEntries();
-            StringBuffer buf = new StringBuffer("<b>Latest Updates:</b><br/><p><ul>");
+            StringBuffer buf = new StringBuffer("<b>Latest Updates:</b><p><ul>");
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
             int num = 1;

@@ -850,7 +850,8 @@ public class GameData {
 				try {
 					File file = File.createTempFile("ss13img_" + (uid++) + "_", ".png");
 					ImageIO.write(buf, "png", file);
-					t = t.replace("data:image/png;base64," + datapart, "file://" + file.getAbsolutePath());
+					t = t.replace("data:image/png;base64," + datapart, "file:///" + file.getAbsolutePath());
+					//System.out.println("Path to image is: " + "file://" + file.getAbsolutePath());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
