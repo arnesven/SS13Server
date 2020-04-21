@@ -5,8 +5,9 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
-import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.actions.objectactions.GeneralManufacturerAction;
+import model.events.animation.AnimatedSprite;
 import model.items.DoorPartsStack;
 import model.items.FlashLight;
 import model.items.HandCuffs;
@@ -15,14 +16,10 @@ import model.items.general.*;
 import model.items.mining.MiningDrill;
 import model.items.mining.OreShard;
 import model.items.mining.OreShardBag;
-import model.items.mining.RegolithShard;
 import model.items.suits.*;
 import model.items.weapons.*;
-import model.map.rooms.MiningStationRoom;
 import model.map.rooms.Room;
-import model.objects.consoles.GeneratorConsole;
 import model.objects.general.ElectricalMachinery;
-import model.objects.general.GameObject;
 
 import java.util.*;
 
@@ -33,6 +30,7 @@ public class GeneralManufacturer extends ElectricalMachinery {
     private int charge;
     private Map<String, Set<GameItem>> itemsMap = new HashMap<>();
     private int totalcharged = 0;
+    private boolean isManufacturing = false;
 
     public GeneralManufacturer(Room r) {
         super("General Manufacturer", r);
@@ -42,12 +40,24 @@ public class GeneralManufacturer extends ElectricalMachinery {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
+        if (isBroken()) {
+            return new Sprite("generalmanufacturerbroken", "robotics.png", 6, this);
+        } else if (!isPowered()) {
+            return new Sprite("generalmanufacturernopwer", "robotics.png", 5, this);
+        } else if (isManufacturing()) {
+            return new AnimatedSprite("generalmanufacturerani", "robotics.png",
+                    0, 1, 32, 32, this, 4, true);
+        }
         return new Sprite("generalmanufacturer", "robotics.png", 4, this);
+    }
+
+    private boolean isManufacturing() {
+        return isManufacturing;
     }
 
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-        Action a = new GeneralManufacturerAction();
+        Action a = new GeneralManufacturerAction(this);
         if (a.getOptions(gameData,cl).numberOfSuboptions() > 0) {
             at.add(a);
         }
@@ -78,68 +88,7 @@ public class GeneralManufacturer extends ElectricalMachinery {
         return totalcharged;
     }
 
-    private class GeneralManufacturerAction extends Action {
-
-        private GameItem selected = null;
-
-        public GeneralManufacturerAction() {
-            super("Manufacture", SensoryLevel.OPERATE_DEVICE);
-        }
-
-        @Override
-        protected String getVerb(Actor whosAsking) {
-            return "fiddled with general manufacturer";
-        }
-
-        @Override
-        protected void execute(GameData gameData, Actor performingClient) {
-            if (selected != null) {
-                if (selected.getCost() <= getLimit()) {
-                    performingClient.addItem(selected.clone(), GeneralManufacturer.this);
-                    GeneralManufacturer.this.reduceCharge(selected.getCost());
-                    performingClient.addTolastTurnInfo("The general manufacturer produced a " + selected.getBaseName());
-                } else {
-                    performingClient.addTolastTurnInfo("The general manufacturer doesn't have enough charge. Feed it more shards. " + Action.FAILED_STRING);
-                }
-            } else {
-                performingClient.addTolastTurnInfo("Item not found. " + Action.FAILED_STRING);
-            }
-        }
-
-        @Override
-        public void setArguments(List<String> args, Actor performingClient) {
-            for (String s : itemsMap.keySet()) {
-                if (args.get(0).equals(s)) {
-                    for (GameItem it : itemsMap.get(s))  {
-                        if (it.getBaseName().equals(args.get(1))) {
-                            selected = it;
-                        }
-                    }
-                }
-            }
-
-        }
-
-        @Override
-        public ActionOption getOptions(GameData gameData, Actor whosAsking) {
-            ActionOption opt = super.getOptions(gameData, whosAsking);
-
-            for (String s : itemsMap.keySet()) {
-                ActionOption sub = new ActionOption(s);
-                for (GameItem it : itemsMap.get(s)) {
-                    if (it.getCost() <= getLimit())
-                    sub.addOption(it.getBaseName());
-                }
-                if (sub.numberOfSuboptions() > 0) {
-                    opt.addOption(sub);
-                }
-            }
-
-            return opt;
-        }
-    }
-
-    private void reduceCharge(int cost) {
+    public void reduceCharge(int cost) {
         double d = (double) getCharge() - Math.ceil((double)cost / 15.0);
         charge = (int) Math.max(0.0, d);
     }
@@ -213,6 +162,14 @@ public class GeneralManufacturer extends ElectricalMachinery {
         availableItems.put("Clothing", clothing);
 
         return availableItems;
+    }
+
+    public Map<String, Set<GameItem>> getItemsMap() {
+        return itemsMap;
+    }
+
+    public void setIsManufacturing(boolean b) {
+        isManufacturing = b;
     }
 
     private class AddShardsAction extends Action {
