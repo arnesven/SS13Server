@@ -170,7 +170,7 @@ public class Architecture {
         Map<Room, Point2D> map = new HashMap<>();
         Set<Point2D> currentPerimiterPoints = getPerimiterPointsForRoom(position);
         for (Room r : allRooms) {
-            if (r != position && !r.isHidden()) {
+            if (r != position && !r.isHidden() && r.getZ() == position.getZ()) {
                 Set<Point2D> perimiterPoints = getPerimiterPointsForRoom(r);
                 perimiterPoints.retainAll(currentPerimiterPoints);
                 if (perimiterPoints.size() > 0) {
