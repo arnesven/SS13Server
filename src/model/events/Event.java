@@ -124,12 +124,12 @@ public abstract class Event extends Experienceable implements SpriteObject, Seri
     }
 
     @Override
-    public double getAbsoluteX(ClientInfo clientInfo) {
+    public double getAbsoluteX() {
         return 0;
     }
 
     @Override
-    public double getAbsoluteY(ClientInfo clientInfo) {
+    public double getAbsoluteY() {
         return 0;
     }
 }

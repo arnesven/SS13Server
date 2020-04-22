@@ -321,12 +321,12 @@ public class PhysicalBody implements SpriteObject, Serializable {
     }
 
     @Override
-    public double getAbsoluteX(ClientInfo clientInfo) {
+    public double getAbsoluteX() {
         return 0;
     }
 
     @Override
-    public double getAbsoluteY(ClientInfo clientInfo) {
+    public double getAbsoluteY() {
         return 0;
     }
 }

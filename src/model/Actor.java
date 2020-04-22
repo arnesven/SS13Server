@@ -597,7 +597,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
     }
 
     @Override
-    public double getAbsoluteX(ClientInfo clientInfo) {
+    public double getAbsoluteX() {
         if (getCharacter() == null || getCharacter().getSpacePosition() == null) {
             return 0.0;
         }
@@ -605,7 +605,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
     }
 
     @Override
-    public double getAbsoluteY(ClientInfo clientInfo) {
+    public double getAbsoluteY() {
         if (getCharacter() == null || getCharacter().getSpacePosition() == null) {
             return 0.0;
         }
@@ -630,5 +630,9 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 
     public boolean isAI() {
         return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter);
+    }
+
+    public boolean isFloatingInSpace() {
+        return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator);
     }
 }

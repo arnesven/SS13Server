@@ -3,6 +3,7 @@ package model.actions.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.Player;
 import model.GameData;
@@ -61,30 +62,35 @@ public abstract class TargetingAction extends Action {
 	}
 	
 	private void addTargetsToAction(Actor ap) {
-		for (Player cl: ap.getPosition().getClients()) {
-			Target target = cl;
-			if (isViableForThisAction(target) && !(ap == cl)) {
+		for (Actor a : ap.getPosition().getActors()) {
+			Target target = a.getAsTarget();
+			if (isViableForThisAction(target) && !(ap == a) && okAsTargetWhenAbsolutePositions(target, ap)) {
 				this.addTarget(target);
 			}
 		}
-		
-		for (NPC npc : ap.getPosition().getNPCs()) {
-			Target target = npc;
-			if (isViableForThisAction(target) && !(ap == npc)) {
-				this.addTarget(target);
-			}
-		}
-		
+
 		for (GameObject ob : ap.getPosition().getObjects()) {
 			if (ob instanceof Target) {
 				Target objectAsTarget = (Target)ob;
-				if (((Target) ob).isTargetable() && isViableForThisAction(objectAsTarget)) {
+				if (((Target) ob).isTargetable() && isViableForThisAction(objectAsTarget) && okAsTargetWhenAbsolutePositions(objectAsTarget, ap)) {
 					this.addTarget((Target)ob);
 				}
 			}
 		}
 		
 		addMoreTargets(ap);
+	}
+
+	private boolean okAsTargetWhenAbsolutePositions(Target objectAsTarget, Actor ap) {
+		if (objectAsTarget instanceof SpriteObject) {
+			if (ap.hasAbsolutePosition() && ((SpriteObject) objectAsTarget).hasAbsolutePosition()) {
+				if (SpriteObject.distance(ap, (SpriteObject)objectAsTarget) >= 1.0) {
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 
 	protected void addMoreTargets(Actor ap) {

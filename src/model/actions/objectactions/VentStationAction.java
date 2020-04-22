@@ -66,7 +66,7 @@ public class VentStationAction extends ConsoleAction {
 
         for (Room r : affectedRooms) {
             if (!NoPressureEvent.hasNoPressureEvent(r)) {
-                NoPressureEvent npe = new NoPressureEvent(null, r, performingClient, false);
+                NoPressureEvent npe = new NoPressureEvent(r, performingClient, false);
                 eventMap.put(r, npe);
                 r.addEvent(npe);
                 gameData.addEvent(npe);

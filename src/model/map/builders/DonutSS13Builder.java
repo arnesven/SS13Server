@@ -7,6 +7,7 @@ import model.map.rooms.*;
 import model.objects.BarSign;
 import model.objects.consoles.KeyCardLock;
 import model.objects.decorations.PosterObject;
+import model.objects.general.AirlockPanel;
 
 /**
  * Created by erini02 on 15/12/16.
@@ -45,7 +46,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(aftWalk, ss13, "aft");
         gm.addRoom(aftWalk, ss13, "starboard");
 
-        Room airLock1 = new AirLockRoom( 7,  1, 2, 11, 1, 1, new int[]{6}         ,
+        AirLockRoom airLock1 = new AirLockRoom( 7,  1, 2, 11, 1, 1, new int[]{6}         ,
                 new Door[]{new FullyOpenAirLockDoor(2.5, 11.0, 7, 6),
                 new AirLockDoor(2.0, 11.5, 7, 30 ),
                 new AirLockDoor(2.5, 12.0, 7, 30)} );
@@ -140,7 +141,7 @@ public class DonutSS13Builder extends MapBuilder {
                 new Door[]{} );
         gm.addRoom(CQ, ss13, "front");
 
-        Room airLock2 = new AirLockRoom(21, 2   ,13,  2, 1, 1, new int[]{19}        ,
+        AirLockRoom airLock2 = new AirLockRoom(21, 2   ,13,  2, 1, 1, new int[]{19}        ,
                 new Door[]{new FullyOpenAirLockDoor(13.0, 2.5, 21, 19),
                 new AirLockDoor(13.5, 2.0, 21, 30)} );
         gm.addRoom(airLock2, ss13, "port");
@@ -155,10 +156,11 @@ public class DonutSS13Builder extends MapBuilder {
 
         Room sickbay = new SickbayRoom(24, 6,  0, 3, 3, new int[]{23, 25, 1} ,         new Door[]{});
         gm.addRoom(sickbay, ss13, "port");
-        gm.addRoom(new AirLockRoom(25, 3    , 5,  0, 1, 1, new int[]{24}        ,
+        AirLockRoom airLock3 = new AirLockRoom(25, 3    , 5,  0, 1, 1, new int[]{24}        ,
                 new Door[]{new FullyOpenAirLockDoor(6.0, 0.5, 25, 24),
-                new AirLockDoor(5.0, 0.5, 25, 30),
-                new AirLockDoor(5.5, 0.0, 25, 30)}  ), ss13, "port");
+                        new AirLockDoor(5.0, 0.5, 25, 30),
+                        new AirLockDoor(5.5, 0.0, 25, 30)});
+        gm.addRoom(airLock3, ss13, "port");
 
         gm.addRoom(new GeneratorRoom(26, 6,  5, 3, 3, new int[]{5}         ,         new Door[]{}, gameData ), ss13, "center");
 
@@ -175,10 +177,26 @@ public class DonutSS13Builder extends MapBuilder {
         brig.setDoors(new Door[]{new LockedDoor(15.0, 4.5, 29, 16)});
         gm.addRoom(brig, ss13, "center");
 
-        Room space = new SpaceRoom(30, 0, 0, 0, 0);
-
+        SpaceRoom space = new SpaceRoom(30, 0, 0, 0, 0);
         addEventsToSpaceRoom(space, gameData);
         gm.addRoom(space, ss13, "space");
+
+        {
+            AirlockPanel ap = new AirlockPanel(airLock2, space);
+            ap.setAbsolutePosition(13.0, 2.0);
+            space.addObject(ap);
+        }
+        {
+            AirlockPanel ap = new AirlockPanel(airLock1, space);
+            ap.setAbsolutePosition(2.0, 12.0);
+            space.addObject(ap);
+        }
+        {
+            AirlockPanel ap = new AirlockPanel(airLock3, space);
+            ap.setAbsolutePosition(5.0, 0.0);
+            space.addObject(ap);
+        }
+
 
         Room ventilationShaft = new AirDuctRoom(499, 3, 2, 1, 5, new int[]{500, 501, 502, 503}, new Door[]{});
         gm.addRoom(ventilationShaft, ss13, "aft");
@@ -192,4 +210,5 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(vent5, ss13, "port");
 
     }
+
 }

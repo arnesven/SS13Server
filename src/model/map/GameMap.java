@@ -579,4 +579,13 @@ public class GameMap implements Serializable {
         }
         throw new NoSuchThingException("No room found on coordinates " + x + " " + y + " " + z);
     }
+
+    public Room getSpaceRoomForLevel(String name) {
+        for (Room r : getRoomsForLevel(name)) {
+            if (r instanceof SpaceRoom) {
+                return r;
+            }
+        }
+        throw new IllegalStateException("What! Level had no space room! Impossible!");
+    }
 }

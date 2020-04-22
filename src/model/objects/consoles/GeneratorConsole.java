@@ -9,6 +9,7 @@ import model.Player;
 import model.actions.fancyframeactions.SitDownAtPowerConsoleAction;
 import model.actions.general.Action;
 import model.actions.objectactions.PowerConsoleAction;
+import model.map.GameMap;
 import model.map.rooms.Room;
 
 public class GeneratorConsole extends Console {
@@ -21,7 +22,10 @@ public class GeneratorConsole extends Console {
         powerSource = new PowerSource(45.0, r, gameData) {
             @Override
             protected List<Room> getAffectedRooms(GameData gameData) {
-                return gameData.getRooms();
+                List<Room> rooms = new ArrayList<>();
+                rooms.addAll(gameData.getRooms());
+                rooms.add(gameData.getMap().getSpaceRoomForLevel(GameMap.STATION_LEVEL_NAME));
+                return rooms;
             }
         };
         r.addObject(powerSource);

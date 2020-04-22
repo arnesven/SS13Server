@@ -55,8 +55,8 @@ public abstract class OverlaySpriteCollector {
             //double finalX = roomX + gridX*xIncr + 0.2;
             //double finalY = roomY + gridY*yIncr + 0.2;
             if (sp.getObjectReference() != null && sp.getObjectReference().hasAbsolutePosition()) {
-                double x = sp.getObjectReference().getAbsoluteX(forWhom.getClientInfo());
-                double y = sp.getObjectReference().getAbsoluteY(forWhom.getClientInfo());
+                double x = sp.getObjectReference().getAbsoluteX();
+                double y = sp.getObjectReference().getAbsoluteY();
                 strs.add(new OverlaySprite(sp, x, y,
                         r, forWhom, sp.getFrames()));
             } else {

@@ -12,7 +12,9 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.AttackAction;
+import model.map.SpacePosition;
 import model.map.rooms.Room;
+import util.Logger;
 
 public class GameObject implements SpriteObject, Serializable {
 	private String name;
@@ -83,6 +85,13 @@ public class GameObject implements SpriteObject, Serializable {
 
 
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
+        if (hasAbsolutePosition && forWhom.hasAbsolutePosition() && SpriteObject.distance(this, forWhom) >= 1.0) {
+       //     Logger.log("Position of player: " + forWhom.getAbsoluteX() + " " + forWhom.getAbsoluteY());
+        //    Logger.log("Position of object:" + getAbsoluteX() + " " + getAbsoluteY());
+        //    Logger.log("Actions removed because both game object (" + this.getBaseName() +
+        //            ") and player are at absolute positions and distance is " + SpriteObject.distance(this, forWhom));
+            return new ArrayList<>();
+        }
         ArrayList<Action> acts = new ArrayList<>();
         addSpecificActionsFor(gameData, forWhom, acts);
         return acts;
@@ -100,12 +109,12 @@ public class GameObject implements SpriteObject, Serializable {
     }
 
     @Override
-    public double getAbsoluteX(ClientInfo clientInfo) {
+    public double getAbsoluteX() {
         return absX;
     }
 
     @Override
-    public double getAbsoluteY(ClientInfo clientInfo) {
+    public double getAbsoluteY() {
         return absY;
     }
 

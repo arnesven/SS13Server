@@ -21,8 +21,7 @@ public class SpaceVision extends NormalVision {
     private static final double minDX = -10;
     private static final double maxDY = 10;
     private static final double maxDX = 10;
-    private static final double RANGE_SQUARED = 35.0;
-
+    private static final double RANGE_SQUARED = 50.0;
 
     @Override
     protected void addExtraSensoryPerception(Player player, GameData gameData, ArrayList<OverlaySprite> strs) {
@@ -45,8 +44,7 @@ public class SpaceVision extends NormalVision {
                     try {
                         r = gameData.getMap().getRoomForCoordinates(x, y, player.getCharacter().getSpacePosition().getZ(),
                                 gameData.getMap().getLevelForRoom(player.getPosition()).getName());
-                        if ((r == player.getPosition() || player.findMoveToAblePositions(gameData).contains(r)) &&
-                                isWithinRange(dx, dy)) {
+                        if (player.findMoveToAblePositions(gameData).contains(r) && isWithinRange(dx, dy)) {
                             result.add(new MoveTargetObject(x, y, player.getPosition()));
                         }
                     } catch (NoSuchThingException e) {
@@ -81,12 +79,12 @@ public class SpaceVision extends NormalVision {
         }
 
         @Override
-        public double getAbsoluteY(ClientInfo clientInfo) {
+        public double getAbsoluteY() {
             return this.y;
         }
 
         @Override
-        public double getAbsoluteX(ClientInfo clientInfo) {
+        public double getAbsoluteX() {
             return this.x;
         }
 

@@ -20,6 +20,8 @@ public class LowPressureEvent extends Event {
         this.roomRef = roomRef;
     }
 
+
+
     @Override
     public void apply(GameData gameData) {
         for (Target t : roomRef.getTargets(gameData)) {
@@ -50,5 +52,14 @@ public class LowPressureEvent extends Event {
 
     public Room getRoom() {
         return roomRef;
+    }
+
+    public static boolean roomHasLowPressure(Room r) {
+        for (Event e : r.getEvents()) {
+            if (e instanceof LowPressureEvent) {
+                return true;
+            }
+        }
+        return false;
     }
 }

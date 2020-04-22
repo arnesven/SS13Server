@@ -12,20 +12,18 @@ import model.actions.general.SensoryLevel;
 import model.events.ambient.ElectricalFire;
 import model.events.ambient.LowPressureEvent;
 import model.events.damage.NoPressureDamage;
+import model.map.rooms.AirLockRoom;
 import model.map.rooms.Room;
 import model.objects.general.AirlockPanel;
 
 public class NoPressureEvent extends Event {
 
     private final boolean affectsAdjacent;
-    private AirlockPanel panelRef;
-	private Room roomRef;
+  	private Room roomRef;
 	private Actor performingClient;
     private List<LowPressureEvent> adjacentRoomEvents = new ArrayList<>();
 
-    public NoPressureEvent(AirlockPanel panelRef, Room roomRef,
-                           Actor performingClient, boolean adjacent) {
-		this.panelRef = panelRef;
+    public NoPressureEvent(Room roomRef, Actor performingClient, boolean adjacent) {
 		this.roomRef = roomRef;
 		this.performingClient = performingClient;
         this.affectsAdjacent = adjacent;
@@ -71,13 +69,13 @@ public class NoPressureEvent extends Event {
 	}
 
     private void addLowPressureToAdjacentRooms(GameData gameData) {
-        if (adjacentRoomEvents.isEmpty()) {
             for (Room r : roomRef.getNeighborList()) {
-                LowPressureEvent e = new LowPressureEvent(r);
-                adjacentRoomEvents.add(e);
-                r.addEvent(e);
+                if (!LowPressureEvent.roomHasLowPressure(r)) {
+                    LowPressureEvent e = new LowPressureEvent(r);
+                    adjacentRoomEvents.add(e);
+                    r.addEvent(e);
+                }
             }
-        }
     }
 
     private void applyLowPressureInAdjacentRooms(GameData gameData) {
@@ -109,12 +107,12 @@ public class NoPressureEvent extends Event {
 
 	@Override
 	public boolean shouldBeRemoved(GameData gameData) {
-        if (panelRef != null) {
-            boolean res = panelRef.getPressure();
-            if (res == true) {
+        if (roomRef != null) {
+            boolean roomHasPressure = !hasNoPressureEvent(roomRef);
+            if (roomHasPressure) {
                 removeAdjacentEvents();
             }
-            return res;
+            return roomHasPressure;
         } else {
             return false;
         }

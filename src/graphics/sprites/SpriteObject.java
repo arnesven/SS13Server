@@ -6,20 +6,25 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.map.rooms.Room;
+import model.objects.general.GameObject;
 
 import java.util.List;
 
 public interface SpriteObject {
 
-
     Sprite getSprite(Actor whosAsking);
     String getPublicName(Actor whosAsking);
     List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom);
     void setAbsolutePosition(double x, double y);
-    double getAbsoluteX(ClientInfo clientInfo);
-    double getAbsoluteY(ClientInfo clientInfo);
+    double getAbsoluteX();
+    double getAbsoluteY();
     boolean hasAbsolutePosition();
 
+
+    static double distance(SpriteObject o1, SpriteObject o2) {
+        return Math.sqrt(Math.pow(o1.getAbsoluteX() - o2.getAbsoluteX(), 2) +
+                Math.pow(o1.getAbsoluteY() - o2.getAbsoluteY(), 2));
+    }
 
 
     SpriteObject BLANK = new SpriteObject() {
@@ -44,12 +49,12 @@ public interface SpriteObject {
         }
 
         @Override
-        public double getAbsoluteX(ClientInfo clientInfo) {
+        public double getAbsoluteX() {
             return 0;
         }
 
         @Override
-        public double getAbsoluteY(ClientInfo clientInfo) {
+        public double getAbsoluteY() {
             return 0;
         }
 

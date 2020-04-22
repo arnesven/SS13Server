@@ -27,12 +27,12 @@ public class DoorAnimationEvent extends AnimationEvent {
     }
 
     @Override
-    public double getAbsoluteX(ClientInfo clientInfo) {
+    public double getAbsoluteX() {
         return door.getX();
     }
 
     @Override
-    public double getAbsoluteY(ClientInfo clientInfo) {
+    public double getAbsoluteY() {
         return door.getY();
     }
 

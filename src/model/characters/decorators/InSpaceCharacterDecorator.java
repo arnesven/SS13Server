@@ -13,7 +13,7 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-public class InSpaceCharacterDecorator extends NameAddDecorator {
+public class InSpaceCharacterDecorator extends CharacterDecorator {
     public InSpaceCharacterDecorator(GameCharacter character, GameData gameData) {
         super(character, "In Space");
         double newX = character.getPosition().getX() + (double)character.getPosition().getWidth() / 2.0;
@@ -55,7 +55,7 @@ public class InSpaceCharacterDecorator extends NameAddDecorator {
         }
 
         try {
-            return gameData.getRoomForId(30); // TODO: Fix this hardcoded shit
+            return gameData.getMap().getSpaceRoomForLevel(gameData.getMap().getLevelForRoom(getActor().getPosition()).getName());
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

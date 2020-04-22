@@ -1,5 +1,9 @@
 package model.map;
 
+import graphics.sprites.SpriteObject;
+import model.Player;
+import model.objects.general.GameObject;
+
 import java.io.Serializable;
 
 public class SpacePosition implements Serializable {
@@ -12,6 +16,7 @@ public class SpacePosition implements Serializable {
         this.y = y;
         this.z = z;
     }
+
 
     public double getX() {
         return x;
@@ -36,5 +41,7 @@ public class SpacePosition implements Serializable {
     public void setZ(double z) {
         this.z = z;
     }
+
+
 
 }

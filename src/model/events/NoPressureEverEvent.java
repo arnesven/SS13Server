@@ -6,7 +6,7 @@ import model.map.rooms.Room;
 public class NoPressureEverEvent extends NoPressureEvent {
 
 	public NoPressureEverEvent(Room roomRef) {
-		super(null, roomRef, null, false);
+		super(roomRef, null, false);
 	}
 	
 	@Override

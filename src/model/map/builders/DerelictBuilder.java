@@ -7,6 +7,7 @@ import model.items.suits.SpaceSuit;
 import model.map.GameMap;
 import model.map.doors.Door;
 import model.map.doors.NormalDoor;
+import model.map.rooms.DerelictAirlockRoom;
 import model.map.rooms.DerelictRoom;
 import model.map.rooms.Room;
 import model.npcs.NPC;
@@ -47,13 +48,13 @@ public class DerelictBuilder extends MapBuilder {
         derelictGen.addItem(new Tools());
 
         gm.addRoom(derelictGen, "derelict", "derelict");
-        Room derelictAirLock =  new DerelictRoom(38, "Derelict Air Lock", "", 42, 44, 1, 1, new int[]{35},
+        DerelictAirlockRoom derelictAirLock =  new DerelictAirlockRoom(38, "Derelict Air Lock", "", 42, 44, 1, 1, new int[]{35},
                 new Door[]{new NormalDoor(42.0, 44.5, 38, 35)});
         derelictAirLock.addObject(new AirlockPanel(derelictAirLock));
         gm.addRoom(derelictAirLock, "derelict", "derelict");
 
         Room derelictUnreachableRoom =  new DerelictRoom(39, "Escape Pod", "", 52, 52, 2, 1, new int[]{}, new Door[]{});
-        derelictUnreachableRoom.addObject(new AirlockPanel(derelictUnreachableRoom));
+        //derelictUnreachableRoom.addObject(new AirlockPanel(derelictUnreachableRoom));
         derelictUnreachableRoom.addItem(new SpaceSuit());
         gm.addRoom(derelictUnreachableRoom, "derelict", "derelict");
         Room derelictUnreachableRoom2 =  new DerelictRoom(40, "Broken Room", "", 35, 35, 1, 2, new int[]{}, new Door[]{});
