@@ -3,15 +3,9 @@ package model.actions.roomactions;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.general.Action;
-import model.characters.decorators.CharacterDecorator;
-import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.map.doors.ElectricalDoor;
 import model.map.rooms.Room;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MoveThroughAndCloseFireDoorAction extends CloseFireDoorAction {
     private final ElectricalDoor door;
@@ -30,7 +24,7 @@ public class MoveThroughAndCloseFireDoorAction extends CloseFireDoorAction {
                 if (target == performingClient.getPosition()) {
                     target = gameData.getRoomForId(door.getFromId());
                 }
-                performingClient.setCharacter(new CanAlsoMoveToDecorator(performingClient.getCharacter(), target));
+                performingClient.setCharacter(new CanAlsoMoveToForOneTurnDecorator(performingClient.getCharacter(), target));
                 ((Player) performingClient).setNextMove(target.getID());
             } catch (NoSuchThingException e) {
                 e.printStackTrace();
@@ -40,25 +34,4 @@ public class MoveThroughAndCloseFireDoorAction extends CloseFireDoorAction {
         super.execute(gameData, performingClient);
     }
 
-    private class CanAlsoMoveToDecorator extends CharacterDecorator {
-        private final Room target;
-
-        public CanAlsoMoveToDecorator(GameCharacter gc, Room target) {
-            super(gc, "Can also move to " + target.getName());
-            this.target = target;
-        }
-
-        @Override
-        public List<Room> getExtraMoveToLocations(GameData gameData) {
-            List<Room> result = new ArrayList<>();
-            result.add(target);
-            return result;
-        }
-
-        @Override
-        public void doAfterMovement(GameData gameData) {
-            super.doAfterMovement(gameData);
-            getActor().removeInstance((GameCharacter gc) -> gc == this);
-        }
-    }
 }

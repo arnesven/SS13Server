@@ -5,6 +5,8 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.roomactions.LockDoorAction;
+import model.actions.roomactions.MoveThroughAndCloseFireDoorAction;
+import model.actions.roomactions.MoveThroughAndLock;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
@@ -43,7 +45,9 @@ public class NormalDoor extends ElectricalDoor {
         if (!isBroken() && (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) ||
                 forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter))) {
             at.add(new LockDoorAction(this));
+            at.add(new MoveThroughAndLock(this));
         }
+        at.add(new MoveThroughAndCloseFireDoorAction(this));
         return at;
     }
 

@@ -5,6 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.roomactions.LockDoorAction;
+import model.actions.roomactions.UnLockAndMoveThroughAction;
 import model.actions.roomactions.UnLockDoorAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
@@ -37,6 +38,7 @@ public class LockedDoor extends ElectricalDoor {
         if (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) ||
                 forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
             at.add(new UnLockDoorAction(this));
+            at.add(new UnLockAndMoveThroughAction(this));
         }
         return at;
     }
