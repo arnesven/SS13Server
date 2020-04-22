@@ -220,7 +220,9 @@ public abstract class Weapon extends GameItem implements HandheldItem {
         if (this instanceof PhysicalWeapon &&
                 (actor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) ||
                 actor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AnimalCharacter)) {
-            actor.setCharacter(new BloodSplotchAnimationDecorator(actor.getCharacter(), gameData));
+            if (!actor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof BloodSplotchAnimationDecorator)) {
+                actor.setCharacter(new BloodSplotchAnimationDecorator(actor.getCharacter(), gameData));
+            }
         }
     }
 }

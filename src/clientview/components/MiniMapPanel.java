@@ -1,95 +1,48 @@
 package clientview.components;
 
 import clientlogic.GameData;
-import clientlogic.MouseInteractable;
-import clientlogic.Room;
+import clientlogic.Observer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
-public class MiniMapPanel extends JComponent {
+public class MiniMapPanel extends JPanel implements Observer {
 
-    private ArrayList<MiniMapRoome> hitBoxes = new ArrayList<>();
+    private JLabel zed;
 
     public MiniMapPanel() {
-
-        this.addMouseMotionListener(new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                for (MiniMapRoome mr : hitBoxes) {
-
-                    mr.isHoveredOver(e, null);
-                }
-            }
-        });
-
-
+        setLayout(new BorderLayout());
+        this.add(makeMapDepthBar(), BorderLayout.NORTH);
+        this.add(new MiniMapDrawingArea());
+        GameData.getInstance().subscribe(this);
     }
 
+    private JPanel makeMapDepthBar() {
+        JPanel bar = new JPanel(new FlowLayout());
+        bar.setAlignmentX(LEFT_ALIGNMENT);
+        JButton minus = makeSmallButton("-");
+        minus.addActionListener((ActionEvent e) -> MapPanel.addZTranslation(-1));
+        bar.add(minus);
+        JButton plus = makeSmallButton("+");
+        plus.addActionListener((ActionEvent e) -> MapPanel.addZTranslation(+1));
+        bar.add(plus);
+        this.zed = new JLabel("Z = 0");
+        bar.add(zed);
+        return bar;
+    }
+
+    private JButton makeSmallButton(String s) {
+        JButton result = new JButton(s);
+        result.setMargin(new Insets(0, 0, 0, 0));
+        result.setPreferredSize(new Dimension(20, 20));
+        result.setFont(new Font("Arial", Font.PLAIN, 9));
+        return result;
+    }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, getWidth(), getHeight());
-        double mapWidth = GameData.getInstance().getMiniMapWidth()+2;
-        double xscale = (getWidth() / (mapWidth));
-        double mapHeight = GameData.getInstance().getMiniMapHeight()+2;
-        double yscale = (getHeight() / (mapHeight));
-
-        int xOffset = GameData.getInstance().getMiniMapMinX()-1;
-        int yOffset = GameData.getInstance().getMiniMapMinY()-1;
-
-        this.hitBoxes = new ArrayList<>();
+    public void update() {
         int currZ = GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation();
-        for (Room r : GameData.getInstance().getMiniMap()) {
-            if (r.getZPos() == currZ) {
-                int finalX = (int) ((r.getXPos() - xOffset) * xscale);
-                int finalY = (int) ((r.getYPos() - yOffset) * yscale);
-                if (r.getID() == GameData.getInstance().getCurrentPos()) {
-                    g.setColor(Color.YELLOW);
-                } else if (GameData.getInstance().isASelectableRoom(r.getID())) {
-                    g.setColor(Color.BLUE);
-                } else {
-                    g.setColor(Color.LIGHT_GRAY);
-                }
-                g.fillRect(finalX, finalY,
-                        (int) (r.getWidth() * xscale), (int) (r.getHeight() * yscale));
-                g.setColor(Color.DARK_GRAY);
-                g.drawRect(finalX, finalY, (int) (r.getWidth() * xscale), (int) (r.getHeight() * yscale));
-                hitBoxes.add(new MiniMapRoome(r, finalX, finalY, (int) (r.getWidth() * xscale), (int) (r.getHeight() * yscale)));
-            }
-        }
-        g.setColor(Color.YELLOW);
-        g.drawString("Z = " + currZ, 3, getHeight()-6);
-        g.setColor(Color.BLACK);
-    }
-
-
-    private class MiniMapRoome extends MouseInteractable {
-
-        private final Room room;
-
-        public MiniMapRoome(Room r, int x, int y, int w, int h) {
-            room = r;
-            this.setHitBox(x, y, w, h);
-        }
-
-        @Override
-        protected void doOnClick(MouseEvent e) {
-
-        }
-
-        @Override
-        protected void doOnHover(MouseEvent e, MapPanel mapPanel) {
-            MiniMapPanel.this.setToolTipText(room.getName());
-        }
+        zed.setText("Z = " + currZ);
     }
 }

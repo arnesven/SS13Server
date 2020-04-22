@@ -17,7 +17,7 @@ public class BloodSplotchAnimationDecorator extends CharacterDecorator {
     public BloodSplotchAnimationDecorator(GameCharacter character, GameData gameData) {
         super(character, "bloodysplotch");
         this.roundSet = gameData.getRound();
-        this.orig = character.getSprite(getActor());
+        this.orig = character.getUnanimatedSprite(getActor());
     }
 
     @Override

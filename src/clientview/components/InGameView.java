@@ -1,7 +1,6 @@
 package clientview.components;
 
 import clientlogic.GameData;
-import clientview.FancyFrame;
 import clientview.FancyFrameComponent;
 import clientview.PlayersPanel;
 import main.SS13Client;
