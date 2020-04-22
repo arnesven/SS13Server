@@ -32,8 +32,8 @@ public class ComputerSystemSession implements Serializable {
                 "logged in", this));
         console.plebOSSay("", sender);
         console.plebOSSay("<center>Welcome to plebOS 1.25</center>",  sender);
-        console.plebOSSay("There are 151 crucial system updates ready to be installed,", sender);
-        console.plebOSSay("please notify the system administrator!", sender);
+       // console.plebOSSay("There are 151 crucial system updates ready to be installed,", sender);
+       // console.plebOSSay("please notify the system administrator!", sender);
         console.plebOSSay("", sender);
         console.plebOSSay("Last login on 24/03/2113, 4.15 pm", sender);
         console.plebOSSay("Welcome " + sender.getCharacter().getBaseName().toLowerCase(), sender);

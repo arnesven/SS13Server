@@ -1,5 +1,6 @@
 package model.actions.characteractions;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -89,5 +90,10 @@ public class MarriageAction extends Action {
         public Actor getMarriedTo() {
             return marriedTo;
         }
+    }
+
+    @Override
+    public Sprite getAbilitySprite() {
+        return new Sprite("performmarriageabi", "interface.png", 12, 14, null);
     }
 }

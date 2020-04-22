@@ -6,6 +6,7 @@ import model.actions.general.Action;
 import model.actions.general.AttackAction;
 import model.actions.roomactions.AttackDoorAction;
 import model.actions.roomactions.CloseFireDoorAction;
+import model.actions.roomactions.MoveThroughAndCloseFireDoorAction;
 import model.actions.roomactions.RepairDoorAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
@@ -70,6 +71,7 @@ public abstract class ElectricalDoor extends Door {
             at.add(new RepairDoorAction(gameData, forWhom, this));
         }
         at.add(new CloseFireDoorAction(this));
+        at.add(new MoveThroughAndCloseFireDoorAction(this));
         return at;
     }
 
