@@ -8,9 +8,10 @@ import model.items.weapons.Crowbar;
 import util.HTMLText;
 import util.Logger;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CharacterCreation {
+public class CharacterCreation implements Serializable {
 
     private final List<GameItem> list;
     private GameItem selected = null;
@@ -47,6 +48,8 @@ public class CharacterCreation {
     }
 
     public void doAtGameStart(GameData gameData, Player pl) {
-        pl.addItem(selected, null);
+        if (selected != null) {
+            pl.addItem(selected, null);
+        }
     }
 }

@@ -69,6 +69,7 @@ public class AirLockRoom extends StationRoom {
 			if (!a.isAI()) {
 				if (a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator)) {
 					a.removeInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator);
+					a.getCharacter().setSpacePosition(null);
 				}
 			}
 		}

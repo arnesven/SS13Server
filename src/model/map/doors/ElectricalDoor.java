@@ -71,7 +71,9 @@ public abstract class ElectricalDoor extends Door {
             at.add(new RepairDoorAction(gameData, forWhom, this));
         }
         at.add(new CloseFireDoorAction(this));
-        at.add(new MoveThroughAndCloseFireDoorAction(this));
+        if (!(this instanceof LockedDoor)) {
+            at.add(new MoveThroughAndCloseFireDoorAction(this));
+        }
         return at;
     }
 

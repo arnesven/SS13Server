@@ -30,6 +30,9 @@ public class AirlockPanel extends ElectricalMachinery {
 	@Override
 	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(makeApplicableAction(gameData));
+		if (airLock != getPosition() && cl.findMoveToAblePositions(gameData).contains(airLock)) {
+			at.add(new MoveIntoAndCycleAction(makeApplicableAction(gameData)));
+		}
 
 	}
 
@@ -93,4 +96,29 @@ public class AirlockPanel extends ElectricalMachinery {
 		return airLock.hasPressure();
 	}
 
+	private class MoveIntoAndCycleAction extends Action {
+		private final Action innerAction;
+
+		public MoveIntoAndCycleAction(Action action) {
+			super("Move Into and " + action.getName(), SensoryLevel.OPERATE_DEVICE);
+			this.innerAction = action;
+		}
+
+		@Override
+		protected String getVerb(Actor whosAsking) {
+			return "moved into the airlock";
+		}
+
+		@Override
+		protected void execute(GameData gameData, Actor performingClient) {
+			performingClient.moveIntoRoom(airLock);
+			performingClient.addTolastTurnInfo("You moved into the airlock.");
+			innerAction.doTheAction(gameData, performingClient);
+		}
+
+		@Override
+		protected void setArguments(List<String> args, Actor performingClient) {
+
+		}
+	}
 }
