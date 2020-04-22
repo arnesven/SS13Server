@@ -68,9 +68,11 @@ public class AIDownloadIntoBotAction extends Action {
         GameCharacter botChar = selectedBot.getCharacter();
         AITakenOverDecorator takenOver = new AITakenOverDecorator(selectedBot.getCharacter(),
                                         selectedBot.getMovementBehavior(), selectedBot.getActionBehavior(), selectedBot);
+
         selectedBot.setMoveBehavior(new StayBehavior());
         selectedBot.setActionBehavior(new DoNothingBehavior());
         selectedBot.setCharacter(performingClient.getCharacter());
+
         performingClient.setCharacter(takenOver);
         performingClient.addTolastTurnInfo("You downloaded into " + botChar.getBaseName() + ".");
 

@@ -1,5 +1,6 @@
 package model.actions.itemactions;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Target;
@@ -39,5 +40,10 @@ public class RepairAction extends TargetingAction {
 	@Override
 	protected String getVerb(Actor whosAsking) {
 		return "tinkered with " + target.getName();
+	}
+
+	@Override
+	public Sprite getAbilitySprite() {
+		return new Tools().getSprite(null);
 	}
 }

@@ -1,5 +1,6 @@
 package model.characters.decorators;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -77,13 +78,13 @@ public class AITakenOverDecorator extends CharacterDecorator {
                     } catch (NoSuchThingException e) {
                         e.printStackTrace();
                     }
-                    oldNpc.setActionBehavior(oldAct);
-                    oldNpc.setMoveBehavior(oldMov);
 
                     GameCharacter aiChar = oldNpc.getCharacter();
+                    performingClient.removeInstance(((GameCharacter gc) -> gc == AITakenOverDecorator.this));
 
+                    oldNpc.setActionBehavior(oldAct);
+                    oldNpc.setMoveBehavior(oldMov);
                     oldNpc.setCharacter(performingClient.getCharacter());
-                    performingClient.removeInstance(((GameCharacter gc) -> gc instanceof AITakenOverDecorator));
 
                     performingClient.setCharacter(aiChar);
                     performingClient.addTolastTurnInfo("You uploaded into the mainframe.");
@@ -93,6 +94,11 @@ public class AITakenOverDecorator extends CharacterDecorator {
                 @Override
                 public void setArguments(List<String> args, Actor performingClient) {
 
+                }
+
+                @Override
+                public Sprite getAbilitySprite() {
+                    return new Sprite("uploadability", "interface_robot.png", 2, 7, null);
                 }
             });
         }

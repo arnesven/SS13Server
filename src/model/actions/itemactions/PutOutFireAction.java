@@ -1,5 +1,6 @@
 package model.actions.itemactions;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -86,5 +87,10 @@ public class PutOutFireAction extends Action {
     @Override
     public Sound getRealSound() {
         return new Sound("http://www.ida.liu.se/~erini02/ss13/spray.ogg");
+    }
+
+    @Override
+    public Sprite getAbilitySprite() {
+        return fireExtinguisher.getSprite(null);
     }
 }
