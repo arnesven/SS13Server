@@ -4,18 +4,16 @@ import model.GameData;
 import model.Player;
 import model.actions.objectactions.AirlockOverrideAction;
 import model.actions.objectactions.ApproveVentStation;
-import model.map.rooms.AirLockRoom;
 import model.map.rooms.Room;
-import model.objects.consoles.AirLockControl;
+import model.objects.consoles.AirLockConsole;
 import model.objects.consoles.Console;
 import util.HTMLText;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class AirLockControlFancyFrame extends ConsoleFancyFrame {
-    private final AirLockControl airLockControl;
+    private final AirLockConsole airLockControl;
     private final AirlockOverrideAction airlockAction;
     private String selected = "";
     private boolean showVenting = false;
@@ -23,7 +21,7 @@ public class AirLockControlFancyFrame extends ConsoleFancyFrame {
 
     public AirLockControlFancyFrame(Player pl, Console console, GameData gameData, String bgColor, String fgColor) {
         super(pl.getFancyFrame(), console, gameData, bgColor, fgColor);
-        this.airLockControl = (AirLockControl)console;
+        this.airLockControl = (AirLockConsole)console;
         airlockAction = new AirlockOverrideAction(gameData);
         concreteRebuild(gameData, pl);
     }
@@ -61,9 +59,9 @@ public class AirLockControlFancyFrame extends ConsoleFancyFrame {
         content.append("________________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE VENTING", "[venting]"));
         content.append("<br/><br/><b>Airlocks:</b><br/>");
         int i = 0;
-        for (Room al : airlockAction.getRooms()) {
+        for (Room al : airlockAction.getKnownAirlocks()) {
             String command = "Depressurize";
-            if (airlockAction.getPanels().get(i).getPressure()) {
+            if (airlockAction.getKnownAirlocks().get(i).hasPressure()) {
                 command = "Pressurize";
             }
             String selectedColor = "blue";

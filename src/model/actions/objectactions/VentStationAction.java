@@ -7,13 +7,11 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
 import model.events.NoPressureEvent;
-import model.events.NoPressureEverEvent;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
 import model.map.rooms.Room;
 import model.objects.consoles.AIConsole;
-import model.objects.consoles.AirLockControl;
-import model.objects.general.GameObject;
+import model.objects.consoles.AirLockConsole;
 import util.Logger;
 
 import java.util.*;
@@ -38,7 +36,7 @@ public class VentStationAction extends ConsoleAction {
     protected void execute(GameData gameData, Actor performingClient) {
 
         try {
-            AirLockControl alc = gameData.findObjectOfType(AirLockControl.class);
+            AirLockConsole alc = gameData.findObjectOfType(AirLockConsole.class);
             if (alc.getVentApprovedRound() != gameData.getRound()) {
                 performingClient.addTolastTurnInfo("Venting of station was not approved. " + Action.FAILED_STRING);
                 return;

@@ -10,6 +10,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.map.rooms.AirLockRoom;
+import model.map.rooms.Room;
 import model.map.rooms.SpaceRoom;
 
 public class AirlockPanel extends ElectricalMachinery {
@@ -21,8 +22,8 @@ public class AirlockPanel extends ElectricalMachinery {
 		this.airLock = roomRef;
 	}
 
-	public AirlockPanel(AirLockRoom airLock, SpaceRoom space) {
-		super("Airlock Control", space);
+	public AirlockPanel(AirLockRoom airLock, Room otherRoom) {
+		super("Airlock Control", otherRoom);
 		this.airLock = airLock;
 	}
 

@@ -53,6 +53,12 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(airLock1, ss13, "aft");
         gm.addRoom(airLock1, ss13, "starboard");
 
+        {
+            AirlockPanel ap = new AirlockPanel(airLock1, aftWalk);
+            ap.setAbsolutePosition(3.0, 11.0);
+            aftWalk.addObject(ap);
+        }
+
         KitchenRoom kitch = new KitchenRoom(gameData, 8,  4, 10, 2, 3, new int[]{6, 9, 10}  ,
                 new Door[]{new NormalDoor(6.0, 11.5, 8, 10),
                         new NormalDoor(5.5, 10.0, 8, 9)} );
@@ -146,6 +152,13 @@ public class DonutSS13Builder extends MapBuilder {
                 new AirLockDoor(13.5, 2.0, 21, 30)} );
         gm.addRoom(airLock2, ss13, "port");
         gm.addRoom(airLock2, ss13, "front");
+
+        {
+            AirlockPanel ap = new AirlockPanel(airLock2, gate);
+            ap.setAbsolutePosition(13.0, 2.0);
+            gate.addObject(ap);
+        }
+
         Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{}        ,         new Door[]{});
         army.setDoors(new Door[]{new LockedDoor(11.0, 4.0, 22, 19)});
 
@@ -160,6 +173,13 @@ public class DonutSS13Builder extends MapBuilder {
                 new Door[]{new FullyOpenAirLockDoor(6.0, 0.5, 25, 24),
                         new AirLockDoor(5.0, 0.5, 25, 30),
                         new AirLockDoor(5.5, 0.0, 25, 30)});
+
+        {
+            AirlockPanel ap = new AirlockPanel(airLock3, sickbay);
+            ap.setAbsolutePosition(6.0, 1.0);
+            sickbay.addObject(ap);
+        }
+
         gm.addRoom(airLock3, ss13, "port");
 
         gm.addRoom(new GeneratorRoom(26, 6,  5, 3, 3, new int[]{5}         ,         new Door[]{}, gameData ), ss13, "center");

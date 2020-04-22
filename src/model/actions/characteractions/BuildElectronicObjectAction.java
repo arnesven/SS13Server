@@ -8,7 +8,6 @@ import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.items.general.ElectronicParts;
 import model.items.general.GameItem;
-import model.map.rooms.Room;
 import model.objects.ai.AITurret;
 import model.objects.ai.SecurityCamera;
 import model.objects.general.ATM;
@@ -79,7 +78,7 @@ public class BuildElectronicObjectAction extends Action {
     public Collection<GameObject> getBuildableObjects(GameData gameData, Actor performer) {
         Set<GameObject> set = new HashSet<>();
         set.add(new XeroxMachine(null));
-        set.add(new AirLockControl(null));
+        set.add(new AirLockConsole(null));
         set.add(new GeneticsConsole(null));
         set.add(new SecurityCameraConsole(null));
         set.add(new BioScanner(null));

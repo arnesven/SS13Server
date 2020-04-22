@@ -41,7 +41,7 @@ public class AirLockRoom extends StationRoom {
 		return "WallsNoWindows-Space";
 	}
 
-	public void cycle(GameData gameData, Actor performingClient) {
+	private void cycle(GameData gameData, Actor performingClient) {
 		for (Door d : getDoors()) {
 			if (d instanceof AirLockDoor) {
 				((AirLockDoor) d).cycle(gameData, performingClient);
@@ -50,6 +50,9 @@ public class AirLockRoom extends StationRoom {
 	}
 
 	public void pressurize(GameData gameData, Actor performingClient) {
+		if (hasPressure) {
+			return;
+		}
 		this.hasPressure = true;
 		if (noPressureEvent != null) {
 			removeEvent(noPressureEvent);
@@ -76,6 +79,9 @@ public class AirLockRoom extends StationRoom {
 	}
 
 	public void depressurize(GameData gameData, Actor performingClient) {
+		if (!hasPressure) {
+			return;
+		}
 		hasPressure = false;
 		noPressureEvent = new NoPressureEvent(this, performingClient, true);
 		gameData.addEvent(noPressureEvent);

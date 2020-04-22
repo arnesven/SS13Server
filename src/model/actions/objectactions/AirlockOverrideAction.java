@@ -5,33 +5,25 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
-import model.PlayerSettings;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.map.GameMap;
 import model.map.rooms.AirLockRoom;
 import model.map.rooms.Room;
-import model.objects.general.GameObject;
 import model.objects.general.AirlockPanel;
 import util.Logger;
 
 public class AirlockOverrideAction extends ConsoleAction {
 
-	private List<Room> rooms = new ArrayList<>();
-	private List<AirlockPanel> panels = new ArrayList<>();
-	private AirlockPanel selected;
+	private List<AirLockRoom> knownAirlocks = new ArrayList<>();
+	private AirLockRoom selected;
 	
 	
 	public AirlockOverrideAction(GameData gameData) {
 		super("Airlock Override", SensoryLevel.OPERATE_DEVICE);
-        //Logger.log("Created airlock override action");
-		for (Room r : gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME)) {
-			for (GameObject ob : r.getObjects()) {
-				if (ob instanceof AirlockPanel) {
-					rooms.add(r);
-					panels.add((AirlockPanel)ob);
-                    //Logger.log("   found an airlock panel in" + r.getName());
-				}
+     	for (Room r : gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME)) {
+			if (r instanceof AirLockRoom) {
+				knownAirlocks.add((AirLockRoom) r);
 			}
 		}
 	}
@@ -40,9 +32,9 @@ public class AirlockOverrideAction extends ConsoleAction {
 	@Override
 	public void setArguments(List<String> args, Actor p) {
 	    Logger.log("Setting args: " + args.toString());
-		for (int i = 0 ; i < rooms.size() ; ++i) {
-			if (args.get(0).contains(rooms.get(i).getName())) {
-				selected = panels.get(i);
+		for (int i = 0 ; i < knownAirlocks.size() ; ++i) {
+			if (args.get(0).contains(knownAirlocks.get(i).getName())) {
+				selected = knownAirlocks.get(i);
 			}
 		}
 	}
@@ -50,11 +42,11 @@ public class AirlockOverrideAction extends ConsoleAction {
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption res = new ActionOption("Airlock Override");
-		for (int i = 0; i < rooms.size() ; ++i) {
-			if (panels.get(i).getPressure()) {
-				res.addOption("Depressurize " + rooms.get(i).getName());
+		for (int i = 0; i < knownAirlocks.size() ; ++i) {
+			if (knownAirlocks.get(i).hasPressure()) {
+				res.addOption("Depressurize " + knownAirlocks.get(i).getName());
 			} else {
-				res.addOption("Pressurize " + rooms.get(i).getName());
+				res.addOption("Pressurize " + knownAirlocks.get(i).getName());
 			}
 		}
 		return res;
@@ -62,7 +54,11 @@ public class AirlockOverrideAction extends ConsoleAction {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		selected.makeApplicableAction(gameData).doTheAction(gameData, performingClient);
+		if (selected.hasPressure()) {
+			selected.depressurize(gameData, performingClient);
+		} else {
+			selected.pressurize(gameData, performingClient);
+		}
 	}
 
     @Override
@@ -75,11 +71,7 @@ public class AirlockOverrideAction extends ConsoleAction {
         return true;
     }
 
-	public List<Room> getRooms() {
-		return rooms;
-	}
-
-	public List<AirlockPanel> getPanels() {
-		return panels;
+	public List<AirLockRoom> getKnownAirlocks() {
+		return knownAirlocks;
 	}
 }

@@ -2,9 +2,8 @@ package model.actions.objectactions;
 
 import model.Actor;
 import model.GameData;
-import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
-import model.objects.consoles.AirLockControl;
+import model.objects.consoles.AirLockConsole;
 
 import java.util.List;
 
@@ -12,9 +11,9 @@ import java.util.List;
  * Created by erini02 on 09/09/17.
  */
 public class ApproveVentStation extends ConsoleAction {
-    private final AirLockControl airlockControl;
+    private final AirLockConsole airlockControl;
 
-    public ApproveVentStation(AirLockControl airLockControl) {
+    public ApproveVentStation(AirLockConsole airLockControl) {
         super("Approve Venting", SensoryLevel.OPERATE_DEVICE);
         this.airlockControl = airLockControl;
     }

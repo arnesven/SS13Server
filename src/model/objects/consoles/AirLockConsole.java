@@ -16,11 +16,11 @@ import model.map.rooms.AirLockRoom;
 import model.map.rooms.Room;
 import model.actions.objectactions.AirlockOverrideAction;
 
-public class AirLockControl extends Console {
+public class AirLockConsole extends Console {
 
     private int ventApprovedRound;
 
-    public AirLockControl(Room pos) {
+    public AirLockConsole(Room pos) {
 		super("Airlock Override", pos);
         ventApprovedRound = 0;
 	}
