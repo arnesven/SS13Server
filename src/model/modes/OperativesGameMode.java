@@ -194,7 +194,7 @@ public class OperativesGameMode extends GameMode {
 			data.append("Other decoys are " + decoyStr.toString());
 		}
 
-		c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Important!", HTMLText.makeColoredBackground("Red", data.toString())));
+		c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Secret Role!", HTMLText.makeColoredBackground("Red", data.toString())));
 	}
 
 	@Override

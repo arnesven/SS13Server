@@ -188,7 +188,7 @@ public class ChangelingGameMode extends GameMode {
 	@Override
 	protected void addAntagonistStartingMessage(Player c) {
 		//c.addTolastTurnInfo(HTMLText.makeText("purple", "verdana", 3,
-		c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Important!",  HTMLText.makeColoredBackground("purple",
+		c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Secret Role!",  HTMLText.makeColoredBackground("purple",
 				HTMLText.makeCentered(HTMLText.makeText("Aqua",
 				"<br/><b>You are a " + HTMLText.makeLink(HTMLText.wikiURL + "/changelingmode", "changeling!</b><br/><br/>") +
 						HTMLText.makeImage(ling.getSprite(null)) + "<br/>" +

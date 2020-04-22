@@ -591,7 +591,7 @@ public class TraitorGameMode extends GameMode {
 	}
 
 	public void setAntagonistFancyFrame(Player c) {
-		c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Important!", HTMLText.makeColoredBackground("Yellow", HTMLText.makeCentered("<br/><br/><b>" +
+		c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Secret Role!", HTMLText.makeColoredBackground("Yellow", HTMLText.makeCentered("<br/><br/><b>" +
 				HTMLText.makeText("Red", TRAITOR_START_STRING) + "</b><br/>" + HTMLText.makeImage(new PDA(this).getSprite(null)) + "<br/>" + getObjectiveText(c) + "<br/>" + "<i>You can access this dialog again by using your PDA.</i>") + "<br/>" +
 				HTMLText.makeFancyFrameLink("DISMISS", "(dismiss)"))));
 	}
