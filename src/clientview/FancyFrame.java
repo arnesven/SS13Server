@@ -1,11 +1,7 @@
 package clientview;
 
-import clientcomm.MyCallback;
-import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientlogic.Observer;
-import clientview.components.FancyFrameHtmlPane;
-import model.items.general.GameItem;
 
 import javax.swing.*;
 import java.awt.*;

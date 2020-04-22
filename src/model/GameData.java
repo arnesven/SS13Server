@@ -442,10 +442,17 @@ public class GameData implements Serializable {
         this.runningEvents = false;
 		gameMode.setup(this);
 		copyCharacterStyles();
+		characterCreationSetup();
 		Logger.log("Game mode set-upped!");
 	    computerSystem.setUpGame(this);
 		Logger.log("Computer System setupped.");
         getChat().serverSay("New game started, mode: " + selectedMode);
+	}
+
+	private void characterCreationSetup() {
+		for (Player p : players.values()) {
+			p.getCharacterCreation().doAtGameStart(this, p);
+		}
 	}
 
 	private void copyCharacterStyles() {

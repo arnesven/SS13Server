@@ -14,10 +14,8 @@ import util.MyStrings;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by erini02 on 26/04/16.
@@ -329,4 +327,6 @@ public class PhysicalBody implements SpriteObject, Serializable {
     public double getAbsoluteY() {
         return 0;
     }
+
+
 }

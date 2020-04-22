@@ -1,5 +1,7 @@
 package clientlogic;
 
+import clientview.components.MyHtmlPane;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ public class CharacterStyle {
     private int selectedHair;
     private int selectedFacial;
     private boolean selectedGender;
+    private String charCreationHTML;
 
     public void parseStyleData(String result) {
         System.out.println(result);
@@ -60,6 +63,7 @@ public class CharacterStyle {
         scanner.skip("b");
         blue = scanner.nextInt();
         facialColor = new Color(red, green, blue);
+        charCreationHTML = GameData.getInstance().decodeBase64Images(parts[3]);
 
 
     }
@@ -118,5 +122,9 @@ public class CharacterStyle {
 
     public void setSelectedFacialHairColor(Color col) {
         facialColor = col;
+    }
+
+    public String getCharCreationHTML() {
+        return charCreationHTML;
     }
 }

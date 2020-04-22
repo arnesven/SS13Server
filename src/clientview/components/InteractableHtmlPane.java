@@ -10,7 +10,15 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-public class FancyFrameHtmlPane extends MyHtmlPane {
+public class InteractableHtmlPane extends MyHtmlPane {
+
+    private final String command;
+    private final MyCallback callback;
+
+    public InteractableHtmlPane(String command, MyCallback callback) {
+        this.command = command;
+        this.callback = callback;
+    }
 
     @Override
     protected void handleHyperLinkEvent(HyperlinkEvent e) {
@@ -18,17 +26,7 @@ public class FancyFrameHtmlPane extends MyHtmlPane {
             URL url = e.getURL();
             if (url.toString().contains("EVENT")) {
                 String command = url.toString().replace("https://EVENT.", "");
-                ServerCommunicator.send(GameData.getInstance().getClid() + " FANCYFRAME EVENT " + command, new MyCallback() {
-                    @Override
-                    public void onSuccess(String result) {
-                        GameData.getInstance().deconstructFancyFrameData(result);
-                    }
-
-                    @Override
-                    public void onFail() {
-                        System.out.println("Client: Failed during FANCYFRAME EVENT");
-                    }
-                });
+                ServerCommunicator.send(GameData.getInstance().getClid() + " " + this.command + " EVENT " + command, callback);
             } else {
                super.handleHyperLinkEvent(e);
             }

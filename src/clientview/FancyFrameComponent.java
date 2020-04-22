@@ -4,7 +4,7 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientlogic.Observer;
-import clientview.components.FancyFrameHtmlPane;
+import clientview.components.InteractableHtmlPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,14 +15,24 @@ import java.awt.event.MouseEvent;
 
 public class FancyFrameComponent extends JComponent implements Observer {
 
-    private final FancyFrameHtmlPane jed;
+    private final InteractableHtmlPane jed;
     private JTextField inputField;
     private String oldcontent = "";
 
 
     public FancyFrameComponent() {
         this.setLayout(new BorderLayout());
-        this.jed = new FancyFrameHtmlPane();
+        this.jed = new InteractableHtmlPane("FANCYFRAME", new MyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                GameData.getInstance().deconstructFancyFrameData(result);
+            }
+
+            @Override
+            public void onFail() {
+                System.out.println("Client: Failed during FANCYFRAME EVENT");
+            }
+        });
         jed.setMargin(new Insets(0,0,0,0));
         this.add(new JScrollPane(jed));
         inputField = new JTextField();

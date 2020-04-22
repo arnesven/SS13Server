@@ -1,6 +1,7 @@
 package comm;
 
 import graphics.sprites.PhysicalBody;
+import model.CharacterCreation;
 import model.GameData;
 
 import java.awt.*;
@@ -17,7 +18,8 @@ public class StyleCommandHandler extends AbstractCommandHandler {
     public boolean handleCommand(String command, String clid, String rest, ObjectOutputStream oos) throws IOException {
         if (command.equals("STYLE")) {
             if (rest.contains("LOAD")) {
-                oos.writeObject(gameData.getPlayerForClid(clid).getStylePreviewName() + "<style-delim>" + PhysicalBody.getContentAsStrings());
+                oos.writeObject(gameData.getPlayerForClid(clid).getStylePreviewName() + "<style-delim>" +
+                        PhysicalBody.getContentAsStrings() + "<style-delim>" + gameData.getPlayerForClid(clid).getCharacterCreation().getHTML());
             } else if (rest.contains("SET")) {
                 if (rest.contains("HAIR")) {
                     String num = rest.replace("SET HAIR", "");
@@ -39,6 +41,10 @@ public class StyleCommandHandler extends AbstractCommandHandler {
                     gameData.getPlayerForClid(clid).getStyleBody().setGender(!stripped.contains("WOMAN"));
                 }
                 oos.writeObject(gameData.getPlayerForClid(clid).getStylePreviewName());
+            } else if (rest.contains("EVENT")) {
+                gameData.getPlayerForClid(clid).getCharacterCreation().update(rest.replace(" EVENT ", ""), gameData);
+                oos.writeObject(gameData.getPlayerForClid(clid).getStylePreviewName() + "<style-delim>" +
+                        PhysicalBody.getContentAsStrings() + "<style-delim>" + gameData.getPlayerForClid(clid).getCharacterCreation().getHTML());
             }
             return true;
         }

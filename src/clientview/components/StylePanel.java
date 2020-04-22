@@ -4,6 +4,7 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.Cookies;
 import clientlogic.GameData;
+import clientlogic.Observer;
 import main.SS13Client;
 import model.items.general.GameItem;
 
@@ -18,6 +19,7 @@ public class StylePanel extends Box {
     private final SS13Client parent;
     private StyleDrawingArea previewArea;
     private boolean loaded;
+    private MyHtmlPane charCreationPanel;
 
     public StylePanel(String username, SS13Client parent) {
         super(BoxLayout.X_AXIS);
@@ -46,8 +48,26 @@ public class StylePanel extends Box {
             controlPanel.setAlignmentX(CENTER_ALIGNMENT);
             this.add(controlPanel, 0);
 
+            Box vBox = new Box(BoxLayout.Y_AXIS);
             this.previewArea = new StyleDrawingArea();
-            this.add(previewArea, 1);
+            vBox.add(previewArea);
+            this.charCreationPanel = new InteractableHtmlPane("STYLE", new MyCallback() {
+                @Override
+                public void onSuccess(String result) {
+                    GameData.getInstance().getStyle().parseStyleData(result);
+                    String newContent = GameData.getInstance().getStyle().getCharCreationHTML();
+                    System.out.println("CharCreation new content " + newContent);
+                    charCreationPanel.setText(newContent);
+                }
+
+                @Override
+                public void onFail() {
+                    System.out.println("Failed during STYLE EVENT");
+                }
+            });
+            charCreationPanel.setText(GameData.getInstance().getStyle().getCharCreationHTML());
+            vBox.add(charCreationPanel);
+            this.add(vBox, 1);
             parent.repaint();
             this.loaded = true;
         }

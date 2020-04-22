@@ -44,6 +44,7 @@ public class Player extends Actor implements Target, Serializable {
     private SoundQueue soundQueue = new SoundQueue(this);
     private ClientInfo clientInf0 = new ClientInfo();
     private PhysicalBody styleBody = new PhysicalBody();
+    private CharacterCreation charCreation = new CharacterCreation();
     private String selectedMovePower;
 	private FancyFrame fancyFrame;
 	private int dataState = 0;
@@ -727,4 +728,7 @@ public class Player extends Actor implements Target, Serializable {
 		this.dataState++;
 	}
 
+	public CharacterCreation getCharacterCreation() {
+		return charCreation;
+	}
 }
