@@ -7,8 +7,7 @@ import model.actions.general.Action;
 import model.actions.general.DoNothingAction;
 import model.actions.general.SensoryLevel;
 import model.fancyframe.ConsoleFancyFrame;
-import model.fancyframe.PowerGeneratorFancyFrame;
-import model.fancyframe.UsingConsoleFancyFrameDecorator;
+import model.fancyframe.UsingGameObjectFancyFrameDecorator;
 import model.objects.consoles.Console;
 
 import java.util.List;
@@ -39,7 +38,7 @@ public abstract class SitDownAtConsoleAction extends Action {
             console.setFancyFrameOccupied();
             ConsoleFancyFrame ff = getNewFancyFrame(console, gameData, (Player)performingClient);
             ((Player) performingClient).setFancyFrame(ff);
-            performingClient.setCharacter(new UsingConsoleFancyFrameDecorator(performingClient.getCharacter(), ff));
+            performingClient.setCharacter(new UsingGameObjectFancyFrameDecorator(performingClient.getCharacter(), ff));
             ((Player) performingClient).setNextAction(new DoNothingAction());
             ((Player) performingClient).refreshClientData();
         } else if (performingClient instanceof Player) {

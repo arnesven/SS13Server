@@ -34,8 +34,7 @@ public class LockedDoor extends ElectricalDoor {
 
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
         List<Action> at = super.getDoorActions(gameData, forWhom);
-        if (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) ||
-                forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
+        if (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) || forWhom.isAI()) {
             at.add(new UnLockDoorAction(this));
             at.add(new UnLockAndMoveThroughAction(this));
         }
@@ -72,7 +71,7 @@ public class LockedDoor extends ElectricalDoor {
     private NormalDoor makeIntoNormalDoor(Door targetDoor) {
         NormalDoor d = new NormalDoor(targetDoor.getX(), targetDoor.getY(), targetDoor.getFromId(), targetDoor.getToId());
         d.setDoorMechanism(getDoorMechanism());
-        d.getBreakableObject().setName(d.getName());
+        d.getDoorMechanism().setName(d.getName());
         return d;
     }
 

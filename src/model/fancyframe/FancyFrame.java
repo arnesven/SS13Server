@@ -34,7 +34,7 @@ public class FancyFrame implements Serializable {
     }
 
     protected void setData(String title, boolean hasInput, String html) {
-        data = title + "<part>" + (hasInput?"HAS INPUT":"NO INPUT") + "<part>" + html + "<part>" + width + ":" + height;
+        data = title + "<part>" + (hasInput ? "HAS INPUT" : "NO INPUT") + "<part>" + html + "<part>" + width + ":" + height;
         state++;
     }
 
@@ -76,4 +76,13 @@ public class FancyFrame implements Serializable {
             e.printStackTrace();
         }
     }
+
+    public void rebuildInterface(GameData gameData, Player player) { }
+
+    public void doAtEndOfTurn(GameData gameData, Player actor) { }
+
+    public void leaveFancyFrame(GameData gameData, Player pl) {
+        pl.setFancyFrame(new FancyFrame(this));
+    }
+
 }

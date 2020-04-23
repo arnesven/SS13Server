@@ -9,8 +9,8 @@ import model.map.doors.ElectricalDoor;
 public class RepairDoorAction extends RepairAction {
     public RepairDoorAction(GameData gameData, Actor forWhom, ElectricalDoor d) {
         super(forWhom);
-        setName("Repair " + d.getName());
-        addTarget(d.getBreakableObject());
-        stripAllTargetsBut(d.getBreakableObject());
+        setName("Repair");
+        addTarget(d.getDoorMechanism());
+        stripAllTargetsBut(d.getDoorMechanism());
     }
 }

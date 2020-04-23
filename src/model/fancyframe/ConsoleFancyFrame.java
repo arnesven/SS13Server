@@ -46,9 +46,6 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
         }
     }
 
-    public void leaveFancyFrame(GameData gameData, Player pl) {
-        pl.setFancyFrame(new FancyFrame(this));
-    }
 
     @Override
     protected void beingDisposed() {
@@ -137,7 +134,6 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
                         "Courier", 4, totalOutput.toString())));
     }
 
-    public void doAtEndOfTurn(GameData gameData, Player actor) { }
 
     protected void greekify(StringBuilder content, String text, String whoItMakesSenseFor) {
         StringBuilder greek = new StringBuilder();

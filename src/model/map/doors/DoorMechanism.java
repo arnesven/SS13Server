@@ -12,14 +12,16 @@ import util.Logger;
 
 import java.util.ArrayList;
 
-class DoorMechanism extends ElectricalMachinery {
+public class DoorMechanism extends ElectricalMachinery {
 
     private ElectricalDoor electricalDoor;
+    private boolean ffVacant;
 
     public DoorMechanism(ElectricalDoor electricalDoor) {
         super(electricalDoor.getName(), null);
         this.electricalDoor = electricalDoor;
         setPowerPriority(1);
+        ffVacant = true;
     }
 
     @Override
@@ -53,13 +55,23 @@ class DoorMechanism extends ElectricalMachinery {
 
     @Override
     public void onPowerOff(GameData gameData) {
-        //try {
-            //unlockRooms(gameData.getRoomForId(getFromId()), gameData.getRoomForId(getToId()));
-            //gameData.findObjectOfType(AIConsole.class).informOnStation("Attention, " + getName() + " unlocked because of power failure!", gameData);
-        //} catch (NoSuchThingException e) {
-        //    e.printStackTrace();
-        //}
+        try {
+            electricalDoor.goUnpowered(gameData.getRoomForId(electricalDoor.getFromId()), gameData.getRoomForId(electricalDoor.getToId()));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+    }
 
-        //Logger.log(Logger.INTERESTING, " room unlocked because of power failure!");
+    public boolean isFancyFrameVacant() {
+        return ffVacant;
+
+    }
+
+    public void setFancyFrameOccupied() {
+        ffVacant = false;
+    }
+
+    public void setFancyFrameVacant() {
+        ffVacant = true;
     }
 }

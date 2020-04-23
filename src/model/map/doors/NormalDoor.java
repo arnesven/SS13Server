@@ -16,7 +16,6 @@ import java.util.List;
 
 public class NormalDoor extends ElectricalDoor {
 
-    public static final Sprite UNPOWERED_DOOR = new Sprite("unpowereddoor", "doors.png", 11, 17, null);
     private static final Sprite NORMAL_DOOR = new Sprite("normaldoor", "doors.png", 6, 18, null);
 
 
@@ -32,12 +31,8 @@ public class NormalDoor extends ElectricalDoor {
         }
         if (isBroken()) {
             return new Sprite("brokennormaldoor", "doors.png", 0, 19, null);
-        } if (getDoorMechanism() == null) {
-            return UNPOWERED_DOOR;
-        } else if (!getDoorMechanism().isPowered()) {
-            return NORMAL_DOOR;
         }
-        return UNPOWERED_DOOR;
+        return NORMAL_DOOR;
     }
 
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {

@@ -464,14 +464,14 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		}
 		for (Door d : doors) {
 			if (d instanceof ElectricalDoor) {
-				brobjs.add(((ElectricalDoor)d).getBreakableObject());
+				brobjs.add(((ElectricalDoor)d).getDoorMechanism());
 			}
 		}
 		for (Room r : gameData.getMap().getAllRoomsOnSameLevel(this)) {
 			for (Door d : r.getDoors()) {
 				if (d.getToId() == getID()) {
 					if (d instanceof ElectricalDoor) {
-						brobjs.add(((ElectricalDoor)d).getBreakableObject());
+						brobjs.add(((ElectricalDoor)d).getDoorMechanism());
 					}
 				}
 			}

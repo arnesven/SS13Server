@@ -11,6 +11,7 @@ import model.actions.general.ActionGroup;
 import model.actions.roomactions.LockDoorAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
+import model.events.animation.AnimatedSprite;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
@@ -97,7 +98,7 @@ public abstract class Door implements Serializable, SpriteObject {
     }
 
     protected Sprite getFogOfWarSprite() {
-        return NormalDoor.UNPOWERED_DOOR;
+        return UnpoweredDoor.UNPOWERED_DOOR;
     }
 
     private boolean isVisibleFor(GameData gameData, Player forWhom) {
@@ -178,5 +179,14 @@ public abstract class Door implements Serializable, SpriteObject {
 
     public boolean isAnimating() {
         return isAnimating;
+    }
+
+    public Sprite getFireDoorOpenAnimatedSprite() {
+        List<Sprite> sps = new ArrayList<>();
+        sps.add(new Sprite("doorblank", "doors.png", 11, 19, null));
+        sps.add(getSprite());
+        sps.add(new AnimatedSprite("openingfiredoor", "doors.png",
+                14, 9, 32, 32, null, 7, false));
+        return new AnimatedSprite("openingfiredoorani", sps, 7, false);
     }
 }

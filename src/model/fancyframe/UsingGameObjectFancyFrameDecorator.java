@@ -6,11 +6,11 @@ import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.map.rooms.Room;
 
-public class UsingConsoleFancyFrameDecorator extends CharacterDecorator {
+public class UsingGameObjectFancyFrameDecorator extends CharacterDecorator {
     private final Room originalPos;
-    private final ConsoleFancyFrame fancyFrame;
+    private final FancyFrame fancyFrame;
 
-    public UsingConsoleFancyFrameDecorator(GameCharacter character, ConsoleFancyFrame ff) {
+    public UsingGameObjectFancyFrameDecorator(GameCharacter character, FancyFrame ff) {
         super(character, "Using Fancy Frame");
         originalPos = character.getPosition();
         this.fancyFrame = ff;

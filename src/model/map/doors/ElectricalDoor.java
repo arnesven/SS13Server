@@ -60,7 +60,7 @@ public abstract class ElectricalDoor extends Door {
         if (doorMechanism == null) {
             return false;
         }
-        return getBreakableObject().getHealth() < getBreakableObject().getMaxHealth();
+        return doorMechanism.getHealth() < doorMechanism.getMaxHealth();
     }
 
     public boolean isBroken() {
@@ -96,12 +96,7 @@ public abstract class ElectricalDoor extends Door {
 
     }
 
-
-    public BreakableObject getBreakableObject() {
-        return doorMechanism;
-    }
-
-    protected void setDoorMechanism(DoorMechanism dm) {
+    public void setDoorMechanism(DoorMechanism dm) {
         this.doorMechanism = dm;
     }
 
@@ -139,4 +134,26 @@ public abstract class ElectricalDoor extends Door {
     }
 
 
+    public void goUnpowered(Room from, Room to) {
+        GameMap.separateRooms(to, from);
+        unpowerDoor(to);
+        unpowerDoor(from);
+    }
+
+    private void unpowerDoor(Room room) {
+        for (int i = 0; i < room.getDoors().length; ++i) {
+            if (room.getDoors()[i] == this) {
+                Door newDoor = makeIntoUnpoweredDoor();
+                room.getDoors()[i] = newDoor;
+                return;
+            }
+        }
+    }
+
+    private UnpoweredDoor makeIntoUnpoweredDoor() {
+        UnpoweredDoor d = new UnpoweredDoor(getX(), getY(), getFromId(), getToId());
+        d.setDoorMechanism(getDoorMechanism());
+        d.getDoorMechanism().setName(d.getName());
+        return d;
+    }
 }
