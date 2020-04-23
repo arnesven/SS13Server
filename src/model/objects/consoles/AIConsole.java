@@ -1,6 +1,5 @@
 package model.objects.consoles;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,18 +9,16 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.RemoteAccessAction;
 import model.actions.ai.*;
-import model.actions.general.SensoryLevel;
 import model.actions.objectactions.AIConsoleAction;
 import model.actions.general.Action;
 import model.actions.objectactions.AIRemoteAccessAction;
+import model.actions.objectactions.SitDownAtNPCAIConsoleAction;
 import model.characters.general.AIDownloadIntoBotAction;
 import model.characters.general.GameCharacter;
 import model.characters.general.HorrorCharacter;
 import model.characters.general.ParasiteCharacter;
 import model.items.NoSuchThingException;
-import model.items.general.GameItem;
 import model.items.laws.AIAbility;
 import model.items.laws.AILaw;
 import model.map.rooms.Room;
@@ -131,6 +128,12 @@ public class AIConsole extends Console {
                 at.add(new AIConsoleAction(this));
             }
         }
+        if (!AIIsPlayer()) {
+            if (cl instanceof Player) {
+                at.add(new SitDownAtNPCAIConsoleAction(gameData, this));
+            }
+        }
+
         if (cl.getCharacter().isCrew() && AIIsPlayer()) {
             at.add(new AILawAction(this));
         }

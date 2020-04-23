@@ -17,6 +17,12 @@ public class HTMLText {
         return "<font color=\"" + color + "\" face=\"" + font + "\" size=\"" + size + "\">" + s + "</font>";
     }
 
+
+    public static String makeText(String fgColor, String bgColor, String s) {
+        return "<font color=\"" + fgColor + "\" style=\"background-color:" + bgColor + "\">" + s + "</font>";
+    }
+
+
     public static String makeText(String fgcolor, String bgcolor, String font, int size, String s) {
         return "<font color=\"" + fgcolor + "\" face=\"" + font + "\" size=\"" +
                 size + "\" style=\"background-color:" + bgcolor + "\">" + s + "</font>";
