@@ -23,7 +23,7 @@ public class LockDoorAction extends Action {
     private final NormalDoor door;
 
     public LockDoorAction(NormalDoor normalDoor) {
-        super("Lock " + normalDoor.getName(), SensoryLevel.OPERATE_DEVICE);
+        super("Lock", SensoryLevel.OPERATE_DEVICE);
         this.door = normalDoor;
     }
 

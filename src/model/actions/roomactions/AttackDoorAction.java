@@ -7,7 +7,7 @@ import model.map.doors.Door;
 public class AttackDoorAction extends AttackAction {
     public AttackDoorAction(Actor forWhom, Door d) {
         super(forWhom);
-        setName("Attack " + d.getName());
+        setName("Attack");
     }
 
     @Override

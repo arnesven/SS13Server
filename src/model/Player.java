@@ -300,7 +300,7 @@ public class Player extends Actor implements Target, Serializable {
 			if (a.getName().equals(args.get(0))) {
                 while (a instanceof ActionGroup) {
                     for (Action a2 : ((ActionGroup)a).getActions()) {
-					//	Logger.log("Parsing for " +  a2.getName() + ", strings is: " + args.toString());
+						Logger.log("Parsing for " +  a2.getName() + ", strings is: " + args.toString());
 						if (a2.getName().equals(args.get(1))) {
                             a = a2;
 							args = args.subList(1, args.size());

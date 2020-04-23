@@ -7,6 +7,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.general.ActionGroup;
 import model.actions.roomactions.LockDoorAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
@@ -66,15 +67,22 @@ public abstract class Door implements Serializable, SpriteObject {
         return Action.makeActionListStringSpecOptions(gameData, getNearbyDoorActions(gameData, forWhom), (Player)forWhom);
     }
 
-    private List<Action> getNearbyDoorActions(GameData gameData, Actor forWhom) {
+    public List<Action> getNearbyDoorActions(GameData gameData, Actor forWhom) {
         if (getToId() == forWhom.getPosition().getID() || getFromId() == forWhom.getPosition().getID() ||
                 forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
-            return getDoorActions(gameData, forWhom);
+            List<Action> actions = new ArrayList<>();
+            ActionGroup ag = new ActionGroup(this.getName());
+            List<Action> acts = getDoorActions(gameData, forWhom);
+            if (acts.size() > 0) {
+                ag.addAll(acts);
+            }
+            actions.add(ag);
+            return actions;
         }
         return new ArrayList<>();
     }
 
-    public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
+    protected List<Action> getDoorActions(GameData gameData, Actor forWhom) {
         List<Action> at = new ArrayList<>();
         return at;
     }
@@ -100,7 +108,8 @@ public abstract class Door implements Serializable, SpriteObject {
         try {
             to = gameData.getRoomForId(toID);
             Room from = gameData.getRoomForId(fromID);
-            return forWhom.findMoveToAblePositions(gameData).contains(to) || forWhom.findMoveToAblePositions(gameData).contains(from);
+            return forWhom.findMoveToAblePositions(gameData).contains(to) || forWhom.findMoveToAblePositions(gameData).contains(from) ||
+                    to == forWhom.getPosition() || from == forWhom.getPosition();
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

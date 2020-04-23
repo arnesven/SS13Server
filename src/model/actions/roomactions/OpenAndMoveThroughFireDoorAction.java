@@ -13,7 +13,7 @@ public class OpenAndMoveThroughFireDoorAction extends OpenFireDoorAction {
 
     public OpenAndMoveThroughFireDoorAction(FireDoor fireDoor) {
         super(fireDoor);
-        this.setName("Open and Move Through " + fireDoor.getName());
+        this.setName("Open and Move Through");
         this.fireDoor = fireDoor;
     }
 

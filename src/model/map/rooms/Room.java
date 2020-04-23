@@ -334,13 +334,13 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
         ActionGroup doorsAG = new ActionGroup("Doors");
         for (Door d : doors) {
-		    doorsAG.addAll(d.getDoorActions(gameData, client));
+		    doorsAG.addAll(d.getNearbyDoorActions(gameData, client));
         }
 		try {
 			for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(this).getName())) {
 				for (Door d : r.getDoors()) {
 					if (d.getToId() == getID() || client.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
-						doorsAG.addAll(d.getDoorActions(gameData, client));
+						doorsAG.addAll(d.getNearbyDoorActions(gameData, client));
 					}
 				}
 			}

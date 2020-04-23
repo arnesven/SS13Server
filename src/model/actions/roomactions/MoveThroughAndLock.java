@@ -13,7 +13,7 @@ public class MoveThroughAndLock extends LockDoorAction {
 
     public MoveThroughAndLock(NormalDoor normalDoor) {
         super(normalDoor);
-        setName("Move Through and Lock " + normalDoor.getName());
+        setName("Move Through and Lock");
         this.door = normalDoor;
     }
 

@@ -21,7 +21,7 @@ public class CloseFireDoorAction extends Action {
     private FireDoor theFireDoor;
 
     public CloseFireDoorAction(ElectricalDoor electricalDoor) {
-        super("Close Fire Door " + electricalDoor.getNumber(), SensoryLevel.PHYSICAL_ACTIVITY);
+        super("Close Fire Door", SensoryLevel.PHYSICAL_ACTIVITY);
         this.door = electricalDoor;
     }
 

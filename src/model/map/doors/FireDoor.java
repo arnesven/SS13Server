@@ -16,6 +16,7 @@ import model.items.NoSuchThingException;
 import model.map.GameMap;
 import model.map.rooms.Room;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FireDoor extends Door {
@@ -89,4 +90,22 @@ public class FireDoor extends Door {
     }
 
 
+    public Sprite getAnimatedSprite() {
+        List<Sprite> sps = new ArrayList<>();
+        sps.add(new Sprite("doorblank", "doors.png", 11, 19, null));
+        sps.add(getInnerDoor().getSprite());
+        String suffix ="";
+        int extraFrame = 0;
+        if (getInnerDoor() instanceof LockedDoor) {
+            suffix = "locked";
+            extraFrame = 1;
+            sps.add(new AnimatedSprite("shuttingfiredoorlocked", "doors.png",
+                    14, 10, 32, 32, null, 7, false));
+        } else {
+            sps.add(new AnimatedSprite("shuttingfiredoor", "doors.png",
+                    12, 6, 32, 32, null, 6, false));
+        }
+        Sprite ani = new AnimatedSprite("shuttingfiredoorani" + suffix, sps, 6 + extraFrame, false);
+        return ani;
+    }
 }

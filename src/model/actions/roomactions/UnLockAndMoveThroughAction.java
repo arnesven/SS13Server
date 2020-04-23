@@ -11,7 +11,7 @@ public class UnLockAndMoveThroughAction extends UnLockDoorAction {
 
     public UnLockAndMoveThroughAction(LockedDoor lockedDoor) {
         super(lockedDoor);
-        setName("Unlock and Move Through " + lockedDoor.getName());
+        setName("Unlock and Move Through");
         this.door = lockedDoor;
     }
 

@@ -2,11 +2,13 @@ package model.map.doors;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.general.AttackAction;
 import model.actions.roomactions.AttackDoorAction;
 import model.actions.roomactions.CloseFireDoorAction;
 import model.actions.roomactions.RepairDoorAction;
+import model.actions.roomactions.ShowDoorHackingFancyFrameAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
@@ -71,12 +73,17 @@ public abstract class ElectricalDoor extends Door {
     @Override
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
         List<Action> at = super.getDoorActions(gameData, forWhom);
-        if (!forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
+        if (!forWhom.isAI()) {
             AttackAction act = new AttackDoorAction(forWhom, this);
             act.addTarget(doorMechanism);
             act.stripAllTargetsBut(doorMechanism);
             act.addClientsItemsToAction(forWhom);
             at.add(act);
+
+            if (forWhom instanceof Player) {
+                at.add(new ShowDoorHackingFancyFrameAction(gameData, forWhom, this));
+            }
+
         }
         if (GameItem.hasAnItemOfClass(forWhom, Tools.class) && isDamaged()) {
             at.add(new RepairDoorAction(gameData, forWhom, this));

@@ -21,7 +21,7 @@ public class UnLockDoorAction extends Action {
     private final LockedDoor door;
 
     public UnLockDoorAction(LockedDoor lockedDoor) {
-        super("Unlock " + lockedDoor.getName(), SensoryLevel.OPERATE_DEVICE);
+        super("Unlock", SensoryLevel.OPERATE_DEVICE);
         this.door = lockedDoor;
     }
 
