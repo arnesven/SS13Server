@@ -19,7 +19,10 @@ public class ElectricalDamage extends DamagerImpl {
 
     @Override
     public String getText() {
-        return "You got a severe electric shock!";
+        if (dam >= 1.0) {
+            return "You got a severe electric shock!";
+        }
+        return "You got an electric shock!";
     }
 
     @Override

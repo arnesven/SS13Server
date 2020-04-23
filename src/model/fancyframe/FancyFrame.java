@@ -38,6 +38,14 @@ public class FancyFrame implements Serializable {
         state++;
     }
 
+    protected void setHeight(int h) {
+        this.height = h;
+    }
+
+    protected void setWidth(int w) {
+        this.width = w;
+    }
+
     public void handleEvent(GameData gameData, Player player, String event) {
         Logger.log("Fancy frame handling event " + event);
         if (event.contains("DISMISS")) {

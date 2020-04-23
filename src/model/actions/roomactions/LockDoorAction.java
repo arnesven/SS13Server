@@ -42,7 +42,7 @@ public class LockDoorAction extends Action {
             return;
         }
         try {
-            lockRooms(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
+            door.lockRooms(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
@@ -53,29 +53,5 @@ public class LockDoorAction extends Action {
 
     }
 
-    public void lockRooms(Room from, Room to) {
-        GameMap.separateRooms(to, from);
-        lockUnlockedDoor(to, door);
-        lockUnlockedDoor(from, door);
-    }
 
-
-
-
-    private void lockUnlockedDoor(Room room, NormalDoor targetDoor) {
-        for (int i = 0; i < room.getDoors().length; ++i) {
-            if (room.getDoors()[i] == targetDoor) {
-                Door newDoor = makeIntoLockedDoor(targetDoor);
-                room.getDoors()[i] = newDoor;
-                return;
-            }
-        }
-    }
-
-    private Door makeIntoLockedDoor(NormalDoor targetDoor) {
-        LockedDoor newDoor = new LockedDoor(targetDoor.getX(), targetDoor.getY(), targetDoor.getFromId(), targetDoor.getToId());
-        newDoor.setDoorMechanism(targetDoor.getDoorMechanism());
-        newDoor.getDoorMechanism().setName(newDoor.getName());
-        return newDoor;
-    }
 }

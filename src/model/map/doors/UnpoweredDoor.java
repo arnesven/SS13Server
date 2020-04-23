@@ -10,6 +10,7 @@ import model.items.general.GameItem;
 import model.items.general.Tools;
 import model.map.GameMap;
 import model.map.rooms.Room;
+import util.HTMLText;
 
 import java.util.List;
 
@@ -33,6 +34,11 @@ public class UnpoweredDoor extends ElectricalDoor {
             at.add(new CrowbarDoorAndMoveThroughAction(this));
         }
         return at;
+    }
+
+    @Override
+    public String getDiodeColor() {
+        return HTMLText.makeText("gray", "DARK");
     }
 
     public void crowbarOpen(Room from, Room to) {

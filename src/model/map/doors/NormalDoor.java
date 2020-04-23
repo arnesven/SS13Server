@@ -11,6 +11,9 @@ import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
+import model.map.GameMap;
+import model.map.rooms.Room;
+import util.HTMLText;
 
 import java.util.List;
 
@@ -31,19 +34,59 @@ public class NormalDoor extends ElectricalDoor {
         }
         if (isBroken()) {
             return new Sprite("brokennormaldoor", "doors.png", 0, 19, null);
+        } else if (getDoorMechanism() != null && getDoorMechanism().hasError()) {
+            return new Sprite("errornormaldoor", "doors.png", 11, 19, null);
         }
         return NORMAL_DOOR;
     }
 
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
         List<Action> at = super.getDoorActions(gameData, forWhom);
-        if (!isBroken() && (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) ||
-                forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter))) {
+        if (getDoorMechanism().getLockCord().isOK() && !isBroken() && (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) || forWhom.isAI())) {
             at.add(new LockDoorAction(this));
             at.add(new MoveThroughAndLock(this));
         }
-        at.add(new MoveThroughAndCloseFireDoorAction(this));
+        if (getDoorMechanism().getFireCord().isOK()) {
+            at.add(new MoveThroughAndCloseFireDoorAction(this));
+        }
         return at;
+    }
+
+    @Override
+    public String getDiodeColor() {
+        if (isBroken()) {
+            return HTMLText.makeText("gray", "DARK");
+        } else if (getDoorMechanism().hasError()) {
+            return HTMLText.makeText("orange", "YELLOW");
+        }
+        return HTMLText.makeText("green", "GREEN");
+    }
+
+    public void lockRooms(Room from, Room to) {
+        GameMap.separateRooms(to, from);
+        lockUnlockedDoor(to);
+        lockUnlockedDoor(from);
+    }
+
+
+
+
+    private void lockUnlockedDoor(Room room) {
+        for (int i = 0; i < room.getDoors().length; ++i) {
+            if (room.getDoors()[i] == this) {
+                Door newDoor = makeIntoLockedDoor();
+                room.getDoors()[i] = newDoor;
+                return;
+            }
+        }
+    }
+
+    private Door makeIntoLockedDoor() {
+        LockedDoor newDoor = new LockedDoor(getX(), getY(), getFromId(), getToId());
+        newDoor.setDoorMechanism(getDoorMechanism());
+        newDoor.getDoorMechanism().setName(newDoor.getName());
+        newDoor.getDoorMechanism().getLockCord().setState(1);
+        return newDoor;
     }
 
 

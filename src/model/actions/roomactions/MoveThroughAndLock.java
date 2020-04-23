@@ -25,6 +25,7 @@ public class MoveThroughAndLock extends LockDoorAction {
             try {
                 target = gameData.getRoomForId(door.getFromId());
                 if (performingClient.getPosition() == target) {
+                    target = gameData.getRoomForId(door.getToId());
                     ((Player) performingClient).setNextMove(door.getToId());
                 } else {
                     ((Player) performingClient).setNextMove(door.getFromId());

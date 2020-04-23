@@ -45,8 +45,11 @@ public class ShowDoorHackingFancyFrameAction extends Action {
         } else {
             gameData.getChat().serverInSay(
                     " The door mechanism is occupied right now, try again later.", (Player)performingClient);
-
         }
+    }
 
+    @Override
+    public boolean doesSetPlayerReady() {
+        return false;
     }
 }

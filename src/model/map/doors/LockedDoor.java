@@ -15,6 +15,7 @@ import model.map.GameMap;
 import model.map.rooms.Room;
 import model.objects.consoles.AIConsole;
 import model.objects.general.ElectricalMachinery;
+import util.HTMLText;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class LockedDoor extends ElectricalDoor {
 
     public LockedDoor(double x, double y, int fromID, int toID) {
         super(x, y, "Locked", fromID, toID);
+        getDoorMechanism().getLockCord().setState(1);
     }
 
     @Override
@@ -34,7 +36,8 @@ public class LockedDoor extends ElectricalDoor {
 
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
         List<Action> at = super.getDoorActions(gameData, forWhom);
-        if (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) || forWhom.isAI()) {
+        if (getDoorMechanism().getLockCord().isOK() && getDoorMechanism().getOpenCord().isOK() &&
+                GameItem.hasAnItemOfClass(forWhom, KeyCard.class) || forWhom.isAI()) {
             at.add(new UnLockDoorAction(this));
             at.add(new UnLockAndMoveThroughAction(this));
         }
@@ -49,6 +52,14 @@ public class LockedDoor extends ElectricalDoor {
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String getDiodeColor() {
+        if (getDoorMechanism().hasError()) {
+            return HTMLText.makeText("orange", "YELLOW");
+        }
+        return HTMLText.makeText("red", "RED");
     }
 
 

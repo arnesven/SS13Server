@@ -88,7 +88,9 @@ public abstract class ElectricalDoor extends Door {
         if (GameItem.hasAnItemOfClass(forWhom, Tools.class) && isDamaged()) {
             at.add(new RepairDoorAction(gameData, forWhom, this));
         }
-        at.add(new CloseFireDoorAction(this));
+        if (getDoorMechanism().getFireCord().isOK()) {
+            at.add(new CloseFireDoorAction(this));
+        }
         return at;
     }
 
@@ -152,6 +154,31 @@ public abstract class ElectricalDoor extends Door {
 
     private UnpoweredDoor makeIntoUnpoweredDoor() {
         UnpoweredDoor d = new UnpoweredDoor(getX(), getY(), getFromId(), getToId());
+        d.setDoorMechanism(getDoorMechanism());
+        d.getDoorMechanism().setName(d.getName());
+        return d;
+    }
+
+    public abstract String getDiodeColor();
+
+    public void goPowered(Room from, Room to) {
+        GameMap.joinRooms(to, from);
+        powerDoor(to);
+        powerDoor(from);
+    }
+
+    private void powerDoor(Room room) {
+        for (int i = 0; i < room.getDoors().length; ++i) {
+            if (room.getDoors()[i] == this) {
+                Door newDoor = makeIntoNormal();
+                room.getDoors()[i] = newDoor;
+                return;
+            }
+        }
+    }
+
+    private Door makeIntoNormal() {
+        NormalDoor d = new NormalDoor(getX(), getY(), getFromId(), getToId());
         d.setDoorMechanism(getDoorMechanism());
         d.getDoorMechanism().setName(d.getName());
         return d;
