@@ -43,7 +43,7 @@ public class AILawAction extends Action {
         }
         opts.addOption(insp);
 
-        if (!hasZerothLaw()) {
+        if (!aiConsole.hasZerothLaw()) {
             ActionOption addZth = new ActionOption("Upload Zeroth Law");
             addOptionsToLawUpload(addZth, gameData);
             opts.addOption(addZth);
@@ -162,8 +162,6 @@ public class AILawAction extends Action {
         return s.get(0).replace("X", s.get(1));
     }
 
-    private boolean hasZerothLaw() {
-        return aiConsole.getLaws().get(0).getNumber() == 0;
-    }
+
 
 }

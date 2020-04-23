@@ -13,7 +13,7 @@ import util.Pair;
 
 import java.util.List;
 
-public class NPCAIConsoleFancyFrame extends ConsoleFancyFrame {
+public class NPCAIConsoleFancyFrame extends AIConsoleFancyFrame {
     private final AIConsole console;
     private String selectedOption;
     private boolean showLocateScreen = false;
@@ -45,18 +45,7 @@ public class NPCAIConsoleFancyFrame extends ConsoleFancyFrame {
                 content.append(HTMLText.makeFancyFrameLink("LOC " + job, HTMLText.makeText(fgColor, bgColor, "+ " + job)) + "<br/>");
             }
         } else {
-            String name = "there.";
-            if (player.getCharacter().isCrew()) {
-                try {
-                    name = gameData.getClidForPlayer(player);
-                } catch (NoSuchThingException e) {
-                    e.printStackTrace();
-                }
-            }
-            content.append(HTMLText.makeCentered(
-                    HTMLText.makeImage(console.getScreen().getSprite(player)) +
-                            "<br/><i>\"Hello " + name + "<br/>What can I do for you?\"</i><br/><br/>"
-            ));
+            content.append(super.addGreeting(gameData, console, player));
 
             List<Pair<String, String>> options = List.of(new Pair("CHECKALARMS", "Check Alarms"), new Pair("LOCATE", "Locate Crewmember"), new Pair("SHUTDOWN", "Shut Down AI"));
             for (Pair<String, String> p : options) {

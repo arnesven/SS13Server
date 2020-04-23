@@ -138,4 +138,20 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
     }
 
     public void doAtEndOfTurn(GameData gameData, Player actor) { }
+
+    protected void greekify(StringBuilder content, String text, String whoItMakesSenseFor) {
+        StringBuilder greek = new StringBuilder();
+        for (int i = 0; i < text.length() ; ++i) {
+            if ((text.charAt(i) >= 'A' && text.charAt(i) <= 'Z') ||
+                    text.charAt(i) >= 'a' && text.charAt(i) <= 'z') {
+                int greekNum = text.charAt(i) + 959;
+                greek.append("&#" + greekNum + ";");
+            } else {
+                greek.append(text.charAt(i));
+            }
+        }
+        content.append(HTMLText.makeCentered(HTMLText.makeText("white", greek.toString())));
+        content.append(HTMLText.makeText("white",
+                "<br/><i>(This screen probably makes sense to " + whoItMakesSenseFor + ", but it's all greek to you.)</i>"));
+    }
 }

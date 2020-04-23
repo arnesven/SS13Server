@@ -13,6 +13,7 @@ import model.actions.ai.*;
 import model.actions.objectactions.AIConsoleAction;
 import model.actions.general.Action;
 import model.actions.objectactions.AIRemoteAccessAction;
+import model.actions.objectactions.SitDownAtAIConsoleAction;
 import model.actions.objectactions.SitDownAtNPCAIConsoleAction;
 import model.characters.general.AIDownloadIntoBotAction;
 import model.characters.general.GameCharacter;
@@ -128,11 +129,14 @@ public class AIConsole extends Console {
                 at.add(new AIConsoleAction(this));
             }
         }
-        if (!AIIsPlayer()) {
-            if (cl instanceof Player) {
+        if (cl instanceof Player) {
+            if (!AIIsPlayer()) {
                 at.add(new SitDownAtNPCAIConsoleAction(gameData, this));
+            } else {
+                at.add(new SitDownAtAIConsoleAction(gameData, this));
             }
         }
+
 
         if (cl.getCharacter().isCrew() && AIIsPlayer()) {
             at.add(new AILawAction(this));
@@ -354,5 +358,9 @@ public class AIConsole extends Console {
     @Override
     public boolean canBeOvercharged() {
         return false;
+    }
+
+    public boolean hasZerothLaw() {
+        return getLaws().get(0).getNumber() == 0;
     }
 }

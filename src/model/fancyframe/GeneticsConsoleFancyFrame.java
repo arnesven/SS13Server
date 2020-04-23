@@ -100,19 +100,7 @@ public class GeneticsConsoleFancyFrame extends ConsoleFancyFrame {
     private void makeGreek(GameData gameData, Player player, StringBuilder content) {
         String text = "You currently have a syringe filled with blood from Captain. " +
                 "Do you want to mutate it by blasting it with radiation?";
-
-        StringBuilder greek = new StringBuilder();
-        for (int i = 0; i < text.length() ; ++i) {
-            if (text.charAt(i) != ' ' && text.charAt(i) != '.' && text.charAt(i) != '?') {
-                int greekNum = text.charAt(i) + 959;
-                greek.append("&#" + greekNum + ";");
-            } else {
-                greek.append(text.charAt(i));
-            }
-        }
-        content.append(HTMLText.makeCentered(HTMLText.makeText("white", greek.toString())));
-        content.append(HTMLText.makeText("white",
-                "<br/><i>(This screen probably makes sense to a geneticist, but it's all greek to you.)</i>"));
+        greekify(content, text, "a geneticist");
     }
 
     private void makeBasicMode(GameData gameData, Player player, StringBuilder content, boolean playerHasSyringe) {
