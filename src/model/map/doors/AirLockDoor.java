@@ -35,6 +35,11 @@ public class AirLockDoor extends Door {
         return new Sprite("airlockdoor", "doors.png", 1, 7, this);
     }
 
+    @Override
+    protected Sprite getFogOfWarSprite() {
+        return new Sprite("airlockdoor", "doors.png", 1, 7, this);
+    }
+
     public void openAirlockDoor(GameData gameData, Actor performingClient) {
         try {
             Room from = gameData.getRoomForId(getFromId());

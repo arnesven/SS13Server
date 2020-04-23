@@ -10,6 +10,7 @@ import model.actions.general.Action;
 import model.actions.roomactions.LockDoorAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.rooms.Room;
@@ -58,11 +59,6 @@ public abstract class Door implements Serializable, SpriteObject {
         return name;
     }
 
-    @Override
-    public String toString() {
-        return x + ", " + y + ", " + name + ", " + getSprite().getName();
-    }
-
     private String getActionData(GameData gameData, Actor forWhom) {
         if (forWhom.getCharacter() == null) {
             return "NoRef";
@@ -84,7 +80,31 @@ public abstract class Door implements Serializable, SpriteObject {
     }
 
     public String getStringRepresentation(GameData gameData, Player forWhom) {
-        return toString() + ", " + getActionData(gameData, forWhom);
+        Sprite sp = getSprite();
+        if (!isVisibleFor(gameData, forWhom)) {
+            sp = getFogOfWarSprite();
+        }
+
+        return x + ", " + y + ", " + name + ", " + sp.getName() + ", " + getActionData(gameData, forWhom);
+    }
+
+    protected Sprite getFogOfWarSprite() {
+        return NormalDoor.UNPOWERED_DOOR;
+    }
+
+    private boolean isVisibleFor(GameData gameData, Player forWhom) {
+        if (forWhom.getCharacter() == null) {
+            return false;
+        }
+        Room to = null;
+        try {
+            to = gameData.getRoomForId(toID);
+            Room from = gameData.getRoomForId(fromID);
+            return forWhom.findMoveToAblePositions(gameData).contains(to) || forWhom.findMoveToAblePositions(gameData).contains(from);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

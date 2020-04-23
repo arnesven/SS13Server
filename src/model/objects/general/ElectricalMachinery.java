@@ -41,10 +41,6 @@ public abstract class ElectricalMachinery extends BreakableObject
 	}
 
 	public boolean isPowered() {
-		if (getPosition() == null) {
-			Logger.log(Logger.CRITICAL, "Warning, position for machine " + getName() + " was null! Cannot determine if it is powered or not.");
-			return false;
-		}
 		if (source == null) {
 			return false;
 		}

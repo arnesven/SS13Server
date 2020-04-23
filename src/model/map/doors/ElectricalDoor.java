@@ -6,31 +6,36 @@ import model.actions.general.Action;
 import model.actions.general.AttackAction;
 import model.actions.roomactions.AttackDoorAction;
 import model.actions.roomactions.CloseFireDoorAction;
-import model.actions.roomactions.MoveThroughAndCloseFireDoorAction;
 import model.actions.roomactions.RepairDoorAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
-import model.events.damage.Damager;
-import model.events.damage.FireDamage;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Tools;
 import model.map.GameMap;
 import model.map.rooms.Room;
 import model.objects.general.BreakableObject;
-import model.objects.general.Repairable;
+import model.objects.general.ElectricalMachinery;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ElectricalDoor extends Door {
 
-    private BreakableObject breakableObject;
-
+    private DoorMechanism doorMechanism;
 
     public ElectricalDoor(double x, double y, String name, int fromID, int toID) {
         super(x, y, name, fromID, toID);
-        breakableObject = new DoorMechanism();
+        doorMechanism = new DoorMechanism(this);
+    }
+
+    @Override
+    public boolean requiresPower() {
+        return true;
+    }
+
+    @Override
+    public ElectricalMachinery getElectricalLock(GameData gameData) {
+        return doorMechanism;
     }
 
     @Override
@@ -43,18 +48,24 @@ public abstract class ElectricalDoor extends Door {
         return super.getName();
     }
 
+
+    public DoorMechanism getDoorMechanism() {
+        return doorMechanism;
+    }
+
+
     public boolean isDamaged() {
-        if (breakableObject == null) {
+        if (doorMechanism == null) {
             return false;
         }
         return getBreakableObject().getHealth() < getBreakableObject().getMaxHealth();
     }
 
     public boolean isBroken() {
-        if (breakableObject == null) {
+        if (doorMechanism == null) {
             return false;
         }
-        return breakableObject.isBroken();
+        return doorMechanism.isBroken();
     }
 
     @Override
@@ -62,8 +73,8 @@ public abstract class ElectricalDoor extends Door {
         List<Action> at = super.getDoorActions(gameData, forWhom);
         if (!forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
             AttackAction act = new AttackDoorAction(forWhom, this);
-            act.addTarget(breakableObject);
-            act.stripAllTargetsBut(breakableObject);
+            act.addTarget(doorMechanism);
+            act.stripAllTargetsBut(doorMechanism);
             act.addClientsItemsToAction(forWhom);
             at.add(act);
         }
@@ -80,11 +91,11 @@ public abstract class ElectricalDoor extends Door {
 
 
     public BreakableObject getBreakableObject() {
-        return breakableObject;
+        return doorMechanism;
     }
 
-    protected void setBreakableObject(BreakableObject breakableObject) {
-        this.breakableObject = breakableObject;
+    protected void setDoorMechanism(DoorMechanism dm) {
+        this.doorMechanism = dm;
     }
 
     public void shutFireDoor(GameData gameData) {
@@ -121,38 +132,4 @@ public abstract class ElectricalDoor extends Door {
     }
 
 
-    private class DoorMechanism extends BreakableObject implements Repairable {
-
-        public DoorMechanism() {
-            super(ElectricalDoor.this.getName(), 2.0, null);
-        }
-
-        @Override
-        protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-
-        }
-
-        @Override
-        public void thisJustBroke(GameData gameData) {
-            ElectricalDoor.this.thisJustBroke(gameData);
-        }
-
-        @Override
-        public boolean canBeInteractedBy(Actor performingClient) {
-            return performingClient.getPosition().getID() == getFromId() || performingClient.getPosition().getID() == getToId();
-        }
-
-        @Override
-        public void beExposedTo(Actor performingClient, Damager damage, GameData gameData) {
-            if (damage instanceof FireDamage) {
-                damage = new FireDamage(0.25);
-            }
-            super.beExposedTo(performingClient, damage, gameData);
-        }
-
-        @Override
-        public void doWhenRepaired(GameData gameData) {
-
-        }
-    }
 }

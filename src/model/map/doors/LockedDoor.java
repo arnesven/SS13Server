@@ -4,7 +4,6 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
-import model.actions.roomactions.LockDoorAction;
 import model.actions.roomactions.UnLockAndMoveThroughAction;
 import model.actions.roomactions.UnLockDoorAction;
 import model.characters.general.AICharacter;
@@ -43,10 +42,6 @@ public class LockedDoor extends ElectricalDoor {
         return at;
     }
 
-    @Override
-    public boolean requiresPower() {
-        return true;
-    }
 
     @Override
     protected void thisJustBroke(GameData gameData) {
@@ -57,15 +52,6 @@ public class LockedDoor extends ElectricalDoor {
         }
     }
 
-    @Override
-    public ElectricalMachinery getElectricalLock(GameData gameData) {
-        try {
-            return new ElectricalLock(gameData);
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public void unlockRooms(Room from, Room to) {
         GameMap.joinRooms(to, from);
@@ -85,32 +71,9 @@ public class LockedDoor extends ElectricalDoor {
 
     private NormalDoor makeIntoNormalDoor(Door targetDoor) {
         NormalDoor d = new NormalDoor(targetDoor.getX(), targetDoor.getY(), targetDoor.getFromId(), targetDoor.getToId());
-        d.setBreakableObject(((ElectricalDoor)targetDoor).getBreakableObject());
+        d.setDoorMechanism(getDoorMechanism());
         d.getBreakableObject().setName(d.getName());
         return d;
     }
 
-    private class ElectricalLock extends ElectricalMachinery {
-        public ElectricalLock(GameData gameData) throws NoSuchThingException {
-            super("Lock (" + gameData.getRoomForId(getToId()).getName() + " / " + gameData.getRoomForId(getFromId()).getName() + ")", null);
-            setPowerPriority(1);
-        }
-
-        @Override
-        protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-
-        }
-
-        @Override
-        public void onPowerOff(GameData gameData) {
-            try {
-                unlockRooms(gameData.getRoomForId(getFromId()), gameData.getRoomForId(getToId()));
-                gameData.findObjectOfType(AIConsole.class).informOnStation("Attention, " + getName() + " unlocked because of power failure!", gameData);
-            } catch (NoSuchThingException e) {
-                e.printStackTrace();
-            }
-
-            Logger.log(Logger.INTERESTING, " room unlocked because of power failure!");
-        }
-    }
 }

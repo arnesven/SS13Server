@@ -11,17 +11,13 @@ import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
-import model.map.GameMap;
-import model.map.rooms.Room;
-import util.Logger;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class NormalDoor extends ElectricalDoor {
 
-     private static final Sprite NORMAL_DOOR = new Sprite("normaldoor", "doors.png", 11, 17, null);
+    public static final Sprite UNPOWERED_DOOR = new Sprite("unpowereddoor", "doors.png", 11, 17, null);
+    private static final Sprite NORMAL_DOOR = new Sprite("normaldoor", "doors.png", 6, 18, null);
 
 
     public NormalDoor(double x, double y, int fromID, int toID) {
@@ -36,8 +32,12 @@ public class NormalDoor extends ElectricalDoor {
         }
         if (isBroken()) {
             return new Sprite("brokennormaldoor", "doors.png", 0, 19, null);
+        } if (getDoorMechanism() == null) {
+            return UNPOWERED_DOOR;
+        } else if (!getDoorMechanism().isPowered()) {
+            return NORMAL_DOOR;
         }
-        return NORMAL_DOOR;
+        return UNPOWERED_DOOR;
     }
 
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
