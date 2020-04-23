@@ -23,10 +23,10 @@ import java.util.regex.Pattern;
 public class GameData {
 
     private static GameData instance = null;
+	private ArrayList<Observer> observers = new ArrayList<>();
 	private ArrayList<String> clients = new ArrayList<>();
 	private ArrayList<Boolean> ready = new ArrayList<>();
 	private ArrayList<Boolean> spectators = new ArrayList<>();
-	private ArrayList<Observer> observers = new ArrayList<>();
 	private ArrayList<Room> rooms = new ArrayList<>();
 	private int state = -1;
 	private String clid = Cookies.getCookie("clid");
@@ -82,7 +82,10 @@ public class GameData {
 	}
 
 	public static void resetAllData() {
+		ArrayList<Observer> observers = instance.observers;
         instance = null;
+        instance = new GameData();
+        instance.observers = observers;
     }
 
 	public ArrayList<String> getClientList() {

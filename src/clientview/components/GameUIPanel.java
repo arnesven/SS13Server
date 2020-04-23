@@ -49,6 +49,7 @@ public class GameUIPanel extends JPanel implements Observer {
         if (timer != null && timer.isRunning()) {
             throw new IllegalStateException("Tried starting polling timer when it is already running!");
         } else {
+            System.out.println("Started polling timer...");
             timer = new Timer(TIME_INTERVAL, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

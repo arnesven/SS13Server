@@ -24,7 +24,7 @@ import java.awt.event.KeyEvent;
 
 public class SS13Client extends JFrame {
 
-    public static final String CLIENT_VERSION_STRING = "1.238";
+    public static final String CLIENT_VERSION_STRING = "1.239";
     private final ReturningPlayerPanel retPan;
     public static final Dimension originalSize = new Dimension(960, 960);
     public static final Dimension ingameSize = new Dimension(1200, 960);
@@ -100,7 +100,7 @@ public class SS13Client extends JFrame {
     public void switchBackToStart() {
         System.out.println("Switching views back");
         GameData.resetAllData();
-        getContentPane().remove(0);
+        getContentPane().remove(guiPanel);
         getContentPane().add(retPan);
         this.setSize(originalSize);
         revalidate();
@@ -118,8 +118,8 @@ public class SS13Client extends JFrame {
         System.out.println("Switching views");
         getContentPane().remove(retPan);
         guiPanel = new GameUIPanel(username, this);
-        enableView();
         getContentPane().add(guiPanel);
+        enableView();
         guiPanel.setUpPollingTimer(username);
         this.setSize(ingameSize);
         this.revalidate();
