@@ -9,18 +9,14 @@ import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
-import model.map.GameMap;
-import model.map.doors.Door;
-import model.map.doors.LockedDoor;
-import model.map.doors.NormalDoor;
-import model.map.rooms.Room;
+import model.map.doors.ElectricalDoor;
 
 import java.util.List;
 
 public class UnLockDoorAction extends Action {
-    private final LockedDoor door;
+    private final ElectricalDoor door;
 
-    public UnLockDoorAction(LockedDoor lockedDoor) {
+    public UnLockDoorAction(ElectricalDoor lockedDoor) {
         super("Unlock", SensoryLevel.OPERATE_DEVICE);
         this.door = lockedDoor;
     }

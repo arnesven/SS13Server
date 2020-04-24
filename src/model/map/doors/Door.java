@@ -25,7 +25,6 @@ import java.util.List;
 
 public abstract class Door implements Serializable, SpriteObject {
 
-    private final Sprite sprite = getSprite();
     private final int fromID;
     private final int toID;
 
@@ -103,7 +102,7 @@ public abstract class Door implements Serializable, SpriteObject {
     }
 
     protected Sprite getFogOfWarSprite() {
-        return UnpoweredDoor.UNPOWERED_DOOR;
+        return NormalDoor.UNPOWERED_DOOR;
     }
 
     private boolean isVisibleFor(GameData gameData, Player forWhom) {

@@ -3,13 +3,12 @@ package model.actions.objectactions;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.general.Action;
-import model.map.doors.UnpoweredDoor;
+import model.map.doors.ElectricalDoor;
 
 public class CrowbarDoorAndMoveThroughAction extends CrowbarDoorAction {
-    private final UnpoweredDoor door;
+    private final ElectricalDoor door;
 
-    public CrowbarDoorAndMoveThroughAction(UnpoweredDoor unpoweredDoor) {
+    public CrowbarDoorAndMoveThroughAction(ElectricalDoor unpoweredDoor) {
         super(unpoweredDoor);
         setName(super.getName() + " and Move Through");
         this.door = unpoweredDoor;

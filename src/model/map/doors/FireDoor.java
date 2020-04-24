@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FireDoor extends Door {
-    private final Door innerDoor;
+    private final ElectricalDoor innerDoor;
 
-    public FireDoor(Door targetDoor) {
+    public FireDoor(ElectricalDoor targetDoor) {
         super(targetDoor.getX(), targetDoor.getY(), "Fire", targetDoor.getFromId(), targetDoor.getToId());
         this.innerDoor = targetDoor;
     }
@@ -32,7 +32,7 @@ public class FireDoor extends Door {
         if (isAnimating()) {
             return Sprite.blankSprite();
         }
-        if (innerDoor instanceof LockedDoor) {
+        if (innerDoor.getDoorState() instanceof DoorState.Locked) {
             return new Sprite("firedoorlocked", "doors.png", 3, 6, null);
         }
         return new Sprite("firedoor", "doors.png", 6, 6, null);
@@ -42,14 +42,15 @@ public class FireDoor extends Door {
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
         List<Action> at = super.getDoorActions(gameData, forWhom);
         at.add(new OpenFireDoorAction(this));
-        if (!(innerDoor instanceof LockedDoor) && !forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
+        if (!(innerDoor.getDoorState() instanceof DoorState.Locked) &&
+                !forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
             at.add(new OpenAndMoveThroughFireDoorAction(this));
         }
 
         return at;
     }
 
-    public Door getInnerDoor() {
+    public ElectricalDoor getInnerDoor() {
         return innerDoor;
     }
 
@@ -59,7 +60,7 @@ public class FireDoor extends Door {
         try {
             Room from = gameData.getRoomForId(getFromId());
             Room to = gameData.getRoomForId(getToId());
-            Door theDoor = openFireDoor(from, to, innerDoor instanceof LockedDoor);
+            Door theDoor = openFireDoor(from, to, innerDoor.getDoorState() instanceof DoorState.Locked);
             from.addEvent(new OpenFireDoorAnimationEvent(gameData, from, this));
             to.addEvent(new OpenFireDoorAnimationEvent(gameData, to, this));
         } catch (NoSuchThingException e) {
@@ -96,7 +97,7 @@ public class FireDoor extends Door {
         sps.add(getInnerDoor().getSprite());
         String suffix ="";
         int extraFrame = 0;
-        if (getInnerDoor() instanceof LockedDoor) {
+        if (getInnerDoor().getDoorState() instanceof DoorState.Locked) {
             suffix = "locked";
             extraFrame = 1;
             sps.add(new AnimatedSprite("shuttingfiredoorlocked", "doors.png",

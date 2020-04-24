@@ -6,15 +6,14 @@ import model.Player;
 import model.actions.general.Action;
 import model.items.NoSuchThingException;
 import model.map.doors.ElectricalDoor;
-import model.map.doors.LockedDoor;
 import model.map.rooms.Room;
 
 import java.util.List;
 
 public class HackDoorUnlockAction extends HackDoorAction {
-    private final LockedDoor door;
+    private final ElectricalDoor door;
 
-    public HackDoorUnlockAction(LockedDoor electricalDoor) {
+    public HackDoorUnlockAction(ElectricalDoor electricalDoor) {
         this.door = electricalDoor;
     }
 

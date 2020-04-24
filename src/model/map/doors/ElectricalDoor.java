@@ -1,5 +1,6 @@
 package model.map.doors;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -18,16 +19,23 @@ import model.map.GameMap;
 import model.map.rooms.Room;
 import model.objects.general.BreakableObject;
 import model.objects.general.ElectricalMachinery;
+import util.HTMLText;
 
 import java.util.List;
 
 public abstract class ElectricalDoor extends Door {
 
     private DoorMechanism doorMechanism;
+    private DoorState doorState;
 
-    public ElectricalDoor(double x, double y, String name, int fromID, int toID) {
+    public ElectricalDoor(double x, double y, String name, int fromID, int toID, boolean locked) {
         super(x, y, name, fromID, toID);
         doorMechanism = new DoorMechanism(this);
+        if (locked) {
+            doorState = new DoorState.Locked(this);
+        } else {
+            doorState = new DoorState.Normal(this);
+        }
     }
 
     @Override
@@ -51,10 +59,23 @@ public abstract class ElectricalDoor extends Door {
     }
 
 
+    @Override
+    protected Sprite getSprite() {
+        if (isAnimating()) {
+            return Sprite.blankSprite();
+        } else if (getDoorMechanism() != null && getDoorMechanism().hasError()) {
+            return getErrorSprite();
+        }
+        return doorState.getSprite();
+    }
+
     public DoorMechanism getDoorMechanism() {
         return doorMechanism;
     }
 
+    public DoorState getDoorState() {
+        return doorState;
+    }
 
     public boolean isDamaged() {
         if (doorMechanism == null) {
@@ -79,11 +100,9 @@ public abstract class ElectricalDoor extends Door {
             act.stripAllTargetsBut(doorMechanism);
             act.addClientsItemsToAction(forWhom);
             at.add(act);
-
             if (forWhom instanceof Player) {
                 at.add(new ShowDoorHackingFancyFrameAction(gameData, forWhom, this));
             }
-
         }
         if (GameItem.hasAnItemOfClass(forWhom, Tools.class) && isDamaged()) {
             at.add(new RepairDoorAction(gameData, forWhom, this));
@@ -91,14 +110,17 @@ public abstract class ElectricalDoor extends Door {
         if (getDoorMechanism().getFireCord().isOK() || !forWhom.isAI()) {
             at.add(new CloseFireDoorAction(this));
         }
+
+        at.addAll(doorState.getActions(gameData, forWhom));
         return at;
     }
 
     protected void thisJustBroke(GameData gameData) {
-
+        this.doorState = new DoorState.Broken(this);
     }
 
-    public void setDoorMechanism(DoorMechanism dm) {
+
+    private void setDoorMechanism(DoorMechanism dm) {
         this.doorMechanism = dm;
         dm.setDoor(this);
     }
@@ -125,7 +147,7 @@ public abstract class ElectricalDoor extends Door {
         return theFireDoor;
     }
 
-    private FireDoor wrapInFireDoor(Room room, Door targetDoor) {
+    private FireDoor wrapInFireDoor(Room room, ElectricalDoor targetDoor) {
         for (int i = 0; i < room.getDoors().length; ++i) {
             if (room.getDoors()[i] == targetDoor) {
                 FireDoor newDoor = new FireDoor(targetDoor);
@@ -136,37 +158,50 @@ public abstract class ElectricalDoor extends Door {
         return null;
     }
 
+    public String getDiodeColor() {
+        if (getDoorMechanism() != null && getDoorMechanism().hasError()) {
+            return HTMLText.makeText("black", "yellow", "YELLOW");
+        }
+        return doorState.getDiodeColor();
+    }
+
+    public abstract Sprite getLockedSprite();
+
+    public abstract Sprite getNormalSprite();
+
+    public abstract Sprite getBrokenSprite();
+
+    public abstract Sprite getUnpoweredSprite();
+
+    public abstract Sprite getErrorSprite();
+
+
+    public void unlockRooms(Room from, Room to) {
+        GameMap.joinRooms(from, to);
+        this.doorState = new DoorState.Normal(this);
+    }
+
+    public void lockRooms(Room from, Room to) {
+        GameMap.separateRooms(to, from);
+        this.doorState = new DoorState.Locked(this);
+    }
+
+    public void crowbarOpen(Room from, Room to) {
+        GameMap.joinRooms(to, from);
+        this.doorState = new DoorState.Broken(this);
+        this.getDoorMechanism().setHealth(0.0);
+    }
+
+
+    public void goPowered(Room from, Room to) {
+        if (!(doorState.getOldState() instanceof DoorState.Locked)) {
+            GameMap.joinRooms(from, to);
+        }
+        this.doorState = doorState.getOldState();
+    }
 
     public void goUnpowered(Room from, Room to) {
-        GameMap.separateRooms(to, from);
-        unpowerDoor(to);
-        unpowerDoor(from);
+        GameMap.separateRooms(from, to);
+        this.doorState = new DoorState.Unpowered(this);
     }
-
-    private void unpowerDoor(Room room) {
-        for (int i = 0; i < room.getDoors().length; ++i) {
-            if (room.getDoors()[i] == this) {
-                Door newDoor = makeIntoUnpoweredDoor();
-                room.getDoors()[i] = newDoor;
-                return;
-            }
-        }
-    }
-
-    private UnpoweredDoor makeIntoUnpoweredDoor() {
-        UnpoweredDoor d = getUnpoweredCounterpart();
-        d.setDoorMechanism(getDoorMechanism());
-        d.getDoorMechanism().setName(d.getName());
-        return d;
-    }
-
-    protected abstract UnpoweredDoor getUnpoweredCounterpart();
-
-    public abstract String getDiodeColor();
-
-    protected abstract ElectricalDoor getPoweredCounterpart();
-
-
-
-
 }

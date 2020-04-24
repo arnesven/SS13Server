@@ -5,16 +5,17 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.items.NoSuchThingException;
+import model.map.doors.ElectricalDoor;
 import model.map.doors.NormalDoor;
 import model.map.rooms.Room;
 
 public class MoveThroughAndLock extends LockDoorAction {
-    private final NormalDoor door;
+    private final ElectricalDoor door;
 
-    public MoveThroughAndLock(NormalDoor normalDoor) {
-        super(normalDoor);
+    public MoveThroughAndLock(ElectricalDoor door) {
+        super(door);
         setName("Move Through and Lock");
-        this.door = normalDoor;
+        this.door = door;
     }
 
     @Override

@@ -3,13 +3,12 @@ package model.actions.roomactions;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.general.Action;
-import model.map.doors.LockedDoor;
+import model.map.doors.ElectricalDoor;
 
 public class UnLockAndMoveThroughAction extends UnLockDoorAction {
-    private final LockedDoor door;
+    private final ElectricalDoor door;
 
-    public UnLockAndMoveThroughAction(LockedDoor lockedDoor) {
+    public UnLockAndMoveThroughAction(ElectricalDoor lockedDoor) {
         super(lockedDoor);
         setName("Unlock and Move Through");
         this.door = lockedDoor;

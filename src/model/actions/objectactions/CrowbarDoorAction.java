@@ -7,14 +7,14 @@ import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Tools;
-import model.map.doors.UnpoweredDoor;
+import model.map.doors.ElectricalDoor;
 
 import java.util.List;
 
 public class CrowbarDoorAction extends Action {
-    private final UnpoweredDoor door;
+    private final ElectricalDoor door;
 
-    public CrowbarDoorAction(UnpoweredDoor unpoweredDoor) {
+    public CrowbarDoorAction(ElectricalDoor unpoweredDoor) {
         super("Crowbar Open", SensoryLevel.PHYSICAL_ACTIVITY);
         this.door = unpoweredDoor;
     }

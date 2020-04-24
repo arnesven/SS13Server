@@ -127,7 +127,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(portHallFront, ss13, "port");
 
         Room bridge = new BridgeRoom(17, 15,  5, 3, 3, new int[]{16, 20}    ,
-                new Door[]{new CommandDoor(16.0, 8.0, 17, 20)} );
+                new Door[]{new CommandDoor(16.0, 8.0, 17, 20, false)} );
         gm.addRoom(bridge, ss13, "front");
 
         Room ss = new SecurityStationRoom(gameData, 18, 15,  2, 2, 2, new int[]{16}        ,
@@ -160,7 +160,7 @@ public class DonutSS13Builder extends MapBuilder {
         }
 
         Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{}        ,         new Door[]{});
-        army.setDoors(new Door[]{new LockedDoor(11.0, 4.0, 22, 19)});
+        army.setDoors(new Door[]{new NormalDoor(11.0, 4.0, 22, 19, true)});
 
         gm.addRoom(army, ss13, "center");
 
@@ -194,7 +194,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(nukieShip2, ss13, "nuke");
 
         Room brig = new BrigRoom(29, 15, 4, 1, 1, new int[]{}, new Door[]{});
-        brig.setDoors(new Door[]{new LockedDoor(15.0, 4.5, 29, 16)});
+        brig.setDoors(new Door[]{new NormalDoor(15.0, 4.5, 29, 16, true)});
         gm.addRoom(brig, ss13, "center");
 
         SpaceRoom space = new SpaceRoom(30, 0, 0, 0, 0);

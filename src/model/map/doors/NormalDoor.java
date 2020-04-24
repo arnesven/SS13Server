@@ -20,99 +20,39 @@ import java.util.List;
 public class NormalDoor extends ElectricalDoor {
 
     private static final Sprite NORMAL_DOOR = new Sprite("normaldoor", "doors.png", 6, 18, null);
+    private static final Sprite LOCKED_DOOR = new Sprite("lockeddoor", "doors.png", 12, 17, null);
+    public static final Sprite UNPOWERED_DOOR = new Sprite("unpowereddoor", "doors.png", 11, 17, null);
 
+    public NormalDoor(double x, double y, int fromID, int toID, boolean locked) {
+        super(x, y, "Normal", fromID, toID, locked);
+    }
 
     public NormalDoor(double x, double y, int fromID, int toID) {
-        super(x, y, "Normal", fromID, toID);
+        this(x, y, fromID, toID, false);
     }
 
 
     @Override
-    protected final Sprite getSprite() {
-        if (isAnimating()) {
-            return Sprite.blankSprite();
-        }
-        if (isBroken()) {
-            return getBrokenDoorSprite();
-        } else if (getDoorMechanism() != null && getDoorMechanism().hasError()) {
-            return getErrorDoorSprite();
-        }
-        return getNormalSprite();
-    }
-
-    protected Sprite getNormalSprite() {
+    public Sprite getNormalSprite() {
         return NORMAL_DOOR;
     }
 
-    protected Sprite getErrorDoorSprite() {
+    @Override
+    public Sprite getUnpoweredSprite() { return UNPOWERED_DOOR; }
+
+    @Override
+    public Sprite getErrorSprite() {
         return new Sprite("errornormaldoor", "doors.png", 11, 19, null);
     }
 
-    protected Sprite getBrokenDoorSprite() {
+    @Override
+    public Sprite getBrokenSprite() {
         return new Sprite("brokennormaldoor", "doors.png", 0, 19, null);
     }
 
-    public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
-        List<Action> at = super.getDoorActions(gameData, forWhom);
-        if (getDoorMechanism().permitsLock() && !isBroken() && (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) || forWhom.isAI())) {
-            at.add(new LockDoorAction(this));
-            at.add(new MoveThroughAndLock(this));
-        }
-        if (getDoorMechanism().getFireCord().isOK() || !forWhom.isAI()) {
-            at.add(new MoveThroughAndCloseFireDoorAction(this));
-        }
-        return at;
-    }
-
-
     @Override
-    public String getDiodeColor() {
-        if (isBroken()) {
-            return HTMLText.makeText("white", "gray","_DARK");
-        } else if (getDoorMechanism().hasError()) {
-            return HTMLText.makeText("black", "yellow", "YELLOW");
-        }
-        return HTMLText.makeText("black", "#0bf900","GREEN");
-    }
-
-    @Override
-    protected UnpoweredDoor getUnpoweredCounterpart() {
-        return new UnpoweredDoor(getX(), getY(), getFromId(), getToId(), false);
-    }
-
-
-    @Override
-    protected ElectricalDoor getPoweredCounterpart() {
-        return new NormalDoor(getX(), getY(), getFromId(), getToId());
-    }
-
-    public void lockRooms(Room from, Room to) {
-        GameMap.separateRooms(to, from);
-        lockUnlockedDoor(to);
-        lockUnlockedDoor(from);
-    }
-
-
-    private void lockUnlockedDoor(Room room) {
-        for (int i = 0; i < room.getDoors().length; ++i) {
-            if (room.getDoors()[i] == this) {
-                Door newDoor = makeIntoLockedDoor();
-                room.getDoors()[i] = newDoor;
-                return;
-            }
-        }
-    }
-
-    private Door makeIntoLockedDoor() {
-        LockedDoor newDoor = getLockedCounterpart();
-        newDoor.setDoorMechanism(getDoorMechanism());
-        newDoor.getDoorMechanism().setName(newDoor.getName());
-        newDoor.getDoorMechanism().getLockCord().setState(1);
-        return newDoor;
-    }
-
-    protected LockedDoor getLockedCounterpart() {
-        return new LockedDoor(getX(), getY(), getFromId(), getToId());
+    public Sprite getLockedSprite() {
+        return LOCKED_DOOR;
     }
 
 
