@@ -19,6 +19,6 @@ public class KeyCard extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("keycard", "card.png", 1, this);
+        return new Sprite("keycard", "card.png", 2, this);
     }
 }

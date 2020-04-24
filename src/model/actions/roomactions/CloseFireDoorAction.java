@@ -18,7 +18,6 @@ import java.util.List;
 
 public class CloseFireDoorAction extends Action {
     private final ElectricalDoor door;
-    private FireDoor theFireDoor;
 
     public CloseFireDoorAction(ElectricalDoor electricalDoor) {
         super("Close Fire Door", SensoryLevel.PHYSICAL_ACTIVITY);

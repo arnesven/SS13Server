@@ -38,6 +38,8 @@ public class DoorMechanism extends ElectricalMachinery {
         super(electricalDoor.getName(), null);
         this.electricalDoor = electricalDoor;
         setPowerPriority(1);
+        setHealth(2.5);
+        setMaxHealth(2.5);
         ffVacant = true;
         this.listOfCords = new ArrayList<PowerCord>();
         listOfCords.add(linePower);
@@ -69,6 +71,14 @@ public class DoorMechanism extends ElectricalMachinery {
 
     public List<PowerCord> getPowerCords() {
         return listOfCords;
+    }
+
+    public PowerCord getPowerLine() {
+        return linePower;
+    }
+
+    public PowerCord getBackupLine() {
+        return lineBackupPower;
     }
 
 
@@ -105,7 +115,7 @@ public class DoorMechanism extends ElectricalMachinery {
 
     @Override
     public void thisJustBroke(GameData gameData) {
-        electricalDoor.thisJustBroke(gameData);
+        electricalDoor.breakDoor(gameData);
     }
 
     @Override
@@ -129,6 +139,7 @@ public class DoorMechanism extends ElectricalMachinery {
         lineOpen.repair(this);
         lineLock.repair(this);
         lineFire.repair(this);
+        electricalDoor.gotRepaired(gameData);
     }
 
 
@@ -255,7 +266,7 @@ public class DoorMechanism extends ElectricalMachinery {
 
         @Override
         protected Action specificCutAction(Player player, GameData gameData) {
-            if (!(electricalDoor.getDoorState() instanceof DoorState.Locked)) {
+            if (!(electricalDoor.getDoorState() instanceof DoorState.Locked) && !isBroken()) {
                 return new HackDoorToBrokenAction(electricalDoor);
             }
             return null;
@@ -296,7 +307,7 @@ public class DoorMechanism extends ElectricalMachinery {
 
         @Override
         protected Action specificPulseAction(Player player, GameData gameData) {
-            if (electricalDoor instanceof NormalDoor) {
+            if (electricalDoor.getDoorState() instanceof DoorState.Normal) {
                 if (permitsLock()) {
                     return new HackDoorToLockAction(electricalDoor);
                 }

@@ -32,7 +32,7 @@ public class DoorHackingFancyFrame extends FancyFrame {
             content.append(HTMLText.makeCentered("<br/><br/><i>The door has been hacked and something is happening...</i>"));
         } else {
             content.append(HTMLText.makeCentered("Diode: " + door.getDiodeColor()));
-            content.append("<table>");
+            content.append("<table bgcolor=\"666666\">");
             int index = 0;
             for (PowerCord pc : door.getDoorMechanism().getPowerCords()) {
                 content.append("<tr>");
@@ -53,7 +53,7 @@ public class DoorHackingFancyFrame extends FancyFrame {
     private String addPulseIfPlayerHasMultitool(Player player, int index, PowerCord pc) {
         if (GameItem.hasAnItemOfClass(player, Multimeter.class)) {
             if (!pc.isCut()) {
-                return "<td>" + HTMLText.makeFancyFrameLink("PULSE " + index, "[pulse]") + "</td>";
+                return "<td>" + makeLink("PULSE " + index, "[pulse]") + "</td>";
             }
         }
         return "<td></td>";
@@ -62,21 +62,23 @@ public class DoorHackingFancyFrame extends FancyFrame {
     private String addCutIfPlayerHasTools(Player player, int index, PowerCord pc) {
         if (GameItem.hasAnItemOfClass(player, Tools.class)) {
             if (pc.isCut()) {
-                return  "<td>" + HTMLText.makeFancyFrameLink("MEND " + index, "[mend]") + "</td>";
+                return  "<td>" + makeLink("MEND " + index, "[mend]") + "</td>";
             }
-            return "<td>" + HTMLText.makeFancyFrameLink("CUT " + index, "[cut]") + "</td>";
+            return "<td>" + makeLink("CUT " + index, "[cut]") + "</td>";
         }
         return "<td></td>";
     }
 
     private String getStateIfPlayerHasMultitool(Player player, PowerCord pc) {
+        String result;
         if (pc.isCut()) {
-            return "<td>U</td>";
+            result = "<td>U</td>";
         } else if (GameItem.hasAnItemOfClass(player, Multimeter.class)) {
-            return "<td>" + (pc.getState()==-1?"U":pc.getState()+"") + "</td>";
+            result = "<td>" + (pc.getState()==-1?"U":pc.getState()+"") + "</td>";
         } else  {
-            return "<td>?</td>";
+            result = "<td>?</td>";
         }
+        return HTMLText.makeText("yellow", result);
     }
 
 
@@ -123,4 +125,10 @@ public class DoorHackingFancyFrame extends FancyFrame {
             readyThePlayer(gameData, player);
         }
     }
+
+
+    private String makeLink(String command, String text) {
+        return HTMLText.makeFancyFrameLink(command, HTMLText.makeText("yellow", text));
+    }
+
 }

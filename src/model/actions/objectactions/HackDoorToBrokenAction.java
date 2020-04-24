@@ -18,6 +18,7 @@ public class HackDoorToBrokenAction extends HackDoorAction {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         electricalDoor.getDoorMechanism().setHealth(0.0);
+        electricalDoor.breakDoor(gameData);
     }
 
     @Override

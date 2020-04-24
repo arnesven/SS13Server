@@ -63,8 +63,13 @@ public abstract class ElectricalDoor extends Door {
     protected Sprite getSprite() {
         if (isAnimating()) {
             return Sprite.blankSprite();
-        } else if (getDoorMechanism() != null && getDoorMechanism().hasError()) {
-            return getErrorSprite();
+
+        } else if (doorState instanceof DoorState.Normal || doorState instanceof DoorState.Locked) {
+            if (getDoorMechanism() != null) {
+                if (getDoorMechanism().hasError()) {
+                    return getErrorSprite();
+                }
+            }
         }
         return doorState.getSprite();
     }
@@ -94,7 +99,7 @@ public abstract class ElectricalDoor extends Door {
     @Override
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
         List<Action> at = super.getDoorActions(gameData, forWhom);
-        if (!forWhom.isAI()) {
+        if (!forWhom.isAI() || !isBroken()) {
             AttackAction act = new AttackDoorAction(forWhom, this);
             act.addTarget(doorMechanism);
             act.stripAllTargetsBut(doorMechanism);
@@ -115,8 +120,13 @@ public abstract class ElectricalDoor extends Door {
         return at;
     }
 
-    protected void thisJustBroke(GameData gameData) {
+    public void breakDoor(GameData gameData) {
         this.doorState = new DoorState.Broken(this);
+        try {
+            GameMap.joinRooms(gameData.getRoomForId(getFromId()), gameData.getRoomForId(getToId()));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -133,6 +143,7 @@ public abstract class ElectricalDoor extends Door {
             FireDoor theFireDoor = shutFireDoor(from, to);
             from.addEvent(new ShutFireDoorAnimationEvent(gameData, from, theFireDoor));
             to.addEvent(new ShutFireDoorAnimationEvent(gameData, to, theFireDoor));
+            getDoorMechanism().getFireCord().setState(1);
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
@@ -159,8 +170,10 @@ public abstract class ElectricalDoor extends Door {
     }
 
     public String getDiodeColor() {
-        if (getDoorMechanism() != null && getDoorMechanism().hasError()) {
-            return HTMLText.makeText("black", "yellow", "YELLOW");
+        if (doorState instanceof DoorState.Locked || doorState instanceof DoorState.Normal) {
+            if (getDoorMechanism() != null && getDoorMechanism().hasError()) {
+                return HTMLText.makeText("black", "yellow", "YELLOW");
+            }
         }
         return doorState.getDiodeColor();
     }
@@ -184,6 +197,7 @@ public abstract class ElectricalDoor extends Door {
     public void lockRooms(Room from, Room to) {
         GameMap.separateRooms(to, from);
         this.doorState = new DoorState.Locked(this);
+        this.doorMechanism.getLockCord().setState(1);
     }
 
     public void crowbarOpen(Room from, Room to) {
@@ -203,5 +217,11 @@ public abstract class ElectricalDoor extends Door {
     public void goUnpowered(Room from, Room to) {
         GameMap.separateRooms(from, to);
         this.doorState = new DoorState.Unpowered(this);
+        this.doorMechanism.getPowerLine().setState(0);
+        this.doorMechanism.getBackupLine().setState(0);
+    }
+
+    public void gotRepaired(GameData gameData) {
+        this.doorState = doorState.getOldState();
     }
 }

@@ -58,6 +58,7 @@ public class FireDoor extends Door {
 
     public void openFireDoor(GameData gameData, Actor performingClient) {
         try {
+            getInnerDoor().getDoorMechanism().getFireCord().setState(0);
             Room from = gameData.getRoomForId(getFromId());
             Room to = gameData.getRoomForId(getToId());
             Door theDoor = openFireDoor(from, to, innerDoor.getDoorState() instanceof DoorState.Locked);
