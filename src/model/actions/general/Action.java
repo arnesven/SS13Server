@@ -243,6 +243,8 @@ public abstract class Action extends Experienceable implements Serializable {
         return true;
     }
 
+    public boolean doesCommitThePlayer() { return false;}
+
     public String getFullName() {
 	    String argString = "";
 	    if (savedArgs != null) {

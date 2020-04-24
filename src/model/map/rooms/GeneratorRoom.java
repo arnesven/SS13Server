@@ -2,9 +2,10 @@ package model.map.rooms;
 
 import model.GameData;
 import model.items.EmptyContainer;
-import model.items.general.FireExtinguisher;
+import model.items.general.Multimeter;
 import model.items.general.Tools;
 import model.items.suits.FireSuit;
+import model.items.suits.InsulatedGloves;
 import model.map.doors.Door;
 import model.objects.consoles.LifeSupportConsole;
 import model.objects.general.ChemicalDispenser;
@@ -19,6 +20,8 @@ public class GeneratorRoom extends TechRoom {
 		this.addObject(new GeneratorConsole(this, gameData));
         this.addObject(new LifeSupportConsole(this, gameData));
         this.addItem(new Tools());
+        this.addItem(new Multimeter());
+        this.addItem(new InsulatedGloves());
         this.addItem(new FireSuit());
         this.addItem(new EmptyContainer());
 	}

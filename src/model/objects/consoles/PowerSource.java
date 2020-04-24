@@ -198,7 +198,8 @@ public abstract class PowerSource extends BreakableObject implements Repairable 
             }
             for (Door d : room.getDoors()) {
                 if (d.requiresPower()) {
-                    Logger.log("POWER: this door requires power " + d.getName());
+                    //Logger.log("POWER: this door requires power " + d.getName());
+                    d.getElectricalLock(gameData).setPowerSource(this);
                     noPower.add(d.getElectricalLock(gameData));
                 }
             }

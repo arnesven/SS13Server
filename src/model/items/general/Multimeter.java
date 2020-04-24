@@ -7,21 +7,21 @@ import model.characters.decorators.RadiationOverlayDecorator;
 import model.characters.general.GameCharacter;
 import model.map.rooms.Room;
 
-public class GeigerMeter extends UplinkItem {
+public class Multimeter extends UplinkItem {
 
 	
-	public GeigerMeter() {
-		super("Geiger Meter", 0.2, 49);
+	public Multimeter() {
+		super("Multimeter", 0.2, 49);
 	}
 
 	@Override
-	public GeigerMeter clone() {
-		return new GeigerMeter();
+	public Multimeter clone() {
+		return new Multimeter();
 	}
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("geigermeter", "device.png", 0, this);
+        return new Sprite("multimeter", "device.png", 0, this);
     }
 
     @Override

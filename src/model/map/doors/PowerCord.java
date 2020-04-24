@@ -5,8 +5,10 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.events.damage.ElectricalDamage;
 import model.items.general.GameItem;
 import util.HTMLText;
+import util.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -30,23 +32,15 @@ public abstract class PowerCord extends GameItem {
         return color;
     }
 
-    public String drawYourselfInHTML(Player player) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 3; i > 0; --i) {
-            if (i == 2 && isCut()) {
-                result.append(HTMLText.makeImage(cutSprite(player)));
-            } else {
-                result.append(HTMLText.makeImage(getSprite(player)));
-            }
-        }
-        return result.toString();
-    }
 
     public boolean isCut() {
         return isCut;
     }
 
     public int getState() {
+        if (isCut) {
+            return -1;
+        }
         return state;
     }
 
@@ -59,9 +53,50 @@ public abstract class PowerCord extends GameItem {
     }
 
     public Action cut(Player player, GameData gameData) {
+        if (getState() == 1) {
+            player.beExposedTo(null, new ElectricalDamage(0.5), gameData);
+            gameData.getChat().serverInSay(HTMLText.makeText("red", "You got a shock from a loose wire!"), player);
+        }
         isCut = true;
         return specificCutAction(player, gameData);
     }
+
+
+
+    protected abstract Action specificCutAction(Player player, GameData gameData);
+
+    public Action mend(Player player, GameData gameData) {
+        this.repair(doorMechanism);
+        if (getState() == 1) {
+            Logger.log("After mending power cable, state was 1, ITS ELECTRIC!");
+            player.beExposedTo(null, new ElectricalDamage(0.5), gameData);
+            gameData.getChat().serverInSay(HTMLText.makeText("red", "You got a shock from a loose wire!"), player);
+        }
+        return specificMendAction(player, gameData);
+    }
+
+    protected abstract Action specificMendAction(Player player, GameData gameData);
+
+    public Action pulse(Player player, GameData gameData) {
+        if (getState() != 1) {
+            return specificPulseAction(player, gameData);
+        }
+        return null;
+    }
+
+    protected abstract Action specificPulseAction(Player player, GameData gameData);
+
+
+    public boolean isOK() {
+        return !isCut && state != -1;
+    }
+
+    public void repair(DoorMechanism dm) {
+        setCut(false);
+        setState(0);
+    }
+
+
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
@@ -89,20 +124,24 @@ public abstract class PowerCord extends GameItem {
         return new Sprite("final" + sp.getName(), "human.png", 0, sprs, null);
     }
 
+
+    public String drawYourselfInHTML(Player player) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 3; i > 0; --i) {
+            if (i == 2 && isCut()) {
+                result.append(HTMLText.makeImage(cutSprite(player)));
+            } else {
+                result.append(HTMLText.makeImage(getSprite(player)));
+            }
+        }
+        return result.toString();
+    }
+
+
     @Override
     public GameItem clone() {
         return null;
     }
 
-    protected abstract Action specificCutAction(Player player, GameData gameData);
-
-    public boolean isOK() {
-        return !isCut && state != -1;
-    }
-
-    public void repair(DoorMechanism dm) {
-        setCut(false);
-        setState(0);
-    }
 
 }

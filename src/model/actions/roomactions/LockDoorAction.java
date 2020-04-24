@@ -35,6 +35,10 @@ public class LockDoorAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
+        if (!door.getDoorMechanism().permitsLock()) {
+            performingClient.addTolastTurnInfo("Something is wrong with the door, it can't be locked! " + Action.FAILED_STRING);
+        }
+
         if (GameItem.hasAnItemOfClass(performingClient, KeyCard.class) || performingClient.isAI()) {
             performingClient.addTolastTurnInfo("You locked the door");
         } else if (!performingClient.isAI()) {

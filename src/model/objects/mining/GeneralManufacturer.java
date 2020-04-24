@@ -121,7 +121,7 @@ public class GeneralManufacturer extends ElectricalMachinery {
         Set<GameItem> tools = new HashSet<>();
         tools.add(new Crowbar());
         tools.add(new Tools());
-        tools.add(new GeigerMeter());
+        tools.add(new Multimeter());
         tools.add(new Teleporter());
         tools.add(new SecurityRadio());
         tools.add(new PowerRadio());

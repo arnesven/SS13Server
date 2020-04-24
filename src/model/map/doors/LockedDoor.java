@@ -36,8 +36,8 @@ public class LockedDoor extends ElectricalDoor {
 
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
         List<Action> at = super.getDoorActions(gameData, forWhom);
-        if (getDoorMechanism().getLockCord().isOK() && getDoorMechanism().getOpenCord().isOK() &&
-                GameItem.hasAnItemOfClass(forWhom, KeyCard.class) || forWhom.isAI()) {
+        if (getDoorMechanism().permitsUnlock() &&
+                (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) || forWhom.isAI())) {
             at.add(new UnLockDoorAction(this));
             at.add(new UnLockAndMoveThroughAction(this));
         }
@@ -57,9 +57,9 @@ public class LockedDoor extends ElectricalDoor {
     @Override
     public String getDiodeColor() {
         if (getDoorMechanism().hasError()) {
-            return HTMLText.makeText("orange", "YELLOW");
+            return HTMLText.makeText("black", "yellow", "YELLOW");
         }
-        return HTMLText.makeText("red", "RED");
+        return HTMLText.makeText("black", "red", "_RED_");
     }
 
 
@@ -81,6 +81,15 @@ public class LockedDoor extends ElectricalDoor {
 
     private NormalDoor makeIntoNormalDoor(Door targetDoor) {
         NormalDoor d = new NormalDoor(targetDoor.getX(), targetDoor.getY(), targetDoor.getFromId(), targetDoor.getToId());
+        d.setDoorMechanism(getDoorMechanism());
+        d.getDoorMechanism().setName(d.getName());
+        return d;
+    }
+
+
+    @Override
+    protected Door makeIntoPowered() {
+        LockedDoor d = new LockedDoor(getX(), getY(), getFromId(), getToId());
         d.setDoorMechanism(getDoorMechanism());
         d.getDoorMechanism().setName(d.getName());
         return d;

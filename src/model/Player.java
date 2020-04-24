@@ -316,7 +316,9 @@ public class Player extends Actor implements Target, Serializable {
 				a.setActionTreeArguments(args, this);
 				this.nextAction = a;
 				try {
-					gameData.setPlayerReady(gameData.getClidForPlayer(this), true);
+					if (a.doesSetPlayerReady()) {
+						gameData.setPlayerReady(gameData.getClidForPlayer(this), true);
+					}
 				} catch (NoSuchThingException e) {
 					e.printStackTrace(); // should not happen
 				}
@@ -441,7 +443,11 @@ public class Player extends Actor implements Target, Serializable {
 	}
 
 	public void setNextAction(Action nextAction) {
-		this.nextAction = nextAction;
+		if (this.nextAction != null && this.nextAction.doesCommitThePlayer()) {
+			addTolastTurnInfo("You can't change your action. You're committed to " + nextAction.getName());
+		} else {
+			this.nextAction = nextAction;
+		}
 	}
 
 

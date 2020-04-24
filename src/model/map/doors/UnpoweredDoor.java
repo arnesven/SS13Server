@@ -22,6 +22,8 @@ public class UnpoweredDoor extends ElectricalDoor {
         super(x, y, "Unpowered", fromID, toID);
     }
 
+
+
     @Override
     protected Sprite getSprite() {
         return UNPOWERED_DOOR;
@@ -38,8 +40,10 @@ public class UnpoweredDoor extends ElectricalDoor {
 
     @Override
     public String getDiodeColor() {
-        return HTMLText.makeText("gray", "DARK");
+        return HTMLText.makeText("white", "gray", "_DARK");
     }
+
+
 
     public void crowbarOpen(Room from, Room to) {
         GameMap.joinRooms(to, from);

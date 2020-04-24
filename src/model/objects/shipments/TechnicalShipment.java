@@ -11,7 +11,7 @@ public class TechnicalShipment extends Shipment {
         this.add(new Tools());
         this.add(new Tools());
         this.add(new PowerRadio());
-        this.add(new GeigerMeter());
+        this.add(new Multimeter());
         this.add(new Laptop());
     }
 

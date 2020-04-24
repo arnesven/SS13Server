@@ -18,7 +18,7 @@ public class ShowDoorHackingFancyFrameAction extends Action {
     private final GameData gameData;
 
     public ShowDoorHackingFancyFrameAction(GameData gameData, Actor forWhom, ElectricalDoor electricalDoor) {
-        super("Examine Door Mechanism", SensoryLevel.OPERATE_DEVICE);
+        super("Examine Mechanism (Free Action)", SensoryLevel.OPERATE_DEVICE);
         this.door = electricalDoor;
         this.gameData = gameData;
     }

@@ -3,27 +3,27 @@ package model.actions.objectactions;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
-import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.map.doors.ElectricalDoor;
+import model.map.doors.NormalDoor;
 
 import java.util.List;
 
-public class HackDoorToUnpoweredAction extends HackDoorAction {
-
+public class HackDoorToLockAction extends HackDoorAction{
     private final ElectricalDoor door;
 
-    public HackDoorToUnpoweredAction(ElectricalDoor electricalDoor) {
+    public HackDoorToLockAction(ElectricalDoor electricalDoor) {
         this.door = electricalDoor;
     }
-
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         try {
-            if (!door.getDoorMechanism().powerSupplyOK()) {
-                door.goUnpowered(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
-                performingClient.addTolastTurnInfo("The door lost power.");
+            if (door instanceof NormalDoor && door.getDoorMechanism().permitsLock()) {
+                ((NormalDoor) door).lockRooms(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
+                performingClient.addTolastTurnInfo("You locked the door.");
+            } else {
+                performingClient.addTolastTurnInfo("Something is wrong with the door, it won't lock! " + Action.FAILED_STRING);
             }
         } catch (NoSuchThingException e) {
             e.printStackTrace();

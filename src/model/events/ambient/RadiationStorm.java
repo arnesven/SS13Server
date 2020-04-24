@@ -10,7 +10,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.items.general.GameItem;
-import model.items.general.GeigerMeter;
+import model.items.general.Multimeter;
 import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.behaviors.AvoidRadiationMovement;
@@ -127,7 +127,7 @@ public class RadiationStorm extends AmbientEvent {
 
 	private boolean hasGeigerMeter(Actor performingClient) {
 		for (GameItem gi : performingClient.getItems()) {
-			if (gi instanceof GeigerMeter) {
+			if (gi instanceof Multimeter) {
 				return true;
 			}
 		}

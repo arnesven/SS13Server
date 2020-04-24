@@ -23,7 +23,7 @@ public class ScienceOfficerCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new EtherChemicals());
-		list.add(new GeigerMeter());
+		list.add(new Multimeter());
         list.add(new Teleporter());
         list.add(new Laptop());
 		return list;
@@ -32,7 +32,7 @@ public class ScienceOfficerCharacter extends CrewCharacter {
     @Override
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         if (GameItem.hasAnItem(this.getActor(), new Laptop())) {
-            Logger.log("Science Officer had a laptop");
+            //Logger.log("Science Officer had a laptop");
             Laptop pc = null;
             try {
                 pc = (Laptop) GameItem.getItem(this.getActor(), new Laptop());

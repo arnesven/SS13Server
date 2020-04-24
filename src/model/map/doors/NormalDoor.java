@@ -42,11 +42,11 @@ public class NormalDoor extends ElectricalDoor {
 
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
         List<Action> at = super.getDoorActions(gameData, forWhom);
-        if (getDoorMechanism().getLockCord().isOK() && !isBroken() && (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) || forWhom.isAI())) {
+        if (getDoorMechanism().permitsLock() && !isBroken() && (GameItem.hasAnItemOfClass(forWhom, KeyCard.class) || forWhom.isAI())) {
             at.add(new LockDoorAction(this));
             at.add(new MoveThroughAndLock(this));
         }
-        if (getDoorMechanism().getFireCord().isOK()) {
+        if (getDoorMechanism().getFireCord().isOK() || !forWhom.isAI()) {
             at.add(new MoveThroughAndCloseFireDoorAction(this));
         }
         return at;
@@ -55,11 +55,11 @@ public class NormalDoor extends ElectricalDoor {
     @Override
     public String getDiodeColor() {
         if (isBroken()) {
-            return HTMLText.makeText("gray", "DARK");
+            return HTMLText.makeText("white", "gray","_DARK");
         } else if (getDoorMechanism().hasError()) {
-            return HTMLText.makeText("orange", "YELLOW");
+            return HTMLText.makeText("black", "yellow", "YELLOW");
         }
-        return HTMLText.makeText("green", "GREEN");
+        return HTMLText.makeText("black", "#0bf900","GREEN");
     }
 
     public void lockRooms(Room from, Room to) {
@@ -88,6 +88,9 @@ public class NormalDoor extends ElectricalDoor {
         newDoor.getDoorMechanism().getLockCord().setState(1);
         return newDoor;
     }
+
+
+
 
 
 }

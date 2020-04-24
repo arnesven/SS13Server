@@ -32,6 +32,10 @@ public class UnLockDoorAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
+        if (!door.getDoorMechanism().permitsUnlock()) {
+            performingClient.addTolastTurnInfo("Something is wrong with the door. It can't be unlocked! " + Action.FAILED_STRING);
+        }
+
         boolean isAI = performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter);
         if (GameItem.hasAnItemOfClass(performingClient, KeyCard.class) || isAI) {
             performingClient.addTolastTurnInfo("You unlocked the door");

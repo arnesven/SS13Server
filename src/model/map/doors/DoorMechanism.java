@@ -4,14 +4,15 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
-import model.actions.objectactions.HackDoorToBrokenAction;
-import model.actions.objectactions.HackDoorToUnpoweredAction;
+import model.actions.objectactions.*;
+import model.actions.roomactions.LockDoorAction;
 import model.events.damage.Damager;
 import model.events.damage.ElectricalDamage;
 import model.events.damage.FireDamage;
 import model.items.NoSuchThingException;
 import model.objects.general.ElectricalMachinery;
 import util.HTMLText;
+import util.Logger;
 import util.MyRandom;
 
 import java.awt.*;
@@ -47,6 +48,55 @@ public class DoorMechanism extends ElectricalMachinery {
         listOfCords.add(lineFire);
         //Collections.shuffle(listOfCords);
     }
+
+    public boolean isFancyFrameVacant() { return ffVacant; }
+
+    public void setFancyFrameOccupied() {
+        ffVacant = false;
+    }
+
+    public void setFancyFrameVacant() {
+        ffVacant = true;
+    }
+
+    public void setDoor(ElectricalDoor electricalDoor) {
+        this.electricalDoor = electricalDoor;
+    }
+
+    public boolean hasError() {
+        return lineFire.getState() == -1 || lineOpen.getState() == -1 || lineLock.getState() == -1;
+    }
+
+    public List<PowerCord> getPowerCords() {
+        return listOfCords;
+    }
+
+
+    public PowerCord getLockCord() {
+        return lineLock;
+    }
+
+    public PowerCord getFireCord() {
+        return lineFire;
+    }
+
+    public PowerCord getOpenCord() {
+        return lineOpen;
+    }
+
+    public boolean permitsUnlock() {
+        return getLockCord().isOK() && getOpenCord().isOK();
+    }
+
+    public boolean permitsLock() {
+        return getLockCord().isOK();
+    }
+
+
+    public boolean powerSupplyOK() {
+        return linePower.isOK() || lineBackupPower.isOK();
+    }
+
 
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
@@ -104,43 +154,20 @@ public class DoorMechanism extends ElectricalMachinery {
         }
     }
 
-    public boolean isFancyFrameVacant() {
-        return ffVacant;
-
-    }
-
-    public void setFancyFrameOccupied() {
-        ffVacant = false;
-    }
-
-    public void setFancyFrameVacant() {
-        ffVacant = true;
-    }
-
-    public boolean hasError() {
-        return lineFire.getState() == -1 || lineOpen.getState() == -1 || lineLock.getState() == -1;
-    }
-
-    public List<PowerCord> getPowerCords() {
-        return listOfCords;
-    }
 
     public Action cutCord(int index, Player player, GameData gameData) {
-        listOfCords.get(index).setState(-1);
         return listOfCords.get(index).cut(player, gameData);
     }
 
-    public PowerCord getLockCord() {
-        return lineLock;
+
+    public Action mendCord(int index, Player player, GameData gameData) {
+        return listOfCords.get(index).mend(player, gameData);
     }
 
-    public PowerCord getFireCord() {
-        return lineFire;
+    public Action pulseCord(int index, Player player, GameData gameData) {
+        return listOfCords.get(index).pulse(player, gameData);
     }
 
-    public PowerCord getOpenCord() {
-        return lineOpen;
-    }
 
     private class PowerLinePowerCord extends PowerCord {
         public PowerLinePowerCord(Color color, int i) {
@@ -149,16 +176,32 @@ public class DoorMechanism extends ElectricalMachinery {
 
         @Override
         protected Action specificCutAction(Player player, GameData gameData) {
-            player.beExposedTo(null, new ElectricalDamage(0.5), gameData);
-            gameData.getChat().serverInSay(HTMLText.makeText("red", "You got a shock from a loose wire!"), player);
-            if (linePower.isCut() && lineBackupPower.isCut() && !isBroken()) {
+            if (!powerSupplyOK() && !isBroken() && !(electricalDoor instanceof UnpoweredDoor)) {
                 return new HackDoorToUnpoweredAction(electricalDoor);
             }
             return null;
         }
 
         @Override
+        protected Action specificMendAction(Player player, GameData gameData) {
+            Logger.log("Mending power coord. Power supply is " + powerSupplyOK() + " broken is" + isBroken());
+            Logger.log("Instance is " + (electricalDoor instanceof UnpoweredDoor));
+            if (powerSupplyOK() && !isBroken() && (electricalDoor instanceof UnpoweredDoor)) {
+                Logger.log("Setting hack door to powered action as next action");
+                return new HackDoorToPoweredAction(electricalDoor);
+            }
+            return null;
+        }
+
+        @Override
+        protected Action specificPulseAction(Player player, GameData gameData) {
+            gameData.getChat().serverInSay("Nothing happens.", player);
+            return null;
+        }
+
+        @Override
         public void repair(DoorMechanism doorMechanism) {
+            Logger.log("Repairing PowerLinePowerCord, power is " + isPowered());
             setCut(false);
             if (isPowered()) {
                 setState(1);
@@ -166,7 +209,6 @@ public class DoorMechanism extends ElectricalMachinery {
                 setState(0);
             }
         }
-
     }
 
     private class GroundPowerCord extends PowerCord {
@@ -185,9 +227,21 @@ public class DoorMechanism extends ElectricalMachinery {
         }
 
         @Override
-        public void repair(DoorMechanism doorMechanism) {
-            setCut(false);
-            setState(0);
+        protected Action specificMendAction(Player player, GameData gameData) {
+            lineOpen.setState(0);
+            if (electricalDoor instanceof LockedDoor) {
+                lineLock.setState(1);
+            } else {
+                lineLock.setState(0);
+            }
+            lineFire.setState(1);
+            return null;
+        }
+
+        @Override
+        protected Action specificPulseAction(Player player, GameData gameData) {
+            gameData.getChat().serverInSay("Nothing happens.", player);
+            return null;
         }
     }
 
@@ -198,7 +252,31 @@ public class DoorMechanism extends ElectricalMachinery {
 
         @Override
         protected Action specificCutAction(Player player, GameData gameData) {
-            return new HackDoorToBrokenAction(electricalDoor);
+            if (!(electricalDoor instanceof LockedDoor)) {
+                return new HackDoorToBrokenAction(electricalDoor);
+            }
+            return null;
+        }
+
+        @Override
+        protected Action specificMendAction(Player player, GameData gameData) {
+            return null;
+        }
+
+        @Override
+        protected Action specificPulseAction(Player player, GameData gameData) {
+            if (electricalDoor instanceof NormalDoor) {
+                gameData.getChat().serverInSay("The door opens and closes again.", player);
+            } else if (electricalDoor instanceof LockedDoor) {
+                if (lineLock.getState() != 1 && lineOpen.isOK() && (electricalDoor instanceof LockedDoor)) {
+                    return new HackDoorUnlockAction((LockedDoor)electricalDoor);
+                } else {
+                    gameData.getChat().serverInSay("Nothing happens.", player);
+                }
+            } else {
+                gameData.getChat().serverInSay("Nothing happens.", player);
+            }
+            return null;
         }
     }
 
@@ -208,10 +286,21 @@ public class DoorMechanism extends ElectricalMachinery {
         }
 
         @Override
-        protected Action specificCutAction(Player player, GameData gameData) {
+        protected Action specificCutAction(Player player, GameData gameData) { return null; }
+
+        @Override
+        protected Action specificMendAction(Player player, GameData gameData) { return null; }
+
+        @Override
+        protected Action specificPulseAction(Player player, GameData gameData) {
+            if (electricalDoor instanceof NormalDoor) {
+                if (permitsLock()) {
+                    return new HackDoorToLockAction(electricalDoor);
+                }
+            }
+            gameData.getChat().serverInSay("Nothing happens.", player);
             return null;
         }
-
 
     }
 
@@ -223,6 +312,19 @@ public class DoorMechanism extends ElectricalMachinery {
         @Override
         protected Action specificCutAction(Player player, GameData gameData) {
             return null;
+        }
+
+        @Override
+        protected Action specificMendAction(Player player, GameData gameData) { return null; }
+
+        @Override
+        protected Action specificPulseAction(Player player, GameData gameData) {
+            if (lineFire.isOK()) {
+                return new HackDoorToFireDoor(electricalDoor);
+            }
+            gameData.getChat().serverInSay("Nothing happens.", player);
+            return null;
+
         }
     }
 }

@@ -88,7 +88,7 @@ public abstract class ElectricalDoor extends Door {
         if (GameItem.hasAnItemOfClass(forWhom, Tools.class) && isDamaged()) {
             at.add(new RepairDoorAction(gameData, forWhom, this));
         }
-        if (getDoorMechanism().getFireCord().isOK()) {
+        if (getDoorMechanism().getFireCord().isOK() || !forWhom.isAI()) {
             at.add(new CloseFireDoorAction(this));
         }
         return at;
@@ -100,6 +100,7 @@ public abstract class ElectricalDoor extends Door {
 
     public void setDoorMechanism(DoorMechanism dm) {
         this.doorMechanism = dm;
+        dm.setDoor(this);
     }
 
     public void shutFireDoor(GameData gameData) {
@@ -115,7 +116,7 @@ public abstract class ElectricalDoor extends Door {
         }
     }
 
-    public FireDoor shutFireDoor(Room from, Room to) {
+    private FireDoor shutFireDoor(Room from, Room to) {
         GameMap.separateRooms(to, from);
         FireDoor theFireDoor = wrapInFireDoor(to, this);
         if (theFireDoor == null) {
@@ -170,17 +171,19 @@ public abstract class ElectricalDoor extends Door {
     private void powerDoor(Room room) {
         for (int i = 0; i < room.getDoors().length; ++i) {
             if (room.getDoors()[i] == this) {
-                Door newDoor = makeIntoNormal();
+                Door newDoor = makeIntoPowered();
                 room.getDoors()[i] = newDoor;
                 return;
             }
         }
     }
 
-    private Door makeIntoNormal() {
+    protected Door makeIntoPowered() {
         NormalDoor d = new NormalDoor(getX(), getY(), getFromId(), getToId());
         d.setDoorMechanism(getDoorMechanism());
         d.getDoorMechanism().setName(d.getName());
         return d;
     }
+
+
 }

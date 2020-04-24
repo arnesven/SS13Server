@@ -9,6 +9,7 @@ import model.items.general.GameItem;
 import model.items.general.PowerRadio;
 import model.items.general.Tools;
 import model.items.suits.FireSuit;
+import model.items.suits.InsulatedGloves;
 
 public class EngineerCharacter extends CrewCharacter {
 
@@ -24,6 +25,7 @@ public class EngineerCharacter extends CrewCharacter {
 		list.add(new Tools());
 		list.add(new PowerRadio());
         list.add(new ElectronicParts());
+        list.add(new InsulatedGloves());
         return list;
 	}
 

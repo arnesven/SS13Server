@@ -4,7 +4,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.items.general.GameItem;
-import model.items.general.GeigerMeter;
+import model.items.general.Multimeter;
 import model.items.general.Tools;
 import model.map.doors.ElectricalDoor;
 import model.map.doors.PowerCord;
@@ -39,7 +39,7 @@ public class DoorHackingFancyFrame extends FancyFrame {
                 content.append(getStateIfPlayerHasMultitool(player, pc));
                 content.append("<td>" + pc.drawYourselfInHTML(player) + "</td>");
                 content.append(addCutIfPlayerHasTools(player, index, pc));
-                content.append(addPulseIfPlayerHasMultitool(player, index));
+                content.append(addPulseIfPlayerHasMultitool(player, index, pc));
                 content.append("</tr>");
                 index++;
             }
@@ -50,15 +50,20 @@ public class DoorHackingFancyFrame extends FancyFrame {
                 HTMLText.makeColoredBackground("#dcdcdc", content.toString()));
     }
 
-    private String addPulseIfPlayerHasMultitool(Player player, int index) {
-        if (GameItem.hasAnItemOfClass(player, GeigerMeter.class)) {
-            return "<td>" + HTMLText.makeFancyFrameLink("PULSE " + index, "[pulse]") + "</td>";
+    private String addPulseIfPlayerHasMultitool(Player player, int index, PowerCord pc) {
+        if (GameItem.hasAnItemOfClass(player, Multimeter.class)) {
+            if (!pc.isCut()) {
+                return "<td>" + HTMLText.makeFancyFrameLink("PULSE " + index, "[pulse]") + "</td>";
+            }
         }
         return "<td></td>";
     }
 
     private String addCutIfPlayerHasTools(Player player, int index, PowerCord pc) {
-        if (GameItem.hasAnItemOfClass(player, Tools.class) && !pc.isCut()) {
+        if (GameItem.hasAnItemOfClass(player, Tools.class)) {
+            if (pc.isCut()) {
+                return  "<td>" + HTMLText.makeFancyFrameLink("MEND " + index, "[mend]") + "</td>";
+            }
             return "<td>" + HTMLText.makeFancyFrameLink("CUT " + index, "[cut]") + "</td>";
         }
         return "<td></td>";
@@ -67,7 +72,7 @@ public class DoorHackingFancyFrame extends FancyFrame {
     private String getStateIfPlayerHasMultitool(Player player, PowerCord pc) {
         if (pc.isCut()) {
             return "<td>U</td>";
-        } else if (GameItem.hasAnItemOfClass(player, GeigerMeter.class)) {
+        } else if (GameItem.hasAnItemOfClass(player, Multimeter.class)) {
             return "<td>" + (pc.getState()==-1?"U":pc.getState()+"") + "</td>";
         } else  {
             return "<td>?</td>";
@@ -88,6 +93,9 @@ public class DoorHackingFancyFrame extends FancyFrame {
 
     @Override
     public void doAtEndOfTurn(GameData gameData, Player actor) {
+        if (doorStateChanging) {
+            leaveFancyFrame(gameData, actor);
+        }
         doorStateChanging = false;
         buildInterface(gameData, actor);
     }
@@ -95,8 +103,17 @@ public class DoorHackingFancyFrame extends FancyFrame {
     @Override
     public void handleEvent(GameData gameData, Player player, String event) {
         super.handleEvent(gameData, player, event);
-        if (event.contains("CUT")) {
-            Action act = door.getDoorMechanism().cutCord(Integer.parseInt(event.replace("CUT ", "")), player, gameData);
+        if (event.contains("DISMISS")) {
+            leaveFancyFrame(gameData, player);
+        } else if (event.contains("CUT") || event.contains("MEND") || event.contains("PULSE")) {
+            Action act = null;
+            if (event.contains("CUT")) {
+                act = door.getDoorMechanism().cutCord(Integer.parseInt(event.replace("CUT ", "")), player, gameData);
+            } else if (event.contains("MEND")) {
+                act = door.getDoorMechanism().mendCord(Integer.parseInt(event.replace("MEND ", "")), player, gameData);
+            } else if (event.contains("PULSE")) {
+                act = door.getDoorMechanism().pulseCord(Integer.parseInt(event.replace("PULSE ", "")), player, gameData);
+            }
             if (act != null) {
                 player.setNextAction(act);
                 this.doorStateChanging = true;

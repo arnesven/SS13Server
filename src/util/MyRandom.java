@@ -20,7 +20,6 @@ import model.map.rooms.HallwayRoom;
 import model.map.rooms.Room;
 import model.movepowers.SetHairColorPower;
 import model.objects.general.Antidote;
-import model.objects.general.BloodyMess;
 
 public class MyRandom {
 	public static Random random = new Random();
@@ -132,7 +131,7 @@ public class MyRandom {
         list.add(new PirateNuclearDisc());
         list.add(new Bible());
         list.add(new Defibrilator());
-        list.add(new GeigerMeter());
+        list.add(new Multimeter());
         list.add(new NuclearDisc(null, false));
         list.add(new SecurityRadio());
         list.add(new Teleporter());
@@ -168,6 +167,7 @@ public class MyRandom {
         list.add(new Tomato(null));
         list.add(new Orange(null));
         list.add(new BagOfSoil());
+        list.add(new InsulatedGloves());
 
         return list;
     }
