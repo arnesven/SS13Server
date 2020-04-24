@@ -231,6 +231,8 @@ public abstract class Weapon extends GameItem implements HandheldItem {
     public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
 	    return "<b>Hit Chance:</b> " + hitChance + ", <b>Damage:</b> " + damage + "<br/>" +
                 (givesAttackOfOpportunity()?"<i>Gives attacks of opportunity!</i><br/>":"") +
-                (criticalChance!=0.05?("<b>Critical Chance:</b> " + (int)criticalChance*100 + "%"):"");
+                (criticalChance!=0.05?("<b>Critical Chance:</b> " + (int)(criticalChance*100) + "%"):"");
     }
+
+
 }

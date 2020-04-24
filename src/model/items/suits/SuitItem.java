@@ -10,6 +10,7 @@ import model.actions.UnequipAction;
 import model.actions.general.Action;
 import model.actions.general.DropAction;
 import model.actions.general.PutOnAction;
+import model.actions.itemactions.ShowExamineFancyFrameAction;
 import model.items.general.GameItem;
 import util.Logger;
 
@@ -119,6 +120,7 @@ public abstract class SuitItem extends GameItem implements Wearable {
 
     public List<Action> getEquippedActions(GameData gameData, Player forWhom) {
         ArrayList<Action> acts = new ArrayList<>();
+        acts.add(new ShowExamineFancyFrameAction(gameData, forWhom, this));
         if (forWhom.getsActions()) {
             DropAction drop = new DropAction(forWhom);
             if (drop.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom)) ||
@@ -166,7 +168,7 @@ public abstract class SuitItem extends GameItem implements Wearable {
 	    StringBuilder covers = new StringBuilder(Equipment.getSlotName(getEquipmentSlot()));
 	    for (int i = 0; i < Equipment.noOfSlots(); i++) {
             if (getEquipmentSlot() != i) {
-                if (blocksSlot(i)) {
+                if (getAdditionalSprites().get(i) != null) {
                     covers.append(", " + Equipment.getSlotName(i));
                 }
             }

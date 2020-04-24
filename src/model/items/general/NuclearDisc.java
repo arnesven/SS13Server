@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
 import model.items.NoSuchThingException;
@@ -42,6 +43,10 @@ public class NuclearDisc extends GameItem {
         return new Sprite("nucleardisc","cloning.png", 9, this);
     }
 
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A data disc with secret detonation codes for Nanotrasen nuclear warheads. Better not let this get in the wrong hands.";
+    }
 
     private class RespawnIfTakenFromStation extends Event {
         private final NuclearDisc disc;

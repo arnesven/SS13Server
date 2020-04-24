@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.itemactions.TeleportAction;
@@ -89,5 +90,10 @@ public class Teleporter extends UplinkItem {
 
     public void setMarked(Room marked) {
         this.coordinates = marked;
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Good to teleport instantly to a location you have previously marked.";
     }
 }

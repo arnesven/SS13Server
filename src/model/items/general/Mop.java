@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 
 import java.util.ArrayList;
@@ -30,4 +31,8 @@ public class Mop extends GameItem {
         return new Sprite("mop", "janitor.png", 3, this);
     }
 
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Good for cleaning floors.";
+    }
 }

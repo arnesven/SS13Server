@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.actions.general.Action;
 import model.actions.itemactions.DefuseBombAction;
@@ -96,4 +97,9 @@ public class Tools extends BluntWeapon {
 		}
 	}
 
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "Good for repairing equipment, sealing hull breaches, defusing bombs, hacking bombs " +
+				super.getDescription(gameData, performingClient);
+	}
 }

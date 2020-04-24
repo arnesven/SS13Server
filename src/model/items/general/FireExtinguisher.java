@@ -95,4 +95,9 @@ public class FireExtinguisher extends BluntWeapon {
         return super.getExtraDescriptionStats(gameData, performingClient) +
                 "<b>Uses: </b>" + getUsesRemaining() + "/" + MAX_LEVEL + "<br/>";
     }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Good for putting out fires " + super.getDescription(gameData, performingClient);
+    }
 }

@@ -61,4 +61,9 @@ public class AmmoWeapon extends Weapon {
 		}
 		return getExtraDescriptionStats(gameData, performingClient);
 	}
+
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "Good for shooting people, or stuff.";
+	}
 }

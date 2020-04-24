@@ -2,6 +2,8 @@ package model.items.weapons;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 
 /**
@@ -25,5 +27,10 @@ public class Crowbar extends BluntWeapon {
     @Override
     public Sprite getHandHeldSprite() {
         return new Sprite("crowbarhandheld", "items_righthand2.png", 10, 26, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Good for opening unpowered doors" + super.getDescription(gameData, performingClient);
     }
 }

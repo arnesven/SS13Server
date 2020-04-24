@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.HealWithMedKitAction;
 import model.actions.general.TargetingAction;
@@ -14,7 +15,7 @@ import model.items.HandheldItem;
 public class MedKit extends GameItem implements HandheldItem {
 
 	private int uses = 2;
-	private int max_uses = 4;
+	private int max_uses = 2;
 
 	public MedKit() {
 		super("MedKit", 1.0, true, 50);
@@ -50,5 +51,15 @@ public class MedKit extends GameItem implements HandheldItem {
 	@Override
 	public Sprite getHandHeldSprite() {
 		return new Sprite("medkithandheld", "items_righthand.png", 0, 17, this);
+	}
+
+	@Override
+	public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+		return super.getExtraDescriptionStats(gameData, performingClient) + "<b>Uses:</b> " + uses + "/" + max_uses + "<br/>";
+	}
+
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "Good for healing people.";
 	}
 }

@@ -3,6 +3,7 @@ package model.items.weapons;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.objects.general.BreakableObject;
 import util.MyRandom;
@@ -36,5 +37,10 @@ public abstract class BluntWeapon extends Weapon implements BludgeoningWeapon {
     @Override
     public double getAmpChance() {
         return 0.05;
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return " or whacking somebody in the head.";
     }
 }

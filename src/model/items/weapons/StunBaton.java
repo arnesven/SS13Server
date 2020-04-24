@@ -80,4 +80,8 @@ public class StunBaton extends AmmoWeapon {
 		
 	}
 
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "Good for stunning people. Stunned characters cannot move for one round and can be looted by others.";
+	}
 }
