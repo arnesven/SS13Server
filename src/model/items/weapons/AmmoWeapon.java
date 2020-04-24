@@ -1,6 +1,8 @@
 package model.items.weapons;
 
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 
 public class AmmoWeapon extends Weapon {
@@ -50,4 +52,13 @@ public class AmmoWeapon extends Weapon {
     public int getShots() {
         return shots;
     }
+
+	@Override
+	public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+		if (performingClient.getItems().contains(this)) {
+			return super.getExtraDescriptionStats(gameData, performingClient) +
+					" <b>Ammo:</b> " + shots + "/" + maxshots + "<br/>";
+		}
+		return getExtraDescriptionStats(gameData, performingClient);
+	}
 }

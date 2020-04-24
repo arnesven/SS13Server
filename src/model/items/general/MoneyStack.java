@@ -2,6 +2,8 @@ package model.items.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.actions.general.ActionOption;
 import model.items.NoSuchThingException;
 
@@ -98,6 +100,11 @@ public class MoneyStack extends ItemStack {
         }
     }
 
-
-
+    @Override
+    public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+        if (performingClient.getItems().contains(this)) {
+            return "<b>Amount:</b> $$" + getAmount() + "<br/>";
+        }
+        return super.getExtraDescriptionStats(gameData, performingClient);
+    }
 }

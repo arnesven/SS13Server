@@ -11,7 +11,7 @@ public class Multimeter extends UplinkItem {
 
 	
 	public Multimeter() {
-		super("Multimeter", 0.2, 49);
+		super("Multimeter", 0.2, 149);
 	}
 
 	@Override

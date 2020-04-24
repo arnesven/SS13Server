@@ -1,5 +1,6 @@
 package model.items.suits;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
@@ -8,12 +9,17 @@ import model.events.damage.ElectricalDamage;
 
 public class InsulatedGloves extends GlovesItem {
     public InsulatedGloves() {
-        super("Insulated Gloves", 0.1, 260);
+        super("Insulated Gloves", 0.1, 109);
     }
 
     @Override
     public SuitItem clone() {
         return new InsulatedGloves();
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("insulatedgloves", "gloves.png", 2, this);
     }
 
     @Override

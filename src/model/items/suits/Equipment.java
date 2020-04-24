@@ -29,6 +29,14 @@ public class Equipment implements Serializable {
         slots = new SuitItem[4];
     }
 
+    public static String getSlotName(int index) {
+        return slotNames[index];
+    }
+
+    public static int noOfSlots() {
+        return slotNames.length;
+    }
+
     public List<String> getGUIData(GameData gameData, Player player) {
         List<String> result = new ArrayList<>();
         for (int slotIndex = 0; slotIndex < slots.length; slotIndex++) {

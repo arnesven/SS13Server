@@ -160,4 +160,18 @@ public abstract class SuitItem extends GameItem implements Wearable {
     public Map<Integer, Sprite> getAdditionalSprites() {
 	    return new HashMap<>();
     }
+
+    @Override
+    public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+	    StringBuilder covers = new StringBuilder(Equipment.getSlotName(getEquipmentSlot()));
+	    for (int i = 0; i < Equipment.noOfSlots(); i++) {
+            if (getEquipmentSlot() != i) {
+                if (blocksSlot(i)) {
+                    covers.append(", " + Equipment.getSlotName(i));
+                }
+            }
+        }
+
+        return "<b>Covers:</b> " + covers.toString();
+    }
 }

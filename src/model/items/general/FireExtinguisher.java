@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.PutOutActorAction;
 import model.actions.itemactions.PutOutFireAction;
@@ -50,6 +51,7 @@ public class FireExtinguisher extends BluntWeapon {
 	
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
+	    super.addYourActions(gameData, at, cl);
 		try {
             if (getFire(cl.getPosition()) != null && level > 0) {
                 at.add(new PutOutFireAction(this));
@@ -86,5 +88,11 @@ public class FireExtinguisher extends BluntWeapon {
 
     public int getUsesRemaining() {
         return level;
+    }
+
+    @Override
+    public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+        return super.getExtraDescriptionStats(gameData, performingClient) +
+                "<b>Uses: </b>" + getUsesRemaining() + "/" + MAX_LEVEL + "<br/>";
     }
 }

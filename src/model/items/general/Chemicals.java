@@ -3,7 +3,10 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
+import model.characters.crew.ChemistCharacter;
+import model.characters.general.GameCharacter;
 import model.events.damage.PoisonDamage;
 import model.items.chemicals.*;
 import model.items.foods.FoodItem;
@@ -84,5 +87,13 @@ public abstract class Chemicals extends FoodItem {
 
     public GameItem combineWith(Chemicals other) {
         return null;
+    }
+
+    @Override
+    public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+        if (performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof ChemistCharacter)) {
+            return (isFlammable()?"<i>Flammable</i>, ":"") + (isToxic()?"<i>Toxic</i>, ":"") + ("<b>Formula:</b> " + getFormula());
+        }
+        return super.getExtraDescriptionStats(gameData, performingClient);
     }
 }

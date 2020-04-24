@@ -12,6 +12,7 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.general.*;
+import model.actions.itemactions.ShowExamineFancyFrameAction;
 import model.characters.decorators.HoldingItemDecorator;
 import model.characters.general.GameCharacter;
 import model.items.HandheldItem;
@@ -106,6 +107,9 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
      * @param cl
      */
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
+	    if (cl instanceof Player) {
+            at.add(new ShowExamineFancyFrameAction(gameData, (Player)cl, this));
+        }
 	}
 
 	public double getWeight() {
@@ -240,12 +244,12 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
             list.add(pua);
         }
 
-
-
         PutOnAction po = new PutOnAction(forWhom);
         if (po.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
             list.add(po);
         }
+
+        list.add(new ShowExamineFancyFrameAction(gameData, forWhom, this));
 
 
         return list;
@@ -300,5 +304,13 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
     @Override
     public double getAbsoluteY() {
         return 0;
+    }
+
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "<i>Description Needed!</i>";
+    }
+
+    public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+        return "";
     }
 }

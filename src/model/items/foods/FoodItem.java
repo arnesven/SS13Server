@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.ConsumeAction;
 import model.items.general.GameItem;
@@ -26,6 +27,7 @@ public abstract class FoodItem extends GameItem {
 	public void addYourActions(GameData gameData,
                                ArrayList<Action> at,
                                Actor cl) {
+	    super.addYourActions(gameData, at, cl);
 		at.add(new ConsumeAction(this, cl));
 	}
 	
@@ -48,4 +50,8 @@ public abstract class FoodItem extends GameItem {
 	    return true;
     }
 
+	@Override
+	public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+		return "<i>Consumable</i><br/>";
+	}
 }

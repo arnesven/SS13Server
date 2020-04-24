@@ -26,7 +26,8 @@ public class Grenade extends GameItem implements Damager, ExplodableItem {
 	
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
-		at.add(new ThrowGrenadeAction(cl));
+		super.addYourActions(gameData, at, cl);
+	    at.add(new ThrowGrenadeAction(cl));
 	}
 
 	@Override
@@ -95,4 +96,6 @@ public class Grenade extends GameItem implements Damager, ExplodableItem {
     public void setConceledWithin(ExplodingFood explodingFood) {
 
     }
+
+
 }

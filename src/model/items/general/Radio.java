@@ -31,6 +31,7 @@ public abstract class Radio extends UplinkItem {
 
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
+        super.addYourActions(gameData, at, cl);
         Console console;
         try {
             console = getSpecificConsole(gameData);

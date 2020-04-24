@@ -27,6 +27,7 @@ public class Bible extends GameItem {
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
                                Actor cl) {
+		super.addYourActions(gameData, at, cl);
 		if (isAGodlyMan(cl.getCharacter())) {
 			at.add(new SermonAction(this));
 		}

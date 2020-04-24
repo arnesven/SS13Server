@@ -22,6 +22,7 @@ public class MedKit extends GameItem implements HandheldItem {
 
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
+		super.addYourActions(gameData, at, cl);
 		TargetingAction act = new HealWithMedKitAction(cl, this);
 		if (act.getTargets().size() > 0) {
 			at.add(act);

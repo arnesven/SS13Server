@@ -30,6 +30,7 @@ public class ZippoLighter extends LightItem {
 
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
+        super.addYourActions(gameData, at, cl);
         Action molotov = new MakeMolotovAndThrowAction(cl);
         if (molotov.getOptions(gameData, cl).numberOfSuboptions() > 0) {
             at.add(molotov);

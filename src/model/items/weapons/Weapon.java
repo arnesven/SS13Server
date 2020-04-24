@@ -3,6 +3,7 @@ package model.items.weapons;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.actions.general.SensoryLevel;
 import model.actions.general.SensoryLevel.AudioLevel;
@@ -224,5 +225,12 @@ public abstract class Weapon extends GameItem implements HandheldItem {
                 actor.setCharacter(new BloodSplotchAnimationDecorator(actor.getCharacter(), gameData));
             }
         }
+    }
+
+    @Override
+    public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+	    return "<b>Hit Chance:</b> " + hitChance + ", <b>Damage:</b> " + damage + "<br/>" +
+                (givesAttackOfOpportunity()?"<i>Gives attacks of opportunity!</i><br/>":"") +
+                (criticalChance!=0.05?("<b>Critical Chance:</b> " + (int)criticalChance*100 + "%"):"");
     }
 }

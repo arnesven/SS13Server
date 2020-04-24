@@ -33,6 +33,7 @@ public class Defibrilator extends GameItem {
 
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
+        super.addYourActions(gameData, at, cl);
         ReviveAction re = new ReviveAction(gameData, cl, this);
 
         if (re.getOptions(gameData, cl).numberOfSuboptions() > 0 && charge) {

@@ -42,7 +42,7 @@ public class Flamer extends Weapon {
 
     @Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
-
+        super.addYourActions(gameData, at, cl);
         List<Chemicals> chem = getChemicalsFromClient(cl);
         if (chem.size() >= CHEMS_NEEDED_TO_BURN_HIVE) {
             possiblyAddBurnHive(at, cl);

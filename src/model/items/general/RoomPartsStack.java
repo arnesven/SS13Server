@@ -23,6 +23,7 @@ public class RoomPartsStack extends ItemStack {
 
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
+        super.addYourActions(gameData, at, cl);
         if (cl.getCharacter().checkInstance(((GameCharacter gc) -> gc instanceof ArchitectCharacter))) {
             if (GameItem.hasAnItem(cl, new Tools())) {
                 BuildNewRoomAction bnr = new BuildNewRoomAction();
