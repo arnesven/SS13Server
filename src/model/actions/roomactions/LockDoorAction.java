@@ -9,6 +9,7 @@ import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.doors.ElectricalDoor;
 
+import java.security.Key;
 import java.util.List;
 
 public class LockDoorAction extends Action {
@@ -31,7 +32,7 @@ public class LockDoorAction extends Action {
             performingClient.addTolastTurnInfo("Something is wrong with the door, it can't be locked! " + Action.FAILED_STRING);
         }
 
-        if (GameItem.hasAnItemOfClass(performingClient, KeyCard.class) || performingClient.isAI()) {
+        if ((KeyCard.findKeyCard(performingClient) != null && KeyCard.findKeyCard(performingClient).canOpenDoor(door)) || performingClient.isAI()) {
             performingClient.addTolastTurnInfo("You locked the door");
         } else if (!performingClient.isAI()) {
             performingClient.addTolastTurnInfo("What, the key card was gone? " + Action.FAILED_STRING);

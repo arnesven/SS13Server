@@ -55,5 +55,4 @@ public class NormalDoor extends ElectricalDoor {
         return LOCKED_DOOR;
     }
 
-
 }

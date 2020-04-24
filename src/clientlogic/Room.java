@@ -502,7 +502,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         int finalW = (int) (getWidth() * getXScale()) + MapPanel.getZoom();
         int finalH = (int) (getHeight() * getYScale()) + MapPanel.getZoom();
         if (selected && getZPos() == GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation()) {
-            ((Graphics2D)g).setStroke(new BasicStroke(4));
+            ((Graphics2D)g).setStroke(new BasicStroke(2));
             g.setColor(SELECTED_ROOM_COLOR);
             g.drawRect(x, y, finalW, finalH);
         }

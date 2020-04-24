@@ -33,7 +33,7 @@ public class UnLockDoorAction extends Action {
         }
 
         boolean isAI = performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter);
-        if (GameItem.hasAnItemOfClass(performingClient, KeyCard.class) || isAI) {
+        if ((KeyCard.findKeyCard(performingClient) != null && KeyCard.findKeyCard(performingClient).canOpenDoor(door)) || isAI) {
             performingClient.addTolastTurnInfo("You unlocked the door");
         } else if (!isAI) {
             performingClient.addTolastTurnInfo("What, the key card was gone? " + Action.FAILED_STRING);

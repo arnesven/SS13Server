@@ -14,6 +14,7 @@ import model.items.chemicals.DrugDose;
 import model.items.foods.SpaceRum;
 import model.items.foods.Vodka;
 import model.items.general.*;
+import model.items.keycard.SecurityKeyCard;
 import model.items.suits.CaptainsOutfit;
 import model.items.weapons.Knife;
 import model.items.weapons.LaserSword;

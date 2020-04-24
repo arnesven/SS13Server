@@ -13,6 +13,7 @@ import model.items.HandCuffs;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.SecurityRadio;
+import model.items.keycard.SecurityKeyCard;
 import model.items.suits.SecOffsHelmet;
 import model.items.suits.SecOffsVest;
 import model.items.suits.SuitItem;
@@ -33,11 +34,11 @@ public class SecurityOfficerCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new StunBaton());
-        //list.add(new Baton());
-		list.add(new SecurityRadio());
+    	list.add(new SecurityRadio());
         list.add(new HandCuffs());
         list.add(new SecOffsVest());
         list.add(new SecOffsHelmet());
+        list.add(new SecurityKeyCard());
 		return list;
 	}
 

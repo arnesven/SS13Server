@@ -121,8 +121,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(robotics, ss13, "center");
 
         Room portHallFront = new HallwayRoom(16, "Port Hall Front"     , ""       ,13,  3, 2, 3, new int[]{13, 17, 18, 19},
-                new Door[]{new NormalDoor(15.0, 5.5, 16, 17),
-                        new NormalDoor(15.0, 3.5, 16, 18)} );
+                new Door[]{new NormalDoor(15.0, 5.5, 16, 17)});
         gm.addRoom(portHallFront, ss13, "front");
         gm.addRoom(portHallFront, ss13, "port");
 
@@ -131,7 +130,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(bridge, ss13, "front");
 
         Room ss = new SecurityStationRoom(gameData, 18, 15,  2, 2, 2, new int[]{16}        ,
-                new Door[]{}, portHallFront );
+                new Door[]{new SecurityDoor(15.0, 3.5, 18, 16, false) }, portHallFront );
         gm.addRoom(ss, ss13, "front");
         gm.addRoom(ss, ss13, "port");
 
@@ -160,7 +159,7 @@ public class DonutSS13Builder extends MapBuilder {
         }
 
         Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{}        ,         new Door[]{});
-        army.setDoors(new Door[]{new NormalDoor(11.0, 4.0, 22, 19, true)});
+        army.setDoors(new Door[]{new SecurityDoor(11.0, 4.0, 22, 19, true)});
 
         gm.addRoom(army, ss13, "center");
 
