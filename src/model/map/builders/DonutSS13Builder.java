@@ -127,7 +127,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(portHallFront, ss13, "port");
 
         Room bridge = new BridgeRoom(17, 15,  5, 3, 3, new int[]{16, 20}    ,
-                new Door[]{new NormalDoor(16.0, 8.0, 17, 20)} );
+                new Door[]{new CommandDoor(16.0, 8.0, 17, 20)} );
         gm.addRoom(bridge, ss13, "front");
 
         Room ss = new SecurityStationRoom(gameData, 18, 15,  2, 2, 2, new int[]{16}        ,

@@ -17,12 +17,16 @@ import java.util.List;
 public class UnpoweredDoor extends ElectricalDoor {
 
     public static final Sprite UNPOWERED_DOOR = new Sprite("unpowereddoor", "doors.png", 11, 17, null);
+    private final boolean wasLocked;
 
-    public UnpoweredDoor(double x, double y, int fromID, int toID) {
+    public UnpoweredDoor(double x, double y, int fromID, int toID, boolean wasLocked) {
         super(x, y, "Unpowered", fromID, toID);
+        this.wasLocked = wasLocked;
     }
 
-
+    protected boolean wasLocked() {
+        return wasLocked;
+    }
 
     @Override
     protected Sprite getSprite() {
@@ -36,6 +40,11 @@ public class UnpoweredDoor extends ElectricalDoor {
             at.add(new CrowbarDoorAndMoveThroughAction(this));
         }
         return at;
+    }
+
+    @Override
+    protected UnpoweredDoor getUnpoweredCounterpart() {
+        return new UnpoweredDoor(getX(), getY(), getFromId(), getToId(), wasLocked);
     }
 
     @Override
@@ -62,10 +71,49 @@ public class UnpoweredDoor extends ElectricalDoor {
     }
 
     private NormalDoor makeIntoNormalBrokenDoor() {
-        NormalDoor d = new NormalDoor(getX(), getY(), getFromId(), getToId());
+        NormalDoor d = getBrokenCounterpart();
         d.setDoorMechanism(getDoorMechanism());
         d.getDoorMechanism().setName(d.getName());
         d.getDoorMechanism().setHealth(0.0);
         return d;
     }
+
+    protected NormalDoor getBrokenCounterpart() {
+        return new NormalDoor(getX(), getY(), getFromId(), getToId());
+    }
+
+    @Override
+    protected ElectricalDoor getPoweredCounterpart() {
+        if (wasLocked) {
+            return new LockedDoor(getX(), getY(), getFromId(), getToId());
+        }
+        return getBrokenCounterpart();
+    }
+
+    public void goPowered(Room from, Room to) {
+        if (!wasLocked) {
+            GameMap.joinRooms(to, from);
+        }
+        powerDoor(to);
+        powerDoor(from);
+    }
+
+    private void powerDoor(Room room) {
+        for (int i = 0; i < room.getDoors().length; ++i) {
+            if (room.getDoors()[i] == this) {
+                Door newDoor = makeIntoPowered();
+                room.getDoors()[i] = newDoor;
+                return;
+            }
+        }
+    }
+
+    protected Door makeIntoPowered() {
+        ElectricalDoor d = getPoweredCounterpart();
+        d.setDoorMechanism(getDoorMechanism());
+        d.getDoorMechanism().setName(d.getName());
+        return d;
+    }
+
+
 }

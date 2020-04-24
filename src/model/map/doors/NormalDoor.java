@@ -28,16 +28,28 @@ public class NormalDoor extends ElectricalDoor {
 
 
     @Override
-    protected Sprite getSprite() {
+    protected final Sprite getSprite() {
         if (isAnimating()) {
             return Sprite.blankSprite();
         }
         if (isBroken()) {
-            return new Sprite("brokennormaldoor", "doors.png", 0, 19, null);
+            return getBrokenDoorSprite();
         } else if (getDoorMechanism() != null && getDoorMechanism().hasError()) {
-            return new Sprite("errornormaldoor", "doors.png", 11, 19, null);
+            return getErrorDoorSprite();
         }
+        return getNormalSprite();
+    }
+
+    protected Sprite getNormalSprite() {
         return NORMAL_DOOR;
+    }
+
+    protected Sprite getErrorDoorSprite() {
+        return new Sprite("errornormaldoor", "doors.png", 11, 19, null);
+    }
+
+    protected Sprite getBrokenDoorSprite() {
+        return new Sprite("brokennormaldoor", "doors.png", 0, 19, null);
     }
 
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
@@ -52,6 +64,7 @@ public class NormalDoor extends ElectricalDoor {
         return at;
     }
 
+
     @Override
     public String getDiodeColor() {
         if (isBroken()) {
@@ -62,13 +75,22 @@ public class NormalDoor extends ElectricalDoor {
         return HTMLText.makeText("black", "#0bf900","GREEN");
     }
 
+    @Override
+    protected UnpoweredDoor getUnpoweredCounterpart() {
+        return new UnpoweredDoor(getX(), getY(), getFromId(), getToId(), false);
+    }
+
+
+    @Override
+    protected ElectricalDoor getPoweredCounterpart() {
+        return new NormalDoor(getX(), getY(), getFromId(), getToId());
+    }
+
     public void lockRooms(Room from, Room to) {
         GameMap.separateRooms(to, from);
         lockUnlockedDoor(to);
         lockUnlockedDoor(from);
     }
-
-
 
 
     private void lockUnlockedDoor(Room room) {
@@ -82,15 +104,16 @@ public class NormalDoor extends ElectricalDoor {
     }
 
     private Door makeIntoLockedDoor() {
-        LockedDoor newDoor = new LockedDoor(getX(), getY(), getFromId(), getToId());
+        LockedDoor newDoor = getLockedCounterpart();
         newDoor.setDoorMechanism(getDoorMechanism());
         newDoor.getDoorMechanism().setName(newDoor.getName());
         newDoor.getDoorMechanism().getLockCord().setState(1);
         return newDoor;
     }
 
-
-
+    protected LockedDoor getLockedCounterpart() {
+        return new LockedDoor(getX(), getY(), getFromId(), getToId());
+    }
 
 
 }

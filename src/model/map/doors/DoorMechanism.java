@@ -146,7 +146,10 @@ public class DoorMechanism extends ElectricalMachinery {
     @Override
     public void onPowerOn(GameData gameData) {
         try {
-            electricalDoor.goPowered(gameData.getRoomForId(electricalDoor.getFromId()), gameData.getRoomForId(electricalDoor.getToId()));
+            if (electricalDoor instanceof UnpoweredDoor) {
+                ((UnpoweredDoor)electricalDoor).goPowered(gameData.getRoomForId(electricalDoor.getFromId()),
+                        gameData.getRoomForId(electricalDoor.getToId()));
+            }
             linePower.setState(1);
             lineBackupPower.setState(1);
         } catch (NoSuchThingException e) {
@@ -188,7 +191,7 @@ public class DoorMechanism extends ElectricalMachinery {
             Logger.log("Instance is " + (electricalDoor instanceof UnpoweredDoor));
             if (powerSupplyOK() && !isBroken() && (electricalDoor instanceof UnpoweredDoor)) {
                 Logger.log("Setting hack door to powered action as next action");
-                return new HackDoorToPoweredAction(electricalDoor);
+                return new HackDoorToPoweredAction((UnpoweredDoor) electricalDoor);
             }
             return null;
         }

@@ -55,6 +55,11 @@ public class LockedDoor extends ElectricalDoor {
     }
 
     @Override
+    protected UnpoweredDoor getUnpoweredCounterpart() {
+        return new UnpoweredDoor(getX(), getY(), getFromId(), getToId(), true);
+    }
+
+    @Override
     public String getDiodeColor() {
         if (getDoorMechanism().hasError()) {
             return HTMLText.makeText("black", "yellow", "YELLOW");
@@ -72,27 +77,27 @@ public class LockedDoor extends ElectricalDoor {
     private void unlockLockedDoor(Room room, Door targetDoor) {
         for (int i = 0; i < room.getDoors().length; ++i) {
             if (room.getDoors()[i] == targetDoor) {
-                NormalDoor newDoor = makeIntoNormalDoor(targetDoor);
+                NormalDoor newDoor = makeIntoNormalDoor();
                 room.getDoors()[i] = newDoor;
                 return;
             }
         }
     }
 
-    private NormalDoor makeIntoNormalDoor(Door targetDoor) {
-        NormalDoor d = new NormalDoor(targetDoor.getX(), targetDoor.getY(), targetDoor.getFromId(), targetDoor.getToId());
+    private NormalDoor makeIntoNormalDoor() {
+        NormalDoor d = getNormalCounterpart();
         d.setDoorMechanism(getDoorMechanism());
         d.getDoorMechanism().setName(d.getName());
         return d;
     }
 
+    protected NormalDoor getNormalCounterpart() {
+        return new NormalDoor(getX(), getY(), getFromId(), getToId());
+    }
 
     @Override
-    protected Door makeIntoPowered() {
-        LockedDoor d = new LockedDoor(getX(), getY(), getFromId(), getToId());
-        d.setDoorMechanism(getDoorMechanism());
-        d.getDoorMechanism().setName(d.getName());
-        return d;
+    protected ElectricalDoor getPoweredCounterpart() {
+        return new LockedDoor(getX(), getY(), getFromId(), getToId());
     }
 
 }

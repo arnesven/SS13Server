@@ -29,7 +29,13 @@ public class AmmoWeapon extends Weapon {
 		shots--;
 		return super.isAttackSuccessful(reduced);
 	}
-	
+
+	@Override
+	public boolean isAttackSuccessfulOnImmobileTarget() {
+		shots--;
+		return super.isAttackSuccessfulOnImmobileTarget();
+	}
+
 	@Override
 	public boolean isReadyToUse() {
 		return shots > 0;

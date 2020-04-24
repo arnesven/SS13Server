@@ -40,6 +40,11 @@ public abstract class Door implements Serializable, SpriteObject {
         this.y = y;
         this.fromID = fromID;
         this.toID = toID;
+        setName(name);
+        this.name = name + " Door " + getNumber();
+    }
+
+    public void setName(String name) {
         this.name = name + " Door " + getNumber();
     }
 

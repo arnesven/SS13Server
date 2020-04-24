@@ -5,14 +5,15 @@ import model.GameData;
 import model.actions.general.Action;
 import model.items.NoSuchThingException;
 import model.map.doors.ElectricalDoor;
+import model.map.doors.UnpoweredDoor;
 import util.Logger;
 
 import java.util.List;
 
 public class HackDoorToPoweredAction extends HackDoorAction {
-    private final ElectricalDoor door;
+    private final UnpoweredDoor door;
 
-    public HackDoorToPoweredAction(ElectricalDoor electricalDoor) {
+    public HackDoorToPoweredAction(UnpoweredDoor electricalDoor) {
         this.door = electricalDoor;
     }
 

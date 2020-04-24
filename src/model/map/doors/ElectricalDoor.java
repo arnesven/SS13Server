@@ -154,36 +154,19 @@ public abstract class ElectricalDoor extends Door {
     }
 
     private UnpoweredDoor makeIntoUnpoweredDoor() {
-        UnpoweredDoor d = new UnpoweredDoor(getX(), getY(), getFromId(), getToId());
+        UnpoweredDoor d = getUnpoweredCounterpart();
         d.setDoorMechanism(getDoorMechanism());
         d.getDoorMechanism().setName(d.getName());
         return d;
     }
+
+    protected abstract UnpoweredDoor getUnpoweredCounterpart();
 
     public abstract String getDiodeColor();
 
-    public void goPowered(Room from, Room to) {
-        GameMap.joinRooms(to, from);
-        powerDoor(to);
-        powerDoor(from);
-    }
+    protected abstract ElectricalDoor getPoweredCounterpart();
 
-    private void powerDoor(Room room) {
-        for (int i = 0; i < room.getDoors().length; ++i) {
-            if (room.getDoors()[i] == this) {
-                Door newDoor = makeIntoPowered();
-                room.getDoors()[i] = newDoor;
-                return;
-            }
-        }
-    }
 
-    protected Door makeIntoPowered() {
-        NormalDoor d = new NormalDoor(getX(), getY(), getFromId(), getToId());
-        d.setDoorMechanism(getDoorMechanism());
-        d.getDoorMechanism().setName(d.getName());
-        return d;
-    }
 
 
 }
