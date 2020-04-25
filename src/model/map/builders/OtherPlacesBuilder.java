@@ -2,6 +2,7 @@ package model.map.builders;
 
 import model.GameData;
 import model.map.GameMap;
+import model.map.doors.AirLockDoor;
 import model.map.doors.Door;
 import model.map.doors.NormalDoor;
 import model.map.rooms.*;
@@ -86,6 +87,9 @@ public class OtherPlacesBuilder extends MapBuilder {
         Room shuttle = null;
 
         gm.createLevel("asteroid field", "Space");
+        SpaceRoom space = new SpaceRoom(100032, -10, -10, 0, 0);
+        addEventsToSpaceRoom(space, gameData);
+        gm.addRoom(space, "asteroid field", "asteroid field");
 
         int id = 43;
         for (int x = 0; x < FIELD_SIZE; ++x) {
@@ -109,6 +113,9 @@ public class OtherPlacesBuilder extends MapBuilder {
                 } else if (matrix[x][y] == 3) {
                     miningStation = new MiningStationRoom(x, y);
                     gm.addRoom(miningStation, "asteroid field", "mining station");
+                    gm.addRoom(new AirLockRoom(556, 99, x+2, y+1, 1, 1, new int[]{555},
+                            new Door[]{new AirLockDoor(x+2, y+1.5, 556, 555),
+                            new AirLockDoor(x+3, y+1.5, 556, 100032)}), "asteroid field", "mining station");
                 } else if (matrix[x][y] == 4) {
                     cabin = new SupportRoom(id++, "Cabin", "", x, y, 1, 1, new int[]{}, new Door[]{});
                     gm.addRoom(cabin, "asteroid field", "mining station");
@@ -129,10 +136,10 @@ public class OtherPlacesBuilder extends MapBuilder {
 
         GameMap.joinRooms(miningStation, cabin);
         GameMap.joinRooms(miningStation, shuttle);
-        Room closestAsteroid = GameMap.findClosest(asteroids, miningStation);
-        GameMap.joinRooms(miningStation, closestAsteroid);
+        //Room closestAsteroid = GameMap.findClosest(asteroids, miningStation);
+        //GameMap.joinRooms(miningStation, closestAsteroid);
 
-        cabin.setDoors(new NormalDoor[]{new NormalDoor(cabin.getX() + cabin.getWidth(), cabin.getY() + 0.5, cabin.getID(), closestAsteroid.getID())});
+        //cabin.setDoors(new NormalDoor[]{new NormalDoor(cabin.getX() + cabin.getWidth(), cabin.getY() + 0.5, cabin.getID(), closestAsteroid.getID())});
     }
 
 

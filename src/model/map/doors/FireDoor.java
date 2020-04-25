@@ -94,7 +94,7 @@ public class FireDoor extends Door {
 
     public Sprite getOpenFireDoorAnimationSprite() {
         List<Sprite> sps = new ArrayList<>();
-        sps.add(new Sprite("doorblank", "doors.png", 11, 19, null));
+        sps.add(new Sprite("doorblank", "blank.png", 0, null));
         sps.add(getInnerDoor().getSprite());
         String suffix ="";
         int extraFrame = 0;
