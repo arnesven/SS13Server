@@ -7,6 +7,7 @@ import model.events.ambient.ColdEvent;
 import model.items.NoSuchThingException;
 import model.events.NoPressureEverEvent;
 import model.map.doors.Door;
+import model.map.doors.DoorMechanism;
 import model.map.rooms.Room;
 import model.map.rooms.SpaceRoom;
 import util.Logger;
@@ -554,9 +555,10 @@ public class GameMap implements Serializable {
     }
 
     public void runSetupForAllRooms(GameData gameData) {
-            for (Room r : getRooms()) {
-                r.doSetup(gameData);
-            }
+        DoorMechanism.randomizeDoorWireColors();
+        for (Room r : getRooms()) {
+            r.doSetup(gameData);
+        }
     }
 
     public Collection<Room> getAllRoomsOnSameLevel(Room room) {

@@ -33,7 +33,7 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 	private double weight;
 	private Room position;
 	private GameCharacter holder = null;
-    private Sprite sprite = new Sprite("keycard", "card.png", 1, this);
+    private Sprite sprite = new Sprite("somegameitem", "items_righthand2.png", 0, this);
     private int cost;
 
     public GameItem(String string, double weight, boolean usableFromFloor, int cost) {

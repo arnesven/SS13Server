@@ -7,8 +7,7 @@ import model.actions.general.SensoryLevel;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
-import model.items.general.GameItem;
-import model.items.general.KeyCard;
+import model.items.general.UniversalKeyCard;
 import model.map.doors.ElectricalDoor;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class UnLockDoorAction extends Action {
         }
 
         boolean isAI = performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter);
-        if ((KeyCard.findKeyCard(performingClient) != null && KeyCard.findKeyCard(performingClient).canOpenDoor(door)) || isAI) {
+        if ((UniversalKeyCard.findKeyCard(performingClient) != null && UniversalKeyCard.findKeyCard(performingClient).canOpenDoor(door)) || isAI) {
             performingClient.addTolastTurnInfo("You unlocked the door");
         } else if (!isAI) {
             performingClient.addTolastTurnInfo("What, the key card was gone? " + Action.FAILED_STRING);

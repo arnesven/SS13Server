@@ -2,8 +2,6 @@ package model.map.builders;
 
 import model.GameData;
 import model.map.GameMap;
-import model.map.rooms.*;
-import model.objects.consoles.KeyCardLock;
 
 /**
  * Created by erini02 on 15/12/16.

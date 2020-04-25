@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.GameData;
-import model.actions.characteractions.InformCrew;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
-import model.items.general.KeyCard;
+import model.items.general.UniversalKeyCard;
 import model.items.general.MedKit;
 import model.items.suits.Sweater;
 
@@ -22,7 +21,7 @@ public class HeadOfStaffCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new MedKit());
-		list.add(new KeyCard());
+		list.add(new UniversalKeyCard());
 		list.add(new Sweater());
 		return list;
 	}

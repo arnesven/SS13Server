@@ -5,11 +5,9 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
-import model.items.general.GameItem;
-import model.items.general.KeyCard;
+import model.items.general.UniversalKeyCard;
 import model.map.doors.ElectricalDoor;
 
-import java.security.Key;
 import java.util.List;
 
 public class LockDoorAction extends Action {
@@ -32,7 +30,7 @@ public class LockDoorAction extends Action {
             performingClient.addTolastTurnInfo("Something is wrong with the door, it can't be locked! " + Action.FAILED_STRING);
         }
 
-        if ((KeyCard.findKeyCard(performingClient) != null && KeyCard.findKeyCard(performingClient).canOpenDoor(door)) || performingClient.isAI()) {
+        if ((UniversalKeyCard.findKeyCard(performingClient) != null && UniversalKeyCard.findKeyCard(performingClient).canOpenDoor(door)) || performingClient.isAI()) {
             performingClient.addTolastTurnInfo("You locked the door");
         } else if (!performingClient.isAI()) {
             performingClient.addTolastTurnInfo("What, the key card was gone? " + Action.FAILED_STRING);

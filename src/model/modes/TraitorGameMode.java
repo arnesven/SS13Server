@@ -39,7 +39,7 @@ import model.events.ambient.OngoingEvent;
 import model.items.general.Bible;
 import model.items.general.GameItem;
 import model.items.general.Multimeter;
-import model.items.general.KeyCard;
+import model.items.general.UniversalKeyCard;
 import model.items.general.PDA;
 import model.items.suits.ChefsHat;
 import model.items.suits.SunGlasses;
@@ -63,8 +63,8 @@ public class TraitorGameMode extends GameMode {
 	private String CREW_START_STRING = "There are traitors on the station. Find them and stop them before they ruin everything!";
 
     public  TraitorGameMode() {
-        GameItem[] stealables = new GameItem[]{new ChefsHat(), new Bible(), new SunGlasses(), new Multimeter(), new KeyCard()};
-        //GameItem[] stealables = new GameItem[]{ new KeyCard()};
+        GameItem[] stealables = new GameItem[]{new ChefsHat(), new Bible(), new SunGlasses(), new Multimeter(), new UniversalKeyCard()};
+        //GameItem[] stealables = new GameItem[]{ new UniversalKeyCard()};
         ArrayList<GameItem> arr = new ArrayList<>();
         arr.addAll(Arrays.asList(stealables));
         stealableItems = arr;

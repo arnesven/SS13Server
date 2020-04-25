@@ -7,9 +7,8 @@ import model.actions.general.Action;
 import model.actions.objectactions.CrowbarDoorAction;
 import model.actions.objectactions.CrowbarDoorAndMoveThroughAction;
 import model.actions.roomactions.*;
-import model.items.NoSuchThingException;
 import model.items.general.GameItem;
-import model.items.general.KeyCard;
+import model.items.general.UniversalKeyCard;
 import model.items.general.Tools;
 import util.HTMLText;
 
@@ -48,7 +47,7 @@ public abstract class DoorState implements Serializable {
         @Override
         protected List<Action> getActions(GameData gameData, Actor forWhom) {
             List<Action> at = new ArrayList<>();
-            KeyCard kc = KeyCard.findKeyCard(forWhom);
+            UniversalKeyCard kc = UniversalKeyCard.findKeyCard(forWhom);
 
             if (getDoorMechanism().permitsLock() && !door.isBroken() && ((kc != null && kc.canOpenDoor(door)) || forWhom.isAI())) {
                 at.add(new LockDoorAction(door));
@@ -79,7 +78,7 @@ public abstract class DoorState implements Serializable {
         @Override
         protected List<Action> getActions(GameData gameData, Actor forWhom) {
             List<Action> at = new ArrayList<>();
-            KeyCard kc = KeyCard.findKeyCard(forWhom);
+            UniversalKeyCard kc = UniversalKeyCard.findKeyCard(forWhom);
 
             if (getDoorMechanism().permitsUnlock() &&
                     ((kc != null && kc.canOpenDoor(door)) || forWhom.isAI())) {

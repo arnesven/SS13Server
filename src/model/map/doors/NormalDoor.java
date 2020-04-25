@@ -1,21 +1,6 @@
 package model.map.doors;
 
 import graphics.sprites.Sprite;
-import model.Actor;
-import model.GameData;
-import model.actions.general.Action;
-import model.actions.roomactions.LockDoorAction;
-import model.actions.roomactions.MoveThroughAndCloseFireDoorAction;
-import model.actions.roomactions.MoveThroughAndLock;
-import model.characters.general.AICharacter;
-import model.characters.general.GameCharacter;
-import model.items.general.GameItem;
-import model.items.general.KeyCard;
-import model.map.GameMap;
-import model.map.rooms.Room;
-import util.HTMLText;
-
-import java.util.List;
 
 public class NormalDoor extends ElectricalDoor {
 

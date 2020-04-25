@@ -121,7 +121,7 @@ public class MyRandom {
         list.add(new Grenade());
         list.add(new MedKit());
         list.add(new Tools());
-        list.add(new KeyCard());
+        list.add(new UniversalKeyCard());
         list.add(new Laptop());
         list.add(new RobotParts());
         list.add(new TornClothes());

@@ -3,6 +3,7 @@ package model.map.doors;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.GameState;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.AttackAction;
@@ -37,6 +38,11 @@ public abstract class ElectricalDoor extends Door {
             doorState = new DoorState.Normal(this);
         }
     }
+
+    protected Sprite getFogOfWarSprite() {
+        return getUnpoweredSprite();
+    }
+
 
     @Override
     public boolean requiresPower() {

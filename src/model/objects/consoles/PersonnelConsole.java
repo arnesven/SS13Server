@@ -16,7 +16,7 @@ import model.characters.visitors.ClownCharacter;
 import model.characters.visitors.LawyerCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.items.general.GameItem;
-import model.items.general.KeyCard;
+import model.items.general.UniversalKeyCard;
 import model.map.rooms.Room;
 import model.modes.GameMode;
 
@@ -59,7 +59,7 @@ public class PersonnelConsole extends Console {
     }
 
     public boolean hasAdminPrivilege(Actor cl) {
-        return GameItem.hasAnItem(cl, new KeyCard());
+        return GameItem.hasAnItem(cl, new UniversalKeyCard());
     }
 
     public int getWageForActor(Actor a) {

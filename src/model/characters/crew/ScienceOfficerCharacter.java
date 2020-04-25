@@ -11,6 +11,7 @@ import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.items.chemicals.EtherChemicals;
 import model.items.general.*;
+import model.items.keycard.ScienceKeyCard;
 import util.Logger;
 
 public class ScienceOfficerCharacter extends CrewCharacter {
@@ -26,6 +27,7 @@ public class ScienceOfficerCharacter extends CrewCharacter {
 		list.add(new Multimeter());
         list.add(new Teleporter());
         list.add(new Laptop());
+        list.add(new ScienceKeyCard());
 		return list;
 	}
 

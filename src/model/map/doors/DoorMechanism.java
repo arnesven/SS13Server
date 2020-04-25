@@ -17,6 +17,7 @@ import util.MyRandom;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +49,11 @@ public class DoorMechanism extends ElectricalMachinery {
         listOfCords.add(lineOpen);
         listOfCords.add(lineLock);
         listOfCords.add(lineFire);
-        //Collections.shuffle(listOfCords);
+        Collections.shuffle(listOfCords);
+    }
+
+    public static void randomizeDoorWireColors() {
+        colorMap = MyRandom.makeRandomPowerCordColorMap();
     }
 
     public boolean isFancyFrameVacant() { return ffVacant; }

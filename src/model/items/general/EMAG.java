@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Created by erini02 on 14/12/16.
  */
-public class EMAG extends KeyCard {
+public class EMAG extends UniversalKeyCard {
 
     public EMAG() {
         setName("EMAG");

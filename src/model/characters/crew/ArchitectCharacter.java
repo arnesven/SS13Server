@@ -8,6 +8,7 @@ import model.items.DoorPartsStack;
 import model.items.general.GameItem;
 import model.items.general.RoomPartsStack;
 import model.items.general.Tools;
+import model.items.keycard.EngineeringKeyCard;
 import model.items.suits.PowerSuit;
 
 public class ArchitectCharacter extends CrewCharacter {
@@ -23,6 +24,7 @@ public class ArchitectCharacter extends CrewCharacter {
         list.add(new RoomPartsStack(3));
         list.add(new DoorPartsStack(3));
         list.add(new PowerSuit());
+        list.add(new EngineeringKeyCard());
 		return list;
 	}
 

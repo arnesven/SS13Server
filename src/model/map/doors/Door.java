@@ -1,6 +1,5 @@
 package model.map.doors;
 
-import graphics.ClientInfo;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
@@ -8,16 +7,12 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionGroup;
-import model.actions.roomactions.LockDoorAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.events.animation.AnimatedSprite;
 import model.items.NoSuchThingException;
-import model.items.general.GameItem;
-import model.items.general.KeyCard;
 import model.map.rooms.Room;
 import model.objects.general.ElectricalMachinery;
-import util.MyStrings;
 
 import java.io.Serializable;
 import java.util.ArrayList;

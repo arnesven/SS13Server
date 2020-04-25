@@ -10,6 +10,7 @@ import model.actions.characteractions.InvestigateAction;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.ZippoLighter;
+import model.items.keycard.SecurityKeyCard;
 import model.items.suits.SunGlasses;
 import model.items.weapons.Revolver;
 
@@ -26,6 +27,7 @@ public class DetectiveCharacter extends CrewCharacter {
 		list.add(new Revolver());
 		list.add(new SunGlasses());
         list.add(new ZippoLighter());
+        list.add(new SecurityKeyCard());
 		return list;
 	}
 	

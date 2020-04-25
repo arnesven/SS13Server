@@ -12,6 +12,7 @@ import model.items.general.GameItem;
 import model.items.general.RobotParts;
 import model.items.general.Tools;
 import model.items.general.FireExtinguisher;
+import model.items.keycard.EngineeringKeyCard;
 import model.items.suits.InsulatedGloves;
 import util.Logger;
 
@@ -28,6 +29,7 @@ public class RoboticistCharacter extends CrewCharacter {
 		list.add(new FireExtinguisher());
         list.add(new RobotParts());
         list.add(new InsulatedGloves());
+        list.add(new EngineeringKeyCard());
 		return list;
 	}
 

@@ -7,7 +7,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.items.general.GameItem;
-import model.items.general.KeyCard;
+import model.items.general.UniversalKeyCard;
 import model.items.weapons.PulseRifle;
 import model.map.rooms.Room;
 
@@ -45,7 +45,7 @@ public class PulseRifleDisplayCase extends BreakableObject {
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (!empty) {
-            if (GameItem.hasAnItem(cl, new KeyCard()) || isBroken()) {
+            if (GameItem.hasAnItem(cl, new UniversalKeyCard()) || isBroken()) {
                 at.add(new RetrieveFromDisplayCase());
             }
         }

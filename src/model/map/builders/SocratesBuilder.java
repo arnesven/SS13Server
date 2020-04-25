@@ -2,8 +2,6 @@ package model.map.builders;
 
 import model.GameData;
 import model.map.GameMap;
-import model.map.rooms.*;
-import model.objects.consoles.KeyCardLock;
 
 public class SocratesBuilder extends MapBuilder {
     @Override

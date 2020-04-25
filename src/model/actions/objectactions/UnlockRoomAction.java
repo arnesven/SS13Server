@@ -1,18 +1,5 @@
 package model.actions.objectactions;
 
-import java.util.List;
-
-import model.Actor;
-import model.GameData;
-import model.actions.general.Action;
-import model.actions.general.SensoryLevel;
-import model.characters.general.AICharacter;
-import model.characters.general.GameCharacter;
-import model.items.general.GameItem;
-import model.items.general.KeyCard;
-import model.map.rooms.Room;
-import model.objects.consoles.KeyCardLock;
-
 public class UnlockRoomAction { //extends Action {
 //
 //	private Room to;
@@ -33,7 +20,7 @@ public class UnlockRoomAction { //extends Action {
 //
 //	@Override
 //	protected void execute(GameData gameData, Actor performingClient) {
-//		if (GameItem.hasAnItem(performingClient, new KeyCard()) ||
+//		if (GameItem.hasAnItem(performingClient, new UniversalKeyCard()) ||
 //                performingClient.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof AICharacter)) {
 //			lock.unlockRooms();
 //			performingClient.addTolastTurnInfo("You unlocked the " + to.getName() + ".");

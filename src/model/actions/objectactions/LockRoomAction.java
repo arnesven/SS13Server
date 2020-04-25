@@ -1,17 +1,5 @@
 package model.actions.objectactions;
 
-import java.util.List;
-
-import model.Actor;
-import model.GameData;
-import model.actions.general.Action;
-import model.characters.general.AICharacter;
-import model.characters.general.GameCharacter;
-import model.map.rooms.Room;
-import model.objects.consoles.KeyCardLock;
-import model.actions.general.SensoryLevel;
-import model.items.general.KeyCard;
-
 public class LockRoomAction { //extends Action {
 //
 //	private Room to;
@@ -32,7 +20,7 @@ public class LockRoomAction { //extends Action {
 //
 //	@Override
 //	protected void execute(GameData gameData, Actor performingClient) {
-//		if (KeyCard.hasAnItem(performingClient, new KeyCard()) ||
+//		if (UniversalKeyCard.hasAnItem(performingClient, new UniversalKeyCard()) ||
 //                performingClient.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof AICharacter)) {
 //			lock.shutFireDoor();
 //			performingClient.addTolastTurnInfo("You locked the " + to.getName() + ".");
