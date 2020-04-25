@@ -13,8 +13,8 @@ import model.objects.general.AirlockPanel;
 public class DonutSS13Builder extends MapBuilder {
     @Override
     protected void buildPart(GameData gameData, GameMap gm) {
-        LabRoom labRoom = new LabRoom(1, 2, 1, 4, 3, new int[]{27, 24, 5},
-                new Door[]{new ScienceDoor(5.0, 4.0, 1, 5, false),
+        LabRoom labRoom = new LabRoom(1, 2, 1, 4, 3, new int[]{27, 24},
+                new Door[]{new ScienceDoor(5.0, 4.0, 1, 5, true),
                             new ScienceDoor(2.0, 3.5, 1, 27, false),
                             new ScienceDoor(6.0, 1.5, 1, 24, false)});
         gm.addRoom(labRoom, ss13, "aft");
@@ -32,7 +32,7 @@ public class DonutSS13Builder extends MapBuilder {
                 new Door[]{new NormalDoor(3.0, 7.5, 4, 3),
                         new NormalDoor(4.0, 7.5, 4, 5)}),
                 ss13, "aft");
-        gm.addRoom(new HallwayRoom( 5, "Aft Hall"            , "AFT"    , 4,  4, 2, 4, new int[]{1, 2, 4, 9, 23},
+        gm.addRoom(new HallwayRoom( 5, "Aft Hall"            , "AFT"    , 4,  4, 2, 4, new int[]{2, 4, 9, 23},
                 new Door[]{new NormalDoor(6.0, 4.5, 5, 23),
                         new NormalDoor(5.5, 8.0, 5, 9)}),
                 ss13, "aft");

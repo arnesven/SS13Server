@@ -182,7 +182,7 @@ public abstract class Door implements Serializable, SpriteObject {
 
     public Sprite getFireDoorOpenAnimatedSprite() {
         List<Sprite> sps = new ArrayList<>();
-        sps.add(new Sprite("doorblank", "doors.png", 11, 19, null));
+        sps.add(new Sprite("doorblank", "blank.png", 0,null));
         sps.add(getSprite());
         sps.add(new AnimatedSprite("openingfiredoor", "doors.png",
                 14, 9, 32, 32, null, 7, false));

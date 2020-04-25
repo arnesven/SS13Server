@@ -43,7 +43,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     private ClientDoor[] doors;
 
     private String effectName;
-    private JPopupMenu popupMenu;
+    private MyPopupMenu popupMenu;
 
     //private Color originalBackgroundColor;
 
@@ -590,7 +590,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         return floorSpriteBaseName;
     }
 
-    public JPopupMenu getPopupMenu() {
+    public MyPopupMenu getPopupMenu() {
         return popupMenu;
     }
 }

@@ -23,17 +23,21 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        System.out.println("Clicked!");
         if (mp.getInventoryPanel().mouseClicked(e, mp)) {
+            System.out.println("Hit inventorypanel, returning");
             return;
         }
 
         MyPopupMenu mpm = null;
         for (OverlaySprite ps : GameData.getInstance().getOverlaySprites()) {
             if (ps.mouseHitsThis(e)) {
+       //         System.out.println("Mouse hit " + ps.getName());
                 if (mpm == null) {
+       //             System.out.println("  mpm null, getting new.");
                     mpm = ps.getPopupMenu(e);
                 } else {
+       //             System.out.println("  adding all.");
                     mpm.addAll(ps.getPopupMenu(e));
                 }
 
@@ -48,9 +52,12 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
             if (r.getDoors() != null) {
                 for (ClientDoor d : r.getDoors()) {
                     if (d.mouseHitsThis(e)) {
+         //               System.out.println("Mouse hit door" + d.getName());
                         if (mpm != null) {
+           //                 System.out.println("  adding all.");
                             mpm.addAll(d.getPopupMenu(e));
                         } else {
+             //               System.out.println("  mpm null, getting new.");
                             mpm = d.getPopupMenu(e);
                         }
                     }
@@ -62,18 +69,23 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
         // Check if any room was clicked
         for (Room r : l) {
             if (r.actOnClick(e)) {
+       //         System.out.println("Mouse hit room" + r.getName());
                 if (mpm == null) {
-                    r.getPopupMenu().show(e.getComponent(), e.getX(), e.getY());
+         //           System.out.println("  mpm null, getting new.");
+                    mpm = r.getPopupMenu();
                 } else {
+           //         System.out.println("  adding all.");
                     mpm.addAll(r.getPopupMenu());
                 }
             }
         }
 
         if (mpm != null) {
+  //          System.out.println("  mpm wasn't null, showing it!");
             mpm.showYourself();
             return;
         }
+        System.out.println("mpm was still null, showing nothing.");
     }
 
     @Override
@@ -90,11 +102,12 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
     @Override
     public void mousePressed(MouseEvent e) {
         this.dragStartPint = e.getPoint();
+        System.out.println("Mouse pressed!");
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        System.out.println("Mouse released");
     }
 
     @Override
