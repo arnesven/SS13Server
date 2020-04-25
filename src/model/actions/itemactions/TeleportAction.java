@@ -6,11 +6,13 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.AlterMovement;
+import model.characters.decorators.InSpaceCharacterDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.TeleportingDecorator;
 import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.items.general.Teleporter;
+import model.map.rooms.SpaceRoom;
 import model.objects.general.GameObject;
 import model.objects.general.IncomingTeleporter;
 
@@ -59,14 +61,21 @@ public class TeleportAction extends Action {
         teleporter.getMarked().addObject(tpfield);
         teleporter.useOnce();
 
-        gameData.addMovementEvent(new Event() {
+        gameData.addEvent(new Event() {
+            private final int roundSet = gameData.getRound();
+
             @Override
             public void apply(GameData gameData) {
-                target.removeInstance((GameCharacter gc) -> gc instanceof TeleportingDecorator);
-                teleporter.getMarked().removeObject(tpfield);
-                if (!target.isDead()) {
-                    target.addTolastTurnInfo("You were teleported to " + teleporter.getMarked().getName());
-                    target.moveIntoRoom(teleporter.getMarked());
+                if (gameData.getRound() == roundSet+1) {
+                    target.removeInstance((GameCharacter gc) -> gc instanceof TeleportingDecorator);
+                    teleporter.getMarked().removeObject(tpfield);
+                    if (!target.isDead()) {
+                        target.addTolastTurnInfo("You were teleported to " + teleporter.getMarked().getName());
+                        target.moveIntoRoom(teleporter.getMarked());
+                        if (teleporter.getMarked() instanceof SpaceRoom) {
+                            performingClient.setCharacter(new InSpaceCharacterDecorator(performingClient.getCharacter(), gameData));
+                        }
+                    }
                 }
             }
 
@@ -82,7 +91,7 @@ public class TeleportAction extends Action {
 
             @Override
             public boolean shouldBeRemoved(GameData gameData) {
-                return true;
+                return gameData.getRound() > roundSet;
             }
         });
     }

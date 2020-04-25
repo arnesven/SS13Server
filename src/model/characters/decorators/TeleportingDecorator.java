@@ -25,4 +25,9 @@ public class TeleportingDecorator extends AlterMovement {
         Sprite res = new Sprite("tele" + tele.getName(), "blank.png", 0, sps, getActor());
         return res;
     }
+
+    @Override
+    public boolean getsActions() {
+        return false;
+    }
 }

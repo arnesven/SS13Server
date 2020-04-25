@@ -453,7 +453,7 @@ public class GameMap implements Serializable {
     private String createEmptyLevel(Integer[] current, GameData gameData) {
         String level = "emptylevel" + current[0] + "-" + current[1] + "-" + current[2];
         createLevel(level, "Space", current[0], current[1], current[2]);
-        Room r = new SpaceRoom(getMaxID()+1, 0, 0, 2,2);
+        Room r = new SpaceRoom(getMaxID()+1, 0, 0, 0,0);
         this.addRoom(r, level, "space");
         Event noPress = new NoPressureEverEvent(r);
         r.addEvent(noPress);

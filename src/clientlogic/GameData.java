@@ -886,7 +886,8 @@ public class GameData {
 
 	public double[] getSpaceCoordinates() {
 		String[] rest = character.split("\\(In Space at ");
-		String[] strs = rest[1].substring(0, rest[1].length()-1).split(",");
+		rest = rest[1].split("\\)");
+		String[] strs = rest[0].substring(0, rest[0].length()-1).split(",");
 		return new double[]{Double.parseDouble(strs[0]), Double.parseDouble(strs[1]), Double.parseDouble(strs[2])};
 	}
 }

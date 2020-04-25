@@ -40,6 +40,10 @@ public class StationDrawingStrategy extends DrawingStrategy {
             yOffset = GameData.getInstance().getMinY();// + getYTrans();
         } else {
             Room current = GameData.getInstance().getCurrentRoom();
+            if (current == null) {
+                System.out.println("Current room was NULL! Current room id: " + GameData.getInstance().getCurrentPos());
+                System.out.println("Character is: " + GameData.getInstance().getCharacter());
+            }
             xOffset = current.getXPos() + (current.getWidth() - viewPortWith) / 2;
             yOffset = current.getYPos() + (current.getHeight() - viewPortHeight) / 2;
         }

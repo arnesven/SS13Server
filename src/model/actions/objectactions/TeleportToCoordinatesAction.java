@@ -6,7 +6,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.actions.itemactions.TeleportAction;
-import model.characters.decorators.TumblingThroughSpaceDecorator;
+import model.characters.decorators.InSpaceCharacterDecorator;
 import model.items.general.Teleporter;
 import model.map.GameMap;
 import model.map.rooms.Room;
@@ -60,9 +60,7 @@ public class TeleportToCoordinatesAction extends Action {
         Action a = new TeleportAction(tele);
         ((TeleportAction)a).setTarget(performingClient);
         a.doTheAction(gameData, performingClient);
-        if (r instanceof SpaceRoom) {
-            performingClient.setCharacter(new TumblingThroughSpaceDecorator(performingClient.getCharacter()));
-        }
+
     }
 
     @Override

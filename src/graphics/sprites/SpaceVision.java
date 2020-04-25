@@ -25,12 +25,14 @@ public class SpaceVision extends NormalVision {
 
     @Override
     protected void addExtraSensoryPerception(Player player, GameData gameData, ArrayList<OverlaySprite> strs) {
-        List<Sprite> spriteList = new ArrayList<>();
-        for (GameObject obj : getMovableToSpacePositions(gameData, player)) {
-            spriteList.add(obj.getSprite(player));
-        }
+        if (!player.isDead()) {
+            List<Sprite> spriteList = new ArrayList<>();
+            for (GameObject obj : getMovableToSpacePositions(gameData, player)) {
+                spriteList.add(obj.getSprite(player));
+            }
 
-        strs.addAll(getOverlaysForSpritesInRoom(gameData, spriteList, player.getPosition(), player));
+            strs.addAll(getOverlaysForSpritesInRoom(gameData, spriteList, player.getPosition(), player));
+        }
     }
 
     private List<GameObject> getMovableToSpacePositions(GameData gameData, Player player) {
@@ -96,7 +98,9 @@ public class SpaceVision extends NormalVision {
         @Override
         public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
             List<Action> list = new ArrayList<>();
-            list.add(new MoveToSpaceTargetAction(x, y));
+            if (!forWhom.isDead()) {
+                list.add(new MoveToSpaceTargetAction(x, y));
+            }
             return list;
         }
     }
