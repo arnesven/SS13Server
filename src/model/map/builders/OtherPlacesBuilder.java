@@ -4,6 +4,7 @@ import model.GameData;
 import model.map.GameMap;
 import model.map.doors.AirLockDoor;
 import model.map.doors.Door;
+import model.map.doors.FullyOpenAirLockDoor;
 import model.map.doors.NormalDoor;
 import model.map.rooms.*;
 import util.MyRandom;
@@ -72,6 +73,7 @@ public class OtherPlacesBuilder extends MapBuilder {
             }
         }
         matrix[FIELD_SIZE/2][FIELD_SIZE/2] = 3;
+        matrix[FIELD_SIZE/2+2][FIELD_SIZE/2+1] = -1;
 
         // add space for cabin
         matrix[FIELD_SIZE/2-1][FIELD_SIZE/2+1] = 4;
@@ -87,7 +89,7 @@ public class OtherPlacesBuilder extends MapBuilder {
         Room shuttle = null;
 
         gm.createLevel("asteroid field", "Space");
-        SpaceRoom space = new SpaceRoom(100032, -10, -10, 0, 0);
+        SpaceRoom space = new SpaceRoom(100032, 0, 0, 0, 0);
         addEventsToSpaceRoom(space, gameData);
         gm.addRoom(space, "asteroid field", "asteroid field");
 
@@ -108,13 +110,14 @@ public class OtherPlacesBuilder extends MapBuilder {
                     asteroidId.add(id);
                     Room asteroid = new Asteroid(id++, x, y, w, h, gameData);
                     asteroids.add(asteroid);
+                    GameMap.joinRooms(asteroid, space);
                     addEventsToSpaceRoom(asteroid, gameData);
                     gm.addRoom(asteroid, "asteroid field", "asteroid field");
                 } else if (matrix[x][y] == 3) {
                     miningStation = new MiningStationRoom(x, y);
                     gm.addRoom(miningStation, "asteroid field", "mining station");
                     gm.addRoom(new AirLockRoom(556, 99, x+2, y+1, 1, 1, new int[]{555},
-                            new Door[]{new AirLockDoor(x+2, y+1.5, 556, 555),
+                            new Door[]{new FullyOpenAirLockDoor(x+2, y+1.5, 556, 555),
                             new AirLockDoor(x+3, y+1.5, 556, 100032)}), "asteroid field", "mining station");
                 } else if (matrix[x][y] == 4) {
                     cabin = new SupportRoom(id++, "Cabin", "", x, y, 1, 1, new int[]{},

@@ -21,6 +21,7 @@ public class GeneratorRoom extends TechRoom {
 		this.addObject(new GeneratorConsole(this, gameData));
         this.addObject(new LifeSupportConsole(this, gameData));
         this.addObject(new Battery(this, 0, false));
+        this.addObject(new Battery(this, 0, false));
         this.addItem(new Tools());
         this.addItem(new Multimeter());
         this.addItem(new InsulatedGloves());
