@@ -39,6 +39,14 @@ public class GeneralManufacturer extends ElectricalMachinery {
     }
 
     @Override
+    public double getPowerConsumption() {
+        if (isManufacturing()) {
+            return super.getPowerConsumption();
+        }
+        return 0.000100; // 100 W
+    }
+
+    @Override
     public Sprite getSprite(Player whosAsking) {
         if (isBroken()) {
             return new Sprite("generalmanufacturerbroken", "robotics.png", 6, this);

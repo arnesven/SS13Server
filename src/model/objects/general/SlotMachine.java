@@ -25,6 +25,11 @@ public class SlotMachine extends ElectricalMachinery {
 
     }
 
+    @Override
+    public double getPowerConsumption() {
+        return 0.000350; // 350 W
+    }
+
     public static int[] getBetSizes() {
         return new int[]{1, 3, 5, 10, 100, 200, 1000};
     }

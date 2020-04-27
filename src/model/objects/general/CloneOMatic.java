@@ -40,6 +40,11 @@ public class CloneOMatic extends ElectricalMachinery {
     }
 
     @Override
+    public double getPowerConsumption() {
+        return 0.002; // 2 kW
+    }
+
+    @Override
     public Sprite getSprite(Player whosAsking) {
         if (isInUse()) {
             return new Sprite("clonerinuse", "cloning.png", 1, 0, this);

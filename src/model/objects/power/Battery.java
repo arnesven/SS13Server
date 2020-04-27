@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Battery extends ElectricalMachinery implements PowerSupply {
 
-    private static final double BATTERY_POWER_OUTPUT = 0.02; // 20 kW
+    private static final double BATTERY_POWER_OUTPUT = 0.015; // 15 kW
     public static final double MAX_ENERGY = BATTERY_POWER_OUTPUT * SimulatePower.ONE_TURN_IN_HOURS * 35;
     boolean isCharging;
     private double energy;

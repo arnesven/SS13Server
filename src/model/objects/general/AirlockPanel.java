@@ -20,6 +20,7 @@ public class AirlockPanel extends ElectricalMachinery {
 	public AirlockPanel(AirLockRoom roomRef) {
 		super("Airlock Control", roomRef);
 		this.airLock = roomRef;
+		setPowerPriority(4);
 	}
 
 	public AirlockPanel(AirLockRoom airLock, Room otherRoom) {

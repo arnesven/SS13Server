@@ -41,6 +41,11 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
 		return getNormalSprite(whosAsking);
 	}
 
+    @Override
+    public double getPowerConsumption() {
+        return 0.000250; // 250 W
+    }
+
     public Sprite getNormalSprite(Player whosAsking) {
         return new Sprite("console", "computer2.png", 10, this);
     }

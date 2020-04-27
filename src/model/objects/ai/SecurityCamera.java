@@ -33,6 +33,10 @@ public class SecurityCamera extends ElectricalMachinery {
        // Do not take damage from effects
     }
 
+    @Override
+    public double getPowerConsumption() {
+        return 0.000150; // 150 W
+    }
 
     @Override
     public Sprite getSprite(Player whosAsking) {

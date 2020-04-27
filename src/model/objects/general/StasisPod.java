@@ -36,6 +36,14 @@ public class StasisPod extends ElectricalMachinery {
     }
 
     @Override
+    public double getPowerConsumption() {
+        if (isVacant()) {
+            return 0.000500; //500 W
+        }
+        return 0.002500; // 2.5 kW
+    }
+
+    @Override
     public String getPublicName(Actor whosAsking) {
         if (!isVacant()) {
             return super.getPublicName(whosAsking) + " (occupied)";

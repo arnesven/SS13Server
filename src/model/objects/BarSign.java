@@ -33,6 +33,11 @@ public class BarSign extends ElectricalMachinery {
         return sprite;
     }
 
+    @Override
+    public double getPowerConsumption() {
+        return 0.002;  // 2 kW
+    }
+
     public void setAppearance(Sprite sprite) {
         sprite.setObjectRef(this);
         this.sprite = sprite;

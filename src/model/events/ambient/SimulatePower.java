@@ -463,8 +463,12 @@ public abstract class SimulatePower extends Event {
 	public Double getPowerDemand(GameData gameData) {
 		double res = 0.0;
 		for (Room r : getAffectedRooms(gameData)) {
-			res += r.getLifeSupport().getPowerConsumption();
-			res += r.getLighting().getPowerConsumption();
+			if (r.getLifeSupport() != null) {
+				res += r.getLifeSupport().getPowerConsumption();
+			}
+			if (r.getLighting() != null) {
+				res += r.getLighting().getPowerConsumption();
+			}
 			for (GameObject obj : r.getBreakableObjects(gameData)) {
 				if (obj instanceof ElectricalMachinery) {
 					res += ((ElectricalMachinery) obj).getPowerConsumption();

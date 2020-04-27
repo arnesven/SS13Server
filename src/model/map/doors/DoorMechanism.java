@@ -52,6 +52,11 @@ public class DoorMechanism extends ElectricalMachinery {
         Collections.shuffle(listOfCords);
     }
 
+    @Override
+    public double getPowerConsumption() {
+        return 0.000700; // 700 W
+    }
+
     public static void randomizeDoorWireColors() {
         colorMap = MyRandom.makeRandomPowerCordColorMap();
     }
