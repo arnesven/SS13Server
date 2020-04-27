@@ -1,7 +1,6 @@
 package model.events.ambient;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import model.Actor;
@@ -11,38 +10,29 @@ import model.characters.general.GameCharacter;
 import model.characters.decorators.DarknessShroudDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.events.Event;
-import model.items.NoSuchThingException;
 import model.map.rooms.Room;
-import model.objects.consoles.PowerSource;
 
-public abstract class DarknessEvent extends Event {
+@Deprecated
+public class DarknessEvent extends Event {
 
     private final SimulatePower simPower;
-    private PowerSource gc;
 
-    protected abstract PowerSource findPowerSource(GameData gameData) throws NoSuchThingException;
-
-	public DarknessEvent(GameData gameData, SimulatePower simulatePower) {
+	private DarknessEvent(GameData gameData, SimulatePower simulatePower) {
         this.simPower = simulatePower;
-        try {
-            this.gc = findPowerSource(gameData);
-        } catch (NoSuchThingException e) {
-            throw new IllegalStateException("Should not get any darkness if there is no generator!");
-        }
     }
 
 
     @Override
 	public void apply(GameData gameData) {
-		for (Room r : simPower.getAffactedRooms(gameData)) {
+		for (Room r : simPower.getAffectedRooms(gameData)) {
 			for (Actor a : r.getActors()) {
-				if (gc.getNoLightRooms().contains(r)) {
+				if (simPower.getNoLightRooms().contains(r)) {
 					addDarkness(a);
 				} else {
 					removeDarkness(a);
 				}
 			}
-			if (gc.getNoLightRooms().contains(r)) {
+			if (simPower.getNoLightRooms().contains(r)) {
 				addDarkness(r);
 			} else {
 				removeDarkness(r);

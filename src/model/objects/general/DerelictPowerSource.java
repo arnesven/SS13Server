@@ -4,26 +4,17 @@ import graphics.sprites.Sprite;
 import model.GameData;
 import model.Player;
 import model.map.rooms.Room;
-import model.objects.consoles.PowerSource;
-
-import java.util.ArrayList;
-import java.util.List;
+import model.objects.power.PositronGenerator;
 
 /**
  * Created by erini02 on 26/11/16.
  */
-public class DerelictPowerSource extends PowerSource {
+public class DerelictPowerSource extends PositronGenerator {
     public DerelictPowerSource(Room r, GameData gameData) {
         super(18.76, r, gameData);
         setHealth(0);
     }
 
-    @Override
-    protected List<Room> getAffectedRooms(GameData gameData) {
-        List<Room> result = new ArrayList<>();
-        result.addAll(gameData.getMap().getRoomsForLevel("derelict"));
-        return result;
-    }
 
     @Override
     public Sprite getSprite(Player whosAsking) {

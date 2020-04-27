@@ -7,6 +7,7 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.events.ambient.SimulatePower;
 import model.objects.consoles.GeneratorConsole;
 import util.Logger;
 
@@ -46,8 +47,9 @@ public class PowerConsoleAction extends ConsoleAction {
 			return;
 		}
 
+		SimulatePower sp = (SimulatePower)gameData.getGameMode().getEvents().get("simulate power");
 
-		
+
 		if (prioSelected) {
 			Logger.log("Prio changed!");
 			powerPrioAction.execute(gameData, performingClient);
@@ -55,7 +57,7 @@ public class PowerConsoleAction extends ConsoleAction {
 			Logger.log("Level changed!");
 			powerLevelAction.execute(gameData, performingClient);
 		} else {
-		    for (String status : genRef.getSource().getStatusMessages()) {
+		    for (String status : sp.getStatusMessages(gameData)) {
 		        performingClient.addTolastTurnInfo(status);
             }
 

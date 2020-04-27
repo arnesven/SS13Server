@@ -3,6 +3,8 @@ package model.map.rooms;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
+import model.objects.power.LifeSupport;
+import model.objects.power.Lighting;
 
 /**
  * Created by erini02 on 15/09/17.
@@ -25,5 +27,15 @@ public class SpaceRoom extends Room {
     @Override
     protected String getAppearanceScheme() {
         return "NoWallsNoDoors-Space";
+    }
+
+    @Override
+    public LifeSupport getLifeSupport() {
+        return null;
+    }
+
+    @Override
+    public Lighting getLighting() {
+        return null;
     }
 }

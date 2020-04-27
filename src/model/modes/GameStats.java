@@ -11,9 +11,9 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.characteractions.MarriageAction;
-import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.characters.special.SpectatorCharacter;
+import model.events.ambient.SimulatePower;
 import model.events.ambient.SpontaneousCrazyness;
 import model.events.ambient.OngoingEvent;
 import model.items.NoSuchThingException;
@@ -25,7 +25,7 @@ import model.modes.goals.PersonalGoal;
 import model.npcs.*;
 import model.npcs.animals.CatNPC;
 import model.objects.consoles.AIConsole;
-import model.objects.consoles.PowerSource;
+import model.objects.power.PositronGenerator;
 import util.HTMLText;
 import util.Logger;
 
@@ -230,7 +230,7 @@ public abstract class GameStats {
                 "<tr><td> Hull breaches fixed: </td><td>" + getHullString(gameData) + "</td></tr>";
         try {
             res +=
-                    "<tr><td> Station power output: </td><td>" + String.format("%.1f", gameData.findObjectOfType(PowerSource.class).getPowerOutput() * 100.0) +
+                    "<tr><td> Station power output: </td><td>" + String.format("%.1f", gameData.findObjectOfType(PositronGenerator.class).getPowerOutput() * 100.0) +
                             "%  <a target='_blank' href='https://www.wolframalpha.com/input/?i=plot" + powerHistoryString() + "'>graph</a></td></tr>";
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "What? no generator on station?");
@@ -349,7 +349,8 @@ public abstract class GameStats {
 
     private String powerHistoryString() throws NoSuchThingException {
         String res = "";
-        for (Double d : gameData.findObjectOfType(PowerSource.class).getHistory()) {
+        SimulatePower sp = (SimulatePower) gameData.getGameMode().getEvents().get("simulate power");
+        for (Double d : sp.getHistory()) {
             res += String.format("+%.1f", d.doubleValue());
         }
         System.out.println("Power history is: " + res);

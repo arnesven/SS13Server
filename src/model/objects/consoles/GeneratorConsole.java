@@ -9,25 +9,17 @@ import model.Player;
 import model.actions.fancyframeactions.SitDownAtPowerConsoleAction;
 import model.actions.general.Action;
 import model.actions.objectactions.PowerConsoleAction;
-import model.map.GameMap;
 import model.map.rooms.Room;
+import model.objects.power.PositronGenerator;
 
 public class GeneratorConsole extends Console {
 
 
-    private PowerSource powerSource;
+    private PositronGenerator powerSource;
 
 	public GeneratorConsole(Room r, GameData gameData) {
 		super("Power Console", r);
-        powerSource = new PowerSource(45.0, r, gameData) {
-            @Override
-            protected List<Room> getAffectedRooms(GameData gameData) {
-                List<Room> rooms = new ArrayList<>();
-                rooms.addAll(gameData.getRooms());
-                rooms.add(gameData.getMap().getSpaceRoomForLevel(GameMap.STATION_LEVEL_NAME));
-                return rooms;
-            }
-        };
+        powerSource = new PositronGenerator(0.24, r, gameData);
         r.addObject(powerSource);
 	}
 
@@ -46,7 +38,7 @@ public class GeneratorConsole extends Console {
 	}
 
 
-    public PowerSource getSource() {
+    public PositronGenerator getSource() {
         return powerSource;
     }
 }

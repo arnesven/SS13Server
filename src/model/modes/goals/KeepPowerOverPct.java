@@ -6,7 +6,7 @@ import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
-import model.objects.consoles.PowerSource;
+import model.objects.power.PositronGenerator;
 import model.objects.general.GameObject;
 
 /**
@@ -54,8 +54,8 @@ public class KeepPowerOverPct extends PersonalGoal {
                 genRoom = gameData.getMap().getRoom("Generator");
 
                 for (GameObject o : genRoom.getObjects()) {
-                    if (o instanceof PowerSource) {
-                        if (((PowerSource) o).getPowerOutput() <= level) {
+                    if (o instanceof PositronGenerator) {
+                        if (((PositronGenerator) o).getPowerOutput() <= level) {
                             failed = true;
                             getActor().addTolastTurnInfo("You have failed your personal goal.");
                         }

@@ -35,6 +35,8 @@ import model.objects.general.BreakableObject;
 import model.objects.general.PowerConsumer;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
+import model.objects.power.LifeSupport;
+import model.objects.power.Lighting;
 import util.Logger;
 import util.MyStrings;
 
@@ -43,10 +45,10 @@ import util.MyStrings;
  * @author erini02
  * Class for representing a room on the space station.
  */
-public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
+public abstract class Room implements ItemHolder, Serializable {
 
 
-    private String name;
+	private String name;
 	private int[] neighbors;
 	private List<Player> players = new ArrayList<>();
 	private List<NPC> npcs = new ArrayList<>();
@@ -70,6 +72,8 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	private Door[] doors;
     private List<Sprite> effect = new ArrayList<>();
 	private static final RoomWalls walls = new RoomWalls();
+	private LifeSupport lifeSupport;
+	private Lighting lighting;
 
 
 	public Room(int ID, String name, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
@@ -83,7 +87,11 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 		this.neighbors = neighbors;
 		this.doors = doors;
         this.floorSprite = getFloorSet();
+        lifeSupport = new LifeSupport(this);
+        lighting = new Lighting(this);
 	}
+
+
 
 	public abstract FloorSet getFloorSet();
 
@@ -572,10 +580,6 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 
     }
 
-    @Override
-    public double getPowerConsumptionFactor() {
-        return 1.0;
-    }
 
     protected void setCoordinates(int newX, int newY, int z) {
         x = newX;
@@ -668,4 +672,11 @@ public abstract class Room implements ItemHolder, PowerConsumer, Serializable {
 	}
 
 
+	public LifeSupport getLifeSupport() {
+		return lifeSupport;
+	}
+
+	public Lighting getLighting() {
+		return lighting;
+	}
 }

@@ -36,11 +36,11 @@ public class FTLControl extends Console {
     }
 
     @Override
-    public double getPowerConsumptionFactor() {
+    public double getPowerConsumption() {
         if (spunUp) {
-            return 10.0;
+            return 10.0 * super.getPowerConsumption();
         }
-        return super.getPowerConsumptionFactor();
+        return super.getPowerConsumption();
     }
 
     public boolean isSpunUp() {

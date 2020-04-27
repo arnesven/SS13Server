@@ -18,10 +18,10 @@ public class ServerCommunicator {
     private static SS13Client client;
 
     public synchronized static void send(String message, MyCallback callback) {
-        long dt = System.currentTimeMillis();
+        //long dt = System.currentTimeMillis();
 		String res = login(message, GameData.getInstance().getHost(), GameData.getInstance().getPort());
-		dt = System.currentTimeMillis() - dt;
-        doStatistics(dt);
+		//dt = System.currentTimeMillis() - dt;
+        //doStatistics(dt);
 
 		if (!res.equals("fail")) {
             callback.onSuccess(res);
@@ -41,9 +41,9 @@ public class ServerCommunicator {
             average = sum / 100.0;
         }
 
-        if ((System.currentTimeMillis() / 1000) % 60 == 0) {
-            System.out.println("Average latency for server request: " + String.format("%1.1f", average) + " ms");
-        }
+//        if ((System.currentTimeMillis() / 1000) % 60 == 0) {
+//            System.out.println("Average latency for server request: " + String.format("%1.1f", average) + " ms");
+//        }
     }
 
     //private final String serverFilePath;

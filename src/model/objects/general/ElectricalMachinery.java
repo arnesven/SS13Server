@@ -6,18 +6,15 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.NoPowerAction;
-import model.items.NoSuchThingException;
+import model.events.ambient.SimulatePower;
 import model.map.rooms.Room;
-import model.objects.consoles.PowerSource;
-import util.Logger;
 
-
-public abstract class ElectricalMachinery extends BreakableObject 
-			implements Repairable, PowerConsumer, Comparable<ElectricalMachinery> {
+public abstract class ElectricalMachinery extends BreakableObject
+			implements Repairable, PowerConsumer {
 
 	private boolean inUse = false;
 	private int powerPriority = 5; // lowest priority
-	private PowerSource source = null;
+	private SimulatePower powerSim = null;
 
 	public ElectricalMachinery(String name, Room r) {
 		super(name, 1.5, r);
@@ -31,31 +28,26 @@ public abstract class ElectricalMachinery extends BreakableObject
 		return inUse;
 	}
 
-	public PowerSource getPowerSource() {
-		return source;
-	}
-
-	public void setPowerSource(PowerSource src) {
-		Logger.log(Logger.INTERESTING, getName() + " hooked into power source!");
-		this.source = src;
+	public SimulatePower getPowerSimulation() {
+		return powerSim;
 	}
 
 	public boolean isPowered() {
-		if (source == null) {
+		if (powerSim == null) {
 			return false;
 		}
-		return !source.getNoPowerObjects().contains(this);
+		return !powerSim.getNoPowerObjects().contains(this);
+	}
+
+
+	public int getPowerPriority() { return this.powerPriority; }
+
+	public void setPowerPriority(int i) {
+		this.powerPriority = i;
 	}
 
 	@Override
-	public int compareTo(ElectricalMachinery arg0) {
-		return this.powerPriority - arg0.powerPriority;
-	}
-	
-	protected void setPowerPriority(int i) {
-		this.powerPriority = i;
-	}
-	
+    public void receiveEnergy(GameData gameData, double energy) {}
 	
 	@Override
 	public void addSpecificActionsFor(GameData gameData, Actor cl,
@@ -76,25 +68,10 @@ public abstract class ElectricalMachinery extends BreakableObject
 
 	@Deprecated
 	private static boolean isPowered(GameData gameData, ElectricalMachinery machine) {
-		if (machine.getPosition() == null) {
-			Logger.log(Logger.CRITICAL, "Warning, position for machine " + machine.getName() + " was null! Cannot determine if it is powered or not.");
+		if (machine.getPowerSimulation() == null) {
 			return false;
 		}
-        try {
-            for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(machine.getPosition()).getName())) {
-                for (GameObject obj : r.getObjects()) {
-                    if (obj instanceof PowerSource) {
-                        if (((PowerSource) obj).getNoPowerObjects().contains(machine)) {
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        return true;
+		return machine.getPowerSimulation().getNoPowerObjects().contains(machine);
     }
 
     @Deprecated
@@ -112,11 +89,21 @@ public abstract class ElectricalMachinery extends BreakableObject
     }
 
     @Override
-    public double getPowerConsumptionFactor() {
-        return 1.0;
-    }
+	public double getPowerConsumption() {
+		return 0.001000; // default consumption = 1kW
+	}
 
 	public boolean canBeOvercharged() {
 		return true;
 	}
+
+	public void setPowerSimulation(SimulatePower simulatePower) {
+		this.powerSim = simulatePower;
+	}
+
+	@Override
+	public String getTypeName() {
+		return "Equipment";
+	}
+
 }

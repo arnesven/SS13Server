@@ -1,141 +1,358 @@
 package model.events.ambient;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
-import model.events.SpontaneousExplosionEvent;
-import model.items.NoSuchThingException;
 import model.map.rooms.Room;
-import model.objects.consoles.PowerSource;
+import model.objects.general.BreakableObject;
+import model.objects.general.ElectricalMachinery;
+import model.objects.general.PowerConsumer;
+import model.objects.power.PositronGenerator;
 import model.objects.general.GameObject;
+import model.objects.power.PowerSupply;
 import util.Logger;
-import util.MyRandom;
+import util.MyStrings;
 
 public abstract class SimulatePower extends Event {
+	public static final double ONE_TURN_IN_HOURS = 0.1;  // 6 minutes
+
+	//private static final double EQUIPMENT_POWER_USE_PCT = 0.60;
+	//private static final double MW_FOR_LIFE_SUPPORT_PER_ROOM = 0.020;   // 20 kW
+	//private static final double MW_FOR_LIGHT_PER_ROOM = 0.001;          // 1 kW
 
 	private Map<Room, Integer> roundsWithoutLS = new HashMap<>();
 	private Map<Room, ColdEvent> lsMap = new HashMap<>();
 	private boolean alreadyAddedDarkness = false;
 
+	private List<Double> history = new ArrayList<>();
+	private List<Room> noLifeSupport = new ArrayList<>();
+	private List<Room> noLight = new ArrayList<>();
+	private List<PowerConsumer> noPower = new ArrayList<>();
+	private List<String> prios;
+	//private Map<String, PowerUpdater> updaters;
 
-    public abstract Collection<Room> getAffactedRooms(GameData gameData);
+	public SimulatePower() {
+		setupPrio();
+	//	setupUpdaters();
+	}
+
+	private void setupPrio() {
+		this.prios = new ArrayList<>();
+		prios.add("Life Support");
+		prios.add("Lighting");
+		prios.add("Equipment");
+	}
+
+//	private void setupUpdaters() {
+//		updaters = new HashMap<>();
+//		updaters.put("Life Support", (double currentPower, double lsPer,
+//									  double liPer, List<? extends PowerConsumer> ls,
+//									  List<? extends PowerConsumer> lights, List<? extends  PowerConsumer> eq) ->
+//				internalUpdater(currentPower, lsPer, ls, true));
+//
+//		updaters.put("Lighting", (double currentPower, double lsPer,
+//								  double liPer, List<? extends PowerConsumer> ls,
+//								  List<? extends PowerConsumer> lights, List<? extends  PowerConsumer> eq) ->
+//				internalUpdater(currentPower, liPer, lights, true));
+//
+//		updaters.put("Equipment",(double currentPower, double lsPer,
+//								  double liPer, List<? extends PowerConsumer> ls,
+//								  List<? extends PowerConsumer> lights, List<? extends  PowerConsumer> eq) ->
+//				internalUpdater(currentPower, 0.0, eq, false));
+//	}
+
+
+
+	public abstract Collection<Room> getAffectedRooms(GameData gameData);
 
 
 	@Override
 	public void apply(GameData gameData) {
-		addDarknessEvent(gameData);
-        PowerSource ps;
-        try {
-            ps = this.findPowerSource(gameData);
-        } catch (NoSuchThingException e) {
-            Logger.log(Logger.CRITICAL, "No need to simulate power, no power console on station.");
-            return;
-        }
+		//addDarknessEvent(gameData);
+        List<PowerSupply> ps = this.findPowerSources(gameData);
         if (ps != null) {
-			ps.updateYourself(gameData);
-			handleLifeSupport(gameData, ps);
+        	updatePower(gameData, ps);
+			//ps.updateYourself(gameData);
+			handleLifeSupport(gameData);
+			handleDarkness(gameData);
 			handleOvercharge(gameData, ps);
 		}
 	}
 
-    private PowerSource findPowerSource(GameData gameData) throws NoSuchThingException {
-        for (Room r : getAffactedRooms(gameData)) {
+	private void handleOvercharge(GameData gameData, List<PowerSupply> ps) {
+		for (PowerSupply pss : ps) {
+			if (pss instanceof PositronGenerator) {
+				((PositronGenerator)pss).handleOvercharge(gameData);
+			}
+		}
+	}
+
+	private void updatePower(GameData gameData, List<PowerSupply> sources) {
+		//Logger.log("Suppliers: ");
+		for (PowerSupply pss : sources) {
+		//	Logger.log("-> " + pss.getName());
+		}
+
+		List<PowerConsumer> consumers = findConsumers(gameData);
+
+		//Logger.log("Consumers:");
+		for (PowerConsumer con : consumers) {
+		//	Logger.log("=> " + ((ElectricalMachinery)con).getName());
+		}
+
+		List<PowerConsumer> oldNoPower = noPower;
+		this.noPower = new ArrayList<>();
+		this.noPower.addAll(consumers);
+
+		int supplyIndex = -1;
+		double powerRemaining = 0;
+		for (PowerConsumer con : consumers) {
+			while (powerRemaining < con.getPowerConsumption()) {
+				supplyIndex++;
+				if (supplyIndex < sources.size()) {
+					if (supplyIndex > 0) {
+						sources.get(supplyIndex-1).drainEnergy(powerRemaining * ONE_TURN_IN_HOURS);
+					}
+					powerRemaining += sources.get(supplyIndex).getPower() + 0.00001; // 10 W extra for good luck
+				} else {
+					// no more power sources
+					break;
+				}
+			}
+
+			if (supplyIndex == sources.size()) {
+				// run out of sources, no more power to consumers.
+				break;
+			} else if (powerRemaining >= con.getPowerConsumption() &&
+					con.getPowerConsumption()*ONE_TURN_IN_HOURS <= sources.get(supplyIndex).getEnergy()) {
+					powerRemaining -= con.getPowerConsumption();
+					con.receiveEnergy(gameData, con.getPowerConsumption() * ONE_TURN_IN_HOURS);
+					sources.get(supplyIndex).drainEnergy(con.getPowerConsumption() * ONE_TURN_IN_HOURS);
+					noPower.remove(con);
+				//Logger.log("Powering " + ((ElectricalMachinery)con).getName());
+			}
+		}
+
+
+		Logger.log("POWER: objects without power are: "+ MyStrings.join(noPower, ", "));
+		runPowerOnOrOffFunctions(gameData, oldNoPower);
+
+		noLifeSupport = new ArrayList<>();
+		noLight = new ArrayList<>();
+		for (Room r : getAffectedRooms(gameData)) {
+			if (noPower.contains(r.getLighting())) {
+				noLight.add(r);
+			}
+			if (noPower.contains(r.getLifeSupport())) {
+				noLifeSupport.add(r);
+			}
+		}
+
+//		double powerAvailable = getAvailablePower(ps);
+//		history.add(powerAvailable);
+//		powerAvailable = Math.max(0.0, powerAvailable + sumOfChanges(ps));
+//		Logger.log("Current power: " + powerAvailable);
+//
+//		noLifeSupport = new ArrayList<Room>();
+//		noLight       = new ArrayList<Room>();
+//		List<ElectricalMachinery> oldNoPower = noPower;
+//		noPower       = new ArrayList<ElectricalMachinery>();
+//
+//		List<Room> allRooms = new ArrayList<>();
+//		allRooms.addAll(getAffectedRooms(gameData));
+//
+//		double lsPowerPerRoom    = MW_FOR_LIFE_SUPPORT_PER_ROOM;
+//		double lightPowerPerRoom = MW_FOR_LIGHT_PER_ROOM;
+//
+//		for (Room room : getAffectedRooms(gameData)) {
+//			for (GameObject obj : room.getObjects()) {
+//				if (obj instanceof ElectricalMachinery) {
+//					if (((ElectricalMachinery)obj).getPowerSimulation() == null) {
+//						((ElectricalMachinery) obj).setPowerSimulation(this);
+//					}
+//					if (!(obj instanceof GeneratorConsole)) {
+//						noPower.add((ElectricalMachinery) obj);
+//					}
+//				}
+//			}
+//			for (Door d : room.getDoors()) {
+//				if (d.requiresPower()) {
+//					//Logger.log("POWER: this door requires power " + d.getName());
+//					d.getElectricalLock(gameData).setPowerSimulation(this);
+//					noPower.add(d.getElectricalLock(gameData));
+//				}
+//			}
+//		}
+//		Collections.shuffle(noPower);
+//
+//		//double eqPowerPer = startingPower * EQUIPMENT_POWER_USE_PCT / (double)(noPower.size());
+//		Logger.log(" POWER: Priority is " + prios);
+//		Logger.log(" POWER: Life support (MW per room): " + lsPowerPerRoom);
+//		Logger.log(" POWER: Lighting (MW per room)    : " + lightPowerPerRoom);
+//		//Logger.log(" POWER: Equipment (MW per machine): " + eqPowerPer);
+//
+//		noLight.addAll(getAffectedRooms(gameData));
+//		Collections.shuffle(noLight);
+//		noLifeSupport.addAll(getAffectedRooms(gameData));
+//		Collections.shuffle(noLifeSupport);
+//
+//		Collections.sort(noPower);
+//		lightBefore = noLight.size();
+//		lsBefore = noLifeSupport.size();
+//		eqBefore = noPower.size();
+//
+//		double currentPower = powerAvailable + 0.01; // you always get a litte extra, PHYSICS!
+//		for (String type : prios) {
+//			currentPower = updaters.get(type).update(currentPower,
+//					lsPowerPerRoom, lightPowerPerRoom,
+//					noLifeSupport, noLight, noPower);
+//		}
+//		this.powerLeft = currentPower;
+//
+//		Logger.log(getLSString());
+//		for (Room r : noLifeSupport) {
+//			Logger.log("     " + r.getName());
+//		}
+//
+//		Logger.log(getLightString());
+//
+//		Logger.log(getEquipmentString());
+//		runPowerOnOrOffFunctions(gameData, oldNoPower);
+//		Logger.log("POWER: objects without power are: "+ MyStrings.join(noPower, ", "));
+	}
+
+	public List<PowerConsumer> findConsumers(GameData gameData) {
+		List<PowerConsumer> consumers = new ArrayList<>();
+		for (Room room : getAffectedRooms(gameData)) {
+			for (BreakableObject obj : room.getBreakableObjects(gameData)) {
+				if (obj instanceof PowerConsumer) {
+					consumers.add((PowerConsumer) obj);
+				}
+				if (obj instanceof ElectricalMachinery) {
+					((ElectricalMachinery) obj).setPowerSimulation(this);
+				}
+			}
+			if (room.getLifeSupport() != null) {
+				consumers.add(room.getLifeSupport());
+				room.getLifeSupport().setPowerSimulation(this);
+			}
+			if (room.getLighting() != null) {
+				consumers.add(room.getLighting());
+				room.getLighting().setPowerSimulation(this);
+			}
+		}
+		Collections.sort(consumers, new ConsumerComparator());
+		return consumers;
+	}
+
+
+	public Double getAvailablePower(GameData gameData) {
+		List<PowerSupply> ps = findPowerSources(gameData);
+		Double res = 0.0;
+		for (PowerSupply pss: ps) {
+			if (pss.getEnergy() > 0.0) {
+				res += pss.getPower();
+			}
+		}
+		return res;
+	}
+
+	public List<PowerSupply> findPowerSources(GameData gameData) {
+		List<PowerSupply> result = new ArrayList<>();
+        for (Room r : getAffectedRooms(gameData)) {
             for (GameObject obj : r.getObjects()) {
-                if (obj instanceof PowerSource) {
-                    return (PowerSource) obj;
+                if (obj instanceof PowerSupply) {
+                    result.add((PowerSupply) obj);
                 }
             }
         }
-        throw new NoSuchThingException("No console found!");
+        Collections.sort(result, new Comparator<PowerSupply>() {
+			@Override
+			public int compare(PowerSupply powerSupply, PowerSupply t1) {
+				if (t1.getEnergy() > powerSupply.getEnergy()) {
+					return 1;
+				} else if (t1.getEnergy() < powerSupply.getEnergy()) {
+					return -1;
+				}
+				return 0;
+			}
+		});
+       	return result;
     }
 
 
-    private void addDarknessEvent(GameData gameData) {
-		if (!alreadyAddedDarkness) {
-			gameData.addMovementEvent(new DarknessEvent(gameData, this) {
-                @Override
-                protected PowerSource findPowerSource(GameData gameData) throws NoSuchThingException {
-                    return SimulatePower.this.findPowerSource(gameData);
-                }
-            });
-			alreadyAddedDarkness  = true;
-		}
-	}
+//    private void addDarknessEvent(GameData gameData) {
+//		if (!alreadyAddedDarkness) {
+//			gameData.addMovementEvent(new DarknessEvent(gameData, this));
+//			alreadyAddedDarkness  = true;
+//		}
+//	}
 
 
-
-	private void handleOvercharge(GameData gameData, PowerSource gc) {
-		double outputPct = gc.getPowerOutput();
-		
-		if (MyRandom.nextDouble() < outputPct - 1.0) {
-            Logger.log(Logger.INTERESTING,
-                    "Increased power output (>100%) caused fire in generator room");
-			gameData.getGameMode().addFire(gc.getPosition());
-		}
-		
-		if (MyRandom.nextDouble() < outputPct - 1.5) {
-            Logger.log(Logger.INTERESTING,
-                    "High power output (>150%) caused fire in room adjacent to generator room");
-			Room r = MyRandom.sample(gc.getPosition().getNeighborList());
-			gameData.getGameMode().addFire(r);
-		}
-		
-		if (MyRandom.nextDouble() < outputPct - 1.5) {
-            Logger.log(Logger.INTERESTING,
-                      "High power output (>150%) caused explosion in generator room");
-			SpontaneousExplosionEvent exp = new SpontaneousExplosionEvent();
-			exp.explode(gc.getPosition(), gameData);
-		}
-	}
-
-
-
-	private void handleLifeSupport(GameData gameData, PowerSource gc) {
-		for (Room r : getAffactedRooms(gameData)) {
-            if (!roundsWithoutLS.containsKey(r)) {
-                roundsWithoutLS.put(r, 0);
-            }
-        }
-
-		
-		// Update how long rooms have been without life support
-		List<Room> noLSRooms = gc.getNoLifeSupportRooms();
-		for (Room r : getAffactedRooms(gameData)) {
-			if (noLSRooms.contains(r)) {
-				roundsWithoutLS.put(r, Math.min(roundsWithoutLS.get(r) + 1, 2));
-			} else {
-				roundsWithoutLS.put(r, Math.max(0, roundsWithoutLS.get(r) - 1));
+	private void handleLifeSupport(GameData gameData) {
+		for (Room r : getAffectedRooms(gameData)) {
+			if (r.getLifeSupport() == null) {
+				continue;
+			}
+			if (!r.getLifeSupport().isPowered() && gameData.getRound() > r.getLifeSupport().getLifeSupportLastOnIn() + 2) {
+				r.getLifeSupport().addColdEvent(gameData);
+			} else if (r.getLifeSupport().isPowered() && gameData.getRound() > r.getLifeSupport().getLifeSupportLastOnIn() + 2) {
+				r.getLifeSupport().removeColdEvent(gameData);
 			}
 		}
-		
-		for (Room r : getAffactedRooms(gameData)) {
-			if (roundsWithoutLS.get(r) > 1) {
-				if (lsMap.get(r) == null) { // there was no previous cold event
-					ColdEvent cold = new ColdEvent(r);
-					r.addEvent(cold);
-					lsMap.put(r, cold);
-				}
-			} else if (roundsWithoutLS.get(r) == 0) {
-				if (lsMap.get(r) != null) { // there is a cold event there..
-					r.removeEvent(lsMap.get(r));
-					lsMap.remove(r);
-				}
-			}
-		}
-		
-		for (ColdEvent ev : lsMap.values()) {
-			ev.apply(gameData);
-		}
 
+//		for (Room r : getAffectedRooms(gameData)) {
+//            if (!roundsWithoutLS.containsKey(r)) {
+//                roundsWithoutLS.put(r, 0);
+//            }
+//        }
+
+//		// Update how long rooms have been without life support
+//		List<Room> noLSRooms = getNoLifeSupportRooms();
+//		for (Room r : getAffectedRooms(gameData)) {
+//			if (noLSRooms.contains(r)) {
+//				roundsWithoutLS.put(r, Math.min(roundsWithoutLS.get(r) + 1, 2));
+//			} else {
+//				roundsWithoutLS.put(r, Math.max(0, roundsWithoutLS.get(r) - 1));
+//			}
+//		}
+//
+//		for (Room r : getAffectedRooms(gameData)) {
+//			if (roundsWithoutLS.get(r) > 1) {
+//				if (lsMap.get(r) == null) { // there was no previous cold event
+//					ColdEvent cold = new ColdEvent(r);
+//					r.addEvent(cold);
+//					lsMap.put(r, cold);
+//				}
+//			} else if (roundsWithoutLS.get(r) == 0) {
+//				if (lsMap.get(r) != null) { // there is a cold event there..
+//					r.removeEvent(lsMap.get(r));
+//					lsMap.remove(r);
+//				}
+//			}
+//		}
+//
+//		for (ColdEvent ev : lsMap.values()) {
+//			ev.apply(gameData);
+//		}
 	}
 
 
+	private void handleDarkness(GameData gameData) {
+		for (Room r : getAffectedRooms(gameData)) {
+			if (r.getLighting() == null) {
+				continue;
+			}
+			if (!r.getLighting().isPowered()) {
+				r.getLighting().addDarkness(gameData);
+			} else if (r.getLighting().isPowered()) {
+				r.getLighting().removeDarkness(gameData);
+			}
+		}
+	}
 
 
 
@@ -149,4 +366,122 @@ public abstract class SimulatePower extends Event {
 		return SensoryLevel.NO_SENSE;
 	}
 
+//	private double internalUpdater(double cp, double pp, List<? extends PowerConsumer> list, boolean useConstant) {
+//		while (cp - pp > 0 && list.size() > 0) {
+//			PowerConsumer pc = list.remove(0);
+//			if (useConstant) {
+//				cp -= pp * pc.getPowerConsumptionFactor();
+//			} else {
+//				double amount = pc.getPowerConsumption() * pc.getPowerConsumptionFactor();
+//				cp -= amount;
+//			}
+//		}
+//		return cp;
+//	}
+
+	public List<String> getPrios() {
+		return prios;
+	}
+
+	public void setHighestPrio(String selected, GameData gameData) {
+		Iterator<String> it = prios.iterator();
+		while (it.hasNext()) {
+			if (it.next().equals(selected)) {
+				it.remove();
+			}
+		}
+		prios.add(0, selected);
+		Logger.log("Prios are now: " + prios);
+
+		for (PowerConsumer c : findConsumers(gameData)) {
+			c.setPowerPriority(prios.indexOf(c.getTypeName())*2+1);
+		}
+	}
+
+	private String getLSString(GameData gameData) {
+		Collection<Room> all = getAffectedRooms(gameData);
+		return "Life support units (" + (all.size() - noLifeSupport.size()) + "/" + all.size() + ")";
+	}
+
+	private String getLightString(GameData gameData) {
+		Collection<Room> all = getAffectedRooms(gameData);
+		return "Lights (" + (all.size() - noLight.size()) + "/" + all.size() + ")";
+	}
+
+	private String getEquipmentString(GameData gameData) {
+		List<PowerConsumer> all = findConsumers(gameData);
+		Collection<Room> rooms = getAffectedRooms(gameData);
+		return "Electrical equipment (" +
+				(all.size()-2*rooms.size() - (noPower.size()-noLifeSupport.size()-noLight.size())) + "/" +
+				(all.size()-2*rooms.size()) + ")";
+	}
+
+	public List<Double> getHistory() {
+		return history;
+	}
+
+
+	public List<PowerConsumer> getNoPowerObjects() {
+		return noPower;
+	}
+
+	public List<Room> getNoLightRooms() {
+		return noLight;
+	}
+
+
+	private void runPowerOnOrOffFunctions(GameData gameData,
+										  List<PowerConsumer> oldNoPower) {
+		for (PowerConsumer pc : noPower) {
+			if (!oldNoPower.contains(pc)) {
+				pc.onPowerOff(gameData);
+			}
+		}
+		for (PowerConsumer pc : oldNoPower) {
+			if (!noPower.contains(pc)) {
+				pc.onPowerOn(gameData);
+			}
+		}
+	}
+
+
+	public List<String> getStatusMessages(GameData gameData) {
+		List<String> strs = new ArrayList<>();
+		double avail = getAvailablePower(gameData);
+		double demand = getPowerDemand(gameData);
+
+		strs.add("STATION POWER; " + String.format("%1.3f", avail) +
+				"MW available, " +
+				String.format("%1.3f", demand) + "MW demand, " +
+				 (int)((avail*100.0)/demand) + "% of demand.");
+		strs.add("-> " + getLSString(gameData));
+		strs.add("-> " + getLightString(gameData));
+		strs.add("-> " + getEquipmentString(gameData));
+		return strs;
+	}
+
+	public Double getPowerDemand(GameData gameData) {
+		double res = 0.0;
+		for (Room r : getAffectedRooms(gameData)) {
+			res += r.getLifeSupport().getPowerConsumption();
+			res += r.getLighting().getPowerConsumption();
+			for (GameObject obj : r.getBreakableObjects(gameData)) {
+				if (obj instanceof ElectricalMachinery) {
+					res += ((ElectricalMachinery) obj).getPowerConsumption();
+				}
+			}
+		}
+		return res;
+	}
+
+
+	private class ConsumerComparator implements Comparator<PowerConsumer> {
+		@Override
+		public int compare(PowerConsumer powerConsumer, PowerConsumer t1) {
+			if (powerConsumer.getPowerPriority() == t1.getPowerConsumption()) {
+				return (int) (powerConsumer.getPowerConsumption() - t1.getPowerConsumption() * 100000);
+			}
+			return powerConsumer.getPowerPriority() - t1.getPowerPriority();
+		}
+	}
 }

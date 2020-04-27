@@ -1,8 +1,7 @@
 package model.events.ambient;
 
-import model.events.Event;
 import model.items.NoSuchThingException;
-import model.objects.consoles.PowerSource;
+import model.objects.power.PositronGenerator;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -22,13 +21,13 @@ public abstract class PowerFlux extends AmbientEvent {
         return occurranceChance;
     }
 
-    protected abstract PowerSource findePowerSource(GameData gameData) throws NoSuchThingException;
+    protected abstract PositronGenerator findePowerSource(GameData gameData) throws NoSuchThingException;
 
 
     @Override
 	public void apply(GameData gameData) {
         Logger.log("Applying Power Flux");
-        PowerSource gc;
+        PositronGenerator gc;
         try {
             gc = findePowerSource(gameData);
         } catch (NoSuchThingException e) {
@@ -70,7 +69,7 @@ public abstract class PowerFlux extends AmbientEvent {
 	}
 
 
-    private double randomAmount(double factor, PowerSource ps) {
+    private double randomAmount(double factor, PositronGenerator ps) {
 		return MyRandom.nextDouble() * ps.getStartingPower() * factor;
 	}
 

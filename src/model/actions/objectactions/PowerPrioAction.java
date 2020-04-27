@@ -7,10 +7,10 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.events.ambient.SimulatePower;
 import model.objects.consoles.GeneratorConsole;
 
 public class PowerPrioAction extends Action {
-
 	
 	private GeneratorConsole genRef;
 	private String selected;
@@ -28,7 +28,8 @@ public class PowerPrioAction extends Action {
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = super.getOptions(gameData, whosAsking);
-		for (String prioOrder : genRef.getSource().getPrios()) {
+		SimulatePower sp = (SimulatePower)gameData.getGameMode().getEvents().get("simulate power");
+		for (String prioOrder : sp.getPrios()) {
 			opt.addOption(prioOrder);
 		}
 		return opt;
@@ -36,7 +37,8 @@ public class PowerPrioAction extends Action {
 
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-		genRef.getSource().setHighestPrio(selected);
+		SimulatePower sp = (SimulatePower)gameData.getGameMode().getEvents().get("simulate power");
+		sp.setHighestPrio(selected, gameData);
 		performingClient.addTolastTurnInfo("You set \"" + selected + "\" as highest power priority.");
 	}
 

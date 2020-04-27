@@ -32,6 +32,7 @@ import model.npcs.behaviors.FindHumansMovement;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.robots.RobotNPC;
 import model.objects.ai.AIScreen;
+import model.objects.power.PositronGenerator;
 import util.HTMLText;
 import util.MyRandom;
 
@@ -178,8 +179,8 @@ public class AIConsole extends Console {
             }
             for (Room r : gameData.getMap().getRoomsForLevel("ss13")) {
                 for (Object ob : r.getObjects()) {
-                    if (ob instanceof PowerSource) {
-                        PowerSource ps = (PowerSource) ob;
+                    if (ob instanceof PositronGenerator) {
+                        PositronGenerator ps = (PositronGenerator) ob;
                         if (Math.abs(ps.getPowerOutput() - 1.0) > 0.2) {
                             alarms.add("-->Power output anomalous " + (int) (100.0 * ps.getPowerOutput()) + "%");
                         }

@@ -10,6 +10,7 @@ import model.map.doors.Door;
 import model.objects.consoles.LifeSupportConsole;
 import model.objects.general.ChemicalDispenser;
 import model.objects.consoles.GeneratorConsole;
+import model.objects.power.Battery;
 
 public class GeneratorRoom extends TechRoom {
 
@@ -19,6 +20,7 @@ public class GeneratorRoom extends TechRoom {
 		this.addObject(new ChemicalDispenser("Storage", 2, this));
 		this.addObject(new GeneratorConsole(this, gameData));
         this.addObject(new LifeSupportConsole(this, gameData));
+        this.addObject(new Battery(this, 0, false));
         this.addItem(new Tools());
         this.addItem(new Multimeter());
         this.addItem(new InsulatedGloves());

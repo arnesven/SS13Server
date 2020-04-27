@@ -5,8 +5,9 @@ import model.Player;
 import model.actions.general.Action;
 import model.events.*;
 import model.items.NoSuchThingException;
+import model.map.GameMap;
 import model.map.rooms.Room;
-import model.objects.consoles.PowerSource;
+import model.objects.power.PositronGenerator;
 import model.objects.general.GameObject;
 import util.Logger;
 
@@ -63,15 +64,24 @@ public abstract class AmbientEvent extends Event {
         events.put("meteoric storm",   new MeteoricStorm());
         Event powerSimulation = new SimulatePower() {
             @Override
-            public Collection<Room> getAffactedRooms(GameData gameData) {
-                return gameData.getRooms();
+            public Collection<Room> getAffectedRooms(GameData gameData) {
+                List<Room> rooms = new ArrayList<>();
+                rooms.addAll(gameData.getRooms());
+                rooms.add(gameData.getMap().getSpaceRoomForLevel(GameMap.STATION_LEVEL_NAME));
+                return rooms;
             }
         };
         events.put("simulate power",   powerSimulation);
         events.put("derelict simpower", new SimulatePower() {
             @Override
-            public Collection<Room> getAffactedRooms(GameData gameData) {
+            public Collection<Room> getAffectedRooms(GameData gameData) {
                 return gameData.getMap().getRoomsForLevel("derelict");
+            }
+        });
+        events.put("miningstation simpower", new SimulatePower() {
+            @Override
+            public Collection<Room> getAffectedRooms(GameData gameData) {
+                return gameData.getMap().getRoomsForLevel("asteroid field");
             }
         });
     }
@@ -79,10 +89,10 @@ public abstract class AmbientEvent extends Event {
     private static Event makePowerFluxEvent() {
         return new PowerFlux() {
             @Override
-            protected PowerSource findePowerSource(GameData gameData) throws NoSuchThingException {
+            protected PositronGenerator findePowerSource(GameData gameData) throws NoSuchThingException {
                 for (GameObject obj : gameData.getRoom("Generator").getObjects()) {
-                    if (obj instanceof PowerSource) {
-                        return (PowerSource) obj;
+                    if (obj instanceof PositronGenerator) {
+                        return (PositronGenerator) obj;
                     }
                 }
                 throw new NoSuchThingException("Did not find power source");
