@@ -130,13 +130,13 @@ public class OtherPlacesBuilder extends MapBuilder {
             }
         }
 
-        for (Room asteroid : asteroids) {
-            int[] arr = new int[asteroidId.size()];
-            for (int i = 0; i < asteroidId.size(); ++i) {
-                arr[i] = asteroidId.get(i);
-            }
-            asteroid.setNeighbors(arr);
-        }
+//        for (Room asteroid : asteroids) {
+//            int[] arr = new int[asteroidId.size()];
+//            for (int i = 0; i < asteroidId.size(); ++i) {
+//                arr[i] = asteroidId.get(i);
+//            }
+//            asteroid.setNeighbors(arr);
+//        }
 
         GameMap.joinRooms(miningStation, cabin);
         GameMap.joinRooms(miningStation, shuttle);

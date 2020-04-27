@@ -19,24 +19,14 @@ import util.MyStrings;
 public abstract class SimulatePower extends Event {
 	public static final double ONE_TURN_IN_HOURS = 0.1;  // 6 minutes
 
-	//private static final double EQUIPMENT_POWER_USE_PCT = 0.60;
-	//private static final double MW_FOR_LIFE_SUPPORT_PER_ROOM = 0.020;   // 20 kW
-	//private static final double MW_FOR_LIGHT_PER_ROOM = 0.001;          // 1 kW
-
-	private Map<Room, Integer> roundsWithoutLS = new HashMap<>();
-	private Map<Room, ColdEvent> lsMap = new HashMap<>();
-	private boolean alreadyAddedDarkness = false;
-
 	private List<Double> history = new ArrayList<>();
 	private List<Room> noLifeSupport = new ArrayList<>();
 	private List<Room> noLight = new ArrayList<>();
 	private List<PowerConsumer> noPower = new ArrayList<>();
 	private List<String> prios;
-	//private Map<String, PowerUpdater> updaters;
 
 	public SimulatePower() {
 		setupPrio();
-	//	setupUpdaters();
 	}
 
 	private void setupPrio() {
@@ -46,36 +36,14 @@ public abstract class SimulatePower extends Event {
 		prios.add("Equipment");
 	}
 
-//	private void setupUpdaters() {
-//		updaters = new HashMap<>();
-//		updaters.put("Life Support", (double currentPower, double lsPer,
-//									  double liPer, List<? extends PowerConsumer> ls,
-//									  List<? extends PowerConsumer> lights, List<? extends  PowerConsumer> eq) ->
-//				internalUpdater(currentPower, lsPer, ls, true));
-//
-//		updaters.put("Lighting", (double currentPower, double lsPer,
-//								  double liPer, List<? extends PowerConsumer> ls,
-//								  List<? extends PowerConsumer> lights, List<? extends  PowerConsumer> eq) ->
-//				internalUpdater(currentPower, liPer, lights, true));
-//
-//		updaters.put("Equipment",(double currentPower, double lsPer,
-//								  double liPer, List<? extends PowerConsumer> ls,
-//								  List<? extends PowerConsumer> lights, List<? extends  PowerConsumer> eq) ->
-//				internalUpdater(currentPower, 0.0, eq, false));
-//	}
-
-
-
 	public abstract Collection<Room> getAffectedRooms(GameData gameData);
 
 
 	@Override
 	public void apply(GameData gameData) {
-		//addDarknessEvent(gameData);
         List<PowerSupply> ps = this.findPowerSources(gameData);
         if (ps != null) {
         	updatePower(gameData, ps);
-			//ps.updateYourself(gameData);
 			handleLifeSupport(gameData);
 			handleDarkness(gameData);
 			handleOvercharge(gameData, ps);
@@ -91,17 +59,7 @@ public abstract class SimulatePower extends Event {
 	}
 
 	private void updatePower(GameData gameData, List<PowerSupply> sources) {
-		//Logger.log("Suppliers: ");
-		for (PowerSupply pss : sources) {
-		//	Logger.log("-> " + pss.getName());
-		}
-
 		List<PowerConsumer> consumers = findConsumers(gameData);
-
-		//Logger.log("Consumers:");
-		for (PowerConsumer con : consumers) {
-		//	Logger.log("=> " + ((ElectricalMachinery)con).getName());
-		}
 
 		List<PowerConsumer> oldNoPower = noPower;
 		this.noPower = new ArrayList<>();
@@ -150,78 +108,6 @@ public abstract class SimulatePower extends Event {
 				noLifeSupport.add(r);
 			}
 		}
-
-//		double powerAvailable = getAvailablePower(ps);
-//		history.add(powerAvailable);
-//		powerAvailable = Math.max(0.0, powerAvailable + sumOfChanges(ps));
-//		Logger.log("Current power: " + powerAvailable);
-//
-//		noLifeSupport = new ArrayList<Room>();
-//		noLight       = new ArrayList<Room>();
-//		List<ElectricalMachinery> oldNoPower = noPower;
-//		noPower       = new ArrayList<ElectricalMachinery>();
-//
-//		List<Room> allRooms = new ArrayList<>();
-//		allRooms.addAll(getAffectedRooms(gameData));
-//
-//		double lsPowerPerRoom    = MW_FOR_LIFE_SUPPORT_PER_ROOM;
-//		double lightPowerPerRoom = MW_FOR_LIGHT_PER_ROOM;
-//
-//		for (Room room : getAffectedRooms(gameData)) {
-//			for (GameObject obj : room.getObjects()) {
-//				if (obj instanceof ElectricalMachinery) {
-//					if (((ElectricalMachinery)obj).getPowerSimulation() == null) {
-//						((ElectricalMachinery) obj).setPowerSimulation(this);
-//					}
-//					if (!(obj instanceof GeneratorConsole)) {
-//						noPower.add((ElectricalMachinery) obj);
-//					}
-//				}
-//			}
-//			for (Door d : room.getDoors()) {
-//				if (d.requiresPower()) {
-//					//Logger.log("POWER: this door requires power " + d.getName());
-//					d.getElectricalLock(gameData).setPowerSimulation(this);
-//					noPower.add(d.getElectricalLock(gameData));
-//				}
-//			}
-//		}
-//		Collections.shuffle(noPower);
-//
-//		//double eqPowerPer = startingPower * EQUIPMENT_POWER_USE_PCT / (double)(noPower.size());
-//		Logger.log(" POWER: Priority is " + prios);
-//		Logger.log(" POWER: Life support (MW per room): " + lsPowerPerRoom);
-//		Logger.log(" POWER: Lighting (MW per room)    : " + lightPowerPerRoom);
-//		//Logger.log(" POWER: Equipment (MW per machine): " + eqPowerPer);
-//
-//		noLight.addAll(getAffectedRooms(gameData));
-//		Collections.shuffle(noLight);
-//		noLifeSupport.addAll(getAffectedRooms(gameData));
-//		Collections.shuffle(noLifeSupport);
-//
-//		Collections.sort(noPower);
-//		lightBefore = noLight.size();
-//		lsBefore = noLifeSupport.size();
-//		eqBefore = noPower.size();
-//
-//		double currentPower = powerAvailable + 0.01; // you always get a litte extra, PHYSICS!
-//		for (String type : prios) {
-//			currentPower = updaters.get(type).update(currentPower,
-//					lsPowerPerRoom, lightPowerPerRoom,
-//					noLifeSupport, noLight, noPower);
-//		}
-//		this.powerLeft = currentPower;
-//
-//		Logger.log(getLSString());
-//		for (Room r : noLifeSupport) {
-//			Logger.log("     " + r.getName());
-//		}
-//
-//		Logger.log(getLightString());
-//
-//		Logger.log(getEquipmentString());
-//		runPowerOnOrOffFunctions(gameData, oldNoPower);
-//		Logger.log("POWER: objects without power are: "+ MyStrings.join(noPower, ", "));
 	}
 
 	public List<PowerConsumer> findConsumers(GameData gameData) {
@@ -284,14 +170,6 @@ public abstract class SimulatePower extends Event {
     }
 
 
-//    private void addDarknessEvent(GameData gameData) {
-//		if (!alreadyAddedDarkness) {
-//			gameData.addMovementEvent(new DarknessEvent(gameData, this));
-//			alreadyAddedDarkness  = true;
-//		}
-//	}
-
-
 	private void handleLifeSupport(GameData gameData) {
 		for (Room r : getAffectedRooms(gameData)) {
 			if (r.getLifeSupport() == null) {
@@ -303,41 +181,6 @@ public abstract class SimulatePower extends Event {
 				r.getLifeSupport().removeColdEvent(gameData);
 			}
 		}
-
-//		for (Room r : getAffectedRooms(gameData)) {
-//            if (!roundsWithoutLS.containsKey(r)) {
-//                roundsWithoutLS.put(r, 0);
-//            }
-//        }
-
-//		// Update how long rooms have been without life support
-//		List<Room> noLSRooms = getNoLifeSupportRooms();
-//		for (Room r : getAffectedRooms(gameData)) {
-//			if (noLSRooms.contains(r)) {
-//				roundsWithoutLS.put(r, Math.min(roundsWithoutLS.get(r) + 1, 2));
-//			} else {
-//				roundsWithoutLS.put(r, Math.max(0, roundsWithoutLS.get(r) - 1));
-//			}
-//		}
-//
-//		for (Room r : getAffectedRooms(gameData)) {
-//			if (roundsWithoutLS.get(r) > 1) {
-//				if (lsMap.get(r) == null) { // there was no previous cold event
-//					ColdEvent cold = new ColdEvent(r);
-//					r.addEvent(cold);
-//					lsMap.put(r, cold);
-//				}
-//			} else if (roundsWithoutLS.get(r) == 0) {
-//				if (lsMap.get(r) != null) { // there is a cold event there..
-//					r.removeEvent(lsMap.get(r));
-//					lsMap.remove(r);
-//				}
-//			}
-//		}
-//
-//		for (ColdEvent ev : lsMap.values()) {
-//			ev.apply(gameData);
-//		}
 	}
 
 
@@ -365,19 +208,6 @@ public abstract class SimulatePower extends Event {
 	public SensoryLevel getSense() {
 		return SensoryLevel.NO_SENSE;
 	}
-
-//	private double internalUpdater(double cp, double pp, List<? extends PowerConsumer> list, boolean useConstant) {
-//		while (cp - pp > 0 && list.size() > 0) {
-//			PowerConsumer pc = list.remove(0);
-//			if (useConstant) {
-//				cp -= pp * pc.getPowerConsumptionFactor();
-//			} else {
-//				double amount = pc.getPowerConsumption() * pc.getPowerConsumptionFactor();
-//				cp -= amount;
-//			}
-//		}
-//		return cp;
-//	}
 
 	public List<String> getPrios() {
 		return prios;

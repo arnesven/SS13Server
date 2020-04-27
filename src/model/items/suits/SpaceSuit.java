@@ -3,6 +3,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.SpaceProtection;
@@ -66,4 +68,8 @@ public class SpaceSuit extends FullBodySuit {
 		return new SpaceSuit();
 	}
 
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "Good for going into space. Protects against the vacuum and the coldness of space.";
+	}
 }
