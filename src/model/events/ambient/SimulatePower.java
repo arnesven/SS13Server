@@ -115,10 +115,14 @@ public abstract class SimulatePower extends Event {
 		for (Room room : getAffectedRooms(gameData)) {
 			for (BreakableObject obj : room.getBreakableObjects(gameData)) {
 				if (obj instanceof PowerConsumer) {
-					consumers.add((PowerConsumer) obj);
-				}
-				if (obj instanceof ElectricalMachinery) {
-					((ElectricalMachinery) obj).setPowerSimulation(this);
+					if (obj instanceof ElectricalMachinery) {
+						((ElectricalMachinery) obj).setPowerSimulation(this);
+						if (!obj.isBroken()) {
+							consumers.add((PowerConsumer) obj);
+						}
+					} else {
+						consumers.add((PowerConsumer) obj);
+					}
 				}
 			}
 			if (room.getLifeSupport() != null) {
