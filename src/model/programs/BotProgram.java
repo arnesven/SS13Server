@@ -30,9 +30,9 @@ public class BotProgram implements Serializable {
         this.sprite = sprite;
     }
 
-    public BotProgram(String name, MovementBehavior mov, ActionBehavior act) {
-        this(name, mov, act, null);
-    }
+    //public BotProgram(String name, MovementBehavior mov, ActionBehavior act) {
+    //    this(name, mov, act, null);
+    //}
 
     public String getName() {
         return this.name;

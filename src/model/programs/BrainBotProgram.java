@@ -1,5 +1,6 @@
 package model.programs;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.characters.general.GameCharacter;
@@ -18,7 +19,7 @@ public class BrainBotProgram extends BotProgram {
     private final Brain brain;
 
     public BrainBotProgram(String programName, BotConsole console, GameData gameData, Brain brain) {
-        super(programName, null, null);
+        super(programName, null, null, new Sprite("cyborg", "mainframe.png", 1, 5, null));
         this.console = console;
         this.gameData = gameData;
         this.brain = brain;

@@ -4,8 +4,11 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.fancyframeactions.SitDownAtConsoleAction;
 import model.actions.general.Action;
 import model.actions.objectactions.ScanBrainAction;
+import model.fancyframe.BotConsoleFancyFrame;
+import model.fancyframe.ConsoleFancyFrame;
 import model.items.Brain;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
@@ -48,7 +51,8 @@ public class BotConsole extends Console {
                 new PutOutFireBehavior(gameData),
                 new Sprite("firefighterbot", "robots2.png", 9, 2, null)));
         bp.add(new BotProgram("Friendly", new MeanderingMovement(0.5),
-                new RandomSpeechBehavior("resources/CHITCHAT.TXT")));
+                new RandomSpeechBehavior("resources/CHITCHAT.TXT"),
+                new Sprite("robot", "robots.png", 51, null)));
         bp.add(BotProgram.createHostileProgram(gameData));
         bp.add(new BotProgram("Nurse",
                 new MeanderingMovement(1.0),
@@ -66,7 +70,7 @@ public class BotConsole extends Console {
             bp.add(new BotProgram("Security",
                     new FollowCriminalBehavior(gameData.findObjectOfType(CrimeRecordsConsole.class)),
                     new ArrestCriminalBehavior(gameData.findObjectOfType(CrimeRecordsConsole.class)),
-                    new Sprite("securitybot", "robots2.png", 21, 2, null)));
+                    new Sprite("securitron", "aibots.png", 51, null)));
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "No crime console on station. Not adding security bot program.");
         }
@@ -82,7 +86,14 @@ public class BotConsole extends Console {
             at.add(sba);
         }
 
-
+        if (cl instanceof Player) {
+            at.add(new SitDownAtConsoleAction(gameData, this) {
+                @Override
+                protected ConsoleFancyFrame getNewFancyFrame(Console console, GameData gameData, Player performingClient) {
+                    return new BotConsoleFancyFrame(performingClient, BotConsole.this, gameData);
+                }
+            });
+        }
 
     }
 
