@@ -244,15 +244,16 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
             list.add(pua);
         }
 
-        PutOnAction po = new PutOnAction(forWhom);
-        if (po.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
-            list.add(po);
-        }
+        addSpecificOverlayActions(gameData, r, forWhom, list);
 
         list.add(new ShowExamineFancyFrameAction(gameData, forWhom, this));
 
 
         return list;
+    }
+
+    protected void addSpecificOverlayActions(GameData gameData, Room r, Player forWhom, List<Action> list) {
+
     }
 
     private String getInventoryActionData(GameData gameData, Player forWhom) {

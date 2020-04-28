@@ -10,8 +10,10 @@ import model.actions.general.Action;
 import model.actions.general.DropAction;
 import model.actions.general.PutOnAction;
 import model.actions.itemactions.ExchangeWithSuitInInventoryAction;
+import model.actions.itemactions.ExchangeWithSuitOnRoomFloorAction;
 import model.actions.itemactions.ShowExamineFancyFrameAction;
 import model.items.general.GameItem;
+import model.map.rooms.Room;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -115,6 +117,28 @@ public abstract class SuitItem extends GameItem implements Wearable {
         return acts;
     }
 
+    @Override
+    protected void addSpecificOverlayActions(GameData gameData, Room r, Player forWhom, List<Action> list) {
+        super.addSpecificOverlayActions(gameData, r, forWhom, list);
+        PutOnAction po = new PutOnAction(forWhom);
+        if (po.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+            list.add(po);
+        }
+        ExchangeWithSuitOnRoomFloorAction ea = new ExchangeWithSuitOnRoomFloorAction(forWhom, this);
+        if (ea.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
+            list.add(ea);
+        }
+    }
+
+    @Override
+    public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
+        super.addYourActions(gameData, at, cl);
+        ExchangeWithSuitOnRoomFloorAction ea = new ExchangeWithSuitOnRoomFloorAction(cl, this);
+        if (ea.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+            at.add(ea);
+        }
+
+    }
 
     public String getEquipmentActionsData(Player player, GameData gameData) {
         String res =  Action.makeActionListStringSpecOptions(gameData, getEquippedActions(gameData, player), player);

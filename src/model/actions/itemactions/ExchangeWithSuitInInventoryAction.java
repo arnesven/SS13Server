@@ -39,13 +39,17 @@ public class ExchangeWithSuitInInventoryAction extends Action {
         if (!performingClient.getItems().contains(suit)) {
             performingClient.addTolastTurnInfo("What? the " + suit.getPublicName(performingClient) + " is gone! " + Action.FAILED_STRING);
         } else {
-            selectedSuit.removeYourself(performingClient.getCharacter().getEquipment());
-            performingClient.getCharacter().giveItem(selectedSuit, performingClient.getAsTarget());
-            performingClient.getCharacter().getItems().remove(suit);
-            suit.putYourselfOn(performingClient.getCharacter().getEquipment());
-            performingClient.addTolastTurnInfo("You took off the " + selectedSuit.getPublicName(performingClient) +
-                    " and put on the " + suit.getPublicName(performingClient) + ".");
+            swapSuits(performingClient, suit, selectedSuit);
         }
+    }
+
+    protected void swapSuits(Actor performingClient, SuitItem suit, SuitItem selectedSuit) {
+        selectedSuit.removeYourself(performingClient.getCharacter().getEquipment());
+        performingClient.getCharacter().giveItem(selectedSuit, performingClient.getAsTarget());
+        performingClient.getCharacter().getItems().remove(suit);
+        suit.putYourselfOn(performingClient.getCharacter().getEquipment());
+        performingClient.addTolastTurnInfo("You took off the " + selectedSuit.getPublicName(performingClient) +
+                " and put on the " + suit.getPublicName(performingClient) + ".");
     }
 
     @Override
@@ -56,4 +60,9 @@ public class ExchangeWithSuitInInventoryAction extends Action {
             }
         }
     }
+
+    protected SuitItem getSelectedSuit() {
+        return selectedSuit;
+    }
+
 }
