@@ -5,14 +5,13 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.PlayerSettings;
 import model.actions.UnequipAction;
 import model.actions.general.Action;
 import model.actions.general.DropAction;
 import model.actions.general.PutOnAction;
+import model.actions.itemactions.ExchangeWithSuitInInventoryAction;
 import model.actions.itemactions.ShowExamineFancyFrameAction;
 import model.items.general.GameItem;
-import util.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +30,7 @@ public abstract class SuitItem extends GameItem implements Wearable {
 		return under;
 	}
 
-    protected abstract int getEquipmentSlot();
+    public abstract int getEquipmentSlot();
 
     public abstract boolean blocksSlot(int targetSlot);
 
@@ -108,6 +107,10 @@ public abstract class SuitItem extends GameItem implements Wearable {
         PutOnAction po = new PutOnAction(forWhom);
         if (po.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
             acts.add(po);
+        }
+        ExchangeWithSuitInInventoryAction ea = new ExchangeWithSuitInInventoryAction(forWhom, this);
+        if (ea.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
+            acts.add(ea);
         }
         return acts;
     }

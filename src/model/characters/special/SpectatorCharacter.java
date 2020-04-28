@@ -106,7 +106,7 @@ public class SpectatorCharacter extends GhostCharacter {
         }
 
         @Override
-        protected int getEquipmentSlot() {
+        public int getEquipmentSlot() {
             return 0;
         }
 

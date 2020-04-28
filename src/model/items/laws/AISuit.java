@@ -25,7 +25,7 @@ public class AISuit extends SuitItem {
     }
 
     @Override
-    protected int getEquipmentSlot() {
+    public int getEquipmentSlot() {
         return Equipment.HEAD_SLOT;
     }
 

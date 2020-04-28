@@ -8,7 +8,7 @@ public abstract class FootGear extends SuitItem {
     }
 
     @Override
-    protected int getEquipmentSlot() {
+    public int getEquipmentSlot() {
         return Equipment.FEET_SLOT;
     }
 

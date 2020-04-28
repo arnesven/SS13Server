@@ -8,7 +8,7 @@ public abstract class GlovesItem extends SuitItem {
     }
 
     @Override
-    protected int getEquipmentSlot() {
+    public int getEquipmentSlot() {
         return Equipment.HANDS_SLOT;
     }
 

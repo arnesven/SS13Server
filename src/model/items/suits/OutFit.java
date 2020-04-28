@@ -26,7 +26,7 @@ public class OutFit extends TorsoAndShoesSuit {
 
 
     @Override
-    protected int getEquipmentSlot() {
+    public int getEquipmentSlot() {
         return Equipment.TORSO_SLOT;
     }
 

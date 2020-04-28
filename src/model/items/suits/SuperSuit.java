@@ -62,7 +62,7 @@ public class SuperSuit extends SuitItem {
 
 
     @Override
-    protected int getEquipmentSlot() {
+    public int getEquipmentSlot() {
         if (appearance == null) {
             return Equipment.TORSO_SLOT;
         }

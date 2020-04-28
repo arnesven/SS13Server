@@ -8,7 +8,7 @@ public abstract class HeadGear extends SuitItem {
     }
 
     @Override
-    protected int getEquipmentSlot() {
+    public int getEquipmentSlot() {
         return Equipment.HEAD_SLOT;
     }
 

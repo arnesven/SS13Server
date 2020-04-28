@@ -11,7 +11,7 @@ public abstract class HeadShoesAndTorsoSuit extends SuitItem {
     }
 
     @Override
-    protected int getEquipmentSlot() {
+    public int getEquipmentSlot() {
         return Equipment.TORSO_SLOT;
     }
 

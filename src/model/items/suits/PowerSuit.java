@@ -28,7 +28,7 @@ public class PowerSuit extends SuitItem {
     }
 
     @Override
-    protected int getEquipmentSlot() {
+    public int getEquipmentSlot() {
         return Equipment.TORSO_SLOT;
     }
 
