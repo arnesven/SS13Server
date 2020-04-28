@@ -1,12 +1,23 @@
 package model.map.rooms;
 
+import graphics.sprites.Sprite;
+import model.Actor;
+import model.Player;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
+import model.objects.decorations.SolarPanel;
+import model.objects.general.GameObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SolarPanelRoom extends DecorativeRoom {
     public SolarPanelRoom(int id, int x, int y, int w, int h) {
         super(id, "Solar Panels", x, y, w, h, new int[]{}, new Door[]{});
+        for (int i = 0; i < 22; ++i) {
+            addObject(new SolarPanel(this));
+        }
     }
 
     @Override
@@ -17,5 +28,14 @@ public class SolarPanelRoom extends DecorativeRoom {
     @Override
     protected String getAppearanceScheme() {
         return "NoWallsNoDoors-Space";
+    }
+
+    @Override
+    public List<Sprite> getAlwaysSprites(Actor whosAsking) {
+        List<Sprite> sprs = new ArrayList<>();
+        for (GameObject obj : getObjects()) {
+            sprs.add(obj.getSprite(whosAsking));
+        }
+        return sprs;
     }
 }

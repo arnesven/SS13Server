@@ -619,7 +619,7 @@ public abstract class Room implements ItemHolder, Serializable {
     }
 
 
-    public List<Sprite> getAlwaysSprites() {return new ArrayList<>();};
+    public List<Sprite> getAlwaysSprites(Actor whosAsking) {return new ArrayList<>();};
 
 	public boolean isHidden() {
 		return false;

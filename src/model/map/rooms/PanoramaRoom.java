@@ -1,6 +1,7 @@
 package model.map.rooms;
 
 import model.map.doors.Door;
+import model.objects.consoles.SolarArrayControl;
 import model.objects.general.SeedVendingMachine;
 
 /**
@@ -9,7 +10,6 @@ import model.objects.general.SeedVendingMachine;
 public class PanoramaRoom extends HallwayRoom {
     public PanoramaRoom(int id, int x, int y, int width, int height, int[] ints, Door[] doubles) {
         super(id, "Panorama Walkway", "", x, y, width, height, ints, doubles);
-        this.addObject(new SeedVendingMachine(this));
-
+        addObject(new SolarArrayControl(this, 14323));
     }
 }

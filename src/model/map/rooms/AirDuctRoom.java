@@ -72,7 +72,7 @@ public class AirDuctRoom extends Room {
         String ss13 = GameMap.STATION_LEVEL_NAME;
         try {
             for (Room r : map.getArea(ss13, map.getAreaForRoom(ss13, this))) {
-                if (r != this && !(r instanceof AirLockRoom)) {
+                if (r != this && !(r instanceof AirLockRoom) && !(r instanceof DecorativeRoom)) {
                     if (MyRandom.nextDouble() < VENT_CHANCE) {
                         Logger.log("... Adding a vent to " + r.getName());
                         VentObject vent = new VentObject(this, r, null);

@@ -227,7 +227,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(vent5, ss13, "port");
 
 
-        SolarPanelRoom spr = new SolarPanelRoom(14323, -1, 2, 4, 1);
+        SolarPanelRoom spr = new SolarPanelRoom(14323, -2, 2, 4, 1);
         gm.addRoom(spr, ss13, "aft");
 
     }

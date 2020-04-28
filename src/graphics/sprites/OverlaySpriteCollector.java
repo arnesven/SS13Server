@@ -37,7 +37,7 @@ public abstract class OverlaySpriteCollector {
     private static List<OverlaySprite> getAlwaysSprites(Player player, GameData gameData) {
         List<OverlaySprite> strs = new ArrayList<>();
         for (Room r : player.getVisibleMap(gameData)) {
-            strs.addAll(getOverlaysForSpritesInRoom(gameData, r.getAlwaysSprites(), r, player));
+            strs.addAll(getOverlaysForSpritesInRoom(gameData, r.getAlwaysSprites(player), r, player));
         }
         return strs;
     }

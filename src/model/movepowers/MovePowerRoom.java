@@ -1,6 +1,7 @@
 package model.movepowers;
 
 import graphics.sprites.Sprite;
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.map.doors.Door;
@@ -29,7 +30,7 @@ public class MovePowerRoom extends Room {
     }
 
     @Override
-    public List<Sprite> getAlwaysSprites() {
+    public List<Sprite> getAlwaysSprites(Actor whosAsking) {
         List<Sprite> sprs = new ArrayList<>();
         sprs.add(getButtonSprite());
         return sprs;
