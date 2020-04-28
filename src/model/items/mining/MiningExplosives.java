@@ -44,6 +44,7 @@ public class MiningExplosives extends BombItem {
 
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
+        super.addYourActions(gameData, at, cl);
         at.add(new SetMiningExplosives());
 
     }

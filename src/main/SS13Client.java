@@ -53,7 +53,6 @@ public class SS13Client extends JFrame {
 
     private void makeFancyFrame() {
         this.fancyFrame = new FancyFrame(this);
-
     }
 
     public static void main(String[] args) {

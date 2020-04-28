@@ -54,6 +54,6 @@ public class DealDrugsAction extends TargetingAction {
 
     @Override
     public boolean isViableForThisAction(Target target2) {
-        return target2 instanceof Actor && ((Actor) target2).getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter);
+        return target2 instanceof Actor && !target2.isDead() && ((Actor) target2).getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter);
     }
 }

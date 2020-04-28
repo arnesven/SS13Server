@@ -282,6 +282,9 @@ public class Player extends Actor implements Target, Serializable {
 	 * @return the string representing the selectable actions.
 	 */
 	public String getActionListString(GameData gameData) {
+		if (getCharacter() == null) {
+			return Action.makeActionListString(gameData, new ArrayList<>(), this);
+		}
 		return Action.makeActionListString(gameData, getActionList(gameData), this);
 	}
 

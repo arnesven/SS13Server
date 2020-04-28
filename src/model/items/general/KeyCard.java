@@ -9,10 +9,10 @@ public abstract class KeyCard extends GameItem {
         super(string, 0.01, 129);
     }
 
-    public static UniversalKeyCard findKeyCard(Actor forWhom) {
+    public static KeyCard findKeyCard(Actor forWhom) {
         for (GameItem it : forWhom.getItems()) {
-            if (it instanceof UniversalKeyCard) {
-                return (UniversalKeyCard) it;
+            if (it instanceof KeyCard) {
+                return (KeyCard) it;
             }
         }
         return null;

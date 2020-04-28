@@ -15,7 +15,7 @@ public class MaybeIngestDrugsBehavior implements ActionBehavior {
         if (MyRandom.nextDouble() < 0.25) {
             List<GameItem> items = new ArrayList<>();
             items.addAll(npc.getItems());
-            for (GameItem g : npc.getItems()) {
+            for (GameItem g : items) {
                 if (g instanceof DrugDose) {
                     ((DrugDose) g).beEaten(npc, gameData);
                 }

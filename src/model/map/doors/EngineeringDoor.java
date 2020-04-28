@@ -14,12 +14,12 @@ public class EngineeringDoor extends ElectricalDoor {
 
     @Override
     public Sprite getNormalSprite() {
-        return new Sprite("unpoweredengdoor.png", "doors.png", 9, 4, this);
+        return new Sprite("normalengdoor.png", "doors.png", 9, 4, this);
     }
 
     @Override
     public Sprite getBrokenSprite() {
-        return new Sprite("lockedengdoor.png", "doors.png", 5, 5, this);
+        return new Sprite("brokenengdoor.png", "doors.png", 5, 5, this);
     }
 
     @Override

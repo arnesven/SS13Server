@@ -167,6 +167,7 @@ public class GeneralManufacturer extends ElectricalMachinery {
         clothing.add(new SecOffsHelmet());
         clothing.add(new SunGlasses());
         clothing.add(new Sweater());
+        clothing.add(new InsulatedGloves());
         availableItems.put("Clothing", clothing);
 
         return availableItems;

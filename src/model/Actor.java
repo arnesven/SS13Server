@@ -303,6 +303,9 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
     }
 
     public boolean hasInventory() {
+        if (getCharacter() == null) {
+            return false;
+        }
         return getCharacter().hasInventory();
     }
 
