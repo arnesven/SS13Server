@@ -4,6 +4,7 @@ import model.characters.general.GameCharacter;
 import model.items.general.Chemicals;
 import model.items.general.GameItem;
 import model.items.general.ZippoLighter;
+import model.items.keycard.ScienceKeyCard;
 import model.items.suits.OxygenMask;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class ChemistCharacter extends CrewCharacter {
         list.add(Chemicals.createRandomChemicals());
         list.add(new OxygenMask());
         list.add(new ZippoLighter());
+        list.add(new ScienceKeyCard());
 
         return list;
     }

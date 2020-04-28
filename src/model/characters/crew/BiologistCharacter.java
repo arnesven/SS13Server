@@ -10,6 +10,7 @@ import model.actions.characteractions.TrainNPCAction;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.MotionTracker;
+import model.items.keycard.ScienceKeyCard;
 import model.items.seeds.TomatoSeeds;
 import model.map.rooms.Room;
 import model.npcs.animals.Trainable;
@@ -25,6 +26,7 @@ public class BiologistCharacter extends CrewCharacter {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new TomatoSeeds());
 		list.add(new MotionTracker());
+		list.add(new ScienceKeyCard());
 		return list;
 	}
 

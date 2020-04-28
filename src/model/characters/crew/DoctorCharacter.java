@@ -10,6 +10,7 @@ import model.items.Scalpel;
 import model.items.general.Defibrilator;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
+import model.items.keycard.ScienceKeyCard;
 import model.items.weapons.Knife;
 
 public class DoctorCharacter extends CrewCharacter {
@@ -26,6 +27,7 @@ public class DoctorCharacter extends CrewCharacter {
 		list.add(new MedKit());
 		list.add(new Scalpel());
         list.add(new Defibrilator());
+        list.add(new ScienceKeyCard());
 		return list;
 	}
 

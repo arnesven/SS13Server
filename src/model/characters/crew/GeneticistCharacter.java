@@ -9,6 +9,7 @@ import model.items.general.Chemicals;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.general.Syringe;
+import model.items.keycard.ScienceKeyCard;
 
 public class GeneticistCharacter extends CrewCharacter {
 
@@ -22,6 +23,7 @@ public class GeneticistCharacter extends CrewCharacter {
 		list.add(new Syringe());
 		list.add(new MedKit());
 		list.add(new EthanolChemicals());
+		list.add(new ScienceKeyCard());
 		return list;
 	}
 

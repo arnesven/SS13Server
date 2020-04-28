@@ -38,7 +38,7 @@ public class CaptainCharacter extends CrewCharacter {
     public String getJobDescription() {
         return new JobDescriptionMaker(this,
                 "You're in charge. Keep your crew alive and the station in one piece." +
-                        " Don't forget to guard the nuclear disk!", "Parent, ").makeString();
+                        " Don't forget to guard the nuclear disk!", "Parent, Demotion").makeString();
     }
 
 

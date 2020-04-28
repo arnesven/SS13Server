@@ -59,8 +59,8 @@ public class JobDescriptionMaker {
 
     public String makeString() {
         return "<font size=\"3\"><b>Type: " + HTMLText.makeText(getColorForType(type), type) + "</b><br/>" +
-                (startingItems.equals("")?"":"<b>Gear:</b> " + startingItems +"<br/><i>") +
-                "</i>" + description + "</i><br/>" +
+                (startingItems.equals("")?"":"<b>Gear:</b> " + startingItems +"<br/>") +
+                "<i>" + description + "</i><br/>" +
                 (abilities.equals("")?"":"<b>Abilities:</b> " + abilities + "<br/>") +
                 "<b>Salary:</b> " + salary + "<br/>" +
                 "<b>Initiative:</b> " + initiative + "</font>";
