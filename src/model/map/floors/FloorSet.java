@@ -13,21 +13,27 @@ public class FloorSet implements Serializable {
     private final String name;
     private final int column;
     private final int row;
+    private final String mapPath;
     private Sprite mainSprite;
     private List<Sprite> otherSprites;
 
-    public FloorSet(String name, int column, int row) {
+    public FloorSet(String name, int column, int row, String mapPath) {
         this.name = name;
         this.column = column;
         this.row = row;
         otherSprites = new ArrayList<>();
-        this.mainSprite = new Sprite(this.name, "floors.png", 0, 0, null);
+        this.mainSprite = new Sprite(this.name, mapPath, 0, 0, null);
+        this.mapPath = mapPath;
         makeSet(column, row);
+    }
+
+    public FloorSet(String name, int column, int row) {
+        this(name, column, row, "floors.png");
     }
 
     protected void makeSet(int column, int row) {
         for (String part : SET_NAMES) {
-            otherSprites.add(new Sprite(this.name + part, "floors.png", column, row, null));
+            otherSprites.add(new Sprite(this.name + part, mapPath, column, row, null));
             column++;
             if (column == 30) {
                 column = 0;
@@ -47,6 +53,8 @@ public class FloorSet implements Serializable {
     public String getName() {
         return name;
     }
+
+    public String getMapPath() { return mapPath; }
 
     protected int getRow() {
         return row;

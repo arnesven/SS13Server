@@ -70,10 +70,7 @@ public class StationDrawingStrategy extends DrawingStrategy {
     }
 
     private List<Room> getRoomsToDraw() {
-        List<Room> roomList = new ArrayList<>();
-        roomList.addAll(GameData.getInstance().getMiniMap());
-        Collections.sort(roomList);
-        return roomList;
+        return GameData.getInstance().getRoomsToDraw();
     }
 
 

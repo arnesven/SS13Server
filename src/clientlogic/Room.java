@@ -399,7 +399,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     private ArrayList<Room> getRoomsOnSameZ() {
         ArrayList<Room> list = new ArrayList<>();
-        list.addAll(GameData.getInstance().getMiniMap());
+        list.addAll(GameData.getInstance().getRoomsToDraw());
         list.removeIf((Room r) -> r.getZPos() != this.getZPos());
         return list;
     }

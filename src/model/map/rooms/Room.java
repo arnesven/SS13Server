@@ -679,4 +679,8 @@ public abstract class Room implements ItemHolder, Serializable {
 	public Lighting getLighting() {
 		return lighting;
 	}
+
+	public boolean shouldBeAddedToMinimap() {
+		return true;
+	}
 }

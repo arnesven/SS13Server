@@ -11,6 +11,7 @@ import model.characters.special.SpectatorCharacter;
 import model.fancyframe.FancyFrame;
 import model.fancyframe.SinglePageFancyFrame;
 import model.items.suits.SuitItem;
+import model.map.rooms.DecorativeRoom;
 import model.map.rooms.SpaceRoom;
 import model.movepowers.MovePowerRoom;
 import sounds.Sound;
@@ -199,6 +200,11 @@ public class Player extends Actor implements Target, Serializable {
 		// TODO: Work these back into actions.
         //getCharacter().getMovePowersIfPlayer(gameData, list);
         ArrayList<Integer> movablePlaces = new ArrayList<>();
+        for (Room r : gameData.getRooms()) {
+        	if (r instanceof DecorativeRoom) {
+        		movablePlaces.add(r.getID());
+			}
+		}
 //		for (Room r : list) {
 //		    movablePlaces.add(r.getID());
 //        }
@@ -667,10 +673,10 @@ public class Player extends Actor implements Target, Serializable {
             } else {
                 res.addAll(gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(getPosition()).getName()));
             }
-            res.removeIf((Room r) -> (r.isHidden() || r instanceof SpaceRoom));
+            res.removeIf((Room r) -> (r.isHidden() || r instanceof SpaceRoom || !r.shouldBeAddedToMinimap()));
             if (getCharacter() != null) {
 				for (Room extra : getCharacter().getVisibleMap(gameData)) {
-					if (!res.contains(extra)) {
+					if (!res.contains(extra) && extra.shouldBeAddedToMinimap()) {
 						res.add(extra);
 					}
 				}

@@ -13,10 +13,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -889,5 +887,26 @@ public class GameData {
 		rest = rest[1].split("\\)");
 		String[] strs = rest[0].substring(0, rest[0].length()-1).split(",");
 		return new double[]{Double.parseDouble(strs[0]), Double.parseDouble(strs[1]), Double.parseDouble(strs[2])};
+	}
+
+	public List<Room> getRoomsToDraw() {
+		List<Room> roomList = new ArrayList<>();
+		roomList.addAll(GameData.getInstance().getMiniMap());
+		for (Room r : GameData.getInstance().getRooms()) {
+			if (!existsIn(r.getID(), roomList)) {
+				roomList.add(r);
+			}
+		}
+		Collections.sort(roomList);
+		return roomList;
+	}
+
+	private boolean existsIn(int id, List<Room> roomList) {
+		for (Room r : roomList) {
+			if (id == r.getID()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
