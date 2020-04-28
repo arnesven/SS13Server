@@ -635,4 +635,17 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
     public boolean isFloatingInSpace() {
         return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator);
     }
+
+    public void stopBeingInSpace() {
+        removeInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator);
+        getCharacter().setSpacePosition(null);
+    }
+
+    public boolean isInSpace() {
+        return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator);
+    }
+
+    public void goToSpace(GameData gameData) {
+        setCharacter(new InSpaceCharacterDecorator(getCharacter(), gameData));
+    }
 }

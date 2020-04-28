@@ -68,8 +68,7 @@ public class AirLockRoom extends StationRoom {
 		for (Actor a : getActors()) {
 			if (!a.isAI()) {
 				if (a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator)) {
-					a.removeInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator);
-					a.getCharacter().setSpacePosition(null);
+					a.stopBeingInSpace();
 				}
 			}
 		}
@@ -96,8 +95,8 @@ public class AirLockRoom extends StationRoom {
 		cycle(gameData, performingClient);
 		for (Actor a : getActors()) {
 			if (!a.isAI()) {
-				if (!(a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator))) {
-					a.setCharacter(new InSpaceCharacterDecorator(a.getCharacter(), gameData));
+				if (!a.isInSpace()) {
+					a.goToSpace(gameData);
 				}
 			}
 		}

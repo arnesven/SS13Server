@@ -150,6 +150,13 @@ public class DoorMechanism extends ElectricalMachinery {
         lineLock.repair(this);
         lineFire.repair(this);
         electricalDoor.gotRepaired(gameData);
+        if (isPowered()) {
+            try {
+                electricalDoor.goPowered(gameData.getRoomForId(electricalDoor.getFromId()), gameData.getRoomForId(electricalDoor.getToId()));
+            } catch (NoSuchThingException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
