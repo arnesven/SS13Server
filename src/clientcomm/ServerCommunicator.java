@@ -18,13 +18,16 @@ public class ServerCommunicator {
     private static SS13Client client;
 
     public synchronized static void send(String message, MyCallback callback) {
-        //long dt = System.currentTimeMillis();
-		String res = login(message, GameData.getInstance().getHost(), GameData.getInstance().getPort());
-		//dt = System.currentTimeMillis() - dt;
-        //doStatistics(dt);
+
+        System.out.println("Sending \"" + message + "\"");
+        long dt = System.currentTimeMillis();
+        String res = login(message, GameData.getInstance().getHost(), GameData.getInstance().getPort());
+	   //doStatistics(dt);
 
 		if (!res.equals("fail")) {
             callback.onSuccess(res);
+            dt = System.currentTimeMillis() - dt;
+            System.out.println("Took " + dt + "ms to process result");
         } else {
 		    callback.onFail();
         }

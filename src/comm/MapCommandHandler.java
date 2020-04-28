@@ -6,6 +6,7 @@ import java.util.*;
 import model.GameData;
 import model.Player;
 import model.map.rooms.Room;
+import util.Logger;
 import util.MyStrings;
 
 
@@ -21,11 +22,18 @@ public class MapCommandHandler extends AbstractCommandHandler {
 			ObjectOutputStream oos) throws IOException {
 
 		if (command.contains("MAP")) {
+
 			String result;
 			Player player = gameData.getPlayerForClid(clid);
 			if (rest.contains("VIMI")) {
-				result = MyStrings.join(getVisibleMapStrings(player)) + "<vimi>" +
-						MyStrings.join(getMiniMapStrings(player));
+				long dt = System.currentTimeMillis();
+				String visiPart = MyStrings.join(getVisibleMapStrings(player));
+				Logger.log("Took " + (System.currentTimeMillis()-dt) + " ms to generate visi part");
+				dt = System.currentTimeMillis();
+				String miniPart = MyStrings.join(getMiniMapStrings(player));
+				Logger.log("Took " + (System.currentTimeMillis()-dt) + " ms to generate mini part");
+
+				result = visiPart + "<vimi>" + miniPart;
 			} else if (rest.contains("VISI")) {
                 result = MyStrings.join(getVisibleMapStrings(player));
             } else {
@@ -40,6 +48,7 @@ public class MapCommandHandler extends AbstractCommandHandler {
             gameData.getPlayerForClid(clid).setClientDimension(width, height);
 
 			oos.writeObject(result);
+
 			return true;
 		}
 		

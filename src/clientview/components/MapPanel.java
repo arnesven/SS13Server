@@ -77,17 +77,24 @@ public class MapPanel extends JPanel implements Observer {
 
 
 
-    private void createRooms() {
+    public void createRooms() {
+
         ServerCommunicator.send(parent.getUsername() + " MAP VIMI " + getWidth() + " " +
                         (getHeight()-inventoryPanel.getHeight()),
                 new MyCallback<String>() {
 
             @Override
             public void onSuccess(String result) {
+               // System.out.println("In onsuccess from vimi");
                 String[] parts = result.split("<vimi>");
+                long dt = System.currentTimeMillis();
                 GameData.getInstance().deconstructRoomList(parts[0], GameData.getInstance().getRooms());
+                //System.out.println("Took " + (System.currentTimeMillis()-dt) + "ms to deconstruct rooms");
+                //dt = System.currentTimeMillis();
                 GameData.getInstance().deconstructRoomList(parts[1], GameData.getInstance().getMiniMap());
+                //System.out.println("Took " + (System.currentTimeMillis()-dt) + "ms to deconstruct minimap");
                 parent.repaint();
+                //System.out.println("Out of onsuccess");
             }
 
                     @Override
@@ -96,7 +103,6 @@ public class MapPanel extends JPanel implements Observer {
                     }
 
                 });
-
     }
 
     private void drawRooms() {
@@ -105,12 +111,16 @@ public class MapPanel extends JPanel implements Observer {
 
     @Override
     protected void paintComponent(Graphics g) {
+       // System.out.println("Painting!");
+        //long dt = System.currentTimeMillis();
         AnimationHandler.step();
         if (automaticBackground) {
             checkBackgroundStrategy();
         }
         drawingStrategy.paint(g);
         inventoryPanel.drawYourself(g, 0, getWidth());
+        //dt = System.currentTimeMillis() - dt;
+        //System.out.println("Took " + dt + "ms to paint result");
     }
 
     private void checkBackgroundStrategy() {
@@ -135,7 +145,8 @@ public class MapPanel extends JPanel implements Observer {
 
     @Override
     public void update() {
-        createRooms();
+
+        //createRooms();
     }
 
     public InventoryPanel getInventoryPanel() {

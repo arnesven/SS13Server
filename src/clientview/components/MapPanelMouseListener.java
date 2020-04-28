@@ -23,7 +23,7 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Clicked!");
+       // System.out.println("Clicked!");
         if (mp.getInventoryPanel().mouseClicked(e, mp)) {
             System.out.println("Hit inventorypanel, returning");
             return;
@@ -85,7 +85,7 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
             mpm.showYourself();
             return;
         }
-        System.out.println("mpm was still null, showing nothing.");
+     //   System.out.println("mpm was still null, showing nothing.");
     }
 
     @Override
@@ -102,12 +102,12 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
     @Override
     public void mousePressed(MouseEvent e) {
         this.dragStartPint = e.getPoint();
-        System.out.println("Mouse pressed!");
+    //    System.out.println("Mouse pressed!");
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Mouse released");
+      //  System.out.println("Mouse released");
     }
 
     @Override

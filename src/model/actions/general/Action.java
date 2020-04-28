@@ -175,15 +175,14 @@ public abstract class Action extends Experienceable implements Serializable {
 
 
     public static String makeActionListString(GameData gameData, List<Action> list, Actor whosAsking) {
-        String result = "{";
+	    StringBuilder result = new StringBuilder("{");
         for (Action a : list) {
             ActionOption opts = a.getOptions(gameData, whosAsking);
             opts.uniquefy();
-
-            result += opts.makeBracketedString();
+            result.append(opts.makeBracketedString());
         }
-        result += "}";
-        return result;
+        result.append("}");
+        return result.toString();
     }
 
 

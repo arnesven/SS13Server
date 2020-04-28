@@ -232,6 +232,7 @@ public class GameData {
 	}
 
 	private void notifyObservers() {
+
 		for (Observer o : instance.observers) {
 			o.update();
 		}

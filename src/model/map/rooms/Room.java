@@ -109,7 +109,8 @@ public abstract class Room implements ItemHolder, Serializable {
 		String result = ID + ":" + name + ":" + effectStr + ":" + x + ":" + y + ":" + z + ":" +
 						width + ":" + height +":" + Arrays.toString(neighbors) + ":" +
                 MyStrings.join(getDoorStringList(doors, gameData, forWhom), ", ") + ":" +
-				floorSprite.getMainSprite().getName() + ":" + getAppearanceScheme() + ":" +
+				floorSprite.getMainSprite().getName() + ":" +
+				getAppearanceScheme() + ":" +
 				Action.makeActionListString(gameData, getActionData(gameData, forWhom), forWhom);
 		//Logger.log(result);
         return result;

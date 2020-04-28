@@ -145,6 +145,7 @@ public class GameUIPanel extends JPanel implements Observer {
                     }
                     System.out.println("Asking server for action data");
                     pollServerActions();
+                    inGameView.getMapPanel().createRooms();
                 } else if (newState == 0) { // state is now pre-game
                     if (state == 2 || state == 1) { // went to pre-game from non-pregame state
                         pollServerActions();
