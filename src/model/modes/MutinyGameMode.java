@@ -8,6 +8,7 @@ import model.characters.crew.CaptainCharacter;
 import model.characters.crew.HeadOfStaffCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.CaptainsDaughter;
+import model.fancyframe.SinglePageFancyFrame;
 import util.HTMLText;
 import util.Pair;
 
@@ -78,7 +79,12 @@ public class MutinyGameMode extends GameMode {
 
     @Override
     protected void addAntagonistStartingMessage(Player c) {
-        c.addTolastTurnInfo(MUTINEER_MESSAGE);
+
+        //c.addTolastTurnInfo(MUTINEER_MESSAGE);
+        c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Secret Role!", HTMLText.makeColoredBackground("#856509",
+                HTMLText.makeCentered("<br/>" + HTMLText.makeImage(getCaptain().getCharacter().getSprite(c)) + "<br/><br/>" +
+                        HTMLText.makeText("yellow", MUTINEER_MESSAGE))
+                )));
     }
 
     @Override

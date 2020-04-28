@@ -6,6 +6,7 @@ import model.Player;
 import model.characters.crew.CaptainCharacter;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
+import model.fancyframe.SinglePageFancyFrame;
 import model.items.NoSuchThingException;
 import model.items.laws.AILaw;
 import model.npcs.HumanNPC;
@@ -55,18 +56,25 @@ public class RogueAIMode extends GameMode {
 
     @Override
     public void setStartingLastTurnInfo() {
-        aiPlayer.addTolastTurnInfo(HTMLText.makeText("red", "You are a " + HTMLText.makeWikiLink("modes/rogueAI", "Rogue AI")) +
+        String message = HTMLText.makeText("red", "You are a " + HTMLText.makeWikiLink("modes/rogueAI", "Rogue AI")) +
                 ". Kill or incapacitate the crew before they can shut you down! "
                 +"Your decoy is " + decoy.getBaseName() +
-                " (in " + decoy.getPosition().getName() + ")");
+                " (in " + decoy.getPosition().getName() + ")";
+
+        aiPlayer.addTolastTurnInfo(message);
     }
 
     @Override
     protected void addAntagonistStartingMessage(Player c) {
-        c.addTolastTurnInfo(HTMLText.makeText("red", "You are a " + HTMLText.makeWikiLink("modes/rogueAI", "Rogue AI")) +
+        String message = HTMLText.makeText("red", "You are a " + HTMLText.makeWikiLink("modes/rogueAI", "Rogue AI")) +
                 ". Kill or incapacitate the crew before they can shut you down! "
                 +"Your decoy is " + decoy.getBaseName() +
-                " (in " + decoy.getPosition().getName() + ")");
+                " (in " + decoy.getPosition().getName() + ")";
+
+        c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Secret Role!", HTMLText.makeColoredBackground("black",
+                HTMLText.makeCentered("<br/>" + HTMLText.makeImage(c.getCharacter().getSprite(c)) + "<br/><br/>" +
+                        HTMLText.makeText("yellow", message))
+        )));
     }
 
     @Override
