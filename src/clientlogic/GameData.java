@@ -910,4 +910,8 @@ public class GameData {
 		}
 		return false;
 	}
+
+	public int getDataState() {
+		return playerDataState;
+	}
 }

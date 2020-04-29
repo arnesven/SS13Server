@@ -12,6 +12,7 @@ import model.items.general.KeyCard;
 import model.items.general.UniversalKeyCard;
 import model.items.general.Tools;
 import util.HTMLText;
+import util.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.List;
 public abstract class DoorState implements Serializable {
 
     protected final ElectricalDoor door;
-    private DoorState oldState = null;
+    private DoorState oldState;
 
     protected DoorState(ElectricalDoor door) {
         this.door = door;

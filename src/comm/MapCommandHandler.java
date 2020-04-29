@@ -26,13 +26,8 @@ public class MapCommandHandler extends AbstractCommandHandler {
 			String result;
 			Player player = gameData.getPlayerForClid(clid);
 			if (rest.contains("VIMI")) {
-				long dt = System.currentTimeMillis();
 				String visiPart = MyStrings.join(getVisibleMapStrings(player));
-				Logger.log("Took " + (System.currentTimeMillis()-dt) + " ms to generate visi part");
-				dt = System.currentTimeMillis();
 				String miniPart = MyStrings.join(getMiniMapStrings(player));
-				Logger.log("Took " + (System.currentTimeMillis()-dt) + " ms to generate mini part");
-
 				result = visiPart + "<vimi>" + miniPart;
 			} else if (rest.contains("VISI")) {
                 result = MyStrings.join(getVisibleMapStrings(player));

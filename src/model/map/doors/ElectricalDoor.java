@@ -21,6 +21,7 @@ import model.map.rooms.Room;
 import model.objects.general.BreakableObject;
 import model.objects.general.ElectricalMachinery;
 import util.HTMLText;
+import util.Logger;
 
 import java.util.List;
 
@@ -181,6 +182,7 @@ public abstract class ElectricalDoor extends Door {
                 return HTMLText.makeText("black", "yellow", "YELLOW");
             }
         }
+        Logger.log("Getting diode color, Door state is: " + doorState);
         return doorState.getDiodeColor();
     }
 
@@ -217,17 +219,21 @@ public abstract class ElectricalDoor extends Door {
         if (!(doorState.getOldState() instanceof DoorState.Locked)) {
             GameMap.joinRooms(from, to);
         }
-        this.doorState = doorState.getOldState();
+        if (doorState instanceof DoorState.Unpowered) {
+            this.doorState = doorState.getOldState();
+        }
     }
 
     public void goUnpowered(Room from, Room to) {
         GameMap.separateRooms(from, to);
-        this.doorState = new DoorState.Unpowered(this);
-        this.doorMechanism.getPowerLine().setState(0);
-        this.doorMechanism.getBackupLine().setState(0);
+        if (!(doorState instanceof DoorState.Unpowered)) {
+            this.doorState = new DoorState.Unpowered(this);
+            this.doorMechanism.getPowerLine().setState(0);
+            this.doorMechanism.getBackupLine().setState(0);
+        }
     }
 
     public void gotRepaired(GameData gameData) {
-        this.doorState = doorState.getOldState();
+        this.doorState = doorState.getOldState(); // from broken to.... (Unpowered, Normal or Locked)
     }
 }

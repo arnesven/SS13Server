@@ -125,6 +125,7 @@ public class DoorMechanism extends ElectricalMachinery {
 
     @Override
     public void thisJustBroke(GameData gameData) {
+
         electricalDoor.breakDoor(gameData);
     }
 
@@ -150,12 +151,13 @@ public class DoorMechanism extends ElectricalMachinery {
         lineLock.repair(this);
         lineFire.repair(this);
         electricalDoor.gotRepaired(gameData);
-        if (isPowered()) {
-            try {
-                electricalDoor.goPowered(gameData.getRoomForId(electricalDoor.getFromId()), gameData.getRoomForId(electricalDoor.getToId()));
-            } catch (NoSuchThingException e) {
-                e.printStackTrace();
-            }
+        try {
+            electricalDoor.goPowered(gameData.getRoomForId(electricalDoor.getFromId()), gameData.getRoomForId(electricalDoor.getToId()));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        if (electricalDoor.getDoorState() instanceof DoorState.Locked) {
+            lineLock.setState(1);
         }
     }
 

@@ -153,6 +153,7 @@ public class GameUIPanel extends JPanel implements Observer {
                         //MusicPlayer.playBackgroundMusic();
                         GameData.getInstance().clearActionList();
                         GameData.getInstance().setSelectedRoom(0);
+                        inGameView.getMapPanel().createRooms();
                         lobbyView.flipToSummary();
                         oldRound = -1;
                         toggleView();

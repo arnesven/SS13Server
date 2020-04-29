@@ -29,6 +29,7 @@ public class MapPanel extends JPanel implements Observer {
     private final DrawingStrategy drawingStrategy;
 
     private GameUIPanel parent;
+    private int oldState;
 
     public MapPanel(GameUIPanel parent) {
         this.parent = parent;
@@ -78,23 +79,17 @@ public class MapPanel extends JPanel implements Observer {
 
 
     public void createRooms() {
-
+        this.oldState = GameData.getInstance().getDataState();
         ServerCommunicator.send(parent.getUsername() + " MAP VIMI " + getWidth() + " " +
                         (getHeight()-inventoryPanel.getHeight()),
                 new MyCallback<String>() {
 
             @Override
             public void onSuccess(String result) {
-               // System.out.println("In onsuccess from vimi");
                 String[] parts = result.split("<vimi>");
-                long dt = System.currentTimeMillis();
                 GameData.getInstance().deconstructRoomList(parts[0], GameData.getInstance().getRooms());
-                //System.out.println("Took " + (System.currentTimeMillis()-dt) + "ms to deconstruct rooms");
-                //dt = System.currentTimeMillis();
                 GameData.getInstance().deconstructRoomList(parts[1], GameData.getInstance().getMiniMap());
-                //System.out.println("Took " + (System.currentTimeMillis()-dt) + "ms to deconstruct minimap");
                 parent.repaint();
-                //System.out.println("Out of onsuccess");
             }
 
                     @Override
@@ -146,7 +141,9 @@ public class MapPanel extends JPanel implements Observer {
     @Override
     public void update() {
 
-        //createRooms();
+        if (GameData.getInstance().getDataState() > this.oldState) {
+            createRooms();
+        }
     }
 
     public InventoryPanel getInventoryPanel() {

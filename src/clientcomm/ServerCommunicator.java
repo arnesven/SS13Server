@@ -19,7 +19,7 @@ public class ServerCommunicator {
 
     public synchronized static void send(String message, MyCallback callback) {
 
-        System.out.println("Sending \"" + message + "\"");
+        //System.out.println("Sending \"" + message + "\"");
         long dt = System.currentTimeMillis();
         String res = login(message, GameData.getInstance().getHost(), GameData.getInstance().getPort());
 	   //doStatistics(dt);
@@ -27,7 +27,7 @@ public class ServerCommunicator {
 		if (!res.equals("fail")) {
             callback.onSuccess(res);
             dt = System.currentTimeMillis() - dt;
-            System.out.println("Took " + dt + "ms to process result");
+        //    System.out.println("Took " + dt + "ms to process result");
         } else {
 		    callback.onFail();
         }
