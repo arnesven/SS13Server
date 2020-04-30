@@ -42,20 +42,16 @@ public class Asteroid extends PlanetRoom {
 
     @Override
     public void destroy(GameData gameData) {
-        try {
-            gameData.getMap().removeRoom(this);
-            Room dest = shatterAllRocks(gameData);
+        //gameData.getMap().removeRoom(this);
+        super.destroy(gameData);
+        Room dest = shatterAllRocks(gameData);
 
-            for (Room r : getNeighborList()) {
-                for (Actor a : r.getActors()) {
-                    a.addTolastTurnInfo(this.getName() + " was destroyed! The remains landed on " + dest.getName() + ".");
-                }
+        for (Room r : getNeighborList()) {
+            for (Actor a : r.getActors()) {
+                a.addTolastTurnInfo(this.getName() + " was destroyed! The remains landed on " + dest.getName() + ".");
             }
-
-
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
         }
+
     }
 
     private Room shatterAllRocks(GameData gameData) {

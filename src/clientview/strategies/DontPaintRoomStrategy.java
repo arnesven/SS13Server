@@ -1,0 +1,23 @@
+package clientview.strategies;
+
+import clientlogic.Room;
+import clientview.components.MapPanel;
+
+import java.awt.*;
+
+public class DontPaintRoomStrategy extends RoomDrawingStrategy {
+    @Override
+    public void drawRoom(Room r, Graphics g, boolean selectable, boolean isSelected, int xOffset, int yOffset, int xOffPx, int yOffPx, boolean shadow) {
+
+    }
+
+    @Override
+    public void drawRoomFromAbove(Room r, Graphics g, int xOffset, int yOffset, int xOffPx, int inventoryHeight) {
+
+    }
+
+    @Override
+    public void drawDoors(Room r, Graphics g, MapPanel mapPanel, int xOffset, int yOffset, int xOffPx, int inventoryHeight) {
+
+    }
+}

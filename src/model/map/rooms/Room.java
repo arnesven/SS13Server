@@ -38,6 +38,7 @@ import model.objects.general.GameObject;
 import model.objects.power.LifeSupport;
 import model.objects.power.Lighting;
 import util.Logger;
+import util.MyRandom;
 import util.MyStrings;
 
 
@@ -74,6 +75,7 @@ public abstract class Room implements ItemHolder, Serializable {
 	private static final RoomWalls walls = new RoomWalls();
 	private LifeSupport lifeSupport;
 	private Lighting lighting;
+	private String defaultApperance;
 
 
 	public Room(int ID, String name, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
@@ -89,6 +91,7 @@ public abstract class Room implements ItemHolder, Serializable {
         this.floorSprite = getFloorSet();
         lifeSupport = new LifeSupport(this);
         lighting = new Lighting(this);
+		this.defaultApperance = "WallsAndWindows";
 	}
 
 
@@ -155,7 +158,6 @@ public abstract class Room implements ItemHolder, Serializable {
     }
 
     protected String getAppearanceScheme() {
-		String defaultApperance = "WallsAndWindows";
 		if (map == null) {
 			return defaultApperance + "-Space";
 		}
@@ -603,21 +605,20 @@ public abstract class Room implements ItemHolder, Serializable {
 
         this.addEvent(new NoPressureEverEvent(this));
         this.addEvent(new ColdEvent(this));
-        this.addEvent(new DarkEvent());
+        this.width = 0;
+        this.height = 0;
+        //this.addEvent(new DarkEvent());
+
 
         for (Room neigh : this.getNeighborList()) {
             HullBreach hull = ((HullBreach) gameData.getGameMode().getEvents().get("hull breaches"));
             hull.startNewEvent(neigh);
             neigh.addItem(new RoomPartsStack(1));
+            GameMap.separateRooms(this, neigh);
         }
 
-        try {
-            gameData.getMap().removeRoom(this);
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-
-    }
+        this.defaultApperance = "DontPaint";
+	}
 
 
     public List<Sprite> getAlwaysSprites(Actor whosAsking) {return new ArrayList<>();};

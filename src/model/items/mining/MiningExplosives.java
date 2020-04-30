@@ -67,13 +67,18 @@ public class MiningExplosives extends BombItem {
                 performingClient.getPosition().addItem(MiningExplosives.this);
                 position = performingClient.getPosition();
                 final List<Actor> protectedPeople = temporarilyProtectNeighbors(position);
-                gameData.addMovementEvent(new Event() {
+                gameData.addEvent(new Event() {
+
+                    private final int roundSet = gameData.getRound();
+
                     @Override
                     public void apply(GameData gameData) {
-                        position.addItem(new CryoBomb(gameData, performingClient));
-                        position.addItem(new CryoBomb(gameData, performingClient));
-                        MiningExplosives.this.explode(gameData, performingClient);
-                        removeTemporaryProtection(protectedPeople);
+                        if (gameData.getRound() == roundSet + 2) {
+                            position.addItem(new CryoBomb(gameData, performingClient));
+                            position.addItem(new CryoBomb(gameData, performingClient));
+                            MiningExplosives.this.explode(gameData, performingClient);
+                            removeTemporaryProtection(protectedPeople);
+                        }
                     }
 
                     @Override
@@ -88,7 +93,7 @@ public class MiningExplosives extends BombItem {
 
                     @Override
                     public boolean shouldBeRemoved(GameData gameData) {
-                        return true;
+                        return gameData.getRound() > roundSet + 1;
                     }
                 });
                 performingClient.addTolastTurnInfo("You set the mining explosives. Now get the hell out of here!");

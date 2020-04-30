@@ -288,7 +288,7 @@ public class GameMap implements Serializable {
         return station;
     }
 
-    public void removeRoom(Room bombRoom) throws NoSuchThingException {
+    private void removeRoom(Room bombRoom) throws NoSuchThingException {
         boolean removed = false;
         for (Map<String, Set<Room>> level : levels.values()) {
             for (Set<Room> area : level.values()) {

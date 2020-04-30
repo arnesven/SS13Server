@@ -2,6 +2,7 @@ package model.map;
 
 import graphics.sprites.SpriteObject;
 import model.Player;
+import model.map.rooms.Room;
 import model.objects.general.GameObject;
 
 import java.io.Serializable;
@@ -15,6 +16,13 @@ public class SpacePosition implements Serializable {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public SpacePosition(Room position) {
+        x = position.getX() + (double)position.getWidth() / 2.0;
+        y = position.getY() + (double)position.getHeight() / 2.0;
+        z = position.getZ();
+
     }
 
 

@@ -74,7 +74,8 @@ public class ColdEvent extends Event {
 
 	@Override
 	public void gotAddedToRoom(Room room) {
-			room.addEffect(noLifeSupportSprite);
+
+		//room.addEffect(noLifeSupportSprite);
 	}
 
 	@Override
@@ -85,7 +86,6 @@ public class ColdEvent extends Event {
 	@Override
 	public void gotRemovedFromRoom(Room room) {
 		Logger.log("Removing no life support sprite");
-		room.getEffects().remove(noLifeSupportSprite);
-
+	//	room.getEffects().remove(noLifeSupportSprite);
 	}
 }

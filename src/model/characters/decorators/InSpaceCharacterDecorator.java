@@ -16,10 +16,7 @@ import java.util.List;
 public class InSpaceCharacterDecorator extends CharacterDecorator {
     public InSpaceCharacterDecorator(GameCharacter character, GameData gameData) {
         super(character, "In Space");
-        double newX = character.getPosition().getX() + (double)character.getPosition().getWidth() / 2.0;
-        double newY = character.getPosition().getY() + (double)character.getPosition().getHeight() / 2.0;
-        double newZ = character.getPosition().getZ();
-        character.setSpacePosition(new SpacePosition(newX, newY, newZ));
+        character.setSpacePosition(new SpacePosition(character.getPosition()));
     }
 
     @Override

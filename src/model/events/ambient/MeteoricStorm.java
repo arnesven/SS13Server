@@ -65,13 +65,8 @@ public class MeteoricStorm extends AmbientEvent {
         for (Room r : allRooms) {
             if (MyRandom.nextDouble() < DESTROY_CHANCE*multiplier) {
                 Logger.log("... " + r.getName() + " was destroyed!");
-                try {
-                    gameData.getMap().removeRoom(r);
-                } catch (NoSuchThingException e) {
-                    e.printStackTrace();
-                }
-                doDamageOnPeople(gameData, r, 5.0);
-            } else {
+                r.destroy(gameData);
+             } else {
 
                 if (MyRandom.nextDouble() < HULL_BREACH_CHANCE*multiplier) {
                     HullBreach hull = ((HullBreach) gameData.getGameMode().getEvents().get("hull breaches"));

@@ -216,7 +216,9 @@ public abstract class ElectricalDoor extends Door {
 
 
     public void goPowered(Room from, Room to) {
-        if (!(doorState.getOldState() instanceof DoorState.Locked)) {
+        if (doorState.getOldState() instanceof DoorState.Locked) {
+            GameMap.separateRooms(from, to);
+        } else {
             GameMap.joinRooms(from, to);
         }
         if (doorState instanceof DoorState.Unpowered) {

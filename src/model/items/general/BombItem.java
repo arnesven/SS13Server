@@ -19,9 +19,11 @@ import model.events.damage.ExplosiveDamage;
 import model.items.NoSuchThingException;
 import model.items.foods.ExplodingFood;
 import model.map.Architecture;
+import model.map.SpacePosition;
 import model.map.doors.HoleInTheWallDoor;
 import model.map.rooms.Room;
 import model.events.SpontaneousExplosionEvent;
+import model.map.rooms.SpaceRoom;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 import util.Logger;
@@ -207,6 +209,8 @@ public class BombItem extends HidableItem implements ExplodableItem {
 
         if (chain > 2) {
             if (gameData.getAllRooms().contains(bombRoom)) { // not already destroyed
+                Logger.log("Chain is > 2, destroying room!");
+                blowActorsIntoOtherRooms(gameData, bombRoom);
                 bombRoom.destroy(gameData);
             }
 
@@ -223,6 +227,29 @@ public class BombItem extends HidableItem implements ExplodableItem {
         }
     }
 
+    private void blowActorsIntoOtherRooms(GameData gameData, Room bombRoom) {
+        try {
+            for (Actor a : bombRoom.getActors()) {
+                if (a.isInSpace()) {
+                    Logger.log(a.getBaseName() + " is already in space, moving into space room and setting space coordinates of bombroom");
+                    a.moveIntoRoom(gameData.getMap().getSpaceRoomForLevel(gameData.getMap().getLevelForRoom(bombRoom).getName()));
+                    a.getCharacter().setSpacePosition(new SpacePosition(bombRoom));
+                } else if (bombRoom.getNeighbors().length == 0) {
+                    Logger.log(a.getBaseName() + " is NOT in space but bombroom has no neighbors, going to space and then moving to space room");
+                    a.goToSpace(gameData);
+                    a.moveIntoRoom(gameData.getMap().getSpaceRoomForLevel(gameData.getMap().getLevelForRoom(bombRoom).getName()));
+                } else {
+                    Logger.log(a.getBaseName() + " is NOT in space, moving to random neighboring room");
+                    Room targetRoom = MyRandom.sample(bombRoom.getNeighborList());
+                    a.moveIntoRoom(targetRoom);
+                    a.addTolastTurnInfo("You were blown into " + targetRoom.getName() + "!");
+                }
+            }
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
     private BombItem getIfIsAnUnexplodedBomb(GameItem it) {

@@ -69,12 +69,10 @@ public class JumpStationAction extends Action {
         }
 
         for (Room r : baseStarRooms) {
-            try {
-                gameData.getMap().removeRoom(r);
+                //gameData.getMap().removeRoom(r);
+                r.destroy(gameData);
                 gameData.getMap().addRoom(r, gameData.getMap().getLevelForCoordinates(oldCoordinates, gameData), "space");
-            } catch (NoSuchThingException e) {
-                e.printStackTrace();
-            }
+
         }
         Logger.log("Old coords were: " + oldCoordinates);
 

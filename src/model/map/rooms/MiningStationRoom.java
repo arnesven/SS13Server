@@ -19,6 +19,7 @@ public class MiningStationRoom extends TechRoom {
         this.addObject(new MiningStorage(this));
         this.addObject(new GeneralManufacturer(this));
         this.addObject(new Battery(this, Battery.MAX_ENERGY, false));
+        this.addObject(new Battery(this, Battery.MAX_ENERGY, false));
     }
 
     @Override
