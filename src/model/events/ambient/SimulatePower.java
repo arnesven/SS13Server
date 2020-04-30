@@ -167,7 +167,7 @@ public abstract class SimulatePower extends Event {
 				} else if (t1.getEnergy() < powerSupply.getEnergy()) {
 					return -1;
 				}
-				return 0;
+				return new Double(t1.getPower()).compareTo(new Double(powerSupply.getPower()));
 			}
 		});
        	return result;

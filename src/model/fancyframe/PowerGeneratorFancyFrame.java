@@ -37,7 +37,7 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
                     if (ps.getEnergy() >= 1000000.0) {
                         eRemain = " *Inf* MWh";
                     }
-                    content.append(String.format("%d kW", (int)(ps.getPower()*1000)) + " " + ps.getName() + " " + eRemain + "<br/>");
+                    content.append(String.format("%03d kW", (int)(ps.getPower()*1000)) + " " + ps.getName() + " " + eRemain + "<br/>");
                 }
             }
 
@@ -66,11 +66,9 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
                 prios.append(HTMLText.makeFancyFrameLink("SETPRIO " + prio, "[" + prio + "] "));
             }
 
-            String ongInc = "[Ongoing Increase]";
+           // String ongInc = "[Ongoing Increase]";
             String ongDec = "[Ongoing Decrease]";
-            if (console.getSource().getOngoing() > 0.0) {
-                ongInc = "<b>" + ongInc + "</b>";
-            } else if (console.getSource().getOngoing() < 0.0) {
+            if (console.getSource().getOngoing() < 0.0) {
                 ongDec = "<b>" + ongDec + "</b>";
             }
 
@@ -90,9 +88,7 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
                             "Current Power Demand: " + String.format("%.1f kW", 1000*console.getPowerSimulation().getPowerDemand(gameData)) + "<br/>" +
                             "   Current Power Output: " + HTMLText.makeText(getColorForPower(), String.format("%.1f kW", 1000*console.getPowerSimulation().getAvailablePower(gameData))) + "<br/>" +
                             HTMLText.makeCentered(
-                                    HTMLText.makeFancyFrameLink("SETPOWER Ongoing Increase", ongInc) + "  " +
                                             HTMLText.makeFancyFrameLink("SETPOWER Ongoing Decrease", ongDec) + "<br/>" +
-                                            HTMLText.makeFancyFrameLink("SETPOWER Fixed Increase", "[Fixed Increase]") + "  " +
                                             HTMLText.makeFancyFrameLink("SETPOWER Fixed Decrease", "[Fixed Decrease]")) + "<br/>" +
                             "Power Priority:<br/>" + prios.toString() + "<br/>" +
                             status.toString()

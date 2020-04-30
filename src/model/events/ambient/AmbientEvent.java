@@ -11,10 +11,7 @@ import model.objects.power.PositronGenerator;
 import model.objects.general.GameObject;
 import util.Logger;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by erini02 on 03/05/16.
@@ -66,7 +63,8 @@ public abstract class AmbientEvent extends Event {
             @Override
             public Collection<Room> getAffectedRooms(GameData gameData) {
                 List<Room> rooms = new ArrayList<>();
-                rooms.addAll(gameData.getRooms());
+                rooms.addAll(gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME));
+                rooms.removeIf((Room r) -> !r.isPartOfStation());
                 rooms.add(gameData.getMap().getSpaceRoomForLevel(GameMap.STATION_LEVEL_NAME));
                 return rooms;
             }

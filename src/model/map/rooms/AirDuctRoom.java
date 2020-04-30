@@ -1,6 +1,7 @@
 package model.map.rooms;
 
 import model.GameData;
+import model.events.ambient.DarkEvent;
 import model.items.NoSuchThingException;
 import model.items.general.TornClothes;
 import model.map.GameMap;
@@ -11,6 +12,7 @@ import model.npcs.MouseNPC;
 import model.npcs.ParasiteNPC;
 import model.objects.VentObject;
 import model.objects.general.AirlockPanel;
+import model.objects.power.Lighting;
 import util.Logger;
 import util.MyRandom;
 
@@ -47,6 +49,7 @@ public class AirDuctRoom extends Room {
         setupVents(gameData);
         addSomeVermin(gameData);
         addSomeTrash(gameData);
+        addEvent(new DarkEvent());
     }
 
     private void addSomeTrash(GameData gameData) {
@@ -86,5 +89,10 @@ public class AirDuctRoom extends Room {
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Lighting getLighting() {
+        return null;
     }
 }

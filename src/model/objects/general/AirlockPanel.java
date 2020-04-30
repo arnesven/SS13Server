@@ -26,6 +26,12 @@ public class AirlockPanel extends ElectricalMachinery {
 	public AirlockPanel(AirLockRoom airLock, Room otherRoom) {
 		super("Airlock Control", otherRoom);
 		this.airLock = airLock;
+		setPowerPriority(4);
+	}
+
+	@Override
+	public double getPowerConsumption() {
+		return 0.0002; // 200 W
 	}
 
 	@Override

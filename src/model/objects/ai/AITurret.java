@@ -32,7 +32,7 @@ public class AITurret extends ElectricalMachinery implements RemotelyOperateable
 
     public AITurret(Room room, AIConsole aiCons, GameData gameData) {
         super("AutoTurret", room);
-        setPowerPriority(1);
+       // setPowerPriority(1);
         autoIsOn = false;
         lastFiredOnTurn = 0;
 

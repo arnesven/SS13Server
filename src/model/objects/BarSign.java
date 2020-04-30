@@ -13,12 +13,13 @@ import model.objects.general.GameObject;
 import java.util.ArrayList;
 
 public class BarSign extends ElectricalMachinery {
+    private static int uid = 1;
     //private final BarSignBis otherHalf;
     private Sprite sprite;
     private GameData gameData;
 
     public BarSign(Room position) {
-        super("Bar Sign 1", position);
+        super("Bar Sign " + (uid++), position);
         sprite = new Sprite("defaultbarsign1", "barsigns.png", 5, 5, 64, 32,this);
     }
 

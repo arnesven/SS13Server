@@ -57,7 +57,9 @@ public class StationDrawingStrategy extends DrawingStrategy {
         // Draw overlay sprites which did not belong to any drawn rooms.
         for (OverlaySprite sp : GameData.getInstance().getOverlaySprites()) {
             if (!drawnSprites.contains(sp)) {
-                sp.drawYourself(g, xOffset, yOffset, getXTrans(), inventoryPanelHeight() + getYTrans(), GameData.getInstance().getCurrentZ());
+                if (GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation() == sp.getZ()) {
+                    sp.drawYourself(g, xOffset, yOffset, getXTrans(), inventoryPanelHeight() + getYTrans(), GameData.getInstance().getCurrentZ());
+                }
             }
         }
 
@@ -89,13 +91,13 @@ public class StationDrawingStrategy extends DrawingStrategy {
             } else { // stuff above
                 drawnSprites.addAll(r.getOverlaySprites());
             }
-
+            boolean shadow = !GameData.getInstance().isASelectableRoom(r.getID());
+            getRoomDrawingStrategy(r).drawSprites(r, g, xOffset, yOffset, xOffPx, yOffPx, shadow, currZ, drawnSprites);
         }
 
         for (Room r : roomList) {
             boolean shadow = !GameData.getInstance().isASelectableRoom(r.getID());
             getRoomDrawingStrategy(r).drawDoors(r, g, getMapPanel(), xOffset, yOffset, xOffPx, yOffPx, currZ);
-            getRoomDrawingStrategy(r).drawSprites(r, g, xOffset, yOffset, xOffPx, yOffPx, shadow, currZ, drawnSprites);
             if (r.getZPos() == currZ) {
                 r.drawYourEffect(g, xOffset, yOffset, xOffPx, yOffPx, shadow);
             }

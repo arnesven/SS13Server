@@ -8,6 +8,8 @@ import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
 import model.objects.decorations.SolarPanel;
 import model.objects.general.GameObject;
+import model.objects.power.LifeSupport;
+import model.objects.power.Lighting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +40,15 @@ public class SolarPanelRoom extends DecorativeRoom {
             sprs.add(obj.getSprite(whosAsking));
         }
         return sprs;
+    }
+
+    @Override
+    public Lighting getLighting() {
+        return null;
+    }
+
+    @Override
+    public LifeSupport getLifeSupport() {
+        return null;
     }
 }

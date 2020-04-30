@@ -12,8 +12,7 @@ import model.objects.consoles.GeneratorConsole;
 
 public class PowerLevelAction extends Action {
 
-	private String[] opts = new String[]{"Fixed Increase", "Fixed Decrease", 
-										 "Ongoing Increase", "Ongoing Decrease"};
+	private String[] opts = new String[]{"Fixed Decrease", "Ongoing Decrease"};
 	private boolean fixed;
 	private boolean increase;
 	private GeneratorConsole genRef;
