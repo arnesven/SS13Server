@@ -4,6 +4,8 @@ import model.GameData;
 import model.Player;
 import model.actions.objectactions.PowerLevelAction;
 import model.actions.objectactions.PowerPrioAction;
+import model.characters.crew.CrewCharacter;
+import model.characters.general.GameCharacter;
 import model.events.ambient.SimulatePower;
 import model.objects.consoles.GeneratorConsole;
 import model.objects.general.ElectricalMachinery;
@@ -30,35 +32,40 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
     private void buildContent(GameData gameData, Player player) {
         if (showAdvanced) {
             StringBuilder content = new StringBuilder();
-            content.append("======== POWER SOURCES ========<br/>");
-            for (PowerSupply ps : powerSim.findPowerSources(gameData)) {
-                if (ps.getPower() > 0.0) {
-                    String eRemain = String.format(" %1.1f kWh", 1000*ps.getEnergy());
-                    if (ps.getEnergy() >= 1000000.0) {
-                        eRemain = " *Inf* MWh";
+            if (!isATechnicalPerson(player)){
+                String text = "A lot of very important power-related stuff. Megawatts and what-not. 234 KW. And then some more stuff";
+                greekify(content, text, "a technically skilled person");
+            } else {
+                content.append("======== POWER SOURCES ========<br/>");
+                for (PowerSupply ps : powerSim.findPowerSources(gameData)) {
+                    if (ps.getPower() > 0.0) {
+                        String eRemain = String.format(" %1.1f kWh", 1000 * ps.getEnergy());
+                        if (ps.getEnergy() >= 1000000.0) {
+                            eRemain = " *Inf* MWh";
+                        }
+                        content.append(String.format("%03d kW", (int) (ps.getPower() * 1000)) + " " + ps.getName() + " " + eRemain + "<br/>");
                     }
-                    content.append(String.format("%03d kW", (int)(ps.getPower()*1000)) + " " + ps.getName() + " " + eRemain + "<br/>");
-                }
-            }
-
-            content.append("======= POWER CONSUMERS =======<br/>");
-
-            for (PowerConsumer pc : powerSim.findConsumers(gameData)) {
-                if (pc.getPowerConsumption() > 0.0) {
-                    String textcolor = "yellow";
-                    if (!((ElectricalMachinery) pc).isPowered()) {
-                        textcolor = "black";
-                    }
-                    content.append(HTMLText.makeText(textcolor, pc.getPowerPriority() + " " +
-                            String.format("%2.1f kW", pc.getPowerConsumption() * 1000) + " " +
-                            ((ElectricalMachinery) pc).getBaseName() + " " + "<br/>"));
                 }
 
-            }
+                content.append("======= POWER CONSUMERS =======<br/>");
 
-            setData(console.getPublicName(player), false,"________________________" +
-                    HTMLText.makeFancyFrameLink("BACK", "[back]") + "<br/>" +
-                    HTMLText.makeText("white", "#02558c", "Courier", 3, content.toString()));
+                for (PowerConsumer pc : powerSim.findConsumers(gameData)) {
+                    if (pc.getPowerConsumption() > 0.0) {
+                        String textcolor = "yellow";
+                        if (!((ElectricalMachinery) pc).isPowered()) {
+                            textcolor = "black";
+                        }
+                        content.append(HTMLText.makeText(textcolor, pc.getPowerPriority() + " " +
+                                String.format("%2.1f kW", pc.getPowerConsumption() * 1000) + " " +
+                                ((ElectricalMachinery) pc).getBaseName() + " " + "<br/>"));
+                    }
+
+                }
+            }
+                setData(console.getPublicName(player), false, "________________________" +
+                        HTMLText.makeFancyFrameLink("BACK", "[back]") + "<br/>" +
+                        HTMLText.makeText("white", "#02558c", "Courier", 3, content.toString()));
+
         } else {
             StringBuilder prios = new StringBuilder();
             Logger.log("powersim is : " + powerSim);
@@ -88,12 +95,18 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
                             "Current Power Demand: " + String.format("%.1f kW", 1000*console.getPowerSimulation().getPowerDemand(gameData)) + "<br/>" +
                             "   Current Power Output: " + HTMLText.makeText(getColorForPower(), String.format("%.1f kW", 1000*console.getPowerSimulation().getAvailablePower(gameData))) + "<br/>" +
                             HTMLText.makeCentered(
-                                            HTMLText.makeFancyFrameLink("SETPOWER Ongoing Decrease", ongDec) + "<br/>" +
+                                    demand + "<br/>" +
+                                            HTMLText.makeFancyFrameLink("SETPOWER Ongoing Decrease", ongDec) + " " +
                                             HTMLText.makeFancyFrameLink("SETPOWER Fixed Decrease", "[Fixed Decrease]")) + "<br/>" +
                             "Power Priority:<br/>" + prios.toString() + "<br/>" +
                             status.toString()
                     ));
         }
+    }
+
+    private boolean isATechnicalPerson(Player player) {
+        return player.getCharacter().checkInstance((GameCharacter gc) ->
+                gc instanceof CrewCharacter && ((CrewCharacter) gc).getType().equals("Technical"));
     }
 
     private String getColorForPower() {
