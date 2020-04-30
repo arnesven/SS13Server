@@ -31,6 +31,7 @@ public class GameMap implements Serializable {
 
     public static final String STATION_LEVEL_NAME = "ss13";
     private static String[] SS13AreaNames;
+    private final int sunAngle;
     //private List<Room> roomsList;
     private Map<String, MapLevel> levels = new TreeMap<>();
     private String[][][] levelMatrix = new String[3][3][3];
@@ -53,6 +54,8 @@ public class GameMap implements Serializable {
         directions.put("Right",     new Integer[]{ 1,  0,  0});
         directions.put("Forwards",  new Integer[]{ 0,  1,  0});
         directions.put("Backwards", new Integer[]{ 0, -1,  0});
+
+        this.sunAngle = MyRandom.nextInt(8);
     }
 
     public static String[] getSS13AreaNames() {
@@ -589,5 +592,9 @@ public class GameMap implements Serializable {
             }
         }
         throw new IllegalStateException("What! Level had no space room! Impossible!");
+    }
+
+    public int getSunAngle() {
+        return sunAngle;
     }
 }

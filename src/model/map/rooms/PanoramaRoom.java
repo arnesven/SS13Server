@@ -10,6 +10,5 @@ import model.objects.general.SeedVendingMachine;
 public class PanoramaRoom extends HallwayRoom {
     public PanoramaRoom(int id, int x, int y, int width, int height, int[] ints, Door[] doubles) {
         super(id, "Panorama Walkway", "", x, y, width, height, ints, doubles);
-        addObject(new SolarArrayControl(this, 14323));
     }
 }

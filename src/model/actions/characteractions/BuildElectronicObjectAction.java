@@ -10,6 +10,7 @@ import model.items.general.ElectronicParts;
 import model.items.general.GameItem;
 import model.objects.ai.AITurret;
 import model.objects.ai.SecurityCamera;
+import model.objects.decorations.SolarPanel;
 import model.objects.general.ATM;
 import model.objects.general.StasisPod;
 import model.objects.general.XeroxMachine;
@@ -100,6 +101,7 @@ public class BuildElectronicObjectAction extends Action {
         set.add(new SeedVendingMachine(null));
         set.add(new GeneralManufacturer(null));
         set.add(new SecurityCamera(null));
+        set.add(new SolarPanel(null));
 
 
         return set;

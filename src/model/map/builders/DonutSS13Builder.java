@@ -5,6 +5,7 @@ import model.map.GameMap;
 import model.map.doors.*;
 import model.map.rooms.*;
 import model.objects.BarSign;
+import model.objects.consoles.SolarArrayControl;
 import model.objects.general.AirlockPanel;
 
 /**
@@ -182,6 +183,7 @@ public class DonutSS13Builder extends MapBuilder {
                 new Door[]{new EngineeringDoor(6.0, 6.5, 26, 5, true)}, gameData ), ss13, "center");
 
         Room panorama = new PanoramaRoom(27, 1,  3, 1, 3, new int[]{1, 3}      ,         new Door[]{} );
+        panorama.addObject(new SolarArrayControl(panorama, 14323, gameData));
         gm.addRoom(panorama, ss13, "aft");
 
         Room nukieShip = new NukieShipRoom(28, 16, 13, 2, 1, new int[]{7, 21, 25, 128},
@@ -227,7 +229,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(vent5, ss13, "port");
 
 
-        SolarPanelRoom spr = new SolarPanelRoom(14323, -2, 2, 4, 1);
+        SolarPanelRoom spr = new SolarPanelRoom(14323, -3, 2, 5, 1);
         gm.addRoom(spr, ss13, "aft");
 
     }
