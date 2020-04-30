@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class LifeSupportConsole extends Console {
     public LifeSupportConsole(GeneratorRoom generatorRoom, GameData gameData) {
-        super("Life Support", generatorRoom);
+        super("Life Support Console", generatorRoom);
     }
 
     @Override

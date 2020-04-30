@@ -16,11 +16,13 @@ import util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
     private final GeneratorConsole console;
     private final SimulatePower powerSim;
     private boolean showAdvanced = false;
+    private int specPrioIndex = -1;
 
     public PowerGeneratorFancyFrame(GeneratorConsole console, GameData gameData, Player player) {
         super(player.getFancyFrame(), console, gameData, "#02558c", "white");
@@ -30,7 +32,16 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
     }
 
     private void buildContent(GameData gameData, Player player) {
-        if (showAdvanced) {
+        if (specPrioIndex != -1) {
+            StringBuilder content = new StringBuilder();
+            content.append("<br><br><br>Set new power priority for<br/>");
+            content.append(((ElectricalMachinery)(powerSim.findConsumers(gameData).get(specPrioIndex))).getBaseName());
+            content.append("?<br/><br/>");
+            content.append("(Input an integer value 0 [super high] to 6 [super low])");
+            setData(console.getPublicName(player), true, "________________________" +
+                    HTMLText.makeFancyFrameLink("BACK", "[back]") + "<br/>" +
+                    HTMLText.makeCentered(HTMLText.makeText("white", "#02558c", "Courier", 4, content.toString())));
+        } else if (showAdvanced) {
             StringBuilder content = new StringBuilder();
             if (!isATechnicalPerson(player)){
                 String text = "A lot of very important power-related stuff. Megawatts and what-not. 234 KW. And then some more stuff";
@@ -49,22 +60,24 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
 
                 content.append("======= POWER CONSUMERS =======<br/>");
 
+                int index = 0;
                 for (PowerConsumer pc : powerSim.findConsumers(gameData)) {
                     if (pc.getPowerConsumption() > 0.0) {
                         String textcolor = "yellow";
                         if (!((ElectricalMachinery) pc).isPowered()) {
                             textcolor = "black";
                         }
-                        content.append(HTMLText.makeText(textcolor, pc.getPowerPriority() + " " +
+                        content.append(HTMLText.makeFancyFrameLink("SPECPRIO " + index, HTMLText.makeText(textcolor, ""+ pc.getPowerPriority())) +
+                                HTMLText.makeText(textcolor, " " +
                                 String.format("%2.1f kW", pc.getPowerConsumption() * 1000) + " " +
                                 ((ElectricalMachinery) pc).getBaseName() + " " + "<br/>"));
                     }
-
+                    index++;
                 }
             }
-                setData(console.getPublicName(player), false, "________________________" +
-                        HTMLText.makeFancyFrameLink("BACK", "[back]") + "<br/>" +
-                        HTMLText.makeText("white", "#02558c", "Courier", 3, content.toString()));
+            setData(console.getPublicName(player), false, "________________________" +
+                    HTMLText.makeFancyFrameLink("BACK", "[back]") + "<br/>" +
+                    HTMLText.makeText("white", "#02558c", "Courier", 3, content.toString()));
 
         } else {
             StringBuilder prios = new StringBuilder();
@@ -87,7 +100,7 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
             }
             String[] parts = powerSim.getStatusMessages(gameData).get(0).split("; ");
             String title = parts[0];
-            String demand = parts[1];
+            String demand = parts[1].split(",")[2];
 
             setData(console.getPublicName(player), false,
                     HTMLText.makeText("white", "______________________" + HTMLText.makeFancyFrameLink("ADVANCED", "[advanced]") + "<br/>" +
@@ -95,7 +108,7 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
                             "Current Power Demand: " + String.format("%.1f kW", 1000*console.getPowerSimulation().getPowerDemand(gameData)) + "<br/>" +
                             "   Current Power Output: " + HTMLText.makeText(getColorForPower(), String.format("%.1f kW", 1000*console.getPowerSimulation().getAvailablePower(gameData))) + "<br/>" +
                             HTMLText.makeCentered(
-                                    demand + "<br/>" +
+                                    "(" + demand + ")<br/>" +
                                             HTMLText.makeFancyFrameLink("SETPOWER Ongoing Decrease", ongDec) + " " +
                                             HTMLText.makeFancyFrameLink("SETPOWER Fixed Decrease", "[Fixed Decrease]")) + "<br/>" +
                             "Power Priority:<br/>" + prios.toString() + "<br/>" +
@@ -148,16 +161,35 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
             pl.setNextAction(ppa);
             buildContent(gameData, pl);
             readyThePlayer(gameData, pl);
+        } else if (event.contains("SPECPRIO")) {
+            this.specPrioIndex = Integer.parseInt(event.replace("SPECPRIO ", ""));
+            buildContent(gameData, pl);
         } else if (event.contains("ADVANCED")) {
             this.showAdvanced = true;
             buildContent(gameData, pl);
         } else if (event.contains("BACK")) {
-            this.showAdvanced = false;
+            if (specPrioIndex != -1) {
+                specPrioIndex = -1;
+            } else {
+                this.showAdvanced = false;
+            }
             buildContent(gameData, pl);
         }
-
     }
 
+    @Override
+    protected void consoleHandleInput(GameData gameData, Player player, String data) {
+        super.consoleHandleInput(gameData, player, data);
+        if (specPrioIndex != -1) {
+            Scanner scan = new Scanner(data);
+            if (scan.hasNextInt()) {
+                int value = scan.nextInt();
+                powerSim.findConsumers(gameData).get(specPrioIndex).setPowerPriority(value);
+                readyThePlayer(gameData, player);
+                specPrioIndex = -1;
+            }
+        }
+    }
 
     @Override
     public void concreteRebuild(GameData gameData, Player player) {
