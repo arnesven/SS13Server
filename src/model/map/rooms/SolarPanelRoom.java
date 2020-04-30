@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SolarPanelRoom extends DecorativeRoom {
-    public SolarPanelRoom(int id, int x, int y, int z, int w, int h) {
+    public SolarPanelRoom(int id, int x, int y, int z, int w, int h, int panels) {
         super(id, "Solar Panels", x, y, w, h, new int[]{}, new Door[]{});
         setZ(z);
-        for (int i = 0; i < 22; ++i) {
+        for (int i = 0; i < panels; ++i) {
             addObject(new SolarPanel(this));
         }
     }

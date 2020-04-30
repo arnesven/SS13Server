@@ -112,6 +112,7 @@ public class DonutSS13Builder extends MapBuilder {
 
 
         Room aiCore = new AIRoom(gameData, 15, 10,  7, 2, 2, new int[]{448}        ,         new Door[]{} );
+        aiCore.addObject(new SolarArrayControl(aiCore, 14324, gameData));
         gm.addRoom(aiCore, ss13, "center");
 
         Room robotics = new RoboticsRoom(448, 10, 7, 2, 2, new int[]{15},
@@ -229,10 +230,10 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(vent5, ss13, "port");
 
 
-        SolarPanelRoom spr = new SolarPanelRoom(14323, -3, 2, 0, 5, 1);
+        SolarPanelRoom spr = new SolarPanelRoom(14323, -3, 2, 0, 5, 1, 22);
         gm.addRoom(spr, ss13, "aft");
 
-        SolarPanelRoom spr2 = new SolarPanelRoom(14324, 11, 3, 1, 1, 4);
+        SolarPanelRoom spr2 = new SolarPanelRoom(14324, 11, 3, 1, 1, 4, 20);
         gm.addRoom(spr2, ss13, "center");
 
 
