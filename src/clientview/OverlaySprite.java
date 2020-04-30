@@ -53,9 +53,9 @@ public class OverlaySprite extends MouseInteractable {
     }
 
     private void drawAt(Graphics g, int finalX, int finalY, int currZ) {
-        if (currZ != (int)this.z) {
-            return;
-        }
+    //    if (currZ != (int)this.z) {
+    //        return;
+    //    }
         ImageIcon image = SpriteManager.getSprite(sprite);
         if (this.frames == 1) {
             g.drawImage(image.getImage(), finalX, finalY, null);

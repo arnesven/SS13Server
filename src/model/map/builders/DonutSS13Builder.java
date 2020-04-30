@@ -16,7 +16,7 @@ public class DonutSS13Builder extends MapBuilder {
     protected void buildPart(GameData gameData, GameMap gm) {
         LabRoom labRoom = new LabRoom(1, 2, 1, 4, 3, new int[]{27, 24},
                 new Door[]{new ScienceDoor(5.0, 4.0, 1, 5, true),
-                            new ScienceDoor(2.0, 3.5, 1, 27, false),
+                            new NormalDoor(2.0, 3.5, 1, 27, false),
                             new ScienceDoor(6.0, 1.5, 1, 24, false)});
         gm.addRoom(labRoom, ss13, "aft");
         gm.addRoom(labRoom, ss13, "port");
@@ -26,7 +26,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(chapel, ss13, "aft");
 
         Room green = new GreenhouseRoom(gameData, 3,  0,  6, 3, 4, new int[]{4, 6, 27}  ,
-                new Door[]{new NormalDoor(1.5, 6.0, 3, 27)}  );
+                new Door[]{new ScienceDoor(1.5, 6.0, 3, 27, true)}  );
         gm.addRoom(green, ss13, "aft");
 
         gm.addRoom(new HallwayRoom( 4, "Airtunnel"           , ""       , 3,  7, 1, 1, new int[]{3, 5}      ,
@@ -229,8 +229,12 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(vent5, ss13, "port");
 
 
-        SolarPanelRoom spr = new SolarPanelRoom(14323, -3, 2, 5, 1);
+        SolarPanelRoom spr = new SolarPanelRoom(14323, -3, 2, 0, 5, 1);
         gm.addRoom(spr, ss13, "aft");
+
+        SolarPanelRoom spr2 = new SolarPanelRoom(14324, 11, 3, 1, 1, 4);
+        gm.addRoom(spr2, ss13, "center");
+
 
     }
 

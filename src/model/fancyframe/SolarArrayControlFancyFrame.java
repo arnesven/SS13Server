@@ -81,7 +81,7 @@ public class SolarArrayControlFancyFrame extends ConsoleFancyFrame {
                     content.append("Panel #" + p.getNumber() + " " + (int)(p.getPower(gameData) * 1000000.0) + "W <br/>");
                 }
             } else {
-                String text = "Lorem ipsum lorem upsum";
+                String text = "Panel #145 512W Panel #146 512W Panel #147 512W Panel #148 512W Panel #149 512W Panel #150 512W Panel #151 512W Panel #152 512W";
                 greekify(content, text, "a technically skilled person");
             }
 
