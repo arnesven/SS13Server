@@ -111,9 +111,17 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(frontHall, ss13, "front");
 
 
-        Room aiCore = new AIRoom(gameData, 15, 10,  7, 2, 2, new int[]{448}        ,         new Door[]{} );
+        Room aiCore = new AIRoom(gameData, 15, 10,  7, 2, 2, new int[]{448, 539} , new Door[]{} );
         aiCore.addObject(new SolarArrayControl(aiCore, 14324, gameData));
         gm.addRoom(aiCore, ss13, "center");
+
+        AirLockRoom airLock4 = new AirLockRoom(539, 4    , 9,  7, 1, 1, new int[]{15}        ,
+                new Door[]{new FullyOpenAirLockDoor(10.0, 7.5, 539, 15),
+                        new AirLockDoor(9.5, 7.0, 539, 30),
+                        new AirLockDoor(9.0, 7.5, 539, 30),
+                        new AirLockDoor(9.5, 8.0, 539, 30)});
+        airLock4.setZ(+1);
+        gm.addRoom(airLock4, ss13, "center");
 
         Room robotics = new RoboticsRoom(448, 10, 7, 2, 2, new int[]{15},
                 new Door[]{new EngineeringDoor(12.0, 8.0, 448, 13, true)});

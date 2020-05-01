@@ -30,4 +30,8 @@ public class AnimatedSprite extends Sprite {
     public static Sprite blankAnimationSprite() {
         return new Sprite("blankani", "blankani.png", 0, null);
     }
+
+    public AnimatedSprite copy() {
+        return new AnimatedSprite(getName(), getMap(), getColumn(), getRow(), getWidth(), getHeight(), getObjectReference(), getFrames(), isLooping());
+    }
 }

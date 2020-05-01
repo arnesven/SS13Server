@@ -541,7 +541,7 @@ public abstract class Room implements ItemHolder, Serializable {
 
 	public int getZ() { return z; }
 
-	protected void setZ(int i) {
+	public void setZ(int i) {
 		this.z = i;
 	}
 

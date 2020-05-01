@@ -104,15 +104,18 @@ public abstract class SuitItem extends GameItem implements Wearable {
 	    return belongsTo.getCharacter().getEquipment().getSuitsAsList().size();
     }
 
+    @Override
     public List<Action> getInventoryActions(GameData gameData, Actor forWhom) {
         List<Action> acts = super.getInventoryActions(gameData, forWhom);
         PutOnAction po = new PutOnAction(forWhom);
         if (po.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
             acts.add(po);
         }
-        ExchangeWithSuitInInventoryAction ea = new ExchangeWithSuitInInventoryAction(forWhom, this);
-        if (ea.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
-            acts.add(ea);
+        if (forWhom.getItems().contains(this)) {
+            ExchangeWithSuitInInventoryAction ea = new ExchangeWithSuitInInventoryAction(forWhom, this);
+            if (ea.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
+                acts.add(ea);
+            }
         }
         return acts;
     }
@@ -124,18 +127,22 @@ public abstract class SuitItem extends GameItem implements Wearable {
         if (po.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
             list.add(po);
         }
-        ExchangeWithSuitOnRoomFloorAction ea = new ExchangeWithSuitOnRoomFloorAction(forWhom, this);
-        if (ea.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
-            list.add(ea);
+        if (r.getItems().contains(this)) {
+            ExchangeWithSuitOnRoomFloorAction ea = new ExchangeWithSuitOnRoomFloorAction(forWhom, this);
+            if (ea.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
+                list.add(ea);
+            }
         }
     }
 
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
-        ExchangeWithSuitOnRoomFloorAction ea = new ExchangeWithSuitOnRoomFloorAction(cl, this);
-        if (ea.getOptions(gameData, cl).numberOfSuboptions() > 0) {
-            at.add(ea);
+        if (cl.getPosition().getItems().contains(this)) {
+            ExchangeWithSuitOnRoomFloorAction ea = new ExchangeWithSuitOnRoomFloorAction(cl, this);
+            if (ea.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+                at.add(ea);
+            }
         }
 
     }

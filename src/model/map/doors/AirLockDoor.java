@@ -45,8 +45,8 @@ public class AirLockDoor extends Door {
             Room from = gameData.getRoomForId(getFromId());
             Room to = gameData.getRoomForId(getToId());
             openAirlockDoor(from, to);
-            from.addEvent(new OpenAirlockDoorAnimationEvent(gameData, from, this, openingSprite));
-            to.addEvent(new OpenAirlockDoorAnimationEvent(gameData, to, this, openingSprite));
+            from.addEvent(new OpenAirlockDoorAnimationEvent(gameData, from, this, openingSprite.copy()));
+            to.addEvent(new OpenAirlockDoorAnimationEvent(gameData, to, this, openingSprite.copy()));
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
@@ -64,8 +64,8 @@ public class AirLockDoor extends Door {
             Room from = gameData.getRoomForId(getFromId());
             Room to = gameData.getRoomForId(getToId());
             closeAirlockDoor(from, to);
-            from.addEvent(new CloseAirlockDoorAnimationEvent(gameData, from, this, closingSprite));
-            to.addEvent(new CloseAirlockDoorAnimationEvent(gameData, to, this, closingSprite));
+            from.addEvent(new CloseAirlockDoorAnimationEvent(gameData, from, this, closingSprite.copy()));
+            to.addEvent(new CloseAirlockDoorAnimationEvent(gameData, to, this, closingSprite.copy()));
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

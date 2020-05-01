@@ -2,6 +2,11 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
+import model.actions.general.Action;
+import model.map.rooms.Room;
+import util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,5 +36,10 @@ public class MinerSpaceSuit extends SpaceSuit {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("minerspacesuitfloor", "suits.png", 4, this);
+    }
+
+    @Override
+    protected void addSpecificOverlayActions(GameData gameData, Room r, Player forWhom, List<Action> list) {
+        super.addSpecificOverlayActions(gameData, r, forWhom, list);
     }
 }

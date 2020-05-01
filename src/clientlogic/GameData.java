@@ -456,7 +456,7 @@ public class GameData {
 	private void deconstructOverlaySprites(String string) {
 		this.overlays.clear();
 		for (String str : MyUtils.deconstructList(string)) {
-			String[] strs = str.split("<overlay-part>");
+			String[] strs = str.split("<o-p>");
 			overlays.add(new OverlaySprite(strs[0],
 								Double.parseDouble(strs[1]),
 								Double.parseDouble(strs[2]),

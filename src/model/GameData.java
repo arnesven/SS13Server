@@ -576,6 +576,9 @@ public class GameData implements Serializable {
 	private String createBasicPlayerData(Player cl) {
         String delim = "<player-data-part>";
 
+        String overlays =  OverlaySprite.join(cl.getOverlayStrings(this), this);
+        Logger.log(overlays);
+
 		String result = cl.getCharacterRealName() + 
 				       delim + cl.getPosition().getID() +
 					   delim + cl.getCurrentHealth() +
@@ -584,7 +587,7 @@ public class GameData implements Serializable {
 					   delim + MyStrings.join(cl.getItemsAsFullNameList(this)) +
 					   delim + MyStrings.join(cl.getRoomInfo(this)) +
 					   delim + MyStrings.join(cl.getLastTurnInfo()) +
-                       delim + OverlaySprite.join(cl.getOverlayStrings(this), this);
+                       delim + overlays;
 		return result;	
 		
 	}

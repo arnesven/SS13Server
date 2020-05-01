@@ -3,7 +3,9 @@ package graphics.sprites;
 import graphics.OverlaySprite;
 import model.GameData;
 import model.Player;
+import model.map.doors.DoorAnimationEvent;
 import model.map.rooms.Room;
+import util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +59,9 @@ public abstract class OverlaySpriteCollector {
             if (sp.getObjectReference() != null && sp.getObjectReference().hasAbsolutePosition()) {
                 double x = sp.getObjectReference().getAbsoluteX();
                 double y = sp.getObjectReference().getAbsoluteY();
+                if (sp.getObjectReference() instanceof DoorAnimationEvent) {
+                    Logger.log("Converting door animation, x=" + x + " y=" + y);
+                }
                 strs.add(new OverlaySprite(sp, x, y,
                         r, forWhom, sp.getFrames()));
             } else {

@@ -14,7 +14,7 @@ public class OverlaySprite {
     private final double x;
     private final double y;
     private final double z;
-    private static final String delim = "<overlay-part>";
+    private static final String delim = "<o-p>";
     private final Room room;
     private final Player forWhom;
     private final int frames;

@@ -59,6 +59,7 @@ public class ExchangeWithSuitInInventoryAction extends Action {
                 selectedSuit = it;
             }
         }
+
     }
 
     protected SuitItem getSelectedSuit() {

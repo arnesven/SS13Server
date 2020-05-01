@@ -7,6 +7,7 @@ import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.events.animation.AnimationEvent;
 import model.map.rooms.Room;
+import util.Logger;
 
 public class DoorAnimationEvent extends AnimationEvent {
     private final Door door;
@@ -23,7 +24,7 @@ public class DoorAnimationEvent extends AnimationEvent {
 
     @Override
     public SensoryLevel getSense() {
-        return new SensoryLevel(SensoryLevel.VisualLevel.CLEARLY_VISIBLE, SensoryLevel.AudioLevel.INAUDIBLE, SensoryLevel.OlfactoryLevel.UNSMELLABLE);
+        return new SensoryLevel(SensoryLevel.VisualLevel.VISIBLE_IF_CLOSE, SensoryLevel.AudioLevel.INAUDIBLE, SensoryLevel.OlfactoryLevel.UNSMELLABLE);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class DoorAnimationEvent extends AnimationEvent {
 
     @Override
     public String howYouAppear(Actor performingClient) {
-        return "Fire Door " + door.getNumber();
+        return door.getName();
     }
 
     @Override

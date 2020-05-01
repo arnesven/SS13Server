@@ -15,6 +15,7 @@ import model.map.floors.AirLockFloorSet;
 import model.map.floors.FloorSet;
 import model.objects.general.OxyMaskDispenser;
 import model.objects.general.AirlockPanel;
+import util.Logger;
 
 public class AirLockRoom extends StationRoom {
 
