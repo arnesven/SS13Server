@@ -113,6 +113,7 @@ public class DonutSS13Builder extends MapBuilder {
 
         Room aiCore = new AIRoom(gameData, 15, 10,  7, 2, 2, new int[]{448, 539} , new Door[]{} );
         aiCore.addObject(new SolarArrayControl(aiCore, 14324, gameData));
+
         gm.addRoom(aiCore, ss13, "center");
 
         AirLockRoom airLock4 = new AirLockRoom(539, 4    , 9,  7, 1, 1, new int[]{15}        ,
@@ -225,6 +226,17 @@ public class DonutSS13Builder extends MapBuilder {
             ap.setAbsolutePosition(5.0, 0.0);
             space.addObject(ap);
         }
+        {
+            AirlockPanel ap = new AirlockPanel(airLock4, space);
+            ap.setAbsolutePosition(9.0, 8.0, 1.0);
+            space.addObject(ap);
+        }
+        {
+            AirlockPanel ap = new AirlockPanel(airLock4, aiCore);
+            ap.setAbsolutePosition(10.0, 8.0, 1.0);
+            aiCore.addObject(ap);
+        }
+
 
 
         Room ventilationShaft = new AirDuctRoom(499, 3, 2, 1, 5, new int[]{500, 501, 502, 503}, new Door[]{});
