@@ -9,9 +9,12 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.roomactions.CanAlsoMoveToForOneTurnDecorator;
+import model.map.SpacePosition;
 import model.map.rooms.AirLockRoom;
 import model.map.rooms.Room;
 import model.map.rooms.SpaceRoom;
+import util.Logger;
 
 public class AirlockPanel extends ElectricalMachinery {
 
@@ -39,6 +42,9 @@ public class AirlockPanel extends ElectricalMachinery {
 		at.add(makeApplicableAction(gameData));
 		if (airLock != getPosition() && cl.findMoveToAblePositions(gameData).contains(airLock)) {
 			at.add(new MoveIntoAndCycleAction(makeApplicableAction(gameData)));
+		}
+		if (airLock != getPosition() && cl.isInSpace() && airLock.hasPressure()) {
+			at.add(new MoveIntoAirlockAction());
 		}
 
 	}
@@ -126,6 +132,40 @@ public class AirlockPanel extends ElectricalMachinery {
 		@Override
 		protected void setArguments(List<String> args, Actor performingClient) {
 
+		}
+	}
+
+	private class MoveIntoAirlockAction extends Action {
+
+		public MoveIntoAirlockAction() {
+			super("Move into Airlock", SensoryLevel.OPERATE_DEVICE);
+		}
+
+		@Override
+		protected String getVerb(Actor whosAsking) {
+			return "moved into the airlock";
+		}
+
+		@Override
+		protected void execute(GameData gameData, Actor performingClient) {
+			if (performingClient instanceof Player) {
+				((Player) performingClient).setNextMove(AirlockPanel.this.airLock.getID());
+				performingClient.setCharacter(new CanAlsoMoveToForOneTurnDecorator(performingClient.getCharacter(), AirlockPanel.this.airLock));
+				gameData.executeAtEndOfRound(performingClient, this);
+			}
+		}
+
+		@Override
+		protected void setArguments(List<String> args, Actor performingClient) {
+
+		}
+
+		@Override
+		public void lateExecution(GameData gameData, Actor performingClient) {
+			super.lateExecution(gameData, performingClient);
+			Logger.log(performingClient.getPublicName() + " no longer in space!");
+			performingClient.getCharacter().setSpacePosition(new SpacePosition(AirlockPanel.this.airLock));
+			performingClient.stopBeingInSpace();
 		}
 	}
 }

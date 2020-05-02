@@ -8,7 +8,7 @@ import model.map.rooms.Room;
 import java.util.ArrayList;
 import java.util.List;
 
-class CanAlsoMoveToForOneTurnDecorator extends CharacterDecorator {
+public class CanAlsoMoveToForOneTurnDecorator extends CharacterDecorator {
     private final Room target;
 
     public CanAlsoMoveToForOneTurnDecorator(GameCharacter gc, Room target) {
