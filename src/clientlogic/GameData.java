@@ -66,8 +66,9 @@ public class GameData {
 	private boolean fancyFrameHasInput = false;
 	private String fancyFrameContent = "BLANK";
 	private Dimension fancyFrameDimension = new Dimension(0, 0);
+    private double[] oldSpacePos;
 
-	private GameData() {
+    private GameData() {
 		modeAlternatives.add("Default");
 
 	}
@@ -364,11 +365,7 @@ public class GameData {
 	}
 
 	public void deconstructMovementData(String result) {
-		// GWT.log("in deconstruct movement data");
-
-		String[] parts = result.split("<player-data-part>");
-
-		String[] roomParts = parts[0].substring(1, parts[0].length()-1).split(", ");
+		String[] roomParts = result.substring(1, result.length()-1).split(", ");
 
 		ArrayList<Integer> selectableRooms = new ArrayList<>();
 		for (String r : roomParts) {
@@ -376,10 +373,7 @@ public class GameData {
 		}
 
 		this.setSelectableRooms(selectableRooms);
-		deconstructPlayerData(result);
 		nextMove = "";
-
-		//this.notifyObservers(); // is probably not needed since actions will follow soon.
 	}
 
 
@@ -389,9 +383,7 @@ public class GameData {
 
 		tree = new MyTreeNode("root");
 		makeStringIntoTree(parts[0].substring(1,  parts[0].length()), tree);
-	//	Window.alert(tree.toString());
 		deconstructPlayerData(result);
-		// GWT.log("out deconstruct movement data");
 		this.notifyObservers();
 	}
 
@@ -470,12 +462,20 @@ public class GameData {
 	}
 
 	private void setCurrentPos(int pos) {
-		if (pos != currentPos) {
-			//if (Room.isAutomaticScaling()) {
-				MapPanel.setXTranslation(0);
-				MapPanel.setYTranslation(0);
-			//}
-		}
+	    if (playerIsInSpace()) {
+            if (oldSpacePos != getSpaceCoordinates()) {
+                MapPanel.setXTranslation(0);
+                MapPanel.setYTranslation(0);
+                MapPanel.setZTranslation(0);
+            }
+            oldSpacePos = getSpaceCoordinates();
+        } else {
+            if (pos != currentPos) {
+                MapPanel.setXTranslation(0);
+                MapPanel.setYTranslation(0);
+                MapPanel.setZTranslation(0);
+            }
+        }
 		this.currentPos = pos;
 	}
 
@@ -813,6 +813,12 @@ public class GameData {
     }
 
 	public int getCurrentZ() {
+		if (character == null) {
+			return 0;
+		}
+		if (playerIsInSpace()) {
+			return (int)getSpaceCoordinates()[2];
+		}
 		if (currentRoom != null) {
 			return currentRoom.getZPos();
 		}

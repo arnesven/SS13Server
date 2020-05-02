@@ -72,7 +72,7 @@ public class LifeBarSprite extends Sprite implements SpriteObject {
     }
 
     @Override
-    public void setAbsolutePosition(double x, double y) {
+    public void setAbsolutePosition(double x, double y, double z) {
         //TODO
     }
 
@@ -84,5 +84,10 @@ public class LifeBarSprite extends Sprite implements SpriteObject {
     @Override
     public double getAbsoluteY() {
         return 0;
+    }
+
+    @Override
+    public double getAbsoluteZ() {
+        return 0.0;
     }
 }

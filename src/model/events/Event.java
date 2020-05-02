@@ -119,7 +119,7 @@ public abstract class Event extends Experienceable implements SpriteObject, Seri
     }
 
     @Override
-    public void setAbsolutePosition(double x, double y) {
+    public void setAbsolutePosition(double x, double y, double z) {
         //TODO
     }
 
@@ -130,6 +130,11 @@ public abstract class Event extends Experienceable implements SpriteObject, Seri
 
     @Override
     public double getAbsoluteY() {
+        return 0;
+    }
+
+    @Override
+    public double getAbsoluteZ() {
         return 0;
     }
 }

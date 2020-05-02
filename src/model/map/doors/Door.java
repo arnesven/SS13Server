@@ -25,17 +25,23 @@ public abstract class Door implements Serializable, SpriteObject {
 
     private double x;
     private double y;
+    private double z;
     private String name;
 
     private boolean isAnimating;
 
-    public Door(double x, double y, String name, int fromID, int toID) {
+    public Door(double x, double y, double z, String name, int fromID, int toID) {
         this.x = x;
         this.y = y;
+        this.z = z;
         this.fromID = fromID;
         this.toID = toID;
         setName(name);
         this.name = name + " Door " + getNumber();
+    }
+
+    public Door(double x, double y, String name, int fromID, int toID) {
+        this(x, y, 0.0, name, fromID, toID);
     }
 
     public void setName(String name) {
@@ -54,6 +60,10 @@ public abstract class Door implements Serializable, SpriteObject {
 
     public double getX() {
         return x;
+    }
+
+    public double getZ() {
+        return z;
     }
 
     public String getName() {
@@ -142,7 +152,7 @@ public abstract class Door implements Serializable, SpriteObject {
     }
 
     @Override
-    public void setAbsolutePosition(double x, double y) {
+    public void setAbsolutePosition(double x, double y, double z) {
         //TODO
     }
 
@@ -153,6 +163,11 @@ public abstract class Door implements Serializable, SpriteObject {
 
     @Override
     public double getAbsoluteY() {
+        return 0;
+    }
+
+    @Override
+    public double getAbsoluteZ() {
         return 0;
     }
 
@@ -188,4 +203,5 @@ public abstract class Door implements Serializable, SpriteObject {
                 14, 9, 32, 32, null, 7, false));
         return new AnimatedSprite("openingfiredoorani", sps, 7, false);
     }
+
 }

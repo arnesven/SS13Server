@@ -256,7 +256,7 @@ public class GameData implements Serializable {
 	 */
 	public String createPlayerMovementData(String clid) {
 		Player cl = players.get(clid);
-		String result =  Arrays.toString(cl.getSelectableLocations(this)) + "<player-data-part>" + createBasicPlayerData(cl);
+		String result =  Arrays.toString(cl.getSelectableLocations(this)); // + "<player-data-part>" + createBasicPlayerData(cl);
 		return result;
 	}
 
@@ -577,8 +577,7 @@ public class GameData implements Serializable {
         String delim = "<player-data-part>";
 
         String overlays =  OverlaySprite.join(cl.getOverlayStrings(this), this);
-        Logger.log(overlays);
-
+      //  Logger.log(overlays);
 		String result = cl.getCharacterRealName() + 
 				       delim + cl.getPosition().getID() +
 					   delim + cl.getCurrentHealth() +

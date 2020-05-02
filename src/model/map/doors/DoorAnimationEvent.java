@@ -38,6 +38,11 @@ public class DoorAnimationEvent extends AnimationEvent {
     }
 
     @Override
+    public double getAbsoluteZ() {
+        return door.getZ();
+    }
+
+    @Override
     public String howYouAppear(Actor performingClient) {
         return door.getName();
     }

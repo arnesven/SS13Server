@@ -16,13 +16,13 @@ public class AirLockDoor extends Door {
     private static AnimatedSprite openingSprite = new AnimatedSprite("openingairlockdoor", "doors.png",
             0, 9, 32, 32, null, 6, false);
 
-    public AirLockDoor(double x, double y, int fromId, int toId, boolean isOpen) {
-        super(x, y, "Airlock", fromId, toId);
+    public AirLockDoor(double x, double y, double z, int fromId, int toId, boolean isOpen) {
+        super(x, y, z, "Airlock", fromId, toId);
         isFullyOpen = isOpen;
     }
 
     public AirLockDoor(double x, double y, int fromId, int toId) {
-        this(x, y, fromId, toId, false);
+        this(x, y, 0.0, fromId, toId, false);
     }
 
     @Override

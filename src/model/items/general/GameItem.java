@@ -293,7 +293,7 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
     }
 
     @Override
-    public void setAbsolutePosition(double x, double y) {
+    public void setAbsolutePosition(double x, double y, double z) {
         //TODO
     }
 
@@ -304,6 +304,11 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 
     @Override
     public double getAbsoluteY() {
+        return 0;
+    }
+
+    @Override
+    public double getAbsoluteZ() {
         return 0;
     }
 

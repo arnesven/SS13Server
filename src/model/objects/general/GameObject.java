@@ -23,6 +23,7 @@ public class GameObject implements SpriteObject, Serializable {
     private boolean hasAbsolutePosition;
     private double absX;
     private double absY;
+    private double absZ;
 
     public GameObject(String name, Room position) {
 		this.name = name;
@@ -102,11 +103,18 @@ public class GameObject implements SpriteObject, Serializable {
     }
 
     @Override
-    public void setAbsolutePosition(double x, double y) {
+    public void setAbsolutePosition(double x, double y, double z) {
         this.hasAbsolutePosition = true;
         this.absX = x;
         this.absY = y;
+        this.absZ = z;
     }
+
+    public void setAbsolutePosition(double x, double y) {
+        setAbsolutePosition(x, y, 0.0);
+    }
+
+
 
     @Override
     public double getAbsoluteX() {
@@ -116,6 +124,11 @@ public class GameObject implements SpriteObject, Serializable {
     @Override
     public double getAbsoluteY() {
         return absY;
+    }
+
+    @Override
+    public double getAbsoluteZ() {
+        return absZ;
     }
 
     @Override

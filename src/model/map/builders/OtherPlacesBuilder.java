@@ -117,7 +117,7 @@ public class OtherPlacesBuilder extends MapBuilder {
                     miningStation = new MiningStationRoom(x, y);
                     gm.addRoom(miningStation, "asteroid field", "mining station");
                     gm.addRoom(new AirLockRoom(556, 99, x+2, y+1, 1, 1, new int[]{555},
-                            new Door[]{new FullyOpenAirLockDoor(x+2, y+1.5, 556, 555),
+                            new Door[]{new FullyOpenAirLockDoor(x+2, y+1.5, 0.0, 556, 555),
                             new AirLockDoor(x+3, y+1.5, 556, 100032)}), "asteroid field", "mining station");
                 } else if (matrix[x][y] == 4) {
                     cabin = new SupportRoom(id++, "Cabin", "", x, y, 1, 1, new int[]{},

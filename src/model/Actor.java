@@ -594,9 +594,10 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
     }
 
     @Override
-    public void setAbsolutePosition(double x, double y) {
+    public void setAbsolutePosition(double x, double y, double z) {
         getCharacter().getSpacePosition().setX(x);
         getCharacter().getSpacePosition().setY(y);
+        getCharacter().getSpacePosition().setZ(z);
     }
 
     @Override
@@ -613,6 +614,14 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
             return 0.0;
         }
         return getCharacter().getSpacePosition().getY();
+    }
+
+    @Override
+    public double getAbsoluteZ() {
+        if (getCharacter() == null || getCharacter().getSpacePosition() == null) {
+            return 0.0;
+        }
+        return getCharacter().getSpacePosition().getZ();
     }
 
     public Set<Room> findMoveToAblePositions(GameData gameData) {

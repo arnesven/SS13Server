@@ -314,7 +314,7 @@ public class PhysicalBody implements SpriteObject, Serializable {
     }
 
     @Override
-    public void setAbsolutePosition(double x, double y) {
+    public void setAbsolutePosition(double x, double y, double z) {
         //TODO
     }
 
@@ -328,5 +328,8 @@ public class PhysicalBody implements SpriteObject, Serializable {
         return 0;
     }
 
-
+    @Override
+    public double getAbsoluteZ() {
+        return 0;
+    }
 }

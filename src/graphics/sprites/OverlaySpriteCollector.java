@@ -32,7 +32,7 @@ public abstract class OverlaySpriteCollector {
     private static List<OverlaySprite> dummyList() {
         Sprite sp = Sprite.blankSprite();
         ArrayList<OverlaySprite> dummyList = new ArrayList<>();
-        dummyList.add(new OverlaySprite(sp, 0, 0, null, null));
+        dummyList.add(new OverlaySprite(sp, 0, 0, 0, null, null));
         return dummyList;
     }
 
@@ -59,13 +59,11 @@ public abstract class OverlaySpriteCollector {
             if (sp.getObjectReference() != null && sp.getObjectReference().hasAbsolutePosition()) {
                 double x = sp.getObjectReference().getAbsoluteX();
                 double y = sp.getObjectReference().getAbsoluteY();
-                if (sp.getObjectReference() instanceof DoorAnimationEvent) {
-                    Logger.log("Converting door animation, x=" + x + " y=" + y);
-                }
-                strs.add(new OverlaySprite(sp, x, y,
+                double z = sp.getObjectReference().getAbsoluteZ();
+                strs.add(new OverlaySprite(sp, x, y, z,
                         r, forWhom, sp.getFrames()));
             } else {
-                strs.add(new OverlaySprite(sp, 0, 0, r, forWhom, sp.getFrames()));
+                strs.add(new OverlaySprite(sp, 0, 0, 0, r, forWhom, sp.getFrames()));
             }
             //gridX += xIncr;
             //if (gridX >= r.getWidth()) {

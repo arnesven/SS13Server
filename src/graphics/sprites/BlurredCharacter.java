@@ -32,7 +32,7 @@ public class BlurredCharacter implements SpriteObject {
     }
 
     @Override
-    public void setAbsolutePosition(double x, double y) {
+    public void setAbsolutePosition(double x, double y, double z) {
         //TODO
     }
 
@@ -43,6 +43,11 @@ public class BlurredCharacter implements SpriteObject {
 
     @Override
     public double getAbsoluteY() {
+        return 0;
+    }
+
+    @Override
+    public double getAbsoluteZ() {
         return 0;
     }
 }

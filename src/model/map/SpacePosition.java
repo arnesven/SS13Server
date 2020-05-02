@@ -22,7 +22,6 @@ public class SpacePosition implements Serializable {
         x = position.getX() + (double)position.getWidth() / 2.0;
         y = position.getY() + (double)position.getHeight() / 2.0;
         z = position.getZ();
-
     }
 
 

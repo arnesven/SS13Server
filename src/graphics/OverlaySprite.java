@@ -19,18 +19,18 @@ public class OverlaySprite {
     private final Player forWhom;
     private final int frames;
 
-    public OverlaySprite(Sprite sp, double x, double y, Room r, Player forWhom, int frames) {
+    public OverlaySprite(Sprite sp, double x, double y, double z, Room r, Player forWhom, int frames) {
         this.sprite = sp;
         this.x = x;
         this.y = y;
-        this.z = r.getZ();
+        this.z = z;
         this.room = r;
         this.forWhom = forWhom;
         this.frames = frames;
     }
 
-    public OverlaySprite(Sprite sp, double x, double y, Room r, Player forWhom) {
-        this(sp, x, y, r, forWhom, 1);
+    public OverlaySprite(Sprite sp, double x, double y, double z, Room r, Player forWhom) {
+        this(sp, x, y, z, r, forWhom, 1);
     }
 
     public Sprite getSprite() {

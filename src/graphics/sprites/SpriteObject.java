@@ -15,9 +15,10 @@ public interface SpriteObject {
     Sprite getSprite(Actor whosAsking);
     String getPublicName(Actor whosAsking);
     List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom);
-    void setAbsolutePosition(double x, double y);
+    void setAbsolutePosition(double x, double y, double z);
     double getAbsoluteX();
     double getAbsoluteY();
+    double getAbsoluteZ();
     boolean hasAbsolutePosition();
 
 
@@ -44,7 +45,7 @@ public interface SpriteObject {
         }
 
         @Override
-        public void setAbsolutePosition(double x, double y) {
+        public void setAbsolutePosition(double x, double y, double z) {
 
         }
 
@@ -55,6 +56,11 @@ public interface SpriteObject {
 
         @Override
         public double getAbsoluteY() {
+            return 0;
+        }
+
+        @Override
+        public double getAbsoluteZ() {
             return 0;
         }
 
