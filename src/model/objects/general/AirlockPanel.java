@@ -39,12 +39,14 @@ public class AirlockPanel extends ElectricalMachinery {
 
 	@Override
 	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-		at.add(makeApplicableAction(gameData));
-		if (airLock != getPosition() && cl.findMoveToAblePositions(gameData).contains(airLock)) {
-			at.add(new MoveIntoAndCycleAction(makeApplicableAction(gameData)));
-		}
-		if (airLock != getPosition() && cl.isInSpace() && airLock.hasPressure()) {
-			at.add(new MoveIntoAirlockAction());
+		if (airLock.hasAFreeExit()) {
+			at.add(makeApplicableAction(gameData));
+			if (airLock != getPosition() && cl.findMoveToAblePositions(gameData).contains(airLock)) {
+				at.add(new MoveIntoAndCycleAction(makeApplicableAction(gameData)));
+			}
+			if (airLock != getPosition() && cl.isInSpace() && airLock.hasPressure()) {
+				at.add(new MoveIntoAirlockAction());
+			}
 		}
 
 	}

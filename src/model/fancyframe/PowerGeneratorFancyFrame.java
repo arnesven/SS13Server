@@ -122,6 +122,12 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
                 gc instanceof CrewCharacter && ((CrewCharacter) gc).getType().equals("Technical"));
     }
 
+    @Override
+    public void doAtEndOfTurn(GameData gameData, Player actor) {
+        super.doAtEndOfTurn(gameData, actor);
+        specPrioIndex = -1;
+    }
+
     private String getColorForPower() {
         double p = console.getSource().getPowerOutput();
         if (p == 0.0) {

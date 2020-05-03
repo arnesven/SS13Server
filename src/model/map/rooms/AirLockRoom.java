@@ -2,6 +2,7 @@ package model.map.rooms;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.characters.decorators.InSpaceCharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.events.Event;
@@ -9,6 +10,7 @@ import model.events.NoPressureEvent;
 import model.events.ambient.ColdEvent;
 import model.items.suits.Equipment;
 import model.items.suits.SpaceSuit;
+import model.map.DockingPoint;
 import model.map.doors.AirLockDoor;
 import model.map.doors.Door;
 import model.map.floors.AirLockFloorSet;
@@ -17,11 +19,16 @@ import model.objects.general.OxyMaskDispenser;
 import model.objects.general.AirlockPanel;
 import util.Logger;
 
-public class AirLockRoom extends StationRoom {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+public class AirLockRoom extends StationRoom implements DockingPointRoom {
 
 	private boolean hasPressure;
 	protected Event noPressureEvent = null;
 	private ColdEvent coldEvent = null;
+	private List<DockingPoint> dockPoints;
 
 	public AirLockRoom(int ID, int number, int x, int y,
 			int width, int height, int[] neighbors, Door[] doors) {
@@ -30,6 +37,7 @@ public class AirLockRoom extends StationRoom {
 		this.hasPressure = true;
 		this.addObject(new AirlockPanel(this));
         this.addObject(new OxyMaskDispenser(this));
+        dockPoints = new ArrayList<>();
 	}
 
 	@Override
@@ -45,7 +53,7 @@ public class AirLockRoom extends StationRoom {
 	private void cycle(GameData gameData, Actor performingClient) {
 		for (Door d : getDoors()) {
 			if (d instanceof AirLockDoor) {
-				((AirLockDoor) d).cycle(gameData, performingClient);
+				((AirLockDoor) d).cycle(gameData);
 			}
 		}
 	}
@@ -108,4 +116,44 @@ public class AirLockRoom extends StationRoom {
 	}
 
 
+	public void addDockingPoint(DockingPoint dockingPoint) {
+		dockPoints.add(dockingPoint);
+	}
+
+	@Override
+	public List<DockingPoint> getDockingPoints() {
+		return dockPoints;
+	}
+
+    @Override
+    public void setDocked(boolean b, GameData gameData, Set<Door> affectedDoors) {
+        if (b == true) {
+            for (Door d : getDoors()) {
+                if (d instanceof AirLockDoor && affectedDoors.contains(d)) {
+                    if (!((AirLockDoor)d).isFullyOpen()) {
+                        ((AirLockDoor) d).cycle(gameData);
+                    }
+                }
+            }
+        } else {
+            for (Door d : getDoors()) {
+                if (d instanceof AirLockDoor && affectedDoors.contains(d)) {
+                    if (((AirLockDoor)d).isFullyOpen()) {
+                        ((AirLockDoor) d).cycle(gameData);
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean hasAFreeExit() {
+	    Logger.log("Checking for free exit");
+	    for (DockingPoint dp : getDockingPoints()) {
+	        Logger.log("Docking point " +dp.getName() + " vacant? " + dp.isVacant());
+	        if (dp.isVacant()) {
+	            return true;
+            }
+        }
+        return false;
+    }
 }

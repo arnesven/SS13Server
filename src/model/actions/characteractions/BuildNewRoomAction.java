@@ -121,7 +121,8 @@ public class BuildNewRoomAction extends Action {
         Point roomPlacement = new Point(0, 0);
         Architecture architecture = null;
         try {
-            architecture = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(current).getName());
+            architecture = new Architecture(gameData.getMap(),
+                    gameData.getMap().getLevelForRoom(current).getName(), performingClient.getPosition().getZ());
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

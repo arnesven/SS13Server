@@ -83,7 +83,7 @@ public class GameMap implements Serializable {
         if (levelCount == MAX_LEVELS) {
             throw new MapOverflowException("Too many levels (max " + MAX_LEVELS + ")");
         }
-        levels.put(level, new MapLevel(level, bgType));
+        levels.put(level, new MapLevel(level, bgType, this));
         levelCount++;
 
         levelMatrix[x][y][z] = level;
@@ -596,5 +596,9 @@ public class GameMap implements Serializable {
 
     public int getSunAngle() {
         return sunAngle;
+    }
+
+    public MapLevel getLevel(String stationLevelName) {
+        return levels.get(stationLevelName);
     }
 }

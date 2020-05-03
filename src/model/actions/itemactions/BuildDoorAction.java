@@ -33,7 +33,9 @@ public class BuildDoorAction extends Action {
 
         this.arch = null;
         try {
-            arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(performingClient.getPosition()).getName());
+            arch = new Architecture(gameData.getMap(),
+                    gameData.getMap().getLevelForRoom(performingClient.getPosition()).getName(),
+                    performingClient.getPosition().getZ());
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

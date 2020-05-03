@@ -10,6 +10,8 @@ import model.items.NoSuchThingException;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
+import model.objects.power.LifeSupport;
+import model.objects.power.Lighting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +101,20 @@ public class SpectatorRoom extends Room {
                 }
             }
         }
+    }
 
+    @Override
+    public boolean isPartOfStation() {
+        return false;
+    }
 
+    @Override
+    public LifeSupport getLifeSupport() {
+        return null;
+    }
+
+    @Override
+    public Lighting getLighting() {
+        return null;
     }
 }

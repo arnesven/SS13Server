@@ -25,6 +25,7 @@ import model.events.ambient.HullBreach;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.RoomPartsStack;
+import model.map.DockingPoint;
 import model.map.GameMap;
 import model.map.doors.Door;
 import model.map.doors.ElectricalDoor;
@@ -549,10 +550,13 @@ public abstract class Room implements ItemHolder, Serializable {
 		return width;
 	}
 
+	public void setWidth(int w) { width = w; }
+
 	public int getHeight() {
 		return height;
 	}
 
+	public void setHeight(int h) {height = h; }
 
 
     public void removeFromRoom(GameItem searched) {
@@ -685,4 +689,5 @@ public abstract class Room implements ItemHolder, Serializable {
 	public boolean shouldBeAddedToMinimap() {
 		return true;
 	}
+
 }

@@ -23,7 +23,7 @@ public class Architecture {
     private int height;
     int[][] mapMatrix;
 
-    public Architecture(GameMap map, String level) {
+    public Architecture(GameMap map, String level, int zLevel) {
         width = map.getMaxX() - map.getMinX();
         height = map.getMaxY() - map.getMinY();
         mapMatrix = new int[width][height];
@@ -33,14 +33,16 @@ public class Architecture {
         this.map = map;
         zeroOut(map);
 
-        fillInActualRooms(map);
+        fillInActualRooms(map, zLevel);
     }
 
-    private void fillInActualRooms(GameMap map) {
+    private void fillInActualRooms(GameMap map, int z) {
         for (Room r : allRooms) {
             for (int x = r.getX(); x < r.getX() + r.getWidth(); ++x) {
                 for (int y = r.getY(); y < r.getY() + r.getHeight(); ++y) {
-                    setMatrix(x, y, 1);
+                    if (r.getZ() == z) {
+                        setMatrix(x, y, 1);
+                    }
                 }
             }
         }
@@ -60,7 +62,7 @@ public class Architecture {
 
         innerCheckPlacement(current, width, height, direction, doorPoint, roomPlacement);
         Logger.log(Logger.INTERESTING, "NormalDoor at " + doorPoint.getX() + ", " + doorPoint.getY());
-       doorPoint.setLocation(doorPoint.getX() + 0.5*Math.abs(direction.getY()),
+        doorPoint.setLocation(doorPoint.getX() + 0.5*Math.abs(direction.getY()),
                              doorPoint.getY() + 0.5*Math.abs(direction.getX()));
         Logger.log(Logger.INTERESTING, "door shifted to " + doorPoint.getX() + ", " + doorPoint.getY());
 
@@ -68,7 +70,7 @@ public class Architecture {
     }
 
     private void innerCheckPlacement(Room current, int width, int height, Point direction, Point2D doorPoint, Point roomPlacement) throws NoLegalPlacementForRoom {
-        Logger.log(Logger.CRITICAL, "Checking position for room");
+        Logger.log(Logger.CRITICAL, "Finding position for a (" +  width + "x" + height + ") room, direction " + direction + " from " + current.getName());
         if (direction.getY() == 1 || direction.getX() == 1) {
             roomPlacement.setLocation(current.getX() + direction.getX() * current.getWidth(),
                                       current.getY() + direction.getY() * current.getHeight());
@@ -79,7 +81,7 @@ public class Architecture {
             doorPoint.setLocation(current.getX(), current.getY());
         }
 
-        Logger.log(Logger.INTERESTING, "Checking if room (" + width + "x" + height + ") at " +
+        Logger.log(Logger.INTERESTING, "Checking if room (" + width + "x" + height + ") can be placed at at " +
                 roomPlacement.getX() + "," + roomPlacement.getY());
 
         if (isFree(roomPlacement, width, height)) {

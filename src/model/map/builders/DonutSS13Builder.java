@@ -1,12 +1,15 @@
 package model.map.builders;
 
 import model.GameData;
+import model.map.DockingPoint;
 import model.map.GameMap;
 import model.map.doors.*;
 import model.map.rooms.*;
 import model.objects.BarSign;
 import model.objects.consoles.SolarArrayControl;
 import model.objects.general.AirlockPanel;
+
+import java.awt.*;
 
 /**
  * Created by erini02 on 15/12/16.
@@ -48,6 +51,8 @@ public class DonutSS13Builder extends MapBuilder {
                 new Door[]{new FullyOpenAirLockDoor(2.5, 11.0, 0.0, 7, 6),
                 new AirLockDoor(2.0, 11.5, 7, 30 ),
                 new AirLockDoor(2.5, 12.0, 7, 30)} );
+        airLock1.addDockingPoint(new DockingPoint("Airlock 1 - Starboard", "Auxiliary", new Point(0, -1), new Point(0, 1), airLock1));
+        airLock1.addDockingPoint(new DockingPoint("Airlock 1 - Aft", "Auxiliary", new Point(0, -1), new Point(-1, 0), airLock1));
         gm.addRoom(airLock1, ss13, "aft");
         gm.addRoom(airLock1, ss13, "starboard");
 
@@ -122,6 +127,9 @@ public class DonutSS13Builder extends MapBuilder {
                         new AirLockDoor(9.0, 7.5, 1.0, 539, 30,false),
                         new AirLockDoor(9.5, 8.0, 1.0, 539, 30, false)});
         airLock4.setZ(+1);
+        airLock4.addDockingPoint(new DockingPoint("Airlock 4 - Port", "Auxiliary", new Point(1, 0), new Point(0, -1), airLock4));
+        airLock4.addDockingPoint(new DockingPoint("Airlock 4 - Aft", "Auxiliary", new Point(1, 0), new Point(-1, 0), airLock4));
+        airLock4.addDockingPoint(new DockingPoint("Airlock 4 - Starboard", "Auxiliary", new Point(1, 0), new Point(0, 1), airLock4));
         gm.addRoom(airLock4, ss13, "center");
 
         Room robotics = new RoboticsRoom(448, 10, 7, 2, 2, new int[]{15},
@@ -158,6 +166,7 @@ public class DonutSS13Builder extends MapBuilder {
         AirLockRoom airLock2 = new AirLockRoom(21, 2   ,13,  2, 1, 1, new int[]{19}        ,
                 new Door[]{new FullyOpenAirLockDoor(13.0, 2.5, 0.0, 21, 19),
                 new AirLockDoor(13.5, 2.0, 21, 30)} );
+        airLock2.addDockingPoint(new DockingPoint("Airlock 2", "Commercial Traffic", new Point(-1, 0), new Point(0, -1), airLock2));
         gm.addRoom(airLock2, ss13, "port");
         gm.addRoom(airLock2, ss13, "front");
 

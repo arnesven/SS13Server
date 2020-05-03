@@ -40,7 +40,7 @@ public class AirLockDoor extends Door {
         return new Sprite("airlockdoor", "doors.png", 1, 7, this);
     }
 
-    public void openAirlockDoor(GameData gameData, Actor performingClient) {
+    public void openAirlockDoor(GameData gameData) {
         try {
             Room from = gameData.getRoomForId(getFromId());
             Room to = gameData.getRoomForId(getToId());
@@ -59,7 +59,7 @@ public class AirLockDoor extends Door {
     }
 
 
-    private void closeAirlockDoor(GameData gameData, Actor performingClient) {
+    private void closeAirlockDoor(GameData gameData) {
         try {
             Room from = gameData.getRoomForId(getFromId());
             Room to = gameData.getRoomForId(getToId());
@@ -77,12 +77,16 @@ public class AirLockDoor extends Door {
     }
 
 
-    public void cycle(GameData gameData, Actor performingClient) {
+    public void cycle(GameData gameData) {
         if (isFullyOpen) {
-            closeAirlockDoor(gameData, performingClient);
+            closeAirlockDoor(gameData);
         } else {
-            openAirlockDoor(gameData, performingClient);
+            openAirlockDoor(gameData);
         }
+    }
+
+    public boolean isFullyOpen() {
+        return isFullyOpen;
     }
 
 }

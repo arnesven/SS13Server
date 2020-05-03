@@ -21,7 +21,7 @@ import java.util.List;
 public abstract class Door implements Serializable, SpriteObject {
 
     private final int fromID;
-    private final int toID;
+    private int toID;
 
     private double x;
     private double y;
@@ -174,6 +174,8 @@ public abstract class Door implements Serializable, SpriteObject {
     public int getToId() {
         return toID;
     }
+
+    public void setToId(int newToID) { toID = newToID;}
 
     public int getFromId() {
         return fromID;
