@@ -82,8 +82,8 @@ public class OtherPlacesBuilder extends MapBuilder {
         matrix[FIELD_SIZE/2-1][FIELD_SIZE/2+1] = 4;
 
         // add space for shuttle
-        matrix[FIELD_SIZE/2][FIELD_SIZE/2+MiningStationRoom.MS_HEIGHT] = 5;
-        matrix[FIELD_SIZE/2+1][FIELD_SIZE/2+MiningStationRoom.MS_HEIGHT] = 1;
+        matrix[FIELD_SIZE/2+MiningStationRoom.MS_WIDTH][FIELD_SIZE/2+MiningStationRoom.MS_HEIGHT] = 5;
+        matrix[FIELD_SIZE/2+MiningStationRoom.MS_WIDTH + 1][FIELD_SIZE/2+MiningStationRoom.MS_HEIGHT] = 1;
 
         List<Integer> asteroidId = new ArrayList<>();
         List<Room> asteroids = new ArrayList<>();

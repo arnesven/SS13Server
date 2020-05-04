@@ -31,8 +31,8 @@ public class PowerLevelAction extends Action {
 	
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
-		String str = String.format("%.1f", genRef.getSource().getPowerLevel());
-		ActionOption opt = new ActionOption(this.getName() + "(" + str + " MW)");
+		String str = String.format("%3.1f", genRef.getSource().getPowerLevel()*1000.0);
+		ActionOption opt = new ActionOption(this.getName() + "(" + str + " kW)");
 		for (int i = 0; i < opts.length ; ++i) {
 			opt.addOption(opts[i]);
 		}

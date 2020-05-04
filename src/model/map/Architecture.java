@@ -1,6 +1,7 @@
 package model.map;
 
 import model.actions.objectactions.MiningShuttleAction;
+import model.items.NoSuchThingException;
 import model.map.doors.Door;
 import model.map.rooms.Room;
 import model.map.rooms.ShuttleRoom;
@@ -17,6 +18,8 @@ public class Architecture {
 
     private final Collection<Room> allRooms;
     private final GameMap map;
+    private final int zLevel;
+    private final String level;
     private int xOffset;
     private int yOffset;
     private int width;
@@ -32,6 +35,8 @@ public class Architecture {
         this.allRooms = map.getRoomsForLevel(level);
         this.map = map;
         zeroOut(map);
+        this.zLevel = zLevel;
+        this.level = level;
 
         fillInActualRooms(map, zLevel);
     }
@@ -70,7 +75,10 @@ public class Architecture {
     }
 
     private void innerCheckPlacement(Room current, int width, int height, Point direction, Point2D doorPoint, Point roomPlacement) throws NoLegalPlacementForRoom {
-       // Logger.log(Logger.CRITICAL, "Finding position for a (" +  width + "x" + height + ") room, direction " + direction + " from " + current.getName());
+//        Logger.log(Logger.CRITICAL, "Finding position for a (" +  width + "x" + height + ") room, direction " +
+//                direction + " from " + current.getName() + ", a" + current.getWidth() + "x" + current.getHeight() +
+//                " sized room, positioned at " + current.getX() + "," + current.getY());
+
         if (direction.getY() == 1 || direction.getX() == 1) {
             roomPlacement.setLocation(current.getX() + direction.getX() * current.getWidth(),
                                       current.getY() + direction.getY() * current.getHeight());
@@ -81,13 +89,13 @@ public class Architecture {
             doorPoint.setLocation(current.getX(), current.getY());
         }
 
-    //    Logger.log(Logger.INTERESTING, "Checking if room (" + width + "x" + height + ") can be placed at at " +
-    //            roomPlacement.getX() + "," + roomPlacement.getY());
+ //       Logger.log(Logger.INTERESTING, "Checking if room (" + width + "x" + height + ") can be placed at at " +
+ //               roomPlacement.getX() + "," + roomPlacement.getY());
 
         if (isFree(roomPlacement, width, height)) {
             return;
         }
-    //    Logger.log(Logger.INTERESTING, "Not OK, other room there...");
+ //       Logger.log(Logger.INTERESTING, "Not OK, other room there...");
 
         Point shiftDirection = new Point(0, 0);
         int maxShift;
@@ -111,13 +119,13 @@ public class Architecture {
                                       roomPlacement.getY() + shiftDirection.getY());
             doorPoint.setLocation(doorPoint.getX() + shiftDirection.getX(),
                                   doorPoint.getY() + shiftDirection.getY());
-    //        Logger.log(Logger.INTERESTING, "  Shifting (x,y)=" + shiftDirection.getX() + "," + shiftDirection.getY());
-    //        Logger.log(Logger.INTERESTING, "  Checking if room (" + width + "x" + height + ") at " +
-    //                roomPlacement.getX() + "," + roomPlacement.getY());
+//            Logger.log(Logger.INTERESTING, "  Shifting (x,y)=" + shiftDirection.getX() + "," + shiftDirection.getY());
+//            Logger.log(Logger.INTERESTING, "  Checking if room (" + width + "x" + height + ") at " +
+//                    roomPlacement.getX() + "," + roomPlacement.getY());
             if (isFree(roomPlacement, width, height)) {
                 return;
             }
-    //        Logger.log(Logger.INTERESTING, "Not OK, other room there...");
+   //         Logger.log(Logger.INTERESTING, "Not OK, other room there...");
         }
 
         roomPlacement.setLocation(originalPlacement);
@@ -128,13 +136,13 @@ public class Architecture {
             roomPlacement.setLocation(roomPlacement.getX() - shiftDirection.getX(),
                                       roomPlacement.getY() - shiftDirection.getY());
 
-    //        Logger.log(Logger.INTERESTING, "  Shifting (x,y)=" + shiftDirection.getX() + "," + shiftDirection.getY());
+   //         Logger.log(Logger.INTERESTING, "  Shifting (x,y)=" + shiftDirection.getX() + "," + shiftDirection.getY());
     //        Logger.log(Logger.INTERESTING, "  Checking if room (" + width + "x" + height + ") at " +
     //                roomPlacement.getX() + "," + roomPlacement.getY());
             if (isFree(roomPlacement, width, height)) {
                 return;
             }
-    //         Logger.log(Logger.INTERESTING, "Not OK, other room there...");
+     //        Logger.log(Logger.INTERESTING, "Not OK, other room there...");
         }
 
         throw new NoLegalPlacementForRoom();
@@ -144,6 +152,11 @@ public class Architecture {
         for (int x = (int)roomPlacement.getX(); x < roomPlacement.getX() + width; ++x) {
             for (int y = (int)roomPlacement.getY(); y < roomPlacement.getY() + height; ++y) {
                 if (getMatrix(x, y) == 1) {
+     //               try {
+   //                     Logger.log("Blocked by " + map.getRoomForCoordinates(x, y, zLevel, level).getName() + " at " + x + "," + y);
+      //              } catch (NoSuchThingException e) {
+      //                  e.printStackTrace();
+       //             }
                     return false;
                 }
             }

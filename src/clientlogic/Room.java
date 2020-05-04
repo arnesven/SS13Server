@@ -96,9 +96,9 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         super.setHitBox(x, y, getZPos(), finalW, finalH);
 
         int startSpritePaint = 0;
-        if (withWalls) {
+//        if (withWalls) {
             startSpritePaint++;
-        }
+//        }
 
         if (!shadow) {
             drawFloors(g, startSpritePaint, background, x, y);
@@ -163,8 +163,8 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     }
 
     private void drawFloors(Graphics g, int startSpritePaint, ImageIcon background, int x, int y) {
-        for (int row = startSpritePaint; row < height * (yscale / background.getIconHeight()) + 1; ++row) {
-            for (int col = startSpritePaint; col < width * (xscale / background.getIconWidth()) + 1; ++col) {
+        for (int row = startSpritePaint; row < height * (yscale / background.getIconHeight()); ++row) {
+            for (int col = startSpritePaint; col < width * (xscale / background.getIconWidth()); ++col) {
                 ImageIcon imgToDraw = getFloorForPos(row == startSpritePaint, row == (height * (yscale / background.getIconHeight())) - 1,
                         col == startSpritePaint, col == width * (xscale / background.getIconWidth()) - 1,
                         background);

@@ -19,7 +19,7 @@ public class GeneratorConsole extends Console {
 
 	public GeneratorConsole(Room r, GameData gameData) {
 		super("Power Console", r);
-        powerSource = new PositronGenerator(0.268, r, gameData); //TODO: set to 168
+        powerSource = new PositronGenerator(0.176, r, gameData);
         r.addObject(powerSource);
         setPowerPriority(3);
 	}

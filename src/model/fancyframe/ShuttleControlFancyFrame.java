@@ -60,10 +60,14 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
                             "<b>Shuttle currently at: </b>" +
                     HTMLText.makeCentered(docked));
 
-            content.append( "<b>Next stop: </b>"+
-                    HTMLText.makeCentered(destination) +
-                    HTMLText.makeCentered(HTMLText.makeFancyFrameLink("MOVE " + preferredDockingPoint.getName(),
-                            "[Move Mining Shuttle]")));
+            if (preferredDockingPoint == null) {
+                content.append(HTMLText.makeCentered(destination));
+            } else {
+                content.append("<b>Next stop: </b>" +
+                        HTMLText.makeCentered(destination) +
+                        HTMLText.makeCentered(HTMLText.makeFancyFrameLink("MOVE " + preferredDockingPoint.getName(),
+                                "[Move Mining Shuttle]")));
+            }
 
             content.append("<br/>Other available docking points:<br/>");
             for (DockingPoint dp : otherDockingPoints) {
