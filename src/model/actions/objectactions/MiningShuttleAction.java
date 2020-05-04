@@ -5,18 +5,13 @@ import model.GameData;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
-import model.map.Architecture;
 import model.map.DockingPoint;
 import model.map.GameMap;
-import model.map.ShuttleDoor;
-import model.map.doors.Door;
 import model.map.rooms.Room;
-import model.map.rooms.ShuttleRoom;
+import model.map.rooms.MiningShuttle;
 import model.objects.consoles.ShuttleControl;
 import util.Logger;
 
-import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.List;
 
 /**
@@ -26,7 +21,7 @@ public class MiningShuttleAction extends ConsoleAction {
 
     private final ShuttleControl shuttleControl;
     private final GameData gameData;
-    private ShuttleRoom shuttle;
+    private MiningShuttle shuttle;
     private Room cargoBay;
     private Room miningStation;
     private DockingPoint selectedDockingPoint;
@@ -38,7 +33,7 @@ public class MiningShuttleAction extends ConsoleAction {
         try {
             cargoBay = gameData.getMap().getRoom("Cargo Bay");
             miningStation = gameData.getMap().getRoom("Mining Station");
-            shuttle = (ShuttleRoom)gameData.getMap().getRoom("Mining Shuttle");
+            shuttle = (MiningShuttle)gameData.getMap().getRoom("Mining Shuttle");
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
@@ -77,7 +72,7 @@ public class MiningShuttleAction extends ConsoleAction {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         try {
-            ShuttleRoom r = (ShuttleRoom)gameData.getMap().getRoom("Mining Shuttle");
+            MiningShuttle r = (MiningShuttle)gameData.getMap().getRoom("Mining Shuttle");
             if (gameData.getMap().getLevelForRoom(r).getName().equals("asteroid field")) {
                 r.undockYourself(gameData, performingClient);
                 gameData.getMap().moveRoomToLevel(r, GameMap.STATION_LEVEL_NAME, "center");

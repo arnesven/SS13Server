@@ -6,7 +6,7 @@ import model.actions.objectactions.MiningShuttleAction;
 import model.items.NoSuchThingException;
 import model.map.DockingPoint;
 import model.map.GameMap;
-import model.map.rooms.ShuttleRoom;
+import model.map.rooms.MiningShuttle;
 import model.objects.consoles.ShuttleControl;
 import util.HTMLText;
 
@@ -26,11 +26,11 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
     }
 
     private void buildContent(GameData gameData, Player player) {
-        ShuttleRoom shuttle = null;
+        MiningShuttle shuttle = null;
         String docked = "Unknown location!";
         String destination = "Unknown location!";
         try {
-            shuttle = (ShuttleRoom)gameData.getMap().getRoom("Mining Shuttle");
+            shuttle = (MiningShuttle)gameData.getMap().getRoom("Mining Shuttle");
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
@@ -82,7 +82,7 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
         }
     }
 
-    private DockingPoint findPreferredAsteroidDockingPoint(GameData gameData, List<DockingPoint> otherDockingPoints, ShuttleRoom shuttle) {
+    private DockingPoint findPreferredAsteroidDockingPoint(GameData gameData, List<DockingPoint> otherDockingPoints, MiningShuttle shuttle) {
         DockingPoint pref = null;
         for (DockingPoint dp : gameData.getMap().getLevel("asteroid field").getDockingPoints()) {
             if (dp.getName().equals(playerPrefers)) {
@@ -99,7 +99,7 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
         return pref;
     }
 
-    private DockingPoint findPreferredSS13DockingPoint(GameData gameData, List<DockingPoint> otherDockingPoints, ShuttleRoom shuttleRoom) {
+    private DockingPoint findPreferredSS13DockingPoint(GameData gameData, List<DockingPoint> otherDockingPoints, MiningShuttle shuttleRoom) {
         DockingPoint pref = null;
         for (DockingPoint dp : gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).getDockingPoints()) {
             if (dp.getName().equals(playerPrefers)) {

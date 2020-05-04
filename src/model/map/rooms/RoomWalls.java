@@ -16,6 +16,13 @@ public class RoomWalls implements Serializable {
         new UpShuttleWallSet("shuttleup");
         new LeftShuttleWallSet("shuttleleft");
         new DownShuttleWallSet("shuttledown");
+
+        new BadShuttleWallSet("badshuttle");
+        new RightBadShuttleWallSet("badshuttleright");
+        new UpBadShuttleWallSet("badshuttleup");
+        new LeftBadShuttleWallSet("badshuttleleft");
+        new DownBadShuttleWallSet("downshuttleleft");
+
     }
 
 
@@ -62,7 +69,6 @@ public class RoomWalls implements Serializable {
             new Sprite("wall" + name + "roof", "shuttle.png", 0, 6, null);
             makeCorners(name);
 
-            // TODO: add windows in appropriate placese
             new Sprite("wall" + name + "windowleft", "shuttle.png", 3, 6, null);
             new Sprite("wall" + name + "windowright", "shuttle.png", 3, 6, null);
             new Sprite("wall" + name + "windowtop", "shuttle.png", 8, 6, null);
@@ -142,5 +148,88 @@ public class RoomWalls implements Serializable {
             new Sprite("wall" + name + "UR", "shuttle.png", 4, 7, null);
         }
 
+    }
+
+
+    private class BadShuttleWallSet extends WallSet {
+        public BadShuttleWallSet(String name) {
+            super(name);
+            new Sprite("wall" + name + "top", "shuttle.png", 15, 7, null);
+            new Sprite("wall" + name + "side", "shuttle.png", 1, 8, null);
+            new Sprite("wall" + name + "roof", "shuttle.png", 6, 9, null);
+            makeCorners(name);
+
+            new Sprite("wall" + name + "windowleft", "shuttle.png", 15, 7, null);
+            new Sprite("wall" + name + "windowright", "shuttle.png", 15, 7, null);
+            new Sprite("wall" + name + "windowtop", "shuttle.png", 1, 8, null);
+            new Sprite("wall" + name + "windowbottom", "shuttle.png", 1, 8, null);
+            new Sprite("wall" + name + "windowup", "shuttle.png", 1, 8, null);
+            new Sprite("wall" + name + "windowdown", "shuttle.png", 1, 8, null);
+            new Sprite("wall" + name + "windowlinks", "shuttle.png", 15, 7, null);
+            new Sprite("wall" + name + "windowrechts", "shuttle.png", 15, 7, null);
+
+            new Sprite("wall" + name + "windowtopabove", "shuttle.png", 1, 8, null);
+            new Sprite("wall" + name + "windowbottomabove", "shuttle.png", 1, 8, null);
+            new Sprite("wall" + name + "windowupabove", "shuttle.png", 1, 8, null);
+            new Sprite("wall" + name + "windowdownabove", "shuttle.png", 1, 8, null);
+        }
+
+        protected void makeCorners(String name) {}
+    }
+
+    private class RightBadShuttleWallSet extends BadShuttleWallSet{
+        public RightBadShuttleWallSet(String badshuttleright) {
+            super(badshuttleright);
+        }
+
+        @Override
+        protected void makeCorners(String name) {
+            new Sprite("wall" + name + "corner", "shuttle.png", 9, 8, null);
+            new Sprite("wall" + name + "LL", "shuttle.png", 10, 8, null);
+            new Sprite("wall" + name + "LR", "shuttle.png", 7, 8, null);
+            new Sprite("wall" + name + "UR", "shuttle.png", 4, 8, null);
+        }
+    }
+
+    private class UpBadShuttleWallSet extends BadShuttleWallSet {
+        public UpBadShuttleWallSet(String badshuttleup) {
+            super(badshuttleup);
+        }
+
+        @Override
+        protected void makeCorners(String name) {
+            new Sprite("wall" + name + "corner", "shuttle.png", 6, 8, null);
+            new Sprite("wall" + name + "LL", "shuttle.png", 10, 8, null);
+            new Sprite("wall" + name + "LR", "shuttle.png", 11, 8, null);
+            new Sprite("wall" + name + "UR", "shuttle.png", 4, 8, null);
+        }
+    }
+
+    private class LeftBadShuttleWallSet extends BadShuttleWallSet {
+        public LeftBadShuttleWallSet(String badshuttleleft) {
+            super(badshuttleleft);
+        }
+
+        @Override
+        protected void makeCorners(String name) {
+            new Sprite("wall" + name + "corner", "shuttle.png", 6, 8, null);
+            new Sprite("wall" + name + "LL", "shuttle.png", 5, 8, null);
+            new Sprite("wall" + name + "LR", "shuttle.png", 11, 8, null);
+            new Sprite("wall" + name + "UR", "shuttle.png", 8, 8, null);
+        }
+    }
+
+    private class DownBadShuttleWallSet extends BadShuttleWallSet {
+        public DownBadShuttleWallSet(String downshuttleleft) {
+            super(downshuttleleft);
+        }
+
+        @Override
+        protected void makeCorners(String name) {
+            new Sprite("wall" + name + "corner", "shuttle.png", 9, 8, null);
+            new Sprite("wall" + name + "LL", "shuttle.png", 5, 8, null);
+            new Sprite("wall" + name + "LR", "shuttle.png", 7, 8, null);
+            new Sprite("wall" + name + "UR", "shuttle.png", 8, 8, null);
+        }
     }
 }

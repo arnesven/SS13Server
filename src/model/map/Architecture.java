@@ -1,10 +1,7 @@
 package model.map;
 
-import model.actions.objectactions.MiningShuttleAction;
-import model.items.NoSuchThingException;
 import model.map.doors.Door;
 import model.map.rooms.Room;
-import model.map.rooms.ShuttleRoom;
 import util.Logger;
 
 import java.awt.*;

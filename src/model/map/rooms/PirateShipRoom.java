@@ -7,22 +7,21 @@ import model.items.suits.PirateOutfit;
 import model.items.weapons.Flamer;
 import model.items.weapons.LaserSword;
 import model.items.weapons.Revolver;
+import model.map.DockingPoint;
 import model.map.doors.Door;
+import model.map.floors.FloorSet;
+import model.map.floors.NukieFloorSet;
 import util.MyRandom;
 
 /**
  * Created by erini02 on 06/09/17.
  */
-public class PirateShipRoom extends DerelictRoom {
-    private final int airlock;
+public class PirateShipRoom extends ShuttleRoom {
 
-    public PirateShipRoom(GameData gameData, int randAirLock) {
-        super(gameData.getMap().getMaxID()+1, "Pirate Ship", "",
-                getXForAirLock(randAirLock, gameData),
-                getYForAirLock(randAirLock, gameData),
-                2, 1, new int[]{},
+    public PirateShipRoom(GameData gameData) {
+        super(gameData.getMap().getMaxID()+1, "Pirate Ship",
+                0, 0, 3, 1, new int[]{},
                 new Door[]{});
-        this.airlock = randAirLock;
         this.addItem(new SpaceRum());
 
 
@@ -41,29 +40,16 @@ public class PirateShipRoom extends DerelictRoom {
         if (MyRandom.nextDouble() < 0.1) {
             this.addItem(new LaserSword());
         }
+
     }
 
-
-
-    private static int getXForAirLock(int randAirLock, GameData gameData) {
-        if (randAirLock == 1) {
-            return 0;
-        } else if (randAirLock == 2) {
-            return 12;
-        } else {
-            return 3;
-        }
+    @Override
+    public FloorSet getFloorSet() {
+        return new NukieFloorSet();
     }
 
-    private static int getYForAirLock(int randAirLock, GameData gameData) {
-        if (randAirLock == 1) {
-            return 11;
-        } else if (randAirLock == 2) {
-            return 1;
-        } else {
-            return 0;
-        }
+    @Override
+    protected String getWallAppearence() {
+        return "badshuttle" + getDirection();
     }
-
-
 }

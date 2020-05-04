@@ -2,31 +2,21 @@ package model.map.rooms;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
-import model.PlayerSettings;
 import model.items.NoSuchThingException;
 import model.map.Architecture;
 import model.map.DockingPoint;
-import model.map.GameMap;
-import model.map.ShuttleDoor;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
-import model.objects.consoles.ShuttleControl;
 import util.Logger;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by erini02 on 17/09/17.
- */
 public class ShuttleRoom extends Room {
 
-    private DockingPoint initialDockingPoint;
     private DockingPoint dockedAtPoint;
     private Door dockedDoor;
     private int oldDoorToID;
@@ -34,11 +24,9 @@ public class ShuttleRoom extends Room {
     private Map<String, String> nextDirection;
     private Map<String, Set<Point>> forbiddenDockingDirections;
 
-    public ShuttleRoom(int id, String name, String shortname, int x, int y, int w, int h, int[] ints, Door[] doubles,
-                       GameData gameData, DockingPoint initialDockingPoint) {
-        super(id, name, x, y, w, h, ints, doubles);
-        this.addObject(new ShuttleControl(this));
-        this.initialDockingPoint = initialDockingPoint;
+
+    public ShuttleRoom(int ID, String name, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
+        super(ID, name, x, y, width, height, neighbors, doors);
         Map<String, String> newMap = Map.of("right", "up", "up", "left", "left", "down", "down", "right");
         nextDirection = newMap;
         forbiddenDockingDirections = Map.of("right", Set.of(new Point(1, 0)), "up", Set.of(new Point(0, -1)),
@@ -72,9 +60,7 @@ public class ShuttleRoom extends Room {
     }
 
     private boolean getDockingPosition(GameData gameData, DockingPoint dp, Point roomPlacement, Point2D doorPlacement) {
-       // Logger.log("Smurfing for " + dp.getName());
         for (int i = 0; i < 4; ++i) {
-           // Logger.log(" ..." + direction);
             if (!forbiddenDockingDirections.get(direction).contains(dp.getDirection())) {
                 try {
                     Architecture arc = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(dp.getRoom()).getName(),
@@ -82,14 +68,11 @@ public class ShuttleRoom extends Room {
                     arc.checkPlacement(dp.getRoom(), getWidth(), getHeight(), dp.getDirection(), doorPlacement, roomPlacement);
                     return true;
                 } catch (Architecture.NoLegalPlacementForRoom nlpfe) {
-         //           Logger.log(" ... blocked");
                     // OK, try next rotation
                 } catch (NoSuchThingException e) {
                     e.printStackTrace();
                     break;
                 }
-            } else {
-           //     Logger.log("... forbidden");
             }
             this.rotate();
         }
@@ -139,9 +122,7 @@ public class ShuttleRoom extends Room {
         return dockedAtPoint.getRoom();
     }
 
-
-    @Override
-    public void doSetup(GameData gameData) {
-        dockYourself(gameData, this.initialDockingPoint);
+    public String getDirection() {
+        return direction;
     }
 }

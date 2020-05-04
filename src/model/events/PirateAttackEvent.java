@@ -5,6 +5,7 @@ import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.events.ambient.AmbientEvent;
 import model.items.NoSuchThingException;
+import model.map.DockingPoint;
 import model.map.GameMap;
 import model.map.rooms.PirateShipRoom;
 import model.map.rooms.Room;
@@ -33,9 +34,8 @@ public class PirateAttackEvent extends AmbientEvent {
     private static final double CHANCE_OF_PIRATE_CAPTAIN = 0.5;
     private boolean hasHappened = false;
     private int pirateNum = 1;
-    private int randAirLock;
     private Room targetRoom;
-    private Room pirateShip;
+    private PirateShipRoom pirateShip;
 
 
     @Override
@@ -47,28 +47,32 @@ public class PirateAttackEvent extends AmbientEvent {
     public void apply(GameData gameData) {
         if (!hasHappened && MyRandom.nextDouble() < getProbability()) {
 
-            hasHappened = true;
-            randAirLock = MyRandom.nextInt(3)+1;
             targetRoom = randomTargetRoom(gameData);
-            informCrew(gameData, randAirLock);
-
-            createPirateShip(gameData, randAirLock);
+            if (createPirateShip(gameData)) {
+                hasHappened = true;
+                Logger.log("Pirates docked at " + pirateShip.getDockingPointRoom().getName() +
+                        " and their target is " + targetRoom.getName());
+                informCrew(gameData);
+            }
 
         } else if (hasHappened) {
-            movePiratesOverToStation(gameData, randAirLock);
+            movePiratesOverToStation();
         }
     }
 
-    private void createPirateShip(GameData gameData, int randAirLock) {
-        pirateShip = new PirateShipRoom(gameData, randAirLock);
+    private boolean createPirateShip(GameData gameData) {
+        pirateShip = new PirateShipRoom(gameData);
         gameData.getMap().addRoom(pirateShip, GameMap.STATION_LEVEL_NAME, "central");
-        Room airLock = null;
-        try {
-            airLock = gameData.getRoom("Air Lock #" + randAirLock);
-            GameMap.joinRooms(airLock, pirateShip);
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
+        List<DockingPoint> dockingPoints = new ArrayList<>();
+        for (DockingPoint dp : gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).getDockingPoints()) {
+            if (pirateShip.canDockAt(gameData, dp)) {
+                dockingPoints.add(dp);
+            }
         }
+        if (dockingPoints.isEmpty()) {
+            return false;
+        }
+        pirateShip.dockYourself(gameData, MyRandom.sample(dockingPoints));
 
 
         int totalPirates = MyRandom.nextInt(5) + 4;
@@ -81,9 +85,9 @@ public class PirateAttackEvent extends AmbientEvent {
                 pirate.setMoveBehavior(new MeanderingMovement(0.0));
             } else {
                 if (i <= piratesToMoveDirectly) {
-                    pirate = new PirateNPC(airLock, pirateNum++, targetRoom);
+                    pirate = new PirateNPC(pirateShip.getDockingPointRoom(), pirateNum++, targetRoom);
                 } else {
-                    pirate = new PirateNPC(pirateShip, pirateNum++, targetRoom);
+                    pirate = new PirateNPC(pirateShip.getDockingPointRoom(), pirateNum++, targetRoom);
                     if (MyRandom.nextDouble() < 0.5) {
                         pirate.setMoveBehavior(new MeanderingMovement(0.0));
                     }
@@ -91,7 +95,7 @@ public class PirateAttackEvent extends AmbientEvent {
             }
             gameData.addNPC(pirate);
         }
-
+        return true;
     }
 
     private Room randomTargetRoom(GameData gameData) {
@@ -124,15 +128,16 @@ public class PirateAttackEvent extends AmbientEvent {
         return MyRandom.sample(roomList);
     }
 
-    private void informCrew(GameData gameData, int randAirLock) {
+    private void informCrew(GameData gameData) {
         try {
-            gameData.findObjectOfType(AIConsole.class).informOnStation("Warning! Pirate marauders are boarding the station through Air Lock #" +randAirLock + "!", gameData);
+            gameData.findObjectOfType(AIConsole.class).informOnStation("Warning! Pirate marauders are boarding " +
+                    "the station through " + pirateShip.getDockingPointRoom().getName() + "!", gameData);
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
     }
 
-    private void movePiratesOverToStation(GameData gameData, int randAirLock) {
+    private void movePiratesOverToStation() {
         for (NPC npc : pirateShip.getNPCs()) {
             if (npc instanceof AbstractPirateNPC) {
                 if (MyRandom.nextDouble() < 0.5) {
