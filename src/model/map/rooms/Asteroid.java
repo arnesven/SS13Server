@@ -36,8 +36,8 @@ public class Asteroid extends PlanetRoom {
     }
 
     @Override
-    protected String getAppearanceScheme() {
-        return "NoWallsNoDoors-Space";
+    protected String getPaintingStyle() {
+        return "NoWallsNoDoors";
     }
 
     @Override

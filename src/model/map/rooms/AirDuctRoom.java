@@ -34,8 +34,13 @@ public class AirDuctRoom extends Room {
     }
 
     @Override
-    protected String getAppearanceScheme() {
-        return "NoWallsNoDoors-Black";
+    protected String getPaintingStyle() {
+        return "NoWallsNoDoors";
+    }
+
+    @Override
+    protected String getBackgroundStyle() {
+        return "Black";
     }
 
     @Override

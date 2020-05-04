@@ -5,7 +5,6 @@ import java.util.List;
 
 import graphics.sprites.Sprite;
 import model.*;
-import model.actions.MoveAction;
 import model.actions.general.Action;
 import model.actions.general.ActionGroup;
 import model.actions.general.SearchAction;
@@ -18,28 +17,23 @@ import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.events.NoPressureEverEvent;
 import model.events.ambient.ColdEvent;
-import model.events.ambient.DarkEvent;
 import model.events.ambient.ElectricalFire;
 import model.events.Event;
 import model.events.ambient.HullBreach;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.RoomPartsStack;
-import model.map.DockingPoint;
 import model.map.GameMap;
 import model.map.doors.Door;
 import model.map.doors.ElectricalDoor;
-import model.map.doors.NormalDoor;
 import model.map.floors.FloorSet;
 import model.npcs.NPC;
 import model.objects.general.BreakableObject;
-import model.objects.general.PowerConsumer;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 import model.objects.power.LifeSupport;
 import model.objects.power.Lighting;
 import util.Logger;
-import util.MyRandom;
 import util.MyStrings;
 
 
@@ -76,7 +70,7 @@ public abstract class Room implements ItemHolder, Serializable {
 	private static final RoomWalls walls = new RoomWalls();
 	private LifeSupport lifeSupport;
 	private Lighting lighting;
-	private String defaultApperance;
+	private String paintingStyle;
 
 
 	public Room(int ID, String name, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
@@ -92,7 +86,7 @@ public abstract class Room implements ItemHolder, Serializable {
         this.floorSprite = getFloorSet();
         lifeSupport = new LifeSupport(this);
         lighting = new Lighting(this);
-		this.defaultApperance = "WallsAndWindows";
+		this.paintingStyle = "WallsAndWindows";
 	}
 
 
@@ -158,16 +152,27 @@ public abstract class Room implements ItemHolder, Serializable {
         return result;
     }
 
-    protected String getAppearanceScheme() {
+    private String getAppearanceScheme() {
+		return getPaintingStyle() + "-" + getBackgroundStyle() + "-" + getWallAppearence();
+	}
+
+	protected String getBackgroundStyle() {
 		if (map == null) {
-			return defaultApperance + "-Space";
+			return "Space";
 		}
 		try {
-			return defaultApperance + "-" + map.getLevelForRoom(this).getBackgroundType();
+			return map.getLevelForRoom(this).getBackgroundType();
 		} catch (NoSuchThingException e) {
-			e.printStackTrace();
+			return "Space";
 		}
-		throw new IllegalStateException("Should not happen!");
+	}
+
+	protected String getPaintingStyle() {
+		return paintingStyle;
+	}
+
+	protected String getWallAppearence() {
+		return "dark";
 	}
 
 
@@ -621,7 +626,7 @@ public abstract class Room implements ItemHolder, Serializable {
             GameMap.separateRooms(this, neigh);
         }
 
-        this.defaultApperance = "DontPaint";
+        this.paintingStyle = "DontPaint";
 	}
 
 

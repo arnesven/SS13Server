@@ -12,8 +12,13 @@ public class PlanetRoom extends Room {
     }
 
     @Override
-    protected String getAppearanceScheme() {
-        return "NoWallsNoDoors-Planet";
+    protected String getPaintingStyle() {
+        return "NoWallsNoDoors";
+    }
+
+    @Override
+    protected String getBackgroundStyle() {
+        return "Planet";
     }
 
     @Override

@@ -25,8 +25,8 @@ public class SpaceRoom extends Room {
     }
 
     @Override
-    protected String getAppearanceScheme() {
-        return "NoWallsNoDoors-Space";
+    protected String getPaintingStyle() {
+        return "NoWallsNoDoors";
     }
 
     @Override

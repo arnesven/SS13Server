@@ -27,6 +27,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     private final String backgroundType;
     private final String roomStyle;
     private final String actionData;
+    private final String wallStyle;
 
     private int width;
     private int height;
@@ -63,6 +64,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         floorSpriteBaseName = color;
         this.backgroundType = appearence.split("-")[1];
         this.roomStyle = appearence.split("-")[0];
+        this.wallStyle = appearence.split("-")[2];
         this.actionData = actiondata;
     }
 
@@ -120,7 +122,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         int finalH = getScaledHeightPX();
         super.setHitBox(x, y, getZPos(), finalW, finalH);
 
-        ImageIcon background = SpriteManager.getSprite("walldarkroof0");
+        ImageIcon background = SpriteManager.getSprite("wall" + this.wallStyle + "roof0");
 
         for (int row = 0; row < height * (yscale / background.getIconHeight())+1; ++row) {
             for (int col = 0; col < width * (xscale / background.getIconWidth())+1; ++col) {
@@ -140,21 +142,21 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     }
 
     private ImageIcon getAboveSprite(boolean rowstart, boolean rowend, boolean colstart, boolean colend) {
-        String spriteName = "walldarkroof0";
+        String spriteName = "wall" + this.wallStyle + "roof0";
         if (rowstart && colstart) {
-            spriteName = "walldarkcorner0";
+            spriteName = "wall" + this.wallStyle + "corner0";
         } else if (rowstart && colend) {
-            spriteName = "walldarkUR0";
+            spriteName = "wall" + this.wallStyle + "UR0";
         } else if (rowend && colstart) {
-            spriteName = "walldarkLL0";
+            spriteName = "wall" + this.wallStyle + "LL0";
         } else if (rowend && colend) {
-            spriteName = "walldarkLR0";
+            spriteName = "wall" + this.wallStyle + "LR0";
         } else if (colstart || colend) {
-            spriteName = "walldarkside0";
+            spriteName = "wall" + this.wallStyle + "side0";
         } else if (colend) {
-            spriteName = "walldarkright0";
+            spriteName = "wall" + this.wallStyle + "right0";
         } else if (rowend) {
-            spriteName = "walldarktop0";
+            spriteName = "wall" + this.wallStyle + "top0";
         }
 
         return SpriteManager.getSprite(spriteName);
@@ -261,23 +263,23 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     private void drawWalls(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, boolean shadow, boolean withWindows) {
 
             g.setColor(backgroundColor);
-            ImageIcon corner = SpriteManager.getSprite("walldarkcorner0");
+            ImageIcon corner = SpriteManager.getSprite("wall" + this.wallStyle + "corner0");
             g.drawImage(corner.getImage(), x, y, null);
-            ImageIcon top = SpriteManager.getSprite("walldarktop0");
+            ImageIcon top = SpriteManager.getSprite("wall" + this.wallStyle + "top0");
             for (int i = 1; i < finalW / top.getIconWidth(); ++i) {
                 g.drawImage(top.getImage(), x + top.getIconWidth()*i, y, null);
                 g.drawImage(top.getImage(), x+top.getIconWidth()*i, y+finalH, null);
             }
-            ImageIcon left = SpriteManager.getSprite("walldarkside0");
+            ImageIcon left = SpriteManager.getSprite("wall" + this.wallStyle + "side0");
             for (int i = 1; i < finalH / left.getIconHeight(); ++i) {
                 g.drawImage(left.getImage(), x, y + left.getIconHeight()*i, null);
                 g.drawImage(left.getImage(), x+finalW, y + left.getIconHeight()*i, null);
             }
-            ImageIcon ll = SpriteManager.getSprite("walldarkLL0");
+            ImageIcon ll = SpriteManager.getSprite("wall" + this.wallStyle + "LL0");
             g.drawImage(ll.getImage(), x, y+finalH, null);
-            ImageIcon lr =  SpriteManager.getSprite("walldarkLR0");
+            ImageIcon lr =  SpriteManager.getSprite("wall" + this.wallStyle + "LR0");
             g.drawImage(lr.getImage(), x+finalW, y+finalH, null);
-            ImageIcon ur = SpriteManager.getSprite("walldarkUR0");
+            ImageIcon ur = SpriteManager.getSprite("wall" + this.wallStyle + "UR0");
             g.drawImage(ur.getImage(), x+finalW, y, null);
 
 
@@ -306,8 +308,8 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     private void decorateWithRightWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, String above) {
         int noOfWindowsX = ((finalH - MapPanel.getZoom()) / (background.getIconHeight() * 2));
-        ImageIcon topright = SpriteManager.getSprite("walldarkwindowup" + above + "0");
-        ImageIcon bottomright = SpriteManager.getSprite("walldarkwindowdown" + above + "0");
+        ImageIcon topright = SpriteManager.getSprite("wall" + this.wallStyle + "windowup" + above + "0");
+        ImageIcon bottomright = SpriteManager.getSprite("wall" + this.wallStyle + "windowdown" + above + "0");
         for (int i = 1; i <= noOfWindowsX; ++i) {
             int ypostop = y + topright.getIconHeight() * (i * 2 - 1);
             int yposbot = y + topright.getIconHeight() * (i * 2);
@@ -322,8 +324,8 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     private void decorateWithLeftWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, String above) {
         int noOfWindowsX = ((finalH - MapPanel.getZoom()) / (background.getIconHeight() * 2));
-        ImageIcon topleft = SpriteManager.getSprite("walldarkwindowtop" + above + "0");
-        ImageIcon bottomleft = SpriteManager.getSprite("walldarkwindowbottom" + above + "0");
+        ImageIcon topleft = SpriteManager.getSprite("wall" + this.wallStyle + "windowtop" + above + "0");
+        ImageIcon bottomleft = SpriteManager.getSprite("wall" + this.wallStyle + "windowbottom" + above + "0");
         for (int i = 1; i <= noOfWindowsX; ++i) {
             int ypostop = y + topleft.getIconHeight() * (i * 2 - 1);
             int yposbot = y + topleft.getIconHeight() * (i * 2);
@@ -343,8 +345,8 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     }
 
     private void decorateWithBottomWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background) {
-        ImageIcon links = SpriteManager.getSprite("walldarkwindowlinks0");
-        ImageIcon rechts = SpriteManager.getSprite("walldarkwindowrechts0");
+        ImageIcon links = SpriteManager.getSprite("wall" + this.wallStyle + "windowlinks0");
+        ImageIcon rechts = SpriteManager.getSprite("wall" + this.wallStyle + "windowrechts0");
         int noOfWindowsX = ((finalW - MapPanel.getZoom()) / (background.getIconWidth() * 2));
         for (int i = 1; i <= noOfWindowsX; ++i) {
             int xposleft = x + background.getIconWidth() * (i * 2 - 1);
@@ -359,8 +361,8 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     }
 
     private void decorateWithTopWindows(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background) {
-        ImageIcon left = SpriteManager.getSprite("walldarkwindowleft0");
-        ImageIcon right = SpriteManager.getSprite("walldarkwindowright0");
+        ImageIcon left = SpriteManager.getSprite("wall" + this.wallStyle + "windowleft0");
+        ImageIcon right = SpriteManager.getSprite("wall" + this.wallStyle + "windowright0");
         int noOfWindowsX = ((finalW - MapPanel.getZoom()) / (left.getIconWidth() * 2));
         for (int i = 1; i <= noOfWindowsX; ++i) {
             int xposleft = x + left.getIconWidth() * (i * 2 - 1);

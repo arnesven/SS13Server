@@ -18,7 +18,7 @@ public class OtherDimension extends RemoteRoom {
     }
 
     @Override
-    protected String getAppearanceScheme() {
-        return "NoWallsNoDoors-Space";
+    protected String getPaintingStyle() {
+        return "NoWallsNoDoors";
     }
 }

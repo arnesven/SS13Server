@@ -47,8 +47,8 @@ public class AirLockRoom extends StationRoom implements DockingPointRoom {
 	}
 
 	@Override
-	protected String getAppearanceScheme() {
-		return "WallsNoWindows-Space";
+	protected String getPaintingStyle() {
+		return "WallsNoWindows";
 	}
 
 	private void cycle(GameData gameData, Actor performingClient) {
