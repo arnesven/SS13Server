@@ -34,6 +34,11 @@ public class ShuttleRoom extends Room {
         this.initialDockingPoint = initialDockingPoint;
     }
 
+    @Override
+    protected String getWallAppearence() {
+        return "shuttle";
+    }
+
     public void moveTo(int x, int y, int z) {
         setCoordinates(x, y, z);
     }
