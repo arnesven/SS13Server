@@ -6,6 +6,11 @@ import model.MostWantedCriminals;
 import model.Player;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
+import model.map.DockingPoint;
+import model.map.GameMap;
+import model.map.rooms.AirLockRoom;
+import model.map.rooms.DockingPointRoom;
+import model.map.rooms.MerchantShip;
 import model.map.rooms.Room;
 import model.npcs.MerchantNPC;
 import model.objects.general.MerchantWaresCrate;
@@ -17,12 +22,13 @@ import util.MyRandom;
  * Created by erini02 on 15/11/16.
  */
 public class TravelingMerchantEvent extends AmbientEvent {
-    private static final double occurranceChance = AmbientEvent.everyNGames(3);
+    private static final double occurranceChance = AmbientEvent.everyNGames(3); // TODO: change back
     private boolean hasHappened = false;
     private MerchantNPC merchant;
     private MerchantWaresCrate crate;
     private boolean leftAlready = false;
     private boolean addedToMostWanted = false;
+    private MerchantShip merchantShip;
 
     @Override
     protected double getStaticProbability() {
@@ -73,10 +79,39 @@ public class TravelingMerchantEvent extends AmbientEvent {
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
+
+        merchantShip.undockYourself(gameData);
+        for (Actor a : merchantShip.getActors()) {
+            try {
+                a.setPosition(gameData.getRoom("Shuttle Gate"));
+                a.addTolastTurnInfo("The merchant ship left, you went to the Shuttle Gate.");
+            } catch (NoSuchThingException e) {
+                e.printStackTrace();
+            }
+        }
+        gameData.getMap().moveRoomToLevel(merchantShip, "prison planet", "merchant outpost");
+
         leftAlready = true;
     }
 
     private void merchantArrives(GameData gameData) {
+        this.merchantShip = new MerchantShip(gameData);
+        DockingPoint dp;
+        try {
+            dp = ((DockingPointRoom)gameData.getRoom("Air Lock #2")).getDockingPoints().get(0);
+            if (dp.isVacant() && merchantShip.canDockAt(gameData, dp)) {
+                gameData.getMap().addRoom(merchantShip, GameMap.STATION_LEVEL_NAME, "port");
+                merchantShip.dockYourself(gameData, dp);
+            } else {
+                Logger.log("Could not find or dock with docking point at Air Lock #2, merchant won't come");
+                return;
+            }
+        } catch (NoSuchThingException e) {
+            Logger.log("Could not find or dock with docking point at Air Lock #2, merchant won't come");
+            return;
+        }
+
+
         hasHappened = true;
         try {
             Room shuttleGate = gameData.getRoom("Shuttle Gate");

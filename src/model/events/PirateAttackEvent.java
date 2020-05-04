@@ -62,7 +62,6 @@ public class PirateAttackEvent extends AmbientEvent {
 
     private boolean createPirateShip(GameData gameData) {
         pirateShip = new PirateShipRoom(gameData);
-        gameData.getMap().addRoom(pirateShip, GameMap.STATION_LEVEL_NAME, "central");
         List<DockingPoint> dockingPoints = new ArrayList<>();
         for (DockingPoint dp : gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).getDockingPoints()) {
             if (pirateShip.canDockAt(gameData, dp)) {
@@ -72,6 +71,7 @@ public class PirateAttackEvent extends AmbientEvent {
         if (dockingPoints.isEmpty()) {
             return false;
         }
+        gameData.getMap().addRoom(pirateShip, GameMap.STATION_LEVEL_NAME, "central");
         pirateShip.dockYourself(gameData, MyRandom.sample(dockingPoints));
 
 

@@ -74,12 +74,12 @@ public class MiningShuttleAction extends ConsoleAction {
         try {
             MiningShuttle r = (MiningShuttle)gameData.getMap().getRoom("Mining Shuttle");
             if (gameData.getMap().getLevelForRoom(r).getName().equals("asteroid field")) {
-                r.undockYourself(gameData, performingClient);
+                r.undockYourself(gameData);
                 gameData.getMap().moveRoomToLevel(r, GameMap.STATION_LEVEL_NAME, "center");
                 r.dockYourself(gameData, selectedDockingPoint);
                 performingClient.addTolastTurnInfo("The mining shuttle docked with SS13 at " + selectedDockingPoint.getName() + ".");
             } else {
-                r.undockYourself(gameData, performingClient);
+                r.undockYourself(gameData);
                 gameData.getMap().moveRoomToLevel(r, "asteroid field", "mining station");
                 r.dockYourself(gameData, selectedDockingPoint);
                 performingClient.addTolastTurnInfo("The mining shuttle docked with the mining station.");

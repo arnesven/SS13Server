@@ -100,7 +100,7 @@ public class ShuttleRoom extends Room {
         }
     }
 
-    public void undockYourself(GameData gameData, Actor performingClient) {
+    public void undockYourself(GameData gameData) {
         gameData.getMap().separateRooms(this, (Room)dockedAtPoint.getRoom());
         dockedAtPoint.setDocked(gameData, false);
         dockedAtPoint = null;
