@@ -94,9 +94,21 @@ public class DonutSS13Builder extends MapBuilder {
                 new Door[]{new NormalDoor(10.5, 4.0, 450, 445)});
         gm.addRoom(janitorial, ss13, "starboard");
 
-        Room cargoBay = new CargoBayRoom(446, 8, 10, 4, 3, new int[]{445, 11},
+        Room cargoBay = new CargoBayRoom(446, 8, 10, 4, 3, new int[]{445, 11, 587},
                 new Door[]{new NormalDoor(10.5, 10.0, 446, 445)});
         gm.addRoom(cargoBay, ss13, "starboard");
+
+        AirLockRoom airLock5 = new AirLockRoom(587, 5, 12, 12, 1, 1, new int[]{446},
+                new Door[]{new FullyOpenAirLockDoor(12.0, 12.5, -1, 587, 446),
+                new AirLockDoor(12.5, 13.0, -1, 587, 30, false),
+                new AirLockDoor(13.0, 12.5, -1, 587, 30, false)});
+        airLock5.setZ(-1);
+        airLock5.addDockingPoint(new DockingPoint("Airlock 5 - Front", "Cargo",
+                new Point(-1, 0), new Point(1, 0), airLock5));
+        airLock5.addDockingPoint(new DockingPoint("Airlock 5 - Starboard", "Cargo",
+                new Point(-1, 0), new Point(0, 1), airLock5));
+        gm.addRoom(airLock5, ss13, "starboard");
+
 
         Room loungeRoom = new LoungeRoom(447, 9, 2, 2, 2, new int[]{19}, new Door[]{});
         gm.addRoom(loungeRoom, ss13, "port");
@@ -190,7 +202,8 @@ public class DonutSS13Builder extends MapBuilder {
                 new Door[]{new FullyOpenAirLockDoor(6.0, 0.5, 0.0, 25, 24),
                         new AirLockDoor(5.0, 0.5, 25, 30),
                         new AirLockDoor(5.5, 0.0, 25, 30)});
-
+        airLock3.addDockingPoint(new DockingPoint("Airlock 3 - Aft", "Auxiliary", new Point(1, 0), new Point(-1, 0), airLock3));
+        airLock3.addDockingPoint(new DockingPoint("Airlock 3 - Port", "Auxiliary", new Point(1, 0), new Point(0, -1), airLock3));
         {
             AirlockPanel ap = new AirlockPanel(airLock3, sickbay);
             ap.setAbsolutePosition(6.0, 1.0);
@@ -244,6 +257,16 @@ public class DonutSS13Builder extends MapBuilder {
             AirlockPanel ap = new AirlockPanel(airLock4, aiCore);
             ap.setAbsolutePosition(10.0, 8.0, 1.0);
             aiCore.addObject(ap);
+        }
+        {
+            AirlockPanel ap = new AirlockPanel(airLock5, space);
+            ap.setAbsolutePosition(12.0, 13.0, -1.0);
+            space.addObject(ap);
+        }
+        {
+            AirlockPanel ap = new AirlockPanel(airLock5, cargoBay);
+            ap.setAbsolutePosition(12.0, 12.0, -1.0);
+            cargoBay.addObject(ap);
         }
 
 

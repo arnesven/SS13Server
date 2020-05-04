@@ -61,7 +61,7 @@ public class AirLockControlFancyFrame extends ConsoleFancyFrame {
         int i = 0;
         for (Room al : airlockAction.getKnownAirlocks()) {
             String command = "Depressurize";
-            if (airlockAction.getKnownAirlocks().get(i).hasPressure()) {
+            if (!airlockAction.getKnownAirlocks().get(i).hasPressure()) {
                 command = "Pressurize";
             }
             String selectedColor = "blue";

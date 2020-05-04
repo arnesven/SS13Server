@@ -38,8 +38,8 @@ public class DockingPoint implements Serializable {
         return toDir;
     }
 
-    public DockingPointRoom getRoom() {
-        return roomRef;
+    public Room getRoom() {
+        return (Room)roomRef;
     }
 
     public void setDocked(GameData gameData, boolean b) {
@@ -75,5 +75,9 @@ public class DockingPoint implements Serializable {
 
     public boolean isVacant() {
         return !isDocked;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

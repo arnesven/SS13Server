@@ -17,6 +17,7 @@ import model.map.floors.AirLockFloorSet;
 import model.map.floors.FloorSet;
 import model.objects.general.OxyMaskDispenser;
 import model.objects.general.AirlockPanel;
+import model.objects.power.LifeSupport;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -156,4 +157,13 @@ public class AirLockRoom extends StationRoom implements DockingPointRoom {
         }
         return false;
     }
+
+	@Override
+	public LifeSupport getLifeSupport() {
+		if (hasPressure) {
+			return super.getLifeSupport();
+		} else {
+			return null;
+		}
+	}
 }
