@@ -17,6 +17,9 @@ import model.events.*;
 import model.events.ambient.*;
 import model.items.NoSuchThingException;
 import model.items.suits.Rapido;
+import model.map.DockingPoint;
+import model.map.GameMap;
+import model.map.rooms.LateJoiningShuttle;
 import model.misc.ChristmasBooster;
 import model.modes.goals.PersonalGoalAssigner;
 import model.npcs.*;
@@ -53,6 +56,7 @@ public abstract class GameMode implements Serializable {
     private Player capCl = null;
     private List<GameCharacter> remainingChars;
     private PersonalGoalAssigner tasks;
+    private LateJoiningShuttle lateJoiningShuttle;
 
     public GameMode() {
         AmbientEvent.setUpAmbients(events);
@@ -673,41 +677,80 @@ public abstract class GameMode implements Serializable {
 
     public void lateJoiningPlayer(Player newPlayer, GameData gameData, boolean spectator) {
 
-        if (spectator) {
-            newPlayer.setCharacter(new SpectatorCharacter(gameData));
-            newPlayer.moveIntoRoom(newPlayer.getCharacter().getStartingRoom(gameData));
-            return;
-        }
+		if (spectator) {
+			newPlayer.setCharacter(new SpectatorCharacter(gameData));
+			newPlayer.moveIntoRoom(newPlayer.getCharacter().getStartingRoom(gameData));
+			return;
+		}
 
-        GameCharacter chAr;
-        if (remainingChars.size() == 0) {
-            chAr = MyRandom.sample(VisitorCharacter.getSubtypes());
-            newPlayer.setCharacter(chAr);
-        } else {
-            chAr = MyRandom.sample(remainingChars);
-            setPlayersCharacter(newPlayer, chAr, remainingChars);
-        }
+		GameCharacter chAr;
+		if (remainingChars.size() == 0) {
+			chAr = MyRandom.sample(VisitorCharacter.getSubtypes());
+			newPlayer.setCharacter(chAr);
+		} else {
+			chAr = MyRandom.sample(remainingChars);
+			setPlayersCharacter(newPlayer, chAr, remainingChars);
+		}
 
-        gameModeSpecificSetupForLateJoiner(newPlayer, gameData);
+		gameModeSpecificSetupForLateJoiner(newPlayer, gameData);
 
-        try {
-            newPlayer.moveIntoRoom(gameData.getRoom("Shuttle Gate"));
-        } catch (NoSuchThingException e) {
-            Logger.log(Logger.CRITICAL, "No Shuttle gate to put new player!");
-            newPlayer.moveIntoRoom(MyRandom.sample(gameData.getRooms()));
-        }
+		if (lateJoiningShuttle == null) {
+			lateJoiningShuttle = new LateJoiningShuttle(gameData);
+		}
+		DockingPoint dp = null;
+		if (!lateJoiningShuttle.isDocked()) {
+			dp = findBestArrivalDockingPoint(gameData);
+			if (dp != null) {
+				try {
+					gameData.getMap().addRoom(lateJoiningShuttle, GameMap.STATION_LEVEL_NAME,
+							gameData.getMap().getAreaForRoom(GameMap.STATION_LEVEL_NAME, dp.getRoom()));
+				} catch (NoSuchThingException e) {
+					e.printStackTrace();
+				}
+				lateJoiningShuttle.dockYourself(gameData, dp);
+				gameData.addEvent(new LateJoiningShuttle.UndockingEvent(lateJoiningShuttle, gameData.getRound()));
+			}
+		}
+		try {
+			Room arrivalRoom = findArrivalRoom(gameData, dp);
+			newPlayer.moveIntoRoom(arrivalRoom);
+		} catch (NoSuchThingException e) {
+			Logger.log(Logger.CRITICAL, "No Shuttle gate to put new player!");
+			newPlayer.moveIntoRoom(MyRandom.sample(gameData.getRooms()));
+		}
 
-        List<GameItem> startingItems = newPlayer.getCharacter().getStartingItems();
-        Logger.log("Giving starting items to " + newPlayer.getPublicName());
-        for (GameItem it : startingItems) {
-            newPlayer.addItem(it, null);
-        }
+		List<GameItem> startingItems = newPlayer.getCharacter().getStartingItems();
+		Logger.log("Giving starting items to " + newPlayer.getPublicName());
+		for (GameItem it : startingItems) {
+			newPlayer.addItem(it, null);
+		}
 
-        addStartingMessage(gameData, newPlayer);
-        informOnStation(gameData, newPlayer);
-    }
+		addStartingMessage(gameData, newPlayer);
+		informOnStation(gameData, newPlayer);
+	}
 
-    private void informOnStation(GameData gameData, Player newPlayer) {
+	private Room findArrivalRoom(GameData gameData, DockingPoint dp) throws NoSuchThingException {
+		if (dp == null || dp.getRoom().getNeighborList().isEmpty()) {
+			return gameData.getRoom("Shuttle Gate");
+		}
+		return dp.getRoom().getNeighborList().get(0);
+	}
+
+	private DockingPoint findBestArrivalDockingPoint(GameData gameData) {
+		List<DockingPoint> others = new ArrayList<>();
+		for (DockingPoint dp : gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).getDockingPoints()) {
+			if (dp.getName().toLowerCase().contains("airlock 2")) {
+				return dp;
+			}
+			others.add(dp);
+		}
+		if (!others.isEmpty()) {
+			return MyRandom.sample(others);
+		}
+		return null;
+	}
+
+	private void informOnStation(GameData gameData, Player newPlayer) {
         final String message;
         try {
             message = gameData.getClidForPlayer(newPlayer) + " the " + newPlayer.getCharacter().getBaseName() +

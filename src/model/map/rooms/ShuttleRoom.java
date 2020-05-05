@@ -125,4 +125,8 @@ public class ShuttleRoom extends Room {
     public String getDirection() {
         return direction;
     }
+
+    public boolean isDocked() {
+        return dockedAtPoint != null;
+    }
 }

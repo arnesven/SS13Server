@@ -48,7 +48,7 @@ public class DerelictBuilder extends MapBuilder {
         derelictGen.addItem(new Tools());
 
         gm.addRoom(derelictGen, "derelict", "derelict");
-        DerelictAirlockRoom derelictAirLock =  new DerelictAirlockRoom(38, "Derelict Air Lock", "", 42, 44, 1, 1, new int[]{35},
+        DerelictAirlockRoom derelictAirLock =  new DerelictAirlockRoom(38, "Derelict Airlock", "", 42, 44, 1, 1, new int[]{35},
                 new Door[]{new NormalDoor(42.0, 44.5, 38, 35)});
         derelictAirLock.addObject(new AirlockPanel(derelictAirLock));
         gm.addRoom(derelictAirLock, "derelict", "derelict");

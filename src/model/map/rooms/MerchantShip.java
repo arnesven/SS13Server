@@ -7,7 +7,7 @@ import model.map.floors.SingleSpriteFloorSet;
 
 public class MerchantShip extends ShuttleRoom {
     public MerchantShip(GameData gameData) {
-        super(gameData.getMap().getMaxID()+1, "Merchant Ship",
+        super(gameData.getMap().getMaxID()+1, "Merchant Skiff",
                 0, 0, 2, 1, new int[]{},
                 new Door[]{});
     }

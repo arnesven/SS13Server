@@ -22,7 +22,7 @@ import util.MyRandom;
  * Created by erini02 on 15/11/16.
  */
 public class TravelingMerchantEvent extends AmbientEvent {
-    private static final double occurranceChance = AmbientEvent.everyNGames(3); // TODO: change back
+    private static final double occurranceChance = AmbientEvent.everyNGames(3);
     private boolean hasHappened = false;
     private MerchantNPC merchant;
     private MerchantWaresCrate crate;
@@ -98,9 +98,10 @@ public class TravelingMerchantEvent extends AmbientEvent {
         this.merchantShip = new MerchantShip(gameData);
         DockingPoint dp;
         try {
-            dp = ((DockingPointRoom)gameData.getRoom("Air Lock #2")).getDockingPoints().get(0);
+            dp = ((DockingPointRoom)gameData.getRoom("Airlock #2")).getDockingPoints().get(0);
             if (dp.isVacant() && merchantShip.canDockAt(gameData, dp)) {
-                gameData.getMap().addRoom(merchantShip, GameMap.STATION_LEVEL_NAME, "port");
+                gameData.getMap().addRoom(merchantShip, GameMap.STATION_LEVEL_NAME,
+                        gameData.getMap().getAreaForRoom(GameMap.STATION_LEVEL_NAME, dp.getRoom()));
                 merchantShip.dockYourself(gameData, dp);
             } else {
                 Logger.log("Could not find or dock with docking point at Air Lock #2, merchant won't come");

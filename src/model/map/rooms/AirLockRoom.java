@@ -33,7 +33,7 @@ public class AirLockRoom extends StationRoom implements DockingPointRoom {
 
 	public AirLockRoom(int ID, int number, int x, int y,
 			int width, int height, int[] neighbors, Door[] doors) {
-		super(ID, "Air Lock #"+number         ,
+		super(ID, "Airlock #"+number         ,
                 x, y, width, height, neighbors, doors);
 		this.hasPressure = true;
 		this.addObject(new AirlockPanel(this));
