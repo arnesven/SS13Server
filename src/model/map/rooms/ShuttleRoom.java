@@ -9,6 +9,8 @@ import model.map.DockingPoint;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
+import model.objects.decorations.ShuttleChair;
+import model.objects.decorations.ShuttleDecoration;
 import model.objects.decorations.ShuttleThruster;
 import model.objects.power.LifeSupport;
 import model.objects.power.Lighting;
@@ -23,13 +25,13 @@ import java.util.Set;
 
 public class ShuttleRoom extends Room {
 
-    private final ShuttleThruster thruster;
     private DockingPoint dockedAtPoint;
     private Door dockedDoor;
     private int oldDoorToID;
     private String direction = "right";
     private Map<String, String> nextDirection;
     private Map<String, Set<Point>> forbiddenDockingDirections;
+    private List<ShuttleDecoration> decorations;
 
     public ShuttleRoom(int ID, String name, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
         super(ID, name, x, y, width, height, neighbors, doors);
@@ -39,8 +41,16 @@ public class ShuttleRoom extends Room {
                 "up", Set.of(new Point(0, -1), new Point(0, 1)),
                 "left", Set.of(new Point(-1, 0), new Point(1, 0)),
                 "down", Set.of(new Point(0, 1), new Point(0, -1)));
-        thruster = new ShuttleThruster(this);
-        addObject(thruster);
+        decorations = new ArrayList<>();
+        addDecoration(new ShuttleThruster(this));
+        for (int i = 3; i > 0; --i) {
+            addDecoration(new ShuttleChair(this));
+        }
+    }
+
+    private void addDecoration(ShuttleDecoration decor) {
+        addObject(decor);
+        decorations.add(decor);
     }
 
     @Override
@@ -61,13 +71,21 @@ public class ShuttleRoom extends Room {
     @Override
     public void setZ(int i) {
         super.setZ(i);
-        thruster.setAbsolutePosition(thruster.getAbsoluteX(), thruster.getAbsoluteY(), i);
+        for (ShuttleDecoration decor : decorations) {
+            if (decor.hasAbsolutePosition()) {
+                decor.setAbsolutePosition(decor.getAbsoluteX(), decor.getAbsoluteY(), i);
+            }
+        }
     }
 
     @Override
     public List<Sprite> getAlwaysSprites(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
-        list.add(thruster.getSprite(whosAsking));
+        for (ShuttleDecoration decor : decorations) {
+            if (decor.alwaysShowSprite()) {
+                list.add(decor.getSprite(whosAsking));
+            }
+        }
         return list;
     }
 
@@ -78,7 +96,11 @@ public class ShuttleRoom extends Room {
 
     public void moveTo(int x, int y, int z) {
         setCoordinates(x, y, z);
-        thruster.moveTo(x, y, z);
+        for (ShuttleDecoration decor : decorations) {
+            if (decor.hasAbsolutePosition()) {
+                decor.moveTo(x, y, z);
+            }
+        }
     }
 
     @Override

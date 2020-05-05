@@ -11,38 +11,52 @@ import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShuttleThruster extends GameObject {
-    private final ShuttleRoom shuttle;
+public class ShuttleThruster extends ShuttleDecoration {
     private Map<String, Point2D> offsetsForDirection = new HashMap<>();
 
     public ShuttleThruster(ShuttleRoom position) {
         super("Thruster", position);
-        this.shuttle = position;
 
         offsetsForDirection.put("right", new Point2D.Double(-0.1, 0.5));
         offsetsForDirection.put("left", new Point2D.Double(position.getWidth() + 0.1, 0.5));
         offsetsForDirection.put("up", new Point2D.Double(0.5, position.getWidth() + 0.1));
         offsetsForDirection.put("down", new Point2D.Double(0.5, -0.1));
-
     }
-
-
 
     @Override
-    public Sprite getSprite(Player whosAsking) {
-        Map<String, Sprite> sprs = new HashMap<>();
-        sprs.put("right", new Sprite("thrusterright", "shuttle.png", 13, 13, this));
-        sprs.put("left", new Sprite("thrusterleft", "shuttle.png", 12, 13, this));
-        sprs.put("up", new Sprite("thrusterup", "shuttle.png", 10, 13, this));
-        sprs.put("down", new Sprite("thrusterdown", "shuttle.png", 11, 13, this));
-
-
-        return sprs.get(shuttle.getDirection());
+    public boolean hasAbsolutePosition() {
+        return true;
     }
 
-    public void moveTo(int x, int y, int z) {
-        setAbsolutePosition(x + offsetsForDirection.get(shuttle.getDirection()).getX(),
-                y + offsetsForDirection.get(shuttle.getDirection()).getY(), z);
 
+    public void moveTo(int x, int y, int z) {
+        setAbsolutePosition(x + offsetsForDirection.get(getShuttle().getDirection()).getX(),
+                y + offsetsForDirection.get(getShuttle().getDirection()).getY(), z);
+
+    }
+
+    @Override
+    protected Sprite getDownSprite() {
+        return new Sprite("thrusterdown", "shuttle.png", 11, 13, this);
+    }
+
+    @Override
+    protected Sprite getUpSprite() {
+        return new Sprite("thrusterup", "shuttle.png", 10, 13, this);
+    }
+
+    @Override
+    protected Sprite getLeftSprite() {
+        return new Sprite("thrusterleft", "shuttle.png", 12, 13, this);
+    }
+
+    @Override
+    protected Sprite getRightSprite() {
+        return new Sprite("thrusterright", "shuttle.png", 13, 13, this);
+    }
+
+    @Override
+    public boolean alwaysShowSprite() {
+        return true;
     }
 }
