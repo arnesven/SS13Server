@@ -2,6 +2,7 @@ package model.items.foods;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.characters.decorators.DrunkChecker;
 import model.events.DrunkTimerEvent;
 /**
@@ -28,8 +29,12 @@ public abstract class Alcohol extends FoodItem {
 		//gameData.addEvent(new DrunkTimerEvent(eatenBy, potency, new DrunkChecker()));
 	}
 
-
     public int getPotency() {
         return potency;
     }
+
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "An alcoholic beverage. Ubiquitous on planets and space stations alike.";
+	}
 }

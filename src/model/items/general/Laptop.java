@@ -6,6 +6,7 @@ import java.util.List;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.map.rooms.Room;
@@ -68,4 +69,13 @@ public class Laptop extends UplinkItem {
 		jackRoom = null;
 	}
 
+	@Override
+	public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+		return "<b>Jacked In: </b>" + (isJackedIn()?"yes":"no");
+	}
+
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "Good for operating computers remotely. This laptop can be jacked into a computer outlet, but only a Science Officer knows how to connect to the intranet. Also good for playing games on";
+	}
 }

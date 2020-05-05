@@ -3,6 +3,7 @@ package model.items;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.BuildDoorAction;
 import model.characters.crew.ArchitectCharacter;
@@ -42,5 +43,10 @@ public class DoorPartsStack extends ItemStack {
     @Override
     public GameItem clone() {
         return new DoorPartsStack(getAmount());
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "All the parts needed to build a new (normal) door";
     }
 }

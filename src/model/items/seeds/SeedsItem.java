@@ -3,6 +3,7 @@ package model.items.seeds;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
 import model.objects.general.SoilPatch;
@@ -34,4 +35,11 @@ public abstract class SeedsItem extends GameItem {
 
     protected abstract Plant getPlant(Room position, GameData gameData,
                                       Actor planter, SoilPatch sp);
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Seeds which, when planted will sprout " + plantName() + ".";
+    }
+
+    protected abstract String plantName();
 }

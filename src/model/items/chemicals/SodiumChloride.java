@@ -1,5 +1,7 @@
 package model.items.chemicals;
 
+import model.GameData;
+import model.Player;
 import model.items.foods.FoodItem;
 import model.items.general.Chemicals;
 import model.items.general.GameItem;
@@ -40,5 +42,10 @@ public class SodiumChloride extends Chemicals {
         }
 
         return super.combineWith(other);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A liquid chemical compound, in a small container.";
     }
 }

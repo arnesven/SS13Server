@@ -35,4 +35,9 @@ public class TomatoSeeds extends SeedsItem {
         TomatoPlant pl = new TomatoPlant(position, sp);
         return pl;
     }
+
+    @Override
+    protected String plantName() {
+        return "tomato plants";
+    }
 }

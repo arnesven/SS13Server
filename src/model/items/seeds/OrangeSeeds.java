@@ -31,4 +31,9 @@ public class OrangeSeeds extends SeedsItem {
     public GameItem clone() {
         return new OrangeSeeds();
     }
+
+    @Override
+    protected String plantName() {
+        return "orange trees";
+    }
 }

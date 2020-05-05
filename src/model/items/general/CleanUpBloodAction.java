@@ -4,7 +4,10 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SearchAction;
+import model.characters.general.AnimalCharacter;
+import model.characters.general.GameCharacter;
 import model.map.floors.BurntFloorSet;
+import model.npcs.NPC;
 import model.objects.decorations.BurnMark;
 import model.objects.general.BloodyMess;
 import model.objects.general.GameObject;
@@ -30,15 +33,24 @@ public class CleanUpBloodAction extends SearchAction {
             return;
         }
 
-        List<GameObject> toBeRemoved = new ArrayList<>();
+        List<GameObject> objectsToBeRemoved = new ArrayList<>();
 
         for (GameObject obj : performingClient.getPosition().getObjects()) {
             if (obj instanceof BloodyMess || obj instanceof BurnMark) {
-                toBeRemoved.add(obj);
+                objectsToBeRemoved.add(obj);
             }
         }
-        performingClient.getPosition().getObjects().removeAll(toBeRemoved);
-        if (toBeRemoved.size() > 0) {
+        performingClient.getPosition().getObjects().removeAll(objectsToBeRemoved);
+
+        List<Actor> bodiesToBeRemoved = new ArrayList<>();
+        for (Actor a : performingClient.getPosition().getActors()) {
+            if (a instanceof NPC && a.isDead() && a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AnimalCharacter)) {
+                bodiesToBeRemoved.add(a);
+            }
+        }
+        performingClient.getPosition().getActors().removeAll(bodiesToBeRemoved);
+
+        if (objectsToBeRemoved.size() > 0 || bodiesToBeRemoved.size() > 0) {
             performingClient.addTolastTurnInfo("You cleaned up the floors.");
         }
 

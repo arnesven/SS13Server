@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.ReviveAction;
 import model.characters.decorators.InstanceChecker;
@@ -67,5 +68,15 @@ public class Defibrilator extends GameItem {
 
     public void setCharge(boolean charge) {
         this.charge = charge;
+    }
+
+    @Override
+    public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+        return "<b>Charged: </b>" + (charge?"yes":"no");
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Will revive a recently deceased person back to life. This device uses a lot of power and only has enough charge for one use.";
     }
 }

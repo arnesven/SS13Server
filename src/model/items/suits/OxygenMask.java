@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.OxyMaskDecorator;
 import model.characters.general.GameCharacter;
@@ -47,5 +49,10 @@ public class OxygenMask extends HeadGear {
     @Override
     public boolean permitsOver() {
         return false;
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Supplies the wearer with a flow of oxygen. WARNING: this mask does not provide an adequate protection for zero or near-zero pressure environments.";
     }
 }

@@ -107,4 +107,9 @@ public class MoneyStack extends ItemStack {
         }
         return super.getExtraDescriptionStats(gameData, performingClient);
     }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A wad of galactic credits (double dollars). Good for buying stuff, and bribing people.";
+    }
 }

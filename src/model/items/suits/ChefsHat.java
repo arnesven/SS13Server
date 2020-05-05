@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 public class ChefsHat extends HatItem {
 
@@ -42,4 +44,9 @@ public class ChefsHat extends HatItem {
 		return new ChefsHat();
 	}
 
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "Worn by chefs to make them appear more masterful. " +
+				"Some say that the placebo effect of this may be so strong that chefs actually become a bit more skilled in the kitchen.";
+	}
 }

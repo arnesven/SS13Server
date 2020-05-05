@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.SermonAction;
 import model.characters.general.GameCharacter;
@@ -56,6 +57,9 @@ public class Bible extends GameItem {
 	public int getGodPoints() {
 		return godPoints;
 	}
-	
 
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "A book filled with fantastic stories from a bygone age. The chaplain uses this book sometimes.";
+	}
 }

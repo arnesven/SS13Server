@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.decorators.ReduceCriticalChanceDecorator;
 import model.characters.general.GameCharacter;
 
@@ -41,5 +43,10 @@ public class SecOffsHelmet extends HatItem {
     @Override
     public boolean permitsOver() {
         return false;
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Protects the wearer somewhat from critical hits (50% less likely).";
     }
 }

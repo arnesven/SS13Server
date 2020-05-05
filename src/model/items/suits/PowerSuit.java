@@ -136,6 +136,11 @@ public class PowerSuit extends SuitItem {
         return false;
     }
 
+    @Override
+    public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+        return "A large mechanical suit which lets the pilot to lift heavy loads. Also protects the pilot a little from harm.";
+    }
+
     private class BrokenPowerSuitObject extends GameObject {
         public BrokenPowerSuitObject(Room position) {
             super("Power Suit (broken)", position);

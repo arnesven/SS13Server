@@ -2,6 +2,8 @@ package model.items.mining;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 
@@ -22,5 +24,10 @@ public class MiningDrill extends Weapon {
     @Override
     public GameItem clone() {
         return new MiningDrill();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A powerful drill which can drill into the hardest regolith rock. Used by asteroid miners.";
     }
 }

@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.characteractions.BuildNewRoomAction;
 import model.actions.general.Action;
 import model.actions.itemactions.RemoveDoorAction;
@@ -47,5 +48,10 @@ public class RoomPartsStack extends ItemStack {
     @Override
     public GameItem clone() {
         return new RoomPartsStack(getAmount());
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "The raw materials to build a new air tight room on the station. However, only the architect is skilled enough to do so.";
     }
 }

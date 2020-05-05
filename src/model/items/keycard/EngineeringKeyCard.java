@@ -2,6 +2,8 @@ package model.items.keycard;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.doors.ElectricalDoor;
@@ -25,5 +27,10 @@ public class EngineeringKeyCard extends KeyCard {
     @Override
     public GameItem clone() {
         return new EngineeringKeyCard();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Locks or unlocks engineering doors (yellow) on the station.";
     }
 }

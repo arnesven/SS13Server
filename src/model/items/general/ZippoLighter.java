@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.MakeMolotovAndThrowAction;
 
@@ -40,5 +41,10 @@ public class ZippoLighter extends LightItem {
     @Override
     public GameItem clone() {
         return new ZippoLighter();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Good for lighting smokes. Can be used to make a molotov cocktail if you have something flammable in a bottle.";
     }
 }

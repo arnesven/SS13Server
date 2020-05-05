@@ -32,4 +32,9 @@ public class RedWeedSeeds extends SeedsItem {
     protected Plant getPlant(Room position, GameData gameData, Actor planter, SoilPatch sp) {
         return new RedWeed(position, sp);
     }
+
+    @Override
+    protected String plantName() {
+        return "red weeds. Be careful though, red weeds spread everywhere";
+    }
 }

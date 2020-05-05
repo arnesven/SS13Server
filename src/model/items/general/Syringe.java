@@ -147,5 +147,16 @@ public class Syringe extends GameItem {
         return originalActor;
     }
 
+	@Override
+	public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+    	if (performingClient.getItems().contains(this)) {
+			return "<b>Is Filled: </b>" + (isFilled()?"yes":"no");
+		}
+		return "";
+	}
 
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "Good for filling with blood or other liquids.";
+	}
 }

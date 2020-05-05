@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.characteractions.BuildElectronicObjectAction;
 import model.actions.general.Action;
 import model.characters.crew.EngineerCharacter;
@@ -39,5 +40,10 @@ public class ElectronicParts extends GameItem {
     @Override
     public GameItem clone() {
         return new ElectronicParts();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Various electronic parts needed to construct new electronic equipment. However, only an engineer (or a robot) would be skilled enough to use them.";
     }
 }

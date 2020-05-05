@@ -99,7 +99,7 @@ public class Tools extends BluntWeapon {
 
 	@Override
 	public String getDescription(GameData gameData, Player performingClient) {
-		return "Good for repairing equipment, sealing hull breaches, defusing bombs, hacking bombs " +
+		return "Good for repairing equipment, sealing hull breaches, defusing bombs, hacking doors " +
 				super.getDescription(gameData, performingClient);
 	}
 }

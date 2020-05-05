@@ -21,10 +21,6 @@ public class SeeAllVision extends NormalVision {
                 addObjectsForRoom(sprites, player, r);
                 addItemsForRoom(sprites, player, r);
 
-                if (player.getSettings().get(PlayerSettings.SHOW_ITEMS_IN_MAP_WHEN_DEAD)) {
-                    addItemsForRoom(sprites, player, r);
-                }
-
                 strs.addAll(getOverlaysForSpritesInRoom(gameData, sprites, r, player));
            // }
         }

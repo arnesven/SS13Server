@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.events.damage.Damager;
@@ -47,5 +49,10 @@ public class InsulatedGloves extends GlovesItem {
                 super.beExposedTo(something, damager);
             }
         }
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Protects the wearer from electrical discharges when handling loose wires or malfunctioning equipment.";
     }
 }

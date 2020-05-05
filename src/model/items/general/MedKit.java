@@ -60,6 +60,6 @@ public class MedKit extends GameItem implements HandheldItem {
 
 	@Override
 	public String getDescription(GameData gameData, Player performingClient) {
-		return "Good for healing people.";
+		return "Good for healing people, although it can only be used a couple of times before the supplies run out.";
 	}
 }

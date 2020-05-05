@@ -1,6 +1,7 @@
 package model.items.general;
 
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.CrimeRecordsAction;
 import model.actions.objectactions.ReportCrimeAction;
@@ -33,5 +34,10 @@ public class SecurityRadio extends Radio {
         } catch (NoSuchThingException e) {
             throw new IllegalStateException("Cannot get specific action for security radio, no crime console found.");
         }
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Can be used to report crimes remotely. A connection to the Crime Records Console is needed however.";
     }
 }

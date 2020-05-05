@@ -36,4 +36,9 @@ public class MushroomSpores extends SeedsItem {
     public GameItem clone() {
         return new MushroomSpores();
     }
+
+    @Override
+    protected String plantName() {
+        return "mushrooms";
+    }
 }

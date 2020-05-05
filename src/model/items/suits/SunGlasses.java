@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.CoolDecorator;
 import model.characters.decorators.InstanceChecker;
@@ -55,4 +57,8 @@ public class SunGlasses extends HeadGear {
 		return true;
 	}
 
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "A pair of stylish sunglasses. Cool people wear these.";
+	}
 }

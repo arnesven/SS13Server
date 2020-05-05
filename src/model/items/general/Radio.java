@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.items.NoSuchThingException;
 import model.objects.consoles.Console;
@@ -52,6 +53,11 @@ public abstract class Radio extends UplinkItem {
     protected abstract Console getSpecificConsole(GameData gameData) throws NoSuchThingException;
 
     protected abstract Action getSpecificAction(GameData gameData);
+
+    @Override
+    public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+        return "<b>Connection: </b>" + (noConnect?"None":"OK");
+    }
 
     @Override
     public Sprite getSprite(Actor whosAsking) {

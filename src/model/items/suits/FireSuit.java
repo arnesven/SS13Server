@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.FireProtection;
@@ -62,6 +64,9 @@ public class FireSuit extends FullBodySuit {
 	public FireSuit clone() {
 		return new FireSuit();
 	}
-	
 
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "Protects the wearer from fire.";
+	}
 }

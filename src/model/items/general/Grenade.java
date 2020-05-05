@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.Player;
 import model.Target;
 import model.events.animation.AnimatedSprite;
 import model.events.animation.AnimationEvent;
@@ -97,5 +98,8 @@ public class Grenade extends GameItem implements Damager, ExplodableItem {
 
     }
 
-
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "An exploding cannister, designed to be thrown at an adversary, through a window or into an adjacent room.";
+    }
 }

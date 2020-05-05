@@ -3,6 +3,7 @@ package model.items;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.PutHandCuffsOnAction;
 import model.items.general.GameItem;
@@ -35,5 +36,10 @@ public class HandCuffs extends GameItem {
     @Override
     public GameItem clone() {
         return new HandCuffs();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Good for restraining rowdy crewmembers or criminals. A handcuffed character can move, and watch others but not take other actions.";
     }
 }

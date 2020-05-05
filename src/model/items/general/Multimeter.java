@@ -23,7 +23,7 @@ public class Multimeter extends UplinkItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("multimeter", "device.png", 0, this);
+        return new Sprite("multimeter", "device.png", 36, this);
     }
 
     @Override
@@ -50,6 +50,6 @@ public class Multimeter extends UplinkItem {
 
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
-        return "Good for measuring electric current, voltage, magnetic fields and radiation.";
+        return "Good for measuring electric current, voltage, magnetic fields and radiation. Specifically useful when hacking doors.";
     }
 }

@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.BuildRobotAction;
 import model.characters.crew.RoboticistCharacter;
@@ -46,5 +47,10 @@ public class RobotParts extends GameItem {
     @Override
     public GameItem clone() {
         return new RobotParts();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "The parts needed to construct a fully functioning robot. However, only roboticists (and the robots themselves) have the technical know-how to do this.";
     }
 }

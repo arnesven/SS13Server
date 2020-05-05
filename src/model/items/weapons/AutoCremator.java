@@ -3,6 +3,7 @@ package model.items.weapons;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
@@ -92,5 +93,10 @@ public class AutoCremator extends Weapon {
         String pronoun = (((Actor) beingCremated).getCharacter().getGender()=="Man"?"he":"she");
         performingClient.addTolastTurnInfo("You cremated " + targetAsActor.getBaseName() + ", may " + pronoun + " rest in peace.");
 
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Good for cremating dead bodies. The ashes of dead crew members should be sent to their relatives (use the mailbox).";
     }
 }

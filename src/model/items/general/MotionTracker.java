@@ -2,6 +2,8 @@ package model.items.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.Target;
 import model.characters.decorators.AnimalOverlayDecorator;
 import model.characters.general.GameCharacter;
@@ -17,7 +19,7 @@ public class MotionTracker extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("motiontracker", "device.png", 4, this);
+        return new Sprite("motiontracker", "device.png", 14, this);
     }
 
     @Override
@@ -46,5 +48,10 @@ public class MotionTracker extends GameItem {
     @Override
     public GameItem clone() {
         return new MotionTracker();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A device which measures micro changes in atmosphere density. Allows the wielder to detect creatures in nearby locations.";
     }
 }

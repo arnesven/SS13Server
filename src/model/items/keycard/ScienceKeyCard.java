@@ -2,6 +2,8 @@ package model.items.keycard;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.map.doors.ElectricalDoor;
@@ -25,5 +27,10 @@ public class ScienceKeyCard extends KeyCard {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("sciencekeycard", "card.png", 1, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Locks or unlocks science doors (green) on the station";
     }
 }

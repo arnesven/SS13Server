@@ -1,8 +1,6 @@
 package model.items.general;
 
-import model.Actor;
-import model.ItemHolder;
-import model.Target;
+import model.*;
 import model.map.rooms.Room;
 
 /**
@@ -90,5 +88,10 @@ public abstract class ItemStack extends GameItem {
         if (garbage != null) {
             to.getItems().remove(garbage);
         }
+    }
+
+    @Override
+    public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+        return "<b>Quantity </b>: " + amount;
     }
 }

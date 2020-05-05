@@ -2,6 +2,7 @@ package model.characters.decorators;
 
 import model.Actor;
 import model.GameData;
+import model.actions.MoveAction;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.general.WatchAction;
@@ -31,7 +32,7 @@ public class HandCuffedDecorator extends CharacterDecorator {
 
     @Override
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
-        at.removeIf(((Action a) -> ! (a instanceof WatchAction)));
+        at.removeIf(((Action a) -> !(a instanceof WatchAction) && !(a instanceof MoveAction)));
         at.add(new ResistHandcuffsAction());
     }
 

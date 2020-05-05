@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.ColdProtection;
 import model.characters.decorators.InstanceChecker;
@@ -42,5 +44,10 @@ public class Sweater extends TorsoSuit {
     @Override
     public boolean permitsOver() {
         return true;
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Nice and warm! Protects the wearer from getting to chilly.";
     }
 }

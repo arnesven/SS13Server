@@ -3,6 +3,7 @@ package model.items.mining;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
@@ -45,6 +46,16 @@ public class OreShardBag extends GameItem {
     @Override
     public double getWeight() {
         return shards.size()*0.2 + 0.1;
+    }
+
+    @Override
+    public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+        return "<b>Shards: </b>" + shards.size();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A bag for storing ore shards.";
     }
 
     @Override

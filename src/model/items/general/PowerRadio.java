@@ -2,6 +2,7 @@ package model.items.general;
 
 import graphics.OverlaySprite;
 import graphics.sprites.AlsoSeePowerVision;
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -39,6 +40,11 @@ public class PowerRadio extends Radio {
         } catch (NoSuchThingException e) {
             throw new IllegalStateException("Cannot get specific action for Power Radio, no power console found on station.");
         }
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("powerradio", "device.png", 13, this);
     }
 
     @Override
@@ -82,5 +88,10 @@ public class PowerRadio extends Radio {
             strs.addAll(new AlsoSeePowerVision().getOverlaySprites(player, gameData));
             return strs;
         }
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A device which lets the user access a subset of the generator consoles functions. A connection to the console is needed however.";
     }
 }

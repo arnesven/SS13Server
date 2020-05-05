@@ -2,6 +2,8 @@ package model.items.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.map.doors.ElectricalDoor;
 
 public class UniversalKeyCard extends KeyCard {
@@ -25,5 +27,8 @@ public class UniversalKeyCard extends KeyCard {
 		return true;
 	}
 
-
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "Unlocks or locks any door on the station. Also needed to approve venting of station (in case of severe fires).";
+	}
 }
