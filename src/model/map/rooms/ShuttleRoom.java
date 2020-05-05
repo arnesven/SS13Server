@@ -1,5 +1,6 @@
 package model.map.rooms;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.items.NoSuchThingException;
@@ -8,15 +9,21 @@ import model.map.DockingPoint;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
+import model.objects.decorations.ShuttleThruster;
+import model.objects.power.LifeSupport;
+import model.objects.power.Lighting;
 import util.Logger;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class ShuttleRoom extends Room {
 
+    private final ShuttleThruster thruster;
     private DockingPoint dockedAtPoint;
     private Door dockedDoor;
     private int oldDoorToID;
@@ -24,13 +31,44 @@ public class ShuttleRoom extends Room {
     private Map<String, String> nextDirection;
     private Map<String, Set<Point>> forbiddenDockingDirections;
 
-
     public ShuttleRoom(int ID, String name, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
         super(ID, name, x, y, width, height, neighbors, doors);
         Map<String, String> newMap = Map.of("right", "up", "up", "left", "left", "down", "down", "right");
         nextDirection = newMap;
-        forbiddenDockingDirections = Map.of("right", Set.of(new Point(1, 0)), "up", Set.of(new Point(0, -1)),
-                "left", Set.of(new Point(-1, 0)), "down", Set.of(new Point(0, 1)));
+        forbiddenDockingDirections = Map.of("right", Set.of(new Point(1, 0), new Point(-1, 0)),
+                "up", Set.of(new Point(0, -1), new Point(0, 1)),
+                "left", Set.of(new Point(-1, 0), new Point(1, 0)),
+                "down", Set.of(new Point(0, 1), new Point(0, -1)));
+        thruster = new ShuttleThruster(this);
+        addObject(thruster);
+    }
+
+    @Override
+    public boolean isPartOfStation() {
+        return false;
+    }
+
+    @Override
+    public LifeSupport getLifeSupport() {
+        return null;
+    }
+
+    @Override
+    public Lighting getLighting() {
+        return null;
+    }
+
+    @Override
+    public void setZ(int i) {
+        super.setZ(i);
+        thruster.setAbsolutePosition(thruster.getAbsoluteX(), thruster.getAbsoluteY(), i);
+    }
+
+    @Override
+    public List<Sprite> getAlwaysSprites(Actor whosAsking) {
+        List<Sprite> list = new ArrayList<>();
+        list.add(thruster.getSprite(whosAsking));
+        return list;
     }
 
     @Override
@@ -40,6 +78,7 @@ public class ShuttleRoom extends Room {
 
     public void moveTo(int x, int y, int z) {
         setCoordinates(x, y, z);
+        thruster.moveTo(x, y, z);
     }
 
     @Override
