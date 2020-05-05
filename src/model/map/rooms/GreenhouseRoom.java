@@ -29,5 +29,9 @@ public class GreenhouseRoom extends ScienceRoom {
         	this.addObject(new GreenHousePlant(this));
 		}
 	}
-	
+
+	@Override
+	protected String getWallAppearence() {
+		return "light";
+	}
 }

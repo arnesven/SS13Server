@@ -32,10 +32,11 @@ public class DonutSS13Builder extends MapBuilder {
                 new Door[]{new ScienceDoor(1.5, 6.0, 3, 27, true)}  );
         gm.addRoom(green, ss13, "aft");
 
-        gm.addRoom(new HallwayRoom( 4, "Airtunnel"           , ""       , 3,  7, 1, 1, new int[]{3, 5}      ,
+        AirtunnelRoom airtunnelRoom = new AirtunnelRoom( 4, "Airtunnel"           , ""       , 3,  7, 1, 1, new int[]{3, 5}      ,
                 new Door[]{new NormalDoor(3.0, 7.5, 4, 3),
-                        new NormalDoor(4.0, 7.5, 4, 5)}),
-                ss13, "aft");
+                        new NormalDoor(4.0, 7.5, 4, 5)});
+        gm.addRoom(airtunnelRoom, ss13, "aft");
+
         gm.addRoom(new HallwayRoom( 5, "Aft Hall"            , "AFT"    , 4,  4, 2, 4, new int[]{2, 4, 9, 23},
                 new Door[]{new NormalDoor(6.0, 4.5, 5, 23),
                         new NormalDoor(5.5, 8.0, 5, 9)}),

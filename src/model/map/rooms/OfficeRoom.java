@@ -18,6 +18,10 @@ public class OfficeRoom extends CommandRoom {
         MailBox mail = new MailBox(this);
         addObject(mail);
         addObject(new OfficeChair(this));
+    }
 
+    @Override
+    protected String getWallAppearence() {
+        return "light";
     }
 }

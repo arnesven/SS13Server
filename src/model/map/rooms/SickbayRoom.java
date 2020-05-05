@@ -15,4 +15,9 @@ public class SickbayRoom extends ScienceRoom {
         addObject(new StasisPod(this));
         addObject(new SurgeryTable(this));
     }
+
+    @Override
+    protected String getWallAppearence() {
+        return "light";
+    }
 }

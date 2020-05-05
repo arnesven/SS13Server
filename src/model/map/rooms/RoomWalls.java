@@ -8,9 +8,11 @@ public class RoomWalls implements Serializable {
 
     private WallSet darkSet;
     private WallSet shuttleSet;
+    private WallSet lightSet;
 
     public RoomWalls() {
         darkSet = new DarkWallSet("dark");
+        lightSet = new LightWallSet("light");
         shuttleSet = new ShuttleWallSet("shuttle");
         new RightShuttleWallSet("shuttleright");
         new UpShuttleWallSet("shuttleup");
@@ -230,6 +232,33 @@ public class RoomWalls implements Serializable {
             new Sprite("wall" + name + "LL", "shuttle.png", 5, 8, null);
             new Sprite("wall" + name + "LR", "shuttle.png", 7, 8, null);
             new Sprite("wall" + name + "UR", "shuttle.png", 8, 8, null);
+        }
+    }
+
+    private class LightWallSet extends WallSet {
+        public LightWallSet(String name) {
+            super(name);
+            new Sprite("wall" + name + "top", "walls.png", 18, 3, null);
+            new Sprite("wall" + name + "side", "walls.png", 9, 3, null);
+            new Sprite("wall" + name + "corner", "walls.png", 12, 3, null);
+            new Sprite("wall" + name + "LL", "walls.png", 11, 3, null);
+            new Sprite("wall" + name + "LR", "walls.png", 15, 3, null);
+            new Sprite("wall" + name + "UR", "walls.png", 16, 3, null);
+            new Sprite("wall" + name + "roof", "walls.png", 5, 3, null);
+
+            new Sprite("wall" + name + "windowleft", "walls.png", 5, 21, null);
+            new Sprite("wall" + name + "windowright", "walls.png", 6, 21, null);
+            new Sprite("wall" + name + "windowtop", "walls.png", 13, 20, null);
+            new Sprite("wall" + name + "windowbottom", "walls.png", 14, 20, null);
+            new Sprite("wall" + name + "windowup", "walls.png", 15, 20, null);
+            new Sprite("wall" + name + "windowdown", "walls.png", 16, 20, null);
+            new Sprite("wall" + name + "windowlinks", "walls.png", 11, 21, null);
+            new Sprite("wall" + name + "windowrechts", "walls.png", 12, 21, null);
+
+            new Sprite("wall" + name + "windowtopabove", "walls.png", 7, 21, null);
+            new Sprite("wall" + name + "windowbottomabove", "walls.png", 8, 21, null);
+            new Sprite("wall" + name + "windowupabove", "walls.png", 9, 21, null);
+            new Sprite("wall" + name + "windowdownabove", "walls.png", 10, 21, null);
         }
     }
 }

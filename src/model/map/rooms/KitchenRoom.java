@@ -24,4 +24,8 @@ public class KitchenRoom extends SupportRoom {
 
 	}
 
+	@Override
+	protected String getWallAppearence() {
+		return "light";
+	}
 }

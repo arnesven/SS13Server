@@ -23,6 +23,10 @@ public class LabRoom extends ScienceRoom {
         this.addObject(new ChemicalApparatus(this));
         this.addObject(new CloneOMatic(this, gc));
         this.addItem(new RadiationSuit());
+	}
 
+	@Override
+	protected String getWallAppearence() {
+		return "light";
 	}
 }

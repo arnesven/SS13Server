@@ -2,6 +2,7 @@ package model.items.foods;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.characters.decorators.ChilledDecorator;
 import model.characters.general.GameCharacter;
 
@@ -34,4 +35,10 @@ public abstract class HealingFood extends FoodItem {
     public Actor getMaker() {
         return maker;
     }
+
+    @Override
+    public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+        return "<b>Made by: </b>" + (maker == performingClient?"You":"Someone else");
+    }
+
 }
