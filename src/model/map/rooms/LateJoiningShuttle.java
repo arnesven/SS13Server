@@ -10,7 +10,7 @@ public class LateJoiningShuttle extends ShuttleRoom {
     public LateJoiningShuttle(GameData gameData) {
         super(gameData.getMap().getMaxID()+1, "AutoTaxi",
                 0, 0, 2, 1, new int[]{},
-                new Door[]{});
+                new Door[]{}, 1);
     }
 
     public static class UndockingEvent extends Event {

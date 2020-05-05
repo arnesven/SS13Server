@@ -33,7 +33,7 @@ public class ShuttleRoom extends Room {
     private Map<String, Set<Point>> forbiddenDockingDirections;
     private List<ShuttleDecoration> decorations;
 
-    public ShuttleRoom(int ID, String name, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
+    public ShuttleRoom(int ID, String name, int x, int y, int width, int height, int[] neighbors, Door[] doors, int numberOfChairs) {
         super(ID, name, x, y, width, height, neighbors, doors);
         Map<String, String> newMap = Map.of("right", "up", "up", "left", "left", "down", "down", "right");
         nextDirection = newMap;
@@ -43,7 +43,7 @@ public class ShuttleRoom extends Room {
                 "down", Set.of(new Point(0, 1), new Point(0, -1)));
         decorations = new ArrayList<>();
         addDecoration(new ShuttleThruster(this));
-        for (int i = 3; i > 0; --i) {
+        for (int i = numberOfChairs; i > 0; --i) {
             addDecoration(new ShuttleChair(this));
         }
     }
