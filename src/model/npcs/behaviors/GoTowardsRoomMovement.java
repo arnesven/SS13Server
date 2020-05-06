@@ -6,9 +6,7 @@ import model.map.rooms.Room;
 import model.npcs.NPC;
 import util.Logger;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by erini02 on 18/04/16.
@@ -25,15 +23,17 @@ public abstract class GoTowardsRoomMovement implements MovementBehavior{
     public void move(final NPC npc) {
         List<Room> fireRooms = getEligableRooms(npc, gameData);
         if (fireRooms.size() == 0) {
-            Logger.log("No fires... standing still");
+            Logger.log("No eligible rooms... standing still");
             return;
         }
+
+        Map<Room, Integer> distances = PathFinding.getDistanceMap(fireRooms, npc.getPosition());
+
 
         Collections.sort(fireRooms, new Comparator<Room>() {
             @Override
             public int compare(Room room, Room t1) {
-                return GameMap.shortestDistance(npc.getPosition(), room) -
-                        GameMap.shortestDistance(npc.getPosition(), t1);
+                return distances.get(room) - distances.get(t1);
             }
         });
 
