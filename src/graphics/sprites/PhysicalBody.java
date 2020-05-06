@@ -332,4 +332,8 @@ public class PhysicalBody implements SpriteObject, Serializable {
     public double getAbsoluteZ() {
         return 0;
     }
+
+    public boolean getGender() {
+        return gender;
+    }
 }

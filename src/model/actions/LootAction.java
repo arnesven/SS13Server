@@ -73,10 +73,10 @@ public class LootAction extends TargetingAction {
         }
 
         if (lootall) {
-            return super.getDescription(whosAsking) + " " + target.getName();
+            return getVerb(whosAsking) + " " + target.getName();
         }
 
-        return super.getDescription(whosAsking) + (item!=null?(" a " + item.getPublicName(whosAsking)):"") + " from " + target.getName();
+        return getVerb(whosAsking) + (item!=null?(" a " + item.getPublicName(whosAsking)):"") + " from " + target.getName();
     }
 
     @Override
@@ -169,6 +169,7 @@ public class LootAction extends TargetingAction {
     protected boolean itemAvailable(Actor performingClient, GameItem it) {
         return target.getItems().contains(it) || ((Actor)target).getCharacter().getEquipment().getTopEquipmentAsList().contains(it);
     }
+
 
 
 }

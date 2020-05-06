@@ -57,13 +57,11 @@ public abstract class GameCharacter implements Serializable {
 	private Room position = null;
 	private double speed;
 	private List<GameItem> items = new ArrayList<>();
-	//private SuitItem suit;
 	private Equipment equipment;
 	private Actor killer;
 	private String killString;
     private GameItem killerItem;
-	private String gender;
-    private PhysicalBody physBody;
+	private PhysicalBody physBody;
 	private SpacePosition spacePosition = null;
 
 
@@ -72,8 +70,7 @@ public abstract class GameCharacter implements Serializable {
 		this.startingRoom = startRoom;
 		this.speed = speed;
 		this.equipment = new Equipment(this);
-        gender = MyRandom.randomGender();
-        physBody = new PhysicalBody(gender.equals("man"), this);
+        physBody = new PhysicalBody(MyRandom.randomGender().equals("man"), this);
         killerItem = null;
 	}
 
@@ -474,11 +471,14 @@ public abstract class GameCharacter implements Serializable {
 	 * @return the characters gender
 	 */
 	public String getGender() {
-		return gender;
+		if (physBody.getGender()) {
+			return "man";
+		}
+		return "woman";
 	}
 	
 	public void setGender(String gen) {
-		this.gender = gen;
+		physBody.setGender(gen.equals("man"));
 	}
 
 	/**
@@ -722,7 +722,6 @@ public abstract class GameCharacter implements Serializable {
         selectedJob.killer = this.killer;
         selectedJob.killerItem = this.killerItem;
         selectedJob.killString = this.killString;
-        selectedJob.gender = this.gender;
         selectedJob.physBody = this.physBody;
     }
 
