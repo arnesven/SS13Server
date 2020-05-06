@@ -10,6 +10,7 @@ import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.misc.ReligiousFigure;
 import model.objects.Altar;
+import util.Logger;
 import util.MyRandom;
 
 public class PrayToReligiousFigure extends PersonalGoal {
@@ -41,7 +42,7 @@ public class PrayToReligiousFigure extends PersonalGoal {
                 super.doAfterActions(gameData);
                 Action a = ((Player)getActor()).getNextAction();
                 if (a instanceof PrayerAction) {
-                    if (((PrayerAction) a).getSelectedGod() == god) {
+                    if (((PrayerAction) a).getSelectedGod().getName().equals(god.getName())) {
                         didTimes += 1;
                     }
                 }
