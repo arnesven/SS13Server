@@ -4,8 +4,8 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
-import model.actions.objectactions.CrowbarDoorAction;
-import model.actions.objectactions.CrowbarDoorAndMoveThroughAction;
+import model.actions.objectactions.ForceOpenDoorAction;
+import model.actions.objectactions.ForceOpenDoorAndMoveThrough;
 import model.actions.roomactions.*;
 import model.items.general.GameItem;
 import model.items.general.KeyCard;
@@ -13,7 +13,6 @@ import model.items.general.UniversalKeyCard;
 import model.items.general.Tools;
 import model.items.weapons.Crowbar;
 import util.HTMLText;
-import util.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -132,8 +131,8 @@ public abstract class DoorState implements Serializable {
         protected List<Action> getActions(GameData gameData, Actor forWhom) {
             List<Action> at = new ArrayList<>();
             if (GameItem.hasAnItemOfClass(forWhom, Crowbar.class) || GameItem.hasAnItemOfClass(forWhom, Tools.class)) {
-                at.add(new CrowbarDoorAction(door));
-                at.add(new CrowbarDoorAndMoveThroughAction(door));
+                at.add(new ForceOpenDoorAction(door));
+                at.add(new ForceOpenDoorAndMoveThrough(door));
             }
             return at;
         }

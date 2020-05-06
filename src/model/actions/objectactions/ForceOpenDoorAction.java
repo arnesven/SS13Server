@@ -11,11 +11,11 @@ import model.map.doors.ElectricalDoor;
 
 import java.util.List;
 
-public class CrowbarDoorAction extends Action {
+public class ForceOpenDoorAction extends Action {
     private final ElectricalDoor door;
 
-    public CrowbarDoorAction(ElectricalDoor unpoweredDoor) {
-        super("Crowbar Open", SensoryLevel.PHYSICAL_ACTIVITY);
+    public ForceOpenDoorAction(ElectricalDoor unpoweredDoor) {
+        super("Force Open", SensoryLevel.PHYSICAL_ACTIVITY);
         this.door = unpoweredDoor;
     }
 

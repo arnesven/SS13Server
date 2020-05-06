@@ -5,10 +5,10 @@ import model.GameData;
 import model.Player;
 import model.map.doors.ElectricalDoor;
 
-public class CrowbarDoorAndMoveThroughAction extends CrowbarDoorAction {
+public class ForceOpenDoorAndMoveThrough extends ForceOpenDoorAction {
     private final ElectricalDoor door;
 
-    public CrowbarDoorAndMoveThroughAction(ElectricalDoor unpoweredDoor) {
+    public ForceOpenDoorAndMoveThrough(ElectricalDoor unpoweredDoor) {
         super(unpoweredDoor);
         setName(super.getName() + " and Move Through");
         this.door = unpoweredDoor;
