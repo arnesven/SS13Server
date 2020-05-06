@@ -2,7 +2,9 @@ package model.map.rooms;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
 import model.Player;
+import model.events.NoPressureEverEvent;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
@@ -50,5 +52,13 @@ public class SolarPanelRoom extends DecorativeRoom {
     @Override
     public LifeSupport getLifeSupport() {
         return null;
+    }
+
+    @Override
+    public void doSetup(GameData gameData) {
+        super.doSetup(gameData);
+        NoPressureEverEvent npe = new NoPressureEverEvent(this);
+        this.addEvent(npe);
+        gameData.addEvent(npe);
     }
 }
