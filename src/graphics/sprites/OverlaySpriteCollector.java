@@ -61,9 +61,9 @@ public abstract class OverlaySpriteCollector {
                 double y = sp.getObjectReference().getAbsoluteY();
                 double z = sp.getObjectReference().getAbsoluteZ();
                 strs.add(new OverlaySprite(sp, x, y, z,
-                        r, forWhom, sp.getFrames()));
+                        r, forWhom, sp.getMaximumFrames()));
             } else {
-                strs.add(new OverlaySprite(sp, 0, 0, 0, r, forWhom, sp.getFrames()));
+                strs.add(new OverlaySprite(sp, 0, 0, 0, r, forWhom, sp.getMaximumFrames()));
             }
             //gridX += xIncr;
             //if (gridX >= r.getWidth()) {

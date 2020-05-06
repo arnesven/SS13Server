@@ -27,16 +27,17 @@ public class GoTowardsBrokenMovement extends GoTowardsRoomMovement {
             } else {
                 for (BreakableObject ob : r.getBreakableObjects(gameData)) {
                     if (ob.isDamaged() || ob.isBroken()) {
-                        if (!brokenList.contains(r)) {
-                            brokenList.add(r);
-                        }
+                        brokenList.add(r);
+                        break; // Only one such thing needed to be eligible for repair.
                     }
                 }
             }
+
             for (Actor a : gameData.getActors()) {
                 if (a != npc && (a instanceof Repairable) && ((Repairable) a).isDamaged()) {
                     if (!brokenList.contains(r)) {
                         brokenList.add(r);
+                        break; // Only one such thing needed to be eligible for repair.
                     }
                 }
             }

@@ -299,4 +299,7 @@ public class Sprite implements Serializable {
     }
 
 
+    public int getMaximumFrames() {
+        return findMaxFrames();
+    }
 }
