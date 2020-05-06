@@ -229,8 +229,10 @@ public abstract class GameStats {
                 "<tr><td> Fires put out: </td><td>" + getFireString(gameData) + "</td></tr>" +
                 "<tr><td> Hull breaches fixed: </td><td>" + getHullString(gameData) + "</td></tr>";
         try {
+            SimulatePower sp = (SimulatePower) gameData.getGameMode().getEvents().get("simulate power");
+            double output = sp.getAvailablePower(gameData) / sp.getPowerDemand(gameData);
             res +=
-                    "<tr><td> Station power output: </td><td>" + String.format("%.1f", gameData.findObjectOfType(PositronGenerator.class).getPowerOutput() * 100.0) +
+                    "<tr><td> Station power output: </td><td>" + String.format("%.1f", output * 100.0) +
                             "%  <a target='_blank' href='https://www.wolframalpha.com/input/?i=plot" + powerHistoryString() + "'>graph</a></td></tr>";
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "What? no generator on station?");

@@ -47,7 +47,12 @@ public abstract class SimulatePower extends Event {
 			handleLifeSupport(gameData);
 			handleDarkness(gameData);
 			handleOvercharge(gameData, ps);
+			updateHistory(gameData);
 		}
+	}
+
+	private void updateHistory(GameData gameData) {
+		history.add(getAvailablePower(gameData) * 1000);
 	}
 
 	private void handleOvercharge(GameData gameData, List<PowerSupply> ps) {
