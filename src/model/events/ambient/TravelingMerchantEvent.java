@@ -80,15 +80,8 @@ public class TravelingMerchantEvent extends AmbientEvent {
             e.printStackTrace();
         }
 
+        merchantShip.bootActors();
         merchantShip.undockYourself(gameData);
-        for (Actor a : merchantShip.getActors()) {
-            try {
-                a.setPosition(gameData.getRoom("Shuttle Gate"));
-                a.addTolastTurnInfo("The merchant ship left, you went to the Shuttle Gate.");
-            } catch (NoSuchThingException e) {
-                e.printStackTrace();
-            }
-        }
         gameData.getMap().moveRoomToLevel(merchantShip, "prison planet", "merchant outpost");
 
         leftAlready = true;

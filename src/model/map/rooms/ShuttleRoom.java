@@ -190,4 +190,18 @@ public class ShuttleRoom extends Room {
     public boolean isDocked() {
         return dockedAtPoint != null;
     }
+
+    public void bootActors() {
+        Room bootRoom;
+        if (getDockingPointRoom().getNeighborList().isEmpty()) {
+            bootRoom = getDockingPointRoom();
+        } else {
+            bootRoom  =getDockingPointRoom().getNeighborList().get(0);
+        }
+
+        for (Actor a : getActors()) {
+            a.setPosition(bootRoom);
+            a.addTolastTurnInfo("The " + getName().toLowerCase() + " left, you were moved to the " + bootRoom.getName() + ".");
+        }
+    }
 }

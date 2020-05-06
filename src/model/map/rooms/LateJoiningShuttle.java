@@ -26,6 +26,7 @@ public class LateJoiningShuttle extends ShuttleRoom {
         @Override
         public void apply(GameData gameData) {
             if (gameData.getRound() > turnSet) {
+                shuttle.bootActors();
                 shuttle.undockYourself(gameData);
                 gameData.getMap().moveRoomToLevel(shuttle, "deep space", "deep space");
             }
