@@ -1,5 +1,6 @@
 package model.actions.characteractions;
 
+import graphics.sprites.Sprite;
 import model.characters.general.GameCharacter;
 import util.Logger;
 import util.MyRandom;
@@ -103,5 +104,9 @@ public class InfectAction extends TargetingAction {
 		return "infected";
 	}
 
-	
+
+	@Override
+	public Sprite getAbilitySprite() {
+		return new Sprite("infectability", "weapons2.png", 22, 44, null);
+	}
 }
