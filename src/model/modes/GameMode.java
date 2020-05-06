@@ -19,6 +19,7 @@ import model.items.NoSuchThingException;
 import model.items.suits.Rapido;
 import model.map.DockingPoint;
 import model.map.GameMap;
+import model.map.rooms.DecorativeRoom;
 import model.map.rooms.LateJoiningShuttle;
 import model.misc.ChristmasBooster;
 import model.modes.goals.PersonalGoalAssigner;
@@ -627,7 +628,10 @@ public abstract class GameMode implements Serializable {
 		double PARASITE_SPAWN_CHANCE = 0.33;
 
 		if (MyRandom.nextDouble() < PARASITE_SPAWN_CHANCE) {
-			Room randomRoom = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
+			List<Room> parasiteRooms = new ArrayList<>();
+			parasiteRooms.addAll(gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME));
+			parasiteRooms.removeIf((Room r) -> r instanceof DecorativeRoom || !r.isPartOfStation());
+			Room randomRoom = MyRandom.sample(parasiteRooms);
 			NPC parasite = new ParasiteNPC(randomRoom);
             Logger.log("Added parasite in " + randomRoom.getName());
 			gameData.addNPC(parasite);
