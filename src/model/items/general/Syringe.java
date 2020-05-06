@@ -10,6 +10,7 @@ import model.Target;
 import model.actions.general.Action;
 import model.actions.general.TargetingAction;
 import model.actions.itemactions.DrawBloodAction;
+import model.characters.crew.GeneticistCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.ParasiteCharacter;
 import model.characters.general.RobotCharacter;
@@ -149,14 +150,19 @@ public class Syringe extends GameItem {
 
 	@Override
 	public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+    	String content = "";
     	if (performingClient.getItems().contains(this)) {
-			return "<b>Is Filled: </b>" + (isFilled()?"yes":"no");
+			content += "<b>Is Filled: </b>" + (isFilled()?"yes":"no");
+			if (isFilled() && performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof GeneticistCharacter)) {
+				content += "<br/><b>Mutation: </b>" + getMutation().getName();
+			}
 		}
-		return "";
+		return content;
 	}
 
 	@Override
 	public String getDescription(GameData gameData, Player performingClient) {
 		return "Good for filling with blood or other liquids.";
 	}
+
 }
