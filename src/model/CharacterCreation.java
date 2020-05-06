@@ -17,7 +17,7 @@ public class CharacterCreation implements Serializable {
     private GameItem selected = null;
 
     public CharacterCreation() {
-        list = List.of(new Doughnut(null), new Crowbar(), new SunGlasses(), new MoneyStack(15));
+        list = List.of(new Doughnut(null), new Crowbar(), new SunGlasses(), new MoneyStack(20));
     }
 
     public String getHTML() {
@@ -32,7 +32,8 @@ public class CharacterCreation implements Serializable {
                 "<h2> " +"Character Creation!" + "</h2>" +
                 "Please customize your appearance!</p><br/><br/><br/>" +
                 HTMLText.makeCentered("<b><i>Special Offer!</b></i>") +
-                "<p>Nanotrasen offers any crew member some extra starting gear, for FREE!<br/><ul>" +
+                "<p>Due to a recent increase in work-related fatalities, Nanotrasen now offers each crew member an <i>Emergency Kit</i>! The kit contains gear "  +
+                        "which is invaluable in emergencies, should the arise during your shift. Also Nanotrasen offers any crew member some extra starting gear, for FREE!<br/><ul>" +
                         offeredItems.toString()
         + "</ul>");
     }

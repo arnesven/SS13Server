@@ -1,5 +1,7 @@
 package model.objects.power;
 
+import model.GameData;
+
 public interface PowerSupply {
 
     String getName();
@@ -10,4 +12,5 @@ public interface PowerSupply {
 
     void drainEnergy(double d); // Called when an amount of energy is drained from this power supply
 
+    void updateYourself(GameData gameData);
 }

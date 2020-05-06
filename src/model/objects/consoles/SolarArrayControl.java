@@ -73,6 +73,11 @@ public class SolarArrayControl extends Console implements PowerSupply {
     }
 
     @Override
+    public void updateYourself(GameData gameData) {
+
+    }
+
+    @Override
     public double getPowerConsumption() {
         return 0.0;
     }

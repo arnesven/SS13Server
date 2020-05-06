@@ -115,9 +115,9 @@ public class PositronGenerator extends BreakableObject implements Repairable, Po
         return level;
     }
 
-    @Deprecated
+    @Override
     public void updateYourself(GameData gameData) {
-
+        level += dlevel;
     }
 
 

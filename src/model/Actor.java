@@ -11,6 +11,7 @@ import model.characters.decorators.*;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
+import model.items.EmergencyKit;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.suits.Wearable;
@@ -506,6 +507,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
     public void giveStartingItemsToSelf() {
         List<GameItem> startingItems = this.getCharacter().getStartingItems();
         Logger.log("Giving starting items to " + this.getPublicName());
+        this.addItem(new EmergencyKit(), null);
         for (GameItem it : startingItems) {
             if (it.canBePickedUp()) {
                 this.addItem(it, null);

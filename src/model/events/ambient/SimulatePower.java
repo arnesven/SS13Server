@@ -43,11 +43,18 @@ public abstract class SimulatePower extends Event {
 	public void apply(GameData gameData) {
         List<PowerSupply> ps = this.findPowerSources(gameData);
         if (ps != null) {
+        	updateSources(gameData, ps);
         	updatePower(gameData, ps);
 			handleLifeSupport(gameData);
 			handleDarkness(gameData);
 			handleOvercharge(gameData, ps);
 			updateHistory(gameData);
+		}
+	}
+
+	private void updateSources(GameData gameData, List<PowerSupply> ps) {
+		for (PowerSupply pss : ps) {
+			pss.updateYourself(gameData);
 		}
 	}
 

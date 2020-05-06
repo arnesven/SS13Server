@@ -17,6 +17,7 @@ import model.items.mining.MiningDrill;
 import model.items.mining.OreShard;
 import model.items.mining.OreShardBag;
 import model.items.suits.*;
+import model.items.tools.Wrench;
 import model.items.weapons.*;
 import model.map.rooms.Room;
 import model.objects.general.ElectricalMachinery;
@@ -138,6 +139,7 @@ public class GeneralManufacturer extends ElectricalMachinery {
         tools.add(new FireExtinguisher());
         tools.add(new FlashLight());
         tools.add(new HandCuffs());
+        tools.add(new Wrench());
         availableItems.put("Tools", tools);
 
         Set<GameItem> medical = new HashSet<>();

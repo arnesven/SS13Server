@@ -7,6 +7,8 @@ import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Tools;
+import model.items.tools.Wrench;
+import model.items.weapons.Crowbar;
 import model.map.doors.ElectricalDoor;
 
 import java.util.List;
@@ -19,18 +21,24 @@ public class ForceOpenDoorAction extends Action {
         this.door = unpoweredDoor;
     }
 
+    public static boolean hasAnApplicableItem(Actor performingClient) {
+        return GameItem.hasAnItemOfClass(performingClient, Tools.class) ||
+                GameItem.hasAnItemOfClass(performingClient, Crowbar.class) ||
+                GameItem.hasAnItemOfClass(performingClient, Wrench.class);
+    }
+
     @Override
     protected String getVerb(Actor whosAsking) {
-        return "crowbared the door open";
+        return "forced the door open";
     }
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         try {
-            if (GameItem.hasAnItemOfClass(performingClient, Tools.class)) {
+            if (hasAnApplicableItem(performingClient)) {
                 door.crowbarOpen(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
             } else {
-                performingClient.addTolastTurnInfo("What, the crowbar is missing? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What, the item was missing? " + Action.FAILED_STRING);
             }
         } catch (NoSuchThingException e) {
             e.printStackTrace();

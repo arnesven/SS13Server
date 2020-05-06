@@ -90,6 +90,11 @@ public class Battery extends ElectricalMachinery implements PowerSupply {
     }
 
     @Override
+    public void updateYourself(GameData gameData) {
+
+    }
+
+    @Override
     public void receiveEnergy(GameData gameData, double energy) {
         if (isCharging) {
             this.energy += energy;

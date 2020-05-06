@@ -15,6 +15,7 @@ import model.items.seeds.OrangeSeeds;
 import model.items.seeds.RedWeedSeeds;
 import model.items.seeds.TomatoSeeds;
 import model.items.suits.*;
+import model.items.tools.Wrench;
 import model.items.weapons.*;
 import model.map.rooms.HallwayRoom;
 import model.map.rooms.Room;
@@ -168,6 +169,7 @@ public class MyRandom {
         list.add(new Orange(null));
         list.add(new BagOfSoil());
         list.add(new InsulatedGloves());
+        list.add(new Wrench());
 
         return list;
     }

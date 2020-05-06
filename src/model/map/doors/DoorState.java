@@ -130,7 +130,7 @@ public abstract class DoorState implements Serializable {
         @Override
         protected List<Action> getActions(GameData gameData, Actor forWhom) {
             List<Action> at = new ArrayList<>();
-            if (GameItem.hasAnItemOfClass(forWhom, Crowbar.class) || GameItem.hasAnItemOfClass(forWhom, Tools.class)) {
+            if (ForceOpenDoorAction.hasAnApplicableItem(forWhom)) {
                 at.add(new ForceOpenDoorAction(door));
                 at.add(new ForceOpenDoorAndMoveThrough(door));
             }

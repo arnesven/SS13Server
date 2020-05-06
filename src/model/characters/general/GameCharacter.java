@@ -49,7 +49,7 @@ public abstract class GameCharacter implements Serializable {
     public static final int LARGE_SIZE = 2;
     private double maxHealth = 3.0;
 	
-	private static final double ENCUMBERANCE_LEVEL = 5.0;
+	private static final double ENCUMBERANCE_LEVEL = 10.0;
 	private String name;
 	private int startingRoom = 0;
 	private double health = 3.0;
