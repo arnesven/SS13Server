@@ -67,7 +67,7 @@ public class OrderShipmentAction extends ConsoleAction {
             try {
                 targetRoom = gameData.getRoom("Cargo Bay");
             } catch (NoSuchThingException e) {
-                targetRoom = MyRandom.sample(gameData.getRooms());
+                targetRoom = MyRandom.sample(gameData.getNonHiddenStationRooms());
             }
             Shipment s = selectedShip.clone();
             pc.setMoney(pc.getMoney() - s.getCost());

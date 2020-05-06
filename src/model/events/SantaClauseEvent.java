@@ -28,7 +28,7 @@ public class SantaClauseEvent extends AmbientEvent {
         if (!hasHappened && MyRandom.nextDouble() < getProbability()) {
             hasHappened = true;
 
-            Room santaRoom = MyRandom.sample(gameData.getRooms());
+            Room santaRoom = MyRandom.sample(gameData.getNonHiddenStationRooms());
 
             NPC npc = new SantaNPC(santaRoom);
             gameData.addNPC(npc);

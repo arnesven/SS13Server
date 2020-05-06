@@ -8,7 +8,6 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.characters.decorators.InfectedCharacter;
 import model.characters.general.AICharacter;
-import model.characters.special.SpectatorCharacter;
 import model.fancyframe.SinglePageFancyFrame;
 import util.HTMLText;
 import util.Logger;
@@ -69,7 +68,7 @@ public class HostGameMode extends GameMode {
 		hiveRoom = null;
 		boolean hiveInStartingRoom;
 		do {
-			hiveRoom = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
+			hiveRoom = gameData.getNonHiddenStationRooms().get(MyRandom.nextInt(gameData.getNonHiddenStationRooms().size()));
 			hiveInStartingRoom = false;
 			for (Player c : gameData.getPlayersAsList()) {
 				if (c.getPosition().getID() == hiveRoom.getID() && MyRandom.nextDouble() < 0.5) {

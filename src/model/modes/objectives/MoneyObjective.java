@@ -60,7 +60,7 @@ public class MoneyObjective implements TraitorObjective {
     public Locatable getLocatable() {
         MoneyStack maxMoney = new MoneyStack(0);
         List<ItemHolder> itemHolders = new ArrayList<>();
-        itemHolders.addAll(gameData.getRooms());
+        itemHolders.addAll(gameData.getNonHiddenStationRooms());
         itemHolders.addAll(gameData.getActors());
 
         boolean found = false;

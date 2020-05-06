@@ -39,7 +39,7 @@ public abstract class VisitorCharacter extends CrewCharacter {
     public Room getStartingRoom(GameData gameData) {
         Room room;
         do {
-            room = MyRandom.sample(gameData.getRooms());
+            room = MyRandom.sample(gameData.getNonHiddenStationRooms());
         } while (room instanceof NukieShipRoom || room instanceof ArmoryRoom);
 
         return room;

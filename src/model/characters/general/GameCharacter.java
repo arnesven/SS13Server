@@ -12,18 +12,12 @@ import model.*;
 import model.actions.general.AttackAction;
 import model.characters.decorators.*;
 import model.characters.special.SpectatorCharacter;
-import model.characters.visitors.VisitorCharacter;
-import model.events.damage.PhysicalDamage;
 import model.items.BodyPartFactory;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
 import model.items.suits.Equipment;
-import model.items.weapons.BludgeoningWeapon;
 import model.items.weapons.PhysicalWeapon;
-import model.items.weapons.PiercingWeapon;
 import model.map.SpacePosition;
-import model.map.doors.Door;
-import model.map.rooms.SpectatorRoom;
 import model.movepowers.*;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
@@ -416,7 +410,7 @@ public abstract class GameCharacter implements Serializable {
         try {
             return gameData.getRoomForId(startingRoom);
         } catch (NoSuchThingException e) {
-            return MyRandom.sample(gameData.getRooms());
+            return MyRandom.sample(gameData.getNonHiddenStationRooms());
         }
     }
 

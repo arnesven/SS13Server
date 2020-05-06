@@ -148,7 +148,7 @@ public class AIConsole extends Console {
     public List<String> getAlarms(GameData gameData) {
         List<String> alarms = new ArrayList<>();
         if (!isCorrupt()) {
-            for (Room r : gameData.getRooms()) {
+            for (Room r : gameData.getNonHiddenStationRooms()) {
                 if (r.hasFire()) {
                     alarms.add("-->Fire alarm in " + r.getName() + ".");
                 }

@@ -3,7 +3,6 @@ package model;
 import java.io.Serializable;
 import java.util.*;
 
-import graphics.ClientInfo;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.actions.*;
@@ -15,7 +14,6 @@ import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.suits.Wearable;
 import model.items.weapons.Weapon;
-import model.map.SpacePosition;
 import model.map.rooms.Room;
 import util.Logger;
 
@@ -521,7 +519,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
             return getCharacter().getVisibleMap(gameData);
         }
 
-        return gameData.getRooms();
+        return gameData.getNonHiddenStationRooms();
     }
 
     @Override

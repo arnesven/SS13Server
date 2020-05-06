@@ -14,9 +14,6 @@ import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.characters.special.SpectatorCharacter;
 import model.items.NoSuchThingException;
-import model.map.rooms.DerelictRoom;
-import model.map.rooms.RemoteRoom;
-import model.map.rooms.SpaceRoom;
 import model.modes.GameCouldNotBeStartedException;
 import model.objects.general.ContainerObject;
 
@@ -106,7 +103,7 @@ public class GameData implements Serializable {
 	 * Gets all the rooms on SS13 as a list.
 	 * @return the list of rooms.
 	 */
-	public List<Room> getRooms() {
+	public List<Room> getNonHiddenStationRooms() {
 		Set<Room> set = new HashSet<>();
 		set.addAll(getMap().getRoomsForLevel("ss13"));
         set.removeIf((Room r) -> !r.isPartOfStation() || r.isHidden());
@@ -821,7 +818,7 @@ public class GameData implements Serializable {
     }
 
     public <T extends GameObject> T  findObjectOfType(Class<T> className) throws NoSuchThingException {
-        for (Room r : getRooms()) {
+        for (Room r : getNonHiddenStationRooms()) {
             for (GameObject obj : r.getObjects()) {
                 if (obj.getClass() == className) {
                     return (T)obj;

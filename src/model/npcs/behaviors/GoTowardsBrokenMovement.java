@@ -5,7 +5,6 @@ import model.GameData;
 import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.objects.general.BreakableObject;
-import model.objects.general.GameObject;
 import model.objects.general.Repairable;
 
 import java.util.ArrayList;
@@ -22,13 +21,13 @@ public class GoTowardsBrokenMovement extends GoTowardsRoomMovement {
     @Override
     protected List<Room> getEligableRooms(NPC npc, GameData gameData) {
         List<Room> brokenList = new ArrayList<>();
-        for (Room r : gameData.getRooms()) {
+        for (Room r : gameData.getNonHiddenStationRooms()) {
             if (r.hasHullBreach()) {
                 brokenList.add(r);
             } else {
-                for (GameObject ob : r.getObjects()) {
-                    if (ob instanceof BreakableObject) {
-                        if (((BreakableObject)ob).isDamaged() || ((BreakableObject)ob).isBroken()) {
+                for (BreakableObject ob : r.getBreakableObjects(gameData)) {
+                    if (ob.isDamaged() || ob.isBroken()) {
+                        if (!brokenList.contains(r)) {
                             brokenList.add(r);
                         }
                     }

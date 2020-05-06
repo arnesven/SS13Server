@@ -27,7 +27,7 @@ public class SpontaneousExplosionEvent extends AmbientEvent {
 		if (MyRandom.nextDouble() >= getProbability()) {
 			return;
 		}
-		Room room = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
+		Room room = gameData.getNonHiddenStationRooms().get(MyRandom.nextInt(gameData.getNonHiddenStationRooms().size()));
 		this.explode(room, gameData);
 
 	}

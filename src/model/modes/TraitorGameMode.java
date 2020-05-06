@@ -456,7 +456,7 @@ public class TraitorGameMode extends GameMode {
 			
 		}
 		
-		for (Room r : gameData.getRooms()) {
+		for (Room r : gameData.getNonHiddenStationRooms()) {
 			for (GameItem it : r.getItems()) {
 				if (it instanceof Bible) {
 					//Logger.log("Found bible in room " + r.getName());
@@ -480,7 +480,7 @@ public class TraitorGameMode extends GameMode {
 
 	public int pointsFromBrokenObjects(GameData gameData) {
 		int result = 0;
-		for (Room r : gameData.getRooms()) {
+		for (Room r : gameData.getNonHiddenStationRooms()) {
 			for (GameObject obj : r.getObjects()) {
 				if (obj instanceof ElectricalMachinery) {
 					if (((ElectricalMachinery)obj).isBroken()) {

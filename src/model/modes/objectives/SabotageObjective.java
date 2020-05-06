@@ -93,7 +93,7 @@ public class SabotageObjective implements TraitorObjective {
 
 	public static List<BreakableObject> getBreakableObjects(GameData gameData2) {
 		List<BreakableObject> list = new ArrayList<>();
-        for (Room r : gameData2.getRooms()) {
+        for (Room r : gameData2.getNonHiddenStationRooms()) {
             for (Object o : r.getObjects()) {
                 if ( o instanceof BreakableObject) {
                     list.add((BreakableObject) o);

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import graphics.sprites.Sprite;
 import model.events.Event;
 import model.events.NoPressureEvent;
 import util.Logger;
@@ -47,7 +46,7 @@ public abstract class OngoingEvent extends AmbientEvent {
 			Room randomRoom;
 			do {
 				Logger.log("Finding a room for a ongoing event..");
-				randomRoom = gameData.getRooms().get(MyRandom.nextInt(gameData.getRooms().size()));
+				randomRoom = gameData.getNonHiddenStationRooms().get(MyRandom.nextInt(gameData.getNonHiddenStationRooms().size()));
 			} while (hasThisEvent(randomRoom));
 			startNewEvent(randomRoom);
 		}
@@ -115,7 +114,7 @@ public abstract class OngoingEvent extends AmbientEvent {
 	}
 	
 	private boolean allRoomsBurning(GameData gameData) {
-		for (Room r : gameData.getRooms()) {
+		for (Room r : gameData.getNonHiddenStationRooms()) {
 			if (!hasThisEvent(r)) {
 				return false;
 			}

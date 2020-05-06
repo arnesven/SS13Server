@@ -32,7 +32,7 @@ public class MiningTeleporter extends Teleporter {
             if (gameData.getMap().getLevelForRoom(cl.getPosition()).getName().equals(GameMap.STATION_LEVEL_NAME)) {
                 r = gameData.getMap().getRoom("Mining Station");
             } else {
-                r = MyRandom.sample(gameData.getRooms());
+                r = MyRandom.sample(gameData.getNonHiddenStationRooms());
                 toSS13 = true;
             }
 

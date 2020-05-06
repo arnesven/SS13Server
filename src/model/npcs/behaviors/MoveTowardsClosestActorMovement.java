@@ -20,7 +20,7 @@ public class MoveTowardsClosestActorMovement extends GoTowardsRoomMovement {
     @Override
     protected List<Room> getEligableRooms(NPC npc, GameData gameData) {
         List<Room> list = new ArrayList<>();
-        for (Room r : gameData.getRooms()) {
+        for (Room r : gameData.getNonHiddenStationRooms()) {
             for (Actor a :  r.getActors()) {
                 if (a != npc) {
                     list.add(r);

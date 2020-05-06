@@ -5,7 +5,6 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
-import model.items.general.GameItem;
 import model.map.GameMap;
 import model.map.rooms.Room;
 import model.npcs.NPC;
@@ -48,7 +47,7 @@ public class InformCrew extends Action {
         ActionOption opt = super.getOptions(gameData, whosAsking);
 
         ActionOption gather = new ActionOption("Gather in");
-        for (Room r : gameData.getRooms()) {
+        for (Room r : gameData.getNonHiddenStationRooms()) {
             gather.addOption(r.getName());
         }
         opt.addOption(gather);
@@ -58,7 +57,7 @@ public class InformCrew extends Action {
         avoid.addOption("Front side");
         avoid.addOption("Starboard side");
         avoid.addOption("Port side");
-        for (Room r : gameData.getRooms()) {
+        for (Room r : gameData.getNonHiddenStationRooms()) {
             avoid.addOption(r.getName());
         }
         opt.addOption(avoid);
@@ -83,7 +82,7 @@ public class InformCrew extends Action {
                speakOverPaInform("Please gather in " + location, gameData);
                 for (NPC npc : gameData.getNPCs()) {
                     if (npc.getCharacter().isCrew() &&  // is crew and is on station
-                            gameData.getRooms().contains(npc.getPosition())) {
+                            gameData.getNonHiddenStationRooms().contains(npc.getPosition())) {
                         npc.setMoveBehavior(new MoveTowardsBehavior(target,
                                 npc.getMovementBehavior(), npc.getActionBehavior()));
                     }
@@ -102,7 +101,7 @@ public class InformCrew extends Action {
             }
             for (NPC npc : gameData.getNPCs()) {
                 if (npc.getCharacter().isCrew() &&  // is crew and is on station
-                        gameData.getRooms().contains(npc.getPosition())) {
+                        gameData.getNonHiddenStationRooms().contains(npc.getPosition())) {
                     npc.setMoveBehavior(new MeanderingAvoidingMovement(avoidRooms));
                 }
             }

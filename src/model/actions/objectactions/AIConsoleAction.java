@@ -51,7 +51,7 @@ public class AIConsoleAction extends ConsoleAction {
 		} else {
 			boolean found = false;
             if (!console.isCorrupt()) {
-                for (Room r : gameData.getRooms()) {
+                for (Room r : gameData.getNonHiddenStationRooms()) {
                     for (Actor a : r.getActors()) {
                         if (a.getBaseName().equals(crew)) {
                             performingClient.addTolastTurnInfo("-->" + crew + " is in " + a.getPosition().getName() + ".");

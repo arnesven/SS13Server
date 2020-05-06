@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.*;
 
-import clientview.components.JobDescriptionBox;
 import graphics.sprites.Sprite;
 import model.*;
 import model.characters.crew.*;
@@ -35,7 +34,6 @@ import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
 import model.items.general.GameItem;
-import model.map.rooms.NukieShipRoom;
 import model.map.rooms.Room;
 import util.Pair;
 
@@ -553,7 +551,7 @@ public abstract class GameMode implements Serializable {
 
 	private void addRandomItemsToRooms(GameData gameData) {
 		while (MyRandom.nextDouble() < 0.5) {
-			Room aRoom = MyRandom.sample(gameData.getRooms());
+			Room aRoom = MyRandom.sample(gameData.getNonHiddenStationRooms());
 			aRoom.addItem(MyRandom.sample(MyRandom.getItemsWhichAppearRandomly()).clone());
 			Logger.log("Added a suprise in " + aRoom.getName());
 		}
@@ -720,7 +718,7 @@ public abstract class GameMode implements Serializable {
 			newPlayer.moveIntoRoom(arrivalRoom);
 		} catch (NoSuchThingException e) {
 			Logger.log(Logger.CRITICAL, "No Shuttle gate to put new player!");
-			newPlayer.moveIntoRoom(MyRandom.sample(gameData.getRooms()));
+			newPlayer.moveIntoRoom(MyRandom.sample(gameData.getNonHiddenStationRooms()));
 		}
 
 		List<GameItem> startingItems = newPlayer.getCharacter().getStartingItems();

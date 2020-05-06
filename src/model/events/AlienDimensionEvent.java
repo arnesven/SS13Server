@@ -35,7 +35,7 @@ public class AlienDimensionEvent extends AmbientEvent {
         if (!hasHappened && MyRandom.nextDouble() < getProbability()) {
             hasHappened = true;
 
-            targetRoom = MyRandom.sample(gameData.getRooms());
+            targetRoom = MyRandom.sample(gameData.getNonHiddenStationRooms());
             addPortalObject(gameData, targetRoom);
             turnsActive = MyRandom.nextInt(12);
             Logger.log(Logger.INTERESTING, "Portal created in " + targetRoom.getName() + " active for " + turnsActive + " turns.");

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import graphics.sprites.Sprite;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import model.events.NoPressureEverEvent;
@@ -30,7 +29,6 @@ import model.items.general.Locator;
 import model.map.rooms.Room;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
-import util.Pair;
 
 public class OperativesGameMode extends GameMode {
 
@@ -52,7 +50,7 @@ public class OperativesGameMode extends GameMode {
         try {
             cq = gameData.getRoom("Captain's Quarters");
         } catch (NoSuchThingException e) {
-            cq = MyRandom.sample(gameData.getRooms());
+            cq = MyRandom.sample(gameData.getNonHiddenStationRooms());
         }
         for (GameItem it : cq.getItems()) {
 			if (it instanceof NuclearDisc) {

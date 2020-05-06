@@ -48,7 +48,7 @@ public class NukieShipRoom extends Room {
 		}
 		performingClient.addTolastTurnInfo("You activated the nuke and sent it to SS13.");
 		getObjects().remove(nuke);
-		MyRandom.sample(gameData.getRooms()).addObject(nuke);
+		MyRandom.sample(gameData.getNonHiddenStationRooms()).addObject(nuke);
 	}
 
 	public static NuclearDisc hasTheDisk(Actor performingClient) {

@@ -47,7 +47,7 @@ public class EscapeAndSetNukeAction extends Action {
                 }
                 performingClient.addTolastTurnInfo("You activated the nuke and sent it to SS13.");
                 nukieShip.getObjects().remove(nuke);
-                MyRandom.sample(gameData.getRooms()).addObject(nuke);
+                MyRandom.sample(gameData.getNonHiddenStationRooms()).addObject(nuke);
 
 
             } else {

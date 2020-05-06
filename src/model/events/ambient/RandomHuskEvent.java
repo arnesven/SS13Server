@@ -30,7 +30,7 @@ public class RandomHuskEvent extends Event {
 	private void addAHusk(GameData gameData) {
 		Room roomToAddAHuskIn;
 		do {
-			roomToAddAHuskIn = MyRandom.sample(gameData.getRooms());
+			roomToAddAHuskIn = MyRandom.sample(gameData.getNonHiddenStationRooms());
 		} while (!isOk(roomToAddAHuskIn));
 		HumanNPC npc = new HumanNPC(new NobodyCharacter(roomToAddAHuskIn.getID()), 
 				roomToAddAHuskIn);

@@ -9,8 +9,6 @@ import model.GameData;
 import model.Player;
 import model.events.Event;
 import model.events.ambient.DarkEvent;
-import model.items.NoSuchThingException;
-import model.items.general.GameItem;
 import model.map.rooms.Room;
 import model.objects.ai.SecurityCamera;
 import model.objects.consoles.Console;
@@ -45,7 +43,7 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
 
     private List<Room> findRoomsWithCameras(GameData gameData) {
         List<Room> result = new ArrayList<>();
-        for (Room r : gameData.getRooms()) {
+        for (Room r : gameData.getNonHiddenStationRooms()) {
             for (GameObject obj : r.getObjects()) {
                 if (obj instanceof SecurityCamera) {
                     result.add(r);

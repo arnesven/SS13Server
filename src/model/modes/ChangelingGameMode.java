@@ -94,7 +94,7 @@ public class ChangelingGameMode extends GameMode {
 		
 		Room startRoom;
 		do {
-			startRoom = MyRandom.sample(gameData.getRooms());
+			startRoom = MyRandom.sample(gameData.getNonHiddenStationRooms());
 		} while (isAStartingRoom(startRoom, gameData) || lockedRoom(startRoom, gameData));
 		
 		lingChar = new ChangelingCharacter(startRoom);
