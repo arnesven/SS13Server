@@ -132,5 +132,10 @@ public class PlayersPanel extends JPanel implements Observer {
         fillTable();
     }
 
+    @Override
+    public void unregisterYourself() {
+        GameData.getInstance().unsubscribe(this);
+    }
+
 
 }

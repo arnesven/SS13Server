@@ -116,4 +116,9 @@ public class FancyFrameComponent extends JComponent implements Observer {
             repaint();
         }
     }
+
+    @Override
+    public void unregisterYourself() {
+        GameData.getInstance().unsubscribe(this);
+    }
 }

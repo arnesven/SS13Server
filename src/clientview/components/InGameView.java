@@ -11,6 +11,8 @@ public class InGameView extends JSplitPane  {
 
     private final LastTurnPanel ltp;
     private final JTabbedPane jtp;
+    private final MiniMapPanel miniMap;
+    private final PlayersPanel players;
     private Box leftPanel = new Box(BoxLayout.X_AXIS);
     private MapPanel mp;
     private boolean inMapMode = true;
@@ -24,8 +26,10 @@ public class InGameView extends JSplitPane  {
         JSplitPane lp2 = new JSplitPane(VERTICAL_SPLIT);
 
         jtp = new JTabbedPane();
-        jtp.add("Map", new MiniMapPanel());
-        jtp.add("Players", new PlayersPanel(GameData.getInstance().getClid(), parent.getParentMain()));
+        miniMap = new MiniMapPanel();
+        jtp.add("Map", miniMap);
+        players =  new PlayersPanel(GameData.getInstance().getClid(), parent.getParentMain());
+        jtp.add("Players", players);
         lp2.add(new JScrollPane(jtp));
         ltp = new LastTurnPanel();
         lp2.add(ltp);
@@ -63,5 +67,12 @@ public class InGameView extends JSplitPane  {
             revalidate();
             repaint();
         }
+    }
+
+    public void unregisterYourSubscribers() {
+        getLastTurnPanel().unregisterYourself();
+        miniMap.unregisterYourself();
+        players.unregisterYourself();
+        mp.unregisterYourself();
     }
 }

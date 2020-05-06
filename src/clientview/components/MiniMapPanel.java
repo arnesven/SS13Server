@@ -45,4 +45,8 @@ public class MiniMapPanel extends JPanel implements Observer {
         int currZ = GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation();
         zed.setText("Z = " + currZ);
     }
+
+    public void unregisterYourself() {
+        GameData.getInstance().unsubscribe(this);
+    }
 }

@@ -70,6 +70,11 @@ public class FancyFrame extends JFrame implements Observer {
         }
     }
 
+    @Override
+    public void unregisterYourself() {
+        GameData.getInstance().unsubscribe(this);
+    }
+
     public void setForceShow(boolean forceShow) {
         this.forceShow = forceShow;
     }

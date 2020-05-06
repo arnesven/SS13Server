@@ -130,4 +130,9 @@ public class JobsPanel extends JPanel implements Observer {
     public void update() {
 
     }
+
+    @Override
+    public void unregisterYourself() {
+        GameData.getInstance().unsubscribe(this);
+    }
 }

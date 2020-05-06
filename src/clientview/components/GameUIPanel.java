@@ -215,6 +215,7 @@ public class GameUIPanel extends JPanel implements Observer {
     }
 
     public static void pollServerActions() {
+        System.out.println("Client: Polling actions!");
         ServerCommunicator.send(GameData.getInstance().getClid() + " ACTIONS", new MyCallback<String>() {
 
             @Override
@@ -246,5 +247,12 @@ public class GameUIPanel extends JPanel implements Observer {
 
     public SS13Client getParentMain() {
         return parent;
+    }
+
+    public void unregisterYourself() {
+        GameData.getInstance().unsubscribe(this);
+        inGameView.unregisterYourSubscribers();
+        buttPanel.unregisterYourself();
+        lobbyView.unregisterYourSubscribers();
     }
 }

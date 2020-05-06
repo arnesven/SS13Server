@@ -134,5 +134,10 @@ public class ServerSettings extends JPanel implements Observer {
 
     }
 
+    @Override
+    public void unregisterYourself() {
+        GameData.getInstance().unsubscribe(this);
+    }
+
 
 }

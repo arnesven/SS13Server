@@ -58,4 +58,9 @@ public class SummaryPanel extends JPanel implements Observer {
             this.old = GameData.getInstance().getSummaryString();
         }
     }
+
+    @Override
+    public void unregisterYourself() {
+        GameData.getInstance().unsubscribe(this);
+    }
 }

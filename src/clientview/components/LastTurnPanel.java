@@ -94,4 +94,7 @@ public class LastTurnPanel extends JPanel implements Observer {
 	    previous = new StringBuffer();
     }
 
+    public void unregisterYourself() {
+        GameData.getInstance().unsubscribe(this);
+    }
 }

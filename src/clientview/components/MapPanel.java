@@ -161,4 +161,9 @@ public class MapPanel extends JPanel implements Observer {
     public DrawingStrategy getDrawingStrategy() {
         return drawingStrategy;
     }
+
+    @Override
+    public void unregisterYourself() {
+        GameData.getInstance().unsubscribe(this);
+    }
 }

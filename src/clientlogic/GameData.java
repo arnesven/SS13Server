@@ -241,7 +241,10 @@ public class GameData {
 
 	public void subscribe(Observer os) {
 		instance.observers.add(os);
+	}
 
+	public void unsubscribe(Observer os) {
+		observers.remove(os);
 	}
 
 	public ArrayList<Room> getRooms() {
@@ -920,4 +923,6 @@ public class GameData {
 	public int getDataState() {
 		return playerDataState;
 	}
+
+
 }

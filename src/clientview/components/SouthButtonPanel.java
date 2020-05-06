@@ -210,8 +210,10 @@ public class SouthButtonPanel extends Box implements Observer {
         roundNumberLabel.setText(GameData.getInstance().getRound() + "");
     }
 
-
-
+    @Override
+    public void unregisterYourself() {
+        GameData.getInstance().unsubscribe(this);
+    }
 
 
 }

@@ -19,6 +19,9 @@ public class LobbyView extends JPanel {
 
     private final String clid;
     private final PlayersAndChatPanel pacp;
+    private final ServerSettings settings;
+    private final JobsPanel jobs;
+    private final SummaryPanel summary;
     private JTabbedPane tlp;
     private ServerInfoPanel serverInfoPanel;
     //   private final ChatPanel cp;
@@ -33,7 +36,7 @@ public class LobbyView extends JPanel {
         getServerInfo();
         tlp.setSelectedIndex(0);
 
-        JobsPanel jobs = new JobsPanel(username, this);
+        jobs = new JobsPanel(username, this);
         //JScrollPane jsp = new JScrollPane(jobs);
         tlp.add(jobs, "Jobs");
 
@@ -44,9 +47,10 @@ public class LobbyView extends JPanel {
         StylePanel sp = new StylePanel(username, parent);
         tlp.add(sp, "Style");
 
-        ServerSettings settings = new ServerSettings(username);
+        settings = new ServerSettings(username);
         tlp.add(settings, "Settings");
-        tlp.add(new SummaryPanel(), "Summary");
+        summary = new SummaryPanel();
+        tlp.add(summary, "Summary");
 
         tlp.addChangeListener(new ChangeListener() {
             @Override
@@ -98,5 +102,12 @@ public class LobbyView extends JPanel {
 
     public PlayersAndChatPanel getPlayersPanel() {
         return pacp;
+    }
+
+    public void unregisterYourSubscribers() {
+        settings.unregisterYourself();
+        jobs.unregisterYourself();
+        summary.unregisterYourself();
+        getPlayersPanel().unregisterYourSubscribers();
     }
 }
