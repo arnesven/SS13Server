@@ -10,6 +10,7 @@ import model.actions.general.*;
 import model.characters.decorators.*;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
+import model.characters.general.HumanCharacter;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.suits.Wearable;
@@ -642,6 +643,10 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter);
     }
 
+    public boolean isHuman() {
+        return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter);
+    }
+
     public boolean isFloatingInSpace() {
         return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator);
     }
@@ -658,4 +663,5 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
     public void goToSpace(GameData gameData) {
         setCharacter(new InSpaceCharacterDecorator(getCharacter(), gameData));
     }
-}
+
+ }

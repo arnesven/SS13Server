@@ -151,7 +151,7 @@ public abstract class GameCharacter implements Serializable {
 	    double ampChance = weapon.getAmpChance();
 
 	    String critMess = "";
-        if (MyRandom.nextDouble() < ampChance) {
+        if (MyRandom.nextDouble() < ampChance && victim.isHuman()) {
             if (critical) {
                 String[] extremity = {"arm", "leg"};
                 int rand = MyRandom.nextInt(2);
