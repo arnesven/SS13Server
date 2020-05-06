@@ -25,6 +25,11 @@ public class InsulatedGloves extends GlovesItem {
     }
 
     @Override
+    protected Sprite getWornSprite(Actor whosAsking) {
+        return new Sprite("insulatedglovesworn", "hands.png", 4, 7, this);
+    }
+
+    @Override
     public void beingPutOn(Actor actionPerformer) {
         actionPerformer.setCharacter(new ElectricDamageProtection(actionPerformer.getCharacter()));
     }
