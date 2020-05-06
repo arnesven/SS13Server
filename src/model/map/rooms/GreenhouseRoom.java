@@ -25,7 +25,7 @@ public class GreenhouseRoom extends ScienceRoom {
 		NPC chimp = new ChimpNPC(this);
         gameData.addNPC(chimp);
 
-        for (int i = 0; i < MyRandom.nextInt(4); ++i) {
+        for (int i = 0; i < MyRandom.nextInt(10); ++i) {
         	this.addObject(new GreenHousePlant(this));
 		}
 	}

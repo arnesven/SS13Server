@@ -3,6 +3,7 @@ package model.items.foods;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 
 /**
  * Created by erini02 on 01/05/16.
@@ -27,5 +28,8 @@ public class Doughnut extends HealingFood {
         return new Doughnut(getMaker());
     }
 
-
+//    @Override
+//    public String getDescription(GameData gameData, Player performingClient) {
+//        return "A soft doughy yummy thingy. A favorite of the space-police.";
+//    }
 }

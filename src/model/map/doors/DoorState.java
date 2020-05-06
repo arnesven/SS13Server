@@ -11,6 +11,7 @@ import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.items.general.UniversalKeyCard;
 import model.items.general.Tools;
+import model.items.weapons.Crowbar;
 import util.HTMLText;
 import util.Logger;
 
@@ -130,7 +131,7 @@ public abstract class DoorState implements Serializable {
         @Override
         protected List<Action> getActions(GameData gameData, Actor forWhom) {
             List<Action> at = new ArrayList<>();
-            if (GameItem.hasAnItemOfClass(forWhom, Tools.class)) {
+            if (GameItem.hasAnItemOfClass(forWhom, Crowbar.class) || GameItem.hasAnItemOfClass(forWhom, Tools.class)) {
                 at.add(new CrowbarDoorAction(door));
                 at.add(new CrowbarDoorAndMoveThroughAction(door));
             }

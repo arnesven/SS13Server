@@ -32,10 +32,10 @@ public class RoomPartsStack extends ItemStack {
                     at.add(bnr);
                 }
 
-                Action removeDoor = new RemoveDoorAction(cl);
-                if (removeDoor.getOptions(gameData, cl).numberOfSuboptions() > 0) {
-                    at.add(removeDoor);
-                }
+//                Action removeDoor = new RemoveDoorAction(cl);
+//                if (removeDoor.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+//                    at.add(removeDoor);
+//                }
             }
         }
     }

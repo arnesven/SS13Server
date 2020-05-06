@@ -3,6 +3,7 @@ package model.items;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.CraftBombAction;
 import model.items.general.GameItem;
@@ -30,6 +31,11 @@ public class EmptyContainer extends GameItem {
         if (cba.getOptions(gameData, cl).numberOfSuboptions() > 0) {
            at.add(cba);
         }
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "An empty cannister which used to contain something. Useful for crafting other items.";
     }
 
 }

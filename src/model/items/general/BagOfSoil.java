@@ -30,6 +30,7 @@ public class BagOfSoil extends GameItem {
 
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
+        super.addYourActions(gameData, at, cl);
         at.add(new SpreadSoilAction());
     }
 

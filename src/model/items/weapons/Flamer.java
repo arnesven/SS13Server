@@ -104,4 +104,8 @@ public class Flamer extends Weapon {
         };
     }
 
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "An excellent weapon for exterminating vermin. Can be used to burn a hive immediately if you have some flammable chemicals.";
+    }
 }
