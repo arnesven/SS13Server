@@ -42,7 +42,7 @@ public class TimeBomb extends BombItem {
 				@Override
 				public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 					ActionOption buf = new ActionOption("Set Time Bomb");
-					for (int i = 0; i < 16; i++) {
+					for (int i = 0; i < gameData.getNoOfRounds()-gameData.getRound(); i++) {
 						buf.addOption(i + " Rounds");
 					}
 					return buf;
