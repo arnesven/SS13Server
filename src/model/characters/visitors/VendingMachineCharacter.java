@@ -42,19 +42,18 @@ public class VendingMachineCharacter extends RobotCharacter {
         list.add(new ZippoLighter());
         list.add(new NukaCola(null));
         list.add(new SpaceCheetos(null));
-        return list;
-    }
 
 
-    @Override
-    public void doAfterMovement(GameData gameData) {
-        super.doAfterMovement(gameData);
-        costs = new HashMap<>();
-        for (GameItem it : getItems()) {
-            if (!(it instanceof MoneyStack)) {
-                costs.put(it, MyRandom.nextInt(it.getCost() * 2)+1);
+        if (costs == null) {
+            costs = new HashMap<>();
+            for (GameItem it : list) {
+                if (!(it instanceof MoneyStack)) {
+                    costs.put(it, MyRandom.nextInt(it.getCost() * 2)+1);
+                }
             }
         }
+
+        return list;
     }
 
     @Override

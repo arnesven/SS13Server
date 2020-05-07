@@ -1,8 +1,11 @@
 package model.fancyframe;
 
 import graphics.sprites.SpriteManager;
+import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.general.SensoryLevel;
+import model.events.Event;
 import model.items.NoSuchThingException;
 import model.items.general.Tools;
 import util.HTMLText;
@@ -38,6 +41,7 @@ public class FancyFrame implements Serializable {
         state++;
     }
 
+
     protected void setHeight(int h) {
         this.height = h;
     }
@@ -47,7 +51,7 @@ public class FancyFrame implements Serializable {
     }
 
     public void handleEvent(GameData gameData, Player player, String event) {
-        Logger.log("Fancy frame handling event " + event);
+        //Logger.log("Fancy frame handling event " + event);
         if (event.contains("DISMISS")) {
             state++;
             data = BLANK_DATA;
@@ -56,11 +60,11 @@ public class FancyFrame implements Serializable {
     }
 
     public void handleInput(GameData gameData, Player player, String data) {
-        Logger.log("Fancy frame handling input \"" + data + "\"");
+        //Logger.log("Fancy frame handling input \"" + data + "\"");
     }
 
     public void handleClick(GameData gameData, Player player, int x, int y) {
-        Logger.log("Fancy frame handling click x=" + x + " y=" + y);
+        //Logger.log("Fancy frame handling click x=" + x + " y=" + y);
     }
 
     protected void setState(int state) {
@@ -92,5 +96,31 @@ public class FancyFrame implements Serializable {
     public void leaveFancyFrame(GameData gameData, Player pl) {
         pl.setFancyFrame(new FancyFrame(this));
     }
+
+    protected void dismissAtEndOfTurn(GameData gameData, final Player player) {
+        gameData.addEvent(new Event() {
+            @Override
+            public void apply(GameData gameData) {
+               player.setFancyFrame(new FancyFrame(player.getFancyFrame()));
+            }
+
+            @Override
+            public String howYouAppear(Actor performingClient) {
+                return null;
+            }
+
+            @Override
+            public SensoryLevel getSense() {
+                return null;
+            }
+
+            @Override
+            public boolean shouldBeRemoved(GameData gameData) {
+                return true;
+            }
+        });
+
+    }
+
 
 }

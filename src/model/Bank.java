@@ -76,4 +76,10 @@ public class Bank implements Serializable {
             accounts.get(a).addTo(wage);
         }
     }
+
+    public void addAccount(Actor actor) {
+        if (hasAnAccountFromStart(actor)) {
+            accounts.put(actor, new MoneyStack(0));
+        }
+    }
 }

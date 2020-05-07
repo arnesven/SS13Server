@@ -726,6 +726,7 @@ public abstract class GameMode implements Serializable {
 		for (GameItem it : startingItems) {
 			newPlayer.addItem(it, null);
 		}
+		Bank.getInstance(gameData).addAccount(newPlayer);
 
 		addStartingMessage(gameData, newPlayer);
 		informOnStation(gameData, newPlayer);

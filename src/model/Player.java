@@ -365,6 +365,9 @@ public class Player extends Actor implements Target, Serializable {
                     }
                 }
             }
+            if (actionFound) {
+                break;
+            }
         }
         if (!actionFound) {
         	if (bestGuess == null) {
@@ -395,6 +398,7 @@ public class Player extends Actor implements Target, Serializable {
         List<String> args = new ArrayList<>();
         args.addAll(Arrays.asList(actionString.split(",")));
         Logger.log("Parsing inventory action:" + args.toString());
+        boolean actionFound = false;
         for (GameItem gi : gis) {
            List<Action> acts = gi.getInventoryActions(gameData, this);
            if (gi instanceof SuitItem) {
@@ -408,9 +412,13 @@ public class Player extends Actor implements Target, Serializable {
                    List<String> newArgs = args.subList(1, args.size());
                    a.setInventoryArguments(newArgs, this);
                    this.nextAction = a;
-                   break;
+				   actionFound = true;
+				   break;
                }
             }
+            if (actionFound) {
+           		break;
+			}
         }
 
         // COuld also be ability!

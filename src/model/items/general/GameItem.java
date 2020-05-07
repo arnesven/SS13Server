@@ -12,6 +12,7 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.general.*;
+import model.actions.itemactions.ManageInventoryAction;
 import model.actions.itemactions.ShowExamineFancyFrameAction;
 import model.characters.decorators.HoldingItemDecorator;
 import model.characters.general.GameCharacter;
@@ -244,6 +245,9 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
             list.add(pua);
         }
 
+        ManageInventoryAction mia = new ManageInventoryAction("Pick Up/Drop", gameData, true);
+        list.add(mia);
+
         addSpecificOverlayActions(gameData, r, forWhom, list);
 
         list.add(new ShowExamineFancyFrameAction(gameData, forWhom, this));
@@ -271,6 +275,9 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
                     drop.isAmongOptions(gameData, forWhom, this.getFullName(forWhom))) {
                 acts.add(drop);
             }
+
+            ManageInventoryAction mia = new ManageInventoryAction("Drop/Pick Up", gameData, false);
+            acts.add(mia);
         }
 
         return acts;
