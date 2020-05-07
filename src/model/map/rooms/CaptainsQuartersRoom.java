@@ -32,4 +32,9 @@ public class CaptainsQuartersRoom extends CommandRoom {
     public FloorSet getFloorSet() {
         return new CaptainsQuartersFloorSet();
     }
+
+    @Override
+    protected boolean getsTrashBin() {
+        return false;
+    }
 }

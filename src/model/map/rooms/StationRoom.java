@@ -4,6 +4,8 @@ import model.GameData;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.objects.ai.SecurityCamera;
+import model.objects.recycling.TrashBin;
+import util.MyRandom;
 
 public abstract class StationRoom extends Room {
 
@@ -17,5 +19,12 @@ public abstract class StationRoom extends Room {
         if (!isHidden()) {
             this.addObject(new SecurityCamera(this));
         }
+        if (getsTrashBin() && MyRandom.nextDouble() < 0.99) { // TODO: change to a suitable factor
+            this.addObject(new TrashBin(this));
+        }
+    }
+
+    protected boolean getsTrashBin() {
+        return true;
     }
 }

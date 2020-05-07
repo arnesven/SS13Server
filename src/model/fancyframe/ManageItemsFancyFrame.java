@@ -11,6 +11,7 @@ import model.items.general.GameItem;
 import util.HTMLText;
 import util.Logger;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -65,7 +66,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
             content.append(HTMLText.makeCentered(HTMLText.makeFancyFrameLink("CONFIRM", HTMLText.makeText("black", "yellow", "serif",5, "DONE"))));
         }
 
-        setData("Manage Inventory - Drop to floor", false, HTMLText.makeColoredBackground("black",
+        setData("Manage Items", false, HTMLText.makeColoredBackground("black",
                 HTMLText.makeText("Yellow", content.toString())));
     }
 
@@ -74,6 +75,9 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
     private void makeFirstTable(StringBuilder content, GameData gameData, Player performingClient) {
         content.append(HTMLText.makeBox("yellow", "gray", HTMLText.makeCentered(HTMLText.makeText("yellow", "<b>" + firstTitle + "</b>"))));
         content.append("<table color=\"yellow\" width=\"100%\">");
+        if (firstItemHolder.getItems().isEmpty()) {
+            content.append(HTMLText.makeCentered("<i>No Items!</i>"));
+        }
         for (GameItem gi : firstItemHolder.getItems()) {
             content.append("<tr>");
             content.append("<td>" + HTMLText.makeImage(gi.getSprite(performingClient)) + "</td>");
@@ -93,6 +97,9 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
         content.append(HTMLText.makeBox("yellow", "gray",
                 HTMLText.makeCentered(HTMLText.makeText("yellow", "<b>" + secondTitle + "</b>"))));
         content.append("<table color=\"yellow\" width=\"100%\">");
+        if (secondItemHolder.getItems().isEmpty()) {
+            content.append(HTMLText.makeCentered("<i>No Items!</i>"));
+        }
         for (GameItem gi : secondItemHolder.getItems()) {
             content.append("<tr>");
             content.append("<td>" + HTMLText.makeImage(gi.getSprite(performingClient)) + "</td>");
@@ -194,7 +201,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
         return pua;
     }
 
-    protected interface NameGetter {
+    protected interface NameGetter extends Serializable {
         String getName(GameItem gi, Player pl);
     }
 }

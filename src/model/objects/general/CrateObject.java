@@ -18,6 +18,10 @@ public class CrateObject extends ContainerObject {
         ship.hasArrivedIn(position, gameData);
 	}
 
+	protected CrateObject(Room position, String name) {
+		super(name, position);
+	}
+
     @Override
     public Sprite getSprite(Player whosAsking) {
         return new Sprite("crate", "storage.png", 39, this);

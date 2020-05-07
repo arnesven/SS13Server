@@ -19,4 +19,9 @@ public class ChapelRoom extends SupportRoom {
     public FloorSet getFloorSet() {
         return new ChapelFloorSet();
     }
+
+    @Override
+    protected boolean getsTrashBin() {
+        return false;
+    }
 }

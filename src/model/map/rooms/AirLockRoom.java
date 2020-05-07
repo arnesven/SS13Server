@@ -166,4 +166,9 @@ public class AirLockRoom extends StationRoom implements DockingPointRoom {
 			return null;
 		}
 	}
+
+	@Override
+	protected boolean getsTrashBin() {
+		return false;
+	}
 }
