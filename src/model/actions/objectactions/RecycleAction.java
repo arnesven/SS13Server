@@ -51,8 +51,7 @@ public class RecycleAction extends Action {
             try {
                 RecyclingContainer cont = gameData.findObjectOfType(RecyclingContainer.class);
                 if (!cont.isFull()) {
-                    cont.getInventory().add(selectedItem);
-                    selectedItem.setPosition(cont.getPosition());
+                    cont.recycle(selectedItem);
                     performingClient.addTolastTurnInfo("You recycled the " + selectedItem.getPublicName(performingClient) + ". Go you!");
                     trash.setAnimating(true);
                 } else {

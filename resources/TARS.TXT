@@ -3,3 +3,6 @@ How are you today?
 Hey there, I'm TARS.
 What's up $r?
 Hi $r.
+My name is TARS. Can I help you?
+How are you today $r?
+Looking sharp $r!

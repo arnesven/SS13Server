@@ -79,6 +79,7 @@ public class SS13Client extends JFrame {
                 } else if (result.contains("ERROR") || result.contains("error")) {
                     JOptionPane.showMessageDialog(SS13Client.this,
                             result.replace("ERROR", ""));
+                    new ConnectToServerDialog(SS13Client.this);
                 } else if (result.contains("fail")) {
                     JOptionPane.showMessageDialog(SS13Client.this, "Could not connect to server.");
 
@@ -102,6 +103,7 @@ public class SS13Client extends JFrame {
         getContentPane().remove(guiPanel);
         guiPanel.unregisterYourself();
         getContentPane().add(retPan);
+        disableView();
         this.setSize(originalSize);
         revalidate();
         repaint();
@@ -371,6 +373,8 @@ public class SS13Client extends JFrame {
     private void enableView() {
         this.view.setEnabled(true);
     }
+
+    private void disableView() { this.view.setEnabled(false);}
 
 
 
