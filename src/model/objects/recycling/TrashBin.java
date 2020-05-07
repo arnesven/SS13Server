@@ -7,6 +7,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.RecycleAction;
 import model.events.animation.AnimatedSprite;
+import model.map.rooms.Room;
 import model.map.rooms.StationRoom;
 import model.objects.general.GameObject;
 
@@ -23,6 +24,7 @@ public class TrashBin extends GameObject {
         rejecting = false;
         lastUsedIn = -1;
     }
+
 
     @Override
     public Sprite getSprite(Player whosAsking) {
@@ -61,4 +63,19 @@ public class TrashBin extends GameObject {
     public int getLastUsedIn() {
         return lastUsedIn;
     }
+
+    public static boolean hasTrashCan(Room position) {
+        return getTrashBin(position) != null;
+    }
+
+
+    public static TrashBin getTrashBin(Room position) {
+        for (GameObject obj : position.getObjects()) {
+            if (obj instanceof TrashBin) {
+                return (TrashBin)obj;
+            }
+        }
+        return null;
+    }
+
 }

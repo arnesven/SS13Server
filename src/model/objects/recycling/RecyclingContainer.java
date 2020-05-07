@@ -1,5 +1,6 @@
 package model.objects.recycling;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -16,6 +17,11 @@ public class RecyclingContainer extends CrateObject {
 
     public RecyclingContainer(Room r) {
         super(r, "Recycling Container");
+    }
+
+    @Override
+    public Sprite getSprite(Player whosAsking) {
+        return new Sprite("recyclingcontainer", "storage.png", 69, this);
     }
 
     public boolean isFull() {
@@ -42,6 +48,11 @@ public class RecyclingContainer extends CrateObject {
         @Override
         public String howYouAppear(Actor performingClient) {
             return "<b><i>Ka-chunk!</i></b> Sounds like something fill into the recycling container.";
+        }
+
+        @Override
+        public void experienceNear(Player p) {
+            p.addTolastTurnInfo(howYouAppear(p));
         }
 
         @Override

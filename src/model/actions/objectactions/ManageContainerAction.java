@@ -17,7 +17,7 @@ public class ManageContainerAction extends Action {
     private final ContainerObject container;
 
     public ManageContainerAction(GameData gameData, ContainerObject containerObject) {
-        super("Retrieve/Store", SensoryLevel.PHYSICAL_ACTIVITY);
+        super("Retrieve/Store " + containerObject.getBaseName(), SensoryLevel.PHYSICAL_ACTIVITY);
         this.gameData = gameData;
         this.container = containerObject;
     }

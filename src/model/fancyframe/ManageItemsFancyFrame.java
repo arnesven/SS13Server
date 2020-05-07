@@ -81,14 +81,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
     }
 
     private boolean isRecyclingApplicable(ItemHolder firstItemHolder, Player performingClient) {
-        boolean positionHasTrashBin = false;
-        for (GameObject obj : performingClient.getPosition().getObjects()) {
-            if (obj instanceof TrashBin) {
-                positionHasTrashBin = true;
-                break;
-            }
-        }
-        return firstItemHolder == performingClient && positionHasTrashBin;
+        return firstItemHolder == performingClient && TrashBin.hasTrashCan(performingClient.getPosition());
     }
 
 
