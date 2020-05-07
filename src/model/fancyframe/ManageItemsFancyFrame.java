@@ -33,9 +33,13 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
 
     public ManageItemsFancyFrame(Player performingClient, GameData gameData,
                                  String firstTitle, ItemHolder firstItemHolder, NameGetter firstNameGetter, int maxPuts,
-                                 String secondTitle, ItemHolder secondItemHolder, NameGetter secondNameGetter, int maxGets) {
+                                 String secondTitle, ItemHolder secondItemHolder, NameGetter secondNameGetter, int maxGets,
+                                 GameItem preselected) {
         super(performingClient.getFancyFrame());
         puttings = new HashSet<>();
+        if (preselected != null) {
+            puttings.add(preselected);
+        }
         gettings = new HashSet<>();
         this.firstTitle = firstTitle;
         this.firstItemHolder = firstItemHolder;

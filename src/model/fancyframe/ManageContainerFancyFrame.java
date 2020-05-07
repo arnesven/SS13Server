@@ -20,7 +20,7 @@ public class ManageContainerFancyFrame extends ManageItemsFancyFrame {
     public ManageContainerFancyFrame(Player performingClient, GameData gameData, ContainerObject container) {
         super(performingClient, gameData,
                 "Storage - Retrieving (max 1)", container, ((GameItem gi, Player pl) -> gi.getPublicName(pl)), 1,
-                "Inventory - Storing (max 1)", performingClient, ((GameItem gi, Player pl) -> gi.getFullName(pl)), 1);
+                "Inventory - Storing (max 1)", performingClient, ((GameItem gi, Player pl) -> gi.getFullName(pl)), 1, null);
         this.container = container;
     }
 

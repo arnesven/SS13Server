@@ -16,11 +16,11 @@ import java.util.Set;
 
 public class ManageInventoryFancyFrame extends ManageItemsFancyFrame {
 
-    public ManageInventoryFancyFrame(Player performingClient, GameData gameData) {
+    public ManageInventoryFancyFrame(Player performingClient, GameData gameData, GameItem preselectedItem) {
         super(performingClient, gameData, "Inventory - Dropping",
                 performingClient, ((GameItem gi, Player pl) -> gi.getFullName(pl)), Integer.MAX_VALUE,
                 "Room Items - Picking Up (max 1)", performingClient.getPosition(),
-                ((GameItem gi, Player pl) -> gi.getPublicName(pl)), 1);
+                ((GameItem gi, Player pl) -> gi.getPublicName(pl)), 1, preselectedItem);
     }
 
 

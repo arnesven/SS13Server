@@ -245,7 +245,7 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
             list.add(pua);
         }
 
-        ManageInventoryAction mia = new ManageInventoryAction("Pick Up/Drop", gameData, true);
+        ManageInventoryAction mia = new ManageInventoryAction("Pick Up/Drop", gameData, true, this, forWhom);
         list.add(mia);
 
         addSpecificOverlayActions(gameData, r, forWhom, list);
@@ -276,7 +276,7 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
                 acts.add(drop);
             }
 
-            ManageInventoryAction mia = new ManageInventoryAction("Drop/Pick Up", gameData, false);
+            ManageInventoryAction mia = new ManageInventoryAction("Drop/Pick Up", gameData, false, this, forWhom);
             acts.add(mia);
         }
 

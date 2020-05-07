@@ -10,17 +10,20 @@ import model.fancyframe.FancyFrame;
 import model.fancyframe.ManageInventoryFancyFrame;
 import model.fancyframe.ManagePickupsFancyFrame;
 import model.fancyframe.UsingGameObjectFancyFrameDecorator;
+import model.items.general.GameItem;
 
 import java.util.List;
 
 public class ManageInventoryAction extends Action {
     private final GameData gameData;
     private final boolean pickupFirst;
+    private final GameItem preselected;
 
-    public ManageInventoryAction(String s, GameData gameData, boolean pickupFirst) {
-        super(s, SensoryLevel.NO_SENSE);
+    public ManageInventoryAction(String s, GameData gameData, boolean pickupFirst, GameItem preselected, Actor actor) {
+        super(s + " " + preselected.getPublicName(actor), SensoryLevel.NO_SENSE);
         this.gameData = gameData;
         this.pickupFirst = pickupFirst;
+        this.preselected = preselected;
     }
 
     @Override
@@ -36,12 +39,11 @@ public class ManageInventoryAction extends Action {
     @Override
     protected void setArguments(List<String> args, Actor performingClient) {
         if (performingClient instanceof Player) {
-            // TODO: if not pickup first, make it slightly different
             FancyFrame ff;
             if (pickupFirst) {
-                ff = new ManagePickupsFancyFrame((Player) performingClient, gameData);
+                ff = new ManagePickupsFancyFrame((Player) performingClient, gameData, preselected);
             } else {
-                ff = new ManageInventoryFancyFrame((Player) performingClient, gameData);
+                ff = new ManageInventoryFancyFrame((Player) performingClient, gameData, preselected);
             }
             ((Player) performingClient).setFancyFrame(ff);
             ((Player) performingClient).setNextAction(new DoNothingAction());

@@ -8,10 +8,11 @@ import model.items.general.GameItem;
 import java.util.Set;
 
 public class ManagePickupsFancyFrame extends ManageItemsFancyFrame {
-    public ManagePickupsFancyFrame(Player performingClient, GameData gameData) {
+    public ManagePickupsFancyFrame(Player performingClient, GameData gameData, GameItem preselectedItem) {
         super(performingClient, gameData,
                 "Room Items - Picking Up (max 1)", performingClient.getPosition(), ((GameItem gi, Player pl) -> gi.getPublicName(pl)), 1,
-                "Inventory - Dropping", performingClient, ((GameItem gi, Player pl) -> gi.getFullName(pl)), Integer.MAX_VALUE);
+                "Inventory - Dropping", performingClient, ((GameItem gi, Player pl) -> gi.getFullName(pl)), Integer.MAX_VALUE,
+                preselectedItem);
 
     }
 
