@@ -7,7 +7,11 @@ import model.actions.general.Action;
 import model.actions.general.DropAction;
 import model.actions.general.MultiAction;
 import model.actions.general.PickUpAction;
+import model.actions.objectactions.RecycleAction;
 import model.items.general.GameItem;
+import model.objects.decorations.TrashBag;
+import model.objects.general.GameObject;
+import model.objects.recycling.TrashBin;
 import util.HTMLText;
 import util.Logger;
 
@@ -27,6 +31,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
     private final NameGetter secondNameGetter;
     private Set<GameItem> puttings;
     private Set<GameItem> gettings;
+    private Set<GameItem> recyclings;
     private boolean playerConfirmed = false;
     private final int maxAllowedGets;
     private final int maxAllowedPuts;
@@ -41,6 +46,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
             puttings.add(preselected);
         }
         gettings = new HashSet<>();
+        recyclings = new HashSet<>();
         this.firstTitle = firstTitle;
         this.firstItemHolder = firstItemHolder;
         this.firstNameGetter = firstNameGetter;
@@ -61,8 +67,8 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
     private void buildInterface(GameData gameData, Player performingClient) {
         StringBuilder content = new StringBuilder();
 
-        makeFirstTable(content, gameData, performingClient);
-        makeSecondTable(content, gameData, performingClient);
+        makeFirstTable(content, gameData, performingClient, isRecyclingApplicable(firstItemHolder, performingClient));
+        makeSecondTable(content, gameData, performingClient, isRecyclingApplicable(secondItemHolder, performingClient));
 
         if (!playerConfirmed) {
             content.append(HTMLText.makeCentered(HTMLText.makeFancyFrameLink("CONFIRM", HTMLText.makeText("yellow", "serif", 5 , "| DONE |"))));
@@ -74,9 +80,19 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
                 HTMLText.makeText("Yellow", content.toString())));
     }
 
+    private boolean isRecyclingApplicable(ItemHolder firstItemHolder, Player performingClient) {
+        boolean positionHasTrashBin = false;
+        for (GameObject obj : performingClient.getPosition().getObjects()) {
+            if (obj instanceof TrashBin) {
+                positionHasTrashBin = true;
+                break;
+            }
+        }
+        return firstItemHolder == performingClient && positionHasTrashBin;
+    }
 
 
-    private void makeFirstTable(StringBuilder content, GameData gameData, Player performingClient) {
+    private void makeFirstTable(StringBuilder content, GameData gameData, Player performingClient, boolean withRecycle) {
         content.append(HTMLText.makeBox("yellow", "gray", HTMLText.makeCentered(HTMLText.makeText("yellow", "<b>" + firstTitle + "</b>"))));
         content.append("<table color=\"yellow\" width=\"100%\">");
         if (firstItemHolder.getItems().isEmpty()) {
@@ -87,17 +103,20 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
             content.append("<td>" + HTMLText.makeImage(gi.getSprite(performingClient)) + "</td>");
             content.append("<td>" + firstNameGetter.getName(gi, performingClient) + "</td>");
             content.append("<td>" + String.format("%1.1f kg", gi.getWeight()) + "</td>");
-            if (puttings.size() < maxAllowedPuts || puttings.contains(gi)) {
-                content.append("<td>" + makeCheckBox("DROP", "KEEP",
-                        puttings.contains(gi), performingClient, gi, playerConfirmed) + "</td>");
+            if (!recyclings.contains(gi)) {
+                if (puttings.size() < maxAllowedPuts || puttings.contains(gi)) {
+                    content.append("<td>" + makeCheckBox("DROP", "KEEP",
+                            puttings.contains(gi), performingClient, gi, playerConfirmed) + "</td>");
+                }
             }
+            content.append(makeRecycleButton(gi, withRecycle, performingClient));
             content.append("</tr>");
         }
         content.append("</table>");
     }
 
 
-    private void makeSecondTable(StringBuilder content, GameData gameData, Player performingClient) {
+    private void makeSecondTable(StringBuilder content, GameData gameData, Player performingClient, boolean withRecycle) {
         content.append(HTMLText.makeBox("yellow", "gray",
                 HTMLText.makeCentered(HTMLText.makeText("yellow", "<b>" + secondTitle + "</b>"))));
         content.append("<table color=\"yellow\" width=\"100%\">");
@@ -109,10 +128,13 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
             content.append("<td>" + HTMLText.makeImage(gi.getSprite(performingClient)) + "</td>");
             content.append("<td>" + secondNameGetter.getName(gi, performingClient) + "</td>");
             content.append("<td>" + String.format("%1.1f kg", gi.getWeight()) + "</td>");
-            if (gettings.size() < maxAllowedGets || gettings.contains(gi)) {
-                content.append("<td>" + makeCheckBox("PICKUP", "DONTPICKUP",
-                        gettings.contains(gi), performingClient, gi, playerConfirmed) + "</td>");
+            if (!recyclings.contains(gi)) {
+                if (gettings.size() < maxAllowedGets || gettings.contains(gi)) {
+                    content.append("<td>" + makeCheckBox("PICKUP", "DONTPICKUP",
+                            gettings.contains(gi), performingClient, gi, playerConfirmed) + "</td>");
+                }
             }
+            content.append(makeRecycleButton(gi, withRecycle, performingClient));
             content.append("</tr>");
         }
         content.append("</table>");
@@ -133,6 +155,20 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
         }
         return HTMLText.makeFancyFrameLink(command + " " +
                 gi.getFullName(performingClient), HTMLText.makeText("yellow", "arial", 6,symbol));
+    }
+
+    private String makeRecycleButton(GameItem gi, boolean withRecycle, Player player) {
+        if (withRecycle) {
+            String rec = "♻";
+            if (recyclings.contains(gi)) {
+                return "<td>" + HTMLText.makeFancyFrameLink("DONTRECYCLE " + gi.getFullName(player),
+                        HTMLText.makeText("black", "green", "serif", 6, rec)) + "</td>";
+            } else {
+                return "<td>" + HTMLText.makeFancyFrameLink("RECYCLE " + gi.getFullName(player),
+                        HTMLText.makeText("green", "serif", 6, rec)) + "</td>";
+            }
+        }
+        return "";
     }
 
 
@@ -174,15 +210,44 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
                 }
             }
             rebuildInterface(gameData, player);
+        } else if (event.contains("DONTRECYCLE")) {
+            for (GameItem gi : recyclings) {
+                if (gi.getFullName(player).equals(event.replace("DONTRECYCLE ", ""))) {
+                    recyclings.remove(gi);
+                    break;
+                }
+            }
+            rebuildInterface(gameData, player);
+        } else if (event.contains("RECYCLE")) {
+            Set<GameItem> all = new HashSet<>();
+            all.addAll(firstItemHolder.getItems());
+            all.addAll(secondItemHolder.getItems());
+            for (GameItem gi : all) {
+                if (gi.getFullName(player).equals(event.replace("RECYCLE ", ""))) {
+                    recyclings.add(gi);
+                    if (gettings.contains(gi)) {
+                        gettings.remove(gi);
+                    }
+                    if (puttings.contains(gi)) {
+                        puttings.remove(gi);
+                    }
+                    break;
+                }
+            }
+            rebuildInterface(gameData, player);
         } else if (event.contains("CONFIRM")) {
             playerConfirmed = !playerConfirmed;
             MultiAction multiAction = getFinalAction(gameData, player, puttings, gettings);
+            for (GameItem gi : recyclings) {
+                multiAction.addAction(makeRecycleAction(gi, player));
+            }
             super.dismissAtEndOfTurn(gameData, player);
             player.setNextAction(multiAction);
             readyThePlayer(gameData, player);
             rebuildInterface(gameData, player);
         }
     }
+
 
     @Override
     public void rebuildInterface(GameData gameData, Player player) {
@@ -196,6 +261,15 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
         da.setActionTreeArguments(args, player);
         return da;
     }
+
+    private Action makeRecycleAction(GameItem gi, Player player) {
+        RecycleAction ra = new RecycleAction();
+        List<String> args = new ArrayList<>();
+        args.add(gi.getFullName(player));
+        ra.setActionTreeArguments(args, player);
+        return ra;
+    }
+
 
     protected Action makePickUpAction(GameItem it, Player player) {
         PickUpAction pua = new PickUpAction(player);
