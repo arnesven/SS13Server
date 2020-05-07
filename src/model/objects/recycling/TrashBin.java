@@ -29,7 +29,7 @@ public class TrashBin extends GameObject {
         if (animating) {
             return new AnimatedSprite("trashcanani", "trashcan.png", 0, 1, 32, 32, this, 14, false);
         } else if (rejecting) {
-            return new Sprite("trashcanreject", "trashcan.png", 7, 1, this);
+            return new Sprite("trashcanreject", "trashcan.png", 7, 0, this);
         }
 
         return new Sprite("trashcannormal", "trashcan.png", 0, this);

@@ -50,10 +50,15 @@ public class RecycleAction extends Action {
             selectedItem.setHolder(null);
             try {
                 RecyclingContainer cont = gameData.findObjectOfType(RecyclingContainer.class);
-                cont.getInventory().add(selectedItem);
-                selectedItem.setPosition(cont.getPosition());
-                performingClient.addTolastTurnInfo("You recycled the " + selectedItem.getPublicName(performingClient) + ". Go you!");
-                trash.setAnimating(true);
+                if (!cont.isFull()) {
+                    cont.getInventory().add(selectedItem);
+                    selectedItem.setPosition(cont.getPosition());
+                    performingClient.addTolastTurnInfo("You recycled the " + selectedItem.getPublicName(performingClient) + ". Go you!");
+                    trash.setAnimating(true);
+                } else {
+                    performingClient.addTolastTurnInfo("You tried to recycle the " + selectedItem.getPublicName(performingClient) +", but the trash bin rejected it!");
+                    trash.setRejecting(true);
+                }
             } catch (NoSuchThingException e) {
                 performingClient.addTolastTurnInfo("You tried to recycle the " + selectedItem.getPublicName(performingClient) +", but the trash bin rejected it!");
                 trash.setRejecting(true);
