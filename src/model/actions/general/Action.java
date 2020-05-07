@@ -150,17 +150,6 @@ public abstract class Action extends Experienceable implements Serializable {
     public static void uniquefiyList(GameData gameData, List<Action> at, Actor act) {
         // Logger.log("Uniquifying list for " + act.getBaseName());
             for (Action a : at) {
-                int dup = 2;
-                for (Action b : at) {
-                    if (a != b && a.getName().equals(b.getName())) {
-                        // Logger.log("Found same : " + a.getName() + " - fixing.");
-                        b.setName(b.getName() + " [" + (dup++) + "]");
-                    }
-                }
-                if (dup != 2) {
-                    a.setName(a.getName() + " [1]");
-                }
-
                 a.uniquefy(gameData, act);
             }
     }

@@ -263,7 +263,13 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
     }
 
     private Action makeRecycleAction(GameItem gi, Player player) {
-        RecycleAction ra = new RecycleAction();
+        TrashBin bin = null;
+        for (GameObject obj : player.getPosition().getObjects()) {
+            if (obj instanceof TrashBin) {
+                bin = (TrashBin) obj;
+            }
+        }
+        RecycleAction ra = new RecycleAction(bin);
         List<String> args = new ArrayList<>();
         args.add(gi.getFullName(player));
         ra.setActionTreeArguments(args, player);

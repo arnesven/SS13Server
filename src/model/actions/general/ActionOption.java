@@ -61,16 +61,6 @@ public class ActionOption {
     public void uniquefy() {
         // Logger.log("     Uniqifying action options... " + this.getName());
         for (ActionOption a : suboptions) {
-            int dup = 2;
-            for (ActionOption b : suboptions) {
-                if (a != b && a.getName().equals(b.getName())) {
-                    // Logger.log("Found same : " + a.getName() + " - fixing.");
-                    b.setName(b.getName() + " [" + (dup++) + "]");
-                }
-            }
-            if (dup != 2) {
-                a.setName(a.getName() + " [1]");
-            }
             a.uniquefy();
         }
     }

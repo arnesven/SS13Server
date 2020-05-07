@@ -38,7 +38,6 @@ public class RetrieveAction extends Action {
 
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
-Logger.log(args.toString());
         for (GameItem it : containerObject.getInventory()) {
             if (args.get(0).contains(it.getPublicName(performingClient))) {
                 selectedItem = it;

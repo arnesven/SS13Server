@@ -22,4 +22,9 @@ public class JanitorialRoom extends SupportRoom {
         this.addItem(new EmptyContainer());
         this.addItem(Chemicals.createRandomChemicals());
     }
+
+    @Override
+    protected boolean getsTrashBin() {
+        return false;
+    }
 }
