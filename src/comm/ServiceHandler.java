@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import model.GameData;
+import util.Logger;
 
 
 public class ServiceHandler {
@@ -67,8 +68,7 @@ public class ServiceHandler {
 	public void serv(Socket socket) throws IOException, ClassNotFoundException, UnknownMessageException {
 	    try {
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-
-            String message = (String) ois.readObject();
+		    String message = (String) ois.readObject();
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             for (MessageHandler handler : handlers) {
                 if (handler.handle(message, oos)) {

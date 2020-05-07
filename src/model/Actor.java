@@ -7,6 +7,7 @@ import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.actions.*;
 import model.actions.general.*;
+import model.characters.crew.CrewCharacter;
 import model.characters.decorators.*;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
@@ -507,7 +508,9 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
     public void giveStartingItemsToSelf() {
         List<GameItem> startingItems = this.getCharacter().getStartingItems();
         Logger.log("Giving starting items to " + this.getPublicName());
-        this.addItem(new EmergencyKit(), null);
+        if (isCrew()) {
+            this.addItem(new EmergencyKit(), null);
+        }
         for (GameItem it : startingItems) {
             if (it.canBePickedUp()) {
                 this.addItem(it, null);
@@ -649,6 +652,11 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter);
     }
 
+
+    public boolean isCrew() {
+        return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof CrewCharacter);
+    }
+
     public boolean isFloatingInSpace() {
         return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator);
     }
@@ -666,4 +674,4 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         setCharacter(new InSpaceCharacterDecorator(getCharacter(), gameData));
     }
 
- }
+}

@@ -27,7 +27,7 @@ public class ServerCommunicator {
 		if (!res.equals("fail")) {
             callback.onSuccess(res);
             dt = System.currentTimeMillis() - dt;
-        //    System.out.println("Took " + dt + "ms to process result");
+         //   System.out.println("Took " + dt + "ms to process result");
         } else {
 		    callback.onFail();
         }

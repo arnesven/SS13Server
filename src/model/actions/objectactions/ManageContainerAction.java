@@ -1,4 +1,4 @@
-package model.actions.itemactions;
+package model.actions.objectactions;
 
 import model.Actor;
 import model.GameData;
@@ -7,20 +7,19 @@ import model.actions.general.Action;
 import model.actions.general.DoNothingAction;
 import model.actions.general.SensoryLevel;
 import model.fancyframe.FancyFrame;
-import model.fancyframe.ManageInventoryFancyFrame;
-import model.fancyframe.ManagePickupsFancyFrame;
-import model.fancyframe.UsingGameObjectFancyFrameDecorator;
+import model.fancyframe.ManageContainerFancyFrame;
+import model.objects.general.ContainerObject;
 
 import java.util.List;
 
-public class ManageInventoryAction extends Action {
+public class ManageContainerAction extends Action {
     private final GameData gameData;
-    private final boolean pickupFirst;
+    private final ContainerObject container;
 
-    public ManageInventoryAction(String s, GameData gameData, boolean pickupFirst) {
-        super(s, SensoryLevel.NO_SENSE);
+    public ManageContainerAction(GameData gameData, ContainerObject containerObject) {
+        super("Retrieve/Store", SensoryLevel.PHYSICAL_ACTIVITY);
         this.gameData = gameData;
-        this.pickupFirst = pickupFirst;
+        this.container = containerObject;
     }
 
     @Override
@@ -30,20 +29,14 @@ public class ManageInventoryAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        // should not be executed...
+        // Should not be executed
     }
 
     @Override
     protected void setArguments(List<String> args, Actor performingClient) {
         if (performingClient instanceof Player) {
-            // TODO: if not pickup first, make it slightly different
-            FancyFrame ff;
-            if (pickupFirst) {
-                ff = new ManagePickupsFancyFrame((Player) performingClient, gameData);
-            } else {
-                ff = new ManageInventoryFancyFrame((Player) performingClient, gameData);
-            }
-            ((Player) performingClient).setFancyFrame(ff);
+            FancyFrame ff = new ManageContainerFancyFrame((Player)performingClient, gameData, container);
+            ((Player)performingClient).setFancyFrame(ff);
             ((Player) performingClient).setNextAction(new DoNothingAction());
             ((Player) performingClient).refreshClientData();
         }

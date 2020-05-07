@@ -14,6 +14,7 @@ import model.characters.special.SpectatorCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.events.*;
 import model.events.ambient.*;
+import model.items.EmergencyKit;
 import model.items.NoSuchThingException;
 import model.items.suits.Rapido;
 import model.map.DockingPoint;
@@ -723,9 +724,7 @@ public abstract class GameMode implements Serializable {
 
 		List<GameItem> startingItems = newPlayer.getCharacter().getStartingItems();
 		Logger.log("Giving starting items to " + newPlayer.getPublicName());
-		for (GameItem it : startingItems) {
-			newPlayer.addItem(it, null);
-		}
+		newPlayer.giveStartingItemsToSelf();
 		Bank.getInstance(gameData).addAccount(newPlayer);
 
 		addStartingMessage(gameData, newPlayer);
