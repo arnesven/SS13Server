@@ -18,6 +18,7 @@ import model.map.rooms.ShuttleRoom;
 import model.map.rooms.StationRoom;
 import model.npcs.NPC;
 import model.npcs.behaviors.DoNothingBehavior;
+import model.npcs.behaviors.GoTowardsEscapeShuttle;
 import model.npcs.behaviors.StayBehavior;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.ShuttleControl;
@@ -55,6 +56,18 @@ public class CallEscapeShuttleAction extends Action {
             e.printStackTrace();
         }
         gameData.addEvent(new EscapeShuttleArrivesEvent(randTurns, gameData.getRound()));
+        makeNPCCrewGoTowardsShuttle(gameData, preferredDockingPoint);
+    }
+
+    private void makeNPCCrewGoTowardsShuttle(GameData gameData, String preferredDockingPoint) {
+        for (Room r : gameData.getNonHiddenStationRooms()) {
+            for (NPC npc : r.getNPCs()) {
+                if (npc.isCrew()) {
+                    npc.setMoveBehavior(new GoTowardsEscapeShuttle(findPreferredDockingPoint(new ArrayList<>()), gameData));
+                }
+            }
+        }
+
     }
 
     @Override
@@ -74,41 +87,32 @@ public class CallEscapeShuttleAction extends Action {
             if (gameData.getRound() != arrivesInRound) {
                 return;
             }
-            List<DockingPoint> others = new ArrayList<>();
-            DockingPoint dockingPoint = null;
             if (gameData.getRound() == arrivesInRound) {
-                for (DockingPoint dp : gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).getDockingPoints()) {
-                    if (dp.getName().equals(preferredDockingPoint)) {
-                        dockingPoint = dp;
-                    }
-                    others.add(dp);
+                List<DockingPoint> others = new ArrayList<>();
+                DockingPoint dockingPoint = findPreferredDockingPoint(others);
+
+                String redirect = "at ";
+                if (dockingPoint == null) {
+                    dockingPoint = MyRandom.sample(others);
+                    redirect = ", it has been redirected to ";
                 }
-            }
 
-            String redirect = "at ";
-            if (dockingPoint == null) {
-                dockingPoint = MyRandom.sample(others);
-                redirect = ", it has been redirected to ";
-            }
-
-            try {
-                EscapeShuttle shuttle = (EscapeShuttle)gameData.getRoom("Escape Shuttle");
-                gameData.getMap().moveRoomToLevel(shuttle, GameMap.STATION_LEVEL_NAME, "center");
-                shuttle.dockYourself(gameData, dockingPoint);
                 try {
-                    gameData.findObjectOfType(AIConsole.class).informOnStation("The Escape Shuttle has arrived on the station " +
-                            redirect + shuttle.getDockingPointRoom().getName(), gameData);
-                    gameData.addEvent(new EscapeShuttleLeavingEvent(gameData.getRound(), shuttle));
+                    EscapeShuttle shuttle = (EscapeShuttle) gameData.getRoom("Escape Shuttle");
+                    shuttle.setHasArrived(true);
+                    gameData.getMap().moveRoomToLevel(shuttle, GameMap.STATION_LEVEL_NAME, "center");
+                    shuttle.dockYourself(gameData, dockingPoint);
+                    try {
+                        gameData.findObjectOfType(AIConsole.class).informOnStation("The Escape Shuttle has arrived on the station " +
+                                redirect + shuttle.getDockingPointRoom().getName(), gameData);
+                        gameData.addEvent(new EscapeShuttleLeavingEvent(gameData.getRound(), shuttle));
+                    } catch (NoSuchThingException e) {
+                        e.printStackTrace();
+                    }
                 } catch (NoSuchThingException e) {
                     e.printStackTrace();
                 }
-            } catch (NoSuchThingException e) {
-                e.printStackTrace();
             }
-
-
-
-
         }
 
         @Override
@@ -125,6 +129,18 @@ public class CallEscapeShuttleAction extends Action {
         public boolean shouldBeRemoved(GameData gameData) {
             return gameData.getRound() >= arrivesInRound;
         }
+    }
+
+    private DockingPoint findPreferredDockingPoint(List<DockingPoint> others) {
+        DockingPoint dockingPoint = null;
+            for (DockingPoint dp : gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).getDockingPoints()) {
+                if (dp.getName().equals(preferredDockingPoint)) {
+                    dockingPoint = dp;
+                }
+                others.add(dp);
+            }
+
+        return dockingPoint;
     }
 
     private class EscapeShuttleLeavingEvent extends Event {

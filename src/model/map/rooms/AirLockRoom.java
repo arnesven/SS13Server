@@ -148,9 +148,9 @@ public class AirLockRoom extends StationRoom implements DockingPointRoom {
     }
 
     public boolean hasAFreeExit() {
-	    Logger.log("Checking for free exit");
+	    //Logger.log("Checking for free exit");
 	    for (DockingPoint dp : getDockingPoints()) {
-	        Logger.log("Docking point " +dp.getName() + " vacant? " + dp.isVacant());
+	        //Logger.log("Docking point " +dp.getName() + " vacant? " + dp.isVacant());
 	        if (dp.isVacant()) {
 	            return true;
             }

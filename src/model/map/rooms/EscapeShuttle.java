@@ -6,6 +6,7 @@ import model.Player;
 import model.actions.objectactions.CallEscapeShuttleAction;
 import model.characters.decorators.*;
 import model.characters.general.GameCharacter;
+import model.events.Event;
 import model.fancyframe.SinglePageFancyFrame;
 import model.items.NoSuchThingException;
 import model.map.doors.Door;
@@ -18,15 +19,20 @@ import model.objects.decorations.BigThruster;
 import model.objects.decorations.ShuttleThruster;
 import util.HTMLText;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EscapeShuttle extends ShuttleRoom {
 
     private boolean hasLeft;
+    private boolean hasArrived;
 
     public EscapeShuttle(GameData gameData) {
         super(gameData.getMap().getMaxID()+1, "Escape Shuttle",
                 0, 0, 4, 2, new int[]{},
                 new Door[]{}, 14);
         hasLeft = false;
+        hasArrived = false;
         addDecoration(new BigThruster(this, 0.25));
         addDecoration(new BigThruster(this, 1.25));
         addObject(new EscapeShuttleControl(this));
@@ -35,6 +41,15 @@ public class EscapeShuttle extends ShuttleRoom {
     public boolean hasLeft() {
         return hasLeft;
     }
+
+    public void setHasArrived(boolean b) {
+        this.hasArrived = b;
+    }
+
+    public boolean hasArrived() {
+        return hasArrived;
+    }
+
 
     public void leaveNow(GameData gameData) {
         undockYourself(gameData);
@@ -74,7 +89,14 @@ public class EscapeShuttle extends ShuttleRoom {
             ((NPC) a).setActionBehavior(new DoNothingBehavior());
             ((NPC) a).setMoveBehavior(new StayBehavior());
         }
+
+        List<Event> events = new ArrayList<>();
+        events.addAll(getEvents());
+        for (Event e : events) {
+            removeEvent(e);
+        }
     }
+
 
     private class EscapedOnShuttleDecorator extends CharacterDecorator {
         public EscapedOnShuttleDecorator(GameCharacter character) {
