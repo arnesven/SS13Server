@@ -62,6 +62,8 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
         addConsoleActions(gameData, cl, at);
         if (!hasSitDownAction(at)) {
             at.add(new GeneralSitDownAtConsoleAction(gameData, this));
+        } else if (cl.isAI()) {
+            at.removeIf((Action a ) -> a instanceof SitDownAtConsoleAction);
         }
     }
 
