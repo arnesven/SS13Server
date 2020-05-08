@@ -143,7 +143,8 @@ public class ChangelingGameMode extends GameMode {
 		for (Actor a : actorsWhoStartedTheGame) {
             try {
                 if (a.getCharacter().isCrew() && !a.isDead()
-                    && gameData.getMap().getLevelForRoom(a.getPosition()).getName().equals(GameMap.STATION_LEVEL_NAME)) {
+                    && gameData.getMap().getLevelForRoom(a.getPosition()).getName().equals(GameMap.STATION_LEVEL_NAME) &&
+						!a.isInSpace()) {
                     return false;
                 }
             } catch (NoSuchThingException e) {
