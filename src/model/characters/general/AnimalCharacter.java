@@ -14,9 +14,6 @@ public abstract class AnimalCharacter extends GameCharacter implements Trainable
 	
 	@Override
 	public String getPublicName() {
-		if (isDead()) {
-			return getBaseName() + " (dead)";
-		}
 		return getBaseName();
 	}
 

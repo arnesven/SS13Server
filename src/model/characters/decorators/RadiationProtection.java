@@ -14,10 +14,7 @@ public class RadiationProtection extends CharacterDecorator {
 	
 	@Override
 	public String getPublicName() {
-		String res = "Radiation suit";
-		if (isDead()) {
-			res += " (dead)";
-		}
+		String res = "Somebody in a radiation suit";
 		return res;
 	}
 	

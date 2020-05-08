@@ -700,4 +700,12 @@ public abstract class Room implements ItemHolder, Serializable {
 		return true;
 	}
 
+	public String getPublicName(Actor forWhom) {
+		return getName();
+	}
+
+	public Room getPosition() {
+		return this;
+	}
+
 }

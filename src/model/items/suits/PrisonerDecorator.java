@@ -14,9 +14,6 @@ class PrisonerDecorator extends CharacterDecorator {
 	@Override
 	public String getPublicName() {
 		String res = "Prisoner #" + num;
-		if (isDead()) {
-			res += " (dead)";
-		}
 		return res;
 	}
 }

@@ -23,7 +23,7 @@ public class LizardMutation extends Mutation {
 
             @Override
             public String getPublicName() {
-                return "Lizardman" + (getActor().isDead()?" (dead)":"");
+                return "Lizardman";
             }
         };
     }

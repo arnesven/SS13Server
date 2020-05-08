@@ -15,8 +15,10 @@ import java.util.List;
  */
 public class AlienCharacter extends GameCharacter {
 
+    private static int num = 1;
+
      public AlienCharacter() {
-        super("Eyeball Alien", 0, 6.666);
+        super("Eyeball Alien #" + (num++), 0, 6.666);
     }
 
     @Override
@@ -27,9 +29,6 @@ public class AlienCharacter extends GameCharacter {
     @Override
     public String getPublicName() {
 		String res = getBaseName();
-		if (isDead()) {
-			return res + " (dead)";
-		}
 		return res;
 	}
 

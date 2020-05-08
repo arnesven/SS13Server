@@ -17,10 +17,7 @@ public class FireProtection extends CharacterDecorator {
 	
 	@Override
 	public String getPublicName() {
-		String res = "Fire suit";
-		if (isDead()) {
-			res += " (dead)";
-		}
+		String res = "Somebody in a fire suit";
 		return res;
 	}
 

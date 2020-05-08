@@ -2,6 +2,7 @@ package model.actions.objectactions;
 
 import model.Actor;
 import model.GameData;
+import model.ItemHolder;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
@@ -11,10 +12,10 @@ import model.objects.general.ContainerObject;
 import java.util.List;
 
 public class StoreItemAction extends Action {
-    private final ContainerObject container;
+    private final ItemHolder container;
     private GameItem selectedItem;
 
-    public StoreItemAction(ContainerObject container, Player player) {
+    public StoreItemAction(ItemHolder container, Player player) {
         super("Store Item", SensoryLevel.PHYSICAL_ACTIVITY);
         this.container = container;
     }
@@ -32,9 +33,9 @@ public class StoreItemAction extends Action {
             performingClient.getItems().remove(selectedItem);
             selectedItem.setHolder(null);
             selectedItem.setPosition(container.getPosition());
-            container.getInventory().add(selectedItem);
-            performingClient.addTolastTurnInfo("You stored the " + selectedItem.getPublicName(performingClient) +
-                    " in the " + container.getPublicName(performingClient) + ".");
+            container.getItems().add(selectedItem);
+                performingClient.addTolastTurnInfo("You stored the " + selectedItem.getPublicName(performingClient) +
+                        " in the " + container.getPublicName(performingClient) + ".");
         }
     }
 

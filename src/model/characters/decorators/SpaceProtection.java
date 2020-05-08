@@ -14,10 +14,7 @@ public class SpaceProtection extends CharacterDecorator {
 	
 	@Override
 	public String getPublicName() {
-		String res = "Space suit";
-		if (isDead()) {
-			res += " (dead)";
-		}
+		String res = "Somebody in a space suit";
 		return res;
 	}
 

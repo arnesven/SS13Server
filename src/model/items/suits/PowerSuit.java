@@ -72,10 +72,7 @@ public class PowerSuit extends SuitItem {
 
         @Override
         public String getPublicName() {
-            String str = "Power Suit";
-            if (isDead()) {
-                return str + " (dead)";
-            }
+            String str = "Somebody in a power Suit";
             return str;
         }
 

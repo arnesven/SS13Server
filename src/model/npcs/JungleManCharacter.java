@@ -26,9 +26,6 @@ class JungleManCharacter extends GameCharacter {
     @Override
     public String getPublicName() {
         String res = getBaseName();
-        if (isDead()) {
-            return res + " (dead)";
-        }
         return res;
     }
 

@@ -13,9 +13,6 @@ public class DisguisedAs extends CharacterDecorator {
 	
 	@Override
 	public String getPublicName() {
-		if (isDead()) {
-			return type + " (dead)";
-		}
 		return type;
 	}
 	

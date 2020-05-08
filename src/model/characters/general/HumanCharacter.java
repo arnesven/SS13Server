@@ -23,9 +23,6 @@ public abstract class HumanCharacter extends GameCharacter {
 		if (getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT) == null) {
 			res = "Naked " + getGender() ;
 		}
-		if (isDead()) {
-			return res + " (dead)";
-		}
 		return res;
 	}
 

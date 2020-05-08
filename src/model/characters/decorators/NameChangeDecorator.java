@@ -17,9 +17,6 @@ public class NameChangeDecorator extends CharacterDecorator {
     @Override
     public String getPublicName() {
         String str = changeTo;
-        if (isDead()) {
-            str += " (dead)";
-        }
         return str;
     }
 }

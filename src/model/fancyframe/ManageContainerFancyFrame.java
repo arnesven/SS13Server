@@ -36,11 +36,8 @@ public class ManageContainerFancyFrame extends ManageItemsFancyFrame {
         }
 
         for (GameItem gi : gettings) {
-            StoreItemAction sia = new StoreItemAction(container, player);
-            List<String> args = new ArrayList<>();
-            args.add(gi.getFullName(player));
-            sia.setActionTreeArguments(args, player);
-            multiAction.addAction(sia);
+            multiAction.addAction(super.makeStoreAction(gi, gameData, player, container));
+
         }
 
         return multiAction;

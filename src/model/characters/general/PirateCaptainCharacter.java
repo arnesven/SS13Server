@@ -29,9 +29,6 @@ public class PirateCaptainCharacter extends PirateCharacter {
 
     @Override
     public String getPublicName() {
-        if (isDead()) {
-            return "Pirate Captain (dead)";
-        }
         return "Pirate Captain";
     }
 

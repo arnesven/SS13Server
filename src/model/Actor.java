@@ -6,6 +6,7 @@ import java.util.*;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.actions.*;
+import model.actions.fancyframeactions.ShowLootingFancyFrame;
 import model.actions.general.*;
 import model.characters.crew.CrewCharacter;
 import model.characters.decorators.*;
@@ -546,6 +547,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
                 simpleTargetingActions.add(new StopFollowingAction(forWhom));
                 simpleTargetingActions.add(new HighFiveAction(forWhom));
                 simpleTargetingActions.add(new LootAction(forWhom));
+                simpleTargetingActions.add(new ShowLootingFancyFrame(forWhom, gameData, this));
                 for (TargetingAction ta : simpleTargetingActions) {
                     if (ta.isAmongOptions(gameData, forWhom, this.getPublicName())) {
                         ta.stripAllTargetsBut(this.getAsTarget());
