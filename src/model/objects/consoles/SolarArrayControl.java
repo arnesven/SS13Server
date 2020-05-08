@@ -30,6 +30,11 @@ public class SolarArrayControl extends Console implements PowerSupply {
         this.gameData = gameData;
     }
 
+    @Override
+    public boolean isPowered() {
+        return true;
+    }
+
     public List<SolarPanel> findSolarPanels() {
         List<SolarPanel> result = new ArrayList<>();
         try {

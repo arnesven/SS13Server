@@ -2,22 +2,33 @@ package model.actions.objectactions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.characters.decorators.*;
+import model.characters.general.GameCharacter;
 import model.events.Event;
+import model.fancyframe.SinglePageFancyFrame;
 import model.items.NoSuchThingException;
 import model.map.DockingPoint;
 import model.map.GameMap;
+import model.map.rooms.EscapeShuttle;
 import model.map.rooms.Room;
 import model.map.rooms.ShuttleRoom;
+import model.map.rooms.StationRoom;
+import model.npcs.NPC;
+import model.npcs.behaviors.DoNothingBehavior;
+import model.npcs.behaviors.StayBehavior;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.ShuttleControl;
+import util.HTMLText;
 import util.MyRandom;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CallEscapeShuttleAction extends Action {
+    private static final int SHUTTLE_AUTO_LEAVE_ROUNDS = 4;
     private final ShuttleControl console;
     private final GameData gameData;
     private String preferredDockingPoint;
@@ -35,7 +46,7 @@ public class CallEscapeShuttleAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        int randTurns = MyRandom.nextInt(4) + 2;
+        int randTurns = MyRandom.nextInt(3) + 2;
         performingClient.addTolastTurnInfo("You called the escape shuttle. ETA " + randTurns + " turns.");
         try {
             gameData.findObjectOfType(AIConsole.class).informOnStation("The Escape Shuttle has been called. It will dock at " +
@@ -81,12 +92,13 @@ public class CallEscapeShuttleAction extends Action {
             }
 
             try {
-                ShuttleRoom shuttle = (ShuttleRoom)gameData.getRoom("Escape Shuttle");
+                EscapeShuttle shuttle = (EscapeShuttle)gameData.getRoom("Escape Shuttle");
                 gameData.getMap().moveRoomToLevel(shuttle, GameMap.STATION_LEVEL_NAME, "center");
                 shuttle.dockYourself(gameData, dockingPoint);
                 try {
                     gameData.findObjectOfType(AIConsole.class).informOnStation("The Escape Shuttle has arrived on the station " +
                             redirect + shuttle.getDockingPointRoom().getName(), gameData);
+                    gameData.addEvent(new EscapeShuttleLeavingEvent(gameData.getRound(), shuttle));
                 } catch (NoSuchThingException e) {
                     e.printStackTrace();
                 }
@@ -114,4 +126,54 @@ public class CallEscapeShuttleAction extends Action {
             return gameData.getRound() >= arrivesInRound;
         }
     }
+
+    private class EscapeShuttleLeavingEvent extends Event {
+        private final int roundStarted;
+        private final EscapeShuttle shuttle;
+
+        public EscapeShuttleLeavingEvent(int round, EscapeShuttle shuttle) {
+            this.roundStarted = round;
+            this.shuttle = shuttle;
+        }
+
+        @Override
+        public void apply(GameData gameData) {
+            if (gameData.getRound() == roundStarted + SHUTTLE_AUTO_LEAVE_ROUNDS) {
+               shuttle.leaveNow(gameData);
+            } else if (gameData.getRound() > roundStarted) {
+                StringBuilder missingCrew = new StringBuilder();
+
+                for (Actor a : gameData.getActors()) {
+                    if (a.isCrew() && !a.isDead() && a.getPosition() instanceof StationRoom && !shuttle.getActors().contains(a)) {
+                        missingCrew.append(", " + a.getBaseName());
+                    }
+                }
+
+                try {
+                    gameData.findObjectOfType(AIConsole.class).informOnStation("Paging " +
+                            missingCrew.toString().replaceFirst(", ", "") + "! " +
+                            "The Escape Shuttle is leaving soon! ", gameData);
+                } catch (NoSuchThingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public boolean shouldBeRemoved(GameData gameData) {
+            return gameData.getRound() == roundStarted + SHUTTLE_AUTO_LEAVE_ROUNDS || shuttle.hasLeft();
+        }
+
+        @Override
+        public String howYouAppear(Actor performingClient) {
+            return null;
+        }
+
+        @Override
+        public SensoryLevel getSense() {
+            return null;
+        }
+    }
+
+
 }

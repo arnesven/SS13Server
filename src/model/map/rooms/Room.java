@@ -116,7 +116,7 @@ public abstract class Room implements ItemHolder, Serializable {
 
 	public List<Action> getActionData(GameData gameData, Player forWhom) {
 		List<Action> at = new ArrayList<>();
-		if (forWhom.getCharacter() != null) {
+		if (forWhom.getCharacter() != null && forWhom.getCharacter().getsActions()) {
 			boolean isAI = forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter);
 			if (forWhom.findMoveToAblePositions(gameData).contains(this) && !isAI && !forWhom.isFloatingInSpace()) {
 				at.add(new MoveToSpecificRoomAction(gameData, forWhom, this));

@@ -3,17 +3,25 @@ package model.map.rooms;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.characters.decorators.*;
+import model.characters.general.GameCharacter;
+import model.fancyframe.SinglePageFancyFrame;
 import model.items.NoSuchThingException;
 import model.map.Architecture;
 import model.map.DockingPoint;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
+import model.npcs.NPC;
+import model.npcs.behaviors.DoNothingBehavior;
+import model.npcs.behaviors.StayBehavior;
 import model.objects.decorations.ShuttleChair;
 import model.objects.decorations.ShuttleDecoration;
 import model.objects.decorations.ShuttleThruster;
 import model.objects.power.LifeSupport;
 import model.objects.power.Lighting;
+import util.HTMLText;
 import util.Logger;
 
 import java.awt.*;
@@ -172,7 +180,7 @@ public class ShuttleRoom extends Room {
 
 
 
-    private void rotate() {
+    public void rotate() {
         int width = getWidth();
         setWidth(getHeight());
         setHeight(width);
@@ -204,4 +212,6 @@ public class ShuttleRoom extends Room {
             a.addTolastTurnInfo("The " + getName().toLowerCase() + " left, you were moved to the " + bootRoom.getName() + ".");
         }
     }
+
+
 }

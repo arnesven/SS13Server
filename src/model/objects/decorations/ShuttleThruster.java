@@ -14,17 +14,17 @@ import java.util.Map;
 public class ShuttleThruster extends ShuttleDecoration {
     private Map<String, Point2D> offsetsForDirection = new HashMap<>();
 
-    public ShuttleThruster(ShuttleRoom position, double shift) {
+    public ShuttleThruster(ShuttleRoom position, double xshift, double yshift) {
         super("Thruster", position);
 
-        offsetsForDirection.put("right", new Point2D.Double(-0.1, shift));
-        offsetsForDirection.put("left", new Point2D.Double(position.getWidth() + 0.1, shift));
-        offsetsForDirection.put("up", new Point2D.Double(shift, position.getWidth() + 0.1));
-        offsetsForDirection.put("down", new Point2D.Double(shift, -0.1));
+        offsetsForDirection.put("right", new Point2D.Double(-xshift, yshift));
+        offsetsForDirection.put("left", new Point2D.Double(position.getWidth() + xshift, yshift));
+        offsetsForDirection.put("up", new Point2D.Double(yshift, position.getWidth() + xshift));
+        offsetsForDirection.put("down", new Point2D.Double(yshift, -xshift));
     }
 
     public ShuttleThruster(ShuttleRoom position) {
-        this(position, position.getHeight() / 2.0);
+        this(position, 0.1, position.getHeight() / 2.0);
     }
 
 

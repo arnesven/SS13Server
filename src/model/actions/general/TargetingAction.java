@@ -196,7 +196,9 @@ public abstract class TargetingAction extends Action {
 	protected Target findTarget(String name) throws NoSuchThingException {
 		for (Target c : targets) {
 			if (name.contains(c.getName()) || c.getName().contains(name)) {
-				return c;
+				if (isViableForThisAction(c)) {
+					return c;
+				}
 			}
 		}
 		if (name.equals("Yourself")) {
