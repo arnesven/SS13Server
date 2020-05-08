@@ -179,7 +179,7 @@ public class DonutSS13Builder extends MapBuilder {
         AirLockRoom airLock2 = new AirLockRoom(21, 2   ,13,  2, 1, 1, new int[]{19}        ,
                 new Door[]{new FullyOpenAirLockDoor(13.0, 2.5, 0.0, 21, 19),
                 new AirLockDoor(13.5, 2.0, 21, 30)} );
-        airLock2.addDockingPoint(new DockingPoint("Airlock 2", "Commercial Traffic", new Point(-1, 0), new Point(0, -1), airLock2));
+        airLock2.addDockingPoint(new DockingPoint("Airlock 2", "Personnel", new Point(-1, 0), new Point(0, -1), airLock2));
         gm.addRoom(airLock2, ss13, "port");
         gm.addRoom(airLock2, ss13, "front");
 

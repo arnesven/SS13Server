@@ -31,7 +31,7 @@ public class MiningShuttle extends ShuttleRoom {
     public MiningShuttle(int id, String name, String shortname, int x, int y, int w, int h, int[] ints, Door[] doubles,
                          GameData gameData, DockingPoint initialDockingPoint) {
         super(id, name, x, y, w, h, ints, doubles, 2);
-        this.addObject(new ShuttleControl(this));
+        this.addObject(new ShuttleControl(this, false));
         this.initialDockingPoint = initialDockingPoint;
     }
 

@@ -19,16 +19,18 @@ import java.util.ArrayList;
  * Created by erini02 on 17/09/17.
  */
 public class ShuttleControl extends Console {
+    private final boolean hasAdvanced;
     private Door oldDoor = null;
 
-    public ShuttleControl(Room room) {
+    public ShuttleControl(Room room, boolean hasAdvanced) {
         super("Shuttle Control", room);
+        this.hasAdvanced = hasAdvanced;
     }
 
     @Override
     protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         at.add(new MiningShuttleAction(gameData, this));
-        at.add(new SitDownAtShuttleConsoleAction(gameData, this));
+        at.add(new SitDownAtShuttleConsoleAction(gameData, this, hasAdvanced));
     }
 
     @Override

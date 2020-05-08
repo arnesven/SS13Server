@@ -13,13 +13,16 @@ import model.objects.consoles.ShuttleControl;
 import java.util.List;
 
 public class SitDownAtShuttleConsoleAction extends SitDownAtConsoleAction {
-    public SitDownAtShuttleConsoleAction(GameData gameData, ShuttleControl shuttleControl) {
+    private final boolean hasAdvanced;
+
+    public SitDownAtShuttleConsoleAction(GameData gameData, ShuttleControl shuttleControl, boolean hasAdvanced) {
         super(gameData, shuttleControl);
+        this.hasAdvanced = hasAdvanced;
     }
 
 
     @Override
     protected ConsoleFancyFrame getNewFancyFrame(Console console, GameData gameData, Player performingClient) {
-        return new ShuttleControlFancyFrame((ShuttleControl)console, gameData, performingClient);
+        return new ShuttleControlFancyFrame((ShuttleControl)console, gameData, performingClient, hasAdvanced);
     }
 }

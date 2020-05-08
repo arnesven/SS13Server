@@ -48,7 +48,7 @@ public class ShuttleRoom extends Room {
         }
     }
 
-    private void addDecoration(ShuttleDecoration decor) {
+    protected void addDecoration(ShuttleDecoration decor) {
         addObject(decor);
         decorations.add(decor);
     }

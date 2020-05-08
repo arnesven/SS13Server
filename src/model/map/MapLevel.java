@@ -1,5 +1,6 @@
 package model.map;
 
+import model.GameData;
 import model.map.rooms.DockingPointRoom;
 import model.map.rooms.Room;
 
@@ -41,4 +42,5 @@ public class MapLevel extends HashMap<String, Set<Room>> {
         }
         return list;
     }
+
 }

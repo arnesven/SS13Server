@@ -17,7 +17,7 @@ public class BridgeRoom extends CommandRoom {
         addItem(new FireExtinguisher());
         addObject(new AirLockConsole(this));
         addObject(new FTLControl(this));
-        addObject(new ShuttleControl(this));
+        addObject(new ShuttleControl(this, true));
 
     }
 }

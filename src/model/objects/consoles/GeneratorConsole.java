@@ -21,7 +21,7 @@ public class GeneratorConsole extends Console {
 		super("Power Console", r);
         powerSource = new PositronGenerator(0.174, r, gameData);
         r.addObject(powerSource);
-        setPowerPriority(3);
+        setPowerPriority(1);
 	}
 
     @Override

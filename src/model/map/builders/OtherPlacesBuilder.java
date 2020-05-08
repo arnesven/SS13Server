@@ -40,6 +40,11 @@ public class OtherPlacesBuilder extends MapBuilder {
         gm.createLevel("deep space", "Space");
         gm.addRoom(deepspace, "deep space", "deep space");
 
+        gm.createLevel("centcom", "Space");
+        Room centComSpace = new SpaceRoom(923, 5, 5, 5, 5);
+        addEventsToSpaceRoom(centComSpace, gameData);
+        gm.addRoom(centComSpace, "centcom", "centcom");
+
 
         Room spectatorBench = new SpectatorRoom(gameData);
         gm.addRoom(spectatorBench, "ss13", "hidden");
