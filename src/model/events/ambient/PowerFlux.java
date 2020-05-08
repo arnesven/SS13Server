@@ -10,13 +10,14 @@ import model.actions.general.SensoryLevel;
 
 public abstract class PowerFlux extends AmbientEvent {
 
-	private static final double FLUX_SUSTAIN_FACTOR = 0.10; // maximum sustained power flux is 10% of normal power (per turn)
-	private static final double FLUX_FIXED_FACTOR = 0.20;   // maximum power spike/drain is 20% of normal power
+	private static final double FLUX_SUSTAIN_FACTOR = 0.5; // maximum sustained power flux is 5% of normal power (per turn)
+	private static final double FLUX_FIXED_FACTOR = 0.10;   // maximum power spike/drain is 10% of normal power
 	private static final double occurranceChance = AmbientEvent.everyNGames(1);
     private boolean sustaining = false;
 	private boolean increasing = false;
+	private double INCREASE_CHANCE = 0.33;
 
-    @Override
+	@Override
     protected double getStaticProbability() {
         return occurranceChance;
     }
@@ -48,7 +49,7 @@ public abstract class PowerFlux extends AmbientEvent {
 		} else if (MyRandom.nextDouble() < getProbability()) {
 			if (MyRandom.nextDouble() < 0.5) {
 				sustaining = true;
-				increasing = MyRandom.nextDouble() < 0.2;
+				increasing = MyRandom.nextDouble() < INCREASE_CHANCE;
                 Logger.log(Logger.INTERESTING,
                         "Sustained " + (increasing?"positive":"negative") +
 								   " power flux began");

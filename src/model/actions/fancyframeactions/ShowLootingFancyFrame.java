@@ -40,7 +40,7 @@ public class ShowLootingFancyFrame extends LootAction {
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
         if (performingClient instanceof Player) {
-            FancyFrame ff = new LootingFancyFrame((Player)performingClient, gameData, victim);
+            FancyFrame ff = new LootingFancyFrame((Player)performingClient, gameData, victim, "Looting", "Store");
             ((Player) performingClient).setFancyFrame(ff);
             ((Player) performingClient).setNextAction(new DoNothingAction());
             ((Player) performingClient).refreshClientData();

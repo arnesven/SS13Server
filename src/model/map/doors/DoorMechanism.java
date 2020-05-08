@@ -38,7 +38,7 @@ public class DoorMechanism extends ElectricalMachinery {
     public DoorMechanism(ElectricalDoor electricalDoor) {
         super(electricalDoor.getName(), null);
         this.electricalDoor = electricalDoor;
-        setPowerPriority(3);
+        setPowerPriority(2);
         setHealth(2.5);
         setMaxHealth(2.5);
         ffVacant = true;

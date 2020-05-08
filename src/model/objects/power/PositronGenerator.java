@@ -153,8 +153,10 @@ public class PositronGenerator extends BreakableObject implements Repairable, Po
         if (MyRandom.nextDouble() < outputPct - 1.5) {
             Logger.log(Logger.INTERESTING,
                     "High power output (>150%) caused fire in room adjacent to generator room");
-            Room r = MyRandom.sample(getPosition().getNeighborList());
-            gameData.getGameMode().addFire(r);
+            if (!getPosition().getNeighborList().isEmpty()) {
+                Room r = MyRandom.sample(getPosition().getNeighborList());
+                gameData.getGameMode().addFire(r);
+            }
         }
 
         if (MyRandom.nextDouble() < outputPct - 1.5) {

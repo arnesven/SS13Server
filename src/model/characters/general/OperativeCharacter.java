@@ -6,6 +6,7 @@ import java.util.List;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.characters.decorators.LarcenistCharacter;
 import model.characters.decorators.SpaceProtection;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
@@ -49,13 +50,7 @@ public class OperativeCharacter extends HumanCharacter {
 	public void addCharacterSpecificActions(GameData gameData,
 			ArrayList<Action> at) {
 		super.addCharacterSpecificActions(gameData, at);
-//		if (hasAirlockPanel(getPosition()) && hasASpaceSuitOn() && GameItem.hasAnItemOfClass(getActor(), NuclearDisc.class)) {
-//			at.add(new EscapeAndSetNukeAction());
-//		}
-		Action stealAction = new StealAction(this.getActor());
-		if (stealAction.getOptions(gameData, this.getActor()).numberOfSuboptions() > 0) {
-			at.add(stealAction);
-		}
+		LarcenistCharacter.addLarcenyActions(gameData, at, getActor());
 	}
 
     private static boolean hasAirlockPanel(Room position) {

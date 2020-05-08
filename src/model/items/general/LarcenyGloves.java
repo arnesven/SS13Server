@@ -2,6 +2,8 @@ package model.items.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.LarcenistCharacter;
@@ -56,4 +58,12 @@ public class LarcenyGloves extends GlovesItem {
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("larcenygloves", "gloves.png", 0, this);
     }
+
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "Enables the wearer to steal items from another character!" +
+				" Stealing has a base success rate of 85% (will not alert victim). " +
+				"However, there is only a 10% chance of success if the target is watching you. " +
+				"Exposed characters (pinned, stunned or handcuffed) can always stolen from with 100% chance.";
+	}
 }

@@ -2,6 +2,7 @@ package model.actions.characteractions;
 
 import java.util.List;
 
+import graphics.sprites.Sprite;
 import model.Target;
 import model.actions.LootAction;
 import model.characters.decorators.HandCuffedDecorator;
@@ -117,5 +118,8 @@ public class StealAction extends LootAction {
 		return false;
 	}
 
-	
+	@Override
+	public Sprite getAbilitySprite() {
+		return new Sprite("stealabi", "weapons2.png", 63, 46, 32, 32, null);
+	}
 }
