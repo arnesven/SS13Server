@@ -13,6 +13,7 @@ import model.characters.decorators.*;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
+import model.characters.general.RobotCharacter;
 import model.items.EmergencyKit;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
@@ -659,6 +660,10 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof CrewCharacter);
     }
 
+    public boolean isRobot() {
+        return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof RobotCharacter);
+    }
+
     public boolean isFloatingInSpace() {
         return getCharacter().checkInstance((GameCharacter gc) -> gc instanceof InSpaceCharacterDecorator);
     }
@@ -676,4 +681,4 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         setCharacter(new InSpaceCharacterDecorator(getCharacter(), gameData));
     }
 
-}
+  }

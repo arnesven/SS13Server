@@ -59,11 +59,19 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
             }
         }
 
-        addConsoleActions(gameData, cl, at);
-        if (!hasSitDownAction(at)) {
-            at.add(new GeneralSitDownAtConsoleAction(gameData, this));
-        } else if (cl.isAI()) {
-            at.removeIf((Action a ) -> a instanceof SitDownAtConsoleAction);
+        ArrayList<Action> consoleActions = new ArrayList<>();
+        addConsoleActions(gameData, cl, consoleActions);
+        if (!hasSitDownAction(consoleActions)) {
+            consoleActions.add(new GeneralSitDownAtConsoleAction(gameData, this));
+            at.addAll(consoleActions);
+        } else {
+            if (cl.isAI()) {
+                consoleActions.removeIf((Action a) -> a instanceof SitDownAtConsoleAction);
+                at.addAll(consoleActions);
+            } else if (cl.isHuman() || cl.isRobot()) {
+                consoleActions.removeIf((Action a) -> !(a instanceof SitDownAtConsoleAction));
+                at.addAll(consoleActions);
+            }
         }
     }
 
