@@ -125,7 +125,7 @@ public class InventoryPanel {
     }
 
     private void drawYou(Graphics g, int yOffset, int width) {
-        finalHeightRows = 1+(int)(Math.ceil((double)((GameData.getInstance().getItems().size()+1) * 32)/(double)width));
+        finalHeightRows = 1+(int)(Math.ceil((double)((GameData.getInstance().getItems().size()+1) * MapPanel.getZoom())/(double)width));
         g.setColor(Color.BLACK);
         g.fillRect(0, yOffset, width, getHeight());
         ImageIcon frame = SpriteManager.getSprite("uiframe0");
@@ -156,7 +156,7 @@ public class InventoryPanel {
     }
 
     private void drawName(Graphics g, int yOffset) {
-        g.setFont(new Font("Arial", Font.ITALIC, 14));
+        g.setFont(new Font("Arial", Font.ITALIC, 14*(MapPanel.getZoom()/32)));
         g.setColor(Color.YELLOW);
         int paren = GameData.getInstance().getCharacter().indexOf("(");
         if (paren == -1) {

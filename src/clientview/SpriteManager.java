@@ -78,7 +78,11 @@ public class SpriteManager {
 	public static ImageIcon getSprite(final String spriteKey, int zoom) {
 		ImageIcon ic = getSprite(spriteKey);
 		if (ic.getIconWidth() != zoom) {
-			rescaleImage(ic, zoom/32.0);
+			if (zoom == 64) {
+				rescaleImage(ic, zoom / 32.0);
+			} else {
+				ic.setImage(originalMap.get(spriteKey));
+			}
 		}
 		return ic;
 	}
