@@ -6,6 +6,7 @@ import model.GameData;
 import model.Player;
 import model.actions.fancyframeactions.SitDownAtPowerConsoleAction;
 import model.actions.general.Action;
+import model.actions.objectactions.CallEscapeShuttleAction;
 import model.actions.objectactions.MiningShuttleAction;
 import model.actions.objectactions.SitDownAtShuttleConsoleAction;
 import model.map.doors.Door;
@@ -30,6 +31,9 @@ public class ShuttleControl extends Console {
     @Override
     protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         at.add(new MiningShuttleAction(gameData, this));
+        if (CallEscapeShuttleAction.canCallEscapeShuttle(cl)) {
+            at.add(new CallEscapeShuttleAction(gameData, this));
+        }
         at.add(new SitDownAtShuttleConsoleAction(gameData, this, hasAdvanced));
     }
 

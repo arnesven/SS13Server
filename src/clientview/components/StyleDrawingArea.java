@@ -21,7 +21,9 @@ public class StyleDrawingArea extends JComponent  {
         g.fillRect(0, 0, getWidth(), getHeight());
         String previewspritename = GameData.getInstance().getStyle().getPreviewSpriteName();
         ImageIcon icon = SpriteManager.getSprite(previewspritename);
-        g.drawImage(icon.getImage(), 0, 0, icon.getIconWidth()*MAGNIFICATION, icon.getIconHeight()*MAGNIFICATION,
+        g.drawImage(icon.getImage(), 0, 0,
+                icon.getIconWidth()*MAGNIFICATION,
+                icon.getIconHeight()*MAGNIFICATION,
                 0, 0, icon.getIconWidth(), icon.getIconHeight(), null);
 
     }

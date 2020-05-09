@@ -42,7 +42,7 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
             content.append("_________________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE", "[back]"));
             showAdvancedView(gameData, player, content);
         } else {
-            if (canCallEscapeShuttle(player)) {
+            if (CallEscapeShuttleAction.canCallEscapeShuttle(player)) {
                 content.append("____________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE", "[advanced]"));
             }
             showMiningShuttleView(gameData, player, content);
@@ -218,10 +218,6 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
         }
     }
 
-
-    private boolean canCallEscapeShuttle(Player player) {
-        return player.isAI() || KeyCard.findKeyCard(player) instanceof UniversalKeyCard;
-    }
 
     @Override
     public void doAtEndOfTurn(GameData gameData, Player actor) {

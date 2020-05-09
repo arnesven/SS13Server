@@ -19,7 +19,7 @@ public class JobDescriptionBox extends Box {
 
     private final int columns;
     private final JobsPanel parent;
-    private static final int PREFERRED_WIDTH = 260;
+    private static final int PREFERRED_WIDTH = 290;
     private static final int COLLAPSED_HEIGHT = 45;
     private static final int EXPANDED_HEIGHT =  230;
     private final JScrollPane jsp;
@@ -65,7 +65,8 @@ public class JobDescriptionBox extends Box {
         newBox = new Box(BoxLayout.X_AXIS);
         newBox.setBackground(Color.WHITE);
         JLabel icon = new JLabel();
-        icon.setIcon(SpriteManager.getSprite(s.substring(1)+"mugshot0"));
+        ImageIcon ic = new ImageIcon(SpriteManager.getSprite(s.substring(1)+"mugshot0", 64).getImage());
+        icon.setIcon(ic);
         newBox.add(icon);
         newBox.add(cb);
         newBox.add(Box.createHorizontalGlue());

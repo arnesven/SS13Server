@@ -75,6 +75,14 @@ public class SpriteManager {
 		return ic;
 	}
 
+	public static ImageIcon getSprite(final String spriteKey, int zoom) {
+		ImageIcon ic = getSprite(spriteKey);
+		if (ic.getIconWidth() != zoom) {
+			rescaleImage(ic, zoom/32.0);
+		}
+		return ic;
+	}
+
 	public static BufferedImage setBase64(String result) {
         byte[] data = Base64.getDecoder().decode(result);
         ByteArrayInputStream bai = new ByteArrayInputStream(data);

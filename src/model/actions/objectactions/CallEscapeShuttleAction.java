@@ -4,12 +4,15 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.*;
 import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.fancyframe.SinglePageFancyFrame;
 import model.items.NoSuchThingException;
+import model.items.general.KeyCard;
+import model.items.general.UniversalKeyCard;
 import model.map.DockingPoint;
 import model.map.GameMap;
 import model.map.rooms.EscapeShuttle;
@@ -46,6 +49,15 @@ public class CallEscapeShuttleAction extends Action {
     }
 
     @Override
+    public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+        ActionOption opts = super.getOptions(gameData, whosAsking);
+        for (DockingPoint dp : gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).getDockingPoints()) {
+            opts.addOption(dp.getName());
+        }
+        return opts;
+    }
+
+    @Override
     protected void execute(GameData gameData, Actor performingClient) {
         int randTurns = MyRandom.nextInt(3) + 2;
         performingClient.addTolastTurnInfo("You called the escape shuttle. ETA " + randTurns + " turns.");
@@ -67,7 +79,6 @@ public class CallEscapeShuttleAction extends Action {
                 }
             }
         }
-
     }
 
     @Override
@@ -191,5 +202,9 @@ public class CallEscapeShuttleAction extends Action {
         }
     }
 
+
+    public static boolean canCallEscapeShuttle(Actor player) {
+        return player.isAI() || KeyCard.findKeyCard(player) instanceof UniversalKeyCard;
+    }
 
 }
