@@ -1,5 +1,6 @@
 package model.map.rooms;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -83,7 +84,9 @@ public class EscapeShuttle extends ShuttleRoom {
         if (a instanceof Player) {
             a.setCharacter(new EscapedOnShuttleDecorator(a.getCharacter()));
             ((Player) a).setFancyFrame(new SinglePageFancyFrame(((Player) a).getFancyFrame(), "Escape Shuttle",
-                    HTMLText.makeCentered(HTMLText.makeText("White", "<br/><br/>You have escaped on the Escape Shuttle.<br/><br/>" +
+                    HTMLText.makeCentered(HTMLText.makeText("White", "<br/>" +
+                            HTMLText.makeImage(new Sprite("ss13logo32", "ss13_32.png", 0, null)) +
+                            "<br/><br/>You have escaped on the Escape Shuttle.<br/><br/>" +
                             "You may no longer take any actions, but at least you survived."))));
         } else if (a instanceof NPC) {
             ((NPC) a).setActionBehavior(new DoNothingBehavior());

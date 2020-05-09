@@ -7,6 +7,7 @@ import clientlogic.Cookies;
 import clientlogic.GameData;
 import clientlogic.Room;
 import clientview.FancyFrame;
+import clientview.SpriteManager;
 import clientview.animation.AnimationHandler;
 import clientview.components.GameUIPanel;
 import clientview.components.MapPanel;
@@ -136,8 +137,8 @@ public class SS13Client extends JFrame {
         makeCenterOnMe(view);
         makeSmallWindowMenu(view);
         makeScaleMenu(view);
+        makeZoomMenu(view);
         makeDepthMenu(view);
-     //   makeZoomMenu(view);
         makeBackgroundMenu(view);
         makeHeightMenu(view);
         makeAnimationMenu(view);
@@ -208,6 +209,28 @@ public class SS13Client extends JFrame {
         menubar.add(server);
 
         this.setJMenuBar(menubar);
+    }
+
+    private void makeZoomMenu(JMenu view) {
+        JMenu menu = new JMenu("Zoom");
+        JMenuItem pix32 = new JMenuItem("32x32 (normal)");
+        pix32.addActionListener((ActionEvent e) -> setZoom(32));
+        menu.add(pix32);
+
+        JMenuItem pix64 = new JMenuItem("64x64 (double)");
+        pix64.addActionListener((ActionEvent e) -> setZoom(64));
+        menu.add(pix64);
+        pix32.setSelected(true);
+
+        view.add(menu);
+    }
+
+    private void setZoom(int i) {
+        MapPanel.setZoom(i);
+        SpriteManager.rescaleImages(i);
+        Room.setXScale(MapPanel.getZoom()*3);
+        Room.setYScale(MapPanel.getZoom()*3);
+        Cookies.setCookie("preferredzoom", i+"");
     }
 
     private void makeDepthMenu(JMenu view) {
@@ -339,26 +362,19 @@ public class SS13Client extends JFrame {
 
     private void makeScaleMenu(JMenu view) {
         JMenu jmenu = new JMenu("Map Scale");
-        JMenuItem auto = new JRadioButtonMenuItem("Auto");
-        JMenuItem twobytwo = new JRadioButtonMenuItem("2x2");
-        JMenuItem threebytwo = new JRadioButtonMenuItem("3x2");
-        JMenuItem threebythree = new JRadioButtonMenuItem("3x3");
-        JMenuItem fourbythree = new JRadioButtonMenuItem("4x3");
-        JMenuItem fivebyfive = new JRadioButtonMenuItem("5x5");
+        JMenuItem auto = new JMenuItem("Auto");
+        JMenuItem twobytwo = new JMenuItem("2x2");
+        JMenuItem threebytwo = new JMenuItem("3x2");
+        JMenuItem threebythree = new JMenuItem("3x3");
+        JMenuItem fourbythree = new JMenuItem("4x3");
+        JMenuItem fivebyfive = new JMenuItem("5x5");
         threebythree.setSelected(true);
         auto.addActionListener((ActionEvent e) -> Room.setAutomaticScaling(true));
-        twobytwo.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(2*32); Room.setYScale(2*32);});
-        threebytwo.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(3*32); Room.setYScale(2*32);});
-        threebythree.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(3*32); Room.setYScale(3*32);});
-        fourbythree.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(4*32); Room.setYScale(3*32);});
-        fivebyfive.addActionListener((ActionEvent e) -> {Room.setAutomaticScaling(false); Room.setXScale(5*32); Room.setYScale(5*32);});
-        ButtonGroup grp = new ButtonGroup();
-        grp.add(auto);
-        grp.add(twobytwo);
-        grp.add(threebythree);
-        grp.add(threebytwo);
-        grp.add(fourbythree);
-        grp.add(fivebyfive);
+        twobytwo.addActionListener((ActionEvent e) -> setXYScale(2, 2));
+        threebytwo.addActionListener((ActionEvent e) -> setXYScale(3, 2));
+        threebythree.addActionListener((ActionEvent e) -> setXYScale(3, 3));
+        fourbythree.addActionListener((ActionEvent e) -> setXYScale(4, 3));
+        fivebyfive.addActionListener((ActionEvent e) -> setXYScale(5,5));
 
         jmenu.add(twobytwo);
         jmenu.add(threebytwo);
@@ -369,9 +385,24 @@ public class SS13Client extends JFrame {
         view.add(jmenu);
     }
 
+    private void setXYScale(int x, int y) {
+        Room.setAutomaticScaling(false);
+        Room.setXScale(x * MapPanel.getZoom());
+        Room.setYScale(y * MapPanel.getZoom());
+        Cookies.setCookie("preferredxscale", x+"");
+        Cookies.setCookie("preferredyscale", y+"");
+    }
+
 
     private void enableView() {
         this.view.setEnabled(true);
+        if (Cookies.getCookie("preferredzoom") != null) {
+            setZoom(Integer.parseInt(Cookies.getCookie("preferredzoom")));
+        }
+        if (Cookies.getCookie("preferredxscale") != null) {
+            setXYScale(Integer.parseInt(Cookies.getCookie("preferredxscale")),
+                    Integer.parseInt(Cookies.getCookie("preferredyscale")));
+        }
     }
 
     private void disableView() { this.view.setEnabled(false);}

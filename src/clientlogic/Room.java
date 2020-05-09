@@ -35,12 +35,12 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     private int yPos;
     private int zPos;
     private String name;
-   // private boolean highLight;
+    // private boolean highLight;
     private int ID;
     private static final Color backgroundColor = new Color(0x999999);
     private boolean selectable = false;
-    private static double xscale = 32*3;
-    private static double yscale = 32*3;
+    private static double xscale = 32 * 3;
+    private static double yscale = 32 * 3;
     private ClientDoor[] doors;
 
     private String effectName;
@@ -97,7 +97,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
         int startSpritePaint = 0;
 //        if (withWalls) {
-            startSpritePaint++;
+        startSpritePaint++;
 //        }
 
         if (!shadow) {
@@ -111,7 +111,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         if (shadow) {
             g.setColor(Color.BLACK);
             g.fillRect(x + background.getIconWidth(), y + background.getIconHeight(),
-                finalW-MapPanel.getZoom(), finalH-MapPanel.getZoom());
+                    finalW - MapPanel.getZoom(), finalH - MapPanel.getZoom());
         }
     }
 
@@ -124,10 +124,10 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
         ImageIcon background = SpriteManager.getSprite("wall" + this.wallStyle + "roof0");
 
-        for (int row = 0; row < height * (yscale / background.getIconHeight())+1; ++row) {
-            for (int col = 0; col < width * (xscale / background.getIconWidth())+1; ++col) {
+        for (int row = 0; row < height * (yscale / background.getIconHeight()) + 1; ++row) {
+            for (int col = 0; col < width * (xscale / background.getIconWidth()) + 1; ++col) {
                 ImageIcon spriteToDraw = getAboveSprite(row == 0, row == height * (yscale / background.getIconHeight()),
-                                            col == 0, col ==  width * (xscale / background.getIconWidth()));
+                        col == 0, col == width * (xscale / background.getIconWidth()));
                 g.drawImage(spriteToDraw.getImage(),
                         x + col * spriteToDraw.getIconWidth(),
                         y + row * spriteToDraw.getIconHeight(), null);
@@ -177,7 +177,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     }
 
 
-    public void drawYourEffect(Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx, boolean shadow)  {
+    public void drawYourEffect(Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx, boolean shadow) {
         if (!effectName.equals("") && !shadow) {
             int x = (int) ((xPos - xOffset) * getXScale()) + xOffPx;
             int y = (int) ((yPos - yOffset) * getYScale()) + yOffPx;
@@ -239,7 +239,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
 
     private ImageIcon getFloorForPos(boolean rowStart, boolean rowEnd, boolean colStart, boolean colEnd, ImageIcon background) {
-        String baseName = floorSpriteBaseName.substring(0, floorSpriteBaseName.length()-1);
+        String baseName = floorSpriteBaseName.substring(0, floorSpriteBaseName.length() - 1);
         if (rowStart && colStart) { // UL corner
             return SpriteManager.getSprite(baseName + "UL0");
         } else if (rowStart && colEnd) { // UR corner
@@ -262,25 +262,25 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     private void drawWalls(Graphics g, int x, int y, int finalW, int finalH, ImageIcon background, boolean shadow, boolean withWindows) {
 
-            g.setColor(backgroundColor);
-            ImageIcon corner = SpriteManager.getSprite("wall" + this.wallStyle + "corner0");
-            g.drawImage(corner.getImage(), x, y, null);
-            ImageIcon top = SpriteManager.getSprite("wall" + this.wallStyle + "top0");
-            for (int i = 1; i < finalW / top.getIconWidth(); ++i) {
-                g.drawImage(top.getImage(), x + top.getIconWidth()*i, y, null);
-                g.drawImage(top.getImage(), x+top.getIconWidth()*i, y+finalH, null);
-            }
-            ImageIcon left = SpriteManager.getSprite("wall" + this.wallStyle + "side0");
-            for (int i = 1; i < finalH / left.getIconHeight(); ++i) {
-                g.drawImage(left.getImage(), x, y + left.getIconHeight()*i, null);
-                g.drawImage(left.getImage(), x+finalW, y + left.getIconHeight()*i, null);
-            }
-            ImageIcon ll = SpriteManager.getSprite("wall" + this.wallStyle + "LL0");
-            g.drawImage(ll.getImage(), x, y+finalH, null);
-            ImageIcon lr =  SpriteManager.getSprite("wall" + this.wallStyle + "LR0");
-            g.drawImage(lr.getImage(), x+finalW, y+finalH, null);
-            ImageIcon ur = SpriteManager.getSprite("wall" + this.wallStyle + "UR0");
-            g.drawImage(ur.getImage(), x+finalW, y, null);
+        g.setColor(backgroundColor);
+        ImageIcon corner = SpriteManager.getSprite("wall" + this.wallStyle + "corner0");
+        g.drawImage(corner.getImage(), x, y, null);
+        ImageIcon top = SpriteManager.getSprite("wall" + this.wallStyle + "top0");
+        for (int i = 1; i < finalW / top.getIconWidth(); ++i) {
+            g.drawImage(top.getImage(), x + top.getIconWidth() * i, y, null);
+            g.drawImage(top.getImage(), x + top.getIconWidth() * i, y + finalH, null);
+        }
+        ImageIcon left = SpriteManager.getSprite("wall" + this.wallStyle + "side0");
+        for (int i = 1; i < finalH / left.getIconHeight(); ++i) {
+            g.drawImage(left.getImage(), x, y + left.getIconHeight() * i, null);
+            g.drawImage(left.getImage(), x + finalW, y + left.getIconHeight() * i, null);
+        }
+        ImageIcon ll = SpriteManager.getSprite("wall" + this.wallStyle + "LL0");
+        g.drawImage(ll.getImage(), x, y + finalH, null);
+        ImageIcon lr = SpriteManager.getSprite("wall" + this.wallStyle + "LR0");
+        g.drawImage(lr.getImage(), x + finalW, y + finalH, null);
+        ImageIcon ur = SpriteManager.getSprite("wall" + this.wallStyle + "UR0");
+        g.drawImage(ur.getImage(), x + finalW, y, null);
 
 
         if (!shadow) {
@@ -451,8 +451,6 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     }
 
 
-
-
     @Override
     protected void doOnClick(MouseEvent e) {
         this.popupMenu = new MyPopupMenu(getName(), actionData, e) {
@@ -490,12 +488,12 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
 
     public void drawYourDoors(Graphics g, MapPanel mapPanel, int xOffset, int yOffset, int xOffPx, int yOffPx) {
-            if (doors == null) {
-                   return;
-            }
-            for (int i = 0; i < doors.length; i++) {
-                doors[i].drawYourself(g, this, xOffset, yOffset, xOffPx, yOffPx);
-            }
+        if (doors == null) {
+            return;
+        }
+        for (int i = 0; i < doors.length; i++) {
+            doors[i].drawYourself(g, this, xOffset, yOffset, xOffPx, yOffPx);
+        }
     }
 
     public void drawFrameIfSelected(Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx, boolean selected) {
@@ -504,65 +502,65 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         int finalW = (int) (getWidth() * getXScale()) + MapPanel.getZoom();
         int finalH = (int) (getHeight() * getYScale()) + MapPanel.getZoom();
         if (selected && getZPos() == GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation()) {
-            ((Graphics2D)g).setStroke(new BasicStroke(2));
+            ((Graphics2D) g).setStroke(new BasicStroke(2));
             g.setColor(SELECTED_ROOM_COLOR);
             g.drawRect(x, y, finalW, finalH);
         }
 
-        ((Graphics2D)g).setStroke(new BasicStroke(1));
+        ((Graphics2D) g).setStroke(new BasicStroke(1));
     }
 
     public static double getXScale() {
-            return xscale;
-        }
+        return xscale;
+    }
 
-        public static double getYScale() {
-            return yscale;
-        }
+    public static double getYScale() {
+        return yscale;
+    }
 
-        public static void setXScale(double d) {
-            d = Math.max(d, 64.0);
-            if (d != xscale) {
-                Logger.log("New x-scale is: " + d);
-                xscale = d;
-            }
+    public static void setXScale(double d) {
+        d = Math.max(d, 64.0);
+        if (d != xscale) {
+            Logger.log("New x-scale is: " + d);
+            xscale = d;
         }
+    }
 
-        public static void setYScale(double d) {
-            d = Math.max(d, 64.0);
-            if (d != yscale) {
-                Logger.log("New y-scale is " + d);
-                yscale = d;
-            }
+    public static void setYScale(double d) {
+        d = Math.max(d, 64.0);
+        if (d != yscale) {
+            Logger.log("New y-scale is " + d);
+            yscale = d;
         }
+    }
 
-        public int getXPos() {
-            return xPos;
-        }
+    public int getXPos() {
+        return xPos;
+    }
 
-        public int getWidth() {
-            return width;
-        }
+    public int getWidth() {
+        return width;
+    }
 
-        public int getYPos() {
-            return yPos;
-        }
+    public int getYPos() {
+        return yPos;
+    }
 
-        public int getHeight() {
-            return height;
-        }
+    public int getHeight() {
+        return height;
+    }
 
-        public int getZPos() {
-            return zPos;
-        }
+    public int getZPos() {
+        return zPos;
+    }
 
-        public int getID() {
-            return ID;
-        }
+    public int getID() {
+        return ID;
+    }
 
-        public String getName() {
-            return this.name;
-        }
+    public String getName() {
+        return this.name;
+    }
 
 
     @Override
@@ -571,7 +569,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     }
 
     private int getComparissionScore() {
-        return this.zPos*100000 + this.yPos*1000 + this.xPos;
+        return this.zPos * 100000 + this.yPos * 1000 + this.xPos;
     }
 
 
@@ -595,6 +593,12 @@ public class Room extends MouseInteractable implements Comparable<Room> {
     public MyPopupMenu getPopupMenu() {
         return popupMenu;
     }
+
+    public static void resetScale() {
+        setYScale(getYScale());
+        setXScale(getXScale());
+    }
+
 }
 
 

@@ -3,6 +3,7 @@ package clientview;
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
+import clientview.components.MapPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -43,9 +44,8 @@ public class SpriteManager {
 		"X", "q", "Q", "S", "0", "z", "Z", "_", "7", "Y", "$", "<",
 		">", "*", "1", ",", "-", "J", "G"};
 
-	//private static ArrayList<String> keyList = new ArrayList<>();
-	//private static ArrayList<String> valList = new ArrayList<>();
 	private static Map<String, ImageIcon> map = new HashMap<>();
+	private static Map<String, Image> originalMap = new HashMap<>();
 
 	public static ImageIcon getSprite(final String spriteKey) {
 
@@ -93,6 +93,10 @@ public class SpriteManager {
 	protected static void addToDic(String spriteKey, ImageIcon image) {
 		//keyList.add(spriteKey);
 		//valList.add(result);
+		originalMap.put(spriteKey, image.getImage());
+		if (MapPanel.getZoom() != 32) {
+			rescaleImage(image, MapPanel.getZoom() / 32);
+		}
 		map.put(spriteKey, image);
 	}
 
@@ -125,5 +129,25 @@ public class SpriteManager {
 	public static void drawSprite(String spriteName, Graphics g, int x, int y) {
 		ImageIcon ic = SpriteManager.getSprite(spriteName);
 		g.drawImage(ic.getImage(), x, y, null);
+	}
+
+	public static void rescaleImages(int i) {
+		for (String key : map.keySet()) {
+			ImageIcon ic = map.get(key);
+			if (i == 64) {
+				rescaleImage(ic, 2.0);
+			} else {
+				ic.setImage(originalMap.get(key));
+			}
+		}
+	}
+
+	private static void rescaleImage(ImageIcon ic, double scale) {
+		BufferedImage buf = new BufferedImage((int)(ic.getIconWidth()*scale),
+				(int)(ic.getIconHeight()*scale), BufferedImage.TYPE_INT_ARGB);
+		Graphics g = buf.getGraphics();
+		g.drawImage(ic.getImage(), 0, 0, buf.getWidth(), buf.getHeight(),
+				0, 0, ic.getIconWidth(), ic.getIconHeight(), null);
+		ic.setImage(buf);
 	}
 }
