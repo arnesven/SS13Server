@@ -12,6 +12,6 @@ public class GreenHousePlant extends GameObject {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("greenhouseplant", "hydroponics.png", 1, 9, this);
+        return new Sprite("greenhouseplant", "ausflora.png", 3, 0, this);
     }
 }
