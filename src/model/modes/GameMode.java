@@ -45,7 +45,7 @@ import util.Pair;
 public abstract class GameMode implements Serializable {
 
 
-	private static String[] knownModes = { "Secret", "Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Armageddon", "Mutiny", "Mixed", "Creative"};
+	private static String[] knownModes = { "Traitor", "Host", "Operatives", "Changeling", "Rogue AI", "Armageddon", "Mutiny", "Mixed", "Secret", "Creative"};
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
     private int defusedBombs = 0;
@@ -184,6 +184,8 @@ public abstract class GameMode implements Serializable {
 	 * @param c
 	 */
 	protected abstract void addProtagonistStartingMessage(Player c);
+
+	public abstract String getModeDescription();
 
 	/**
 	 * This method checks if this player is a antagonist or not.

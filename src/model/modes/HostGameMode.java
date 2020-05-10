@@ -30,6 +30,7 @@ public class HostGameMode extends GameMode {
 	private String hiveString;
 	private HiveObject hive;
 	private Room hiveRoom;
+	private String PROT_MESSAGE = "There is a hive somewhere on the station. You must search the rooms to find and destroy it. Beware of the host, it will protect its hive by attacking and infecting the crew.";
 
 
 	@Override
@@ -98,7 +99,7 @@ public class HostGameMode extends GameMode {
 
 	
 	private void addCrewStartingMessage(Player c) {
-		c.addTolastTurnInfo("There is a hive somewhere on the station. You must search the rooms to find and destroy it. Beware of the host, it will protect its hive by attacking and infecting the crew.");
+		c.addTolastTurnInfo(PROT_MESSAGE);
 	}
 	
 	/**
@@ -258,6 +259,11 @@ public class HostGameMode extends GameMode {
 	@Override
 	protected void addProtagonistStartingMessage(Player c) {
 		addCrewStartingMessage(c);
+	}
+
+	@Override
+	public String getModeDescription() {
+		return PROT_MESSAGE;
 	}
 
 

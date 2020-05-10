@@ -21,6 +21,7 @@ import java.util.Map;
  */
 public class ArmageddonGameMode extends GameMode {
 
+    private static final String PROT_MESSAGE = "Armageddon has come! Just try to survive!";
     private ZombifierEvent zombieEvent;
 
     @Override
@@ -74,7 +75,12 @@ public class ArmageddonGameMode extends GameMode {
 
     @Override
     protected void addProtagonistStartingMessage(Player c) {
-        c.addTolastTurnInfo("Armageddon has come! Just try to survive!");
+        c.addTolastTurnInfo(PROT_MESSAGE);
+    }
+
+    @Override
+    public String getModeDescription() {
+        return PROT_MESSAGE;
     }
 
     @Override

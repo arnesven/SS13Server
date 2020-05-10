@@ -95,6 +95,11 @@ public class EscapeGameMode extends GameMode {
     }
 
     @Override
+    public String getModeDescription() {
+        return "A deprecated game mode...";
+    }
+
+    @Override
     public boolean isAntagonist(Actor c) {
         return aliens.contains(c);
     }

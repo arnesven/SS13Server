@@ -605,6 +605,11 @@ public class TraitorGameMode extends GameMode {
 	}
 
 	@Override
+	public String getModeDescription() {
+		return CREW_START_STRING;
+	}
+
+	@Override
     public boolean isAntagonist(Actor c) {
 		return traitors.contains(c);
 	}

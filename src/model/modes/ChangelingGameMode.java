@@ -32,8 +32,9 @@ public class ChangelingGameMode extends GameMode {
 	private NPC decoy;
     private boolean changelingExposed = false;
     private List<Actor> actorsWhoStartedTheGame;
+	private String PROT_MESSAGE = "There is a shape-shifting alien loose on the station. Kill it before it kills you!";
 
-    @Override
+	@Override
     public String getName() {
         return "Changeling";
     }
@@ -198,8 +199,14 @@ public class ChangelingGameMode extends GameMode {
 
 	@Override
 	protected void addProtagonistStartingMessage(Player c) {
-		c.addTolastTurnInfo("There is a shape-shifting alien loose on the station. Kill it before it kills you!");
+		c.addTolastTurnInfo(PROT_MESSAGE);
 	}
+
+	@Override
+	public String getModeDescription() {
+		return PROT_MESSAGE;
+	}
+
 
 	@Override
     public boolean isAntagonist(Actor c) {

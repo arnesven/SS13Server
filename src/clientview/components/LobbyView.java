@@ -3,14 +3,12 @@ package clientview.components;
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
-import clientview.PlayersPanel;
-import clientview.ServerSettings;
+import clientview.GameModePanel;
 import main.SS13Client;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,7 +17,7 @@ public class LobbyView extends JPanel {
 
     private final String clid;
     private final PlayersAndChatPanel pacp;
-    private final ServerSettings settings;
+    private final GameModePanel settings;
     private final JobsPanel jobs;
     private final SummaryPanel summary;
     private JTabbedPane tlp;
@@ -47,8 +45,8 @@ public class LobbyView extends JPanel {
         StylePanel sp = new StylePanel(username, parent);
         tlp.add(sp, "Style");
 
-        settings = new ServerSettings(username);
-        tlp.add(settings, "Settings");
+        settings = new GameModePanel(username);
+        tlp.add(settings, "Modes");
         summary = new SummaryPanel();
         tlp.add(summary, "Summary");
 
@@ -61,6 +59,8 @@ public class LobbyView extends JPanel {
                     sp.load();
                 } else if (index == 1) {
                     jobs.load();
+                } else if (index == 4) {
+                    settings.load();
                 }
             }
         });

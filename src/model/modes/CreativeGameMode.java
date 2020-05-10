@@ -76,6 +76,11 @@ public class CreativeGameMode extends GameMode {
     }
 
     @Override
+    public String getModeDescription() {
+        return "You are the Captain and everybody else. You've got all the gear. Do what you want!";
+    }
+
+    @Override
     public boolean isAntagonist(Actor c) {
         return false;
     }

@@ -15,6 +15,7 @@ import model.characters.general.GameCharacter;
 import model.characters.special.SpectatorCharacter;
 import model.items.NoSuchThingException;
 import model.modes.GameCouldNotBeStartedException;
+import model.modes.SecretGameMode;
 import model.objects.general.ContainerObject;
 
 import model.plebOS.ComputerSystem;
@@ -674,15 +675,11 @@ public class GameData implements Serializable {
         String[] sets = rest.substring(1).split(del);
 		if (gameState == GameState.PRE_GAME) { //can only change settings in pre game
 
-
 			try {
 				setNumberOfRounds(Integer.parseInt(sets[0]));
                 if (GameMode.isAMode(sets[1])) {
                     selectedMode = sets[1];
                     getChat().serverSay(getClidForPlayer(pl) + " set mode to " + selectedMode);
-                    if (selectedMode.equals("Escape")) { // TODO: fix this quickfix
-                        MapBuilder.setSelectedBuilder("Socrates");
-                    }
                 }
 				//Logger.log("Set new settings");
 			} catch (NumberFormatException nfe) {
@@ -866,4 +863,27 @@ public class GameData implements Serializable {
     public ComputerSystem getComputerSystem() {
         return computerSystem;
     }
+
+	public String getModesInfo() {
+    	final String delim = "<modes-part>";
+    	StringBuilder mess = new StringBuilder(noOfRounds + "" + delim);
+    	mess.append(getSelectedMode() + delim);
+    	mess.append(GameMode.getAvailableModes().length + delim);
+    	for (String s : GameMode.getAvailableModes()) {
+    		mess.append(s + delim);
+    		if (s.equals("Secret")) {
+    		    mess.append(SecretGameMode.getDescription() + delim);
+            } else {
+                GameMode mode = GameModeFactory.create(s);
+                mess.append(mode.getModeDescription() + delim);
+            }
+		}
+
+		for (String mode : SecretGameMode.getModeNames()) {
+			mess.append(mode + delim + SecretGameMode.getProbabilityForMode(mode) + delim);
+		}
+		mess.append("END");
+
+		return mess.toString().replace(delim+"END", "");
+	}
 }

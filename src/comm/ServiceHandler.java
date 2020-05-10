@@ -62,6 +62,8 @@ public class ServiceHandler {
         handlers.add(new StyleCommandHandler(gameData));
 
         handlers.add(new FancyFrameCommandHandler(gameData));
+
+        handlers.add(new ModesCommandHandler(gameData));
 		
 	}
 

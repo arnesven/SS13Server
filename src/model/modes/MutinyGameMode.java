@@ -96,7 +96,11 @@ public class MutinyGameMode extends GameMode {
             res += "Protect the Captain!";
         }
         c.addTolastTurnInfo(res);
+    }
 
+    @Override
+    public String getModeDescription() {
+        return "There is a mutiny on the station! Everybody is in on it except the Captain, the Head of Staff and the Captain's daughter. To win, the crew must kill the captain!";
     }
 
     @Override

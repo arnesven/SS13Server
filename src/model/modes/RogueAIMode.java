@@ -23,6 +23,7 @@ import java.util.List;
 public class RogueAIMode extends GameMode {
 
     public static final double CHANCE_FOR_SCREEN_CHANGE = 0.10;
+    private static final String PROT_MESSAGE = "The AI has gone crazy! Shut it down!";
     private Actor aiPlayer;
     private NPC decoy;
 
@@ -79,7 +80,12 @@ public class RogueAIMode extends GameMode {
 
     @Override
     protected void addProtagonistStartingMessage(Player c) {
-        c.addTolastTurnInfo("The AI has gone crazy! Shut it down!");
+        c.addTolastTurnInfo(PROT_MESSAGE);
+    }
+
+    @Override
+    public String getModeDescription() {
+        return PROT_MESSAGE;
     }
 
     protected void selectAIPlayer(ArrayList<Player> listOfClients, GameData gameData) { }

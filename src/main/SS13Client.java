@@ -366,20 +366,20 @@ public class SS13Client extends JFrame {
         JMenuItem twobytwo = new JMenuItem("2x2");
         JMenuItem threebytwo = new JMenuItem("3x2");
         JMenuItem threebythree = new JMenuItem("3x3");
-        JMenuItem fourbythree = new JMenuItem("4x3");
+        JMenuItem fourbyfour = new JMenuItem("4x4");
         JMenuItem fivebyfive = new JMenuItem("5x5");
         threebythree.setSelected(true);
         auto.addActionListener((ActionEvent e) -> Room.setAutomaticScaling(true));
         twobytwo.addActionListener((ActionEvent e) -> setXYScale(2, 2));
-        threebytwo.addActionListener((ActionEvent e) -> setXYScale(3, 2));
+       // threebytwo.addActionListener((ActionEvent e) -> setXYScale(3, 2));
         threebythree.addActionListener((ActionEvent e) -> setXYScale(3, 3));
-        fourbythree.addActionListener((ActionEvent e) -> setXYScale(4, 3));
+        fourbyfour.addActionListener((ActionEvent e) -> setXYScale(4, 4));
         fivebyfive.addActionListener((ActionEvent e) -> setXYScale(5,5));
 
         jmenu.add(twobytwo);
         jmenu.add(threebytwo);
         jmenu.add(threebythree);
-        jmenu.add(fourbythree);
+        jmenu.add(fourbyfour);
         jmenu.add(fivebyfive);
         jmenu.add(auto);
         view.add(jmenu);

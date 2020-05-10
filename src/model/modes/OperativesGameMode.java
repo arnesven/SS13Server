@@ -33,6 +33,7 @@ import model.npcs.NPC;
 public class OperativesGameMode extends GameMode {
 
 	private static final double OPERATIVE_FACTOR = 1.0/2.0;
+	private static final String PROT_MESSAGE = "Nuclear operatives are infiltrating the station. Prevent them from getting the nuclear disk. If they leave the station with it, they will nuke the station!";
 	private Room nukieShip;
 	private NuclearDisc nukieDisk;
 	private List<Player> operatives = new ArrayList<>();
@@ -197,7 +198,12 @@ public class OperativesGameMode extends GameMode {
 
 	@Override
 	protected void addProtagonistStartingMessage(Player c) {
-		c.addTolastTurnInfo("Nuclear operatives are infiltrating the station. Prevent them from getting the nuclear disk. If they leave the station with it, they will nuke the station!");
+		c.addTolastTurnInfo(PROT_MESSAGE);
+	}
+
+	@Override
+	public String getModeDescription() {
+		return PROT_MESSAGE;
 	}
 
 	@Override

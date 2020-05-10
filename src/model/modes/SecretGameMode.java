@@ -113,5 +113,24 @@ public class SecretGameMode  {
 		c.addTolastTurnInfo("Just another day on SS13. What will happen today?");
 	}
 
-	
+
+	public static String[] getModeNames() {
+		return modeNames;
+	}
+
+	public static double getProbabilityForMode(String s) {
+		int i = 0;
+		for (String mode : modeNames) {
+			if (mode.equals(s)) {
+				return probabilities[i];
+			}
+			i++;
+		}
+		return 0.0;
+	}
+
+
+	public static String getDescription() {
+		return "Only the antagonists know the actual game mode. The crew must figure out the mode and how to cope with it.";
+	}
 }
