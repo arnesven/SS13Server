@@ -24,6 +24,7 @@ public class InventoryPanel {
     private ArrayList<String> itemNames = new ArrayList<>();
     private ArrayList<String> itemActions = new ArrayList<>();
     private int finalHeightRows;
+    private boolean itemsShowing = true;
 
     public int getHeight() {
         return (finalHeightRows)*MapPanel.getZoom();
@@ -112,6 +113,10 @@ public class InventoryPanel {
 
             }
         }
+        if (backpackBox.contains(e.getPoint())) {
+            itemsShowing = !itemsShowing;
+            return true;
+        }
         int i = 0;
         for (Rectangle r : itemBoxes) {
             if (boxContains(r, e)) {
@@ -127,7 +132,7 @@ public class InventoryPanel {
     private void drawYou(Graphics g, int yOffset, int width) {
         finalHeightRows = 1+(int)(Math.ceil((double)((GameData.getInstance().getItems().size()+1) * MapPanel.getZoom())/(double)width));
         g.setColor(Color.BLACK);
-        g.fillRect(0, yOffset, width, getHeight());
+        g.fillRect(0, yOffset, width, MapPanel.getZoom());
         ImageIcon frame = SpriteManager.getSprite("uiframe0");
         g.drawImage(frame.getImage(), 0, yOffset, null);
 
@@ -229,23 +234,26 @@ public class InventoryPanel {
         backpackBox = new Rectangle(xOffset, newY,
                 backpack.getIconWidth(), backpack.getIconHeight());
 
-        int startX = backpack.getIconWidth()+xOffset;
-        for (String item : GameData.getInstance().getItems()) {
-            if (item.contains("<img>")) {
-                String[] parts = item.split("<img>");
-                ImageIcon itemPic = SpriteManager.getSprite(parts[0]);
-                g.drawImage(frame.getImage(), startX, newY, null);
-                g.drawImage(itemPic.getImage(), startX, newY, null);
-                itemBoxes.add(new Rectangle(startX, newY, itemPic.getIconWidth(), itemPic.getIconHeight()));
-                itemNames.add(parts[1]);
-                itemActions.add(parts[2]);
-                startX += itemPic.getIconWidth();
-                if (startX > width - itemPic.getIconWidth()) {
-                    startX = 0;
-                    newY += itemPic.getIconHeight();
+
+        if (itemsShowing) {
+            int startX = backpack.getIconWidth() + xOffset;
+            for (String item : GameData.getInstance().getItems()) {
+                if (item.contains("<img>")) {
+                    String[] parts = item.split("<img>");
+                    ImageIcon itemPic = SpriteManager.getSprite(parts[0]);
+                    g.drawImage(frame.getImage(), startX, newY, null);
+                    g.drawImage(itemPic.getImage(), startX, newY, null);
+                    itemBoxes.add(new Rectangle(startX, newY, itemPic.getIconWidth(), itemPic.getIconHeight()));
+                    itemNames.add(parts[1]);
+                    itemActions.add(parts[2]);
+                    startX += itemPic.getIconWidth();
+                    if (startX > width - itemPic.getIconWidth()) {
+                        startX = 0;
+                        newY += itemPic.getIconHeight();
+                    }
+                } else {
+                    System.err.println("Weird item: " + item);
                 }
-            } else {
-                System.err.println("Weird item: " + item);
             }
         }
     }
