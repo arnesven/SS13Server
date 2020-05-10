@@ -127,7 +127,7 @@ public class GameModePanel extends JPanel implements Observer {
 
         modePanels.get(selectedMode).getCheckBox().setSelected(true);
         for (String mode : modePanels.keySet()) {
-            modePanels.get(mode).getCheckBox().addActionListener(new ActionListener() {
+            modePanels.get(mode).addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                    sendSettings(GameData.getInstance().getNoOfRounds(), mode);

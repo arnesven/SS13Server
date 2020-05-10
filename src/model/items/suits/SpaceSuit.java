@@ -18,7 +18,7 @@ import java.util.Map;
 public class SpaceSuit extends FullBodySuit {
 
 	public SpaceSuit() {
-		super("Space Suit", 4.0, 500);
+		super("Space Suit", 8.0, 500);
 	}
 
 	@Override

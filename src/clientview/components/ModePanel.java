@@ -2,10 +2,15 @@ package clientview.components;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ModePanel extends JComponent {
     private final JTextField propField;
     private final JCheckBox check;
+    private final JLabel nameLabel;
+    private final JTextArea descr;
 
     public ModePanel(String name, String description, boolean startsEnabled, ButtonGroup buttonGroup) {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -17,11 +22,11 @@ public class ModePanel extends JComponent {
         buttonGroup.add(check);
 
         this.add(Box.createHorizontalStrut(5));
-        JLabel nameLabel = new JLabel(name);
+        nameLabel = new JLabel(name);
         nameLabel.setMinimumSize(new Dimension(100, 20));
         nameLabel.setPreferredSize(new Dimension(100, 20));
         this.add(nameLabel);
-        JTextArea descr = new JTextArea();
+        descr = new JTextArea();
         descr.setText(description);
         descr.setEditable(false);
         descr.setLineWrap(true);
@@ -51,5 +56,18 @@ public class ModePanel extends JComponent {
     public JCheckBox getCheckBox() {
         return check;
 
+    }
+
+    public void addActionListener(ActionListener actionListener) {
+        check.addActionListener(actionListener);
+        MouseAdapter adapter = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                actionListener.actionPerformed(null);
+            }
+        };
+        //nameLabel.addMouseListener(adapter);
+        descr.addMouseListener(adapter);
+        this.addMouseListener(adapter);
     }
 }
