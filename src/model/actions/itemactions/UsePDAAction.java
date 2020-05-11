@@ -40,7 +40,7 @@ public class UsePDAAction extends Action {
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
 	    if (!GameItem.hasAnItemOfClass(performingClient, PDA.class)) {
-	        performingClient.addTolastTurnInfo("You don't have a PDA!" + Action.FAILED_STRING);
+	        performingClient.addTolastTurnInfo("You don't have a PDA!" + failed(gameData, performingClient));
         }
 
 		if (!order) {

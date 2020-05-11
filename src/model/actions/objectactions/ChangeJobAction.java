@@ -89,7 +89,7 @@ public class ChangeJobAction extends ConsoleAction {
         super.lateExecution(gameData, performingClient);
 
         if (selectedActor == null) {
-            performingClient.addTolastTurnInfo("What, no crew member in the room to change jobs for? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, no crew member in the room to change jobs for? " + failed(gameData, performingClient));
             return;
         }
 
@@ -117,7 +117,7 @@ public class ChangeJobAction extends ConsoleAction {
                     performingClient.addTolastTurnInfo(selectedActor.getPublicName() + " is not eligible for a job change (needs to voluntarily sign up or be demoted).");
                 }
             } else {
-                performingClient.addTolastTurnInfo("What? That crew member isn't on the station! " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What? That crew member isn't on the station! " + failed(gameData, performingClient));
             }
         } catch (NoSuchThingException e) {
             e.printStackTrace();

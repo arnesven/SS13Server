@@ -60,7 +60,7 @@ public class MindControlAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (victimOfMindControl == null) {
-            performingClient.addTolastTurnInfo("What? Target wasn't there anymore? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What? Target wasn't there anymore? " + failed(gameData, performingClient));
             return;
         }
 

@@ -60,7 +60,7 @@ public class RemoveDoorAction extends Action {
         try {
             roomParts = GameItem.getItemFromActor(performingClient, new RoomPartsStack(0));
         } catch (NoSuchThingException e) {
-            performingClient.addTolastTurnInfo("What, no construction parts? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, no construction parts? " + failed(gameData, performingClient));
             return;
         }
 

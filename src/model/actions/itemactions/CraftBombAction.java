@@ -45,23 +45,23 @@ public class CraftBombAction extends Action {
                         performingClient.getItems().remove(hasUplinkItem(performingClient));
                         bomb = new RemoteBomb();
                     } else {
-                        performingClient.addTolastTurnInfo("What, no " + remoteItem.getPublicName(performingClient)+ " to use? " + Action.FAILED_STRING);
+                        performingClient.addTolastTurnInfo("What, no " + remoteItem.getPublicName(performingClient)+ " to use? " + failed(gameData, performingClient));
                     }
                 } else if (makeRiggable) {
                     try {
                         performingClient.getItems().remove(GameItem.getItemFromActor(performingClient, new Tools()));
                         bomb = new BoobyTrapBomb();
                     } catch (NoSuchThingException e) {
-                        performingClient.addTolastTurnInfo("What, no tools to use? " + Action.FAILED_STRING);
+                        performingClient.addTolastTurnInfo("What, no tools to use? " + failed(gameData, performingClient));
                     }
                 }
                 performingClient.addItem(bomb, performingClient.getAsTarget());
                 performingClient.addTolastTurnInfo("You crafted a " + bomb.getBaseName() + "!");
             } else {
-                performingClient.addTolastTurnInfo("What, the raw materials weren't there? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What, the raw materials weren't there? " + failed(gameData, performingClient));
             }
         } else {
-            performingClient.addTolastTurnInfo("Could not find raw materials for bomb. " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("Could not find raw materials for bomb. " + failed(gameData, performingClient));
         }
     }
 

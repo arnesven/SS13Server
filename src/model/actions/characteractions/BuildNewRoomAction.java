@@ -79,7 +79,7 @@ public class BuildNewRoomAction extends Action {
         try {
             parts = GameItem.getItemFromActor(performingClient, new RoomPartsStack(1));
         } catch (NoSuchThingException e) {
-            performingClient.addTolastTurnInfo("What, no construction parts? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, no construction parts? " + failed(gameData, performingClient));
             return;
         }
 
@@ -88,7 +88,7 @@ public class BuildNewRoomAction extends Action {
             try {
                 name = buildNewRoom(gameData, performingClient, selected, width, height);
             } catch (Architecture.NoLegalPlacementForRoom noLegalPlacementForRoom) {
-                performingClient.addTolastTurnInfo("No space for room to be built here. " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("No space for room to be built here. " + failed(gameData, performingClient));
                 return;
             }
             performingClient.addTolastTurnInfo("You built a new room: " + name + "!");
@@ -98,7 +98,7 @@ public class BuildNewRoomAction extends Action {
                 performingClient.getItems().remove(parts);
             }
         } else {
-            performingClient.addTolastTurnInfo("What, no tools? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, no tools? " + failed(gameData, performingClient));
             return;
         }
     }

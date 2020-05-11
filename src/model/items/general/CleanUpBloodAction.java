@@ -29,7 +29,7 @@ public class CleanUpBloodAction extends SearchAction {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (!GameItem.hasAnItemOfClass(performingClient, Mop.class)) {
-            performingClient.addTolastTurnInfo("You don't have a mop! " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("You don't have a mop! " + failed(gameData, performingClient));
             return;
         }
 

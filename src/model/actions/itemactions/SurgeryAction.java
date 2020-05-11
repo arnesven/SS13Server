@@ -48,7 +48,7 @@ public class SurgeryAction extends Action {
                     }
                 } else {
                     performingClient.addTolastTurnInfo(target.getPublicName() + " doesn't have a " +
-                            bodyPart + ". " + Action.FAILED_STRING);
+                            bodyPart + ". " + failed(gameData, performingClient));
                 }
             } else { // reattached
                 if (reattPart != null) {
@@ -56,11 +56,11 @@ public class SurgeryAction extends Action {
                     performingClient.getItems().remove(reattPart);
                     target.getCharacter().getPhysicalBody().addBodyPart(bodyPart);
                 } else {
-                    performingClient.addTolastTurnInfo("What, the body part is missing? " + Action.FAILED_STRING);
+                    performingClient.addTolastTurnInfo("What, the body part is missing? " + failed(gameData, performingClient));
                 }
             }
         } else {
-             performingClient.addTolastTurnInfo("What, " + Action.FAILED_STRING);
+             performingClient.addTolastTurnInfo("What, " + failed(gameData, performingClient));
         }
     }
 

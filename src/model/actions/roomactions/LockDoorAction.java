@@ -27,13 +27,13 @@ public class LockDoorAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (!door.getDoorMechanism().permitsLock()) {
-            performingClient.addTolastTurnInfo("Something is wrong with the door, it can't be locked! " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("Something is wrong with the door, it can't be locked! " + failed(gameData, performingClient));
         }
 
         if ((UniversalKeyCard.findKeyCard(performingClient) != null && UniversalKeyCard.findKeyCard(performingClient).canOpenDoor(door)) || performingClient.isAI()) {
             performingClient.addTolastTurnInfo("You locked the door");
         } else if (!performingClient.isAI()) {
-            performingClient.addTolastTurnInfo("What, the key card was gone? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, the key card was gone? " + failed(gameData, performingClient));
             return;
         }
         try {

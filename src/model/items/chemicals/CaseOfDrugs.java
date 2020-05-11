@@ -78,7 +78,7 @@ public class CaseOfDrugs extends GameItem {
                     performingClient.addTolastTurnInfo("The drug case was empty!");
                 }
             } else {
-                performingClient.addTolastTurnInfo("What, the case is gone? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What, the case is gone? " + failed(gameData, performingClient));
             }
         }
 

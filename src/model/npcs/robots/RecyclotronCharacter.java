@@ -64,7 +64,7 @@ public class RecyclotronCharacter extends RobotCharacter {
                 bot.setActionBehavior(new RecycleItemsOnFloorBehavior());
                 performingClient.addTolastTurnInfo("You turned the RecycloTRON on.");
             } else {
-                performingClient.addTolastTurnInfo("Huh? RecycloTRON no longer there? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("Huh? RecycloTRON no longer there? " + failed(gameData, performingClient));
             }
         }
 

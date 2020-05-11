@@ -24,7 +24,7 @@ public class HackDoorToPoweredAction extends HackDoorAction {
                 door.goPowered(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
                 performingClient.addTolastTurnInfo("The door has power again.");
             } else {
-                performingClient.addTolastTurnInfo("Something is wrong with the door, it's not getting power. " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("Something is wrong with the door, it's not getting power. " + failed(gameData, performingClient));
             }
         } catch (NoSuchThingException e) {
             e.printStackTrace();

@@ -41,7 +41,6 @@ public class ButtBurger extends SpaceBurger {
             return true;
         }
 
-        performingClient.addTolastTurnInfo("What, no butt to use? " + Action.FAILED_STRING);
         return false;
     }
 }

@@ -135,7 +135,7 @@ public abstract class TargetingAction extends Action {
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
         if (target == null) {
-            performingClient.addTolastTurnInfo("What, the target wasn't there? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, the target wasn't there? " + failed(gameData, performingClient));
             return;
         }
 		if (!target.canBeInteractedBy(performingClient)) {

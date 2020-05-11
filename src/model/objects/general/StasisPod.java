@@ -81,7 +81,7 @@ public class StasisPod extends ElectricalMachinery {
                     if (!StasisPod.this.isVacant()) {
                         StasisPod.this.eject();
                     } else {
-                        performingClient.addTolastTurnInfo("What, the stasis pod was empty? " + Action.FAILED_STRING);
+                        performingClient.addTolastTurnInfo("What, the stasis pod was empty? " + failed(gameData, performingClient));
                     }
                 }
 

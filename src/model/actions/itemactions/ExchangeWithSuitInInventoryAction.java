@@ -37,7 +37,7 @@ public class ExchangeWithSuitInInventoryAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (!performingClient.getItems().contains(suit)) {
-            performingClient.addTolastTurnInfo("What? the " + suit.getPublicName(performingClient) + " is gone! " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What? the " + suit.getPublicName(performingClient) + " is gone! " + failed(gameData, performingClient));
         } else {
             swapSuits(performingClient, suit, selectedSuit);
         }

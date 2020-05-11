@@ -21,7 +21,7 @@ public class ExchangeWithSuitOnRoomFloorAction extends ExchangeWithSuitInInvento
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (!performingClient.getPosition().getItems().contains(suit)) {
-            performingClient.addTolastTurnInfo("What? the " + suit.getPublicName(performingClient) + " is gone! " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What? the " + suit.getPublicName(performingClient) + " is gone! " + failed(gameData, performingClient));
         } else {
             getSelectedSuit().removeYourself(performingClient.getCharacter().getEquipment());
             performingClient.getPosition().addItem(getSelectedSuit());

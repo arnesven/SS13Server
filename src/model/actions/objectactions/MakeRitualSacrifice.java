@@ -51,7 +51,7 @@ public class MakeRitualSacrifice extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (target == null) {
-            performingClient.addTolastTurnInfo("Huh, nobody to sacrifice? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("Huh, nobody to sacrifice? " + failed(gameData, performingClient));
         } else {
             performingClient.addTolastTurnInfo("You sacrificed " + target.getPublicName() + " on the altar of Kali!");
             target.getAsTarget().beExposedTo(performingClient, new SacrificeDamage(), gameData);

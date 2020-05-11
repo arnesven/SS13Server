@@ -82,7 +82,7 @@ public class XeroxMachine extends GameObject {
             }
 
             if (!performingClient.getItems().contains(selected)) {
-                performingClient.addTolastTurnInfo("What? The " + selected.getFullName(performingClient) + " isn't there anymore! " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What? The " + selected.getFullName(performingClient) + " isn't there anymore! " + failed(gameData, performingClient));
                 return;
             }
 

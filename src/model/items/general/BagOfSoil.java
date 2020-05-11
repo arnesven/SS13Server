@@ -48,7 +48,7 @@ public class BagOfSoil extends GameItem {
         @Override
         protected void execute(GameData gameData, Actor performingClient) {
             if (!performingClient.getItems().contains(BagOfSoil.this)) {
-                performingClient.addTolastTurnInfo("What, the bag of soil wasn't there anymore? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What, the bag of soil wasn't there anymore? " + failed(gameData, performingClient));
                 return;
             }
 

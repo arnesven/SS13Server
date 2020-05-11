@@ -82,7 +82,7 @@ public class NuclearBomb extends GameObject {
             if (GameItem.hasAnItem(performingClient, new NuclearDisc(gameData, false))) {
                 gameData.addEvent(new NukeSetEvent(NuclearBomb.this));
             } else {
-                performingClient.addTolastTurnInfo("What, the nuclear disc wasn't there? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What, the nuclear disc wasn't there? " + failed(gameData, performingClient));
             }
         }
 

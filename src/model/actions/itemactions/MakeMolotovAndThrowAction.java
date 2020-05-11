@@ -63,7 +63,7 @@ public class MakeMolotovAndThrowAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (selectedBurnable == null) {
-            performingClient.addTolastTurnInfo("What, nothing to burn! " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, nothing to burn! " + failed(gameData, performingClient));
             return;
         }
         performingClient.getItems().remove(selectedBurnable);

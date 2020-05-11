@@ -44,12 +44,12 @@ public class PlantAction extends Action {
     protected void execute(GameData gameData, Actor performingClient) {
 
         if (!performingClient.getItems().contains(selectedSeeds)) {
-            performingClient.addTolastTurnInfo("What, the seeds weren't there anymore? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, the seeds weren't there anymore? " + failed(gameData, performingClient));
             return;
         }
 
         if (soil.isPlanted()) {
-            performingClient.addTolastTurnInfo("What, the soil was already planted? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, the soil was already planted? " + failed(gameData, performingClient));
         }
 
         soil.plant(selectedSeeds, gameData, performingClient);

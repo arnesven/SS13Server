@@ -38,7 +38,7 @@ public class ForceOpenDoorAction extends Action {
             if (hasAnApplicableItem(performingClient)) {
                 door.crowbarOpen(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
             } else {
-                performingClient.addTolastTurnInfo("What, the item was missing? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What, the item was missing? " + failed(gameData, performingClient));
             }
         } catch (NoSuchThingException e) {
             e.printStackTrace();

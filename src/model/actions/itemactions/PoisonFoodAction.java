@@ -45,10 +45,10 @@ public class PoisonFoodAction extends Action {
                 performingClient.addItem(new PoisonedConsumable(selectedItem, performingClient), null);
 
             } catch (NoSuchThingException e) {
-                performingClient.addTolastTurnInfo("What, the poison syringe is gone? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What, the poison syringe is gone? " + failed(gameData, performingClient));
             }
         } else {
-            performingClient.addTolastTurnInfo("What, the consumable is gone? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, the consumable is gone? " + failed(gameData, performingClient));
         }
     }
 

@@ -38,11 +38,11 @@ public class VentStationAction extends ConsoleAction {
         try {
             AirLockConsole alc = gameData.findObjectOfType(AirLockConsole.class);
             if (alc.getVentApprovedRound() != gameData.getRound()) {
-                performingClient.addTolastTurnInfo("Venting of station was not approved. " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("Venting of station was not approved. " + failed(gameData, performingClient));
                 return;
             }
         } catch (NoSuchThingException e) {
-            performingClient.addTolastTurnInfo("Could not locate airlock override console. " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("Could not locate airlock override console. " + failed(gameData, performingClient));
             e.printStackTrace();
         }
 

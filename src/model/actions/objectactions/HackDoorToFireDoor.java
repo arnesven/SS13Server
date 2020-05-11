@@ -20,7 +20,7 @@ public class HackDoorToFireDoor extends HackDoorAction {
             door.shutFireDoor(gameData);
             performingClient.addTolastTurnInfo("You closed the fire doors.");
         } else {
-            performingClient.addTolastTurnInfo("There is something wrong with the door, the fire door won't close. " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("There is something wrong with the door, the fire door won't close. " + failed(gameData, performingClient));
         }
     }
 

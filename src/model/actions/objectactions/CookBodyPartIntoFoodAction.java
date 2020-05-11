@@ -44,7 +44,7 @@ public class CookBodyPartIntoFoodAction extends Action {
         }
 
         if (bp == null) {
-            performingClient.addTolastTurnInfo("What, no body part to cook with? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, no body part to cook with? " + failed(gameData, performingClient));
         } else {
             performingClient.addTolastTurnInfo("You cooked a " +
                     bp.getPublicName(performingClient) + " into the " + innerAction.getSelectedItem());

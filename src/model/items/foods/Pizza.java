@@ -65,7 +65,7 @@ public class Pizza extends HealingFood {
                 }
                 performingClient.addTolastTurnInfo("You cut the pizza into six slices!");
             } else {
-                performingClient.addTolastTurnInfo("What, the pizza wasn't there? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What, the pizza wasn't there? " + failed(gameData, performingClient));
             }
         }
 

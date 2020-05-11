@@ -50,7 +50,7 @@ public class AIOverchargeAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (selected == null) {
-            performingClient.addTolastTurnInfo("What, object not found? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, object not found? " + failed(gameData, performingClient));
             return;
         }
 

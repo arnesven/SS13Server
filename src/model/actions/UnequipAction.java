@@ -48,12 +48,12 @@ public class UnequipAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (selectedSuit == null) {
-            performingClient.addTolastTurnInfo("What, nothing to unequip? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, nothing to unequip? " + failed(gameData, performingClient));
             return;
         }
 
         if (!performingClient.getCharacter().getEquipment().getSuitsAsList().contains(selectedSuit)) {
-            performingClient.addTolastTurnInfo("What, the " + selectedSuit.getPublicName(performingClient) + " wasn't there? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, the " + selectedSuit.getPublicName(performingClient) + " wasn't there? " + failed(gameData, performingClient));
             return;
         }
 

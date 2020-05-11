@@ -44,7 +44,7 @@ public class RecycleAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (selectedItem == null) {
-            performingClient.addTolastTurnInfo("What, the item was missing? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, the item was missing? " + failed(gameData, performingClient));
         } else {
             performingClient.getItems().remove(selectedItem);
             selectedItem.setHolder(null);

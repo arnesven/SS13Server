@@ -28,7 +28,7 @@ public class StoreItemAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (selectedItem == null) {
-            performingClient.addTolastTurnInfo("What, the item wasn't there? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, the item wasn't there? " + failed(gameData, performingClient));
         } else {
             performingClient.getItems().remove(selectedItem);
             selectedItem.setHolder(null);

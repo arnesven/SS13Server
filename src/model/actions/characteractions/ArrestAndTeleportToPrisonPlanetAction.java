@@ -71,7 +71,7 @@ public class ArrestAndTeleportToPrisonPlanetAction extends Action {
                     }
                 }
             } else {
-                performingClient.addTolastTurnInfo("What? The " + selected.getPublicName() + " wasn't there anymore? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What? The " + selected.getPublicName() + " wasn't there anymore? " + failed(gameData, performingClient));
             }
         } catch (NoSuchThingException nste) {
             nste.printStackTrace();

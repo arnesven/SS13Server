@@ -36,11 +36,11 @@ public class DealDrugsAction extends TargetingAction {
                 }
 
             } catch (NoSuchThingException e) {
-                performingClient.addTolastTurnInfo("What? The drug case is gone! " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What? The drug case is gone! " + failed(gameData, performingClient));
             }
 
         } else {
-            performingClient.addTolastTurnInfo("You can't deal drugs to " + target.getName() + "! " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("You can't deal drugs to " + target.getName() + "! " + failed(gameData, performingClient));
             if (target instanceof Actor) {
                 ((Actor) target).addTolastTurnInfo(performingClient.getPublicName() + " tried to sell you drugs!");
             }

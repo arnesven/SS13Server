@@ -32,7 +32,7 @@ public class HackDoorUnlockAction extends HackDoorAction {
                 performingClient.addTolastTurnInfo("You hacked the locked door and moved through!");
                 gameData.getGameMode().getMiscHappenings().add(performingClient.getBaseName() + " successfully hacked a locked door!");
             } else {
-                performingClient.addTolastTurnInfo("Something is wrong with the door, it can't be unlocked! " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("Something is wrong with the door, it can't be unlocked! " + failed(gameData, performingClient));
             }
         } catch (NoSuchThingException e) {
             e.printStackTrace();

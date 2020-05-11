@@ -20,12 +20,13 @@ import util.MyStrings;
  */
 public abstract class Action extends Experienceable implements Serializable {
 	
-	public static final String FAILED_STRING = "Your action failed.";
+	private static final String FAILED_STRING = "Your action failed.";
 	private String name;
 	private SensoryLevel senses;
 	protected Actor performer;
     private boolean wasDeadBeforeApplied = false;
     private List<String> savedArgs;
+    private boolean actionFailed;
 
 
     /**
@@ -35,6 +36,7 @@ public abstract class Action extends Experienceable implements Serializable {
 	public Action(String name, SensoryLevel senses) {
 		this.name = name;
 		this.senses = senses;
+		actionFailed = false;
 	}
 
 
@@ -69,7 +71,11 @@ public abstract class Action extends Experienceable implements Serializable {
             //return "someone FARTED";
 			throw new IllegalStateException("doTheAction was not called before call to getDescription!");
         }
-		return performer.getPublicName() + " " + this.getVerb(whosAsking).toLowerCase() + "";
+        String middle = " ";
+        if (actionFailed) {
+		    middle = " tried to ";
+        }
+		return performer.getPublicName() + middle + this.getVerb(whosAsking).toLowerCase() + "";
 	}
 
 	/**
@@ -244,5 +250,10 @@ public abstract class Action extends Experienceable implements Serializable {
 
     public Sprite getAbilitySprite() {
         return new Sprite("abilitysprite", "interface.png", 15, 16, null);
+    }
+
+    public String failed(GameData gameData, Actor whoFailed) {
+	    this.actionFailed = true;
+	    return FAILED_STRING;
     }
 }

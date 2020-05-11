@@ -62,7 +62,7 @@ public abstract class Mushroom extends StagePlant {
                 performingClient.addItem(Mushroom.this.getAsItem(), null);
                 performingClient.addTolastTurnInfo("You picked a mushroom.");
             } else {
-                performingClient.addTolastTurnInfo("What, nothing to pick? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What, nothing to pick? " + failed(gameData, performingClient));
             }
         }
 

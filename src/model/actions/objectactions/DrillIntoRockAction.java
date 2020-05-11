@@ -53,7 +53,7 @@ public class DrillIntoRockAction extends Action {
 
             }
         } else {
-            performingClient.addTolastTurnInfo("What, the mining drill is gone? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, the mining drill is gone? " + failed(gameData, performingClient));
         }
     }
 

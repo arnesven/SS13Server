@@ -24,7 +24,7 @@ public class HackDoorToLockAction extends HackDoorAction{
                 door.lockRooms(gameData.getRoomForId(door.getFromId()), gameData.getRoomForId(door.getToId()));
                 performingClient.addTolastTurnInfo("You locked the door.");
             } else {
-                performingClient.addTolastTurnInfo("Something is wrong with the door, it won't lock! " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("Something is wrong with the door, it won't lock! " + failed(gameData, performingClient));
             }
         } catch (NoSuchThingException e) {
             e.printStackTrace();

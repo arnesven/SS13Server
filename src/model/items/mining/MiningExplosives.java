@@ -98,7 +98,7 @@ public class MiningExplosives extends BombItem {
                 });
                 performingClient.addTolastTurnInfo("You set the mining explosives. Now get the hell out of here!");
             } else {
-                performingClient.addTolastTurnInfo("What, the mining explosives were gone? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What, the mining explosives were gone? " + failed(gameData, performingClient));
             }
         }
 

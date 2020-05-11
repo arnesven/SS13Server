@@ -160,7 +160,7 @@ public class VentObject extends GameObject {
                 getOtherSide().setIsOpen(true);
                 GameMap.joinRooms(getPosition(), getOtherSide().getPosition());
             } else {
-                performingClient.addTolastTurnInfo("What no tools? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What no tools? " + failed(gameData, performingClient));
             }
         }
 
@@ -191,7 +191,7 @@ public class VentObject extends GameObject {
                 getOtherSide().setIsOpen(false);
                 GameMap.separateRooms(getPosition(), getOtherSide().getPosition());
             } else {
-                performingClient.addTolastTurnInfo("What no tools? " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What no tools? " + failed(gameData, performingClient));
             }
         }
 

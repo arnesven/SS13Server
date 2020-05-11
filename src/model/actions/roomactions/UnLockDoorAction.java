@@ -28,14 +28,14 @@ public class UnLockDoorAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (!door.getDoorMechanism().permitsUnlock()) {
-            performingClient.addTolastTurnInfo("Something is wrong with the door. It can't be unlocked! " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("Something is wrong with the door. It can't be unlocked! " + failed(gameData, performingClient));
         }
 
         boolean isAI = performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter);
         if ((UniversalKeyCard.findKeyCard(performingClient) != null && UniversalKeyCard.findKeyCard(performingClient).canOpenDoor(door)) || isAI) {
             performingClient.addTolastTurnInfo("You unlocked the door");
         } else if (!isAI) {
-            performingClient.addTolastTurnInfo("What, the key card was gone? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, the key card was gone? " + failed(gameData, performingClient));
             return;
         }
         try {

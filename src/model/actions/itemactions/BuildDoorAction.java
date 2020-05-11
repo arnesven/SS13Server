@@ -65,7 +65,7 @@ public class BuildDoorAction extends Action {
         try {
             doorParts = GameItem.getItemFromActor(performingClient, new DoorPartsStack(0));
         } catch (NoSuchThingException e) {
-            performingClient.addTolastTurnInfo("What no NormalDoor Parts?" + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What no NormalDoor Parts?" + failed(gameData, performingClient));
             return;
         }
 

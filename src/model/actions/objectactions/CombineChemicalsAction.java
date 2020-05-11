@@ -55,7 +55,7 @@ public class CombineChemicalsAction extends Action {
 
 
         } else {
-            performingClient.addTolastTurnInfo("What, chemicals gone? " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("What, chemicals gone? " + failed(gameData, performingClient));
         }
 
     }

@@ -30,7 +30,7 @@ public class PutHandCuffsOnAction extends TargetingAction {
         try {
             hc = GameItem.getItemFromActor(performingClient, new HandCuffs());
         } catch (NoSuchThingException e) {
-             performingClient.addTolastTurnInfo("What, the handcuffs are missing? " + Action.FAILED_STRING);
+             performingClient.addTolastTurnInfo("What, the handcuffs are missing? " + failed(gameData, performingClient));
             return;
         }
 

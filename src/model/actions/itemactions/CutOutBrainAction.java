@@ -35,7 +35,7 @@ public class CutOutBrainAction extends TargetingAction {
             performingClient.addTolastTurnInfo("You cut out a brain from " + target.getName());
             targetAsActor.addTolastTurnInfo(performingClient.getBaseName() + " cut out your brain!");
         } else {
-            performingClient.addTolastTurnInfo(target.getName() + "'s brain is already removed. " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo(target.getName() + "'s brain is already removed. " + failed(gameData, performingClient));
         }
     }
 

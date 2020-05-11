@@ -59,14 +59,14 @@ public class AutoCremator extends Weapon {
         @Override
         protected void applyTargetingAction(GameData gameData, Actor performingClient, Target target, GameItem item) {
             if (!performingClient.getItems().contains(creamator)) {
-                performingClient.addTolastTurnInfo("What, the " + creamator.getPublicName(performingClient) + " is gone!" + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What, the " + creamator.getPublicName(performingClient) + " is gone!" + failed(gameData, performingClient));
                 return;
             }
 
             try {
                 performingClient.getPosition().removeActor((Actor)target);
             } catch (NoSuchThingException e) {
-                performingClient.addTolastTurnInfo("What? " + target.getName() + "wasn't there anymore! " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("What? " + target.getName() + "wasn't there anymore! " + failed(gameData, performingClient));
                 return;
             }
 

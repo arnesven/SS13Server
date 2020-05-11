@@ -100,7 +100,7 @@ public class OreShardBag extends GameItem {
 
                     performingClient.addTolastTurnInfo("You put the ore shard into your bag.");
                 } else {
-                    performingClient.addTolastTurnInfo("What, the ore shard is gone? " + Action.FAILED_STRING);
+                    performingClient.addTolastTurnInfo("What, the ore shard is gone? " + failed(gameData, performingClient));
                 }
             }
         }

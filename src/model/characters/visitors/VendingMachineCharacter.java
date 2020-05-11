@@ -138,7 +138,7 @@ public class VendingMachineCharacter extends RobotCharacter {
                 }
 
             } catch (NoSuchThingException e) {
-                performingClient.addTolastTurnInfo("You have no money, " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("You have no money, " + failed(gameData, performingClient));
             }
 
 

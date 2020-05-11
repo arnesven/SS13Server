@@ -42,8 +42,6 @@ public class GrilledMonkeyDeluxe extends HealingFood {
                 return true;
             }
         }
-
-        performingClient.addTolastTurnInfo("What, no monkey to use? " + Action.FAILED_STRING);
         return false;
     }
 }

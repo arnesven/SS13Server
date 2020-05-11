@@ -37,10 +37,10 @@ public class GeneralManufacturerAction extends Action {
                 gameData.addEvent(e);
 
             } else {
-                performingClient.addTolastTurnInfo("The general manufacturer doesn't have enough charge. Feed it more shards. " + Action.FAILED_STRING);
+                performingClient.addTolastTurnInfo("The general manufacturer doesn't have enough charge. Feed it more shards. " + failed(gameData, performingClient));
             }
         } else {
-            performingClient.addTolastTurnInfo("Item not found. " + Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo("Item not found. " + failed(gameData, performingClient));
         }
     }
 

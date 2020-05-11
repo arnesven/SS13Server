@@ -51,7 +51,7 @@ public class RetrieveAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (selectedItem == null) {
-            performingClient.addTolastTurnInfo(Action.FAILED_STRING);
+            performingClient.addTolastTurnInfo(failed(gameData, performingClient));
         } else {
             performingClient.getCharacter().giveItem(selectedItem, null);
             containerObject.getInventory().remove(selectedItem);
