@@ -101,12 +101,6 @@ public class HostModeStats extends GameStats {
 		return "Host";
 	}
 
-    @Override
-    protected String getTopContent() {
-            return "<img src='" + hostMode.getImageURL() + "'></img>";
-    }
-
-
 
     @Override
 	public String getOutcome() {

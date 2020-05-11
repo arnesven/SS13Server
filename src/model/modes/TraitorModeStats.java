@@ -136,10 +136,6 @@ public class TraitorModeStats extends GameStats {
 		throw new IllegalStateException("Tried to get game outcome before game was over!");
 	}
 
-    @Override
-    protected String getTopContent() {
-        return "<img width='450' height='300' src='" + traitorMode.getImageURL() + "'>";
-    }
 
 
 

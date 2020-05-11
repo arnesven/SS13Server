@@ -78,8 +78,5 @@ public class MixedModeStats extends OperativesModeStats {
         //throw new IllegalStateException("Tried to get game outcome before game was over!");
     }
 
-    @Override
-    protected String getTopContent() {
-        return "<img width='450' src='http://www.ida.liu.se/~erini02/ss13/mixed.png'>";
-    }
+
 }

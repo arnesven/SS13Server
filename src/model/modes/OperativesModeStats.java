@@ -69,11 +69,6 @@ public class OperativesModeStats extends GameStats {
 	}
 
 	@Override
-	protected String getTopContent() {
-		return "<img src='" + mode.getImageURL() + "'>";
-    }
-
-	@Override
 	public String getContent() {
 		return "";
 	}

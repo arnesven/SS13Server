@@ -82,8 +82,4 @@ class ChangelingModeStats extends GameStats {
 		return s;
 	}
 
-    @Override
-    protected String getTopContent() {
-        return "<img width='450' src='" + mode.getImageURL() + "'>";
-    }
 }

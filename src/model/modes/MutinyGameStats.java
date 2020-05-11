@@ -82,8 +82,4 @@ public class MutinyGameStats extends GameStats {
         return "There was a mutiny!";
     }
 
-    @Override
-    protected String getTopContent() {
-        return "<img src='" + mode.getImageURL() + "'>";
-    }
 }

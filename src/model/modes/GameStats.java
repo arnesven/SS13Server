@@ -88,9 +88,11 @@ public abstract class GameStats {
                 getHallOfFame(gameData);
 	}
 
-	protected String getTopContent() {
-		return "<p><i>Hopefully it didn't suck too badly!</i></p>";
+	protected final String getTopContent() {
+		return "<img width='450' height='300' src='" + mode.getImageURL() + "'>";
 	}
+
+
 
 	private String generatePlayersTable() {
 		StringBuffer buf = new StringBuffer("<table>");
