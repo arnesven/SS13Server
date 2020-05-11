@@ -81,6 +81,11 @@ public class CreativeGameMode extends GameMode {
     }
 
     @Override
+    protected String getImageURL() {
+        return "https://justsomething.co/wp-content/uploads/2014/04/creative-people.jpg";
+    }
+
+    @Override
     public boolean isAntagonist(Actor c) {
         return false;
     }

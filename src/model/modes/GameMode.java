@@ -145,6 +145,10 @@ public abstract class GameMode implements Serializable {
 	 */
 	protected abstract void setUpOtherStuff(GameData gameData);
 
+	public abstract String getSpectatorSubInfo(GameData gameData);
+	public abstract String getAntagonistName(Player p);
+
+
 	/**
 	 * Overload this method to add roles "ontop" of existing ones.
 	 * E.g. the host role is assigned in this method. 
@@ -185,13 +189,15 @@ public abstract class GameMode implements Serializable {
 	 */
 	protected abstract void addProtagonistStartingMessage(Player c);
 
-	public abstract String getModeDescription();
+	protected abstract String getModeDescription();
+	protected abstract String getImageURL();
 
-	/**
-	 * This method checks if this player is a antagonist or not.
-	 * @param c
-	 * @return
-	 */
+
+		/**
+         * This method checks if this player is a antagonist or not.
+         * @param c
+         * @return
+         */
 	public abstract boolean isAntagonist(Actor c);
 
 
@@ -792,12 +798,18 @@ public abstract class GameMode implements Serializable {
         return false;
     }
 
-    public abstract String getSpectatorSubInfo(GameData gameData);
 
-    public List<Pair<Sprite, String>> getSpectatorContent(GameData gameData, Actor whosAsking) {
+	public List<Pair<Sprite, String>> getSpectatorContent(GameData gameData, Actor whosAsking) {
 
         return new ArrayList<>();
     }
 
-    public abstract String getAntagonistName(Player p);
+
+    public String getDescriptionHTML() {
+		return "<table><tr><td>" +
+				"<img width='170' height='110' src='" + getImageURL() + "'</img>" +
+				"</td><td>" +
+				getModeDescription() +
+				"</td></tr></table>";
+	}
 }

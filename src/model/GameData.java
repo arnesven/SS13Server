@@ -872,10 +872,10 @@ public class GameData implements Serializable {
     	for (String s : GameMode.getAvailableModes()) {
     		mess.append(s + delim);
     		if (s.equals("Secret")) {
-    		    mess.append(SecretGameMode.getDescription() + delim);
+    		    mess.append(SecretGameMode.getDescriptionHTML() + delim);
             } else {
                 GameMode mode = GameModeFactory.create(s);
-                mess.append(mode.getModeDescription() + delim);
+                mess.append(mode.getDescriptionHTML() + delim);
             }
 		}
 

@@ -61,9 +61,10 @@ public class RogueAIModeStats extends GameStats {
 
     @Override
     protected String getTopContent() {
-        return "<img width='350' src='https://i2.wp.com/bookglow.net/wp-content/uploads/2017/01/1a.gif'>" +
-                "<img width='350' src='https://i2.wp.com/bookglow.net/wp-content/uploads/2017/01/2a.gif'>";
+        return "<img width='350' src='" + mode.getImageURL() + "'>";
     }
+
+
 
 
     @Override

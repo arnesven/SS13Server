@@ -70,13 +70,8 @@ public class OperativesModeStats extends GameStats {
 
 	@Override
 	protected String getTopContent() {
-		if (mode.isNuked()) {
-			return "<img src='http://www.ida.liu.se/~erini02/ss13/explosion.gif'></img>";
-		} else {
-            return "<img src='http://www.ida.liu.se/~erini02/ss13/disk.png'>";
-        }
-		//return super.getTopContent();
-	}
+		return "<img src='" + mode.getImageURL() + "'>";
+    }
 
 	@Override
 	public String getContent() {

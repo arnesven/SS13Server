@@ -207,6 +207,11 @@ public class ChangelingGameMode extends GameMode {
 		return PROT_MESSAGE;
 	}
 
+	@Override
+	protected String getImageURL() {
+		return "https://www.ida.liu.se/~erini02/ss13/thething.jpg";
+	}
+
 
 	@Override
     public boolean isAntagonist(Actor c) {

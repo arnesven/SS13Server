@@ -84,6 +84,6 @@ public class MutinyGameStats extends GameStats {
 
     @Override
     protected String getTopContent() {
-        return "<img src='https://horrorpediadotcom.files.wordpress.com/2016/07/mutiny-in-outer-space.jpg?w=441&h=331'>";
+        return "<img src='" + mode.getImageURL() + "'>";
     }
 }

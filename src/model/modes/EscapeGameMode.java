@@ -100,6 +100,11 @@ public class EscapeGameMode extends GameMode {
     }
 
     @Override
+    protected String getImageURL() {
+        return "";
+    }
+
+    @Override
     public boolean isAntagonist(Actor c) {
         return aliens.contains(c);
     }

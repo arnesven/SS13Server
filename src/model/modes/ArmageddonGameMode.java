@@ -84,6 +84,11 @@ public class ArmageddonGameMode extends GameMode {
     }
 
     @Override
+    protected String getImageURL() {
+        return "https://www.ida.liu.se/~erini02/ss13/armageddon.jpg";
+    }
+
+    @Override
     public boolean isAntagonist(Actor c) {
         return false;
     }

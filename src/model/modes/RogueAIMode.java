@@ -88,6 +88,11 @@ public class RogueAIMode extends GameMode {
         return PROT_MESSAGE;
     }
 
+    @Override
+    public String getImageURL() {
+        return "https://www.ida.liu.se/~erini02/ss13/hal.jpg";
+    }
+
     protected void selectAIPlayer(ArrayList<Player> listOfClients, GameData gameData) { }
 
 

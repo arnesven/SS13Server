@@ -103,10 +103,7 @@ public class HostModeStats extends GameStats {
 
     @Override
     protected String getTopContent() {
-        //if (mode.isNuked()) {
-            return "<img src='http://www.ida.liu.se/~erini02/ss13/host.gif'></img>";
-        //}
-        //return super.getTopContent();
+            return "<img src='" + hostMode.getImageURL() + "'></img>";
     }
 
 

@@ -84,6 +84,6 @@ class ChangelingModeStats extends GameStats {
 
     @Override
     protected String getTopContent() {
-        return "<img width='450' src='http://www.ida.liu.se/~erini02/ss13/changeling.gif'>";
+        return "<img width='450' src='" + mode.getImageURL() + "'>";
     }
 }

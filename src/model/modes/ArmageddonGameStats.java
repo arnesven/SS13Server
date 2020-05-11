@@ -66,4 +66,9 @@ class ArmageddonGameStats extends GameStats {
         return buf.toString();
 
     }
+
+    @Override
+    protected String getTopContent() {
+        return "<img src='" + armageddonGameMode.getImageURL() + "'>";
+    }
 }

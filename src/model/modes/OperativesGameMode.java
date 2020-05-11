@@ -207,6 +207,11 @@ public class OperativesGameMode extends GameMode {
 	}
 
 	@Override
+	protected String getImageURL() {
+		return "https://i.ytimg.com/vi/DBb-hxgZ0ps/hqdefault.jpg";
+	}
+
+	@Override
     public boolean isAntagonist(Actor c) {
 		return operatives.contains(c);
 	}

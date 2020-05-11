@@ -266,6 +266,11 @@ public class HostGameMode extends GameMode {
 		return PROT_MESSAGE;
 	}
 
+	@Override
+	protected String getImageURL() {
+		return "https://image.invaluable.com/housePhotos/profilesinhistory/87/589387/H3257-L96344145.jpg";
+	}
+
 
 	@Override
     public boolean isAntagonist(Actor c) {

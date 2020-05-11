@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class SecretGameMode  {
 	
 	private static final String filename = "random_modes";
-	private static final double[] probabilities = {0.25,      0.25,         0.20,         0.15,       0.04,     0.04,     0.04,    0.03};
+	private static final double[] probabilities = {0.20,      0.35,         0.15,         0.15,       0.04,     0.04,     0.04,    0.03};
     private static final String[] modeNames =   {"Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Mutiny",  "Mixed", "Armageddon"};
 
 
@@ -130,7 +130,19 @@ public class SecretGameMode  {
 	}
 
 
-	public static String getDescription() {
+	private static String getDescription() {
 		return "Only the antagonists know the actual game mode. The crew must figure out the mode and how to cope with it.";
+	}
+
+	private static String getImageURL() {
+		return "https://milestonesolar.com/wp-content/uploads/2017/05/question-marks.jpg";
+	}
+
+	public static String getDescriptionHTML() {
+		return "<table><tr><td>" +
+				"<img width='170' height='110' src='" + getImageURL() + "'</img>" +
+				"</td><td>" +
+				getDescription() +
+				"</td></tr></table>";
 	}
 }

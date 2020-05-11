@@ -662,4 +662,10 @@ public class TraitorGameMode extends GameMode {
         objectives.remove(p);
         p.getCharacter().getItems().removeIf((GameItem it ) -> it instanceof PDA);
     }
+
+    @Override
+	public String getImageURL() {
+		return "https://www.ida.liu.se/~erini02/ss13/traitors.jpg";
+	}
+
 }

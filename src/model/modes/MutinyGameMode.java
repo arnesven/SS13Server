@@ -104,6 +104,11 @@ public class MutinyGameMode extends GameMode {
     }
 
     @Override
+    protected String getImageURL() {
+        return "https://horrorpediadotcom.files.wordpress.com/2016/07/mutiny-in-outer-space.jpg?w=441&h=331";
+    }
+
+    @Override
     public boolean isAntagonist(Actor c) {
         return mutineers.contains(c);
     }

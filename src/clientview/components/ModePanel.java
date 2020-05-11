@@ -10,7 +10,7 @@ public class ModePanel extends JComponent {
     private final JTextField propField;
     private final JCheckBox check;
     private final JLabel nameLabel;
-    private final JTextArea descr;
+    private final MyHtmlPane descr;
 
     public ModePanel(String name, String description, boolean startsEnabled, ButtonGroup buttonGroup) {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -26,16 +26,18 @@ public class ModePanel extends JComponent {
         nameLabel.setMinimumSize(new Dimension(100, 20));
         nameLabel.setPreferredSize(new Dimension(100, 20));
         this.add(nameLabel);
-        descr = new JTextArea();
+        descr = new MyHtmlPane();
         descr.setText(description);
         descr.setEditable(false);
-        descr.setLineWrap(true);
         descr.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         this.add(new JScrollPane(descr));
 
         propField = new JTextField(5);
         propField.setHorizontalAlignment(SwingConstants.RIGHT);
-        propField.setMaximumSize(new Dimension(30 , 30));
+        propField.setMaximumSize(new Dimension(50 , 30));
+        propField.setPreferredSize(new Dimension(50, 30));
+        propField.setMinimumSize(new Dimension(50, 30));
+        propField.setEditable(false);
         this.add(Box.createHorizontalStrut(5));
         this.add(propField);
         this.add(Box.createHorizontalStrut(5));

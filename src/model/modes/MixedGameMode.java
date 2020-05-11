@@ -133,4 +133,14 @@ public class MixedGameMode extends OperativesGameMode {
     public ChangelingGameMode getChangelingMode() {
         return ling;
     }
+
+    @Override
+    protected String getImageURL() {
+        return "https://www.netonnet.se/GetFile/ProductImagePrimary/hem-hushall/koksmaskiner-koksredskap/blender/hamilton-beach-multiblend-blender(1003351)_317639_3_Normal_Extra.jpg";
+    }
+
+    @Override
+    public String getModeDescription() {
+        return "A mixture between several other game modes. Needless to say, it won't be a great day for the crew...";
+    }
 }
