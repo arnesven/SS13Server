@@ -8,6 +8,7 @@ import model.actions.general.DropAction;
 import model.actions.general.MultiAction;
 import model.actions.general.PickUpAction;
 import model.actions.objectactions.RecycleAction;
+import model.actions.objectactions.RetrieveAction;
 import model.actions.objectactions.StoreItemAction;
 import model.items.general.GameItem;
 import model.objects.decorations.TrashBag;
@@ -286,6 +287,15 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
         args.add(gi.getFullName(player));
         sia.setActionTreeArguments(args, player);
         return sia;
+    }
+
+    protected Action makeRetrieveAction(GameItem gi, ContainerObject container, Player player) {
+        RetrieveAction ra = new RetrieveAction(container, player);
+        List<String> args = new ArrayList<>();
+        args.add(gi.getPublicName(player));
+        ra.setActionTreeArguments(args, player);
+        return ra;
+
     }
 
     protected interface NameGetter extends Serializable {

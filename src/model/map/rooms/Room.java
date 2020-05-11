@@ -136,11 +136,7 @@ public abstract class Room implements ItemHolder, Serializable {
                 }
 			}
 			at.addAll(getSpecificRoomActions(gameData, forWhom, at));
-			for (Actor a : getActors()) {
-				if (a.getPosition() == this) {
-					a.getCharacter().addActionsForActorsInRoom(gameData, forWhom, (ArrayList<Action>) at);
-				}
-			}
+
 		}
 		return at;
 	}

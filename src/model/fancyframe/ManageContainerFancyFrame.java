@@ -28,11 +28,7 @@ public class ManageContainerFancyFrame extends ManageItemsFancyFrame {
     protected MultiAction getFinalAction(GameData gameData, Player player, Set<GameItem> puttings, Set<GameItem> gettings) {
         MultiAction multiAction = new MultiAction("Manage Storage");
         for (GameItem gi : puttings) {
-            RetrieveAction ra = new RetrieveAction(container, player);
-            List<String> args = new ArrayList<>();
-            args.add(gi.getPublicName(player));
-            ra.setActionTreeArguments(args, player);
-            multiAction.addAction(ra);
+               multiAction.addAction(super.makeRetrieveAction(gi, container, player));
         }
 
         for (GameItem gi : gettings) {

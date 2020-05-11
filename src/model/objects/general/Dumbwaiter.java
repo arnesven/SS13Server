@@ -43,7 +43,7 @@ public class Dumbwaiter extends GameObject {
 
     public List<Room> getDestinations(GameData gameData) {
         String[] places = new String[]{"Greenhouse", "Bar", "Dorms", "Office", "Captain's Quarters", "Bridge", "Security Station" ,
-                                        "Shuttle Gate", "Sickbay", "Lab", "Chapel", "Generator", "AI Core", "Kitchen"};
+                                        "Shuttle Gate", "Sickbay", "Lab", "Chapel", "Generator", "AI Core", "Kitchen", "Lounge", "Cargo Bay", "Janitorial"};
         List<Room> result = new ArrayList<>();
         for (String place :  places) {
 
