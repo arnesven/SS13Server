@@ -150,17 +150,17 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
             return HTMLText.makeText("gray", "arial", 6, symbol);
         }
         return HTMLText.makeFancyFrameLink(command + " " +
-                gi.getFullName(performingClient), HTMLText.makeText("yellow", "arial", 6,symbol));
+                gi.getUniqueName(performingClient), HTMLText.makeText("yellow", "arial", 6,symbol));
     }
 
     private String makeRecycleButton(GameItem gi, boolean withRecycle, Player player) {
         if (withRecycle) {
             String rec = "♻";
             if (recyclings.contains(gi)) {
-                return "<td>" + HTMLText.makeFancyFrameLink("DONTRECYCLE " + gi.getFullName(player),
+                return "<td>" + HTMLText.makeFancyFrameLink("DONTRECYCLE " + gi.getUniqueName(player),
                         HTMLText.makeText("black", "green", "serif", 6, rec)) + "</td>";
             } else {
-                return "<td>" + HTMLText.makeFancyFrameLink("RECYCLE " + gi.getFullName(player),
+                return "<td>" + HTMLText.makeFancyFrameLink("RECYCLE " + gi.getUniqueName(player),
                         HTMLText.makeText("green", "serif", 6, rec)) + "</td>";
             }
         }
@@ -174,7 +174,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
         super.handleEvent(gameData, player, event);
         if (event.contains("DROP")) {
             for (GameItem gi : firstItemHolder.getItems()) {
-                if (gi.getFullName(player).equals(event.replace("DROP ", ""))) {
+                if (gi.getUniqueName(player).equals(event.replace("DROP ", ""))) {
                     puttings.add(gi);
                     break;
                 }
@@ -182,7 +182,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
             rebuildInterface(gameData, player);
         } else if (event.contains("KEEP")) {
             for (GameItem gi : puttings) {
-                if (gi.getFullName(player).equals(event.replace("KEEP ", ""))) {
+                if (gi.getUniqueName(player).equals(event.replace("KEEP ", ""))) {
                     puttings.remove(gi);
                     break;
                 }
@@ -191,8 +191,8 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
         } else if (event.contains("DONTPICKUP")) {
             Logger.log("Got dontpickup event");
             for (GameItem gi : gettings) {
-                Logger.log("Checking " + gi.getFullName(player));
-                if (gi.getFullName(player).equals(event.replace("DONTPICKUP ", ""))) {
+                Logger.log("Checking " + gi.getUniqueName(player));
+                if (gi.getUniqueName(player).equals(event.replace("DONTPICKUP ", ""))) {
                     gettings.remove(gi);
                     break;
                 }
@@ -200,7 +200,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
             rebuildInterface(gameData, player);
         } else if (event.contains("PICKUP")) {
             for (GameItem gi : secondItemHolder.getItems()) {
-                if (gi.getFullName(player).equals(event.replace("PICKUP ", ""))) {
+                if (gi.getUniqueName(player).equals(event.replace("PICKUP ", ""))) {
                     gettings.add(gi);
                     break;
                 }
@@ -208,7 +208,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
             rebuildInterface(gameData, player);
         } else if (event.contains("DONTRECYCLE")) {
             for (GameItem gi : recyclings) {
-                if (gi.getFullName(player).equals(event.replace("DONTRECYCLE ", ""))) {
+                if (gi.getUniqueName(player).equals(event.replace("DONTRECYCLE ", ""))) {
                     recyclings.remove(gi);
                     break;
                 }
@@ -219,7 +219,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
             all.addAll(firstItemHolder.getItems());
             all.addAll(secondItemHolder.getItems());
             for (GameItem gi : all) {
-                if (gi.getFullName(player).equals(event.replace("RECYCLE ", ""))) {
+                if (gi.getUniqueName(player).equals(event.replace("RECYCLE ", ""))) {
                     recyclings.add(gi);
                     if (gettings.contains(gi)) {
                         gettings.remove(gi);

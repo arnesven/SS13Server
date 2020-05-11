@@ -20,7 +20,9 @@ public class QuarterMasterCharacter extends CrewCharacter {
 
     @Override
     public String getJobDescription() {
-        return "It's the Quartermaster is responsible for supplying the crewmembers with the things they need to do their jobs. Buy, sell, pack, unpack!";
+        return new JobDescriptionMaker(this,
+                "It's the Quartermaster is responsible for supplying the crewmembers with the things they " +
+                        "need to do their jobs. Buy, sell, pack, unpack!", "Pack/Unpack Crate").makeString();
     }
 
     @Override

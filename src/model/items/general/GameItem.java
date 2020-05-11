@@ -29,8 +29,10 @@ import util.Logger;
  */
 public abstract class GameItem implements Locatable, SpriteObject, Serializable {
 
+    private static int uid_counter = 1;
     private final boolean usableFromFloor;
     private String name;
+    private final int uid;
 	private double weight;
 	private Room position;
 	private GameCharacter holder = null;
@@ -42,6 +44,7 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 		this.weight = weight;
         this.usableFromFloor = usableFromFloor;
         this.cost = cost;
+        uid = uid_counter++;
 	}
 
     public GameItem(String string, double weight, int cost) {
@@ -60,6 +63,10 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 		return name;
 	}
 
+
+	public String getUniqueName(Actor whosAsking) {
+	    return getFullName(whosAsking) + " #" + uid;
+    }
 
 	/**
 	 * Gets the name of this item as it appears from a distance.
