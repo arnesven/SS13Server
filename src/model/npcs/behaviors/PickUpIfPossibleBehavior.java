@@ -1,5 +1,6 @@
 package model.npcs.behaviors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Actor;
@@ -18,7 +19,9 @@ public class PickUpIfPossibleBehavior implements ActionBehavior {
 		
 		if (items.size() > 0) {
 			PickUpAction pua = new PickUpAction(npc);
-			pua.setItem(MyRandom.sample(items));
+			List<String> args = new ArrayList<>();
+			args.add(MyRandom.sample(pua.getOptions(gameData, npc).getSuboptions()).getName());
+			pua.setActionTreeArguments(args, npc);
 			pua.doTheAction(gameData, npc);
 			this.didHappen  = true;
 		}

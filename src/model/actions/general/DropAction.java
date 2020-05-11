@@ -12,9 +12,11 @@ import model.items.suits.SuitItem;
 public class DropAction extends Action {
 
 	private Actor ap;
-	private GameItem item;
-    private boolean allItems = false;
+	private boolean allItems = false;
     private boolean stripNaked = false;
+    private String requestedItem;
+    private GameItem item = null;
+
 
     public DropAction(Actor clientActionPerformer) {
 		super("Drop", SensoryLevel.PHYSICAL_ACTIVITY);
@@ -31,6 +33,23 @@ public class DropAction extends Action {
 
         if ( stripNaked) {
             stripNaked(gameData, performingClient);
+            return;
+        }
+
+        for (SuitItem s : ap.getCharacter().getEquipment().getTopEquipmentAsList()) {
+            if (requestedItem.contains(s.getPublicName(performingClient))) {
+                item = s;
+            }
+        }
+        for (GameItem it : ap.getItems()){
+            if (requestedItem.contains(it.getFullName(performingClient))) {
+                item = it;
+            }
+        }
+
+        if (item == null) {
+            performingClient.addTolastTurnInfo("What, the " + requestedItem + " wasn't there? " +
+                    failed(gameData, performingClient));
             return;
         }
 
@@ -127,20 +146,9 @@ public class DropAction extends Action {
             this.stripNaked = true;
             return;
         }
+        requestedItem = args.get(0);
 
-        for (SuitItem s : ap.getCharacter().getEquipment().getTopEquipmentAsList()) {
-            if (args.get(0).contains(s.getPublicName(performingClient))) {
-                this.item = s;
-                return;
-            }
-        }
-		for (GameItem it : ap.getItems()){
-			if (args.get(0).contains(it.getFullName(performingClient))) {
-				this.item = it;
-				return;
-			}
-		}
-		throw new NoSuchElementException("No such item found for drop action");
+
 	}
 
     @Override

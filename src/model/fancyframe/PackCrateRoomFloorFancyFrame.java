@@ -5,6 +5,8 @@ import model.ItemHolder;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.MultiAction;
+import model.actions.general.PickUpAction;
+import model.actions.itemactions.PickUpAndStoreAction;
 import model.actions.objectactions.RetrieveAction;
 import model.actions.objectactions.RetrieveAndDropAction;
 import model.items.general.GameItem;
@@ -20,13 +22,19 @@ public class PackCrateRoomFloorFancyFrame extends PackCrateFancyFrame {
 
     @Override
     protected void makeRelevantPuttingsAction(MultiAction ma, GameItem gi, Player player, GameData gameData, ItemHolder otherItemHolder, CrateObject crate) {
-        ma.addAction(makeStoreAction(gi, gameData, player, crate));
+        ma.addAction(makePickupAndStoreAction(gi, gameData, player, crate));
+    }
+
+    private Action makePickupAndStoreAction(GameItem gi, GameData gameData, Player player, CrateObject crate) {
+        PickUpAction puas = new PickUpAndStoreAction(player, crate, gi);
+        List<String> args = new ArrayList<>();
+        args.add(gi.getPublicName(player));
+        puas.setActionTreeArguments(args, player);
+        return puas;
     }
 
     @Override
     protected void makeRelevantGettingsAction(MultiAction ma, GameItem gi, Player player, GameData gameData, ItemHolder otherItemHolder, CrateObject crate) {
-
-
         ma.addAction(makeRetrieveAndDropAction(gi, crate, player));
     }
 

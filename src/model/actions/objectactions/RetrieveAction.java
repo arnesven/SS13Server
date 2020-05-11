@@ -14,7 +14,7 @@ import java.util.List;
 public class RetrieveAction extends Action {
 
     private ContainerObject containerObject;
-    private GameItem selectedItem;
+    private String requestedItem;
 
     public RetrieveAction(ContainerObject containerObject, Actor cl) {
         super("Retrieve from " + containerObject.getPublicName(cl), SensoryLevel.PHYSICAL_ACTIVITY);
@@ -38,20 +38,20 @@ public class RetrieveAction extends Action {
 
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
-        for (GameItem it : containerObject.getInventory()) {
-            if (args.get(0).contains(it.getPublicName(performingClient))) {
-                selectedItem = it;
-                return;
-            }
-        }
-
-        selectedItem = null;
+        requestedItem = args.get(0);
     }
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
+        GameItem selectedItem = null;
+        for (GameItem it : containerObject.getInventory()) {
+            if (requestedItem.contains(it.getPublicName(performingClient))) {
+                selectedItem = it;
+            }
+        }
+
         if (selectedItem == null) {
-            performingClient.addTolastTurnInfo(failed(gameData, performingClient));
+            performingClient.addTolastTurnInfo("What, the item is not there?" + failed(gameData, performingClient));
         } else {
             performingClient.getCharacter().giveItem(selectedItem, null);
             containerObject.getInventory().remove(selectedItem);

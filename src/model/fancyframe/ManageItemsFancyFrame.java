@@ -90,9 +90,15 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
 
     private void makeFirstTable(StringBuilder content, GameData gameData, Player performingClient, boolean withRecycle) {
         content.append(HTMLText.makeBox("yellow", "gray", HTMLText.makeCentered(HTMLText.makeText("yellow", "<b>" + firstTitle + "</b>"))));
-        content.append("<table color=\"yellow\" width=\"100%\">");
         if (firstItemHolder.getItems().isEmpty()) {
-            content.append(HTMLText.makeCentered("<i>No Items!</i>"));
+            content.append(HTMLText.makeCentered(HTMLText.makeText("Yellow", "<i>No Items!</i>")));
+            return;
+        }
+        content.append("<table color=\"yellow\" width=\"100%\">");
+        if (maxAllowedPuts == Integer.MAX_VALUE) {
+            content.append("<tr><td></td><td></td><td></td><td>" +
+                    HTMLText.makeFancyFrameLink("CHECKALL FIRST",
+                            HTMLText.makeText("yellow" , "[all]")) + "</td></tr>");
         }
         for (GameItem gi : firstItemHolder.getItems()) {
             content.append("<tr>");
@@ -115,9 +121,15 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
     private void makeSecondTable(StringBuilder content, GameData gameData, Player performingClient, boolean withRecycle) {
         content.append(HTMLText.makeBox("yellow", "gray",
                 HTMLText.makeCentered(HTMLText.makeText("yellow", "<b>" + secondTitle + "</b>"))));
-        content.append("<table color=\"yellow\" width=\"100%\">");
         if (secondItemHolder.getItems().isEmpty()) {
-            content.append(HTMLText.makeCentered("<i>No Items!</i>"));
+            content.append(HTMLText.makeCentered(HTMLText.makeText("Yellow", "<i>No Items!</i>")));
+            return;
+        }
+        content.append("<table color=\"yellow\" width=\"100%\">");
+        if (maxAllowedGets == Integer.MAX_VALUE) {
+            content.append("<tr><td></td><td></td><td></td><td>" +
+                    HTMLText.makeFancyFrameLink("CHECKALL SECOND",
+                            HTMLText.makeText("yellow" , "[all]")) + "</td></tr>");
         }
         for (GameItem gi : secondItemHolder.getItems()) {
             content.append("<tr>");
@@ -186,6 +198,14 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
                     puttings.remove(gi);
                     break;
                 }
+            }
+            rebuildInterface(gameData, player);
+        } else if (event.contains("CHECKALL")) {
+            String rest = event.replace("CHECKALL ", "");
+            if (rest.equals("FIRST")) {
+                puttings.addAll(firstItemHolder.getItems());
+            } else {
+                gettings.addAll(secondItemHolder.getItems());
             }
             rebuildInterface(gameData, player);
         } else if (event.contains("DONTPICKUP")) {

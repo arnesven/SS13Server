@@ -8,11 +8,18 @@ import java.util.List;
 
 public class MultiAction extends Action {
 
+    private String descr;
     private List<Action> inners;
 
     public MultiAction(String name) {
         super(name, SensoryLevel.NO_SENSE);
         inners = new ArrayList<>();
+        descr = null;
+    }
+
+    public MultiAction(String name, String descr) {
+        this(name);
+        this.descr = descr;
     }
 
     public void addAction(Action a) {
@@ -22,7 +29,7 @@ public class MultiAction extends Action {
 
     @Override
     protected String getVerb(Actor whosAsking) {
-        return "did " + getName();
+        return descr;
     }
 
     @Override

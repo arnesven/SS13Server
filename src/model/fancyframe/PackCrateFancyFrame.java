@@ -25,7 +25,7 @@ public abstract class PackCrateFancyFrame extends ManageItemsFancyFrame {
 
     @Override
     protected MultiAction getFinalAction(GameData gameData, Player player, Set<GameItem> puttings, Set<GameItem> gettings) {
-        MultiAction ma = new MultiAction("Pack/Unpack Crate");
+        MultiAction ma = new MultiAction("Pack/Unpack Crate", "packed a crate");
         for (GameItem gi : puttings) {
             makeRelevantPuttingsAction(ma, gi, player, gameData, otherItemHolder, crate);
         }

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class StoreItemAction extends Action {
     private final ItemHolder container;
-    private GameItem selectedItem;
+    private String requestedItem;
 
     public StoreItemAction(ItemHolder container, Player player) {
         super("Store Item", SensoryLevel.PHYSICAL_ACTIVITY);
@@ -27,6 +27,13 @@ public class StoreItemAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
+        GameItem selectedItem = null;
+        for (GameItem it : performingClient.getItems()) {
+            if (it.getFullName(performingClient).equals(requestedItem)) {
+                selectedItem = it;
+            }
+        }
+
         if (selectedItem == null) {
             performingClient.addTolastTurnInfo("What, the item wasn't there? " + failed(gameData, performingClient));
         } else {
@@ -41,11 +48,6 @@ public class StoreItemAction extends Action {
 
     @Override
     protected void setArguments(List<String> args, Actor performingClient) {
-        for (GameItem it : performingClient.getItems()) {
-            if (it.getFullName(performingClient).equals(args.get(0))) {
-                selectedItem = it;
-                break;
-            }
-        }
+        requestedItem = args.get(0);
     }
 }

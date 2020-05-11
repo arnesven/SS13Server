@@ -14,6 +14,7 @@ public class PickUpAction extends Action {
 
 	private Actor ap;
 	private GameItem item;
+	private String requestedItem;
 
 	public PickUpAction(Actor clientActionPerformer) {
 		super("Pick up", SensoryLevel.PHYSICAL_ACTIVITY);
@@ -23,6 +24,17 @@ public class PickUpAction extends Action {
 	
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
+		for (GameItem it : ap.getPosition().getItems()){
+			if (requestedItem.contains(it.getPublicName(performingClient))) {
+				item = it;
+			}
+		}
+		if (item == null) {
+			performingClient.addTolastTurnInfo("What, the " + requestedItem + " was no longer there? " +
+					failed(gameData, performingClient));
+			return;
+		}
+
 		if (performingClient.getPosition().getItems().contains(item)) {
 			performingClient.addTolastTurnInfo("You picked up the " + item.getPublicName(performingClient) + ".");
 			performingClient.getPosition().getItems().remove(item);
@@ -81,19 +93,10 @@ public class PickUpAction extends Action {
 		return opt;
 	}
 	
-	public void setItem(GameItem it) {
-		this.item = it;
-	}
-	
+
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
-		for (GameItem it : ap.getPosition().getItems()){
-			if (args.get(0).contains(it.getPublicName(performer))) {
-				setItem(it);
-				return;
-			}
-		}
-		throw new NoSuchElementException("No such item found for pick up action");
+		requestedItem = args.get(0);
 	}
 
     @Override
