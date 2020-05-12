@@ -9,6 +9,9 @@ import model.items.NoSuchThingException;
 import model.objects.consoles.Console;
 import model.objects.consoles.CrimeRecordsConsole;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SecurityRadio extends Radio {
 
 
@@ -28,9 +31,11 @@ public class SecurityRadio extends Radio {
     }
 
     @Override
-    protected Action getSpecificAction(GameData gameData) {
+    protected List<Action> getSpecificActions(GameData gameData) {
         try {
-            return new CrimeRecordsAction(gameData.findObjectOfType(CrimeRecordsConsole.class));
+            List<Action> res = new ArrayList<>();
+            res.add(new CrimeRecordsAction(gameData.findObjectOfType(CrimeRecordsConsole.class)));
+            return res;
         } catch (NoSuchThingException e) {
             throw new IllegalStateException("Cannot get specific action for security radio, no crime console found.");
         }

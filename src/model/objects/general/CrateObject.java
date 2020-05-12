@@ -16,7 +16,8 @@ import java.util.ArrayList;
 
 public class CrateObject extends ContainerObject {
 
-	
+	private boolean isOpen = true;
+
 	public CrateObject(Room position, Shipment ship, GameData gameData) {
 		super(ship.getName() + " Crate", position);
 		for (GameItem it : ship) {
@@ -30,9 +31,20 @@ public class CrateObject extends ContainerObject {
 	}
 
     @Override
-    public Sprite getSprite(Player whosAsking) {
-        return new Sprite("crate", "storage.png", 39, this);
+    public final Sprite getSprite(Player whosAsking) {
+        if (isOpen) {
+        	return getOpenSprite(whosAsking);
+		}
+		return getClosedSprite(whosAsking);
     }
+
+	protected Sprite getClosedSprite(Player whosAsking) {
+		return new Sprite("crateclosed", "storage.png", 39, this);
+	}
+
+	protected Sprite getOpenSprite(Player whosAsking) {
+		return new Sprite("crateopen", "storage.png", 41, this);
+	}
 
 	@Override
 	public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
@@ -41,5 +53,17 @@ public class CrateObject extends ContainerObject {
 		if (cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof QuarterMasterCharacter)) {
 			at.add(pca);
 		}
+	}
+
+	public boolean isOpen() {
+		return isOpen;
+	}
+
+	public void close() {
+		isOpen = false;
+	}
+
+	public void open() {
+		isOpen = true;
 	}
 }

@@ -9,11 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.programs.BotProgram;
 import util.Logger;
 import util.MyPaths;
-
-import javax.security.auth.login.Configuration;
 
 /**
  * Created by erini02 on 24/04/16.
@@ -34,6 +31,7 @@ public class Sprite implements Serializable {
     private double rotation = 0.0;
     private int frames;
     private boolean looping;
+    private int downShift = 0;
 
 
     public Sprite(String name, String mapPath, int column, int row, int width, int height,
@@ -139,13 +137,11 @@ public class Sprite implements Serializable {
 
 // Drawing the rotated image at the required drawing locations
         for (int n = 0; n < maxFrames; ++n) {
-            g2d.drawImage(op.filter(img, null), n*img.getWidth(), 0, null);
+            g2d.drawImage(op.filter(img, null), n*img.getWidth(), downShift, null);
         }
         for (Sprite s : layers) {
             for (int n = 0; n < maxFrames; ++n) {
-                g2d.drawImage(op.filter(s.internalGetImage(), null), n * (s.getWidth()*s.getFrames()), 0, null);
-             //   g2d.drawImage(op.filter(s.internalGetImage(), null), n * s.getWidth(), 0, s.getWidth(), s.getHeight(),
-             //           n * s.getWidth(), 0, s.getWidth(), s.getHeight(), null);
+                g2d.drawImage(op.filter(s.internalGetImage(), null), n * (s.getWidth()*s.getFrames()), downShift, null);
             }
         }
 
@@ -301,5 +297,9 @@ public class Sprite implements Serializable {
 
     public int getMaximumFrames() {
         return findMaxFrames();
+    }
+
+    public void shiftUpPx(int i) {
+        downShift = -i;
     }
 }

@@ -4,6 +4,8 @@ import model.GameData;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
+import model.items.keycard.QMKeyCard;
+import model.items.tools.DockWorkerRadio;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,11 @@ public class QuarterMasterCharacter extends CrewCharacter {
 
     @Override
     public List<GameItem> getCrewSpecificItems() {
-        return new ArrayList<>();
+        List<GameItem> result = new ArrayList<>();
+        result.add(new QMKeyCard());
+        result.add(new DockWorkerRadio());
+
+        return result;
     }
 
     @Override
@@ -34,5 +40,10 @@ public class QuarterMasterCharacter extends CrewCharacter {
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         super.addCharacterSpecificActions(gameData, at);
 
+    }
+
+    @Override
+    public int getStartingMoney() {
+        return 55;
     }
 }

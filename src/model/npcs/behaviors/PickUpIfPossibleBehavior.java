@@ -15,16 +15,15 @@ public class PickUpIfPossibleBehavior implements ActionBehavior {
 
 	@Override
 	public void act(Actor npc, GameData gameData) {
-		List<GameItem> items = npc.getPosition().getItems();
-		
-		if (items.size() > 0) {
 			PickUpAction pua = new PickUpAction(npc);
-			List<String> args = new ArrayList<>();
-			args.add(MyRandom.sample(pua.getOptions(gameData, npc).getSuboptions()).getName());
-			pua.setActionTreeArguments(args, npc);
-			pua.doTheAction(gameData, npc);
-			this.didHappen  = true;
-		}
+			if (pua.getOptions(gameData, npc).getSuboptions().size() > 0) {
+				List<String> args = new ArrayList<>();
+				args.add(MyRandom.sample(pua.getOptions(gameData, npc).getSuboptions()).getName());
+				pua.setActionTreeArguments(args, npc);
+				pua.doTheAction(gameData, npc);
+				this.didHappen = true;
+			}
+
 	}
 	
 	public boolean didHappen() {

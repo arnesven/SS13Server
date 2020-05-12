@@ -10,6 +10,7 @@ import model.objects.consoles.Console;
 import util.Logger;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by erini02 on 14/04/16.
@@ -38,7 +39,7 @@ public abstract class Radio extends UplinkItem {
             console = getSpecificConsole(gameData);
             if (console.isPowered() && !console.isBroken()) {
                 noConnect = false;
-                at.add(getSpecificAction(gameData));
+                at.addAll(getSpecificActions(gameData));
 
             } else {
                 noConnect = true;
@@ -52,7 +53,7 @@ public abstract class Radio extends UplinkItem {
 
     protected abstract Console getSpecificConsole(GameData gameData) throws NoSuchThingException;
 
-    protected abstract Action getSpecificAction(GameData gameData);
+    protected abstract List<Action> getSpecificActions(GameData gameData);
 
     @Override
     public String getExtraDescriptionStats(GameData gameData, Player performingClient) {

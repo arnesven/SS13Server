@@ -34,9 +34,11 @@ public class PowerRadio extends Radio {
     }
 
     @Override
-    protected Action getSpecificAction(GameData gameData) {
+    protected List<Action> getSpecificActions(GameData gameData) {
         try {
-            return new PowerConsoleAction(gameData.findObjectOfType(GeneratorConsole.class));
+            List<Action> res = new ArrayList<>();
+            res.add(new PowerConsoleAction(gameData.findObjectOfType(GeneratorConsole.class)));
+            return res;
         } catch (NoSuchThingException e) {
             throw new IllegalStateException("Cannot get specific action for Power Radio, no power console found on station.");
         }

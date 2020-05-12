@@ -20,5 +20,6 @@ public class CargoBayRoom extends TechRoom {
     public void doSetup(GameData gameData) {
         super.doSetup(gameData);
         gameData.addNPC(new DockWorkerBot(this));
+        gameData.addNPC(new DockWorkerBot(this));
     }
 }

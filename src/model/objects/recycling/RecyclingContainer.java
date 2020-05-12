@@ -20,9 +20,15 @@ public class RecyclingContainer extends CrateObject {
     }
 
     @Override
-    public Sprite getSprite(Player whosAsking) {
-        return new Sprite("recyclingcontainer", "storage.png", 69, this);
+    public Sprite getOpenSprite(Player whosAsking) {
+        return new Sprite("recyclingcontaineropen", "storage.png", 69, this);
     }
+
+    @Override
+    public Sprite getClosedSprite(Player whosAsking) {
+        return new Sprite("recyclingcontainerclosed", "storage.png", 68, this);
+    }
+
 
     public boolean isFull() {
         return getInventory().size() >= CONTAINER_MAX_SIZE;

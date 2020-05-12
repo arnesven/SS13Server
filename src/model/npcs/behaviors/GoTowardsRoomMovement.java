@@ -44,4 +44,15 @@ public abstract class GoTowardsRoomMovement implements MovementBehavior{
     }
 
     protected abstract List<Room> getEligableRooms(NPC npc, GameData gameData);
+
+    public boolean isDone(NPC npc, GameData gameData) {
+        Logger.log("Size of eligable rooms: " + getEligableRooms(npc, gameData).size());
+
+
+        if (getEligableRooms(npc, gameData).size() == 1 && getEligableRooms(npc, gameData).get(0) == npc.getPosition()) {
+            Logger.log("At position: " + npc.getPosition());
+            return true;
+        }
+        return false;
+    }
 }
