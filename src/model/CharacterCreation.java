@@ -33,7 +33,7 @@ public class CharacterCreation implements Serializable {
                 "Please customize your appearance!</p><br/><br/><br/>" +
                 HTMLText.makeCentered("<b><i>Special Offer!</b></i>") +
                 "<p>Due to a recent increase in work-related fatalities, Nanotrasen now offers each crew member an <i>Emergency Kit</i>! The kit contains gear "  +
-                        "which is invaluable in emergencies, should the arise during your shift. Also Nanotrasen offers any crew member some extra starting gear, for FREE!<br/><ul>" +
+                        "which is invaluable in emergencies, should they arise during your shift. Also Nanotrasen offers any crew member some extra starting gear, for FREE!<br/><ul>" +
                         offeredItems.toString()
         + "</ul>");
     }

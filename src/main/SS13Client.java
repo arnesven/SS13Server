@@ -364,7 +364,7 @@ public class SS13Client extends JFrame {
         JMenu jmenu = new JMenu("Map Scale");
         JMenuItem auto = new JMenuItem("Auto");
         JMenuItem twobytwo = new JMenuItem("2x2");
-        JMenuItem threebytwo = new JMenuItem("3x2");
+      //  JMenuItem threebytwo = new JMenuItem("3x2");
         JMenuItem threebythree = new JMenuItem("3x3");
         JMenuItem fourbyfour = new JMenuItem("4x4");
         JMenuItem fivebyfive = new JMenuItem("5x5");
@@ -377,7 +377,7 @@ public class SS13Client extends JFrame {
         fivebyfive.addActionListener((ActionEvent e) -> setXYScale(5,5));
 
         jmenu.add(twobytwo);
-        jmenu.add(threebytwo);
+        //jmenu.add(threebytwo);
         jmenu.add(threebythree);
         jmenu.add(fourbyfour);
         jmenu.add(fivebyfive);

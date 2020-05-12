@@ -20,6 +20,9 @@ public class UnequipAction extends Action {
 
     @Override
     protected String getVerb(Actor whosAsking) {
+        if (selectedSuit == null) {
+            return "unequipped something";
+        }
         return "unequipped " + selectedSuit.getPublicName(whosAsking);
     }
 

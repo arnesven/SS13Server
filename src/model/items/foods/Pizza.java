@@ -61,7 +61,7 @@ public class Pizza extends HealingFood {
             if (performingClient.getItems().contains(pizza)) {
                 performingClient.getItems().remove(pizza);
                 for (int i = 6; i > 0; --i) {
-                    performingClient.addItem(new SliceOfPizza(performingClient), performingClient.getAsTarget());
+                    performingClient.addItem(new SliceOfPizza(performingClient), pizza.getMaker().getAsTarget());
                 }
                 performingClient.addTolastTurnInfo("You cut the pizza into six slices!");
             } else {

@@ -17,6 +17,7 @@ public class RecycleAction extends Action {
 
     private final TrashBin trash;
     private GameItem selectedItem;
+    private String requestedItem;
 
     public RecycleAction(TrashBin tb) {
         super("Recycle", SensoryLevel.PHYSICAL_ACTIVITY);
@@ -34,6 +35,7 @@ public class RecycleAction extends Action {
 
     @Override
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+
         ActionOption opts = super.getOptions(gameData, whosAsking);
         for (GameItem gi : whosAsking.getItems()) {
             opts.addOption(gi.getFullName(whosAsking));
@@ -43,6 +45,12 @@ public class RecycleAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
+        for (GameItem gi : performingClient.getItems()) {
+            if (gi.getFullName(performingClient).equals(requestedItem)) {
+                selectedItem = gi;
+            }
+        }
+
         if (selectedItem == null) {
             performingClient.addTolastTurnInfo("What, the item was missing? " + failed(gameData, performingClient));
         } else {
@@ -69,12 +77,7 @@ public class RecycleAction extends Action {
 
     @Override
     protected void setArguments(List<String> args, Actor performingClient) {
-        for (GameItem gi : performingClient.getItems()) {
-            if (gi.getFullName(performingClient).equals(args.get(0))) {
-                selectedItem = gi;
-                break;
-            }
-        }
+        requestedItem = args.get(0);
     }
 
     private class ResetTrashcanEvent extends Event {

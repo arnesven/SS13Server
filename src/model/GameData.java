@@ -14,6 +14,7 @@ import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.characters.special.SpectatorCharacter;
 import model.items.NoSuchThingException;
+import model.map.rooms.DecorativeRoom;
 import model.modes.GameCouldNotBeStartedException;
 import model.modes.SecretGameMode;
 import model.objects.general.ContainerObject;
@@ -107,7 +108,7 @@ public class GameData implements Serializable {
 	public List<Room> getNonHiddenStationRooms() {
 		Set<Room> set = new HashSet<>();
 		set.addAll(getMap().getRoomsForLevel("ss13"));
-        set.removeIf((Room r) -> !r.isPartOfStation() || r.isHidden());
+        set.removeIf((Room r) -> !r.isPartOfStation() || r.isHidden() || r instanceof DecorativeRoom);
 
         List<Room> list = new ArrayList<>();
         list.addAll(set);
