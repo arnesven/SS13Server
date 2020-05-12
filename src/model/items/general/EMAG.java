@@ -37,7 +37,7 @@ public class EMAG extends UniversalKeyCard {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("emag", "card.png", 3, this);
+        return new Sprite("emag", "card2.png", 5, this);
     }
 
     	@Override

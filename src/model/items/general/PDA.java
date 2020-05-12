@@ -25,7 +25,7 @@ public class PDA extends UplinkItem {
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
                                Actor cl) {
-		at.add(new UsePDAAction(traitorMode, this));
+		at.add(new UsePDAAction(traitorMode, this, gameData));
 	}
 
 	public int getUsesLeft() {
@@ -61,4 +61,8 @@ public class PDA extends UplinkItem {
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("PDA", "pda.png", 24, this);
     }
+
+	public TraitorGameMode getTraitorMode() {
+		return traitorMode;
+	}
 }

@@ -8,6 +8,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.DoNothingAction;
+import model.fancyframe.PDAOrderFancyFrame;
 import model.items.general.*;
 import model.items.suits.Equipment;
 import model.items.suits.SuperSuit;
@@ -17,15 +18,17 @@ import model.actions.general.SensoryLevel;
 
 public class UsePDAAction extends Action {
 
+	private final GameData gameData;
 	private TraitorGameMode traitorMode;
 	private PDA pda;
 	boolean order = true;
 	private GameItem orderedItem;
 	private boolean show = false;
 
-	public UsePDAAction(TraitorGameMode traitorMode, PDA pda) {
+	public UsePDAAction(TraitorGameMode traitorMode, PDA pda, GameData gameData) {
 		super("Use PDA", SensoryLevel.OPERATE_DEVICE);
 		this.traitorMode = traitorMode;
+		this.gameData = gameData;
 		this.pda = pda;
 	}
 	
@@ -113,6 +116,7 @@ public class UsePDAAction extends Action {
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = new ActionOption("Use PDA");
 		opt.addOption("Show Objective (Free Action)");
+		opt.addOption("Order Interface (Free Action)");
 		opt.addOption("Request Info");
 		if (pda.getUsesLeft() > 0) {
 			ActionOption order = new ActionOption("Order Item (" + pda.getUsesLeft() + " left)");
@@ -132,7 +136,13 @@ public class UsePDAAction extends Action {
 			order = false;
 		} else if (args.get(0).contains("Show Objective")) {
 			if (p instanceof Player) {
-				traitorMode.setAntagonistFancyFrame((Player)p);
+				traitorMode.setAntagonistFancyFrame((Player) p);
+				((Player) p).setNextAction(new DoNothingAction());
+			}
+			show = true;
+		} else if (args.get(0).contains("Order Interface")) {
+			if (p instanceof Player) {
+				((Player) p).setFancyFrame(new PDAOrderFancyFrame((Player)p, pda, gameData));
 				((Player) p).setNextAction(new DoNothingAction());
 			}
 			show = true;

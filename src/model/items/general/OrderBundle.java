@@ -1,5 +1,10 @@
 package model.items.general;
 
+import graphics.sprites.Sprite;
+import model.Actor;
+import model.GameData;
+import model.Player;
+
 /**
  * Created by erini02 on 01/05/16.
  */
@@ -24,5 +29,15 @@ public class OrderBundle extends GameItem {
 
     public GameItem getInnerItem() {
         return innerItem;
+    }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return innerItem.getSprite(whosAsking);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "This bundle contains " + num + " " + innerItem.getBaseName();
     }
 }
