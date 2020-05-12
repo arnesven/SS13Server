@@ -9,6 +9,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.DoNothingAction;
 import model.fancyframe.PDAOrderFancyFrame;
+import model.items.TraitorItem;
 import model.items.general.*;
 import model.items.suits.Equipment;
 import model.items.suits.SuperSuit;
@@ -93,7 +94,7 @@ public class UsePDAAction extends Action {
                 performingClient.addTolastTurnInfo(orderedItem.getPublicName(performingClient) +
                         " appeared! You put it in your inventory.");
             }
-			pda.decrementUses();
+			pda.decrementUses(((TraitorItem)orderedItem).getTelecrystalCost());
 
 			
 			if (gi instanceof Locator) {
@@ -118,10 +119,12 @@ public class UsePDAAction extends Action {
 		opt.addOption("Show Objective (Free Action)");
 		opt.addOption("Order Interface (Free Action)");
 		opt.addOption("Request Info");
-		if (pda.getUsesLeft() > 0) {
-			ActionOption order = new ActionOption("Order Item (" + pda.getUsesLeft() + " left)");
-			for (GameItem it : PDA.getOrderableItems()) {
-				order.addOption(it.getBaseName());
+		if (pda.getTelecrystalsLeft() > 0) {
+			ActionOption order = new ActionOption("Order Item (" + pda.getTelecrystalsLeft() + "TC left)");
+			for (TraitorItem it : PDA.getOrderableItems()) {
+				if (pda.getTelecrystalsLeft() >= it.getTelecrystalCost()) {
+					order.addOption(((GameItem) it).getBaseName() + " (" + it.getTelecrystalCost() + "TC)");
+				}
 			}
 			opt.addOption(order);
 		} 
@@ -147,9 +150,9 @@ public class UsePDAAction extends Action {
 			}
 			show = true;
 		} else {
-			for (GameItem it : PDA.getOrderableItems()) {
-				if (it.getBaseName().equals(args.get(1))) {
-					orderedItem = it;
+			for (TraitorItem it : PDA.getOrderableItems()) {
+				if (args.get(1).contains(((GameItem)it).getBaseName())) {
+					orderedItem = (GameItem)it;
 				}
 			}
 			order = true;

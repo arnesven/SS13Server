@@ -7,10 +7,11 @@ import model.Player;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.LarcenistCharacter;
+import model.items.TraitorItem;
 import model.items.suits.GlovesItem;
 import model.items.suits.SuitItem;
 
-public class LarcenyGloves extends GlovesItem {
+public class LarcenyGloves extends GlovesItem implements TraitorItem {
 
 	public LarcenyGloves() {
 		super("Larceny Gloves", 0.1, 299);
@@ -65,5 +66,10 @@ public class LarcenyGloves extends GlovesItem {
 				" Stealing has a base success rate of 85% (will not alert victim). " +
 				"However, there is only a 10% chance of success if the target is watching you. " +
 				"Exposed characters (pinned, stunned or handcuffed) can always stolen from with 100% chance.";
+	}
+
+	@Override
+	public int getTelecrystalCost() {
+		return 3;
 	}
 }

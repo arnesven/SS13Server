@@ -4,11 +4,12 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.items.TraitorItem;
 
 /**
  * Created by erini02 on 01/05/16.
  */
-public class OrderBundle extends GameItem {
+public class OrderBundle extends GameItem implements TraitorItem {
     private int num;
     private GameItem innerItem;
 
@@ -39,5 +40,10 @@ public class OrderBundle extends GameItem {
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
         return "This bundle contains " + num + " " + innerItem.getBaseName();
+    }
+
+    @Override
+    public int getTelecrystalCost() {
+        return 3;
     }
 }

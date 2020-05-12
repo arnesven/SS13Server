@@ -10,10 +10,11 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.items.TraitorItem;
 import model.objects.general.DummyHive;
 
 
-public class DummyHivePlacer extends GameItem {
+public class DummyHivePlacer extends GameItem implements TraitorItem {
 
 	private boolean placeAsFound = true;
 	
@@ -78,5 +79,10 @@ public class DummyHivePlacer extends GameItem {
 	@Override
 	public String getDescription(GameData gameData, Player performingClient) {
 		return "A paper mache contraption made to look like a alien hive.";
+	}
+
+	@Override
+	public int getTelecrystalCost() {
+		return 1;
 	}
 }

@@ -6,6 +6,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.PoisonFoodAction;
 import model.characters.decorators.CharacterDecorator;
+import model.items.TraitorItem;
 import model.mutations.PoisonMutation;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Created by erini02 on 08/09/17.
  */
-public class PoisonSyringe extends Syringe {
+public class PoisonSyringe extends Syringe implements TraitorItem {
 
     private boolean outOfPoison = false;
 
@@ -67,5 +68,10 @@ public class PoisonSyringe extends Syringe {
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
         return "Good old fashion poison for a good old fashioned murder.";
+    }
+
+    @Override
+    public int getTelecrystalCost() {
+        return 2;
     }
 }

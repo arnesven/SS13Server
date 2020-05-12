@@ -10,6 +10,7 @@ import model.characters.decorators.DisguisedAs;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.*;
 import model.characters.visitors.VisitorCharacter;
+import model.items.TraitorItem;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * Created by erini02 on 20/10/16.
  */
-public class SuperSuit extends SuitItem {
+public class SuperSuit extends SuitItem implements TraitorItem {
     private SuitItem appearance = null;
     private GameCharacter appearAsCharacter = null;
 
@@ -180,5 +181,10 @@ public class SuperSuit extends SuitItem {
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
         return "The latest in textile technology and fashion! This suit can be programmed to have almost any appearance!";
+    }
+
+    @Override
+    public int getTelecrystalCost() {
+        return 2;
     }
 }

@@ -4,8 +4,9 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.items.TraitorItem;
 
-public class Locator extends UplinkItem {
+public class Locator extends UplinkItem implements TraitorItem {
 
 	private Locatable target;
 
@@ -43,6 +44,11 @@ public class Locator extends UplinkItem {
 
 	@Override
 	public String getDescription(GameData gameData, Player performingClient) {
-		return "A device for locating other person or devices. Handy for thieves and assassins alike.";
+		return "A device for locating other person or devices. Handy for thieves, assassins and saboteurs alike.";
+	}
+
+	@Override
+	public int getTelecrystalCost() {
+		return 2;
 	}
 }

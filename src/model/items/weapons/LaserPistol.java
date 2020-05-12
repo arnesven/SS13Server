@@ -4,11 +4,12 @@ package model.items.weapons;
 import graphics.sprites.Sprite;
 import model.*;
 import model.events.ambient.ElectricalFire;
+import model.items.TraitorItem;
 import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
 
-public class LaserPistol extends AmmoWeapon {
+public class LaserPistol extends AmmoWeapon implements TraitorItem {
 
 	public LaserPistol() {
 		super("Laser pistol", 0.90, 1.0, false, 1.0, 4, 340);
@@ -62,5 +63,10 @@ public class LaserPistol extends AmmoWeapon {
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
         return "A modern Nanotrasen firearm. WARNING: High intensity laser! Keep away from your eyes.";
+    }
+
+    @Override
+    public int getTelecrystalCost() {
+        return 3;
     }
 }

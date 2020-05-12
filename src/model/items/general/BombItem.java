@@ -17,6 +17,7 @@ import model.events.ambient.ElectricalFire;
 import model.events.ambient.HullBreach;
 import model.events.damage.ExplosiveDamage;
 import model.items.NoSuchThingException;
+import model.items.TraitorItem;
 import model.items.foods.ExplodingFood;
 import model.map.Architecture;
 import model.map.SpacePosition;
@@ -29,7 +30,7 @@ import model.objects.general.GameObject;
 import util.Logger;
 import util.MyRandom;
 
-public class BombItem extends HidableItem implements ExplodableItem {
+public class BombItem extends HidableItem implements ExplodableItem, TraitorItem {
 
 	public static final String FOUND_A_BOMB_STRING = "What's this... a bomb!?";
     private static final double CHAIN_DETONATION_CHANCE = 0.9;
@@ -362,5 +363,10 @@ public class BombItem extends HidableItem implements ExplodableItem {
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
         return "An exploding device.";
+    }
+
+    @Override
+    public int getTelecrystalCost() {
+        return 5;
     }
 }

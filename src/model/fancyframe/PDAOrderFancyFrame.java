@@ -4,10 +4,12 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.UsePDAAction;
+import model.items.TraitorItem;
 import model.items.general.GameItem;
 import model.items.general.PDA;
 import util.HTMLText;
 
+import javax.swing.text.html.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +26,22 @@ public class PDAOrderFancyFrame extends FancyFrame {
 
     private void buildContent(GameData gameData, Player p) {
         StringBuilder content = new StringBuilder();
-        content.append("Uses left: " + pda.getUsesLeft() + "<br>");
-        for (GameItem it : PDA.getOrderableItems()) {
+        content.append("<b>Telecrystals left: " + pda.getTelecrystalsLeft() + "</b><br>");
+        for (TraitorItem tit : PDA.getOrderableItems()) {
+            GameItem it = (GameItem)tit;
             String text = it.getBaseName();
             String gimme = "[order]";
             if (text.equals(this.ordered)) {
                 gimme = "<b>" + gimme + "</b>";
             }
-            content.append(HTMLText.makeImage(it.getSprite(p)) + " " + text + " " +
-                           HTMLText.makeFancyFrameLink("ORDER " + text, gimme) + "<br/>" +
-                                   "<i>" + HTMLText.makeText("Yellow", "serif", 2, it.getDescription(gameData, p)) + "</i><br/>");
+            content.append(HTMLText.makeImage(it.getSprite(p)) + " " + text);
+            if (pda.getTelecrystalsLeft() >= tit.getTelecrystalCost()) {
+                content.append(" (" + tit.getTelecrystalCost() + " TC) ");
+                content.append(HTMLText.makeFancyFrameLink("ORDER " + text, gimme));
+            } else {
+                content.append(HTMLText.makeText("gray",  "(not enough TC)"));
+            }
+            content.append("<br/>" + "<i>" + HTMLText.makeText("Yellow", "serif", 2, it.getDescription(gameData, p)) + "</i><br/>");
         }
 
 

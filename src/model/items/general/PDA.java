@@ -8,6 +8,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.itemactions.UsePDAAction;
+import model.items.TraitorItem;
 import model.items.suits.SuperSuit;
 import model.modes.TraitorGameMode;
 import model.items.weapons.*;
@@ -15,7 +16,7 @@ import model.items.weapons.*;
 public class PDA extends UplinkItem {
 
 	private TraitorGameMode traitorMode;
-	private int usesLeft = 2;
+	private int usesLeft = 10;
 
 	public PDA(TraitorGameMode traitorMode) {
 		super("PDA", 0.5, 1500);
@@ -28,16 +29,16 @@ public class PDA extends UplinkItem {
 		at.add(new UsePDAAction(traitorMode, this, gameData));
 	}
 
-	public int getUsesLeft() {
+	public int getTelecrystalsLeft() {
 		return usesLeft;
 	}
 
-	public void decrementUses() {
-		usesLeft = Math.max(usesLeft-1, 0);
+	public void decrementUses(int number) {
+		usesLeft = Math.max(usesLeft-number, 0);
 	}
 
-	public static List<GameItem> getOrderableItems() {
-		List<GameItem> items = new ArrayList<>();
+	public static List<TraitorItem> getOrderableItems() {
+		List<TraitorItem> items = new ArrayList<>();
 		items.add(new LaserPistol());
 		items.add(new OrderBundle(3, new Grenade()));
 		items.add(new DummyHivePlacer());

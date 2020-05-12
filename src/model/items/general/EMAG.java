@@ -10,6 +10,7 @@ import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
 import model.characters.general.RobotCharacter;
 import model.items.NoSuchThingException;
+import model.items.TraitorItem;
 import model.npcs.robots.AnimatedSlotMachineNPC;
 import model.npcs.robots.RobotNPC;
 import model.objects.general.EmaggedStasisPod;
@@ -29,7 +30,7 @@ import java.util.List;
 /**
  * Created by erini02 on 14/12/16.
  */
-public class EMAG extends UniversalKeyCard {
+public class EMAG extends UniversalKeyCard implements TraitorItem {
 
     public EMAG() {
         setName("EMAG");
@@ -77,6 +78,11 @@ public class EMAG extends UniversalKeyCard {
             }
         }
 
+    }
+
+    @Override
+    public int getTelecrystalCost() {
+        return 6;
     }
 
     private class EmagAIAction extends Action {
