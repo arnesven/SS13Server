@@ -37,7 +37,7 @@ public class RequisitionsFancyFrame extends ConsoleFancyFrame {
 
         } else {
             content.append("_______________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE HISTORY", "[history]"));
-            content.append("<br><b>Station Funds:</b> " + reqConsole.getMoney() + "<br/>");
+            content.append("<br><b>Station Funds:</b> $$ " + reqConsole.getMoney() + "<br/>");
             int i = 0;
             for (Shipment s : reqConsole.getShipments()) {
                 String buttonText = "[buy]";

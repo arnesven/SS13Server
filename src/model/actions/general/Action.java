@@ -75,7 +75,7 @@ public abstract class Action extends Experienceable implements Serializable {
         if (actionFailed) {
 		    middle = " tried to ";
         }
-		return performer.getPublicName() + middle + this.getVerb(whosAsking).toLowerCase() + "";
+    	return performer.getPublicName() + middle + this.getVerb(whosAsking).toLowerCase() + "";
 	}
 
 	/**

@@ -28,7 +28,7 @@ public class ManageInventoryAction extends Action {
 
     @Override
     protected String getVerb(Actor whosAsking) {
-        return "";
+        return "managed inventory";
     }
 
     @Override

@@ -4,8 +4,11 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.fancyframeactions.SitDownAtConsoleAction;
 import model.actions.general.Action;
 import model.actions.objectactions.SellCrateAction;
+import model.fancyframe.ConsoleFancyFrame;
+import model.fancyframe.MarketConsoleFancyFrame;
 import model.map.rooms.CargoBayRoom;
 import model.map.rooms.Room;
 import model.objects.general.CrateObject;
@@ -30,6 +33,12 @@ public class MarketConsole extends Console {
     @Override
     protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         at.add(new SellCrateAction(gameData, cl, this));
+        at.add(new SitDownAtConsoleAction(gameData, this) {
+            @Override
+            protected ConsoleFancyFrame getNewFancyFrame(Console console, GameData gameData, Player performingClient) {
+                return new MarketConsoleFancyFrame(performingClient, gameData, MarketConsole.this);
+            }
+        });
     }
 
     @Override
@@ -47,7 +56,7 @@ public class MarketConsole extends Console {
             msrp *= 1.1;
         }
 
-        if (targetCrate.getInventory().size() > 4) {
+        if (targetCrate.getInventory().size() > 2) {
             msrp *= 1.1;
         }
 

@@ -29,6 +29,9 @@ public class MultiAction extends Action {
 
     @Override
     protected String getVerb(Actor whosAsking) {
+        if (descr == null) {
+            return "Did several things.";
+        }
         return descr;
     }
 
