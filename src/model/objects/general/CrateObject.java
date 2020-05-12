@@ -30,7 +30,15 @@ public class CrateObject extends ContainerObject {
 		super(name, position);
 	}
 
-    @Override
+	@Override
+	public String getPublicName(Actor whosAsking) {
+		if (whosAsking.numberOfSeen(CrateObject.class) > 1) {
+			return super.getPublicName(whosAsking) + " #" + getUid();
+		}
+		return super.getPublicName(whosAsking);
+	}
+
+	@Override
     public final Sprite getSprite(Player whosAsking) {
         if (isOpen) {
         	return getOpenSprite(whosAsking);
@@ -65,5 +73,26 @@ public class CrateObject extends ContainerObject {
 
 	public void open() {
 		isOpen = true;
+	}
+
+	public int getMSRP() {
+		int sum = 0;
+		for (GameItem it : getInventory()) {
+			sum += it.getCost();
+		}
+		return sum;
+	}
+
+	public boolean allSameType() {
+		if (getInventory().size() > 0) {
+			Class<? extends GameItem> firstClass = getInventory().get(0).getClass();
+			for (GameItem it : getInventory()) {
+				if (it.getClass() != firstClass) {
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 }

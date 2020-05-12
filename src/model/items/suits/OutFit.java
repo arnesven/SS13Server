@@ -114,7 +114,7 @@ public class OutFit extends TorsoAndShoesSuit {
         } else if (type instanceof StaffAssistantCharacter) {
             return makeOutfit("staffassuniformworn", "uniform2.png",19,5, this);
         } else if (type instanceof QuarterMasterCharacter) {
-            return makeOutfit("quartermasteruniformworn", "uniform2.png", 8, 22, this);
+            return makeOutfit("quartermasteruniformworn", "uniform2.png", 31, 18, this);
         }
         return super.getWornSprite(whosAsking);
     }

@@ -17,7 +17,10 @@ import model.map.rooms.Room;
 import util.Logger;
 
 public class GameObject implements SpriteObject, Serializable {
-	private String name;
+
+    private static int uidCounter = 1;
+    private final int uid;
+    private String name;
 	private Room position;
     private Sprite sprite = new Sprite("gameobject", "computer.png", 0, this);
     private boolean hasAbsolutePosition;
@@ -26,6 +29,7 @@ public class GameObject implements SpriteObject, Serializable {
     private double absZ;
 
     public GameObject(String name, Room position) {
+        this.uid = uidCounter++;
 		this.name = name;
 		this.position = position;
 		hasAbsolutePosition = false;
@@ -134,5 +138,9 @@ public class GameObject implements SpriteObject, Serializable {
     @Override
     public boolean hasAbsolutePosition() {
         return hasAbsolutePosition;
+    }
+
+    public int getUid() {
+        return uid;
     }
 }

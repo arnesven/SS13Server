@@ -20,6 +20,8 @@ import model.items.suits.SuitItem;
 import model.items.suits.Wearable;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
+import model.objects.general.CrateObject;
+import model.objects.general.GameObject;
 import util.Logger;
 
 public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
@@ -681,4 +683,13 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         setCharacter(new InSpaceCharacterDecorator(getCharacter(), gameData));
     }
 
-  }
+    public int numberOfSeen(Class<? extends GameObject> someClass) {
+        int counter = 0;
+        for (GameObject obj : getPosition().getObjects()) {
+            if (obj.getClass() == someClass) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+}

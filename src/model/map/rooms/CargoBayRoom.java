@@ -5,6 +5,8 @@ import model.items.EmptyContainer;
 import model.map.doors.Door;
 import model.map.doors.UpgoingStairsDoor;
 import model.npcs.robots.DockWorkerBot;
+import model.objects.consoles.MarketConsole;
+import model.objects.consoles.RequisitionsConsole;
 import model.objects.mining.GeneralManufacturer;
 
 public class CargoBayRoom extends TechRoom {
@@ -13,6 +15,7 @@ public class CargoBayRoom extends TechRoom {
         setZ(-1);
         addObject(new UpgoingStairsDoor(this));
         addObject(new GeneralManufacturer(this));
+        this.addObject(new MarketConsole(this));
         this.addItem(new EmptyContainer());
     }
 
@@ -21,5 +24,6 @@ public class CargoBayRoom extends TechRoom {
         super.doSetup(gameData);
         gameData.addNPC(new DockWorkerBot(this));
         gameData.addNPC(new DockWorkerBot(this));
+        this.addObject(new RequisitionsConsole(this, gameData));
     }
 }
