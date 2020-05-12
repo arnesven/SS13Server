@@ -108,7 +108,7 @@ public class GameData implements Serializable {
 	public List<Room> getNonHiddenStationRooms() {
 		Set<Room> set = new HashSet<>();
 		set.addAll(getMap().getRoomsForLevel("ss13"));
-        set.removeIf((Room r) -> !r.isPartOfStation() || r.isHidden() || r instanceof DecorativeRoom);
+        set.removeIf((Room r) -> !r.isPartOfStation() || r.isHidden());
 
         List<Room> list = new ArrayList<>();
         list.addAll(set);
@@ -553,6 +553,7 @@ public class GameData implements Serializable {
 					} else if (!cl.isDead() && !cl.isAI()){
                 		Logger.log(cl.getName() + " tried moving to " + target.getName() + ", but can't!");
                 		cl.addTolastTurnInfo("Your movement has been blocked! You stayed in your current location.");
+                		cl.setNextMove(cl.getPosition().getID());
 					}
                 } else {
                     cl.activateMovementPower(cl.getNextMove(), this, moveData);

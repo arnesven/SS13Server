@@ -26,6 +26,11 @@ public class RecyclotronCharacter extends RobotCharacter {
     }
 
     @Override
+    public Sprite getUnanimatedSprite(Actor whosAsking) {
+        return new Sprite("recyclotron", "aibots.png", 39, getActor());
+    }
+
+    @Override
     public Sprite getSprite(Actor whosAsking) {
         if (getActor() instanceof Player) {
             return new Sprite("recyclotron", "aibots.png", 39, getActor());

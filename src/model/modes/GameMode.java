@@ -78,7 +78,7 @@ public abstract class GameMode implements Serializable {
 		availableChars.put("Head of Staff",    new HeadOfStaffCharacter());
 		availableChars.put("Security Officer", new SecurityOfficerCharacter());
 		availableChars.put("Detective",        new DetectiveCharacter());
-		availableChars.put("Quarter Master",   new QuarterMasterCharacter());
+		availableChars.put("Quartermaster",    new QuarterMasterCharacter());
 		availableChars.put("Doctor",           new DoctorCharacter());
 		availableChars.put("Biologist",        new BiologistCharacter());
 		availableChars.put("Engineer",         new EngineerCharacter());

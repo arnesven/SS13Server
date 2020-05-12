@@ -333,4 +333,8 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
     public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
         return "";
     }
+
+    public boolean isRecyclable() {
+        return true;
+    }
 }

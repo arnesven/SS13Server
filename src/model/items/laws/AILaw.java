@@ -43,4 +43,9 @@ public class AILaw extends GameItem {
     public int getNumber() {
         return number;
     }
+
+    @Override
+    public boolean isRecyclable() {
+        return false;
+    }
 }

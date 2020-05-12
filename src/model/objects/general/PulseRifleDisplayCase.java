@@ -44,8 +44,13 @@ public class PulseRifleDisplayCase extends BreakableObject {
 
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+       // never called, since we override the method below instead (this breakable object can still be interacted with even though it is broken)
+    }
+
+    @Override
+    public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (!empty) {
-            if (GameItem.hasAnItem(cl, new UniversalKeyCard()) || isBroken()) {
+            if (GameItem.hasAnItemOfClass(cl, UniversalKeyCard.class) || isBroken()) {
                 at.add(new RetrieveFromDisplayCase());
             }
         }

@@ -11,6 +11,7 @@ import model.events.Event;
 import model.fancyframe.SinglePageFancyFrame;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
+import model.map.rooms.DecorativeRoom;
 import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
@@ -92,10 +93,13 @@ public class ChangelingGameMode extends GameMode {
 
 		gameData.addNPC(npc);
 		decoy = npc;
-		
+
+		List<Room> startingRooms = new ArrayList<>();
+		startingRooms.addAll(gameData.getNonHiddenStationRooms());
+		startingRooms.removeIf((Room r ) -> r instanceof DecorativeRoom);
 		Room startRoom;
 		do {
-			startRoom = MyRandom.sample(gameData.getNonHiddenStationRooms());
+			startRoom = MyRandom.sample(startingRooms);
 		} while (isAStartingRoom(startRoom, gameData) || lockedRoom(startRoom, gameData));
 		
 		lingChar = new ChangelingCharacter(startRoom);

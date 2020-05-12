@@ -3,6 +3,7 @@ package model.items.foods;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.objects.consoles.AIConsole;
@@ -73,5 +74,10 @@ public class Pizza extends HealingFood {
         public void setArguments(List<String> args, Actor performingClient) {
 
         }
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A big cheesy pizza. Whoa, this is way to much for just one person!";
     }
 }

@@ -40,4 +40,9 @@ public abstract class AIAbility extends GameItem {
     public GameItem clone() {
         throw new IllegalStateException("Don't clone AI Abilities!");
     }
+
+    @Override
+    public boolean isRecyclable() {
+        return false;
+    }
 }

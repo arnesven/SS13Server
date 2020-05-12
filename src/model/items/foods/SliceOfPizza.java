@@ -3,6 +3,7 @@ package model.items.foods;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 
 public class SliceOfPizza extends HealingFood {
     public SliceOfPizza(Actor maker) {
@@ -24,4 +25,8 @@ public class SliceOfPizza extends HealingFood {
         return new SliceOfPizza(getMaker());
     }
 
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "One slice of a delicious pizza. Share the pleasure!";
+    }
 }

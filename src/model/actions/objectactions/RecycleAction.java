@@ -38,7 +38,9 @@ public class RecycleAction extends Action {
 
         ActionOption opts = super.getOptions(gameData, whosAsking);
         for (GameItem gi : whosAsking.getItems()) {
-            opts.addOption(gi.getFullName(whosAsking));
+            if (gi.isRecyclable()) {
+                opts.addOption(gi.getFullName(whosAsking));
+            }
         }
         return opts;
     }

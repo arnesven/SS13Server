@@ -18,6 +18,8 @@ import model.items.foods.FoodItem;
 import model.items.suits.Equipment;
 import model.items.weapons.PhysicalWeapon;
 import model.map.SpacePosition;
+import model.map.rooms.NukieShipRoom;
+import model.modes.OperativesGameMode;
 import model.movepowers.*;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
@@ -597,6 +599,7 @@ public abstract class GameCharacter implements Serializable {
     public void doAtEndOfTurn(GameData gameData) {
 
     }
+
     public List<Room> getVisibleMap(GameData gameData) {
         String level = "ss13";
         try {
@@ -605,7 +608,11 @@ public abstract class GameCharacter implements Serializable {
             e.printStackTrace();
         }
         Collection<Room> roomsToShow = gameData.getMap().getRoomsForLevel(level);
-        roomsToShow.removeIf((Room r ) -> r.isHidden());
+        if (!getActor().isDead()) {
+			roomsToShow.removeIf((Room r) -> r.isHidden());
+		} else if (!(gameData.getGameMode() instanceof OperativesGameMode)) {
+        	roomsToShow.removeIf((Room r) -> r instanceof NukieShipRoom);
+		}
 
 
         List<Room> result = new ArrayList<>();
