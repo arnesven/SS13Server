@@ -29,6 +29,7 @@ public class RequisitionsConsole extends Console {
 		shipments.add(new MilitaryShipment());
         shipments.add(new WildlifeShipment());
         shipments.add(new ConstructionShipment());
+        shipments.add(new EmptyCratesShipment());
 	}
 	
 	@Override

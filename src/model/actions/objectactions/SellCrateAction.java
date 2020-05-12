@@ -30,7 +30,7 @@ public class SellCrateAction extends Action {
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption opts = super.getOptions(gameData, whosAsking);
         for (GameObject obj : console.getPosition().getObjects()) {
-            if (obj instanceof CrateObject) {
+            if (obj instanceof CrateObject && ((CrateObject) obj).canBeSold()) {
                 opts.addOption(obj.getPublicName(whosAsking) + " for $$ " + console.getValueFor((CrateObject)obj, gameData));
             }
         }
@@ -53,9 +53,8 @@ public class SellCrateAction extends Action {
             return;
         }
 
-        int sellValue = console.getValueFor(targetCrate, gameData);
-        Bank.getInstance(gameData).addToStationMoney(sellValue);
-        targetCrate.getPosition().removeObject(targetCrate);
+
+        int sellValue =  console.sellCrate(targetCrate, gameData, performingClient);
         performingClient.addTolastTurnInfo("You sold the " + targetCrate.getPublicName(performingClient) +
                 ". $$ " + sellValue + " was added to the station's funds!");
     }

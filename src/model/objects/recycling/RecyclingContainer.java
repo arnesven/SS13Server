@@ -66,4 +66,9 @@ public class RecyclingContainer extends CrateObject {
             return new SensoryLevel(SensoryLevel.VisualLevel.INVISIBLE, SensoryLevel.AudioLevel.VERY_LOUD, SensoryLevel.OlfactoryLevel.UNSMELLABLE);
         }
     }
+
+    @Override
+    public boolean canBeSold() {
+        return false;
+    }
 }

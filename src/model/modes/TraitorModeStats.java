@@ -72,6 +72,7 @@ public class TraitorModeStats extends GameStats {
         buf.append("<tr><td>Defused Bombs</td><td " + style +">"   + traitorMode.pointsFromBombsDefused(gameData)        + "</td></tr>");
         buf.append("<tr><td>Bad Security</td><td " + style +">"   + traitorMode.pointsFromSecurity(gameData)        + "</td></tr>");
         buf.append("<tr><td>Asteroid Mining</td><td " + style +">"   + traitorMode.pointsFromMining(gameData)        + "</td></tr>");
+        buf.append("<tr><td>Crates Sold</td><td " + style + ">" + traitorMode.pointsFromSelling(gameData) + "</td></tr>");
         buf.append("<tr><td>Planets Explored</td><td " + style +">"   + traitorMode.pointsFromExploredPlanets(gameData)        + "</td></tr>");
 
 

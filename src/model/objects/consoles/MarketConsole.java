@@ -2,6 +2,7 @@ package model.objects.consoles;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.Bank;
 import model.GameData;
 import model.Player;
 import model.actions.fancyframeactions.SitDownAtConsoleAction;
@@ -18,16 +19,21 @@ import util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MarketConsole extends Console {
 
     //                          GameTurn    Money
     private Map<CrateObject, Pair<Integer, Integer>> valueMap;
+    private List<String> history;
+    private int totalSellValue;
 
     public MarketConsole(Room cargoBayRoom) {
         super("Market Console", cargoBayRoom);
         valueMap = new HashMap<>();
+        history = new ArrayList<>();
+        totalSellValue = 0;
     }
 
     @Override
@@ -53,16 +59,29 @@ public class MarketConsole extends Console {
 
         double msrp = targetCrate.getMSRP();
         if (targetCrate.getInventory().size() > 1 && targetCrate.allSameType()) {
-            msrp *= 1.1;
+            msrp *= 1.2;
         }
 
         if (targetCrate.getInventory().size() > 2) {
-            msrp *= 1.1;
+            msrp *= 1.2;
         }
 
         msrp *= 1.0 + (MyRandom.nextDouble() - 0.5);
 
         valueMap.put(targetCrate, new Pair<>(gameData.getRound(), (int)msrp));
         return (int)msrp;
+    }
+
+    public int sellCrate(CrateObject targetCrate, GameData gameData, Actor seller) {
+        int sellValue = getValueFor(targetCrate, gameData);
+        totalSellValue += sellValue;
+        Bank.getInstance(gameData).addToStationMoney(sellValue);
+        targetCrate.getPosition().removeObject(targetCrate);
+        this.history.add(seller.getBaseName() + " sold " + targetCrate.getBaseName() + " for " + sellValue);
+        return sellValue;
+    }
+
+    public int getTotalSellValue() {
+        return totalSellValue;
     }
 }

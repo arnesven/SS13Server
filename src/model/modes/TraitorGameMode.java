@@ -25,6 +25,8 @@ import model.npcs.behaviors.CrazyBehavior;
 import model.npcs.robots.TARSNPC;
 import model.objects.Altar;
 import model.objects.consoles.CrimeRecordsConsole;
+import model.objects.consoles.MarketConsole;
+import model.objects.decorations.BurnMark;
 import model.objects.general.*;
 import model.objects.mining.GeneralManufacturer;
 import util.HTMLText;
@@ -322,17 +324,28 @@ public class TraitorGameMode extends GameMode {
         result += pointsFromBombsDefused(gameData);
         result += pointsFromSecurity(gameData);
         result += pointsFromMining(gameData);
+        result += pointsFromSelling(gameData);
         result += pointsFromExploredPlanets(gameData);
         result += cosmicArtifactFound(gameData);
 		return result;
 	}
 
-    public int pointsFromDirtyStation(GameData gameData) {
+	public int pointsFromSelling(GameData gameData) {
+		try {
+			MarketConsole console = gameData.findObjectOfType(MarketConsole.class);
+			return (int)(console.getTotalSellValue() / 20.0);
+		} catch (NoSuchThingException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int pointsFromDirtyStation(GameData gameData) {
         int total = 0;
 
         for (Room r : gameData.getMap().getStationRooms()) {
             for (GameObject ob : r.getObjects()) {
-                if (ob instanceof BloodyMess) {
+                if (ob instanceof BloodyMess || ob instanceof BurnMark) {
                     total -= 10;
                 }
             }

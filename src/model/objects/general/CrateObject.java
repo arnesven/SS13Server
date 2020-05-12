@@ -26,7 +26,7 @@ public class CrateObject extends ContainerObject {
         ship.hasArrivedIn(position, gameData);
 	}
 
-	protected CrateObject(Room position, String name) {
+	public CrateObject(Room position, String name) {
 		super(name, position);
 	}
 
@@ -94,5 +94,9 @@ public class CrateObject extends ContainerObject {
 		}
 
 		return true;
+	}
+
+	public boolean canBeSold() {
+		return getMSRP() > 0;
 	}
 }
