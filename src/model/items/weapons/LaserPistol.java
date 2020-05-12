@@ -58,4 +58,9 @@ public class LaserPistol extends AmmoWeapon {
     public Sound getRealSound() {
         return new Sound("http://www.ida.liu.se/~erini02/ss13/laser_a.ogg");
     }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A modern Nanotrasen firearm. WARNING: High intensity laser! Keep away from your eyes.";
+    }
 }

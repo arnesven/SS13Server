@@ -358,4 +358,9 @@ public class BombItem extends HidableItem implements ExplodableItem {
     public void setAttached(Room attached) {
         this.attatchedToRoomWall = attached;
     }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "An exploding device.";
+    }
 }

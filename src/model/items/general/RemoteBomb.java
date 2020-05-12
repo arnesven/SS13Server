@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 
@@ -56,5 +57,8 @@ public class RemoteBomb extends BombItem {
 		return new RemoteBomb();
 	}
 
-
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return super.getDescription(gameData, performingClient) + " This kind can be detonated remotely, just don't forget to separate the detonator from the bomb first.";
+	}
 }

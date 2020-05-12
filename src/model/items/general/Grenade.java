@@ -100,6 +100,6 @@ public class Grenade extends GameItem implements Damager, ExplodableItem {
 
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
-        return "An exploding cannister, designed to be thrown at an adversary, through a window or into an adjacent room.";
+        return "An exploding canister, designed to be thrown at an adversary, through a window or into an adjacent room.";
     }
 }

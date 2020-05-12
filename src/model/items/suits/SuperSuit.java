@@ -3,6 +3,7 @@ package model.items.suits;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.characters.crew.CrewCharacter;
 import model.characters.decorators.ChangeAppearanceActionDecorator;
 import model.characters.decorators.DisguisedAs;
@@ -174,5 +175,10 @@ public class SuperSuit extends SuitItem {
         if (actionPerformer.getCharacter().checkInstance(disguiesCheck)) {
             actionPerformer.removeInstance(disguiesCheck);
         }
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "The latest in textile technology and fashion! This suit can be programmed to have almost any appearance!";
     }
 }

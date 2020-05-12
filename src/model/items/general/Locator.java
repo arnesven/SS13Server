@@ -2,6 +2,8 @@ package model.items.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 public class Locator extends UplinkItem {
 
@@ -38,4 +40,9 @@ public class Locator extends UplinkItem {
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("locator", "device.png", 68, this);
     }
+
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "A device for locating other person or devices. Handy for thieves and assassins alike.";
+	}
 }

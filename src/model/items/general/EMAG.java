@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ElectrifyObjectAction;
 import model.actions.general.SensoryLevel;
@@ -209,5 +210,10 @@ public class EMAG extends UniversalKeyCard {
         public void setArguments(List<String> args, Actor performingClient) {
 
         }
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A curious device that seems to fubar things up in the most peculiar ways. Also works well as a key card to Nanotrasen doors.";
     }
 }

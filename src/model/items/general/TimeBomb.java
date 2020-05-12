@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
@@ -111,4 +112,8 @@ public class TimeBomb extends BombItem {
 	}
 
 
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return super.getDescription(gameData, performingClient) + " This kind can be set to detonate after a certain number of rounds.";
+	}
 }

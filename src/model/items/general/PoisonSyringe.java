@@ -2,6 +2,7 @@ package model.items.general;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.PoisonFoodAction;
 import model.characters.decorators.CharacterDecorator;
@@ -61,5 +62,10 @@ public class PoisonSyringe extends Syringe {
     @Override
     public GameItem clone() {
         return new PoisonSyringe();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Good old fashion poison for a good old fashioned murder.";
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.map.rooms.Room;
 import model.objects.general.GameObject;
@@ -41,4 +42,8 @@ public class BoobyTrapBomb extends BombItem {
 		return new BoobyTrapBomb();
 	}
 
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return super.getDescription(gameData, performingClient) + " this kind can be rigged to electrical machinery so that it will detonate when somebody uses that machine.";
+	}
 }
