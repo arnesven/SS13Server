@@ -9,10 +9,14 @@ import model.actions.general.SensoryLevel;
 import model.characters.crew.CaptainCharacter;
 import model.events.Event;
 import model.items.NoSuchThingException;
+import model.map.CargoShuttle;
+import model.map.DockingPoint;
+import model.map.GameMap;
 import model.map.rooms.Room;
 import model.objects.general.CrateObject;
 import model.objects.consoles.RequisitionsConsole;
 import model.objects.shipments.Shipment;
+import util.Logger;
 import util.MyRandom;
 
 public class OrderShipmentAction extends ConsoleAction {
@@ -90,6 +94,7 @@ public class OrderShipmentAction extends ConsoleAction {
 		private final Room targetRoom;
 		private final Shipment shipment;
 		private boolean remove;
+		private CargoShuttle shuttle;
 
 		public ShipmentArrivesEvent(GameData gameData, Room targetRoom, Shipment s) {
 			super();
@@ -102,8 +107,33 @@ public class OrderShipmentAction extends ConsoleAction {
 		public void apply(GameData gameData) {
 			if (gameData.getRound() == startRound+2) {
 				targetRoom.addObject(new CrateObject(targetRoom, shipment, gameData));
+				DockingPoint dp = findSuitableDockingPoint(gameData, "Airlock #5");
+				if (dp != null) {
+					shuttle = new CargoShuttle(gameData);
+					gameData.getMap().addRoom(shuttle, GameMap.STATION_LEVEL_NAME, "starboard");
+					shuttle.dockYourself(gameData, dp);
+				}
+
+			} else if (gameData.getRound() == startRound+3) {
+				if (shuttle != null) {
+					shuttle.undockYourself(gameData);
+					gameData.getMap().moveRoomToLevel(shuttle, "deep space", "deep space");
+					shuttle.hideYourself();
+				}
 				remove = true;
 			}
+		}
+
+		private DockingPoint findSuitableDockingPoint(GameData gameData, String preferred) {
+			Logger.log("Smurfing for docking points for cargo shuttle.");
+			for (DockingPoint dp : gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).getDockingPoints()) {
+				if (dp.getRoom().getName().equals(preferred) && dp.isVacant()) {
+					Logger.log("  Found docking point at room " + dp.getRoom().getName());
+					return dp;
+				}
+			}
+
+			return null;
 		}
 
 		@Override

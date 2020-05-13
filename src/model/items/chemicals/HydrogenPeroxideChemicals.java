@@ -1,5 +1,7 @@
 package model.items.chemicals;
 
+import model.GameData;
+import model.Player;
 import model.items.foods.FoodItem;
 import model.items.general.Chemicals;
 
@@ -29,5 +31,10 @@ public class HydrogenPeroxideChemicals extends Chemicals {
     @Override
     public String getFormula() {
         return "H2O2";
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A colourless viscous unstable liquid with strong oxidizing properties, used in some disinfectants and bleaches.";
     }
 }

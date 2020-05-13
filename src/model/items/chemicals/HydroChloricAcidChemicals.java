@@ -1,5 +1,7 @@
 package model.items.chemicals;
 
+import model.GameData;
+import model.Player;
 import model.items.foods.FoodItem;
 import model.items.general.Chemicals;
 import model.items.general.GameItem;
@@ -40,5 +42,10 @@ public class HydroChloricAcidChemicals extends Chemicals {
         }
 
         return super.combineWith(other);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A strongly acidic solution of the gas hydrogen chloride in water.";
     }
 }
