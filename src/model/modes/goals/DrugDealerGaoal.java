@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.DealDrugsAction;
+import model.actions.characteractions.AlsoDealDrugsAction;
 import model.actions.general.Action;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
@@ -48,13 +49,22 @@ public class DrugDealerGaoal extends PersonalGoal {
         }
 
         @Override
+        public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
+            super.addCharacterSpecificActions(gameData, at);
+            Action a = new AlsoDealDrugsAction(getActor());
+            if (a.getOptions(gameData, getActor()).numberOfSuboptions() > 0) {
+                at.add(a);
+            }
+        }
+
+        @Override
         public void doAfterActions(GameData gameData) {
             super.doAfterActions(gameData);
             if (getActor() instanceof Player) {
                 Player p = (Player)getActor();
                 Action a = p.getNextAction();
-                if (a instanceof DealDrugsAction) {
-                    dealtTo.add((Actor)((DealDrugsAction) a).getTarget());
+                if (a instanceof AlsoDealDrugsAction) {
+                    dealtTo.add((Actor)((AlsoDealDrugsAction) a).getTarget());
                 }
             }
         }
