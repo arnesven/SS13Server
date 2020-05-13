@@ -83,6 +83,10 @@ public class VendingMachineFancyFrame extends FancyFrame {
     public void handleEvent(GameData gameData, Player player, String event) {
         super.handleEvent(gameData, player, event);
         if (event.contains("BUY") && vending.isPowered()) {
+            if (player.getPosition() != vending.getPosition()) {
+                dispose(player);
+                return;
+            }
             Logger.log(player.getName() + " is getting snacks!");
             selectedIndex = new Scanner(event.replace("BUY ", "")).nextInt();
             List<String> args = new ArrayList<>();

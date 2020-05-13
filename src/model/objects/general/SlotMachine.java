@@ -6,9 +6,13 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.SlotMachineAction;
+import model.actions.objectactions.WalkUpToElectricalMachineryAction;
+import model.fancyframe.FancyFrame;
+import model.fancyframe.SlotMachineFancyFrame;
 import model.items.NoSuchThingException;
 import model.items.general.MoneyStack;
 import model.map.rooms.BarRoom;
+import model.map.rooms.Room;
 import util.HTMLText;
 import util.MyRandom;
 
@@ -19,11 +23,15 @@ import java.util.*;
  */
 public class SlotMachine extends ElectricalMachinery {
     private boolean alreadyBrokeOnce = false;
+    private List<Sprite> symbolSet;
+    private Set<Sprite> blurrySet;
 
-    public SlotMachine(BarRoom barRoom) {
+    public SlotMachine(Room barRoom) {
         super("Slot Machine", barRoom);
-
+        symbolSet = makeSymbolList();
+        blurrySet = makeBlurrySet();
     }
+
 
     @Override
     public double getPowerConsumption() {
@@ -40,6 +48,14 @@ public class SlotMachine extends ElectricalMachinery {
         if (slotAction.getOptions(gameData, cl).numberOfSuboptions() > 0) {
             at.add(slotAction);
         }
+        if (cl instanceof Player) {
+            at.add(new WalkUpToElectricalMachineryAction(gameData, cl, this) {
+                @Override
+                protected FancyFrame getFancyFrame(GameData gameData, Actor performingClient) {
+                    return new SlotMachineFancyFrame((Player)performingClient, gameData, SlotMachine.this);
+                }
+            });
+        }
     }
 
     public void play(Actor performingClient, int bettedAmount) {
@@ -51,7 +67,7 @@ public class SlotMachine extends ElectricalMachinery {
         buf.append(result.get(1));
         buf.append(result.get(2));
         performingClient.addTolastTurnInfo(buf.toString());
-        int payOut = getPayout(result, bettedAmount);
+        int payOut = getPayout(result, bettedAmount, allIcons());
         if (payOut > 0) {
             performingClient.addTolastTurnInfo("You win $$ " + payOut + "!");
             try {
@@ -60,8 +76,22 @@ public class SlotMachine extends ElectricalMachinery {
                 performingClient.addItem(new MoneyStack(payOut), this);
             }
         }
+    }
+
+    public void play(Actor performingClient, int bettedAmount, SlotMachineFancyFrame ff) {
+        performingClient.addTolastTurnInfo("You played on the slot machine.");
+        List<Sprite> result = generateFancyFrameResult();
 
 
+        int payOut = getPayout(result, bettedAmount, symbolSet);
+        if (payOut > 0) {
+            try {
+                MoneyStack.getActorsMoney(performingClient).addTo(payOut);
+            } catch (NoSuchThingException e) {
+                performingClient.addItem(new MoneyStack(payOut), this);
+            }
+        }
+        ff.setResult(result, payOut);
     }
 
     @Override
@@ -76,9 +106,9 @@ public class SlotMachine extends ElectricalMachinery {
 
     }
 
-    private int getPayout(List<String> result, int bettedAmount) {
+    private static int getPayout(List<?> result, int bettedAmount, List<?> reference) {
         int factor = 1;
-        for (String str : allIcons()) {
+        for (Object str : reference) {
             if (str.equals(result.get(0))) {
                 break;
             }
@@ -112,7 +142,20 @@ public class SlotMachine extends ElectricalMachinery {
         return res;
     }
 
-    private Collection<String> allIcons() {
+
+    private List<Sprite> generateFancyFrameResult() {
+        List<Sprite> result = new ArrayList<>();
+        List<Sprite> tmp = new ArrayList<>();
+        tmp.addAll(symbolSet);
+        for (int i = 3; i > 0; --i) {
+            Collections.shuffle(tmp);
+            result.add(tmp.get(0));
+        }
+        return result;
+    }
+
+
+    private List<String> allIcons() {
         List<String> set = new ArrayList<>();
         String font = "courier";
         int size = 10;
@@ -131,4 +174,37 @@ public class SlotMachine extends ElectricalMachinery {
 
         return set;
     }
+
+    public List<Sprite> getAllSymbols() {
+        return symbolSet;
+    }
+
+    private List<Sprite> makeSymbolList() {
+        List<Sprite> set = new ArrayList<>();
+        set.add(new Sprite("crowbarslotssymbol", "slotmachine.png", 6, null));
+        set.add(new Sprite("tomatoslotssymbol", "slotmachine.png", 1, null));
+        set.add(new Sprite("fireextslotssymbol", "slotmachine.png", 5, null));
+        set.add(new Sprite("medkitslotssymbol", "slotmachine.png", 3, null));
+        set.add(new Sprite("toolkitslotssymbol", "slotmachine.png", 4, null));
+        set.add(new Sprite("catslotssymbol", "slotmachine.png", 7, null));
+        set.add(new Sprite("sevenslotssymbol", "slotmachine.png", 8, null));
+        set.add(new Sprite("trophyslotssymbol", "slotmachine.png", 2, null));
+        set.add(new Sprite("ss13slotssymbol", "slotmachine.png", 0, null));
+        return set;
+    }
+
+    public Set<Sprite> getBlurrySymbols() {
+        return blurrySet;
+    }
+
+
+    private Set<Sprite> makeBlurrySet() {
+        Set<Sprite> set = new HashSet<>();
+        set.add(new Sprite("blurry1slotssymbol", "slotmachine.png", 0, 1, null));
+        set.add(new Sprite("blurry2slotssymbol", "slotmachine.png", 1, 1, null));
+        set.add(new Sprite("blurry3slotssymbol", "slotmachine.png", 2, 1, null));
+        set.add(new Sprite("blurry4slotssymbol", "slotmachine.png", 3, 1, null));
+        return set;
+    }
+
 }

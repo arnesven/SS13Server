@@ -5,6 +5,7 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.fancyframe.SlotMachineFancyFrame;
 import model.items.NoSuchThingException;
 import model.items.general.MoneyStack;
 import model.items.general.ItemStackDepletedException;
@@ -18,11 +19,17 @@ import java.util.List;
 public class SlotMachineAction extends Action {
 
     private final SlotMachine slots;
+    private final SlotMachineFancyFrame fancyFrame;
     private int bettedAmount = 1;
 
-    public SlotMachineAction(SlotMachine slots) {
+    public SlotMachineAction(SlotMachine slots, SlotMachineFancyFrame ff) {
         super("Slot Machine", SensoryLevel.OPERATE_DEVICE);
         this.slots = slots;
+        this.fancyFrame = ff;
+    }
+
+    public SlotMachineAction(SlotMachine slots) {
+        this(slots, null);
     }
 
     @Override
@@ -58,7 +65,11 @@ public class SlotMachineAction extends Action {
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
-        slots.play(performingClient, bettedAmount);
+        if (fancyFrame == null) {
+            slots.play(performingClient, bettedAmount);
+        } else {
+            slots.play(performingClient, bettedAmount, fancyFrame);
+        }
     }
 
     @Override

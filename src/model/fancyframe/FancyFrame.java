@@ -94,7 +94,7 @@ public class FancyFrame implements Serializable {
     public void doAtEndOfTurn(GameData gameData, Player actor) { }
 
     public void leaveFancyFrame(GameData gameData, Player pl) {
-        pl.setFancyFrame(new FancyFrame(this));
+        dispose(pl);
     }
 
     protected void dismissAtEndOfTurn(GameData gameData, final Player player) {
@@ -122,5 +122,8 @@ public class FancyFrame implements Serializable {
 
     }
 
+    public void dispose(Player player) {
+        player.setFancyFrame(new FancyFrame(player.getFancyFrame()));
+    }
 
 }

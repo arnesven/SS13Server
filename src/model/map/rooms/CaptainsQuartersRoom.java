@@ -11,6 +11,7 @@ import model.npcs.animals.CatNPC;
 import model.objects.decorations.ComfyChair;
 import model.objects.decorations.NiceBed;
 import model.objects.general.PulseRifleDisplayCase;
+import model.objects.general.SlotMachine;
 
 /**
  * Created by erini02 on 15/12/16.
