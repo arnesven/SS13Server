@@ -245,7 +245,14 @@ public class GameData implements Serializable {
 			    increaseGameState();
             }
 		}
-		
+	}
+
+	public void unreadyThePlayer(Player performingClient) {
+		try {
+			setPlayerReady(getClidForPlayer(performingClient), false);
+		} catch (NoSuchThingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -888,4 +895,5 @@ public class GameData implements Serializable {
 
 		return mess.toString().replace(delim+"END", "");
 	}
+
 }

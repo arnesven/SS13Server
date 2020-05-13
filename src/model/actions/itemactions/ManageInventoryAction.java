@@ -47,6 +47,7 @@ public class ManageInventoryAction extends Action {
             }
             ((Player) performingClient).setFancyFrame(ff);
             ((Player) performingClient).setNextAction(new DoNothingAction());
+            gameData.unreadyThePlayer((Player)performingClient);
             ((Player) performingClient).refreshClientData();
         }
     }
