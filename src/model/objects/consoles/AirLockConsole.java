@@ -35,9 +35,9 @@ public class AirLockConsole extends Console {
     @Override
 	protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(new AirlockOverrideAction(gameData));
-		if (mayApproveVenting(cl)) {
-            at.add(new ApproveVentStation(this));
-        }
+//		if (mayApproveVenting(cl)) {
+//            at.add(new ApproveVentStation(this));
+//        }
 
         if (cl instanceof Player) {
             at.add(new SitDownAtAirLockControl(gameData, this));

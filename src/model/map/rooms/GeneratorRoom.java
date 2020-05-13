@@ -19,7 +19,6 @@ public class GeneratorRoom extends TechRoom {
 		super(ID, "Generator"           , "Gen"    , x,  y, width, height, neighbors, doors);
 		this.addObject(new ChemicalDispenser("Storage", 2, this));
 		this.addObject(new GeneratorConsole(this, gameData));
-        this.addObject(new LifeSupportConsole(this, gameData));
         this.addObject(new Battery(this, 0, false));
         this.addObject(new Battery(this, 0, false));
         this.addItem(new Tools());

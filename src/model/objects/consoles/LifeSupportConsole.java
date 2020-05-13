@@ -14,6 +14,7 @@ import java.util.ArrayList;
 /**
  * Created by erini02 on 09/09/17.
  */
+@Deprecated
 public class LifeSupportConsole extends Console {
     public LifeSupportConsole(GeneratorRoom generatorRoom, GameData gameData) {
         super("Life Support Console", generatorRoom);

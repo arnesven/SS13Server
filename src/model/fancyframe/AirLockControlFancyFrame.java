@@ -16,8 +16,8 @@ public class AirLockControlFancyFrame extends ConsoleFancyFrame {
     private final AirLockConsole airLockControl;
     private final AirlockOverrideAction airlockAction;
     private String selected = "";
-    private boolean showVenting = false;
-    private boolean approved;
+   // private boolean showVenting = false;
+   // private boolean approved;
 
     public AirLockControlFancyFrame(Player pl, Console console, GameData gameData, String bgColor, String fgColor) {
         super(pl.getFancyFrame(), console, gameData, bgColor, fgColor);
@@ -29,34 +29,34 @@ public class AirLockControlFancyFrame extends ConsoleFancyFrame {
     @Override
     protected void concreteRebuild(GameData gameData, Player player) {
         StringBuilder content = new StringBuilder();
-        if (showVenting) {
-            showTheVenting(gameData, player, content);
-        } else {
+    //    if (showVenting) {
+    //        showTheVenting(gameData, player, content);
+    //    } else {
             showTheAirlocks(gameData, player, content);
-        }
+    //    }
         setData(airLockControl.getPublicName(player), false, content.toString());
     }
 
-    private void showTheVenting(GameData gameData, Player player, StringBuilder content) {
-        content.append("________________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE LOCKS", "[airlocks]"));
-        content.append(HTMLText.makeCentered("<br/><b>Station Venting:</b><br/>"));
-        if (airLockControl.mayApproveVenting(player)) {
-            String buttonColor = "gray";
-            if (approved) {
-                buttonColor = "white";
-            }
-            content.append(HTMLText.makeCentered(HTMLText.makeText("red", "Yellow", "Arial", 4,
-                    "ATTENTION!<br/>Do not approve venting unless personnel safety has been confirmed!<br/><br/>") +
-                            "(Approval last only this round and actual venting is done at Life Support console.)<br/><br/>" +
-            HTMLText.makeFancyFrameLink("APPROVE", HTMLText.makeText("black", buttonColor, "Courier", 4, "[APPROVE]"))));
-        } else {
-            content.append(HTMLText.makeCentered("<i>Permission Denied</i>"));
-        }
-
-    }
+//    private void showTheVenting(GameData gameData, Player player, StringBuilder content) {
+//        //content.append("________________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE LOCKS", "[airlocks]"));
+//        content.append(HTMLText.makeCentered("<br/><b>Station Venting:</b><br/>"));
+//        if (airLockControl.mayApproveVenting(player)) {
+//            String buttonColor = "gray";
+//            if (approved) {
+//                buttonColor = "white";
+//            }
+//            content.append(HTMLText.makeCentered(HTMLText.makeText("red", "Yellow", "Arial", 4,
+//                    "ATTENTION!<br/>Do not approve venting unless personnel safety has been confirmed!<br/><br/>") +
+//                            "(Approval last only this round and actual venting is done at Life Support console.)<br/><br/>" +
+//            HTMLText.makeFancyFrameLink("APPROVE", HTMLText.makeText("black", buttonColor, "Courier", 4, "[APPROVE]"))));
+//        } else {
+//            content.append(HTMLText.makeCentered("<i>Permission Denied</i>"));
+//        }
+//
+//    }
 
     private void showTheAirlocks(GameData gameData, Player player, StringBuilder content) {
-        content.append("________________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE VENTING", "[venting]"));
+        //content.append("________________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE VENTING", "[venting]"));
         content.append("<br/><br/><b>Airlocks:</b><br/>");
         int i = 0;
         for (Room al : airlockAction.getKnownAirlocks()) {
@@ -80,10 +80,10 @@ public class AirLockControlFancyFrame extends ConsoleFancyFrame {
     @Override
     protected void consoleHandleEvent(GameData gameData, Player player, String event) {
         if (event.contains("CHANGEPAGE VENTING")) {
-            showVenting = true;
+         //   showVenting = true;
             concreteRebuild(gameData, player);
         } else if (event.contains("CHANGEPAGE LOCKS")) {
-            showVenting = false;
+         //   showVenting = false;
             concreteRebuild(gameData, player);
         } else if (event.contains("AIR")) {
             AirlockOverrideAction aoa = new AirlockOverrideAction(gameData);
@@ -96,7 +96,7 @@ public class AirLockControlFancyFrame extends ConsoleFancyFrame {
             readyThePlayer(gameData, player);
         } else if (event.contains("APPROVE")) {
             ApproveVentStation avs = new ApproveVentStation(airLockControl);
-            approved = true;
+        //    approved = true;
             player.setNextAction(avs);
             concreteRebuild(gameData, player);
             readyThePlayer(gameData, player);
@@ -107,7 +107,7 @@ public class AirLockControlFancyFrame extends ConsoleFancyFrame {
     @Override
     public void doAtEndOfTurn(GameData gameData, Player actor) {
         selected = "";
-        approved = false;
+      //  approved = false;
       //  concreteRebuild(gameData, actor);
     }
 }
