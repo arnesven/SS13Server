@@ -3,22 +3,34 @@ package model.fancyframe;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.general.Action;
+import model.actions.general.ActionOption;
+import model.actions.objectactions.ReportCrimeAction;
 import model.objects.consoles.CrimeRecordsConsole;
 import util.HTMLText;
 import util.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class CrimeRecordsFancyFrame extends ConsoleFancyFrame {
     private final CrimeRecordsConsole console;
+    private String reportDescr;
+    private int reportDuration;
     private boolean onHistoryPage;
+    private boolean onReportPage;
+    private String reportedPerson;
 
     public CrimeRecordsFancyFrame(CrimeRecordsConsole console, Player performingClient, GameData gameData) {
         super(performingClient.getFancyFrame(), console, gameData, "#ad402a", "Yellow");
         this.console = console;
         concreteRebuild(gameData, performingClient);
         onHistoryPage = false;
+        onReportPage = false;
+        reportDescr = null;
+        reportDuration = -1;
     }
 
     @Override
@@ -38,6 +50,22 @@ public class CrimeRecordsFancyFrame extends ConsoleFancyFrame {
             } else {
                 data.append("   * none *<br/>");
             }
+        } else if (onReportPage) {
+            data.append("__________________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE BACK", HTMLText.makeText("blue", "[back]")));
+            data.append("<br/>");
+            data.append("Please enter crime description and sentence duration in the input field below and hit ENTER.");
+            data.append(HTMLText.makeCentered("<i>Example: Murder-5</i>"));
+            data.append("Then select who you want to report from the list below.<br/>");
+            Action report = new ReportCrimeAction(console);
+            for (ActionOption opt : report.getOptions(gameData, player).getSuboptions()) {
+                String text = opt.getName();
+                data.append(text + " ");
+                if (reportDescr != null) {
+                    data.append(HTMLText.makeFancyFrameLink("REPORT " + text, "[report]"));
+                }
+                data.append("<br/>");
+            }
+
         } else {
             data.append("__________________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE HISTORY", HTMLText.makeText("blue", "[history]")));
             data.append("<br/><br/><b>Current Sentences:</b><br/>");
@@ -49,10 +77,19 @@ public class CrimeRecordsFancyFrame extends ConsoleFancyFrame {
             } else {
                 data.append("   * none *<br/>");
             }
+            data.append("<br/>" + HTMLText.makeCentered(HTMLText.makeFancyFrameLink("REPORTPAGE", "[report a crime]")));
         }
 
 
-        setData(console.getPublicName(player), false, HTMLText.makeText("Yellow", data.toString()));
+        setData(console.getPublicName(player), onReportPage, HTMLText.makeText("Yellow", data.toString()));
+    }
+
+    @Override
+    public void doAtEndOfTurn(GameData gameData, Player actor) {
+        reportedPerson = null;
+        reportDescr = null;
+        reportDuration = -1;
+        onReportPage = false;
     }
 
     @Override
@@ -63,6 +100,37 @@ public class CrimeRecordsFancyFrame extends ConsoleFancyFrame {
         } else if (event.contains("CHANGEPAGE SENTENCES")) {
             this.onHistoryPage = false;
             concreteRebuild(gameData, player);
+        } else if (event.contains("CHANGEPAGE BACK")) {
+            this.onReportPage = false;
+            concreteRebuild(gameData, player);
+        } else if (event.contains("REPORTPAGE")) {
+            this.onReportPage = true;
+            concreteRebuild(gameData, player);
+        } else if (event.contains("REPORT")) {
+            List<String> args = new ArrayList<>();
+            Action a = new ReportCrimeAction(console);
+            this.reportedPerson = event.replace("REPORT ", "");
+            args.add(reportedPerson);
+            args.add(reportDescr);
+            args.add(reportDuration + "");
+            a.setActionTreeArguments(args, player);
+            player.setNextAction(a);
+            readyThePlayer(gameData, player);
+            concreteRebuild(gameData, player);
+        }
+    }
+
+    @Override
+    protected void consoleHandleInput(GameData gameData, Player player, String data) {
+        super.consoleHandleInput(gameData, player, data);
+        if (data.contains("-")) {
+            String[] parts = data.split("-");
+            Scanner scan = new Scanner(parts[1]);
+            if (scan.hasNextInt()) {
+                reportDescr = parts[0];
+                reportDuration = scan.nextInt();
+                concreteRebuild(gameData, player);
+            }
         }
     }
 }

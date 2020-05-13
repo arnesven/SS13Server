@@ -60,7 +60,7 @@ public class BotConsoleFancyFrame extends ConsoleFancyFrame {
             content.append("Connected Bots:<br/>");
             for (NPC npc : gameData.getNPCs()) {
                 if (npc instanceof RobotNPC && npc.getPosition() instanceof StationRoom) {
-                    content.append(npc.getInnermostCharacter().getBaseName() + "<br/>");
+                    content.append(npc.getInnermostCharacter().getBaseName() + " in " + npc.getPosition().getName() + "<br/>");
                 }
             }
 

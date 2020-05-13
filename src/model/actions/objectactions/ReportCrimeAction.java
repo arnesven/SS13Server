@@ -19,6 +19,7 @@ public class ReportCrimeAction extends ConsoleAction {
 	private CrimeRecordsConsole console;
 	private String selectedGuy;
 	private String selectedCrime;
+	private int selectedDuration = -1;
 
 	public ReportCrimeAction(CrimeRecordsConsole crimeRecordsConsole) {
 		super("Report Crime", SensoryLevel.NO_SENSE);
@@ -40,9 +41,9 @@ public class ReportCrimeAction extends ConsoleAction {
 		for (Actor a : acts) {
 			if (a.getCharacter().isCrew()) {
 				ActionOption guy = new ActionOption(a.getCharacter().getBaseName());
-				for (int i = 0; i < CrimeRecordsConsole.crimes.length; ++i) {
-					guy.addOption(CrimeRecordsConsole.crimes[i] + 
-							" (" + CrimeRecordsConsole.sentenceLengths[i] + ")");
+				for (int i = 0; i < console.getAllCrimes().length; ++i) {
+					guy.addOption(console.getAllCrimes()[i] +
+							" (" + console.getSentenceLengths()[i] + ")");
 				}
 				opt.addOption(guy);
 			}
@@ -60,7 +61,11 @@ public class ReportCrimeAction extends ConsoleAction {
 			}
 		}
 		if (console.isPowered() && !console.isBroken()) {
-			console.addReport(guy, selectedCrime, performingClient);
+			if (selectedDuration == -1) {
+				console.addReport(guy, selectedCrime, performingClient);
+			} else {
+				console.addReport(guy, selectedCrime, performingClient, selectedDuration);
+			}
 			performingClient.addTolastTurnInfo("You reported " + guy.getBaseName() + " for \"" + selectedCrime + "\".");
 		} else {
 			performingClient.addTolastTurnInfo("Something is wrong with the console...");
@@ -71,6 +76,13 @@ public class ReportCrimeAction extends ConsoleAction {
 	public void setArguments(List<String> args, Actor performingClient) {
 		selectedGuy = args.get(0);
 		selectedCrime = args.get(1).replaceAll(" \\(\\d\\)", "");
+		if (args.size() > 2) {
+			try {
+				selectedDuration = Integer.parseInt(args.get(2));
+			} catch (NumberFormatException nfe) {
+
+			}
+		}
 	}
 
 	@Override

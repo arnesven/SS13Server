@@ -28,11 +28,9 @@ import util.Logger;
 import util.Pair;
 
 public class CrimeRecordsConsole extends Console {
-	public static int[] sentenceLengths = new int[]{1, 2, 3, 5};
-	public static String[] crimes = new String[]{"Rowdiness", "Theft", 
+	private int[] sentenceLengths = new int[]{2, 3, 5, 7};
+	private String[] crimes = new String[]{"Rowdiness", "Theft",
 												  "Assault", "Murder"};
-	
-	
 	private Map<Actor, Integer> sentences = new HashMap<>();
 	private Map<Actor, List<Pair<String, Actor>>> reportMap = new HashMap<>();
     private Map<Actor, List<Pair<String, Actor>>> reportsHistory = new HashMap<>();
@@ -77,6 +75,41 @@ public class CrimeRecordsConsole extends Console {
         reportsHistory.get(criminal).add(new Pair<String, Actor>(selectedCrime, reporter));
 
     }
+
+
+	public void addReport(Actor guy, String selectedCrime, Actor performingClient, int selectedDuration) {
+    	if (!crimeAlreadyExists(selectedCrime)) {
+    		Logger.log("Adding a new crime: \"" + selectedCrime + "\" with duration " + selectedDuration + " turns");
+			addNewCrime(selectedCrime, selectedDuration);
+		}
+		addReport(guy, selectedCrime, performingClient);
+
+
+	}
+
+	private void addNewCrime(String selectedCrime, int selectedDuration) {
+		String[] newCrimes = new String[crimes.length+1];
+		int[] newLength = new int[sentenceLengths.length+1];
+		int i = 0;
+		for (; i < crimes.length; ++i) {
+			newCrimes[i] = crimes[i];
+			newLength[i] = sentenceLengths[i];
+		}
+		newCrimes[i] = selectedCrime;
+		newLength[i] = Math.min(selectedDuration, 10);
+		crimes = newCrimes;
+		sentenceLengths = newLength;
+	}
+
+	private boolean crimeAlreadyExists(String selectedCrime) {
+    	for (String s : crimes) {
+    		if (s.equals(selectedCrime)) {
+    			return true;
+			}
+		}
+
+		return false;
+	}
 
 	public Map<Actor, List<Pair<String, Actor>>> getReportedActors() {
 		return reportMap;
@@ -210,4 +243,12 @@ public class CrimeRecordsConsole extends Console {
     public Room getReleaseIntoRoom() {
         return releaseIntoRoom;
     }
+
+	public String[] getAllCrimes() {
+    	return crimes;
+	}
+
+	public int[] getSentenceLengths() {
+		return sentenceLengths;
+	}
 }
