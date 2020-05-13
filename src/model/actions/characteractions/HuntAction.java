@@ -30,7 +30,7 @@ public class HuntAction extends TargetingAction {
             performingClient.moveIntoRoom(target.getPosition());
         }
 		followEvent = new FollowMovementEvent(performingClient.getPosition(), 
-				performingClient, target, false);
+				performingClient, target);
 		((Actor)target).addTolastTurnInfo(performingClient.getPublicName() + 
 				" pounced at you!");
 		target.beAttackedBy(performingClient, Weapon.CLAWS, gameData);

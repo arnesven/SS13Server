@@ -22,7 +22,7 @@ public class FollowMostWoundedActor implements MovementBehavior {
             toFollow = whoNeedsMeMost(npc);
         }
         if (toFollow != npc) {
-            gameData.addMovementEvent(new FollowMovementEvent(npc.getPosition(), npc, toFollow.getAsTarget(), true));
+            gameData.addMovementEvent(new FollowMovementEvent(npc.getPosition(), npc, toFollow.getAsTarget()));
 
         }
     }

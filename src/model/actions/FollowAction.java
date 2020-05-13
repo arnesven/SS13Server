@@ -20,7 +20,7 @@ public class FollowAction extends TargetingAction {
     protected void applyTargetingAction(GameData gameData, Actor performingClient, Target target, GameItem item) {
 
         removeAllFollowings(performingClient);
-        FollowMovementEvent followEvent = new FollowMovementEvent(performingClient.getPosition(), performer, target, false);
+        FollowMovementEvent followEvent = new FollowMovementEvent(performingClient.getPosition(), performer, target);
         performingClient.setCharacter(new FollowingDecorator(performingClient.getCharacter(), target, followEvent));
         gameData.addMovementEvent(followEvent);
     }

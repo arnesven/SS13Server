@@ -19,7 +19,7 @@ public class FollowMeBehavior implements MovementBehavior {
 
 	@Override
 	public void move(NPC npc) {
-		gameData.addMovementEvent(new FollowMovementEvent(npc.getPosition(), npc, this.target, true));		
+		gameData.addMovementEvent(new FollowMovementEvent(npc.getPosition(), npc, this.target));
 	}
 
 

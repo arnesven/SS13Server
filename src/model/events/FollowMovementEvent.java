@@ -16,11 +16,11 @@ public class FollowMovementEvent extends Event {
 	private Target target;
 	private boolean remove;
 
-	public FollowMovementEvent(Room room, Actor performer, Target target, boolean remove) {
+	public FollowMovementEvent(Room room, Actor performer, Target target) {
 		this.shadowedInRoom = room;
 		this.performingClient = performer;
 		this.target = target;
-		this.remove = remove;
+		this.remove = false;
 	}
 
 	@Override
