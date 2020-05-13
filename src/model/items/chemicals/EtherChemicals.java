@@ -1,5 +1,7 @@
 package model.items.chemicals;
 
+import model.GameData;
+import model.Player;
 import model.items.foods.FoodItem;
 import model.items.general.Chemicals;
 
@@ -29,5 +31,10 @@ public class EtherChemicals extends Chemicals {
     @Override
     public String getFormula() {
         return "(C2H5)2O";
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "a pleasant-smelling colourless volatile liquid. It is used as an anaesthetic and as a solvent or intermediate in industrial processes.";
     }
 }

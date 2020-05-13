@@ -2,6 +2,8 @@ package model.items.chemicals;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.items.foods.FoodItem;
 import model.items.general.Chemicals;
 
@@ -33,5 +35,10 @@ public class GeneratorStartedFluid extends Chemicals {
     @Override
     public FoodItem clone() {
         return new GeneratorStartedFluid();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A chemical for boosting the generator's power output.";
     }
 }
