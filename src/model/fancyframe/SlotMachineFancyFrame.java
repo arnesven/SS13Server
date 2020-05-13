@@ -30,7 +30,7 @@ public class SlotMachineFancyFrame extends FancyFrame {
         this.slots = slots;
         this.gameData = gameData;
         this.player = performingClient;
-        setSize(280, 380);
+        setSize(250, 350);
 
         buildContent(gameData, performingClient);
     }
@@ -40,13 +40,12 @@ public class SlotMachineFancyFrame extends FancyFrame {
         StringBuilder content = new StringBuilder();
         content.append(HTMLText.makeBox("Yellow", "Black", HTMLText.makeCentered(HTMLText.makeText("Yellow", "SPIN TO WIN!"))));
         StringBuilder table = new StringBuilder();
-        table.append(HTMLText.makeText("#00bdff", "SS13 SS13 SS13") + " = x9 | " + HTMLText.makeText("red", "fire fire fire") + " = x3<br/>");
-        table.append("🏆Cup_ Cup_ Cup_ = x8 | " + HTMLText.makeText("red", "tom_ tom_ tom_") + "  = x2<br/>");
-        table.append(HTMLText.makeText("Orange", "_7__ _7__ _7__") + " = x7 | " + HTMLText.makeText("green", "_X__ _X__ _Y__") + " = x2<br/>");
-        table.append(HTMLText.makeText("black", "cat_ cat_ cat_") + "  = x6 | _X__ _Y__ _Y__ = x2<br/>");
-        table.append("tool tool tool = x5 | " + HTMLText.makeText("gray", "🍅crow crow crow") + " = x1<br/>");
-        table.append(HTMLText.makeText("white", "meds meds meds") + " = x4 | _X__ _Y__ _X__ = x0<br/>");
-        table.append("<br/>");
+
+        for (int i = 0; i <= slots.getPayoutTable().size() / 2;i++) {
+            table.append(slots.getPayoutTable().get(i) + " | " + slots.getPayoutTable().get(i+5) + "<br/>");
+        }
+
+         table.append("<br/>");
 
         content.append(HTMLText.makeCentered(HTMLText.makeText("Yellow", "courier", 2, table.toString())));
 

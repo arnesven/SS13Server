@@ -25,11 +25,14 @@ public class SlotMachine extends ElectricalMachinery {
     private boolean alreadyBrokeOnce = false;
     private List<Sprite> symbolSet;
     private Set<Sprite> blurrySet;
+    private List<String> icons;
+    private int[] payouts = new int[]{3, 5, 13, 25, 50, 69, 77, 100, 169};
 
     public SlotMachine(Room barRoom) {
         super("Slot Machine", barRoom);
         symbolSet = makeSymbolList();
         blurrySet = makeBlurrySet();
+        icons = allIcons();
     }
 
 
@@ -67,7 +70,7 @@ public class SlotMachine extends ElectricalMachinery {
         buf.append(result.get(1));
         buf.append(result.get(2));
         performingClient.addTolastTurnInfo(buf.toString());
-        int payOut = getPayout(result, bettedAmount, allIcons());
+        int payOut = getPayout(result, bettedAmount, allIcons(), payouts);
         if (payOut > 0) {
             performingClient.addTolastTurnInfo("You win $$ " + payOut + "!");
             try {
@@ -83,7 +86,7 @@ public class SlotMachine extends ElectricalMachinery {
         List<Sprite> result = generateFancyFrameResult();
 
 
-        int payOut = getPayout(result, bettedAmount, symbolSet);
+        int payOut = getPayout(result, bettedAmount, symbolSet, payouts);
         if (payOut > 0) {
             try {
                 MoneyStack.getActorsMoney(performingClient).addTo(payOut);
@@ -106,8 +109,8 @@ public class SlotMachine extends ElectricalMachinery {
 
     }
 
-    private static int getPayout(List<?> result, int bettedAmount, List<?> reference) {
-        int factor = 1;
+    private static int getPayout(List<?> result, int bettedAmount, List<?> reference, int[] payouts) {
+        int factor = 0;
         for (Object str : reference) {
             if (str.equals(result.get(0))) {
                 break;
@@ -116,7 +119,7 @@ public class SlotMachine extends ElectricalMachinery {
         }
 
         if (result.get(0).equals(result.get(1)) && result.get(1).equals(result.get(2))) {
-            return bettedAmount * factor;
+            return bettedAmount * payouts[factor];
         }
 
         if (result.get(0).equals(result.get(1)) || result.get(1).equals(result.get(2))) {
@@ -148,8 +151,7 @@ public class SlotMachine extends ElectricalMachinery {
         List<Sprite> tmp = new ArrayList<>();
         tmp.addAll(symbolSet);
         for (int i = 3; i > 0; --i) {
-            Collections.shuffle(tmp);
-            result.add(tmp.get(0));
+            result.add(MyRandom.sample(tmp));
         }
         return result;
     }
@@ -158,18 +160,18 @@ public class SlotMachine extends ElectricalMachinery {
     private List<String> allIcons() {
         List<String> set = new ArrayList<>();
         String font = "courier";
-        int size = 10;
-        set.add(HTMLText.makeText("brown", font, size, "☕"));
-        set.add(HTMLText.makeText("red", font, size, "♥"));
-        set.add(HTMLText.makeText("purple", font, size, "☯"));
+        int size = 2;
+        set.add(HTMLText.makeText("gray", font, size, "BAR"));
+        set.add(HTMLText.makeText("red", font, size, "TOM"));
+        set.add(HTMLText.makeText("red", font, size, "_FX"));
 
-        set.add(HTMLText.makeText("yellow", font, size, "⛃"));
-        set.add(HTMLText.makeText("green", font, size, "♻"));
-        set.add(HTMLText.makeText("orange", font, size, "❼"));
+        set.add(HTMLText.makeText("white", font, size, "_MK"));
+        set.add(HTMLText.makeText("Yellow", font, size, "_TK"));
+        set.add(HTMLText.makeText("black", font, size, "CAT"));
 
-        set.add(HTMLText.makeText("black", font, size, "☠"));
-        set.add(HTMLText.makeText("Chartreuse", font, size, "⚑"));
-        set.add(HTMLText.makeText("Cyan", font, size, "☂"));
+        set.add(HTMLText.makeText("orange", font, size, "_7_"));
+        set.add(HTMLText.makeText("Yellow", font, size, "CUP"));
+        set.add(HTMLText.makeText("#00bdff", font, size, "s13"));
 
 
         return set;
@@ -207,4 +209,13 @@ public class SlotMachine extends ElectricalMachinery {
         return set;
     }
 
+    public List<String> getPayoutTable() {
+        List<String> res = new ArrayList<>();
+        for (int i = getAllSymbols().size()-1; i >= 0; --i) {
+            res.add(icons.get(i) + " " + icons.get(i) + " " + icons .get(i) + " = x" + payouts[i]);
+        }
+        res.add(HTMLText.makeText("Green", "_X_ _X_ _Y_") + " = x2");
+        res.add(HTMLText.makeText("Pink", "_Y_ _X_ _X_") + " = x2");
+        return res;
+    }
 }
