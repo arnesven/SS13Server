@@ -5,7 +5,7 @@ import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.behaviors.*;
 
-public class DockWorkerBot extends NPC {
+public class DockWorkerBot extends RobotNPC {
 
     private static int uid_counter = 1;
 
