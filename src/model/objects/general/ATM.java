@@ -52,11 +52,11 @@ public class ATM extends SinglePersonUseMachine implements BankUser {
 
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-        if (hasAnAccount(cl)) {
-            at.add(new AccessAccountAction(this));
-        } else {
-            Logger.log(cl.getPublicName() + " DOESN'T HAVE AN ACCOUNT!");
-        }
+//        if (hasAnAccount(cl)) {
+//            at.add(new AccessAccountAction(this));
+//        } else {
+//            Logger.log(cl.getPublicName() + " DOESN'T HAVE AN ACCOUNT!");
+//        }
         if (cl instanceof Player) {
             at.add(new WalkUpToATMAction((Player)cl, gameData, ATM.this));
         }

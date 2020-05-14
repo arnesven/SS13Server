@@ -47,10 +47,10 @@ public class SlotMachine extends ElectricalMachinery {
 
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-        Action slotAction = new SlotMachineAction(this);
-        if (slotAction.getOptions(gameData, cl).numberOfSuboptions() > 0) {
-            at.add(slotAction);
-        }
+        //Action slotAction = new SlotMachineAction(this);
+        //if (slotAction.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+        //    at.add(slotAction);
+        //}
         if (cl instanceof Player) {
             at.add(new WalkUpToElectricalMachineryAction(gameData, cl, this) {
                 @Override
