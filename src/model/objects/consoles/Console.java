@@ -9,17 +9,17 @@ import model.actions.fancyframeactions.SitDownAtConsoleAction;
 import model.actions.general.Action;
 import model.actions.objectactions.GeneralSitDownAtConsoleAction;
 import model.map.rooms.Room;
+import model.objects.SinglePersonUseMachine;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.RemotelyOperateable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Console extends ElectricalMachinery implements RemotelyOperateable {
+public abstract class Console extends SinglePersonUseMachine implements RemotelyOperateable {
 
     private Actor loggedInAt;
     private GameData gameData = null;
-    private boolean ffVacant = true;
     private List<String> plebosTexts;
 
     public Console(String name, Room r) {
@@ -75,26 +75,12 @@ public abstract class Console extends ElectricalMachinery implements RemotelyOpe
         }
     }
 
-
-
     protected abstract void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at);
 
     public void setLoggedInAt(Player performingClient) {
         this.loggedInAt = performingClient;
     }
 
-    public boolean isFancyFrameVacant() {
-        return this.ffVacant;
-    }
-
-    public void setFancyFrameOccupied() {
-        this.ffVacant = false;
-    }
-
-
-    public void setFancyFrameVacant() {
-        this.ffVacant = true;
-    }
 
     public Actor getLoggedInActor() {
         return loggedInAt;
