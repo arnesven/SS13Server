@@ -7,10 +7,11 @@ import model.*;
 import model.actions.general.Action;
 import model.actions.objectactions.*;
 import model.map.rooms.Room;
+import model.objects.general.BankUser;
 import model.objects.shipments.*;
 import util.Pair;
 
-public class RequisitionsConsole extends Console {
+public class RequisitionsConsole extends Console implements BankUser {
 
     private static Bank bank;
 	private List<Shipment> shipments = new ArrayList<>();
@@ -18,7 +19,6 @@ public class RequisitionsConsole extends Console {
 
     public RequisitionsConsole(Room pos, GameData gameData) {
 		super("Requisitions Console", pos);
-        this.bank = Bank.getInstance(gameData);
         shipments.add(new FoodShipment());
         shipments.add(new FireFighterShipment());
 		shipments.add(new MedicalShipment());
@@ -72,5 +72,10 @@ public class RequisitionsConsole extends Console {
 
     public List<Pair<Actor, Shipment>> getHistory() {
         return history;
+    }
+
+    @Override
+    public void setBankRef(Bank b) {
+        bank = b;
     }
 }

@@ -4,7 +4,10 @@ import model.characters.general.GameCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.events.PayWagesEvent;
 import model.items.general.MoneyStack;
+import model.map.rooms.Room;
 import model.modes.GameMode;
+import model.objects.general.BankUser;
+import model.objects.general.GameObject;
 import util.Logger;
 
 import java.io.Serializable;
@@ -21,32 +24,29 @@ public class Bank implements Serializable {
     private Map<Actor, MoneyStack> accounts = new HashMap<>();
     private int stationMoney;
 
-    private Bank(GameData gameData) {
+    public Bank(GameData gameData) {
         Logger.log("New bank instance creater, number of actors " + gameData.getActors().size());
         for (Actor a : gameData.getActors()) {
-            //Logger.log("Setting up acount for an actor with char " + a.getCharacter());
             if (a.getCharacter() != null) {
                 if (hasAnAccountFromStart(a)) {
+                    Logger.log("Setting up acount for an actor with char " + a.getBaseName());
                     accounts.put(a, new MoneyStack(0));
                 }
             }
         }
         stationMoney = 14000;
         gameData.addEvent(new PayWagesEvent());
-    }
-
-    public static Bank getInstance(GameData gameData) {
-        if (instance == null || gameModeRef != gameData.getGameMode()) {
-            instance = new Bank(gameData);
-            gameModeRef = gameData.getGameMode();
-            return instance;
+        for (Room r : gameData.getNonHiddenStationRooms()) {
+            for (GameObject obj : r.getObjects()) {
+                if (obj instanceof BankUser) {
+                    ((BankUser) obj).setBankRef(this);
+                }
+            }
         }
-        return instance;
     }
 
     private static boolean hasAnAccountFromStart(Actor actor) {
-        return actor.getCharacter().isCrew() ||
-                !actor.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof VisitorCharacter));
+        return actor.isCrew() && !actor.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof VisitorCharacter));
     }
 
     public Map<Actor, MoneyStack> getAccounts() {

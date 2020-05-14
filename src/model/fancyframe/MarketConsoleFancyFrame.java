@@ -29,7 +29,7 @@ public class MarketConsoleFancyFrame extends ConsoleFancyFrame {
     private void buildContent(Player performingClient, GameData gameData) {
         StringBuilder content = new StringBuilder();
         content.append("_______________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE HISTORY", "[history]"));
-        content.append("<br><b>Station Funds:</b> $$ " + Bank.getInstance(gameData).getStationMoney() + "<br/>");
+        content.append("<br><b>Station Funds:</b> $$ " + gameData.getGameMode().getBank().getStationMoney() + "<br/>");
 
         for (GameObject obj : console.getPosition().getObjects()) {
             if (obj instanceof CrateObject && ((CrateObject) obj).canBeSold()) {

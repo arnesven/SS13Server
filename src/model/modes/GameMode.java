@@ -46,6 +46,7 @@ public abstract class GameMode implements Serializable {
 
 
 	private static String[] knownModes = { "Traitor", "Host", "Operatives", "Changeling", "Rogue AI", "Armageddon", "Mutiny", "Mixed", "Secret", "Creative"};
+	private Bank bank;
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
     private int defusedBombs = 0;
@@ -59,7 +60,8 @@ public abstract class GameMode implements Serializable {
     private LateJoiningShuttle lateJoiningShuttle;
 
     public GameMode() {
-        AmbientEvent.setUpAmbients(events);
+    	AmbientEvent.setUpAmbients(events);
+
 	}
 
     public static String[] getAvailableModes() {
@@ -256,8 +258,10 @@ public abstract class GameMode implements Serializable {
 		addStuffToRooms(gameData);
 		addRandomItemsToRooms(gameData);
 		Logger.log(" Game Mode: Items added to rooms");
-
 		addPersonalGoals(gameData);
+
+		Logger.log("Game Mode: Creating Bank");
+		this.bank = new Bank(gameData);
 
 		addStartingMessages(gameData);
 		if (LocalDateTime.now().getMonth().equals(Month.DECEMBER)) {
@@ -734,7 +738,7 @@ public abstract class GameMode implements Serializable {
 		List<GameItem> startingItems = newPlayer.getCharacter().getStartingItems();
 		Logger.log("Giving starting items to " + newPlayer.getPublicName());
 		newPlayer.giveStartingItemsToSelf();
-		Bank.getInstance(gameData).addAccount(newPlayer);
+		bank.addAccount(newPlayer);
 
 		addStartingMessage(gameData, newPlayer);
 		informOnStation(gameData, newPlayer);
@@ -812,5 +816,9 @@ public abstract class GameMode implements Serializable {
 				"</td><td>" +
 				getModeDescription() +
 				"</td></tr></table>";
+	}
+
+	public Bank getBank() {
+		return bank;
 	}
 }

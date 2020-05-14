@@ -46,7 +46,7 @@ public class GameObject implements SpriteObject, Serializable {
 
 
     public String getPublicName(Actor whosAsking) {
-		return getBaseName();
+	    return getBaseName();
 	}
 	
 	public Room getPosition() {

@@ -5,6 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.SensoryLevel;
+import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.items.NoSuchThingException;
 import model.items.general.Tools;
@@ -95,6 +96,9 @@ public class FancyFrame implements Serializable {
 
     public void leaveFancyFrame(GameData gameData, Player pl) {
         dispose(pl);
+        if (pl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof UsingGameObjectFancyFrameDecorator)) {
+            pl.removeInstance((GameCharacter gc) -> gc instanceof UsingGameObjectFancyFrameDecorator);
+        }
     }
 
     protected void dismissAtEndOfTurn(GameData gameData, final Player player) {

@@ -5,10 +5,12 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.fancyframe.ATMFancyFrame;
 import model.items.NoSuchThingException;
 import model.items.general.MoneyStack;
 import model.items.general.ItemStackDepletedException;
 import model.objects.general.ATM;
+import util.Logger;
 
 import java.util.List;
 
@@ -18,12 +20,22 @@ import java.util.List;
 public class AccessAccountAction extends Action {
 
     private final ATM atm;
+    private final ATMFancyFrame ff;
+    private int amount;
     private boolean withdraw;
 
-    public AccessAccountAction(ATM atm) {
+    public AccessAccountAction(ATM atm, ATMFancyFrame fancyFrame) {
         super("Access Account", SensoryLevel.OPERATE_DEVICE);
         this.atm = atm;
+        this.amount = -1;
+        this.ff = fancyFrame;
     }
+
+    public AccessAccountAction(ATM atm) {
+        this(atm, null);
+    }
+
+
 
     @Override
     protected String getVerb(Actor whosAsking) {
@@ -55,10 +67,16 @@ public class AccessAccountAction extends Action {
             cash = new MoneyStack(0);
         }
         if (withdraw) {
-            int amount = account.getAmount();
-            cash.addTo(amount);
+            if (this.amount == -1) {
+                amount = account.getAmount();
+            }
             performingClient.addTolastTurnInfo("You withdrew $$ " + amount + " from your account.");
-            if (!performingClient.getItems().contains(cash)) {
+            if (ff != null) {
+                Logger.log("We have a fancy frame here...");
+                atm.setMoneyShowing(new MoneyStack(amount));
+                ff.finalizeTransaction(gameData, performingClient);
+            } else if (!performingClient.getItems().contains(cash)) {
+                cash.addTo(amount);
                 performingClient.getCharacter().giveItem(cash, null);
             }
             try {
@@ -68,6 +86,10 @@ public class AccessAccountAction extends Action {
             }
         } else {
             int amount = cash.getAmount();
+            if (ff != null) {
+                ff.finalizeTransaction(gameData, performingClient);
+                amount = this.amount;
+            }
             try {
                 cash.subtractFrom(amount);
             } catch (ItemStackDepletedException e) {
@@ -76,6 +98,7 @@ public class AccessAccountAction extends Action {
             }
             performingClient.addTolastTurnInfo("You deposited $$ " + amount + " into your account.");
             account.addTo(amount);
+
         }
     }
 
@@ -85,6 +108,13 @@ public class AccessAccountAction extends Action {
             this.withdraw = true;
         } else {
             this.withdraw = false;
+        }
+        if (args.size() > 1) {
+            try {
+                this.amount = Integer.parseInt(args.get(1));
+            } catch (NumberFormatException nfe) {
+
+            }
         }
     }
 

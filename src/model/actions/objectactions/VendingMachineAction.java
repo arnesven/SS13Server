@@ -47,7 +47,7 @@ public class VendingMachineAction extends Action {
 
         try {
             money.subtractFrom(cost);
-            Bank.getInstance(gameData).addToStationMoney(cost);
+            gameData.getGameMode().getBank().addToStationMoney(cost);
         } catch (ItemStackDepletedException e) {
             performingClient.getItems().remove(money);
         }

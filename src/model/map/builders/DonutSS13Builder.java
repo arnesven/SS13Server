@@ -7,6 +7,7 @@ import model.map.doors.*;
 import model.map.rooms.*;
 import model.objects.BarSign;
 import model.objects.consoles.SolarArrayControl;
+import model.objects.general.ATM;
 import model.objects.general.AirlockPanel;
 
 import java.awt.*;
@@ -169,6 +170,7 @@ public class DonutSS13Builder extends MapBuilder {
                         new NormalDoor(13.0, 3.5, 19, 16)});
         gate.addObject(new UpgoingStairsDoor(gate));
         gate.addObject(new DowngoingStairsDoor(gate));
+        gate.addObject(new ATM(gameData, gate));
         gm.addRoom(gate, ss13, "port");
 
 

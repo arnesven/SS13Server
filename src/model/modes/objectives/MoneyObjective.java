@@ -40,7 +40,7 @@ public class MoneyObjective implements TraitorObjective {
             return false;
         }
 
-        int fromBank = Bank.getInstance(gameData).getAccounts().get(traitor).getAmount();
+        int fromBank = gameData.getGameMode().getBank().getAccounts().get(traitor).getAmount();
 
 
         return money.getAmount() + fromBank >= TARGET_AMOUNT;

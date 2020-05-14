@@ -31,7 +31,7 @@ public class PayWagesEvent extends Event {
 
                             int wage =  adminConsole.getWageForActor(a);
                             if (wage != 0) {
-                                Bank.getInstance(gameData).addToAccount(a, wage);
+                                gameData.getGameMode().getBank().addToAccount(a, wage);
                                 adminConsole.subtractFromBudget(wage);
                                 Logger.log(Logger.INTERESTING, a.getBaseName() + "'s wage payed $$" + wage);
                             }

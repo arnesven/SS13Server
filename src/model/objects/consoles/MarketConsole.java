@@ -75,7 +75,7 @@ public class MarketConsole extends Console {
     public int sellCrate(CrateObject targetCrate, GameData gameData, Actor seller) {
         int sellValue = getValueFor(targetCrate, gameData);
         totalSellValue += sellValue;
-        Bank.getInstance(gameData).addToStationMoney(sellValue);
+        gameData.getGameMode().getBank().addToStationMoney(sellValue);
         targetCrate.getPosition().removeObject(targetCrate);
         this.history.add(seller.getBaseName() + " sold " + targetCrate.getBaseName() + " for " + sellValue);
         return sellValue;

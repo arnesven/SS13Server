@@ -57,6 +57,11 @@ public class HTMLText {
         return makeFancyFrameLink(command, makeText(isPushed?"white":"black", isPushed?"black":"gray", "Courier", 4, buttonText));
     }
 
+    public static String makeBox(String fg, String bg, int widthPct, boolean border, String content) {
+        return "<table width=\"" + widthPct + "%\" border=\"" + (border?"1":"0") +
+                "\" fgcolor=\"" + fg  + "\" bgcolor=\"" + bg+ "\"rules=\"rows\"><tr><td>" + content + "</td></tr></table>";
+    }
+
     public static String makeBox(String fg, String bg, String content) {
         return "<table width=\"100%\" border=\"1\" fgcolor=\"" + fg  + "\" bgcolor=\"" + bg+ "\"rules=\"rows\"><tr><td>" + content + "</td></tr></table>";
     }

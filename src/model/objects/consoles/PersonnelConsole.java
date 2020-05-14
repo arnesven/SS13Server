@@ -19,12 +19,13 @@ import model.items.general.GameItem;
 import model.items.general.UniversalKeyCard;
 import model.map.rooms.Room;
 import model.modes.GameMode;
+import model.objects.general.BankUser;
 
 import java.util.*;
 
-public class PersonnelConsole extends Console {
+public class PersonnelConsole extends Console implements BankUser {
 
-    private final Bank bank;
+    private Bank bank;
 
     private Map<Actor, Integer> alternateWages = new HashMap<>();
     private Set<Actor> acceptedActors;
@@ -35,7 +36,6 @@ public class PersonnelConsole extends Console {
         super("Personnel Console", r);
         acceptedActors = new HashSet<>();
         toBeDemoted = new HashSet<>();
-        this.bank = Bank.getInstance(gameData);
     }
 
     @Override
@@ -147,4 +147,8 @@ public class PersonnelConsole extends Console {
     }
 
 
+    @Override
+    public void setBankRef(Bank b) {
+        bank = b;
+    }
 }

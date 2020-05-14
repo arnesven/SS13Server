@@ -30,7 +30,7 @@ public class UsingGameObjectFancyFrameDecorator extends CharacterDecorator {
         super.doAfterActions(gameData);
         System.out.println("Checking position for player using fancy frame");
         if (getPosition() != originalPos && getActor() instanceof Player) {
-            System.out.println("Position has changed, making console vacant");
+            System.out.println("Position has changed, making object vacant");
             fancyFrame.leaveFancyFrame(gameData, (Player)getActor());
             getActor().removeInstance((GameCharacter gc) -> gc == this);
         }
