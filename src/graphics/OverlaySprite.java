@@ -60,6 +60,8 @@ public class OverlaySprite {
                 delim + String.format("%1$.1f", x) +
                 delim + String.format("%1$.1f", y) +
                 delim + String.format("%1$.1f", z) +
+                delim + sprite.getWidth() +
+                delim + sprite.getHeight() +
                 delim + spriteObjName + delim + actiondata +
                 delim + this.frames +
                 delim + roomid +

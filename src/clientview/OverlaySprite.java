@@ -29,14 +29,19 @@ public class OverlaySprite extends MouseInteractable {
     private double x;
     private double y;
     private double z;
+    private int width;
+    private int height;
     private int frameShift = 0;
 
 
-    public OverlaySprite(String sprite, double x, double y, double z, String name, String actionData, int frames, int roomid, boolean looping) {
+    public OverlaySprite(String sprite, double x, double y, double z, int width, int height,
+                         String name, String actionData, int frames, int roomid, boolean looping) {
         this.sprite = sprite;
         this.x = x;
         this.y = y;
         this.z = z;
+        this.width = width;
+        this.height = height;
         this.name = name;
         this.actionData = actionData;
         this.frames = frames;
@@ -57,6 +62,8 @@ public class OverlaySprite extends MouseInteractable {
     //        return;
     //    }
         ImageIcon image = SpriteManager.getSprite(sprite);
+        int finalWidth = (int)(width * (MapPanel.getZoom() / 32.0));
+        int finalHeight = (int)(height * (MapPanel.getZoom() / 32.0));
         if (this.frames == 1) {
             g.drawImage(image.getImage(), finalX, finalY, null);
         } else {
@@ -70,11 +77,11 @@ public class OverlaySprite extends MouseInteractable {
                 }
             }
             if (frameNo < frames) {
-                g.drawImage(image.getImage(), finalX, finalY, finalX + MapPanel.getZoom(), finalY + MapPanel.getZoom(),
-                        frameNo * MapPanel.getZoom(), 0, (frameNo + 1) * MapPanel.getZoom(), MapPanel.getZoom(), null);
+                g.drawImage(image.getImage(), finalX, finalY, finalX + finalWidth, finalY + finalHeight,
+                        frameNo * finalWidth, 0, (frameNo + 1) * finalWidth, finalHeight, null);
             }
         }
-        setHitBox(finalX, finalY, currZ, MapPanel.getZoom(), MapPanel.getZoom());
+        setHitBox(finalX, finalY, currZ, finalWidth, finalHeight);
     }
 
 
@@ -155,7 +162,8 @@ public class OverlaySprite extends MouseInteractable {
     }
 
     public OverlaySprite copyYourself() {
-        return new OverlaySprite(this.sprite, this.x, this.y, this.z, this.name, this.actionData, this.frames, this.roomid, this.looping);
+        return new OverlaySprite(this.sprite, this.x, this.y, this.z, this.width, this.height,
+                this.name, this.actionData, this.frames, this.roomid, this.looping);
     }
 
     public int getZ() {

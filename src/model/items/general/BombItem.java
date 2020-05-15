@@ -14,6 +14,7 @@ import model.characters.general.GameCharacter;
 import model.characters.crew.*;
 import model.events.ambient.ElectricalFire;
 import model.events.ambient.HullBreach;
+import model.events.animation.ExplodingAnimation;
 import model.events.damage.ExplosiveDamage;
 import model.items.NoSuchThingException;
 import model.items.TraitorItem;
@@ -163,6 +164,7 @@ public class BombItem extends HidableItem implements ExplodableItem, TraitorItem
 						new ExplosiveDamage(getExplosiveDamage(), this), gameData);
 			}
 		}
+        bombRoom.addEvent(new ExplodingAnimation(gameData, bombRoom));
         exploded = true;
         possiblyAddHazards(gameData, bombRoom);
         explodeOtherBombsInRoom(gameData, performingClient, bombRoom);
