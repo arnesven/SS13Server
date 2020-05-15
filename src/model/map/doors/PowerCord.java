@@ -57,8 +57,11 @@ public abstract class PowerCord extends GameItem {
 
     public Action cut(Player player, GameData gameData) {
         if (getState() == 1) {
+            double healthBefore = player.getHealth();
             player.beExposedTo(null, new ElectricalDamage(0.5), gameData);
-            gameData.getChat().serverInSay(HTMLText.makeText("red", "You got a shock from a loose wire!"), player);
+            if (player.getHealth() < healthBefore) {
+                gameData.getChat().serverInSay(HTMLText.makeText("red", "You got a shock from a loose wire!"), player);
+            }
         }
         isCut = true;
         return specificCutAction(player, gameData);
