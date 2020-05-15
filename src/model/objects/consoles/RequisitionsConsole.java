@@ -54,10 +54,9 @@ public class RequisitionsConsole extends Console implements BankUser {
 		return shipments;
 	}
 
-	public void setMoney(int m) {
-        bank.setStationMoney(m);
-
-	}
+	//public void setMoney(int m) {
+    //    bank.setStationMoney(m);
+	//}
 	
 	public int getMoney() {
         return bank.getStationMoney();

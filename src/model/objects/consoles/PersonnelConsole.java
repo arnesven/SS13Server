@@ -117,7 +117,7 @@ public class PersonnelConsole extends Console implements BankUser {
 
 
     public void subtractFromBudget(int amount) {
-        bank.subtractFromStationMoney(amount);
+        bank.subtractFromStationMoney(amount, this);
     }
 
 

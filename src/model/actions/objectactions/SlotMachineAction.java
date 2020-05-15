@@ -56,20 +56,7 @@ public class SlotMachineAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        MoneyStack m = null;
-        try {
-            m = MoneyStack.getActorsMoney(performingClient);
-            m.subtractFrom(bettedAmount);
-        } catch (ItemStackDepletedException e) {
-            performingClient.getItems().remove(m);
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        if (fancyFrame == null) {
-            slots.play(performingClient, bettedAmount);
-        } else {
-            slots.play(performingClient, bettedAmount, fancyFrame);
-        }
+        slots.play(gameData, performingClient, bettedAmount, fancyFrame);
     }
 
     @Override

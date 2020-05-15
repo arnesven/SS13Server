@@ -30,7 +30,7 @@ public class SlotMachineFancyFrame extends FancyFrame {
         this.slots = slots;
         this.gameData = gameData;
         this.player = performingClient;
-        setSize(250, 350);
+        setSize(270, 360);
 
         buildContent(gameData, performingClient);
     }

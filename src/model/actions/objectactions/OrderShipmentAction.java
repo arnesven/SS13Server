@@ -74,7 +74,7 @@ public class OrderShipmentAction extends ConsoleAction {
                 targetRoom = MyRandom.sample(gameData.getNonHiddenStationRooms());
             }
             Shipment s = selectedShip.clone();
-            pc.setMoney(pc.getMoney() - s.getCost());
+            gameData.getGameMode().getBank().subtractFromStationMoney(s.getCost(), pc);
             pc.addHistory(performingClient, selectedShip);
             performingClient.addTolastTurnInfo("You ordered a shipment! It will arrive in the " + targetRoom.getName() + " in 2 turns. Station funds; " + pc.getMoney());
         	gameData.addEvent(new ShipmentArrivesEvent(gameData, targetRoom, s));

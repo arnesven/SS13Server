@@ -10,6 +10,7 @@ import model.actions.objectactions.WalkUpToElectricalMachineryAction;
 import model.fancyframe.FancyFrame;
 import model.fancyframe.SlotMachineFancyFrame;
 import model.items.NoSuchThingException;
+import model.items.general.ItemStackDepletedException;
 import model.items.general.MoneyStack;
 import model.map.rooms.BarRoom;
 import model.map.rooms.Room;
@@ -47,10 +48,6 @@ public class SlotMachine extends ElectricalMachinery {
 
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-        //Action slotAction = new SlotMachineAction(this);
-        //if (slotAction.getOptions(gameData, cl).numberOfSuboptions() > 0) {
-        //    at.add(slotAction);
-        //}
         if (cl instanceof Player) {
             at.add(new WalkUpToElectricalMachineryAction(gameData, cl, this) {
                 @Override
@@ -61,32 +58,28 @@ public class SlotMachine extends ElectricalMachinery {
         }
     }
 
-    public void play(Actor performingClient, int bettedAmount) {
-        performingClient.addTolastTurnInfo("You put in $$ " + bettedAmount + " and pulled the handle...");
-        List<String> result = generateResult();
-
-        StringBuffer buf = new StringBuffer("");
-        buf.append(result.get(0));
-        buf.append(result.get(1));
-        buf.append(result.get(2));
-        performingClient.addTolastTurnInfo(buf.toString());
-        int payOut = getPayout(result, bettedAmount, allIcons(), payouts);
-        if (payOut > 0) {
-            performingClient.addTolastTurnInfo("You win $$ " + payOut + "!");
-            try {
-                MoneyStack.getActorsMoney(performingClient).addTo(payOut);
-            } catch (NoSuchThingException e) {
-                performingClient.addItem(new MoneyStack(payOut), this);
-            }
+    public void play(GameData gameData, Actor performingClient, int bettedAmount, SlotMachineFancyFrame ff) {
+        MoneyStack m = null;
+        try {
+            m = MoneyStack.getActorsMoney(performingClient);
+            m.subtractFrom(bettedAmount);
+        } catch (ItemStackDepletedException e) {
+            performingClient.getItems().remove(m);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
         }
-    }
+        gameData.getGameMode().getBank().addToStationMoney(bettedAmount, this);
 
-    public void play(Actor performingClient, int bettedAmount, SlotMachineFancyFrame ff) {
+
         performingClient.addTolastTurnInfo("You played on the slot machine.");
         List<Sprite> result = generateFancyFrameResult();
 
 
         int payOut = getPayout(result, bettedAmount, symbolSet, payouts);
+        if (payOut > gameData.getGameMode().getBank().getStationMoney()) {
+            performingClient.addTolastTurnInfo("Station funds insufficient for maximum payout.");
+            payOut = gameData.getGameMode().getBank().getStationMoney();
+        }
         if (payOut > 0) {
             try {
                 MoneyStack.getActorsMoney(performingClient).addTo(payOut);
@@ -94,6 +87,7 @@ public class SlotMachine extends ElectricalMachinery {
                 performingClient.addItem(new MoneyStack(payOut), this);
             }
         }
+        gameData.getGameMode().getBank().subtractFromStationMoney(payOut, this);
         ff.setResult(result, payOut);
     }
 
@@ -160,7 +154,7 @@ public class SlotMachine extends ElectricalMachinery {
     private List<String> allIcons() {
         List<String> set = new ArrayList<>();
         String font = "courier";
-        int size = 2;
+        int size = 3;
         set.add(HTMLText.makeText("gray", font, size, "BAR"));
         set.add(HTMLText.makeText("red", font, size, "TOM"));
         set.add(HTMLText.makeText("red", font, size, "_FX"));

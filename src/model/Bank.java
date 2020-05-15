@@ -9,9 +9,12 @@ import model.modes.GameMode;
 import model.objects.general.BankUser;
 import model.objects.general.GameObject;
 import util.Logger;
+import util.Pair;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +26,7 @@ public class Bank implements Serializable {
     private static Bank instance = null;
     private Map<Actor, MoneyStack> accounts = new HashMap<>();
     private int stationMoney;
+    private List<Pair<Integer, Target>> stationMoneyHistory;
 
     public Bank(GameData gameData) {
         Logger.log("New bank instance creater, number of actors " + gameData.getActors().size());
@@ -35,6 +39,7 @@ public class Bank implements Serializable {
             }
         }
         stationMoney = 14000;
+        stationMoneyHistory = new ArrayList<>();
         gameData.addEvent(new PayWagesEvent());
         for (Room r : gameData.getNonHiddenStationRooms()) {
             for (GameObject obj : r.getObjects()) {
@@ -53,7 +58,7 @@ public class Bank implements Serializable {
         return accounts;
     }
 
-    public void setStationMoney(int stationMoney) {
+    private void setStationMoney(int stationMoney) {
         this.stationMoney = stationMoney;
     }
 
@@ -61,12 +66,14 @@ public class Bank implements Serializable {
         return stationMoney;
     }
 
-    public void subtractFromStationMoney(int amount) {
+    public void subtractFromStationMoney(int amount, Target subtractor) {
         stationMoney -= amount;
+        stationMoneyHistory.add(new Pair(-amount, subtractor));
     }
 
-    public void addToStationMoney(int cost) {
+    public void addToStationMoney(int cost, Target adder) {
         stationMoney += cost;
+        stationMoneyHistory.add(new Pair(cost, adder));
     }
 
     public void addToAccount(Actor a, int wage) {
