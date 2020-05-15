@@ -26,7 +26,7 @@ public class DoorMechanism extends ElectricalMachinery {
     private final List<PowerCord> listOfCords;
     private ElectricalDoor electricalDoor;
     private boolean ffVacant;
-    private static Map<String, Color> colorMap = MyRandom.makeRandomPowerCordColorMap();
+    private static Map<String, Color> colorMap = PowerCord.makeRandomPowerCordColorMap();
 
     private PowerCord linePower = new PowerLinePowerCord(colorMap.get("power"), 1);
     private PowerCord lineBackupPower = new PowerLinePowerCord(colorMap.get("backup"), 1);
@@ -58,7 +58,7 @@ public class DoorMechanism extends ElectricalMachinery {
     }
 
     public static void randomizeDoorWireColors() {
-        colorMap = MyRandom.makeRandomPowerCordColorMap();
+        colorMap = PowerCord.makeRandomPowerCordColorMap();
     }
 
     public boolean isFancyFrameVacant() { return ffVacant; }

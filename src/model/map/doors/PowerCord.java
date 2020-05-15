@@ -9,10 +9,13 @@ import model.events.damage.ElectricalDamage;
 import model.items.general.GameItem;
 import util.HTMLText;
 import util.Logger;
+import util.MyRandom;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class PowerCord extends GameItem {
     private final Color color;
@@ -144,4 +147,34 @@ public abstract class PowerCord extends GameItem {
     }
 
 
+    public String getStateAsChar() {
+        return (getState()==-1?"U":getState()+"");
+    }
+
+
+
+    public static Map<String, Color> makeRandomPowerCordColorMap() {
+        List<Color> colors = new ArrayList<>();
+        colors.addAll(getPowerCordColors().keySet());
+        Map<String, Color> map = new HashMap<>();
+        for (String s : new String[]{"power", "backup", "ground", "open", "lock", "fire"}) {
+            map.put(s, colors.remove(MyRandom.nextInt(colors.size())));
+        }
+        return map;
+    }
+
+    public static Color randomPowerCordColor() {
+        return MyRandom.sample(getPowerCordColors().keySet());
+
+    }
+
+    public static String getNameForPowerCordColor(Color color) {
+        return getPowerCordColors().get(color);
+    }
+
+    public static Map<Color, String> getPowerCordColors() {
+        return Map.of(Color.RED, "RED", Color.GREEN, "GREEN", Color.LIGHT_GRAY, "GRAY",
+                Color.MAGENTA, "PURPLE", Color.CYAN, "CYAN", Color.BLUE, "BLUE", Color.WHITE, "WHITE",
+                Color.YELLOW, "YELLOW", Color.PINK, "PINK", Color.DARK_GRAY, "BLACK");
+    }
 }

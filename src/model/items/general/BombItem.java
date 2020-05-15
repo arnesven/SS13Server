@@ -1,16 +1,15 @@
 package model.items.general;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import graphics.sprites.Sprite;
-import model.Actor;
-import model.GameData;
-import model.Player;
-import model.Target;
-import model.Hazard;
+import model.*;
 import model.actions.general.Action;
 import model.actions.itemactions.AttachToWallAction;
+import model.actions.itemactions.DefuseBombAction;
+import model.actions.itemactions.ShowDefuseFancyFrame;
 import model.characters.general.GameCharacter;
 import model.characters.crew.*;
 import model.events.ambient.ElectricalFire;
@@ -22,6 +21,7 @@ import model.items.foods.ExplodingFood;
 import model.map.Architecture;
 import model.map.SpacePosition;
 import model.map.doors.HoleInTheWallDoor;
+import model.map.doors.PowerCord;
 import model.map.rooms.Room;
 import model.events.SpontaneousExplosionEvent;
 import model.map.rooms.SpaceRoom;
@@ -39,14 +39,18 @@ public class BombItem extends HidableItem implements ExplodableItem, TraitorItem
     private boolean exploded;
     private static int maxChain = 0;
     private Room attatchedToRoomWall;
+    private BombDefusing bombDefusing;
+    private boolean defused;
 
     public BombItem(String string, int cost) {
 		super(string, 2.0, cost);
         this.name = string;
         exploded = false;
-	}
+        bombDefusing = new BombDefusing(this);
+ 	}
 
-	public static String getOperationString() {
+
+    public static String getOperationString() {
 		return "fiddled with bomb";
 	}
 
@@ -69,13 +73,18 @@ public class BombItem extends HidableItem implements ExplodableItem, TraitorItem
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
-
-
         Action attachAction = new AttachToWallAction(gameData, cl, this);
         if (attachAction.getOptions(gameData, cl).numberOfSuboptions() > 0) {
             at.add(attachAction);
         }
+    }
 
+    @Override
+    protected void addSpecificOverlayActions(GameData gameData, Room r, Player forWhom, List<Action> list) {
+        super.addSpecificOverlayActions(gameData, r, forWhom, list);
+        if (GameItem.hasAnItemOfClass(forWhom, Tools.class)) {
+            list.add(new ShowDefuseFancyFrame(gameData, forWhom, this));
+        }
     }
 
     @Override
@@ -354,6 +363,7 @@ public class BombItem extends HidableItem implements ExplodableItem, TraitorItem
     public void defuse(GameData gameData) {
         exploded = true;
         gameData.getGameMode().addToDefusedBombs(1);
+        defused = true;
     }
 
     public void setAttached(Room attached) {
@@ -368,5 +378,24 @@ public class BombItem extends HidableItem implements ExplodableItem, TraitorItem
     @Override
     public int getTelecrystalCost() {
         return 5;
+    }
+
+
+
+
+    public List<PowerCord> getPowerCords() {
+        return bombDefusing.getCords();
+    }
+
+    public String getDefuseTip() {
+        return bombDefusing.getTip();
+    }
+
+    public BombDefusing getDefusal() {
+        return bombDefusing;
+    }
+
+    public boolean isDefused() {
+        return defused;
     }
 }

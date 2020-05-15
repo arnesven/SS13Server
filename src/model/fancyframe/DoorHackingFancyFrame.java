@@ -74,7 +74,7 @@ public class DoorHackingFancyFrame extends FancyFrame {
         if (pc.isCut()) {
             result = "<td>U</td>";
         } else if (GameItem.hasAnItemOfClass(player, Multimeter.class)) {
-            result = "<td>" + (pc.getState()==-1?"U":pc.getState()+"") + "</td>";
+            result = "<td>" + pc.getStateAsChar() + "</td>";
         } else  {
             result = "<td>?</td>";
         }

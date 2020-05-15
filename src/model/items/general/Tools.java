@@ -48,7 +48,7 @@ public class Tools extends BluntWeapon {
 			at.add(new SealHullBreachAction());
 		}
         if (positionHasBomb(cl.getPosition())) {
-            at.add(new DefuseBombAction());
+         //   at.add(new DefuseBombAction()); // Done via bomb overlay now...
         }
         Action dismantle = new DismantleAction(cl);
         if (dismantle.getOptions(gameData, cl).numberOfSuboptions() > 0) {

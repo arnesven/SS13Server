@@ -517,7 +517,7 @@ public class GameData implements Serializable {
 
 	private void allResetActionStrings() {
 		for (Player cl : players.values()) {
-			cl.setNextAction(new DoNothingAction());
+			cl.resetAction();
 		}
 	}
 

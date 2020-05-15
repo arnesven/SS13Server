@@ -3,6 +3,7 @@ package model.map.rooms;
 import model.GameData;
 import model.items.general.MoneyStack;
 import model.items.general.NuclearDisc;
+import model.items.general.TimeBomb;
 import model.map.doors.Door;
 import model.map.floors.CaptainsQuartersFloorSet;
 import model.map.floors.FloorSet;
@@ -27,6 +28,7 @@ public class CaptainsQuartersRoom extends CommandRoom {
         addObject(new ComfyChair(this));
         addObject(new NiceBed(this));
         //this.setEffect(new Sprite("someeffect", "alert.png", 3, 2, null));
+        addItem(new TimeBomb());
     }
 
     @Override

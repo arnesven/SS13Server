@@ -6,6 +6,7 @@ import java.util.*;
 import graphics.ClientInfo;
 import graphics.OverlaySprite;
 import graphics.sprites.*;
+import model.actions.general.DoNothingAction;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import model.fancyframe.FancyFrame;
@@ -14,6 +15,7 @@ import model.items.suits.SuitItem;
 import model.map.rooms.DecorativeRoom;
 import model.map.rooms.SpaceRoom;
 import model.movepowers.MovePowerRoom;
+import model.npcs.behaviors.DoNothingBehavior;
 import sounds.Sound;
 import sounds.SoundQueue;
 import model.actions.general.Action;
@@ -753,5 +755,9 @@ public class Player extends Actor implements Target, Serializable {
 
 	public CharacterCreation getCharacterCreation() {
 		return charCreation;
+	}
+
+	public void resetAction() {
+		this.nextAction = new DoNothingAction();
 	}
 }

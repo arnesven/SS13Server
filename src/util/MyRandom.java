@@ -275,15 +275,4 @@ public class MyRandom {
         return sample(trashItems);
     }
 
-    public static Map<String, Color> makeRandomPowerCordColorMap() {
-	    List<Color> colors = new ArrayList<>();
-	    colors.addAll(List.of(Color.RED, Color.GREEN, Color.LIGHT_GRAY, Color.MAGENTA, Color.ORANGE,
-                Color.CYAN, Color.BLUE, Color.WHITE, Color.YELLOW, Color.PINK, Color.DARK_GRAY));
-	    Map<String, Color> map = new HashMap<>();
-	    for (String s : new String[]{"power", "backup", "ground", "open", "lock", "fire"}) {
-            map.put(s, colors.remove(nextInt(colors.size())));
-        }
-        return map;
-    }
-
 }

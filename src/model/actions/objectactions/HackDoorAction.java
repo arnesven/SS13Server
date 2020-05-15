@@ -18,4 +18,8 @@ public abstract class HackDoorAction extends Action {
         return "hacked a door";
     }
 
+    @Override
+    public boolean doesCommitThePlayer() {
+        return true;
+    }
 }
