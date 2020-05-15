@@ -1,6 +1,5 @@
 package model.items.general;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,13 +7,12 @@ import graphics.sprites.Sprite;
 import model.*;
 import model.actions.general.Action;
 import model.actions.itemactions.AttachToWallAction;
-import model.actions.itemactions.DefuseBombAction;
 import model.actions.itemactions.ShowDefuseFancyFrame;
 import model.characters.general.GameCharacter;
 import model.characters.crew.*;
 import model.events.ambient.ElectricalFire;
 import model.events.ambient.HullBreach;
-import model.events.animation.ExplodingAnimation;
+import model.events.animation.BigExplosionAnimation;
 import model.events.damage.ExplosiveDamage;
 import model.items.NoSuchThingException;
 import model.items.TraitorItem;
@@ -25,7 +23,6 @@ import model.map.doors.HoleInTheWallDoor;
 import model.map.doors.PowerCord;
 import model.map.rooms.Room;
 import model.events.SpontaneousExplosionEvent;
-import model.map.rooms.SpaceRoom;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 import util.Logger;
@@ -164,7 +161,7 @@ public class BombItem extends HidableItem implements ExplodableItem, TraitorItem
 						new ExplosiveDamage(getExplosiveDamage(), this), gameData);
 			}
 		}
-        bombRoom.addEvent(new ExplodingAnimation(gameData, bombRoom));
+        bombRoom.addEvent(new BigExplosionAnimation(gameData, bombRoom));
         exploded = true;
         possiblyAddHazards(gameData, bombRoom);
         explodeOtherBombsInRoom(gameData, performingClient, bombRoom);
