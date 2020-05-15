@@ -31,7 +31,7 @@ public class QMKeyCard extends KeyCard {
     }
 
     @Override
-    public String getDescription(GameData gameData, Player performingClient) {
+    public String getExtendedDescription() {
         return "A key card which grants access to pretty much anywhere on the station, except for locked Command rooms.";
     }
 }

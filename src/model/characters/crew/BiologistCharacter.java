@@ -24,9 +24,9 @@ public class BiologistCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
+		list.add(new ScienceKeyCard());
 		list.add(new TomatoSeeds());
 		list.add(new MotionTracker());
-		list.add(new ScienceKeyCard());
 		return list;
 	}
 

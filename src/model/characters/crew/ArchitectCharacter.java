@@ -20,12 +20,12 @@ public class ArchitectCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
+		list.add(new EngineeringKeyCard());
 		list.add(new Tools());
         list.add(new RoomPartsStack(3));
         list.add(new DoorPartsStack(3));
         list.add(new PowerSuit());
-        list.add(new EngineeringKeyCard());
-		return list;
+   		return list;
 	}
 
 	@Override

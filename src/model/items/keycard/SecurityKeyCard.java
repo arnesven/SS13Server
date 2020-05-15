@@ -32,7 +32,9 @@ public class SecurityKeyCard extends KeyCard {
     }
 
     @Override
-    public String getDescription(GameData gameData, Player performingClient) {
+    public String getExtendedDescription() {
         return "Can lock and unlock security (red) doors.";
     }
+
+
 }

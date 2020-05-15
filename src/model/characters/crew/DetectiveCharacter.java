@@ -24,11 +24,11 @@ public class DetectiveCharacter extends CrewCharacter {
 	@Override
 	public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
+		list.add(new SecurityKeyCard());
 		list.add(new Revolver());
 		list.add(new SunGlasses());
         list.add(new ZippoLighter());
-        list.add(new SecurityKeyCard());
-		return list;
+     	return list;
 	}
 	
 	@Override

@@ -9,6 +9,7 @@ import model.items.foods.Vodka;
 import model.items.foods.Wine;
 import model.items.general.GameItem;
 import model.items.general.ZippoLighter;
+import model.items.keycard.SupportIdentCard;
 import model.items.weapons.Shotgun;
 
 public class BartenderCharacter extends CrewCharacter {
@@ -20,6 +21,7 @@ public class BartenderCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
+		list.add(new SupportIdentCard());
 		list.add(new Shotgun());
         list.add(new Beer());
         list.add(new Beer());

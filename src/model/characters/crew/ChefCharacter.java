@@ -6,6 +6,7 @@ import java.util.List;
 import model.Target;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
+import model.items.keycard.SupportIdentCard;
 import model.items.suits.ChefsHat;
 import model.items.weapons.Knife;
 import model.objects.general.CookOMatic;
@@ -19,6 +20,7 @@ public class ChefCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
+		list.add(new SupportIdentCard());
 		list.add(new Knife());
 		list.add(new ChefsHat());
 		return list;

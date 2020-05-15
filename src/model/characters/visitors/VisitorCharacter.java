@@ -6,6 +6,8 @@ import model.characters.crew.JobDescriptionMaker;
 import model.characters.crew.TouristCharacter;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
+import model.items.general.MoneyStack;
+import model.items.keycard.VisitorsBadge;
 import model.map.rooms.ArmoryRoom;
 import model.map.rooms.NukieShipRoom;
 import model.map.rooms.Room;
@@ -34,6 +36,14 @@ public abstract class VisitorCharacter extends CrewCharacter {
         return new ArrayList<>();
     }
 
+    @Override
+    public List<GameItem> getStartingItems() {
+        List<GameItem> items = new ArrayList<>();
+        items.add(new VisitorsBadge());
+        items.add(new MoneyStack(getStartingMoney()));
+        items.addAll(getCrewSpecificItems());
+        return items;
+    }
 
     @Override
     public Room getStartingRoom(GameData gameData) {

@@ -22,12 +22,12 @@ public class EngineerCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
+		list.add(new EngineeringKeyCard());
 		list.add(new FireSuit());
 		list.add(new Tools());
 		list.add(new PowerRadio());
         list.add(new ElectronicParts());
         list.add(new InsulatedGloves());
-        list.add(new EngineeringKeyCard());
         return list;
 	}
 

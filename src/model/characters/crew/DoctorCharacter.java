@@ -24,11 +24,11 @@ public class DoctorCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
+		list.add(new ScienceKeyCard());
 		list.add(new MedKit());
 		list.add(new Scalpel());
         list.add(new Defibrilator());
-        list.add(new ScienceKeyCard());
-		return list;
+    	return list;
 	}
 
 	@Override

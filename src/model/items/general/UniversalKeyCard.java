@@ -28,7 +28,7 @@ public class UniversalKeyCard extends KeyCard {
 	}
 
 	@Override
-	public String getDescription(GameData gameData, Player performingClient) {
+	public String getExtendedDescription() {
 		return "Unlocks or locks any door on the station. Also needed to approve venting of station (in case of severe fires).";
 	}
 }

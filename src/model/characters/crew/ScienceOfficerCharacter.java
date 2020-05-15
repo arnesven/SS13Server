@@ -23,12 +23,12 @@ public class ScienceOfficerCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
-		list.add(new EtherChemicals());
+        list.add(new ScienceKeyCard());
+        list.add(new EtherChemicals());
 		list.add(new Multimeter());
         list.add(new Teleporter());
         list.add(new Laptop());
-        list.add(new ScienceKeyCard());
-		return list;
+      	return list;
 	}
 
     @Override

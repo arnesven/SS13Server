@@ -30,7 +30,7 @@ public class EngineeringKeyCard extends KeyCard {
     }
 
     @Override
-    public String getDescription(GameData gameData, Player performingClient) {
+    public String getExtendedDescription() {
         return "Locks or unlocks engineering doors (yellow) on the station.";
     }
 }

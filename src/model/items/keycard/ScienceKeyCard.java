@@ -30,7 +30,7 @@ public class ScienceKeyCard extends KeyCard {
     }
 
     @Override
-    public String getDescription(GameData gameData, Player performingClient) {
+    public String getExtendedDescription() {
         return "Locks or unlocks science doors (green) on the station";
     }
 }

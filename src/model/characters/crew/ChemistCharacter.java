@@ -5,6 +5,7 @@ import model.items.general.Chemicals;
 import model.items.general.GameItem;
 import model.items.general.ZippoLighter;
 import model.items.keycard.ScienceKeyCard;
+import model.items.suits.InsulatedGloves;
 import model.items.suits.OxygenMask;
 
 import java.util.ArrayList;
@@ -21,13 +22,13 @@ public class ChemistCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
         List<GameItem> list = new ArrayList<>();
-        list.add(Chemicals.createRandomChemicals());
-        list.add(Chemicals.createRandomChemicals());
-        list.add(Chemicals.createRandomChemicals());
-        list.add(Chemicals.createRandomChemicals());
-        list.add(new OxygenMask());
-        list.add(new ZippoLighter());
         list.add(new ScienceKeyCard());
+        list.add(new OxygenMask());
+        list.add(new InsulatedGloves());
+        list.add(Chemicals.createRandomChemicals());
+        list.add(Chemicals.createRandomChemicals());
+        list.add(Chemicals.createRandomChemicals());
+        list.add(Chemicals.createRandomChemicals());
 
         return list;
     }

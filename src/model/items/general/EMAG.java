@@ -219,7 +219,7 @@ public class EMAG extends UniversalKeyCard implements TraitorItem {
     }
 
     @Override
-    public String getDescription(GameData gameData, Player performingClient) {
+    public String getExtendedDescription() {
         return "A curious device that seems to fubar things up in the most peculiar ways. Also works well as a key card to Nanotrasen doors.";
     }
 }
