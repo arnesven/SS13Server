@@ -66,7 +66,7 @@ public class ATMFancyFrame extends FancyFrame {
                 if (atm.hasAnAccount(atm.getInsertedCard().getBelongsTo())) {
                     makeInnerBox(content, "Account \"" + atm.getInsertedCard().getBelongsTo().getBaseName() + "\"",
                             "Balance: $$ " + atm.getBalanceForInsertedCardPerson(), "What do you wish to do?", "Withdraw" +
-                                    HTMLText.makeText("black", " . . . . . . . ") + "Deposit", List.of(7, 8));
+                                    HTMLText.makeText("black", ". . . . . . ") + "Deposit", List.of(7, 8));
                 } else {
                     makeInnerBox(content, "",
                             "No Account Found", "", new ArrayList<>());
@@ -89,13 +89,13 @@ public class ATMFancyFrame extends FancyFrame {
 
     private void withdrawDepositScreen(StringBuilder content, int maxValue, String text) {
         withdrawValues = new int[]{maxValue / 10, maxValue / 5, 0, 0, 0, 0, maxValue / 2, maxValue};
-        String upper = String.format("%d%30d", maxValue / 10, maxValue / 5).replace("  ", HTMLText.makeText("black", " ."));
-        String lower = String.format("%d%30d", maxValue / 2, maxValue).replace("  ", HTMLText.makeText("black", " ."));
+        String upper = String.format("%d%24d", maxValue / 10, maxValue / 5).replace("  ", HTMLText.makeText("black", " ."));
+        String lower = String.format("%d%24d", maxValue / 2, maxValue).replace("  ", HTMLText.makeText("black", " ."));
         makeInnerBox(content, upper, text, "how much?", lower, List.of(1, 2, 7, 8));
     }
 
     private String whiteCourierCentered(String text) {
-        return HTMLText.makeCentered(HTMLText.makeText("white", "courier", 2, text));
+        return HTMLText.makeCentered(HTMLText.makeText("white", "courier", 3, text));
     }
 
     private void makeInnerBox(StringBuilder content, String string1, String string2, String string3, String string4, List<Integer> bs) {
