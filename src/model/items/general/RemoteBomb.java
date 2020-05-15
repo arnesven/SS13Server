@@ -59,6 +59,7 @@ public class RemoteBomb extends BombItem {
 
 	@Override
 	public String getDescription(GameData gameData, Player performingClient) {
-		return super.getDescription(gameData, performingClient) + " This kind can be detonated remotely, just don't forget to separate the detonator from the bomb first.";
+		return super.getDescription(gameData, performingClient) +
+				(isDemolitionsExpert(performingClient)?" This kind can be detonated remotely, just don't forget to separate the detonator from the bomb first.":"");
 	}
 }

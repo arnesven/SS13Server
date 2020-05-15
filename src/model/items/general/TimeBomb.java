@@ -114,6 +114,7 @@ public class TimeBomb extends BombItem {
 
 	@Override
 	public String getDescription(GameData gameData, Player performingClient) {
-		return super.getDescription(gameData, performingClient) + " This kind can be set to detonate after a certain number of rounds.";
+		return super.getDescription(gameData, performingClient) +
+				(isDemolitionsExpert(performingClient)?" This kind can be set to detonate after a certain number of rounds.":"");
 	}
 }

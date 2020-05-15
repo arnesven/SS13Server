@@ -16,6 +16,7 @@ public class BombDefusing implements Serializable {
     private final String defuseButton;
     private boolean correctButtonPressed;
     private boolean beingDefused;
+    private String tip;
 
     public BombDefusing(BombItem bombItem) {
         setupCords();
@@ -24,9 +25,10 @@ public class BombDefusing implements Serializable {
         correctButtonPressed = false;
         beingDefused = false;
         this.name = "Simon";
-        if (MyRandom.nextDouble() < 0.67) {
+        if (MyRandom.nextDouble() < 0.17) {
             name = MyRandom.getRandomName();
         }
+        tip = makeDefuseTip();
     }
 
     private void setupCords() {
@@ -45,7 +47,8 @@ public class BombDefusing implements Serializable {
         }
     }
 
-    public String getTip() {
+
+    private String makeDefuseTip() {
         StringBuilder tip = new StringBuilder("\"" + name + "\":<i> To defuse, cut ");
         if (cords.get(0).getState() == 1 && cords.get(1).getState() == 1 && cords.get(2).getState() == 1) {
             if (name.equals("Simon")) {
@@ -85,6 +88,11 @@ public class BombDefusing implements Serializable {
 
         tip.append("then push the " + button.toLowerCase() + " button.</i>");
         return tip.toString();
+    }
+
+
+    public String getTip() {
+        return tip;
     }
 
     public List<PowerCord> getCords() {

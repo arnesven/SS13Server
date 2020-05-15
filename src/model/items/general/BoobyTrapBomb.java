@@ -44,6 +44,7 @@ public class BoobyTrapBomb extends BombItem {
 
 	@Override
 	public String getDescription(GameData gameData, Player performingClient) {
-		return super.getDescription(gameData, performingClient) + " this kind can be rigged to electrical machinery so that it will detonate when somebody uses that machine.";
+		return super.getDescription(gameData, performingClient) +
+				(isDemolitionsExpert(performingClient)?" this kind can be rigged to electrical machinery so that it will detonate when somebody uses that machine.":"");
 	}
 }

@@ -93,11 +93,12 @@ public class BombItem extends HidableItem implements ExplodableItem, TraitorItem
 		return "Bomb";
 	}
 
-	private boolean isDemolitionsExpert(Actor whosAsking) {
-		if (whosAsking != null) { 
-			GameCharacter chara = whosAsking.getCharacter();
-			return chara instanceof DetectiveCharacter ||
-					chara instanceof ArchitectCharacter;
+	protected boolean isDemolitionsExpert(Actor whosAsking) {
+		if (whosAsking != null) {
+		    if (whosAsking.getItems().contains(this)) {
+		        return true;
+            }
+		    return whosAsking.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof DetectiveCharacter);
 		}
 		return false;
 	}
