@@ -1,5 +1,6 @@
 package model.map.rooms;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -57,4 +58,17 @@ public abstract class ExoticPlanet extends PlanetRoom {
         }
     }
 
+    public Sprite getOrbitSprite() {
+        return new Sprite("orbitplanet-" + getOrbitSpriteCol() + "-" + getOrbitSpriteRow(),
+                "planets.png", getOrbitSpriteCol(), getOrbitSpriteRow(), getOrbitSpriteSize(),
+                getOrbitSpriteSize(), null);
+    }
+
+    protected int getOrbitSpriteSize() {
+        return 96;
+    }
+
+    protected abstract int getOrbitSpriteRow();
+
+    protected abstract int getOrbitSpriteCol();
 }

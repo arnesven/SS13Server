@@ -49,8 +49,9 @@ public class OtherPlacesBuilder extends MapBuilder {
         Room spectatorBench = new SpectatorRoom(gameData);
         gm.addRoom(spectatorBench, "ss13", "hidden");
 
-        Room exoticPlanet = buildExoticPlanet(gameData, 42);
-        gm.createLevel("exotic planet", "Planet");
+        ExoticPlanet exoticPlanet = buildExoticPlanet(gameData, 42);
+        gm.createLevel("exotic planet", "Orbit-" + exoticPlanet.getOrbitSprite().getColumn() + "-" +
+                exoticPlanet.getOrbitSprite().getRow() + "-" + exoticPlanet.getOrbitSprite().getWidth());
         gm.addRoom(exoticPlanet, "exotic planet", "exotic planet");
 
         buildAsteroidField(gameData, gm);

@@ -9,6 +9,20 @@ public class BackgroundSprites {
 
     private List<Sprite> space = generateSpaceSprites();
     private List<Sprite> planet = generatePlanetSprites();
+    private List<Sprite> orbit = generateOrbitSprites();
+
+    private List<Sprite> generateOrbitSprites() {
+        // THIS METHOD ONLY USED FOR TESTING IN CLIENT
+        // EXOTIC PLANETS DEFINE THEIR OWN PLANET BACKGROUNDS.
+        List<Sprite> lst = new ArrayList<>();
+        for (int row = 0; row < 1; row++) {
+            for (int col = 0; col < 1; col++) {
+                lst.add(new Sprite("orbitplanet-" + col + "-" + row + "-" + 96, "planets.png", col, row, 96, 96, null));
+            }
+        }
+
+        return lst;
+    }
 
     private List<Sprite> generatePlanetSprites() {
         List<Sprite> lst = new ArrayList<>();

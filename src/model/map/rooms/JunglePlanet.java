@@ -43,4 +43,14 @@ public class JunglePlanet extends ExoticPlanet {
         }
     }
 
+    @Override
+    protected int getOrbitSpriteRow() {
+        return 0;
+    }
+
+    @Override
+    protected int getOrbitSpriteCol() {
+        return 1;
+    }
+
 }

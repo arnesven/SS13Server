@@ -25,4 +25,19 @@ public class DesertPlanet extends ExoticPlanet {
             }
         }
     }
+
+    @Override
+    protected int getOrbitSpriteSize() {
+        return 192;
+    }
+
+    @Override
+    protected int getOrbitSpriteRow() {
+        return 1;
+    }
+
+    @Override
+    protected int getOrbitSpriteCol() {
+        return 0;
+    }
 }

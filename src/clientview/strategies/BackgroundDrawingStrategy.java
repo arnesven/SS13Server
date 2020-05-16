@@ -11,7 +11,7 @@ public abstract class BackgroundDrawingStrategy {
     }
 
     public static String[] getAllTypesAsStrings() {
-        return new String[]{"Black", "Planet", "Space"};
+        return new String[]{"Black", "Planet", "Space", "Orbit-0-0"};
     }
 
     public static BackgroundDrawingStrategy makeStrategy(String type) {
@@ -19,6 +19,8 @@ public abstract class BackgroundDrawingStrategy {
             return new BlackBackgroundStrategy();
         } else if (type.toLowerCase().equals("planet")) {
             return new PlanetBackgroundStrategy();
+        } else if (type.toLowerCase().contains("orbit")) {
+            return new OrbitBackgroundStrategy(type.toLowerCase().replace("orbit", ""));
         }
         return new DrawSpaceBackgroundStrategy();
     }

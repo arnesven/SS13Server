@@ -26,6 +26,17 @@ public class IcePlanet extends ExoticPlanet {
         }
     }
 
+
+    @Override
+    protected int getOrbitSpriteRow() {
+        return 0;
+    }
+
+    @Override
+    protected int getOrbitSpriteCol() {
+        return 0;
+    }
+
     @Override
     public String getDescription() {
         return "This planet is cold! The wind is howling and cutting through you like knives.";
