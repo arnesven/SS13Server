@@ -37,7 +37,7 @@ public class SpriteManager {
            //     Logger.log(" found!");
                 return encode64(sprite);
             }
-            //Logger.log(Logger.CRITICAL, "Resource not found! " + rest);
+            Logger.log(Logger.CRITICAL, "Resource not found! " + rest);
 
 
         return "ERROR";
