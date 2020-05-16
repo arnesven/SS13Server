@@ -31,7 +31,7 @@ public class FTLControl extends Console {
             at.add(new SpinUpFTLAction(this));
         }
         if (cl instanceof Player) {
-            at.add(new SitDownAtFTLControl(gameData, this));
+            //at.add(new SitDownAtFTLControl(gameData, this));
         }
     }
 

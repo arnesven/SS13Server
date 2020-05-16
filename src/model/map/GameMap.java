@@ -8,6 +8,7 @@ import model.items.NoSuchThingException;
 import model.events.NoPressureEverEvent;
 import model.map.doors.Door;
 import model.map.doors.DoorMechanism;
+import model.map.levels.EmptySpaceLevel;
 import model.map.rooms.EscapeShuttle;
 import model.map.rooms.Room;
 import model.map.rooms.SpaceRoom;
@@ -35,7 +36,7 @@ public class GameMap implements Serializable {
     private final int sunAngle;
     //private List<Room> roomsList;
     private Map<String, MapLevel> levels = new TreeMap<>();
-    private String[][][] levelMatrix = new String[3][3][3];
+    private MapLevel[][][] levelMatrix = new MapLevel[3][3][3];
     private int levelCount = 0;
     public static final int MATRIX_DIM_MAX = 3;
     private static final int MAX_LEVELS = MATRIX_DIM_MAX * MATRIX_DIM_MAX * MATRIX_DIM_MAX;
@@ -80,19 +81,23 @@ public class GameMap implements Serializable {
 	}
 
 
-    private void createLevel(String level, String bgType, Integer x, Integer y, Integer z) {
+    private MapLevel createLevel(MapLevel levelObj, Integer x, Integer y, Integer z, boolean withLogging) {
         if (levelCount == MAX_LEVELS) {
             throw new MapOverflowException("Too many levels (max " + MAX_LEVELS + ")");
         }
-        levels.put(level, new MapLevel(level, bgType, this));
+        levelObj.setMapRef(this);
+        levels.put(levelObj.getName(), levelObj);
         levelCount++;
 
-        levelMatrix[x][y][z] = level;
+        levelMatrix[x][y][z] = levelObj;
 
-        Logger.log("Level " + level + " created on coordinates " + x + " " + y + " " + z + " ");
+        if (withLogging) {
+            Logger.log("Level " + levelObj.getName() + " created on coordinates " + x + " " + y + " " + z + " ");
+        }
+        return levelObj;
     }
 
-    public void createLevel(String level, String bgType) {
+    public void createLevel(MapLevel level) {
         int x, y, z;
         do {
             x = MyRandom.nextInt(3);
@@ -102,12 +107,12 @@ public class GameMap implements Serializable {
                 break;
             }
         } while (true);
-        createLevel(level, bgType, x, y, z);
+        createLevel(level, x, y, z, true);
 
     }
 
     private void createLevel(String firstLevelName) {
-        createLevel(firstLevelName, "Space");
+        createLevel(new EmptySpaceLevel(firstLevelName, "Space"));
     }
 
 
@@ -436,13 +441,13 @@ public class GameMap implements Serializable {
                 }
             }
 
-            String level = levelMatrix[current[0]][current[1]][current[2]];
+            MapLevel level = levelMatrix[current[0]][current[1]][current[2]];
             if (level == null) {
                 level = createEmptyLevel(current, gameData);
             }
             Logger.log("Tumbling player to " + level);
             Set<Room> set = new HashSet<>();
-            set.addAll(getRoomsForLevel(level));
+            set.addAll(getRoomsForLevel(level.getName()));
             set.removeIf((Room r) -> r.isHidden());
             Room r = MyRandom.sample(set);
             performingClient.moveIntoRoom(r);
@@ -454,18 +459,18 @@ public class GameMap implements Serializable {
 
     }
 
-    private String createEmptyLevel(Integer[] current, GameData gameData) {
-        String level = "emptylevel" + current[0] + "-" + current[1] + "-" + current[2];
-        createLevel(level, "Space", current[0], current[1], current[2]);
+    private MapLevel createEmptyLevel(Integer[] current, GameData gameData) {
+        String levelName = "emptylevel" + current[0] + "-" + current[1] + "-" + current[2];
+        MapLevel levelObj = createLevel(new EmptySpaceLevel(levelName, "Space"), current[0], current[1], current[2], false);
         Room r = new SpaceRoom(getMaxID()+1, 0, 0, 0,0);
-        this.addRoom(r, level, "space");
+        this.addRoom(r, levelName, "space");
         Event noPress = new NoPressureEverEvent(r);
         r.addEvent(noPress);
         Event cold = new ColdEvent(r);
         r.addEvent(cold);
         gameData.addEvent(cold);
         gameData.addEvent(noPress);
-        return level;
+        return levelObj;
     }
 
 
@@ -474,7 +479,7 @@ public class GameMap implements Serializable {
             for (int y = 0; y < levelMatrix[0].length; y++) {
                 for (int z = 0; z < levelMatrix[0][0].length; z++) {
                     if (levelMatrix[x][y][z] != null) {
-                        if (levelMatrix[x][y][z].equals(levelForRoom)) {
+                        if (levelMatrix[x][y][z].getName().equals(levelForRoom)) {
                             return new Integer[]{x, y, z};
                         }
                     }
@@ -485,19 +490,19 @@ public class GameMap implements Serializable {
     }
 
     public String getLevelForCoordinates(Integer[] selected, GameData gameData) {
-        String level = levelMatrix[selected[0]][selected[1]][selected[2]];
+        MapLevel level = levelMatrix[selected[0]][selected[1]][selected[2]];
         if (level == null) {
             level = createEmptyLevel(selected, gameData);
         }
-        return level;
+        return level.getName();
     }
 
-    public Collection<Integer[]> getEmptyQuandrants() {
+    public Collection<Integer[]> getJumpableToLevels() {
         Set<Integer[]> empties = new HashSet<>();
         for (int x = 0; x < levelMatrix.length; ++x) {
             for (int y = 0; y < levelMatrix[0].length; ++y) {
                 for (int z = 0; z < levelMatrix[0][0].length; ++z) {
-                    if (levelMatrix[x][y][z] == null || levelMatrix[x][y][z].contains("emptylevel")) {
+                    if (levelMatrix[x][y][z] == null || levelMatrix[x][y][z].isJumpableTo()) {
                         empties.add(new Integer[]{x, y, z});
                     }
                 }
@@ -510,8 +515,8 @@ public class GameMap implements Serializable {
         Integer[] posA = getPositionForLevel(levelA);
         Integer[] posB = getPositionForLevel(levelB);
 
-        levelMatrix[posA[0]][posA[1]][posA[2]] = levelB;
-        levelMatrix[posB[0]][posB[1]][posB[2]] = levelA;
+        levelMatrix[posA[0]][posA[1]][posA[2]] = levels.get(levelB);
+        levelMatrix[posB[0]][posB[1]][posB[2]] = levels.get(levelA);
 
     }
 

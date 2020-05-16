@@ -680,24 +680,12 @@ public class Player extends Actor implements Target, Serializable {
 
     public List<Room> getMiniMap(GameData gameData) {
 	    List<Room> res = new ArrayList<>();
-        try {
             if (getCharacter() == null) {
                 res.addAll(gameData.getMap().getStationRooms());
             } else {
-                res.addAll(gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(getPosition()).getName()));
+            	res.addAll(getCharacter().getMiniMapRooms(gameData));
             }
-            res.removeIf((Room r) -> (r.isHidden() || r instanceof SpaceRoom || !r.shouldBeAddedToMinimap()));
-            if (getCharacter() != null) {
-				for (Room extra : getCharacter().getVisibleMap(gameData)) {
-					if (!res.contains(extra) && extra.shouldBeAddedToMinimap()) {
-						res.add(extra);
-					}
-				}
-			}
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        return res;
+            return res;
     }
 
     public void setNextMovePower(int selected, GameData gameData) {

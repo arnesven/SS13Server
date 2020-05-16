@@ -122,7 +122,7 @@ public class MapPanel extends JPanel implements Observer {
         for (Room r : GameData.getInstance().getRooms()) {
             if (r.getID() == GameData.getInstance().getCurrentPos()) {
                 if (!drawingStrategy.getBackgroundDrawingStrategy().getName().equals(r.getBackgroundType())) {
-                    System.out.println("Changing background to...");
+                    System.out.println("Changing background to..." + r.getBackgroundType());
                     drawingStrategy.setBackgroundDrawingStrategy(BackgroundDrawingStrategy.makeStrategy(r.getBackgroundType()));
                     break;
                 }

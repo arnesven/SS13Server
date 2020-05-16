@@ -6,6 +6,7 @@ import model.events.ambient.ColdEvent;
 import model.events.NoPressureEverEvent;
 import model.map.GameMap;
 import model.map.rooms.Room;
+import util.Logger;
 
 import java.util.*;
 
@@ -64,9 +65,24 @@ public abstract class MapBuilder {
         gm.checkAllIDAreUnique();
         gm.setMapReferenceForAllRooms();
 
+        printLevels(gameData, gm);
+
 		return gm;
 	}
 
+    private static void printLevels(GameData gameData, GameMap gm) {
+	    Logger.log("Game Map In Levels:");
+        for (int z = 0; z < 3; ++z) {
+            Logger.log("Z = " + z);
+            for (int y = 0; y < 3; ++y) {
+                StringBuilder bldr = new StringBuilder();
+                for (int x = 0; x < 3; ++x) {
+                    bldr.append(String.format("%40s", gm.getLevelForCoordinates(new Integer[]{x, y, z}, gameData)));
+                }
+                Logger.log(bldr.toString());
+            }
+        }
+    }
 
 
     protected static void addEventsToSpaceRoom(Room space, GameData gameData) {

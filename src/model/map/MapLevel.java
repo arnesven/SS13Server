@@ -9,16 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-public class MapLevel extends HashMap<String, Set<Room>> {
+public abstract class MapLevel extends HashMap<String, Set<Room>> {
 
     private final String name;
-    private final String bgType;
-    private final GameMap mapRef;
+    private String bgType;
+    private GameMap mapRef;
 
-    public MapLevel(String name, String backgroundType, GameMap mapRef) {
+    public MapLevel(String name, String backgroundType) {
         this.name = name;
         this.bgType = backgroundType;
-        this.mapRef = mapRef;
     }
 
     public String getName() {
@@ -43,4 +42,13 @@ public class MapLevel extends HashMap<String, Set<Room>> {
         return list;
     }
 
+    public abstract boolean isJumpableTo();
+
+    public void setMapRef(GameMap gameMap) {
+        this.mapRef = gameMap;
+    }
+
+    public void setBackgroundType(String newBg) {
+        this.bgType = newBg;
+    }
 }

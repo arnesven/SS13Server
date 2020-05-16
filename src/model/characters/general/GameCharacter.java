@@ -19,6 +19,7 @@ import model.items.suits.Equipment;
 import model.items.weapons.PhysicalWeapon;
 import model.map.SpacePosition;
 import model.map.rooms.NukieShipRoom;
+import model.map.rooms.SpaceRoom;
 import model.modes.OperativesGameMode;
 import model.movepowers.*;
 import model.npcs.NPC;
@@ -652,10 +653,24 @@ public abstract class GameCharacter implements Serializable {
 
    //     getMovePowersIfPlayer(gameData, result);
 
-
-
         return result;
     }
+
+	public List<Room> getMiniMapRooms(GameData gameData) {
+		List<Room> res = new ArrayList<>();
+		try {
+			res.addAll(gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(getPosition()).getName()));
+			res.removeIf((Room r) -> (r.isHidden() || r instanceof SpaceRoom || !r.shouldBeAddedToMinimap()));
+			for (Room extra : getActor().getCharacter().getVisibleMap(gameData)) {
+				if (!res.contains(extra) && extra.shouldBeAddedToMinimap()) {
+					res.add(extra);
+				}
+			}
+		} catch (NoSuchThingException e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
 
 //    public void getMovePowersIfPlayer(GameData gameData, List<Room> result) {
 //        if (getActor() instanceof Player && ((Player) getActor()).getSettings().get(PlayerSettings.ACTIVATE_MOVEMENT_POWERS)) {
@@ -785,4 +800,6 @@ public abstract class GameCharacter implements Serializable {
 	public void setSpacePosition(SpacePosition spacePosition) {
 		this.spacePosition = spacePosition;
 	}
+
+
 }

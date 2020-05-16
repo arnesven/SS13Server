@@ -1,5 +1,6 @@
 package model.map.rooms;
 
+import graphics.sprites.Sprite;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.PlanetFloorSet;
@@ -35,4 +36,5 @@ public class PlanetRoom extends Room {
     public Lighting getLighting() {
         return null;
     }
+
 }

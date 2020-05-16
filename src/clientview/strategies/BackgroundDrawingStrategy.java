@@ -4,7 +4,7 @@ import java.awt.*;
 
 public abstract class BackgroundDrawingStrategy {
 
-    private final String name;
+    private String name;
 
     public BackgroundDrawingStrategy(String name) {
         this.name = name;
@@ -30,4 +30,10 @@ public abstract class BackgroundDrawingStrategy {
     public String getName() {
         return name;
     }
+
+    protected void setName(String s) {
+        this.name = s;
+    }
+
+
 }

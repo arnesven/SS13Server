@@ -36,10 +36,12 @@ public class GodModeTeleporter extends Teleporter {
                 ActionOption opts = super.getOptions(gameData, whosAsking);
                 for (String lev : gameData.getMap().getLevels()) {
                     ActionOption opt = new ActionOption(lev);
-                    for (Room r : gameData.getMap().getRoomsForLevel(lev)) {
-                        opt.addOption(r.getName());
+                    if (!gameData.getMap().getRoomsForLevel(lev).isEmpty()) {
+                        for (Room r : gameData.getMap().getRoomsForLevel(lev)) {
+                            opt.addOption(r.getName());
+                        }
+                        opts.addOption(opt);
                     }
-                    opts.addOption(opt);
                 }
 
                 return opts;
@@ -54,7 +56,6 @@ public class GodModeTeleporter extends Teleporter {
             @Override
             public void setArguments(List<String> args, Actor performingClient) {
                 for (String lev : gameData.getMap().getLevels()) {
-                    ActionOption opt = new ActionOption(lev);
                     for (Room r : gameData.getMap().getRoomsForLevel(lev)) {
                         if (args.get(1).contains(r.getName())) {
                             selected = r;

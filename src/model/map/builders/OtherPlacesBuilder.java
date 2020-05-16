@@ -7,6 +7,10 @@ import model.map.doors.AirLockDoor;
 import model.map.doors.Door;
 import model.map.doors.FullyOpenAirLockDoor;
 import model.map.doors.NormalDoor;
+import model.map.levels.AsteroidField;
+import model.map.levels.EmptySpaceLevel;
+import model.map.levels.PlanetSystem;
+import model.map.levels.SpecialLevel;
 import model.map.rooms.*;
 import util.MyRandom;
 
@@ -29,18 +33,20 @@ public class OtherPlacesBuilder extends MapBuilder {
         Room dummy = new DummyRoom(31, 18, 1, 0, 0, new int[]{28}, new Door[]{});
         gm.addRoom(dummy, ss13, "dummy");
         Room otherDim = new OtherDimension(32, new int[]{30}, new Door[]{});
-        Room prisonPlanet = new PrisonPlanet(33);
-        gm.createLevel("other dimension", "Planet");
+
+        gm.createLevel(new SpecialLevel("other dimension", "Planet"));
         gm.addRoom(otherDim, "other dimension", "other dimension");
-        gm.createLevel("prison planet", "Planet");
+
+        OrbitalPlanetRoom prisonPlanet = new PrisonPlanet(33);
+        gm.createLevel(new PlanetSystem("prison planet", prisonPlanet));
         gm.addRoom(prisonPlanet, "prison planet", "prison planet");
 
         Room deepspace = new SpaceRoom(41, 6, 8, 3, 3);
         addEventsToSpaceRoom(deepspace, gameData);
-        gm.createLevel("deep space", "Space");
+        gm.createLevel(new EmptySpaceLevel("deep space", "Space"));
         gm.addRoom(deepspace, "deep space", "deep space");
 
-        gm.createLevel("centcom", "Space");
+        gm.createLevel(new SpecialLevel("centcom", "Space"));
         Room centComSpace = new SpaceRoom(923, 5, 5, 5, 5);
         addEventsToSpaceRoom(centComSpace, gameData);
         gm.addRoom(centComSpace, "centcom", "centcom");
@@ -50,8 +56,7 @@ public class OtherPlacesBuilder extends MapBuilder {
         gm.addRoom(spectatorBench, "ss13", "hidden");
 
         ExoticPlanet exoticPlanet = buildExoticPlanet(gameData, 42);
-        gm.createLevel("exotic planet", "Orbit-" + exoticPlanet.getOrbitSprite().getColumn() + "-" +
-                exoticPlanet.getOrbitSprite().getRow() + "-" + exoticPlanet.getOrbitSprite().getWidth());
+        gm.createLevel(new PlanetSystem("exotic planet", exoticPlanet));
         gm.addRoom(exoticPlanet, "exotic planet", "exotic planet");
 
         buildAsteroidField(gameData, gm);
@@ -63,7 +68,7 @@ public class OtherPlacesBuilder extends MapBuilder {
         double d = MyRandom.nextDouble();
         if (d < 0.333) {
             return new JunglePlanet(i, gameData);
-        } else if (d < 0.333) {
+        } else if (d < 0.67) {
             return new DesertPlanet(i, gameData);
         } else {
             return new IcePlanet(i, gameData);
@@ -97,7 +102,7 @@ public class OtherPlacesBuilder extends MapBuilder {
         Room cabin = null;
         Room shuttle = null;
 
-        gm.createLevel("asteroid field", "Space");
+        gm.createLevel(new AsteroidField("asteroid field", "Space"));
         SpaceRoom space = new SpaceRoom(100032, 0, 0, 0, 0);
         addEventsToSpaceRoom(space, gameData);
         gm.addRoom(space, "asteroid field", "asteroid field");

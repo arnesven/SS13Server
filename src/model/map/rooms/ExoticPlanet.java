@@ -17,7 +17,7 @@ import java.util.Set;
 /**
  * Created by erini02 on 15/09/17.
  */
-public abstract class ExoticPlanet extends PlanetRoom {
+public abstract class ExoticPlanet extends OrbitalPlanetRoom {
     private boolean explored;
     private String realName;
     private Set<HideableObject> hos = new HashSet<>();
@@ -58,17 +58,4 @@ public abstract class ExoticPlanet extends PlanetRoom {
         }
     }
 
-    public Sprite getOrbitSprite() {
-        return new Sprite("orbitplanet-" + getOrbitSpriteCol() + "-" + getOrbitSpriteRow(),
-                "planets.png", getOrbitSpriteCol(), getOrbitSpriteRow(), getOrbitSpriteSize(),
-                getOrbitSpriteSize(), null);
-    }
-
-    protected int getOrbitSpriteSize() {
-        return 96;
-    }
-
-    protected abstract int getOrbitSpriteRow();
-
-    protected abstract int getOrbitSpriteCol();
 }

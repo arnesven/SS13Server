@@ -9,6 +9,7 @@ public class OrbitBackgroundStrategy extends DrawSpaceBackgroundStrategy {
     private final String spriteName;
 
     public OrbitBackgroundStrategy(String planet) {
+        setName("Orbit"+planet);
         this.spriteName = "orbitplanet" + planet + "0";
     }
 
