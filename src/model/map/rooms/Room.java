@@ -20,6 +20,8 @@ import model.events.ambient.ColdEvent;
 import model.events.ambient.ElectricalFire;
 import model.events.Event;
 import model.events.ambient.HullBreach;
+import model.events.animation.AnimatedSprite;
+import model.events.animation.BigExplosionAnimation;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.RoomPartsStack;
@@ -617,8 +619,9 @@ public abstract class Room implements ItemHolder, Serializable {
         this.addEvent(new ColdEvent(this));
         this.width = 0;
         this.height = 0;
+        BigExplosionAnimation aniEvent = new BigExplosionAnimation(gameData, this);
+        aniEvent.setAbsolutePosition(getX(), getY(), getZ());
         //this.addEvent(new DarkEvent());
-
 
         for (Room neigh : this.getNeighborList()) {
             HullBreach hull = ((HullBreach) gameData.getGameMode().getEvents().get("hull breaches"));
@@ -631,7 +634,10 @@ public abstract class Room implements ItemHolder, Serializable {
 	}
 
 
-    public List<Sprite> getAlwaysSprites(Actor whosAsking) {return new ArrayList<>();};
+    public List<Sprite> getAlwaysSprites(Actor whosAsking) {
+		List<Sprite> result = new ArrayList<>();
+		return result;
+	}
 
 	public boolean isHidden() {
 		return false;

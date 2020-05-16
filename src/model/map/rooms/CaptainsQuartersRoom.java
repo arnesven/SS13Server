@@ -28,7 +28,6 @@ public class CaptainsQuartersRoom extends CommandRoom {
         addObject(new ComfyChair(this));
         addObject(new NiceBed(this));
         //this.setEffect(new Sprite("someeffect", "alert.png", 3, 2, null));
-    //    addItem(new TimeBomb());
 
     }
 

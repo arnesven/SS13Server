@@ -1,5 +1,6 @@
 package model.events.animation;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.events.Event;
@@ -7,9 +8,11 @@ import model.items.general.Grenade;
 import model.map.rooms.Room;
 
 public class BigExplosionAnimation extends AnimationEvent {
+
+    public static Sprite explosion =  new AnimatedSprite("explosionbig", "bigexplo.png", 0, 0, 96, 96, null, 16, false);
+
     public BigExplosionAnimation(GameData gameData, Room room) {
-        super(gameData, room,
-                new AnimatedSprite("explosionbig", "bigexplo.png", 0, 0, 96, 96, null, 16, false));
+        super(gameData, room, explosion);
     }
 
     @Override
