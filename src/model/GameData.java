@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import comm.chat.ChatMessages;
 import graphics.OverlaySprite;
 import main.SS13Client;
+import model.actions.manager.ActionManager;
 import model.actions.objectactions.JumpStationAction;
 import model.characters.GameCharacterLambda;
 import model.characters.general.AICharacter;
@@ -356,6 +357,7 @@ public class GameData implements Serializable {
 		} else if (gameState == GameState.ACTIONS) {
             allClearLastTurn();
 			executeAllActions();
+			ActionManager.clearMap();
 			forEachCharacter((GameCharacter ch) -> ch.doAfterActions(this));
 			runEvents();
 			executeLateAction();

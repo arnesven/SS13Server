@@ -17,7 +17,7 @@ public abstract class MyPopupMenu extends JPopupMenu  {
     public MyPopupMenu(String name, String actionData, MouseEvent e) {
         this.mouseEvent = e;
         this.name = name;
-        MyTreeNode node = new MyTreeNode("root");
+        MyTreeNode node = new MyTreeNode("-1<actpart>root");
         if (!actionData.contains("NoRef")) {
             GameData.makeStringIntoTree(actionData.substring(1, actionData.length()), node);
         }

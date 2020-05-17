@@ -7,6 +7,7 @@ import model.actions.SqueakAction;
 import model.actions.general.Action;
 import model.characters.general.AnimalCharacter;
 import model.characters.general.GameCharacter;
+import model.items.weapons.Weapon;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,11 @@ public class MouseCharacter extends AnimalCharacter {
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         super.addCharacterSpecificActions(gameData, at);
         at.add(new SqueakAction());
+    }
+
+    @Override
+    public Weapon getDefaultWeapon() {
+        return Weapon.TEETH;
     }
 
     @Override

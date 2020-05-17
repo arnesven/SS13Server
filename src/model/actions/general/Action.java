@@ -9,9 +9,12 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
+import model.actions.manager.ActionManager;
 import model.events.Experienceable;
 import util.Logger;
 import util.MyStrings;
+
+import javax.swing.*;
 
 /**
  * @author erini02
@@ -21,6 +24,8 @@ import util.MyStrings;
 public abstract class Action extends Experienceable implements Serializable {
 	
 	private static final String FAILED_STRING = "Your action failed.";
+	private static long uidCounter = 0;
+	private long uid;
 	private String name;
 	private SensoryLevel senses;
 	protected Actor performer;
@@ -37,7 +42,13 @@ public abstract class Action extends Experienceable implements Serializable {
 		this.name = name;
 		this.senses = senses;
 		actionFailed = false;
+		this.uid = uidCounter++;
+        ActionManager.store(this);
 	}
+
+    public static void resetUidCounter() {
+        uidCounter = 0;
+    }
 
 
     public void setName(String string) {
@@ -148,17 +159,17 @@ public abstract class Action extends Experienceable implements Serializable {
         return performer;
     }
 
-    public void uniquefy(GameData gameData, Actor a) {
+   // public void uniquefy(GameData gameData, Actor a) {
         //Logger.log("   Uniqifying action for " + this.getName());
-        getOptions(gameData, a).uniquefy();
-    }
+        //getOptions(gameData, a).uniquefy();
+    //}
 
-    public static void uniquefiyList(GameData gameData, List<Action> at, Actor act) {
+   // public static void uniquefiyList(GameData gameData, List<Action> at, Actor act) {
         // Logger.log("Uniquifying list for " + act.getBaseName());
-            for (Action a : at) {
-                a.uniquefy(gameData, act);
-            }
-    }
+           // for (Action a : at) {
+            //    a.uniquefy(gameData, act);
+           // }
+    //}
 
     public void setDeadBeforeApplied() {
         this.wasDeadBeforeApplied = true;
@@ -173,8 +184,8 @@ public abstract class Action extends Experienceable implements Serializable {
 	    StringBuilder result = new StringBuilder("{");
         for (Action a : list) {
             ActionOption opts = a.getOptions(gameData, whosAsking);
-            opts.uniquefy();
-            result.append(opts.makeBracketedString());
+            //opts.uniquefy();
+            result.append(a.getUID() + "<actpart>" + opts.makeBracketedString());
         }
         result.append("}");
         return result.toString();
@@ -185,12 +196,12 @@ public abstract class Action extends Experienceable implements Serializable {
         String result = "{";
         for (Action a : list) {
             ActionOption opts = a.getOptions(gameData, whosAsking);
-            opts.uniquefy();
+            //opts.uniquefy();
 
             if (a.hasSpecialOptions()) {
-                result += opts.makeBracketedString();
+                result += a.getUID() + "<actpart>" + opts.makeBracketedString();
             } else {
-                result += a.getName() + "{}";
+                result += a.getUID() + "<actpart>" + a.getName() + "{}";
             }
         }
         result += "}";
@@ -255,5 +266,9 @@ public abstract class Action extends Experienceable implements Serializable {
     public String failed(GameData gameData, Actor whoFailed) {
 	    this.actionFailed = true;
 	    return FAILED_STRING;
+    }
+
+    public Long getUID() {
+        return uid;
     }
 }

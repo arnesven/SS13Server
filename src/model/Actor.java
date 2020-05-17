@@ -259,7 +259,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         //groupTargetingActions(at);
         at.add(0, new DoNothingAction());
 
-        Action.uniquefiyList(gameData, at, this);
+        //Action.uniquefiyList(gameData, at, this);
 
         getCharacter().modifyActionList(gameData, at);
 

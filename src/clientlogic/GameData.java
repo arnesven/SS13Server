@@ -37,7 +37,7 @@ public class GameData {
 	private ArrayList<String> items = new ArrayList<>();
 	private ArrayList<String> roomInfo = new ArrayList<>();
 	private ArrayList<String> lastTurnInfo = new ArrayList<>();
-	private MyTreeNode tree  = new MyTreeNode("root");
+	private MyTreeNode tree  = new MyTreeNode("-1<actpart>root");
 	private int round = 0;
 	private String summaryString = "<p>Game in progress...</p>";
 	private ArrayList<String> jobNames = new ArrayList<String>();
@@ -381,10 +381,10 @@ public class GameData {
 
 
 	public void deconstructActionData(String result) {
-		// GWT.log("in deconstruct action data");
+		//System.out.println("Action data result is: " + result);
 		String[] parts = result.split("<player-data-part>");
 
-		tree = new MyTreeNode("root");
+		tree = new MyTreeNode("-1<actpart>root");
 		makeStringIntoTree(parts[0].substring(1,  parts[0].length()), tree);
 		deconstructPlayerData(result);
 		this.notifyObservers();
@@ -718,7 +718,7 @@ public class GameData {
 	}
 
 	public void clearActionList() {
-		tree = new MyTreeNode("root");
+		tree = new MyTreeNode("-1<actpart>root");
 		nextAction = "Do Nothing";
 	}
 

@@ -35,8 +35,10 @@ public class ActionOption {
 
 	public String makeBracketedString() {
 		StringBuffer buf = new StringBuffer(name + "{");
+		int counter = 0;
 		for (ActionOption opt : suboptions) {
-			buf.append(opt.makeBracketedString());
+			buf.append(counter + "<actpart>" + opt.makeBracketedString());
+			counter++;
 		}
 		buf.append("}");
 		return buf.toString();
