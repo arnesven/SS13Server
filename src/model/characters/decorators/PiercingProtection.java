@@ -3,7 +3,6 @@ package model.characters.decorators;
 import model.Actor;
 import model.GameData;
 import model.characters.general.GameCharacter;
-import model.characters.general.HorrorCharacter;
 import model.events.damage.Damager;
 import model.events.damage.ExplosiveDamage;
 import model.items.general.Grenade;

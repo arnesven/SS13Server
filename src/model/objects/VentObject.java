@@ -123,6 +123,14 @@ public class VentObject extends GameObject {
         }
 
         @Override
+        public List<Room> getExtraMoveToLocations(GameData gameData) {
+            List<Room> list = new ArrayList<>();
+            list.addAll(super.getExtraMoveToLocations(gameData));
+            list.add(toRoom);
+            return list;
+        }
+
+        @Override
         public List<Room> getVisibleMap(GameData gameData) {
             List<Room> result = super.getVisibleMap(gameData);
             try {

@@ -92,8 +92,8 @@ public class SuperSuit extends SuitItem implements TraitorItem {
         if (appearAsCharacter.checkInstance(((GameCharacter ch) -> ch instanceof CrewCharacter))) {
             return (new OutFit(appearAsCharacter)).getWornSprite(whosAsking);
         }
-        if (appearAsCharacter.checkInstance(((GameCharacter ch) -> ch instanceof HorrorCharacter))) {
-            return (new HorrorCharacter()).getSprite(whosAsking);
+        if (appearAsCharacter.checkInstance(((GameCharacter ch) -> ch instanceof ShamblingAbomination))) {
+            return (new ShamblingAbomination()).getSprite(whosAsking);
         }
         if (appearAsCharacter.checkInstance(((GameCharacter ch) -> ch instanceof SantaClauseCharacter))) {
             return (new SantaSuit()).getWornSprite(whosAsking);
@@ -143,7 +143,7 @@ public class SuperSuit extends SuitItem implements TraitorItem {
             VisitorCharacter v = (VisitorCharacter) chars.remove(i); // removing visitor
             //chars.addAll(v.getSubtypes()); // doesn't work too well
         }
-        chars.add(new HorrorCharacter());
+        chars.add(new ShamblingAbomination());
         chars.add(new OperativeCharacter(1,1));
         chars.add(new RobotCharacter("TARS", 1, 20.0));
         chars.add(new SantaClauseCharacter(3));

@@ -7,7 +7,7 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.crew.CrewCharacter;
 import model.characters.general.GameCharacter;
-import model.characters.general.HorrorCharacter;
+import model.characters.general.ShamblingAbomination;
 import model.characters.general.OperativeCharacter;
 import model.items.suits.Equipment;
 import model.items.suits.OperativeSpaceSuit;
@@ -49,7 +49,7 @@ public class ChangeAppearanceActionDecorator extends CharacterDecorator {
 
             @Override
             protected void execute(GameData gameData, Actor performingClient) {
-                if (chosen instanceof HorrorCharacter) {
+                if (chosen instanceof ShamblingAbomination) {
                     suit.setAppearAsCharacter(chosen, performingClient);
                 } else if (chosen instanceof OperativeCharacter) {
                     new OperativeSpaceSuit().putYourselfOn(chosen.getEquipment());

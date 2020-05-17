@@ -1,5 +1,6 @@
 package model.actions.characteractions;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Target;
@@ -48,6 +49,8 @@ public class SuctionAttackAction extends TargetingAction {
 		return "Sucked the life out of ";
 	}
 
-
-
+	@Override
+	public Sprite getAbilitySprite() {
+		return new Sprite("suckaction", "interface_alien.png", 6, null);
+	}
 }

@@ -2,10 +2,9 @@ package model.modes;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.characters.general.ChangelingCharacter;
 import model.characters.general.GameCharacter;
-import model.characters.general.HorrorCharacter;
+import model.characters.general.ShamblingAbomination;
 import model.characters.general.ParasiteCharacter;
 
 class ChangelingModeStats extends GameStats {
@@ -75,7 +74,7 @@ class ChangelingModeStats extends GameStats {
 		ChangelingCharacter chara = mode.getChangelingChar();
 		for (GameCharacter chars : chara.getForms()) {
 			if (!(chars instanceof ParasiteCharacter || 
-					chars instanceof HorrorCharacter)) {
+					chars instanceof ShamblingAbomination)) {
 				s += chars.getBaseName() + ", ";
 			}
 		}

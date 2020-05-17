@@ -256,7 +256,7 @@ public class ChangelingGameMode extends GameMode {
     public List<Pair<Sprite, String>> getSpectatorContent(GameData gameData, Actor whosAsking) {
         List<Pair<Sprite, String>> list = new ArrayList<>();
         for (GameCharacter c : lingChar.getForms()) {
-            if (!(c instanceof ParasiteCharacter || c instanceof HorrorCharacter)) {
+            if (!(c instanceof ParasiteCharacter || c instanceof ShamblingAbomination)) {
                 list.add(new Pair(c.getSprite(whosAsking), c.getBaseName()));
             }
         }

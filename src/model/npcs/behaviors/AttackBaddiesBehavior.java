@@ -7,8 +7,6 @@ import model.Target;
 import model.actions.general.AttackAction;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.*;
-import model.npcs.NPC;
-import model.objects.general.GameObject;
 
 import java.util.*;
 
@@ -66,7 +64,7 @@ public class AttackBaddiesBehavior extends AttackIfPossibleBehavior {
         }) || t.getCharacter().checkInstance(new InstanceChecker() {
             @Override
             public boolean checkInstanceOf(GameCharacter ch) {
-                return ch instanceof HorrorCharacter;
+                return ch instanceof ShamblingAbomination;
             }
         }) || t.getCharacter().checkInstance((new InstanceChecker() {
             @Override

@@ -9,7 +9,7 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.general.ChangelingCharacter;
 import model.characters.general.GameCharacter;
-import model.characters.general.HorrorCharacter;
+import model.characters.general.ShamblingAbomination;
 import model.characters.decorators.NoSuchInstanceException;
 
 public class ChangeFormAction extends Action {
@@ -37,7 +37,7 @@ public class ChangeFormAction extends Action {
 		ActionOption opt = super.getOptions(gameData, whosAsking);
 		boolean hasUltimate = false;
 		for (GameCharacter c : ling.getForms()) {
-			if (c instanceof HorrorCharacter) {
+			if (c instanceof ShamblingAbomination) {
 				hasUltimate = true;
 			} else if (c == ling.getForm()) {
 				// do not add
@@ -54,7 +54,7 @@ public class ChangeFormAction extends Action {
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
 		for (GameCharacter c : ling.getForms()) {
-			if (c instanceof HorrorCharacter) {
+			if (c instanceof ShamblingAbomination) {
 				if (args.get(0).equals("Ultimate Form")) {
 					selected = c;
 					return;

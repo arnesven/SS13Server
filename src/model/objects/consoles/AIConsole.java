@@ -17,7 +17,7 @@ import model.actions.objectactions.SitDownAtAIConsoleAction;
 import model.actions.objectactions.SitDownAtNPCAIConsoleAction;
 import model.characters.general.AIDownloadIntoBotAction;
 import model.characters.general.GameCharacter;
-import model.characters.general.HorrorCharacter;
+import model.characters.general.ShamblingAbomination;
 import model.characters.general.ParasiteCharacter;
 import model.items.NoSuchThingException;
 import model.items.laws.AIAbility;
@@ -162,7 +162,7 @@ public class AIConsole extends Console {
                     }
                 }
                 for (Actor a : r.getActors()) {
-                    if (a.getCharacter().checkInstance((GameCharacter cha) -> cha instanceof HorrorCharacter)) {
+                    if (a.getCharacter().checkInstance((GameCharacter cha) -> cha instanceof ShamblingAbomination)) {
                         alarms.add("-->Stalking Horror in " + r.getName() + ".");
                         break;
                     }

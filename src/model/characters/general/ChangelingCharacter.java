@@ -26,7 +26,7 @@ public class ChangelingCharacter extends GameCharacter {
 	private List<GameCharacter> forms = new ArrayList<>();
 	private GameCharacter current;
 	private Room startRoom;
-	private HorrorCharacter ultimate = new HorrorCharacter();
+	private ShamblingAbomination ultimate = new ShamblingAbomination();
     private boolean acidSprayed = false;
     private int extra = 0;
 
@@ -96,7 +96,7 @@ public class ChangelingCharacter extends GameCharacter {
 			addConsumeCorpse(gameData, at);
 		}
 	
-		if (!(getForm() instanceof HorrorCharacter)) {
+		if (!(getForm() instanceof ShamblingAbomination)) {
 			addSuckAndTransform(gameData, at);
 			addChangeForm(gameData, at);
 			
@@ -140,7 +140,7 @@ public class ChangelingCharacter extends GameCharacter {
 
 	private boolean isAlien() {
 		return getForm() instanceof ParasiteCharacter ||
-				getForm() instanceof HorrorCharacter;
+				getForm() instanceof ShamblingAbomination;
 	}
 
 	private void addSuck(GameData gameData, ArrayList<Action> at) {
@@ -196,13 +196,13 @@ public class ChangelingCharacter extends GameCharacter {
 				if (isAlien()) {
 					dropAllItems();
 				}
-				if (current instanceof HorrorCharacter) {
+				if (current instanceof ShamblingAbomination) {
 					double m = 0.5 + getPower();
 					this.setMaxHealth(m);
 					double h = this.getHealth() + getPower();
 					this.setHealth(Math.min(m, h));
 					ultimate.setImpalerDamage(getPower() - 0.5);
-                    ((HorrorCharacter)current).setChangeling(this);
+                    ((ShamblingAbomination)current).setChangeling(this);
 				}
 				return;
 			}
@@ -264,7 +264,7 @@ public class ChangelingCharacter extends GameCharacter {
 		while (suits.size() > 0) {
 			if (gc instanceof ParasiteCharacter) {
 				this.getPosition().addItem(suits.get(0));
-			} else if (gc instanceof HorrorCharacter) {
+			} else if (gc instanceof ShamblingAbomination) {
 				this.getPosition().addItem(new TornClothes());
 			} else { 
 				gc.putOnEquipment(suits.get(0));
@@ -350,7 +350,7 @@ public class ChangelingCharacter extends GameCharacter {
 
 	@Override
 	public String getRadioName() {
-    	if (current instanceof HorrorCharacter) {
+    	if (current instanceof ShamblingAbomination) {
     		return "Something";
 		}
 		return getForm().getRadioName();

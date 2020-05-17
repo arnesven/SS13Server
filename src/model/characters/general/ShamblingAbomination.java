@@ -14,14 +14,14 @@ import model.items.suits.SuitItem;
 import model.items.weapons.ImpalerWeapon;
 import model.items.weapons.Weapon;
 
-public class HorrorCharacter extends GameCharacter {
+public class ShamblingAbomination extends GameCharacter {
 
     public static Weapon hugeClaw = new ImpalerWeapon();
     private ChangelingCharacter ling;
 
 
-    public HorrorCharacter() {
-		super("Stalking Horror", 0, 21.0);
+    public ShamblingAbomination() {
+		super("Shambling Abomination", 0, 21.0);
 	}
 
     public void setChangeling(ChangelingCharacter ling) {
@@ -31,9 +31,9 @@ public class HorrorCharacter extends GameCharacter {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (ling != null && ling.getPower() >= 3) {
-            return new Sprite("horrorgreater", "alien.png", 19, getActor());
+            return new Sprite("broodmother", "broodmother.png", 0, 0, 64, 64, getActor());
         }
-        return new Sprite("horrorlesser", "alien.png", 0, getActor());
+        return new Sprite("broodling", "broodling.png", 0, getActor());
     }
 
 	@Override
@@ -49,7 +49,7 @@ public class HorrorCharacter extends GameCharacter {
 
 	@Override
 	public GameCharacter clone() {
-		return new HorrorCharacter();
+		return new ShamblingAbomination();
 	}
 	
 
