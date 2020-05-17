@@ -33,6 +33,10 @@ public class VentObject extends GameObject {
         this.buddy = otherSide;
     }
 
+    public Room getToRoom() {
+        return toRoom;
+    }
+
     private void setIsOpen(boolean b) {
         isOpen = b;
     }
@@ -127,6 +131,11 @@ public class VentObject extends GameObject {
             List<Room> list = new ArrayList<>();
             list.addAll(super.getExtraMoveToLocations(gameData));
             list.add(toRoom);
+            for (GameObject obj : getPosition().getObjects()) {
+                if (obj instanceof VentObject) {
+                    list.add(((VentObject) obj).getToRoom());
+                }
+            }
             return list;
         }
 
@@ -194,7 +203,7 @@ public class VentObject extends GameObject {
         @Override
         protected void execute(GameData gameData, Actor performingClient) {
             if (GameItem.hasAnItemOfClass(performingClient, Tools.class)) {
-                performingClient.addTolastTurnInfo("You closed the air vent. We don't want crawling in there.");
+                performingClient.addTolastTurnInfo("You closed the air vent. We don't want anyone crawling in there.");
                 vent.setIsOpen(false);
                 getOtherSide().setIsOpen(false);
                 GameMap.separateRooms(getPosition(), getOtherSide().getPosition());

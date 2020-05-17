@@ -42,5 +42,4 @@ public class CaptainCharacter extends CrewCharacter {
                         " Don't forget to guard the nuclear disk!", "Parent, Demotion").makeString();
     }
 
-
 }
