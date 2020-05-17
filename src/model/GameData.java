@@ -9,10 +9,12 @@ import java.util.Map.Entry;
 import comm.chat.ChatMessages;
 import graphics.OverlaySprite;
 import main.SS13Client;
+import model.actions.objectactions.JumpStationAction;
 import model.characters.GameCharacterLambda;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.characters.special.SpectatorCharacter;
+import model.events.timed.TimedEvent;
 import model.items.NoSuchThingException;
 import model.map.rooms.DecorativeRoom;
 import model.modes.GameCouldNotBeStartedException;
@@ -61,14 +63,15 @@ public class GameData implements Serializable {
 	private String selectedMode = "Secret";  // TODO: change back to Secret
 	private List<Event> events = new ArrayList<>();
 	private List<Event> moveEvents = new ArrayList<>();
+	private List<TimedEvent> timedEvents = new ArrayList<>();
     private boolean runningEvents;
     private ChatMessages chatMessages = new ChatMessages();
     private List<String> lostMessages = new ArrayList<>();
     private ComputerSystem computerSystem = new ComputerSystem();
+	private long lastTimeCount = 0;
 
 
-
-    public GameData(boolean recover) {
+	public GameData(boolean recover) {
         map = MapBuilder.createMap(this);
         this.recover = recover;
 	}
@@ -736,6 +739,11 @@ public class GameData implements Serializable {
 		events.add(event);
 	}
 
+
+	public void addTimedEvent(TimedEvent timedEvent) {
+		timedEvents.add(timedEvent);
+	}
+
 	public Room findRoomForItem(GameItem searchedItem) throws NoSuchThingException {
 		for (Room r : getAllRooms()) {
 			for (GameItem it : r.getItems()) {
@@ -896,4 +904,16 @@ public class GameData implements Serializable {
 		return mess.toString().replace(delim+"END", "");
 	}
 
+	public void doAfterServingClient() {
+		long timeElapsed = System.currentTimeMillis() - lastTimeCount;
+		List<TimedEvent> removals = new ArrayList<>();
+		for (TimedEvent te : timedEvents) {
+			te.updateYourself(this, timeElapsed);
+			if (te.shouldBeRemoved(this)) {
+				removals.add(te);
+			}
+		}
+		timedEvents.removeAll(removals);
+		lastTimeCount = System.currentTimeMillis();
+	}
 }

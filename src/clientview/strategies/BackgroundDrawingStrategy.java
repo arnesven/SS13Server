@@ -21,6 +21,8 @@ public abstract class BackgroundDrawingStrategy {
             return new PlanetBackgroundStrategy();
         } else if (type.toLowerCase().contains("orbit")) {
             return new OrbitBackgroundStrategy(type.toLowerCase().replace("orbit", ""));
+        } else if (type.toLowerCase().contains("swoosh")) {
+            return new SwooshBackgroundStrategy(type.toLowerCase());
         }
         return new DrawSpaceBackgroundStrategy();
     }

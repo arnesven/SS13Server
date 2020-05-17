@@ -21,7 +21,6 @@ public abstract class AbstractCommandHandler implements MessageHandler {
 	public boolean handle(String message, ObjectOutputStream oos)
 			throws IOException {
 
-		//	if (message.startsWith("CL")){
 		Scanner sc = new Scanner(message);
 		String clid = sc.next();
 
@@ -30,7 +29,6 @@ public abstract class AbstractCommandHandler implements MessageHandler {
 			return true;
 		}
 
-		//	System.out.println(clid);
 		if (sc.hasNext()) {
 			String command = sc.next();
 
@@ -47,9 +45,6 @@ public abstract class AbstractCommandHandler implements MessageHandler {
 		} else {
             return false;
         }
-		//		}
-
-	//	return false;
 	}
 
 }

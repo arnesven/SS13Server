@@ -2,9 +2,11 @@ package model.actions.objectactions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.events.timed.TimedEvent;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
 import model.map.rooms.BaseStarRoom;
@@ -54,36 +56,14 @@ public class JumpStationAction extends Action {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         ftlControl.setSpunUp(false);
-//        Collection<Integer[]> emptyPlaces = gameData.getMap().getJumpableToLevels();
-//        if (emptyPlaces.isEmpty()) {
-//            try {
-//                gameData.findObjectOfType(AIConsole.class).informOnStation("FTL jump failed.", gameData);
-//                performingClient.addTolastTurnInfo("FTL jump failed.");
-//            } catch (NoSuchThingException e) {
-//                e.printStackTrace();
-//            }
-//            return;
-//        }
-
         Integer[] newCoordinates = destination;
         Integer[] oldCoordinates = gameData.getMap().getPositionForLevel(GameMap.STATION_LEVEL_NAME);
         jumpToLevel(gameData, oldCoordinates, gameData.getMap().getLevelForCoordinates(newCoordinates, gameData));
-
-        String message = "Jump complete. New coordinates for SS13 are " +
-                (newCoordinates[0]*100 + MyRandom.nextInt(100)) + "-" +
-                (newCoordinates[1]*100 + MyRandom.nextInt(100)) + "-" +
-                (newCoordinates[2]*100 + MyRandom.nextInt(100)) + ".";
-        try {
-            gameData.findObjectOfType(AIConsole.class).informOnStation(message, gameData);
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        performingClient.addTolastTurnInfo(message);
-
-
-
+        String oldBackground = gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).getBackgroundType();
+        gameData.addTimedEvent(new FTLTimedEvent(newCoordinates, oldBackground));
+        setSwooshBackground(gameData);
+        performingClient.addTolastTurnInfo("You FTL-jumped the station!");
         Logger.log("Old coords were: " + oldCoordinates);
-
     }
 
 
@@ -96,8 +76,15 @@ public class JumpStationAction extends Action {
         gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).setBackgroundType(bgType);
         List<Room> movedRooms = movePlanetsFromOtherLevel(gameData, oldCoordinates);
         movePlanetsToOtherLevel(gameData, oldCoordinates, movedRooms);
-
         removeBaseStars(gameData, oldCoordinates);
+    }
+
+    private void setSwooshBackground(GameData gameData) {
+       // if (MyRandom.nextBoolean()) {
+       //     gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).setBackgroundType("Swooshhorizontal");
+       // } else {
+            gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).setBackgroundType("Swooshvertical");
+       // }
     }
 
     private void movePlanetsToOtherLevel(GameData gameData, Integer[] oldCoordinates, List<Room> movedRooms) {
@@ -132,5 +119,39 @@ public class JumpStationAction extends Action {
             gameData.getMap().addRoom(r, gameData.getMap().getLevelForCoordinates(oldCoordinates, gameData), "space");
 
         }
+    }
+
+    private class FTLTimedEvent extends TimedEvent {
+
+        private final Integer[] newCoordinates;
+        private final String oldBackground;
+        private boolean triggered;
+
+        public FTLTimedEvent(Integer[] newCoordinates, String oldBackground) {
+            this.newCoordinates = newCoordinates;
+            this.oldBackground = oldBackground;
+        }
+
+        @Override
+        public void apply(GameData gameData, long timedPassedMS) {
+            if (timedPassedMS > 10000) { // 10 seconds
+                String message = "Jump complete. New coordinates for SS13 are " +
+                        (newCoordinates[0] * 100 + MyRandom.nextInt(100)) + "-" +
+                        (newCoordinates[1] * 100 + MyRandom.nextInt(100)) + "-" +
+                        (newCoordinates[2] * 100 + MyRandom.nextInt(100)) + ".";
+                gameData.getChat().serverInSay(message);
+                this.triggered = true;
+                gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).setBackgroundType(oldBackground);
+                for (Player p : gameData.getPlayersAsList()) {
+                    p.refreshClientData();
+                }
+            }
+        }
+
+        @Override
+        public boolean shouldBeRemoved(GameData gameData, long timePassedMS) {
+            return triggered;
+        }
+
     }
 }

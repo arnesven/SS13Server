@@ -80,6 +80,7 @@ public class SS13ServerMain extends Thread {
             do {
                 Socket socket = listener.accept();
                 serviceHandler.serv(socket);
+                gameData.doAfterServingClient();
                 socket.close();
             } while (true);
 

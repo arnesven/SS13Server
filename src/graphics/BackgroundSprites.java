@@ -10,6 +10,9 @@ public class BackgroundSprites {
     private List<Sprite> space = generateSpaceSprites();
     private List<Sprite> planet = generatePlanetSprites();
     private List<Sprite> orbit = generateOrbitSprites();
+    private List<Sprite> swooshUp = genereratSwooshUpSprites();
+    private List<Sprite> swooshSide = genereratSwooshSideSprites();
+
 
     private List<Sprite> generateOrbitSprites() {
         // THIS METHOD ONLY USED FOR TESTING IN CLIENT
@@ -50,7 +53,35 @@ public class BackgroundSprites {
                 }
             }
         }
-        System.err.println(counter);
+        return lst;
+    }
+
+
+    private List<Sprite> genereratSwooshUpSprites() {
+        List<Sprite> lst = new ArrayList<>();
+        int counter = 0;
+        for (int row = 4; row < 13; ++row) {
+            for (int col = 0; col <= 25; col++) {
+                if (!(col < 4 && row == 4) && !(col > 20 && row == 12)) {
+                    lst.add(new Sprite("swooshvertical" + counter++, "space.png", col, row, null));
+                }
+            }
+        }
+        System.err.println("vertical: " + counter);
+        return lst;
+    }
+
+    private List<Sprite> genereratSwooshSideSprites() {
+        List<Sprite> lst = new ArrayList<>();
+        int counter = 0;
+        for (int row = 12; row < 22; ++row) {
+            for (int col = 0; col <= 25; col++) {
+                if (!(col < 21 & row == 12) && !(col > 11 && row == 25)) {
+                    lst.add(new Sprite("swooshhorizontal" + counter++, "space.png", col, row, null));
+                }
+            }
+        }
+        System.err.println("horizontal: " + counter);
         return lst;
     }
 }
