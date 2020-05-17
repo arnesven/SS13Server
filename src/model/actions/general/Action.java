@@ -43,7 +43,7 @@ public abstract class Action extends Experienceable implements Serializable {
 		this.senses = senses;
 		actionFailed = false;
 		this.uid = uidCounter++;
-        ActionManager.store(this);
+      //  ActionManager.store(this);
 	}
 
     public static void resetUidCounter() {
