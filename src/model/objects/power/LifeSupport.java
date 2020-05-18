@@ -16,7 +16,7 @@ public class LifeSupport extends ElectricalMachinery {
     private ColdEvent coldEvent;
 
     public LifeSupport(Room r) {
-        super("Life Support in " + r.getName(), r);
+        super(r.getName() + " LS", r);
         this.room = r;
         setPowerPriority(1);
     }

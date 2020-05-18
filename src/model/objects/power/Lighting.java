@@ -19,7 +19,7 @@ public class Lighting extends ElectricalMachinery {
     private DarkEvent darkEvent;
 
     public Lighting(Room room) {
-        super("Lights in " + room.getName(), room);
+        super(room.getName() + " Lights", room);
         this.room = room;
         setPowerPriority(2);
     }

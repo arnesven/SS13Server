@@ -2,6 +2,9 @@ package model.fancyframe;
 
 import model.GameData;
 import model.Player;
+import model.items.general.GameItem;
+import model.items.general.Multimeter;
+import model.items.general.Tools;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
 import model.objects.power.AreaPowerControl;
@@ -19,25 +22,49 @@ public class APCFancyFrame extends FancyFrame {
 
     private void buildContent(GameData gameData, Player performingClient) {
         StringBuilder content = new StringBuilder();
-        content.append("<br/>");
-
-        content.append(HTMLText.makeCentered(makeTable(gameData, performingClient)));
+        if (apc.isOpen()) {
+            if (GameItem.hasAnItemOfClass(performingClient, Tools.class)) {
+                content.append(HTMLText.makeFancyFrameLink("OPENCLOSE", "[close]"));
+            }
+            content.append("<br/>");
+            content.append(HTMLText.makeCentered(makeWireBox(gameData, performingClient)));
+        } else {
+            if (GameItem.hasAnItemOfClass(performingClient, Tools.class)) {
+                content.append(HTMLText.makeFancyFrameLink("OPENCLOSE", "[open]"));
+            }
+            content.append("<br/>");
+            content.append(HTMLText.makeCentered(makeTable(gameData, performingClient)));
+        }
 
         setData(apc.getPublicName(performingClient), false, HTMLText.makeColoredBackground("White", content.toString()));
+    }
+
+    private String makeWireBox(GameData gameData, Player performingClient) {
+        StringBuilder box = new StringBuilder();
+        box.append("<table width=\"75%\" bgcolor=\"black\">");
+        int index = 0;
+        for (ElectricalMachinery obj : apc.getConnectedElectricalObjects()) {
+            box.append("<tr>");
+            if (GameItem.hasAnItemOfClass(performingClient, Multimeter.class)) {
+                box.append("<td>" + (obj.isPowered()?"1":obj.getAPCWire().getStateAsChar()) + "</td>");
+            }
+            box.append("<td><center>" + obj.getAPCWire().drawYourselfInHTML(performingClient, true) + "</center></td>");
+            if (GameItem.hasAnItemOfClass(performingClient, Tools.class)) {
+                box.append(HTMLText.makeFancyFrameLink("CUT " + index, HTMLText.makeText("yellow", "[cut]")));
+                index++;
+            }
+            box.append("</tr>");
+        }
+        box.append("</table>");
+        return box.toString();
     }
 
     private String makeTable(GameData gameData, Player performingClient) {
         StringBuilder table = new StringBuilder();
         table.append("<table width=\"75%\" bgcolor=\"Blue\" style=\"border: 1px solid black\">");
-        for (GameObject obj : apc.getRoom1().getObjects()) {
-            if (obj instanceof ElectricalMachinery) {
-                table.append(rowForObj((ElectricalMachinery)obj));
-            }
-        }
-        for (GameObject obj : apc.getRoom2().getObjects()) {
-            if (obj instanceof ElectricalMachinery) {
-                table.append(rowForObj((ElectricalMachinery)obj));
-            }
+
+        for (ElectricalMachinery obj : apc.getConnectedElectricalObjects()) {
+            table.append(rowForObj(obj));
         }
 
         table.append("</table>");
@@ -45,8 +72,8 @@ public class APCFancyFrame extends FancyFrame {
     }
 
     private String rowForObj(ElectricalMachinery obj) {
-        return "<tr><td>" + courierWhite(obj.getName()) + "</td><td style=\"text-align:right\">" +
-                courierWhite(String.format("%dW", (int)(obj.getPowerConsumption() * 1000000))) + "</td><td>" +
+        return "<tr><td style=\"padding:0px\">" + courierWhite(obj.getName()) + "</td><td style=\"text-align:right;padding:0px\">" +
+                courierWhite(String.format("%dW", (int)(obj.getPowerConsumption() * 1000000))) + "</td><td style=\"text-align:right;padding:0px\">" +
                 courierWhite(obj.isPowered()?"OK":HTMLText.makeText("red", "NO")) + "</td></tr>";
     }
 
@@ -57,5 +84,26 @@ public class APCFancyFrame extends FancyFrame {
     @Override
     public void rebuildInterface(GameData gameData, Player player) {
         buildContent(gameData, player);
+    }
+
+    @Override
+    public void handleEvent(GameData gameData, Player player, String event) {
+        super.handleEvent(gameData, player, event);
+        if (event.contains("OPENCLOSE")) {
+            apc.setOpen(!apc.isOpen());
+            player.refreshClientData();
+            if (apc.isOpen()) {
+                gameData.getChat().serverInSay("You unscrewed the display to the APC. Wow! Lots of wires...", player);
+            } else {
+                gameData.getChat().serverInSay("You mounted the display to the APC", player);
+            }
+            readyThePlayer(gameData, player);
+            buildContent(gameData, player);
+        } else if (event.contains("CUT")) {
+            apc.getConnectedElectricalObjects().get(Integer.parseInt(event.replace("CUT ", ""))).getAPCWire().cut(player, gameData);
+
+            readyThePlayer(gameData, player);
+            buildContent(gameData, player);
+        }
     }
 }
