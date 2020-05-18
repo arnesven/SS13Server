@@ -303,12 +303,10 @@ public class Player extends Actor implements Target, Serializable {
 	public void parseActionFromString(String actionString, GameData gameData) {
 		ArrayList<Action> at = getActionList(gameData);
 		String actionStr = actionString.replaceFirst("root,", "");
-		Logger.log("Parsing regular action for " + getPublicName(this) + ": " + actionString);
 		List<String> args = new ArrayList<>();
 		args.addAll(Arrays.asList(actionStr.split(",")));
 		//Logger.log("Action tree: " + at.toString());
 		for (Action a : at) {
-			Logger.log("Parsing an action, could it be " + a.getName() + "?");
 			if (a.getName().equals(args.get(0))) {
 				Logger.log("Yes it is!");
                 while (a instanceof ActionGroup) {
