@@ -9,6 +9,9 @@ import model.objects.BarSign;
 import model.objects.consoles.SolarArrayControl;
 import model.objects.general.ATM;
 import model.objects.general.AirlockPanel;
+import model.objects.general.BreakableObject;
+import model.objects.general.GameObject;
+import model.objects.power.AreaPowerControl;
 
 import java.awt.*;
 
@@ -82,6 +85,9 @@ public class DonutSS13Builder extends MapBuilder {
         BarSign barSign2 = new BarSign(bar);
         barSign2.setAbsolutePosition(8, 10);
         bar.addObject(barSign2);
+        GameObject apc = new AreaPowerControl(bar, kitch);
+        apc.setAbsolutePosition(6, 11);
+        bar.addObject(apc);
         gm.addRoom(bar, ss13, "starboard");
 
         Room shallFront = new HallwayRoom(11, "Starboard Hall Front", "B O A R D"       , 9,  9, 3, 2, new int[]{9, 12, 13, 446} ,
@@ -200,6 +206,9 @@ public class DonutSS13Builder extends MapBuilder {
                 new Door[]{new NormalDoor(7.5, 3.0, 23, 24)} ), ss13, "port");
 
         Room sickbay = new SickbayRoom(24, 6,  0, 3, 3, new int[]{23, 25, 1} ,         new Door[]{});
+        GameObject apcSick = new AreaPowerControl(sickbay, labRoom);
+        apcSick.setAbsolutePosition(6, 2);
+        sickbay.addObject(apcSick);
         gm.addRoom(sickbay, ss13, "port");
         AirLockRoom airLock3 = new AirLockRoom(25, 3    , 5,  0, 1, 1, new int[]{24}        ,
                 new Door[]{new FullyOpenAirLockDoor(6.0, 0.5, 0.0, 25, 24),
