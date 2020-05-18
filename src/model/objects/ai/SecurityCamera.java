@@ -29,6 +29,11 @@ public class SecurityCamera extends ElectricalMachinery {
     }
 
     @Override
+    public boolean canBeOvercharged() {
+        return false;
+    }
+
+    @Override
     public void beExposedTo(Actor performingClient, Damager damage, GameData gameData) {
        // Do not take damage from effects
     }
