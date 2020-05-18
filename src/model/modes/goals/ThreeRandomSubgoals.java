@@ -2,7 +2,6 @@ package model.modes.goals;
 
 import model.Actor;
 import model.GameData;
-import model.actions.general.Action;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.items.foods.Banana;
@@ -10,7 +9,6 @@ import model.items.foods.Beer;
 import model.items.foods.FoodItem;
 import model.items.foods.SpaceBurger;
 import model.items.general.*;
-import model.objects.general.ShowerOffAction;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -273,7 +271,7 @@ public class ThreeRandomSubgoals extends CompositePersonalGoal {
 
     private class TakeAShower extends DidAnActionGoal {
         public TakeAShower() {
-            super(1, ShowerOffAction.class);
+            super(1, model.objects.general.TakeAShower.class);
         }
 
         @Override

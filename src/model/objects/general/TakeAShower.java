@@ -9,8 +9,8 @@ import model.characters.general.GameCharacter;
 
 import java.util.List;
 
-    public class ShowerOffAction extends Action {
-        public ShowerOffAction() {
+    public class TakeAShower extends Action {
+        public TakeAShower() {
             super("Take a Shower", SensoryLevel.PHYSICAL_ACTIVITY);
         }
 
