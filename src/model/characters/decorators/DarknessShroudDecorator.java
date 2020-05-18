@@ -15,10 +15,6 @@ public class DarknessShroudDecorator extends CharacterDecorator {
 		super(inner, "Darkness");
 	}
 
-	@Override
-	public String getFullName() {
-		return super.getFullName() + " (darkened vision)";
-	}
 
 	@Override
 	public String getWatchString(Actor whosAsking) {
