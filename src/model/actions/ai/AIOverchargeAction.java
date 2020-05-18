@@ -13,6 +13,8 @@ import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -31,12 +33,26 @@ public class AIOverchargeAction extends Action {
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption opt = super.getOptions(gameData, whosAsking);
 
+        List<ElectricalMachinery> objs = new ArrayList<>();
+
+
         for (Room r :  gameData.getMap().getRoomsForLevel("ss13")) {
             for (GameObject ob : r.getObjects()) {
                 if (ob instanceof ElectricalMachinery && ((ElectricalMachinery)ob).canBeOvercharged()) {
-                    opt.addOption(ob.getPublicName(whosAsking) + " (" + ob.getPosition().getName() + ")");
+                    objs.add((ElectricalMachinery)ob);
                 }
             }
+        }
+
+        Collections.sort(objs, new Comparator<ElectricalMachinery>() {
+            @Override
+            public int compare(ElectricalMachinery electricalMachinery, ElectricalMachinery t1) {
+                return electricalMachinery.getName().compareTo(t1.getName());
+            }
+        });
+        for (ElectricalMachinery em : objs) {
+            opt.addOption(em.getPublicName(whosAsking) + " (" + em.getPosition().getName() + ")");
+
         }
 
         return opt;
