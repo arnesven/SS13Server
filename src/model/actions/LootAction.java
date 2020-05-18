@@ -73,10 +73,11 @@ public class LootAction extends TargetingAction {
         }
 
         if (lootall) {
-            return getVerb(whosAsking) + " " + target.getName();
+            return getPerformer().getPublicName(whosAsking) + " " + getVerb(whosAsking) + " " + target.getName();
         }
 
-        return getVerb(whosAsking) + (item!=null?(" a " + item.getPublicName(whosAsking)):"") + " from " + target.getName();
+        return getPerformer().getPublicName(whosAsking) + " " + getVerb(whosAsking) +
+                (item!=null?(" a " + item.getPublicName(whosAsking)):"") + " from " + target.getName();
     }
 
     @Override
