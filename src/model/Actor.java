@@ -410,9 +410,6 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         }
         this.getPosition().addActionsFor(gameData, this, at2);
         roomActions.addAll(at2);
-        if (at2.size() > 0) {
-            at.add(roomActions);
-        }
 
         if (this instanceof Player) {
             for (Room r : getVisibleMap(gameData)) {
@@ -426,7 +423,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
             }
         }
 
-
+        at.add(roomActions);
     }
 
     private void addUnequipAction(GameData gameData, ArrayList<Action> at2) {
