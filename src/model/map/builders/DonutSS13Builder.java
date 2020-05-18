@@ -41,10 +41,14 @@ public class DonutSS13Builder extends MapBuilder {
                         new NormalDoor(4.0, 7.5, 4, 5)});
         gm.addRoom(airtunnelRoom, ss13, "aft");
 
-        gm.addRoom(new HallwayRoom( 5, "Aft Hall"            , "AFT"    , 4,  4, 2, 4, new int[]{2, 4, 9, 23},
+        HallwayRoom aftHall = new HallwayRoom( 5, "Aft Hall"            , "AFT"    , 4,  4, 2, 4, new int[]{2, 4, 9, 23},
                 new Door[]{new NormalDoor(6.0, 4.5, 5, 23),
-                        new NormalDoor(5.5, 8.0, 5, 9)}),
-                ss13, "aft");
+                        new NormalDoor(5.5, 8.0, 5, 9)});
+        {
+            AreaPowerControl apc = new AreaPowerControl(aftHall, chapel);
+            apc.setAbsolutePosition(4, 5.5);
+        }
+        gm.addRoom(aftHall, ss13, "aft");
 
         Room aftWalk = new HallwayRoom(6, "Aft Walkway", "", 2, 10, 2, 1, new int[]{3, 7, 8},
                 new Door[]{new NormalDoor(2.5, 10.0, 6, 3),
@@ -85,9 +89,10 @@ public class DonutSS13Builder extends MapBuilder {
         BarSign barSign2 = new BarSign(bar);
         barSign2.setAbsolutePosition(8, 10);
         bar.addObject(barSign2);
-        GameObject apc = new AreaPowerControl(bar, kitch);
-        apc.setAbsolutePosition(6, 11);
-        bar.addObject(apc);
+        {
+            GameObject apc = new AreaPowerControl(bar, kitch);
+            apc.setAbsolutePosition(6, 11);
+        }
         gm.addRoom(bar, ss13, "starboard");
 
         Room shallFront = new HallwayRoom(11, "Starboard Hall Front", "B O A R D"       , 9,  9, 3, 2, new int[]{9, 12, 13, 446} ,
@@ -129,6 +134,10 @@ public class DonutSS13Builder extends MapBuilder {
         Room office = new OfficeRoom(gameData, 14, 13, 10, 2, 2, new int[]{12, 13}    ,         new Door[]{} );
         gm.addRoom(office, ss13, "front");
         gm.addRoom(office, ss13, "starboard");
+        {
+            AreaPowerControl apc = new AreaPowerControl(office, dorms);
+            apc.setAbsolutePosition(13, 12);
+        }
 
         Room frontHall = new HallwayRoom(13, "Front Hall"          , "FRONT"     ,12,  6, 2, 4, new int[]{11, 14, 16},
                 new Door[]{new NormalDoor(13.5, 10.0, 13, 14),
@@ -154,6 +163,10 @@ public class DonutSS13Builder extends MapBuilder {
 
         Room robotics = new RoboticsRoom(448, 10, 7, 2, 2, new int[]{15},
                 new Door[]{new EngineeringDoor(12.0, 8.0, 448, 13, true)});
+        {
+            AreaPowerControl apc = new AreaPowerControl(robotics, frontHall);
+            apc.setAbsolutePosition(10, 7);
+        }
         gm.addRoom(robotics, ss13, "center");
 
         Room portHallFront = new HallwayRoom(16, "Port Hall Front"     , ""       ,13,  3, 2, 3, new int[]{13, 17, 18, 19},
@@ -182,6 +195,10 @@ public class DonutSS13Builder extends MapBuilder {
 
         Room CQ = new CaptainsQuartersRoom(gameData, 20, 15,  8, 2, 2, new int[]{17}        ,
                 new Door[]{} );
+        {
+            AreaPowerControl apc = new AreaPowerControl(bridge, CQ);
+            apc.setAbsolutePosition(17, 8);
+        }
         gm.addRoom(CQ, ss13, "front");
 
         AirLockRoom airLock2 = new AirLockRoom(21, 2   ,13,  2, 1, 1, new int[]{19}        ,
@@ -200,15 +217,20 @@ public class DonutSS13Builder extends MapBuilder {
         Room army = new ArmoryRoom(22,                             10,  4, 3, 2, new int[]{}        ,         new Door[]{});
         army.setDoors(new Door[]{new SecurityDoor(11.0, 4.0, 22, 19, true)});
 
+        {
+            AreaPowerControl apc = new AreaPowerControl(army, gate);
+            apc.setAbsolutePosition(12, 4);
+        }
+
         gm.addRoom(army, ss13, "center");
 
-        gm.addRoom(new HallwayRoom(23, "Port Hall Aft"       , "P O R T"       , 6,  3, 4, 2, new int[]{19, 24, 5} ,
-                new Door[]{new NormalDoor(7.5, 3.0, 23, 24)} ), ss13, "port");
+        Room portHallAft = new HallwayRoom(23, "Port Hall Aft"       , "P O R T"       , 6,  3, 4, 2, new int[]{19, 24, 5} ,
+                new Door[]{new NormalDoor(7.5, 3.0, 23, 24)} );
+        gm.addRoom(portHallAft, ss13, "port");
 
         Room sickbay = new SickbayRoom(24, 6,  0, 3, 3, new int[]{23, 25, 1} ,         new Door[]{});
         GameObject apcSick = new AreaPowerControl(sickbay, labRoom);
         apcSick.setAbsolutePosition(6, 2);
-        sickbay.addObject(apcSick);
         gm.addRoom(sickbay, ss13, "port");
         AirLockRoom airLock3 = new AirLockRoom(25, 3    , 5,  0, 1, 1, new int[]{24}        ,
                 new Door[]{new FullyOpenAirLockDoor(6.0, 0.5, 0.0, 25, 24),
@@ -224,8 +246,13 @@ public class DonutSS13Builder extends MapBuilder {
 
         gm.addRoom(airLock3, ss13, "port");
 
-        gm.addRoom(new GeneratorRoom(26, 6,  5, 3, 3, new int[]{}         ,
-                new Door[]{new EngineeringDoor(6.0, 6.5, 26, 5, true)}, gameData ), ss13, "center");
+        Room r = new GeneratorRoom(26, 6,  5, 3, 3, new int[]{}         ,
+                new Door[]{new EngineeringDoor(6.0, 6.5, 26, 5, true)}, gameData );
+        {
+            AreaPowerControl apc = new AreaPowerControl(r, portHallAft);
+            apc.setAbsolutePosition(8, 5);
+        }
+        gm.addRoom(r, ss13, "center");
 
         Room panorama = new PanoramaRoom(27, 1,  3, 1, 3, new int[]{1}      ,         new Door[]{} );
         panorama.addObject(new SolarArrayControl(panorama, 14323, gameData));
@@ -239,6 +266,11 @@ public class DonutSS13Builder extends MapBuilder {
 
         Room brig = new BrigRoom(29, 15, 4, 1, 1, new int[]{}, new Door[]{});
         brig.setDoors(new Door[]{new NormalDoor(15.0, 4.5, 29, 16, true)});
+        {
+            AreaPowerControl apc = new AreaPowerControl(brig, ss);
+            apc.setAbsolutePosition(16, 4);
+            brig.addObject(apc);
+        }
         gm.addRoom(brig, ss13, "center");
 
         SpaceRoom space = new SpaceRoom(30, 0, 0, 0, 0);

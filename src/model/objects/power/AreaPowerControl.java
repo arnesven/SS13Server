@@ -22,9 +22,17 @@ public class AreaPowerControl extends GameObject {
 
     public AreaPowerControl(Room room1, Room room2) {
         super("APC - " + room1.getName()+"/"+room2.getName(), room1);
+        room1.addObject(this);
         room2.addObject(this);
         this.room1 = room1;
         this.room2 = room2;
+        isOpen = false;
+    }
+
+    public AreaPowerControl(Room single) {
+        super("APC - " + single.getName(), single);
+        this.room1 = single;
+        this.room2 = null;
         isOpen = false;
     }
 
@@ -74,16 +82,18 @@ public class AreaPowerControl extends GameObject {
         if (getRoom1().getLifeSupport() != null) {
             lst.add(getRoom1().getLifeSupport());
         }
-        for (GameObject obj : getRoom2().getObjects()) {
-            if (obj instanceof ElectricalMachinery) {
-                lst.add((ElectricalMachinery)obj);
+        if (room2 != null) {
+            for (GameObject obj : getRoom2().getObjects()) {
+                if (obj instanceof ElectricalMachinery) {
+                    lst.add((ElectricalMachinery) obj);
+                }
             }
-        }
-        if (getRoom2().getLighting() != null) {
-            lst.add(getRoom2().getLighting());
-        }
-        if (getRoom2().getLifeSupport() != null) {
-            lst.add(getRoom2().getLifeSupport());
+            if (getRoom2().getLighting() != null) {
+                lst.add(getRoom2().getLighting());
+            }
+            if (getRoom2().getLifeSupport() != null) {
+                lst.add(getRoom2().getLifeSupport());
+            }
         }
         return lst;
     }

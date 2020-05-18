@@ -41,16 +41,20 @@ public class APCFancyFrame extends FancyFrame {
 
     private String makeWireBox(GameData gameData, Player performingClient) {
         StringBuilder box = new StringBuilder();
-        box.append("<table width=\"75%\" bgcolor=\"black\">");
+        box.append("<table width=\"75%\" bgcolor=\"#494949\" style=\"border:1px solid black\">");
         int index = 0;
         for (ElectricalMachinery obj : apc.getConnectedElectricalObjects()) {
             box.append("<tr>");
             if (GameItem.hasAnItemOfClass(performingClient, Multimeter.class)) {
-                box.append("<td>" + (obj.isPowered()?"1":obj.getAPCWire().getStateAsChar()) + "</td>");
+                box.append("<td>" + HTMLText.makeText("yellow", obj.isPowered()?"1":obj.getAPCWire().getStateAsChar()) + "</td>");
             }
             box.append("<td><center>" + obj.getAPCWire().drawYourselfInHTML(performingClient, true) + "</center></td>");
             if (GameItem.hasAnItemOfClass(performingClient, Tools.class)) {
-                box.append(HTMLText.makeFancyFrameLink("CUT " + index, HTMLText.makeText("yellow", "[cut]")));
+                if (obj.getAPCWire().isCut()) {
+                    box.append(HTMLText.makeFancyFrameLink("MEND " + index, HTMLText.makeText("yellow", "[mend]")));
+                } else {
+                    box.append(HTMLText.makeFancyFrameLink("CUT " + index, HTMLText.makeText("yellow", "[cut]")));
+                }
                 index++;
             }
             box.append("</tr>");
@@ -101,7 +105,10 @@ public class APCFancyFrame extends FancyFrame {
             buildContent(gameData, player);
         } else if (event.contains("CUT")) {
             apc.getConnectedElectricalObjects().get(Integer.parseInt(event.replace("CUT ", ""))).getAPCWire().cut(player, gameData);
-
+            readyThePlayer(gameData, player);
+            buildContent(gameData, player);
+        } else if (event.contains("MEND")) {
+            apc.getConnectedElectricalObjects().get(Integer.parseInt(event.replace("MEND ", ""))).getAPCWire().mend(player, gameData);
             readyThePlayer(gameData, player);
             buildContent(gameData, player);
         }
