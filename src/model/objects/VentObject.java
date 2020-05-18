@@ -174,6 +174,14 @@ public class VentObject extends GameObject {
             } ;
             return result;
         }
+
+        @Override
+        public void doAfterMovement(GameData gameData) {
+            super.doAfterMovement(gameData);
+            if (!(getPosition() instanceof AirDuctRoom)) {
+                getActor().removeInstance((GameCharacter gc) -> gc == this);
+            }
+        }
     }
 
     private class OpenVentAction extends Action {
