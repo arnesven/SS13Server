@@ -14,7 +14,12 @@ public class DarknessShroudDecorator extends CharacterDecorator {
 	public DarknessShroudDecorator(GameCharacter inner) {
 		super(inner, "Darkness");
 	}
-	
+
+	@Override
+	public String getFullName() {
+		return super.getFullName() + " (darkened vision)";
+	}
+
 	@Override
 	public String getWatchString(Actor whosAsking) {
         if (GameItem.hasAnItem(whosAsking, LightItem.class)) {
