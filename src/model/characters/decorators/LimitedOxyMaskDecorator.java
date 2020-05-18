@@ -13,7 +13,7 @@ public class LimitedOxyMaskDecorator extends OxyMaskDecorator {
 
     public LimitedOxyMaskDecorator(GameCharacter character, CheapOxygenMask oxyMask) {
         super(character);
-        uses = 2;
+        uses = 3;
         this.oxyMask = oxyMask;
     }
 
@@ -24,7 +24,7 @@ public class LimitedOxyMaskDecorator extends OxyMaskDecorator {
             uses--;
         }
         if (uses == 0) {
-            oxyMask.removeYourself(something.getCharacter().getEquipment());
+            oxyMask.removeYourself(getActor().getCharacter().getEquipment());
             something.addTolastTurnInfo("The " + oxyMask.getBaseName() + " ran out of oxygen. You removed it.");
         }
 

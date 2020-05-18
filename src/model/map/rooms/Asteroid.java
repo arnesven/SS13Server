@@ -41,6 +41,11 @@ public class Asteroid extends PlanetRoom {
     }
 
     @Override
+    protected String getBackgroundStyle() {
+        return "Space";
+    }
+
+    @Override
     public void destroy(GameData gameData) {
         //gameData.getMap().removeRoom(this);
         super.destroy(gameData);

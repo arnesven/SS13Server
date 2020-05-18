@@ -61,7 +61,7 @@ public class MugshotChatHandler extends ChatCommandHandler {
     protected void internalHandle(GameData gameData, Player sender, String rest) {
         if (sender.getCharacter() != null) {
             takeMugshot(sender.getCharacter().getMugshotName(), sender.getCharacter().getMugshotSprite(gameData, sender));
-            gameData.getChat().serverSay("Flash! You took a mugshot of the " + sender.getCharacter().getMugshotName() + ". It will be saved for later reference.");
+            gameData.getChat().serverSay("Flash! You took a mugshot of the " + sender.getCharacter().getMugshotName() + ". It will be saved for later reference.", sender);
         } else {
             gameData.getChat().serverSay("Can't take mugshot - you don't have a character yet!", sender);
         }

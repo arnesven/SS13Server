@@ -12,6 +12,7 @@ import model.map.levels.EmptySpaceLevel;
 import model.map.levels.PlanetSystem;
 import model.map.levels.SpecialLevel;
 import model.map.rooms.*;
+import model.objects.general.AirlockPanel;
 import util.MyRandom;
 
 import java.awt.*;
@@ -134,6 +135,9 @@ public class OtherPlacesBuilder extends MapBuilder {
                             new Door[]{new FullyOpenAirLockDoor(x+2, y+1.5, 0.0, 556, 555),
                                     new AirLockDoor(x+3,   y+1.5, 556, 100032),
                                     new AirLockDoor(x+2.5, y+2.0, 556, 100032)});
+                    AirlockPanel ap = new AirlockPanel(air, space);
+                    ap.setAbsolutePosition(x+3, y+1);
+                    space.addObject(ap);
                     this.dp = new DockingPoint("Mining Station - 1", "Mining Ops", new Point(-1, 0), new Point(0, 1), air);
                     air.addDockingPoint(dp);
                     air.addDockingPoint(new DockingPoint("Mining Station - 2", "Mining Ops", new Point(-1, 0), new Point(1, 0), air));

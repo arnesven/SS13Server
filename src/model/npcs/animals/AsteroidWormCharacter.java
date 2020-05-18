@@ -17,7 +17,11 @@ public class AsteroidWormCharacter extends AnimalCharacter {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("asteroidworm", "synthetic.png", 15, 26, getActor());
+        Sprite sp = new Sprite("asteroidworm", "synthetic.png", 15, 26, getActor());
+        if (isDead()) {
+            sp.setRotation(90);
+        }
+        return sp;
     }
 
     @Override

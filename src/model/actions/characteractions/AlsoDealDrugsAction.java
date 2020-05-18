@@ -46,6 +46,7 @@ public class AlsoDealDrugsAction extends TargetingAction {
     public void setArguments(List<String> args, Actor performingClient) {
         super.setArguments(args, performingClient);
         performingClient.setCharacter(new DealingDrugsToCharacterDecorator(performingClient.getCharacter(), (Actor)target));
+
     }
 
     private class DealingDrugsToCharacterDecorator extends CharacterDecorator {

@@ -19,7 +19,7 @@ public abstract class StationRoom extends Room {
         if (!isHidden()) {
             this.addObject(new SecurityCamera(this));
         }
-        if (getsTrashBin() && MyRandom.nextDouble() < 0.99) { // TODO: change to a suitable factor
+        if (getsTrashBin() && MyRandom.nextDouble() < 0.9) { // TODO: change to a suitable factor
             this.addObject(new TrashBin(this));
         }
     }
