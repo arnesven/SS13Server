@@ -33,6 +33,11 @@ public class AITakenOverDecorator extends CharacterDecorator {
     }
 
     @Override
+    public String getPublicName(Actor whosAsking) {
+        return oldNpc.getPublicName(whosAsking);
+    }
+
+    @Override
     public void doAtEndOfTurn(GameData gameData) {
         super.doBeforeMovement(gameData);
         if (oldNpc.isDead()) {
