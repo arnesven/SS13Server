@@ -45,4 +45,9 @@ public abstract class WalkUpToObjectAction extends Action {
     }
 
     protected abstract FancyFrame getFancyFrame(Actor performingClient, GameData gameData, GameObject someObj);
+
+    @Override
+    public boolean doesSetPlayerReady() {
+        return false;
+    }
 }

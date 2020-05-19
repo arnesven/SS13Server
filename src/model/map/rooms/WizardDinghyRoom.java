@@ -5,7 +5,9 @@ import model.map.doors.Door;
 import model.map.floors.ChapelFloorSet;
 import model.map.floors.FloorSet;
 import model.objects.Altar;
+import model.objects.BookCase;
 import model.objects.CrystalBall;
+import model.objects.WizardStaffCloset;
 import model.objects.decorations.ShuttleThruster;
 
 public class WizardDinghyRoom extends ShuttleRoom {
@@ -19,6 +21,8 @@ public class WizardDinghyRoom extends ShuttleRoom {
         moveTo(getX(), getY(), getZ());
 
         addObject(new CrystalBall(this));
+        addObject(new WizardStaffCloset(this));
+        addObject(new BookCase(this));
     }
 
     @Override

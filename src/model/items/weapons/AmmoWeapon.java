@@ -21,7 +21,7 @@ public class AmmoWeapon extends Weapon {
 	
 	@Override
 	public String getFullName(Actor whosAsking) {
-		return super.getFullName(whosAsking) + "(" + shots + ")";
+		return super.getFullName(whosAsking) + " (" + shots + ")";
 	}
 	
 	@Override

@@ -59,4 +59,5 @@ public class CrystalBall extends GameObject {
     public void setInUse(boolean inUse) {
         this.inUse = inUse;
     }
+
 }
