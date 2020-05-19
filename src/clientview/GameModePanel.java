@@ -18,6 +18,7 @@ import java.util.Map;
 public class GameModePanel extends JPanel implements Observer {
 
     private final JPanel innerPanel;
+    private final GridLayout grid;
     private JTextField roundField;
     private boolean loaded = false;
     private Map<String, ModePanel> modePanels;
@@ -40,7 +41,8 @@ public class GameModePanel extends JPanel implements Observer {
         }
 
     	innerPanel = new JPanel();
-        innerPanel.setLayout(new GridLayout(5, 2));
+        this.grid = new GridLayout(5, 2);
+        innerPanel.setLayout(grid);
     	this.add(innerPanel);
     //GameData.getInstance().sendSettings();
         GameData.getInstance().subscribe(this);
@@ -119,6 +121,9 @@ public class GameModePanel extends JPanel implements Observer {
             }
             ModePanel mp = new ModePanel(parts[i], parts[i+1], enabled, bg);
             modePanels.put(parts[i], mp);
+            if (modePanels.size() > grid.getColumns()*grid.getRows()) {
+                grid.setRows(grid.getRows()+1);
+            }
             innerPanel.add(mp);
         }
 

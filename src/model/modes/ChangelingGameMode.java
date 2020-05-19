@@ -87,12 +87,7 @@ public class ChangelingGameMode extends GameMode {
 		ling = MyRandom.sample(lingPlayers);
 		Logger.log("Making an NPC out of " + ling.getCharacter().getFullName());
 		Logger.log("Starting room was " + ling.getCharacter().getStartingRoom(gameData).getName());
-		NPC npc = new HumanNPC(ling.getCharacter(), 
-							   ling.getCharacter().getStartingRoom(gameData));
-		ling.getCharacter().setActor(npc);
-
-		gameData.addNPC(npc);
-		decoy = npc;
+		decoy = makeDecoy(ling, gameData);
 
 		List<Room> startingRooms = new ArrayList<>();
 		startingRooms.addAll(gameData.getNonHiddenStationRooms());
@@ -110,7 +105,8 @@ public class ChangelingGameMode extends GameMode {
 
 	private boolean lockedRoom(Room startRoom, GameData gameData) {
         try {
-            return startRoom == gameData.getRoom("Brig") || startRoom == gameData.getRoom("Armory");
+            return startRoom == gameData.getRoom("Brig") || startRoom == gameData.getRoom("Armory") ||
+					startRoom == gameData.getRoom("Generator") || startRoom == gameData.getRoom("Robotics");
         } catch (NoSuchThingException e) {
             return true;
         }

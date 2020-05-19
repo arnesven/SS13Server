@@ -11,6 +11,7 @@ import graphics.sprites.Sprite;
 import model.characters.decorators.NoSuchInstanceException;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
+import model.events.ambient.SimulatePower;
 import model.fancyframe.SinglePageFancyFrame;
 import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
@@ -88,10 +89,10 @@ public class TraitorGameMode extends GameMode {
 
 	}
 
-	private void assignTraitors(GameData gameData) {
+	protected void assignTraitors(GameData gameData) {
 		traitors = new ArrayList<>();
 		for (Player p : gameData.getPlayersAsList()) {
-			if (p.checkedJob("Traitor") &&
+			if (p.checkedJob(getName()) &&
                     !(p.getCharacter() instanceof AICharacter) &&
                     !(p.getCharacter() instanceof SpectatorCharacter)) {
 				traitors.add(p);
@@ -103,7 +104,7 @@ public class TraitorGameMode extends GameMode {
 		// TO Few checked traitor, add som more randomly until we have
 		// enough
 		while (traitors.size() < getNoOfTraitors(gameData)) {
-			throw new GameCouldNotBeStartedException("Can not play traitor mode. To few traitors.");
+			throw new GameCouldNotBeStartedException("Can not play " + getName() + " mode. To few traitors.");
 		}
 		
 		// To Many checked traitor, removing some randomly until we have
@@ -192,7 +193,7 @@ public class TraitorGameMode extends GameMode {
 	}
 
 
-	private int getNoOfTraitors(GameData gameData) {
+	protected int getNoOfTraitors(GameData gameData) {
 		double d = gameData.getPlayersAsList().size() * TRAITOR_FACTOR;
 		int traitors = Math.max(1, (int)Math.round(d));
 		Logger.log("No of traitors " + traitors);
@@ -238,8 +239,9 @@ public class TraitorGameMode extends GameMode {
 		//}
 	}
 
-	private String getObjectiveText(Player traitor) {
-		return HTMLText.makeWikiLink("modes/traitor", "Objective") + "; \"" + objectives.get(traitor).getText() + "\"";
+	protected String getObjectiveText(Player traitor) {
+		return HTMLText.makeWikiLink("modes/" + getName().toLowerCase(), "Objective") + "; \"" +
+                objectives.get(traitor).getText() + "\"";
 	}
 
 
@@ -254,8 +256,7 @@ public class TraitorGameMode extends GameMode {
 	@Override
 	public void doWhenGameOver(GameData gameData) {
 		triggerModeSpecificEvents(gameData);
-		
-	};
+	}
 
 	@Override
 	public String getSummary(GameData gameData) {
@@ -310,6 +311,7 @@ public class TraitorGameMode extends GameMode {
 		
 		result += pointsFromObjectives(gameData);
 		result += pointsFromSavedCrew(gameData);
+		result += extraExtendedPoints(gameData);
 		result += pointsFromBrokenObjects(gameData);
 		result += pointsFromFires(gameData);
 		result += pointsFromBreaches(gameData);
@@ -330,7 +332,11 @@ public class TraitorGameMode extends GameMode {
 		return result;
 	}
 
-	public int pointsFromSelling(GameData gameData) {
+    protected int extraExtendedPoints(GameData gameData) {
+        return 0;
+    }
+
+    public int pointsFromSelling(GameData gameData) {
 		try {
 			MarketConsole console = gameData.findObjectOfType(MarketConsole.class);
 			return (int)(console.getTotalSellValue() / 20.0);
@@ -455,7 +461,7 @@ public class TraitorGameMode extends GameMode {
         	Logger.log("No altar found");
 		}
 
-        return biblePoints + mailboxpoints;
+        return biblePoints + mailboxpoints + altarpoints;
 	}
 	
 	private Bible getBible(GameData gameData) {
@@ -481,13 +487,11 @@ public class TraitorGameMode extends GameMode {
 	}
 
 	public int pointsFromPower(GameData gameData) {
-        try {
-            if (gameData.findObjectOfType(GeneratorConsole.class).getSource().getPowerOutput() > 0.99) {
-                return 200;
-            }
-        } catch (NoSuchThingException e) {
-            Logger.log(Logger.CRITICAL, "Generator console not found!");
+        SimulatePower sp = (SimulatePower)gameData.getGameMode().getEvents().get("simulate power");
+        if ((sp.getAvailablePower(gameData)/sp.getPowerDemand(gameData)) > 0.95) {
+            return 200;
         }
+
         return 0;
 	}
 

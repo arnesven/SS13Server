@@ -45,7 +45,7 @@ import util.Pair;
 public abstract class GameMode implements Serializable {
 
 
-	private static String[] knownModes = { "Traitor", "Host", "Operatives", "Changeling", "Rogue AI", "Armageddon", "Mutiny", "Mixed", "Secret", "Creative"};
+	private static String[] knownModes = { "Traitor", "Host", "Operatives", "Changeling", "Rogue AI", "Armageddon", "Mutiny", "Wizard", "Mixed", "Secret", "Creative"};
 	private Bank bank;
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
@@ -589,7 +589,7 @@ public abstract class GameMode implements Serializable {
 	}
 
 	public static List<String> availableAntagonists() {
-		return List.of("Traitor", "Host", "Operative", "Changeling", "Rogue AI");
+		return List.of("Traitor", "Host", "Operative", "Changeling", "Rogue AI", "Wizard");
 	}
 
 
@@ -600,6 +600,7 @@ public abstract class GameMode implements Serializable {
 		map.put("Operative", OperativeCharacter.getAntagonistDescription());
 		map.put("Changeling", ChangelingCharacter.getAntagonistDescription());
 		map.put("Rogue AI", AICharacter.getAntagonistDescription());
+		map.put("Wizard", WizardCharacter.getAntagonistDescription());
 		return map.get(gc);
 	}
 
@@ -819,5 +820,12 @@ public abstract class GameMode implements Serializable {
 
 	public Bank getBank() {
 		return bank;
+	}
+
+	protected NPC makeDecoy(Player p, GameData gameData) {
+		NPC npc = new HumanNPC(p.getCharacter(), p.getCharacter().getStartingRoom(gameData));
+		p.getCharacter().setActor(npc);
+		gameData.addNPC(npc);
+		return npc;
 	}
 }

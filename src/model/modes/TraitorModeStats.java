@@ -21,6 +21,10 @@ public class TraitorModeStats extends GameStats {
 		return "";
 	}
 
+	protected TraitorGameMode getTraitorMode() {
+		return traitorMode;
+	}
+
 	@Override
 	protected String getExtraDeadInfo(Actor value) {
 		String traitor = "";
@@ -57,8 +61,9 @@ public class TraitorModeStats extends GameStats {
 		
 		StringBuffer buf = new StringBuffer("<table>");
 		buf.append("<tr><td><b>Total Score</b></td><td style='text-align:right;color:"+color+"'><b>" + score              + "</b></td></tr>");
-		buf.append("<tr><td>Traitor Objectives</td><td " + style + ">"   + traitorMode.pointsFromObjectives(gameData)      + "</td></tr>");
+		buf.append("<tr><td>" + getTraitorMode().getName() + " Objective(s)</td><td " + style + ">"   + traitorMode.pointsFromObjectives(gameData)      + "</td></tr>");
 		buf.append("<tr><td>Crew Survived</td><td " + style +">"         + traitorMode.pointsFromSavedCrew(gameData)        + "</td></tr>");
+		buf.append(getExtraScoringTableRowsHTML());
 		buf.append("<tr><td>Station Fully Powered</td><td " + style +">" + traitorMode.pointsFromPower(gameData)        + "</td></tr>");
         buf.append("<tr><td>Station Cleanliness</td><td " + style +">" + traitorMode.pointsFromDirtyStation(gameData)      + "</td></tr>");
         buf.append("<tr><td>Equipment Destroyed</td><td " + style +">"+ traitorMode.pointsFromBrokenObjects(gameData)    + "</td></tr>");
@@ -92,9 +97,13 @@ public class TraitorModeStats extends GameStats {
 		return buf.toString();
 	}
 
+	protected String getExtraScoringTableRowsHTML() {
+		return "";
+	}
+
 	@Override
 	public String getMode() {
-		return "Traitor";
+		return traitorMode.getName();
 	}
 
 	@Override
@@ -107,11 +116,11 @@ public class TraitorModeStats extends GameStats {
 			} else if (score > 0) {
 				return "Crew Team Wins!";
 			} else {
-				return "Traitor Team Wins!";
+				return getTraitorTeamName() + " Wins!";
 			}
 		}
 		if (status == GameOver.PROTAGONISTS_DEAD) {
-			return "Traitor Team Wins!";
+			return getTraitorTeamName() + " Wins!";
 		}
 		if (status == GameOver.ALL_DEAD) {
 			return "Everybody Lost!";
@@ -119,6 +128,10 @@ public class TraitorModeStats extends GameStats {
 		
 		throw new IllegalStateException("Tried to get game outcome before game was over!");
 	
+	}
+
+	protected String getTraitorTeamName() {
+		return "Traitor Team";
 	}
 
 	@Override
