@@ -66,62 +66,9 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
             setData(cons.getPublicName(player), false, content.toString());
         } else {
             content.append("___________________________" + HTMLText.makeFancyFrameLink("BACK", "[back]") + "<br/>");
-            List<SpriteObject> stuffToShow = new ArrayList<>();
-            Room r = shownRoom;
+            content.append("<br/><center> " + shownRoom.getName() + "<br/>");
+            content.append(HTMLText.makeImage(makeCombinedSprite(gameData, player, shownRoom, true)));
 
-            stuffToShow.addAll(r.getActors());
-            stuffToShow.addAll(r.getObjects());
-            stuffToShow.addAll(r.getItems());
-            for (Event a : r.getEvents()) {
-                if (a.showSpriteInRoom()) {
-                    stuffToShow.add(a);
-                }
-            }
-
-            int maxCol = 5;
-            if (stuffToShow.size() > 10) {
-                maxCol = 7;
-            }
-            int maxRows = (int)Math.max(3, Math.ceil(stuffToShow.size() / (double)(maxCol)));
-            int totalSlots = maxCol * maxRows;
-            for (int i = totalSlots - stuffToShow.size(); i > 0; --i) {
-                stuffToShow.add(SpriteObject.BLANK);
-            }
-
-            Collections.shuffle(stuffToShow);
-
-            content.append("<br/><center> " + r.getName() + "<br/>");
-
-                int colCount = 1;
-                int rowCount = 1;
-                List<List<Sprite>> sprs = new ArrayList<>();
-                sprs.add(new ArrayList<>());
-                for (SpriteObject obj : stuffToShow) {
-                    Sprite sp;
-                    if (roomHasDarkness(r)) {
-                        if (obj instanceof Actor) {
-                            sp = new BlurredCharacter().getSprite(player);
-                        } else {
-                            sp = Sprite.blankSprite();
-                        }
-                    } else {
-                        sp = makeOnFloor(obj, r, player, colCount, maxCol, rowCount, maxRows);
-                    }
-                    sprs.get(rowCount - 1).add(sp);
-                    colCount++;
-                    if (colCount > maxCol) {
-                        colCount = 1;
-                        rowCount++;
-                        if (rowCount <= maxRows) {
-                            sprs.add(new ArrayList<>());
-                        }
-                    }
-                }
-
-                checkForNoConnection(gameData, shownRoom, sprs);
-
-
-                content.append(HTMLText.makeImage(new CombinedSprite("securitycamerapicnr" + (uid++), sprs)));
 
             content.append("</center>");
             setData(cons.getPublicName(player), false, content.toString());
@@ -130,7 +77,67 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
 
     }
 
-    private void checkForNoConnection(GameData gameData, Room shownRoom, List<List<Sprite>> sprs) {
+    public static Sprite makeCombinedSprite(GameData gameData, Player player, Room shownRoom, boolean withConnection) {
+        List<SpriteObject> stuffToShow = new ArrayList<>();
+        Room r = shownRoom;
+
+        stuffToShow.addAll(r.getActors());
+        stuffToShow.addAll(r.getObjects());
+        stuffToShow.addAll(r.getItems());
+        for (Event a : r.getEvents()) {
+            if (a.showSpriteInRoom()) {
+                stuffToShow.add(a);
+            }
+        }
+
+        int maxCol = 5;
+        if (stuffToShow.size() > 10) {
+            maxCol = 7;
+        }
+        int maxRows = (int)Math.max(3, Math.ceil(stuffToShow.size() / (double)(maxCol)));
+        int totalSlots = maxCol * maxRows;
+        for (int i = totalSlots - stuffToShow.size(); i > 0; --i) {
+            stuffToShow.add(SpriteObject.BLANK);
+        }
+
+        Collections.shuffle(stuffToShow);
+
+
+        int colCount = 1;
+        int rowCount = 1;
+        List<List<Sprite>> sprs = new ArrayList<>();
+        sprs.add(new ArrayList<>());
+        for (SpriteObject obj : stuffToShow) {
+            Sprite sp;
+            if (roomHasDarkness(r)) {
+                if (obj instanceof Actor) {
+                    sp = new BlurredCharacter().getSprite(player);
+                } else {
+                    sp = Sprite.blankSprite();
+                }
+            } else {
+                sp = makeOnFloor(obj, r, player, colCount, maxCol, rowCount, maxRows);
+            }
+            sprs.get(rowCount - 1).add(sp);
+            colCount++;
+            if (colCount > maxCol) {
+                colCount = 1;
+                rowCount++;
+                if (rowCount <= maxRows) {
+                    sprs.add(new ArrayList<>());
+                }
+            }
+        }
+
+        if (withConnection) {
+            checkForNoConnection(gameData, shownRoom, sprs);
+        }
+
+        return new CombinedSprite("securitycamerapicnr" + (uid++), sprs);
+
+    }
+
+    private static void checkForNoConnection(GameData gameData, Room shownRoom, List<List<Sprite>> sprs) {
         if (!SecurityCameraConsole.getConnectedCameraRooms(gameData).contains(shownRoom)) {
             for (int j = 0; j < sprs.size(); ++j) {
                 for (int i = 0; i < sprs.get(0).size(); ++i) {
@@ -142,7 +149,7 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
         }
     }
 
-    private boolean roomHasDarkness(Room r) {
+    private static boolean roomHasDarkness(Room r) {
         for (Event e : r.getEvents()) {
             if (e instanceof DarkEvent) {
                 return true;
@@ -151,7 +158,7 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
         return false;
     }
 
-    private Sprite makeOnFloor(SpriteObject obj, Room r, Player player, int colCount, int maxCol, int rowCount, int maxRows) {
+    private static Sprite makeOnFloor(SpriteObject obj, Room r, Player player, int colCount, int maxCol, int rowCount, int maxRows) {
         List<Sprite> sprs = new ArrayList<>();
         if (colCount == 1 && rowCount == 1) {
             sprs.add(r.getFloorSet().getUpperLeft());

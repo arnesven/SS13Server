@@ -39,23 +39,15 @@ public abstract class OverlaySpriteCollector {
     private static List<OverlaySprite> getAlwaysSprites(Player player, GameData gameData) {
         List<OverlaySprite> strs = new ArrayList<>();
         for (Room r : player.getVisibleMap(gameData)) {
-            strs.addAll(getOverlaysForSpritesInRoom(gameData, r.getAlwaysSprites(player), r, player));
+            List<Sprite> sprs = r.getAlwaysSprites(player);
+            strs.addAll(getOverlaysForSpritesInRoom(gameData, sprs, r, player));
         }
         return strs;
     }
 
     protected static List<OverlaySprite> getOverlaysForSpritesInRoom(GameData gameData, List<Sprite> sprites, Room r, Player forWhom) {
         ArrayList<OverlaySprite> strs = new ArrayList<>();
-        //double roomX = (double)r.getX();
-        //double roomY = (double)r.getY();
-        //double xIncr = 0.75;
-        //double yIncr = 0.75;
-
-        //double gridX = 0;
-        //double gridY = 0;
         for (Sprite sp : sprites) {
-            //double finalX = roomX + gridX*xIncr + 0.2;
-            //double finalY = roomY + gridY*yIncr + 0.2;
             if (sp.getObjectReference() != null && sp.getObjectReference().hasAbsolutePosition()) {
                 double x = sp.getObjectReference().getAbsoluteX();
                 double y = sp.getObjectReference().getAbsoluteY();
@@ -65,15 +57,6 @@ public abstract class OverlaySpriteCollector {
             } else {
                 strs.add(new OverlaySprite(sp, 0, 0, 0, r, forWhom, sp.getMaximumFrames()));
             }
-            //gridX += xIncr;
-            //if (gridX >= r.getWidth()) {
-            //    gridY += yIncr;
-            //    gridX = 0;
-            //    if (gridY >= r.getHeight()) {
-            //        gridY = 0;
-            //    }
-            //}
-
         }
         return strs;
     }

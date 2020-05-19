@@ -8,6 +8,7 @@ import model.characters.general.GameCharacter;
 import model.characters.general.WizardCharacter;
 import model.characters.special.SpectatorCharacter;
 import model.fancyframe.SinglePageFancyFrame;
+import model.items.MissionDetails;
 import model.items.general.GameItem;
 import model.items.general.PDA;
 import model.items.suits.WizardsHat;
@@ -66,7 +67,7 @@ public class WizardGameMode extends TraitorGameMode {
 
     @Override
     protected void setUpOtherStuff(GameData gameData) {
-
+        wizard.getCharacter().giveItem(new MissionDetails(this), null);
     }
 
     @Override
@@ -76,10 +77,11 @@ public class WizardGameMode extends TraitorGameMode {
 
     public void setAntagonistFancyFrame(Player c) {
         c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Secret Role!",
-                HTMLText.makeColoredBackground("Yellow", HTMLText.makeCentered("<br/><br/><b>" +
-                        HTMLText.makeText("Red", WIZARD_START_STRING) + "</b><br/>" + // TODO: write about decoy
-                        HTMLText.makeImage(new PDA(this).getSprite(null)) + "<br/>" + // TODO: change to wizard's hat.
-                        getObjectiveText(c) + "<br/>" + "<i>You can access this dialog again by using your Mission Details.</i>")))); // TODO: make mission details
+                HTMLText.makeColoredBackground("White", HTMLText.makeCentered("<br/><br/><b>" +
+                        HTMLText.makeText("blue", WIZARD_START_STRING) + "</b><br/>" + //
+                        HTMLText.makeImage(new WizardsHat().getSprite(null)) + "<br/>" +
+                        HTMLText.makeText("black", "Your decoy is: " + decoy.getPublicName(c) + "<br/>") +
+                        getObjectiveText(c) + "<br/>" + "<i>You can see your objective again by using your Mission Details.</i>"))));
     }
 
     @Override
@@ -117,4 +119,7 @@ public class WizardGameMode extends TraitorGameMode {
         return "https://www.ida.liu.se/~erini02/ss13/wizard.jpg";
     }
 
+    public Player getWizard() {
+        return wizard;
+    }
 }

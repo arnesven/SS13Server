@@ -15,7 +15,7 @@ public class WizardsHat extends HatItem {
 
     @Override
     protected Sprite getWornSprite(Actor whosAsking) {
-        return new Sprite("wizardshatworn", "head.png", 7, 4, this);
+        return new Sprite("wizardshatworn", "head2.png", 12, 4, this);
     }
 
     @Override

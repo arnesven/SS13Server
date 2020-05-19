@@ -17,6 +17,7 @@ import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
 import model.items.suits.Equipment;
 import model.items.weapons.PhysicalWeapon;
+import model.map.GameMap;
 import model.map.SpacePosition;
 import model.map.rooms.NukieShipRoom;
 import model.map.rooms.SpaceRoom;
@@ -602,7 +603,7 @@ public abstract class GameCharacter implements Serializable {
     }
 
     public List<Room> getVisibleMap(GameData gameData) {
-        String level = "ss13";
+        String level = GameMap.STATION_LEVEL_NAME;
         try {
             level = gameData.getMap().getLevelForRoom(getPosition()).getName();
         } catch (NoSuchThingException e) {
@@ -614,6 +615,7 @@ public abstract class GameCharacter implements Serializable {
 		} else if (!(gameData.getGameMode() instanceof OperativesGameMode)) {
         	roomsToShow.removeIf((Room r) -> r instanceof NukieShipRoom);
 		}
+
 
 
         List<Room> result = new ArrayList<>();
