@@ -29,7 +29,7 @@ private List<GameItem> inventory = new ArrayList<>();
 	public void addSpecificActionsFor(GameData gameData, Actor cl,
                                       ArrayList<Action> at) {
 		super.addSpecificActionsFor(gameData, cl, at);
-		if (inventory.size() > 0) {
+		if (inventory.size() > 0 && !(cl instanceof Actor)) {
 			at.add(new RetrieveAction(this, cl));
 		}
 		if (cl instanceof Actor) {
