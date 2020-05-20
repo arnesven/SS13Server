@@ -2,6 +2,7 @@ package model.characters.general;
 
 import model.Actor;
 import model.GameData;
+import model.characters.decorators.DisablingDecorator;
 import model.characters.decorators.HandCuffedDecorator;
 import model.characters.decorators.PinnedDecorator;
 import model.characters.decorators.StunnedDecorator;
@@ -64,7 +65,8 @@ public class WizardCharacter extends HumanCharacter {
     }
 
     public boolean wasInterrupted() {
-        return getActor().getCharacter().checkInstance((GameCharacter gc) ->
-                gc instanceof StunnedDecorator || gc instanceof HandCuffedDecorator || gc instanceof PinnedDecorator) || interruptedByAttack;
+        return isDead() || !getsActions() || interruptedByAttack ||
+                getActor().getCharacter().checkInstance((GameCharacter gc) ->
+                                                            gc instanceof DisablingDecorator) ;
     }
 }

@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by erini02 on 21/11/16.
  */
-public class HandCuffedDecorator extends CharacterDecorator {
+public class HandCuffedDecorator extends CharacterDecorator implements DisablingDecorator {
     private static final double FREE_CHANCE = 0.25;
 
     public HandCuffedDecorator(GameCharacter character) {
