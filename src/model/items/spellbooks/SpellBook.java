@@ -55,8 +55,14 @@ public abstract class SpellBook extends GameItem {
     }
 
     public void endCasting(GameData gameData, Actor performingClient, Target target) {
+        if (performingClient.getInnermostCharacter() instanceof WizardCharacter) {
+            performingClient.removeInstance((GameCharacter gc) -> gc == castingEffectDecorator);
+            if (((WizardCharacter)performingClient.getInnermostCharacter()).wasInterrupted()) {
+                performingClient.addTolastTurnInfo("Your spell was interrupted - doh!");
+                return;
+            }
+        }
         doLateEffect(gameData, performingClient, target);
-        performingClient.removeInstance((GameCharacter gc) -> gc == castingEffectDecorator);
     }
 
 
