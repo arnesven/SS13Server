@@ -8,6 +8,7 @@ import model.Target;
 import model.actions.itemactions.CancelAction;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.InstanceChecker;
+import model.characters.decorators.SpriteOverlayDecorator;
 import model.characters.decorators.StunnedDecorator;
 import model.characters.general.GameCharacter;
 import model.npcs.NPC;
@@ -62,27 +63,17 @@ public class IceStaff extends StaffWeapon {
         }
     }
 
-    private class FrozenInIceDecorator extends CharacterDecorator {
+    private class FrozenInIceDecorator extends SpriteOverlayDecorator {
         private final int roundSet;
 
         public FrozenInIceDecorator(GameCharacter character, int roundSet) {
-            super(character, "frozen");
+            super(character, "frozen", new Sprite("blockofice", "wizardstuff.png", 2, null));
             this.roundSet = roundSet;
         }
 
         @Override
         public String getFullName() {
             return super.getFullName() + " (frozen)";
-        }
-
-        @Override
-        public Sprite getSprite(Actor whosAsking) {
-            List<Sprite> sp = new ArrayList<>();
-            Sprite base = super.getSprite(whosAsking);
-            sp.add(base);
-            sp.add(new Sprite("blockofice", "wizardstuff.png", 2, null));
-            Sprite sprt = new Sprite("frozen"+base.getName(), "human.png", 0, sp, getActor());
-            return sprt;
         }
 
         @Override
