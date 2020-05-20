@@ -8,6 +8,7 @@ import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.SpriteOverlayDecorator;
 import model.characters.general.GameCharacter;
 import model.characters.general.WizardCharacter;
+import model.events.animation.AnimatedSprite;
 import model.items.general.GameItem;
 
 public abstract class SpellBook extends GameItem {
@@ -36,9 +37,6 @@ public abstract class SpellBook extends GameItem {
         if (performingClient.getInnermostCharacter() instanceof WizardCharacter) {
             WizardCharacter wizChar = (WizardCharacter)performingClient.getInnermostCharacter();
             wizChar.removeFromMagicka(this.getMagickaCost());
-            this.castingEffectDecorator = new SpriteOverlayDecorator(performingClient.getCharacter(), "Casting " + getSpellName(),
-                    getCastingEffect());
-            performingClient.setCharacter(castingEffectDecorator);
             doEarlyEffect(gameData, performingClient, target);
         } else {
             performingClient.addTolastTurnInfo("You try to utter the words, but you just sound ridiculous!");
@@ -46,8 +44,8 @@ public abstract class SpellBook extends GameItem {
     }
 
 
-    private Sprite getCastingEffect() {
-        return new Sprite("castingspell", "effects.png", 4, 0, null);
+    public Sprite getCastingEffect() {
+        return new AnimatedSprite("tingling", "effects.png", 4, 0, 32, 32, null, 10, true);
     }
 
     protected int getMagickaCost() {
@@ -56,7 +54,6 @@ public abstract class SpellBook extends GameItem {
 
     public void endCasting(GameData gameData, Actor performingClient, Target target) {
         if (performingClient.getInnermostCharacter() instanceof WizardCharacter) {
-            performingClient.removeInstance((GameCharacter gc) -> gc == castingEffectDecorator);
             if (((WizardCharacter)performingClient.getInnermostCharacter()).wasInterrupted()) {
                 performingClient.addTolastTurnInfo("Your spell was interrupted - doh!");
                 return;

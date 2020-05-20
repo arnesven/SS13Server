@@ -2,11 +2,15 @@ package model.items.spellbooks;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
+import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.ChimpAppearanceDecorator;
+import model.characters.decorators.SpellCastingDecorator;
+import model.characters.decorators.SpriteOverlayDecorator;
 import model.characters.general.WizardCharacter;
 import model.items.general.GameItem;
 
@@ -51,5 +55,16 @@ public abstract class CastSpellAction extends TargetingAction {
         }
 
         return true;
+    }
+
+    @Override
+    public void setArguments(List<String> args, Actor performingClient) {
+        super.setArguments(args, performingClient);
+        CharacterDecorator castingEffectDecorator = new SpellCastingDecorator(performingClient.getCharacter(), spellBook);
+        for (Player p : performingClient.getPosition().getClients()) {
+            p.refreshClientData();
+        }
+        performingClient.setCharacter(castingEffectDecorator);
+
     }
 }

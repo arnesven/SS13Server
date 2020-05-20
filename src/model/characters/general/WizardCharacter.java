@@ -1,7 +1,12 @@
 package model.characters.general;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.general.Action;
+import model.actions.general.DoNothingAction;
+import model.actions.general.SensoryLevel;
 import model.characters.decorators.DisablingDecorator;
 import model.characters.decorators.HandCuffedDecorator;
 import model.characters.decorators.PinnedDecorator;
@@ -46,8 +51,12 @@ public class WizardCharacter extends HumanCharacter {
     @Override
     public void doAfterActions(GameData gameData) {
         super.doAfterActions(gameData);
-        magicka = Math.min(MAGICKA_MAX, magicka + 10);
+        magicka = Math.min(MAGICKA_MAX, magicka + getMagickaRegeneration());
         interruptedByAttack = false;
+    }
+
+    private int getMagickaRegeneration() {
+        return 3;
     }
 
     public int getMagicka() {
@@ -68,5 +77,55 @@ public class WizardCharacter extends HumanCharacter {
         return isDead() || !getsActions() || interruptedByAttack ||
                 getActor().getCharacter().checkInstance((GameCharacter gc) ->
                                                             gc instanceof DisablingDecorator) ;
+    }
+
+    @Override
+    public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
+        super.addCharacterSpecificActions(gameData, at);
+        at.add(new ShowManaAction(gameData));
+    }
+
+    private class ShowManaAction extends Action {
+
+        private final GameData gameData;
+
+        public ShowManaAction(GameData gameData) {
+            super("Magicka: " + magicka, SensoryLevel.NO_SENSE);
+            this.gameData  = gameData;
+        }
+
+        @Override
+        protected String getVerb(Actor whosAsking) {
+            return "";
+        }
+
+        @Override
+        protected void execute(GameData gameData, Actor performingClient) {
+            // Should not happen
+        }
+
+        @Override
+        protected void setArguments(List<String> args, Actor performingClient) {
+            gameData.getChat().serverInSay("You have " + magicka + " magicka.", (Player)performingClient);
+            ((Player) performingClient).setNextAction(new DoNothingAction());
+            ((Player) performingClient).refreshClientData();
+        }
+
+        @Override
+        public boolean doesSetPlayerReady() {
+            return false;
+        }
+
+        @Override
+        public Sprite getAbilitySprite() {
+            Sprite base = new Sprite("magicka", "wizardstuff.png", 0, 1, null);
+            List<Sprite> sprs = new ArrayList<>();
+            sprs.add(base);
+            int level = 9 - (int)((magicka * 9.0) / MAGICKA_MAX);
+            if (level < 9) {
+                sprs.add(new Sprite("mlevel", "wizardstuff.png", level+1, 1, null));
+            }
+            return new Sprite("magickalev"+level, "human.png", 0, sprs, getActor());
+        }
     }
 }
