@@ -12,10 +12,17 @@ import java.util.List;
 
 public class SpellCastingDecorator extends TalkingDecorator {
     private final SpellBook spellBook;
+    private final Sprite unAniSprite;
 
     public SpellCastingDecorator(GameCharacter character, SpellBook spellBook) {
         super(character, true, false);
         this.spellBook = spellBook;
+        this.unAniSprite = character.getUnanimatedSprite(getActor());
+    }
+
+    @Override
+    public Sprite getUnanimatedSprite(Actor whosAsking) {
+        return unAniSprite;
     }
 
     @Override

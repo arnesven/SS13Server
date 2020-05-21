@@ -8,9 +8,7 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
 import model.characters.decorators.CharacterDecorator;
-import model.characters.decorators.ChimpAppearanceDecorator;
 import model.characters.decorators.SpellCastingDecorator;
-import model.characters.decorators.SpriteOverlayDecorator;
 import model.characters.general.WizardCharacter;
 import model.items.general.GameItem;
 
@@ -30,6 +28,13 @@ public abstract class CastSpellAction extends TargetingAction {
     }
 
     @Override
+    public boolean isViableForThisAction(Target target2) {
+        return canBeTargetedBySpell(target2);
+    }
+
+    protected abstract boolean canBeTargetedBySpell(Target target2);
+
+    @Override
     protected void applyTargetingAction(GameData gameData, Actor performingClient, Target target, GameItem item) {
         if (!performingClient.getItems().contains(spellBook)) {
             performingClient.addTolastTurnInfo("What the spell book wasn't there? " + failed(gameData, performingClient));
@@ -37,6 +42,7 @@ public abstract class CastSpellAction extends TargetingAction {
         }
 
         spellBook.beginCasting(gameData, performingClient, target);
+        performingClient.addTolastTurnInfo("You start casting " + spellBook.getSpellName() + ": " + spellBook.getMagicWords());
         gameData.executeAtEndOfRound(performingClient, this);
     }
 

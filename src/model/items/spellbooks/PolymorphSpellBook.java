@@ -1,9 +1,11 @@
 package model.items.spellbooks;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Target;
 import model.actions.general.Action;
+import model.actions.general.TargetingAction;
 import model.characters.decorators.ChimpAppearanceDecorator;
 import model.items.general.GameItem;
 
@@ -12,19 +14,14 @@ import java.util.List;
 
 public class PolymorphSpellBook extends SpellBook {
     public PolymorphSpellBook() {
-        super("Polymorph Spell Book", 13);
+        super("Polymorph", 13);
     }
 
     @Override
-    public List<Action> getInventoryActions(GameData gameData, Actor forWhom) {
-        List<Action> list = new ArrayList<>();
-        CastSpellAction cast = new CastPolymorphAction(this, forWhom);
-        if (cast.isOkToCast(forWhom, gameData)) {
-            list.add(cast);
-        }
-
-        return list;
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("spellbook", "library.png", 12, 3, this);
     }
+
 
     @Override
     public GameItem clone() {
@@ -32,16 +29,22 @@ public class PolymorphSpellBook extends SpellBook {
     }
 
     @Override
-    protected void doEarlyEffect(GameData gameData, Actor performingClient, Target target) {
+    public void doEarlyEffect(GameData gameData, Actor performingClient, Target target) {
 
     }
 
     @Override
-    protected void doLateEffect(GameData gameData, Actor performingClient, Target target) {
+    public void doLateEffect(GameData gameData, Actor performingClient, Target target) {
         if (target instanceof Actor) {
             Actor victim = (Actor)target;
             victim.setCharacter(new ChimpAppearanceDecorator(victim));
+            performingClient.addTolastTurnInfo("You turned " + target.getName() + " into an animal!");
         }
+    }
+
+    @Override
+    protected CastSpellAction getCastAction(GameData gameData, Actor forWhom) {
+        return new CastPolymorphAction(this, forWhom);
     }
 
     @Override
@@ -53,4 +56,10 @@ public class PolymorphSpellBook extends SpellBook {
     public String getMagicWords() {
         return "Ah-bra-ca-Zham!";
     }
+
+    @Override
+    protected String getSpellDescription() {
+        return "This spell changes the target's appearance to be more animal-like.";
+    }
+
 }

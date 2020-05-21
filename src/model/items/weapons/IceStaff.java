@@ -6,18 +6,13 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.itemactions.CancelAction;
-import model.characters.decorators.CharacterDecorator;
-import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.SpriteOverlayDecorator;
-import model.characters.decorators.StunnedDecorator;
 import model.characters.general.GameCharacter;
 import model.npcs.NPC;
 import model.npcs.behaviors.MeanderingMovement;
 import util.HTMLText;
 import util.MyRandom;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class IceStaff extends StaffWeapon {
     private static double FREEZE_CHANCE = 0.45;

@@ -4,6 +4,7 @@ import graphics.sprites.Sprite;
 import model.Player;
 import model.items.weapons.FireStaff;
 import model.items.weapons.IceStaff;
+import model.items.weapons.QuickCastWand;
 import model.map.rooms.WizardDinghyRoom;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
@@ -13,6 +14,7 @@ public class WizardStaffCloset extends ContainerObject {
         super("Staff Closet", wizardDinghyRoom);
         getInventory().add(new FireStaff());
         getInventory().add(new IceStaff());
+        getInventory().add(new QuickCastWand());
     }
 
     @Override

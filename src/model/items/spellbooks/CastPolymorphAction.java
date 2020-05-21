@@ -15,8 +15,9 @@ public class CastPolymorphAction extends CastSpellAction {
         super(polymorphSpellBook, caster);
     }
 
+
     @Override
-    public boolean isViableForThisAction(Target target2) {
+    protected boolean canBeTargetedBySpell(Target target2) {
         return !target2.isDead() && target2 instanceof Actor && ((Actor) target2).isHuman();
     }
 }

@@ -40,6 +40,7 @@ public class CaptainsDaughter extends VisitorCharacter {
 
     @Override
     public void doAfterActions(GameData gameData) {
+        super.doAfterActions(gameData);
         Actor a = null;
         try {
             a = findCaptain(gameData);
