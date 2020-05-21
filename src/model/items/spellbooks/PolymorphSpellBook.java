@@ -6,8 +6,9 @@ import model.GameData;
 import model.Target;
 import model.actions.general.Action;
 import model.actions.general.TargetingAction;
-import model.characters.decorators.ChimpAppearanceDecorator;
+import model.characters.decorators.*;
 import model.items.general.GameItem;
+import util.MyRandom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,20 @@ public class PolymorphSpellBook extends SpellBook {
     public void doLateEffect(GameData gameData, Actor performingClient, Target target) {
         if (target instanceof Actor) {
             Actor victim = (Actor)target;
-            victim.setCharacter(new ChimpAppearanceDecorator(victim));
+            int type = MyRandom.nextInt(6);
+            if (type == 0) {
+                victim.setCharacter(new ChimpAppearanceDecorator(victim));
+            } else if (type == 1) {
+                victim.setCharacter(new SnakeAppearanceDecorator(victim));
+            } else if (type == 2) {
+                victim.setCharacter(new CatAppearanceDecorator(victim));
+            } else if (type == 3) {
+                victim.setCharacter(new BearAppearanceDecorator(victim));
+            } else if (type == 4) {
+                victim.setCharacter(new DogAppearanceDecorator(victim));
+            } else if (type == 5) {
+                victim.setCharacter(new MouseAppearanceDecorator(victim));
+            }
             performingClient.addTolastTurnInfo("You turned " + target.getName() + " into an animal!");
         }
     }
