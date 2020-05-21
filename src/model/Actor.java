@@ -375,9 +375,11 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
     }
 
     private void addPickUpActions(GameData gameData, ArrayList<Action> at) {
-        PickUpAction pickUpAction = new PickUpAction(this);
-        if (pickUpAction.getOptions(gameData, this).numberOfSuboptions() > 0) {
-            at.add(pickUpAction);
+        if (hasInventory()) {
+            PickUpAction pickUpAction = new PickUpAction(this);
+            if (pickUpAction.getOptions(gameData, this).numberOfSuboptions() > 0) {
+                at.add(pickUpAction);
+            }
         }
     }
 //

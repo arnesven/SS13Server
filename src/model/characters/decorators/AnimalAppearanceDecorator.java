@@ -2,7 +2,12 @@ package model.characters.decorators;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.actions.general.DropAction;
 import model.characters.general.GameCharacter;
+import model.items.general.GameItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnimalAppearanceDecorator extends CharacterDecorator {
     private final Sprite animalSprite;
@@ -12,12 +17,22 @@ public class AnimalAppearanceDecorator extends CharacterDecorator {
         super(chara, name);
         this.animalSprite = animalSprite;
         this.pubName = pubName;
-
+        if (!hasInventory()) {
+            for (GameItem it : getActor().getItems()) {
+                getActor().getPosition().addItem(it);
+                it.setPosition(getActor().getPosition());
+                it.setHolder(null);
+            }
+            while (!getActor().getItems().isEmpty()) {
+                getActor().getItems().remove(0);
+            }
+        }
     }
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
         Sprite sp = animalSprite;
+        sp.setObjectRef(getActor());
         if (getActor().isDead()) {
             sp.setRotation(90);
         }
@@ -27,5 +42,10 @@ public class AnimalAppearanceDecorator extends CharacterDecorator {
     @Override
     public String getPublicName() {
         return pubName;
+    }
+
+    @Override
+    public boolean hasInventory() {
+        return false;
     }
 }

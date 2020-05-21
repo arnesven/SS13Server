@@ -7,6 +7,7 @@ import model.Target;
 import model.actions.general.Action;
 import model.actions.general.TargetingAction;
 import model.characters.decorators.*;
+import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import util.MyRandom;
 
@@ -37,6 +38,7 @@ public class PolymorphSpellBook extends SpellBook {
     @Override
     public void doLateEffect(GameData gameData, Actor performingClient, Target target) {
         if (target instanceof Actor) {
+            String prevName = target.getName();
             Actor victim = (Actor)target;
             int type = MyRandom.nextInt(6);
             if (type == 0) {
@@ -52,7 +54,8 @@ public class PolymorphSpellBook extends SpellBook {
             } else if (type == 5) {
                 victim.setCharacter(new MouseAppearanceDecorator(victim));
             }
-            performingClient.addTolastTurnInfo("You turned " + target.getName() + " into an animal!");
+            victim.setCharacter(new RemoveAnimalAppearanceDecorator(victim.getCharacter(), gameData.getRound()));
+            performingClient.addTolastTurnInfo("You turned " + prevName + " into a " + target.getName().toLowerCase() + "!");
         }
     }
 
@@ -73,7 +76,26 @@ public class PolymorphSpellBook extends SpellBook {
 
     @Override
     protected String getSpellDescription() {
-        return "This spell changes the target's appearance to be more animal-like.";
+        return "This spell changes the target's appearance to be more animal-like. The effects last for 5 turns.";
     }
 
+    private class RemoveAnimalAppearanceDecorator extends CharacterDecorator {
+        private final int roundSet;
+
+        public RemoveAnimalAppearanceDecorator(GameCharacter character, int round) {
+            super(character, "Remove animal appearance");
+            this.roundSet = round;
+        }
+
+        @Override
+        public void doAfterActions(GameData gameData) {
+            super.doAfterActions(gameData);
+            if (gameData.getRound() > roundSet + 5) {
+                if (getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AnimalAppearanceDecorator)) {
+                    getActor().removeInstance((GameCharacter gc) -> gc instanceof AnimalAppearanceDecorator);
+                    getActor().removeInstance((GameCharacter gc) -> gc == this);
+                }
+            }
+        }
+    }
 }

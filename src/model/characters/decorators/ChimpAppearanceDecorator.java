@@ -10,5 +10,8 @@ public class ChimpAppearanceDecorator extends AnimalAppearanceDecorator {
         }
 
 
-
+    @Override
+    public boolean hasInventory() {
+        return true;
+    }
 }

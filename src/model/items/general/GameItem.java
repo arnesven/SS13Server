@@ -243,17 +243,19 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
         PickUpAction pu = new PickUpAction(forWhom);
         List<Action> list = new ArrayList<>();
-        if (pu.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
-            list.add(pu);
-        }
+        if (forWhom.hasInventory()) {
+            if (pu.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+                list.add(pu);
+            }
 
-        PickupAndUseAction pua = new PickupAndUseAction(forWhom, gameData);
-        if (pua.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
-            list.add(pua);
-        }
+            PickupAndUseAction pua = new PickupAndUseAction(forWhom, gameData);
+            if (pua.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+                list.add(pua);
+            }
 
-        ManageInventoryAction mia = new ManageInventoryAction("Pick Up/Drop", gameData, true, this, forWhom);
-        list.add(mia);
+            ManageInventoryAction mia = new ManageInventoryAction("Pick Up/Drop", gameData, true, this, forWhom);
+            list.add(mia);
+        }
 
         addSpecificOverlayActions(gameData, r, forWhom, list);
 
@@ -283,8 +285,10 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
                 acts.add(drop);
             }
 
-            ManageInventoryAction mia = new ManageInventoryAction("Drop/Pick Up", gameData, false, this, forWhom);
-            acts.add(mia);
+            if (forWhom.hasInventory()) {
+                ManageInventoryAction mia = new ManageInventoryAction("Drop/Pick Up", gameData, false, this, forWhom);
+                acts.add(mia);
+            }
         }
 
         return acts;
