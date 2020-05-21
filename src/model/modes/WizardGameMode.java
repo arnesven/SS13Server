@@ -2,29 +2,22 @@ package model.modes;
 
 import model.GameData;
 import model.Player;
-import model.characters.decorators.TraitorCharacter;
-import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.WizardCharacter;
-import model.characters.special.SpectatorCharacter;
 import model.fancyframe.SinglePageFancyFrame;
 import model.items.MissionDetails;
 import model.items.general.GameItem;
 import model.items.general.PDA;
 import model.items.suits.WizardsHat;
 import model.items.suits.WizardsRobes;
-import model.map.MapLevel;
 import model.map.rooms.BrigRoom;
 import model.map.rooms.ShuttleRoom;
 import model.map.rooms.WizardDinghyRoom;
-import model.modes.objectives.TraitorObjective;
 import model.npcs.NPC;
 import util.HTMLText;
-import util.Logger;
 import util.MyRandom;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class WizardGameMode extends TraitorGameMode {
 
@@ -56,7 +49,6 @@ public class WizardGameMode extends TraitorGameMode {
 
         assignTraitors(gameData);
         wizard = getTraitors().get(0);
-        wizard.getItems().removeIf((GameItem it) -> it instanceof PDA);
         decoy = makeDecoy(wizard, gameData);
 
         GameCharacter wizardChar = new WizardCharacter(wizarddinghy.getID());
@@ -68,7 +60,8 @@ public class WizardGameMode extends TraitorGameMode {
     @Override
     protected void setUpOtherStuff(GameData gameData) {
         wizard.getCharacter().giveItem(new MissionDetails(this), null);
-        assignTraitorObjectives(gameData);
+        assignTraitorObjectivesAndGivePDAs(gameData);
+        wizard.getItems().removeIf((GameItem it) -> it instanceof PDA);
     }
 
     @Override

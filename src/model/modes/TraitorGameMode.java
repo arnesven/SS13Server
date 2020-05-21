@@ -16,6 +16,7 @@ import model.fancyframe.SinglePageFancyFrame;
 import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
+import model.map.rooms.DecorativeRoom;
 import model.map.rooms.ExoticPlanet;
 import model.map.rooms.HallwayRoom;
 import model.modes.objectives.*;
@@ -47,7 +48,6 @@ import model.items.general.PDA;
 import model.items.suits.ChefsHat;
 import model.items.suits.SunGlasses;
 import model.map.rooms.Room;
-import model.objects.consoles.GeneratorConsole;
 import util.Pair;
 
 public class TraitorGameMode extends GameMode {
@@ -81,7 +81,7 @@ public class TraitorGameMode extends GameMode {
     @Override
 	protected void setUpOtherStuff(GameData gameData) { 
 		assignTraitors(gameData);
-		assignTraitorObjectives(gameData);
+		assignTraitorObjectivesAndGivePDAs(gameData);
 	}
 
 
@@ -119,7 +119,7 @@ public class TraitorGameMode extends GameMode {
 	}
 
 
-	protected void assignTraitorObjectives(GameData gameData) {
+	protected void assignTraitorObjectivesAndGivePDAs(GameData gameData) {
 		for (Player traitor : traitors) {
 			TraitorObjective obj = createRandomObjective(traitor, gameData);
 			traitor.setCharacter(new TraitorCharacter(traitor.getCharacter()));
@@ -185,7 +185,7 @@ public class TraitorGameMode extends GameMode {
         } else if (val < 0.9) {
             List<Room> funRoomsToDestroy = new ArrayList<>();
             funRoomsToDestroy.addAll(gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME));
-            funRoomsToDestroy.removeIf((Room r) -> r instanceof HallwayRoom || r.isHidden());
+            funRoomsToDestroy.removeIf((Room r) -> r instanceof HallwayRoom || r instanceof DecorativeRoom || r.isHidden());
 
             return new DestroyRoomObjective(gameData, MyRandom.sample(funRoomsToDestroy));
 		} else {

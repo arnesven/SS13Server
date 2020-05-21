@@ -41,10 +41,5 @@ public class MerchantCharacter extends HumanCharacter {
         super.setKiller(a);
     }
 
-    private boolean isOutlaw(Actor a) {
-        return a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof OperativeCharacter) ||
-                a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof TraitorCharacter) ||
-                a.isInfected() ||
-                a.getCharacter().checkInstance((GameCharacter ch) -> ch instanceof ChangelingCharacter);
-    }
+
 }
