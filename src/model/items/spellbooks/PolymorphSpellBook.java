@@ -56,6 +56,7 @@ public class PolymorphSpellBook extends SpellBook {
             }
             victim.setCharacter(new RemoveAnimalAppearanceDecorator(victim.getCharacter(), gameData.getRound()));
             performingClient.addTolastTurnInfo("You turned " + prevName + " into a " + target.getName().toLowerCase() + "!");
+            ((Actor) target).addTolastTurnInfo("You've been turned into a " + target.getName() + "!");
         }
     }
 

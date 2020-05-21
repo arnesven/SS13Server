@@ -68,6 +68,7 @@ public class WizardGameMode extends TraitorGameMode {
     @Override
     protected void setUpOtherStuff(GameData gameData) {
         wizard.getCharacter().giveItem(new MissionDetails(this), null);
+        assignTraitorObjectives(gameData);
     }
 
     @Override

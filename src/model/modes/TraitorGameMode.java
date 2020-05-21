@@ -81,7 +81,9 @@ public class TraitorGameMode extends GameMode {
     @Override
 	protected void setUpOtherStuff(GameData gameData) { 
 		assignTraitors(gameData);
+		assignTraitorObjectives(gameData);
 	}
+
 
 	@Override
 	protected void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters, GameData gameData) {
@@ -114,7 +116,10 @@ public class TraitorGameMode extends GameMode {
 			Player notATraitor = MyRandom.sample(traitors);
 			traitors.remove(notATraitor);
 		}
-		
+	}
+
+
+	protected void assignTraitorObjectives(GameData gameData) {
 		for (Player traitor : traitors) {
 			TraitorObjective obj = createRandomObjective(traitor, gameData);
 			traitor.setCharacter(new TraitorCharacter(traitor.getCharacter()));
