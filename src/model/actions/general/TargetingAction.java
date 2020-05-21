@@ -230,4 +230,8 @@ public abstract class TargetingAction extends Action {
     public void stripAllTargets() {
         targets.clear();
     }
+
+	public void setTarget(Target target) {
+		this.target = target;
+	}
 }

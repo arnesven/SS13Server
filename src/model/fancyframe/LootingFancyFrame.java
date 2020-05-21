@@ -2,10 +2,12 @@ package model.fancyframe;
 
 import model.Actor;
 import model.GameData;
+import model.ItemHolder;
 import model.Player;
 import model.actions.LootAction;
 import model.actions.general.MultiAction;
 import model.items.general.GameItem;
+import model.map.rooms.Room;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ public class LootingFancyFrame extends ManageItemsFancyFrame {
     public LootingFancyFrame(Player performingClient, GameData gameData, Actor victim, String lootVerb, String storeVerb) {
         super(performingClient, gameData,
                 victim.getPublicName(performingClient) + "'s Items - " + lootVerb,
-                victim,
+                new LootItems(victim),
                 ((GameItem gi, Player pl) -> gi.getPublicName(pl)),
                 Integer.MAX_VALUE,
                 "Inventory - " + storeVerb + " (max 1)",
@@ -45,5 +47,33 @@ public class LootingFancyFrame extends ManageItemsFancyFrame {
 
 
         return multiAction;
+    }
+
+    private static class LootItems implements ItemHolder {
+        private final Actor victim;
+
+        public LootItems(Actor victim) {
+            this.victim = victim;
+        }
+
+        @Override
+        public List<GameItem> getItems() {
+            List<GameItem> newArr = new ArrayList<>();
+            newArr.addAll(victim.getItems());
+            if (victim.isDead() || !victim.getsActions()) {
+                newArr.addAll(victim.getCharacter().getEquipment().getTopEquipmentAsList());
+            }
+            return newArr;
+        }
+
+        @Override
+        public String getPublicName(Actor forWhom) {
+            return victim.getPublicName(forWhom);
+        }
+
+        @Override
+        public Room getPosition() {
+            return victim.getPosition();
+        }
     }
 }

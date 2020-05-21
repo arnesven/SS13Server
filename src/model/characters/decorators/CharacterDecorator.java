@@ -367,6 +367,10 @@ public abstract class CharacterDecorator extends GameCharacter {
 		innerChar.doAfterMovement(gameData);
 	}
 
+	/**
+	 * Don't forget to call super.doAfterActions(gameData) if you override this method!
+	 * @param gameData
+	 */
 	@Override
 	public void doAfterActions(GameData gameData) {
 		innerChar.doAfterActions(gameData);

@@ -55,7 +55,6 @@ public class StunBaton extends AmmoWeapon {
 			performingClient.addTolastTurnInfo("You stunned " + target.getName());
 			victim.addTolastTurnInfo("*ZAP* You were stunned!");
 		}
-
 	}
 
 	private void cancelAction(GameData gameData, Actor victim) {

@@ -6,7 +6,7 @@ import model.characters.general.GameCharacter;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
 
-public class PinnedDecorator extends CharacterDecorator {
+public class PinnedDecorator extends CharacterDecorator implements DisablingDecorator {
     private final Actor attacker;
     private final Room meleeRoom;
     private final Weapon weapon;

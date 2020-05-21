@@ -7,6 +7,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
+import model.characters.decorators.DisablingDecorator;
 import model.characters.decorators.HandCuffedDecorator;
 import model.characters.decorators.PinnedDecorator;
 import model.characters.decorators.StunnedDecorator;
@@ -15,6 +16,7 @@ import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.objects.general.BreakableObject;
+import org.junit.rules.DisableOnDebug;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -73,10 +75,11 @@ public class LootAction extends TargetingAction {
         }
 
         if (lootall) {
-            return getVerb(whosAsking) + " " + target.getName();
+            return getPerformer().getPublicName(whosAsking) + " " + getVerb(whosAsking) + " " + target.getName();
         }
 
-        return getVerb(whosAsking) + (item!=null?(" a " + item.getPublicName(whosAsking)):"") + " from " + target.getName();
+        return getPerformer().getPublicName(whosAsking) + " " + getVerb(whosAsking) +
+                (item!=null?(" a " + item.getPublicName(whosAsking)):"") + " from " + target.getName();
     }
 
     @Override
@@ -116,8 +119,7 @@ public class LootAction extends TargetingAction {
             return false;
         }
         return actorTarget.isDead() || !actorTarget.getsActions() ||
-                actorTarget.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof PinnedDecorator ||
-                        gc instanceof StunnedDecorator || gc instanceof HandCuffedDecorator);
+                actorTarget.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof DisablingDecorator);
     }
 
     @Override

@@ -375,9 +375,11 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
     }
 
     private void addPickUpActions(GameData gameData, ArrayList<Action> at) {
-        PickUpAction pickUpAction = new PickUpAction(this);
-        if (pickUpAction.getOptions(gameData, this).numberOfSuboptions() > 0) {
-            at.add(pickUpAction);
+        if (hasInventory()) {
+            PickUpAction pickUpAction = new PickUpAction(this);
+            if (pickUpAction.getOptions(gameData, this).numberOfSuboptions() > 0) {
+                at.add(pickUpAction);
+            }
         }
     }
 //
@@ -410,9 +412,6 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         }
         this.getPosition().addActionsFor(gameData, this, at2);
         roomActions.addAll(at2);
-        if (at2.size() > 0) {
-            at.add(roomActions);
-        }
 
         if (this instanceof Player) {
             for (Room r : getVisibleMap(gameData)) {
@@ -426,7 +425,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
             }
         }
 
-
+        at.add(roomActions);
     }
 
     private void addUnequipAction(GameData gameData, ArrayList<Action> at2) {

@@ -51,4 +51,5 @@ public abstract class MapLevel extends HashMap<String, Set<Room>> {
     public void setBackgroundType(String newBg) {
         this.bgType = newBg;
     }
+
 }

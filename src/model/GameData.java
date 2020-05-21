@@ -918,4 +918,8 @@ public class GameData implements Serializable {
 		timedEvents.removeAll(removals);
 		lastTimeCount = System.currentTimeMillis();
 	}
+
+	public void doAfterRecovery() {
+		gameMode.getBank().setReferences(this);
+	}
 }

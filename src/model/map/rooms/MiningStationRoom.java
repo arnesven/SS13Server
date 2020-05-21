@@ -1,5 +1,6 @@
 package model.map.rooms;
 
+import model.GameData;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.objects.mining.GeneralManufacturer;
@@ -27,5 +28,13 @@ public class MiningStationRoom extends TechRoom {
         return new FloorSet("miningfloor",  24, 10);
     }
 
+    @Override
+    public void doSetup(GameData gameData) {
+        // don't add any security camera or trash bin.
+    }
 
+    @Override
+    protected boolean getsTrashBin() {
+        return false;
+    }
 }

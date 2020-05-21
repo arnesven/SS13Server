@@ -30,6 +30,12 @@ public abstract class RemoteAccessAction extends Action {
     @Override
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         remotes = getRemotes(gameData);
+        Collections.sort(remotes, new Comparator<GameObject>() {
+            @Override
+            public int compare(GameObject gameObject, GameObject t1) {
+                return gameObject.getBaseName().compareTo(t1.getBaseName());
+            }
+        });
         ActionOption opt = super.getOptions(gameData, whosAsking);
         Set<String> alreadyTaken = new HashSet<>();
         for (GameObject o : remotes) {

@@ -21,7 +21,7 @@ public class AmmoWeapon extends Weapon {
 	
 	@Override
 	public String getFullName(Actor whosAsking) {
-		return super.getFullName(whosAsking) + "(" + shots + ")";
+		return super.getFullName(whosAsking) + " (" + shots + ")";
 	}
 	
 	@Override
@@ -65,7 +65,7 @@ public class AmmoWeapon extends Weapon {
 			return super.getExtraDescriptionStats(gameData, performingClient) +
 					" <b>Ammo:</b> " + shots + "/" + maxshots + "<br/>";
 		}
-		return getExtraDescriptionStats(gameData, performingClient);
+		return super.getExtraDescriptionStats(gameData, performingClient);
 	}
 
 	@Override

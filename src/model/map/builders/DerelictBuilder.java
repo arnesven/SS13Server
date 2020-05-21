@@ -8,6 +8,7 @@ import model.map.GameMap;
 import model.map.doors.Door;
 import model.map.doors.NormalDoor;
 import model.map.levels.EmptySpaceLevel;
+import model.map.levels.SpecialLevel;
 import model.map.rooms.DerelictAirlockRoom;
 import model.map.rooms.DerelictRoom;
 import model.map.rooms.Room;
@@ -30,7 +31,7 @@ public class DerelictBuilder extends MapBuilder {
         ShipsLogsConsole capsLog = new ShipsLogsConsole(derelictBridge);
         derelictBridge.addItem(new SpaceSuit());
         derelictBridge.addObject(capsLog);
-        gm.createLevel(new EmptySpaceLevel("derelict", "Space"));
+        gm.createLevel(new SpecialLevel("derelict", "Space"));
         gm.addRoom(derelictBridge, "derelict", "derelict");
         Room derelictHall =  new DerelictRoom(35, "Derelict Hall", "", 41, 41, 1, 5, new int[]{34, 36, 37, 38},
                 new Door[]{new NormalDoor(41.5, 41.0, 35, 34)});

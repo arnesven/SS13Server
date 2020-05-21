@@ -14,7 +14,8 @@ public class DarknessShroudDecorator extends CharacterDecorator {
 	public DarknessShroudDecorator(GameCharacter inner) {
 		super(inner, "Darkness");
 	}
-	
+
+
 	@Override
 	public String getWatchString(Actor whosAsking) {
         if (GameItem.hasAnItem(whosAsking, LightItem.class)) {

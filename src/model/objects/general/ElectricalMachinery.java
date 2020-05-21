@@ -7,17 +7,21 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.NoPowerAction;
 import model.events.ambient.SimulatePower;
+import model.map.doors.PowerCord;
 import model.map.rooms.Room;
+import model.objects.power.ElectricalMachineryAPCWire;
 
 public abstract class ElectricalMachinery extends BreakableObject
 			implements Repairable, PowerConsumer {
 
+	private final ElectricalMachineryAPCWire apcWire;
 	private boolean inUse = false;
 	private int powerPriority = 5; // lowest priority
 	private SimulatePower powerSim = null;
 
 	public ElectricalMachinery(String name, Room r) {
 		super(name, 1.5, r);
+		this.apcWire = new ElectricalMachineryAPCWire();
 	}
 
 	public void setInUse(boolean b) {
@@ -36,7 +40,7 @@ public abstract class ElectricalMachinery extends BreakableObject
 		if (powerSim == null) {
 			return false;
 		}
-		return !powerSim.getNoPowerObjects().contains(this);
+		return !powerSim.getNoPowerObjects().contains(this) && !apcWire.isCut();
 	}
 
 
@@ -106,4 +110,7 @@ public abstract class ElectricalMachinery extends BreakableObject
 		return "Equipment";
 	}
 
+	public PowerCord getAPCWire() {
+		return apcWire;
+	}
 }

@@ -41,6 +41,11 @@ public class Bank implements Serializable {
         stationMoney = 14000;
         stationMoneyHistory = new ArrayList<>();
         gameData.addEvent(new PayWagesEvent());
+
+        setReferences(gameData);
+    }
+
+    public void setReferences(GameData gameData) {
         for (Room r : gameData.getNonHiddenStationRooms()) {
             for (GameObject obj : r.getObjects()) {
                 if (obj instanceof BankUser) {

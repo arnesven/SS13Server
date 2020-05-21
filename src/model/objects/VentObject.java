@@ -10,6 +10,7 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
+import model.events.Event;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Tools;
@@ -103,7 +104,27 @@ public class VentObject extends GameObject {
             if (intoVent) {
                 performingClient.setCharacter(new SeeAirDuctsDecorator(performingClient.getCharacter()));
             } else {
-                performingClient.removeInstance((GameCharacter gc) -> gc instanceof SeeAirDuctsDecorator);
+                gameData.addMovementEvent(new Event() {
+                    @Override
+                    public void apply(GameData gameData) {
+                        performingClient.removeInstance((GameCharacter gc) -> gc instanceof SeeAirDuctsDecorator);
+                    }
+
+                    @Override
+                    public String howYouAppear(Actor performingClient) {
+                        return null;
+                    }
+
+                    @Override
+                    public SensoryLevel getSense() {
+                        return null;
+                    }
+
+                    @Override
+                    public boolean shouldBeRemoved(GameData gameData) {
+                        return true;
+                    }
+                });
             }
         }
 
@@ -132,7 +153,7 @@ public class VentObject extends GameObject {
             list.addAll(super.getExtraMoveToLocations(gameData));
             list.add(toRoom);
             for (GameObject obj : getPosition().getObjects()) {
-                if (obj instanceof VentObject) {
+                if (obj instanceof VentObject && (((VentObject) obj).isOpen || super.getSize() == SMALL_SIZE)) {
                     list.add(((VentObject) obj).getToRoom());
                 }
             }
@@ -152,6 +173,14 @@ public class VentObject extends GameObject {
                 e.printStackTrace();
             } ;
             return result;
+        }
+
+        @Override
+        public void doAfterMovement(GameData gameData) {
+            super.doAfterMovement(gameData);
+            if (!(getPosition() instanceof AirDuctRoom)) {
+                getActor().removeInstance((GameCharacter gc) -> gc == this);
+            }
         }
     }
 

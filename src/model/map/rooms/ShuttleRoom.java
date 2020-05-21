@@ -54,9 +54,11 @@ public class ShuttleRoom extends Room {
         for (int i = numberOfChairs; i > 0; --i) {
             addDecoration(new ShuttleChair(this));
         }
+        moveTo(x, y, getZ());
     }
 
     protected void addDecoration(ShuttleDecoration decor) {
+        Logger.log("Added decoration " + decor.getBaseName() + " to room " + getName());
         addObject(decor);
         decorations.add(decor);
     }

@@ -118,6 +118,20 @@ public abstract class PowerCord extends GameItem {
     }
 
 
+    private Sprite getCompactSprite(Player player) {
+        Sprite sp = new Sprite("straightcompact" + getColor().getRed() + "-" + getColor().getGreen() + "-" + getColor().getBlue(),
+                "power_cords.png", 4, 2, 32, 16, this);
+        sp.setColor(getColor());
+        Sprite sp2 = new Sprite("compactoverlay" + getColor().getRed() + "-" + getColor().getGreen() + "-" + getColor().getBlue(),
+                "power_cords.png", 5, 2, 32, 16, this);
+        List<Sprite> sprs = new ArrayList<>();
+        sprs.add(sp);
+        sprs.add(sp2);
+        return new Sprite("compact" + sp.getName(), "human.png", 0, 0, 32, 16, sprs, null);
+    }
+
+
+
     public Sprite cutSprite(Actor whosAsking) {
         Sprite sp = new Sprite("cutpowercord" + getColor().getRed() + "-" + getColor().getGreen() + "-" + getColor().getBlue(),
                 "power_cords.png", 1, 1, this);
@@ -131,16 +145,24 @@ public abstract class PowerCord extends GameItem {
     }
 
 
-    public String drawYourselfInHTML(Player player) {
+    public String drawYourselfInHTML(Player player, boolean compact) {
         StringBuilder result = new StringBuilder();
         for (int i = 3; i > 0; --i) {
             if (i == 2 && isCut()) {
                 result.append(HTMLText.makeImage(cutSprite(player)));
             } else {
-                result.append(HTMLText.makeImage(getSprite(player)));
+                if (compact && !isCut()) {
+                    result.append(HTMLText.makeImage(getCompactSprite(player)));
+                } else {
+                    result.append(HTMLText.makeImage(getSprite(player)));
+                }
             }
         }
         return result.toString();
+    }
+
+    public String drawYourselfInHTML(Player player) {
+        return drawYourselfInHTML(player, false);
     }
 
 

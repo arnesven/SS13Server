@@ -4,6 +4,7 @@ import model.GameData;
 import model.items.general.GameItem;
 import model.items.seeds.MushroomSpores;
 import model.objects.plants.Mushroom;
+import model.objects.plants.MushroomItem;
 
 /**
  * Created by erini02 on 15/09/17.
@@ -17,6 +18,6 @@ public class HaveAMushroom extends PersonalGoal {
 
     @Override
     public boolean isCompleted(GameData gameData) {
-        return GameItem.hasAnItemOfClass(getBelongsTo(), Mushroom.class);
+        return GameItem.hasAnItemOfClass(getBelongsTo(), MushroomItem.class);
     }
 }

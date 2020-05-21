@@ -303,12 +303,12 @@ public class Player extends Actor implements Target, Serializable {
 	public void parseActionFromString(String actionString, GameData gameData) {
 		ArrayList<Action> at = getActionList(gameData);
 		String actionStr = actionString.replaceFirst("root,", "");
-
 		List<String> args = new ArrayList<>();
 		args.addAll(Arrays.asList(actionStr.split(",")));
 		//Logger.log("Action tree: " + at.toString());
 		for (Action a : at) {
 			if (a.getName().equals(args.get(0))) {
+				Logger.log("Yes it is!");
                 while (a instanceof ActionGroup) {
                     for (Action a2 : ((ActionGroup)a).getActions()) {
 						Logger.log("Parsing for " +  a2.getName() + ", strings is: " + args.toString());
@@ -320,8 +320,6 @@ public class Player extends Actor implements Target, Serializable {
 					}
                     Logger.log(" -> Next action!");
                 }
-
-
 
                 args = args.subList(1, args.size());
 				a.setActionTreeArguments(args, this);
