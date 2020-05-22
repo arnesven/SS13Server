@@ -1,6 +1,6 @@
 package model.objects.shipments;
 
-import model.items.general.Grenade;
+import model.items.general.FragGrenade;
 import model.items.suits.SecOffsVest;
 import model.items.weapons.LaserPistol;
 import model.characters.crew.HeadOfStaffCharacter;
@@ -13,7 +13,7 @@ public class MilitaryShipment extends Shipment {
 			this.add(new LaserPistol());
 		}
 		for (int i = 3; i > 0; --i) {
-			this.add(new Grenade());
+			this.add(new FragGrenade());
 		}
         this.add(new SecOffsVest());
 	}

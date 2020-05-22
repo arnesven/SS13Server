@@ -40,7 +40,7 @@ public class PDA extends UplinkItem {
 	public static List<TraitorItem> getOrderableItems() {
 		List<TraitorItem> items = new ArrayList<>();
 		items.add(new LaserPistol());
-		items.add(new OrderBundle(3, new Grenade()));
+		items.add(new OrderBundle(3, new FragGrenade()));
 		items.add(new DummyHivePlacer());
 		items.add(new TimeBomb());
 		items.add(new RemoteBomb());

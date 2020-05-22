@@ -48,7 +48,7 @@ public class ExplosionAction extends Action {
                     HullBreach hull = ((HullBreach)gameData.getGameMode().getEvents().get("hull breaches"));
                     hull.startNewEvent(location);
                     Logger.log(Logger.INTERESTING,
-                            location.getName() + " got hull brech from " + exploder.getName() + "!");
+                            location.getName() + " got hull breach from " + exploder.getName() + "!");
                 }
             }
         };

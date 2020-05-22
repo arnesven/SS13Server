@@ -3,8 +3,6 @@ package model.events.animation;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.events.Event;
-import model.items.general.Grenade;
 import model.map.rooms.Room;
 
 public class BigExplosionAnimation extends AnimationEvent {

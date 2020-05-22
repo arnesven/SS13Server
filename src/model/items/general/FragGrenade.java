@@ -1,12 +1,11 @@
 package model.items.general;
 
-import java.util.ArrayList;
-
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.Player;
 import model.Target;
-import model.events.animation.BigExplosionAnimation;
+import model.actions.general.Action;
+import model.actions.itemactions.ExplosionAction;
 import model.events.animation.SmallExplosionAnimation;
 import model.items.foods.ExplodingFood;
 import model.map.rooms.Room;
@@ -14,20 +13,12 @@ import model.objects.general.BreakableObject;
 import model.objects.general.GameObject;
 import util.MyRandom;
 import model.GameData;
-import model.actions.general.Action;
-import model.actions.itemactions.ThrowGrenadeAction;
 import model.events.damage.Damager;
 
-public class Grenade extends GameItem implements Damager, ExplodableItem {
+public class FragGrenade extends GrenadeItem {
 
-	public Grenade() {
-		super("Grenade", 0.5, 120);
-	}
-	
-	@Override
-	public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
-		super.addYourActions(gameData, at, cl);
-	    at.add(new ThrowGrenadeAction(cl));
+	public FragGrenade() {
+		super("Frag FragGrenade", 0.35, 120);
 	}
 
 	@Override
@@ -65,8 +56,8 @@ public class Grenade extends GameItem implements Damager, ExplodableItem {
 	}
 
 	@Override
-	public Grenade clone() {
-		return new Grenade();
+	public FragGrenade clone() {
+		return new FragGrenade();
 	}
 
     @Override
@@ -77,6 +68,12 @@ public class Grenade extends GameItem implements Damager, ExplodableItem {
     @Override
     public GameItem getAsItem() {
         return this;
+    }
+
+    @Override
+    public void doExplosionAction(Room targetRoom, GameData gameData, Actor performingClient) {
+        Action a = new ExplosionAction(this, targetRoom);
+        a.doTheAction(gameData, performingClient);
     }
 
     @Override

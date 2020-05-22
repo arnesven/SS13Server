@@ -69,6 +69,8 @@ public class OutFit extends TorsoAndShoesSuit {
             return new Sprite("staffassistantuniform", "uniforms.png", 0, 3, this);
         } else if (type instanceof QuarterMasterCharacter) {
             return new Sprite("quartermasteruniform", "uniforms.png", 3, 4, this);
+        } else if (type instanceof SecurityCharacter) {
+            return new Sprite("securityuniform", "uniforms.png", 7, 0, this);
         }
         return super.getSprite(whosAsking);
     }
@@ -115,6 +117,8 @@ public class OutFit extends TorsoAndShoesSuit {
             return makeOutfit("staffassuniformworn", "uniform2.png",19,5, this);
         } else if (type instanceof QuarterMasterCharacter) {
             return makeOutfit("quartermasteruniformworn", "uniform2.png", 31, 18, this);
+        } else if (type instanceof SecurityCharacter) {
+            return makeOutfit("securityuniformworn", "uniform2.png", 16, 0, this);
         }
         return super.getWornSprite(whosAsking);
     }

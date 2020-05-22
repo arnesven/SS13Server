@@ -6,19 +6,14 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
-import model.actions.objectactions.VendingMachineAction;
 import model.actions.objectactions.WalkUpToVendingMachine;
 import model.fancyframe.EmaggedVendingMachineFancyFrame;
 import model.fancyframe.FancyFrame;
 import model.items.HandCuffs;
 import model.items.general.GameItem;
-import model.items.general.Grenade;
+import model.items.general.FragGrenade;
 import model.items.weapons.Flamer;
-import model.items.weapons.Shotgun;
 import model.items.weapons.StunBaton;
-import model.objects.general.ElectricalMachinery;
-import model.objects.general.GameObject;
-import model.objects.general.VendingMachine;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -37,7 +32,7 @@ public class EmaggedVendingMachine extends VendingMachine {
         this.inner = vending;
         newSelection = new ArrayList<GameItem>();
         newSelection.add(new StunBaton());
-        newSelection.add(new Grenade());
+        newSelection.add(new FragGrenade());
         newSelection.add(new Flamer());
         newSelection.add(new HandCuffs());
     }

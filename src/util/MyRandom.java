@@ -119,7 +119,7 @@ public class MyRandom {
         list.add(new Banana(null));
         list.add(new Syringe());
         list.add(Chemicals.createRandomChemicals());
-        list.add(new Grenade());
+        list.add(new FragGrenade());
         list.add(new MedKit());
         list.add(new Tools());
         list.add(new UniversalKeyCard());

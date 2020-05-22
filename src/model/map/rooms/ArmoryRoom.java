@@ -1,7 +1,7 @@
 package model.map.rooms;
 
 import model.items.weapons.Flamer;
-import model.items.general.Grenade;
+import model.items.general.FragGrenade;
 import model.items.weapons.LaserPistol;
 import model.items.weapons.Revolver;
 import model.map.doors.Door;
@@ -15,7 +15,7 @@ public class ArmoryRoom extends SecurityRoom {
 		this.addItem(new Flamer());
 		this.addItem(new Revolver());
 		this.addItem(new LaserPistol());
-		this.addItem(new Grenade());
+		this.addItem(new FragGrenade());
 	}
 
 }

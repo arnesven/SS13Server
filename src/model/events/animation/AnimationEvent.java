@@ -1,12 +1,10 @@
 package model.events.animation;
 
 import graphics.sprites.Sprite;
-import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
-import model.items.general.Grenade;
 import model.map.rooms.Room;
 
 public class AnimationEvent extends Event {

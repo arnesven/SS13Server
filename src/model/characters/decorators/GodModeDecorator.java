@@ -3,12 +3,11 @@ package model.characters.decorators;
 import model.GameData;
 import model.actions.characteractions.CommitSuicideAction;
 import model.actions.general.Action;
-import model.characters.crew.ArchitectCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.VisitorCharacter;
+import model.items.general.FragGrenade;
 import model.items.general.GameItem;
 import model.items.general.GodModeTeleporter;
-import model.items.general.Grenade;
 
 import java.util.ArrayList;
 
@@ -28,7 +27,7 @@ public class GodModeDecorator extends CharacterDecorator {
                 }
             }
         }
-        getActor().addItem(new Grenade(), null);
+        getActor().addItem(new FragGrenade(), null);
          getActor().addItem(new GodModeTeleporter(), null);
         this.gameData = gameData;
 

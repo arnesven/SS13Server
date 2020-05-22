@@ -9,17 +9,19 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
-import model.items.general.Grenade;
+import model.items.general.GrenadeItem;
 import model.map.rooms.Room;
 
 public class ThrowGrenadeAction extends Action {
 
+	private final GrenadeItem grenade;
 	private String location;
 	private Actor thrower;
 
-	public ThrowGrenadeAction(Actor thrower) {
-		super("Throw Grenade", SensoryLevel.PHYSICAL_ACTIVITY);
+	public ThrowGrenadeAction(Actor thrower, GrenadeItem gren) {
+		super("Throw " + gren.getPublicName(thrower), SensoryLevel.PHYSICAL_ACTIVITY);
 		this.thrower = thrower;
+		this.grenade = gren;
 	}
 
 	@Override
@@ -29,13 +31,6 @@ public class ThrowGrenadeAction extends Action {
 	
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
-
-		Grenade grenade = null;
-		for (GameItem gi : performingClient.getItems()) {
-			if (gi instanceof Grenade) {
-				grenade = (Grenade)gi;
-			}
-		}
 		if (grenade == null) {
 			performingClient.addTolastTurnInfo("What? The grenade is gone! Your action failed.");
 		} else {
@@ -45,8 +40,7 @@ public class ThrowGrenadeAction extends Action {
             try {
                 targetRoom = gameData.getRoom(location);
                 targetRoom.addItem(grenade);
-                Action a = new ExplosionAction(grenade, targetRoom);
-                a.doTheAction(gameData, performingClient);
+                grenade.doExplosionAction(targetRoom, gameData, performingClient);
             } catch (NoSuchThingException e) {
                 e.printStackTrace();
             }

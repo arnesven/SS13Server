@@ -17,7 +17,7 @@ import model.npcs.NPC;
 public class StunBaton extends AmmoWeapon {
 
 	public StunBaton() {
-		super("Stun Baton", 0.75, 0.0, false, 0.5, 3, 90);
+		super("Stun Baton", 0.95, 0.0, false, 0.5, 4, 90);
 	}
 
 	@Override

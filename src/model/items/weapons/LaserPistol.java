@@ -12,7 +12,7 @@ import util.MyRandom;
 public class LaserPistol extends AmmoWeapon implements TraitorItem {
 
 	public LaserPistol() {
-		super("Laser pistol", 0.90, 1.0, false, 1.0, 4, 340);
+		super("Laser pistol", 0.90, 1.0, false, 1.0, 6, 340);
         this.setCriticalChance(0.15);
 	}
 
