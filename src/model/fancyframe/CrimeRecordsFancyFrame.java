@@ -22,6 +22,7 @@ public class CrimeRecordsFancyFrame extends ConsoleFancyFrame {
     private boolean onHistoryPage;
     private boolean onReportPage;
     private String reportedPerson;
+    private String errorMessage = "";
 
     public CrimeRecordsFancyFrame(CrimeRecordsConsole console, Player performingClient, GameData gameData) {
         super(performingClient.getFancyFrame(), console, gameData, "#ad402a", "Yellow");
@@ -53,6 +54,7 @@ public class CrimeRecordsFancyFrame extends ConsoleFancyFrame {
         } else if (onReportPage) {
             data.append("__________________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE BACK", HTMLText.makeText("blue", "[back]")));
             data.append("<br/>");
+            data.append(errorMessage + "<br/>");
             data.append("Please enter crime description and sentence duration in the input field below and hit ENTER.");
             data.append(HTMLText.makeCentered("<i>Example: Murder-5</i>"));
             data.append("Then select who you want to report from the list below.<br/>");
@@ -65,6 +67,8 @@ public class CrimeRecordsFancyFrame extends ConsoleFancyFrame {
                 }
                 data.append("<br/>");
             }
+            data.append("<br/>" + HTMLText.makeText("Yellow", "serif", 2,"<i>If you cannot find the perpetrator in the list above. You may try to configure the security "  +
+                    "system to recognize a new person by entering that persons name in the input field below and hitting ENTER.</i>"));
 
         } else {
             data.append("__________________________" + HTMLText.makeFancyFrameLink("CHANGEPAGE HISTORY", HTMLText.makeText("blue", "[history]")));
@@ -131,6 +135,12 @@ public class CrimeRecordsFancyFrame extends ConsoleFancyFrame {
                 reportDuration = scan.nextInt();
                 concreteRebuild(gameData, player);
             }
+        } else {
+            boolean succ = console.addExtraBaddieByName(data, gameData);
+            if (!succ) {
+                errorMessage = "ERROR! No person \"" + data + "\" found on station.";
+            }
+            concreteRebuild(gameData, player);
         }
     }
 }

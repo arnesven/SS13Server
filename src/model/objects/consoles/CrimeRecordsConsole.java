@@ -1,9 +1,6 @@
 package model.objects.consoles;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import graphics.sprites.Sprite;
 import model.Actor;
@@ -27,6 +24,8 @@ import model.objects.general.EvidenceBox;
 import util.Logger;
 import util.Pair;
 
+import javax.naming.directory.Attribute;
+
 public class CrimeRecordsConsole extends Console {
 	private int[] sentenceLengths = new int[]{2, 3, 5, 7};
 	private String[] crimes = new String[]{"Rowdiness", "Theft",
@@ -36,9 +35,11 @@ public class CrimeRecordsConsole extends Console {
     private Map<Actor, List<Pair<String, Actor>>> reportsHistory = new HashMap<>();
 	private int noOfSentenced = 1;
     private Room releaseIntoRoom;
+	private Set<Actor> extraBaddies;
 
-    public CrimeRecordsConsole(Room r, GameData gameData, Room release) {
+	public CrimeRecordsConsole(Room r, GameData gameData, Room release) {
 		super("Crime Records", r);
+		extraBaddies = new HashSet<>();
         NPC securitron = null;
         try {
             securitron = new SecuritronNPC(r, gameData, this);
@@ -250,5 +251,21 @@ public class CrimeRecordsConsole extends Console {
 
 	public int[] getSentenceLengths() {
 		return sentenceLengths;
+	}
+
+	public Set<Actor> getExtraBaddies() {
+    	return extraBaddies;
+	}
+
+	public boolean addExtraBaddieByName(String target, GameData gameData) {
+		for (Actor a : gameData.getActors()) {
+			if (!extraBaddies.contains(a)) {
+				if (a.getBaseName().contains(target) || target.contains(a.getBaseName())) {
+					extraBaddies.add(a);
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

@@ -39,7 +39,7 @@ public class ReportCrimeAction extends ConsoleAction {
 		});
 		
 		for (Actor a : acts) {
-			if (a.getCharacter().isCrew()) {
+			if (a.getCharacter().isCrew() || console.getExtraBaddies().contains(a)) {
 				ActionOption guy = new ActionOption(a.getCharacter().getBaseName());
 				for (int i = 0; i < console.getAllCrimes().length; ++i) {
 					guy.addOption(console.getAllCrimes()[i] +
