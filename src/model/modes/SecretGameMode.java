@@ -10,8 +10,8 @@ import java.util.Arrays;
 public class SecretGameMode  {
 	
 	private static final String filename = "random_modes";
-	private static final double[] probabilities = {0.20,      0.35,         0.15,         0.15,       0.04,     0.04,     0.04,    0.03};
-    private static final String[] modeNames =   {"Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Mutiny",  "Mixed", "Armageddon"};
+	private static final double[] probabilities = {0.20,      0.35,         0.15,         0.12,       0.04,     0.03,     0.05,     0.03,    0.03};
+    private static final String[] modeNames =   {"Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Mutiny",  "Wizard", "Mixed", "Armageddon"};
 
 
 	public static GameMode getNewInstance() {
@@ -69,15 +69,24 @@ public class SecretGameMode  {
 				}
 			};
         } else if (d < cummulative[5]) {
-            Logger.log("...... but secretly it's mutiny");
-            MyRandom.write_to_file(filename, d + " Mutiny");
-            result = new MutinyGameMode() {
-                @Override
-                protected void addProtagonistStartingMessage(Player c) {
-                    protMessage(c);
-                }
-            };
-        } else if (d < cummulative[6]) {
+			Logger.log("...... but secretly it's mutiny");
+			MyRandom.write_to_file(filename, d + " Mutiny");
+			result = new MutinyGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					protMessage(c);
+				}
+			};
+		} else if (d < cummulative[6]) {
+			Logger.log("...... but secretly it's wizard");
+			MyRandom.write_to_file(filename, d + " Wizard");
+			result = new WizardGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					protMessage(c);
+				}
+			};
+		} else if (d < cummulative[7]) {
             Logger.log("...... but secretly it's mixed");
             MyRandom.write_to_file(filename, d + " Mixed");
             result = new MixedGameMode() {
