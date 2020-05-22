@@ -1,5 +1,6 @@
 package model.modes;
 
+import model.Player;
 import util.Logger;
 
 public class GameModeFactory {
@@ -45,4 +46,69 @@ public class GameModeFactory {
 
 	}
 
+	public static GameMode createSecret(String selectedMode) {
+		if (selectedMode.toLowerCase().equals("host")) {
+			return new HostGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					SecretGameMode.protMessage(c);
+				}
+			};
+		} else if (selectedMode.toLowerCase().equals("traitor")) {
+			return new TraitorGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					SecretGameMode.protMessage(c);
+				}
+			};
+		} else if (selectedMode.toLowerCase().equals("operatives")) {
+			return new OperativesGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					SecretGameMode.protMessage(c);
+				}
+			};
+		} else if (selectedMode.toLowerCase().equals("changeling")) {
+			return new ChangelingGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					SecretGameMode.protMessage(c);
+				}
+			};
+		} else if (selectedMode.toLowerCase().equals("rogue ai")) {
+			return new RogueAIMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					SecretGameMode.protMessage(c);
+				}
+			};
+		} else if (selectedMode.toLowerCase().equals("mutiny")) {
+			return new MutinyGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					SecretGameMode.protMessage(c);
+				}
+			};
+		} else if (selectedMode.toLowerCase().equals("wizard")) {
+			return new WizardGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					SecretGameMode.protMessage(c);
+				}
+			};
+		} else if (selectedMode.toLowerCase().equals("mixed")) {
+			return new MixedGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					SecretGameMode.protMessage(c);
+				}
+			};
+		}
+		return new ArmageddonGameMode() {
+			@Override
+			protected void addProtagonistStartingMessage(Player c) {
+				SecretGameMode.protMessage(c);
+			}
+		};
+	}
 }

@@ -4,6 +4,7 @@ import model.GameData;
 import model.Player;
 import model.modes.goals.PersonalGoal;
 import util.Logger;
+import util.MapSavedToDisk;
 
 import java.io.*;
 import java.util.*;
@@ -11,13 +12,13 @@ import java.util.*;
 /**
  * Created by erini02 on 19/10/16.
  */
-public class HallOfFame {
+public class HallOfFame extends MapSavedToDisk<String, Integer> {
     private final GameData gameData;
     private static final String filename = "hall_of_fame";
-    private Map<String, Integer> entries = new HashMap<>();
 
     
     public HallOfFame(GameData gameData) {
+        super(filename);
         this.gameData = gameData;
         readFile();
         if (gameData.getGameMode() != null && !gameData.getGameMode().hasUpdatedHallOfFame()) {
@@ -27,11 +28,9 @@ public class HallOfFame {
         }
     }
 
-
-
     private void updateForThisGame() {
         for (Map.Entry<String, Player> entry: gameData.getPlayersAsEntrySet()) {
-            Integer current = entries.get(entry.getKey());
+            Integer current = getEntries().get(entry.getKey());
             if (current == null) {
                 current = 0;
             }
@@ -54,48 +53,17 @@ public class HallOfFame {
                 }
 
                 current = current + gainedPoints;
-                entries.put(entry.getKey(), current);
+                getEntries().put(entry.getKey(), current);
             }
         }
     }
 
-    private void readFile() {
-        try {
-            Scanner scanner = new Scanner(new File(filename));
-            while (scanner.hasNext()) {
-                entries.put(scanner.next(), scanner.nextInt());
-            }
-        } catch (FileNotFoundException e) {
-            File f = new File(filename);
-            try {
-                f.createNewFile();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
-    }
-
-    private void writeFile() {
-
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filename)));
-            for (Map.Entry<String, Integer> entry : entries.entrySet()) {
-                writer.write(entry.getKey() + "\t" + entry.getValue());
-                writer.newLine();
-            }
-            writer.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public String getHTMLTable() {
         StringBuilder strb = new StringBuilder();
         strb.append("<b>Hall of Fame<b><br/><table>");
         List<Map.Entry<String, Integer>> list = new ArrayList<>();
-        list.addAll(entries.entrySet());
+        list.addAll(getEntries().entrySet());
 
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
             @Override
@@ -112,4 +80,23 @@ public class HallOfFame {
     }
 
 
+    @Override
+    protected Integer readValue(Scanner scanner) {
+        return scanner.nextInt();
+    }
+
+    @Override
+    protected String readKey(Scanner scanner) {
+        return scanner.next();
+    }
+
+    @Override
+    protected String StringifyValue(Integer value) {
+        return value.toString();
+    }
+
+    @Override
+    protected String StringifyKey(String key) {
+        return key;
+    }
 }

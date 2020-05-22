@@ -1,120 +1,70 @@
 package model.modes;
 
 import util.Logger;
+import util.MapSavedToDisk;
 import util.MyArrays;
 import util.MyRandom;
 import model.Player;
 
-import java.util.Arrays;
+import java.io.File;
+import java.util.*;
 
-public class SecretGameMode  {
+public class SecretGameMode extends MapSavedToDisk<String, Double> {
 	
 	private static final String filename = "random_modes";
 	private static final double[] probabilities = {0.20,      0.35,         0.15,         0.12,       0.04,     0.03,     0.05,     0.03,    0.03};
     private static final String[] modeNames =   {"Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Mutiny",  "Wizard", "Mixed", "Armageddon"};
 
+	public SecretGameMode() {
+		super("secret_probabilities");
+		if (!(new File("secret_probabilities").exists())) {
+			for (int i = 0; i < modeNames.length; ++i) {
+				getEntries().put(modeNames[i], probabilities[i]);
+			}
+			writeFile();
+		} else {
+			readFile();
+		}
+	}
+
 
 	public static GameMode getNewInstance() {
-		GameMode result;
+		SecretGameMode sgm = new SecretGameMode();
+		GameMode result = null;
 
+		List<String> modeNames = new ArrayList<>();
+		List<Double> cummulative = new ArrayList<>();
+		for (Map.Entry<String, Double> me : sgm.getEntries().entrySet()) {
+			modeNames.add(me.getKey());
+			double sum = me.getValue();
+			for (Double d : cummulative) {
+				sum += d;
+			}
+			cummulative.add(sum);
+		}
 		double d = MyRandom.nextDouble();
 
-		double[] cummulative = MyArrays.prefixsum(probabilities);
-        printProbabilites(cummulative);
+		printProbabilites(cummulative);
 
-		if (d < cummulative[0]) {
-			MyRandom.write_to_file(filename, d + " Host");
-			result = new HostGameMode() {
-				@Override
-				protected void addProtagonistStartingMessage(Player c) {
-					protMessage(c);
-				}
-			};
-			Logger.log("...... but secretly it's host");
-		} else if (d < cummulative[1]) {
-			Logger.log("...... but secretly it's traitor");
-			MyRandom.write_to_file(filename, d + " Traitor");
-			result = new TraitorGameMode() {
-				@Override
-				protected void addProtagonistStartingMessage(Player c) {
-					protMessage(c);
-				}
+		for (int i = 0; i < modeNames.size(); ++i) {
+			if (d < cummulative.get(i)) {
+				MyRandom.write_to_file(filename, d + " " + modeNames.get(i));
+				result = GameModeFactory.createSecret(modeNames.get(i));
+				Logger.log("...... but secretly it's " + modeNames.get(i));
+				break;
+			}
+		}
 
-			};
-		} else if (d < cummulative[2]) {
-			MyRandom.write_to_file(filename, d + " Operatives");
-			Logger.log("...... but secretly it's operatives");
-			result = new OperativesGameMode() {
-				@Override
-				protected void addProtagonistStartingMessage(Player c) {
-					protMessage(c);
-				}
-			};
-		} else if (d < cummulative[3]){
-			Logger.log("...... but secretly it's changeling");
-			MyRandom.write_to_file(filename, d + " Changeling");
-			result = new ChangelingGameMode() {
-				@Override
-				protected void addProtagonistStartingMessage(Player c) {
-					protMessage(c);
-				}
-			};
-		} else if (d < cummulative[4]) {
-            Logger.log("...... but secretly it's rogue ai");
-			MyRandom.write_to_file(filename, d + " Rogue AI");
-			result = new RogueAIMode() {
-				@Override
-				protected void addProtagonistStartingMessage(Player c) {
-					protMessage(c);
-				}
-			};
-        } else if (d < cummulative[5]) {
-			Logger.log("...... but secretly it's mutiny");
-			MyRandom.write_to_file(filename, d + " Mutiny");
-			result = new MutinyGameMode() {
-				@Override
-				protected void addProtagonistStartingMessage(Player c) {
-					protMessage(c);
-				}
-			};
-		} else if (d < cummulative[6]) {
-			Logger.log("...... but secretly it's wizard");
-			MyRandom.write_to_file(filename, d + " Wizard");
-			result = new WizardGameMode() {
-				@Override
-				protected void addProtagonistStartingMessage(Player c) {
-					protMessage(c);
-				}
-			};
-		} else if (d < cummulative[7]) {
-            Logger.log("...... but secretly it's mixed");
-            MyRandom.write_to_file(filename, d + " Mixed");
-            result = new MixedGameMode() {
-                @Override
-                protected void addProtagonistStartingMessage(Player c) {
-                    protMessage(c);
-                }
-            };
-        } else {
-            Logger.log("...... but secretly it's armageddon");
-            MyRandom.write_to_file(filename, d + " Armageddon");
-            result = new ArmageddonGameMode() {
-                @Override
-                protected void addProtagonistStartingMessage(Player c) {
-                    protMessage(c);
-                }
-            };
-        }
 		return result;
 	}
 
-    private static void printProbabilites(double[] cummulative) {
+    private static void printProbabilites(List<Double> cummulative) {
         System.out.println("Secret game mode cummulative:");
         double cum = 0.0;
-        for (int i = 0; i < cummulative.length; ++i) {
-            System.out.println(modeNames[i] + " " + (cummulative[i] - cum)*100.0 + "%");
+        for (int i = 0; i < cummulative.size(); ++i) {
+            System.out.println(modeNames[i] + " " + (cummulative.get(i) - cum)*100.0 + "%");
             //System.out.println(modeNames[i] + " " + cummulative[i]*100.0 + "%");
-            cum = cummulative[i];
+            cum = cummulative.get(i);
         }
     }
 
@@ -153,5 +103,25 @@ public class SecretGameMode  {
 				"</td><td>" +
 				getDescription() +
 				"</td></tr></table>";
+	}
+
+	@Override
+	protected Double readValue(Scanner scanner) {
+		return scanner.nextDouble();
+	}
+
+	@Override
+	protected String readKey(Scanner scanner) {
+		return scanner.next().replace("_", " ");
+	}
+
+	@Override
+	protected String StringifyValue(Double value) {
+		return value.toString();
+	}
+
+	@Override
+	protected String StringifyKey(String key) {
+		return key.replace(" ", "_");
 	}
 }
