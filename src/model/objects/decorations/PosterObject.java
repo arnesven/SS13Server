@@ -2,11 +2,12 @@ package model.objects.decorations;
 
 import graphics.sprites.Sprite;
 import model.Player;
+import model.map.rooms.DecorativeRoom;
 import model.map.rooms.JanitorialRoom;
 import model.map.rooms.Room;
 import model.objects.general.GameObject;
 
-public class PosterObject extends GameObject  {
+public class PosterObject extends DecorationObject {
     private final int col;
     private final int row;
     private final double wallPos;

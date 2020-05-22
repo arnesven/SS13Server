@@ -269,7 +269,6 @@ public class DonutSS13Builder extends MapBuilder {
         {
             AreaPowerControl apc = new AreaPowerControl(brig, ss);
             apc.setAbsolutePosition(16, 4);
-            brig.addObject(apc);
         }
         gm.addRoom(brig, ss13, "center");
 

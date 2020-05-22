@@ -3,6 +3,7 @@ package model.map.rooms;
 import model.map.doors.Door;
 import model.map.doors.DowngoingStairsDoor;
 import model.map.floors.FloorSet;
+import model.map.floors.HallwayFloorSet;
 import model.map.floors.SingleSpriteFloorSet;
 
 public class HallwayRoom extends StationRoom {
@@ -12,6 +13,6 @@ public class HallwayRoom extends StationRoom {
 
     @Override
     public FloorSet getFloorSet() {
-        return new SingleSpriteFloorSet("floorhall", 0, 0);
+        return new HallwayFloorSet();
     }
 }

@@ -20,7 +20,6 @@ import model.events.ambient.ColdEvent;
 import model.events.ambient.ElectricalFire;
 import model.events.Event;
 import model.events.ambient.HullBreach;
-import model.events.animation.AnimatedSprite;
 import model.events.animation.BigExplosionAnimation;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
