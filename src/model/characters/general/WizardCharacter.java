@@ -85,6 +85,10 @@ public class WizardCharacter extends HumanCharacter {
         at.add(new ShowManaAction(gameData));
     }
 
+    public void setMagicka(int i) {
+        this.magicka = Math.min(MAGICKA_MAX, i);
+    }
+
     private class ShowManaAction extends Action {
 
         private final GameData gameData;
