@@ -37,28 +37,7 @@ public class ZombifierEvent extends Event {
         for (Actor a : gameData.getActors()) {
             if (a.isDead() && isZombiefiable(a)) {
                 if (turningZombie.contains(a) && MyRandom.nextDouble() < TURNING_CHANCE_STAGE2) {
-                    try {
-                        MovementBehavior move = new MeanderingMovement(0.5);
-                        AttackIfPossibleBehavior atk = new AttackAllActorsNotSameClassBehavior();
-                        if (a instanceof Player) {
-                            a.getPosition().removeActor(a);
-                            NPC npc = new ZombieNPC(new ZombieDecorator(a.getCharacter().clone()), move, atk, a.getPosition());
-                            gameData.addNPC(npc);
-                            npc.moveIntoRoom(npc.getPosition());
-                            alreadyTurned.add(npc);
-                            npc.setHealth(1.5);
-                        } else {
-                            //NPC
-                            a.setCharacter(new ZombieDecorator(a.getCharacter()));
-                            ((NPC)a).setMoveBehavior(move);
-                            ((NPC)a).setActionBehavior(atk);
-                            ((NPC) a).setHealth(1.5);
-                        }
-                    } catch (NoSuchThingException e) {
-                        Logger.log(Logger.CRITICAL, "What no player to remove?!");
-                    }
-
-
+                    turnIntoZombie(a, gameData, alreadyTurned);
                     Logger.log(Logger.INTERESTING, a.getCharacter().getBaseName() + " turned into a zombie.");
 
                     turningZombie.remove(a);
@@ -71,7 +50,30 @@ public class ZombifierEvent extends Event {
         }
     }
 
-    private boolean isZombiefiable(Actor a) {
+    public static void turnIntoZombie(Actor a, GameData gameData, Set<Actor> alreadyTurned) {
+        try {
+            MovementBehavior move = new MeanderingMovement(0.5);
+            AttackIfPossibleBehavior atk = new AttackAllActorsNotSameClassBehavior();
+            if (a instanceof Player) {
+                a.getPosition().removeActor(a);
+                NPC npc = new ZombieNPC(new ZombieDecorator(a.getCharacter().clone()), move, atk, a.getPosition());
+                gameData.addNPC(npc);
+                npc.moveIntoRoom(npc.getPosition());
+                alreadyTurned.add(npc);
+                npc.setHealth(1.5);
+            } else {
+                //NPC
+                a.setCharacter(new ZombieDecorator(a.getCharacter()));
+                ((NPC)a).setMoveBehavior(move);
+                ((NPC)a).setActionBehavior(atk);
+                ((NPC) a).setHealth(1.5);
+            }
+        } catch (NoSuchThingException e) {
+            Logger.log(Logger.CRITICAL, "What no player to remove?!");
+        }
+    }
+
+    public  boolean isZombiefiable(Actor a) {
         if (!isZombie(a)) {
            return isHuman(a) || isAnimal(a);
         }
