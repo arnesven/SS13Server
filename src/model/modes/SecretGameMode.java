@@ -34,17 +34,19 @@ public class SecretGameMode extends MapSavedToDisk<String, Double> {
 
 		List<String> modeNames = new ArrayList<>();
 		List<Double> cummulative = new ArrayList<>();
+		int j = 0;
 		for (Map.Entry<String, Double> me : sgm.getEntries().entrySet()) {
 			modeNames.add(me.getKey());
 			double sum = me.getValue();
-			for (Double d : cummulative) {
-				sum += d;
+			if (j > 0) {
+				sum += cummulative.get(j-1);
 			}
 			cummulative.add(sum);
+			j++;
 		}
 		double d = MyRandom.nextDouble();
 
-		printProbabilites(cummulative);
+		printProbabilites(modeNames, cummulative);
 
 		for (int i = 0; i < modeNames.size(); ++i) {
 			if (d < cummulative.get(i)) {
@@ -58,11 +60,11 @@ public class SecretGameMode extends MapSavedToDisk<String, Double> {
 		return result;
 	}
 
-    private static void printProbabilites(List<Double> cummulative) {
+    private static void printProbabilites(List<String> names, List<Double> cummulative) {
         System.out.println("Secret game mode cummulative:");
         double cum = 0.0;
         for (int i = 0; i < cummulative.size(); ++i) {
-            System.out.println(modeNames[i] + " " + (cummulative.get(i) - cum)*100.0 + "%");
+            System.out.println(names.get(i) + " " + (cummulative.get(i) - cum)*100.0 + "%");
             //System.out.println(modeNames[i] + " " + cummulative[i]*100.0 + "%");
             cum = cummulative.get(i);
         }
