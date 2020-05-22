@@ -20,12 +20,12 @@ public class OpenDimensionalPortalSpellBook extends SpellBook {
 
     @Override
     public void doEarlyEffect(GameData gameData, Actor performingClient, Target target) {
-
+        gameData.addEvent(new AlienDimensionEvent(true, performingClient.getPosition()));
+        performingClient.addTolastTurnInfo("You opened a gateway to another dimension!");
     }
 
     @Override
     public void doLateEffect(GameData gameData, Actor performingClient, Target target) {
-        gameData.addEvent(new AlienDimensionEvent(true, performingClient.getPosition()));
     }
 
     @Override
