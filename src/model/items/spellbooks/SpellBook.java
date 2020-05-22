@@ -99,4 +99,7 @@ public abstract class SpellBook extends GameItem {
         return true;
     }
 
+    public boolean isTargetingSpell() {
+        return true;
+    }
 }

@@ -14,4 +14,9 @@ public class ChimpAppearanceDecorator extends AnimalAppearanceDecorator {
     public boolean hasInventory() {
         return true;
     }
+
+    @Override
+    public boolean canUseObjects() {
+        return true;
+    }
 }

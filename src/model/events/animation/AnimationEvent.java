@@ -13,13 +13,15 @@ public class AnimationEvent extends Event {
     private final int roundCreated;
     private final Room room;
     private final Sprite sprite;
+    private final String label;
 
-    public AnimationEvent(GameData gameData, Room r, Sprite sp) {
+    public AnimationEvent(GameData gameData, Room r, Sprite sp, String label) {
         this.roundCreated = gameData.getRound();
         gameData.addEvent(this);
         this.room = r;
         this.sprite = sp;
         this.sprite.setObjectRef(this);
+        this.label = label;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class AnimationEvent extends Event {
 
     @Override
     public String howYouAppear(Actor performingClient) {
-        return null;
+        return label;
     }
 
     @Override

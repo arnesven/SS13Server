@@ -67,4 +67,9 @@ public class OpenDimensionalPortalSpellBook extends SpellBook {
             return target2 == forWhom;
         }
     }
+
+    @Override
+    public boolean isTargetingSpell() {
+        return false;
+    }
 }

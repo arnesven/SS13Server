@@ -48,6 +48,9 @@ public class QuickCastWand extends WandWeapon {
             if (sqcsa.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
                 list.add(sqcsa);
             }
+            if (selectedSpell != null && !selectedSpell.isTargetingSpell()) {
+                list.add(new UseQuickCastWand());
+            }
         }
 
         return list;
@@ -126,4 +129,26 @@ public class QuickCastWand extends WandWeapon {
 
     }
 
+    private class UseQuickCastWand extends Action {
+
+        public UseQuickCastWand() {
+            super("Quick Cast " + selectedSpell.getSpellName(), SensoryLevel.PHYSICAL_ACTIVITY);
+        }
+
+        @Override
+        protected String getVerb(Actor whosAsking) {
+            return "said: \"" + selectedSpell.getMagicWords();
+        }
+
+        @Override
+        protected void execute(GameData gameData, Actor performingClient) {
+            selectedSpell.doEarlyEffect(gameData, performingClient, null);
+            selectedSpell.doLateEffect(gameData, performingClient, null);
+        }
+
+        @Override
+        protected void setArguments(List<String> args, Actor performingClient) {
+
+        }
+    }
 }

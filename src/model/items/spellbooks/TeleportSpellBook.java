@@ -77,4 +77,9 @@ public class TeleportSpellBook extends SpellBook {
     public void setTeleportTargetRoom(Room r) {
         targetRoom = r;
     }
+
+    @Override
+    public boolean isTargetingSpell() {
+        return false;
+    }
 }

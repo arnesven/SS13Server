@@ -48,4 +48,9 @@ public class AnimalAppearanceDecorator extends CharacterDecorator {
     public boolean hasInventory() {
         return false;
     }
+
+    @Override
+    public boolean canUseObjects() {
+        return false;
+    }
 }

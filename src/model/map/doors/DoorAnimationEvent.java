@@ -13,7 +13,7 @@ public class DoorAnimationEvent extends AnimationEvent {
     private final Door door;
 
     public DoorAnimationEvent(GameData gameData, Room r, Door door, Sprite sp) {
-        super(gameData, r, sp);
+        super(gameData, r, sp, "Door Animation");
         this.door = door;
         door.setIsAnimating(true);
     }

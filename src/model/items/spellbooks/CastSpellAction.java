@@ -24,7 +24,7 @@ public abstract class CastSpellAction extends TargetingAction {
 
     @Override
     protected String getVerb(Actor whosAsking) {
-        return "said: " + spellBook.getMagicWords();
+        return "said: \"" + spellBook.getMagicWords() + "\"";
     }
 
     @Override
@@ -42,7 +42,7 @@ public abstract class CastSpellAction extends TargetingAction {
         }
 
         spellBook.beginCasting(gameData, performingClient, target);
-        performingClient.addTolastTurnInfo("You start casting " + spellBook.getSpellName() + ": " + spellBook.getMagicWords());
+        performingClient.addTolastTurnInfo("You start casting " + spellBook.getSpellName() + ": \"" + spellBook.getMagicWords() + "\"");
         gameData.executeAtEndOfRound(performingClient, this);
     }
 
