@@ -5,6 +5,7 @@ import model.map.doors.Door;
 import model.objects.consoles.CrimeRecordsConsole;
 import model.objects.consoles.SecurityCameraConsole;
 import model.objects.general.EvidenceBox;
+import model.objects.general.SecurityStorage;
 
 /**
  * Created by erini02 on 15/12/16.
@@ -15,5 +16,6 @@ public class SecurityStationRoom extends SecurityRoom {
         addObject(new CrimeRecordsConsole(this, gameData, releaseRoom));
         addObject(new EvidenceBox(this));
         addObject(new SecurityCameraConsole(this));
+        addObject(new SecurityStorage(this));
     }
 }

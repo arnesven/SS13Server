@@ -11,7 +11,7 @@ import model.objects.general.GameObject;
 
 public class WizardStaffCloset extends ContainerObject {
     public WizardStaffCloset(WizardDinghyRoom wizardDinghyRoom) {
-        super("Staff Closet", wizardDinghyRoom);
+        super("Old Trunk", wizardDinghyRoom);
         getInventory().add(new FireStaff());
         getInventory().add(new IceStaff());
         getInventory().add(new QuickCastWand());

@@ -44,7 +44,7 @@ public class CrimeRecordsFancyFrame extends ConsoleFancyFrame {
             if (!console.getReportsHistory().isEmpty()) {
                 for (Map.Entry<Actor, List<Pair<String, Actor>>> entry : console.getReportsHistory().entrySet()) {
                     for (Pair<String, Actor> pair : entry.getValue()) {
-                        data.append(entry.getKey().getBaseName() + " reported " + pair.second.getBaseName() + " for " + pair.first + "<br/>");
+                        data.append(pair.second.getBaseName() + " reported " + entry.getKey().getBaseName() + " for " + pair.first + "<br/>");
                     }
                 }
                 data.append("<br/>");
