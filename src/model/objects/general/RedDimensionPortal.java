@@ -3,6 +3,7 @@ package model.objects.general;
 import graphics.sprites.Sprite;
 import model.GameData;
 import model.Player;
+import model.events.animation.AnimatedSprite;
 import model.map.rooms.Room;
 import model.objects.general.DimensionPortal;
 
@@ -16,6 +17,7 @@ public class RedDimensionPortal extends DimensionPortal {
 
     @Override
     public Sprite getSprite(Player whosAsking) {
-        return new Sprite("portalred", "weapons2.png", 22, 10, 32, 32, this);
+        return new AnimatedSprite("portalred", "weapons2.png",
+                20, 10, 32, 32, this, 3, true);
     }
 }

@@ -15,6 +15,7 @@ public class BookCase extends ContainerObject {
         getInventory().add(new ClothesSwapSpellBook());
         getInventory().add(new TeleportSpellBook());
         getInventory().add(new RaiseDeadSpellBook());
+        getInventory().add(new OpenDimensionalPortalSpellBook());
     }
 
     @Override

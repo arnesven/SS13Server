@@ -7,6 +7,7 @@ import model.characters.decorators.DimensionTrappedDecorator;
 import model.events.ambient.AmbientEvent;
 import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
+import model.map.rooms.DecorativeRoom;
 import model.map.rooms.Room;
 import model.npcs.AlienNPC;
 import model.objects.general.RedDimensionPortal;
@@ -21,6 +22,7 @@ import util.MyRandom;
 public class AlienDimensionEvent extends AmbientEvent {
 
     private static final double occurranceChance = AmbientEvent.everyNGames(5);
+    private final boolean forceApply;
     private boolean hasHappened = false;
     private Room targetRoom;
     private Room otherDim;
@@ -30,12 +32,23 @@ public class AlienDimensionEvent extends AmbientEvent {
     private DimensionPortal portal3;
     private DimensionPortal portal4;
 
+    public AlienDimensionEvent(boolean forceApply, Room targetRoom) {
+        this.forceApply = forceApply;
+        this.targetRoom = targetRoom;
+    }
+
+    public AlienDimensionEvent() {
+        this(false, null);
+    }
+
     @Override
     public void apply(GameData gameData) {
-        if (!hasHappened && MyRandom.nextDouble() < getProbability()) {
+        if (!hasHappened && (MyRandom.nextDouble() < getProbability() || forceApply)) {
             hasHappened = true;
 
-            targetRoom = MyRandom.sample(gameData.getNonHiddenStationRooms());
+            while (targetRoom == null || targetRoom instanceof DecorativeRoom) {
+                targetRoom = MyRandom.sample(gameData.getNonHiddenStationRooms());
+            }
             addPortalObject(gameData, targetRoom);
             turnsActive = MyRandom.nextInt(12);
             Logger.log(Logger.INTERESTING, "Portal created in " + targetRoom.getName() + " active for " + turnsActive + " turns.");

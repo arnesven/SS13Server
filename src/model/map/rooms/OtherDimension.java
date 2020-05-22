@@ -9,16 +9,21 @@ import model.map.floors.SingleSpriteFloorSet;
  */
 public class OtherDimension extends RemoteRoom {
     public OtherDimension(int id, int[] ints, Door[] doors) {
-        super(id, "Other Dimension", "", 0, 0, 10, 10,ints, doors);
+        super(id, "Other Dimension", "", 0, 0, 5, 5, ints, doors);
     }
 
     @Override
     public FloorSet getFloorSet() {
-        return new SingleSpriteFloorSet("otherdimension", 13, 17);
+        return new SingleSpriteFloorSet("otherdimension",  10, 19, "weapons2.png");
     }
 
     @Override
     protected String getPaintingStyle() {
         return "NoWallsNoDoors";
+    }
+
+    @Override
+    protected String getBackgroundStyle() {
+        return "Black";
     }
 }
