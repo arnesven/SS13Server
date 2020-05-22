@@ -3,6 +3,7 @@ package model.items.weapons;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.events.FlashEvent;
 import model.items.foods.ExplodingFood;
@@ -75,4 +76,8 @@ public class FlashBang extends GrenadeItem {
         this.explode(gameData, targetRoom, performingClient);
     }
 
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "An exploding canister, which upon detonation emits a powerful flash which blinds and disorientates any unprotected targets.";
+    }
 }

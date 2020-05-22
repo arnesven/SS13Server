@@ -63,7 +63,7 @@ public class CosmicArtifact extends GameItem {
         Action a = new MindControlAction(cl, gameData);
         if (a.getOptions(gameData, cl).numberOfSuboptions() > 0) {
 
-            at.add(a);
+            //at.add(a);
         }
     }
 

@@ -47,7 +47,7 @@ public class FlashEvent extends Event {
 
     @Override
     public boolean showSpriteInRoom() {
-        return true;
+        return false;
     }
 
     @Override
