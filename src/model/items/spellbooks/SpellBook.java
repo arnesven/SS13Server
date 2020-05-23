@@ -27,16 +27,16 @@ public abstract class SpellBook extends GameItem {
     }
 
     public static List<SpellBook> getAllSpellBooks() {
-        List<SpellBook> sp = new ArrayList<>();
-        sp.add(new PolymorphSpellBook());
-        sp.add(new SectumsempraSpellBook());
-        sp.add(new ClothesSwapSpellBook());
-        sp.add(new TeleportSpellBook());
-        sp.add(new RaiseDeadSpellBook());
-        sp.add(new OpenDimensionalPortalSpellBook());
-        sp.add(new DetonateSpellBook());
-        sp.add(new InvisibilitySpellBook());
-        sp.add(new RegenerationSpellBook());
+        List<SpellBook> sp = new ArrayList<>();       // Mana Cost
+        sp.add(new PolymorphSpellBook());             //        13
+        sp.add(new SectumsempraSpellBook());          //        15
+        sp.add(new ClothesSwapSpellBook());           //         7
+        sp.add(new TeleportSpellBook());              //        10
+        sp.add(new RaiseDeadSpellBook());             //         9
+        sp.add(new OpenDimensionalPortalSpellBook()); //        15
+        sp.add(new DetonateSpellBook());              //        15
+        sp.add(new InvisibilitySpellBook());          //        11
+        sp.add(new RegenerationSpellBook());          //         8
         return sp;
     }
 

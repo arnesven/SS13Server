@@ -17,7 +17,7 @@ import model.mutations.InvisibilityDecorator;
 
 public class InvisibilitySpellBook extends SpellBook {
     public InvisibilitySpellBook() {
-        super("Invisibility", 10);
+        super("Invisibility", 11);
     }
 
     @Override

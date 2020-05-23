@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ClothesSwapSpellBook extends SpellBook {
     public ClothesSwapSpellBook() {
-        super("Clothes Swap", 8);
+        super("Clothes Swap", 7);
     }
 
     @Override

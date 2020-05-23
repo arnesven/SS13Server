@@ -8,7 +8,7 @@ import model.items.general.GameItem;
 
 public class RegenerationSpellBook extends SpellBook {
     public RegenerationSpellBook() {
-        super("Regeneration", 7);
+        super("Regeneration", 8);
     }
 
     @Override
