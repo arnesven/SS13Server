@@ -10,14 +10,10 @@ import model.objects.general.GameObject;
 public class BookCase extends ContainerObject {
     public BookCase(WizardDinghyRoom wizardDinghyRoom) {
         super("Book Case", wizardDinghyRoom);
-        getInventory().add(new PolymorphSpellBook());
-        getInventory().add(new SectumsempraSpellBook());
-        getInventory().add(new ClothesSwapSpellBook());
-        getInventory().add(new TeleportSpellBook());
-        getInventory().add(new RaiseDeadSpellBook());
-        getInventory().add(new OpenDimensionalPortalSpellBook());
-        getInventory().add(new DetonateSpellBook());
-        getInventory().add(new InvisibilitySpellBook());
+        for (SpellBook sp : SpellBook.getAllSpellBooks()) {
+            getInventory().add(sp.clone());
+        }
+
     }
 
     @Override

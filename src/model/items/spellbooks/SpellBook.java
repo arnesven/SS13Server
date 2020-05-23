@@ -26,6 +26,20 @@ public abstract class SpellBook extends GameItem {
         this.magickaCost = magickaCost;
     }
 
+    public static List<SpellBook> getAllSpellBooks() {
+        List<SpellBook> sp = new ArrayList<>();
+        sp.add(new PolymorphSpellBook());
+        sp.add(new SectumsempraSpellBook());
+        sp.add(new ClothesSwapSpellBook());
+        sp.add(new TeleportSpellBook());
+        sp.add(new RaiseDeadSpellBook());
+        sp.add(new OpenDimensionalPortalSpellBook());
+        sp.add(new DetonateSpellBook());
+        sp.add(new InvisibilitySpellBook());
+        sp.add(new RegenerationSpellBook());
+        return sp;
+    }
+
     public abstract void doEarlyEffect(GameData gameData, Actor performingClient, Target target);
 
     public abstract void doLateEffect(GameData gameData, Actor performingClient, Target target);

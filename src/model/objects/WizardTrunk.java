@@ -2,6 +2,8 @@ package model.objects;
 
 import graphics.sprites.Sprite;
 import model.Player;
+import model.items.spellbooks.HealthPotion;
+import model.items.spellbooks.InvulnerabilityPotion;
 import model.items.spellbooks.MagickaPotion;
 import model.items.weapons.FireStaff;
 import model.items.weapons.IceStaff;
@@ -18,6 +20,8 @@ public class WizardTrunk extends ContainerObject {
         getInventory().add(new QuickCastWand());
         getInventory().add(new LightningWand());
         getInventory().add(new MagickaPotion());
+        getInventory().add(new HealthPotion());
+        getInventory().add(new InvulnerabilityPotion());
     }
 
     @Override

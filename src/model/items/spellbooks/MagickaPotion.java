@@ -7,9 +7,9 @@ import model.Player;
 import model.characters.general.WizardCharacter;
 import model.items.foods.FoodItem;
 
-public class MagickaPotion extends FoodItem {
+public class MagickaPotion extends WizardPotion {
     public MagickaPotion() {
-        super("Magicka Potion", 0.4, 495);
+        super("Magicka Potion", 495, "blue");
     }
 
     @Override
@@ -17,18 +17,6 @@ public class MagickaPotion extends FoodItem {
         return new Sprite("magickapotion", "weapons2.png", 29, 24, this);
     }
 
-    @Override
-    public double getFireRisk() {
-        return 0;
-    }
-
-    @Override
-    public String getPublicName(Actor whosAsking) {
-        if (whosAsking.getInnermostCharacter() instanceof WizardCharacter) {
-            return super.getPublicName(whosAsking);
-        }
-        return "Some Kind of Potion";
-    }
 
     @Override
     public FoodItem clone() {
@@ -44,11 +32,9 @@ public class MagickaPotion extends FoodItem {
         }
     }
 
+
     @Override
-    public String getDescription(GameData gameData, Player performingClient) {
-        if (performingClient.getInnermostCharacter() instanceof WizardCharacter) {
-            return "A potion which restores up to 45 magicka.";
-        }
-        return "A thick blue liquid.";
+    protected String getPotionDescription() {
+        return "A potion which restores up to 45 magicka.";
     }
 }

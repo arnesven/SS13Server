@@ -362,6 +362,7 @@ public class GameData implements Serializable {
 			runEvents();
 			executeLateAction();
 			informPlayersOfRoomHappenings();
+			forEachCharacter((GameCharacter ch) -> ch.doAtEndOfTurn(this));
 			if (gameMode.gameOver(this)) {
                 getChat().serverSay("Game is over!");
                 this.getGameMode().doWhenGameOver(this);
@@ -375,8 +376,7 @@ public class GameData implements Serializable {
                 getChat().serverSay("Starting round " + round + " (of " + noOfRounds + ")");
 
 			}
-            forEachCharacter((GameCharacter ch) -> ch.doAtEndOfTurn(this));
-			allClearReady();
+        	allClearReady();
 		}
         //setAutoReadyTimer();
 		
