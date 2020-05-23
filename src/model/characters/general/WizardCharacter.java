@@ -7,11 +7,13 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.DoNothingAction;
 import model.actions.general.SensoryLevel;
+import model.characters.crew.JobDescriptionMaker;
 import model.characters.decorators.DisablingDecorator;
 import model.characters.decorators.HandCuffedDecorator;
 import model.characters.decorators.PinnedDecorator;
 import model.characters.decorators.StunnedDecorator;
 import model.items.general.GameItem;
+import model.items.spellbooks.SpellBook;
 import model.items.weapons.Weapon;
 import util.MyRandom;
 
@@ -31,12 +33,20 @@ public class WizardCharacter extends HumanCharacter {
     }
 
     public static String getAntagonistDescription() {
-        return "You are an intergalactic hedge wizard with a mission on SS13.";
+        return "<font size=\"3\"><i>You are an intergalactic hedge wizard with a mission on SS13. " +
+                "With your vast arsenal of spells and magic items, they'll never see you coming!</i><br/>"+
+                "<b>Abilities: </b>Spell Caster, Magicka<br/>" +
+                "<b>Gear: </b> One Random Spell Book<br/>" +
+                "<b>Initiative</b> 17.0<br/>" +
+                "</font>";
     }
+
 
     @Override
     public List<GameItem> getStartingItems() {
-        return new ArrayList<>();
+        List<GameItem> its = new ArrayList<>();
+        its.add(MyRandom.sample(SpellBook.getAllSpellBooks()));
+        return its;
     }
 
     @Override

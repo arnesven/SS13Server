@@ -1,12 +1,14 @@
 package model.map;
 
 import model.map.doors.Door;
+import model.map.rooms.DecorativeRoom;
 import model.map.rooms.Room;
 import util.Logger;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by erini02 on 23/11/16.
@@ -247,6 +249,22 @@ public class Architecture {
             map.joinRooms(a, b);
             return true;
         }
+    }
+
+    public List<Room> getRoomsWithin(Rectangle area) {
+        List<Room> lst = new ArrayList<>();
+        for (Room r : allRooms) {
+            if (!r.isHidden() && !(r instanceof DecorativeRoom)) {
+                if (area.intersects(getRectangleFor(r))) {
+                    lst.add(r);
+                }
+            }
+        }
+        return lst;
+    }
+
+    private static Rectangle getRectangleFor(Room r) {
+        return new Rectangle(r.getX(), r.getY(), r.getWidth(), r.getHeight());
     }
 
     public static class NoLegalPlacementForRoom extends Exception {

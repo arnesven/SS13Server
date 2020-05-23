@@ -5,9 +5,11 @@ import model.GameData;
 import model.Target;
 import model.actions.general.ActionOption;
 import model.items.NoSuchThingException;
+import model.map.Architecture;
 import model.map.doors.Door;
 import model.map.rooms.Room;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,26 +35,20 @@ public class CastTeleportAction extends CastSpellAction {
         List<Room> list = new ArrayList<>();
 
         try {
-            for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(forWhom.getPosition()).getName())) {
-                for (Door d : r.getDoors()) {
-                    Room toRoom = gameData.getRoomForId(d.getToId());
-                    if (toRoom == forWhom.getPosition() || forWhom.getPosition().getNeighborList().contains(toRoom)) {
-                        list.add(r);
-                        break;
-                    }
-                }
+            Architecture arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(forWhom.getPosition()).getName(),
+                    forWhom.getPosition().getZ());
+
+            Rectangle area = new Rectangle(forWhom.getPosition().getX()-2, forWhom.getPosition().getY()-2,
+                    forWhom.getPosition().getWidth()+4, forWhom.getPosition().getHeight()+4);
+
+            for (Room r : arch.getRoomsWithin(area)) {
+                list.add(r);
             }
+
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
 
-        for (Door d : forWhom.getPosition().getDoors()) {
-            try {
-                list.add(gameData.getRoomForId(d.getToId()));
-            } catch (NoSuchThingException e) {
-                e.printStackTrace();
-            }
-        }
         return list;
     }
 
