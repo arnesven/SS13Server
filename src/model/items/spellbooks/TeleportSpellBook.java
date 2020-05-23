@@ -7,6 +7,8 @@ import model.Player;
 import model.Target;
 import model.actions.general.ActionOption;
 import model.actions.roomactions.CanAlsoMoveToForOneTurnDecorator;
+import model.characters.decorators.PoofOfSmokeAnimationDecorator;
+import model.events.PoofOfSmokeAnimationEvent;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.map.doors.Door;
@@ -37,7 +39,9 @@ public class TeleportSpellBook extends SpellBook {
         if (targetRoom != null && performingClient instanceof Player) {
             performingClient.addTolastTurnInfo("You are teleporting into " + targetRoom.getName() + ".");
             performingClient.setCharacter(new CanAlsoMoveToForOneTurnDecorator(performingClient.getCharacter(), targetRoom));
+            performingClient.getPosition().addEvent(new PoofOfSmokeAnimationEvent(gameData, performingClient.getPosition()));
             performingClient.moveIntoRoom(targetRoom);
+            performingClient.setCharacter(new PoofOfSmokeAnimationDecorator(performingClient.getCharacter(), gameData));
             targetRoom = null;
         } else {
             performingClient.addTolastTurnInfo("Room not found!");

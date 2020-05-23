@@ -9,6 +9,7 @@ import model.Target;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.PoofOfSmokeAnimationDecorator;
 import model.characters.general.GameCharacter;
+import model.events.PoofOfSmokeAnimationEvent;
 import model.events.animation.AnimatedSprite;
 import model.events.animation.AnimationEvent;
 import model.items.general.GameItem;
@@ -32,10 +33,7 @@ public class InvisibilitySpellBook extends SpellBook {
     @Override
     public void doLateEffect(GameData gameData, Actor performingClient, Target target) {
         performingClient.setCharacter(new InvisibilityDecorator(performingClient));
-        performingClient.getPosition().addEvent(new AnimationEvent(gameData, performingClient.getPosition(),
-                new AnimatedSprite("poofofsmokeani", "wizardstuff.png", 0, 3, 32, 32,
-                        new EmptySpriteObject("Wizard"),
-                        8, false), "Wizard"));
+        performingClient.getPosition().addEvent(new PoofOfSmokeAnimationEvent(gameData, performingClient.getPosition()));
         performingClient.setCharacter(new RemoveInvisibilityDecorator(performingClient, gameData.getRound(), 5));
         performingClient.addTolastTurnInfo("You turned invisible");
     }
