@@ -73,7 +73,7 @@ public class SummonWallSpellBook extends SpellBook {
 
     @Override
     protected String getSpellDescription() {
-        return "Summons a brick wall to cover up a doorway.";
+        return "Summons a stone wall to cover up a doorway.";
     }
 
     @Override
@@ -98,7 +98,7 @@ public class SummonWallSpellBook extends SpellBook {
 
         @Override
         public boolean isOkToCast(Actor forWhom, GameData gameData) {
-            return true;
+            return !doors.isEmpty();
         }
 
         @Override

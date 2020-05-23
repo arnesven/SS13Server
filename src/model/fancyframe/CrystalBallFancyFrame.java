@@ -5,6 +5,7 @@ import model.Player;
 import model.actions.itemactions.TeleportAction;
 import model.items.NoSuchThingException;
 import model.items.general.Teleporter;
+import model.items.spellbooks.TeleportSpellBook;
 import model.map.rooms.Room;
 import model.objects.CrystalBall;
 import util.HTMLText;
@@ -48,17 +49,23 @@ public class CrystalBallFancyFrame extends FancyFrame {
     public void handleEvent(GameData gameData, Player player, String event) {
         super.handleEvent(gameData, player, event);
         if (event.contains("TELE")) {
-            List<String> args = new ArrayList<>();
-            args.add("Yourself");
-            Teleporter teleporter = new Teleporter();
-            teleporter.setMarked(roomToShow);
-            TeleportAction ta = new TeleportAction(teleporter);
-            ta.setActionTreeArguments(args, player);
-            player.setNextAction(ta);
-            readyThePlayer(gameData, player);
+            TeleportSpellBook.teleportPlayerToRoom(roomToShow, player, gameData);
+
+//            List<String> args = new ArrayList<>();
+//            args.add("Yourself");
+//            Teleporter teleporter = new Teleporter();
+//            teleporter.setMarked(roomToShow);
+//            TeleportAction ta = new TeleportAction(teleporter);
+//            ta.setActionTreeArguments(args, player);
+//            player.setNextAction(ta);
+//            readyThePlayer(gameData, player);
             dispose(player);
             crystalBall.setInUse(true);
-            player.refreshClientData();
+            for (Player p : gameData.getPlayersAsList()) {
+                if (p.getPosition() == roomToShow || p.isAI()) {
+                    p.refreshClientData();
+                }
+            }
         }
     }
 }

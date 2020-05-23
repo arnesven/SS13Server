@@ -106,7 +106,7 @@ public abstract class SpellBook extends GameItem {
 
     @Override
     public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
-        return "<b>Magicka Cost: </b>" + magickaCost;
+        return "<b>Magicka Cost: </b>" + magickaCost + ", <b>Quick Cast?</b> " + (canBeQuickCast()?"Yes":"No");
     }
 
     @Override

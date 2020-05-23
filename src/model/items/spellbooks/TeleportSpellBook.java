@@ -37,15 +37,19 @@ public class TeleportSpellBook extends SpellBook {
     @Override
     public void doLateEffect(GameData gameData, Actor performingClient, Target target) {
         if (targetRoom != null && performingClient instanceof Player) {
-            performingClient.addTolastTurnInfo("You are teleporting into " + targetRoom.getName() + ".");
-            performingClient.setCharacter(new CanAlsoMoveToForOneTurnDecorator(performingClient.getCharacter(), targetRoom));
-            performingClient.getPosition().addEvent(new PoofOfSmokeAnimationEvent(gameData, performingClient.getPosition()));
-            performingClient.moveIntoRoom(targetRoom);
-            performingClient.setCharacter(new PoofOfSmokeAnimationDecorator(performingClient.getCharacter(), gameData));
+            teleportPlayerToRoom(targetRoom, performingClient, gameData);
             targetRoom = null;
         } else {
             performingClient.addTolastTurnInfo("Room not found!");
         }
+    }
+
+    public static void teleportPlayerToRoom(Room targetRoom, Actor performingClient, GameData gameData) {
+        performingClient.addTolastTurnInfo("You are teleporting into " + targetRoom.getName() + ".");
+        performingClient.setCharacter(new CanAlsoMoveToForOneTurnDecorator(performingClient.getCharacter(), targetRoom));
+        performingClient.getPosition().addEvent(new PoofOfSmokeAnimationEvent(gameData, performingClient.getPosition()));
+        performingClient.moveIntoRoom(targetRoom);
+        performingClient.setCharacter(new PoofOfSmokeAnimationDecorator(performingClient.getCharacter(), gameData));
     }
 
     @Override
