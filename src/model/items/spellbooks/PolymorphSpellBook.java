@@ -21,7 +21,7 @@ public class PolymorphSpellBook extends SpellBook {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("spellbook", "library.png", 12, 3, this);
+        return new Sprite("polymorphspellbook", "library.png", 12, 3, this);
     }
 
 

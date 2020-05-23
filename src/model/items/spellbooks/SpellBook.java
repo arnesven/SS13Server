@@ -39,6 +39,7 @@ public abstract class SpellBook extends GameItem {
         sp.add(new InvisibilitySpellBook());          //        11
         sp.add(new RegenerationSpellBook());          //         8
         sp.add(new CluwnSpellBook());                 //        12
+        sp.add(new SummonWallSpellBook());
 
         sp.sort(Comparator.comparing(SpellBook::getSpellName));
 

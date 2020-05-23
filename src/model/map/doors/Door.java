@@ -5,6 +5,7 @@ import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.Target;
 import model.actions.general.Action;
 import model.actions.general.ActionGroup;
 import model.characters.general.AICharacter;

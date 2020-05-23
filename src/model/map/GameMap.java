@@ -9,6 +9,7 @@ import model.events.NoPressureEverEvent;
 import model.map.doors.Door;
 import model.map.doors.DoorMechanism;
 import model.map.levels.EmptySpaceLevel;
+import model.map.levels.StationLevel;
 import model.map.rooms.EscapeShuttle;
 import model.map.rooms.Room;
 import model.map.rooms.SpaceRoom;
@@ -112,7 +113,7 @@ public class GameMap implements Serializable {
     }
 
     private void createLevel(String firstLevelName) {
-        createLevel(new EmptySpaceLevel(firstLevelName, "Space"));
+        createLevel(new StationLevel(firstLevelName, "Space"));
     }
 
 

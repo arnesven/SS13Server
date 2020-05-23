@@ -6,6 +6,7 @@ import java.util.List;
 import model.GameData;
 import model.items.general.Locatable;
 import model.map.rooms.Room;
+import model.objects.ai.SecurityCamera;
 import model.objects.general.SoilPatch;
 import model.objects.general.BreakableObject;
 import model.objects.general.GameObject;
@@ -95,7 +96,7 @@ public class SabotageObjective implements TraitorObjective {
 		List<BreakableObject> list = new ArrayList<>();
         for (Room r : gameData2.getNonHiddenStationRooms()) {
             for (Object o : r.getObjects()) {
-                if ( o instanceof BreakableObject) {
+                if ( o instanceof BreakableObject && !(o instanceof SecurityCamera)) {
                     list.add((BreakableObject) o);
                 }
             }
