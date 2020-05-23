@@ -179,7 +179,11 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
         } else {
             sprs.add(r.getFloorSet().getMainSprite());
         }
-        sprs.add(obj.getSprite(player));
+        if (obj instanceof Actor) {
+            sprs.add(((Actor) obj).getCharacter().getUnanimatedSprite(player));
+        } else {
+            sprs.add(obj.getSprite(player));
+        }
         return new Sprite(obj.getSprite(player).getName()+"seccam", "human.png", 0, sprs, null);
     }
 

@@ -15,11 +15,12 @@ import model.events.animation.AnimatedSprite;
 import model.items.general.GameItem;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 public abstract class SpellBook extends GameItem {
     private final int magickaCost;
-    private SpriteOverlayDecorator castingEffectDecorator;
 
     public SpellBook(String string, int magickaCost) {
         super(string + " Spell Book", 0.5, false, 1300);
@@ -37,7 +38,10 @@ public abstract class SpellBook extends GameItem {
         sp.add(new DetonateSpellBook());              //        15
         sp.add(new InvisibilitySpellBook());          //        11
         sp.add(new RegenerationSpellBook());          //         8
-        sp.add(new CluwnSpellBook());
+        sp.add(new CluwnSpellBook());                 //        12
+
+        sp.sort(Comparator.comparing(SpellBook::getSpellName));
+
         return sp;
     }
 
