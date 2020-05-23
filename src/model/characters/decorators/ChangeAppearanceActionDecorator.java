@@ -1,5 +1,6 @@
 package model.characters.decorators;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -9,9 +10,8 @@ import model.characters.crew.CrewCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.ShamblingAbomination;
 import model.characters.general.OperativeCharacter;
-import model.items.suits.Equipment;
-import model.items.suits.OperativeSpaceSuit;
-import model.items.suits.SuperSuit;
+import model.characters.general.WizardCharacter;
+import model.items.suits.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +54,9 @@ public class ChangeAppearanceActionDecorator extends CharacterDecorator {
                 } else if (chosen instanceof OperativeCharacter) {
                     new OperativeSpaceSuit().putYourselfOn(chosen.getEquipment());
                     suit.setAppearAsCharacter(chosen, performingClient);
+                } else if (chosen instanceof WizardCharacter) {
+                    new WizardsOutfit().putYourselfOn(chosen.getEquipment());
+                    suit.setAppearAsCharacter(chosen, performingClient);
                 } else if (chosen.checkInstance((GameCharacter ch) -> ch instanceof CrewCharacter)){
                     suit.setAppearance(chosen.getEquipment().getEquipmentForSlot(Equipment.TORSO_SLOT), performingClient);
                 } else {
@@ -69,6 +72,11 @@ public class ChangeAppearanceActionDecorator extends CharacterDecorator {
                        chosen = chara;
                    }
                 }
+            }
+
+            @Override
+            public Sprite getAbilitySprite() {
+                return new Sprite("chsupersuitabi", "uniform2.png", 16, 17, null);
             }
         });
 

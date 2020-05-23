@@ -143,6 +143,7 @@ public class SuperSuit extends SuitItem implements TraitorItem {
             VisitorCharacter v = (VisitorCharacter) chars.remove(i); // removing visitor
             //chars.addAll(v.getSubtypes()); // doesn't work too well
         }
+        chars.add(new WizardCharacter(1));
         chars.add(new ShamblingAbomination());
         chars.add(new OperativeCharacter(1,1));
         chars.add(new RobotCharacter("TARS", 1, 20.0));
