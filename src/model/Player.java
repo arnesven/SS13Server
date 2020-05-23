@@ -453,7 +453,7 @@ public class Player extends Actor implements Target, Serializable {
 	public void applyAction(GameData gameData) {
 		if (!isDead()) {
 			Logger.log(getName() + "'s action is " + nextAction.getName());
-			this.nextAction.doTheAction(gameData, this);
+			getCharacter().doAction(this.nextAction, gameData);
 		} else {
             this.nextAction.setDeadBeforeApplied();
         }

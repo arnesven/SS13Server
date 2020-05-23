@@ -2,7 +2,7 @@ package model.events.damage;
 
 public class ColdDamage extends DamagerImpl {
 
-    private double damage = 0.5;
+    private double damage = 0.25;
 
     public ColdDamage() {
 

@@ -420,7 +420,6 @@ public abstract class CharacterDecorator extends GameCharacter {
 		innerChar.modifyActionList(gameData, at);
 	}
 
-	;
 
 	@Override
 	public ActionBehavior getDefaultActionBehavior() {
@@ -520,4 +519,7 @@ public abstract class CharacterDecorator extends GameCharacter {
 
 	public List<Room> getMiniMapRooms(GameData gameData) { return innerChar.getMiniMapRooms(gameData);}
 
+	public void doAction(Action nextAction, GameData gameData) {
+		innerChar.doAction(nextAction, gameData);
+	}
 }

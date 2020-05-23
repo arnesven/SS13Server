@@ -803,5 +803,7 @@ public abstract class GameCharacter implements Serializable {
 		this.spacePosition = spacePosition;
 	}
 
-
+	public void doAction(Action nextAction, GameData gameData) {
+		nextAction.doTheAction(gameData, getActor());
+	}
 }

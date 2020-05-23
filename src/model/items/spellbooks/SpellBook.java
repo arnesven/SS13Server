@@ -37,6 +37,7 @@ public abstract class SpellBook extends GameItem {
         sp.add(new DetonateSpellBook());              //        15
         sp.add(new InvisibilitySpellBook());          //        11
         sp.add(new RegenerationSpellBook());          //         8
+        sp.add(new CluwnSpellBook());
         return sp;
     }
 
