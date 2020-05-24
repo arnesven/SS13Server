@@ -3,7 +3,9 @@ package model.actions;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
+import model.actions.general.DoNothingAction;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.DraggingDecorator;
 import model.characters.general.GameCharacter;
@@ -38,6 +40,10 @@ public class StopDraggingAction extends Action {
         if (performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof DraggingDecorator)) {
             performingClient.removeInstance((GameCharacter gc) -> gc instanceof DraggingDecorator);
             performingClient.addTolastTurnInfo("You stopped dragging " + beingDragged.getPublicName());
+            if (performingClient instanceof Player) {
+                ((Player) performingClient).setNextAction(new DoNothingAction());
+                ((Player) performingClient).refreshClientData();
+            }
         }
     }
 

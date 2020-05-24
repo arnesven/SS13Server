@@ -49,7 +49,7 @@ public class CrystalBallFancyFrame extends FancyFrame {
     public void handleEvent(GameData gameData, Player player, String event) {
         super.handleEvent(gameData, player, event);
         if (event.contains("TELE")) {
-            TeleportSpellBook.teleportPlayerToRoom(roomToShow, player, gameData);
+            TeleportSpellBook.teleportPlayerToRoom(roomToShow, player, gameData, false);
 
             dispose(player);
             crystalBall.setInUse(true);

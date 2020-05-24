@@ -44,15 +44,22 @@ public class TeleportSpellBook extends SpellBook {
         }
     }
 
-    public static void teleportPlayerToRoom(Room targetRoom, Actor performingClient, GameData gameData) {
+    public static void teleportPlayerToRoom(Room targetRoom, Actor performingClient, GameData gameData, boolean withPoof) {
         performingClient.addTolastTurnInfo("You are teleporting into " + targetRoom.getName() + ".");
         performingClient.setCharacter(new CanAlsoMoveToForOneTurnDecorator(performingClient.getCharacter(), targetRoom));
         performingClient.getPosition().addEvent(new PoofOfSmokeAnimationEvent(gameData, performingClient.getPosition()));
         performingClient.moveIntoRoom(targetRoom);
-        performingClient.setCharacter(new PoofOfSmokeAnimationDecorator(performingClient.getCharacter(), gameData));
+        if (withPoof) {
+            performingClient.setCharacter(new PoofOfSmokeAnimationDecorator(performingClient.getCharacter(), gameData));
+        }
     }
 
-    @Override
+    public static void teleportPlayerToRoom(Room targetRoom, Actor performingClient, GameData gameData) {
+        teleportPlayerToRoom(targetRoom, performingClient, gameData, true);
+    }
+
+
+        @Override
     public String getSpellName() {
         return "Teleport";
     }
