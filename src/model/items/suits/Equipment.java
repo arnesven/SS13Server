@@ -124,7 +124,7 @@ public class Equipment implements Serializable {
             }
         }
 
-        Logger.log("Making combination for slot index " + slotIndex);
+        Logger.log("Making combination for slot index " + slotIndex + ", sprite list size is " + sprites.size());
         Sprite combination = new Sprite(finalName.toString(), sprites);
         return combination;
     }

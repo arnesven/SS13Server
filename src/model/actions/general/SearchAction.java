@@ -19,7 +19,7 @@ import util.MyRandom;
 
 public class SearchAction extends Action {
 
-    private static final double RANDOM_ITEM_CHANCE = 0.95; // 0.25
+    private static final double RANDOM_ITEM_CHANCE =  0.25;
 
     public SearchAction() {
 		super("Search Room", SensoryLevel.PHYSICAL_ACTIVITY);
