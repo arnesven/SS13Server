@@ -1,11 +1,10 @@
-package model.objects.plants;
+package model.items.foods;
 
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.items.foods.FoodItem;
 
-class WhiteMushroomItem extends MushroomItem {
+public class WhiteMushroomItem extends MushroomItem {
     public WhiteMushroomItem() {
         super("White Mushroom", 0.1, 35);
     }

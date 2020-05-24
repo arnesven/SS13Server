@@ -1,4 +1,4 @@
-package model.objects.plants;
+package model.items.foods;
 
 import model.Actor;
 import model.GameData;

@@ -1,12 +1,11 @@
-package model.objects.plants;
+package model.items.foods;
 
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.characters.decorators.PoisonedDecorator;
-import model.items.foods.FoodItem;
 
-class RedMushroomItem extends MushroomItem {
+public class RedMushroomItem extends MushroomItem {
     public RedMushroomItem() {
         super("Red Mushroom", 0.1, 75);
     }

@@ -2,6 +2,7 @@ package model.objects.plants;
 
 import graphics.sprites.Sprite;
 import model.items.foods.FoodItem;
+import model.items.foods.WhiteMushroomItem;
 import model.items.seeds.MushroomSpores;
 import model.items.seeds.SeedsItem;
 import model.map.rooms.Room;

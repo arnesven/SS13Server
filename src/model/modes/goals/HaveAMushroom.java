@@ -2,9 +2,7 @@ package model.modes.goals;
 
 import model.GameData;
 import model.items.general.GameItem;
-import model.items.seeds.MushroomSpores;
-import model.objects.plants.Mushroom;
-import model.objects.plants.MushroomItem;
+import model.items.foods.MushroomItem;
 
 /**
  * Created by erini02 on 15/09/17.
