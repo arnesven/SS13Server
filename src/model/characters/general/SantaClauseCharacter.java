@@ -1,6 +1,7 @@
 package model.characters.general;
 
 import model.Actor;
+import model.items.RandomItemManager;
 import model.items.general.ChristmasGift;
 import model.items.general.GameItem;
 import util.MyRandom;
@@ -25,7 +26,7 @@ public class SantaClauseCharacter extends HumanCharacter {
     public List<GameItem> getStartingItems() {
         List<GameItem> lsit = new ArrayList<>();
         for (int i = 0; i < 10; ++i) {
-            lsit.add(new ChristmasGift(MyRandom.sample(MyRandom.allRandomItems())));
+            lsit.add(new ChristmasGift(RandomItemManager.getRandomSantaGift()));
         }
 
         return lsit;

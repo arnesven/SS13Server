@@ -16,6 +16,7 @@ import model.events.*;
 import model.events.ambient.*;
 import model.items.EmergencyKit;
 import model.items.NoSuchThingException;
+import model.items.RandomItemManager;
 import model.items.suits.Rapido;
 import model.map.DockingPoint;
 import model.map.GameMap;
@@ -566,7 +567,7 @@ public abstract class GameMode implements Serializable {
 	private void addRandomItemsToRooms(GameData gameData) {
 		while (MyRandom.nextDouble() < 0.5) {
 			Room aRoom = MyRandom.sample(gameData.getNonHiddenStationRooms());
-			aRoom.addItem(MyRandom.sample(MyRandom.getItemsWhichAppearRandomly()).clone());
+			aRoom.addItem(RandomItemManager.getRandomSpawnItem());
 			Logger.log("Added a suprise in " + aRoom.getName());
 		}
 	}

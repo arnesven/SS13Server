@@ -8,6 +8,7 @@ import model.actions.general.Action;
 import model.actions.objectactions.ShopFromMerchantAction;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.MerchantCharacter;
+import model.items.RandomItemManager;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
 import model.npcs.MerchantNPC;
@@ -28,10 +29,12 @@ public class MerchantWaresCrate extends ContainerObject {
         super("Merchant's Wares", shuttleGate);
         this.merchant = merchant;
 
-        List<GameItem> randomItems = MyRandom.allRandomItems();
-        Collections.shuffle(randomItems);
-        for (int i = 3 + MyRandom.nextInt(4); i > 0; --i) {
-            getInventory().add(randomItems.remove(0));
+        for (int i = 4 + MyRandom.nextInt(3); i > 0; --i) {
+            GameItem it;
+            do {
+                it = RandomItemManager.getRandomMerchantWares();
+            } while (getInventory().contains(it));
+            getInventory().add(it);
         }
     }
 

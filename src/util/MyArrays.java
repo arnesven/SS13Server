@@ -30,4 +30,20 @@ public class MyArrays {
         }
         return res;
     }
+
+    public static double sum(double[] prevalenceWeights) {
+        double sum = 0;
+        for (double d : prevalenceWeights) {
+            sum += d;
+        }
+        return sum;
+    }
+
+    public static double sum(double[] prevalenceWeights, int fromIndex, int toIndex) {
+        double sum = 0;
+        for (int i = fromIndex; i <= toIndex; ++i) {
+            sum += prevalenceWeights[i];
+        }
+        return sum;
+    }
 }

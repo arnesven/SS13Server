@@ -6,6 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.events.Event;
 import model.events.ambient.DarkEvent;
+import model.items.RandomItemManager;
 import model.items.general.BombItem;
 import model.items.general.GameItem;
 import model.items.general.LightItem;
@@ -18,7 +19,7 @@ import util.MyRandom;
 
 public class SearchAction extends Action {
 
-    private static final double RANDOM_ITEM_CHANCE = 0.05;
+    private static final double RANDOM_ITEM_CHANCE = 0.95; // 0.25
 
     public SearchAction() {
 		super("Search Room", SensoryLevel.PHYSICAL_ACTIVITY);
@@ -57,7 +58,7 @@ public class SearchAction extends Action {
 		}
 
         if (MyRandom.nextDouble() <= RANDOM_ITEM_CHANCE) {
-            GameItem it = MyRandom.sample(MyRandom.getItemsWhichAppearRandomly());
+            GameItem it = RandomItemManager.getRandomSearchItem();
             performingClient.addTolastTurnInfo("You found a " + it.getBaseName() + ".");
             performingClient.getCharacter().giveItem(it, null);
             foundSomething = true;
