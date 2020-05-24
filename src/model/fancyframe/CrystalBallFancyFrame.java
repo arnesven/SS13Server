@@ -38,7 +38,7 @@ public class CrystalBallFancyFrame extends FancyFrame {
             centerStuff.append(HTMLText.makeImage(SecurityCameraFancyFrame.makeCombinedSprite(gameData,
                     performingClient, roomToShow, false)) + "<br/>");
             centerStuff.append(HTMLText.makeFancyFrameLink("TELE " + roomToShow.getName(),
-                    HTMLText.makeText("white", "<i>Teleport to " + roomToShow.getName() +"</i>")) + "<br/>");
+                    HTMLText.makeText("white", "<i>Teleport instantly to " + roomToShow.getName() +"</i>")) + "<br/>");
             content.append(HTMLText.makeCentered(centerStuff.toString()));
         }
 
@@ -51,14 +51,6 @@ public class CrystalBallFancyFrame extends FancyFrame {
         if (event.contains("TELE")) {
             TeleportSpellBook.teleportPlayerToRoom(roomToShow, player, gameData);
 
-//            List<String> args = new ArrayList<>();
-//            args.add("Yourself");
-//            Teleporter teleporter = new Teleporter();
-//            teleporter.setMarked(roomToShow);
-//            TeleportAction ta = new TeleportAction(teleporter);
-//            ta.setActionTreeArguments(args, player);
-//            player.setNextAction(ta);
-//            readyThePlayer(gameData, player);
             dispose(player);
             crystalBall.setInUse(true);
             for (Player p : gameData.getPlayersAsList()) {

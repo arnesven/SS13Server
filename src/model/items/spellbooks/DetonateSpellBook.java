@@ -34,7 +34,7 @@ public class DetonateSpellBook extends SpellBook {
             BreakableObject brob = (BreakableObject)target;
             brob.beExposedTo(performingClient, new FireDamage(), gameData);
             brob.beExposedTo(performingClient, new FireDamage(), gameData);
-            BombItem bomb = new MakeShiftBomb(gameData, performingClient);
+            BombItem bomb = new MagicBomb(gameData, performingClient);
             brob.getPosition().addItem(bomb);
             bomb.explode(gameData, performingClient);
             brob.getPosition().removeObject(brob);
