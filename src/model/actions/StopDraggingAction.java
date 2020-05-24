@@ -1,5 +1,6 @@
 package model.actions;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -13,8 +14,13 @@ public class StopDraggingAction extends Action {
     private final Actor beingDragged;
 
     public StopDraggingAction(Actor beingDragged) {
-        super("Stop Dragging " + beingDragged.getPublicName(), SensoryLevel.PHYSICAL_ACTIVITY);
+        super("Stop Dragging " + beingDragged.getPublicName() + " (free action)", SensoryLevel.PHYSICAL_ACTIVITY);
         this.beingDragged = beingDragged;
+    }
+
+    @Override
+    public Sprite getAbilitySprite() {
+        return new Sprite("stopdraggingabi", "interface.png", 13, 14, null);
     }
 
     @Override
@@ -24,6 +30,11 @@ public class StopDraggingAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
+
+    }
+
+    @Override
+    public void setArguments(List<String> args, Actor performingClient) {
         if (performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof DraggingDecorator)) {
             performingClient.removeInstance((GameCharacter gc) -> gc instanceof DraggingDecorator);
             performingClient.addTolastTurnInfo("You stopped dragging " + beingDragged.getPublicName());
@@ -31,7 +42,7 @@ public class StopDraggingAction extends Action {
     }
 
     @Override
-    public void setArguments(List<String> args, Actor performingClient) {
-
+    public boolean doesSetPlayerReady() {
+        return false;
     }
 }
