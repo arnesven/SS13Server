@@ -14,7 +14,7 @@ import model.actions.itemactions.BurnHiveAction;
 import model.actions.general.SensoryLevel;
 import model.actions.itemactions.SprayFireAction;
 import model.events.ambient.ElectricalFire;
-import model.items.general.Chemicals;
+import model.items.chemicals.Chemicals;
 import model.items.general.GameItem;
 import model.objects.general.GameObject;
 import model.objects.general.HiveObject;

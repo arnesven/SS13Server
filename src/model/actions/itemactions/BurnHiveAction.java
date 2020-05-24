@@ -10,7 +10,7 @@ import model.events.damage.FireDamage;
 import model.items.general.GameItem;
 import model.items.weapons.Flamer;
 import model.objects.general.HiveObject;
-import model.items.general.Chemicals;
+import model.items.chemicals.Chemicals;
 
 public class BurnHiveAction extends Action {
 

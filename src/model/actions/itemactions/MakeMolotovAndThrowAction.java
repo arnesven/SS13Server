@@ -8,7 +8,7 @@ import model.actions.general.SensoryLevel;
 import model.items.MolotovCocktail;
 import model.items.NoSuchThingException;
 import model.items.foods.Alcohol;
-import model.items.general.Chemicals;
+import model.items.chemicals.Chemicals;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
 import sounds.Sound;

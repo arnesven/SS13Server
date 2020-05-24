@@ -7,7 +7,7 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.crew.ChemistCharacter;
 import model.characters.general.GameCharacter;
-import model.items.general.Chemicals;
+import model.items.chemicals.Chemicals;
 import model.items.general.GameItem;
 
 import java.util.HashSet;

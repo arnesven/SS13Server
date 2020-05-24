@@ -3,7 +3,7 @@ package model.objects.general;
 import graphics.sprites.Sprite;
 import model.Player;
 import model.items.EmptyContainer;
-import model.items.general.Chemicals;
+import model.items.chemicals.Chemicals;
 import model.items.general.Tools;
 import model.map.rooms.JanitorialRoom;
 

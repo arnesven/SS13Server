@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
+import model.items.chemicals.Chemicals;
 import model.items.foods.Banana;
 import model.items.foods.Beer;
 import model.items.foods.FoodItem;

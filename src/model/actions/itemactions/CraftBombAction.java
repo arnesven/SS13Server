@@ -8,6 +8,7 @@ import model.actions.general.SensoryLevel;
 import model.items.EmptyContainer;
 import model.items.MakeShiftBomb;
 import model.items.NoSuchThingException;
+import model.items.chemicals.Chemicals;
 import model.items.general.*;
 
 import java.util.List;

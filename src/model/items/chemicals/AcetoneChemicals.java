@@ -3,7 +3,6 @@ package model.items.chemicals;
 import model.GameData;
 import model.Player;
 import model.items.foods.FoodItem;
-import model.items.general.Chemicals;
 
 /**
  * Created by erini02 on 09/09/17.

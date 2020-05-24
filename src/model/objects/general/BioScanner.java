@@ -13,7 +13,7 @@ import model.actions.general.SensoryLevel;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
 import model.npcs.NPC;
-import model.items.general.Chemicals;
+import model.items.chemicals.Chemicals;
 
 public class BioScanner extends ElectricalMachinery {
 

@@ -5,7 +5,6 @@ import java.util.List;
 
 import model.characters.general.GameCharacter;
 import model.items.chemicals.EthanolChemicals;
-import model.items.general.Chemicals;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.general.Syringe;

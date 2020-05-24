@@ -9,6 +9,7 @@ import java.util.List;
 
 import model.GameData;
 import model.items.HandCuffs;
+import model.items.chemicals.Chemicals;
 import model.items.foods.*;
 import model.items.general.*;
 import model.items.seeds.OrangeSeeds;

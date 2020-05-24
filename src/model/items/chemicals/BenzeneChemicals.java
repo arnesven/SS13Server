@@ -1,7 +1,6 @@
 package model.items.chemicals;
 
 import model.items.foods.FoodItem;
-import model.items.general.Chemicals;
 import model.items.general.GameItem;
 import model.objects.general.Antidote;
 

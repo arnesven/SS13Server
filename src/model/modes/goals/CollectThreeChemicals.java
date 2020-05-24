@@ -1,7 +1,7 @@
 package model.modes.goals;
 
 import model.GameData;
-import model.items.general.Chemicals;
+import model.items.chemicals.Chemicals;
 import model.items.general.GameItem;
 
 import java.util.HashSet;

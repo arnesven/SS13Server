@@ -5,7 +5,6 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.items.foods.FoodItem;
-import model.items.general.Chemicals;
 
 public class GeneratorStartedFluid extends Chemicals {
     public GeneratorStartedFluid() {

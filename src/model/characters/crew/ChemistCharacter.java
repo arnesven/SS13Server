@@ -1,9 +1,8 @@
 package model.characters.crew;
 
 import model.characters.general.GameCharacter;
-import model.items.general.Chemicals;
+import model.items.chemicals.Chemicals;
 import model.items.general.GameItem;
-import model.items.general.ZippoLighter;
 import model.items.keycard.ScienceKeyCard;
 import model.items.suits.InsulatedGloves;
 import model.items.suits.OxygenMask;

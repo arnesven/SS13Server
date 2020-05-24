@@ -1,7 +1,6 @@
 package model.items.chemicals;
 
 import model.items.foods.FoodItem;
-import model.items.general.Chemicals;
 
 /**
  * Created by erini02 on 03/12/16.

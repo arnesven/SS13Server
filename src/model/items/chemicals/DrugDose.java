@@ -3,23 +3,18 @@ package model.items.chemicals;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.characters.crew.CrewCharacter;
 import model.characters.decorators.AlterMovement;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.PoisonedDecorator;
 import model.characters.general.GameCharacter;
-import model.characters.general.PirateCharacter;
 import model.items.foods.FoodItem;
-import model.items.general.Chemicals;
-import model.items.general.GameItem;
 import model.npcs.NPC;
 import model.npcs.behaviors.CrazyBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 import util.MyRandom;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class DrugDose extends Chemicals {

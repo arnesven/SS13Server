@@ -7,7 +7,7 @@ import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
 import model.events.damage.InternalBleeding;
 import model.items.foods.FoodItem;
-import model.items.general.Chemicals;
+import model.items.chemicals.Chemicals;
 import model.items.general.GameItem;
 import model.items.weapons.Knife;
 import model.npcs.ParasiteNPC;

@@ -1,4 +1,4 @@
-package model.items.general;
+package model.items.chemicals;
 
 import graphics.sprites.Sprite;
 import model.Actor;
@@ -8,8 +8,8 @@ import model.actions.general.Action;
 import model.characters.crew.ChemistCharacter;
 import model.characters.general.GameCharacter;
 import model.events.damage.PoisonDamage;
-import model.items.chemicals.*;
 import model.items.foods.FoodItem;
+import model.items.general.GameItem;
 import util.HTMLText;
 import util.MyRandom;
 
@@ -80,6 +80,7 @@ public abstract class Chemicals extends FoodItem {
         list.add(new AcetoneChemicals());
         list.add(new AmmoniaChemicals());
         list.add(new BenzeneChemicals());
+        list.add(new GeneratorStartedFluid());
 
         return MyRandom.sample(list);
     }

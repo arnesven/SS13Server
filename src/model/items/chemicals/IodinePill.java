@@ -5,7 +5,6 @@ import model.GameData;
 import model.Player;
 import model.characters.decorators.LimitedRadiationProtection;
 import model.items.foods.FoodItem;
-import model.items.general.Chemicals;
 import util.MyRandom;
 
 public class IodinePill extends Chemicals {
