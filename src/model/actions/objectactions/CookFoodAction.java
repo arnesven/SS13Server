@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.characters.general.ChimpCharacter;
 import model.events.damage.FireDamage;
+import model.fancyframe.CookOMaticFancyFrame;
 import model.items.EmptyContainer;
 import model.items.NoSuchThingException;
 import model.items.foods.GrilledMonkeyDeluxe;
@@ -30,13 +31,19 @@ import model.objects.general.CookOMatic;
 
 public class CookFoodAction extends Action {
 
+    private final CookOMaticFancyFrame fancyFrame;
     private CookOMatic cooker;
     private FoodItem selectedItem;
     private String chosenDestination;
 
-    public CookFoodAction(CookOMatic cookOMatic) {
+    public CookFoodAction(CookOMatic cookOMatic, CookOMaticFancyFrame cmfa) {
         super("Cook Food", SensoryLevel.OPERATE_DEVICE);
         this.cooker = cookOMatic;
+        this.fancyFrame = cmfa;
+    }
+
+    public CookFoodAction(CookOMatic cookOMatic) {
+        this(cookOMatic, null);
     }
 
     @Override
@@ -100,18 +107,17 @@ public class CookFoodAction extends Action {
                         }
                     }
                 } else {
-                    performingClient.addTolastTurnInfo("What, no raw material to use? " + failed(gameData, performingClient));
+                    gameData.getGameMode().addFire(performingClient.getPosition());
+                    performingClient.addTolastTurnInfo("You accidentally started a fire while cooking!");
                 }
-
-
             } else {
-                gameData.getGameMode().addFire(performingClient.getPosition());
-                performingClient.addTolastTurnInfo("You accidentally started a fire while cooking!");
+                performingClient.addTolastTurnInfo("What, no raw material to use? " + failed(gameData, performingClient));
             }
         } else {
             performingClient.addTolastTurnInfo("No raw food to use! " + failed(gameData, performingClient));
         }
 
+        fancyFrame.cookingIsDone(gameData, performingClient);
     }
 
     private boolean removeRawFoodIfAble(GameData gameData, Actor performingClient) {

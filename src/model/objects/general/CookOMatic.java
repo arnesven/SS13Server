@@ -11,7 +11,10 @@ import model.actions.general.Action;
 import model.actions.objectactions.CookBodyPartIntoFoodAction;
 import model.actions.objectactions.CookFoodAction;
 import model.actions.objectactions.CookGrenadeIntoFoodAction;
+import model.actions.objectactions.WalkUpToElectricalMachineryAction;
 import model.characters.general.ChimpCharacter;
+import model.fancyframe.CookOMaticFancyFrame;
+import model.fancyframe.FancyFrame;
 import model.items.BodyPart;
 import model.items.SeveredButt;
 import model.items.foods.*;
@@ -46,6 +49,15 @@ public class CookOMatic extends ElectricalMachinery {
 		if (hasBodyPart(cl) != null) {
 		    at.add(new CookBodyPartIntoFoodAction(this, new CookFoodAction(this)));
         }
+
+        if (cl instanceof Player) {
+			at.add(new WalkUpToElectricalMachineryAction(gameData, cl, this) {
+				@Override
+				protected FancyFrame getFancyFrame(GameData gameData, Actor performingClient) {
+					return new CookOMaticFancyFrame((Player)performingClient, gameData, CookOMatic.this);
+				}
+			});
+		}
 
 	}
 
