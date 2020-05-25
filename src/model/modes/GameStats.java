@@ -235,7 +235,7 @@ public abstract class GameStats {
             double output = sp.getAvailablePower(gameData) / sp.getPowerDemand(gameData);
             res +=
                     "<tr><td> Station power output: </td><td>" + String.format("%.1f", output * 100.0) +
-                            "%  <a target='_blank' href='https://www.wolframalpha.com/input/?i=plot" + powerHistoryString() + "'>graph</a></td></tr>";
+                            "%  <a target='_blank' href='https://www.wolframalpha.com/input/?i=plot(" + powerHistoryString() + ")'>graph</a></td></tr>";
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "What? no generator on station?");
         }

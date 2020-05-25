@@ -7,6 +7,7 @@ import model.actions.general.Action;
 import model.actions.general.DoNothingAction;
 import model.actions.general.SensoryLevel;
 import model.fancyframe.ItemDescriptionFancyFrame;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 
 import java.util.List;
@@ -37,6 +38,11 @@ public class ShowExamineFancyFrameAction extends Action {
             ((Player) performingClient).setFancyFrame(new ItemDescriptionFancyFrame((Player)performingClient, gameData, item));
             ((Player) performingClient).setNextAction(new DoNothingAction());
             ((Player) performingClient).refreshClientData();
+            try {
+                gameData.setPlayerReady(gameData.getClidForPlayer((Player)performingClient), false);
+            } catch (NoSuchThingException e) {
+                e.printStackTrace();
+            }
         }
     }
 

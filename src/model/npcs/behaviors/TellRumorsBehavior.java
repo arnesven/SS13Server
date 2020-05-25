@@ -96,7 +96,7 @@ public class TellRumorsBehavior implements ActionBehavior {
                             gossip.add("I hear " + pl.getBaseName() + " likes going EVA.");
                         }
                         if (pl.getHealth() < 3.0) {
-                            gossip.add("I hear " + pl.getBaseName() + " is feeling under the weather, maybe you should go cheer " + pl.getBaseName() + "up?");
+                            gossip.add("I hear " + pl.getBaseName() + " is feeling under the weather, maybe you should go cheer " + pl.getBaseName() + " up?");
                         }
                         if (pl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof MarriageAction.MarriedDecorator)) {
                             gossip.add("I hear " + pl.getCharacter() + " got married. Congratulations!");

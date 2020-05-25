@@ -18,7 +18,7 @@ import model.events.damage.Damager;
 public class FragGrenade extends GrenadeItem {
 
 	public FragGrenade() {
-		super("Frag FragGrenade", 0.35, 120);
+		super("Frag Grenade", 0.35, 120);
 	}
 
 	@Override

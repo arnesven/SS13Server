@@ -69,11 +69,11 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
 
         content.append("<br/>");
         col = 0;
-        for (Color color : PowerCord.getPowerCordColors().keySet()) {
+        for (Color color : getAllCondColors()) {
             content.append(HTMLText.makeFancyFrameLink("CONDCOLOR " + color.getRed() + "-" + color.getGreen() + "-" + color.getBlue(),
                     HTMLText.makeText(toHex(color), "serif",6, "■")));
             col++;
-            if (col == 20) {
+            if (col == 12) {
                 col = 0;
                 content.append("<br/>");
             }
@@ -175,4 +175,18 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
         readyThePlayer(gameData, player);
         makeContent(player, gameData);
     }
+
+
+    private static List<Color> getAllCondColors() {
+        List<Color> result = new ArrayList<>();
+        for (int r = 0; r < 255; r += 63) {
+            for (int g = 0; g < 255; g += 63) {
+                for (int b = 0; b < 255; b += 63) {
+                    result.add(new Color(r, g, b));
+                }
+            }
+        }
+        return result;
+    }
+
 }

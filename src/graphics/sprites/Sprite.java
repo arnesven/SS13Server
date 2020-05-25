@@ -302,4 +302,11 @@ public class Sprite implements Serializable {
     public void shiftUpPx(int i) {
         downShift = -i;
     }
+
+    public Sprite copy() {
+        Sprite toReturn = new Sprite(name, mapPath, column, row, width, height, layers, objectReference);
+        toReturn.setColor(color);
+        toReturn.setRotation(rotation);
+        return toReturn;
+    }
 }

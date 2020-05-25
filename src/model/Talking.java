@@ -11,7 +11,9 @@ public class Talking {
         Logger.log("Added talking for " + player.getCharacter().getBaseName());
         if (player.getCharacter() != null) {
             player.setCharacter(new TalkingDecorator(player.getCharacter(), whatWasSaid.endsWith("?"), whatWasSaid.endsWith("!")));
-            player.refreshClientData();
+            for (Player p : player.getPosition().getClients()) {
+                p.refreshClientData();
+            }
         }
         gameData.addEvent(new RemoveInstanceLaterEvent(player, gameData.getRound(), 0, new InstanceChecker() {
             @Override

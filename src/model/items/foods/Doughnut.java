@@ -28,8 +28,8 @@ public class Doughnut extends HealingFood {
         return new Doughnut(getMaker());
     }
 
-//    @Override
-//    public String getDescription(GameData gameData, Player performingClient) {
-//        return "A soft doughy yummy thingy. A favorite of the space-police.";
-//    }
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A soft doughy yummy thingy. A favorite of the space-police.";
+    }
 }

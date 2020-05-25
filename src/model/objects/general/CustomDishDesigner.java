@@ -73,7 +73,7 @@ public class CustomDishDesigner implements Serializable {
         String name = selectedBase;
         sprs.add(baseSprites.get(selectedBase));
         if (condiments.get(selectedCondiment) != null) {
-            Sprite condimentSprite = condiments.get(selectedCondiment);
+            Sprite condimentSprite = condiments.get(selectedCondiment).copy();
             name += selectedCondiment;
             if (condColor != null) {
                 condimentSprite.setColor(condColor);

@@ -62,6 +62,11 @@ public class WizardCharacter extends HumanCharacter {
     public void doAfterActions(GameData gameData) {
         super.doAfterActions(gameData);
         magicka = Math.min(MAGICKA_MAX, magicka + getMagickaRegeneration());
+    }
+
+    @Override
+    public void doAtEndOfTurn(GameData gameData) {
+        super.doAtEndOfTurn(gameData);
         interruptedByAttack = false;
     }
 

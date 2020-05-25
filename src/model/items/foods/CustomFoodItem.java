@@ -12,6 +12,7 @@ public class CustomFoodItem extends HealingFood {
     public CustomFoodItem(String dishName, Sprite totalSprite, Player maker) {
         super(dishName, 0.35, maker, 25);
         this.sprite = totalSprite;
+        sprite.setObjectRef(this);
         this.designer = maker;
     }
 

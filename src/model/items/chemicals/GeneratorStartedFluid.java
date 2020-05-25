@@ -8,7 +8,7 @@ import model.items.foods.FoodItem;
 
 public class GeneratorStartedFluid extends Chemicals {
     public GeneratorStartedFluid() {
-        super("Generator Started Fluid", 20);
+        super("Generator Starter Fluid", 20);
     }
 
     @Override
