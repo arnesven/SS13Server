@@ -23,11 +23,13 @@ public class CookOMaticFancyFrame extends FancyFrame {
     private boolean showDumb;
     private String whatsCooking = "";
     private String sendToRoom = "";
+    private boolean showCustom;
 
     public CookOMaticFancyFrame(Player performingClient, GameData gameData, CookOMatic cooker) {
         super(performingClient.getFancyFrame());
         this.cooker = cooker;
         this.showDumb = false;
+        showCustom = false;
 
 
         buildContent(performingClient, gameData);
@@ -38,12 +40,19 @@ public class CookOMaticFancyFrame extends FancyFrame {
 
         if (showDumb) {
             showDumbwaitorPage(performingClient, gameData, content);
+        } else if (showCustom) {
+            showCustomDishPage(performingClient, gameData, content);
         } else {
             showCookingPage(performingClient, gameData, content);
         }
 
 
         setData(cooker.getPublicName(performingClient), false, HTMLText.makeColoredBackground("#e7ecb6", content.toString()));
+    }
+
+    private void showCustomDishPage(Player performingClient, GameData gameData, StringBuilder content) {
+        content.append(HTMLText.makeFancyFrameLink("BACK", "[back]") + "<br/>");
+        content.append(HTMLText.makeCentered("<i>On this page, you will be able to make custom dishes!<br/>Coming soon!</i>"));
     }
 
     private void showDumbwaitorPage(Player performingClient, GameData gameData, StringBuilder content) {
@@ -68,7 +77,9 @@ public class CookOMaticFancyFrame extends FancyFrame {
     }
 
     private void showCookingPage(Player performingClient, GameData gameData, StringBuilder content) {
-        content.append(HTMLText.makeFancyFrameLink("CHANGEPAGE DUMB", "[dumbwaiter]") + "<br/>");
+        content.append(HTMLText.makeFancyFrameLink("CHANGEPAGE DUMB", "[dumbwaiter]"));
+        content.append("_________________" + HTMLText.makeFancyFrameLink("CUSTOMIZE", "[custom]"));
+        content.append("<br/>");
         content.append("<table border=\"1\">");
         content.append("<tr><td></td><td>Dish Name</td><td>" + HTMLText.makeText("black", "serif", 2, "Difficulty") + "</td></tr>");
         for (FoodItem food : CookOMatic.getCookableFood(performingClient)) {
@@ -121,6 +132,14 @@ public class CookOMaticFancyFrame extends FancyFrame {
             finalizeAction(a, gameData, player);
         } else if (event.contains("CHANGEPAGE")) {
             showDumb = !showDumb;
+            buildContent(player, gameData);
+        } else if (event.contains("CUSTOM")) {
+            showDumb = false;
+            showCustom = true;
+            buildContent(player, gameData);
+        } else if (event.contains("BACK")) {
+            showDumb = false;
+            showCustom = false;
             buildContent(player, gameData);
         } else if (event.contains("SEND")) {
             this.sendToRoom = event.replace("SEND ", "");
