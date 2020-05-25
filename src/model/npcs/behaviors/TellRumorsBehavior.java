@@ -3,19 +3,22 @@ package model.npcs.behaviors;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.general.Action;
-import model.actions.general.AttackAction;
-import model.actions.general.PutOnAction;
-import model.actions.general.SensoryLevel;
+import model.actions.characteractions.MarriageAction;
+import model.actions.general.*;
+import model.actions.itemactions.BuildRobotAction;
+import model.actions.itemactions.ConsumeAction;
+import model.actions.itemactions.DefuseBombAction;
 import model.actions.itemactions.RepairAction;
-import model.actions.objectactions.ConsoleAction;
+import model.actions.objectactions.*;
 import model.characters.crew.CrewCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
+import model.items.general.CleanUpBloodAction;
 import model.items.suits.Equipment;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.CrimeRecordsConsole;
+import model.objects.general.SlotMachine;
 import util.Logger;
 import util.MyRandom;
 import util.Pair;
@@ -64,18 +67,61 @@ public class TellRumorsBehavior implements ActionBehavior {
                             gossip.add("I hear " + pl.getBaseName() + " likes to dress up.");
                         }
                         if (pl.getNextAction() instanceof RepairAction ||
-                                pl.getNextAction() instanceof PutOnAction) {
+                                pl.getNextAction() instanceof PutOnAction ||
+                                pl.getNextAction() instanceof  DefuseBombAction) {
                             gossip.add("I hear " + pl.getBaseName() + " is a true hero.");
                         }
                         if (pl.getNextAction() instanceof ConsoleAction) {
                             gossip.add("I hear " + pl.getBaseName() + " likes computers.");
+                        }
+                        if (pl.getNextAction() instanceof CookFoodAction) {
+                            gossip.add("I hear " + pl.getBaseName() + " is cooking up a storm!");
+                        }
+                        if (pl.getNextAction() instanceof RecycleAction) {
+                            gossip.add("I hear " + pl.getBaseName() + " is a real environmentalist");
+                        }
+                        if (pl.getNextAction() instanceof PlantAction) {
+                            gossip.add("I hear " + pl.getBaseName() + " has green fingers");
+                        }
+                        if (pl.getNextAction() instanceof ConsumeAction) {
+                            gossip.add("I hear " + pl.getBaseName() + " is a hungry person");
+                        }
+                        if (pl.getNextAction() instanceof CleanUpBloodAction) {
+                            gossip.add("I hear " + pl.getBaseName() + " is a cleanly person");
+                        }
+                        if (pl.isDead()) {
+                            gossip.add("I hear " + pl.getBaseName() + " diead, RIP " + pl.getBaseName());
+                        }
+                        if (pl.isInSpace()) {
+                            gossip.add("I hear " + pl.getBaseName() + " likes going EVA.");
+                        }
+                        if (pl.getHealth() < 3.0) {
+                            gossip.add("I hear " + pl.getBaseName() + " is feeling under the weather, maybe you should go cheer " + pl.getBaseName() + "up?");
+                        }
+                        if (pl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof MarriageAction.MarriedDecorator)) {
+                            gossip.add("I hear " + pl.getCharacter() + " got married. Congratulations!");
+                        }
+                        if (pl.getNextAction() instanceof PrayerAction) {
+                            gossip.add("I hear " + pl.getBaseName() + " is a religious person.");
+                        }
+                        if (pl.getNextAction() instanceof SearchAction) {
+                            gossip.add("I hear " + pl.getBaseName() + " was looking for something, although I don't know what.");
+                        }
+                        if (pl.getNextAction() instanceof BuildRobotAction) {
+                            gossip.add("I hear " + pl.getBaseName() + " build a robot. The more the merrier!");
+                        }
+                        if (pl.getNextAction() instanceof HackDoorAction) {
+                            gossip.add("I hear " + pl.getBaseName() + " is fiddling with doors. What's " + (a.getCharacter().getGender().equals("man")?"he":"she") + " up to?");
+                        }
+                        if (pl.getNextAction() instanceof SlotMachineAction) {
+                            gossip.add("I hear " + pl.getBaseName() + " likes to gamble. Good luck!");
                         }
                     }
                 }
 
                 try {
                     List<String> alarms = gameData.findObjectOfType(AIConsole.class).getAlarms(gameData);
-                    if (alarms.size() > 2) {
+                    if (alarms.size() > 1) {
                         gossip.add("I hear the AI has some alarms.");
                     }
                 } catch (NoSuchThingException nste) {
