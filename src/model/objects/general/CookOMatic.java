@@ -26,8 +26,11 @@ import model.npcs.NPC;
 
 public class CookOMatic extends ElectricalMachinery {
 
+	private CustomDishDesigner dishDesigner;
+
 	public CookOMatic(Room pos) {
 		super("Cook-O-Matic", pos);
+		dishDesigner = new CustomDishDesigner();
 	}
 
     @Override
@@ -64,7 +67,7 @@ public class CookOMatic extends ElectricalMachinery {
 
 	}
 
-	public static List<FoodItem> getCookableFood(Actor maker) {
+	public List<FoodItem> getCookableFood(Actor maker) {
 		List<FoodItem> foods = new ArrayList<>();
 		foods.add(new ApplePie(maker));
         foods.add(new Doughnut(maker));
@@ -78,6 +81,9 @@ public class CookOMatic extends ElectricalMachinery {
 		}
 		if (GameItem.hasAnItemOfClass(maker, SeveredButt.class)) {
 			foods.add(new ButtBurger(maker));
+		}
+		for (CustomFoodItem cfi : dishDesigner.getSavedDishes()) {
+			foods.add(cfi.copyYourself(maker));
 		}
 		return foods;
 	}
@@ -110,4 +116,7 @@ public class CookOMatic extends ElectricalMachinery {
         return null;
     }
 
+	public CustomDishDesigner getCustomDishDesigner() {
+		return dishDesigner;
+	}
 }

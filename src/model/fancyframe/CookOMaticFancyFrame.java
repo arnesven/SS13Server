@@ -38,12 +38,16 @@ public class CookOMaticFancyFrame extends FancyFrame {
     private void buildContent(Player performingClient, GameData gameData) {
         StringBuilder content = new StringBuilder();
 
-        if (showDumb) {
-            showDumbwaitorPage(performingClient, gameData, content);
-        } else if (showCustom) {
-            showCustomDishPage(performingClient, gameData, content);
+        if (!cooker.isPowered()) {
+            content.append(HTMLText.makeCentered("<i>No Power...</i>"));
         } else {
-            showCookingPage(performingClient, gameData, content);
+            if (showDumb) {
+                showDumbwaitorPage(performingClient, gameData, content);
+            } else if (showCustom) {
+                showCustomDishPage(performingClient, gameData, content);
+            } else {
+                showCookingPage(performingClient, gameData, content);
+            }
         }
 
 
@@ -52,7 +56,9 @@ public class CookOMaticFancyFrame extends FancyFrame {
 
     private void showCustomDishPage(Player performingClient, GameData gameData, StringBuilder content) {
         content.append(HTMLText.makeFancyFrameLink("BACK", "[back]") + "<br/>");
-        content.append(HTMLText.makeCentered("<i>On this page, you will be able to make custom dishes!<br/>Coming soon!</i>"));
+        content.append(HTMLText.makeCentered("<i>The Cook-O-Matic has a new feature, you can now make custom dishes!</i></br>"));
+        content.append("<br/>");
+        content.append(HTMLText.makeCentered(HTMLText.makeFancyFrameLink("GOCUST", "SOUNDS COOL!")));
     }
 
     private void showDumbwaitorPage(Player performingClient, GameData gameData, StringBuilder content) {
@@ -82,7 +88,7 @@ public class CookOMaticFancyFrame extends FancyFrame {
         content.append("<br/>");
         content.append("<table border=\"1\">");
         content.append("<tr><td></td><td>Dish Name</td><td>" + HTMLText.makeText("black", "serif", 2, "Difficulty") + "</td></tr>");
-        for (FoodItem food : CookOMatic.getCookableFood(performingClient)) {
+        for (FoodItem food : cooker.getCookableFood(performingClient)) {
             content.append("<tr><td>" + HTMLText.makeImage(food.getSprite(performingClient)) + "</td><");
             content.append("<td>" + food.getPublicName(performingClient) + " ");
             if (whatsCooking.equals(food.getBaseName())) {
@@ -141,6 +147,8 @@ public class CookOMaticFancyFrame extends FancyFrame {
             showDumb = false;
             showCustom = false;
             buildContent(player, gameData);
+        } else if (event.contains("GOCUST")) {
+            player.setFancyFrame(new CustomDishMakerFancyFrame(player, gameData, cooker));
         } else if (event.contains("SEND")) {
             this.sendToRoom = event.replace("SEND ", "");
             buildContent(player, gameData);

@@ -62,7 +62,7 @@ public class CookFoodAction extends Action {
             }
         }
 
-        for (FoodItem gi : CookOMatic.getCookableFood(whosAsking)) {
+        for (FoodItem gi : cooker.getCookableFood(whosAsking)) {
             ActionOption opt = new ActionOption(gi.getBaseName());
 
             opt.addOption("Into inventory");
@@ -124,7 +124,9 @@ public class CookFoodAction extends Action {
             performingClient.addTolastTurnInfo("No raw food to use! " + failed(gameData, performingClient));
         }
 
-        fancyFrame.cookingIsDone(gameData, performingClient);
+        if (fancyFrame != null) {
+            fancyFrame.cookingIsDone(gameData, performingClient);
+        }
     }
 
     private boolean removeRawFoodIfAble(GameData gameData, Actor performingClient) {
@@ -199,7 +201,7 @@ public class CookFoodAction extends Action {
 
     @Override
     public void setArguments(List<String> args, Actor p) {
-        for (FoodItem it : CookOMatic.getCookableFood(p)) {
+        for (FoodItem it : cooker.getCookableFood(p)) {
             if (it.getBaseName().equals(args.get(0))) {
                 selectedItem = it;
             }

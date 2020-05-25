@@ -41,4 +41,7 @@ public abstract class HealingFood extends FoodItem {
         return "<b>Made by: </b>" + (maker == performingClient?"You":"Someone else");
     }
 
+    protected void setMaker(Actor maker) {
+        this.maker = maker;
+    }
 }

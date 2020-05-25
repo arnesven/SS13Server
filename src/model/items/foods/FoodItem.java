@@ -54,4 +54,5 @@ public abstract class FoodItem extends GameItem {
 	public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
 		return "<i>Consumable</i><br/>";
 	}
+
 }

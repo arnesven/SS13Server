@@ -38,64 +38,68 @@ public class SlotMachineFancyFrame extends FancyFrame {
 
     private void buildContent(GameData gameData, Player player) {
         StringBuilder content = new StringBuilder();
-        content.append(HTMLText.makeBox("Yellow", "Black", HTMLText.makeCentered(HTMLText.makeText("Yellow", "SPIN TO WIN!"))));
-        StringBuilder table = new StringBuilder();
+        if (slots.isPowered()) {
+            content.append(HTMLText.makeBox("Yellow", "Black", HTMLText.makeCentered(HTMLText.makeText("Yellow", "SPIN TO WIN!"))));
+            StringBuilder table = new StringBuilder();
 
-        for (int i = 0; i <= slots.getPayoutTable().size() / 2;i++) {
-            table.append(slots.getPayoutTable().get(i) + " | " + slots.getPayoutTable().get(i+5) + "<br/>");
-        }
-
-         table.append("<br/>");
-
-        content.append(HTMLText.makeCentered(HTMLText.makeText("Yellow", "courier", 2, table.toString())));
-
-        content.append("<br/>");
-
-        StringBuilder symbols = new StringBuilder();
-        symbols.append("<table border=\"1\" bgcolor=\"black\"><tr><td><table border=\"1\" bgcolor=\"#E3E3E3\"><tr>");
-        if (resultingSymbols != null) {
-            for (int i = 0; i < 3; ++i) {
-                symbols.append("<td>" + HTMLText.makeImage(resultingSymbols.get(i)) + "</td>");
+            for (int i = 0; i <= slots.getPayoutTable().size() / 2; i++) {
+                table.append(slots.getPayoutTable().get(i) + " | " + slots.getPayoutTable().get(i + 5) + "<br/>");
             }
-        } else if (inUse) {
-            for (int i = 0; i < 3; ++i) {
-                symbols.append("<td>" + HTMLText.makeImage(MyRandom.sample(slots.getBlurrySymbols())) + "</td>");
-            }
-        } else {
-            for (int i = 0; i < 3; ++i) {
-                symbols.append("<td>" + HTMLText.makeImage(MyRandom.sample(slots.getAllSymbols())) + "</td>");
-            }
-        }
-        symbols.append("</tr></table></td></tr></table>");
 
-        int actorsDollars = 0;
-        try {
-            MoneyStack actorsMoney = MoneyStack.getActorsMoney(player);
-            actorsDollars = actorsMoney.getAmount();
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
-        symbols.append("<br/>");
-        for (int i = 0; i < slots.getBetSizes().length; i++) {
-            int betSize =  slots.getBetSizes()[i];
-            if (betSize <= actorsDollars) {
-                symbols.append(HTMLText.makeFancyFrameLink("SET BET " + betSize,
-                        HTMLText.makeText("Yellow", "[" + betSize + "] ")));
+            table.append("<br/>");
+
+            content.append(HTMLText.makeCentered(HTMLText.makeText("Yellow", "courier", 2, table.toString())));
+
+            content.append("<br/>");
+
+            StringBuilder symbols = new StringBuilder();
+            symbols.append("<table border=\"1\" bgcolor=\"black\"><tr><td><table border=\"1\" bgcolor=\"#E3E3E3\"><tr>");
+            if (resultingSymbols != null) {
+                for (int i = 0; i < 3; ++i) {
+                    symbols.append("<td>" + HTMLText.makeImage(resultingSymbols.get(i)) + "</td>");
+                }
+            } else if (inUse) {
+                for (int i = 0; i < 3; ++i) {
+                    symbols.append("<td>" + HTMLText.makeImage(MyRandom.sample(slots.getBlurrySymbols())) + "</td>");
+                }
             } else {
-                symbols.append("[" + betSize + "] ");
+                for (int i = 0; i < 3; ++i) {
+                    symbols.append("<td>" + HTMLText.makeImage(MyRandom.sample(slots.getAllSymbols())) + "</td>");
+                }
             }
+            symbols.append("</tr></table></td></tr></table>");
 
-            if (i == 3) {
-                symbols.append("<br/>");
+            int actorsDollars = 0;
+            try {
+                MoneyStack actorsMoney = MoneyStack.getActorsMoney(player);
+                actorsDollars = actorsMoney.getAmount();
+            } catch (NoSuchThingException e) {
+                e.printStackTrace();
             }
-        }
-        symbols.append(HTMLText.makeText("Yellow", "<br/>BET YOUR $$ HERE!<br/></br/>"));
-        content.append(HTMLText.makeCentered(symbols.toString()));
+            symbols.append("<br/>");
+            for (int i = 0; i < slots.getBetSizes().length; i++) {
+                int betSize = slots.getBetSizes()[i];
+                if (betSize <= actorsDollars) {
+                    symbols.append(HTMLText.makeFancyFrameLink("SET BET " + betSize,
+                            HTMLText.makeText("Yellow", "[" + betSize + "] ")));
+                } else {
+                    symbols.append("[" + betSize + "] ");
+                }
 
-        if (winText != null) {
-            content.append(HTMLText.makeBox("Yellow", "Black", HTMLText.makeCentered(HTMLText.makeText("Yellow", winText))));
+                if (i == 3) {
+                    symbols.append("<br/>");
+                }
+            }
+            symbols.append(HTMLText.makeText("Yellow", "<br/>BET YOUR $$ HERE!<br/></br/>"));
+            content.append(HTMLText.makeCentered(symbols.toString()));
+
+            if (winText != null) {
+                content.append(HTMLText.makeBox("Yellow", "Black", HTMLText.makeCentered(HTMLText.makeText("Yellow", winText))));
+            } else {
+                content.append(HTMLText.makeBox("Black", "Black", "___"));
+            }
         } else {
-            content.append(HTMLText.makeBox("Black", "Black", "___"));
+            content.append(HTMLText.makeCentered("<i>No power...</i>"));
         }
 
 
