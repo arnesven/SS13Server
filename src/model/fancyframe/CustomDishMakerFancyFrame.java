@@ -25,6 +25,9 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
     private int selectedCondiment;
     private boolean showCondiment;
     private Color condColor;
+    private int selectedDecoration;
+    private boolean showDecoration;
+    private int decorationShift = 0;
 
     public CustomDishMakerFancyFrame(Player player, GameData gameData, CookOMatic cooker) {
         super(player.getFancyFrame());
@@ -32,8 +35,10 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
         showBaseSelection = true;
         showSummary = false;
         showRename = false;
+        showDecoration = false;
         dishName = "Unnamed";
         selectedCondiment = 0;
+        selectedDecoration = 0;
         condColor = Color.BLACK;
 
         makeContent(player, gameData);
@@ -49,10 +54,31 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
             content.append("<b>" + "Give your dish a cool name!</b>");
         } else if (showCondiment) {
             condimentPage(player, gameData, content);
+        } else if (showDecoration) {
+            decorationPage(player, gameData, content);
         }
 
 
         this.setData("Create Custom Dish", showRename, HTMLText.makeColoredBackground("#e7ecb6", content.toString()));
+    }
+
+    private void decorationPage(Player player, GameData gameData, StringBuilder content) {
+        content.append("<b>Add a Decoration:<b></br>");
+        content.append(HTMLText.makeCentered(HTMLText.makeImage(makeTotalSprite())));
+        content.append(HTMLText.makeFancyFrameLink("SHIFT DOWN", "[down]") + " " +
+                HTMLText.makeFancyFrameLink("SHIFT UP", "[up]") + "<br/>");
+        int col = 0;
+        int count = 0;
+        for (Sprite sp : cooker.getCustomDishDesigner().getDecorations()) {
+            content.append(HTMLText.makeFancyFrameLink("SETDEC " + count, HTMLText.makeImage(sp)));
+            col++;
+            count++;
+            if (col == 7) {
+                col = 0;
+                content.append("<br/>");
+            }
+        }
+        content.append("<br/>" + HTMLText.makeCentered(HTMLText.makeFancyFrameLink("BACK", "DONE")));
     }
 
     private void condimentPage(Player player, GameData gameData, StringBuilder content) {
@@ -81,7 +107,7 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
                 content.append("<br/>");
             }
         }
-        content.append("<br/>" + HTMLText.makeCentered(HTMLText.makeFancyFrameLink("BACKCOND", "DONE")));
+        content.append("<br/>" + HTMLText.makeCentered(HTMLText.makeFancyFrameLink("BACK", "DONE")));
     }
 
     private String toHex(Color color) {
@@ -94,7 +120,9 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
         content.append("<b>Condiment:</b>");
         content.append(" no. " + selectedCondiment);
         content.append(HTMLText.makeFancyFrameLink("CONDIMENT", "[change]") + "<br/>");
-        content.append("<b>Decoration:</b>" + "<br/>");
+        content.append("<b>Decoration:</b>");
+        content.append(" no. " + selectedDecoration);
+        content.append(HTMLText.makeFancyFrameLink("DECORATION", "[change]") + "<br/>");
         content.append("<br/>");
         if (!dishName.equals("Unnamed")) {
             content.append(HTMLText.makeCentered(HTMLText.makeFancyFrameLink("DONE", "SAVE AND COOK!")));
@@ -117,7 +145,7 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
     }
 
     private Sprite makeTotalSprite() {
-        return cooker.getCustomDishDesigner().getTotalSprite(selectedBase, selectedCondiment, condColor);
+        return cooker.getCustomDishDesigner().getTotalSprite(selectedBase, selectedCondiment, condColor, selectedDecoration, decorationShift);
     }
 
     @Override
@@ -137,21 +165,37 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
             this.showSummary = false;
             this.showCondiment = true;
             makeContent(player, gameData);
+        } else if (event.contains("DECORATION")) {
+            this.showSummary = false;
+            this.showDecoration = true;
+            makeContent(player, gameData);
         } else if (event.contains("SETCOND")) {
             selectedCondiment = Integer.parseInt(event.replace("SETCOND ", ""));
             //showCondiment = false;
             //showSummary = true;
             makeContent(player, gameData);
+        } else if (event.contains("SETDEC")) {
+            selectedDecoration = Integer.parseInt(event.replace("SETDEC ", ""));
+            makeContent(player, gameData);
+        } else if (event.contains("SHIFT")) {
+            String rest = event.replace("SHIFT ", "");
+            if (rest.contains("UP")) {
+                decorationShift += 3;
+            } else {
+                decorationShift -= 3;
+            }
+            makeContent(player, gameData);
         } else if (event.contains("CONDCOLOR")) {
             String[] parts = event.replace("CONDCOLOR ", "").split("-");
             this.condColor = new Color(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
             makeContent(player, gameData);
-        } else if (event.contains("BACKCOND")) {
+        } else if (event.contains("BACK")) {
             this.showSummary = true;
+            this.showDecoration = false;
             this.showCondiment = false;
             makeContent(player, gameData);
         } else if (event.contains("DONE")) {
-            cooker.getCustomDishDesigner().saveDish(selectedBase, selectedCondiment, condColor, dishName, player);
+            cooker.getCustomDishDesigner().saveDish(selectedBase, selectedCondiment, condColor, dishName, selectedDecoration, decorationShift, player);
             CookFoodAction cfa = new CookFoodAction(cooker);
             List<String> args = new ArrayList<>();
             args.add(dishName);
@@ -159,7 +203,9 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
             player.setNextAction(cfa);
             dispose(player);
         }
-        readyThePlayer(gameData, player);
+        if (!event.contains("DISMISS")) {
+            readyThePlayer(gameData, player);
+        }
     }
 
     @Override
