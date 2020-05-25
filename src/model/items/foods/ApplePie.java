@@ -2,6 +2,8 @@ package model.items.foods;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 public class ApplePie extends HealingFood {
 
@@ -24,4 +26,8 @@ public class ApplePie extends HealingFood {
 		return new ApplePie(this.getMaker());
 	}
 
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "Ah a lovely, tasty apple pie. Just like your mama would make on summer mornings.";
+	}
 }
