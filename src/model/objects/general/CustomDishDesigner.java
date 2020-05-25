@@ -16,11 +16,9 @@ public class CustomDishDesigner implements Serializable {
 
     private final List<CustomFoodItem> savedDishes;
     private Map<String, Sprite> baseSprites;
-    private Map<String, Sprite> condiments;
 
     public CustomDishDesigner() {
         this.baseSprites = makeBaseSprites();
-        this.condiments = makeCondiments();
         this.savedDishes = new ArrayList<>();
     }
 
@@ -36,23 +34,21 @@ public class CustomDishDesigner implements Serializable {
         return baseSprites.get(selectedBase);
     }
 
-    public List<Sprite> getCondiments() {
-        List<Sprite> result = new ArrayList<>();
-        result.addAll(condiments.values());
-        return result;
+    public List<Sprite> getCondiments(Color color) {
+        return makeCondiments(color);
     }
 
-
-
-    private Map<String, Sprite> makeCondiments() {
-        Map<String, Sprite> result = new HashMap<>();
+    private List<Sprite> makeCondiments(Color color) {
+        List<Sprite> list = new ArrayList<>();
 
         for (int x = 0; x < 25; ++x) {
-            String name = "condiment" + x;
-            result.put(name + "0", new Sprite(name, "custom_food.png", x, 6, null));
+            String name = "condiment" + x + "x";
+            Sprite sp = new Sprite(name, "custom_food.png", x, 6, null);
+            sp.setColor(color);
+            list.add(sp);
         }
 
-        return result;
+        return list;
     }
 
 
@@ -68,33 +64,22 @@ public class CustomDishDesigner implements Serializable {
         return result;
     }
 
-    public Sprite getTotalSprite(String selectedBase, String selectedCondiment, Color condColor) {
+    public Sprite getTotalSprite(String selectedBase, int condimentNumber, Color condColor) {
         List<Sprite> sprs = new ArrayList<>();
         String name = selectedBase;
         sprs.add(baseSprites.get(selectedBase));
-        if (condiments.get(selectedCondiment) != null) {
-            Sprite condimentSprite = condiments.get(selectedCondiment).copy();
-            name += selectedCondiment;
-            if (condColor != null) {
-                condimentSprite.setColor(condColor);
-                name += condColor.toString();
-            }
-            sprs.add(condiments.get(selectedCondiment));
-        }
+        Sprite condimentSprite = getCondiments(condColor).get(condimentNumber);
+        sprs.add(condimentSprite);
+
         return new Sprite(name, "human.png", 0, sprs, null);
     }
 
-    public void saveDish(String selectedBase, String selectedCondiment, Color condColor, String dishName, Player maker) {
-        this.savedDishes.add(new CustomFoodItem(dishName, getTotalSprite(selectedBase, selectedCondiment, condColor), maker));
+    public void saveDish(String selectedBase, int condimentNumber, Color condColor, String dishName, Player maker) {
+        this.savedDishes.add(new CustomFoodItem(dishName, getTotalSprite(selectedBase, condimentNumber, condColor), maker));
     }
 
     public List<CustomFoodItem> getSavedDishes() {
         return savedDishes;
     }
 
-    public void setAllCondsColors(Color condColor) {
-        for (Sprite cond : condiments.values()) {
-            cond.setColor(condColor);
-        }
-    }
 }

@@ -22,7 +22,7 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
     private boolean showSummary;
     private String dishName;
     private boolean showRename;
-    private String selectedCondiment;
+    private int selectedCondiment;
     private boolean showCondiment;
     private Color condColor;
 
@@ -33,7 +33,8 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
         showSummary = false;
         showRename = false;
         dishName = "Unnamed";
-        selectedCondiment = null;
+        selectedCondiment = 0;
+        condColor = Color.BLACK;
 
         makeContent(player, gameData);
     }
@@ -58,9 +59,11 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
         content.append("<b>Add a Condiment:<b></br>");
         content.append(HTMLText.makeCentered(HTMLText.makeImage(makeTotalSprite())));
         int col = 0;
-        for (Sprite sp : cooker.getCustomDishDesigner().getCondiments()) {
-            content.append(HTMLText.makeFancyFrameLink("SETCOND " + sp.getName(), HTMLText.makeImage(sp)));
+        int count = 0;
+        for (Sprite sp : cooker.getCustomDishDesigner().getCondiments(condColor)) {
+            content.append(HTMLText.makeFancyFrameLink("SETCOND " + count, HTMLText.makeImage(sp)));
             col++;
+            count++;
             if (col == 7) {
                 col = 0;
                 content.append("<br/>");
@@ -89,9 +92,7 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
         content.append("<b>Name</b>: " + dishName + "<br/>");
         content.append("<b>Appearance:</b>" + HTMLText.makeImage(makeTotalSprite()) + "<br/>");
         content.append("<b>Condiment:</b>");
-        if (selectedCondiment != null) {
-            content.append(selectedCondiment);
-        }
+        content.append(" no. " + selectedCondiment);
         content.append(HTMLText.makeFancyFrameLink("CONDIMENT", "[change]") + "<br/>");
         content.append("<b>Decoration:</b>" + "<br/>");
         content.append("<br/>");
@@ -137,14 +138,13 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
             this.showCondiment = true;
             makeContent(player, gameData);
         } else if (event.contains("SETCOND")) {
-            selectedCondiment = event.replace("SETCOND ", "");
+            selectedCondiment = Integer.parseInt(event.replace("SETCOND ", ""));
             //showCondiment = false;
             //showSummary = true;
             makeContent(player, gameData);
         } else if (event.contains("CONDCOLOR")) {
             String[] parts = event.replace("CONDCOLOR ", "").split("-");
             this.condColor = new Color(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
-            cooker.getCustomDishDesigner().setAllCondsColors(condColor);
             makeContent(player, gameData);
         } else if (event.contains("BACKCOND")) {
             this.showSummary = true;

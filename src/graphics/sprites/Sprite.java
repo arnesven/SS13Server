@@ -309,4 +309,8 @@ public class Sprite implements Serializable {
         toReturn.setRotation(rotation);
         return toReturn;
     }
+
+    public void setName(String s) {
+        this.name = s;
+    }
 }
