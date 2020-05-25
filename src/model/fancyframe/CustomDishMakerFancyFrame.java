@@ -60,6 +60,7 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
         int col = 0;
         for (Sprite sp : cooker.getCustomDishDesigner().getCondiments()) {
             content.append(HTMLText.makeFancyFrameLink("SETCOND " + sp.getName(), HTMLText.makeImage(sp)));
+            col++;
             if (col == 7) {
                 col = 0;
                 content.append("<br/>");
@@ -71,6 +72,7 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
         for (Color color : PowerCord.getPowerCordColors().keySet()) {
             content.append(HTMLText.makeFancyFrameLink("CONDCOLOR " + color.getRed() + "-" + color.getGreen() + "-" + color.getBlue(),
                     HTMLText.makeText(toHex(color), "serif",6, "■")));
+            col++;
             if (col == 20) {
                 col = 0;
                 content.append("<br/>");
