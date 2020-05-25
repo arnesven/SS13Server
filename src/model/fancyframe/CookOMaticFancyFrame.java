@@ -3,7 +3,10 @@ package model.fancyframe;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.general.Action;
+import model.actions.objectactions.CookBodyPartIntoFoodAction;
 import model.actions.objectactions.CookFoodAction;
+import model.actions.objectactions.CookGrenadeIntoFoodAction;
 import model.actions.objectactions.WalkUpToElectricalMachineryAction;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
@@ -75,6 +78,12 @@ public class CookOMaticFancyFrame extends FancyFrame {
                 content.append("<i>Cooking...</i>");
             } else if (whatsCooking.equals("")) {
                 content.append(HTMLText.makeFancyFrameLink("COOK " + food.getBaseName(), "[cook]"));
+                if (CookOMatic.hasExplosive(performingClient) != null) {
+                    content.append("<br/>" + HTMLText.makeFancyFrameLink("EXPLO " + food.getBaseName(), "[cook w/explosive]"));
+                }
+                if (CookOMatic.hasBodyPart(performingClient) != null) {
+                    content.append("<br/>" + HTMLText.makeFancyFrameLink("BODYPART " + food.getBaseName(), "[cook w/body part]"));
+                }
             }
             content.append("</td>");
             content.append("<td align=\"right\">" + (int)(food.getFireRisk()*100) + "</td>");
@@ -87,17 +96,29 @@ public class CookOMaticFancyFrame extends FancyFrame {
     public void handleEvent(GameData gameData, Player player, String event) {
         super.handleEvent(gameData, player, event);
         if (event.contains("COOK")) {
+            this.whatsCooking = event.replace("COOK ", "");
+            CookFoodAction cfa = makeCookFoodAction(player);
+            finalizeAction(cfa, gameData, player);
+        } else if (event.contains("EXPLO")) {
+            this.whatsCooking = event.replace("EXPLO ", "");
             List<String> args = new ArrayList<>();
-            this.whatsCooking = event.replace("COOK " , "");
             args.add(whatsCooking);
-            CookFoodAction cfa = new CookFoodAction(cooker, this);
             if (!sendToRoom.equals("")) {
                 args.add(sendToRoom);
             }
-            cfa.setActionTreeArguments(args, player);
-            player.setNextAction(cfa);
-            readyThePlayer(gameData, player);
-            buildContent(player, gameData);
+            Action a = new CookGrenadeIntoFoodAction(cooker, new CookFoodAction(cooker, this));
+            a.setActionTreeArguments(args, player);
+            finalizeAction(a, gameData, player);
+        } else if (event.contains("BODYPART")) {
+            this.whatsCooking = event.replace("BODYPART ", "");
+            List<String> args = new ArrayList<>();
+            args.add(whatsCooking);
+            if (!sendToRoom.equals("")) {
+                args.add(sendToRoom);
+            }
+            Action a = new CookBodyPartIntoFoodAction(cooker, new CookFoodAction(cooker, this));
+            a.setActionTreeArguments(args, player);
+            finalizeAction(a, gameData, player);
         } else if (event.contains("CHANGEPAGE")) {
             showDumb = !showDumb;
             buildContent(player, gameData);
@@ -106,6 +127,25 @@ public class CookOMaticFancyFrame extends FancyFrame {
             buildContent(player, gameData);
         }
     }
+
+    private void finalizeAction(Action cfa, GameData gameData, Player player) {
+        player.setNextAction(cfa);
+        readyThePlayer(gameData, player);
+        buildContent(player, gameData);
+    }
+
+    private CookFoodAction makeCookFoodAction(Player player) {
+        CookFoodAction cfa = new CookFoodAction(cooker, this);
+        List<String> args = new ArrayList<>();
+        args.add(whatsCooking);
+        if (!sendToRoom.equals("")) {
+            args.add(sendToRoom);
+        }
+        cfa.setArguments(args, player);
+        return cfa;
+    }
+
+
 
     public void cookingIsDone(GameData gameData, Actor performingClient) {
         whatsCooking = "";

@@ -12,6 +12,7 @@ import model.items.general.GameItem;
 import model.items.foods.ExplodingFood;
 import model.items.foods.FoodItem;
 import model.objects.general.CookOMatic;
+import util.Logger;
 
 public class CookGrenadeIntoFoodAction extends Action {
 
@@ -24,7 +25,6 @@ public class CookGrenadeIntoFoodAction extends Action {
 		super("Cook Explosives Into Food", SensoryLevel.PHYSICAL_ACTIVITY);
 		this.cooker = cookOMatic;
 		this.innerAction = cookFoodAction;
-		
 	}
 	
 	@Override
@@ -51,8 +51,7 @@ public class CookGrenadeIntoFoodAction extends Action {
 			FoodItem food = new ExplodingFood(innerAction.getSelectedItem(), 
 					                          performingClient, explosive, innerAction.getSelectedItem().getCost());
 			performingClient.getItems().remove(explosive);
-
-			performingClient.addItem(food, cooker);
+			innerAction.cookAndMaybeSendWithDumbwaiter(gameData, performingClient, food);
 			performingClient.addTolastTurnInfo("You cooked the explosive into " +
 					innerAction.getSelectedItem().getPublicName(performingClient));
 		} else {
@@ -62,6 +61,7 @@ public class CookGrenadeIntoFoodAction extends Action {
 
 	@Override
 	public void setArguments(List<String> args, Actor p) {
+		Logger.log("Setting arguments for inner cooking action");
 		innerAction.setArguments(args, p);
 	}
 

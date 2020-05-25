@@ -76,8 +76,15 @@ public class CookFoodAction extends Action {
         return res;
     }
 
+
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
+        cookAndMaybeSendWithDumbwaiter(gameData, performingClient, selectedItem);
+    }
+
+
+    public void cookAndMaybeSendWithDumbwaiter(GameData gameData, Actor performingClient, FoodItem selectedItem) {
+
         double factor = 1.0;
 
         if (hasAChefsHatOn(performingClient)) {

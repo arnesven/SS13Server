@@ -3,6 +3,7 @@ package model.items.foods;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.characters.general.GameCharacter;
 import model.events.SpontaneousExplosionEvent;
@@ -97,6 +98,18 @@ public class ExplodingFood extends FoodItem {
         return innerItem.clone();
     }
 
+    @Override
+    public boolean canBeCooked(GameData gameData, Actor performingClient) {
+        return innerItem.canBeCooked(gameData, performingClient);
+    }
 
+    @Override
+    public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
+        return innerItem.getExtraDescriptionStats(gameData, performingClient);
+    }
 
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return innerItem.getDescription(gameData, performingClient);
+    }
 }

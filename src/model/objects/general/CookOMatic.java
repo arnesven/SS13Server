@@ -22,6 +22,7 @@ import model.items.general.ExplodableItem;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
 import model.items.foods.SliceOfPizza;
+import model.npcs.NPC;
 
 public class CookOMatic extends ElectricalMachinery {
 
@@ -41,14 +42,16 @@ public class CookOMatic extends ElectricalMachinery {
 
     @Override
 	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-		at.add(new CookFoodAction(this));
-		if (hasExplosive(cl) != null) {
-			at.add(new CookGrenadeIntoFoodAction(this, new CookFoodAction(this)));
-		}
+		if (cl instanceof NPC) {
+			at.add(new CookFoodAction(this));
+			if (hasExplosive(cl) != null) {
+				at.add(new CookGrenadeIntoFoodAction(this, new CookFoodAction(this)));
+			}
 
-		if (hasBodyPart(cl) != null) {
-		    at.add(new CookBodyPartIntoFoodAction(this, new CookFoodAction(this)));
-        }
+			if (hasBodyPart(cl) != null) {
+				at.add(new CookBodyPartIntoFoodAction(this, new CookFoodAction(this)));
+			}
+		}
 
         if (cl instanceof Player) {
 			at.add(new WalkUpToElectricalMachineryAction(gameData, cl, this) {
@@ -89,7 +92,7 @@ public class CookOMatic extends ElectricalMachinery {
 	}
 
 
-	private GameItem hasExplosive(Actor cl) {
+	public static GameItem hasExplosive(Actor cl) {
 		for (GameItem it : cl.getItems()) {
 			if (it instanceof ExplodableItem) {
 				return it;
@@ -98,7 +101,7 @@ public class CookOMatic extends ElectricalMachinery {
 		return null;
 	}
 
-    private GameItem hasBodyPart(Actor cl) {
+    public static GameItem hasBodyPart(Actor cl) {
         for (GameItem it : cl.getItems()) {
             if (it instanceof BodyPart) {
                 return it;

@@ -55,6 +55,8 @@ public class SlotMachine extends ElectricalMachinery {
                     return new SlotMachineFancyFrame((Player)performingClient, gameData, SlotMachine.this);
                 }
             });
+        } else {
+            at.add(new SlotMachineAction(this));
         }
     }
 

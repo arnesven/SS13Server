@@ -46,12 +46,13 @@ public class CookBodyPartIntoFoodAction extends Action {
         if (bp == null) {
             performingClient.addTolastTurnInfo("What, no body part to cook with? " + failed(gameData, performingClient));
         } else {
-            performingClient.addTolastTurnInfo("You cooked a " +
-                    bp.getPublicName(performingClient) + " into the " + innerAction.getSelectedItem());
             performingClient.getItems().remove(bp);
 
             BodyPartFood bpFood = new BodyPartFood(bp, innerAction.getSelectedItem());
-            performingClient.getCharacter().giveItem(bpFood, cookOMatic);
+            innerAction.cookAndMaybeSendWithDumbwaiter(gameData, performingClient, bpFood);
+            performingClient.addTolastTurnInfo("You cooked a " +
+                    bp.getPublicName(performingClient) + " into the " + innerAction.getSelectedItem().getPublicName(performingClient));
+
         }
     }
 

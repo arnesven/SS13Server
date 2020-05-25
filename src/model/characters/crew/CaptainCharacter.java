@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.general.GameCharacter;
+import model.items.SeveredArm;
 import model.items.general.*;
 import model.items.mining.MiningExplosives;
 import model.items.suits.CaptainsOutfit;
@@ -21,7 +22,7 @@ public class CaptainCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
         ArrayList<GameItem> list = new ArrayList<GameItem>();
         list.add(new UniversalKeyCard());
-        list.add(new PirateOutfit(13));
+        list.add(new SeveredArm("left", getActor()));
 
         return list;
     }
