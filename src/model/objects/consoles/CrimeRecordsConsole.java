@@ -123,18 +123,28 @@ public class CrimeRecordsConsole extends Console {
     }
 
 
-	public Actor getMostWanted() {
-		int maxSent = 0;
-		Actor worst = null;
-		for (Actor a : reportMap.keySet()) {
-			int sumSent = sumCrimesFor(a);	
-			
-			if (sumSent > maxSent) {
-				maxSent = sumSent;
-				worst = a;
+	public Actor getMostWanted(boolean withLOS) {
+		List<Actor> criminals = new ArrayList<>();
+		criminals.addAll(reportMap.keySet());
+		Collections.sort(criminals, new Comparator<Actor>() {
+			@Override
+			public int compare(Actor actor, Actor t1) {
+				return  sumCrimesFor(t1) - sumCrimesFor(actor);
 			}
+		});
+		if (withLOS) {
+			for (Actor a : criminals) {
+				if (a.getPosition().hasWorkingSecurityCamera()) {
+					return a;
+				}
+			}
+			return null;
 		}
-		return worst;
+
+		if (criminals.size() > 0) {
+			return criminals.get(0);
+		}
+		return null;
 	}
 
     public int getTimeForCrime(String crime) throws NoSuchThingException {
