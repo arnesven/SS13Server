@@ -120,28 +120,29 @@ public class ElectricalFire extends OngoingEvent {
 	}
 
     private void checkForAIIntervention(GameData gameData) {
-        try {
-            AIConsole cons = gameData.findObjectOfType(AIConsole.class);
-            if (cons.AIIsPlayer() && !aiIntervened) {
-                cons.informOnStation("Warning! Severe fire in " + getRoom().getName(), gameData);
-                aiIntervened = true;
-            } else {
-                if (!cons.isCorrupt()) {
-                    if (MyRandom.nextDouble() < AI_INTERVENTION_CHANCE && isRaging && !aiIntervened) {
-                        //if (noHumansInRoom() && MyRandom.nextDouble() < AI_INTERVENTION_CHANCE && isRaging && !aiIntervened) {
-                        cons.informOnStation("Warning! Severe fire in " + getRoom().getName() +
-                                ". Please keep out until fire is contained.", gameData);
-                        for (ElectricalDoor d : CloseAllFireDoorsActions.findDoors(gameData, getRoom())) {
-                            d.shutFireDoor(gameData);
+        if (!aiIntervened) {
+            try {
+                AIConsole cons = gameData.findObjectOfType(AIConsole.class);
+                if (cons.AIIsPlayer()) {
+                    cons.informOnStation("Warning! Severe fire in " + getRoom().getName(), gameData);
+                    aiIntervened = true;
+                } else {
+                    if (MyRandom.nextDouble() < AI_INTERVENTION_CHANCE && isRaging) {
+                        if ((cons.isCorrupt() && !noHumansInRoom()) || (!cons.isCorrupt() && noHumansInRoom())) {
+                            cons.informOnStation("Warning! Severe fire in " + getRoom().getName() +
+                                    ". Please keep out until fire is contained.", gameData);
+                            for (ElectricalDoor d : CloseAllFireDoorsActions.findDoors(gameData, getRoom())) {
+                                d.shutFireDoor(gameData);
+                            }
+                            aiIntervened = true;
                         }
-                        aiIntervened = true;
                     }
+
                 }
 
+            } catch (NoSuchThingException e) {
+                e.printStackTrace();
             }
-
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
         }
     }
 
