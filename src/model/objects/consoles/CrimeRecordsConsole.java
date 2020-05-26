@@ -20,7 +20,9 @@ import model.items.suits.PrisonerSuit;
 import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.robots.SecuritronNPC;
+import model.objects.ai.SecurityCamera;
 import model.objects.general.EvidenceBox;
+import model.objects.general.GameObject;
 import util.Logger;
 import util.Pair;
 
@@ -261,11 +263,17 @@ public class CrimeRecordsConsole extends Console {
 		for (Actor a : gameData.getActors()) {
 			if (!extraBaddies.contains(a)) {
 				if (a.getBaseName().contains(target) || target.contains(a.getBaseName())) {
-					extraBaddies.add(a);
-					return true;
+					if (hasLOSToBaddie(a)) {
+						extraBaddies.add(a);
+						return true;
+					}
 				}
 			}
 		}
 		return false;
+	}
+
+	private boolean hasLOSToBaddie(Actor a) {
+		return a.getPosition().hasWorkingSecurityCamera();
 	}
 }

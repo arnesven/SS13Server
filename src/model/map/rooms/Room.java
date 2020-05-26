@@ -29,6 +29,7 @@ import model.map.doors.Door;
 import model.map.doors.ElectricalDoor;
 import model.map.floors.FloorSet;
 import model.npcs.NPC;
+import model.objects.ai.SecurityCamera;
 import model.objects.general.BreakableObject;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
@@ -713,4 +714,14 @@ public abstract class Room implements ItemHolder, Serializable {
 		return this;
 	}
 
+	public boolean hasWorkingSecurityCamera() {
+		for (GameObject obj : getObjects()) {
+			if (obj instanceof SecurityCamera) {
+				if (((SecurityCamera) obj).isPowered() && !((SecurityCamera) obj).isBroken()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
