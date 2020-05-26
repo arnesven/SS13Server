@@ -14,7 +14,7 @@ import model.objects.general.GameObject;
 /**
  * Created by erini02 on 20/11/16.
  */
-public class PowerSuit extends SuitItem {
+public class PowerSuit extends FaceCoveringSuitItem {
     private double suitHealth;
 
     public PowerSuit() {

@@ -337,6 +337,10 @@ public abstract class CharacterDecorator extends GameCharacter {
 		return innerChar.getNakedSprite();
 	}
 
+	public Sprite getNakedSprite(boolean withHair, boolean withFacial) {
+		return innerChar.getNakedSprite(withHair, withFacial);
+	}
+
 	@Override
 	public boolean isPassive() {
 		return innerChar.isDead();

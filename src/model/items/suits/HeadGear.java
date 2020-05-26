@@ -14,7 +14,7 @@ public abstract class HeadGear extends SuitItem {
 
     @Override
     public boolean blocksSlot(int targetSlot) {
-        return false;
+        return targetSlot == Equipment.HEAD_SLOT;
     }
 
     @Override

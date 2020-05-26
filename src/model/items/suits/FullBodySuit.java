@@ -5,7 +5,7 @@ import model.Actor;
 
 import java.util.Map;
 
-public abstract class FullBodySuit extends SuitItem {
+public abstract class FullBodySuit extends FaceCoveringSuitItem {
     public FullBodySuit(String string, double weight, int cost) {
         super(string, weight, cost);
     }

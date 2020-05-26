@@ -34,4 +34,9 @@ public class CaptainsOutfit extends OutFit {
         map.put(Equipment.FEET_SLOT, RegularBlackShoesSprite.EQ_SPRITE);
         return map;
     }
+
+    @Override
+    public boolean blocksSlot(int targetSlot) {
+        return targetSlot == Equipment.HEAD_SLOT || targetSlot == Equipment.TORSO_SLOT;
+    }
 }

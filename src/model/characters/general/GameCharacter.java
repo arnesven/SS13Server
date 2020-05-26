@@ -559,9 +559,13 @@ public abstract class GameCharacter implements Serializable {
         return 'c';
     }
 
-    public Sprite getNakedSprite() {
-            return physBody.getSprite();
+    public Sprite getNakedSprite(boolean withHair, boolean withFacial) {
+            return physBody.getSprite(withHair, withFacial);
     }
+
+    public Sprite getNakedSprite() {
+		return physBody.getSprite(true, true);
+	}
 
     public void setNakedness(PhysicalBody nakedSprite) {
         this.physBody = nakedSprite;
@@ -653,8 +657,6 @@ public abstract class GameCharacter implements Serializable {
             result.addAll(roomsToShow);
         }
 
-   //     getMovePowersIfPlayer(gameData, result);
-
         return result;
     }
 
@@ -673,37 +675,6 @@ public abstract class GameCharacter implements Serializable {
 		}
 		return res;
 	}
-
-//    public void getMovePowersIfPlayer(GameData gameData, List<Room> result) {
-//        if (getActor() instanceof Player && ((Player) getActor()).getSettings().get(PlayerSettings.ACTIVATE_MOVEMENT_POWERS)) {
-//            MovePowersHandler mp = new MovePowersHandler(result, 2);
-//            addMovepowersButtons(result, gameData, mp);
-//        }
-//
-//        if (getActor() instanceof  Player && ((Player) getActor()).getSettings().get(PlayerSettings.STYLE_BUTTONS_ON)) {
-//            result.clear();
-//            result.add(getPosition());
-//            MovePowersHandler mp = new MovePowersHandler(result, 1);
-//            addStyleMovementButtons(result, gameData, mp);
-//        }
-//    }
-
-
-    private void addStyleMovementButtons(List<Room> result, GameData gameData, MovePowersHandler mp) {
-//	    for (int i = 0; i < PhysicalBody.noOfHumans(); ++i) {
-//	        result.add(mp.makeButton(new SetNakedHumanPower(i)));
-//        }
-
-	    for (int i = 0; i < PhysicalBody.noOfHairs(); ++i) {
-            result.add(mp.makeButton(new SetHairMovePower(i)));
-        }
-        for (int i = 0; i < PhysicalBody.noOfFacials(); ++i) {
-	        result.add(mp.makeButton(new SetFacialHairMovePower(i)));
-        }
-        for (Color col : SetHairColorPower.getHairColors()) {
-	        result.add(mp.makeButton(new SetHairColorPower(col)));
-        }
-    }
 
     public void addMovepowersButtons(List<Room> result, GameData gameData, MovePowersHandler mp) {
 

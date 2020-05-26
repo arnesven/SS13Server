@@ -156,10 +156,11 @@ public class Equipment implements Serializable {
         List<Sprite> sprites = new ArrayList<>();
         sprites.add(0, new Sprite("getupbase", "human.png", 0, character.getActor()));
         StringBuilder finalName = new StringBuilder();
-        int index = 0;
-        for (SuitItem it : slots) {
+        int[] slotOrder = new int[]{TORSO_SLOT, FEET_SLOT, HANDS_SLOT, HEAD_SLOT};
+        for (int slotIndex : slotOrder) {
+            SuitItem it = getEquipmentForSlot(slotIndex);
             if (it != null) {
-                if (index == TORSO_SLOT) {
+                if (slotIndex == TORSO_SLOT) {
                     Sprite spriteToAdd = it.getGetup(character.getActor(), whosAsking);
                     sprites.add(0, spriteToAdd);
                     sprites.add(0, new Sprite("getupbase", "human.png", 0, character.getActor()));
@@ -169,12 +170,11 @@ public class Equipment implements Serializable {
                     sprites.add(spriteToAdd);
                     finalName.append(spriteToAdd.getName());
                 }
-            } else if (index == TORSO_SLOT) {
+            } else if (slotIndex == TORSO_SLOT) {
                 Sprite nakedSprite = character.getActor().getCharacter().getNakedSprite();
                 sprites.add(nakedSprite);
                 finalName.append(nakedSprite.getName());
             }
-            index++;
         }
         return new Sprite(finalName.toString(), sprites);
     }
@@ -219,6 +219,9 @@ public class Equipment implements Serializable {
             if (slotNum != targetSlot) {
                 if (slots[slotNum] != null) {
                     if (slots[slotNum].blocksSlot(targetSlot)) {
+                        return false;
+                    }
+                    if (!slots[slotNum].permitsOver() && suitItem.blocksSlot(slotNum)) {
                         return false;
                     }
                 }

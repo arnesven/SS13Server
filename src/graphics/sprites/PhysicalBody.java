@@ -124,24 +124,33 @@ public class PhysicalBody implements SpriteObject, Serializable {
 //        return nakedSprites;
 //    }
 
-    public Sprite getSprite() {
+    public Sprite getSprite(boolean withHair, boolean withFacial) {
         List<Sprite> list = new ArrayList<>();
         Sprite hair = new Sprite("hair" + hairNum+colorToString(hairColor), "human_face.png",
                 hairSprites.get(hairNum).getColumn(), hairSprites.get(hairNum).getRow(), this);
         hair.setColor(hairColor);
-        Sprite facial = new Sprite("facialhair" + facialHairNum + colorToString(facialHairColor), "human_face.png",
-                facialHairSprites.get(facialHairNum).getColumn(), facialHairSprites.get(facialHairNum).getRow(), this);
+        Sprite facial = getFacialHair();
         facial.setColor(facialHairColor);
         //list.add(nakedSprites.get(nakedSpriteNum));
         list.add(makeNakedSpriteFromParts());
         if (hasBodyParts.get("head")) {
-            list.add(hair);
-            list.add(facial);
+            if (withHair) {
+                list.add(hair);
+            }
+            if (withFacial) {
+                list.add(facial);
+            }
         }
-
 
         Sprite naked = new Sprite("nakedmanbase" + getNameString(), "human.png", 0, list, this);
         return naked;
+    }
+
+    public Sprite getFacialHair() {
+        Sprite facial = new Sprite("facialhair" + facialHairNum + colorToString(facialHairColor), "human_face.png",
+                facialHairSprites.get(facialHairNum).getColumn(), facialHairSprites.get(facialHairNum).getRow(), this);
+        facial.setColor(facialHairColor);
+        return facial;
     }
 
     private Sprite makeNakedSpriteFromParts() {
@@ -277,7 +286,7 @@ public class PhysicalBody implements SpriteObject, Serializable {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return getSprite();
+        return getSprite(true, true);
     }
 
     @Override
@@ -336,4 +345,5 @@ public class PhysicalBody implements SpriteObject, Serializable {
     public boolean getGender() {
         return gender;
     }
+
 }

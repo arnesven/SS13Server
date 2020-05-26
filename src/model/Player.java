@@ -54,7 +54,7 @@ public class Player extends Actor implements Target, Serializable {
 
 
 	public Player(GameData gameData) {
-		Sprite charPreview = styleBody.getSprite(); // DON'T REMOVE!
+		Sprite charPreview = styleBody.getSprite(true, true); // DON'T REMOVE!
 		fancyFrame = new FancyFrame(null);
 		jobChoices.put("Artificial Intelligence", false);
 	}
@@ -720,7 +720,7 @@ public class Player extends Actor implements Target, Serializable {
 	}
 
 	public Object getStylePreviewName() {
-		return styleBody.getSprite().getName();
+		return styleBody.getSprite(true, true).getName();
 	}
 
 	public FancyFrame getFancyFrame() {

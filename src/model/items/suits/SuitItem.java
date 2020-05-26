@@ -22,11 +22,23 @@ import java.util.Map;
 
 public abstract class SuitItem extends GameItem implements Wearable {
 
-	private SuitItem under = null;
+    private boolean coversHair;
+    private boolean coversFacial;
+    private SuitItem under = null;
 	
 	public SuitItem(String string, double weight, int cost) {
 		super(string, weight, cost);
+		this.coversHair = false;
+		this.coversFacial = false;
 	}
+
+	protected void setCoversHair(boolean b) {
+	    coversHair = b;
+    }
+
+    protected void setCoversFacial(boolean b) {
+	    coversFacial = b;
+    }
 	
 	public SuitItem getUnder() {
 		return under;
@@ -55,10 +67,13 @@ public abstract class SuitItem extends GameItem implements Wearable {
     }
 
     private void getupRecursive(List<Sprite> list, StringBuffer buf, Actor whosWearing, Actor whosAsking) {
+        if (!coversFacial) {
+            list.add(whosWearing.getCharacter().getPhysicalBody().getFacialHair());
+        }
         list.add(0, getWornSprite(whosAsking));
         buf.append(this.getBaseName());
         if (under == null) {
-            Sprite naked = whosWearing.getCharacter().getNakedSprite();
+            Sprite naked = whosWearing.getCharacter().getNakedSprite(!coversHair, !coversFacial);
             list.add(0, naked);
             list.add(0, new Sprite("getupbase", "human.png", 0, whosWearing));
             buf.append(whosWearing.getBaseName());
