@@ -38,6 +38,7 @@ import util.Logger;
  */
 public class Player extends Actor implements Target, Serializable {
 
+	private static final int MAX_PARSE_ITERATIONS = 1000;
 	private boolean ready = false;
 	private int nextMove = 0;
 	private List<String> personalHistory = new ArrayList<>();
@@ -309,7 +310,8 @@ public class Player extends Actor implements Target, Serializable {
 		for (Action a : at) {
 			if (a.getName().equals(args.get(0))) {
 				Logger.log("Yes it is!");
-                while (a instanceof ActionGroup) {
+				int i = MAX_PARSE_ITERATIONS;
+                for ( ; a instanceof ActionGroup && i > 0; --i) {
                     for (Action a2 : ((ActionGroup)a).getActions()) {
 						Logger.log("Parsing for " +  a2.getName() + ", strings is: " + args.toString());
 						if (a2.getName().equals(args.get(1))) {
@@ -320,6 +322,11 @@ public class Player extends Actor implements Target, Serializable {
 					}
                     Logger.log(" -> Next action!");
                 }
+                if (i == 0) {
+                	Logger.log(Logger.CRITICAL, "WARNING! Tried to parse " + MAX_PARSE_ITERATIONS + " times and could not resolve which action it was:" + actionStr);
+					return;
+                }
+
 
                 args = args.subList(1, args.size());
 				a.setActionTreeArguments(args, this);
