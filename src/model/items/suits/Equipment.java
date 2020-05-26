@@ -156,14 +156,19 @@ public class Equipment implements Serializable {
         List<Sprite> sprites = new ArrayList<>();
         sprites.add(0, new Sprite("getupbase", "human.png", 0, character.getActor()));
         StringBuilder finalName = new StringBuilder();
-        int[] slotOrder = new int[]{TORSO_SLOT, FEET_SLOT, HANDS_SLOT, HEAD_SLOT};
+        int[] slotOrder;
+        if (getEquipmentForSlot(TORSO_SLOT) == null || !getEquipmentForSlot(TORSO_SLOT).suitCoversAll()) {
+            slotOrder = new int[]{TORSO_SLOT, FEET_SLOT, HANDS_SLOT, HEAD_SLOT};
+        } else {
+            slotOrder = new int[]{FEET_SLOT, HANDS_SLOT, HEAD_SLOT, TORSO_SLOT};
+        }
+
         for (int slotIndex : slotOrder) {
             SuitItem it = getEquipmentForSlot(slotIndex);
             if (it != null) {
                 if (slotIndex == TORSO_SLOT) {
                     Sprite spriteToAdd = it.getGetup(character.getActor(), whosAsking);
-                    sprites.add(0, spriteToAdd);
-                    sprites.add(0, new Sprite("getupbase", "human.png", 0, character.getActor()));
+                    sprites.add(spriteToAdd);
                     finalName.append(spriteToAdd.getName());
                 } else {
                     Sprite spriteToAdd = it.getWornSprite(whosAsking);

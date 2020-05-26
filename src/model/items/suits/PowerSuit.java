@@ -11,10 +11,13 @@ import model.items.weapons.Weapon;
 import model.map.rooms.Room;
 import model.objects.general.GameObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by erini02 on 20/11/16.
  */
-public class PowerSuit extends FaceCoveringSuitItem {
+public class PowerSuit extends FullBodySuit {
     private double suitHealth;
 
     public PowerSuit() {
@@ -35,6 +38,11 @@ public class PowerSuit extends FaceCoveringSuitItem {
     @Override
     public boolean blocksSlot(int targetSlot) {
         return true;
+    }
+
+    @Override
+    protected Map<Integer, Sprite> getFullBodySprites() {
+        return new HashMap<>();
     }
 
     @Override

@@ -36,4 +36,9 @@ public abstract class FullBodySuit extends FaceCoveringSuitItem {
     }
 
     protected abstract Map<Integer,Sprite> getFullBodySprites();
+
+    @Override
+    public boolean suitCoversAll() {
+        return true;
+    }
 }

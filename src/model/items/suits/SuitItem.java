@@ -225,4 +225,8 @@ public abstract class SuitItem extends GameItem implements Wearable {
 
         return "<b>Covers:</b> " + covers.toString();
     }
+
+    public boolean suitCoversAll() {
+        return false;
+    }
 }
