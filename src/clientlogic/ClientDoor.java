@@ -19,12 +19,14 @@ public class ClientDoor extends MouseInteractable {
     private final String sprite;
     private double x;
     private double y;
+    private double z;
     private String name;
 
 
-    public ClientDoor(double x, double y, String name, String sprite, String actionData) {
+    public ClientDoor(double x, double y, double z, String name, String sprite, String actionData) {
        this.x = x;
        this.y = y;
+       this.z = z;
        this.name = name;
        this.actionData = actionData;
        this.sprite = sprite;
@@ -47,6 +49,14 @@ public class ClientDoor extends MouseInteractable {
         this.y = y;
     }
 
+    public double getZ() {
+        return z;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
+
     public String getName() {
         return name;
     }
@@ -55,6 +65,10 @@ public class ClientDoor extends MouseInteractable {
         this.name = name;
     }
 
+    @Override
+    protected void setHitBox(int x, int y, int finalW, int finalH) {
+        super.setHitBox(x, y, (int)z, finalW, finalH);
+    }
 
     @Override
     protected void doOnClick(MouseEvent e) {

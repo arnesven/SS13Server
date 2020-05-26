@@ -13,6 +13,7 @@ import model.actions.roomactions.RepairDoorAction;
 import model.actions.roomactions.ShowDoorHackingFancyFrameAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
+import model.events.animation.AnimationEvent;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Tools;
@@ -30,8 +31,8 @@ public abstract class ElectricalDoor extends Door {
     private DoorMechanism doorMechanism;
     private DoorState doorState;
 
-    public ElectricalDoor(double x, double y, String name, int fromID, int toID, boolean locked) {
-        super(x, y, name, fromID, toID);
+    public ElectricalDoor(double x, double y, double z, String name, int fromID, int toID, boolean locked) {
+        super(x, y, z, name, fromID, toID);
         doorMechanism = new DoorMechanism(this);
         if (locked) {
             doorState = new DoorState.Locked(this);
@@ -40,7 +41,13 @@ public abstract class ElectricalDoor extends Door {
         }
     }
 
-    protected Sprite getFogOfWarSprite() {
+    public ElectricalDoor(double x, double y, String name, int fromID, int toID, boolean locked) {
+        this(x, y, 0.0, name, fromID, toID, locked);
+    }
+
+
+
+        protected Sprite getFogOfWarSprite() {
         return getUnpoweredSprite();
     }
 
@@ -148,7 +155,8 @@ public abstract class ElectricalDoor extends Door {
             from = gameData.getRoomForId(getFromId());
             Room to = gameData.getRoomForId(getToId());
             FireDoor theFireDoor = shutFireDoor(from, to);
-            from.addEvent(new ShutFireDoorAnimationEvent(gameData, from, theFireDoor));
+            AnimationEvent ae = new ShutFireDoorAnimationEvent(gameData, from, theFireDoor);
+            from.addEvent(ae);
             to.addEvent(new ShutFireDoorAnimationEvent(gameData, to, theFireDoor));
             getDoorMechanism().getFireCord().setState(1);
         } catch (NoSuchThingException e) {

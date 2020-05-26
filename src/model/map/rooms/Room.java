@@ -219,7 +219,9 @@ public abstract class Room implements ItemHolder, Serializable {
 			}
 		}
 
-		for (Event event : events) {
+		List<Event> eventsToCheck = new ArrayList<>();
+		eventsToCheck.addAll(events);
+		for (Event event : eventsToCheck) {
 			if (event.showSpriteInTopPanel()) {
 				info.add(0, event.addYourselfToRoomInfo(whosAsking));
 			}
@@ -354,8 +356,8 @@ public abstract class Room implements ItemHolder, Serializable {
         }
 
         ActionGroup doorsAG = new ActionGroup("Doors");
-        for (Door d : doors) {
-		    doorsAG.addAll(d.getNearbyDoorActions(gameData, client));
+	    for (Door d : doors) {
+    	    doorsAG.addAll(d.getNearbyDoorActions(gameData, client));
         }
 		try {
 			for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(this).getName())) {

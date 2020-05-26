@@ -11,7 +11,7 @@ public class ShutFireDoorAnimationEvent extends DoorAnimationEvent {
     }
 
     private static Sprite makeAnimatedSprite(FireDoor fireDoor) {
-        return fireDoor.getOpenFireDoorAnimationSprite();
+        return fireDoor.getShutFireDoorAnimationEvent();
 
     }
 

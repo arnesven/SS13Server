@@ -126,13 +126,16 @@ public class ElectricalFire extends OngoingEvent {
                 cons.informOnStation("Warning! Severe fire in " + getRoom().getName(), gameData);
                 aiIntervened = true;
             } else {
-                if (noHumansInRoom() && MyRandom.nextDouble() < AI_INTERVENTION_CHANCE && isRaging && !aiIntervened) {
-                    cons.informOnStation("Warning! Severe fire in " + getRoom().getName() +
-                            ". Please keep out until fire is contained.", gameData);
-                    for (ElectricalDoor d : CloseAllFireDoorsActions.findDoors(gameData, getRoom())) {
-                       d.shutFireDoor(gameData);
+                if (!cons.isCorrupt()) {
+                    if (MyRandom.nextDouble() < AI_INTERVENTION_CHANCE && isRaging && !aiIntervened) {
+                        //if (noHumansInRoom() && MyRandom.nextDouble() < AI_INTERVENTION_CHANCE && isRaging && !aiIntervened) {
+                        cons.informOnStation("Warning! Severe fire in " + getRoom().getName() +
+                                ". Please keep out until fire is contained.", gameData);
+                        for (ElectricalDoor d : CloseAllFireDoorsActions.findDoors(gameData, getRoom())) {
+                            d.shutFireDoor(gameData);
+                        }
+                        aiIntervened = true;
                     }
-                    aiIntervened = true;
                 }
 
             }

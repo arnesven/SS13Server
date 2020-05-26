@@ -8,12 +8,16 @@ public class NormalDoor extends ElectricalDoor {
     private static final Sprite LOCKED_DOOR = new Sprite("lockeddoor", "doors.png", 12, 17, null);
     public static final Sprite UNPOWERED_DOOR = new Sprite("unpowereddoor", "doors.png", 11, 17, null);
 
-    public NormalDoor(double x, double y, int fromID, int toID, boolean locked) {
-        super(x, y, "Normal", fromID, toID, locked);
+    public NormalDoor(double x, double y, double z, int fromID, int toID, boolean locked) {
+        super(x, y, z, "Normal", fromID, toID, locked);
     }
 
     public NormalDoor(double x, double y, int fromID, int toID) {
-        this(x, y, fromID, toID, false);
+        this(x, y, 0.0, fromID, toID, false);
+    }
+
+    public NormalDoor(double x, double y, double z, int fromID, int toID) {
+        this(x, y, z, fromID, toID, false);
     }
 
 

@@ -23,7 +23,7 @@ public class DonutSS13Builder extends MapBuilder {
     protected void buildPart(GameData gameData, GameMap gm) {
         LabRoom labRoom = new LabRoom(1, 2, 1, 4, 3, new int[]{27, 24},
                 new Door[]{new ScienceDoor(5.0, 4.0, 1, 5, true),
-                            new NormalDoor(2.0, 3.5, 1, 27, false),
+                            new NormalDoor(2.0, 3.5, 0.0, 1, 27, false),
                             new ScienceDoor(6.0, 1.5, 1, 24, false)});
         gm.addRoom(labRoom, ss13, "aft");
         gm.addRoom(labRoom, ss13, "port");
@@ -104,11 +104,11 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(underpass, ss13, "center");
 
         Room janitorial = new JanitorialRoom(450, 10, 2, 2, 2, new int[]{19, 445},
-                new Door[]{new NormalDoor(10.5, 4.0, 450, 445)});
+                new Door[]{new NormalDoor(10.5, 4.0, -1.0, 450, 445)});
         gm.addRoom(janitorial, ss13, "starboard");
 
         Room cargoBay = new CargoBayRoom(446, 8, 10, 4, 3, new int[]{445, 11, 587},
-                new Door[]{new NormalDoor(10.5, 10.0, 446, 445)});
+                new Door[]{new NormalDoor(10.5, 10.0, -1.0, 446, 445)});
         gm.addRoom(cargoBay, ss13, "starboard");
 
         AirLockRoom airLock5 = new AirLockRoom(587, 5, 12, 12, 1, 1, new int[]{446},
@@ -265,7 +265,7 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(nukieShip2, ss13, "nuke");
 
         Room brig = new BrigRoom(29, 15, 4, 1, 1, new int[]{}, new Door[]{});
-        brig.setDoors(new Door[]{new NormalDoor(15.0, 4.5, 29, 16, true)});
+        brig.setDoors(new Door[]{new NormalDoor(15.0, 4.5, 0.0, 29, 16, true)});
         {
             AreaPowerControl apc = new AreaPowerControl(brig, ss);
             apc.setAbsolutePosition(16, 4);

@@ -15,6 +15,7 @@ import model.events.animation.AnimationEvent;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
 import model.map.rooms.Room;
+import util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class FireDoor extends Door {
     private final ElectricalDoor innerDoor;
 
     public FireDoor(ElectricalDoor targetDoor) {
-        super(targetDoor.getX(), targetDoor.getY(), "Fire", targetDoor.getFromId(), targetDoor.getToId());
+        super(targetDoor.getX(), targetDoor.getY(), targetDoor.getZ(), "Fire", targetDoor.getFromId(), targetDoor.getToId());
         this.innerDoor = targetDoor;
     }
 
@@ -40,6 +41,7 @@ public class FireDoor extends Door {
 
     @Override
     public List<Action> getDoorActions(GameData gameData, Actor forWhom) {
+        Logger.log("In get door actions for fire door");
         List<Action> at = super.getDoorActions(gameData, forWhom);
         at.add(new OpenFireDoorAction(this));
         if (!(innerDoor.getDoorState() instanceof DoorState.Locked) &&
@@ -92,7 +94,7 @@ public class FireDoor extends Door {
     }
 
 
-    public Sprite getOpenFireDoorAnimationSprite() {
+    public Sprite getShutFireDoorAnimationEvent() {
         List<Sprite> sps = new ArrayList<>();
         sps.add(new Sprite("doorblank", "blank.png", 0, null));
         sps.add(getInnerDoor().getSprite());

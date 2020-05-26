@@ -50,7 +50,7 @@ public abstract class Door implements Serializable, SpriteObject {
     }
 
     public String getNumber() {
-        return "#" + (fromID*100 + toID);
+        return "#" + (fromID*1000 + toID);
     }
 
     protected abstract Sprite getSprite();
@@ -104,7 +104,7 @@ public abstract class Door implements Serializable, SpriteObject {
             sp = getFogOfWarSprite();
         }
 
-        return x + ", " + y + ", " + name + ", " + sp.getName() + ", " + getActionData(gameData, forWhom);
+        return x + ", " + y + ", " + z + ", " + name + ", " + sp.getName() + ", " + getActionData(gameData, forWhom);
     }
 
     protected Sprite getFogOfWarSprite() {
@@ -149,7 +149,7 @@ public abstract class Door implements Serializable, SpriteObject {
 
     @Override
     public boolean hasAbsolutePosition() {
-        return false;
+        return true;
     }
 
     @Override
@@ -159,17 +159,17 @@ public abstract class Door implements Serializable, SpriteObject {
 
     @Override
     public double getAbsoluteX() {
-        return 0;
+        return getX();
     }
 
     @Override
     public double getAbsoluteY() {
-        return 0;
+        return getY();
     }
 
     @Override
     public double getAbsoluteZ() {
-        return 0;
+        return getZ();
     }
 
     public int getToId() {

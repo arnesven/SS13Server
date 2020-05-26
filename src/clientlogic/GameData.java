@@ -265,12 +265,13 @@ public class GameData {
 			ClientDoor[] doors = null;
 			if (parts[9].contains(",")) {
 				String[] dArr = parts[9].substring(1, parts[9].length()).split(", ");
-				doors = new ClientDoor[dArr.length/5];
-				for (int i = 0; i < dArr.length; i+=5) {
-					doors[i/5] = new ClientDoor(Double.parseDouble(dArr[i].replaceAll("]", "")),
+				doors = new ClientDoor[dArr.length/6];
+				for (int i = 0; i < dArr.length; i+=6) {
+					doors[i/6] = new ClientDoor(Double.parseDouble(dArr[i].replaceAll("]", "")),
 							Double.parseDouble(dArr[i+1].replaceAll("]", "")),
-							dArr[i+2].replaceAll("]", ""),
-							dArr[i+3], dArr[i+4]);
+							Double.parseDouble(dArr[i+2].replaceAll("]", "")),
+							dArr[i+3].replaceAll("]", ""),
+							dArr[i+4], dArr[i+5]);
 
 				}
 			}
