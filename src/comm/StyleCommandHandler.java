@@ -20,6 +20,10 @@ public class StyleCommandHandler extends AbstractCommandHandler {
             if (rest.contains("LOAD")) {
                 oos.writeObject(gameData.getPlayerForClid(clid).getStylePreviewName() + "<style-delim>" +
                         PhysicalBody.getContentAsStrings() + "<style-delim>" + gameData.getPlayerForClid(clid).getCharacterCreation().getHTML());
+            } else if (rest.contains("RANDOM")) {
+                // TODO also send which style elements are selected so the client can select them...
+                gameData.getPlayerForClid(clid).setStyleBody(new PhysicalBody());
+                oos.writeObject(gameData.getPlayerForClid(clid).getStylePreviewName());
             } else if (rest.contains("SET")) {
                 if (rest.contains("HAIR")) {
                     String num = rest.replace("SET HAIR", "");

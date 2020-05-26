@@ -719,6 +719,11 @@ public class Player extends Actor implements Target, Serializable {
 		return styleBody;
 	}
 
+
+	public void setStyleBody(PhysicalBody physicalBody) {
+		this.styleBody = physicalBody;
+	}
+
 	public Object getStylePreviewName() {
 		return styleBody.getSprite(true, true).getName();
 	}
@@ -746,4 +751,5 @@ public class Player extends Actor implements Target, Serializable {
 	public void resetAction() {
 		this.nextAction = new DoNothingAction();
 	}
+
 }

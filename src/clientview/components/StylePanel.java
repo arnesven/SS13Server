@@ -121,6 +121,9 @@ public class StylePanel extends Box {
             genderBox.add(Box.createHorizontalGlue());
             genderBox.add(womanButton);
             genderBox.add(Box.createHorizontalGlue());
+            JButton randomButton = makeRandomButton();
+            genderBox.add(randomButton);
+            genderBox.add(Box.createHorizontalGlue());
             controlPanel.add(genderBox);
             if (GameData.getInstance().getStyle().getSelectedGender()) {
                 manButton.setSelected(true);
@@ -171,6 +174,28 @@ public class StylePanel extends Box {
         controlPanel.add(facialPanel);
         controlPanel.add(Box.createVerticalGlue());
         return controlPanel;
+    }
+
+    private JButton makeRandomButton() {
+        JButton button = new JButton("Random");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ServerCommunicator.send(GameData.getInstance().getClid() + " STYLE RANDOM", new MyCallback<String>() {
+
+                    @Override
+                    public void onSuccess(String result) {
+                        GameData.getInstance().getStyle().setPreviewSpriteName(result);
+                    }
+
+                    @Override
+                    public void onFail() {
+                        System.out.println("Failed to send STYLE RANDOM message to server");
+                    }
+                });
+            }
+        });
+        return button;
     }
 
 
