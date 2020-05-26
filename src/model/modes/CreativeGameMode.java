@@ -12,6 +12,8 @@ import model.npcs.ParasiteNPC;
 import util.Logger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by erini02 on 17/12/16.
@@ -103,5 +105,10 @@ public class CreativeGameMode extends GameMode {
     @Override
     public String getAntagonistName(Player p) {
         return "Nobody";
+    }
+
+    @Override
+    public Map<Player, NPC> getDecoys() {
+        return new HashMap<>();
     }
 }

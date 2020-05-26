@@ -18,6 +18,8 @@ import util.HTMLText;
 import util.MyRandom;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WizardGameMode extends TraitorGameMode {
 
@@ -115,5 +117,12 @@ public class WizardGameMode extends TraitorGameMode {
 
     public Player getWizard() {
         return wizard;
+    }
+
+    @Override
+    public Map<Player, NPC> getDecoys() {
+        Map<Player, NPC> map = new HashMap<>();
+        map.put(wizard, decoy);
+        return map;
     }
 }

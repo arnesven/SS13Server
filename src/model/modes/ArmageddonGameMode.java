@@ -9,6 +9,7 @@ import model.events.Event;
 import model.events.SpontaneousExplosionEvent;
 import model.events.ZombifierEvent;
 import model.events.ambient.SpontaneousCrazyness;
+import model.npcs.NPC;
 import util.Pair;
 
 import java.util.ArrayList;
@@ -149,5 +150,10 @@ public class ArmageddonGameMode extends GameMode {
     @Override
     public String getAntagonistName(Player p) {
         return "Nobody";
+    }
+
+    @Override
+    public Map<Player, NPC> getDecoys() {
+        return new HashMap<>();
     }
 }

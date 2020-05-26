@@ -1,7 +1,9 @@
 package model.modes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import graphics.sprites.LifeBarSprite;
 import graphics.sprites.Sprite;
@@ -285,4 +287,9 @@ public class HostGameMode extends GameMode {
         }
         return "Infected";
     }
+
+	@Override
+	public Map<Player, NPC> getDecoys() {
+		return new HashMap<>();
+	}
 }

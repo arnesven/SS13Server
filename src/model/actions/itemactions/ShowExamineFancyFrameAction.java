@@ -1,5 +1,6 @@
 package model.actions.itemactions;
 
+import com.sun.syndication.feed.rss.Item;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -9,6 +10,7 @@ import model.actions.general.SensoryLevel;
 import model.fancyframe.ItemDescriptionFancyFrame;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
+import model.items.laws.ObeyHumansAccordingToCrewRankAILaw;
 
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class ShowExamineFancyFrameAction extends Action {
     @Override
     protected void setArguments(List<String> args, Actor performingClient) {
         if (performingClient instanceof Player) {
-            ((Player) performingClient).setFancyFrame(new ItemDescriptionFancyFrame((Player)performingClient, gameData, item));
+            ((Player) performingClient).setFancyFrame(getFancyFrame(performingClient));
             ((Player) performingClient).setNextAction(new DoNothingAction());
             ((Player) performingClient).refreshClientData();
             try {
@@ -44,6 +46,10 @@ public class ShowExamineFancyFrameAction extends Action {
                 e.printStackTrace();
             }
         }
+    }
+
+    protected ItemDescriptionFancyFrame getFancyFrame(Actor performingClient) {
+        return new ItemDescriptionFancyFrame((Player)performingClient, gameData, item);
     }
 
     @Override

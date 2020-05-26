@@ -9,11 +9,14 @@ import model.characters.crew.HeadOfStaffCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.CaptainsDaughter;
 import model.fancyframe.SinglePageFancyFrame;
+import model.npcs.NPC;
 import util.HTMLText;
 import util.Pair;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by erini02 on 04/12/16.
@@ -148,5 +151,10 @@ public class MutinyGameMode extends GameMode {
     @Override
     public String getAntagonistName(Player p) {
         return "Mutineer";
+    }
+
+    @Override
+    public Map<Player, NPC> getDecoys() {
+        return new HashMap<>();
     }
 }

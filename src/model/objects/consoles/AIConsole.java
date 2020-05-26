@@ -22,6 +22,7 @@ import model.characters.general.ParasiteCharacter;
 import model.items.NoSuchThingException;
 import model.items.laws.AIAbility;
 import model.items.laws.AILaw;
+import model.items.laws.ObeyHumansAccordingToCrewRankAILaw;
 import model.map.rooms.Room;
 import model.modes.RogueAIMode;
 import model.npcs.NPC;
@@ -57,7 +58,7 @@ public class AIConsole extends Console {
 		screen = new AIScreen(pos, this);
 		pos.addObject(screen);
         aiLawsOriginal.add(new AILaw(1, "Do not let humans come to harm"));
-        aiLawsOriginal.add(new AILaw(2, "Obey humans according to crew rank"));
+        aiLawsOriginal.add(new ObeyHumansAccordingToCrewRankAILaw());
         aiLawsOriginal.add(new AILaw(3, "Protect your own existence"));
 
         aiLaws.addAll(aiLawsOriginal);

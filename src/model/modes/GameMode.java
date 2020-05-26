@@ -151,6 +151,7 @@ public abstract class GameMode implements Serializable {
 
 	public abstract String getSpectatorSubInfo(GameData gameData);
 	public abstract String getAntagonistName(Player p);
+	public abstract Map<Player, NPC> getDecoys();
 
 
 	/**
@@ -830,4 +831,6 @@ public abstract class GameMode implements Serializable {
 		gameData.addNPC(npc);
 		return npc;
 	}
+
+
 }

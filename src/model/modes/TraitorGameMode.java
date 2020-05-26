@@ -674,7 +674,12 @@ public class TraitorGameMode extends GameMode {
         return "Traitor";
     }
 
-    public void removeTraitor(Player p) {
+	@Override
+	public Map<Player, NPC> getDecoys() {
+		return new HashMap<>();
+	}
+
+	public void removeTraitor(Player p) {
 	    try {
             p.removeInstance((GameCharacter gc) -> gc instanceof TraitorCharacter);
         } catch (NoSuchInstanceException nsie) {

@@ -7,11 +7,10 @@ import model.PlayerSettings;
 import model.characters.escape.EscapeAlienCharacter;
 import model.characters.escape.EscapeCrewCharacter;
 import model.characters.general.GameCharacter;
+import model.npcs.NPC;
 import util.MyRandom;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class EscapeGameMode extends GameMode {
     private List<Actor> humans;
@@ -127,5 +126,10 @@ public class EscapeGameMode extends GameMode {
     @Override
     public String getAntagonistName(Player p) {
         return "Alien";
+    }
+
+    @Override
+    public Map<Player, NPC> getDecoys() {
+        return new HashMap<>();
     }
 }

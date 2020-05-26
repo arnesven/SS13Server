@@ -18,7 +18,9 @@ import util.Logger;
 import util.MyRandom;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RogueAIMode extends GameMode {
 
@@ -168,6 +170,13 @@ public class RogueAIMode extends GameMode {
     @Override
     public String getAntagonistName(Player p) {
         return "Rogue AI";
+    }
+
+    @Override
+    public Map<Player, NPC> getDecoys() {
+        Map<Player, NPC> map = new HashMap<>();
+        map.put((Player)aiPlayer, decoy);
+        return map;
     }
 
 

@@ -285,4 +285,9 @@ public class OperativesGameMode extends GameMode {
     public String getAntagonistName(Player p) {
         return "Operative";
     }
+
+	@Override
+	public Map<Player, NPC> getDecoys() {
+		return decoys;
+	}
 }

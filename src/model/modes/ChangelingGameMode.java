@@ -1,7 +1,9 @@
 package model.modes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import graphics.sprites.Sprite;
 import model.characters.decorators.CharacterDecorator;
@@ -272,4 +274,11 @@ public class ChangelingGameMode extends GameMode {
     public String getAntagonistName(Player p) {
         return "Changeling";
     }
+
+	@Override
+	public Map<Player, NPC> getDecoys() {
+		Map<Player, NPC> map = new HashMap<>();
+		map.put(ling, decoy);
+		return map;
+	}
 }
