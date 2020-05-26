@@ -8,6 +8,7 @@ import model.events.damage.FireDamage;
 import model.items.MakeShiftBomb;
 import model.items.general.BombItem;
 import model.items.general.GameItem;
+import model.npcs.NPC;
 import model.objects.general.BreakableObject;
 
 public class DetonateSpellBook extends SpellBook {
@@ -29,8 +30,6 @@ public class DetonateSpellBook extends SpellBook {
     @Override
     public void doLateEffect(GameData gameData, Actor performingClient, Target target) {
         if (target instanceof BreakableObject) {
-          //  CharacterDecorator cd = new ExplosiveProtection(performingClient.getCharacter());
-          //  performingClient.setCharacter(cd);
             BreakableObject brob = (BreakableObject)target;
             brob.beExposedTo(performingClient, new FireDamage(), gameData);
             brob.beExposedTo(performingClient, new FireDamage(), gameData);
@@ -38,9 +37,13 @@ public class DetonateSpellBook extends SpellBook {
             brob.getPosition().addItem(bomb);
             bomb.explode(gameData, performingClient);
             brob.getPosition().removeObject(brob);
-            performingClient.addTolastTurnInfo("You detonated the " + target.getName());
-         //   performingClient.removeInstance((GameCharacter gc) -> gc == cd);
+        } else if (target instanceof Actor) {
+            target.beExposedTo(performingClient, new FireDamage(), gameData);
+            BombItem bomb = new MagicBomb(gameData, performingClient);
+            ((Actor)target).getCharacter().giveItem(bomb, performingClient.getAsTarget());
+            bomb.explode(gameData, performingClient);
         }
+        performingClient.addTolastTurnInfo("You detonated the " + target.getName());
     }
 
     @Override
@@ -58,7 +61,7 @@ public class DetonateSpellBook extends SpellBook {
         return new CastSpellAction(this, forWhom) {
             @Override
             protected boolean canBeTargetedBySpell(Target target2) {
-                return target2 instanceof BreakableObject;
+                return target2 instanceof BreakableObject || (target2 instanceof Actor && ((Actor) target2).isRobot());
             }
         };
     }
