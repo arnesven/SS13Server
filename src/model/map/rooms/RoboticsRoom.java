@@ -10,6 +10,7 @@ public class RoboticsRoom extends TechRoom {
         super(id, "Robotics", "", x, y, w, h, neigh, doors);
         addObject(new BotConsole(this));
         addObject(new UpgoingStairsDoor(this));
+
         addItem(new Multimeter());
     }
 }

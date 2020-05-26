@@ -26,6 +26,15 @@ import java.util.*;
 public class PositronGenerator extends BreakableObject implements Repairable, PowerSupply {
 
 
+    public static PositronGenerator roomHasGenerator(Room position) {
+        for (GameObject obj : position.getObjects()) {
+            if (obj instanceof PositronGenerator) {
+                return (PositronGenerator)obj;
+            }
+        }
+        return null;
+    }
+
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 
@@ -164,6 +173,12 @@ public class PositronGenerator extends BreakableObject implements Repairable, Po
                     "High power output (>150%) caused explosion in generator room");
             SpontaneousExplosionEvent exp = new SpontaneousExplosionEvent();
             exp.explode(getPosition(), gameData);
+        }
+    }
+
+    public void boostGeneratorOutput(GameData gameData, Actor performingClient) {
+        if (!isBroken()) {
+            level += FIXED_INCREASE * (MyRandom.nextDouble() + 0.5);
         }
     }
 }

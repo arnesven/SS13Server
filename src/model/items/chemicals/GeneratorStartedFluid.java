@@ -4,7 +4,12 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.general.Action;
+import model.actions.itemactions.BoostGeneratorAction;
 import model.items.foods.FoodItem;
+import model.objects.power.PositronGenerator;
+
+import java.util.List;
 
 public class GeneratorStartedFluid extends Chemicals {
     public GeneratorStartedFluid() {
@@ -34,6 +39,15 @@ public class GeneratorStartedFluid extends Chemicals {
     @Override
     public FoodItem clone() {
         return new GeneratorStartedFluid();
+    }
+
+    @Override
+    public List<Action> getInventoryActions(GameData gameData, Actor forWhom) {
+        List<Action> acts =  super.getInventoryActions(gameData, forWhom);
+        if (PositronGenerator.roomHasGenerator(forWhom.getPosition()) != null) {
+            acts.add(new BoostGeneratorAction());
+        }
+        return acts;
     }
 
     @Override
