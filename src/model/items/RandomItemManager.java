@@ -140,6 +140,7 @@ public class RandomItemManager {
         list.put(new PaperItem(),               PREVALENCE_COMMON);
         list.put(new PirateNuclearDisc(),       PREVALENCE_UNIQUE);
         list.put(new PoisonSyringe(),           PREVALENCE_RARE);
+        list.put(new PolaroidCamera(),          PREVALENCE_RARE);
         list.put(new PowerRadio(),              PREVALENCE_RARE);
         list.put(new RemoteBomb(),              PREVALENCE_VERY_RARE);
         list.put(new RobotParts(),              PREVALENCE_RARE);

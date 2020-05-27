@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.visitors.VisitorCharacter;
+import model.items.general.PolaroidCamera;
 import model.items.suits.SunGlasses;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
@@ -20,6 +21,7 @@ public class TouristCharacter extends VisitorCharacter {
 		List<GameItem> l = new ArrayList<GameItem>();
 		l.add(new FancyClothes());
         l.add(new SunGlasses());
+        l.add(new PolaroidCamera());
 		return l;
 	}
 	
