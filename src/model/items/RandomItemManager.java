@@ -192,6 +192,7 @@ public class RandomItemManager {
         list.put(new CheapOxygenMask(), PREVALENCE_VERY_COMMON);
         list.put(new ChefsHat(),        PREVALENCE_RARE);
         list.put(new FancyClothes(),    PREVALENCE_COMMON);
+        list.put(new FancyGloves(),     PREVALENCE_COMMON);
         list.put(new FireSuit(),        PREVALENCE_COMMON);
         list.put(new InsulatedGloves(), PREVALENCE_COMMON);
         list.put(new JumpSuit(),        PREVALENCE_RARE);

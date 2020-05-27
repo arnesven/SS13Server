@@ -2,6 +2,7 @@ package model.characters.visitors;
 
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
+import model.items.suits.FancyGloves;
 import model.items.suits.LawyerSuit;
 
 import java.util.ArrayList;
@@ -15,6 +16,13 @@ public class LawyerCharacter extends VisitorCharacter {
         super("Lawyer");
         getEquipment().removeEverything();
         new LawyerSuit(this).putYourselfOn(getEquipment());
+    }
+
+    @Override
+    public List<GameItem> getStartingItems() {
+        List<GameItem> its = super.getStartingItems();
+        its.add(new FancyGloves());
+        return its;
     }
 
     @Override
