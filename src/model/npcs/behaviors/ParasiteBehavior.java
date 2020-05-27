@@ -5,6 +5,12 @@ import model.GameData;
 import model.Target;
 import model.actions.characteractions.FaceHuggingAction;
 import model.actions.general.TargetingAction;
+import model.characters.MouseCharacter;
+import model.characters.general.AnimalCharacter;
+import model.characters.general.CatCharacter;
+import model.characters.general.ChangelingCharacter;
+import model.characters.general.ParasiteCharacter;
+import model.characters.special.AlienCharacter;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -15,10 +21,11 @@ import java.util.List;
  */
 public class ParasiteBehavior implements ActionBehavior {
 
-    private final AttackAllActorsNotSameClassBehavior attackBehavior;
+    private final AttackAllActorsButNotTheseClasses attackBehavior;
 
     public ParasiteBehavior() {
-        this.attackBehavior = new AttackAllActorsNotSameClassBehavior();
+        this.attackBehavior = new AttackAllActorsButNotTheseClasses(List.of(ParasiteCharacter.class, ChangelingCharacter.class,
+                AlienCharacter.class, AnimalCharacter.class));
     }
 
     @Override

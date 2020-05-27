@@ -9,7 +9,7 @@ import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
 import model.map.rooms.DecorativeRoom;
 import model.map.rooms.Room;
-import model.npcs.AlienNPC;
+import model.npcs.EyeballAlienNPC;
 import model.objects.general.RedDimensionPortal;
 import model.objects.consoles.AIConsole;
 import model.objects.general.DimensionPortal;
@@ -53,9 +53,9 @@ public class AlienDimensionEvent extends AmbientEvent {
             turnsActive = MyRandom.nextInt(12);
             Logger.log(Logger.INTERESTING, "Portal created in " + targetRoom.getName() + " active for " + turnsActive + " turns.");
             informCrew(gameData);
-            gameData.addNPC(new AlienNPC(targetRoom));
+            gameData.addNPC(new EyeballAlienNPC(targetRoom));
             while (MyRandom.nextDouble() > 0.75) {
-                gameData.addNPC(new AlienNPC(targetRoom));
+                gameData.addNPC(new EyeballAlienNPC(targetRoom));
             }
 
         } else if (hasHappened) {
@@ -74,7 +74,7 @@ public class AlienDimensionEvent extends AmbientEvent {
         portal.remove();
         portal2.remove();
         for (Actor a : otherDim.getActors()) {
-            if (!(a instanceof AlienNPC)) {
+            if (!(a instanceof EyeballAlienNPC)) {
                 a.setCharacter(new DimensionTrappedDecorator(a.getCharacter()));
             }
         }

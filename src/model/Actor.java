@@ -532,7 +532,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
         List<Action> list = new ArrayList<>();
         if (r == forWhom.getPosition()) {
-            if (forWhom.getsActions()) {
+            if (forWhom.getsActions() && forWhom.getCharacter().getsTargetingActions()) {
                 AttackAction atk = new AttackAction(forWhom);
                 if (atk.isAmongOptions(gameData, forWhom, this.getPublicName())) {
                     atk.stripAllTargetsBut(this.getAsTarget());

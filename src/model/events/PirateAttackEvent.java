@@ -13,7 +13,6 @@ import model.npcs.AbstractPirateNPC;
 import model.npcs.NPC;
 import model.npcs.PirateCaptainNPC;
 import model.npcs.PirateNPC;
-import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
 import model.npcs.behaviors.AttackNonPiratesBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.MoveTowardsBehavior;
@@ -23,8 +22,6 @@ import util.MyRandom;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Created by erini02 on 26/04/16.

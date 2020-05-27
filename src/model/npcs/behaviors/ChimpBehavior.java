@@ -1,15 +1,19 @@
 package model.npcs.behaviors;
 
 import model.Actor;
+import model.characters.general.ChimpCharacter;
+import model.characters.general.SnakeCharacter;
 import util.Logger;
 import util.MyRandom;
 import model.GameData;
 import model.actions.general.SpeechAction;
 
+import java.util.List;
+
 public class ChimpBehavior implements ActionBehavior {
 
 	private AttackIfPossibleBehavior atkBehavior = 
-			new AttackAllActorsNotSameClassBehavior();
+			new AttackAllActorsButNotTheseClasses(List.of(ChimpCharacter.class, SnakeCharacter.class));
 	
 	private GiveIfPossibleBehavior giveBehavior =
 			new GiveIfPossibleBehavior();

@@ -46,7 +46,7 @@ import util.Pair;
 public abstract class GameMode implements Serializable {
 
 
-	private static String[] knownModes = { "Traitor", "Host", "Operatives", "Changeling", "Rogue AI", "Armageddon", "Mutiny", "Wizard", "Mixed", "Secret", "Creative"};
+	private static String[] knownModes = { "Traitor", "Host", "Operatives", "Changeling", "Rogue AI", "Armageddon", "Mutiny", "Wizard", "Hunt", "Mixed", "Secret", "Creative"};
 	private Bank bank;
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
@@ -832,5 +832,35 @@ public abstract class GameMode implements Serializable {
 		return npc;
 	}
 
+
+	protected Room getRandomStartRoom(GameData gameData) {
+		Room startRoom;
+		List<Room> startingRooms = new ArrayList<>();
+		startingRooms.addAll(gameData.getNonHiddenStationRooms());
+		startingRooms.removeIf((Room r ) -> r instanceof DecorativeRoom);
+		do {
+			startRoom = MyRandom.sample(startingRooms);
+		} while (isAStartingRoom(startRoom, gameData) || lockedRoom(startRoom, gameData));
+		return startRoom;
+	}
+
+	private boolean lockedRoom(Room startRoom, GameData gameData) {
+		try {
+			// TODO make this not so hard coded...
+			return startRoom == gameData.getRoom("Brig") || startRoom == gameData.getRoom("Armory") ||
+					startRoom == gameData.getRoom("Generator") || startRoom == gameData.getRoom("Robotics");
+		} catch (NoSuchThingException e) {
+			return true;
+		}
+	}
+
+	private boolean isAStartingRoom(Room startRoom, GameData gameData) {
+		for (Player p : gameData.getPlayersAsList()) {
+			if (p.getCharacter().getStartingRoom() == startRoom.getID()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

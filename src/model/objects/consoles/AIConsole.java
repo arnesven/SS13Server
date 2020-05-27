@@ -15,10 +15,7 @@ import model.actions.general.Action;
 import model.actions.objectactions.AIRemoteAccessAction;
 import model.actions.objectactions.SitDownAtAIConsoleAction;
 import model.actions.objectactions.SitDownAtNPCAIConsoleAction;
-import model.characters.general.AIDownloadIntoBotAction;
-import model.characters.general.GameCharacter;
-import model.characters.general.ShamblingAbomination;
-import model.characters.general.ParasiteCharacter;
+import model.characters.general.*;
 import model.items.NoSuchThingException;
 import model.items.laws.AIAbility;
 import model.items.laws.AILaw;
@@ -27,7 +24,7 @@ import model.map.rooms.Room;
 import model.modes.RogueAIMode;
 import model.npcs.NPC;
 import model.npcs.PirateNPC;
-import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
+import model.npcs.behaviors.AttackAllActorsButNotTheseClasses;
 import model.npcs.behaviors.DoNothingBehavior;
 import model.npcs.behaviors.FindHumansMovement;
 import model.npcs.behaviors.MeanderingMovement;
@@ -246,7 +243,7 @@ public class AIConsole extends Console {
         for (NPC npc : gameData.getNPCs()) {
             if (npc instanceof RobotNPC) {
                 npc.setMoveBehavior(new FindHumansMovement());
-                npc.setActionBehavior(new AttackAllActorsNotSameClassBehavior());
+                npc.setActionBehavior(new AttackAllActorsButNotTheseClasses(List.of(RobotCharacter.class)));
             }
         }
         if (AIIsPlayer()) {

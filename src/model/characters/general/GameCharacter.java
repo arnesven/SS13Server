@@ -578,6 +578,18 @@ public abstract class GameCharacter implements Serializable {
         return !isDead();
     }
 
+	public boolean getsObjectActions() {
+		return true;
+	}
+
+	public boolean getsRoomActions() {
+		return true;
+	}
+
+	public boolean getsTargetingActions() {
+		return true;
+	}
+
     public boolean isVisible() {
         return true;
     }
@@ -776,4 +788,5 @@ public abstract class GameCharacter implements Serializable {
 	public void doAction(Action nextAction, GameData gameData) {
 		nextAction.doTheAction(gameData, getActor());
 	}
+
 }

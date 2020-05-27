@@ -1,18 +1,18 @@
 package model.programs;
 
 import graphics.sprites.Sprite;
-import graphics.sprites.SpriteManager;
 import model.Actor;
 import model.GameData;
 import model.characters.decorators.CharacterDecorator;
-import model.characters.general.GameCharacter;
-import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
+import model.characters.general.RobotCharacter;
+import model.npcs.behaviors.AttackAllActorsButNotTheseClasses;
 import model.npcs.behaviors.MoveTowardsClosestActorMovement;
 import model.npcs.robots.RobotNPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.MovementBehavior;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by erini02 on 14/04/16.
@@ -59,7 +59,7 @@ public class BotProgram implements Serializable {
     public static BotProgram createHostileProgram(GameData gameData) {
         return new BotProgram("Hostile",
                 new MoveTowardsClosestActorMovement(gameData),
-                new AttackAllActorsNotSameClassBehavior(),
+                new AttackAllActorsButNotTheseClasses(List.of(RobotCharacter.class)),
                 new Sprite("hostilebot", "robots2.png", 13, 15, null));
     }
 }

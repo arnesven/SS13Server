@@ -13,11 +13,11 @@ import java.util.List;
 /**
  * Created by erini02 on 18/10/16.
  */
-public class AlienCharacter extends GameCharacter {
+public class EyeballAlienCharacter extends GameCharacter {
 
     private static int num = 1;
 
-     public AlienCharacter() {
+     public EyeballAlienCharacter() {
         super("Eyeball Alien #" + (num++), 0, 6.666);
     }
 
@@ -34,7 +34,7 @@ public class AlienCharacter extends GameCharacter {
 
     @Override
     public GameCharacter clone() {
-        return new AlienCharacter();
+        return new EyeballAlienCharacter();
     }
 
     @Override

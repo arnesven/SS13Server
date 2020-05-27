@@ -25,7 +25,6 @@ import model.modes.goals.PersonalGoal;
 import model.npcs.*;
 import model.npcs.animals.CatNPC;
 import model.objects.consoles.AIConsole;
-import model.objects.power.PositronGenerator;
 import util.HTMLText;
 import util.Logger;
 
@@ -257,7 +256,7 @@ public abstract class GameStats {
             res += "<tr><td colspan=\"2\"> " + str + "</td>";
         }
         for (Actor a : gameData.getActors()) {
-            if (a.getPosition() instanceof OtherDimension && !(a instanceof AlienNPC)) {
+            if (a.getPosition() instanceof OtherDimension && !(a instanceof EyeballAlienNPC)) {
                 res += "<tr><td colspan=\"2\"> " + a.getBaseName() + " got trapped in another dimension! </td>";
             }
         }

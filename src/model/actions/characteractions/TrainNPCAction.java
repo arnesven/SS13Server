@@ -15,6 +15,7 @@ import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.NameAddDecorator;
 import model.characters.decorators.NoSuchInstanceException;
 import model.characters.general.GameCharacter;
+import model.characters.general.RobotCharacter;
 import model.npcs.NPC;
 import model.npcs.animals.Trainable;
 import model.npcs.behaviors.*;
@@ -44,7 +45,7 @@ public class TrainNPCAction extends Action {
 	}
 
 	private void addActionBehaviors() {
-		acts.put("Enrage", new AttackAllActorsNotSameClassBehavior());
+		acts.put("Enrage", new AttackAllActorsButNotTheseClasses(List.of(RobotCharacter.class)));
 		acts.put("Calm", new DoNothingBehavior());
         acts.put("Guard", new AttackBaddiesBehavior());
 	}

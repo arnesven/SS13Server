@@ -29,10 +29,10 @@ private List<GameItem> inventory = new ArrayList<>();
 	public void addSpecificActionsFor(GameData gameData, Actor cl,
                                       ArrayList<Action> at) {
 		super.addSpecificActionsFor(gameData, cl, at);
-		if (inventory.size() > 0 && !(cl instanceof Actor)) {
+		if (inventory.size() > 0 && !(cl instanceof Actor) && cl.hasInventory()) {
 			at.add(new RetrieveAction(this, cl));
 		}
-		if (cl instanceof Actor) {
+		if (cl instanceof Actor && cl.hasInventory()) {
 			at.add(new ManageContainerAction(gameData, this));
 		}
 	}

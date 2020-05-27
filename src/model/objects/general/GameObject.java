@@ -91,14 +91,12 @@ public class GameObject implements SpriteObject, Serializable {
 
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
         if (hasAbsolutePosition && forWhom.hasAbsolutePosition() && SpriteObject.distance(this, forWhom) >= 1.0) {
-       //     Logger.log("Position of player: " + forWhom.getAbsoluteX() + " " + forWhom.getAbsoluteY());
-        //    Logger.log("Position of object:" + getAbsoluteX() + " " + getAbsoluteY());
-        //    Logger.log("Actions removed because both game object (" + this.getBaseName() +
-        //            ") and player are at absolute positions and distance is " + SpriteObject.distance(this, forWhom));
             return new ArrayList<>();
         }
         ArrayList<Action> acts = new ArrayList<>();
-        addSpecificActionsFor(gameData, forWhom, acts);
+        if (forWhom.getCharacter().getsObjectActions() && forWhom.getCharacter().getsActions()) {
+            addSpecificActionsFor(gameData, forWhom, acts);
+        }
         return acts;
     }
 

@@ -5,10 +5,12 @@ import util.MyRandom;
 import model.GameData;
 import model.actions.general.SpeechAction;
 
+import java.util.ArrayList;
+
 public class CrazyBehavior implements ActionBehavior {
 
 	private AttackIfPossibleBehavior atkBehavior = 
-						new AttackAllActorsNotSameClassBehavior();
+						new AttackAllActorsButNotTheseClasses(new ArrayList<>());
 	
 	private SpontaneousAct gibberish = new SpontaneousAct(0.5, new SpeechAction("Aaaaargh!"));
 	

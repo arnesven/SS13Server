@@ -13,7 +13,7 @@ import model.characters.general.HumanCharacter;
 import model.items.NoSuchThingException;
 import model.npcs.NPC;
 import model.npcs.ZombieNPC;
-import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
+import model.npcs.behaviors.AttackAllActorsButNotTheseClasses;
 import model.npcs.behaviors.AttackIfPossibleBehavior;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.MovementBehavior;
@@ -21,6 +21,7 @@ import util.Logger;
 import util.MyRandom;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -53,7 +54,7 @@ public class ZombifierEvent extends Event {
     public static void turnIntoZombie(Actor a, GameData gameData, Set<Actor> alreadyTurned) {
         try {
             MovementBehavior move = new MeanderingMovement(0.5);
-            AttackIfPossibleBehavior atk = new AttackAllActorsNotSameClassBehavior();
+            AttackIfPossibleBehavior atk = new AttackAllActorsButNotTheseClasses(List.of(ZombieDecorator.class));
             if (a instanceof Player) {
                 a.getPosition().removeActor(a);
                 NPC npc = new ZombieNPC(new ZombieDecorator(a.getCharacter().clone()), move, atk, a.getPosition());

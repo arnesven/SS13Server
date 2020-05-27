@@ -70,7 +70,6 @@ public class OperativesGameMode extends GameMode {
 		Event e = new NoPressureEverEvent(nukieShip);
 		gameData.addEvent(e);
 		nukieShip.addEvent(e);
-		
 	}
 
 
@@ -167,7 +166,6 @@ public class OperativesGameMode extends GameMode {
                                 "Your decoy is " + decoys.get(p).getBaseName() +
 							    " (in " + decoys.get(p).getPosition().getName() + ")");
 		}
-
 	}
 
 	@Override

@@ -1,15 +1,15 @@
 package model.npcs;
 
-import model.characters.general.AlienCharacter;
+import model.characters.general.EyeballAlienCharacter;
 import model.map.rooms.Room;
 import model.npcs.behaviors.*;
 
 /**
  * Created by erini02 on 18/10/16.
  */
-public class AlienNPC extends NPC {
-    public AlienNPC(Room r) {
-        super(new AlienCharacter(),
+public class EyeballAlienNPC extends NPC {
+    public EyeballAlienNPC(Room r) {
+        super(new EyeballAlienCharacter(),
                 new MeanderingMovement(0.75), new RandomActionBehavior(), r);
     }
 
@@ -21,6 +21,6 @@ public class AlienNPC extends NPC {
 
     @Override
     public NPC clone() {
-        return new AlienNPC(getPosition());
+        return new EyeballAlienNPC(getPosition());
     }
 }

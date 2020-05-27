@@ -343,12 +343,27 @@ public abstract class CharacterDecorator extends GameCharacter {
 
 	@Override
 	public boolean isPassive() {
-		return innerChar.isDead();
+		return innerChar.isPassive();
 	}
 
 	@Override
 	public boolean getsActions() {
-		return !isDead();
+		return innerChar.getsActions();
+	}
+
+	@Override
+	public boolean getsObjectActions() {
+		return innerChar.getsObjectActions();
+	}
+
+	@Override
+	public boolean getsRoomActions() {
+		return innerChar.getsRoomActions();
+	}
+
+	@Override
+	public boolean getsTargetingActions() {
+		return innerChar.getsTargetingActions();
 	}
 
 	@Override

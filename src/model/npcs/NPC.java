@@ -10,12 +10,13 @@ import model.items.NoSuchThingException;
 import model.items.general.MedKit;
 import model.map.rooms.Room;
 import model.npcs.behaviors.ActionBehavior;
-import model.npcs.behaviors.AttackAllActorsNotSameClassBehavior;
+import model.npcs.behaviors.AttackAllActorsButNotTheseClasses;
 import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.behaviors.MovementBehavior;
 import util.Logger;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * @author erini02
@@ -133,7 +134,7 @@ public abstract class NPC extends Actor implements Target, Serializable {
 
 	public void beInfected(Actor performingClient) {
 		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
-		this.actBehavior = new AttackAllActorsNotSameClassBehavior();
+		this.actBehavior = new AttackAllActorsButNotTheseClasses(new ArrayList<>());
 		this.moveBehavior = new MeanderingMovement(0.75);
 	}
 

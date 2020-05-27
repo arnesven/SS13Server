@@ -79,16 +79,18 @@ public abstract class Door implements Serializable, SpriteObject {
     }
 
     public List<Action> getNearbyDoorActions(GameData gameData, Actor forWhom) {
-        if (getToId() == forWhom.getPosition().getID() || getFromId() == forWhom.getPosition().getID() ||
-                forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
-            List<Action> actions = new ArrayList<>();
-            ActionGroup ag = new ActionGroup(this.getName());
-            List<Action> acts = getDoorActions(gameData, forWhom);
-            if (acts.size() > 0) {
-                ag.addAll(acts);
+        if (forWhom.getCharacter().getsObjectActions()) {
+            if (getToId() == forWhom.getPosition().getID() || getFromId() == forWhom.getPosition().getID() ||
+                    forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
+                List<Action> actions = new ArrayList<>();
+                ActionGroup ag = new ActionGroup(this.getName());
+                List<Action> acts = getDoorActions(gameData, forWhom);
+                if (acts.size() > 0) {
+                    ag.addAll(acts);
+                }
+                actions.add(ag);
+                return actions;
             }
-            actions.add(ag);
-            return actions;
         }
         return new ArrayList<>();
     }

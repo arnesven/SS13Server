@@ -91,37 +91,14 @@ public class ChangelingGameMode extends GameMode {
 		Logger.log("Starting room was " + ling.getCharacter().getStartingRoom(gameData).getName());
 		decoy = makeDecoy(ling, gameData);
 
-		List<Room> startingRooms = new ArrayList<>();
-		startingRooms.addAll(gameData.getNonHiddenStationRooms());
-		startingRooms.removeIf((Room r ) -> r instanceof DecorativeRoom);
-		Room startRoom;
-		do {
-			startRoom = MyRandom.sample(startingRooms);
-		} while (isAStartingRoom(startRoom, gameData) || lockedRoom(startRoom, gameData));
-		
+		Room startRoom = super.getRandomStartRoom(gameData);
+
 		lingChar = new ChangelingCharacter(startRoom);
 		ling.setCharacter(lingChar);
         lingChar.getForm().setActor(ling);
 		lingChar.getEquipment().removeEverything();
 	}
 
-	private boolean lockedRoom(Room startRoom, GameData gameData) {
-        try {
-            return startRoom == gameData.getRoom("Brig") || startRoom == gameData.getRoom("Armory") ||
-					startRoom == gameData.getRoom("Generator") || startRoom == gameData.getRoom("Robotics");
-        } catch (NoSuchThingException e) {
-            return true;
-        }
-    }
-
-	private boolean isAStartingRoom(Room startRoom, GameData gameData) {
-		for (Player p : gameData.getPlayersAsList()) {
-			if (p.getCharacter().getStartingRoom() == startRoom.getID()) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	protected GameOver getGameResult(GameData gameData) {
 		if (gameData.isAllDead()) {
