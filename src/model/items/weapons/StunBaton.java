@@ -7,11 +7,13 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.itemactions.CancelAction;
+import model.characters.decorators.OneTurnAnimationDecorator;
 import model.characters.decorators.StunnedDecorator;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.AlterMovement;
 import model.characters.decorators.InstanceChecker;
 import model.events.RemoveInstanceLaterEvent;
+import model.events.animation.AnimatedSprite;
 import model.npcs.NPC;
 
 public class StunBaton extends AmmoWeapon {
@@ -66,21 +68,42 @@ public class StunBaton extends AmmoWeapon {
 	}
 
 	private void reduceMovement(final GameData gameData, final Actor victim) {
-		victim.setCharacter(new StunnedDecorator(victim.getCharacter()));
-		
-		gameData.addEvent(new RemoveInstanceLaterEvent(victim, gameData.getRound(), 
-				1, new InstanceChecker() {
-					
-					@Override
-					public boolean checkInstanceOf(GameCharacter ch) {
-						return ch instanceof StunnedDecorator;
-					}
-				}));
+		if (!victim.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof StunnedDecorator)) {
+			victim.setCharacter(new StunnedDecorator(victim.getCharacter()));
+
+			gameData.addEvent(new RemoveInstanceLaterEvent(victim, gameData.getRound(),
+					1, new InstanceChecker() {
+
+				@Override
+				public boolean checkInstanceOf(GameCharacter ch) {
+					return ch instanceof StunnedDecorator;
+				}
+			}));
+		}
 		
 	}
 
 	@Override
 	public String getDescription(GameData gameData, Player performingClient) {
 		return "Good for stunning people. Stunned characters cannot move for one round and can be looted by others.";
+	}
+
+	@Override
+	public void applyAnimation(Actor actor, Actor performingClient, GameData gameData) {
+		super.applyAnimation(actor, performingClient, gameData);
+		if (!actor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof StunningSparksAnimationDecorator)) {
+			actor.setCharacter(new StunningSparksAnimationDecorator(actor.getCharacter(), gameData));
+		}
+	}
+
+	private class StunningSparksAnimationDecorator extends OneTurnAnimationDecorator {
+		public StunningSparksAnimationDecorator(GameCharacter character, GameData gameData) {
+			super(character, "stunsparks", gameData);
+		}
+
+		@Override
+		protected Sprite getAnimatedSprite() {
+			return new AnimatedSprite("stunsparks", "effects3.png", 14, 20, 32, 32, getActor(), 12, true);
+		}
 	}
 }

@@ -27,7 +27,9 @@ public abstract class OneTurnAnimationDecorator extends CharacterDecorator {
         sps.add(AnimatedSprite.blankAnimationSprite());
         sps.add(orig);
         sps.add(getAnimatedSprite());
-        Sprite result = new AnimatedSprite(orig.getName() + "bloodsplotch", sps, 7, false);
+        Sprite result = new AnimatedSprite(orig.getName() + "oneturnani", sps,
+                getAnimatedSprite().getFrames(),
+                getAnimatedSprite().isLooping());
         result.setObjectRef(getActor());
         return result;
     }
