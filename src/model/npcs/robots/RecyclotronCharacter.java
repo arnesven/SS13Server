@@ -31,7 +31,7 @@ public class RecyclotronCharacter extends RobotCharacter {
     }
 
     @Override
-    public Sprite getSprite(Actor whosAsking) {
+    protected Sprite getNormalSprite(Actor whosAsking) {
         if (getActor() instanceof Player) {
             return new Sprite("recyclotron", "aibots.png", 39, getActor());
         } else if (getActor() instanceof NPC && !(((NPC) getActor()).getActionBehavior() instanceof DoNothingBehavior)) {

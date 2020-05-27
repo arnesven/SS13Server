@@ -65,7 +65,7 @@ public class VendingMachineCharacter extends RobotCharacter {
     }
 
     @Override
-    public Sprite getSprite(Actor whosAsking) {
+    public Sprite getNormalSprite(Actor whosAsking) {
         JunkVendingMachine jvm = new JunkVendingMachine(null);
         if (!(whosAsking instanceof Player)) {
             return super.getSprite(whosAsking);

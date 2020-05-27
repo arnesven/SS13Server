@@ -135,8 +135,7 @@ public abstract class GameCharacter implements Serializable {
 			if (this.isDead() && !wasDeadAlready) { // you died! Too bad!
 				frag = true;
                 getActor().getCharacter().doUponDeath(performingClient, weapon);
-                if (weapon instanceof PhysicalWeapon &&
-						performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) {
+                if (weapon instanceof PhysicalWeapon && (getActor().isHuman() || getActor().isAnimal())) {
 					getActor().setCharacter(new BloodyPoolDecorator(getActor().getCharacter()));
 				}
 			}

@@ -31,9 +31,6 @@ public class RobotCharacter extends GameCharacter {
 
     @Override
     public String getPublicName() {
-        if (isDead()) {
-            return super.getPublicName() + " (broken)";
-        }
         return super.getPublicName();
     }
 
@@ -43,7 +40,22 @@ public class RobotCharacter extends GameCharacter {
     }
 
     @Override
-    public Sprite getSprite(Actor whosAsking) {
+    public final Sprite getSprite(Actor whosAsking) {
+        if (isDead()) {
+            return getBrokenSprite(whosAsking);
+        }
+
+        return getNormalSprite(whosAsking);
+    }
+
+    protected Sprite getBrokenSprite(Actor whosAsking) {
+        Sprite normal = getNormalSprite(whosAsking);
+        Sprite sp = new Sprite("robotbroken", normal.getMap(),  normal.getColumn(), getActor());
+        sp.setRotation(90);
+        return sp;
+    }
+
+    protected Sprite getNormalSprite(Actor whosAsking) {
         return new Sprite("robot", "robots.png", 51, getActor());
     }
 

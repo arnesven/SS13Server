@@ -19,7 +19,7 @@ public class AnimatedSlotMachineCharacter extends RobotCharacter {
 
 
     @Override
-    public Sprite getSprite(Actor whosAsking) {
+    public Sprite getNormalSprite(Actor whosAsking) {
         return new Sprite("animatedslotmachine", "vending2.png", 7, 13, getActor());
     }
 

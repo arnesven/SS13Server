@@ -19,8 +19,13 @@ public class DockWorkerBotCharacter extends RobotCharacter {
     }
 
     @Override
-    public Sprite getSprite(Actor whosAsking) {
+    public Sprite getNormalSprite(Actor whosAsking) {
         return new Sprite("dockworkerbot", "aibots.png", 81, getActor());
+    }
+
+    @Override
+    protected Sprite getBrokenSprite(Actor whosAsking) {
+        return new Sprite("dockworkerbotbroken", "aibots.png", 89, getActor());
     }
 
     @Override

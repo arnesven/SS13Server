@@ -13,7 +13,7 @@ public class BAR2D2Character extends RobotCharacter {
     }
 
     @Override
-    public Sprite getSprite(Actor whosAsking) {
+    public Sprite getNormalSprite(Actor whosAsking) {
             return new Sprite("bar2d2", "robots2.png", 18, 4, getActor());
     }
 }

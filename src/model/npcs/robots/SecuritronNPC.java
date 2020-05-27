@@ -13,14 +13,21 @@ public class SecuritronNPC extends RobotNPC {
 
 	private GameData gameData;
 
-	public SecuritronNPC(Room r, GameData gameData, CrimeRecordsConsole console) throws NoSuchThingException {
-		super(new SecuritronCharacter(r.getID()), 
+
+	public SecuritronNPC(Room r, GameData gameData, CrimeRecordsConsole console, SecuritronCharacter chara) throws NoSuchThingException {
+		super(chara,
 				new FollowCriminalBehavior(console),
 				new ArrestCriminalBehavior(console), r);
 		this.gameData = gameData;
 		this.setMaxHealth(2.0);
 		this.setHealth(2.0);
 	}
+
+	public SecuritronNPC(Room r, GameData gameData, CrimeRecordsConsole console) throws NoSuchThingException {
+		this(r, gameData, console, new SecuritronCharacter(r.getID()));
+	}
+
+
 
 
 

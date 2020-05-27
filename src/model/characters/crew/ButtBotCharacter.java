@@ -10,7 +10,7 @@ public class ButtBotCharacter extends RobotCharacter {
     }
 
     @Override
-    public Sprite getSprite(Actor whosAsking) {
+    public Sprite getNormalSprite(Actor whosAsking) {
         return new Sprite("robot", "robots.png", 50, getActor());
     }
 }

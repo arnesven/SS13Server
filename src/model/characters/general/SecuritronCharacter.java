@@ -14,14 +14,22 @@ public class SecuritronCharacter extends RobotCharacter {
 
 	private int startRoom;
 
-	public SecuritronCharacter(int i) {
-		super("SecuriTRON", i, 0.0);
+    private static int uid = 1;
+
+    public SecuritronCharacter(int i) {
+		super("SecuriTRON" + (uid>1?(" #"+uid):""), i, 0.0);
 		this.startRoom = i;
+		uid++;
 	}
 
     @Override
-    public Sprite getSprite(Actor whosAsking) {
+    protected Sprite getNormalSprite(Actor whosAsking) {
         return new Sprite("securitron", "aibots.png", 51, getActor());
+    }
+
+    @Override
+    protected Sprite getBrokenSprite(Actor whosAsking) {
+        return new Sprite("brokensecuritron", "aibots.png", 60, getActor());
     }
 
     @Override
