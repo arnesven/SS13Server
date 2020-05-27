@@ -48,7 +48,7 @@ public class DockingPoint implements Serializable {
 
         Room r = (Room)roomRef;
         for (Door d : r.getDoors()) {
-            if (dirCheck(fromDir, d, r)) {
+            if (dirCheck(fromDir, d, r) && b) {
                 affected.add(d);
             }
 
