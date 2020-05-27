@@ -1,12 +1,15 @@
 package model.modes;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.characters.decorators.RespawnAsAlienAfterDeathDecorator;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.characters.special.AlienCharacter;
 import model.characters.special.SpectatorCharacter;
+import model.fancyframe.FancyFrame;
 import model.fancyframe.SinglePageFancyFrame;
 import model.npcs.NPC;
 import util.HTMLText;
@@ -55,7 +58,9 @@ public class HuntGameMode extends ScoredGameMode {
 
     @Override
     protected void setUpOtherStuff(GameData gameData) {
-        // TODO: maybe something?
+        for (Player p : gameData.getPlayersAsList()) {
+            p.setCharacter(new RespawnAsAlienAfterDeathDecorator(p.getCharacter(), gameData, this));
+        }
     }
 
     @Override
@@ -133,9 +138,10 @@ public class HuntGameMode extends ScoredGameMode {
     protected void addAntagonistStartingMessage(Player c) {
         StringBuilder data = new StringBuilder( HTMLText.makeCentered(HTMLText.makeText("White", "<br/><b>You are an " +
                 HTMLText.makeLink(HTMLText.wikiURL + "/modes/hunt", "alien") + "!</b><br/>") +
+                HTMLText.makeImage(new Sprite("alienfficon", "alien2.png", 0, 19, 64, 32, null)) + "<br/>" +
                 HTMLText.makeText("White", "Kill humans, lay eggs and wreak havoc on the station! " +
                         "When players die, they will come back to life as an alien if there are eggs available.<br/>" +
-                        "You can pretend to be the " + decoys.get(c).getBaseName() +
+                        "You can pretend to be the " + decoys.get(c).getBaseName() + "<br/>" +
                         " (in " + decoys.get(c).getPosition().getName() + ")<br/>")));
 
         c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Secret Role!", HTMLText.makeColoredBackground("Green", data.toString())));
@@ -169,5 +175,24 @@ public class HuntGameMode extends ScoredGameMode {
 
     public List<Player> getAliens() {
         return aliens;
+    }
+
+    public FancyFrame getJustDiedFancyFrame(Player c) {
+        StringBuilder data = new StringBuilder( HTMLText.makeCentered(HTMLText.makeText("White",
+                HTMLText.makeText("White", "<b>You died!</b><br/><br/>But wait, what's that? There's light at the end of the tunnel!<br/>" +
+                        "Hang tight and you might respawn as an alien."))));
+
+        return new SinglePageFancyFrame(c.getFancyFrame(), "Secret Role!", HTMLText.makeColoredBackground("Green", data.toString()));
+
+    }
+
+    public FancyFrame getRespawnedFancyFrame(Player c) {
+        StringBuilder data = new StringBuilder( HTMLText.makeCentered(HTMLText.makeText("White", "<br/><b>You are an " +
+                HTMLText.makeLink(HTMLText.wikiURL + "/modes/hunt", "alien") + "!</b><br/>") +
+                HTMLText.makeImage(new Sprite("alienfficon", "alien2.png", 0, 19, 64, 32, null)) + "<br/>" +
+                HTMLText.makeText("White", "Kill humans, lay eggs and wreak havoc on the station! " +
+                        "When players die, they will come back to life as an alien if there are eggs available.<br/>")));
+
+        return new SinglePageFancyFrame(c.getFancyFrame(), "Secret Role!", HTMLText.makeColoredBackground("Green", data.toString()));
     }
 }

@@ -3,6 +3,7 @@ package model.characters.special;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.actions.characteractions.CommitSuicideAction;
 import model.actions.characteractions.HatchAction;
 import model.actions.characteractions.LayEggsAction;
 import model.actions.general.Action;
@@ -12,10 +13,14 @@ import model.events.damage.AsphyxiationDamage;
 import model.events.damage.ColdDamage;
 import model.events.damage.Damager;
 import model.events.damage.RadiationDamage;
+import model.items.foods.ExplodingFood;
+import model.items.foods.SpaceBurger;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
+import model.map.rooms.StationRoom;
 import model.objects.AlienEggObject;
+import util.HTMLText;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -93,7 +98,7 @@ public class AlienCharacter extends GameCharacter {
         super.addCharacterSpecificActions(gameData, at);
         if (stage == STAGE_EGG) {
             at.add(new HatchAction());
-        } else if (eggs > 0) {
+        } else if (eggs > 0 && getPosition() instanceof StationRoom) {
             at.add(new LayEggsAction(this));
         }
 
@@ -130,7 +135,8 @@ public class AlienCharacter extends GameCharacter {
 
     @Override
     public List<GameItem> getStartingItems() {
-        return new ArrayList<>();
+        List<GameItem> it = new ArrayList<>();
+        return it;
     }
 
     @Override
@@ -167,7 +173,10 @@ public class AlienCharacter extends GameCharacter {
 
     @Override
     public Weapon getDefaultWeapon() {
-        return Weapon.CLAWS;
+        if (stage == STAGE_PARASITE) {
+            return Weapon.CLAWS;
+        }
+        return Weapon.HUGE_CLAWS;
     }
 
     public void setStage(int newStage) {
@@ -181,14 +190,15 @@ public class AlienCharacter extends GameCharacter {
             ageInTurns++;
         }
         if (ageInTurns == 4) {
-            getActor().addTolastTurnInfo("You grow stronger...");
+            getActor().addTolastTurnInfo(HTMLText.makeText("Green", "<b>You grow stronger.</b>"));
             setMaxHealth(2.0);
             setHealth(2.0);
             this.stage = STAGE_ADULT;
         } else if (ageInTurns == 6) {
+            getActor().addTolastTurnInfo(HTMLText.makeText("Green", "<b>You have matured and can now lay eggs.</b>"));
             eggs = 1;
         } else if (ageInTurns % 8 == 0) {
-            getActor().addTolastTurnInfo("You grow stronger...");
+            getActor().addTolastTurnInfo(HTMLText.makeText("Green", "<b>You grow stronger.</b>"));
             setMaxHealth(getMaxHealth()+1.0);
             setHealth(getHealth()+1.0);
         }
@@ -202,6 +212,7 @@ public class AlienCharacter extends GameCharacter {
         AlienEggObject eggObj = new AlienEggObject(Math.min(eggs, 3), position);
         position.addObject(eggObj);
         eggs = Math.max(0, eggs - 3);
-        performingClient.addTolastTurnInfo("You laid " + eggObj.getNumber() + "egg(s) in " + position.getName());
+        performingClient.addTolastTurnInfo("You laid " + eggObj.getNumber() + " egg(s) in " + position.getName());
+        gameData.addEvent(eggObj.createEvent());
     }
 }

@@ -10,6 +10,7 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
+import model.characters.special.AlienCharacter;
 import model.events.Event;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
@@ -73,7 +74,8 @@ public class VentObject extends GameObject {
         if (cl.getCharacter().getSize() == GameCharacter.SMALL_SIZE || isOpen) {
             at.add(new VentMoveAction(gameData, cl));
         }
-        if (GameItem.hasAnItemOfClass(cl, Tools.class)) {
+        if (GameItem.hasAnItemOfClass(cl, Tools.class) ||
+                cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AlienCharacter)) {
             if (!isOpen) {
                 at.add(new OpenVentAction(this));
             } else {

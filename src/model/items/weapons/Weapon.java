@@ -31,6 +31,7 @@ public abstract class Weapon extends GameItem implements HandheldItem {
     public static final Weapon TEETH      = new Teeth();
     public static final Weapon TUSKS      = new Tusks();
     public static final Weapon FLYING_CREDIT = new FlyingCredit();
+    public static final Weapon HUGE_CLAWS = new HugeClaws();
     public static Weapon CLAWS            = new Claws();
     public static Weapon BEAR_CLAWS       = new BearClaws();
 
