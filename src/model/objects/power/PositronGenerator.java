@@ -5,7 +5,10 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.actions.itemactions.BoostGeneratorAction;
 import model.events.SpontaneousExplosionEvent;
+import model.items.chemicals.GeneratorStartedFluid;
+import model.items.general.GameItem;
 import model.map.doors.Door;
 import model.map.rooms.Room;
 import model.objects.consoles.GeneratorConsole;
@@ -26,24 +29,9 @@ import java.util.*;
 public class PositronGenerator extends BreakableObject implements Repairable, PowerSupply {
 
 
-    public static PositronGenerator roomHasGenerator(Room position) {
-        for (GameObject obj : position.getObjects()) {
-            if (obj instanceof PositronGenerator) {
-                return (PositronGenerator)obj;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-
-    }
-
-
 
     public double startingPower;
-    private static final double FIXED_INCREASE = 0.05;
+    private static final double FIXED_INCREASE = 0.035;
     private static final double ONGOING_INCREASE = 0.025;
 
 
@@ -181,4 +169,23 @@ public class PositronGenerator extends BreakableObject implements Repairable, Po
             level += FIXED_INCREASE * (MyRandom.nextDouble() + 0.5);
         }
     }
+
+    public static PositronGenerator roomHasGenerator(Room position) {
+        for (GameObject obj : position.getObjects()) {
+            if (obj instanceof PositronGenerator) {
+                return (PositronGenerator)obj;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+        if (GameItem.hasAnItemOfClass(cl, GeneratorStartedFluid.class)) {
+            at.add(new BoostGeneratorAction());
+        }
+    }
+
+
+
 }
