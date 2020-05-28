@@ -1,5 +1,6 @@
 package model.items.seeds;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.items.general.GameItem;
@@ -22,6 +23,12 @@ public class MushroomSpores extends SeedsItem {
     protected Plant getPlant(Room position, GameData gameData, Actor planter, SoilPatch sp) {
         return randomMushroom(position, gameData, planter, sp);
     }
+
+    @Override
+    public Sprite getSprite(Actor whosAsking) {
+        return new Sprite("orangeseeds", "seeds.png", 4, 7, this);
+    }
+
 
     private Plant randomMushroom(Room position, GameData gameData, Actor planter, SoilPatch sp) {
 

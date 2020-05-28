@@ -27,10 +27,6 @@ public abstract class SeedsItem extends GameItem {
     }
 
 
-    @Override
-    public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("orangeseeds", "seeds.png", 0, 0, this);
-    }
 
 
     protected abstract Plant getPlant(Room position, GameData gameData,
