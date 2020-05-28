@@ -98,6 +98,13 @@ public class GameModeFactory {
 					SecretGameMode.protMessage(c);
 				}
 			};
+		} else if (selectedMode.toLowerCase().equals("hunt")) {
+			return new HuntGameMode() {
+				@Override
+				protected void addProtagonistStartingMessage(Player c) {
+					SecretGameMode.protMessage(c);
+				}
+			};
 		} else if (selectedMode.toLowerCase().equals("mixed")) {
 			return new MixedGameMode() {
 				@Override

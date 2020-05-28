@@ -12,8 +12,8 @@ import java.util.*;
 public class SecretGameMode extends MapSavedToDisk<String, Double> {
 	
 	private static final String filename = "random_modes";
-	private static final double[] probabilities = {0.20,      0.35,         0.15,         0.12,       0.04,     0.03,     0.05,     0.03,    0.03};
-    private static final String[] modeNames =   {"Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Mutiny",  "Wizard", "Mixed", "Armageddon"};
+	private static final double[] probabilities = {0.15,      0.35,         0.15,         0.12,       0.04,     0.03,     0.05,    0.05,    0.03,    0.03};
+    private static final String[] modeNames =   {"Host", "Traitor", "Operatives", "Changeling", "Rogue AI", "Mutiny",  "Wizard", "Hunt", "Mixed", "Armageddon"};
 
 	public SecretGameMode() {
 		super("secret_probabilities");
