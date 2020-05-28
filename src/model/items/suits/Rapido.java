@@ -49,6 +49,11 @@ public class Rapido extends FootGear {
     }
 
     @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A small electrical vehicle for indoor use. The rider can easily steer the thing with his or her feet and quickly travel about the station. Be careful though, it's easy to crash in to objects and people when you are going fast!";
+    }
+
+    @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("rapido", "vehicles.png", 2, 6, this);
     }

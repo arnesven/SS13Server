@@ -55,8 +55,10 @@ public abstract class DoorState implements Serializable {
                 at.add(new LockDoorAction(door));
                 at.add(new MoveThroughAndLock(door));
             }
-            if (getDoorMechanism().getFireCord().isOK() || !forWhom.isAI()) {
-                at.add(new MoveThroughAndCloseFireDoorAction(door));
+            if (forWhom.isIntelligentCreature()) {
+                if (getDoorMechanism().getFireCord().isOK() || !forWhom.isAI()) {
+                    at.add(new MoveThroughAndCloseFireDoorAction(door));
+                }
             }
             return at;
         }

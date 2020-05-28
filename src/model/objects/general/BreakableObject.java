@@ -199,7 +199,7 @@ public abstract class BreakableObject extends GameObject implements Target {
 	public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
 		List<Action> actions = super.getOverlaySpriteActionList(gameData, r, forWhom);
 		if (r == forWhom.getPosition()) {
-			if (forWhom.getsActions()) {
+			if (forWhom.getsActions() && forWhom.getCharacter().getsObjectActions()) {
 				AttackAction atk = new AttackAction(forWhom);
 				if (atk.isAmongOptions(gameData, forWhom, this.getBaseName())) {
 					atk.stripAllTargetsBut(this);

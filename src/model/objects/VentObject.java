@@ -113,7 +113,9 @@ public class VentObject extends GameObject {
                 gameData.addMovementEvent(new Event() {
                     @Override
                     public void apply(GameData gameData) {
-                        performingClient.removeInstance((GameCharacter gc) -> gc instanceof SeeAirDuctsDecorator);
+                        if (!(performingClient.getPosition() instanceof AirDuctRoom)) {
+                            performingClient.removeInstance((GameCharacter gc) -> gc instanceof SeeAirDuctsDecorator);
+                        }
                     }
 
                     @Override

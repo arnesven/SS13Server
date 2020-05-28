@@ -125,7 +125,7 @@ public abstract class Room implements ItemHolder, Serializable {
 					at.add(new MoveToSpecificRoomAction(gameData, forWhom, this));
 				}
 			}
-			if (forWhom.getPosition() == this && !isAI) {
+			if (forWhom.getPosition() == this && !isAI && forWhom.hasInventory()) {
 				at.add(new SearchAction());
 			}
 

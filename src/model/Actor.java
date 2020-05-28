@@ -545,8 +545,10 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
                 simpleTargetingActions.add(new FollowAction(forWhom));
                 simpleTargetingActions.add(new StopFollowingAction(forWhom));
                 simpleTargetingActions.add(new HighFiveAction(forWhom));
-                simpleTargetingActions.add(new LootAction(forWhom));
-                simpleTargetingActions.add(new ShowLootingFancyFrame(forWhom, gameData, this));
+                if (forWhom.hasInventory()) {
+                    simpleTargetingActions.add(new LootAction(forWhom));
+                    simpleTargetingActions.add(new ShowLootingFancyFrame(forWhom, gameData, this));
+                }
                 for (TargetingAction ta : simpleTargetingActions) {
                     if (ta.isAmongOptions(gameData, forWhom, this.getPublicName())) {
                         ta.stripAllTargetsBut(this.getAsTarget());
@@ -555,7 +557,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
                 }
 
                 GiveAction give = new GiveAction(forWhom);
-                if (give.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+                if (give.isAmongOptions(gameData, forWhom, this.getPublicName()) && forWhom.hasInventory()) {
                     give.stripAllTargetsBut(this.getAsTarget());
                     give.addClientsItemsToAction(forWhom);
                     list.add(give);
@@ -681,6 +683,10 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 
     public void goToSpace(GameData gameData) {
         setCharacter(new InSpaceCharacterDecorator(getCharacter(), gameData));
+    }
+
+    public boolean isIntelligentCreature() {
+        return isHuman() || isRobot() || isAI() || getInnermostCharacter() instanceof ChimpCharacter;
     }
 
     public int numberOfSeen(Class<? extends GameObject> someClass) {

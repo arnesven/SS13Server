@@ -4,15 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import graphics.ClientInfo;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
-import model.actions.general.AttackAction;
-import model.map.SpacePosition;
 import model.map.rooms.Room;
 import util.Logger;
 

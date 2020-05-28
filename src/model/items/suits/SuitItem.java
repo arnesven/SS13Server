@@ -139,13 +139,15 @@ public abstract class SuitItem extends GameItem implements Wearable {
     protected void addSpecificOverlayActions(GameData gameData, Room r, Player forWhom, List<Action> list) {
         super.addSpecificOverlayActions(gameData, r, forWhom, list);
         PutOnAction po = new PutOnAction(forWhom);
-        if (po.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
-            list.add(po);
-        }
-        if (r.getItems().contains(this)) {
-            ExchangeWithSuitOnRoomFloorAction ea = new ExchangeWithSuitOnRoomFloorAction(forWhom, this);
-            if (ea.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
-                list.add(ea);
+        if (forWhom.hasInventory()) {
+            if (po.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+                list.add(po);
+            }
+            if (r.getItems().contains(this)) {
+                ExchangeWithSuitOnRoomFloorAction ea = new ExchangeWithSuitOnRoomFloorAction(forWhom, this);
+                if (ea.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
+                    list.add(ea);
+                }
             }
         }
     }

@@ -6,6 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.NoPowerAction;
+import model.characters.general.ChimpCharacter;
 import model.events.ambient.SimulatePower;
 import model.map.doors.PowerCord;
 import model.map.rooms.Room;
@@ -56,19 +57,21 @@ public abstract class ElectricalMachinery extends BreakableObject
 	@Override
 	public void addSpecificActionsFor(GameData gameData, Actor cl,
                                       ArrayList<Action> at) {
-		//Logger.log("## adding specific action for electrical");
-		ArrayList<Action> at2 = new ArrayList<>();
-		if (!isPowered()) {
-			//Logger.log("####" + this.getName() + " isn't powered! no power actions!");
-			super.addSpecificActionsFor(gameData, cl, at2);
-			for (Action a : at2) {
-				NoPowerAction npa = new NoPowerAction(a);
-				at.add(npa);
+		if (cl.isIntelligentCreature()) {
+			ArrayList<Action> at2 = new ArrayList<>();
+			if (!isPowered()) {
+				super.addSpecificActionsFor(gameData, cl, at2);
+				for (Action a : at2) {
+					NoPowerAction npa = new NoPowerAction(a);
+					at.add(npa);
+				}
+			} else {
+				super.addSpecificActionsFor(gameData, cl, at);
 			}
-		} else {
-			super.addSpecificActionsFor(gameData, cl, at);
 		}
 	}
+
+
 
 	@Deprecated
 	private static boolean isPowered(GameData gameData, ElectricalMachinery machine) {

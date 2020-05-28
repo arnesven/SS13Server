@@ -40,7 +40,9 @@ public class TrashBin extends GameObject {
     @Override
     public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
         super.addSpecificActionsFor(gameData, cl, at);
-        at.add(new RecycleAction(this));
+        if (cl.hasInventory()) {
+            at.add(new RecycleAction(this));
+        }
     }
 
     public void setAnimating(boolean b) {

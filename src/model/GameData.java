@@ -566,6 +566,7 @@ public class GameData implements Serializable {
                 		Logger.log(cl.getName() + " tried moving to " + target.getName() + ", but can't!");
                 		cl.addTolastTurnInfo("Your movement has been blocked! You stayed in your current location.");
                 		cl.setNextMove(cl.getPosition().getID());
+                		Logger.log("Player is now in " + cl.getPosition().getName() + " and next move is " + cl.getNextMove());
 					}
                 } else {
                     cl.activateMovementPower(cl.getNextMove(), this, moveData);

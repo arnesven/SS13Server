@@ -237,7 +237,7 @@ public class HuntGameMode extends ScoredGameMode {
 
     @Override
     protected String getImageURL() {
-        return "https://www.ida.liu.se/~erini02/ss13/originalAliens.jpg";
+        return "https://www.ida.liu.se/~erini02/ss13/aliens2.jpg";
     }
 
     @Override

@@ -261,7 +261,6 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 
         list.add(new ShowExamineFancyFrameAction(gameData, forWhom, this));
 
-
         return list;
     }
 
