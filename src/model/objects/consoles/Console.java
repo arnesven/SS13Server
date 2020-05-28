@@ -31,15 +31,23 @@ public abstract class Console extends SinglePersonUseMachine implements Remotely
 	@Override
 	public final Sprite getSprite(Player whosAsking) {
         if (isBroken()) {
-            return new Sprite("consolebroken", "computer2.png", 12, this);
+            return getBrokenSprite(whosAsking);
         }
         if (gameData != null) {
             if (!isPowered()) {
-                return new Sprite("consolenopower", "computer2.png", 13, this);
+                return getUnpoweredSprite(whosAsking);
             }
         }
 		return getNormalSprite(whosAsking);
 	}
+
+    protected Sprite getUnpoweredSprite(Player whosAsking) {
+        return new Sprite("consolenopower", "computer2.png", 13, this);
+    }
+
+    protected Sprite getBrokenSprite(Player whosAsking) {
+        return new Sprite("consolebroken", "computer2.png", 12, this);
+    }
 
     @Override
     public double getPowerConsumption() {

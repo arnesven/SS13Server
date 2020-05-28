@@ -9,6 +9,7 @@ import model.objects.general.ChemicalApparatus;
 import model.objects.general.ChemicalDispenser;
 import model.objects.consoles.GeneticsConsole;
 import model.objects.general.CloneOMatic;
+import model.objects.monolith.StrangeMonolith;
 
 public class LabRoom extends ScienceRoom {
 
@@ -22,6 +23,7 @@ public class LabRoom extends ScienceRoom {
         this.addObject(new TeleportConsole(this));
         this.addObject(new ChemicalApparatus(this));
         this.addObject(new CloneOMatic(this, gc));
+        this.addObject(new StrangeMonolith(this));
         this.addItem(new RadiationSuit());
 	}
 

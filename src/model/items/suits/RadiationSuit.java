@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.RadiationProtection;
@@ -66,4 +68,8 @@ public class RadiationSuit extends FullBodySuit {
         return map;
     }
 
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A protective suit. It's inner ultra-lead lining keeps the wearer safe from radioactive exposure.";
+    }
 }
