@@ -153,11 +153,17 @@ public class InventoryPanel {
         } else if (GameData.getInstance().getHealth() == 0) {
             img = SpriteManager.getSprite("healthdead0");
         } else {
-            img = SpriteManager.getSprite("health" + (int)(GameData.getInstance().getHealth()*10.0) + "0");
+            img = SpriteManager.getSprite("health" + (int)(getNearestHalf(GameData.getInstance().getHealth())*10.0) + "0");
         }
 
         g.drawImage(img.getImage(), img.getIconWidth(), yOffset, null);
         healthBox = new Rectangle(img.getIconWidth(), yOffset, img.getIconWidth(), img.getIconHeight());
+    }
+
+    private double getNearestHalf(double health) {
+        health *= 2.0;
+        health = Math.round(health) / 2.0;
+        return health;
     }
 
     private void drawName(Graphics g, int yOffset) {
