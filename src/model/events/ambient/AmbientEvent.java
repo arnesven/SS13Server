@@ -21,6 +21,7 @@ public abstract class AmbientEvent extends Event {
     private double prob;
 
     public AmbientEvent() {
+
         this.prob = getStaticProbability();
     }
 
@@ -40,7 +41,7 @@ public abstract class AmbientEvent extends Event {
 
     public static double everyNGames(int n) {
         double d = 1 - Math.pow(1 - 1.0/n, (1.0/40.0));
-        Logger.log(Logger.INTERESTING, "Some event hade prob " + d);
+        Logger.log(Logger.INTERESTING, "Event had prob " + d);
         return d;
     }
 
@@ -59,6 +60,7 @@ public abstract class AmbientEvent extends Event {
         events.put("marshals",         new GalacticFederalMarshalsEvent());
         events.put("basestars",        new BasestarsAreAttackingStationEvent());
         events.put("meteoric storm",   new MeteoricStorm());
+        events.put("alien egg",        new AlienEggNonHuntModeEvent());
         Event powerSimulation = new SimulatePower() {
             @Override
             public Collection<Room> getAffectedRooms(GameData gameData) {

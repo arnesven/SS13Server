@@ -130,18 +130,22 @@ public class AlienEggObject extends BreakableObject {
         actor.addTolastTurnInfo("You respawned as an alien!");
         actor.moveIntoRoom(getPosition());
         actor.setCharacter(new RespawnAsAlienAfterDeathDecorator(actor.getCharacter(), gameData, (HuntGameMode)gameData.getGameMode()));
-
-
     }
+
+    public void splitOffIntoEggNPC(GameData gameData) {
+        NPC alienNPC = new AlienNPC(AlienEggObject.this.getPosition());
+        gameData.addNPC(alienNPC);
+        decrementNumber();
+        Logger.log("Egg spawned an alien NPC");
+    }
+
 
     private class AlienEggEvent extends Event {
         @Override
         public void apply(GameData gameData) {
             if (number > 0 && MyRandom.nextDouble() < ALIEN_NPC_SPAWN_CHANCE) {
-                NPC alienNPC = new AlienNPC(AlienEggObject.this.getPosition());
-                gameData.addNPC(alienNPC);
-                decrementNumber();
-                Logger.log("Egg spawned an alien NPC");
+                AlienEggObject.this.splitOffIntoEggNPC(gameData);
+
             }
         }
 
@@ -160,5 +164,6 @@ public class AlienEggObject extends BreakableObject {
             return number == 0;
         }
     }
+
 
 }

@@ -138,6 +138,8 @@ public class HuntGameMode extends ScoredGameMode {
         for (Player p : gameData.getPlayersAsList()) {
             p.setCharacter(new RespawnAsAlienAfterDeathDecorator(p.getCharacter(), gameData, this));
         }
+
+        getEvents().remove("alien egg");
     }
 
     @Override
