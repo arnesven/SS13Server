@@ -20,7 +20,7 @@ public class StrangeMonolith extends GameObject {
 
     public StrangeMonolith(Room labRoom) {
         super("Strange Monolith Experiment", labRoom);
-        this.artifact = new CosmicArtifact();
+        this.artifact = CosmicArtifact.getRandomArtifact();
         this.isClosed = true;
         this.console = new MonolithExperimentsConsole(labRoom);
     }
@@ -49,6 +49,10 @@ public class StrangeMonolith extends GameObject {
         super.addSpecificActionsFor(gameData, cl, at);
         at.add(new OpenOrCloseGlassCover());
         console.addSpecificActionsFor(gameData, cl, at);
+    }
+
+    public CosmicArtifact getCosmicArtifact() {
+        return artifact;
     }
 
     private class OpenOrCloseGlassCover extends Action {

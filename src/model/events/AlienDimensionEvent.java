@@ -97,13 +97,8 @@ public class AlienDimensionEvent extends AmbientEvent {
             this.portal2 = new DimensionPortal(gameData, otherDim, targetRoom, "Blue");
             otherDim.addObject(portal2);
 
-            if (MyRandom.nextDouble() < 0.5) {
-                otherDim.addItem(new CosmicArtifact());
-            } else {
-                setUpDerelictStation(gameData);
+            setUpDerelictStation(gameData);
 
-
-            }
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

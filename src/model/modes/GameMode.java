@@ -15,6 +15,7 @@ import model.characters.visitors.VisitorCharacter;
 import model.events.*;
 import model.events.ambient.*;
 import model.items.EmergencyKit;
+import model.items.ExperimentNotes;
 import model.items.NoSuchThingException;
 import model.items.RandomItemManager;
 import model.items.suits.Rapido;
@@ -563,6 +564,10 @@ public abstract class GameMode implements Serializable {
             r2 = MyRandom.getRandomHallway(gameData);
             r2.addItem(new Rapido());
         }
+
+        ExperimentNotes.doSetup(gameData);
+
+
     }
 
 	private void addRandomItemsToRooms(GameData gameData) {
