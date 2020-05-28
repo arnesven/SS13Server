@@ -264,8 +264,7 @@ public class TraitorGameMode extends ScoredGameMode {
                 Logger.log(value.getBaseName() + " is losing traitor and gets no points.");
                 return 0;
             }
-        }
-        if (score  < 0) {
+        } else if (score  < 0) {
             if (!isAntagonist(value)) {
                 Logger.log(value.getBaseName() + " is losing crew and gets no points.");
                 return 0;
@@ -279,7 +278,7 @@ public class TraitorGameMode extends ScoredGameMode {
                 }
             }
         }
-        Logger.log(value.getBaseName() + " is winner and gets a point!");
+        Logger.log(value.getBaseName() + " is a surviving player in a draw game => 1 point");
         return 1;
     }
 

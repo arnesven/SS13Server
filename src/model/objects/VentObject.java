@@ -69,13 +69,17 @@ public class VentObject extends GameObject {
         return super.getPublicName(whosAsking);
     }
 
+    private boolean canOpenVent(Actor performingClient) {
+        return GameItem.hasAnItemOfClass(performingClient, Tools.class) ||
+                performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AlienCharacter);
+    }
+
     @Override
     public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (cl.getCharacter().getSize() == GameCharacter.SMALL_SIZE || isOpen) {
             at.add(new VentMoveAction(gameData, cl));
         }
-        if (GameItem.hasAnItemOfClass(cl, Tools.class) ||
-                cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AlienCharacter)) {
+        if (canOpenVent(cl)) {
             if (!isOpen) {
                 at.add(new OpenVentAction(this));
             } else {
@@ -202,7 +206,7 @@ public class VentObject extends GameObject {
 
         @Override
         protected void execute(GameData gameData, Actor performingClient) {
-            if (GameItem.hasAnItemOfClass(performingClient, Tools.class)) {
+            if (canOpenVent(performingClient)) {
                 performingClient.addTolastTurnInfo("You opened the air vent. Wow, it's filthy in there.");
                 vent.setIsOpen(true);
                 getOtherSide().setIsOpen(true);
@@ -211,6 +215,7 @@ public class VentObject extends GameObject {
                 performingClient.addTolastTurnInfo("What no tools? " + failed(gameData, performingClient));
             }
         }
+
 
         @Override
         public void setArguments(List<String> args, Actor performingClient) {
@@ -233,7 +238,7 @@ public class VentObject extends GameObject {
 
         @Override
         protected void execute(GameData gameData, Actor performingClient) {
-            if (GameItem.hasAnItemOfClass(performingClient, Tools.class)) {
+            if (canOpenVent(performingClient)) {
                 performingClient.addTolastTurnInfo("You closed the air vent. We don't want anyone crawling in there.");
                 vent.setIsOpen(false);
                 getOtherSide().setIsOpen(false);

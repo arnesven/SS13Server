@@ -13,18 +13,31 @@ public class HuntModeStats extends ScoredModeStats {
 
     @Override
     protected String getAntagonistTeamName() {
-        return "Alien";
+        return "Alien Team";
     }
 
     @Override
     protected String modeSpecificTableRows(String style) {
-        // TODO
-        return null;
+        StringBuffer buf = new StringBuffer();
+        if (huntMode.getPointsForInfestationExterminated(gameData) > 0) {
+            buf.append("<tr><td><b>Infestation Exterminated!</b></td><td " + style + ">" + huntMode.getPointsForInfestationExterminated(gameData) + "</td></tr>");
+        } else {
+            buf.append("<tr><td>Alive aliens</td><td " + style + ">" + huntMode.getPointsForAliveAliens(gameData) + "</td></tr>");
+            buf.append("<tr><td>Eggs remaining</td><td " + style + ">" + huntMode.getPointsForEggs(gameData) + "</td></tr>");
+        }
+        buf.append("<tr><td>Crew Survived</td><td " + style +">"         + huntMode.getPointsForAliveCrew(gameData)        + "</td></tr>");
+        buf.append(getExtraScoringTableRowsHTML());
+
+        return buf.toString();
+    }
+
+    private String getExtraScoringTableRowsHTML() {
+        return "";
     }
 
     @Override
     protected String getModeSpecificStatus(Actor value) {
-        if (huntMode.getAliens().contains(value)) {
+        if (huntMode.isAntagonist(value)) {
             return "<span style='background-color: #22FF22'>Alien</span>";
         }
         return "";
@@ -34,7 +47,7 @@ public class HuntModeStats extends ScoredModeStats {
     @Override
     protected String getExtraDeadInfo(Actor value) {
         String alien = "";
-        if (huntMode.getAliens().contains(value)) {
+        if (huntMode.isAntagonist(value)) {
             alien = " (Alien)";
         }
         return alien;

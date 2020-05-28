@@ -16,7 +16,7 @@ import model.objects.power.Lighting;
 import util.Logger;
 import util.MyRandom;
 
-public class AirDuctRoom extends Room {
+public class AirDuctRoom extends StationRoom {
 
     private static final double VENT_CHANCE = 0.4;
     private double MICE_CHANCE = 0.33;
@@ -55,6 +55,11 @@ public class AirDuctRoom extends Room {
         addSomeVermin(gameData);
         addSomeTrash(gameData);
         addEvent(new DarkEvent());
+    }
+
+    @Override
+    protected boolean getsTrashBin() {
+        return false;
     }
 
     private void addSomeTrash(GameData gameData) {

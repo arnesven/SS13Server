@@ -3,6 +3,7 @@ package model.characters.special;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.characteractions.CommitSuicideAction;
 import model.actions.characteractions.HatchAction;
 import model.actions.characteractions.LayEggsAction;
@@ -19,6 +20,7 @@ import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
 import model.map.rooms.StationRoom;
+import model.npcs.NPC;
 import model.objects.AlienEggObject;
 import util.HTMLText;
 import util.MyRandom;
@@ -188,6 +190,9 @@ public class AlienCharacter extends GameCharacter {
         super.doAtEndOfTurn(gameData);
         if (stage != STAGE_EGG) {
             ageInTurns++;
+            if (getActor() instanceof NPC && ageInTurns > 10) {
+                ageInTurns = 10;
+            }
         }
         if (ageInTurns == 4) {
             getActor().addTolastTurnInfo(HTMLText.makeText("Green", "<b>You grow stronger.</b>"));
@@ -214,5 +219,9 @@ public class AlienCharacter extends GameCharacter {
         eggs = Math.max(0, eggs - 3);
         performingClient.addTolastTurnInfo("You laid " + eggObj.getNumber() + " egg(s) in " + position.getName());
         gameData.addEvent(eggObj.createEvent());
+    }
+
+    public int getAge() {
+        return ageInTurns;
     }
 }

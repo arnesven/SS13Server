@@ -33,9 +33,7 @@ public class RespawnAsAlienAfterDeathDecorator extends CharacterDecorator {
         super.doAtEndOfTurn(gameData);
         if (getActor() instanceof Player) {
             if (isDead() && !gameMode.gameOver(gameData)) {
-                if (gameData.getRound() == diedRound) {
-                    ((Player) getActor()).setFancyFrame(gameMode.getJustDiedFancyFrame((Player)getActor()));
-                } else if (gameData.getRound() > diedRound) {
+                if (gameData.getRound() > diedRound) {
                     for (Room r : gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME)) {
                         for (GameObject obj : r.getObjects()) {
                             if (obj instanceof AlienEggObject) {
@@ -48,6 +46,8 @@ public class RespawnAsAlienAfterDeathDecorator extends CharacterDecorator {
                         }
                     }
                 }
+
+                ((Player) getActor()).setFancyFrame(gameMode.getJustDiedFancyFrame((Player)getActor(), gameData));
             }
         }
     }
