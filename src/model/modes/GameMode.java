@@ -745,6 +745,9 @@ public abstract class GameMode implements Serializable {
 
 		addStartingMessage(gameData, newPlayer);
 		informOnStation(gameData, newPlayer);
+		for (Player p : gameData.getPlayersAsList()) {
+			p.refreshClientData();
+		}
 	}
 
 	private Room findArrivalRoom(GameData gameData, DockingPoint dp) throws NoSuchThingException {
