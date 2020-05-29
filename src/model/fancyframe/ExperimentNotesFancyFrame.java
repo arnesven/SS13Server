@@ -9,8 +9,8 @@ import util.HTMLText;
 public class ExperimentNotesFancyFrame extends FancyFrame {
 
     private final ExperimentNotes notes;
-    private int page = 0;
-    private static final int MAX_PAGE = 18;
+    private int page = 1;
+    private int minPage = 1;
 
     public ExperimentNotesFancyFrame(Player p, GameData gameData, ExperimentNotes notes) {
         super(p.getFancyFrame());
@@ -33,7 +33,7 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
 
     private String getContentForPage(GameData gameData) {
         StringBuilder content = new StringBuilder();
-        if (page == 0) {
+        if (page == 1) {
             for (CosmicArtifact ca : CosmicArtifact.getAllTypes()) {
                 if (notes.getCrossedOut().contains(ca.getBaseName())) {
                     content.append("<strike>" + ca.getBaseName() + "</strike><br/>");
@@ -42,13 +42,22 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
                             HTMLText.makeFancyFrameLink("SCRATCH " + ca.getBaseName(), "[scratch]") + "<br/>");
                 }
             }
+        } else if (page == 0) {
+            content.append("<center><b>Conclusions on Object 'Monolith' </b><br/><i>Report</i></center>");
+            content.append("<br/><i>After various experiment, i have concluded that the object recently " +
+                    "delivered to Nanotrasen facility SS13 is a " + notes.getConclusionArtifact().getBaseName() +".<br/><br/>");
+            content.append("Please arrange for transport of object ASAP since " + notes.getConclusionArtifact().getEnding() + ".</i>");
+        } else {
+            CosmicArtifact ca = CosmicArtifact.getAllTypes().get(page-2);
+            content.append("<b> Regarding " + ca.getNamePlural() + "</b><br/>");
+            content.append("<i>" + ca.getNotesText() + "</i>");
         }
         return content.toString();
     }
 
     private void makeTopContent(StringBuilder content) {
         content.append("<center><table width=\"100%\"><tr><td width=\"20%\">");
-        if (page > 0) {
+        if (page > minPage) {
             content.append(HTMLText.makeFancyFrameLink("PREV", "[prev]"));
         }
         content.append("</td>");
@@ -56,10 +65,14 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
         content.append("<td width=\"20%\" bgcolor=\"black\"></td>");
         content.append("<td width=\"20%\"></td>");
         content.append("<td style=\"text-align:right\" width=\"20%\">");
-        if (page < MAX_PAGE) {
+        if (page < getMaxPage()) {
             content.append(HTMLText.makeFancyFrameLink("NEXT", "[next]"));
         }
         content.append("</td></tr></table></center>");
+    }
+
+    private int getMaxPage() {
+        return CosmicArtifact.getAllTypes().size() + 1;
     }
 
     @Override
@@ -73,6 +86,10 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
             buildContent(player, gameData);
         } else if (event.contains("SCRATCH")) {
             notes.getCrossedOut().add(event.replace("SCRATCH ", ""));
+            if (notes.checkForReport(gameData, player)) {
+                page = 0;
+                minPage = 0;
+            }
             buildContent(player, gameData);
         } else {
             return;

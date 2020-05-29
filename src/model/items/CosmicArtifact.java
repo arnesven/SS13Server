@@ -31,6 +31,8 @@ public abstract class CosmicArtifact extends GameItem {
         Logger.log(Logger.INTERESTING, "Cosmic Artifact Sprite is " + getSprite(null).getName());
     }
 
+    public abstract String getNotesText();
+
     private static List<Sprite> spritelist(SpriteObject obj) {
         List<Sprite> sprs = new ArrayList<>();
         for (int i = 17; i < 29; ++i) {
@@ -58,4 +60,20 @@ public abstract class CosmicArtifact extends GameItem {
         return sprite;
     }
 
+    public String getNamePlural() {
+        return getBaseName() + "s";
+    }
+
+    public abstract boolean reactsToLightHeat();
+    public abstract boolean reactsToFlames();
+    public abstract boolean reactsToPressure();
+    public abstract boolean isTouchSmooth();
+    public abstract boolean doesEmitRadiation();
+    public abstract boolean isHollow();
+    public abstract boolean doesReactToSound();
+    public abstract boolean doesConductCurrent();
+    public abstract boolean hasMarkings();
+    public abstract boolean smellsWhenCorrosiveApplied();
+
+    public abstract String getEnding();
 }

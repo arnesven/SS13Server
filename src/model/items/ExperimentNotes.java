@@ -91,6 +91,23 @@ public class ExperimentNotes extends GameItem {
         return crossedOut;
     }
 
+    public boolean checkForReport(GameData gameData, Player player) {
+        if (crossedOut.size() == CosmicArtifact.getAllTypes().size()-1) {
+            return true;
+        }
+        return false;
+    }
+
+    public CosmicArtifact getConclusionArtifact() {
+        for (CosmicArtifact ca : CosmicArtifact.getAllTypes()) {
+            if (!crossedOut.contains(ca.getBaseName())) {
+                return ca;
+            }
+        }
+
+        return null;
+    }
+
     private class InspectNotesAction extends FreeAction {
         public InspectNotesAction(GameData gameData, Player p) {
             super("Read Notes", gameData, p);

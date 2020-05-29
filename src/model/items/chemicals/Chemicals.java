@@ -27,6 +27,7 @@ public abstract class Chemicals extends FoodItem {
 
     public abstract boolean isFlammable();
     public abstract boolean isToxic();
+    //public abstract boolean isCorrosive();
     public abstract String getFormula();
 
     @Override
