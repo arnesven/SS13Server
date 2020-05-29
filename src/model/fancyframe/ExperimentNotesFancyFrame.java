@@ -1,5 +1,6 @@
 package model.fancyframe;
 
+import graphics.sprites.Sprite;
 import model.GameData;
 import model.Player;
 import model.items.CosmicArtifact;
@@ -27,8 +28,16 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
         content.append("<center><table width=\"90%\" bgcolor=\"white\">");
         content.append("<tr><td>" + getContentForPage(gameData) + "</td></tr>");
         content.append("</table></center>");
-
-        setData("Experiment Notes", false, HTMLText.makeColoredBackground("#77572f", content.toString()));
+        content.append("<br/>");
+        if (page == 0) {
+            content.append(HTMLText.makeCentered(HTMLText.makeFancyFrameLink("SENDCENTCOM", "[send to CentCom]")));
+            content.append(HTMLText.makeCentered("<b>or</b><br/>"));
+            content.append(HTMLText.makeCentered(HTMLText.makeFancyFrameLink("STARTOVER", "[shred and start over]")));
+        } else if (page == 1) {
+            content.append(HTMLText.makeCentered(HTMLText.makeFancyFrameLink("STARTOVER", "[start over]")));
+        }
+        content.append("<br/>");
+        setData("Experiment Notes", false, HTMLText.makeColoredBackground("#87673f", content.toString()));
     }
 
     private String getContentForPage(GameData gameData) {
@@ -44,8 +53,9 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
             }
         } else if (page == 0) {
             content.append("<center><b>Conclusions on Object 'Monolith' </b><br/><i>Report</i></center>");
-            content.append("<br/><i>After various experiment, i have concluded that the object recently " +
-                    "delivered to Nanotrasen facility SS13 is a " + notes.getConclusionArtifact().getBaseName() +".<br/><br/>");
+            content.append("<br/><i>After various experiment, I have concluded that the object recently " +
+                    "delivered to Nanotrasen facility SS13 is a <b>" + notes.getConclusionArtifact().getBaseName() + "</b>. " +
+                    "For further details, please see my attached notes.<br/><br/>");
             content.append("Please arrange for transport of object ASAP since " + notes.getConclusionArtifact().getEnding() + ".</i>");
         } else {
             CosmicArtifact ca = CosmicArtifact.getAllTypes().get(page-2);
@@ -91,6 +101,19 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
                 minPage = 0;
             }
             buildContent(player, gameData);
+        } else if (event.contains("STARTOVER")) {
+            notes.getCrossedOut().clear();
+            minPage = 1;
+            page = 1;
+            buildContent(player, gameData);
+        } else if (event.contains("SENDCENTCOM")) {
+            notes.sendInReport(player, gameData);
+            player.setFancyFrame(new SinglePageFancyFrame(player.getFancyFrame(), "Report Submitted",
+                    HTMLText.makeCentered(HTMLText.makeText("White", "<br/>" +
+                            HTMLText.makeImage(new Sprite("ss13logo32", "ss13_32.png", 0, null)) +
+                            "<br/><br/>You have submitted your report on the Monolith to Central Command.<br/><br/>" +
+                            "It is now pending peer review.<br/><br/><i>(Crew points will be rewarded at the end" +
+                            " of the game if the conclusion was correct.)</i>"))));
         } else {
             return;
         }

@@ -108,6 +108,10 @@ public class ExperimentNotes extends GameItem {
         return null;
     }
 
+    public void sendInReport(Player player, GameData gameData) {
+        monolith.reportSent(player, gameData, getConclusionArtifact());
+    }
+
     private class InspectNotesAction extends FreeAction {
         public InspectNotesAction(GameData gameData, Player p) {
             super("Read Notes", gameData, p);

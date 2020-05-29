@@ -17,12 +17,14 @@ public class StrangeMonolith extends GameObject {
     private final CosmicArtifact artifact;
     private boolean isClosed;
     private final MonolithExperimentsConsole console;
+    private boolean correctlyConcluded;
 
     public StrangeMonolith(Room labRoom) {
         super("Strange Monolith Experiment", labRoom);
         this.artifact = CosmicArtifact.getRandomArtifact();
         this.isClosed = true;
         this.console = new MonolithExperimentsConsole(labRoom);
+        correctlyConcluded = false;
     }
 
     @Override
@@ -53,6 +55,22 @@ public class StrangeMonolith extends GameObject {
 
     public CosmicArtifact getCosmicArtifact() {
         return artifact;
+    }
+
+
+    public boolean wasCorrectlyConcluded() {
+        return correctlyConcluded;
+    }
+
+    public void reportSent(Player player, GameData gameData, CosmicArtifact conclusionArtifact) {
+        if (conclusionArtifact.getBaseName().equals(artifact.getBaseName())) {
+            // Conclusion correct!
+            gameData.getGameMode().getMiscHappenings().add("The " + player.getBaseName() + " correctly concluded the Strange Monolith's true nature by experimenting!");
+            correctlyConcluded = true;
+        } else {
+            gameData.getGameMode().getMiscHappenings().add("The " + player.getBaseName() + " made an erroneous conclusion about the Strange Monolith's true nature.");
+
+        }
     }
 
     private class OpenOrCloseGlassCover extends Action {

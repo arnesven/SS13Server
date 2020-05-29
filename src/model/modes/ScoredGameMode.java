@@ -16,6 +16,7 @@ import model.npcs.PirateNPC;
 import model.npcs.animals.CatNPC;
 import model.npcs.animals.ChimpNPC;
 import model.npcs.behaviors.CrazyBehavior;
+import model.npcs.behaviors.LogisticsBehavior;
 import model.npcs.robots.TARSNPC;
 import model.objects.Altar;
 import model.objects.consoles.CrimeRecordsConsole;
@@ -26,6 +27,7 @@ import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
 import model.objects.general.MailBox;
 import model.objects.mining.GeneralManufacturer;
+import model.objects.monolith.StrangeMonolith;
 import util.Logger;
 import util.Pair;
 
@@ -72,7 +74,7 @@ public abstract class ScoredGameMode extends GameMode {
         result += pointsFromMining(gameData);
         result += pointsFromSelling(gameData);
         result += pointsFromExploredPlanets(gameData);
-        result += cosmicArtifactFound(gameData);
+        result += monolithConclusionPoints(gameData);
         return result;
     }
 
@@ -305,17 +307,14 @@ public abstract class ScoredGameMode extends GameMode {
     }
 
 
-    public int cosmicArtifactFound(GameData gameData) {
-        for (Player pl : gameData.getPlayersAsList()) {
-            for (GameItem it : pl.getItems()) {
-                if (it instanceof CosmicArtifact) {
-                    if (!isAntagonist(pl)) {
-                        return 500;
-                    } else {
-                        return 0;
-                    }
-                }
+    public int monolithConclusionPoints(GameData gameData) {
+        try {
+            if (gameData.findObjectOfType(StrangeMonolith.class).wasCorrectlyConcluded()) {
+                return 500;
             }
+        } catch (NoSuchThingException e) {
+            Logger.log("No monolith found!");
+            e.printStackTrace();
         }
         return 0;
     }

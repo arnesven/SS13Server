@@ -75,8 +75,8 @@ public abstract class ScoredModeStats extends GameStats {
         buf.append("<tr><td>Hull Breaches</td><td " + style +">"      + scoredMode.pointsFromBreaches(gameData)         + "</td></tr>");
         buf.append("<tr><td>Points from God</td><td " + style +">"     + scoredMode.pointsFromGod(gameData)         + "</td></tr>");
         buf.append("<tr><td>Parasites Killed</td><td " + style +">"   + scoredMode.pointsFromParasites(gameData)        + "</td></tr>");
-        if (scoredMode.cosmicArtifactFound(gameData) > 0) {
-            buf.append("<tr><td>Cosmic Artifact Acquired</td><td " + style + ">" + scoredMode.cosmicArtifactFound(gameData) + "</td></tr>");
+        if (scoredMode.monolithConclusionPoints(gameData) > 0) {
+            buf.append("<tr><td>Correct Monolith Conclusion</td><td " + style + ">" + scoredMode.monolithConclusionPoints(gameData) + "</td></tr>");
         }
         buf.append("<tr><td>Defused Bombs</td><td " + style +">"   + scoredMode.pointsFromBombsDefused(gameData)        + "</td></tr>");
         buf.append("<tr><td>Bad Security</td><td " + style +">"   + scoredMode.pointsFromSecurity(gameData)        + "</td></tr>");
