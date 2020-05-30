@@ -1,10 +1,10 @@
 package model.objects.monolith;
 
-import model.items.CosmicArtifact;
+import model.items.CosmicMonolith;
 import model.items.general.GameItem;
 import util.MyRandom;
 
-public class SpaceCreatureEgg extends CosmicArtifact {
+public class SpaceCreatureEgg extends CosmicMonolith {
 
     private boolean touch;
     private boolean hollow;

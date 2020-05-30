@@ -28,6 +28,11 @@ public class AmmoniaChemicals extends Chemicals {
     }
 
     @Override
+    public boolean isCorrosive() {
+        return true;
+    }
+
+    @Override
     public String getFormula() {
         return "NH3";
     }

@@ -1,10 +1,10 @@
 package model.objects.monolith;
 
-import model.items.CosmicArtifact;
+import model.items.CosmicMonolith;
 import model.items.general.GameItem;
 import util.MyRandom;
 
-public class AlienNavigationalBuoy extends CosmicArtifact {
+public class AlienNavigationalBuoy extends CosmicMonolith {
 
     private boolean hollow;
 

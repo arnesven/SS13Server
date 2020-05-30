@@ -30,6 +30,11 @@ public class HydroChloricAcidChemicals extends Chemicals {
     }
 
     @Override
+    public boolean isCorrosive() {
+        return true;
+    }
+
+    @Override
     public String getFormula() {
         return "HCl";
     }

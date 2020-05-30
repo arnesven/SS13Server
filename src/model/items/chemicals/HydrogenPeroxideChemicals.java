@@ -28,6 +28,11 @@ public class HydrogenPeroxideChemicals extends Chemicals {
     }
 
     @Override
+    public boolean isCorrosive() {
+        return true;
+    }
+
+    @Override
     public String getFormula() {
         return "H2O2";
     }

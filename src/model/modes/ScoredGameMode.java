@@ -5,7 +5,6 @@ import model.GameData;
 import model.Player;
 import model.events.ambient.OngoingEvent;
 import model.events.ambient.SimulatePower;
-import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
 import model.items.general.Bible;
 import model.items.general.GameItem;
@@ -16,7 +15,6 @@ import model.npcs.PirateNPC;
 import model.npcs.animals.CatNPC;
 import model.npcs.animals.ChimpNPC;
 import model.npcs.behaviors.CrazyBehavior;
-import model.npcs.behaviors.LogisticsBehavior;
 import model.npcs.robots.TARSNPC;
 import model.objects.Altar;
 import model.objects.consoles.CrimeRecordsConsole;
@@ -27,7 +25,7 @@ import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
 import model.objects.general.MailBox;
 import model.objects.mining.GeneralManufacturer;
-import model.objects.monolith.StrangeMonolith;
+import model.objects.monolith.MonolithExperimentRig;
 import util.Logger;
 import util.Pair;
 
@@ -309,7 +307,7 @@ public abstract class ScoredGameMode extends GameMode {
 
     public int monolithConclusionPoints(GameData gameData) {
         try {
-            if (gameData.findObjectOfType(StrangeMonolith.class).wasCorrectlyConcluded()) {
+            if (gameData.findObjectOfType(MonolithExperimentRig.class).wasCorrectlyConcluded()) {
                 return 500;
             }
         } catch (NoSuchThingException e) {

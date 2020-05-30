@@ -24,6 +24,11 @@ public class IodinePill extends Chemicals {
     }
 
     @Override
+    public boolean isCorrosive() {
+        return false;
+    }
+
+    @Override
     public String getFormula() {
         return "KI";
     }

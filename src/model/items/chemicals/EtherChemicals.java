@@ -28,6 +28,11 @@ public class EtherChemicals extends Chemicals {
     }
 
     @Override
+    public boolean isCorrosive() {
+        return false;
+    }
+
+    @Override
     public String getFormula() {
         return "(C2H5)2O";
     }

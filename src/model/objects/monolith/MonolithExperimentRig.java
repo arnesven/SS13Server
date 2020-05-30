@@ -6,32 +6,32 @@ import model.GameData;
 import model.Player;
 import model.actions.FreeAction;
 import model.actions.general.Action;
+import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.events.ambient.SimulatePower;
-import model.events.animation.AnimatedSprite;
 import model.events.damage.Damager;
 import model.events.damage.FireDamage;
-import model.items.CosmicArtifact;
+import model.items.CosmicMonolith;
+import model.items.chemicals.Chemicals;
 import model.items.general.GameItem;
 import model.items.general.Multimeter;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
 import model.objects.general.BreakableObject;
-import model.objects.general.GameObject;
 import model.objects.general.PowerConsumer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StrangeMonolith extends BreakableObject implements PowerConsumer {
-    private final CosmicArtifact artifact;
+public class MonolithExperimentRig extends BreakableObject implements PowerConsumer {
+    private final CosmicMonolith monolith;
     private boolean isClosed;
     private final MonolithExperimentsConsole console;
     private boolean correctlyConcluded;
 
-    public StrangeMonolith(Room labRoom) {
-        super("Strange Monolith Experiment", 3.0, labRoom);
-        this.artifact = CosmicArtifact.getRandomArtifact();
+    public MonolithExperimentRig(Room labRoom) {
+        super("Monolith Experiment Rig", 3.0, labRoom);
+        this.monolith = CosmicMonolith.getRandomMonolith();
         this.isClosed = true;
         this.console = new MonolithExperimentsConsole(labRoom, this);
         correctlyConcluded = false;
@@ -40,7 +40,7 @@ public class StrangeMonolith extends BreakableObject implements PowerConsumer {
     @Override
     public Sprite getSprite(Player whosAsking) {
         List<Sprite> sprs = new ArrayList<>();
-        sprs.add(artifact.getSprite(whosAsking));
+        sprs.add(monolith.getSprite(whosAsking));
         sprs.get(0).shiftUpPx(3);
         StringBuilder suffix = new StringBuilder();
         console.addTestSprite(whosAsking, sprs, suffix);
@@ -75,6 +75,9 @@ public class StrangeMonolith extends BreakableObject implements PowerConsumer {
         if (GameItem.hasAnItemOfClass(cl, Multimeter.class)) {
             at.add(new MeasureRadiationAction(gameData, (Player)cl));
         }
+        if (GameItem.hasAnItemOfClass(cl, Chemicals.class)) {
+            at.add(new ApplyChemicalsAction());
+        }
         super.addSpecificActionsFor(gameData, cl, at);
     }
 
@@ -83,8 +86,8 @@ public class StrangeMonolith extends BreakableObject implements PowerConsumer {
         console.addSpecificActionsFor(gameData, cl, at);
     }
 
-    public CosmicArtifact getCosmicArtifact() {
-        return artifact;
+    public CosmicMonolith getCosmicMonolith() {
+        return monolith;
     }
 
     public boolean isCoverUp() {
@@ -95,14 +98,14 @@ public class StrangeMonolith extends BreakableObject implements PowerConsumer {
         return correctlyConcluded;
     }
 
-    public void reportSent(Player player, GameData gameData, CosmicArtifact conclusionArtifact) {
-        if (conclusionArtifact.getBaseName().equals(artifact.getBaseName())) {
+    public void reportSent(Player player, GameData gameData, CosmicMonolith conclusionArtifact) {
+        if (conclusionArtifact.getBaseName().equals(monolith.getBaseName())) {
             // Conclusion correct!
-            gameData.getGameMode().getMiscHappenings().add("The " + player.getBaseName() + " correctly concluded the Strange Monolith's true nature by experimenting!<br/>(" + artifact.getBaseName() + ")");
+            gameData.getGameMode().getMiscHappenings().add("The " + player.getBaseName() + " correctly concluded the strange Monolith's true nature by experimenting!<br/>(" + monolith.getBaseName() + ")");
             correctlyConcluded = true;
         } else {
-            gameData.getGameMode().getMiscHappenings().add("The " + player.getBaseName() + " made an erroneous conclusion about the Strange Monolith's true nature.<br/>"+
-                    "(Reported as a " + conclusionArtifact.getBaseName() + ", when really it was a " + getCosmicArtifact().getBaseName()+ ")");
+            gameData.getGameMode().getMiscHappenings().add("The " + player.getBaseName() + " made an erroneous conclusion about the strange Monolith's true nature.<br/>"+
+                    "(Reported as a " + conclusionArtifact.getBaseName() + ", when really it was a " + getCosmicMonolith().getBaseName()+ ")");
 
         }
     }
@@ -206,7 +209,7 @@ public class StrangeMonolith extends BreakableObject implements PowerConsumer {
 
         @Override
         protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
-            if (getCosmicArtifact().isTouchSmooth()) {
+            if (getCosmicMonolith().isTouchSmooth()) {
                 gameData.getChat().serverInSay("The monolith is smooth to the touch.", p);
             } else {
                 gameData.getChat().serverInSay("The monolith has a rough surface.", p);
@@ -221,7 +224,7 @@ public class StrangeMonolith extends BreakableObject implements PowerConsumer {
 
         @Override
         protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
-            if (getCosmicArtifact().hasMarkings()) {
+            if (getCosmicMonolith().hasMarkings()) {
                 gameData.getChat().serverInSay("There are small markings on the monolith, although you can't " +
                         "figure out what's written or if it's even a language.", p);
             } else {
@@ -237,11 +240,65 @@ public class StrangeMonolith extends BreakableObject implements PowerConsumer {
 
         @Override
         protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
-            if (getCosmicArtifact().doesEmitRadiation()) {
+            if (getCosmicMonolith().doesEmitRadiation()) {
                 gameData.getChat().serverInSay("The monolith is emitting a small mount of radiation.", p);
             } else {
                 gameData.getChat().serverInSay("There's no radiation coming from the monolith.", p);
             }
+        }
+    }
+
+    private class ApplyChemicalsAction extends Action {
+        private String preferredChem;
+
+        public ApplyChemicalsAction() {
+            super("Apply Chemicals", SensoryLevel.PHYSICAL_ACTIVITY);
+        }
+
+        @Override
+        protected String getVerb(Actor whosAsking) {
+            return "applied chemicals on monolith";
+        }
+
+        @Override
+        public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+            ActionOption opts = super.getOptions(gameData, whosAsking);
+            for (GameItem it : whosAsking.getItems()) {
+                if (it instanceof Chemicals) {
+                    opts.addOption(it.getFullName(whosAsking));
+                }
+            }
+            return opts;
+        }
+
+        @Override
+        protected void execute(GameData gameData, Actor performingClient) {
+            Chemicals chem = null;
+            for (GameItem it : performingClient.getItems()) {
+                if (it.getFullName(performingClient).equals(preferredChem)) {
+                    chem = (Chemicals)it;
+                }
+            }
+            if (chem == null) {
+                performingClient.addTolastTurnInfo("What, no chemicals to use? " + failed(gameData, performingClient));
+            } else {
+                if (isCoverUp()) {
+                    performingClient.addTolastTurnInfo("You tried to apply the chemical, but the glass cover is up!" + failed(gameData, performingClient));
+                } else {
+                    performingClient.getItems().remove(chem);
+                    performingClient.addTolastTurnInfo("You applied " + chem.getFormula() + " to the monolith.");
+                    if (chem.isCorrosive() && getCosmicMonolith().smellsWhenCorrosiveApplied()) {
+                        performingClient.addTolastTurnInfo("Phew! There is a funky smell coming from the monolith!");
+                    } else {
+                        performingClient.addTolastTurnInfo("Apart from a small stain on the surface, you can't really see or smell any difference.");
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected void setArguments(List<String> args, Actor performingClient) {
+            preferredChem = args.get(0);
         }
     }
 }

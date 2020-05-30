@@ -30,6 +30,11 @@ public class SodiumChloride extends Chemicals {
     }
 
     @Override
+    public boolean isCorrosive() {
+        return false;
+    }
+
+    @Override
     public String getFormula() {
         return "NaCl";
     }

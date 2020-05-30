@@ -26,6 +26,11 @@ public class EthanolChemicals extends Chemicals {
     }
 
     @Override
+    public boolean isCorrosive() {
+        return false;
+    }
+
+    @Override
     public String getFormula() {
         return "C2H5OH";
     }

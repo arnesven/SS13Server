@@ -11,17 +11,16 @@ import model.characters.general.GameCharacter;
 import model.fancyframe.ExperimentNotesFancyFrame;
 import model.items.general.GameItem;
 import model.objects.general.GameObject;
-import model.objects.monolith.StrangeMonolith;
+import model.objects.monolith.MonolithExperimentRig;
 import util.Logger;
 
-import javax.naming.directory.Attribute;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class ExperimentNotes extends GameItem {
-    private StrangeMonolith monolith;
+    private MonolithExperimentRig monolith;
     private Set<String> crossedOut;
 
     public ExperimentNotes(GameData gameData) {
@@ -29,13 +28,13 @@ public class ExperimentNotes extends GameItem {
         crossedOut = new HashSet<>();
         try {
             for (GameObject obj : gameData.getRoom("Lab").getObjects()) {
-                if (obj instanceof StrangeMonolith) {
-                    this.monolith = (StrangeMonolith)obj;
+                if (obj instanceof MonolithExperimentRig) {
+                    this.monolith = (MonolithExperimentRig)obj;
                 }
             }
-            CosmicArtifact crossed;
+            CosmicMonolith crossed;
             do {
-                crossed = CosmicArtifact.getRandomArtifact();
+                crossed = CosmicMonolith.getRandomMonolith();
             } while (crossed.getBaseName().equals(monolith.getBaseName()));
             Logger.log("Adding " + crossed.getBaseName() + " to crossed out");
             crossedOut.add(crossed.getBaseName());
@@ -92,14 +91,14 @@ public class ExperimentNotes extends GameItem {
     }
 
     public boolean checkForReport(GameData gameData, Player player) {
-        if (crossedOut.size() == CosmicArtifact.getAllTypes().size()-1) {
+        if (crossedOut.size() == CosmicMonolith.getAllTypes().size()-1) {
             return true;
         }
         return false;
     }
 
-    public CosmicArtifact getConclusionArtifact() {
-        for (CosmicArtifact ca : CosmicArtifact.getAllTypes()) {
+    public CosmicMonolith getConclusionArtifact() {
+        for (CosmicMonolith ca : CosmicMonolith.getAllTypes()) {
             if (!crossedOut.contains(ca.getBaseName())) {
                 return ca;
             }

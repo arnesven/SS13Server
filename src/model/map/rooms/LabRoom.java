@@ -1,15 +1,13 @@
 package model.map.rooms;
 
-import model.items.general.FireExtinguisher;
 import model.items.suits.RadiationSuit;
 import model.map.doors.Door;
-import model.objects.consoles.GeneratorConsole;
 import model.objects.consoles.TeleportConsole;
 import model.objects.general.ChemicalApparatus;
 import model.objects.general.ChemicalDispenser;
 import model.objects.consoles.GeneticsConsole;
 import model.objects.general.CloneOMatic;
-import model.objects.monolith.StrangeMonolith;
+import model.objects.monolith.MonolithExperimentRig;
 
 public class LabRoom extends ScienceRoom {
 
@@ -23,7 +21,7 @@ public class LabRoom extends ScienceRoom {
         this.addObject(new TeleportConsole(this));
         this.addObject(new ChemicalApparatus(this));
         this.addObject(new CloneOMatic(this, gc));
-        this.addObject(new StrangeMonolith(this));
+        this.addObject(new MonolithExperimentRig(this));
         this.addItem(new RadiationSuit());
 	}
 

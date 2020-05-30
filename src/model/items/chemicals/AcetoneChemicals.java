@@ -28,6 +28,11 @@ public class AcetoneChemicals extends Chemicals {
     }
 
     @Override
+    public boolean isCorrosive() {
+        return false;
+    }
+
+    @Override
     public String getFormula() {
         return "(CH3)2CO";
     }

@@ -3,22 +3,9 @@ package model.objects.monolith;
 import model.items.CosmicMonolith;
 import model.items.general.GameItem;
 
-public class RadioactiveRock extends CosmicMonolith {
-    public RadioactiveRock() {
-        super("Radioactive Rock");
-    }
-
-    @Override
-    public GameItem clone() {
-        return new RadioactiveRock();
-    }
-
-    @Override
-    public String getNotesText() {
-        return "The universe is filled with these little warm lumps. Used long ago on Earth as sources of energy, they nowadays mostly serve as fodder" +
-                " for the asteroid sweepers. Anybody who has taken an introductory course to space geology knows that radioactive rocks" +
-                " respond neither to heat/light, flames, pressure, sound waves nor to electrical current. They are rarely hollow and" +
-                " have a rough exterior surface without markings.";
+public class CommonSpaceRock extends CosmicMonolith {
+    public CommonSpaceRock() {
+        super("Common Space Rock");
     }
 
     @Override
@@ -43,7 +30,7 @@ public class RadioactiveRock extends CosmicMonolith {
 
     @Override
     public boolean doesEmitRadiation() {
-        return true;
+        return false;
     }
 
     @Override
@@ -72,7 +59,20 @@ public class RadioactiveRock extends CosmicMonolith {
     }
 
     @Override
+    public String getNotesText() {
+        return "The universe is full of them. It's quite possible that somebody picked one up and erroneously (or maliciously)" +
+                " declared it to be \"a strange object\" worthy of research.<br/>If this is the case I should keep in mind" +
+                " the qualities of common space rocks, which I have outlined on the previous page, just sans the radioactivity.";
+    }
+
+    @Override
     public String getEnding() {
-        return " the radiation may potentially be harmful for the station's crew";
+        return " it is completely useless and obviously was delivered here by mistake or as a rouse. I must say, if" +
+                " this is some kind of a joke it is in very bad taste.";
+    }
+
+    @Override
+    public GameItem clone() {
+        return new CommonSpaceRock();
     }
 }

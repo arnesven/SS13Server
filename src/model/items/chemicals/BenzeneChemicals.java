@@ -28,6 +28,11 @@ public class BenzeneChemicals extends Chemicals {
     }
 
     @Override
+    public boolean isCorrosive() {
+        return false;
+    }
+
+    @Override
     public String getFormula() {
         return "C6H6";
     }

@@ -3,7 +3,7 @@ package model.fancyframe;
 import graphics.sprites.Sprite;
 import model.GameData;
 import model.Player;
-import model.items.CosmicArtifact;
+import model.items.CosmicMonolith;
 import model.items.ExperimentNotes;
 import util.HTMLText;
 
@@ -43,7 +43,7 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
     private String getContentForPage(GameData gameData) {
         StringBuilder content = new StringBuilder();
         if (page == 1) {
-            for (CosmicArtifact ca : CosmicArtifact.getAllTypes()) {
+            for (CosmicMonolith ca : CosmicMonolith.getAllTypes()) {
                 if (notes.getCrossedOut().contains(ca.getBaseName())) {
                     content.append("<strike>" + ca.getBaseName() + "</strike><br/>");
                 } else {
@@ -58,7 +58,7 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
                     "For further details, please see my attached notes.<br/><br/>");
             content.append("Please arrange for transport of object ASAP since " + notes.getConclusionArtifact().getEnding() + ".</i>");
         } else {
-            CosmicArtifact ca = CosmicArtifact.getAllTypes().get(page-2);
+            CosmicMonolith ca = CosmicMonolith.getAllTypes().get(page-2);
             content.append("<b> Regarding " + ca.getNamePlural() + "</b><br/>");
             content.append("<i>" + ca.getNotesText() + "</i>");
         }
@@ -82,7 +82,7 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
     }
 
     private int getMaxPage() {
-        return CosmicArtifact.getAllTypes().size() + 1;
+        return CosmicMonolith.getAllTypes().size() + 1;
     }
 
     @Override

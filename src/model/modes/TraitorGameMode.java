@@ -12,7 +12,6 @@ import model.characters.decorators.NoSuchInstanceException;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
 import model.fancyframe.SinglePageFancyFrame;
-import model.items.CosmicArtifact;
 import model.map.GameMap;
 import model.map.rooms.DecorativeRoom;
 import model.map.rooms.HallwayRoom;

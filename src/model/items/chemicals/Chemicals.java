@@ -27,7 +27,7 @@ public abstract class Chemicals extends FoodItem {
 
     public abstract boolean isFlammable();
     public abstract boolean isToxic();
-    //public abstract boolean isCorrosive();
+    public abstract boolean isCorrosive();
     public abstract String getFormula();
 
     @Override
@@ -94,7 +94,8 @@ public abstract class Chemicals extends FoodItem {
     @Override
     public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
         if (performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof ChemistCharacter)) {
-            return (isFlammable()?"<i>Flammable</i>, ":"") + (isToxic()?"<i>Toxic</i>, ":"") + ("<b>Formula:</b> " + getFormula());
+            return (isFlammable()?"<i>Flammable</i>, ":"") + (isToxic()?"<i>Toxic</i>, ":"") +
+                    (isCorrosive()?"<i>Corrosive</i>, ":"") + ("<b>Formula:</b> " + getFormula());
         }
         return super.getExtraDescriptionStats(gameData, performingClient);
     }

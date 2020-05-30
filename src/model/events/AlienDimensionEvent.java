@@ -5,7 +5,6 @@ import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.DimensionTrappedDecorator;
 import model.events.ambient.AmbientEvent;
-import model.items.CosmicArtifact;
 import model.items.NoSuchThingException;
 import model.map.rooms.DecorativeRoom;
 import model.map.rooms.Room;

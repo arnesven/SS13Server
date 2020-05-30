@@ -3,16 +3,8 @@ package model.items;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
-import model.GameData;
-import model.Target;
-import model.actions.general.Action;
-import model.actions.itemactions.MindControlAction;
-import model.characters.decorators.CharacterDecorator;
-import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
-import model.objects.monolith.AlienNavigationalBuoy;
-import model.objects.monolith.RadioactiveRock;
-import model.objects.monolith.SpaceCreatureEgg;
+import model.objects.monolith.*;
 import util.Logger;
 import util.MyRandom;
 
@@ -22,36 +14,44 @@ import java.util.List;
 /**
  * Created by erini02 on 19/10/16.
  */
-public abstract class CosmicArtifact extends GameItem {
+public abstract class CosmicMonolith extends GameItem {
     private final Sprite sprite;
 
-    public CosmicArtifact(String name) {
+    public CosmicMonolith(String name) {
         super(name, 1.0, false, 1000);
         this.sprite = MyRandom.sample(spritelist(this));
-        Logger.log(Logger.INTERESTING, "Cosmic Artifact Sprite is " + getSprite(null).getName());
+        Logger.log(Logger.INTERESTING, "Cosmic Monolith Sprite is " + getSprite(null).getName());
     }
 
-    public abstract String getNotesText();
 
     private static List<Sprite> spritelist(SpriteObject obj) {
         List<Sprite> sprs = new ArrayList<>();
         for (int i = 17; i < 29; ++i) {
-            sprs.add(new Sprite("cosmicartifact"+i, "weapons2.png", i, 24, 32, 32, obj));
+            sprs.add(new Sprite("cosmicmonolith"+i, "weapons2.png", i, 24, 32, 32, obj));
         }
-        sprs.add(new Sprite("cosmicartifacta", "weapons2.png", 7, 24, 32, 32, obj));
-        sprs.add(new Sprite("cosmicartifactb", "weapons2.png", 11, 24, 32, 32, obj));
+        sprs.add(new Sprite("cosmicmonolitha", "weapons2.png", 7, 24, 32, 32, obj));
+        sprs.add(new Sprite("cosmicmonolithb", "weapons2.png", 11, 24, 32, 32, obj));
         return sprs;
     }
 
-    public static CosmicArtifact getRandomArtifact() {
+    public static CosmicMonolith getRandomMonolith() {
         return MyRandom.sample(getAllTypes());
     }
 
-    public static List<CosmicArtifact> getAllTypes() {
-        List<CosmicArtifact> result = new ArrayList<>();
-        result.add(new SpaceCreatureEgg());
+    public static List<CosmicMonolith> getAllTypes() {
+        List<CosmicMonolith> result = new ArrayList<>();
         result.add(new AlienNavigationalBuoy());
+        result.add(new AlienRosettaStone());
+        result.add(new AlienSarcophagus());
+        result.add(new AlienPowerCell());
+        result.add(new AlienSatellite());
+        result.add(new CompactedSpaceTrash());
+        result.add(new DoomsdayMachine());
+        result.add(new FossilizedSpaceCreature());
         result.add(new RadioactiveRock());
+        result.add(new CommonSpaceRock());
+        result.add(new NanotrasenDummy());
+        result.add(new SpaceCreatureEgg());
         return result;
     }
 
@@ -75,5 +75,6 @@ public abstract class CosmicArtifact extends GameItem {
     public abstract boolean hasMarkings();
     public abstract boolean smellsWhenCorrosiveApplied();
 
+    public abstract String getNotesText();
     public abstract String getEnding();
 }

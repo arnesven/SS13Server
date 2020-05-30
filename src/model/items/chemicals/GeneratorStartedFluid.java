@@ -32,6 +32,11 @@ public class GeneratorStartedFluid extends Chemicals {
     }
 
     @Override
+    public boolean isCorrosive() {
+        return false;
+    }
+
+    @Override
     public String getFormula() {
         return "C16H3BO2";
     }

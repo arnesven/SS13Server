@@ -38,6 +38,11 @@ public class DrugDose extends Chemicals {
     }
 
     @Override
+    public boolean isCorrosive() {
+        return false;
+    }
+
+    @Override
     public String getFormula() {
         return "DRUGS";
     }

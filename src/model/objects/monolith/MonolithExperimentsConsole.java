@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MonolithExperimentsConsole extends Console {
     private static final double STANDBY_MODE_POWER_CONSUMP_MW = 0.000050;
-    private final StrangeMonolith monolith;
+    private final MonolithExperimentRig monolith;
     private StringBuilder testResults;
     private MonolithExperimentAction currentTest;
 
@@ -33,7 +33,7 @@ public class MonolithExperimentsConsole extends Console {
         new ElectricCurrentTest(), new PressureTest(), new XRayTest()
     };
 
-    public MonolithExperimentsConsole(Room r, StrangeMonolith monolith) {
+    public MonolithExperimentsConsole(Room r, MonolithExperimentRig monolith) {
         super("Experiment Console", r);
         this.monolith = monolith;
         testResults = new StringBuilder();
@@ -89,7 +89,7 @@ public class MonolithExperimentsConsole extends Console {
 
     }
 
-    public StrangeMonolith getMonolith() {
+    public MonolithExperimentRig getMonolith() {
         return monolith;
     }
 
@@ -164,7 +164,7 @@ public class MonolithExperimentsConsole extends Console {
                 gameData.addEvent(flash);
                 ((Player)performingClient).getFancyFrame().dispose((Player)performingClient);
             }
-            if (getMonolith().getCosmicArtifact().reactsToLightHeat()) {
+            if (getMonolith().getCosmicMonolith().reactsToLightHeat()) {
                 addTestResult("Object responded to light waves in the spectrum 500-1000 nm.");
             } else {
                 addTestResult("Object unresponsive to light/heat waves.");
@@ -206,7 +206,7 @@ public class MonolithExperimentsConsole extends Console {
                 performingClient.addTolastTurnInfo("Ahhh! A fire broke out!");
                 ((Player)performingClient).getFancyFrame().dispose((Player)performingClient);
             }
-            if (getMonolith().getCosmicArtifact().reactsToFlames()) {
+            if (getMonolith().getCosmicMonolith().reactsToFlames()) {
                 addTestResult("Object responded to fire.");
             } else {
                 addTestResult("Object unresponsive to fire.");
@@ -248,7 +248,7 @@ public class MonolithExperimentsConsole extends Console {
                 }
                 ((Player)performingClient).getFancyFrame().dispose((Player)performingClient);
             }
-            if (getMonolith().getCosmicArtifact().doesReactToSound()) {
+            if (getMonolith().getCosmicMonolith().doesReactToSound()) {
                 addTestResult("Object responded to sound waves of wave lengths 100-20000 Hz.");
             } else {
                 addTestResult("Object unresponsive to sound waves.");
@@ -289,7 +289,7 @@ public class MonolithExperimentsConsole extends Console {
                 performingClient.setCharacter(new StunningSparksAnimationDecorator(performingClient.getCharacter(), gameData));
                 ((Player)performingClient).getFancyFrame().dispose((Player)performingClient);
             }
-            if (getMonolith().getCosmicArtifact().doesConductCurrent()) {
+            if (getMonolith().getCosmicMonolith().doesConductCurrent()) {
                 addTestResult("Object conducts electric current well.");
             } else {
                 addTestResult("Object does not conduct electric current.");
@@ -325,7 +325,7 @@ public class MonolithExperimentsConsole extends Console {
 
         @Override
         protected void executeTest(GameData gameData, Actor performingClient) {
-            if (getMonolith().getCosmicArtifact().reactsToPressure()) {
+            if (getMonolith().getCosmicMonolith().reactsToPressure()) {
                 addTestResult("Object is reacting to pressure.");
             } else {
                 addTestResult("Object is rigid and unyielding to pressure.");
@@ -364,7 +364,7 @@ public class MonolithExperimentsConsole extends Console {
             if (!monolith.isCoverUp()) {
                 performingClient.getCharacter().beExposedTo(performingClient, new RadiationDamage(0.25, gameData));
             }
-            if (getMonolith().getCosmicArtifact().isHollow()) {
+            if (getMonolith().getCosmicMonolith().isHollow()) {
                 addTestResult("X-Rayed object and it appears to be hollow.");
             } else {
                 addTestResult("X-Rayed object, it's solid material.");
