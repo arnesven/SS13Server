@@ -16,7 +16,7 @@ public abstract class FreeAction extends Action {
     private final Player player;
 
     public FreeAction(String name, GameData gameData, Player performer) {
-        super(name, SensoryLevel.NO_SENSE);
+        super(name + " (Free Action)", SensoryLevel.NO_SENSE);
         this.gameData = gameData;
         this.player = performer;
     }

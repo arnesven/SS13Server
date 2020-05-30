@@ -7,13 +7,9 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.itemactions.CancelAction;
-import model.characters.decorators.OneTurnAnimationDecorator;
-import model.characters.decorators.StunnedDecorator;
+import model.characters.decorators.*;
 import model.characters.general.GameCharacter;
-import model.characters.decorators.AlterMovement;
-import model.characters.decorators.InstanceChecker;
 import model.events.RemoveInstanceLaterEvent;
-import model.events.animation.AnimatedSprite;
 import model.npcs.NPC;
 
 public class StunBaton extends AmmoWeapon {
@@ -96,14 +92,4 @@ public class StunBaton extends AmmoWeapon {
 		}
 	}
 
-	private class StunningSparksAnimationDecorator extends OneTurnAnimationDecorator {
-		public StunningSparksAnimationDecorator(GameCharacter character, GameData gameData) {
-			super(character, "stunsparks", gameData);
-		}
-
-		@Override
-		protected Sprite getAnimatedSprite() {
-			return new AnimatedSprite("stunsparks", "effects3.png", 14, 20, 32, 32, getActor(), 12, true);
-		}
-	}
 }

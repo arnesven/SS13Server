@@ -47,7 +47,7 @@ public class Sprite implements Serializable {
         this.resizeHeight = height;
         this.objectReference = objectRef;
         frames = 1;
-        this.looping =false;
+        this.looping = isAnyLooping(layers);
         SpriteManager.register(this);
         try {
             getImage();
@@ -55,6 +55,15 @@ public class Sprite implements Serializable {
             e.printStackTrace();
         }
 
+    }
+
+    private boolean isAnyLooping(List<Sprite> layers) {
+        for (Sprite sp : layers) {
+            if (sp.isLooping()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean allLooping() {

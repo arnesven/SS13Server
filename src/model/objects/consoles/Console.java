@@ -114,4 +114,5 @@ public abstract class Console extends SinglePersonUseMachine implements Remotely
         }
         return false;
     }
+
 }

@@ -239,6 +239,7 @@ public class ElectricalFire extends OngoingEvent {
         if (isRaging) {
             return new AnimatedSprite("electricalfirefillwholeroom", "fire.png", 5, 8, 32, 32, this, 10, true);
         }
+
         return new AnimatedSprite("electricalfire", "fire.png", 5, 8, 32, 32, this, 10, true);
     }
 
