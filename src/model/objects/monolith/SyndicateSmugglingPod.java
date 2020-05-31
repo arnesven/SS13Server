@@ -44,7 +44,7 @@ public class SyndicateSmugglingPod extends CosmicMonolith {
 
     @Override
     public boolean doesReactToSound() {
-        return false;
+        return true;
     }
 
     @Override
@@ -68,9 +68,11 @@ public class SyndicateSmugglingPod extends CosmicMonolith {
                 " vessels for the Syndicate. Such pods could quickly be jettisoned by" +
                 " a smuggler should a patrol come around, and being smooth and opaque, most scanners would overlook such" +
                 " object or mistake them for regular debris or small asteroids. The feds who investigated the intercepted" +
-                " pods described them as \"unresponsive to light/heat, flame, pressure and sonic waves, but obviously hollow and with" +
+                " pods described them as \"unresponsive to light/heat, flame, and pressure, but obviously hollow and with" +
                 " internal wiring which reacts to electrical pulses. All such pods had markings a long the sides, which" +
-                " are thought to be an encoded description of the pods contents.\"";
+                " are thought to be an encoded description of the pods contents.\" Apparently, federal agents are developing" +
+                " a scanner which relies on sonic waves to detect such pods, since they tend to resonate at certain frequencies" +
+                " while being in an atmosphere.";
     }
 
     @Override
