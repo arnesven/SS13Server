@@ -81,7 +81,7 @@ public class NanotrasenDummy extends CosmicMonolith {
         return "If I'm honest, I can't rule out that the monolith could actually be just a dummy sent here by Nanotrasen" +
                 " to test my skills as a scientist and to make sure we are actually working. I've heard of them pulling" +
                 " such stunts on other facilities. If this is the case then it could have just about any kind of properties " +
-                " except that they probably wouldn't send anything flammable, because their fanatical about anti-fire safety," +
+                " except that they probably wouldn't send anything flammable, because they're fanatical about anti-fire safety," +
                 " nor would it be radioactive. And it would probably be made out of something cheap that melts or breaks " +
                 " when you pour acid on it.";
     }

@@ -51,7 +51,11 @@ public abstract class CosmicMonolith extends GameItem {
         result.add(new RadioactiveRock());
         result.add(new CommonSpaceRock());
         result.add(new NanotrasenDummy());
+        result.add(new DerelictSpaceCraftDebris());
+        result.add(new RareElementsRock());
         result.add(new SpaceCreatureEgg());
+        result.add(new SpaceCreatureExcrement());
+        result.add(new SyndicateSmugglingPod());
         return result;
     }
 

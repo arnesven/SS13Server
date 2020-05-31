@@ -51,6 +51,10 @@ public class FancyFrame implements Serializable {
         this.width = w;
     }
 
+    protected int getWidth() {
+        return this.width;
+    }
+
     public void handleEvent(GameData gameData, Player player, String event) {
         //Logger.log("Fancy frame handling event " + event);
         if (event.contains("DISMISS")) {

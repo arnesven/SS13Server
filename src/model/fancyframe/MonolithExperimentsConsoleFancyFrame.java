@@ -23,7 +23,9 @@ public class MonolithExperimentsConsoleFancyFrame extends ConsoleFancyFrame {
         super(performingClient.getFancyFrame(), monolithExperimentsConsole, gameData, "#79E5FF", "black");
         this.console = monolithExperimentsConsole;
         buildContent(gameData, performingClient);
+        setWidth(getWidth() + 30);
     }
+
 
     private void buildContent(GameData gameData, Player performingClient) {
         StringBuilder content = new StringBuilder();
