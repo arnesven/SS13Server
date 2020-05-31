@@ -1,17 +1,21 @@
 package model.objects.monolith;
 
+import model.GameData;
 import model.items.CosmicMonolith;
 import model.items.general.GameItem;
+import model.npcs.DoomsdayMachineNPC;
 import util.MyRandom;
 
 public class DoomsdayMachine extends CosmicMonolith {
     private final boolean hollow;
+    private final GameData gameData;
     private boolean activated;
 
-    public DoomsdayMachine() {
+    public DoomsdayMachine(GameData gameData) {
         super("Doomsday Machine");
         hollow = MyRandom.nextBoolean();
         activated = false;
+        this.gameData = gameData;
     }
 
     @Override
@@ -61,6 +65,8 @@ public class DoomsdayMachine extends CosmicMonolith {
 
     @Override
     public boolean smellsWhenCorrosiveApplied() {
+        DoomsdayMachineNPC npc = new DoomsdayMachineNPC(getPosition(), this);
+        gameData.addNPC(npc);
         activated = true;
         return false;
     }
@@ -93,6 +99,6 @@ public class DoomsdayMachine extends CosmicMonolith {
 
     @Override
     public GameItem clone() {
-        return new DoomsdayMachine();
+        return new DoomsdayMachine(gameData);
     }
 }

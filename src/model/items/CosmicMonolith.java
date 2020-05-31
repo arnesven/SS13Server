@@ -3,6 +3,7 @@ package model.items;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
+import model.GameData;
 import model.items.general.GameItem;
 import model.objects.monolith.*;
 import util.Logger;
@@ -34,11 +35,11 @@ public abstract class CosmicMonolith extends GameItem {
         return sprs;
     }
 
-    public static CosmicMonolith getRandomMonolith() {
-        return MyRandom.sample(getAllTypes());
+    public static CosmicMonolith getRandomMonolith(GameData gameData) {
+        return MyRandom.sample(getAllTypes(gameData));
     }
 
-    public static List<CosmicMonolith> getAllTypes() {
+    public static List<CosmicMonolith> getAllTypes(GameData gameData) {
         List<CosmicMonolith> result = new ArrayList<>();
         result.add(new AlienNavigationalBuoy());
         result.add(new AlienRosettaStone());
@@ -46,7 +47,7 @@ public abstract class CosmicMonolith extends GameItem {
         result.add(new AlienPowerCell());
         result.add(new AlienSatellite());
         result.add(new CompactedSpaceTrash());
-        result.add(new DoomsdayMachine());
+        result.add(new DoomsdayMachine(gameData));
         result.add(new FossilizedSpaceCreature());
         result.add(new RadioactiveRock());
         result.add(new CommonSpaceRock());

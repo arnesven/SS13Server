@@ -34,7 +34,7 @@ public class ExperimentNotes extends GameItem {
             }
             CosmicMonolith crossed;
             do {
-                crossed = CosmicMonolith.getRandomMonolith();
+                crossed = CosmicMonolith.getRandomMonolith(gameData);
             } while (crossed.getBaseName().equals(monolith.getBaseName()));
             Logger.log("Adding " + crossed.getBaseName() + " to crossed out");
             crossedOut.add(crossed.getBaseName());
@@ -91,14 +91,14 @@ public class ExperimentNotes extends GameItem {
     }
 
     public boolean checkForReport(GameData gameData, Player player) {
-        if (crossedOut.size() == CosmicMonolith.getAllTypes().size()-1) {
+        if (crossedOut.size() == CosmicMonolith.getAllTypes(gameData).size()-1) {
             return true;
         }
         return false;
     }
 
-    public CosmicMonolith getConclusionArtifact() {
-        for (CosmicMonolith ca : CosmicMonolith.getAllTypes()) {
+    public CosmicMonolith getConclusionArtifact(GameData gameData) {
+        for (CosmicMonolith ca : CosmicMonolith.getAllTypes(gameData)) {
             if (!crossedOut.contains(ca.getBaseName())) {
                 return ca;
             }
@@ -108,7 +108,7 @@ public class ExperimentNotes extends GameItem {
     }
 
     public void sendInReport(Player player, GameData gameData) {
-        monolith.reportSent(player, gameData, getConclusionArtifact());
+        monolith.reportSent(player, gameData, getConclusionArtifact(gameData));
     }
 
     private class InspectNotesAction extends FreeAction {

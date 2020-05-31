@@ -23,7 +23,7 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
     private void buildContent(Player p, GameData gameData) {
         StringBuilder content = new StringBuilder();
 
-        makeTopContent(content);
+        makeTopContent(content, gameData);
 
         content.append("<center><table width=\"90%\" bgcolor=\"white\">");
         content.append("<tr><td>" + getContentForPage(gameData) + "</td></tr>");
@@ -43,7 +43,7 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
     private String getContentForPage(GameData gameData) {
         StringBuilder content = new StringBuilder();
         if (page == 1) {
-            for (CosmicMonolith ca : CosmicMonolith.getAllTypes()) {
+            for (CosmicMonolith ca : CosmicMonolith.getAllTypes(gameData)) {
                 if (notes.getCrossedOut().contains(ca.getBaseName())) {
                     content.append("<strike>" + ca.getBaseName() + "</strike><br/>");
                 } else {
@@ -54,18 +54,18 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
         } else if (page == 0) {
             content.append("<center><b>Conclusions on Object 'Monolith' </b><br/><i>Report</i></center>");
             content.append("<br/><i>After various experiment, I have concluded that the object recently " +
-                    "delivered to Nanotrasen facility SS13 is a <b>" + notes.getConclusionArtifact().getBaseName() + "</b>. " +
+                    "delivered to Nanotrasen facility SS13 is a <b>" + notes.getConclusionArtifact(gameData).getBaseName() + "</b>. " +
                     "For further details, please see my attached notes.<br/><br/>");
-            content.append("Please arrange for transport of object ASAP since " + notes.getConclusionArtifact().getEnding() + ".</i>");
+            content.append("Please arrange for transport of object ASAP since " + notes.getConclusionArtifact(gameData).getEnding() + ".</i>");
         } else {
-            CosmicMonolith ca = CosmicMonolith.getAllTypes().get(page-2);
+            CosmicMonolith ca = CosmicMonolith.getAllTypes(gameData).get(page-2);
             content.append("<b> Regarding " + ca.getNamePlural() + "</b><br/>");
             content.append("<i>" + ca.getNotesText() + "</i>");
         }
         return content.toString();
     }
 
-    private void makeTopContent(StringBuilder content) {
+    private void makeTopContent(StringBuilder content, GameData gameData) {
         content.append("<center><table width=\"100%\"><tr><td width=\"20%\">");
         if (page > minPage) {
             content.append(HTMLText.makeFancyFrameLink("PREV", "[prev]"));
@@ -75,14 +75,14 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
         content.append("<td width=\"20%\" bgcolor=\"black\"></td>");
         content.append("<td width=\"20%\"></td>");
         content.append("<td style=\"text-align:right\" width=\"20%\">");
-        if (page < getMaxPage()) {
+        if (page < getMaxPage(gameData)) {
             content.append(HTMLText.makeFancyFrameLink("NEXT", "[next]"));
         }
         content.append("</td></tr></table></center>");
     }
 
-    private int getMaxPage() {
-        return CosmicMonolith.getAllTypes().size() + 1;
+    private int getMaxPage(GameData gameData) {
+        return CosmicMonolith.getAllTypes(gameData).size() + 1;
     }
 
     @Override

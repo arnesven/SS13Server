@@ -29,9 +29,10 @@ public class MonolithExperimentRig extends BreakableObject implements PowerConsu
     private final MonolithExperimentsConsole console;
     private boolean correctlyConcluded;
 
-    public MonolithExperimentRig(Room labRoom) {
+    public MonolithExperimentRig(Room labRoom, GameData gameData) {
         super("Monolith Experiment Rig", 3.0, labRoom);
-        this.monolith = CosmicMonolith.getRandomMonolith();
+        this.monolith = CosmicMonolith.getRandomMonolith(gameData);
+        monolith.setPosition(labRoom);
         this.isClosed = true;
         this.console = new MonolithExperimentsConsole(labRoom, this);
         correctlyConcluded = false;

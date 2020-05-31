@@ -24,7 +24,7 @@ public class DonutSS13Builder extends MapBuilder {
         LabRoom labRoom = new LabRoom(1, 2, 1, 4, 3, new int[]{27, 24},
                 new Door[]{new ScienceDoor(5.0, 4.0, 1, 5, true),
                             new NormalDoor(2.0, 3.5, 0.0, 1, 27, false),
-                            new ScienceDoor(6.0, 1.5, 1, 24, false)});
+                            new ScienceDoor(6.0, 1.5, 1, 24, false)}, gameData);
         gm.addRoom(labRoom, ss13, "aft");
         gm.addRoom(labRoom, ss13, "port");
 
