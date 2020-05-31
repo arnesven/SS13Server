@@ -25,6 +25,7 @@ import java.util.List;
 
 public class MonolithExperimentRig extends BreakableObject implements PowerConsumer {
     private final CosmicMonolith monolith;
+    private boolean monolithRemoved;
     private boolean isClosed;
     private final MonolithExperimentsConsole console;
     private boolean correctlyConcluded;
@@ -36,14 +37,19 @@ public class MonolithExperimentRig extends BreakableObject implements PowerConsu
         this.isClosed = true;
         this.console = new MonolithExperimentsConsole(labRoom, this);
         correctlyConcluded = false;
+        monolithRemoved = false;
     }
 
     @Override
     public Sprite getSprite(Player whosAsking) {
         List<Sprite> sprs = new ArrayList<>();
-        sprs.add(monolith.getSprite(whosAsking));
-        sprs.get(0).shiftUpPx(3);
         StringBuilder suffix = new StringBuilder();
+        if (!monolithRemoved) {
+            sprs.add(monolith.getSprite(whosAsking));
+            sprs.get(0).shiftUpPx(3);
+        } else {
+            suffix.append("removed");
+        }
         console.addTestSprite(whosAsking, sprs, suffix);
         if (isClosed) {
             if (isBroken()) {
@@ -69,15 +75,17 @@ public class MonolithExperimentRig extends BreakableObject implements PowerConsu
         if (!isBroken()) {
             at.add(new OpenOrCloseGlassCover());
         }
-        if (!isClosed && cl instanceof Player) {
-            at.add(new TouchMonolithAction(gameData, (Player)cl));
-            at.add(new LookForMarkingsAction(gameData, (Player)cl));
-        }
-        if (GameItem.hasAnItemOfClass(cl, Multimeter.class)) {
-            at.add(new MeasureRadiationAction(gameData, (Player)cl));
-        }
-        if (GameItem.hasAnItemOfClass(cl, Chemicals.class)) {
-            at.add(new ApplyChemicalsAction());
+        if (!monolithRemoved) {
+            if (!isClosed && cl instanceof Player) {
+                at.add(new TouchMonolithAction(gameData, (Player) cl));
+                at.add(new LookForMarkingsAction(gameData, (Player) cl));
+                if (GameItem.hasAnItemOfClass(cl, Chemicals.class)) {
+                    at.add(new ApplyChemicalsAction());
+                }
+            }
+            if (GameItem.hasAnItemOfClass(cl, Multimeter.class)) {
+                at.add(new MeasureRadiationAction(gameData, (Player) cl));
+            }
         }
         super.addSpecificActionsFor(gameData, cl, at);
     }
@@ -178,6 +186,13 @@ public class MonolithExperimentRig extends BreakableObject implements PowerConsu
         console.thisJustBroke(gameData);
     }
 
+    public boolean isMonolithRemoved() {
+        return monolithRemoved;
+    }
+
+    public void setMonolithRemoved(boolean b) {
+        monolithRemoved = true;
+    }
 
 
     private class OpenOrCloseGlassCover extends Action {
@@ -284,7 +299,7 @@ public class MonolithExperimentRig extends BreakableObject implements PowerConsu
                 performingClient.addTolastTurnInfo("What, no chemicals to use? " + failed(gameData, performingClient));
             } else {
                 if (isCoverUp()) {
-                    performingClient.addTolastTurnInfo("You tried to apply the chemical, but the glass cover is up!" + failed(gameData, performingClient));
+                    performingClient.addTolastTurnInfo("You tried to apply the chemical, but the glass cover is up! " + failed(gameData, performingClient));
                 } else {
                     performingClient.getItems().remove(chem);
                     performingClient.addTolastTurnInfo("You applied " + chem.getFormula() + " to the monolith.");

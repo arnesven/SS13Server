@@ -29,20 +29,23 @@ public class MonolithExperimentsConsoleFancyFrame extends ConsoleFancyFrame {
 
     private void buildContent(GameData gameData, Player performingClient) {
         StringBuilder content = new StringBuilder();
-
         content.append("<br/>");
-        if (!console.getMonolith().isCoverUp()) {
-            content.append("WARNING! GLASS COVER IS UP!<br/>");
-        }
-        content.append("Select test:<br/>");
-        int index = 1;
-        for (String test : console.getTestNames()) {
-            content.append(index + ". " + test + " Test<br/>");
-            index++;
-        }
-        content.append("0. Cancel Current Test<br/>");
-        content.append("<br/>Test Results:<br/>" + console.getTestResults() + "<br/>");
+        if (console.getMonolith().isMonolithRemoved()) {
+            content.append("ERROR! MONOLITH NOT DETECTED!");
+        } else {
 
+            if (!console.getMonolith().isCoverUp()) {
+                content.append("WARNING! GLASS COVER IS UP!<br/>");
+            }
+            content.append("Select test:<br/>");
+            int index = 1;
+            for (String test : console.getTestNames()) {
+                content.append(index + ". " + test + " Test<br/>");
+                index++;
+            }
+            content.append("0. Cancel Current Test<br/>");
+        }
+        content.append("<br/>Test Results:<br/>" + console.getTestResults() + "<br/>");
         setData(console.getPublicName(performingClient), true, HTMLText.makeText("black", "courier", 4, content.toString()));
     }
 

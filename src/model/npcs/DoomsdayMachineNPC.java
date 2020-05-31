@@ -1,14 +1,11 @@
 package model.npcs;
 
-import model.characters.general.GameCharacter;
 import model.characters.general.RobotCharacter;
 import model.characters.special.DoomsdayMachineCharacter;
 import model.items.CosmicMonolith;
 import model.map.rooms.Room;
-import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.AttackAllActorsButNotTheseClasses;
 import model.npcs.behaviors.MeanderingMovement;
-import model.npcs.behaviors.MovementBehavior;
 import model.npcs.robots.RobotNPC;
 
 import java.util.List;

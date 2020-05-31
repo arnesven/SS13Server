@@ -4,6 +4,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Target;
+import util.MyRandom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +23,7 @@ public class PulseRifle extends AmmoWeapon {
     protected void usedOnBy(Target target, Actor performingClient, GameData gameData) {
         super.usedOnBy(target, performingClient, gameData);
         if (target instanceof Actor) {
-            List<Actor> alreadyAttacked = new ArrayList<>();
-            alreadyAttacked.add((Actor)target);
-            makeAdditionalAttacks(gameData, performingClient, alreadyAttacked);
+            makeAdditionalAttacks(gameData, performingClient, target);
         }
     }
 
@@ -36,13 +35,22 @@ public class PulseRifle extends AmmoWeapon {
         return new Sprite("pulserifle"+offset, "gun.png", 38 + offset, this);
     }
 
-    private void makeAdditionalAttacks(GameData gameData, Actor performingClient, List<Actor> alreadyAttacked) {
-        for (Actor a : performingClient.getPosition().getActors()) {
-            if (!alreadyAttacked.contains(a) && performingClient != a && a.getAsTarget().isTargetable()) {
-                if (!a.getAsTarget().beAttackedBy(performingClient, this, gameData)) {
+    private void makeAdditionalAttacks(GameData gameData, Actor performingClient, Target originalTarget) {
+        List<Target> alreadyAttacked = new ArrayList<>();
+        alreadyAttacked.add(originalTarget);
+
+        List<Target> targets = new ArrayList<>();
+        targets.addAll(performingClient.getPosition().getTargets(gameData));
+        targets.remove(performingClient);
+        while (targets.size() > 6) {
+            targets.remove(MyRandom.sample(targets));
+        }
+        for (Target t : targets) {
+            if (!alreadyAttacked.contains(t) && performingClient != t && t.isTargetable()) {
+                if (!t.beAttackedBy(performingClient, this, gameData)) {
                     break;
                 }
-                alreadyAttacked.add(a);
+                alreadyAttacked.add(t);
             }
         }
     }

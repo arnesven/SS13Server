@@ -2,6 +2,7 @@ package model.objects.monolith;
 
 import model.GameData;
 import model.items.CosmicMonolith;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.npcs.DoomsdayMachineNPC;
 import util.MyRandom;
@@ -65,10 +66,16 @@ public class DoomsdayMachine extends CosmicMonolith {
 
     @Override
     public boolean smellsWhenCorrosiveApplied() {
-        DoomsdayMachineNPC npc = new DoomsdayMachineNPC(getPosition(), this);
-        gameData.addNPC(npc);
-        activated = true;
-        return false;
+        try {
+            MonolithExperimentRig rig = gameData.findObjectOfType(MonolithExperimentRig.class);
+            rig.setMonolithRemoved(true);
+            DoomsdayMachineNPC npc = new DoomsdayMachineNPC(getPosition(), this);
+            gameData.addNPC(npc);
+            activated = true;
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     @Override
@@ -94,7 +101,7 @@ public class DoomsdayMachine extends CosmicMonolith {
 
     @Override
     public String getEnding() {
-        return "it may be a highly dangerous object and most of its properties are still unknown.";
+        return activated?"it came alive during testing and almost killed all of us":"it may be a highly dangerous object and most of its properties are still unknown.";
     }
 
     @Override
