@@ -2,18 +2,16 @@ package clientview.components;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
-import clientlogic.ClientDoor;
 import clientlogic.GameData;
 import clientlogic.Observer;
 import clientlogic.Room;
-import clientview.OverlaySprite;
 import clientview.animation.AnimationHandler;
 import clientview.strategies.BackgroundDrawingStrategy;
 import clientview.strategies.DrawingStrategy;
 import clientview.strategies.StationDrawingStrategy;
+import shared.ClientExtraEffect;
 
 import javax.swing.*;
-import javax.swing.Timer;
 import java.awt.*;
 
 public class MapPanel extends JPanel implements Observer {
@@ -113,6 +111,9 @@ public class MapPanel extends JPanel implements Observer {
             checkBackgroundStrategy();
         }
         drawingStrategy.paint(g);
+        for (ClientExtraEffect ee : GameData.getInstance().getExtraEffects()) {
+            ee.drawYourself(g);
+        }
         inventoryPanel.drawYourself(g, 0, getWidth());
         //dt = System.currentTimeMillis() - dt;
         //System.out.println("Took " + dt + "ms to paint result");

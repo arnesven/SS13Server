@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 
 import graphics.ClientInfo;
+import graphics.ExtraEffect;
 import graphics.OverlaySprite;
 import graphics.sprites.*;
 import model.actions.general.DoNothingAction;
@@ -52,12 +53,14 @@ public class Player extends Actor implements Target, Serializable {
     private String selectedMovePower;
 	private FancyFrame fancyFrame;
 	private int dataState = 0;
+	private List<ExtraEffect> extraEffects;
 
 
 	public Player(GameData gameData) {
 		Sprite charPreview = styleBody.getSprite(true, true); // DON'T REMOVE!
 		fancyFrame = new FancyFrame(null);
 		jobChoices.put("Artificial Intelligence", false);
+		extraEffects = new ArrayList<>();
 	}
 
 
@@ -759,4 +762,26 @@ public class Player extends Actor implements Target, Serializable {
 		this.nextAction = new DoNothingAction();
 	}
 
+	public void addExtraEffect(ExtraEffect extraEffect) {
+		this.extraEffects.add(extraEffect);
+	}
+
+	public String getExtraEffectsAsStrings() {
+		if (extraEffects.isEmpty()) {
+			return "nothing";
+		}
+		String delim = "<ee>";
+		StringBuilder bldr = new StringBuilder();
+		boolean first = true;
+		for (ExtraEffect ee : extraEffects) {
+			if (!first) {
+				bldr.append(delim);
+			}
+			bldr.append(ee.getStringRepresentation(this));
+			first = false;
+		}
+
+
+		return bldr.toString();
+	}
 }

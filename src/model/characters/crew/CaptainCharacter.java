@@ -9,6 +9,7 @@ import model.items.general.*;
 import model.items.mining.MiningExplosives;
 import model.items.suits.CaptainsOutfit;
 import model.items.suits.PirateOutfit;
+import model.items.weapons.LaserPistol;
 
 public class CaptainCharacter extends CrewCharacter {
 
@@ -22,6 +23,7 @@ public class CaptainCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
         ArrayList<GameItem> list = new ArrayList<GameItem>();
         list.add(new UniversalKeyCard());
+        list.add(new LaserPistol());
 
         return list;
     }

@@ -3,10 +3,9 @@ package clientlogic;
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientview.*;
-import clientview.components.ChatPanel;
-import clientview.components.GameUIPanel;
-import clientview.components.LastTurnPanel;
-import clientview.components.MapPanel;
+import clientview.components.*;
+import shared.ClientExtraEffect;
+import sounds.Sound;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -67,10 +66,10 @@ public class GameData {
 	private String fancyFrameContent = "BLANK";
 	private Dimension fancyFrameDimension = new Dimension(0, 0);
     private double[] oldSpacePos;
+    private ArrayList<ClientExtraEffect> extraEffects = new ArrayList<>();
 
     private GameData() {
 		modeAlternatives.add("Default");
-
 	}
 
 	public static GameData getInstance() {
@@ -415,7 +414,7 @@ public class GameData {
 	}
 
 	private void deconstructPlayerData(String indata) {
-		String[] parts = indata.split("<player-data-part>");
+       String[] parts = indata.split("<player-data-part>");
 		GameData.getInstance().setCharacter(parts[1]);
 		GameData.getInstance().setCurrentPos(Integer.parseInt(parts[2]));
 		GameData.getInstance().setHealth(Double.parseDouble(parts[3]));
@@ -425,6 +424,18 @@ public class GameData {
 		deconstructRoomInfo(parts[7]);
 		deconstructLastTurnInfo(parts[8]);
 		deconstructOverlaySprites(parts[9]);
+		if (!parts[10].equals("nothing")) {
+            deconstructExtraEffects(parts[10]);
+        }
+	}
+
+	private void deconstructExtraEffects(String part) {
+        extraEffects.clear();
+		String[] ees = part.split("<ee>");
+		for (String ee : ees) {
+			String[] data = ee.split("<eepart>");
+			extraEffects.add(new ClientExtraEffect(data[0], data[1], data[2]));
+		}
 	}
 
 
@@ -928,4 +939,7 @@ public class GameData {
 	}
 
 
+    public List<ClientExtraEffect> getExtraEffects() {
+    	return extraEffects;
+    }
 }

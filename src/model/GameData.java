@@ -590,7 +590,7 @@ public class GameData implements Serializable {
         String delim = "<player-data-part>";
 
         String overlays =  OverlaySprite.join(cl.getOverlayStrings(this), this);
-      //  Logger.log(overlays);
+      	Logger.log("Extra effects are: " + cl.getExtraEffectsAsStrings());
 		String result = cl.getCharacterRealName() + 
 				       delim + cl.getPosition().getID() +
 					   delim + cl.getCurrentHealth() +
@@ -599,7 +599,8 @@ public class GameData implements Serializable {
 					   delim + MyStrings.join(cl.getItemsAsFullNameList(this)) +
 					   delim + MyStrings.join(cl.getRoomInfo(this)) +
 					   delim + MyStrings.join(cl.getLastTurnInfo()) +
-                       delim + overlays;
+                       delim + overlays +
+				       delim + cl.getExtraEffectsAsStrings();
 		return result;	
 		
 	}

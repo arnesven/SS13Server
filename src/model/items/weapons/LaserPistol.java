@@ -1,7 +1,9 @@
 package model.items.weapons;
 
 
+import graphics.ExtraEffect;
 import graphics.sprites.Sprite;
+import graphics.sprites.SpriteObject;
 import model.*;
 import model.events.ambient.ElectricalFire;
 import model.items.TraitorItem;
@@ -31,7 +33,14 @@ public class LaserPistol extends AmmoWeapon implements TraitorItem {
         return new Sprite("laserpistolinhand", "items_righthand.png", 0, 16, this);
     }
 
-
+    @Override
+    protected void usedOnBy(Target target, Actor performingClient, GameData gameData) {
+        super.usedOnBy(target, performingClient, gameData);
+        if (target instanceof SpriteObject && performingClient instanceof Player) {
+            ((Player)performingClient).addExtraEffect(new ExtraEffect((SpriteObject) performingClient,
+                    (SpriteObject) target, new Sprite("superbeam", "beam.png", 2, 2, null)));
+        }
+    }
 
     @Override
     protected void checkOnlyMissHazard(final Actor performingClient, GameData gameData, Target originalTarget) {
