@@ -105,6 +105,7 @@ public class AlienCharacter extends GameCharacter {
         } else if (eggs > 0 && getPosition() instanceof StationRoom) {
             at.add(new LayEggsAction(this));
         }
+        at.add(new CommitSuicideAction());
 
     }
 
@@ -195,24 +196,25 @@ public class AlienCharacter extends GameCharacter {
             if (getActor() instanceof NPC && ageInTurns > 10) {
                 ageInTurns = 10;
             }
-        }
-        if (ageInTurns == 4) {
-            getActor().addTolastTurnInfo(HTMLText.makeText("Green", "<b>You grow stronger.</b>"));
-            setMaxHealth(2.0);
-            setHealth(2.0);
-            this.stage = STAGE_ADULT;
-        } else if (ageInTurns == 6) {
-            getActor().addTolastTurnInfo(HTMLText.makeText("Green", "<b>You have matured and can now lay eggs.</b>"));
-            eggs = 1;
-        } else if (ageInTurns % 8 == 0) {
-            getActor().addTolastTurnInfo(HTMLText.makeText("Green", "<b>You grow stronger.</b>"));
-            setMaxHealth(getMaxHealth()+1.0);
-            setHealth(getHealth()+1.0);
+            if (ageInTurns == 4) {
+                getActor().addTolastTurnInfo(HTMLText.makeText("Green", "<b>You grow stronger.</b>"));
+                setMaxHealth(2.0);
+                setHealth(2.0);
+                this.stage = STAGE_ADULT;
+            } else if (ageInTurns == 6) {
+                getActor().addTolastTurnInfo(HTMLText.makeText("Green", "<b>You have matured and can now lay eggs.</b>"));
+                eggs = 1;
+            } else if (ageInTurns % 8 == 0) {
+                getActor().addTolastTurnInfo(HTMLText.makeText("Green", "<b>You grow stronger.</b>"));
+                setMaxHealth(getMaxHealth()+1.0);
+                setHealth(getHealth()+1.0);
+            }
+
+            if (gameData.getRound() % 3 == 0 && ageInTurns >= 6) {
+                eggs++;
+            }
         }
 
-        if (gameData.getRound() % 3 == 0 && ageInTurns >= 6) {
-            eggs++;
-        }
     }
 
     public void layEggsInRoom(Actor performingClient, Room position, GameData gameData) {

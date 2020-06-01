@@ -115,6 +115,7 @@ public class AlienEggObject extends BreakableObject {
     }
 
     public void splitOffIntoEggActor(Actor actor, GameData gameData) {
+        Logger.log("Respawning an alien!");
         decrementNumber();
         try {
             actor.getPosition().removeActor(actor);
@@ -122,14 +123,21 @@ public class AlienEggObject extends BreakableObject {
             e.printStackTrace();
         }
         GameCharacter oldChar = actor.getCharacter();
+        Logger.log(" ... old char HP (0 expected)" + oldChar.getHealth());
+        oldChar.setActor(null);
         AlienCharacter ac = new AlienCharacter(getPosition());
+        Logger.log(" ... old char HP (0 expected)" + oldChar.getHealth());
         actor.setCharacter(ac);
-        oldChar.setActor(new DeadDummyNPC(oldChar));
-        gameData.addNPC((NPC)oldChar.getActor());
+        Logger.log(" ... old char HP (0 expected)" + oldChar.getHealth());
+        NPC npc = new DeadDummyNPC(oldChar);
+        Logger.log(" ... old char HP (0 expected)" + oldChar.getHealth());
+        gameData.addNPC(npc);
+        Logger.log(" ... old char HP (0 expected)" + oldChar.getHealth());
 
         actor.addTolastTurnInfo("You respawned as an alien!");
         actor.moveIntoRoom(getPosition());
         actor.setCharacter(new RespawnAsAlienAfterDeathDecorator(actor.getCharacter(), gameData, (HuntGameMode)gameData.getGameMode()));
+        Logger.log(" ... old char HP (0 expected)" + oldChar.getHealth());
     }
 
     public void splitOffIntoEggNPC(GameData gameData) {

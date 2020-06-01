@@ -8,8 +8,7 @@ import model.npcs.behaviors.MeanderingMovement;
 public class DeadDummyNPC extends NPC {
     public DeadDummyNPC(GameCharacter oldChar) {
         super(oldChar, new MeanderingMovement(0.0), new DoNothingBehavior(), oldChar.getPosition());
-        this.setHealth(oldChar.getHealth());
-        this.setMaxHealth(oldChar.getMaxHealth());
+        this.setHealth(0.0);
     }
 
     @Override

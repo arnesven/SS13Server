@@ -1,5 +1,6 @@
 package model.actions.characteractions;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -32,5 +33,10 @@ public class LayEggsAction extends Action {
     @Override
     protected void setArguments(List<String> args, Actor performingClient) {
 
+    }
+
+    @Override
+    public Sprite getAbilitySprite() {
+        return new Sprite("layeggabisprite", "interface_alien.png", 5, null);
     }
 }
