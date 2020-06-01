@@ -32,7 +32,8 @@ public class DockWorkerBotCharacter extends RobotCharacter {
     public void addActionsForActorsInRoom(GameData gameData, Actor otherActor, ArrayList<Action> at) {
         super.addActionsForActorsInRoom(gameData, otherActor, at);
         if (getActor() instanceof NPC) {
-            if (((NPC) getActor()).getActionBehavior() instanceof ReadyForCommandsBehavior) {
+            if (((NPC) getActor()).getActionBehavior() instanceof ReadyForCommandsBehavior ||
+                    ((NPC)getActor()).getMovementBehavior() instanceof ReadyForCommandsBehavior) {
                 at.add(new ProgramDockWorkerBotAction((NPC)getActor(), gameData));
             }
         }

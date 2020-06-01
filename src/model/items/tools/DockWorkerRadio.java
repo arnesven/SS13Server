@@ -33,7 +33,7 @@ public class DockWorkerRadio extends Radio {
         List<Action> res = new ArrayList<>();
         for (NPC npc : gameData.getNPCs()) {
             if (npc.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof DockWorkerBotCharacter)) {
-                if (npc.getActionBehavior() instanceof ReadyForCommandsBehavior) {
+                if (npc.getActionBehavior() instanceof ReadyForCommandsBehavior || npc.getMovementBehavior() instanceof ReadyForCommandsBehavior) {
                     res.add(new ProgramDockWorkerBotAction(npc, gameData));
                 } else {
                     res.add(new DoNothingAction(){
