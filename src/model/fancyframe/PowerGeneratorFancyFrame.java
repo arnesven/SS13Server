@@ -64,13 +64,15 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
                 for (PowerConsumer pc : powerSim.findConsumers(gameData)) {
                     if (pc.getPowerConsumption() > 0.0) {
                         String textcolor = "yellow";
-                        if (!((ElectricalMachinery) pc).isPowered()) {
-                            textcolor = "black";
-                        }
+                        if (pc instanceof ElectricalMachinery) {
+                            if (!((ElectricalMachinery) pc).isPowered()) {
+                                textcolor = "black";
+                            }
                         content.append(HTMLText.makeFancyFrameLink("SPECPRIO " + index, HTMLText.makeText(textcolor, ""+ pc.getPowerPriority())) +
                                 HTMLText.makeText(textcolor, " " +
                                 String.format("%2.1f kW", pc.getPowerConsumption() * 1000) + " " +
                                 ((ElectricalMachinery) pc).getBaseName() + " " + "<br/>"));
+                        }
                     }
                     index++;
                 }
