@@ -21,6 +21,8 @@ import model.items.weapons.Weapon;
 import model.map.SpacePosition;
 import model.map.rooms.RemoteRoom;
 import model.map.rooms.Room;
+import model.misc.EVAStrategy;
+import model.misc.FreeMoveEVAStrategy;
 import model.movepowers.MovePowersHandler;
 import model.npcs.behaviors.ActionBehavior;
 import util.Logger;
@@ -540,5 +542,9 @@ public abstract class CharacterDecorator extends GameCharacter {
 
 	public void doAction(Action nextAction, GameData gameData) {
 		innerChar.doAction(nextAction, gameData);
+	}
+
+	public EVAStrategy getDefaultEVAStrategy() {
+		return innerChar.getDefaultEVAStrategy();
 	}
 }

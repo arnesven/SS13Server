@@ -1,6 +1,5 @@
 package model.characters.general;
 
-import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,6 +20,9 @@ import model.map.GameMap;
 import model.map.SpacePosition;
 import model.map.rooms.NukieShipRoom;
 import model.map.rooms.SpaceRoom;
+import model.misc.AlongSurfacesEVAStrategy;
+import model.misc.FreeMoveEVAStrategy;
+import model.misc.EVAStrategy;
 import model.modes.OperativesGameMode;
 import model.movepowers.*;
 import model.npcs.NPC;
@@ -783,4 +785,8 @@ public abstract class GameCharacter implements Serializable {
 		nextAction.doTheAction(gameData, getActor());
 	}
 
+	public EVAStrategy getDefaultEVAStrategy() {
+		return new FreeMoveEVAStrategy();
+    	//return new AlongSurfacesEVAStrategy();
+	}
 }

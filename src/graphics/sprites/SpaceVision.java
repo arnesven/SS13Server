@@ -10,6 +10,7 @@ import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.map.SpacePosition;
 import model.map.rooms.Room;
+import model.misc.EVAStrategy;
 import model.objects.general.GameObject;
 import util.Logger;
 
@@ -24,7 +25,6 @@ public class SpaceVision extends NormalVision {
     private static final double maxDX = 10;
     private static final double maxDZ = 1;
     private static final double minDZ = -1;
-    private static final double RANGE_CUBED = 50.0;
 
     @Override
     protected void addExtraSensoryPerception(Player player, GameData gameData, ArrayList<OverlaySprite> strs) {
@@ -40,6 +40,7 @@ public class SpaceVision extends NormalVision {
 
     private List<GameObject> getMovableToSpacePositions(GameData gameData, Player player) {
         List<GameObject> result = new ArrayList<>();
+        EVAStrategy evaStrat = player.getCharacter().getDefaultEVAStrategy();
         for (double dz = minDZ; dz <= maxDZ; dz += 1) {
             for (double dy = minDY; dy <= maxDY; dy += 0.5) {
                 for (double dx = minDX; dx <= maxDX; dx += 0.5) {
@@ -47,28 +48,14 @@ public class SpaceVision extends NormalVision {
                     double y = player.getCharacter().getSpacePosition().getY() + dy;
                     double z = player.getCharacter().getSpacePosition().getZ() + dz;
                     if (!(dx == 0.0 && dy == 0.0)) {
-                        Room r = null;
-                        try {
-                            r = gameData.getMap().getRoomForCoordinates(x, y, z,
-                                    gameData.getMap().getLevelForRoom(player.getPosition()).getName());
-                            if (player.findMoveToAblePositions(gameData).contains(r) && isWithinRange(dx, dy, dz)) {
-                                result.add(new MoveTargetObject(x, y, z, player.getPosition(), player.getCharacter().getSpacePosition()));
-                            }
-                        } catch (NoSuchThingException e) {
-                            if (isWithinRange(dx, dy, dz)) {
-                                result.add(new MoveTargetObject(x, y, z, player.getPosition(), player.getCharacter().getSpacePosition()));
-                            }
+                        if (evaStrat.canMoveTo(player, gameData, x, y, z)) {
+                            result.add(new MoveTargetObject(x, y, z, player.getPosition(), player.getCharacter().getSpacePosition()));
                         }
                     }
-
                 }
             }
         }
         return result;
-    }
-
-    private boolean isWithinRange(double x, double y, double z) {
-        return Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2) < RANGE_CUBED;
     }
 
     private static class MoveTargetObject extends GameObject {
@@ -83,7 +70,7 @@ public class SpaceVision extends NormalVision {
             this.y = y;
             this.z = z;
             if (z == current.getZ()) {
-                sprite = new Sprite("movetargetobject", "alert.png", 0, 6, this);
+                sprite = new Sprite("movetargetobject", "alert.png", 3, 6, this);
             } else if (z > r.getZ()) {
                 sprite = new Sprite("movetargetobjectup", "alert.png", 1, 6, this);
             } else {

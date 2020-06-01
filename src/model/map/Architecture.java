@@ -267,6 +267,23 @@ public class Architecture {
         return new Rectangle(r.getX(), r.getY(), r.getWidth(), r.getHeight());
     }
 
+    public boolean isAdjacentToRoom(double xDouble, double yDouble) {
+        int x = (int)xDouble;
+        int y = (int)yDouble;
+        for (int dy = -1; dy < 2; ++dy) {
+            for (int dx = -1; dx < 2; ++dx) {
+                if (!(dx == 0 && dy == 0)) {
+                    Logger.log("Checking " + dx + " " + dy);
+                    if (getMatrix(x + dx, y + dy) == 1) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
     public static class NoLegalPlacementForRoom extends Exception {
     }
 
