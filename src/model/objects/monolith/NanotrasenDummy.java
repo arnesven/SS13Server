@@ -92,6 +92,11 @@ public class NanotrasenDummy extends CosmicMonolith {
     }
 
     @Override
+    public String getNamePlural() {
+        return "Nanotrasen Dummies";
+    }
+
+    @Override
     public GameItem clone() {
         return new NanotrasenDummy();
     }

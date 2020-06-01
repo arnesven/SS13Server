@@ -6,6 +6,7 @@ import model.Player;
 import model.items.CosmicMonolith;
 import model.items.ExperimentNotes;
 import util.HTMLText;
+import util.Logger;
 
 public class ExperimentNotesFancyFrame extends FancyFrame {
 
@@ -43,13 +44,16 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
     private String getContentForPage(GameData gameData) {
         StringBuilder content = new StringBuilder();
         if (page == 1) {
+            int index = 2;
             for (CosmicMonolith ca : CosmicMonolith.getAllTypes(gameData)) {
                 if (notes.getCrossedOut().contains(ca.getBaseName())) {
-                    content.append("<strike>" + ca.getBaseName() + "</strike><br/>");
+                    content.append("<strike>" + ca.getBaseName() + "</strike>");
                 } else {
-                    content.append("" + ca.getBaseName() + " " +
-                            HTMLText.makeFancyFrameLink("SCRATCH " + ca.getBaseName(), "[scratch]") + "<br/>");
+                    content.append(HTMLText.makeFancyFrameLink("SCRATCH " + ca.getBaseName(),
+                                    HTMLText.makeText("blue", "sans", 5, "✎📁")) + " " + ca.getBaseName());
                 }
+                content.append(" " + HTMLText.makeFancyFrameLink("GOTOPAGE " + index, HTMLText.makeText("blue", "sans", 5, "☛")) + "<br/>");
+                index++;
             }
         } else if (page == 0) {
             content.append("<center><b>Conclusions on Object 'Monolith' </b><br/><i>Report</i></center>");
@@ -72,7 +76,12 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
         }
         content.append("</td>");
         content.append("<td width=\"20%\"></td>");
-        content.append("<td width=\"20%\" bgcolor=\"black\"></td>");
+        content.append("<td width=\"20%\" bgcolor=\"black\" style=\"text-align:center\">");
+        if (page != 1) {
+            content.append(HTMLText.makeFancyFrameLink("RETURN", HTMLText.makeText("yellow", "[list]")) + "</td>");
+        } else {
+            content.append("</td>");
+        }
         content.append("<td width=\"20%\"></td>");
         content.append("<td style=\"text-align:right\" width=\"20%\">");
         if (page < getMaxPage(gameData)) {
@@ -87,12 +96,19 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
 
     @Override
     public void handleEvent(GameData gameData, Player player, String event) {
+        Logger.log("GOT EVENT " + event);
         super.handleEvent(gameData, player, event);
         if (event.contains("NEXT")) {
             page++;
             buildContent(player, gameData);
         } else if (event.contains("PREV")) {
             page--;
+            buildContent(player, gameData);
+        } else if (event.contains("RETURN")) {
+            page = 1;
+            buildContent(player, gameData);
+        } else if (event.contains("GOTOPAGE")) {
+            page = Integer.parseInt(event.replaceAll("GOTOPAGE ", ""));
             buildContent(player, gameData);
         } else if (event.contains("SCRATCH")) {
             notes.getCrossedOut().add(event.replace("SCRATCH ", ""));
