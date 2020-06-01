@@ -50,7 +50,9 @@ public class CharacterCreation implements Serializable {
 
     public void doAtGameStart(GameData gameData, Player pl) {
         if (selected != null) {
-            pl.addItem(selected, null);
+            if (!gameData.getGameMode().isAntagonist(pl)) {
+                pl.addItem(selected, null);
+            }
         }
     }
 }
