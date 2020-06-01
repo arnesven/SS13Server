@@ -773,6 +773,10 @@ public abstract class GameMode implements Serializable {
 		newPlayer.giveStartingItemsToSelf();
 		bank.addAccount(newPlayer);
 
+		if (!isAntagonist(newPlayer)) {
+			tasks.giveGoalToLateJoiner(gameData, newPlayer);
+		}
+
 		addStartingMessage(gameData, newPlayer);
 		informOnStation(gameData, newPlayer);
 		for (Player p : gameData.getPlayersAsList()) {

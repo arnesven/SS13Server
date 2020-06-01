@@ -139,6 +139,10 @@ public class  PersonalGoalAssigner implements Serializable {
         }
     }
 
+    public void giveGoalToLateJoiner(GameData gameData, Player p) {
+        setGoal(gameData, p);
+    }
+
     private PersonalGoal giveGoalToActorFrom(Actor a, GameData gameData, Collection<PersonalGoal> setOfGoals) {
         PersonalGoal pt;
         do {
