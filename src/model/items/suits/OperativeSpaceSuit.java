@@ -7,7 +7,7 @@ import model.characters.decorators.OperativeSpaceProtection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OperativeSpaceSuit extends SpaceSuit {
+public class OperativeSpaceSuit extends JetPackSpaceSuit {
 
 	public OperativeSpaceSuit() {
 		this.setWeight(5.0);

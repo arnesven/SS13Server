@@ -786,7 +786,7 @@ public abstract class GameCharacter implements Serializable {
 	}
 
 	public EVAStrategy getDefaultEVAStrategy() {
-		return new FreeMoveEVAStrategy();
-    	//return new AlongSurfacesEVAStrategy();
+		//return new FreeMoveEVAStrategy();
+    	return new AlongSurfacesEVAStrategy();
 	}
 }

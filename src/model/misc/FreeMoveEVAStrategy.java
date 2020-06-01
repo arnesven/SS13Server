@@ -1,9 +1,9 @@
 package model.misc;
 
-import graphics.sprites.SpaceVision;
 import model.GameData;
 import model.Player;
 import model.items.NoSuchThingException;
+import model.map.Architecture;
 import model.map.rooms.Room;
 
 public class FreeMoveEVAStrategy extends EVAStrategy {
@@ -12,7 +12,7 @@ public class FreeMoveEVAStrategy extends EVAStrategy {
     }
 
     @Override
-    public boolean canMoveTo(Player player, GameData gameData, double x, double y, double z) {
+    public boolean canMoveTo(Player player, GameData gameData, double x, double y, double z, Architecture arch, Architecture above, Architecture below) {
         double dx = x - player.getCharacter().getSpacePosition().getX();
         double dy = y - player.getCharacter().getSpacePosition().getY();
         double dz = z - player.getCharacter().getSpacePosition().getZ();

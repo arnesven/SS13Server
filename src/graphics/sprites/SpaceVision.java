@@ -19,12 +19,6 @@ import java.util.List;
 
 public class SpaceVision extends NormalVision {
 
-    private static final double minDY = -10;
-    private static final double minDX = -10;
-    private static final double maxDY = 10;
-    private static final double maxDX = 10;
-    private static final double maxDZ = 1;
-    private static final double minDZ = -1;
 
     @Override
     protected void addExtraSensoryPerception(Player player, GameData gameData, ArrayList<OverlaySprite> strs) {
@@ -41,19 +35,8 @@ public class SpaceVision extends NormalVision {
     private List<GameObject> getMovableToSpacePositions(GameData gameData, Player player) {
         List<GameObject> result = new ArrayList<>();
         EVAStrategy evaStrat = player.getCharacter().getDefaultEVAStrategy();
-        for (double dz = minDZ; dz <= maxDZ; dz += 1) {
-            for (double dy = minDY; dy <= maxDY; dy += 0.5) {
-                for (double dx = minDX; dx <= maxDX; dx += 0.5) {
-                    double x = player.getCharacter().getSpacePosition().getX() + dx;
-                    double y = player.getCharacter().getSpacePosition().getY() + dy;
-                    double z = player.getCharacter().getSpacePosition().getZ() + dz;
-                    if (!(dx == 0.0 && dy == 0.0)) {
-                        if (evaStrat.canMoveTo(player, gameData, x, y, z)) {
-                            result.add(new MoveTargetObject(x, y, z, player.getPosition(), player.getCharacter().getSpacePosition()));
-                        }
-                    }
-                }
-            }
+        for (double[] pos : evaStrat.getMoveTargetPositions(gameData, player)) {
+            result.add(new MoveTargetObject(pos[0], pos[1], pos[2], player.getPosition(), player.getCharacter().getSpacePosition()));
         }
         return result;
     }

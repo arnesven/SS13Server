@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by erini02 on 17/09/17.
  */
-public class MinerSpaceSuit extends SpaceSuit {
+public class MinerSpaceSuit extends JetPackSpaceSuit {
     public MinerSpaceSuit() {
         setName("Mining Space Suit");
     }

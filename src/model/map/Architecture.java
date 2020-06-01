@@ -268,13 +268,10 @@ public class Architecture {
     }
 
     public boolean isAdjacentToRoom(double xDouble, double yDouble) {
-        int x = (int)xDouble;
-        int y = (int)yDouble;
-        for (int dy = -1; dy < 2; ++dy) {
-            for (int dx = -1; dx < 2; ++dx) {
+        for (double dy = -1; dy < 2; ++dy) {
+            for (double dx = -1; dx < 2; ++dx) {
                 if (!(dx == 0 && dy == 0)) {
-                    Logger.log("Checking " + dx + " " + dy);
-                    if (getMatrix(x + dx, y + dy) == 1) {
+                    if (getMatrix((int)Math.floor(xDouble + dx), (int)Math.floor(yDouble + dy)) == 1) {
                         return true;
                     }
                 }
@@ -282,6 +279,10 @@ public class Architecture {
         }
 
         return false;
+    }
+
+    public boolean isOnRoom(double x, double y) {
+        return getMatrix((int)x, (int)y) == 1;
     }
 
     public static class NoLegalPlacementForRoom extends Exception {
