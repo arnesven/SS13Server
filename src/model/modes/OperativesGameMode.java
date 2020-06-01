@@ -45,7 +45,12 @@ public class OperativesGameMode extends GameMode {
         return "Operatives";
     }
 
-    @Override
+	@Override
+	protected boolean keepNukieShip() {
+		return true;
+	}
+
+	@Override
 	protected void setUpOtherStuff(GameData gameData) {
         Room cq = null;
         try {

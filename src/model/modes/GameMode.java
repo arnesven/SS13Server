@@ -22,8 +22,10 @@ import model.items.RandomItemManager;
 import model.items.suits.Rapido;
 import model.map.DockingPoint;
 import model.map.GameMap;
+import model.map.MapLevel;
 import model.map.rooms.DecorativeRoom;
 import model.map.rooms.LateJoiningShuttle;
+import model.map.rooms.NukieShipRoom;
 import model.misc.ChristmasBooster;
 import model.modes.goals.PersonalGoalAssigner;
 import model.npcs.*;
@@ -263,6 +265,8 @@ public abstract class GameMode implements Serializable {
 		addRandomItemsToRooms(gameData);
 		Logger.log(" Game Mode: Items added to rooms");
 		addPersonalGoals(gameData);
+		Logger.log(" Game Mode: Move Nukie Ship if it isn't being used");
+		moveNukieShip(gameData);
 
 		Logger.log("Game Mode: Creating Bank");
 		this.bank = new Bank(gameData);
@@ -277,7 +281,26 @@ public abstract class GameMode implements Serializable {
 
 	}
 
-    protected void addPersonalGoals(GameData gameData) {
+	private void moveNukieShip(GameData gameData) {
+		if (!keepNukieShip()) {
+			List<Room> roomsToMove = new ArrayList<>();
+			for (Room r : gameData.getMap().getRoomsForLevel(GameMap.STATION_LEVEL_NAME)) {
+				if (r instanceof NukieShipRoom) {
+					roomsToMove.add(r);
+				}
+			}
+			Integer[] pos = MyRandom.sample(gameData.getMap().getJumpableToLevels());
+			for (Room r : roomsToMove) {
+				gameData.getMap().moveRoomToLevel(r, gameData.getMap().getLevelForCoordinates(pos, gameData), "space");
+			}
+		}
+	}
+
+	protected boolean keepNukieShip() {
+		return false;
+	}
+
+	protected void addPersonalGoals(GameData gameData) {
         tasks = new PersonalGoalAssigner(gameData);
         tasks.addTasks(gameData);
     }
