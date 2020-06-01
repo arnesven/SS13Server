@@ -21,7 +21,7 @@ public abstract class CosmicMonolith extends GameItem {
     public CosmicMonolith(String name) {
         super(name, 1.0, false, 1000);
         this.sprite = MyRandom.sample(spritelist(this));
-        Logger.log(Logger.INTERESTING, "Cosmic Monolith Sprite is " + getSprite(null).getName());
+        //Logger.log(Logger.INTERESTING, "Cosmic Monolith Sprite is " + getSprite(null).getName());
     }
 
 

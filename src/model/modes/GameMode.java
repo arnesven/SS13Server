@@ -10,6 +10,7 @@ import model.*;
 import model.characters.crew.*;
 import model.characters.decorators.HostCharacter;
 import model.characters.general.*;
+import model.characters.special.AlienCharacter;
 import model.characters.special.SpectatorCharacter;
 import model.characters.visitors.VisitorCharacter;
 import model.events.*;
@@ -597,7 +598,7 @@ public abstract class GameMode implements Serializable {
 	}
 
 	public static List<String> availableAntagonists() {
-		return List.of("Traitor", "Host", "Operative", "Changeling", "Rogue AI", "Wizard");
+		return List.of("Traitor", "Host", "Operative", "Changeling", "Rogue AI", "Wizard", "Alien");
 	}
 
 
@@ -609,6 +610,7 @@ public abstract class GameMode implements Serializable {
 		map.put("Changeling", ChangelingCharacter.getAntagonistDescription());
 		map.put("Rogue AI", AICharacter.getAntagonistDescription());
 		map.put("Wizard", WizardCharacter.getAntagonistDescription());
+		map.put("Alien", AlienCharacter.getAntagonistDescription());
 		return map.get(gc);
 	}
 

@@ -8,6 +8,7 @@ import model.actions.characteractions.CommitSuicideAction;
 import model.actions.characteractions.HatchAction;
 import model.actions.characteractions.LayEggsAction;
 import model.actions.general.Action;
+import model.characters.crew.JobDescriptionMaker;
 import model.characters.general.GameCharacter;
 import model.characters.general.ParasiteCharacter;
 import model.events.damage.AsphyxiationDamage;
@@ -50,6 +51,7 @@ public class AlienCharacter extends GameCharacter {
         ageInTurns = 0;
         eggs = 0;
     }
+
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
@@ -223,5 +225,19 @@ public class AlienCharacter extends GameCharacter {
 
     public int getAge() {
         return ageInTurns;
+    }
+
+
+    public static String getAntagonistDescription() {
+        return "<font size=\"3\"><i>A malicious egg-laying xenomorph whose sole purpose seems" +
+                " to be killing unsuspecting crew members.</i><br/>"+
+                "<b>Abilities: </b> Evolving, Egg-laying<br/>" +
+                "<b>Initiative</b> 6.6<br/>" +
+                "</font>";
+    }
+
+    @Override
+    public String getMugshotName() {
+        return "Alien";
     }
 }
