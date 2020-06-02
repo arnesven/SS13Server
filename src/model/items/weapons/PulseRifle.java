@@ -15,25 +15,25 @@ import java.util.List;
  */
 public class PulseRifle extends AmmoWeapon {
     private static final int MAX_AMMO = 18;
+    private int lastAdditionalAttacksIn = 0;
 
     public PulseRifle() {
         super("Pulse Rifle", 0.9, 1.0, false, 1.0, MAX_AMMO, 595);
     }
 
+
     @Override
-    protected void usedOnBy(Target target, Actor performingClient, GameData gameData) {
-        super.usedOnBy(target, performingClient, gameData);
-        if (target instanceof Actor) {
+    public void doAttack(Actor performingClient, Target target, GameData gameData) {
+        super.doAttack(performingClient, target, gameData);
+        if (target instanceof Actor && lastAdditionalAttacksIn != gameData.getRound()) {
+            lastAdditionalAttacksIn = gameData.getRound();
             makeAdditionalAttacks(gameData, performingClient, target);
         }
     }
 
-
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        double emptyness = 1.0 - ((double)getShots()) / getMaxShots();
-        int offset = (int)Math.floor(6 * emptyness);
-        return new Sprite("pulserifle"+offset, "gun.png", 38 + offset, this);
+        return new Sprite("pulserifle", "gun.png", 38, this);
     }
 
     private void makeAdditionalAttacks(GameData gameData, Actor performingClient, Target originalTarget) {
@@ -43,17 +43,18 @@ public class PulseRifle extends AmmoWeapon {
         List<Target> targets = new ArrayList<>();
         targets.addAll(performingClient.getPosition().getTargets(gameData));
         targets.remove(performingClient);
+        double originalHitChance = getHitChance();
         while (targets.size() > 6) {
             targets.remove(MyRandom.sample(targets));
         }
         for (Target t : targets) {
             if (!alreadyAttacked.contains(t) && performingClient != t && t.isTargetable()) {
-                if (!t.beAttackedBy(performingClient, this, gameData)) {
-                    break;
-                }
+                setHitChance(getHitChance()*0.85);
+                doAttack(performingClient, t, gameData);
                 alreadyAttacked.add(t);
             }
         }
+        setHitChance(originalHitChance);
     }
 
     @Override

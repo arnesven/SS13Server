@@ -184,6 +184,11 @@ public abstract class Weapon extends GameItem implements HandheldItem {
         } else {
             checkOnlyMissHazard(performingClient, gameData, target);
         }
+        applyExtraEffectIfAble(performingClient, target, gameData);
+        checkHazard(performingClient, gameData);
+    }
+
+    protected void applyExtraEffectIfAble(Actor performingClient, Target target, GameData gameData) {
         if (hasExtraEffect()) {
             if (target instanceof SpriteObject && performingClient instanceof Player) {
                 AnimatedSprite beamSprite = getExtraEffectSprite();
@@ -191,7 +196,6 @@ public abstract class Weapon extends GameItem implements HandheldItem {
                         beamSprite.getFrames(), beamSprite.isLooping());
             }
         }
-        checkHazard(performingClient, gameData);
     }
 
     public String getCriticalMessage() {
