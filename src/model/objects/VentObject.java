@@ -85,6 +85,9 @@ public class VentObject extends GameObject {
                 at.add(new CloseVentAction(this));
             }
         }
+        if (!isOpen && cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AlienCharacter)) {
+            at.add(new OpenAndMoveThroughAction(this));
+        }
     }
 
     public boolean isOpen() {
@@ -209,6 +212,20 @@ public class VentObject extends GameObject {
         @Override
         public void setArguments(List<String> args, Actor performingClient) {
 
+        }
+    }
+
+    private class OpenAndMoveThroughAction extends OpenVentAction {
+        public OpenAndMoveThroughAction(VentObject ventObject) {
+            super(ventObject);
+            setName(super.getName() + " and Move Through");
+        }
+
+        @Override
+        protected void execute(GameData gameData, Actor performingClient) {
+            super.execute(gameData, performingClient);
+            VentMoveAction vma = new VentMoveAction(gameData, performingClient);
+            vma.doTheAction(gameData, performingClient);
         }
     }
 }
