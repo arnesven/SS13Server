@@ -6,6 +6,7 @@ import model.GameData;
 import model.Hazard;
 import model.Player;
 import model.events.ambient.ElectricalFire;
+import model.events.animation.AnimatedSprite;
 import util.Logger;
 import util.MyRandom;
 
@@ -38,7 +39,17 @@ public class FireStaff extends StaffWeapon {
                 }
             }
         };
+    }
 
+    @Override
+    protected boolean hasExtraEffect() {
+        return true;
+    }
 
+    @Override
+    protected AnimatedSprite getExtraEffectSprite() {
+        AnimatedSprite asp = new AnimatedSprite("flamerfirespray", "laser.png",
+                0, 3, 32, 64, null, 14, false);
+        return asp;
     }
 }
