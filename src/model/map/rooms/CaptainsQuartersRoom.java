@@ -8,6 +8,7 @@ import model.map.doors.Door;
 import model.map.floors.CaptainsQuartersFloorSet;
 import model.map.floors.FloorSet;
 import model.npcs.NPC;
+import model.npcs.PirateNPC;
 import model.npcs.animals.CatNPC;
 import model.objects.decorations.ComfyChair;
 import model.objects.decorations.NiceBed;
@@ -39,5 +40,10 @@ public class CaptainsQuartersRoom extends CommandRoom {
     @Override
     protected boolean getsTrashBin() {
         return false;
+    }
+
+    @Override
+    public void doSetup(GameData gameData) {
+        super.doSetup(gameData);
     }
 }

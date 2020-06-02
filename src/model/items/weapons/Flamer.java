@@ -29,6 +29,7 @@ public class Flamer extends Weapon {
 
     public Flamer() {
 		super("Flamer", 0.75, 0.5, false, 1.5, 159);
+		setCriticalChance(0.0);
 	}
 
     @Override

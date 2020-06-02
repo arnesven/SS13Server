@@ -190,7 +190,7 @@ public abstract class Weapon extends GameItem implements HandheldItem {
 
     protected void applyExtraEffectIfAble(Actor performingClient, Target target, GameData gameData) {
         if (hasExtraEffect()) {
-            if (target instanceof SpriteObject && performingClient instanceof Player) {
+            if (target instanceof SpriteObject && performingClient instanceof SpriteObject) {
                 AnimatedSprite beamSprite = getExtraEffectSprite();
                 ExtraEffect.makeExtraEffectForAllInRoom(performingClient, (SpriteObject)target, beamSprite,
                         beamSprite.getFrames(), beamSprite.isLooping());
@@ -241,9 +241,7 @@ public abstract class Weapon extends GameItem implements HandheldItem {
     }
 
     public void applyAnimation(Actor actor, Actor performingClient, GameData gameData) {
-        if (this instanceof PhysicalWeapon &&
-                (actor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) ||
-                actor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AnimalCharacter)) {
+        if (this instanceof PhysicalWeapon && (actor.isHuman() || actor.isAnimal())) {
             if (!actor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof BloodSplotchAnimationDecorator)) {
                 actor.setCharacter(new BloodSplotchAnimationDecorator(actor.getCharacter(), gameData));
             }
