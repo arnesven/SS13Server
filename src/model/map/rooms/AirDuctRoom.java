@@ -1,6 +1,9 @@
 package model.map.rooms;
 
 import model.GameData;
+import model.Player;
+import model.characters.decorators.SeeAirDuctsDecorator;
+import model.characters.general.GameCharacter;
 import model.events.ambient.DarkEvent;
 import model.items.NoSuchThingException;
 import model.items.general.TornClothes;
@@ -46,6 +49,14 @@ public class AirDuctRoom extends StationRoom {
     @Override
     public FloorSet getFloorSet() {
         return new SingleSpriteFloorSet("ventshaftfloor", 13, 9);
+    }
+
+    @Override
+    public void addPlayer(Player client) {
+        super.addPlayer(client);
+        if (!client.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof SeeAirDuctsDecorator)) {
+            client.setCharacter(new SeeAirDuctsDecorator(null, client.getCharacter() ));
+        }
     }
 
     @Override

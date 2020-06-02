@@ -8,11 +8,10 @@ import model.actions.MoveAction;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
-import model.characters.decorators.CharacterDecorator;
+import model.characters.decorators.SeeAirDuctsDecorator;
 import model.characters.general.GameCharacter;
 import model.characters.special.AlienCharacter;
 import model.events.Event;
-import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Tools;
 import model.map.GameMap;
@@ -88,6 +87,10 @@ public class VentObject extends GameObject {
         }
     }
 
+    public boolean isOpen() {
+        return isOpen;
+    }
+
     private class VentMoveAction extends MoveAction {
 
         boolean intoVent;
@@ -108,7 +111,7 @@ public class VentObject extends GameObject {
         protected void execute(GameData gameData, Actor performingClient) {
             super.execute(gameData, performingClient);
             if (intoVent) {
-                performingClient.setCharacter(new SeeAirDuctsDecorator(performingClient.getCharacter()));
+                performingClient.setCharacter(new SeeAirDuctsDecorator(VentObject.this, performingClient.getCharacter()));
             } else {
                 gameData.addMovementEvent(new Event() {
                     @Override
@@ -143,53 +146,6 @@ public class VentObject extends GameObject {
         }
 
 
-    }
-
-    private class SeeAirDuctsDecorator extends CharacterDecorator {
-        public SeeAirDuctsDecorator(GameCharacter character) {
-            super(character, "SeeAirDuctsDecorator");
-        }
-
-        @Override
-        public String getFullName() {
-            return super.getFullName() + " (Crawling)";
-        }
-
-        @Override
-        public List<Room> getExtraMoveToLocations(GameData gameData) {
-            List<Room> list = new ArrayList<>();
-            list.addAll(super.getExtraMoveToLocations(gameData));
-            list.add(toRoom);
-            for (GameObject obj : getPosition().getObjects()) {
-                if (obj instanceof VentObject && (((VentObject) obj).isOpen || super.getSize() == SMALL_SIZE)) {
-                    list.add(((VentObject) obj).getToRoom());
-                }
-            }
-            return list;
-        }
-
-        @Override
-        public List<Room> getVisibleMap(GameData gameData) {
-            List<Room> result = super.getVisibleMap(gameData);
-            try {
-                for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(getPosition()).getName())) {
-                    if (r instanceof AirDuctRoom) {
-                        result.add(r);
-                    }
-                }
-            } catch (NoSuchThingException e) {
-                e.printStackTrace();
-            } ;
-            return result;
-        }
-
-        @Override
-        public void doAfterMovement(GameData gameData) {
-            super.doAfterMovement(gameData);
-            if (!(getPosition() instanceof AirDuctRoom)) {
-                getActor().removeInstance((GameCharacter gc) -> gc == this);
-            }
-        }
     }
 
     private class OpenVentAction extends Action {

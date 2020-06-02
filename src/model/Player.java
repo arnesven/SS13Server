@@ -259,7 +259,7 @@ public class Player extends Actor implements Target, Serializable {
             if (this.getPosition() != null && this.getPosition().getID() != this.getNextMove()) {
                 if (this.getPosition() != null) {
                     try {
-                        this.getPosition().removePlayer(this);
+                    	this.getPosition().removePlayer(this);
                     } catch (NoSuchThingException e) {
                         Logger.log(Logger.CRITICAL, "Tried removing player from room, but it wasn't there!");
                     }
