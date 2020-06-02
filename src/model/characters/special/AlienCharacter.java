@@ -4,10 +4,14 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.Target;
+import model.actions.FreeAction;
 import model.actions.characteractions.CommitSuicideAction;
 import model.actions.characteractions.HatchAction;
 import model.actions.characteractions.LayEggsAction;
 import model.actions.general.Action;
+import model.actions.general.ActionOption;
+import model.actions.general.AttackAction;
 import model.characters.crew.JobDescriptionMaker;
 import model.characters.general.GameCharacter;
 import model.characters.general.ParasiteCharacter;
@@ -18,6 +22,7 @@ import model.events.damage.RadiationDamage;
 import model.items.foods.ExplodingFood;
 import model.items.foods.SpaceBurger;
 import model.items.general.GameItem;
+import model.items.weapons.PiercingWeapon;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
 import model.map.rooms.StationRoom;
@@ -41,6 +46,7 @@ public class AlienCharacter extends GameCharacter {
     private int stage;
     private int ageInTurns;
     private int eggs;
+    private boolean tailWhipReady;
 
     public AlienCharacter(Room randomStartRoom) {
         super("Alien #" + getRandomUID(), randomStartRoom.getID(), 6.6);
@@ -50,6 +56,7 @@ public class AlienCharacter extends GameCharacter {
         setMaxHealth(1.0);
         ageInTurns = 0;
         eggs = 0;
+        tailWhipReady = true;
     }
 
 
@@ -105,7 +112,9 @@ public class AlienCharacter extends GameCharacter {
         } else if (eggs > 0 && getPosition() instanceof StationRoom) {
             at.add(new LayEggsAction(this));
         }
-        at.add(new CommitSuicideAction());
+        if (getAge() > 7 && tailWhipReady && getActor() instanceof Player) {
+            at.add(new TailWhipAction(this, gameData, (Player)getActor()));
+        }
 
     }
 
@@ -196,6 +205,9 @@ public class AlienCharacter extends GameCharacter {
             if (getActor() instanceof NPC && ageInTurns > 10) {
                 ageInTurns = 10;
             }
+            if (ageInTurns % 2 == 0) {
+                tailWhipReady = true;
+            }
             if (ageInTurns == 4) {
                 getActor().addTolastTurnInfo(HTMLText.makeText("Green", "<b>You grow stronger.</b>"));
                 setMaxHealth(2.0);
@@ -241,5 +253,70 @@ public class AlienCharacter extends GameCharacter {
     @Override
     public String getMugshotName() {
         return "Alien";
+    }
+
+    private class TailWhipAction extends FreeAction {
+        private final AlienCharacter alienChar;
+        private String preferredTarget;
+
+        public TailWhipAction(AlienCharacter alienCharacter, GameData gameData, Player player) {
+            super("Tail Whip", gameData, player);
+            this.alienChar = alienCharacter;
+        }
+
+        @Override
+        public ActionOption getOptions(GameData gameData, Actor whosAsking) {
+            ActionOption opts = super.getOptions(gameData, whosAsking);
+            for (Target t : whosAsking.getPosition().getTargets(gameData)) {
+                opts.addOption(t.getName());
+            }
+            return opts;
+        }
+
+        @Override
+        protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
+            gameData.executeAtEndOfRound(p, this);
+            alienChar.tailWhipReady = false;
+            gameData.getChat().serverInSay("You are preparing to hit "
+                    + preferredTarget + " with your Tail Spike.", p);
+        }
+
+        @Override
+        protected void setArguments(List<String> args, Actor performingClient) {
+            preferredTarget = args.get(0);
+            super.setArguments(args, performingClient);
+        }
+
+        @Override
+        public void lateExecution(GameData gameData, Actor performingClient) {
+            super.lateExecution(gameData, performingClient);
+            AttackAction atk = new AttackAction(performingClient);
+            atk.getTargets().remove(alienChar.getActor().getAsTarget());
+            TailSpike spike = new TailSpike();
+            atk.addWithWhat(spike);
+            List<String> args = new ArrayList<>();
+            args.add(preferredTarget);
+            args.add(spike.getFullName(performingClient));
+            atk.setActionTreeArguments(args, performingClient);
+            alienChar.getItems().add(spike);
+            atk.doTheAction(gameData, performingClient);
+            alienChar.getItems().remove(spike);
+        }
+
+        @Override
+        public Sprite getAbilitySprite() {
+            return new Sprite("tailwhipabi", "interface_alien.png", 0, 8, null);
+        }
+    }
+
+    private class TailSpike extends Weapon implements PiercingWeapon {
+        public TailSpike() {
+            super("Tail Spike", 0.9, 1.0, false, 0.0, false, 0);
+        }
+
+        @Override
+        public GameItem clone() {
+            return new TailSpike();
+        }
     }
 }
