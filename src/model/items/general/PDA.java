@@ -6,8 +6,12 @@ import java.util.List;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.FreeAction;
 import model.actions.general.Action;
+import model.actions.general.DoNothingAction;
 import model.actions.itemactions.UsePDAAction;
+import model.fancyframe.PDAOrderFancyFrame;
 import model.items.TraitorItem;
 import model.items.suits.SuperSuit;
 import model.modes.TraitorGameMode;
@@ -26,7 +30,18 @@ public class PDA extends UplinkItem {
 	@Override
 	public void addYourActions(GameData gameData, ArrayList<Action> at,
                                Actor cl) {
-		at.add(new UsePDAAction(traitorMode, this, gameData));
+		//at.add(new UsePDAAction(traitorMode, this, gameData));
+		if (cl instanceof Player) {
+			at.add(new FreeAction("Use PDA Interface", gameData, (Player)cl) {
+				@Override
+				protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
+					if (p instanceof Player) {
+						((Player) p).setFancyFrame(new PDAOrderFancyFrame((Player) p, PDA.this, gameData));
+						((Player) p).setNextAction(new DoNothingAction());
+					}
+				}
+			});
+		}
 	}
 
 	public int getTelecrystalsLeft() {
