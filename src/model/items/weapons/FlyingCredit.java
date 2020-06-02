@@ -3,9 +3,12 @@ package model.items.weapons;
 import model.Actor;
 import model.GameData;
 import model.Target;
+import model.events.animation.AnimatedSprite;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.MoneyStack;
+
+import java.awt.*;
 
 public class FlyingCredit extends Weapon implements PiercingWeapon {
     public FlyingCredit() {
@@ -36,5 +39,13 @@ public class FlyingCredit extends Weapon implements PiercingWeapon {
     protected void checkOnlyMissHazard(Actor performingClient, GameData gameData, Target target) {
         super.checkOnlyMissHazard(performingClient, gameData, target);
         performingClient.getPosition().addItem(new MoneyStack(1));
+    }
+
+    @Override
+    protected AnimatedSprite getExtraEffectSprite() {
+        AnimatedSprite sp = new AnimatedSprite("flyingcreditchip", "laser.png",
+                0, 4, 32, 32, null, 7, false);
+        sp.setColor(Color.MAGENTA);
+        return sp;
     }
 }

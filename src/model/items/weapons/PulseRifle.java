@@ -66,7 +66,6 @@ public class PulseRifle extends AmmoWeapon {
     protected AnimatedSprite getExtraEffectSprite() {
         AnimatedSprite sp = new AnimatedSprite("pulseblast", "laser.png",
                 0, 4, 32, 32, null, 7, false);
-
         return sp;
     }
 }

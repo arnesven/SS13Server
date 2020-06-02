@@ -8,10 +8,12 @@ import model.Target;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
+import model.events.animation.AnimatedSprite;
 import model.items.NoSuchThingException;
 import model.items.general.ActorsAshes;
 import model.items.general.GameItem;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -98,5 +100,18 @@ public class AutoCremator extends Weapon {
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
         return "Good for cremating dead bodies. The ashes of dead crew members should be sent to their relatives (use the mailbox).";
+    }
+
+    @Override
+    protected boolean hasExtraEffect() {
+        return true;
+    }
+
+    @Override
+    protected AnimatedSprite getExtraEffectSprite() {
+        AnimatedSprite beamSprite = new AnimatedSprite("laserbeamred", "laser.png",
+                3, 0, 32, 32, null, 11, false);
+        beamSprite.setColor(Color.PINK);
+        return beamSprite;
     }
 }
