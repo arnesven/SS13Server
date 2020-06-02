@@ -50,4 +50,9 @@ public class BlurredCharacter implements SpriteObject {
     public double getAbsoluteZ() {
         return 0;
     }
+
+    @Override
+    public String getEffectIdentifier(Actor whosAsking) {
+        return getSprite(whosAsking).getName();
+    }
 }

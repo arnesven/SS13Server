@@ -71,6 +71,11 @@ public abstract class Door implements Serializable, SpriteObject {
         return name;
     }
 
+    @Override
+    public String getEffectIdentifier(Actor whosAsking) {
+        return name;
+    }
+
     private String getActionData(GameData gameData, Actor forWhom) {
         if (forWhom.getCharacter() == null) {
             return "NoRef";

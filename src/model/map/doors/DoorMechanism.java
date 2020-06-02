@@ -201,6 +201,10 @@ public class DoorMechanism extends ElectricalMachinery {
         return listOfCords.get(index).pulse(player, gameData);
     }
 
+    public ElectricalDoor getDoor() {
+        return electricalDoor;
+    }
+
 
     private class PowerLinePowerCord extends PowerCord {
         public PowerLinePowerCord(Color color, int i) {

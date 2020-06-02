@@ -346,4 +346,8 @@ public class PhysicalBody implements SpriteObject, Serializable {
         return gender;
     }
 
+    @Override
+    public String getEffectIdentifier(Actor whosAsking) {
+        return getSprite(whosAsking).getName();
+    }
 }

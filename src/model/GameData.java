@@ -356,6 +356,7 @@ public class GameData implements Serializable {
 
 		} else if (gameState == GameState.ACTIONS) {
             allClearLastTurn();
+			allClearExtraEffects();
 			executeAllActions();
 			ActionManager.clearMap();
 			forEachCharacter((GameCharacter ch) -> ch.doAfterActions(this));
@@ -382,9 +383,14 @@ public class GameData implements Serializable {
 		
 	}
 
+	private void allClearExtraEffects() {
+		for (Player p : getPlayersAsList()) {
+			p.clearExtraEffects();
+		}
+	}
 
 
-    private void cleanChars() {
+	private void cleanChars() {
         for (Player p : getPlayersAsList()) {
             p.setCharacter(null);
         }

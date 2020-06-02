@@ -68,7 +68,13 @@ public interface SpriteObject {
         public boolean hasAbsolutePosition() {
             return false;
         }
+
+        @Override
+        public String getEffectIdentifier(Actor whosAsking) {
+            return getSprite(whosAsking).getName();
+        }
     };
 
 
+    String getEffectIdentifier(Actor whosAsking);
 }

@@ -228,6 +228,10 @@ public class Sprite implements Serializable {
         this.color = color;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
     public void addToOver(Sprite piratemask) {
         layers.add(piratemask);
     }
@@ -322,4 +326,6 @@ public class Sprite implements Serializable {
     public void setName(String s) {
         this.name = s;
     }
+
+
 }

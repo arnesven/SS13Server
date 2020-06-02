@@ -40,7 +40,10 @@ public class GameObject implements SpriteObject, Serializable {
         this.name = name;
     }
 
-
+    @Override
+    public String getEffectIdentifier(Actor whosAsking) {
+        return getSprite(whosAsking).getName();
+    }
 
     public String getPublicName(Actor whosAsking) {
 	    return getBaseName();

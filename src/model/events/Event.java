@@ -47,6 +47,11 @@ public abstract class Event extends Experienceable implements SpriteObject, Seri
 	    return getSprite(whosAsking);
     }
 
+    @Override
+    public String getEffectIdentifier(Actor whosAsking) {
+        return getSprite(whosAsking).getName();
+    }
+
     public double getProbability() {
         return 0.0;
     }

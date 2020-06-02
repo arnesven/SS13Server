@@ -7,7 +7,7 @@ import model.Actor;
 public class UserInterface {
 
     private final Sprite uiFrameSprite;
-    private final Sprite superBeamSprite;
+
 
     public UserInterface() {
         uiFrameSprite = new Sprite("uiframe", "interface.png", 7, 2, null);
@@ -25,8 +25,6 @@ public class UserInterface {
         Sprite suiteqslot = new Sprite("suiteqslot", "interface.png", 12, 12, null);
         Sprite helmet = new Sprite("helmeteqslot", "interface.png", 14, 12, null);
         Sprite bootseqslot = new Sprite("bootseqslot", "interface.png", 7, 12, null);
-
-        superBeamSprite = new Sprite("superbeam", "beam.png", 0, 4, null);
 
     }
 

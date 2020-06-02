@@ -784,4 +784,8 @@ public class Player extends Actor implements Target, Serializable {
 
 		return bldr.toString();
 	}
+
+	public void clearExtraEffects() {
+		extraEffects.clear();
+	}
 }

@@ -85,9 +85,12 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 		return name;
 	}
 
+    @Override
+    public String getEffectIdentifier(Actor whosAsking) {
+        return getSprite(whosAsking).getName();
+    }
 
-
-	@Override
+    @Override
 	public final String toString() {
 		return super.toString();
 	}

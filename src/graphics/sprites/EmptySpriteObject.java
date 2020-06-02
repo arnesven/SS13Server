@@ -56,4 +56,9 @@ public class EmptySpriteObject implements SpriteObject {
     public boolean hasAbsolutePosition() {
         return false;
     }
+
+    @Override
+    public String getEffectIdentifier(Actor whosAsking) {
+        return getSprite(whosAsking).getName();
+    }
 }

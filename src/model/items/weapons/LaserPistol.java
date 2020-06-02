@@ -6,10 +6,13 @@ import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.*;
 import model.events.ambient.ElectricalFire;
+import model.events.animation.AnimatedSprite;
 import model.items.TraitorItem;
 import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
+
+import java.awt.*;
 
 public class LaserPistol extends AmmoWeapon implements TraitorItem {
 
@@ -37,8 +40,10 @@ public class LaserPistol extends AmmoWeapon implements TraitorItem {
     protected void usedOnBy(Target target, Actor performingClient, GameData gameData) {
         super.usedOnBy(target, performingClient, gameData);
         if (target instanceof SpriteObject && performingClient instanceof Player) {
-            ((Player)performingClient).addExtraEffect(new ExtraEffect((SpriteObject) performingClient,
-                    (SpriteObject) target, new Sprite("superbeam", "beam.png", 2, 2, null)));
+            Sprite beamSprite =  new Sprite("laserbeamred", "laser.png", 1, 2, null);
+            beamSprite.setColor(Color.RED);
+            ExtraEffect.makeExtraEffect(performingClient, (SpriteObject)target, beamSprite, 7, false);
+
         }
     }
 

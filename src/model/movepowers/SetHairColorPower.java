@@ -72,4 +72,6 @@ public class SetHairColorPower extends MovePower {
         Logger.log("Set hair color!");
         player.getCharacter().getPhysicalBody().setHairColor(color);
     }
+
+
 }

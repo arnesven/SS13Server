@@ -699,4 +699,8 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         return counter;
     }
 
+    @Override
+    public String getEffectIdentifier(Actor whosAsking) {
+        return getSprite(whosAsking).getName();
+    }
 }
