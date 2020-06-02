@@ -14,6 +14,7 @@ import model.actions.itemactions.BurnHiveAction;
 import model.actions.general.SensoryLevel;
 import model.actions.itemactions.SprayFireAction;
 import model.events.ambient.ElectricalFire;
+import model.events.animation.AnimatedSprite;
 import model.items.chemicals.Chemicals;
 import model.items.general.GameItem;
 import model.objects.general.GameObject;
@@ -107,5 +108,17 @@ public class Flamer extends Weapon {
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
         return "An excellent weapon for exterminating vermin. Can be used to burn a hive immediately if you have some flammable chemicals.";
+    }
+
+    @Override
+    protected boolean hasExtraEffect() {
+        return true;
+    }
+
+    @Override
+    protected AnimatedSprite getExtraEffectSprite() {
+        AnimatedSprite asp = new AnimatedSprite("flamerfirespray", "laser.png",
+                0, 3, 32, 64, null, 14, false);
+        return asp;
     }
 }

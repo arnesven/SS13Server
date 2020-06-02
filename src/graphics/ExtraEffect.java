@@ -22,7 +22,8 @@ public class ExtraEffect implements Serializable {
         this.spriteToUse = spriteToUse;
         for (int i = 0; i < totalFrames; ++i) {
             Sprite sp = new Sprite(spriteToUse.getName() + "frame"+i, spriteToUse.getMap(),
-                    spriteToUse.getColumn()+i, spriteToUse.getRow(), null);
+                    spriteToUse.getColumn()+i, spriteToUse.getRow(),
+                            spriteToUse.getWidth(), spriteToUse.getHeight(), null);
             if (spriteToUse.getColor() != null) {
                 sp.setColor(spriteToUse.getColor());
             }
@@ -52,7 +53,7 @@ public class ExtraEffect implements Serializable {
         }
 
         seenBy.addExtraEffect(new ExtraEffect(performingClient,
-                    target, beamSprite, 8, false));
+                    target, beamSprite, beamSprite.getFrames(), false));
 
     }
 

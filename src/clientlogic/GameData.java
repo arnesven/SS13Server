@@ -426,11 +426,14 @@ public class GameData {
 		deconstructOverlaySprites(parts[9]);
 		if (!parts[10].equals("nothing")) {
             deconstructExtraEffects(parts[10]);
-        }
+        } else {
+			extraEffects.clear();
+
+		}
 	}
 
 	private void deconstructExtraEffects(String part) {
-        extraEffects.clear();
+		extraEffects.clear();
 		String[] ees = part.split("<ee>");
 		for (String ee : ees) {
 			String[] data = ee.split("<eepart>");
