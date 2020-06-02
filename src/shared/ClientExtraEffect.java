@@ -42,9 +42,9 @@ public class ClientExtraEffect {
         fromOp = null;
         toOp = null;
         for (OverlaySprite osp : GameData.getInstance().getOverlaySprites()) {
-            if (osp.getSprite().equals(fromOverlayName)) {
+            if (osp.getEffectName().equals(fromOverlayName)) {
                 fromOp = osp;
-            } else if (osp.getSprite().equals(toOverlayName)) {
+            } else if (osp.getEffectName().equals(toOverlayName)) {
                 toOp = osp;
             }
         }

@@ -1,6 +1,8 @@
 package model.items.weapons;
 
+import graphics.ExtraEffect;
 import graphics.sprites.Sprite;
+import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -14,11 +16,13 @@ import model.characters.decorators.HoldingItemDecorator;
 import model.characters.general.AnimalCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
+import model.events.animation.AnimatedSprite;
 import model.items.HandheldItem;
 import model.items.general.GameItem;
 import sounds.Sound;
 import util.MyRandom;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,7 +122,14 @@ public abstract class Weapon extends GameItem implements HandheldItem {
 	protected void usedOnBy(Target target, Actor performingClient,
 			GameData gameData) {
 	    makeHoldInHand(performingClient);
+    }
 
+    protected boolean hasExtraEffect() {
+	    return false;
+    }
+
+	protected AnimatedSprite getExtraEffectSprite() {
+	    return null;
     }
 
 
@@ -172,6 +183,13 @@ public abstract class Weapon extends GameItem implements HandheldItem {
             usedOnBy(target, performingClient, gameData);
         } else {
             checkOnlyMissHazard(performingClient, gameData, target);
+        }
+        if (hasExtraEffect()) {
+            if (target instanceof SpriteObject && performingClient instanceof Player) {
+                AnimatedSprite beamSprite = getExtraEffectSprite();
+                ExtraEffect.makeExtraEffectForAllInRoom(performingClient, (SpriteObject)target, beamSprite,
+                        beamSprite.getFrames(), beamSprite.isLooping());
+            }
         }
         checkHazard(performingClient, gameData);
     }

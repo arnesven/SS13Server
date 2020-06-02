@@ -76,5 +76,7 @@ public interface SpriteObject {
     };
 
 
-    String getEffectIdentifier(Actor whosAsking);
+    default String getEffectIdentifier(Actor whosAsking) {
+        return getPublicName(whosAsking) + getSprite(whosAsking).getName();
+    }
 }

@@ -39,12 +39,6 @@ public class LaserPistol extends AmmoWeapon implements TraitorItem {
     @Override
     protected void usedOnBy(Target target, Actor performingClient, GameData gameData) {
         super.usedOnBy(target, performingClient, gameData);
-        if (target instanceof SpriteObject && performingClient instanceof Player) {
-            Sprite beamSprite =  new Sprite("laserbeamred", "laser.png", 1, 2, null);
-            beamSprite.setColor(Color.RED);
-            ExtraEffect.makeExtraEffect(performingClient, (SpriteObject)target, beamSprite, 7, false);
-
-        }
     }
 
     @Override
@@ -82,5 +76,17 @@ public class LaserPistol extends AmmoWeapon implements TraitorItem {
     @Override
     public int getTelecrystalCost() {
         return 3;
+    }
+
+    @Override
+    protected boolean hasExtraEffect() {
+        return true;
+    }
+
+    @Override
+    protected AnimatedSprite getExtraEffectSprite() {
+	    AnimatedSprite beamSprite = new AnimatedSprite("laserbeamred", "laser.png", 1, 2, 32, 32, null, 7, false);
+        beamSprite.setColor(Color.RED);
+        return beamSprite;
     }
 }

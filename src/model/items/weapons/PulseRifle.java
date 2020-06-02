@@ -4,6 +4,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Target;
+import model.events.animation.AnimatedSprite;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -53,5 +54,18 @@ public class PulseRifle extends AmmoWeapon {
                 alreadyAttacked.add(t);
             }
         }
+    }
+
+    @Override
+    protected boolean hasExtraEffect() {
+        return true;
+    }
+
+    @Override
+    protected AnimatedSprite getExtraEffectSprite() {
+        AnimatedSprite sp = new AnimatedSprite("pulseblast", "laser.png",
+                0, 4, 32, 32, null, 7, false);
+
+        return sp;
     }
 }

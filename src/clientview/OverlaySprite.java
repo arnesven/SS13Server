@@ -16,6 +16,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.font.ShapeGraphicAttribute;
 
 public class OverlaySprite extends MouseInteractable {
 
@@ -168,5 +169,9 @@ public class OverlaySprite extends MouseInteractable {
 
     public int getZ() {
         return (int)z;
+    }
+
+    public String getEffectName() {
+        return name+sprite;
     }
 }

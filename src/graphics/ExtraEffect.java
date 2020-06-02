@@ -3,6 +3,7 @@ package graphics;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
+import model.GameData;
 import model.Player;
 import model.map.doors.DoorMechanism;
 
@@ -43,16 +44,24 @@ public class ExtraEffect implements Serializable {
                 looping;
     }
 
-    public static void makeExtraEffect(Actor performingClient, SpriteObject target, Sprite beamSprite, int i, boolean b) {
+    private static void makeExtraEffect(Player seenBy, Actor performingClient, SpriteObject target, Sprite beamSprite, int i, boolean b) {
         if (target instanceof DoorMechanism) {
             DoorMechanism mech = (DoorMechanism)target;
             target = mech.getDoor();
 
         }
 
-        ((Player) performingClient).addExtraEffect(new ExtraEffect(performingClient,
+        seenBy.addExtraEffect(new ExtraEffect(performingClient,
                     target, beamSprite, 8, false));
 
     }
+
+
+    public static void makeExtraEffectForAllInRoom(Actor performingClient, SpriteObject target, Sprite beamSprite, int i, boolean b) {
+        for (Player p : performingClient.getPosition().getClients()) {
+            makeExtraEffect(p, performingClient, target, beamSprite, i, b);
+        }
+    }
+
 
 }
