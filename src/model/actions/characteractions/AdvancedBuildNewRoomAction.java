@@ -6,7 +6,9 @@ import model.items.NoSuchThingException;
 import model.map.Architecture;
 import model.map.GameMap;
 import model.map.doors.Door;
+import model.map.doors.DowngoingStairsDoor;
 import model.map.doors.NormalDoor;
+import model.map.doors.UpgoingStairsDoor;
 import model.map.rooms.HallwayRoom;
 import model.map.rooms.Room;
 
@@ -38,14 +40,23 @@ public class AdvancedBuildNewRoomAction extends BuildNewRoomAction {
             Architecture arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(performingClient.getPosition()).getName(), roomZ);
             if (arch.canRoomBeBuilt(roomX, roomY, roomZ, width, height, performingClient.getPosition())) {
                 int id = gameData.getMap().getMaxID()+1;
-                Door[] doors = new Door[]{null};
                 Room newRoom = new HallwayRoom(id, roomName, "", roomX, roomY,
-                        width, height, new int[]{}, doors);
+                        width, height, new int[]{}, new Door[]{});
                 newRoom.setZ(roomZ);
 
 
-                Point2D doorPoint = arch.getPossibleNewDoors(newRoom).get(performingClient.getPosition());
-                doors[0] = new NormalDoor(doorPoint.getX(), doorPoint.getY(), (double)roomZ, id, performingClient.getPosition().getID());
+                if (roomZ == performingClient.getPosition().getZ()) {
+                    Point2D doorPoint = arch.getPossibleNewDoors(newRoom).get(performingClient.getPosition());
+                    newRoom.addDoor(new NormalDoor(doorPoint.getX(), doorPoint.getY(), (double) roomZ, id, performingClient.getPosition().getID()));
+                } else {
+                    if (roomZ > performingClient.getPosition().getZ()) {
+                        newRoom.addObject(new DowngoingStairsDoor(newRoom));
+                        performingClient.getPosition().addObject(new UpgoingStairsDoor(performingClient.getPosition()));
+                    } else {
+                        newRoom.addObject(new UpgoingStairsDoor(newRoom));
+                        performingClient.getPosition().addObject(new DowngoingStairsDoor(performingClient.getPosition()));
+                    }
+                }
                 //newRoom.setMap(gameData.getMap());
                 GameMap.joinRooms(newRoom, performingClient.getPosition());
                 String level = null;
