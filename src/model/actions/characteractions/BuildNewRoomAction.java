@@ -27,8 +27,8 @@ import java.util.List;
 public class BuildNewRoomAction extends Action {
 
     private String selected;
-    private int height;
-    private int width;
+    protected int height;
+    protected int width;
 
     public BuildNewRoomAction() {
         super("Build Room", SensoryLevel.PHYSICAL_ACTIVITY);
@@ -103,7 +103,7 @@ public class BuildNewRoomAction extends Action {
         }
     }
 
-    private String buildNewRoom(GameData gameData, Actor performingClient, String selected, int width, int height) throws Architecture.NoLegalPlacementForRoom {
+    protected String buildNewRoom(GameData gameData, Actor performingClient, String selected, int width, int height) throws Architecture.NoLegalPlacementForRoom {
         Room current = performingClient.getPosition();
 
         Point direction = null;

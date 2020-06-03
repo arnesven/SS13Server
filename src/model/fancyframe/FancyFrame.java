@@ -134,4 +134,6 @@ public class FancyFrame implements Serializable {
         player.setFancyFrame(new FancyFrame(player.getFancyFrame()));
     }
 
+
+
 }

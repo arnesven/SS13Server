@@ -47,4 +47,13 @@ public class MyStrings {
         return realName.substring(0,1).toUpperCase() + realName.substring(1).toLowerCase();
     }
 
+    public static String stripForbiddenCharacters(String data) {
+        String forbidden = ":/\\(){}&%$¤#@_|<>^'*~;.,£+[]\"!?";
+        for (int i = 0; i < forbidden.length(); ++i) {
+            data.replace(forbidden.charAt(i)+"", "");
+        }
+        return data;
+    }
+
+
 }

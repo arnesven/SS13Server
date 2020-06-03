@@ -2,6 +2,7 @@ package model.map;
 
 import model.map.doors.Door;
 import model.map.rooms.DecorativeRoom;
+import model.map.rooms.DummyRoom;
 import model.map.rooms.Room;
 import util.Logger;
 
@@ -283,6 +284,26 @@ public class Architecture {
 
     public boolean isOnRoom(double x, double y) {
         return getMatrix((int)x, (int)y) == 1;
+    }
+
+    public boolean canRoomBeBuilt(int x, int y, int z, int width, int height, Room fromRoom) {
+        if (!isFree(new Point(x, y), width, height)) {
+            Logger.log("Room cannot be build because another room is blocking.");
+            return false;
+        }
+        // placement is free... now, is from room adjacent?
+
+        if (z != fromRoom.getZ()) { // we are above or below.
+            return getRectangleFor(fromRoom).intersects(new Rectangle(x, y, width, height));
+        }
+
+        DummyRoom dummy = new DummyRoom(0, x, y, width, height, new int[]{}, new Door[]{});
+        if (getPossibleNewDoors(dummy).get(fromRoom) != null) {
+            // Could place a door between "rooms"
+            return true;
+        }
+        Logger.log("Room cannot be build because door pos could not be found.");
+        return false;
     }
 
     public static class NoLegalPlacementForRoom extends Exception {

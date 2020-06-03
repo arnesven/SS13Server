@@ -10,6 +10,7 @@ import model.map.doors.PowerCord;
 import model.objects.general.CookOMatic;
 import util.HTMLText;
 import util.Logger;
+import util.MyStrings;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -211,11 +212,7 @@ public class CustomDishMakerFancyFrame extends FancyFrame {
     @Override
     public void handleInput(GameData gameData, Player player, String data) {
         super.handleInput(gameData, player, data);
-        String forbidden = ":/\\(){}&%$¤#@_|<>^'*~;.,£+[]\"!?";
-        for (int i = 0; i < forbidden.length(); ++i) {
-            data.replace(forbidden.charAt(i)+"", "");
-        }
-        this.dishName = data;
+        this.dishName = MyStrings.stripForbiddenCharacters(data);
         showSummary = true;
         showRename = false;
         readyThePlayer(gameData, player);
