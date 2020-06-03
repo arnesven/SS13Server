@@ -41,4 +41,8 @@ public class CustomFoodItem extends HealingFood {
     public String getDescription(GameData gameData, Player performingClient) {
         return "A custom dish made by " + designer.getBaseName() + ". Enjoy!";
     }
+
+    public Player getDesigner() {
+        return designer;
+    }
 }

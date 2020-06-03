@@ -1,6 +1,7 @@
 package model.items.chemicals;
 
 import model.items.foods.FoodItem;
+import model.items.general.GameItem;
 
 /**
  * Created by erini02 on 03/12/16.
@@ -11,7 +12,7 @@ public class EthanolChemicals extends Chemicals {
     }
 
     @Override
-    public FoodItem clone() {
+    public Chemicals clone() {
         return new EthanolChemicals();
     }
 
@@ -33,5 +34,13 @@ public class EthanolChemicals extends Chemicals {
     @Override
     public String getFormula() {
         return "C2H5OH";
+    }
+
+    @Override
+    public GameItem combineWith(Chemicals other) {
+        if (other instanceof HydrogenPeroxideChemicals) {
+            return new GeneratorStartedFluid();
+        }
+        return super.combineWith(other);
     }
 }

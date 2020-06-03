@@ -34,7 +34,7 @@ public class IodinePill extends Chemicals {
     }
 
     @Override
-    public FoodItem clone() {
+    public Chemicals clone() {
         return new IodinePill();
     }
 

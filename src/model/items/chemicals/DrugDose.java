@@ -48,7 +48,7 @@ public class DrugDose extends Chemicals {
     }
 
     @Override
-    public FoodItem clone() {
+    public Chemicals clone() {
         return new DrugDose(madeBy);
     }
 

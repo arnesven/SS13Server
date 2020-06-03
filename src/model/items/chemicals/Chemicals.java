@@ -14,6 +14,7 @@ import util.HTMLText;
 import util.MyRandom;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class Chemicals extends FoodItem {
@@ -34,6 +35,9 @@ public abstract class Chemicals extends FoodItem {
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
     }
+
+    public abstract Chemicals clone();
+
 
     @Override
     protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
@@ -70,7 +74,7 @@ public abstract class Chemicals extends FoodItem {
         return 0;
     }
 
-    public static Chemicals createRandomChemicals() {
+    public static List<Chemicals> getAllChemicals() {
         List<Chemicals> list = new ArrayList<>();
         list.add(new EthanolChemicals());
         list.add(new HydrogenPeroxideChemicals());
@@ -83,8 +87,14 @@ public abstract class Chemicals extends FoodItem {
         list.add(new BenzeneChemicals());
         list.add(new GeneratorStartedFluid());
 
-        return MyRandom.sample(list);
+        return list;
     }
+
+    public static Chemicals createRandomChemicals() {
+        return MyRandom.sample(getAllChemicals()).clone();
+    }
+
+
 
 
     public GameItem combineWith(Chemicals other) {

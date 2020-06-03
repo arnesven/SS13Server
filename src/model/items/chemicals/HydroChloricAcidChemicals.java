@@ -15,7 +15,7 @@ public class HydroChloricAcidChemicals extends Chemicals {
     }
 
     @Override
-    public FoodItem clone() {
+    public Chemicals clone() {
         return new HydroChloricAcidChemicals();
     }
 

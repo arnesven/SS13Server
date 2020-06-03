@@ -4,7 +4,6 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.objectactions.CallEscapeShuttleAction;
 import model.characters.decorators.*;
 import model.characters.general.GameCharacter;
 import model.events.Event;
@@ -17,7 +16,6 @@ import model.npcs.behaviors.StayBehavior;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.EscapeShuttleControl;
 import model.objects.decorations.BigThruster;
-import model.objects.decorations.ShuttleThruster;
 import util.HTMLText;
 
 import java.util.ArrayList;
@@ -101,15 +99,4 @@ public class EscapeShuttle extends ShuttleRoom {
     }
 
 
-    private class EscapedOnShuttleDecorator extends CharacterDecorator {
-        public EscapedOnShuttleDecorator(GameCharacter character) {
-            super(character, "EscapedOnShuttle");
-        }
-
-
-        @Override
-        public boolean getsActions() {
-            return false;
-        }
-    }
 }

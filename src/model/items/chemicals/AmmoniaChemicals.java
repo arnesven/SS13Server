@@ -3,6 +3,7 @@ package model.items.chemicals;
 import model.items.foods.FoodItem;
 import model.items.general.GameItem;
 import model.items.general.PoisonSyringe;
+import model.objects.general.Antidote;
 
 /**
  * Created by erini02 on 09/09/17.
@@ -13,7 +14,7 @@ public class AmmoniaChemicals extends Chemicals {
     }
 
     @Override
-    public FoodItem clone() {
+    public Chemicals clone() {
         return new AmmoniaChemicals();
     }
 
@@ -41,6 +42,9 @@ public class AmmoniaChemicals extends Chemicals {
     public GameItem combineWith(Chemicals other) {
         if (other instanceof AcetoneChemicals) {
             return new PoisonSyringe();
+        }
+        if (other instanceof SodiumChloride) {
+            return new Antidote();
         }
 
         return super.combineWith(other);

@@ -1,5 +1,6 @@
 package model.items.chemicals;
 
+import comm.chat.ChatMessages;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
@@ -42,7 +43,7 @@ public class GeneratorStartedFluid extends Chemicals {
     }
 
     @Override
-    public FoodItem clone() {
+    public Chemicals clone() {
         return new GeneratorStartedFluid();
     }
 

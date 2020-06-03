@@ -13,7 +13,7 @@ public class AcetoneChemicals extends Chemicals {
     }
 
     @Override
-    public FoodItem clone() {
+    public Chemicals clone() {
         return new AcetoneChemicals();
     }
 

@@ -15,7 +15,7 @@ public class SodiumChloride extends Chemicals {
     }
 
     @Override
-    public FoodItem clone() {
+    public Chemicals clone() {
         return new SodiumChloride();
     }
 

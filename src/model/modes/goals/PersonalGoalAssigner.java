@@ -35,7 +35,8 @@ public class  PersonalGoalAssigner implements Serializable {
     private Map<String,Collection<PersonalGoal>> createJobSpecificGoals(GameData gameData) {
         Map<String, Collection<PersonalGoal>> jobSpecificGoals = newEmptyMap();
         jobSpecificGoals.get(new CaptainCharacter().getBaseName()).add(new KeepYourCaptainlyness());
-        // Job goal for Head of Staff
+        jobSpecificGoals.get(new CaptainCharacter().getBaseName()).add(new CallEscapeShuttleGoal());
+        jobSpecificGoals.get(new HeadOfStaffCharacter().getBaseName()).add(new DoJobChange());
         jobSpecificGoals.get(new SecurityOfficerCharacter().getBaseName()).add(new BatonABaddieGoal(gameData));
         jobSpecificGoals.get(new SecurityOfficerCharacter().getBaseName()).add(new BrigAnAntagonistGoal(gameData));
         jobSpecificGoals.get(new DetectiveCharacter().getBaseName()).add(new GuessGameModeGoal(MyRandom.nextInt(3)+5));
@@ -47,13 +48,16 @@ public class  PersonalGoalAssigner implements Serializable {
         jobSpecificGoals.get(new GeneticistCharacter().getBaseName()).add(new InjectXTimes(MyRandom.nextInt(2)+2));
         jobSpecificGoals.get(new RoboticistCharacter().getBaseName()).add(new BorgBackToLifeGoal());
         jobSpecificGoals.get(new RoboticistCharacter().getBaseName()).add(new BuildRobotsAction());
-        // Job goal for Architect
+        jobSpecificGoals.get(new ArchitectCharacter().getBaseName()).add(new BuildNewRoomGoal());
+        jobSpecificGoals.get(new ArchitectCharacter().getBaseName()).add(new BuildNewDoorsGoal(MyRandom.nextInt(2)+2));
         jobSpecificGoals.get(new ChefCharacter().getBaseName()).add(new GetOthersToEatYourFood(MyRandom.nextInt(3)+2));
-        // Job goal for Bartender
+        jobSpecificGoals.get(new ChefCharacter().getBaseName()).add(new MakeCustomDishGoal());
+        jobSpecificGoals.get(new BartenderCharacter().getBaseName()).add( new HaveABusyBar(MyRandom.nextInt(2)+3));
         jobSpecificGoals.get(new JanitorCharacter().getBaseName()).add(new CleanUpBloodyMesses(MyRandom.nextInt(2)+2));
         jobSpecificGoals.get(new JanitorCharacter().getBaseName()).add(new CarryManyThings(MyRandom.nextInt(7)+7));
         jobSpecificGoals.get(new ChaplainCharacter().getBaseName()).add(new SingXSermonsGoal());
         jobSpecificGoals.get(new ChaplainCharacter().getBaseName()).add(new MarryXPeople(MyRandom.nextInt(6)));
+        jobSpecificGoals.get(new QuarterMasterCharacter().getBaseName()).add(new SellXCratesGoal(MyRandom.nextInt(1)+2));
         // Job goal for Visitor
         return jobSpecificGoals;
     }
@@ -61,7 +65,7 @@ public class  PersonalGoalAssigner implements Serializable {
     private static Collection<PersonalGoal> createGeneralGoals() {
         HashSet<PersonalGoal> goals = new HashSet<>();
         goals.add(new DrugDealerGaoal());
-        goals.add(new CollectMoneyTask(MyRandom.nextInt(3)*100 + 500));
+        goals.add(new CollectMoneyTask(MyRandom.nextInt(3)*100 + 300));
         goals.add(new ParasiteKiller(MyRandom.nextInt(3) + 3));
         goals.add(new FireManGoal(MyRandom.nextInt(3) + 3));
         goals.add(new HullBreachGoal(MyRandom.nextInt(2) + 2));
@@ -71,6 +75,7 @@ public class  PersonalGoalAssigner implements Serializable {
         goals.add(new CollectThreeWeapons());
         goals.add(new BeColdGoal());
         goals.add(new BeHotGoal());
+        goals.add(new JumpTheStationGoal());
         goals.add(new EatDifferentFoods(MyRandom.nextInt(2)+3));
         goals.add(new GoIntoSpaceGoal());
         goals.add(new SickOfYourselfGoal());
@@ -86,6 +91,7 @@ public class  PersonalGoalAssigner implements Serializable {
         goals.add(new HaveAnOrange());
         goals.add(new GetMarriedGoal());
         goals.add(new PrayToReligiousFigure(MyRandom.nextInt(2)+1));
+        goals.add(new EscapeOnEscapeShuttleGoal());
        // goals.add(new TakeDifferentTypesOfDamage());
         goals.add(new ThreeRandomSubgoals());
         goals.add(new ThreeRandomSubgoals());
