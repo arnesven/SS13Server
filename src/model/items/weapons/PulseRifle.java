@@ -25,7 +25,7 @@ public class PulseRifle extends AmmoWeapon {
     @Override
     public void doAttack(Actor performingClient, Target target, GameData gameData) {
         super.doAttack(performingClient, target, gameData);
-        if (target instanceof Actor && lastAdditionalAttacksIn != gameData.getRound()) {
+        if ( lastAdditionalAttacksIn != gameData.getRound()) {
             lastAdditionalAttacksIn = gameData.getRound();
             makeAdditionalAttacks(gameData, performingClient, target);
         }
@@ -65,7 +65,7 @@ public class PulseRifle extends AmmoWeapon {
     @Override
     protected AnimatedSprite getExtraEffectSprite() {
         AnimatedSprite sp = new AnimatedSprite("pulseblast", "laser.png",
-                0, 4, 32, 32, null, 7, false);
+                0, 4, 32, 32, null, 8, false);
         return sp;
     }
 }
