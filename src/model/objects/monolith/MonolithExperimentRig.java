@@ -29,6 +29,7 @@ public class MonolithExperimentRig extends BreakableObject implements PowerConsu
     private boolean isClosed;
     private final MonolithExperimentsConsole console;
     private boolean correctlyConcluded;
+    private boolean reportSent;
 
     public MonolithExperimentRig(Room labRoom, GameData gameData) {
         super("Monolith Experiment Rig", 3.0, labRoom);
@@ -38,6 +39,7 @@ public class MonolithExperimentRig extends BreakableObject implements PowerConsu
         this.console = new MonolithExperimentsConsole(labRoom, this);
         correctlyConcluded = false;
         monolithRemoved = false;
+        reportSent = false;
     }
 
     @Override
@@ -108,6 +110,7 @@ public class MonolithExperimentRig extends BreakableObject implements PowerConsu
     }
 
     public void reportSent(Player player, GameData gameData, CosmicMonolith conclusionArtifact) {
+        reportSent = true;
         if (conclusionArtifact.getBaseName().equals(monolith.getBaseName())) {
             // Conclusion correct!
             gameData.getGameMode().getMiscHappenings().add("The " + player.getBaseName() + " correctly concluded the strange Monolith's true nature by experimenting!<br/>(" + monolith.getBaseName() + ")");
@@ -192,6 +195,10 @@ public class MonolithExperimentRig extends BreakableObject implements PowerConsu
 
     public void setMonolithRemoved(boolean b) {
         monolithRemoved = true;
+    }
+
+    public boolean wasReportSent() {
+        return reportSent;
     }
 
 
