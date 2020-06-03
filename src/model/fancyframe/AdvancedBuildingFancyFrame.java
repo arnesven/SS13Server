@@ -1,5 +1,6 @@
 package model.fancyframe;
 
+import graphics.sprites.Sprite;
 import model.GameData;
 import model.Player;
 import model.actions.characteractions.AdvancedBuildNewRoomAction;
@@ -12,6 +13,8 @@ import model.map.rooms.Room;
 import util.HTMLText;
 import util.MyStrings;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -61,7 +64,7 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
             naminPage(gameData, p, content);
         }
 
-        this.setData("Advanced Building", showLocation || showNaming, HTMLText.makeColoredBackground("#e7ecb6", content.toString()));
+        this.setData("Advanced Building", showLocation || showNaming, HTMLText.makeColoredBackground("#cccccc", content.toString()));
     }
 
     private void naminPage(GameData gameData, Player p, StringBuilder content) {
@@ -82,8 +85,14 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
         //        HTMLText.makeFancyFrameLink("CHANGEFLOORS", "[change]") + "<br/>");
         //content.append("<b>Wall Type:</b> " + selectedWalls + " " +
         //        HTMLText.makeFancyFrameLink("CHANGEWALLS", "[change]" + "<br/>"));
+        // TODO add what type of door you want also...
         content.append("<b>Room Name:</b> " + selectedName + " " +
                 HTMLText.makeFancyFrameLink("CHANGENAME", "[change]" + "<br/>"));
+        if (!selectedLocation.equals("Not Set")) {
+            content.append(HTMLText.makeCentered(HTMLText.makeText("Black", "sans", 2, "Preview (current room in yellow, new room in blue)")));
+            content.append(HTMLText.makeCentered(HTMLText.makeImage(makePreviewSprite(gameData, p))));
+            content.append("<br/>");
+        }
         if (!selectedLocation.equals("Not Set") && !selectedName.equals("Not Set")) {
             content.append(HTMLText.makeCentered(HTMLText.makeGrayButton(buildButtonPushed, "FINALIZE", "BUILD")));
         } else {
@@ -132,6 +141,7 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
             buildContent(gameData, player);
         } else if (event.contains("SETSIZE")) {
             this.selectedSize = event.replace("SETSIZE ", "");
+            this.selectedLocation = "Not Set";
             showSize = false;
             this.showSummary = true;
             buildContent(gameData, player);
@@ -217,6 +227,52 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
         locationErrorMessage = "ERROR! Could not parse input!<br/>";
         buildContent(gameData, player);
         return false;
+    }
+
+
+
+    private BufferedImage makePreviewSprite(GameData gameData, Player p) {
+        int gridSize = 24;
+        Room fromRoom = p.getPosition();
+        int newWidth = Integer.parseInt(selectedSize.split("x")[0]);
+        int newHeight = Integer.parseInt(selectedSize.split("x")[1]);
+        int newX = Integer.parseInt(selectedLocation.split(" ")[0]);
+        int newY = Integer.parseInt(selectedLocation.split(" ")[1]);
+        int newZ = Integer.parseInt(selectedLocation.split(" ")[2]);
+
+        int minX = Math.min(fromRoom.getX(), newX);
+        int minY = Math.min(fromRoom.getY(), newY);
+
+        int totalWidth = (fromRoom.getWidth() + newWidth) * gridSize;
+        int totalHeight = (fromRoom.getHeight() + newHeight) * gridSize;
+        BufferedImage bimg = new BufferedImage(totalWidth, totalHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = bimg.getGraphics();
+
+        //g.setColor(Color.BLACK);
+        //g.fillRect(0, 0, bimg.getWidth(), bimg.getHeight());
+
+        if (newZ > fromRoom.getZ()) {
+            drawFromRoom(g, fromRoom, minX, minY, gridSize);
+            drawNewRoom(g, newX, newY, newWidth, newHeight, minX, minY, gridSize);
+        } else {
+            drawNewRoom(g, newX, newY, newWidth, newHeight, minX, minY, gridSize);
+            drawFromRoom(g, fromRoom, minX, minY, gridSize);
+        }
+
+        return bimg;
+    }
+
+    private void drawNewRoom(Graphics g, int newX, int newY, int newWidth, int newHeight, int minX, int minY, int gridSize) {
+        g.setColor(Color.BLUE);
+        g.fillRect((newX - minX)*gridSize, (newY - minY)*gridSize, newWidth*gridSize, newHeight*gridSize);
+    }
+
+    private void drawFromRoom(Graphics g, Room fromRoom, int minX, int minY, int gridSize) {
+        g.setColor(Color.YELLOW);
+        g.fillRect((fromRoom.getX() - minX)*gridSize,
+                (fromRoom.getY() - minY)*gridSize,
+                fromRoom.getWidth()*gridSize,
+                fromRoom.getHeight()*gridSize);
     }
 
 }

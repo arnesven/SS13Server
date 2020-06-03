@@ -43,20 +43,29 @@ public class SpriteManager {
         return "ERROR";
     }
 
-    public static String encode64(Sprite sprite) {
+    public static String encode64(BufferedImage img) {
         String str = null;
         try {
-            BufferedImage img = sprite.getImage();
             ByteArrayOutputStream bto = new ByteArrayOutputStream();
 
             ImageIO.write(img, "png", bto);
             byte[] bytes = bto.toByteArray();
             str = Base64.getEncoder().encodeToString(bytes);
         } catch (IOException e) {
-            Logger.log(Logger.CRITICAL, "Exception when reading image! ");
+            Logger.log(Logger.CRITICAL, "Exception when writing image! ");
         }
 
         return str;
+    }
+
+    public static String encode64(Sprite sprite) {
+        try {
+            return encode64(sprite.getImage());
+        } catch (IOException e) {
+            Logger.log(Logger.CRITICAL, "Exception when reading image! ");
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static void test() {

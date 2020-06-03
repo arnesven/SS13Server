@@ -3,6 +3,8 @@ package util;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteManager;
 
+import java.awt.image.BufferedImage;
+
 /**
  * Created by erini02 on 13/11/16.
  */
@@ -47,6 +49,11 @@ public class HTMLText {
     public static String makeImage(Sprite sprite) {
         String decodeded = SpriteManager.encode64(sprite);
         return "<img src=\"data:image/png;base64,"+ decodeded + "\"></img>";
+    }
+
+    public static String makeImage(BufferedImage img) {
+        String decoded = SpriteManager.encode64(img);
+        return "<img src=\"data:image/png;base64,"+ decoded + "\"></img>";
     }
 
     public static String makeFancyFrameLink(String command, String text) {
