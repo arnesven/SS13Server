@@ -7,6 +7,7 @@ import clientlogic.Room;
 import clientview.OverlaySprite;
 import clientview.SpriteManager;
 import clientview.animation.AnimationHandler;
+import clientview.components.MapPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,6 +77,10 @@ public class ClientExtraEffect {
         if (fromOp == null || toOp == null) {
             return;
         }
+        if (toOp.getHitBox() == null || fromOp.getHitBox() == null) {
+            System.out.println("Could not find hitbox for extra effect!");
+            return;
+        }
         double ax = fromOp.getHitBox().x + fromOp.getHitBox().width  / 2.0;
         double ay = fromOp.getHitBox().y + fromOp.getHitBox().height / 2.0;
         double bx = toOp.getHitBox().x + toOp.getHitBox().width / 2;
@@ -96,15 +101,22 @@ public class ClientExtraEffect {
 
         ImageIcon img = SpriteManager.getSprite(effectSpriteName + "frame" + currentFrame + "0");
 
+        int width = spriteWidth;
+        int height = spriteHeight;
+        if (MapPanel.getZoom() == 64.0) {
+            width = spriteWidth*2;
+            height = spriteHeight*2;
+        }
+
         g2d.rotate(angle, xCenter, yCenter);
         g2d.drawImage(img.getImage(),
-                (int)(xCenter - spriteWidth/2),
+                (int)(xCenter - width/2),
                 (int)(yCenter - distance/2),
-                (int)(xCenter + spriteWidth/2),
+                (int)(xCenter + width/2),
                 (int)(yCenter + distance/2),
                 0, 0,
-                spriteWidth,
-                spriteHeight,
+                width,
+                height,
                 null);
         g2d.rotate(-angle, xCenter, yCenter);
         if (looping) {
