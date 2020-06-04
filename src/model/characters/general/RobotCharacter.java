@@ -18,6 +18,7 @@ import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
 import model.items.general.RobotParts;
 import model.items.general.Tools;
+import model.items.tools.RepairTools;
 import model.items.weapons.BluntWeapon;
 import model.items.weapons.Weapon;
 
@@ -109,7 +110,7 @@ public class RobotCharacter extends GameCharacter {
             FireExtinguisher fext = new FireExtinguisher();
             fext.addYourActions(gameData, at, (Player) getActor());
 
-            Tools tool = new Tools();
+            Tools tool = new RepairTools();
             tool.addYourActions(gameData, at, (Player) getActor());
         }
 

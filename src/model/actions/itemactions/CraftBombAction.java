@@ -10,6 +10,7 @@ import model.items.MakeShiftBomb;
 import model.items.NoSuchThingException;
 import model.items.chemicals.Chemicals;
 import model.items.general.*;
+import model.items.tools.CraftingTools;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class CraftBombAction extends Action {
                     }
                 } else if (makeRiggable) {
                     try {
-                        performingClient.getItems().remove(GameItem.getItemFromActor(performingClient, new Tools()));
+                        performingClient.getItems().remove(GameItem.getItemFromActor(performingClient, new CraftingTools()));
                         bomb = new BoobyTrapBomb();
                     } catch (NoSuchThingException e) {
                         performingClient.addTolastTurnInfo("What, no tools to use? " + failed(gameData, performingClient));
@@ -96,8 +97,8 @@ public class CraftBombAction extends Action {
                         innerOpt.addOption("Remote Bomb (destroys " + uit.getBaseName() + ")");
                         either = true;
                     }
-                    if (GameItem.hasAnItem(whosAsking, new Tools())) {
-                        innerOpt.addOption("Riggable Bomb (destroys Tools)");
+                    if (GameItem.hasAnItemOfClass(whosAsking, CraftingTools.class)) {
+                        innerOpt.addOption("Riggable Bomb (destroys Crafting Tools)");
                         either = true;
                     }
                     if (either) {

@@ -11,6 +11,7 @@ import model.items.general.Tools;
 import model.items.keycard.EngineeringKeyCard;
 import model.items.suits.FireSuit;
 import model.items.suits.InsulatedGloves;
+import model.items.tools.RepairTools;
 
 public class EngineerCharacter extends CrewCharacter {
 
@@ -24,7 +25,7 @@ public class EngineerCharacter extends CrewCharacter {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new EngineeringKeyCard());
 		list.add(new FireSuit());
-		list.add(new Tools());
+		list.add(new RepairTools());
 		list.add(new PowerRadio());
         list.add(new ElectronicParts());
         list.add(new InsulatedGloves());

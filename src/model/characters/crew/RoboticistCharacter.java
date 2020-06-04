@@ -14,6 +14,7 @@ import model.items.general.Tools;
 import model.items.general.FireExtinguisher;
 import model.items.keycard.EngineeringKeyCard;
 import model.items.suits.InsulatedGloves;
+import model.items.tools.CraftingTools;
 import util.Logger;
 
 public class RoboticistCharacter extends CrewCharacter {
@@ -25,7 +26,7 @@ public class RoboticistCharacter extends CrewCharacter {
     @Override
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
-		list.add(new Tools());
+		list.add(new CraftingTools());
 		list.add(new FireExtinguisher());
         list.add(new RobotParts());
         list.add(new InsulatedGloves());

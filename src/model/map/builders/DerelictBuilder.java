@@ -4,6 +4,7 @@ import model.GameData;
 import model.characters.general.AbandonedBotCharacter;
 import model.items.general.Tools;
 import model.items.suits.SpaceSuit;
+import model.items.tools.RepairTools;
 import model.map.GameMap;
 import model.map.doors.Door;
 import model.map.doors.NormalDoor;
@@ -47,7 +48,7 @@ public class DerelictBuilder extends MapBuilder {
                 new RandomSpeechBehavior("resources/ABANDON.TXT"), derelictGen);
         gameData.addNPC(abandoned);
         derelictGen.addObject(new DerelictPowerSource(derelictGen, gameData));
-        derelictGen.addItem(new Tools());
+        derelictGen.addItem(new RepairTools());
 
         gm.addRoom(derelictGen, "derelict", "derelict");
         DerelictAirlockRoom derelictAirLock =  new DerelictAirlockRoom(38, "Derelict Airlock", "", 42, 44, 1, 1, new int[]{35},

@@ -8,8 +8,10 @@ import model.characters.general.GameCharacter;
 import model.characters.general.RobotCharacter;
 import model.events.Event;
 import model.events.ambient.HullBreach;
+import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Tools;
+import model.items.tools.RepairTools;
 import model.npcs.robots.RobotNPC;
 
 import java.util.List;
@@ -34,7 +36,7 @@ public class SealHullBreachAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        if (GameItem.hasAnItem(performingClient, new Tools()) || isRobot(performingClient.getCharacter())) {
+        if (GameItem.hasAnItem(performingClient, new RepairTools()) || isRobot(performingClient.getCharacter())) {
             List<Event> evs = performingClient.getPosition().getEvents();
             for (Event e : evs) {
                 if (e instanceof HullBreach) {
@@ -43,7 +45,13 @@ public class SealHullBreachAction extends Action {
                 }
             }
             performingClient.addTolastTurnInfo("You sealed the breach.");
-            Tools.holdInHand(performingClient);
+            RepairTools rt = null;
+            try {
+                rt = GameItem.getItemFromActor(performingClient, new RepairTools());
+                rt.makeHoldInHand(performingClient);
+            } catch (NoSuchThingException e) {
+                e.printStackTrace();
+            }
         } else {
             performingClient.addTolastTurnInfo("What? The tools are gone! Your action failed.");
         }

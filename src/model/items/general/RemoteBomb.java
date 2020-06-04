@@ -36,7 +36,7 @@ public class RemoteBomb extends BombItem {
 				
 				@Override
 				protected void execute(GameData gameData, Actor performingClient) {
-					if (hasAnItem(performingClient, new RemoteBomb())) {
+					if (hasAnItemOfClass(performingClient, RemoteBomb.class)) {
 					remoteGotten = true;
 					GameItem det = new BombDetonator(RemoteBomb.this);
 					performingClient.addItem(det, null);

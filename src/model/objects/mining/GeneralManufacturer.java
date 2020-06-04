@@ -17,6 +17,8 @@ import model.items.mining.MiningDrill;
 import model.items.mining.OreShard;
 import model.items.mining.OreShardBag;
 import model.items.suits.*;
+import model.items.tools.CraftingTools;
+import model.items.tools.RepairTools;
 import model.items.tools.Wrench;
 import model.items.weapons.*;
 import model.map.rooms.Room;
@@ -129,7 +131,8 @@ public class GeneralManufacturer extends ElectricalMachinery {
 
         Set<GameItem> tools = new HashSet<>();
         tools.add(new Crowbar());
-        tools.add(new Tools());
+        tools.add(new RepairTools());
+        tools.add(new CraftingTools());
         tools.add(new Multimeter());
         tools.add(new Teleporter());
         tools.add(new SecurityRadio());

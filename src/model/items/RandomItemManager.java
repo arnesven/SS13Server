@@ -10,7 +10,9 @@ import model.items.seeds.RedWeedSeeds;
 import model.items.seeds.TomatoSeeds;
 import model.items.spellbooks.*;
 import model.items.suits.*;
+import model.items.tools.CraftingTools;
 import model.items.tools.DockWorkerRadio;
+import model.items.tools.RepairTools;
 import model.items.tools.Wrench;
 import model.items.weapons.*;
 import util.Logger;
@@ -150,7 +152,6 @@ public class RandomItemManager {
         list.put(new Syringe(),                 PREVALENCE_COMMON);
         list.put(new Teleporter(),              PREVALENCE_VERY_RARE);
         list.put(new TimeBomb(),                PREVALENCE_VERY_RARE);
-        list.put(new Tools(),                   PREVALENCE_VERY_COMMON);
         list.put(new TornClothes(),             PREVALENCE_RARE);
         list.put(new UniversalKeyCard(),        PREVALENCE_VERY_RARE);
         list.put(new ZippoLighter(),            PREVALENCE_VERY_COMMON);
@@ -221,7 +222,9 @@ public class RandomItemManager {
         list.put(new WizardsOutfit(),           PREVALENCE_RARE);
         list.put(new WizardsRobes(),            PREVALENCE_RARE);
         // TOOLS
+        list.put(new CraftingTools(),   PREVALENCE_VERY_COMMON);
         list.put(new DockWorkerRadio(), PREVALENCE_RARE);
+        list.put(new RepairTools(),     PREVALENCE_VERY_COMMON);
         list.put(new Wrench(),          PREVALENCE_VERY_COMMON);
 
 

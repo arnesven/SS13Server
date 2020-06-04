@@ -49,7 +49,7 @@ public class DummyHivePlacer extends GameItem implements TraitorItem {
 			
 			@Override
 			protected void execute(GameData gameData, Actor performingClient) {
-				if (GameItem.hasAnItem(performingClient, new DummyHivePlacer())) {
+				if (GameItem.hasAnItemOfClass(performingClient, DummyHivePlacer.class)) {
 					performingClient.getItems().remove(DummyHivePlacer.this);
 					performingClient.getPosition().addObject(new DummyHive(placeAsFound, 
 							performingClient.getPosition()));

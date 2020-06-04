@@ -10,6 +10,7 @@ import model.characters.general.GameCharacter;
 import model.items.chemicals.HydrogenPeroxideChemicals;
 import model.items.general.*;
 import model.items.keycard.SupportIdentCard;
+import model.items.tools.RepairTools;
 import util.HTMLText;
 
 public class JanitorCharacter extends CrewCharacter {
@@ -41,7 +42,7 @@ public class JanitorCharacter extends CrewCharacter {
 		list.add(new HydrogenPeroxideChemicals());
 		list.add(new FireExtinguisher());
 		list.add(new Mop());
-        list.add(new Tools());
+        list.add(new RepairTools());
 		return list;
 	}
 	

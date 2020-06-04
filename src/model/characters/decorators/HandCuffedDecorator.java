@@ -41,7 +41,7 @@ public class HandCuffedDecorator extends CharacterDecorator implements Disabling
                                           ArrayList<Action> at) {
         super.addActionsForActorsInRoom(gameData, anyActorInRoom, at);
         if (anyActorInRoom != this.getActor()) {
-            if (GameItem.hasAnItem(anyActorInRoom, new Tools())) {
+            if (GameItem.hasAnItemOfClass(anyActorInRoom, Tools.class)) {
                 at.add(new FreeHandcuffsFrom(getActor()));
             }
         }

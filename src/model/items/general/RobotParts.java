@@ -6,10 +6,12 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.BuildRobotAction;
+import model.actions.itemactions.CraftBombAction;
 import model.characters.crew.RoboticistCharacter;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
 import model.characters.general.RobotCharacter;
+import model.items.tools.CraftingTools;
 
 import java.util.ArrayList;
 
@@ -39,7 +41,7 @@ public class RobotParts extends GameItem {
         };
 
         if (cl.getCharacter().checkInstance(instanceChecker)
-            && GameItem.hasAnItem(cl, new Tools())) {
+            && GameItem.hasAnItemOfClass(cl, CraftingTools.class)) {
             at.add(new BuildRobotAction(this));
         }
     }

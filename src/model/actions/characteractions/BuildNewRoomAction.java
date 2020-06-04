@@ -10,6 +10,7 @@ import model.items.general.GameItem;
 import model.items.general.ItemStackDepletedException;
 import model.items.general.RoomPartsStack;
 import model.items.general.Tools;
+import model.items.tools.CraftingTools;
 import model.map.Architecture;
 import model.map.GameMap;
 import model.map.doors.Door;
@@ -83,7 +84,7 @@ public class BuildNewRoomAction extends Action {
             return;
         }
 
-        if (GameItem.hasAnItem(performingClient, new Tools())) {
+        if (GameItem.hasAnItemOfClass(performingClient, CraftingTools.class)) {
             String name = null;
             try {
                 name = buildNewRoom(gameData, performingClient, selected, width, height);

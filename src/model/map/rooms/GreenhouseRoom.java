@@ -3,6 +3,8 @@ package model.map.rooms;
 import model.GameData;
 import model.items.general.FireExtinguisher;
 import model.items.general.Tools;
+import model.items.tools.CraftingTools;
+import model.items.tools.RepairTools;
 import model.map.doors.Door;
 import model.npcs.NPC;
 import model.npcs.animals.ChimpNPC;
@@ -18,8 +20,9 @@ public class GreenhouseRoom extends ScienceRoom {
                           Door[] ds) {
 		super(id, "Greenhouse"          , "GH"     , x, y, w, h, ns, ds);
 		this.addItem(new FireExtinguisher());
-		this.addItem(new Tools());
-        this.addObject(new BioScanner(this));
+		this.addItem(new RepairTools());
+		this.addItem(new CraftingTools());
+		this.addObject(new BioScanner(this));
         this.addObject(new SoilPatch(this));
 		this.addObject(new SeedVendingMachine(this));
 		NPC chimp = new ChimpNPC(this);

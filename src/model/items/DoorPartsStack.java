@@ -11,6 +11,7 @@ import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.ItemStack;
 import model.items.general.Tools;
+import model.items.tools.CraftingTools;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ public class DoorPartsStack extends ItemStack {
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
         if (cl.getCharacter().checkInstance(((GameCharacter gc) -> gc instanceof ArchitectCharacter))) {
-            if (GameItem.hasAnItem(cl, new Tools())) {
+            if (GameItem.hasAnItemOfClass(cl, CraftingTools.class)) {
                 Action a = new BuildDoorAction(gameData, cl);
                 if (a.getOptions(gameData, cl).numberOfSuboptions() > 0) {
                     at.add(a);

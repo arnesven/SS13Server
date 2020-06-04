@@ -9,6 +9,7 @@ import model.actions.general.Action;
 import model.characters.crew.EngineerCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.RobotCharacter;
+import model.items.tools.CraftingTools;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class ElectronicParts extends GameItem {
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
         if (cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof EngineerCharacter)) {
-            if (GameItem.hasAnItem(cl, new Tools())) {
+            if (GameItem.hasAnItemOfClass(cl, CraftingTools.class)) {
                 at.add(new BuildElectronicObjectAction(gameData));
             }
         } else if ( cl.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof RobotCharacter)) {

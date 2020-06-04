@@ -177,12 +177,12 @@ public class ThreeRandomSubgoals extends CompositePersonalGoal {
     private class HaveAToolkit extends PersonalGoal {
         @Override
         public String getText() {
-            return "have a toolkit";
+            return "have a toolkit (any type)";
         }
 
         @Override
         public boolean isCompleted(GameData gameData) {
-            return GameItem.hasAnItem(getBelongsTo(), new Tools());
+            return GameItem.hasAnItemOfClass(getBelongsTo(), Tools.class);
         }
     }
 

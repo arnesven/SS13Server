@@ -17,6 +17,7 @@ import model.events.damage.AsphyxiationDamage;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.Tools;
+import model.items.tools.RepairTools;
 import model.map.rooms.Room;
 import util.Logger;
 
@@ -110,7 +111,7 @@ public class HullBreach extends OngoingEvent {
 
         if (this.getRoom() == forWhom.getPosition()) {
             try {
-                Tools fe = GameItem.getItemFromActor(forWhom, new Tools());
+                Tools fe = GameItem.getItemFromActor(forWhom, new RepairTools());
                 SealHullBreachAction seal = new SealHullBreachAction();
                 acts.add(seal);
             } catch (NoSuchThingException e) {

@@ -8,6 +8,7 @@ import model.actions.general.SensoryLevel;
 import model.items.CryoBomb;
 import model.items.NoSuchThingException;
 import model.items.general.*;
+import model.items.tools.CraftingTools;
 import model.objects.general.Dumbwaiter;
 import util.Logger;
 import util.MyRandom;
@@ -36,7 +37,7 @@ public class MakeBombAction extends Action {
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption opt = super.getOptions(gameData, whosAsking);
         opt.addOption("Cryo Bomb");
-        if (GameItem.hasAnItem(whosAsking, new Tools())) {
+        if (GameItem.hasAnItem(whosAsking, new CraftingTools())) {
             opt.addOption("Riggable Bomb (destroys Tools)");
         } else if (hasUplinkItem(whosAsking) != null) {
             UplinkItem it = hasUplinkItem(whosAsking);
@@ -50,9 +51,9 @@ public class MakeBombAction extends Action {
         BombItem bomb;
         if (selected.contains("Riggable")) {
             bomb = new BoobyTrapBomb();
-            if (GameItem.hasAnItem(performingClient, new Tools())) {
+            if (GameItem.hasAnItemOfClass(performingClient, CraftingTools.class)) {
                 try {
-                    performingClient.getItems().remove(GameItem.getItem(performingClient, new Tools()));
+                    performingClient.getItems().remove(GameItem.getItem(performingClient, new CraftingTools()));
                 } catch (NoSuchThingException e) {
                     Logger.log(Logger.CRITICAL, "What, strange situation in Dumbwaiter");
                 }

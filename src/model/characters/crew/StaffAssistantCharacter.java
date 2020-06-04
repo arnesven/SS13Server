@@ -11,6 +11,7 @@ import model.items.general.GameItem;
 import model.items.general.MedKit;
 import model.items.general.Tools;
 import model.items.keycard.SupportIdentCard;
+import model.items.tools.RepairTools;
 import model.items.weapons.Crowbar;
 import util.MyRandom;
 
@@ -83,7 +84,7 @@ public class StaffAssistantCharacter extends CrewCharacter {
     private static List<GameItem> makeItemList() {
         List<GameItem> gis = new ArrayList<>();
         gis.add(new Crowbar());
-        gis.add(new Tools());
+        gis.add(new RepairTools());
         gis.add(new FireExtinguisher());
         gis.add(new SpaceBurger(null));
         return gis;

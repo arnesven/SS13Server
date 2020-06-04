@@ -4,9 +4,12 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import model.items.NoSuchThingException;
 import model.items.general.BombItem;
 import model.items.general.GameItem;
 import model.items.general.Tools;
+import model.items.tools.CraftingTools;
+import model.items.tools.RepairTools;
 import util.MyRandom;
 
 import java.util.List;
@@ -31,7 +34,7 @@ public class DefuseBombAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        if (!GameItem.hasAnItem(performingClient, new Tools())) {
+        if (!GameItem.hasAnItemOfClass(performingClient, Tools.class)) {
             performingClient.addTolastTurnInfo("What? The Tools are missing!" + failed(gameData, performingClient));
             return;
         }
@@ -49,7 +52,18 @@ public class DefuseBombAction extends Action {
                 bomb.defuse(gameData);
                 performingClient.getPosition().getItems().remove(bomb);
             }
-            Tools.holdInHand(performingClient);
+            try {
+                RepairTools rt = GameItem.getItemFromActor(performingClient, new RepairTools());
+                rt.makeHoldInHand(performingClient);
+            } catch (NoSuchThingException e) {
+                CraftingTools ct = null;
+                ct.makeHoldInHand(performingClient);
+                try {
+                    ct = GameItem.getItemFromActor(performingClient, new CraftingTools());
+                } catch (NoSuchThingException e1) {
+
+                }
+            }
             return;
         }
 

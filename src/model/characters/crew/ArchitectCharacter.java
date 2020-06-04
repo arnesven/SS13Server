@@ -10,6 +10,7 @@ import model.items.general.RoomPartsStack;
 import model.items.general.Tools;
 import model.items.keycard.EngineeringKeyCard;
 import model.items.suits.PowerSuit;
+import model.items.tools.CraftingTools;
 
 public class ArchitectCharacter extends CrewCharacter {
 
@@ -21,7 +22,7 @@ public class ArchitectCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new EngineeringKeyCard());
-		list.add(new Tools());
+		list.add(new CraftingTools());
         list.add(new RoomPartsStack(6));
         list.add(new DoorPartsStack(4));
         list.add(new PowerSuit());

@@ -1,6 +1,7 @@
 package model.map.rooms;
 
 import model.items.general.Multimeter;
+import model.items.tools.RepairTools;
 import model.map.doors.Door;
 import model.map.doors.UpgoingStairsDoor;
 import model.objects.GlassSecuritronCage;
@@ -12,6 +13,7 @@ public class RoboticsRoom extends TechRoom {
         addObject(new BotConsole(this));
         addObject(new UpgoingStairsDoor(this));
         addObject(new GlassSecuritronCage(this));
+        addItem(new RepairTools());
         addItem(new Multimeter());
     }
 }
