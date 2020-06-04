@@ -22,8 +22,8 @@ public class ArchitectCharacter extends CrewCharacter {
 		ArrayList<GameItem> list = new ArrayList<>();
 		list.add(new EngineeringKeyCard());
 		list.add(new Tools());
-        list.add(new RoomPartsStack(3));
-        list.add(new DoorPartsStack(3));
+        list.add(new RoomPartsStack(6));
+        list.add(new DoorPartsStack(4));
         list.add(new PowerSuit());
    		return list;
 	}

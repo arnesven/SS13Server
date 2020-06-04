@@ -23,19 +23,21 @@ import java.util.Scanner;
 
 public class AdvancedBuildingFancyFrame extends FancyFrame {
     private final RoomPartsStack stack;
+    private String moveThere;
     private boolean showLocation;
     private boolean showNaming;
     private boolean showSummary;
     private String selectedSize;
     private String selectedLocation;
     private String selectedFloors;
-    private final String selectedWalls;
+    private String selectedWalls;
     private boolean buildButtonPushed;
     private boolean showSize;
     private String selectedName;
     private String locationErrorMessage;
     private String namingError;
     private boolean showFloors;
+    private String selectedWindows;
 
     public AdvancedBuildingFancyFrame(Player p, GameData gameData, RoomPartsStack stack) {
         super(p.getFancyFrame());
@@ -47,9 +49,12 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
         this.selectedSize = "1x1";
         this.selectedLocation = "Not Set";
         this.selectedFloors = "Hallway";
-        this.selectedWalls = "Dark";
+        this.selectedWalls = "dark";
         this.selectedName = "Not Set";
+        this.moveThere = "yes";
+        selectedWindows = "yes";
         this.buildButtonPushed = false;
+
         locationErrorMessage = "";
         namingError = "";
         this.stack = stack;
@@ -84,21 +89,26 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
                 HTMLText.makeFancyFrameLink("CHANGELOCATION", "[change]") + "<br/>");
         content.append("<b>Floor Type:</b> " + selectedFloors + " " +
                 HTMLText.makeFancyFrameLink("CHANGEFLOORS", "[change]") + "<br/>");
-        //content.append("<b>Wall Type:</b> " + selectedWalls + " " +
-        //        HTMLText.makeFancyFrameLink("CHANGEWALLS", "[change]" + "<br/>"));
+        content.append("<b>Wall Type:</b> " + selectedWalls + " " +
+                HTMLText.makeFancyFrameLink("CHANGEWALLS", "[change]" + "<br/>"));
+        content.append("<b>Windows (if able)?</b> " + selectedWindows + " " +
+                HTMLText.makeFancyFrameLink("CHANGEWINDOWS", "[change]" + "<br/>"));
         // TODO add what type of door you want also...
         content.append("<b>Room Name:</b> " + selectedName + " " +
                 HTMLText.makeFancyFrameLink("CHANGENAME", "[change]" + "<br/>"));
-        if (!selectedLocation.equals("Not Set")) {
-            content.append(HTMLText.makeCentered(HTMLText.makeText("Black", "sans", 2, "Preview (current room in yellow, new room in blue)")));
-            content.append(HTMLText.makeCentered(HTMLText.makeImage(makePreviewSprite(gameData, p))));
-            content.append("<br/>");
-        }
+        content.append("<b>Move me there?</b> " + moveThere + " " +
+        HTMLText.makeFancyFrameLink("MOVEMETHERE", "[change]") + "<br/>");
         if (!selectedLocation.equals("Not Set") && !selectedName.equals("Not Set")) {
             content.append(HTMLText.makeCentered(HTMLText.makeGrayButton(buildButtonPushed, "FINALIZE", "BUILD")));
         } else {
             content.append(HTMLText.makeCentered("<i>You must select a location and name your room before it can be built.</i>"));
         }
+        if (!selectedLocation.equals("Not Set")) {
+            content.append(HTMLText.makeCentered(HTMLText.makeText("Black", "sans", 2, "Preview (current room in yellow, new room in blue)")));
+            content.append(HTMLText.makeCentered(HTMLText.makeImage(makePreviewSprite(gameData, p))));
+            content.append("<br/>");
+        }
+
     }
 
 
@@ -107,10 +117,16 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
         BuildNewRoomAction bnr = new BuildNewRoomAction();
 
         content.append("Select a size (Width x Height): <br/>");
+        String lastSize = "1x1";
         for (ActionOption opt : bnr.getOptions(gameData, p).getSuboptions().get(0).getSuboptions()) {
             String size = opt.getName().split("=")[1];
-            content.append(HTMLText.makeCentered(HTMLText.makeFancyFrameLink("SETSIZE " + size, size) + "<br/>"));
+            if (size.charAt(2) != lastSize.charAt(2)) {
+                content.append("<br/>");
+                lastSize = size;
+            }
+            content.append(HTMLText.makeFancyFrameLink("SETSIZE " + size, size) + " ");
         }
+        content.append("<br/>");
         content.append(HTMLText.makeCentered("<i>The above options are based on the number of parts you have in your inventory.</i>"));
     }
 
@@ -178,12 +194,36 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
             this.showFloors = false;
             this.showSummary = true;
             buildContent(gameData, player);
+        } else if (event.contains("CHANGEWALLS")) {
+            if (selectedWalls.equals("dark")) {
+                selectedWalls = "light";
+            } else {
+                selectedWalls = "dark";
+            }
+            buildContent(gameData, player);
+        } else if (event.contains("MOVEMETHERE")) {
+            if (moveThere.equals("yes")) {
+                moveThere = "no";
+            } else {
+                moveThere = "yes";
+            }
+            buildContent(gameData, player);
+        } else if (event.contains("CHANGEWINDOWS")) {
+            if (selectedWindows.equals("yes")) {
+                selectedWindows = "no";
+            } else {
+                selectedWindows = "yes";
+            }
+            buildContent(gameData, player);
         } else if (event.contains("FINALIZE")) {
             List<String> args = new ArrayList<String>();
             args.add(selectedLocation);
             args.add(selectedSize);
             args.add(selectedName);
             args.add(selectedFloors);
+            args.add(selectedWalls);
+            args.add(moveThere);
+            args.add(selectedWindows);
             BuildNewRoomAction bnra = new AdvancedBuildNewRoomAction(this);
             bnra.setActionTreeArguments(args, player);
             player.setNextAction(bnra);

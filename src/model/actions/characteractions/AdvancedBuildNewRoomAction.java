@@ -22,14 +22,19 @@ import java.util.List;
 public class AdvancedBuildNewRoomAction extends BuildNewRoomAction {
 
     private final AdvancedBuildingFancyFrame fancyFrame;
+    private boolean moveThere;
     private int roomX;
     private int roomY;
     private int roomZ;
     private String roomName;
     private String floors;
+    private String walls;
+    private boolean windows;
 
     public AdvancedBuildNewRoomAction(AdvancedBuildingFancyFrame advancedBuildingFancyFrame) {
         this.fancyFrame = advancedBuildingFancyFrame;
+        moveThere = false;
+        windows = false;
     }
 
     @Override
@@ -42,6 +47,13 @@ public class AdvancedBuildNewRoomAction extends BuildNewRoomAction {
         height = Integer.parseInt(args.get(1).split("x")[1]);
         roomName = args.get(2);
         floors = args.get(3);
+        walls = args.get(4);
+        if (args.get(5).equals("yes")) {
+            moveThere = true;
+        }
+        if (args.get(6).equals("yes")) {
+            windows = true;
+        }
     }
 
     @Override
@@ -59,7 +71,7 @@ public class AdvancedBuildNewRoomAction extends BuildNewRoomAction {
             if (arch.canRoomBeBuilt(roomX, roomY, roomZ, width, height, performingClient.getPosition())) {
                 int id = gameData.getMap().getMaxID()+1;
                 Room newRoom = new CustomRoom(id, roomName, "", roomX, roomY, roomZ,
-                        width, height, new int[]{}, new Door[]{}, floors);
+                        width, height, new int[]{}, new Door[]{}, floors, walls, windows);
 
 
                 if (roomZ == performingClient.getPosition().getZ()) {
@@ -84,6 +96,10 @@ public class AdvancedBuildNewRoomAction extends BuildNewRoomAction {
                     newRoom.doSetup(gameData);
                 } catch (NoSuchThingException e) {
                     e.printStackTrace();
+                }
+
+                if (moveThere && performingClient instanceof Player) {
+                    ((Player) performingClient).setNextMove(newRoom.getID());
                 }
 
             } else {

@@ -61,8 +61,8 @@ public class BuildNewRoomAction extends Action {
     private void addOptions(ActionOption opts, String aftwards, int amount) {
         ActionOption opt = new ActionOption(aftwards);
 
-        for (int w = 1; w <= amount; w++) {
-            for (int h = 1; h <= amount; h++) {
+        for (int h = 1; h <= amount; h++) {
+            for (int w = 1; w <= amount; w++) {
                 if (w*h <= amount) {
                     opt.addOption("size WxH=" + w + "x" + h);
                 }

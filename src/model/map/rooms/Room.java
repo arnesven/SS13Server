@@ -176,6 +176,10 @@ public abstract class Room implements ItemHolder, Serializable {
 		return paintingStyle;
 	}
 
+	protected void setPaintingStyle(String style) {
+		this.paintingStyle = style;
+	}
+
 	protected String getWallAppearence() {
 		return "dark";
 	}
