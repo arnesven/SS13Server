@@ -7,10 +7,7 @@ import model.fancyframe.AdvancedBuildingFancyFrame;
 import model.items.NoSuchThingException;
 import model.map.Architecture;
 import model.map.GameMap;
-import model.map.doors.Door;
-import model.map.doors.DowngoingStairsDoor;
-import model.map.doors.NormalDoor;
-import model.map.doors.UpgoingStairsDoor;
+import model.map.doors.*;
 import model.map.rooms.CustomRoom;
 import model.map.rooms.HallwayRoom;
 import model.map.rooms.Room;
@@ -30,6 +27,7 @@ public class AdvancedBuildNewRoomAction extends BuildNewRoomAction {
     private String floors;
     private String walls;
     private boolean windows;
+    private String doorChoice;
 
     public AdvancedBuildNewRoomAction(AdvancedBuildingFancyFrame advancedBuildingFancyFrame) {
         this.fancyFrame = advancedBuildingFancyFrame;
@@ -54,6 +52,7 @@ public class AdvancedBuildNewRoomAction extends BuildNewRoomAction {
         if (args.get(6).equals("yes")) {
             windows = true;
         }
+        doorChoice = args.get(7);
     }
 
     @Override
@@ -76,7 +75,9 @@ public class AdvancedBuildNewRoomAction extends BuildNewRoomAction {
 
                 if (roomZ == performingClient.getPosition().getZ()) {
                     Point2D doorPoint = arch.getPossibleNewDoors(newRoom).get(performingClient.getPosition());
-                    newRoom.addDoor(new NormalDoor(doorPoint.getX(), doorPoint.getY(), (double) roomZ, id, performingClient.getPosition().getID()));
+                    ElectricalDoor door = ElectricalDoor.getBuildableDoors().get(doorChoice).makeCopy(doorPoint.getX(), doorPoint.getY(),
+                                                    (double)roomZ, id, performingClient.getPosition().getID());
+                    newRoom.addDoor(door);
                 } else {
                     if (roomZ > performingClient.getPosition().getZ()) {
                         newRoom.addObject(new DowngoingStairsDoor(newRoom));

@@ -24,7 +24,10 @@ import model.objects.general.ElectricalMachinery;
 import util.HTMLText;
 import util.Logger;
 
+import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class ElectricalDoor extends Door {
 
@@ -47,7 +50,7 @@ public abstract class ElectricalDoor extends Door {
 
 
 
-        protected Sprite getFogOfWarSprite() {
+    protected Sprite getFogOfWarSprite() {
         return getUnpoweredSprite();
     }
 
@@ -248,4 +251,16 @@ public abstract class ElectricalDoor extends Door {
     public void gotRepaired(GameData gameData) {
         this.doorState = doorState.getOldState(); // from broken to.... (Unpowered, Normal or Locked)
     }
+
+    public static Map<String, ElectricalDoor> getBuildableDoors() {
+        Map<String, ElectricalDoor> result = new HashMap<>();
+        result.put("Normal", new NormalDoor(0, 0, 0, 0, 0, false));
+        result.put("Security", new SecurityDoor(0, 0, 0, 0, false));
+        result.put("Engineering", new EngineeringDoor(0, 0, 0, 0, false));
+        result.put("Science", new ScienceDoor(0, 0, 0, 0, false));
+        result.put("Command", new CommandDoor(0, 0, 0, 0, false));
+        return result;
+    }
+
+    public abstract ElectricalDoor makeCopy(double x, double y, double z, int fromId, int toId);
 }

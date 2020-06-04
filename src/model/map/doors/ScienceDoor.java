@@ -9,9 +9,13 @@ public class ScienceDoor extends ElectricalDoor {
 
     private static final Sprite UNPOWERED_SPRITE = new Sprite("sciencedoor", "doors.png", 14, null);
 
-    public ScienceDoor(double v, double v1, int i, int i1, boolean b) {
-        super(v, v1, "Science", i, i1, b);
+    public ScienceDoor(double x, double y, double z, int fromId, int toId, boolean b) {
+        super(x, y, z, "Science", fromId, toId, b);
     }
+    public ScienceDoor(double v, double v1, int i, int i1, boolean b) {
+        this(v, v1, 0.0, i, i1, b);
+    }
+
 
     @Override
     public Sprite getLockedSprite() {
@@ -45,5 +49,10 @@ public class ScienceDoor extends ElectricalDoor {
         sprs.add(UNPOWERED_SPRITE);
         sprs.add(new Sprite("erroroverlay", "door_overlays.png", 4, 2, this));
         return new Sprite("errorsciencedoor", "human.png", 0, sprs, this);
+    }
+
+    @Override
+    public ElectricalDoor makeCopy(double x, double y, double z, int fromId, int toId) {
+        return new ScienceDoor(x, y, z, fromId, toId, false);
     }
 }

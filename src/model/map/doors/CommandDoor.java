@@ -4,9 +4,14 @@ import graphics.sprites.Sprite;
 import model.Actor;
 
 public class CommandDoor extends ElectricalDoor {
-    public CommandDoor(double v, double v1, int i, int i1, boolean locked) {
-        super(v, v1, "Command", i, i1, locked);
+    public CommandDoor(double x, double y, double z, int fromId, int toId, boolean b) {
+        super(x, y, z, "Command", fromId, toId, b);
     }
+
+    public CommandDoor(double v, double v1, int i, int i1, boolean locked) {
+        this(v, v1, 0.0, i, i1, locked);
+    }
+
 
     @Override
     public Sprite getLockedSprite() {
@@ -33,4 +38,9 @@ public class CommandDoor extends ElectricalDoor {
         return new Sprite("unpoweredcommanddoor", "doors.png", 7, 15, this);
     }
 
+
+    @Override
+    public ElectricalDoor makeCopy(double x, double y, double z, int fromId, int toId) {
+        return new CommandDoor(x, y, z, fromId, toId, false);
+    }
 }

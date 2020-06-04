@@ -9,6 +9,7 @@ import model.actions.general.ActionOption;
 import model.items.NoSuchThingException;
 import model.items.general.RoomPartsStack;
 import model.map.Architecture;
+import model.map.doors.ElectricalDoor;
 import model.map.floors.FloorSet;
 import model.map.rooms.Room;
 import util.HTMLText;
@@ -23,6 +24,7 @@ import java.util.Scanner;
 
 public class AdvancedBuildingFancyFrame extends FancyFrame {
     private final RoomPartsStack stack;
+    private String selectedDoor;
     private String moveThere;
     private boolean showLocation;
     private boolean showNaming;
@@ -38,6 +40,7 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
     private String namingError;
     private boolean showFloors;
     private String selectedWindows;
+    private boolean showDoors;
 
     public AdvancedBuildingFancyFrame(Player p, GameData gameData, RoomPartsStack stack) {
         super(p.getFancyFrame());
@@ -46,6 +49,7 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
         this.showSummary = true;
         this.showSize = false;
         this.showFloors = false;
+        this.showDoors = false;
         this.selectedSize = "1x1";
         this.selectedLocation = "Not Set";
         this.selectedFloors = "Hallway";
@@ -53,6 +57,7 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
         this.selectedName = "Not Set";
         this.moveThere = "yes";
         selectedWindows = "yes";
+        selectedDoor = "Normal";
         this.buildButtonPushed = false;
 
         locationErrorMessage = "";
@@ -75,6 +80,8 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
             naminPage(gameData, p, content);
         } else if (showFloors) {
             floorPage(gameData, p, content);
+        } else if (showDoors) {
+            doorPage(gameData, p, content);
         }
 
         this.setData("Advanced Building", showLocation || showNaming, HTMLText.makeColoredBackground("#cccccc", content.toString()));
@@ -90,10 +97,11 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
         content.append("<b>Floor Type:</b> " + selectedFloors + " " +
                 HTMLText.makeFancyFrameLink("CHANGEFLOORS", "[change]") + "<br/>");
         content.append("<b>Wall Type:</b> " + selectedWalls + " " +
-                HTMLText.makeFancyFrameLink("CHANGEWALLS", "[change]" + "<br/>"));
+                HTMLText.makeFancyFrameLink("CHANGEWALLS", "[change]") + "<br/>");
+        content.append("<b>Door Type:</b> " + selectedDoor + " " +
+                HTMLText.makeFancyFrameLink("CHANGEDOOR", "[change]") + "<br/>");
         content.append("<b>Windows (if able)?</b> " + selectedWindows + " " +
                 HTMLText.makeFancyFrameLink("CHANGEWINDOWS", "[change]" + "<br/>"));
-        // TODO add what type of door you want also...
         content.append("<b>Room Name:</b> " + selectedName + " " +
                 HTMLText.makeFancyFrameLink("CHANGENAME", "[change]" + "<br/>"));
         content.append("<b>Move me there?</b> " + moveThere + " " +
@@ -158,6 +166,15 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
         }
     }
 
+
+    private void doorPage(GameData gameData, Player p, StringBuilder content) {
+        content.append("Select a door type:<br/>");
+        for (String name : ElectricalDoor.getBuildableDoors().keySet()) {
+            content.append(HTMLText.makeFancyFrameLink("SETDOOR " + name, name) + "<br/>");
+        }
+    }
+
+
     @Override
     public void handleEvent(GameData gameData, Player player, String event) {
         super.handleEvent(gameData, player, event);
@@ -215,6 +232,15 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
                 selectedWindows = "yes";
             }
             buildContent(gameData, player);
+        } else if (event.contains("CHANGEDOOR")) {
+            this.showDoors = true;
+            this.showSummary = false;
+            buildContent(gameData, player);
+        } else if (event.contains("SETDOOR")) {
+            this.selectedDoor = event.replace("SETDOOR ", "");
+            this.showDoors = false;
+            this.showSummary = true;
+            buildContent(gameData, player);
         } else if (event.contains("FINALIZE")) {
             List<String> args = new ArrayList<String>();
             args.add(selectedLocation);
@@ -224,6 +250,7 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
             args.add(selectedWalls);
             args.add(moveThere);
             args.add(selectedWindows);
+            args.add(selectedDoor);
             BuildNewRoomAction bnra = new AdvancedBuildNewRoomAction(this);
             bnra.setActionTreeArguments(args, player);
             player.setNextAction(bnra);

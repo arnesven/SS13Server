@@ -35,6 +35,11 @@ public class NormalDoor extends ElectricalDoor {
     }
 
     @Override
+    public ElectricalDoor makeCopy(double x, double y, double z, int fromId, int toId) {
+        return new NormalDoor(x, y, z, fromId, toId, false);
+    }
+
+    @Override
     public Sprite getBrokenSprite() {
         return new Sprite("brokennormaldoor", "doors.png", 0, 19, null);
     }

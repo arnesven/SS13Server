@@ -47,6 +47,11 @@ public class MagicWallDoor extends ElectricalDoor {
     }
 
     @Override
+    public ElectricalDoor makeCopy(double x, double y, double z, int fromId, int toId) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected Sprite getFogOfWarSprite() {
         return oldDoor.getFogOfWarSprite();
     }

@@ -50,7 +50,7 @@ public class MyStrings {
     public static String stripForbiddenCharacters(String data) {
         String forbidden = ":/\\(){}&%$¤#@_|<>^'*~;.,£+[]\"!?";
         for (int i = 0; i < forbidden.length(); ++i) {
-            data.replace(forbidden.charAt(i)+"", "");
+            data = data.replace(forbidden.charAt(i)+"", "");
         }
         return data;
     }

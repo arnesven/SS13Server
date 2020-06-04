@@ -3,8 +3,14 @@ package model.map.doors;
 import graphics.sprites.Sprite;
 
 public class SecurityDoor extends ElectricalDoor {
+
+
+    public SecurityDoor(double x, double y, double z, int fromId, int toId, boolean b) {
+        super(x, y, z, "Security", fromId, toId, b);
+    }
+
     public SecurityDoor(double v, double v1, int i, int i1, boolean b) {
-        super(v, v1, "Security", i, i1, b);
+        this(v, v1, 0.0, i, i1, b);
     }
 
     @Override
@@ -30,5 +36,10 @@ public class SecurityDoor extends ElectricalDoor {
     @Override
     public Sprite getErrorSprite() {
         return new Sprite("securitydoorerror", "doors.png", 13, 19, this);
+    }
+
+    @Override
+    public ElectricalDoor makeCopy(double x, double y, double z, int fromId, int toId) {
+        return new SecurityDoor(x, y, z, fromId, toId, false);
     }
 }
