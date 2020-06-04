@@ -2,6 +2,7 @@ package model.map.rooms;
 
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
+import model.map.floors.TechFloorSet;
 
 public abstract class TechRoom extends StationRoom {
     public TechRoom(int ID, String name, String shortname, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
@@ -10,6 +11,6 @@ public abstract class TechRoom extends StationRoom {
 
     @Override
     public FloorSet getFloorSet() {
-        return new FloorSet("floortech", 27, 3);
+        return new TechFloorSet();
     }
 }

@@ -3,6 +3,7 @@ package model.map.rooms;
 import model.GameData;
 import model.map.doors.Door;
 import model.map.doors.DowngoingStairsDoor;
+import model.map.floors.AIRoomFloorSet;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
 import model.objects.ai.AITurret;
@@ -29,6 +30,6 @@ public class AIRoom extends TechRoom {
 
     @Override
     public FloorSet getFloorSet() {
-        return new SingleSpriteFloorSet("aifloor", 7, 5);
+        return new AIRoomFloorSet();
     }
 }

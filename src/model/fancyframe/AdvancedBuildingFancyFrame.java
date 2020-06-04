@@ -9,6 +9,7 @@ import model.actions.general.ActionOption;
 import model.items.NoSuchThingException;
 import model.items.general.RoomPartsStack;
 import model.map.Architecture;
+import model.map.floors.FloorSet;
 import model.map.rooms.Room;
 import util.HTMLText;
 import util.MyStrings;
@@ -17,21 +18,24 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AdvancedBuildingFancyFrame extends FancyFrame {
+    private final RoomPartsStack stack;
     private boolean showLocation;
     private boolean showNaming;
     private boolean showSummary;
     private String selectedSize;
     private String selectedLocation;
-    private final String selectedFloors;
+    private String selectedFloors;
     private final String selectedWalls;
     private boolean buildButtonPushed;
     private boolean showSize;
     private String selectedName;
     private String locationErrorMessage;
     private String namingError;
+    private boolean showFloors;
 
     public AdvancedBuildingFancyFrame(Player p, GameData gameData, RoomPartsStack stack) {
         super(p.getFancyFrame());
@@ -39,6 +43,7 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
         this.showNaming = false;
         this.showSummary = true;
         this.showSize = false;
+        this.showFloors = false;
         this.selectedSize = "1x1";
         this.selectedLocation = "Not Set";
         this.selectedFloors = "Hallway";
@@ -47,6 +52,7 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
         this.buildButtonPushed = false;
         locationErrorMessage = "";
         namingError = "";
+        this.stack = stack;
 
         buildContent(gameData, p);
     }
@@ -62,16 +68,11 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
             locationPage(gameData, p, content);
         } else if (showNaming) {
             naminPage(gameData, p, content);
+        } else if (showFloors) {
+            floorPage(gameData, p, content);
         }
 
         this.setData("Advanced Building", showLocation || showNaming, HTMLText.makeColoredBackground("#cccccc", content.toString()));
-    }
-
-    private void naminPage(GameData gameData, Player p, StringBuilder content) {
-        content.append(HTMLText.makeFancyFrameLink("RETURN", "[back]") + "<br/>");
-        content.append("Give your room a good name!");
-        content.append("<br/>");
-        content.append(namingError);
     }
 
 
@@ -81,8 +82,8 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
                 HTMLText.makeFancyFrameLink("CHANGESIZE", "[change]") + "<br/>");
         content.append("<b>Location:</b> " + selectedLocation + " " +
                 HTMLText.makeFancyFrameLink("CHANGELOCATION", "[change]") + "<br/>");
-        //content.append("<b>Floor Type:</b> " + selectedFloors + " " +
-        //        HTMLText.makeFancyFrameLink("CHANGEFLOORS", "[change]") + "<br/>");
+        content.append("<b>Floor Type:</b> " + selectedFloors + " " +
+                HTMLText.makeFancyFrameLink("CHANGEFLOORS", "[change]") + "<br/>");
         //content.append("<b>Wall Type:</b> " + selectedWalls + " " +
         //        HTMLText.makeFancyFrameLink("CHANGEWALLS", "[change]" + "<br/>"));
         // TODO add what type of door you want also...
@@ -126,6 +127,21 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
     }
 
 
+    private void naminPage(GameData gameData, Player p, StringBuilder content) {
+        content.append(HTMLText.makeFancyFrameLink("RETURN", "[back]") + "<br/>");
+        content.append("Give your room a good name!");
+        content.append("<br/>");
+        content.append(namingError);
+    }
+
+
+    private void floorPage(GameData gameData, Player p, StringBuilder content) {
+        content.append("Select a floor type:<br/>");
+        for (Map.Entry<String, FloorSet> entry : FloorSet.getBuildableFloorSets().entrySet()) {
+            content.append(HTMLText.makeFancyFrameLink("SETFLOOR " + entry.getKey(), entry.getKey()) + "<br/>");
+        }
+    }
+
     @Override
     public void handleEvent(GameData gameData, Player player, String event) {
         super.handleEvent(gameData, player, event);
@@ -153,12 +169,22 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
             this.showNaming = true;
             this.showSummary = false;
             buildContent(gameData, player);
+        } else if (event.contains("CHANGEFLOORS")) {
+            this.showFloors = true;
+            this.showSummary = false;
+            buildContent(gameData, player);
+        } else if (event.contains("SETFLOOR")) {
+            this.selectedFloors = event.replace("SETFLOOR ", "");
+            this.showFloors = false;
+            this.showSummary = true;
+            buildContent(gameData, player);
         } else if (event.contains("FINALIZE")) {
             List<String> args = new ArrayList<String>();
             args.add(selectedLocation);
             args.add(selectedSize);
             args.add(selectedName);
-            BuildNewRoomAction bnra = new AdvancedBuildNewRoomAction();
+            args.add(selectedFloors);
+            BuildNewRoomAction bnra = new AdvancedBuildNewRoomAction(this);
             bnra.setActionTreeArguments(args, player);
             player.setNextAction(bnra);
             buildButtonPushed = true;
@@ -252,27 +278,44 @@ public class AdvancedBuildingFancyFrame extends FancyFrame {
         //g.fillRect(0, 0, bimg.getWidth(), bimg.getHeight());
 
         if (newZ > fromRoom.getZ()) {
-            drawFromRoom(g, fromRoom, minX, minY, gridSize);
-            drawNewRoom(g, newX, newY, newWidth, newHeight, minX, minY, gridSize);
+            drawFromRoom(g, fromRoom, minX, minY, gridSize, false);
+            drawNewRoom(g, newX, newY, newWidth, newHeight, minX, minY, gridSize, false);
         } else {
-            drawNewRoom(g, newX, newY, newWidth, newHeight, minX, minY, gridSize);
-            drawFromRoom(g, fromRoom, minX, minY, gridSize);
+            drawNewRoom(g, newX, newY, newWidth, newHeight, minX, minY, gridSize, false);
+            drawFromRoom(g, fromRoom, minX, minY, gridSize, false);
+        }
+
+        if (newZ > fromRoom.getZ()) {
+            drawFromRoom(g, fromRoom, minX, minY, gridSize, true);
+        } else {
+            drawNewRoom(g, newX, newY, newWidth, newHeight, minX, minY, gridSize, true);
         }
 
         return bimg;
     }
 
-    private void drawNewRoom(Graphics g, int newX, int newY, int newWidth, int newHeight, int minX, int minY, int gridSize) {
+    private void drawNewRoom(Graphics g, int newX, int newY, int newWidth, int newHeight, int minX, int minY, int gridSize, boolean frame) {
         g.setColor(Color.BLUE);
-        g.fillRect((newX - minX)*gridSize, (newY - minY)*gridSize, newWidth*gridSize, newHeight*gridSize);
+        if (frame) {
+            g.drawRect((newX - minX) * gridSize, (newY - minY) * gridSize, newWidth * gridSize, newHeight * gridSize);
+        } else {
+            g.fillRect((newX - minX) * gridSize, (newY - minY) * gridSize, newWidth * gridSize, newHeight * gridSize);
+        }
     }
 
-    private void drawFromRoom(Graphics g, Room fromRoom, int minX, int minY, int gridSize) {
+    private void drawFromRoom(Graphics g, Room fromRoom, int minX, int minY, int gridSize, boolean frame) {
         g.setColor(Color.YELLOW);
-        g.fillRect((fromRoom.getX() - minX)*gridSize,
-                (fromRoom.getY() - minY)*gridSize,
-                fromRoom.getWidth()*gridSize,
-                fromRoom.getHeight()*gridSize);
+        if (frame) {
+            g.drawRect((fromRoom.getX() - minX) * gridSize,
+                    (fromRoom.getY() - minY) * gridSize,
+                    fromRoom.getWidth() * gridSize,
+                    fromRoom.getHeight() * gridSize);
+        } else {
+            g.fillRect((fromRoom.getX() - minX) * gridSize,
+                    (fromRoom.getY() - minY) * gridSize,
+                    fromRoom.getWidth() * gridSize,
+                    fromRoom.getHeight() * gridSize);
+        }
     }
 
 }

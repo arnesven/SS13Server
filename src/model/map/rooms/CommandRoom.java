@@ -1,6 +1,7 @@
 package model.map.rooms;
 
 import model.map.doors.Door;
+import model.map.floors.CommandFloorSet;
 import model.map.floors.FloorSet;
 
 public abstract class CommandRoom extends StationRoom {
@@ -11,6 +12,6 @@ public abstract class CommandRoom extends StationRoom {
 
     @Override
     public FloorSet getFloorSet() {
-        return new FloorSet("floorcommand", 23, 1);
+        return new CommandFloorSet();
     }
 }

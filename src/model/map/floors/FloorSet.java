@@ -1,11 +1,13 @@
 package model.map.floors;
 
 import graphics.sprites.Sprite;
-import util.Logger;
+import model.GameData;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FloorSet implements Serializable {
     protected static final String[] SET_NAMES = new String[]{"BOTTOM", "TOP", "RIGHT", "LEFT",
@@ -127,4 +129,20 @@ public class FloorSet implements Serializable {
     public Sprite getRight() {
         return getSpriteWithName("RIGHT");
     }
+
+
+    public static Map<String, FloorSet> getBuildableFloorSets() {
+        Map<String, FloorSet> result = new HashMap<>();
+        result.put("Hallway", new HallwayFloorSet());
+        result.put("Science", new ScienceFloorSet());
+        result.put("Technical", new TechFloorSet());
+        result.put("Command", new CommandFloorSet());
+        result.put("Security", new SecurityFloorSet());
+        result.put("Support", new SupportFloorSet());
+        result.put("Brown Carpet", new ChapelFloorSet());
+        result.put("Green Carpet", new CaptainsQuartersFloorSet());
+        result.put("AI Core", new AIRoomFloorSet());
+        return result;
+    }
+
 }

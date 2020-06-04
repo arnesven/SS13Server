@@ -12,6 +12,6 @@ public abstract class ScienceRoom extends StationRoom {
 
     @Override
     public FloorSet getFloorSet() {
-        return new ScienceFloorSet("floorscience", 2, 3);
+        return new ScienceFloorSet();
     }
 }

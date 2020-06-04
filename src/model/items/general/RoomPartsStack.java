@@ -12,9 +12,14 @@ import model.actions.itemactions.ShowExamineFancyFrameAction;
 import model.characters.crew.ArchitectCharacter;
 import model.characters.general.GameCharacter;
 import model.fancyframe.AdvancedBuildingFancyFrame;
+import model.map.floors.FloorSet;
+import model.map.floors.HallwayFloorSet;
+import model.map.floors.ScienceFloorSet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by erini02 on 20/11/16.
@@ -23,7 +28,6 @@ public class RoomPartsStack extends ItemStack {
     public RoomPartsStack(int number) {
         super("Construction Parts", 50.0, 1000, number);
     }
-
 
 
     @Override
@@ -62,6 +66,8 @@ public class RoomPartsStack extends ItemStack {
     public String getDescription(GameData gameData, Player performingClient) {
         return "The raw materials to build a new air tight room on the station. However, only the architect is skilled enough to do so.";
     }
+
+
 
     private class ShowBuildNewRoomFancyFrame extends FreeAction {
         private final RoomPartsStack stack;
