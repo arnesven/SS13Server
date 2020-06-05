@@ -43,6 +43,7 @@ public class ThreeRandomSubgoals extends CompositePersonalGoal {
         subGoals.add(new PlaySlotsGoal(1));
         subGoals.add(new FireManGoal(1));
         subGoals.add(new HullBreachGoal(1));
+        subGoals.add(new PostNoticeGoal(1));
         String[] someLocations = new String[]{"Lab", "Armory", "Bridge", "Greenhouse", "Sickbay", "Dorms", "Bar", "Kitchen", "Brig"};
         for (String s : someLocations) {
             subGoals.add(new VisitSpecificRoomGoal(s));

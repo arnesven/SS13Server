@@ -7,10 +7,7 @@ import model.map.doors.*;
 import model.map.rooms.*;
 import model.objects.BarSign;
 import model.objects.consoles.SolarArrayControl;
-import model.objects.general.ATM;
-import model.objects.general.AirlockPanel;
-import model.objects.general.BreakableObject;
-import model.objects.general.GameObject;
+import model.objects.general.*;
 import model.objects.power.AreaPowerControl;
 
 import java.awt.*;
@@ -226,6 +223,9 @@ public class DonutSS13Builder extends MapBuilder {
 
         Room portHallAft = new HallwayRoom(23, "Port Hall Aft"       , "P O R T"       , 6,  3, 4, 2, new int[]{19, 24, 5} ,
                 new Door[]{new NormalDoor(7.5, 3.0, 23, 24)} );
+        Noticeboard noticeBoard = new Noticeboard(portHallAft);
+        noticeBoard.setAbsolutePosition(8.5, 3);
+        portHallAft.addObject(noticeBoard);
         gm.addRoom(portHallAft, ss13, "port");
 
         Room sickbay = new SickbayRoom(24, 6,  0, 3, 3, new int[]{23, 25, 1} ,         new Door[]{});

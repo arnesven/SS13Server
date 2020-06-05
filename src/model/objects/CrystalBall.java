@@ -43,7 +43,7 @@ public class CrystalBall extends GameObject {
         }
         super.addSpecificActionsFor(gameData, cl, at);
         if (cl instanceof Player) {
-            at.add(new WalkUpToObjectAction(gameData, cl, this) {
+            at.add(new WalkUpToObjectAction(gameData, cl, this, "Peer into") {
                 @Override
                 protected FancyFrame getFancyFrame(Actor performingClient, GameData gameData, GameObject someObj) {
                     return new CrystalBallFancyFrame((Player) performingClient, gameData, CrystalBall.this);

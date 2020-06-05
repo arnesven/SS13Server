@@ -17,10 +17,10 @@ public abstract class WalkUpToObjectAction extends Action {
     private final GameData gameData;
     private final GameObject someObj;
 
-    public WalkUpToObjectAction(GameData gameData, Actor cl, CrystalBall crystalBall) {
-        super("Peer into " + crystalBall.getPublicName(cl), SensoryLevel.OPERATE_DEVICE);
+    public WalkUpToObjectAction(GameData gameData, Actor cl, GameObject obj, String verb) {
+        super(verb + " " + obj.getPublicName(cl), SensoryLevel.OPERATE_DEVICE);
         this.gameData = gameData;
-        this.someObj = crystalBall;
+        this.someObj = obj;
     }
 
 

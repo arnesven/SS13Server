@@ -29,24 +29,9 @@ public abstract class Tools extends BluntWeapon {
 	@Override
 	public abstract Sprite getHandHeldSprite();
 
-
-
-//	public static void holdInHand(Actor performingClient) {
-//		if (GameItem.hasAnItemOfClass(performingClient, Tools.class)) {
-//			Tools t = null;
-//			try {
-//				t = GameItem.getItemFromActor(performingClient, new Tools());
-//				t.makeHoldInHand(performingClient);
-//			} catch (NoSuchThingException e) {
-//				e.printStackTrace();
-//			}
-//
-//		}
-//	}
-
 	@Override
 	public String getDescription(GameData gameData, Player performingClient) {
-		return getToolsDescription(gameData, performingClient) + " " + //"Good for repairing equipment, sealing hull breaches, defusing bombs, hacking doors "
+		return getToolsDescription(gameData, performingClient) + ". Good for manually opening doors and defusing bombs." + //"Good for repairing equipment, sealing hull breaches, defusing bombs, hacking doors "
 				super.getDescription(gameData, performingClient);
 	}
 
