@@ -1,4 +1,5 @@
 package model.map.rooms;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.*;
 import java.util.List;
@@ -33,6 +34,7 @@ import model.map.doors.HoleInTheWallDoor;
 import model.map.floors.FloorSet;
 import model.npcs.NPC;
 import model.objects.ai.SecurityCamera;
+import model.objects.decorations.CrackedWallDecoration;
 import model.objects.general.BreakableObject;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
@@ -745,9 +747,9 @@ public abstract class Room implements ItemHolder, Serializable {
 		return false;
 	}
 
-	public boolean damageWall(GameData gameData, Room position, double v) {
+	public boolean damageWall(GameData gameData, Room fromPosition, double v) {
 		boolean broken = false;
-		Double d = wallDamage.get(position);
+		Double d = wallDamage.get(fromPosition);
 		if (d == null) {
 			d = 0.0;
 		}
@@ -755,14 +757,57 @@ public abstract class Room implements ItemHolder, Serializable {
 		if (d >= WALL_MAX_HP) {
 			d = 0.0;
 			try {
+				Point2D point = Architecture.getPossibleNewDoorBetween(fromPosition, this);
 				Architecture arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(this).getName(), getZ());
-				arch.joinRoomsWithDoor(this, position, new HoleInTheWallDoor(0.0, 0.0, this.getID(), position.getID()));
+				arch.joinRoomsWithDoor(this, fromPosition, new HoleInTheWallDoor(0.0, 0.0, this.getID(), fromPosition.getID()));
+				fromPosition.removeCrack(point);
+				this.removeCrack(point);
 				broken = true;
 			} catch (NoSuchThingException e) {
 				e.printStackTrace();
+			} catch (Architecture.DoorNotFoundBetweenRooms doorNotFoundBetweenRooms) {
+				doorNotFoundBetweenRooms.printStackTrace();
+			}
+		} else {
+			if (!alreadyHasCrackDecoration(fromPosition)) {
+				try {
+					Point2D point = Architecture.getPossibleNewDoorBetween(fromPosition, this);
+					Logger.log("Adding cracked wall decoration");
+					fromPosition.addObject(new CrackedWallDecoration(fromPosition, point.getX(), point.getY()));
+				} catch (Architecture.DoorNotFoundBetweenRooms doorNotFoundBetweenRooms) {
+					doorNotFoundBetweenRooms.printStackTrace();
+				}
 			}
 		}
-		wallDamage.put(position, d);
+		wallDamage.put(fromPosition, d);
 		return broken;
+	}
+
+	private void removeCrack(Point2D point) {
+		List<GameObject> objsToRemove = new ArrayList<>();
+		for (GameObject obj : getObjects()) {
+			if (obj instanceof CrackedWallDecoration) {
+				if (obj.getAbsoluteY() == point.getY() && obj.getAbsoluteX() == point.getX()) {
+					objsToRemove.add(obj);
+				}
+			}
+		}
+		objects.removeAll(objsToRemove);
+	}
+
+	private boolean alreadyHasCrackDecoration(Room position) {
+		try {
+			Point2D point = Architecture.getPossibleNewDoorBetween(position, this);
+			for (GameObject objs : getObjects()) {
+				if (objs instanceof CrackedWallDecoration) {
+					if (objs.getAbsoluteX() == point.getX() && objs.getAbsoluteY() == point.getY()) {
+						return true;
+					}
+				}
+			}
+		} catch (Architecture.DoorNotFoundBetweenRooms doorNotFoundBetweenRooms) {
+			doorNotFoundBetweenRooms.printStackTrace();
+		}
+		return false;
 	}
 }

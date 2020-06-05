@@ -33,8 +33,8 @@ public class LaserSword extends SlashingWeapon implements TraitorItem {
     }
 
     @Override
-    public double doWallDamage(GameData gameData, Actor performingClient, Room targetRoom) {
-        return 2.5 * super.doWallDamage(gameData, performingClient, targetRoom);
+    public double doWallDamage(GameData gameData, Actor performingClient) {
+        return 2.5 * super.doWallDamage(gameData, performingClient);
     }
 
     @Override

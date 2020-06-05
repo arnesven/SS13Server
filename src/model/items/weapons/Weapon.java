@@ -253,7 +253,7 @@ public abstract class Weapon extends GameItem implements HandheldItem {
     }
 
 
-    public double doWallDamage(GameData gameData, Actor performingClient, Room targetRoom) {
+    public double doWallDamage(GameData gameData, Actor performingClient) {
 	    checkHazard(performingClient, gameData);
 	    return damage;
     }

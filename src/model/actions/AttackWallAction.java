@@ -33,6 +33,7 @@ public class AttackWallAction extends Action {
                 opts.addOption(it.getFullName(whosAsking));
             }
         }
+        opts.addOption(whosAsking.getCharacter().getDefaultWeapon().getFullName(whosAsking));
         return opts;
     }
 
@@ -44,6 +45,10 @@ public class AttackWallAction extends Action {
                 weapon = (Weapon)it;
             }
         }
+        if (weapon == null && preferredWeapon.equals(performingClient.getCharacter().getDefaultWeapon().getFullName(performingClient))) {
+            weapon = performingClient.getCharacter().getDefaultWeapon();
+        }
+
         if (weapon == null) {
             performingClient.addTolastTurnInfo("What? The " + preferredWeapon + " wasn't there? " + failed(gameData, performingClient));
             return;
@@ -52,9 +57,11 @@ public class AttackWallAction extends Action {
         for (Actor a : targetRoom.getActors()) {
             a.addTolastTurnInfo(weapon.getWallDamageText());
         }
-        boolean broken = targetRoom.damageWall(gameData, performingClient.getPosition(), weapon.doWallDamage(gameData, performingClient, targetRoom));
+        boolean broken = targetRoom.damageWall(gameData, performingClient.getPosition(), weapon.doWallDamage(gameData, performingClient));
         if (broken) {
             performingClient.addTolastTurnInfo("You broke through the wall!");
+        } else {
+            performingClient.getPosition().damageWall(gameData, targetRoom, weapon.doWallDamage(gameData, performingClient));
         }
     }
 
