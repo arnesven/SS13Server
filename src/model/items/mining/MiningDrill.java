@@ -6,6 +6,7 @@ import model.GameData;
 import model.Player;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
+import model.map.rooms.Room;
 
 /**
  * Created by erini02 on 17/09/17.
@@ -29,5 +30,15 @@ public class MiningDrill extends Weapon {
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
         return "A powerful drill which can drill into the hardest regolith rock. Used by asteroid miners.";
+    }
+
+    @Override
+    public double doWallDamage(GameData gameData, Actor performingClient, Room targetRoom) {
+        return 2.5*super.doWallDamage(gameData, performingClient, targetRoom);
+    }
+
+    @Override
+    public String getWallDamageText() {
+        return "<b>RRRRRRrrrrr!</b>Sounds like someone is drilling through the wall!";
     }
 }

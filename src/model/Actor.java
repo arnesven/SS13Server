@@ -411,7 +411,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         roomActions.addAll(at2);
 
         if (this instanceof Player) {
-            for (Room r : getVisibleMap(gameData)) {
+            for (Room r : getCharacter().getMiniMapRooms(gameData)) {
                 ActionGroup roomGroup = new ActionGroup(r.getName());
                 List<Action> acts = new ArrayList<>();
                 acts.addAll(r.getActionData(gameData, (Player)this));

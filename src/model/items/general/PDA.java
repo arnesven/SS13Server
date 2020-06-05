@@ -65,6 +65,7 @@ public class PDA extends UplinkItem {
         items.add(new SuperSuit());
         items.add(new EMAG());
         items.add(new PoisonSyringe());
+        items.add(new LaserSword());
 		return items;
 	}
 

@@ -12,17 +12,14 @@ import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
 import model.characters.decorators.BloodSplotchAnimationDecorator;
-import model.characters.decorators.HoldingItemDecorator;
-import model.characters.general.AnimalCharacter;
 import model.characters.general.GameCharacter;
-import model.characters.general.HumanCharacter;
 import model.events.animation.AnimatedSprite;
 import model.items.HandheldItem;
 import model.items.general.GameItem;
+import model.map.rooms.Room;
 import sounds.Sound;
 import util.MyRandom;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -256,4 +253,12 @@ public abstract class Weapon extends GameItem implements HandheldItem {
     }
 
 
+    public double doWallDamage(GameData gameData, Actor performingClient, Room targetRoom) {
+	    checkHazard(performingClient, gameData);
+	    return damage;
+    }
+
+    public String getWallDamageText() {
+        return "Sounds like somebody is banging on the wall!";
+    }
 }

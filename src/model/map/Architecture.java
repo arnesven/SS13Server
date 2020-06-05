@@ -195,8 +195,21 @@ public class Architecture {
                 }
             }
         }
-
         return map;
+    }
+
+    public static Point2D getPossibleNewDoorBetween(Room from, Room to) throws DoorNotFoundBetweenRooms {
+        Set<Point2D> currentPerimeterPoints = getPerimiterPointsForRoom(from);
+        if (to != from && !to.isHidden() && to.getZ() == from.getZ()) {
+            Set<Point2D> perimPointsTo = getPerimiterPointsForRoom(to);
+            perimPointsTo.retainAll(currentPerimeterPoints);
+            if (!perimPointsTo.isEmpty()) {
+                if (!from.getNeighborList().contains(to)) {
+                    return perimPointsTo.iterator().next();
+                }
+            }
+        }
+        throw new DoorNotFoundBetweenRooms();
     }
 
     private static Set<Point2D> getPerimiterPointsForRoom(Room r) {
@@ -267,6 +280,27 @@ public class Architecture {
     private static Rectangle getRectangleFor(Room r) {
         return new Rectangle(r.getX(), r.getY(), r.getWidth(), r.getHeight());
     }
+
+
+    public static boolean shareAWall(Room position, Room room) {
+        Rectangle r1 = getRectangleFor(position);
+        Rectangle r2 = getRectangleFor(room);
+        if (r1.getX() + r1.getWidth() == r2.getX() || r1.getX() == r2.getX() + r2.getWidth()) {
+            if ((r1.getY() > r2.getY() && r1.getY() < r2.getY() + r2.getHeight()) ||
+                    (r1.getY() < r2.getY() && r1.getY() + r1.getHeight() > r2.getY())) {
+                return true;
+            }
+        }
+
+        if (r1.getY() + r1.getHeight() == r2.getY() || r1.getY() == r2.getY() + r2.getHeight()) {
+            if ((r1.getX() > r2.getX() && r1.getX() < r2.getX() + r2.getWidth()) ||
+                    (r1.getX() < r2.getX() && r1.getX() + r1.getWidth() > r2.getX())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public boolean isAdjacentToRoom(double xDouble, double yDouble) {
         for (double dy = -1; dy < 2; ++dy) {

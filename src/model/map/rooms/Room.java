@@ -5,6 +5,7 @@ import java.util.List;
 
 import graphics.sprites.Sprite;
 import model.*;
+import model.actions.AttackWallAction;
 import model.actions.general.Action;
 import model.actions.general.ActionGroup;
 import model.actions.general.SearchAction;
@@ -24,9 +25,11 @@ import model.events.animation.BigExplosionAnimation;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.RoomPartsStack;
+import model.map.Architecture;
 import model.map.GameMap;
 import model.map.doors.Door;
 import model.map.doors.ElectricalDoor;
+import model.map.doors.HoleInTheWallDoor;
 import model.map.floors.FloorSet;
 import model.npcs.NPC;
 import model.objects.ai.SecurityCamera;
@@ -46,6 +49,7 @@ import util.MyStrings;
 public abstract class Room implements ItemHolder, Serializable {
 
 
+	private static final Double WALL_MAX_HP = 5.0;
 	private String name;
 	private int[] neighbors;
 	private List<Player> players = new ArrayList<>();
@@ -57,6 +61,7 @@ public abstract class Room implements ItemHolder, Serializable {
 	private List<Event> events = new ArrayList<>();
 	private List<Event> eventsHappened = new ArrayList<>();
 	private FloorSet floorSprite;
+	private Map<Room, Double> wallDamage;
 
 	/**
 	 * These fields are purely for the GUI.
@@ -89,6 +94,7 @@ public abstract class Room implements ItemHolder, Serializable {
         lifeSupport = new LifeSupport(this);
         lighting = new Lighting(this);
 		this.paintingStyle = "WallsAndWindows";
+		wallDamage = new HashMap<>();
 	}
 
 
@@ -125,8 +131,18 @@ public abstract class Room implements ItemHolder, Serializable {
 					at.add(new MoveToSpecificRoomAction(gameData, forWhom, this));
 				}
 			}
+
 			if (forWhom.getPosition() == this && !isAI && forWhom.hasInventory()) {
 				at.add(new SearchAction());
+			}
+
+			if (Architecture.shareAWall(forWhom.getPosition(), this) && paintingStyle.contains("Walls")) {
+				try {
+					Architecture.getPossibleNewDoorBetween(forWhom.getPosition(), this);
+					at.add(new AttackWallAction(this));
+				} catch (Architecture.DoorNotFoundBetweenRooms doorNotFoundBetweenRooms) {
+
+				}
 			}
 
 			if (isAI) {
@@ -727,5 +743,26 @@ public abstract class Room implements ItemHolder, Serializable {
 			}
 		}
 		return false;
+	}
+
+	public boolean damageWall(GameData gameData, Room position, double v) {
+		boolean broken = false;
+		Double d = wallDamage.get(position);
+		if (d == null) {
+			d = 0.0;
+		}
+		d += v;
+		if (d >= WALL_MAX_HP) {
+			d = 0.0;
+			try {
+				Architecture arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(this).getName(), getZ());
+				arch.joinRoomsWithDoor(this, position, new HoleInTheWallDoor(0.0, 0.0, this.getID(), position.getID()));
+				broken = true;
+			} catch (NoSuchThingException e) {
+				e.printStackTrace();
+			}
+		}
+		wallDamage.put(position, d);
+		return broken;
 	}
 }
