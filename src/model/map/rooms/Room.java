@@ -772,8 +772,7 @@ public abstract class Room implements ItemHolder, Serializable {
 			if (!alreadyHasCrackDecoration(fromPosition)) {
 				try {
 					Point2D point = Architecture.getPossibleNewDoorBetween(fromPosition, this);
-					Logger.log("Adding cracked wall decoration");
-					fromPosition.addObject(new CrackedWallDecoration(fromPosition, point.getX(), point.getY()));
+					addObject(new CrackedWallDecoration(fromPosition, point.getX(), point.getY()));
 				} catch (Architecture.DoorNotFoundBetweenRooms doorNotFoundBetweenRooms) {
 					doorNotFoundBetweenRooms.printStackTrace();
 				}
