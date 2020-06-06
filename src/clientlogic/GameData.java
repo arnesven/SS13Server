@@ -43,7 +43,6 @@ public class GameData {
 	private ArrayList<Boolean> jobVals = new ArrayList<>();
 	private int noOfRounds;
 	private String selectedMode = "Unknown";
-	private ArrayList<String> modeAlternatives = new ArrayList<>();
 	private int port;
 	private int lastMessage = -1;
 	private int lastSound = -1;
@@ -56,7 +55,6 @@ public class GameData {
     private String nextMove = "";
     private List<Room> miniMap = new ArrayList<>();
 	private Room currentRoom;
-	private int zShift = 0;
 	private String serversSuggestedClientVersion = "Unknown Version";
 	private CharacterStyle characterStyle = new CharacterStyle();
 	private int fancyFrameState = 0;
@@ -67,9 +65,10 @@ public class GameData {
 	private Dimension fancyFrameDimension = new Dimension(0, 0);
     private double[] oldSpacePos;
     private ArrayList<ClientExtraEffect> extraEffects = new ArrayList<>();
+	private long timeLimit;
+	private long timeLeft;
 
-    private GameData() {
-		modeAlternatives.add("Default");
+	private GameData() {
 	}
 
 	public static GameData getInstance() {
@@ -106,7 +105,6 @@ public class GameData {
 		instance.clients.clear();
 		instance.ready.clear();
 		instance.spectators.clear();
-		//Window.alert(result);
 		for (int i = 0; i < clients.length ; ++i) {
 			String[] cl = clients[i].split("=");
 			if (i == 0) {
@@ -146,11 +144,9 @@ public class GameData {
 
 		selectedMode = parts[6];
 		serversSuggestedClientVersion = parts[7];
-		modeAlternatives.clear();
 		int i = 8;
-		for (; i < parts.length - 2; ++i) {
-			instance.modeAlternatives.add(parts[i]);
-		}
+		timeLimit = Long.parseLong(parts[i++]);
+		timeLeft = Long.parseLong(parts[i++]);
 		setNextAction(parts[i++]);
 		setPlayerDataState(Integer.parseInt(parts[i]));
 
@@ -694,15 +690,6 @@ public class GameData {
 		return selectedMode;
 	}
 
-	public ArrayList<String> getModeAlternatives() {
-		return modeAlternatives ;
-	}
-
-	public void setSelectedMode(String selectedItemText) {
-		this.selectedMode = selectedItemText;
-		sendSettings();
-	}
-
 	public void setLastMessage(int lastMess) {
 		this.lastMessage = lastMess;
 	}
@@ -721,19 +708,6 @@ public class GameData {
 
 	public ArrayList<OverlaySprite> getOverlaySprites() {
 		return overlays;
-	}
-
-	public void setPlayerSetting(String setName, Boolean value) {
-		//Window.alert("Found setting to set" + value);
-		for (int i = 0; i < settingNames.size(); ++i) {
-			if (settingNames.get(i).equals(setName)) {
-				settingBools.set(i, value);
-
-				break;
-			}
-		}
-		sendSettings();
-
 	}
 
 	public void clearActionList() {
@@ -949,4 +923,8 @@ public class GameData {
     public List<ClientExtraEffect> getExtraEffects() {
     	return extraEffects;
     }
+
+	public long getTimeLimit() {
+		return timeLimit;
+	}
 }

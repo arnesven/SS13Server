@@ -71,7 +71,7 @@ public class GameData implements Serializable {
     private ComputerSystem computerSystem = new ComputerSystem();
 	private long lastTimeCount = 0;
 	private long lastRoundTimeCount = 0;
-	private long roundTimeLimitS = 10;
+	private long roundTimeLimitS = 90;
 
 
 	public GameData(boolean recover) {
@@ -690,10 +690,14 @@ public class GameData implements Serializable {
                 getRound() + del + getNoOfRounds() + del + chatMessages.getLastMessageIndex(getPlayerForClid(clid)) + del +
                 getPlayerForClid(clid).getFancyFrame().getState() + del +
                 getSelectedMode() + del + SS13Client.CLIENT_VERSION_STRING + del +
-                GameMode.getAvailableModesAsString() + del + nextAct + del + getPlayerForClid(clid).getDataState();
+                getRoundTimeLimitS() + del + getRoundTimeLeft() + del + nextAct + del + getPlayerForClid(clid).getDataState();
 	}
 
-	public void setSettings(String rest, Player pl) {
+    private long getRoundTimeLeft() {
+        return (getRoundTimeLimitS()*1000) - (lastTimeCount - lastRoundTimeCount);
+    }
+
+    public void setSettings(String rest, Player pl) {
         //String str = "<player-data-part>";
         Logger.log("Setting new settings: " + rest);
         String del = "<player-data-part>";
@@ -701,10 +705,14 @@ public class GameData implements Serializable {
 		if (gameState == GameState.PRE_GAME) { //can only change settings in pre game
 
 			try {
-				setNumberOfRounds(Integer.parseInt(sets[0]));
+			    int newRounds = Integer.parseInt(sets[0]);
+			    if (getNoOfRounds() != newRounds) {
+                    setNumberOfRounds(newRounds);
+                    getChat().serverSay(getClidForPlayer(pl) + " set round limit to " + newRounds + ".");
+                }
                 if (GameMode.isAMode(sets[1])) {
                     selectedMode = sets[1];
-                    getChat().serverSay(getClidForPlayer(pl) + " set mode to " + selectedMode);
+                    getChat().serverSay(getClidForPlayer(pl) + " set mode to " + selectedMode + ".");
                 }
 				//Logger.log("Set new settings");
 			} catch (NumberFormatException nfe) {
@@ -714,10 +722,21 @@ public class GameData implements Serializable {
             }
         }
 
-
-        if (sets.length == 4) {
-            pl.setSettings(sets[3]);
+        if (sets.length > 2) {
+		    long newTimeLimit = Long.parseLong(sets[2]);
+		    if (getRoundTimeLimitS() != newTimeLimit) {
+		        roundTimeLimitS = newTimeLimit;
+                try {
+                    getChat().serverSay(getClidForPlayer(pl) + " set round time limit to " + roundTimeLimitS + ".");
+                } catch (NoSuchThingException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
+        //if (sets.length == 4) {
+        //    pl.setSettings(sets[3]);
+        //}
 
 	}
 	
@@ -896,7 +915,7 @@ public class GameData implements Serializable {
 
 	public String getModesInfo() {
     	final String delim = "<modes-part>";
-    	StringBuilder mess = new StringBuilder(noOfRounds + "" + delim);
+    	StringBuilder mess = new StringBuilder(noOfRounds + "" + delim + roundTimeLimitS + "" + delim);
     	mess.append(getSelectedMode() + delim);
     	mess.append(GameMode.getAvailableModes().length + delim);
     	for (String s : GameMode.getAvailableModes()) {
