@@ -70,6 +70,8 @@ public class GameData implements Serializable {
     private List<String> lostMessages = new ArrayList<>();
     private ComputerSystem computerSystem = new ComputerSystem();
 	private long lastTimeCount = 0;
+	private long lastRoundTimeCount = 0;
+	private long roundTimeLimitS = 10;
 
 
 	public GameData(boolean recover) {
@@ -328,6 +330,7 @@ public class GameData implements Serializable {
             }
 
 		} else if (gameState == GameState.MOVEMENT) {
+			lastRoundTimeCount = System.currentTimeMillis();
             forEachCharacter(((GameCharacter ch) -> ch.doBeforeMovement(this)));
             MovementData moveData = new MovementData(this);
 			moveAllNPCs();
@@ -925,6 +928,14 @@ public class GameData implements Serializable {
 		}
 		timedEvents.removeAll(removals);
 		lastTimeCount = System.currentTimeMillis();
+		if (lastTimeCount - lastRoundTimeCount > getRoundTimeLimitS()*1000
+				&& getGameState() != GameState.PRE_GAME) {
+			increaseGameState();
+		}
+	}
+
+	private long getRoundTimeLimitS() {
+		return roundTimeLimitS;
 	}
 
 	public void doAfterRecovery() {
