@@ -683,7 +683,7 @@ public class GameData implements Serializable {
         String del = "<player-data-part>";
         String nextAct = "Do Nothing";
         if (getPlayerForClid(clid).getNextAction() != null) {
-        	nextAct = getPlayerForClid(clid).getNextAction().getFullName();
+        	nextAct = getPlayerForClid(clid).getNextAction().getName();
 		}
 
 		return makeStringFromReadyClients()+ del + getGameState().val + del +
@@ -714,29 +714,21 @@ public class GameData implements Serializable {
                     selectedMode = sets[1];
                     getChat().serverSay(getClidForPlayer(pl) + " set mode to " + selectedMode + ".");
                 }
-				//Logger.log("Set new settings");
+                if (sets.length > 2) {
+                    long newTimeLimit = Long.parseLong(sets[2]);
+                    if (getRoundTimeLimitS() != newTimeLimit) {
+                        roundTimeLimitS = newTimeLimit;
+                        getChat().serverSay(getClidForPlayer(pl) + " set round time limit to " + roundTimeLimitS + ".");
+                    }
+                }
 			} catch (NumberFormatException nfe) {
 
 			} catch (NoSuchThingException e) {
                 e.printStackTrace();
             }
+        } else {
+		    getChat().serverSay("You cannot change any server settings while the game is running.", pl);
         }
-
-        if (sets.length > 2) {
-		    long newTimeLimit = Long.parseLong(sets[2]);
-		    if (getRoundTimeLimitS() != newTimeLimit) {
-		        roundTimeLimitS = newTimeLimit;
-                try {
-                    getChat().serverSay(getClidForPlayer(pl) + " set round time limit to " + roundTimeLimitS + ".");
-                } catch (NoSuchThingException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        //if (sets.length == 4) {
-        //    pl.setSettings(sets[3]);
-        //}
 
 	}
 	

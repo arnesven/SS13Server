@@ -927,4 +927,8 @@ public class GameData {
 	public long getTimeLimit() {
 		return timeLimit;
 	}
+
+	public long getTimeLeft() {
+		return timeLeft;
+	}
 }

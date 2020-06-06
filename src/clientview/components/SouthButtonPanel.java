@@ -18,19 +18,15 @@ public class SouthButtonPanel extends Box implements Observer {
     public static final int HEIGHT = 24;
     public static final int HEIGHT_PIXELS = 34;
     public static final int LOBBY = 1;
-    private final JLabel clidLabel;
     private final JLabel gameStateLabel;
     private final JLabel clientVersionLabel;
-    // private final JToggleButton mapButton;
+    private final JLabel timeLeftLabel = new JLabel("0:00");
 
     private boolean ready = false;
     private boolean inLobby = true;
     private final GameUIPanel parent;
     private JButton readyButton;
     private JToggleButton gameButton;
-//    private ToggleButton mapButton;
-//    private Label clidLabel;
-//    private Label gameStateLabel;
     private JLabel roundNumberLabel = new JLabel("0");
 
     public SouthButtonPanel(final GameUIPanel parent) {
@@ -50,7 +46,8 @@ public class SouthButtonPanel extends Box implements Observer {
             }
         });
 //
-          readyButton = new JButton("READY");
+        readyButton = new JButton("READY");
+        readyButton.setPreferredSize(new Dimension(100, gameButton.getPreferredSize().height));
 
 
         readyButton.addActionListener(new ActionListener() {
@@ -61,38 +58,21 @@ public class SouthButtonPanel extends Box implements Observer {
             }
         });
         readyButton.setBackground(new Color(0x999999));
-        readyButton.setPreferredSize(new Dimension(200, 0));
-//
-//        mapButton = new JToggleButton("MAP");
-//        this.add(mapButton);
         this.add(readyButton);
-
-
-//        mapButton.addActionListener(new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent event) {
-//                parent.toggleMapView();
-//            }
-//        });
-
-            clidLabel = new JLabel(GameData.getInstance().getClid());
-            this.add(clidLabel);
-
+            this.add(Box.createHorizontalStrut(5));
           gameStateLabel = new JLabel("?");
-          this.add(new JLabel(", "));
           this.add(gameStateLabel);
 
           clientVersionLabel = new JLabel("ERROR! Could not determine server-required version!");
           clientVersionLabel.setForeground(Color.RED);
           this.add(Box.createHorizontalGlue());
           this.add(clientVersionLabel);
-
-//        HorizontalPanel hp = new HorizontalPanel();
          this.add(Box.createHorizontalGlue());
           this.add(new JLabel("Round: "));
 
         this.add(roundNumberLabel);
+        this.add(Box.createHorizontalStrut(5));
+        this.add(timeLeftLabel);
         this.add(Box.createHorizontalStrut(5));
 
         GameData.getInstance().subscribe(this);
@@ -165,7 +145,7 @@ public class SouthButtonPanel extends Box implements Observer {
 //
     @Override
     public void update() {
-        clidLabel.setText(GameData.getInstance().getClid());
+        //clidLabel.setText(GameData.getInstance().getClid());
         String state = "Game Over";
         if (GameData.getInstance().getState() > 0) {
             if (GameData.getInstance().amISpectator()) {
@@ -180,7 +160,7 @@ public class SouthButtonPanel extends Box implements Observer {
                      state += "Moving to: " + GameData.getInstance().getNextMove();
                 }
             } else if (GameData.getInstance().getState()==2) {
-                state += "Next action: " + GameData.getInstance().getNextAction();
+                state += "Next Action: " + GameData.getInstance().getNextAction();
             }
         }
 
@@ -208,6 +188,11 @@ public class SouthButtonPanel extends Box implements Observer {
         }
 
         roundNumberLabel.setText(GameData.getInstance().getRound() + "");
+
+        if (GameData.getInstance().getState() > 0) {
+            timeLeftLabel.setText("(" + GameData.getInstance().getTimeLeft() / 60000 + ":" +
+                    String.format("%02d)", (GameData.getInstance().getTimeLeft() / 1000) % 60));
+        }
     }
 
     @Override

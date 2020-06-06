@@ -100,24 +100,22 @@ public class PlayersPanel extends JPanel implements Observer {
             }
         });
         for (int i = 0; i < clientArr.size() ; ++i) {
-            //tableModel.setValueAt(clientArr.get(i), i, 0);
-            //ft.setText(i, 0, clientArr.get(i));
-            //System.out.println("Adding " + clientArr.get(i));
+
             String readyLabel = "";
-            Color color;
             if (specArr.get(i)) {
                 readyLabel = "SPECTATOR";
-                color = new Color(0x5588FF);
             } else {
                 if (boolArr.get(i)) {
                     readyLabel = "READY";
-                    color = new Color(0x00FF00);
                 } else {
                     readyLabel = "NOT READY";
-                    color = new Color(0xDDDDDD);
                 }
             }
-            tableModel.addRow(new String[]{clientArr.get(i), readyLabel});
+            String name = clientArr.get(i);
+            if (name.equals(GameData.getInstance().getClid())) {
+                name += " (you)";
+            }
+            tableModel.addRow(new String[]{name, readyLabel});
             if (selectedIndex == i) {
                 ft.getSelectionModel().setSelectionInterval(selectedIndex, selectedIndex);
             }
