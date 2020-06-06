@@ -28,6 +28,6 @@ public class ItemDescriptionFancyFrame extends FancyFrame {
     }
 
     private String makeItemStats(Player performingClient) {
-        return "<b>Weight:</b> " + item.getWeight() + " kg, <b>Cost:</b>" + item.getCost();
+        return "<b>Weight:</b> " + String.format("%1.2f", item.getWeight()) + " kg, <b>Cost:</b>" + item.getCost();
     }
 }

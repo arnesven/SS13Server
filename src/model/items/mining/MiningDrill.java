@@ -29,7 +29,7 @@ public class MiningDrill extends Weapon {
 
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
-        return "A powerful drill which can drill into the hardest regolith rock. Used by asteroid miners.";
+        return "A powerful drill which can drill into the hardest regolith rock (or walls). Used by asteroid miners.";
     }
 
     @Override

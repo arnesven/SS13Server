@@ -7,6 +7,7 @@ import model.events.animation.AnimatedSprite;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
 import model.map.rooms.Room;
+import util.Logger;
 
 public class AirLockDoor extends Door {
 
@@ -78,6 +79,7 @@ public class AirLockDoor extends Door {
 
 
     public void cycle(GameData gameData) {
+        Logger.log("Cycling door from " + getFromId() + " to " +getToId());
         if (isFullyOpen) {
             closeAirlockDoor(gameData);
         } else {

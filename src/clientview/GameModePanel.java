@@ -38,6 +38,7 @@ public class GameModePanel extends JPanel implements Observer {
             titleBox.add(new JLabel("Round Limit:"));
             makeRoundField();
             titleBox.add(roundField);
+            titleBox.add(Box.createHorizontalStrut(10));
             titleBox.add(new JLabel("Round Time Limit:"));
             makeTimeLimitField();
             titleBox.add(timeLimitField);

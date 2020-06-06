@@ -131,34 +131,40 @@ public class ShuttleRoom extends Room {
     }
 
     private boolean getDockingPosition(GameData gameData, DockingPoint dp, Point roomPlacement, Point2D doorPlacement) {
-        for (int i = 0; i < 4; ++i) {
-            if (!forbiddenDockingDirections.get(direction).contains(dp.getDirection())) {
-                try {
-                    Architecture arc = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(dp.getRoom()).getName(),
-                            dp.getRoom().getZ());
-                    arc.checkPlacement(dp.getRoom(), getWidth(), getHeight(), dp.getDirection(), doorPlacement, roomPlacement);
-                    return true;
-                } catch (Architecture.NoLegalPlacementForRoom nlpfe) {
-                    // OK, try next rotation
-                } catch (NoSuchThingException e) {
-                    e.printStackTrace();
-                    break;
+        try {
+            Architecture arc = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(dp.getRoom()).getName(),
+                    dp.getRoom().getZ());
+            for (int i = 0; i < 4; ++i) {
+                if (!forbiddenDockingDirections.get(direction).contains(dp.getDirection())) {
+                    try {
+                        arc.checkPlacement(dp.getRoom(), getWidth(), getHeight(), dp.getDirection(), doorPlacement, roomPlacement);
+                        return true;
+                    } catch (Architecture.NoLegalPlacementForRoom nlpfe) {
+                        // OK, try next rotation
+                    }
                 }
+                this.rotate();
             }
-            this.rotate();
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
         }
+
         return false;
     }
 
 
     public void dockYourself(GameData gameData, DockingPoint selectedDockingPoint) {
         Point roomPos = new Point();
-        Point2D.Double doorPos = new Point2D.Double();
+        Point2D doorPos = new Point2D.Double();
         getDockingPosition(gameData, selectedDockingPoint, roomPos, doorPos);
+        try {
+            doorPos = Architecture.getPossibleNewDoorBetween(this, selectedDockingPoint.getRoom());
+        } catch (Architecture.DoorNotFoundBetweenRooms doorNotFoundBetweenRooms) {
+            doorNotFoundBetweenRooms.printStackTrace();
+        }
         Logger.log("Docking shuttle at " + roomPos);
         moveTo((int)roomPos.getX(), (int)roomPos.getY(), ((Room)selectedDockingPoint.getRoom()).getZ());
         gameData.getMap().joinRooms(this, (Room)selectedDockingPoint.getRoom());
-        selectedDockingPoint.setDocked(gameData, true);
         this.dockedAtPoint = selectedDockingPoint;
         Room r = (Room)selectedDockingPoint.getRoom();
         for (Door d : r.getDoors()) {
@@ -169,6 +175,7 @@ public class ShuttleRoom extends Room {
                 break;
             }
         }
+        selectedDockingPoint.setDocked(gameData, true);
     }
 
     public void undockYourself(GameData gameData) {
