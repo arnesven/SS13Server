@@ -49,7 +49,7 @@ public class TeleportConsole extends Console {
     protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         at.add(new CombinedTeleportAction(this, gameData));
         if (cl instanceof Player) {
-            at.add(new SitDownAtConsoleAction(gameData, this) {
+            at.add(new SitDownAtConsoleAction(gameData, this, (Player)cl) {
                 @Override
                 protected ConsoleFancyFrame getNewFancyFrame(Console console, GameData gameData, Player performingClient) {
                     return new TeleportConsoleFancyFrame(performingClient, console, gameData);

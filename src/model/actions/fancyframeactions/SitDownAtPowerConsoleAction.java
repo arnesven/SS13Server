@@ -11,8 +11,8 @@ import model.objects.consoles.GeneratorConsole;
 public class SitDownAtPowerConsoleAction extends SitDownAtConsoleAction {
     private final GeneratorConsole console;
 
-    public SitDownAtPowerConsoleAction(GameData gameData, GeneratorConsole generatorConsole) {
-        super(gameData, generatorConsole);
+    public SitDownAtPowerConsoleAction(GameData gameData, GeneratorConsole generatorConsole, Player p) {
+        super(gameData, generatorConsole, p);
         this.console = generatorConsole;
     }
 

@@ -123,7 +123,7 @@ public abstract class ElectricalDoor extends Door {
             act.addClientsItemsToAction(forWhom);
             at.add(act);
             if (forWhom instanceof Player && forWhom.isIntelligentCreature()) {
-                at.add(new ShowDoorHackingFancyFrameAction(gameData, forWhom, this));
+                at.add(new ShowDoorHackingFancyFrameAction(gameData, (Player)forWhom, this));
             }
         }
         if (GameItem.hasAnItemOfClass(forWhom, Tools.class) && isDamaged()) {

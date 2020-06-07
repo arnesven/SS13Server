@@ -16,7 +16,7 @@ import java.util.List;
 public class WalkUpToVendingMachine extends WalkUpToElectricalMachineryAction {
     private final VendingMachine vending;
 
-    public WalkUpToVendingMachine(GameData gameData, Actor cl, VendingMachine vending) {
+    public WalkUpToVendingMachine(GameData gameData, Player cl, VendingMachine vending) {
         super(gameData, cl, vending);
         this.vending = vending;
     }

@@ -80,12 +80,14 @@ public class MonolithExperimentsConsole extends Console {
 
     @Override
     protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-        at.add(new SitDownAtConsoleAction(gameData, this) {
-            @Override
-            protected ConsoleFancyFrame getNewFancyFrame(Console console, GameData gameData, Player performingClient) {
-                return new MonolithExperimentsConsoleFancyFrame(performingClient, gameData, MonolithExperimentsConsole.this);
-            }
-        });
+        if (cl instanceof Player) {
+            at.add(new SitDownAtConsoleAction(gameData, this, (Player)cl) {
+                @Override
+                protected ConsoleFancyFrame getNewFancyFrame(Console console, GameData gameData, Player performingClient) {
+                    return new MonolithExperimentsConsoleFancyFrame(performingClient, gameData, MonolithExperimentsConsole.this);
+                }
+            });
+        }
 
     }
 

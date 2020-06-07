@@ -36,12 +36,14 @@ public class EscapeShuttleControl extends ShuttleControl {
     @Override
     protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         at.add(new LeaveNowAction());
-        at.add(new SitDownAtConsoleAction(gameData, this) {
-            @Override
-            protected ConsoleFancyFrame getNewFancyFrame(Console console, GameData gameData, Player performingClient) {
-                return new EscapeShuttleControlFancyFrame(performingClient, gameData, console);
-            }
-        });
+        if (cl instanceof Player) {
+            at.add(new SitDownAtConsoleAction(gameData, this, (Player) cl) {
+                @Override
+                protected ConsoleFancyFrame getNewFancyFrame(Console console, GameData gameData, Player performingClient) {
+                    return new EscapeShuttleControlFancyFrame(performingClient, gameData, console);
+                }
+            });
+        }
     }
 
     private class LeaveNowAction extends Action {

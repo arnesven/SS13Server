@@ -49,7 +49,7 @@ public class SlotMachine extends ElectricalMachinery {
     @Override
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         if (cl instanceof Player) {
-            at.add(new WalkUpToElectricalMachineryAction(gameData, cl, this) {
+            at.add(new WalkUpToElectricalMachineryAction(gameData, (Player)cl, this) {
                 @Override
                 protected FancyFrame getFancyFrame(GameData gameData, Actor performingClient) {
                     return new SlotMachineFancyFrame((Player)performingClient, gameData, SlotMachine.this);

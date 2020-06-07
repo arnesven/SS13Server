@@ -70,8 +70,10 @@ public abstract class Console extends SinglePersonUseMachine implements Remotely
         ArrayList<Action> consoleActions = new ArrayList<>();
         addConsoleActions(gameData, cl, consoleActions);
         if (!hasSitDownAction(consoleActions)) {
-            consoleActions.add(new GeneralSitDownAtConsoleAction(gameData, this));
-            at.addAll(consoleActions);
+            if (cl instanceof Player) {
+                consoleActions.add(new GeneralSitDownAtConsoleAction(gameData, this, (Player)cl));
+                at.addAll(consoleActions);
+            }
         } else {
             if (cl.isAI()) {
                 consoleActions.removeIf((Action a) -> a instanceof SitDownAtConsoleAction);

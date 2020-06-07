@@ -2,6 +2,7 @@ package model.characters.decorators;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.StopDraggingAction;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;
@@ -19,7 +20,9 @@ public class DraggingDecorator extends CharacterDecorator {
     @Override
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         super.addCharacterSpecificActions(gameData, at);
-        at.add(new StopDraggingAction(draggedActor));
+        if (getActor() instanceof Player) {
+            at.add(new StopDraggingAction(draggedActor, gameData, (Player)getActor()));
+        }
     }
 
     @Override

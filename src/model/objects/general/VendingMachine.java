@@ -48,7 +48,9 @@ public abstract class VendingMachine extends ElectricalMachinery {
     protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         this.gameData = gameData;
         //at.add(new VendingMachineAction(this));
-        at.add(new WalkUpToVendingMachine(gameData, cl, this));
+        if (cl instanceof Player) {
+            at.add(new WalkUpToVendingMachine(gameData, (Player)cl, this));
+        }
     }
 
     @Override

@@ -8,8 +8,8 @@ import model.fancyframe.FTLControlFancyFrame;
 import model.objects.consoles.Console;
 
 public class SitDownAtFTLControl extends SitDownAtConsoleAction {
-    public SitDownAtFTLControl(GameData gameData, Console console) {
-        super(gameData, console);
+    public SitDownAtFTLControl(GameData gameData, Console console, Player p) {
+        super(gameData, console, p);
     }
 
     @Override

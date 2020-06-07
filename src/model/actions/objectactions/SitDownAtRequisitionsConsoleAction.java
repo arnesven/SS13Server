@@ -10,8 +10,8 @@ import model.objects.consoles.Console;
 import model.objects.consoles.RequisitionsConsole;
 
 public class SitDownAtRequisitionsConsoleAction extends SitDownAtConsoleAction {
-    public SitDownAtRequisitionsConsoleAction(GameData gameData, RequisitionsConsole requisitionsConsole) {
-        super(gameData, requisitionsConsole);
+    public SitDownAtRequisitionsConsoleAction(GameData gameData, RequisitionsConsole requisitionsConsole, Player p) {
+        super(gameData, requisitionsConsole, p);
     }
 
     @Override

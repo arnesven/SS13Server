@@ -15,8 +15,8 @@ import java.util.List;
 public class SitDownAtShuttleConsoleAction extends SitDownAtConsoleAction {
     private final boolean hasAdvanced;
 
-    public SitDownAtShuttleConsoleAction(GameData gameData, ShuttleControl shuttleControl, boolean hasAdvanced) {
-        super(gameData, shuttleControl);
+    public SitDownAtShuttleConsoleAction(GameData gameData, ShuttleControl shuttleControl, Player pl, boolean hasAdvanced) {
+        super(gameData, shuttleControl, pl);
         this.hasAdvanced = hasAdvanced;
     }
 

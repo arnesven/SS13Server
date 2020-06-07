@@ -91,7 +91,7 @@ public class SolarArrayControl extends Console implements PowerSupply {
     protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         at.add(new SetSolarPanelRotationAction(this));
         if (cl instanceof Player) {
-            at.add(new SitDownAtConsoleAction(gameData, this) {
+            at.add(new SitDownAtConsoleAction(gameData, this, (Player)cl) {
                 @Override
                 protected ConsoleFancyFrame getNewFancyFrame(Console console, GameData gameData, Player performingClient) {
                     return new SolarArrayControlFancyFrame(performingClient, SolarArrayControl.this, gameData);

@@ -34,7 +34,7 @@ public class GeneratorConsole extends Console {
 	protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(new PowerConsoleAction(this));
 		if (cl instanceof Player) {
-            at.add(new SitDownAtPowerConsoleAction(gameData, this));
+            at.add(new SitDownAtPowerConsoleAction(gameData, this, (Player)cl));
         }
 	}
 

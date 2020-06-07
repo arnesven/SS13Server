@@ -57,7 +57,7 @@ public class CookOMatic extends ElectricalMachinery {
 		}
 
         if (cl instanceof Player) {
-			at.add(new WalkUpToElectricalMachineryAction(gameData, cl, this) {
+			at.add(new WalkUpToElectricalMachineryAction(gameData, (Player)cl, this) {
 				@Override
 				protected FancyFrame getFancyFrame(GameData gameData, Actor performingClient) {
 					return new CookOMaticFancyFrame((Player)performingClient, gameData, CookOMatic.this);

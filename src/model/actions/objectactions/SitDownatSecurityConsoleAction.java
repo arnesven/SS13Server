@@ -10,8 +10,8 @@ import model.fancyframe.SecurityCameraFancyFrame;
 import model.objects.consoles.Console;
 
 public class SitDownatSecurityConsoleAction extends SitDownAtConsoleAction {
-    public SitDownatSecurityConsoleAction(GameData gameData, Console cl) {
-        super(gameData, cl);
+    public SitDownatSecurityConsoleAction(GameData gameData, Console cl, Player p) {
+        super(gameData, cl, p);
     }
 
     @Override

@@ -130,9 +130,9 @@ public class AIConsole extends Console {
         }
         if (cl instanceof Player) {
             if (!AIIsPlayer()) {
-                at.add(new SitDownAtNPCAIConsoleAction(gameData, this));
+                at.add(new SitDownAtNPCAIConsoleAction(gameData, this, (Player)cl));
             } else {
-                at.add(new SitDownAtAIConsoleAction(gameData, this));
+                at.add(new SitDownAtAIConsoleAction(gameData, this, (Player)cl));
             }
         }
 

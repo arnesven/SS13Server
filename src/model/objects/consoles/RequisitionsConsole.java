@@ -39,7 +39,7 @@ public class RequisitionsConsole extends Console implements BankUser {
 			at.add(a);
 		}
 		if (cl instanceof Player) {
-            at.add(new SitDownAtRequisitionsConsoleAction(gameData, this));
+            at.add(new SitDownAtRequisitionsConsoleAction(gameData, this, (Player)cl));
         }
 
 	}

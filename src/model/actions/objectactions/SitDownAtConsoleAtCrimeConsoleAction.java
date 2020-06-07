@@ -10,8 +10,8 @@ import model.objects.consoles.Console;
 import model.objects.consoles.CrimeRecordsConsole;
 
 public class SitDownAtConsoleAtCrimeConsoleAction extends SitDownAtConsoleAction {
-    public SitDownAtConsoleAtCrimeConsoleAction(GameData gameData, CrimeRecordsConsole crimeRecordsConsole) {
-        super(gameData, crimeRecordsConsole);
+    public SitDownAtConsoleAtCrimeConsoleAction(GameData gameData, CrimeRecordsConsole crimeRecordsConsole, Player p) {
+        super(gameData, crimeRecordsConsole, p);
     }
 
     @Override

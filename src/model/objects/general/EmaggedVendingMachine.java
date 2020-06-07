@@ -55,7 +55,9 @@ public class EmaggedVendingMachine extends VendingMachine {
         if (before.size() > 0) {
             Action a = before.get(0);
             at.add(new EmaggedVendingAction(a));
-            at.add(new WalkUpToVendingMachine(gameData, cl, this));
+            if (cl instanceof Player) {
+                at.add(new WalkUpToVendingMachine(gameData, (Player)cl, this));
+            }
         }
     }
 

@@ -63,7 +63,7 @@ public class CrimeRecordsConsole extends Console {
 		if (cl.getCharacter().isCrew() || cl.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof AICharacter))) {
 			at.add(new CrimeRecordsAction(this));
 			if (cl instanceof Player) {
-				at.add(new SitDownAtConsoleAtCrimeConsoleAction(gameData, this));
+				at.add(new SitDownAtConsoleAtCrimeConsoleAction(gameData, this, (Player)cl));
 			}
 		}
 	}

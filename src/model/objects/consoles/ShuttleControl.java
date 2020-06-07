@@ -34,7 +34,9 @@ public class ShuttleControl extends Console {
         if (CallEscapeShuttleAction.canCallEscapeShuttle(cl)) {
             at.add(new CallEscapeShuttleAction(gameData, this));
         }
-        at.add(new SitDownAtShuttleConsoleAction(gameData, this, hasAdvanced));
+        if (cl instanceof Player) {
+            at.add(new SitDownAtShuttleConsoleAction(gameData, this, (Player)cl, hasAdvanced));
+        }
     }
 
     @Override

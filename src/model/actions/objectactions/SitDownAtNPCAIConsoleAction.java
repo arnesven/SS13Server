@@ -10,8 +10,8 @@ import model.objects.consoles.AIConsole;
 import model.objects.consoles.Console;
 
 public class SitDownAtNPCAIConsoleAction extends SitDownAtConsoleAction {
-    public SitDownAtNPCAIConsoleAction(GameData gameData, AIConsole aiConsole) {
-        super(gameData, aiConsole);
+    public SitDownAtNPCAIConsoleAction(GameData gameData, AIConsole aiConsole, Player p) {
+        super(gameData, aiConsole, p);
     }
 
     @Override

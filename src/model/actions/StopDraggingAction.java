@@ -12,11 +12,11 @@ import model.characters.general.GameCharacter;
 
 import java.util.List;
 
-public class StopDraggingAction extends Action {
+public class StopDraggingAction extends FreeAction {
     private final Actor beingDragged;
 
-    public StopDraggingAction(Actor beingDragged) {
-        super("Stop Dragging " + beingDragged.getPublicName() + " (free action)", SensoryLevel.PHYSICAL_ACTIVITY);
+    public StopDraggingAction(Actor beingDragged, GameData gameData, Player p) {
+        super("Stop Dragging " + beingDragged.getPublicName(), gameData, p);
         this.beingDragged = beingDragged;
     }
 
@@ -37,13 +37,15 @@ public class StopDraggingAction extends Action {
 
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
-        if (performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof DraggingDecorator)) {
-            performingClient.removeInstance((GameCharacter gc) -> gc instanceof DraggingDecorator);
-            performingClient.addTolastTurnInfo("You stopped dragging " + beingDragged.getPublicName());
-            if (performingClient instanceof Player) {
-                ((Player) performingClient).setNextAction(new DoNothingAction());
-                ((Player) performingClient).refreshClientData();
-            }
+
+    }
+
+    @Override
+    protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
+        if (p.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof DraggingDecorator)) {
+            p.removeInstance((GameCharacter gc) -> gc instanceof DraggingDecorator);
+            gameData.getChat().serverInSay("You stopped dragging " + beingDragged.getPublicName(), p);
+            p.refreshClientData();
         }
     }
 

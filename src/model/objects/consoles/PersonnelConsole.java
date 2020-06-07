@@ -54,7 +54,7 @@ public class PersonnelConsole extends Console implements BankUser {
         }
         at.add(new AcceptNewProfessionAction(this));
         if (cl instanceof Player) {
-            at.add(new SitDownAtPersonnelConsoleAction(gameData, this));
+            at.add(new SitDownAtPersonnelConsoleAction(gameData, this, (Player)cl));
         }
     }
 

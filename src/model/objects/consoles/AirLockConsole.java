@@ -40,7 +40,7 @@ public class AirLockConsole extends Console {
 //        }
 
         if (cl instanceof Player) {
-            at.add(new SitDownAtAirLockControl(gameData, this));
+            at.add(new SitDownAtAirLockControl(gameData, this, (Player)cl));
         }
 	}
 

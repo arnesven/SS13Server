@@ -23,7 +23,7 @@ public class BarSignControl extends Console {
     protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         at.add(new BarSignAction(this));
         if (cl instanceof Player) {
-            at.add(new SitDownAtConsoleAction(gameData, this) {
+            at.add(new SitDownAtConsoleAction(gameData, this, (Player)cl) {
                 @Override
                 protected ConsoleFancyFrame getNewFancyFrame(Console console, GameData gameData, Player performingClient) {
                     return new BarSignFancyFrame(performingClient, BarSignControl.this, gameData);

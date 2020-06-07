@@ -27,7 +27,7 @@ public class SecurityCameraConsole extends Console {
 	public void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		at.add(new SecurityConsoleAction(this));
 		if (cl instanceof Player) {
-			at.add(new SitDownatSecurityConsoleAction(gameData, this));
+			at.add(new SitDownatSecurityConsoleAction(gameData, this, (Player)cl));
 		}
 	}
 

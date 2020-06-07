@@ -10,8 +10,8 @@ import model.objects.consoles.Console;
 import model.objects.consoles.PersonnelConsole;
 
 public class SitDownAtPersonnelConsoleAction extends SitDownAtConsoleAction {
-    public SitDownAtPersonnelConsoleAction(GameData gameData, PersonnelConsole personnelConsole) {
-        super(gameData, personnelConsole);
+    public SitDownAtPersonnelConsoleAction(GameData gameData, PersonnelConsole personnelConsole, Player p) {
+        super(gameData, personnelConsole, p);
     }
 
     @Override
