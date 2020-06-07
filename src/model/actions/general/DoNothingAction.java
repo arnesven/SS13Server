@@ -22,17 +22,16 @@ public class DoNothingAction extends Action {
 
 	@Override
 	public void execute(GameData gameData, Actor performingClient) {
-		//performingClient.addTolastTurnInfo("You're chilling out...");
-//        try {
-//            MostWantedCriminals.add(gameData.getClidForPlayer((Player)performingClient));
-//        } catch (NoSuchThingException e) {
-//            e.printStackTrace();
-//        }
+		if (performingClient instanceof Player) {
+			Player player = (Player)performingClient;
+			player.setActionPoints(player.getActionPoints() + 1);
+			player.addTolastTurnInfo("You saved one Action Point (AP). It can be used to perform some actions " +
+				"during a later turn. You have a total of " + player.getActionPoints() + " AP.");
+		}
     }
 
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
-		// Not needed
 		
 	}
 

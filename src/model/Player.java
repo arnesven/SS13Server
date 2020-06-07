@@ -55,6 +55,8 @@ public class Player extends Actor implements Target, Serializable {
 	private int dataState = 0;
 	private List<ExtraEffect> extraEffects;
 
+	private int actionPoints;
+
 
 	public Player(GameData gameData) {
 		Sprite charPreview = styleBody.getSprite(true, true); // DON'T REMOVE!
@@ -788,4 +790,14 @@ public class Player extends Actor implements Target, Serializable {
 	public void clearExtraEffects() {
 		extraEffects.clear();
 	}
+
+
+	public int getActionPoints() {
+		return actionPoints;
+	}
+
+	public void setActionPoints(int actionPoints) {
+		this.actionPoints = Math.min(actionPoints, Action.MAXIMUM_SAVED_AP);
+	}
+
 }

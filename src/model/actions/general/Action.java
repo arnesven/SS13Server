@@ -22,8 +22,9 @@ import javax.swing.*;
  * TODO: NPCs should also be able to take actions.
  */
 public abstract class Action extends Experienceable implements Serializable {
-	
-	private static final String FAILED_STRING = "Your action failed.";
+
+    public static final int MAXIMUM_SAVED_AP = 2;
+    private static final String FAILED_STRING = "Your action failed.";
 	private static long uidCounter = 0;
 	private long uid;
 	private String name;
