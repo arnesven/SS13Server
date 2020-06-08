@@ -16,7 +16,6 @@ public class FremenCharacter extends HumanCharacter {
     @Override
     public List<GameItem> getStartingItems() {
         List<GameItem> its = new ArrayList<>();
-        // TODO: add Cryssknife, thumper
         return its;
     }
 

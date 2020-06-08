@@ -324,7 +324,6 @@ public class PhysicalBody implements SpriteObject, Serializable {
 
     @Override
     public void setAbsolutePosition(double x, double y, double z) {
-        //TODO
     }
 
     @Override

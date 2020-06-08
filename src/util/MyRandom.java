@@ -55,7 +55,6 @@ public class MyRandom {
 			writer.write(data + "\n");
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}

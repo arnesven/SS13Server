@@ -27,8 +27,6 @@ public class SpeechAction extends Action {
 
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

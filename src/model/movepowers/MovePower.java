@@ -55,7 +55,6 @@ public abstract class MovePower implements SpriteObject {
 
     @Override
     public void setAbsolutePosition(double x, double y, double z) {
-        //TODO
     }
 
     @Override

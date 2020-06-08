@@ -185,7 +185,6 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
     }
 
 
-    // TODO: make abstract..?
     public Sprite getSprite(Actor whosAsking) {
         return sprite;
     }
@@ -309,7 +308,6 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 
     @Override
     public void setAbsolutePosition(double x, double y, double z) {
-        //TODO
     }
 
     @Override

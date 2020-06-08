@@ -1,6 +1,5 @@
 package model.map.rooms;
 
-import graphics.sprites.LifeBarSprite;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
@@ -63,7 +62,7 @@ public class SpectatorRoom extends Room {
                     sub = gameData.getGameMode().getAntagonistName(p);
                 }
                 sub = sub + " (in " + getPositionName(p)  + ")";
-                info.add(new LifeBarSprite(p.getHealth()).getName() + "<img>" + sub);
+            //    info.add(new LifeBarSprite(p.getHealth()).getName() + "<img>" + sub);
 
             }
         }

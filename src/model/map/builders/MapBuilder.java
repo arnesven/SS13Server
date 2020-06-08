@@ -14,7 +14,6 @@ import java.util.*;
 /**
  * @author erini02
  * Class which builds the game map.
- * TODO: Make this into a class hierarchy and use polymorphism
  * to enable easy extension of new maps.
  */
 public abstract class MapBuilder {
@@ -44,7 +43,6 @@ public abstract class MapBuilder {
 
 	/**
 	 * Creates the map of the game and returns it.
-	 * TODO: The armory should not be connected to anything from the start. 
 	 * Only after using the keycard should it open.
 	 * @return the game's map.
 	 */

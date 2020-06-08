@@ -20,7 +20,6 @@ public class DrunkDecorator extends CharacterDecorator {
 		return drunkTimer;
 	}
 	
-	// TODO balance these probabilities
 	private double getColdProbability(int level) {
 		if (level <= 0) return 0;
 		switch(level) {

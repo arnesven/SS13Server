@@ -47,7 +47,6 @@ public class HideAction extends Action implements QuickAction {
 
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
-		// TODO Auto-generated method stub
 
 	}
 

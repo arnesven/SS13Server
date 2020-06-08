@@ -58,7 +58,7 @@ public class MeteoricStorm extends AmbientEvent {
 
     private void resolveStorm(GameData gameData) {
         stationInform("Meteoric impact on " + sideStr + " side of station.", gameData);
-        int multiplier = severe?2:1;
+        double multiplier = severe?2.0:1.0;
         Logger.log("Resolving meteor storm...");
         List<Room> allRooms = new ArrayList<>();
         allRooms.addAll(gameData.getMap().getArea(GameMap.STATION_LEVEL_NAME, sideStr));
@@ -79,7 +79,6 @@ public class MeteoricStorm extends AmbientEvent {
                 }
 
                 while (MyRandom.nextDouble() < ROCK_CHANCE*multiplier) {
-                    // TODO: sometimes the game hangs around here... why?
                     RockObject rock = (RockObject) RockFactory.randomRock(r);
                     Logger.log("... " + r.getName() + " got a " + rock.getBaseName());
                     if (MyRandom.nextDouble() < SHATTER_ON_INPACT_CHANCE) {

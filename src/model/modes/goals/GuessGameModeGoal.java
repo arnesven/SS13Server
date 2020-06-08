@@ -89,11 +89,12 @@ public class GuessGameModeGoal extends PersonalGoal {
 
             @Override
             protected void execute(GameData gameData, Actor performingClient) {
+                performingClient.addTolastTurnInfo("You guessed " + selected + ".");
                 if (selected.equals(gameData.getGameMode().getName().toLowerCase())) {
                     guessedRight = true;
                     performingClient.addTolastTurnInfo("You guessed it right!"); // 
                 } else {
-                    performingClient.addTolastTurnInfo("You guessed wrong."); // TODO: write what was guessed
+                    performingClient.addTolastTurnInfo("You guessed wrong.");
                 }
                 guessed = true;
             }

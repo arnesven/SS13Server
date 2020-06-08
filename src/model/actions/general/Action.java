@@ -20,7 +20,6 @@ import javax.swing.*;
 /**
  * @author erini02
  * Represent an action which can be taken by a client.
- * TODO: NPCs should also be able to take actions.
  */
 public abstract class Action extends Experienceable implements Serializable {
 

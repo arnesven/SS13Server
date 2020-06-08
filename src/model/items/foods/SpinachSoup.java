@@ -35,7 +35,6 @@ public class SpinachSoup extends HealingFood {
 					
 					@Override
 					public boolean checkInstanceOf(GameCharacter ch) {
-						// TODO Auto-generated method stub
 						return ch instanceof AlterStrength;
 					}
 				}));

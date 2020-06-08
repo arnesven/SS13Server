@@ -72,7 +72,6 @@ public class BananaPeelEvent extends Event {
 											
 											@Override
 											public boolean checkInstanceOf(GameCharacter ch) {
-												// TODO Auto-generated method stub
 												return ch instanceof AlterMovement;
 											}
 										}));

@@ -68,7 +68,7 @@ public class Altar extends GameObject {
     @Override
     public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
         at.add(new PrayerAction(this));
-        if (lastPrayedTo instanceof KaliGod) { // TODO: is this too powerful, maybe one needs a ritual dagger...
+        if (lastPrayedTo instanceof KaliGod) {
             at.add(new MakeRitualSacrifice(this));
         }
     }

@@ -204,9 +204,7 @@ public class Player extends Actor implements Target, Serializable {
 		int steps = getCharacter().getMovementSteps();
 
 		List<Room> list = new ArrayList<>();
-		// TODO: Work these back into actions.
-        //getCharacter().getMovePowersIfPlayer(gameData, list);
-        ArrayList<Integer> movablePlaces = new ArrayList<>();
+	    ArrayList<Integer> movablePlaces = new ArrayList<>();
         for (Room r : gameData.getNonHiddenStationRooms()) {
         	if (r instanceof DecorativeRoom) {
         		movablePlaces.add(r.getID());

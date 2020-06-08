@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import graphics.sprites.LifeBarSprite;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.characters.decorators.InfectedCharacter;
@@ -182,7 +181,7 @@ public class HostGameMode extends GameMode {
     public List<Pair<Sprite, String>> getSpectatorContent(GameData gameData, Actor whosAsking) {
         List<Pair<Sprite, String>> content = new ArrayList<>();
         content.add(new Pair<>(hive.getSprite((Player)whosAsking), hive.isFound()?"(found)":"(hidden)"));
-        content.add(new Pair<>(new LifeBarSprite(hive.getHealth()), "."));
+        //content.add(new Pair<>(new LifeBarSprite(hive.getHealth()), "."));
         return content;
     }
 

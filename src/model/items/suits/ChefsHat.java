@@ -24,14 +24,10 @@ public class ChefsHat extends HatItem {
 
     @Override
 	public void beingPutOn(Actor actionPerformer) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void beingTakenOff(Actor actionPerformer) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

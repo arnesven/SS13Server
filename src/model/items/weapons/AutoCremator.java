@@ -78,7 +78,7 @@ public class AutoCremator extends Weapon {
 
         @Override
         public boolean isViableForThisAction(Target target2) {
-            return target2 instanceof Actor && target2.isDead(); //TODO: only humans and animals
+            return target2 instanceof Actor && target2.isDead() && (((Actor) target2).isHuman() || ((Actor)target2).isAnimal());
         }
 
         @Override

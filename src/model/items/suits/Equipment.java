@@ -109,7 +109,7 @@ public class Equipment implements Serializable {
                     }
                 }
             }
-        } // TODO: we may need to change the order on this.
+        }
 
         for (int i = 0; i < slots.length; ++i) {
             if (i != slotIndex) {

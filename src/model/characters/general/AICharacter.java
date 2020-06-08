@@ -118,7 +118,6 @@ public class AICharacter extends GhostCharacter {
     @Override
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
 
-        // TODO:
         Action a = new AIProgramBotAction(gameData);
         try {
             if (a.getOptions(gameData, getActor()).numberOfSuboptions() > 0) {

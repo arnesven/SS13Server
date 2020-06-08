@@ -34,7 +34,9 @@ public class EscapeAndSetNukeAction extends Action {
         try {
             final Room nukieShip = gameData.getRoom("Nuclear Ship");
             performingClient.moveIntoRoom(nukieShip);
-            ((Player) performingClient).setNextMove(nukieShip.getID()); // TODO: will crash if operative is an NPC
+            if (performingClient instanceof Player) {
+                ((Player) performingClient).setNextMove(nukieShip.getID());
+            }
             if (hasTheDisk(performingClient) != null) {
                 performingClient.getItems().remove(hasTheDisk(performingClient));
                 NuclearBomb nuke = null;

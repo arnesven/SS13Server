@@ -161,7 +161,6 @@ public abstract class Door implements Serializable, SpriteObject {
 
     @Override
     public void setAbsolutePosition(double x, double y, double z) {
-        //TODO
     }
 
     @Override

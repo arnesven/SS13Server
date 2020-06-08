@@ -18,7 +18,6 @@ public class GameRecovery {
          GameData gd = (GameData)oyester.readObject();
          gd.doAfterRecovery();
 
-        //TODO: set all players not ready...
         return gd;
     }
 
