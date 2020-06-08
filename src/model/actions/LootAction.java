@@ -2,6 +2,7 @@ package model.actions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
@@ -22,7 +23,7 @@ import util.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LootAction extends TargetingAction {
+public class LootAction extends TargetingAction implements QuickAction {
     private boolean lootall = false;
 
     public LootAction(Actor actor) {
@@ -173,5 +174,18 @@ public class LootAction extends TargetingAction {
     }
 
 
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
 
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return performer.getPosition().getClients();
+    }
 }

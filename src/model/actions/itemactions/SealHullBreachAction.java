@@ -2,6 +2,8 @@ package model.actions.itemactions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
@@ -19,7 +21,7 @@ import java.util.List;
 /**
  * Created by erini02 on 18/04/16.
  */
-public class SealHullBreachAction extends Action {
+public class SealHullBreachAction extends Action implements QuickAction {
 
     public SealHullBreachAction() {
         super("Seal hull breach", SensoryLevel.PHYSICAL_ACTIVITY);
@@ -59,5 +61,20 @@ public class SealHullBreachAction extends Action {
 
     private boolean isRobot(GameCharacter character) {
         return character.checkInstance(((GameCharacter ch) -> ch instanceof RobotCharacter));
+    }
+
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return performer.getPosition().getClients();
     }
 }

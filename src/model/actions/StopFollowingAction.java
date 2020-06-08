@@ -2,6 +2,7 @@ package model.actions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
@@ -11,7 +12,9 @@ import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import util.Logger;
 
-public class StopFollowingAction extends TargetingAction {
+import java.util.List;
+
+public class StopFollowingAction extends TargetingAction implements QuickAction {
 
     public StopFollowingAction(Actor ap) {
         super("Stop Following", SensoryLevel.PHYSICAL_ACTIVITY, ap);
@@ -52,5 +55,20 @@ public class StopFollowingAction extends TargetingAction {
     @Override
     protected String getVerb(Actor whosAsking) {
         return "stopped following";
+    }
+
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return List.of(performer);
     }
 }

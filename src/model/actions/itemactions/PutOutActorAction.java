@@ -2,18 +2,22 @@ package model.actions.itemactions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
+import model.actions.QuickAction;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
 import model.characters.decorators.OnFireCharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 
+import java.util.List;
+
 
 /**
  * Created by erini02 on 10/09/17.
  */
-public class PutOutActorAction extends TargetingAction {
+public class PutOutActorAction extends TargetingAction implements QuickAction {
 
     public PutOutActorAction(Actor performer) {
         super("Put Out", SensoryLevel.PHYSICAL_ACTIVITY, performer);
@@ -43,5 +47,20 @@ public class PutOutActorAction extends TargetingAction {
             return targetAsActor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnFireCharacterDecorator);
         }
         return false;
+    }
+
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return performer.getPosition().getClients();
     }
 }

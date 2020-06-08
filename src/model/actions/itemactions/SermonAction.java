@@ -3,6 +3,8 @@ package model.actions.itemactions;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import model.Player;
+import model.actions.QuickAction;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -11,7 +13,7 @@ import model.actions.general.SensoryLevel;
 import model.items.general.Bible;
 import model.items.general.GameItem;
 
-public class SermonAction extends Action {
+public class SermonAction extends Action implements QuickAction {
 
 	private Bible bible;
 
@@ -54,4 +56,18 @@ public class SermonAction extends Action {
 		
 	}
 
+	@Override
+	public void performQuickAction(GameData gameData, Player performer) {
+		execute(gameData, performer);
+	}
+
+	@Override
+	public boolean isValidToExecute(GameData gameData, Player performer) {
+		return true;
+	}
+
+	@Override
+	public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+		return performer.getPosition().getClients();
+	}
 }

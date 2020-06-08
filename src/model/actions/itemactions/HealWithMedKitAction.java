@@ -1,5 +1,6 @@
 package model.actions.itemactions;
 
+import model.actions.QuickAction;
 import model.characters.general.GameCharacter;
 import util.MyRandom;
 import model.Actor;
@@ -12,7 +13,9 @@ import model.characters.crew.DoctorCharacter;
 import model.items.general.GameItem;
 import model.items.general.MedKit;
 
-public class HealWithMedKitAction extends TargetingAction {
+import java.util.List;
+
+public class HealWithMedKitAction extends TargetingAction implements QuickAction {
 
 	private MedKit objectRef;
 	private static final double HEAL_AMOUNT = 1.5;
@@ -87,4 +90,18 @@ public class HealWithMedKitAction extends TargetingAction {
 		return "healed";
 	}
 
+	@Override
+	public void performQuickAction(GameData gameData, Player performer) {
+		execute(gameData, performer);
+	}
+
+	@Override
+	public boolean isValidToExecute(GameData gameData, Player performer) {
+		return true;
+	}
+
+	@Override
+	public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+		return performer.getPosition().getClients();
+	}
 }

@@ -3,6 +3,8 @@ package model.actions.itemactions;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.HoldingItemDecorator;
@@ -21,7 +23,7 @@ import java.util.NoSuchElementException;
 /**
  * Created by erini02 on 15/04/16.
  */
-public class PutOutFireAction extends Action {
+public class PutOutFireAction extends Action implements QuickAction {
 
     private FireExtinguisher fireExtinguisher;
 
@@ -92,5 +94,20 @@ public class PutOutFireAction extends Action {
     @Override
     public Sprite getAbilitySprite() {
         return fireExtinguisher.getSprite(null);
+    }
+
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return performer.getPosition().getClients();
     }
 }

@@ -18,7 +18,7 @@ public class AlsoDealDrugsAction extends TargetingAction {
     private final Actor dealer;
 
     public AlsoDealDrugsAction(Actor ap) {
-        super("Deal Drugs (free action)", SensoryLevel.PHYSICAL_ACTIVITY, ap);
+        super("Deal Drugs (0 AP)", SensoryLevel.PHYSICAL_ACTIVITY, ap);
         this.dealer = ap;
     }
 

@@ -11,7 +11,7 @@ import util.Logger;
 
 import java.util.List;
 
-public class UnequipAction extends Action {
+public class UnequipAction extends Action implements QuickAction {
     private SuitItem selectedSuit;
 
     public UnequipAction() {
@@ -68,5 +68,20 @@ public class UnequipAction extends Action {
     @Override
     public boolean hasSpecialOptions() {
         return false;
+    }
+
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return performer.getPosition().getClients();
     }
 }

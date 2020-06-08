@@ -2,6 +2,8 @@ package model.actions.objectactions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
@@ -14,7 +16,7 @@ import java.util.List;
 /**
  * Created by erini02 on 26/11/16.
  */
-public class PlantAction extends Action {
+public class PlantAction extends Action implements QuickAction {
 
     private final SoilPatch soil;
     private SeedsItem selectedSeeds;
@@ -67,5 +69,20 @@ public class PlantAction extends Action {
             }
         }
 
+    }
+
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return performer.getPosition().getClients();
     }
 }

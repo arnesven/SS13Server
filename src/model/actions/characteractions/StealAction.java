@@ -5,6 +5,7 @@ import java.util.List;
 import graphics.sprites.Sprite;
 import model.Target;
 import model.actions.LootAction;
+import model.actions.QuickAction;
 import model.characters.decorators.HandCuffedDecorator;
 import model.characters.decorators.PinnedDecorator;
 import model.characters.decorators.StunnedDecorator;

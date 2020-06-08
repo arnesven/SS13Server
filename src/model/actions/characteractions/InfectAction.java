@@ -1,6 +1,7 @@
 package model.actions.characteractions;
 
 import graphics.sprites.Sprite;
+import model.actions.QuickAction;
 import model.characters.general.GameCharacter;
 import util.Logger;
 import util.MyRandom;

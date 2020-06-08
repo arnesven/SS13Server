@@ -2,6 +2,7 @@ package model.actions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
@@ -10,7 +11,9 @@ import model.characters.general.GameCharacter;
 import model.events.FollowMovementEvent;
 import model.items.general.GameItem;
 
-public class FollowAction extends TargetingAction {
+import java.util.List;
+
+public class FollowAction extends TargetingAction implements QuickAction {
 
     public FollowAction(Actor ap) {
         super("Follow", SensoryLevel.PHYSICAL_ACTIVITY, ap);
@@ -57,4 +60,18 @@ public class FollowAction extends TargetingAction {
         return "is following";
     }
 
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return List.of(performer);
+    }
 }

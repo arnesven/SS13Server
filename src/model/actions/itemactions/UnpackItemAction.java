@@ -2,6 +2,8 @@ package model.actions.itemactions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.items.general.GameItem;
@@ -9,7 +11,7 @@ import model.items.general.UnpackableItem;
 
 import java.util.List;
 
-public class UnpackItemAction extends Action {
+public class UnpackItemAction extends Action implements QuickAction {
 
         private final UnpackableItem unpackableItem;
 
@@ -36,4 +38,18 @@ public class UnpackItemAction extends Action {
 
         }
 
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return List.of(performer);
+    }
 }
