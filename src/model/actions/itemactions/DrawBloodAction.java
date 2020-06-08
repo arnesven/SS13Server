@@ -2,14 +2,19 @@ package model.actions.itemactions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
+import model.actions.QuickAction;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
 import model.items.general.GameItem;
 import model.items.general.Syringe;
 import model.actions.general.SensoryLevel.*;
 
-public class DrawBloodAction extends TargetingAction {
+import java.util.ArrayList;
+import java.util.List;
+
+public class DrawBloodAction extends TargetingAction implements QuickAction {
 
 	public DrawBloodAction(Actor ap) {
 		super("Draw Blood", new SensoryLevel(VisualLevel.STEALTHY, 
@@ -44,4 +49,23 @@ public class DrawBloodAction extends TargetingAction {
 		return "Drew blood into a syringe";
 	}
 
+	@Override
+	public void performQuickAction(GameData gameData, Player performer) {
+		execute(gameData, performer);
+	}
+
+	@Override
+	public boolean isValidToExecute(GameData gameData, Player performer) {
+		return true;
+	}
+
+	@Override
+	public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+		List<Player> result = new ArrayList<>();
+		result.add(performer);
+		if (target instanceof  Player) {
+			result.add((Player)target);
+		}
+		return result;
+	}
 }

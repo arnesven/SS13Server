@@ -1,4 +1,4 @@
-package model.actions.characteractions;
+package model.events.damage;
 
 import model.events.damage.ExplosiveDamage;
 

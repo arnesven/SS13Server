@@ -2,7 +2,9 @@ package model.actions.itemactions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
+import model.actions.QuickAction;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
 import model.characters.crew.DoctorCharacter;
@@ -14,7 +16,10 @@ import model.items.general.GameItem;
 import model.items.general.Syringe;
 import util.MyRandom;
 
-public class InjectionAction extends TargetingAction {
+import java.util.ArrayList;
+import java.util.List;
+
+public class InjectionAction extends TargetingAction implements QuickAction {
 
 	public InjectionAction(Actor ap) {
 		super("Inject", SensoryLevel.PHYSICAL_ACTIVITY, ap);
@@ -92,4 +97,23 @@ public class InjectionAction extends TargetingAction {
 		return "Injected with syringe";
 	}
 
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+	    List<Player> result = new ArrayList<>();
+	    result.add(performer);
+	    if (target instanceof Player) {
+	        result.add((Player)target);
+        }
+        return result;
+    }
 }

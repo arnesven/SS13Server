@@ -2,6 +2,8 @@ package model.actions.itemactions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
@@ -16,7 +18,7 @@ import java.util.List;
 /**
  * Created by erini02 on 08/09/17.
  */
-public class PoisonFoodAction extends Action {
+public class PoisonFoodAction extends Action implements QuickAction {
     private FoodItem selectedItem;
 
 
@@ -74,5 +76,20 @@ public class PoisonFoodAction extends Action {
         }
 
         return opt;
+    }
+
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return List.of(performer);
     }
 }

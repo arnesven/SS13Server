@@ -2,6 +2,8 @@ package model.actions.roomactions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.general.AICharacter;
@@ -9,10 +11,12 @@ import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.items.general.UniversalKeyCard;
 import model.map.doors.ElectricalDoor;
+import model.map.rooms.Room;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class UnLockDoorAction extends Action {
+public class UnLockDoorAction extends Action implements QuickAction {
     private final ElectricalDoor door;
 
     public UnLockDoorAction(ElectricalDoor lockedDoor) {
@@ -29,6 +33,7 @@ public class UnLockDoorAction extends Action {
     protected void execute(GameData gameData, Actor performingClient) {
         if (!door.getDoorMechanism().permitsUnlock()) {
             performingClient.addTolastTurnInfo("Something is wrong with the door. It can't be unlocked! " + failed(gameData, performingClient));
+            return;
         }
 
         boolean isAI = performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter);
@@ -51,5 +56,20 @@ public class UnLockDoorAction extends Action {
     }
 
 
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
 
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        List<Player> result = new ArrayList<>();
+        result.addAll(gameData.getPlayersAsList());
+        return result;
+    }
 }

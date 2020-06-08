@@ -2,6 +2,8 @@ package model.actions.objectactions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
@@ -11,9 +13,10 @@ import model.items.tools.Wrench;
 import model.items.weapons.Crowbar;
 import model.map.doors.ElectricalDoor;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ForceOpenDoorAction extends Action {
+public class ForceOpenDoorAction extends Action implements QuickAction {
     private final ElectricalDoor door;
 
     public ForceOpenDoorAction(ElectricalDoor unpoweredDoor) {
@@ -48,5 +51,22 @@ public class ForceOpenDoorAction extends Action {
     @Override
     protected void setArguments(List<String> args, Actor performingClient) {
 
+    }
+
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        List<Player> result = new ArrayList<>();
+        result.addAll(gameData.getPlayersAsList());
+        return result;
     }
 }

@@ -801,7 +801,17 @@ public class Player extends Actor implements Target, Serializable {
 	}
 
 	public void setActionPoints(int actionPoints) {
-		this.actionPoints = Math.max(0, Math.min(actionPoints, Action.MAXIMUM_SAVED_AP));
+		this.actionPoints = Math.max(0, Math.min(actionPoints, getMaximumSavedAP()));
+	}
+
+	private int getMaximumSavedAP() {
+		if (getCharacter() == null) {
+			return 0;
+		}
+		if (isAI()) {
+			return 5;
+		}
+		return Action.MAXIMUM_SAVED_AP;
 	}
 
 }

@@ -2,6 +2,8 @@ package model.actions.itemactions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
@@ -11,7 +13,7 @@ import model.objects.power.PositronGenerator;
 
 import java.util.List;
 
-public class BoostGeneratorAction extends Action {
+public class BoostGeneratorAction extends Action implements QuickAction {
 
     public BoostGeneratorAction() {
         super("Boost Generator", SensoryLevel.PHYSICAL_ACTIVITY);
@@ -48,5 +50,20 @@ public class BoostGeneratorAction extends Action {
     @Override
     protected void setArguments(List<String> args, Actor performingClient) {
 
+    }
+
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return performer.getPosition().getClients();
     }
 }

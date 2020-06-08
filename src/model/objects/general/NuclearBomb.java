@@ -4,7 +4,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.actions.characteractions.NuclearExplosiveDamage;
+import model.events.damage.NuclearExplosiveDamage;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.events.NukeSetEvent;

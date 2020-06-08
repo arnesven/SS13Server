@@ -2,6 +2,8 @@ package model.actions.characteractions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
@@ -18,7 +20,7 @@ import java.util.List;
 /**
  * Created by erini02 on 14/04/16.
  */
-public class ReprogramAction extends Action {
+public class ReprogramAction extends Action implements QuickAction {
 
     private RobotNPC selectedBot;
     private String progString;
@@ -104,5 +106,20 @@ public class ReprogramAction extends Action {
 
     public BotProgram getSelectedProgram() {
         return selectedProgram;
+    }
+
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return performer.getPosition().getClients();
     }
 }
