@@ -4,12 +4,14 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.foods.FoodItem;
 
-public class ConsumeAction extends Action {
+public class ConsumeAction extends Action implements QuickAction {
 
 	private FoodItem food;
 
@@ -45,4 +47,19 @@ public class ConsumeAction extends Action {
     public FoodItem getConsumable() {
         return food;
     }
+
+	@Override
+	public void performQuickAction(GameData gameData, Player performer) {
+		execute(gameData, performer);
+	}
+
+	@Override
+	public boolean isValidToExecute(GameData gameData, Player performer) {
+		return true;
+	}
+
+	@Override
+	public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+		return performer.getPosition().getClients();
+	}
 }
