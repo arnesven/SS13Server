@@ -7,10 +7,11 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.PlayerSettings;
+import model.actions.QuickAction;
 import model.items.general.GameItem;
 import model.items.general.HidableItem;
 
-public class PickUpAction extends Action {
+public class PickUpAction extends Action implements QuickAction {
 
 	private Actor ap;
 	private GameItem item;
@@ -78,7 +79,7 @@ public class PickUpAction extends Action {
 	
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
-		ActionOption opt = new ActionOption(this.getName());
+		ActionOption opt = super.getOptions(gameData, whosAsking);
 		for (GameItem gi : ap.getPosition().getItems()) {
             if (gi instanceof HidableItem) {
                 if (!((HidableItem) gi).isHidden()) {
@@ -103,4 +104,19 @@ public class PickUpAction extends Action {
     public boolean hasSpecialOptions() {
         return false;
     }
+
+	@Override
+	public void performQuickAction(GameData gameData, Player performer) {
+		execute(gameData, performer);
+	}
+
+	@Override
+	public boolean isValidToExecute(GameData gameData, Player performer) {
+		return true;
+	}
+
+	@Override
+	public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+		return performer.getPosition().getClients();
+	}
 }

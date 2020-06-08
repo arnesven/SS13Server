@@ -25,8 +25,11 @@ public class DoNothingAction extends Action {
 		if (performingClient instanceof Player) {
 			Player player = (Player)performingClient;
 			player.setActionPoints(player.getActionPoints() + 1);
-			player.addTolastTurnInfo("You saved one Action Point (AP). It can be used to perform some actions " +
-				"during a later turn. You have a total of " + player.getActionPoints() + " AP.");
+			gameData.getChat().serverInSay("You saved one Action Point (AP).", player);
+			if (player.getActionPoints() > 1) {
+				gameData.getChat().serverInSay(" You have a total of " + player.getActionPoints() + " AP.", player);
+			}
+
 		}
     }
 
@@ -35,4 +38,8 @@ public class DoNothingAction extends Action {
 		
 	}
 
+	@Override
+	public boolean doesSetPlayerReady() {
+		return false;
+	}
 }

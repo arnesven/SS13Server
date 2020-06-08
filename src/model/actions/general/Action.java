@@ -9,6 +9,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
+import model.actions.QuickAction;
 import model.actions.manager.ActionManager;
 import model.events.Experienceable;
 import util.Logger;
@@ -33,6 +34,8 @@ public abstract class Action extends Experienceable implements Serializable {
     private boolean wasDeadBeforeApplied = false;
     private List<String> savedArgs;
     private boolean actionFailed;
+    private GameData gameData;
+    private boolean wasPerformedAsQuickAction;
 
 
     /**
@@ -44,6 +47,7 @@ public abstract class Action extends Experienceable implements Serializable {
 		this.senses = senses;
 		actionFailed = false;
 		this.uid = uidCounter++;
+		wasPerformedAsQuickAction = false;
       //  ActionManager.store(this);
 	}
 
@@ -137,8 +141,26 @@ public abstract class Action extends Experienceable implements Serializable {
 
 	public void lateExecution(GameData gameData, Actor performingClient) {	}
 
+	public void setGameData(GameData gameData) {
+	    this.gameData = gameData;
+    }
+
+    public GameData getGameData() {
+	    return gameData;
+    }
+
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
-		return new ActionOption(getName());
+        String name = getName();
+        if (this instanceof QuickAction) {
+            setGameData(gameData);
+		    if (whosAsking instanceof Player) {
+                if (((Player) whosAsking).getActionPoints() > 0) {
+                    name += " (1 AP)";
+                }
+            }
+        }
+
+	    return new ActionOption(name);
 	}
 
 
@@ -202,7 +224,7 @@ public abstract class Action extends Experienceable implements Serializable {
             if (a.hasSpecialOptions()) {
                 result += a.getUID() + "<actpart>" + opts.makeBracketedString();
             } else {
-                result += a.getUID() + "<actpart>" + a.getName() + "{}";
+                result += a.getUID() + "<actpart>" + opts.getName() + "{}";
             }
         }
         result += "}";
@@ -216,6 +238,27 @@ public abstract class Action extends Experienceable implements Serializable {
     public void setOverlayArguments(List<String> args,  Actor performingClient) {
 	    saveArgs(args);
 	    setArguments(args, performingClient);
+	    maybePerformQuickAction(performingClient);
+    }
+
+    private void maybePerformQuickAction(Actor performingClient) {
+        if (this instanceof QuickAction && performingClient instanceof Player) {
+            if (((Player) performingClient).getActionPoints() >= 1) {
+                if (((QuickAction) this).isValidToExecute(getGameData(), (Player) performingClient)) {
+                    ((QuickAction) this).performQuickAction(gameData, (Player) performingClient);
+                    this.wasPerformedAsQuickAction = true;
+                    ((Player) performingClient).setActionPoints(((Player) performingClient).getActionPoints() - 1);
+                    for (Player p : ((QuickAction) this).getPlayersWhoNeedToBeUpdated(gameData, (Player) performingClient)) {
+                        if (p != performingClient) {
+                            gameData.getChat().serverInSay(performingClient.getPublicName(p) + " spent 1 AP to quickly " + getVerb(p) + ".", p);
+                        } else {
+                            gameData.getChat().serverInSay("You spent 1 AP.");
+                        }
+                        p.refreshClientData();
+                    }
+                }
+            }
+        }
     }
 
     private void saveArgs(List<String> args) {
@@ -228,11 +271,13 @@ public abstract class Action extends Experienceable implements Serializable {
     public void setInventoryArguments(List<String> newArgs, Player player) {
 	    saveArgs(newArgs);
         setArguments(newArgs, player);
+        maybePerformQuickAction(player);
     }
 
     public void setActionTreeArguments(List<String> args, Actor performer) {
 	    saveArgs(args);
 	    setArguments(args, performer);
+	    maybePerformQuickAction(performer);
     }
 
     public boolean isAmongOptions(GameData gameData, Actor whosAsking, String publicName) {
@@ -246,7 +291,7 @@ public abstract class Action extends Experienceable implements Serializable {
 
 
     public boolean doesSetPlayerReady() {
-        return true;
+        return !wasPerformedAsQuickAction;
     }
 
     public boolean doesCommitThePlayer() { return false;}
@@ -271,5 +316,9 @@ public abstract class Action extends Experienceable implements Serializable {
 
     public Long getUID() {
         return uid;
+    }
+
+    public boolean wasPerformedAsQuickAction() {
+        return wasPerformedAsQuickAction;
     }
 }

@@ -14,13 +14,11 @@ public abstract class FreeAction extends Action {
 
     private final GameData gameData;
     private final Player player;
-    private final Action oldAction;
 
     public FreeAction(String name, GameData gameData, Player performer) {
-        super(name + " (Free Action)", SensoryLevel.NO_SENSE);
+        super(name + " (0 AP)", SensoryLevel.NO_SENSE);
         this.gameData = gameData;
         this.player = performer;
-        oldAction = performer.getNextAction();
     }
 
     @Override
@@ -36,12 +34,11 @@ public abstract class FreeAction extends Action {
     @Override
     protected void setArguments(List<String> args, Actor performingClient) {
         doTheFreeAction(args, player, gameData);
-        try {
-            player.setNextAction(oldAction);
-            gameData.setPlayerReady(gameData.getClidForPlayer(player), false);
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
+        //try {
+            //gameData.setPlayerReady(gameData.getClidForPlayer(player), false);
+        //} catch (NoSuchThingException e) {
+        //    e.printStackTrace();
+        //}
     }
 
     protected abstract void doTheFreeAction(List<String> args, Player p, GameData gameData);

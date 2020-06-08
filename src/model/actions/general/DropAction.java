@@ -6,10 +6,12 @@ import java.util.NoSuchElementException;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 
-public class DropAction extends Action {
+public class DropAction extends Action implements QuickAction {
 
 	private Actor ap;
 	private boolean allItems = false;
@@ -154,5 +156,20 @@ public class DropAction extends Action {
     @Override
     public boolean hasSpecialOptions() {
         return false;
+    }
+
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return performer.getPosition().getClients();
     }
 }

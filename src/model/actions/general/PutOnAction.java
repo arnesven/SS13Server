@@ -5,6 +5,8 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.items.general.GameItem;
 import model.items.suits.MerchantSuit;
 import model.items.suits.SuitItem;
@@ -13,7 +15,7 @@ import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 import util.Logger;
 
-public class PutOnAction extends Action {
+public class PutOnAction extends Action implements QuickAction {
 
 	private List<Wearable> options = new ArrayList<>();
 	private Wearable selectedItem;
@@ -157,7 +159,7 @@ public class PutOnAction extends Action {
 
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
-		ActionOption opt = new ActionOption(this.getName());
+		ActionOption opt = super.getOptions(gameData, whosAsking);
 		for (Wearable it : options) {
 			opt.addOption(it.getPublicName(whosAsking));
 		}
@@ -168,4 +170,19 @@ public class PutOnAction extends Action {
     public boolean hasSpecialOptions() {
         return false;
     }
+
+	@Override
+	public void performQuickAction(GameData gameData, Player performer) {
+		execute(gameData, performer);
+	}
+
+	@Override
+	public boolean isValidToExecute(GameData gameData, Player performer) {
+		return true;
+	}
+
+	@Override
+	public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+		return performer.getPosition().getClients();
+	}
 }

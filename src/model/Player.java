@@ -7,6 +7,7 @@ import graphics.ClientInfo;
 import graphics.ExtraEffect;
 import graphics.OverlaySprite;
 import graphics.sprites.*;
+import model.actions.FreeAction;
 import model.actions.general.DoNothingAction;
 import model.characters.general.AICharacter;
 import model.characters.special.SpectatorCharacter;
@@ -14,9 +15,7 @@ import model.fancyframe.FancyFrame;
 import model.fancyframe.SinglePageFancyFrame;
 import model.items.suits.SuitItem;
 import model.map.rooms.DecorativeRoom;
-import model.map.rooms.SpaceRoom;
 import model.movepowers.MovePowerRoom;
-import model.npcs.behaviors.DoNothingBehavior;
 import sounds.Sound;
 import sounds.SoundQueue;
 import model.actions.general.Action;
@@ -313,7 +312,7 @@ public class Player extends Actor implements Target, Serializable {
 		args.addAll(Arrays.asList(actionStr.split(",")));
 		//Logger.log("Action tree: " + at.toString());
 		for (Action a : at) {
-			if (a.getName().equals(args.get(0))) {
+			if (a.getOptions(gameData, this).getName().equals(args.get(0))) {
 				Logger.log("Yes it is!");
 				int i = MAX_PARSE_ITERATIONS;
                 for ( ; a instanceof ActionGroup && i > 0; --i) {
@@ -334,8 +333,9 @@ public class Player extends Actor implements Target, Serializable {
 
 
                 args = args.subList(1, args.size());
+                a.setGameData(gameData);
 				a.setActionTreeArguments(args, this);
-				this.nextAction = a;
+				setNextAction(a);
 				try {
 					if (a.doesSetPlayerReady()) {
 						gameData.setPlayerReady(gameData.getClidForPlayer(this), true);
@@ -361,14 +361,15 @@ public class Player extends Actor implements Target, Serializable {
             if (sp.getSprite().getObjectReference() != null) {
                 SpriteObject obj = sp.getSprite().getObjectReference();
                 for (Action a : obj.getOverlaySpriteActionList(gameData, sp.getRoom(), this)) {
-                    if (a.getName().equals(args.get(0))) {
+                    if (a.getOptions(gameData, this).getName().equals(args.get(0))) {
                     	if (args.size() == 1 || a.isAmongOptions(gameData, this, args.get(1))) {
 							// TODO: How can we really be sure we found the right action? There could be several "attack" for instance.
 							List<String> newArgs = args.subList(1, args.size());
 //                        String last = newArgs.remove(newArgs.size()-1);
 //                        newArgs.add(0, last);
+							a.setGameData(gameData);
 							a.setOverlayArguments(newArgs, this);
-							this.nextAction = a;
+							setNextAction(a);
 							actionFound = true;
 							break;
 						} else {
@@ -388,7 +389,7 @@ public class Player extends Actor implements Target, Serializable {
         		Logger.log(Logger.INTERESTING, "Using best guess for next action: " + bestGuess.getName());
 				List<String> newArgs = args.subList(1, args.size());
 				bestGuess.setOverlayArguments(newArgs,  this);
-				this.nextAction = bestGuess;
+				setNextAction(bestGuess);
 			}
 		}
 		try {
@@ -419,12 +420,13 @@ public class Player extends Actor implements Target, Serializable {
 				}
 		   }
            for (Action a : acts) {
-               if (a.getName().equals(args.get(0))) {
+               if (a.getOptions(gameData, this).getName().equals(args.get(0))) {
                	   Logger.log("Action found! " + a.getName());
                    List<String> newArgs = args.subList(1, args.size());
+                   a.setGameData(gameData);
                    a.setInventoryArguments(newArgs, this);
-                   this.nextAction = a;
-				   actionFound = true;
+                   setNextAction(a);
+              	   actionFound = true;
 				   break;
                }
             }
@@ -437,11 +439,11 @@ public class Player extends Actor implements Target, Serializable {
 		ArrayList<Action> abilityActions = new ArrayList<>();
         getCharacter().addCharacterSpecificActions(gameData, abilityActions);
 		for (Action a : abilityActions) {
-			if (a.getName().equals(args.get(0))) {
+			if (a.getOptions(gameData, this).getName().equals(args.get(0))) {
 				Logger.log("Ability action found! " + a.getName());
 				List<String> newArgs = args.subList(1, args.size());
 				a.setInventoryArguments(newArgs, this);
-				this.nextAction = a;
+				setNextAction(a);
 				break;
 			}
 		}
@@ -475,7 +477,9 @@ public class Player extends Actor implements Target, Serializable {
 		if (this.nextAction != null && this.nextAction.doesCommitThePlayer()) {
 			addTolastTurnInfo("You can't change your action. You're committed to " + nextAction.getName());
 		} else {
-			this.nextAction = nextAction;
+			if (!(nextAction instanceof FreeAction || nextAction.wasPerformedAsQuickAction())) {
+				this.nextAction = nextAction;
+			}
 		}
 	}
 
@@ -797,7 +801,7 @@ public class Player extends Actor implements Target, Serializable {
 	}
 
 	public void setActionPoints(int actionPoints) {
-		this.actionPoints = Math.min(actionPoints, Action.MAXIMUM_SAVED_AP);
+		this.actionPoints = Math.max(0, Math.min(actionPoints, Action.MAXIMUM_SAVED_AP));
 	}
 
 }
