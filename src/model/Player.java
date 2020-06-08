@@ -318,7 +318,7 @@ public class Player extends Actor implements Target, Serializable {
                 for ( ; a instanceof ActionGroup && i > 0; --i) {
                     for (Action a2 : ((ActionGroup)a).getActions()) {
 						Logger.log("Parsing for " +  a2.getName() + ", strings is: " + args.toString());
-						if (a2.getName().equals(args.get(1))) {
+						if (a2.getOptions(gameData, this).getName().equals(args.get(1))) {
                             a = a2;
 							args = args.subList(1, args.size());
 							break;

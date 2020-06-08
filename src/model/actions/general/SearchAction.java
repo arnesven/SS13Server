@@ -4,6 +4,8 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.events.Event;
 import model.events.ambient.DarkEvent;
 import model.items.RandomItemManager;
@@ -17,7 +19,7 @@ import model.items.general.HidableItem;
 import util.MyRandom;
 
 
-public class SearchAction extends Action {
+public class SearchAction extends Action implements QuickAction {
 
     private static final double RANDOM_ITEM_CHANCE =  0.25;
 
@@ -92,4 +94,18 @@ public class SearchAction extends Action {
 		return "searched";
 	}
 
+	@Override
+	public void performQuickAction(GameData gameData, Player performer) {
+		execute(gameData, performer);
+	}
+
+	@Override
+	public boolean isValidToExecute(GameData gameData, Player performer) {
+		return true;
+	}
+
+	@Override
+	public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+		return performer.getPosition().getClients();
+	}
 }
