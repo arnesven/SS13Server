@@ -1,10 +1,13 @@
 package model.actions.general;
 
 import model.*;
+import model.actions.QuickAction;
 import model.items.general.BombItem;
 import model.items.general.GameItem;
 
-public class GiveAction extends TargetingAction {
+import java.util.List;
+
+public class GiveAction extends TargetingAction implements QuickAction {
 
 	public GiveAction(Actor ap) {
 		super("Give", SensoryLevel.PHYSICAL_ACTIVITY, ap);
@@ -52,4 +55,18 @@ public class GiveAction extends TargetingAction {
 		}
 	}
 
+	@Override
+	public void performQuickAction(GameData gameData, Player performer) {
+		execute(gameData, performer);
+	}
+
+	@Override
+	public boolean isValidToExecute(GameData gameData, Player performer) {
+		return true;
+	}
+
+	@Override
+	public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+		return performer.getPosition().getClients();
+	}
 }
