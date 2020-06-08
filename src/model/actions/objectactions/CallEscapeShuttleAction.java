@@ -166,7 +166,9 @@ public class CallEscapeShuttleAction extends Action {
         @Override
         public void apply(GameData gameData) {
             if (gameData.getRound() == roundStarted + SHUTTLE_AUTO_LEAVE_ROUNDS) {
-               shuttle.leaveNow(gameData);
+                if (shuttle.isDocked()) {
+                    shuttle.leaveNow(gameData);
+                }
             } else if (gameData.getRound() > roundStarted) {
                 StringBuilder missingCrew = new StringBuilder();
 

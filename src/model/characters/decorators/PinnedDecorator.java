@@ -35,6 +35,8 @@ public class PinnedDecorator extends CharacterDecorator implements DisablingDeco
                 defender.moveIntoRoom(this.meleeRoom);
             }
         }
-        defender.removeInstance((GameCharacter gc) -> gc == this);
+        if (defender.getCharacter().checkInstance((GameCharacter gc) -> gc == this)) {
+            defender.removeInstance((GameCharacter gc) -> gc == this);
+        }
     }
 }

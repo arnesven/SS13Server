@@ -10,7 +10,9 @@ import model.npcs.behaviors.*;
 public class EyeballAlienNPC extends NPC {
     public EyeballAlienNPC(Room r) {
         super(new EyeballAlienCharacter(),
-                new MeanderingMovement(0.75), new RandomActionBehavior(), r);
+                new MeanderingMovement(0.75),
+                new DoNothingBehavior(), // TODO: do something fun!
+                r);
     }
 
     @Override

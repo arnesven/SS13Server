@@ -38,12 +38,14 @@ public class OxygenMask extends HeadGear {
 
     @Override
     public void beingTakenOff(Actor actionPerformer) {
-        actionPerformer.removeInstance(new InstanceChecker() {
-            @Override
-            public boolean checkInstanceOf(GameCharacter ch) {
-                return ch instanceof OxyMaskDecorator;
-            }
-        });
+        if (actionPerformer.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OxyMaskDecorator)) {
+            actionPerformer.removeInstance(new InstanceChecker() {
+                @Override
+                public boolean checkInstanceOf(GameCharacter ch) {
+                    return ch instanceof OxyMaskDecorator;
+                }
+            });
+        }
     }
 
     @Override

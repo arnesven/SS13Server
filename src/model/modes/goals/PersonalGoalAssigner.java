@@ -40,7 +40,7 @@ public class  PersonalGoalAssigner implements Serializable {
         jobSpecificGoals.get(new HeadOfStaffCharacter().getBaseName()).add(new OrderShipmentsGoal(MyRandom.nextInt(2)+2));
         jobSpecificGoals.get(new SecurityOfficerCharacter().getBaseName()).add(new BatonABaddieGoal(gameData));
         jobSpecificGoals.get(new SecurityOfficerCharacter().getBaseName()).add(new BrigAnAntagonistGoal(gameData));
-        jobSpecificGoals.get(new DetectiveCharacter().getBaseName()).add(new GuessGameModeGoal(MyRandom.nextInt(3)+5));
+        jobSpecificGoals.get(new DetectiveCharacter().getBaseName()).add(new GuessGameModeGoal(MyRandom.nextInt(5)+12));
         jobSpecificGoals.get(new DoctorCharacter().getBaseName()).add(new HealXTimes(MyRandom.nextInt(3)+3));
         jobSpecificGoals.get(new DoctorCharacter().getBaseName()).add(new InjectXTimes(MyRandom.nextInt(2)+2));
         jobSpecificGoals.get(new BiologistCharacter().getBaseName()).add(new PlantXTimesGoal(MyRandom.nextInt(2) + 2));

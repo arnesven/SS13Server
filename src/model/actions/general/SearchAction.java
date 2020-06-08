@@ -91,7 +91,7 @@ public class SearchAction extends Action implements QuickAction {
 
 	@Override
 	protected String getVerb(Actor whosAsking) {
-		return "searched";
+		return "search";
 	}
 
 	@Override

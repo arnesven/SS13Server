@@ -950,6 +950,8 @@ public class GameData implements Serializable {
 	}
 
 	public void doAfterRecovery() {
-		gameMode.getBank().setReferences(this);
+    	gameMode.getBank().setReferences(this);
+    	lastTimeCount = System.currentTimeMillis();
+    	lastRoundTimeCount = lastTimeCount;
 	}
 }

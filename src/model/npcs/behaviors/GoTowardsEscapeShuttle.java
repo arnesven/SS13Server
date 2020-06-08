@@ -19,14 +19,16 @@ public class GoTowardsEscapeShuttle implements MovementBehavior {
     @Override
     public void move(NPC npc) {
         try {
-            EscapeShuttle shuttle = (EscapeShuttle)gameData.getRoom("Escape Shuttle");
+            EscapeShuttle shuttle = (EscapeShuttle) gameData.getRoom("Escape Shuttle");
             Room r;
-            if (shuttle.hasArrived()) {
-                r = PathFinding.findCloserRoom(npc, shuttle.getDockingPointRoom());
-            } else {
-                r = PathFinding.findCloserRoom(npc, dockingPoint.getRoom());
+            if (!shuttle.hasLeft()) {
+                if (shuttle.hasArrived()) {
+                    r = PathFinding.findCloserRoom(npc, shuttle);
+                } else {
+                    r = PathFinding.findCloserRoom(npc, dockingPoint.getRoom());
+                }
+                npc.moveIntoRoom(r);
             }
-            npc.moveIntoRoom(r);
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

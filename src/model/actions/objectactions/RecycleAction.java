@@ -79,7 +79,9 @@ public class RecycleAction extends Action {
 
     @Override
     protected void setArguments(List<String> args, Actor performingClient) {
-        requestedItem = args.get(0);
+        if (args.size() > 0) {
+            requestedItem = args.get(0);
+        }
     }
 
     private class ResetTrashcanEvent extends Event {

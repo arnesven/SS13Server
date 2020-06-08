@@ -4,10 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.FollowAction;
-import model.actions.general.Action;
-import model.actions.general.ActionGroup;
-import model.actions.general.ActionOption;
-import model.actions.general.AttackAction;
+import model.actions.general.*;
 import model.npcs.NPC;
 import util.Logger;
 import util.MyRandom;
@@ -23,17 +20,17 @@ public class RandomActionBehavior implements ActionBehavior {
     public void act(Actor npc, GameData gameData) {
 
 
-        List<String> args = new ArrayList<>();
-        Action selected;
-        do {
-            args.clear();
-            selected = randomAction(args, gameData, npc);
-            Logger.log("Random behavior gave action which attacked or followed itself.");
-        } while ((selected instanceof AttackAction || selected instanceof FollowAction) && args.contains(npc.getBaseName()));
-
-        Logger.log("Random behavior selected " + selected.getName() + " with args " + args.toString());
-        selected.setActionTreeArguments(args, npc);
-        selected.doTheAction(gameData, npc);
+//        List<String> args = new ArrayList<>();
+//        Action selected;
+//        do {
+//            args.clear();
+//            selected = randomAction(args, gameData, npc);
+//            Logger.log("Random behavior gave action which attacked or followed itself.");
+//        } while ((selected instanceof AttackAction || selected instanceof FollowAction) && args.contains(npc.getBaseName()));
+//
+//        Logger.log("Random behavior selected " + selected.getName() + " with args " + args.toString());
+//        selected.setActionTreeArguments(args, npc);
+//        selected.doTheAction(gameData, npc);
     }
 
     private Action randomAction(List<String> args, GameData gameData, Actor npc) {
@@ -44,6 +41,9 @@ public class RandomActionBehavior implements ActionBehavior {
         Action selected = MyRandom.sample(availableActions);
 
         while (selected instanceof ActionGroup) {
+            if (((ActionGroup) selected).getActions().isEmpty()) {
+                return new DoNothingAction();
+            }
             selected = MyRandom.sample(((ActionGroup) selected).getActions());
         }
 

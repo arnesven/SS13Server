@@ -94,7 +94,7 @@ public class NormalVision extends OverlaySpriteCollector {
         for (Room r2 : r.getNeighborList()) {
             List<Sprite> sp2 = new ArrayList<>();
             for (Actor a : r2.getActors()) {
-                if (a.getCharacter().isVisibileFromAdjacentRoom()) {
+                if (a.getCharacter().isVisibileFromAdjacentRoom() && !a.isDead()) {
                     sp2.add(blurredCharacterSprite);
                 }
             }

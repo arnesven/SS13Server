@@ -252,7 +252,7 @@ public abstract class Action extends Experienceable implements Serializable {
                         if (p != performingClient) {
                             gameData.getChat().serverInSay(performingClient.getPublicName(p) + " spent 1 AP to quickly " + getVerb(p) + ".", p);
                         } else {
-                            gameData.getChat().serverInSay("You spent 1 AP.");
+                            gameData.getChat().serverInSay("You spent 1 AP.", p);
                         }
                         p.refreshClientData();
                     }

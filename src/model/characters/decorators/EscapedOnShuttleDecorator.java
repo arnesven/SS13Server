@@ -12,4 +12,9 @@ public class EscapedOnShuttleDecorator extends CharacterDecorator {
     public boolean getsActions() {
         return false;
     }
+
+    @Override
+    public boolean isPassive() {
+        return true;
+    }
 }
