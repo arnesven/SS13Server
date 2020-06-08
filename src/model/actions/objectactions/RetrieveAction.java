@@ -2,6 +2,8 @@ package model.actions.objectactions;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
@@ -11,7 +13,7 @@ import util.Logger;
 
 import java.util.List;
 
-public class RetrieveAction extends Action {
+public class RetrieveAction extends Action implements QuickAction {
 
     private ContainerObject containerObject;
     private String requestedItem;
@@ -58,5 +60,20 @@ public class RetrieveAction extends Action {
             performingClient.addTolastTurnInfo("You retrieved the " +
                             selectedItem.getPublicName(performingClient));
         }
+    }
+
+    @Override
+    public void performQuickAction(GameData gameData, Player performer) {
+        execute(gameData, performer);
+    }
+
+    @Override
+    public boolean isValidToExecute(GameData gameData, Player performer) {
+        return true;
+    }
+
+    @Override
+    public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+        return performer.getPosition().getClients();
     }
 }
