@@ -213,6 +213,21 @@ public class SS13Client extends JFrame {
         server.add(tenBots);
         menubar.add(server);
 
+        JMenu sound = new JMenu("Audio");
+
+        JRadioButtonMenuItem soundOn = new JRadioButtonMenuItem("Sound On");
+        soundOn.addActionListener((ActionEvent ev) -> SoundJLayer.setSoundEnabled(true));
+        JRadioButtonMenuItem soundOff = new JRadioButtonMenuItem("Sound Off");
+        soundOff.addActionListener((ActionEvent ev) -> {SoundJLayer.setSoundEnabled(false); stopPlayingBackgroundMusic();} );
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(soundOn);
+        bg.add(soundOff);
+        soundOn.setSelected(true);
+
+        sound.add(soundOn);
+        sound.add(soundOff);
+
+        menubar.add(sound);
         this.setJMenuBar(menubar);
     }
 

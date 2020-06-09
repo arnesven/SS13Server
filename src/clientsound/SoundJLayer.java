@@ -14,6 +14,7 @@ public class SoundJLayer extends PlaybackListener implements Runnable
     private Thread playerThread;
     private boolean doesRepeat = false;
     private boolean isPlaying;
+    private static boolean soundIsOn = true;
 
     public SoundJLayer(String filePath, boolean doesRepeat) {
         this.doesRepeat = doesRepeat;
@@ -37,16 +38,15 @@ public class SoundJLayer extends PlaybackListener implements Runnable
 
     public void play()
     {
-        try
-        {
+        if (soundIsOn) {
+            try {
 
-            this.playerThread = new Thread(this, "AudioPlayerThread");
+                this.playerThread = new Thread(this, "AudioPlayerThread");
 
-            this.playerThread.start();
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
+                this.playerThread.start();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -66,12 +66,12 @@ public class SoundJLayer extends PlaybackListener implements Runnable
 
     public void playbackStarted(PlaybackEvent playbackEvent)
     {
-        System.out.println("playbackStarted()");
+ //       System.out.println("playbackStarted()");
     }
 
     public void playbackFinished(PlaybackEvent playbackEvent)
     {
-        System.out.println("playbackEnded()");
+  //      System.out.println("playbackEnded()");
     }
 
     // Runnable members
@@ -98,5 +98,9 @@ public class SoundJLayer extends PlaybackListener implements Runnable
 
     public boolean isPlaying() {
         return isPlaying;
+    }
+
+    public static void setSoundEnabled(boolean b) {
+        soundIsOn = b;
     }
 }
