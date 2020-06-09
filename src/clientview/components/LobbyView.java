@@ -3,15 +3,15 @@ package clientview.components;
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
+import clientsound.ClientSoundManager;
 import clientview.GameModePanel;
 import main.SS13Client;
+import shared.SoundManager;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class LobbyView extends JPanel {
 
@@ -20,6 +20,7 @@ public class LobbyView extends JPanel {
     private final GameModePanel settings;
     private final JobsPanel jobs;
     private final SummaryPanel summary;
+    private final SS13Client parent;
     private JTabbedPane tlp;
     private ServerInfoPanel serverInfoPanel;
     //   private final ChatPanel cp;
@@ -28,6 +29,7 @@ public class LobbyView extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             tlp = new JTabbedPane();
             this.clid = username;
+            this.parent = parent;
 
         serverInfoPanel = new ServerInfoPanel();
         tlp.add(serverInfoPanel, "Info");
@@ -91,12 +93,15 @@ public class LobbyView extends JPanel {
                 System.out.println("Failed to send INFOGET message to server");
             }
         });
+
+        ClientSoundManager.playSound("zombie", clid);
+
+
     }
 
 
     public void flipToSummary() {
         tlp.setSelectedIndex(5);
-
     }
 
 

@@ -2,6 +2,7 @@ package comm;
 
 import graphics.sprites.SpriteManager;
 import model.GameData;
+import shared.SoundManager;
 import util.Logger;
 
 import java.io.IOException;
@@ -18,14 +19,27 @@ public class ResourceCommandHandler extends  AbstractCommandHandler {
     @Override
     public boolean handleCommand(String command, String clid, String rest, ObjectOutputStream oos) throws IOException {
         if (command.equals("RESOURCE")) {
-            if (rest.length() > 0) {
-                String str = SpriteManager.getSpriteAsBas64(rest);
-
-                oos.writeObject(str);
-                return true;
+            if (rest.contains("SOUND")) {
+                rest = rest.replace(" SOUND ", "");
+                if (rest.length() > 0) {
+                    String str = SoundManager.getSoundAsBase64(rest);
+                    oos.writeObject(str);
+                    return true;
+                } else {
+                    Logger.log(Logger.CRITICAL, "Something went wrong when getting SOUND resource, rest was: " + rest);
+                    return false;
+                }
             } else {
-                Logger.log(Logger.CRITICAL, "Something went wrong when getting resource, rest was: " + rest);
-                return false;
+
+                if (rest.length() > 0) {
+                    String str = SpriteManager.getSpriteAsBas64(rest);
+
+                    oos.writeObject(str);
+                    return true;
+                } else {
+                    Logger.log(Logger.CRITICAL, "Something went wrong when getting resource, rest was: " + rest);
+                    return false;
+                }
             }
         }
         return false;

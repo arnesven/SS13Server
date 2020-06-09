@@ -15,6 +15,7 @@ import clientview.components.ReturningPlayerPanel;
 import clientview.dialogs.ConnectToServerDialog;
 import clientview.dialogs.StartNewServerDialog;
 import clientview.strategies.BackgroundDrawingStrategy;
+import clientsound.SoundJLayer;
 import tests.SimulationClient;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ import java.awt.event.KeyEvent;
 
 public class SS13Client extends JFrame {
 
-    public static final String CLIENT_VERSION_STRING = "1.251";
+    public static final String CLIENT_VERSION_STRING = "1.252";
     private final ReturningPlayerPanel retPan;
     public static final Dimension originalSize = new Dimension(960, 960);
     public static final Dimension ingameSize = new Dimension(1200, 960);
@@ -36,6 +37,7 @@ public class SS13Client extends JFrame {
     private int lastPortUsed;
     private int botNumber = 1;
     private FancyFrame fancyFrame;
+    private SoundJLayer backgroundMusic;
 
     public SS13Client() {
         super("SS13 Client " + CLIENT_VERSION_STRING);
@@ -50,7 +52,9 @@ public class SS13Client extends JFrame {
         //setUpKeyListener();
         this.setVisible(true);
         makeFancyFrame();
+        playBackgroundMusic(false);
     }
+
 
     private void makeFancyFrame() {
         this.fancyFrame = new FancyFrame(this);
@@ -127,6 +131,7 @@ public class SS13Client extends JFrame {
         this.setSize(ingameSize);
         this.revalidate();
         this.repaint();
+        playBackgroundMusic(true);
     }
 
     private void makeMenuBar() {
@@ -408,5 +413,17 @@ public class SS13Client extends JFrame {
     private void disableView() { this.view.setEnabled(false);}
 
 
+
+    public void playBackgroundMusic(boolean lobby) {
+        if (backgroundMusic != null) {
+            backgroundMusic.stop();
+        }
+        if (lobby) {
+            backgroundMusic = new SoundJLayer("clientresources/sound/lobbymusic.mp3", true);
+        } else {
+            backgroundMusic = new SoundJLayer("clientresources/sound/splashmusic.mp3", true);
+        }
+        backgroundMusic.play();
+    }
 
 }
