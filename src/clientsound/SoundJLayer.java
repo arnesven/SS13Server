@@ -6,10 +6,13 @@ import javazoom.jl.player.advanced.PlaybackListener;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SoundJLayer extends PlaybackListener implements Runnable
 {
-    private final InputStream inputStream;
+    private InputStream inputStream;
+    private List<byte[]> additionalSounds;
     private AdvancedPlayer player;
     private Thread playerThread;
     private boolean doesRepeat = false;
@@ -33,6 +36,12 @@ public class SoundJLayer extends PlaybackListener implements Runnable
 
     public SoundJLayer(byte[] byteData) {
         this(byteData, false);
+    }
+
+    public SoundJLayer(List<byte[]> byteList) {
+        this(byteList.get(0), false);
+        this.additionalSounds = byteList;
+        byteList.remove(0);
     }
 
 
@@ -79,6 +88,7 @@ public class SoundJLayer extends PlaybackListener implements Runnable
     public void run()
     {
         isPlaying = true;
+        boolean moreToPlay = false;
         do {
             try {
                 this.player = new AdvancedPlayer
@@ -92,7 +102,15 @@ public class SoundJLayer extends PlaybackListener implements Runnable
             } catch (javazoom.jl.decoder.JavaLayerException ex) {
                 ex.printStackTrace();
             }
-        } while (doesRepeat);
+            if (additionalSounds != null && additionalSounds.size() > 0) {
+                moreToPlay = true;
+                inputStream = new ByteArrayInputStream(additionalSounds.get(0));
+                additionalSounds.remove(0);
+                System.out.println("Had at least one more sound to play!");
+            } else {
+                moreToPlay = false;
+            }
+        } while (doesRepeat || moreToPlay);
         isPlaying = false;
     }
 

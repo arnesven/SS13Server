@@ -5,7 +5,9 @@ import clientcomm.ServerCommunicator;
 import shared.SoundManager;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ClientSoundManager extends SoundManager {
@@ -13,12 +15,15 @@ public class ClientSoundManager extends SoundManager {
     private static Map<String, byte[]> loadedSounds = new HashMap<>();
 
     public static void playSound(String key, String clid) {
+        SoundJLayer sjl = new SoundJLayer(getSoundResource(key, clid));
+        sjl.play();
+    }
+
+    private static byte[] getSoundResource(String key, String clid) {
         if (!loadedSounds.keySet().contains(key)) {
             loadFromServer(key, clid);
         }
-        //writeToFile(key);
-        SoundJLayer sjl = new SoundJLayer(loadedSounds.get(key));
-        sjl.play();
+        return loadedSounds.get(key);
     }
 
     private static void loadFromServer(String key, String clid) {
@@ -56,9 +61,13 @@ public class ClientSoundManager extends SoundManager {
     }
 
     public static void playSoundsInSuccession(String[] split, String clid) {
+        List<byte[]> byteList = new ArrayList<>();
         for (String s : split) {
-            System.out.println("Playing sound: " + s);
-            playSound(s, clid);
+            System.out.println("Sound to play: " + s);
+            byteList.add(getSoundResource(s, clid));
         }
+        SoundJLayer sjl = new SoundJLayer(byteList);
+        sjl.play();
+
     }
 }
