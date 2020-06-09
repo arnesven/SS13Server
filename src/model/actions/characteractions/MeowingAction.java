@@ -6,6 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import sounds.Sound;
 
 public class MeowingAction extends Action {
 
@@ -28,4 +29,13 @@ public class MeowingAction extends Action {
 		return "meowed";
 	}
 
+	@Override
+	public boolean hasRealSound() {
+		return true;
+	}
+
+	@Override
+	public Sound getRealSound() {
+		return new Sound("meow1");
+	}
 }

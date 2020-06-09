@@ -11,6 +11,7 @@ import model.characters.decorators.*;
 import model.characters.general.GameCharacter;
 import model.events.RemoveInstanceLaterEvent;
 import model.npcs.NPC;
+import sounds.Sound;
 
 public class StunBaton extends AmmoWeapon {
 
@@ -92,4 +93,13 @@ public class StunBaton extends AmmoWeapon {
 		}
 	}
 
+	@Override
+	public boolean hasRealSound() {
+		return true;
+	}
+
+	@Override
+	public Sound getRealSound() {
+		return new Sound("stunbaton");
+	}
 }

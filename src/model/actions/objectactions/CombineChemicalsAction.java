@@ -9,6 +9,7 @@ import model.characters.crew.ChemistCharacter;
 import model.characters.general.GameCharacter;
 import model.items.chemicals.Chemicals;
 import model.items.general.GameItem;
+import sounds.Sound;
 
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +31,16 @@ public class CombineChemicalsAction extends Action {
     @Override
     protected String getVerb(Actor whosAsking) {
         return "Fiddled with Chemical Apparatus";
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("bubbles");
     }
 
     @Override

@@ -11,6 +11,7 @@ import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.SpellCastingDecorator;
 import model.characters.general.WizardCharacter;
 import model.items.general.GameItem;
+import sounds.Sound;
 
 import java.util.List;
 
@@ -20,6 +21,16 @@ public abstract class CastSpellAction extends TargetingAction {
     public CastSpellAction(SpellBook spellBook, Actor caster) {
         super("Cast " + spellBook.getSpellName(), SensoryLevel.SPEECH, caster);
         this.spellBook = spellBook;
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("magic");
     }
 
     @Override

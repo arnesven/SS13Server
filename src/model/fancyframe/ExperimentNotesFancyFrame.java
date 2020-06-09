@@ -5,8 +5,10 @@ import model.GameData;
 import model.Player;
 import model.items.CosmicMonolith;
 import model.items.ExperimentNotes;
+import sounds.Sound;
 import util.HTMLText;
 import util.Logger;
+import util.MyRandom;
 
 public class ExperimentNotesFancyFrame extends FancyFrame {
 
@@ -101,15 +103,19 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
         if (event.contains("NEXT")) {
             page++;
             buildContent(player, gameData);
+            addPageSound(player);
         } else if (event.contains("PREV")) {
             page--;
             buildContent(player, gameData);
+            addPageSound(player);
         } else if (event.contains("RETURN")) {
             page = 1;
             buildContent(player, gameData);
+            addPageSound(player);
         } else if (event.contains("GOTOPAGE")) {
             page = Integer.parseInt(event.replaceAll("GOTOPAGE ", ""));
             buildContent(player, gameData);
+            addPageSound(player);
         } else if (event.contains("SCRATCH")) {
             notes.getCrossedOut().add(event.replace("SCRATCH ", ""));
             if (notes.checkForReport(gameData, player)) {
@@ -134,5 +140,10 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
             return;
         }
         readyThePlayer(gameData, player);
+    }
+
+    private void addPageSound(Player player) {
+        int i = MyRandom.nextInt(3) + 1;
+        player.getSoundQueue().add(new Sound("pageturn" + i));
     }
 }
