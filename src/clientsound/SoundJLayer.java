@@ -71,19 +71,6 @@ public class SoundJLayer extends PlaybackListener implements Runnable
         }
     }
 
-    // PlaybackListener members
-
-    public void playbackStarted(PlaybackEvent playbackEvent)
-    {
- //       System.out.println("playbackStarted()");
-    }
-
-    public void playbackFinished(PlaybackEvent playbackEvent)
-    {
-  //      System.out.println("playbackEnded()");
-    }
-
-    // Runnable members
 
     public void run()
     {
@@ -102,16 +89,20 @@ public class SoundJLayer extends PlaybackListener implements Runnable
             } catch (javazoom.jl.decoder.JavaLayerException ex) {
                 ex.printStackTrace();
             }
-            if (additionalSounds != null && additionalSounds.size() > 0) {
-                moreToPlay = true;
-                inputStream = new ByteArrayInputStream(additionalSounds.get(0));
-                additionalSounds.remove(0);
-                System.out.println("Had at least one more sound to play!");
-            } else {
-                moreToPlay = false;
-            }
+
+            moreToPlay = hasAdditionalSoundsToPlay();
         } while (doesRepeat || moreToPlay);
         isPlaying = false;
+    }
+
+    private synchronized boolean hasAdditionalSoundsToPlay() {
+        if (additionalSounds != null && additionalSounds.size() > 0) {
+            inputStream = new ByteArrayInputStream(additionalSounds.get(0));
+            additionalSounds.remove(0);
+            System.out.println("Had at least one more sound to play!");
+            return true;
+        }
+        return false;
     }
 
     public boolean isPlaying() {
@@ -121,4 +112,24 @@ public class SoundJLayer extends PlaybackListener implements Runnable
     public static void setSoundEnabled(boolean b) {
         soundIsOn = b;
     }
+
+    public synchronized void addToQueue(List<byte[]> byteList) {
+        additionalSounds.addAll(byteList);
+    }
+
+
+    // PlaybackListener members
+
+    public void playbackStarted(PlaybackEvent playbackEvent)
+    {
+        //       System.out.println("playbackStarted()");
+    }
+
+    public void playbackFinished(PlaybackEvent playbackEvent)
+    {
+        //      System.out.println("playbackEnded()");
+    }
+
+    // Runnable members
+
 }

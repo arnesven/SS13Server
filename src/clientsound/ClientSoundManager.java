@@ -13,6 +13,7 @@ import java.util.Map;
 public class ClientSoundManager extends SoundManager {
 
     private static Map<String, byte[]> loadedSounds = new HashMap<>();
+    private static SoundJLayer effectsSoundQueue;
 
     public static void playSound(String key, String clid) {
         SoundJLayer sjl = new SoundJLayer(getSoundResource(key, clid));
@@ -66,8 +67,12 @@ public class ClientSoundManager extends SoundManager {
             System.out.println("Sound to play: " + s);
             byteList.add(getSoundResource(s, clid));
         }
-        SoundJLayer sjl = new SoundJLayer(byteList);
-        sjl.play();
+        if (effectsSoundQueue == null || !effectsSoundQueue.isPlaying()) {
+            effectsSoundQueue = new SoundJLayer(byteList);
+            effectsSoundQueue.play();
+        } else {
+            effectsSoundQueue.addToQueue(byteList);
+        }
 
     }
 }
