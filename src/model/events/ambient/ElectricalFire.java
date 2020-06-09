@@ -264,7 +264,7 @@ public class ElectricalFire extends OngoingEvent {
 
     @Override
     public Sound getRealSound() {
-        return new Sound("fire-burning");
+        return new Sound("fire");
     }
 
     @Override

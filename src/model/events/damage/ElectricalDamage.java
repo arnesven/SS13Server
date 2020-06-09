@@ -42,6 +42,6 @@ public class ElectricalDamage extends DamagerImpl {
 
     @Override
     public Sound getRealSound() {
-        return new Sound("electric_shock");
+        return new Sound("electric");
     }
 }
