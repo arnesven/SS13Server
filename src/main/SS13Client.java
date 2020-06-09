@@ -426,4 +426,9 @@ public class SS13Client extends JFrame {
         backgroundMusic.play();
     }
 
+    public void stopPlayingBackgroundMusic() {
+        if (backgroundMusic != null && backgroundMusic.isPlaying()) {
+            backgroundMusic.stop();
+        }
+    }
 }

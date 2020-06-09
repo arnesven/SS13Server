@@ -13,6 +13,7 @@ public class SoundJLayer extends PlaybackListener implements Runnable
     private AdvancedPlayer player;
     private Thread playerThread;
     private boolean doesRepeat = false;
+    private boolean isPlaying;
 
     public SoundJLayer(String filePath, boolean doesRepeat) {
         this.doesRepeat = doesRepeat;
@@ -50,8 +51,15 @@ public class SoundJLayer extends PlaybackListener implements Runnable
     }
 
     public void stop() {
-        this.player.stop();
-        this.playerThread.stop();
+        if (isPlaying) {
+            this.player.stop();
+            try {
+                doesRepeat = false;
+                playerThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     // PlaybackListener members
@@ -70,6 +78,7 @@ public class SoundJLayer extends PlaybackListener implements Runnable
 
     public void run()
     {
+        isPlaying = true;
         do {
             try {
                 this.player = new AdvancedPlayer
@@ -84,6 +93,10 @@ public class SoundJLayer extends PlaybackListener implements Runnable
                 ex.printStackTrace();
             }
         } while (doesRepeat);
+        isPlaying = false;
+    }
 
+    public boolean isPlaying() {
+        return isPlaying;
     }
 }
