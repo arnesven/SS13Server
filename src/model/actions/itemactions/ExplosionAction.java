@@ -65,11 +65,11 @@ public class ExplosionAction extends Action {
 
     @Override
     public boolean hasRealSound() {
-        return true;
-    }
+        return false;
+    } // TODO: make true
 
     @Override
     public Sound getRealSound() {
-        return Sound.EXPLOSION;
+        return null; // TODO: Fix
     }
 }

@@ -2,6 +2,8 @@ package clientlogic;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
+import clientlogic.sounds.MusicPlayer;
+import clientsound.ClientSoundManager;
 import clientview.*;
 import clientview.components.*;
 import shared.ClientExtraEffect;
@@ -139,7 +141,7 @@ public class GameData {
 			}
 			index++;
 		} catch (NumberFormatException nfe) {
-            System.out.println("Problem parsing sound-index");
+            System.out.println("Problem parsing fancyframe-index");
 		}
 
 		selectedMode = parts[6];
@@ -147,7 +149,14 @@ public class GameData {
 		int i = 8;
 		timeLimit = Long.parseLong(parts[i++]);
 		timeLeft = Long.parseLong(parts[i++]);
+
+		int soundIndex = Integer.parseInt(parts[i++]);
+		if (soundIndex > lastSound) {
+			getSoundsFromServer(soundIndex);
+		}
+
 		setNextAction(parts[i++]);
+
 		setPlayerDataState(Integer.parseInt(parts[i]));
 
 		notifyObservers();
@@ -195,18 +204,27 @@ public class GameData {
 		});
 	}
 
-//	private void getSoundsFromServer(final int serverLastSound) {
-//		ServerCommunicator.send(getClid() + " SOUNDGET " + getLastSound(), new MyCallback<String>() {
-//
-//			@Override
-//			public void onSuccess(String result) {
-//				MusicPlayer.addSounds(result.substring(1,  result.length()-1).split("<list-part>"));
-//				GameData.this.setLastSound(serverLastSound);
-//			}
-//
-//		});
-//
-//	}
+	private void getSoundsFromServer(final int serverLastSound) {
+		ServerCommunicator.send(getClid() + " SOUNDGET " + getLastSound(), new MyCallback<String>() {
+
+			@Override
+			public void onSuccess(String result) {
+				ClientSoundManager.playSoundsInSuccession(result.substring(1,  result.length()-1).split("<list-part>"), clid);
+				GameData.this.setLastSound(serverLastSound);
+			}
+
+			@Override
+			public void onFail() {
+				System.out.println("Failed to send SOUNDGET");
+			}
+
+		});
+
+	}
+
+	private int getLastSound() {
+		return lastSound;
+	}
 
 	protected void setLastSound(int serverLastSound) {
 		this.lastSound = serverLastSound;

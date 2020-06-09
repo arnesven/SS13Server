@@ -62,6 +62,12 @@ public abstract class BreakableObject extends GameObject implements Target {
 			performingClient.addTolastTurnInfo("You missed the " + super.getPublicName(performingClient) + ".");
 			success = false;
 		}
+
+		if (performingClient instanceof Player) {
+			((Player)performingClient).getSoundQueue().add(item.getRealSound());
+		}
+
+
 		return success;
 	}
 	

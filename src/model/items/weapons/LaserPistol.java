@@ -65,7 +65,7 @@ public class LaserPistol extends AmmoWeapon implements TraitorItem {
 
     @Override
     public Sound getRealSound() {
-        return new Sound("http://www.ida.liu.se/~erini02/ss13/laser_a.ogg");
+        return new Sound("laser_a");
     }
 
     @Override

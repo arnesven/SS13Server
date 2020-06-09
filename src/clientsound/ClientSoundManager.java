@@ -55,4 +55,10 @@ public class ClientSoundManager extends SoundManager {
 
     }
 
+    public static void playSoundsInSuccession(String[] split, String clid) {
+        for (String s : split) {
+            System.out.println("Playing sound: " + s);
+            playSound(s, clid);
+        }
+    }
 }

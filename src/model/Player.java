@@ -570,8 +570,7 @@ public class Player extends Actor implements Target, Serializable {
 		this.nextAction = null;
 		this.personalHistory = new ArrayList<>();
         soundQueue.clear();
-        soundQueue.add(Sound.NEW_GAME);
-	}
+ 	}
 
 	@Override
 	public void beExposedTo(Actor performingClient, Damager damager, GameData gameData) {

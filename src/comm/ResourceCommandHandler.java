@@ -3,6 +3,7 @@ package comm;
 import graphics.sprites.SpriteManager;
 import model.GameData;
 import shared.SoundManager;
+import sounds.ServerSoundManager;
 import util.Logger;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class ResourceCommandHandler extends  AbstractCommandHandler {
             if (rest.contains("SOUND")) {
                 rest = rest.replace(" SOUND ", "");
                 if (rest.length() > 0) {
-                    String str = SoundManager.getSoundAsBase64(rest);
+                    String str = ServerSoundManager.getBase64String(rest);
                     oos.writeObject(str);
                     return true;
                 } else {

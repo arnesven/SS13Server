@@ -58,12 +58,12 @@ public class SpontaneousExplosionEvent extends AmbientEvent {
 
     @Override
     public boolean hasRealSound() {
-        return true;
-    }
+        return false;
+    } // TODO: is true...
 
     @Override
     public Sound getRealSound() {
-        return Sound.EXPLOSION;
-    }
+        return null; // TODO: fix
+     }
 
 }

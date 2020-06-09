@@ -690,7 +690,10 @@ public class GameData implements Serializable {
                 getRound() + del + getNoOfRounds() + del + chatMessages.getLastMessageIndex(getPlayerForClid(clid)) + del +
                 getPlayerForClid(clid).getFancyFrame().getState() + del +
                 getSelectedMode() + del + SS13Client.CLIENT_VERSION_STRING + del +
-                getRoundTimeLimitS() + del + getRoundTimeLeft() + del + nextAct + del + getPlayerForClid(clid).getDataState();
+                getRoundTimeLimitS() + del + getRoundTimeLeft() + del +
+				getPlayerForClid(clid).getSoundQueue().getCurrentIndex() + del +
+				nextAct + del +
+				getPlayerForClid(clid).getDataState();
 	}
 
     private long getRoundTimeLeft() {

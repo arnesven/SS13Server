@@ -6,7 +6,7 @@ import java.util.Base64;
 
 public class SoundManager {
     public static String getSoundAsBase64(String rest) {
-        InputStream is = SoundManager.class.getResourceAsStream("/sound/zombie.mp3");
+        InputStream is = SoundManager.class.getResourceAsStream("/sound/" + rest + ".mp3");
         try {
             byte[] byteArr = is.readAllBytes();
             String result = Base64.getEncoder().encodeToString(byteArr);
