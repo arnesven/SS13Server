@@ -24,7 +24,6 @@ public class CaptainCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
         ArrayList<GameItem> list = new ArrayList<GameItem>();
         list.add(new UniversalKeyCard());
-        list.add(new LaserPistol());
         return list;
     }
 

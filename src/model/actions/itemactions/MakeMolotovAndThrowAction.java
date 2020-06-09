@@ -104,6 +104,6 @@ public class MakeMolotovAndThrowAction extends Action {
 
     @Override
     public Sound getRealSound() {
-        return new Sound("http://www.ida.liu.se/~erini02/ss13/molotov-cocktail.mp3");
+        return new Sound("molotov-cocktail");
     }
 }

@@ -68,7 +68,7 @@ public class Saxophone extends BluntWeapon {
 
         @Override
         public Sound getRealSound() {
-            return new Sound("http://www.ida.liu.se/~erini02/ss13/sax" + soundInt + ".ogg");
+            return new Sound("sax" + soundInt);
         }
     }
 }

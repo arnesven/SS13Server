@@ -66,7 +66,7 @@ public class ImpalerWeapon extends SlashingWeapon {
 
         @Override
         public Sound getRealSound() {
-            return new Sound("http://www.ida.liu.se/~erini02/ss13/scary-scream.mp3");
+            return new Sound("scary-scream");
         }
     }
 }

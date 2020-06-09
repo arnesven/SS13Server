@@ -18,7 +18,7 @@ public class Fist extends Weapon implements BludgeoningWeapon {
 
     @Override
     public Sound getRealSound() {
-        return new Sound("http://www.ida.liu.se/~erini02/ss13/punch1.ogg");
+        return new Sound("punch1");
     }
 
     @Override

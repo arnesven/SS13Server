@@ -264,7 +264,7 @@ public class ElectricalFire extends OngoingEvent {
 
     @Override
     public Sound getRealSound() {
-        return new Sound("http://www.ida.liu.se/~erini02/ss13/fire-burning.mp3");
+        return new Sound("fire-burning");
     }
 
     @Override

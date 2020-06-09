@@ -88,7 +88,7 @@ public class PutOutFireAction extends Action implements QuickAction {
 
     @Override
     public Sound getRealSound() {
-        return new Sound("http://www.ida.liu.se/~erini02/ss13/spray.ogg");
+        return new Sound("spray");
     }
 
     @Override
