@@ -75,10 +75,10 @@ public abstract class Console extends SinglePersonUseMachine implements Remotely
                 at.addAll(consoleActions);
             }
         } else {
-            if (cl.isAI()) {
-                consoleActions.removeIf((Action a) -> a instanceof SitDownAtConsoleAction);
-                at.addAll(consoleActions);
-            } else if (cl.isHuman() || cl.isRobot()) {
+            //if (cl.isAI()) {
+            //    consoleActions.removeIf((Action a) -> a instanceof SitDownAtConsoleAction);
+            //    at.addAll(consoleActions);
+            if (cl.isHuman() || cl.isRobot() || cl.isAI()) {
                 consoleActions.removeIf((Action a) -> !(a instanceof SitDownAtConsoleAction));
                 at.addAll(consoleActions);
             }
