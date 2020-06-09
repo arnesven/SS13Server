@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.characters.general.GameCharacter;
 import model.items.SeveredArm;
+import model.items.foods.NukaCola;
 import model.items.general.*;
 import model.items.mining.MiningExplosives;
 import model.items.suits.CaptainsOutfit;
@@ -24,7 +25,6 @@ public class CaptainCharacter extends CrewCharacter {
     public List<GameItem> getCrewSpecificItems() {
         ArrayList<GameItem> list = new ArrayList<GameItem>();
         list.add(new UniversalKeyCard());
-        list.add(new Saxophone());
         return list;
     }
 

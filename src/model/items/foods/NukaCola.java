@@ -4,6 +4,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.events.damage.RadiationDamage;
+import sounds.Sound;
 import util.MyRandom;
 
 public class NukaCola extends HealingFood {
@@ -35,5 +36,16 @@ public class NukaCola extends HealingFood {
         if (MyRandom.nextDouble() < RAD_DAMAGE_CHANCE) {
             eatenBy.getAsTarget().beExposedTo(eatenBy, new RadiationDamage(0.5, gameData), gameData);
         }
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        int i = MyRandom.nextInt(3) + 1;
+        return new Sound("can_open" + i);
     }
 }

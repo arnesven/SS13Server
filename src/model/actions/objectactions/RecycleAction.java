@@ -10,6 +10,7 @@ import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.objects.recycling.RecyclingContainer;
 import model.objects.recycling.TrashBin;
+import sounds.Sound;
 
 import java.util.List;
 
@@ -31,6 +32,16 @@ public class RecycleAction extends Action {
             return "tried to recycle something.";
         }
         return "recycled " + selectedItem.getPublicName(whosAsking);
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("bin_close");
     }
 
     @Override

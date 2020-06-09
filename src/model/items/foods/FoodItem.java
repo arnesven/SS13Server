@@ -8,7 +8,9 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.ConsumeAction;
+import model.events.Experienceable;
 import model.items.general.GameItem;
+import sounds.Sound;
 
 public abstract class FoodItem extends GameItem {
 
@@ -55,4 +57,11 @@ public abstract class FoodItem extends GameItem {
 		return "<i>Consumable</i><br/>";
 	}
 
+	public boolean hasRealSound() {
+		return false;
+	}
+
+	public Sound getRealSound() {
+		return null;
+	}
 }

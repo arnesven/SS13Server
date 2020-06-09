@@ -10,6 +10,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.foods.FoodItem;
+import sounds.Sound;
 
 public class ConsumeAction extends Action implements QuickAction {
 
@@ -23,6 +24,16 @@ public class ConsumeAction extends Action implements QuickAction {
 	@Override
 	protected String getVerb(Actor whosAsking) {
 		return "consumed something.";
+	}
+
+	@Override
+	public boolean hasRealSound() {
+		return food.hasRealSound();
+	}
+
+	@Override
+	public Sound getRealSound() {
+		return food.getRealSound();
 	}
 
 	@Override
