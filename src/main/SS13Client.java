@@ -160,6 +160,8 @@ public class SS13Client extends JFrame {
         menubar.add(file);
         menubar.add(view);
 
+        menubar.add(makeAudioMenu());
+
         JMenuItem startServer = new JMenuItem("Host Game");
         JMenuItem bot = new JMenuItem("Add Bot");
         JMenuItem tenBots = new JMenuItem("Add 10 Bots");
@@ -213,6 +215,12 @@ public class SS13Client extends JFrame {
         server.add(tenBots);
         menubar.add(server);
 
+
+
+        this.setJMenuBar(menubar);
+    }
+
+    private JComponent makeAudioMenu() {
         JMenu sound = new JMenu("Audio");
 
         JRadioButtonMenuItem soundOn = new JRadioButtonMenuItem("Sound On");
@@ -226,9 +234,7 @@ public class SS13Client extends JFrame {
 
         sound.add(soundOn);
         sound.add(soundOff);
-
-        menubar.add(sound);
-        this.setJMenuBar(menubar);
+        return sound;
     }
 
     private void makeZoomMenu(JMenu view) {

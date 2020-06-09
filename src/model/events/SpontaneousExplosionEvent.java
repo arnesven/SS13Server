@@ -1,5 +1,6 @@
 package model.events;
 
+import model.actions.itemactions.ExplosionAction;
 import model.events.ambient.AmbientEvent;
 import model.events.animation.BigExplosionAnimation;
 import model.events.damage.ExplosiveDamage;
@@ -58,12 +59,12 @@ public class SpontaneousExplosionEvent extends AmbientEvent {
 
     @Override
     public boolean hasRealSound() {
-        return false;
-    } // TODO: is true...
+        return true;
+    }
 
     @Override
     public Sound getRealSound() {
-        return null; // TODO: fix
+        return ExplosionAction.EXPLOSION_SOUND;
      }
 
 }

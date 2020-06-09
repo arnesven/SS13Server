@@ -17,7 +17,8 @@ import util.MyRandom;
 
 public class ExplosionAction extends Action {
 
-	private Damager exploder;
+    public static final Sound EXPLOSION_SOUND = new Sound("explosion2");
+    private Damager exploder;
 	private Room location;
 
 	public ExplosionAction(Damager exploder, Room location) {
@@ -65,11 +66,11 @@ public class ExplosionAction extends Action {
 
     @Override
     public boolean hasRealSound() {
-        return false;
-    } // TODO: make true
+        return true;
+    }
 
     @Override
     public Sound getRealSound() {
-        return null; // TODO: Fix
+        return EXPLOSION_SOUND;
     }
 }
