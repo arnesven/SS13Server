@@ -120,7 +120,7 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
     }
 
     private boolean isATechnicalPerson(Player player) {
-        return player.getCharacter().checkInstance((GameCharacter gc) ->
+        return player.isAI() || player.getCharacter().checkInstance((GameCharacter gc) ->
                 gc instanceof CrewCharacter && ((CrewCharacter) gc).getType().equals("Technical"));
     }
 

@@ -91,7 +91,9 @@ public class SolarArrayControlFancyFrame extends ConsoleFancyFrame {
     }
 
     private boolean canOperateSolarPanels(Player player) {
-        return player.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof CrewCharacter && ((CrewCharacter) gc).getType().equals("Technical"));
+        return player.isAI() ||
+                player.getCharacter().checkInstance((GameCharacter gc) -> gc
+                        instanceof CrewCharacter && ((CrewCharacter) gc).getType().equals("Technical"));
     }
 
     @Override
