@@ -20,6 +20,7 @@ import model.fancyframe.SinglePageFancyFrame;
 import model.items.general.GameItem;
 import model.items.laws.AISuit;
 import model.items.weapons.Weapon;
+import model.map.rooms.DecorativeRoom;
 import model.map.rooms.Room;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.SecurityCameraConsole;
@@ -162,7 +163,11 @@ public class AICharacter extends GhostCharacter {
 
     @Override
     public List<Room> getVisibleMap(GameData gameData) {
-        return SecurityCameraConsole.getConnectedCameraRooms(gameData);
+        List<Room> result = new ArrayList<>();
+        result.addAll(gameData.getNonHiddenStationRooms());
+        result.removeIf((Room r) -> !(r instanceof DecorativeRoom));
+        result.addAll(SecurityCameraConsole.getConnectedCameraRooms(gameData));
+        return result;
     }
 
     @Override
