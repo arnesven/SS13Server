@@ -5,6 +5,8 @@ import model.GameData;
 import model.Player;
 import model.characters.decorators.DrunkChecker;
 import model.events.DrunkTimerEvent;
+import sounds.Sound;
+
 /**
  * @author chrho686
  * Abstract base class for all alcoholic beverages
@@ -16,6 +18,16 @@ public abstract class Alcohol extends FoodItem {
 	public Alcohol(String name, double weight, int potency, int cost) {
 		super(name, weight, cost);
 		this.potency = potency;
+	}
+
+	@Override
+	public boolean hasRealSound() {
+		return true;
+	}
+
+	@Override
+	public Sound getRealSound() {
+		return new Sound("drink");
 	}
 
 	@Override

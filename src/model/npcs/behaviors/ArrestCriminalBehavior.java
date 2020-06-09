@@ -5,8 +5,10 @@ import java.util.List;
 
 import model.Actor;
 import model.GameData;
+import model.events.ambient.SoundInRoomEvent;
 import model.items.NoSuchThingException;
 import model.objects.consoles.CrimeRecordsConsole;
+import sounds.Sound;
 
 public class ArrestCriminalBehavior implements ActionBehavior {
 
@@ -30,7 +32,9 @@ public class ArrestCriminalBehavior implements ActionBehavior {
 		if (acts.size() == 0) {
 			return; // nobody to arrest
 		}
-		
+
+
+
 		Actor worst = acts.get(0);
 		int points = console.sumCrimesFor(acts.get(0));
 		for (Actor a : acts) {

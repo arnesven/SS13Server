@@ -14,6 +14,7 @@ import model.map.SpacePosition;
 import model.map.rooms.AirLockRoom;
 import model.map.rooms.Room;
 import model.map.rooms.SpaceRoom;
+import sounds.Sound;
 import util.Logger;
 
 public class AirlockPanel extends ElectricalMachinery {
@@ -74,6 +75,16 @@ public class AirlockPanel extends ElectricalMachinery {
 		return new Action("Pressurize", SensoryLevel.OPERATE_DEVICE) {
 
 			@Override
+			public boolean hasRealSound() {
+				return true;
+			}
+
+			@Override
+			public Sound getRealSound() {
+				return new Sound("airlockclose");
+			}
+
+			@Override
 			public void setArguments(List<String> args, Actor p) { }
 
 			@Override
@@ -90,6 +101,16 @@ public class AirlockPanel extends ElectricalMachinery {
 
 	private Action makeDepressurizeAction(GameData gameData) {
 		return new Action("Depressurize", SensoryLevel.OPERATE_DEVICE) {
+
+			@Override
+			public boolean hasRealSound() {
+				return true;
+			}
+
+			@Override
+			public Sound getRealSound() {
+				return new Sound("airlockopen");
+			}
 
 			@Override
 			public void setArguments(List<String> args, Actor p) { }

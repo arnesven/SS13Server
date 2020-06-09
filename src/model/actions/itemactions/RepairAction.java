@@ -15,6 +15,7 @@ import model.items.tools.CraftingTools;
 import model.items.tools.RepairTools;
 import model.objects.general.BreakableObject;
 import model.objects.general.Repairable;
+import sounds.Sound;
 
 import java.util.List;
 
@@ -24,7 +25,15 @@ public class RepairAction extends TargetingAction implements QuickAction {
 		super("Repair", SensoryLevel.PHYSICAL_ACTIVITY, ap);
 	}
 
+	@Override
+	public boolean hasRealSound() {
+		return true;
+	}
 
+	@Override
+	public Sound getRealSound() {
+		return new Sound("hammer");
+	}
 
 	@Override
 	protected void applyTargetingAction(GameData gameData,

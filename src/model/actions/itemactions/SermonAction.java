@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Player;
 import model.actions.QuickAction;
+import sounds.Sound;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -21,7 +22,17 @@ public class SermonAction extends Action implements QuickAction {
 		super("Sing Sermon", SensoryLevel.NO_SENSE);
 		this.bible = bible;
 	}
-	
+
+	@Override
+	public boolean hasRealSound() {
+		return true;
+	}
+
+	@Override
+	public Sound getRealSound() {
+		return new Sound("pray");
+	}
+
 	@Override
 	protected String getVerb(Actor whosAsking) {
 		return "sang a sermon";

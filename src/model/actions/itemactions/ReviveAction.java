@@ -10,6 +10,7 @@ import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
 import model.items.general.Defibrilator;
+import sounds.Sound;
 import util.MyRandom;
 
 import java.util.List;
@@ -24,6 +25,16 @@ public class ReviveAction extends Action {
     public ReviveAction(GameData gameData, Actor cl, Defibrilator defibrilator) {
         super("Resuscitate", SensoryLevel.OPERATE_DEVICE);
         this.defibrilator = defibrilator;
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("defib_zap");
     }
 
     @Override

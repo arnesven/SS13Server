@@ -5,8 +5,10 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
+import model.actions.general.PutOnAction;
 import model.actions.general.SensoryLevel;
 import model.items.suits.SuitItem;
+import sounds.Sound;
 import util.Logger;
 
 import java.util.List;
@@ -24,6 +26,16 @@ public class UnequipAction extends Action implements QuickAction {
             return "unequipped something";
         }
         return "unequipped " + selectedSuit.getPublicName(whosAsking);
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return PutOnAction.makeReustleSound();
     }
 
     @Override

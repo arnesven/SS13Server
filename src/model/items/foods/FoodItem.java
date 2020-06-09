@@ -64,4 +64,8 @@ public abstract class FoodItem extends GameItem {
 	public Sound getRealSound() {
 		return null;
 	}
+
+	protected Sound getCrunchySound() {
+		return new Sound("eatfood");
+	}
 }

@@ -13,7 +13,9 @@ import model.items.suits.SuitItem;
 import model.items.suits.Wearable;
 import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
+import sounds.Sound;
 import util.Logger;
+import util.MyRandom;
 
 public class PutOnAction extends Action implements QuickAction {
 
@@ -28,6 +30,17 @@ public class PutOnAction extends Action implements QuickAction {
 		this.putOnner = ap;
 		addOptions(ap);
 	}
+
+	@Override
+	public boolean hasRealSound() {
+		return true;
+	}
+
+	@Override
+	public Sound getRealSound() {
+		return makeReustleSound();
+	}
+
 
 	private void addOptions(Actor ap) {
 		for (GameItem it : ap.getItems()) {
@@ -185,4 +198,9 @@ public class PutOnAction extends Action implements QuickAction {
 	public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
 		return performer.getPosition().getClients();
 	}
+
+	public static Sound makeReustleSound() {
+		return new Sound("rustle" + MyRandom.nextInt(5) + 1);
+	}
+
 }

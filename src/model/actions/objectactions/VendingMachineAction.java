@@ -11,6 +11,7 @@ import model.items.general.GameItem;
 import model.items.general.ItemStackDepletedException;
 import model.items.general.MoneyStack;
 import model.objects.general.VendingMachine;
+import sounds.Sound;
 
 import java.util.List;
 
@@ -24,6 +25,16 @@ public class VendingMachineAction extends Action {
     public VendingMachineAction(VendingMachine vendingMachine) {
         super("Use " + vendingMachine.getName(), SensoryLevel.OPERATE_DEVICE);
         this.vendingMachine = vendingMachine;
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("machine_vend");
     }
 
     @Override

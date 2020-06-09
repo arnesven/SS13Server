@@ -15,6 +15,7 @@ import model.map.rooms.Room;
 import model.objects.general.CrateObject;
 import model.objects.general.Dumbwaiter;
 import model.objects.general.GameObject;
+import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
 import model.Actor;
@@ -40,6 +41,16 @@ public class CookFoodAction extends Action {
         super("Cook Food", SensoryLevel.OPERATE_DEVICE);
         this.cooker = cookOMatic;
         this.fancyFrame = cmfa;
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("ding");
     }
 
     public CookFoodAction(CookOMatic cookOMatic) {

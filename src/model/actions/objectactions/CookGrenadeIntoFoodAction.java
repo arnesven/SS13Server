@@ -12,6 +12,7 @@ import model.items.general.GameItem;
 import model.items.foods.ExplodingFood;
 import model.items.foods.FoodItem;
 import model.objects.general.CookOMatic;
+import sounds.Sound;
 import util.Logger;
 
 public class CookGrenadeIntoFoodAction extends Action {
@@ -26,7 +27,19 @@ public class CookGrenadeIntoFoodAction extends Action {
 		this.cooker = cookOMatic;
 		this.innerAction = cookFoodAction;
 	}
-	
+
+
+	@Override
+	public boolean hasRealSound() {
+		return innerAction.hasRealSound();
+	}
+
+	@Override
+	public Sound getRealSound() {
+		return innerAction.getRealSound();
+	}
+
+
 	@Override
 	protected String getVerb(Actor whosAsking) {
 		return innerAction.getVerb(whosAsking);

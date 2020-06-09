@@ -6,6 +6,8 @@ import java.util.List;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.items.weapons.BluntWeapon;
 import model.actions.general.SensoryLevel;
@@ -35,12 +37,12 @@ public class Saxophone extends BluntWeapon {
         return new Saxophone();
     }
 
-    public static class PlaySaxophoneAction extends Action {
+    public static class PlaySaxophoneAction extends Action implements QuickAction {
 
         private final int soundInt;
 
         public PlaySaxophoneAction() {
-            super("Play Saxophone", SensoryLevel.PHYSICAL_ACTIVITY);
+            super("Play Saxophone", SensoryLevel.SCREAM);
             soundInt = MyRandom.nextInt(5) + 1;
         }
 
@@ -69,6 +71,23 @@ public class Saxophone extends BluntWeapon {
         @Override
         public Sound getRealSound() {
             return new Sound("sax" + soundInt);
+        }
+
+        @Override
+        public void performQuickAction(GameData gameData, Player performer) {
+            execute(gameData, performer);
+        }
+
+        @Override
+        public boolean isValidToExecute(GameData gameData, Player performer) {
+            return true;
+        }
+
+        @Override
+        public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+            List<Player> result = new ArrayList<>();
+            result.addAll(gameData.getPlayersAsList());
+            return result;
         }
     }
 }

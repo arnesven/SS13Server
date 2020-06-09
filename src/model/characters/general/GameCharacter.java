@@ -11,6 +11,7 @@ import model.*;
 import model.actions.general.AttackAction;
 import model.characters.decorators.*;
 import model.characters.special.SpectatorCharacter;
+import model.events.PlayerDiedEvent;
 import model.items.BodyPartFactory;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
@@ -28,6 +29,7 @@ import model.movepowers.*;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.DoNothingBehavior;
+import sound.DeathSound;
 import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
@@ -174,7 +176,8 @@ public abstract class GameCharacter implements Serializable {
     }
 
     public void doUponDeath(Actor killer, GameItem killItem) {
-        if (killItem != null) {
+		getActor().getPosition().addToEventsHappened(new PlayerDiedEvent(this));
+		if (killItem != null) {
             this.killerItem = killItem;
         }
         Logger.log(Logger.INTERESTING, getActor().getBaseName() + " just died! ");
@@ -183,6 +186,7 @@ public abstract class GameCharacter implements Serializable {
             if (killerItem != null) {
                 Logger.log(Logger.INTERESTING, "  ... killed by " + killer.getBaseName() + " with " + killerItem.getBaseName());
             }
+
         }
     }
 

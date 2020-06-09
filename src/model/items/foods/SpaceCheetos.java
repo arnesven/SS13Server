@@ -2,6 +2,7 @@ package model.items.foods;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import sounds.Sound;
 
 public class SpaceCheetos extends HealingFood {
     public SpaceCheetos(Actor maker) {
@@ -21,5 +22,15 @@ public class SpaceCheetos extends HealingFood {
     @Override
     public FoodItem clone() {
         return new SpaceCheetos(getMaker());
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return super.getCrunchySound();
     }
 }

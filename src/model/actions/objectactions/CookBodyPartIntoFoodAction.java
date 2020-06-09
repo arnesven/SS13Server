@@ -9,6 +9,7 @@ import model.items.BodyPart;
 import model.items.foods.BodyPartFood;
 import model.items.general.GameItem;
 import model.objects.general.CookOMatic;
+import sounds.Sound;
 
 import java.util.List;
 
@@ -20,6 +21,16 @@ public class CookBodyPartIntoFoodAction extends Action {
         super("Cook Body Part Into Food", SensoryLevel.PHYSICAL_ACTIVITY);
         this.innerAction = cookFoodAction;
         this.cookOMatic = cookOMatic;
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return innerAction.hasRealSound();
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return innerAction.getRealSound();
     }
 
     @Override

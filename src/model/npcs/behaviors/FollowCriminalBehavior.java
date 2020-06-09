@@ -1,10 +1,13 @@
 package model.npcs.behaviors;
 
 import model.Actor;
+import model.events.ambient.LoudSoundInRoomEvent;
+import model.events.ambient.SoundInRoomEvent;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.objects.consoles.CrimeRecordsConsole;
+import sounds.Sound;
 import util.Logger;
 
 public class FollowCriminalBehavior implements MovementBehavior {
@@ -19,6 +22,7 @@ public class FollowCriminalBehavior implements MovementBehavior {
 
 	@Override
 	public void move(NPC npc) {
+		boolean sirenOn = true;
 		Actor mostWanted = console.getMostWanted(true);
 		if (mostWanted == null) {
 			Logger.log("SecuriTRON: no LOS to bad guys...");
@@ -27,6 +31,7 @@ public class FollowCriminalBehavior implements MovementBehavior {
 				inner.move(npc);
 			} else {
 				Logger.log("SecuriTRON: no baddies, going back to sleep");
+				sirenOn = false;
 			}
 
 		} else {
@@ -43,6 +48,15 @@ public class FollowCriminalBehavior implements MovementBehavior {
 					}
 				}
 			}
+		}
+
+		if (sirenOn) {
+			npc.getPosition().addToEventsHappened(new LoudSoundInRoomEvent() {
+				@Override
+				public Sound getRealSound() {
+					return new Sound("weeoo1");
+				}
+			});
 		}
 	}
 }

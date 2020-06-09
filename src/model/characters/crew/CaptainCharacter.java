@@ -4,14 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.general.GameCharacter;
-import model.items.SeveredArm;
-import model.items.foods.NukaCola;
 import model.items.general.*;
-import model.items.mining.MiningExplosives;
 import model.items.suits.CaptainsOutfit;
-import model.items.suits.PirateOutfit;
-import model.items.weapons.Flamer;
-import model.items.weapons.LaserPistol;
 
 public class CaptainCharacter extends CrewCharacter {
 

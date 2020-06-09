@@ -15,6 +15,7 @@ import model.items.general.GameItem;
 import model.items.general.Tools;
 import model.items.tools.RepairTools;
 import model.npcs.robots.RobotNPC;
+import sounds.Sound;
 
 import java.util.List;
 
@@ -29,6 +30,16 @@ public class SealHullBreachAction extends Action implements QuickAction {
 
     @Override
     public void setArguments(List<String> args, Actor p) {
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("welder");
     }
 
     @Override

@@ -10,6 +10,7 @@ import model.characters.general.GameCharacter;
 import model.events.damage.PoisonDamage;
 import model.items.foods.FoodItem;
 import model.items.general.GameItem;
+import sounds.Sound;
 import util.HTMLText;
 import util.MyRandom;
 
@@ -30,6 +31,16 @@ public abstract class Chemicals extends FoodItem {
     public abstract boolean isToxic();
     public abstract boolean isCorrosive();
     public abstract String getFormula();
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("drink");
+    }
 
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {

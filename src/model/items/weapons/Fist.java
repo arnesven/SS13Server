@@ -2,6 +2,7 @@ package model.items.weapons;
 
 import model.items.general.GameItem;
 import sounds.Sound;
+import util.MyRandom;
 
 /**
  * Created by erini02 on 18/12/16.
@@ -18,6 +19,9 @@ public class Fist extends Weapon implements BludgeoningWeapon {
 
     @Override
     public Sound getRealSound() {
+        if (MyRandom.nextDouble() > 0.5) {
+            return new Sound("punch2");
+        }
         return new Sound("punch1");
     }
 

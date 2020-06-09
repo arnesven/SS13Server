@@ -31,6 +31,7 @@ import model.npcs.behaviors.MeanderingMovement;
 import model.npcs.robots.RobotNPC;
 import model.objects.ai.AIScreen;
 import model.objects.power.PositronGenerator;
+import sounds.Sound;
 import util.HTMLText;
 import util.MyRandom;
 
@@ -218,11 +219,15 @@ public class AIConsole extends Console {
             for (Room r : gameData.getMap().getRoomsForLevel("ss13")) {
                 for (Actor a : r.getActors()) {
                     a.addTolastTurnInfo(HTMLText.makeText("orange", "AI; \"" + s + "\""));
+                    if (a instanceof Player) {
+                        ((Player) a).getSoundQueue().add(new Sound("attention"));
+                    }
                 }
             }
         }
         if (AIIsPlayer() && !isShutDown()) {
             aiPlayer.addTolastTurnInfo(HTMLText.makeText("blue", "SYSTEM; \"" + s + "\""));
+            aiPlayer.getSoundQueue().add(new Sound("attention"));
         }
     }
 

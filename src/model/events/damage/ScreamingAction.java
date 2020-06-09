@@ -4,6 +4,8 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import sounds.Sound;
+import util.MyRandom;
 
 import java.util.List;
 
@@ -15,6 +17,15 @@ public class ScreamingAction extends Action {
         this.screamer = screamer;
     }
 
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return makeScreamSound(screamer.getCharacter().getGender());
+    }
 
     @Override
     protected String getVerb(Actor whosAsking) {
@@ -34,6 +45,15 @@ public class ScreamingAction extends Action {
     @Override
     public String getDistantDescription(Actor whosAsking) {
         return "You hear a " + screamer.getCharacter().getGender() + " screaming...";
+    }
+
+
+    private static Sound makeScreamSound(String gender) {
+        if (gender.equals("man")) {
+            return new Sound("malescream_" + MyRandom.nextInt(6)+1);
+        }
+        return new Sound("femalescream_" + MyRandom.nextInt(5)+1);
+
     }
 
 

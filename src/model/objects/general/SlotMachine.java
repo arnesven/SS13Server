@@ -60,7 +60,8 @@ public class SlotMachine extends ElectricalMachinery {
         }
     }
 
-    public void play(GameData gameData, Actor performingClient, int bettedAmount, SlotMachineFancyFrame ff) {
+    public boolean play(GameData gameData, Actor performingClient, int bettedAmount, SlotMachineFancyFrame ff) {
+        boolean wasWin = false;
         MoneyStack m = null;
         try {
             m = MoneyStack.getActorsMoney(performingClient);
@@ -83,6 +84,7 @@ public class SlotMachine extends ElectricalMachinery {
             payOut = gameData.getGameMode().getBank().getStationMoney();
         }
         if (payOut > 0) {
+            wasWin = true;
             try {
                 MoneyStack.getActorsMoney(performingClient).addTo(payOut);
             } catch (NoSuchThingException e) {
@@ -91,6 +93,7 @@ public class SlotMachine extends ElectricalMachinery {
         }
         gameData.getGameMode().getBank().subtractFromStationMoney(payOut, this);
         ff.setResult(result, payOut);
+        return wasWin;
     }
 
     @Override

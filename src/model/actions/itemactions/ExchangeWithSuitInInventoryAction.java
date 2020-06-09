@@ -4,8 +4,10 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
+import model.actions.general.PutOnAction;
 import model.actions.general.SensoryLevel;
 import model.items.suits.SuitItem;
+import sounds.Sound;
 
 import java.util.List;
 
@@ -21,6 +23,16 @@ public class ExchangeWithSuitInInventoryAction extends Action {
     @Override
     protected String getVerb(Actor whosAsking) {
         return "changed clothes";
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return PutOnAction.makeReustleSound();
     }
 
     @Override

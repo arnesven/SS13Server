@@ -3,6 +3,8 @@ package model.characters.crew;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
+import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
@@ -16,6 +18,7 @@ import model.items.suits.SecOffsVest;
 import model.items.suits.SuitItem;
 import model.items.suits.SunGlasses;
 import model.items.weapons.StunBaton;
+import sounds.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,10 +61,20 @@ public abstract class SecurityCharacter extends CrewCharacter {
         return 25;
     }
 
-    private class SuitUpAction extends Action {
+    private class SuitUpAction extends Action implements QuickAction {
 
         public SuitUpAction() {
             super("Suit Up", SensoryLevel.PHYSICAL_ACTIVITY);
+        }
+
+        @Override
+        public boolean hasRealSound() {
+            return true;
+        }
+
+        @Override
+        public Sound getRealSound() {
+            return new Sound("jumpsuit_equip");
         }
 
         @Override
@@ -105,6 +118,21 @@ public abstract class SecurityCharacter extends CrewCharacter {
         @Override
         public Sprite getAbilitySprite() {
             return new Sprite("securityoffsuitupabi", "interface_retro.png", 1, null);
+        }
+
+        @Override
+        public void performQuickAction(GameData gameData, Player performer) {
+            execute(gameData, performer);
+        }
+
+        @Override
+        public boolean isValidToExecute(GameData gameData, Player performer) {
+            return true;
+        }
+
+        @Override
+        public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
+            return performer.getPosition().getClients();
         }
     }
 

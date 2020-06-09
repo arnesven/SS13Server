@@ -10,6 +10,7 @@ import model.items.NoSuchThingException;
 import model.items.general.MoneyStack;
 import model.items.general.ItemStackDepletedException;
 import model.objects.general.SlotMachine;
+import sounds.Sound;
 
 import java.util.List;
 
@@ -21,11 +22,25 @@ public class SlotMachineAction extends Action {
     private final SlotMachine slots;
     private final SlotMachineFancyFrame fancyFrame;
     private int bettedAmount = 1;
+    private boolean wasWin = false;
 
     public SlotMachineAction(SlotMachine slots, SlotMachineFancyFrame ff) {
         super("Slot Machine", SensoryLevel.OPERATE_DEVICE);
         this.slots = slots;
         this.fancyFrame = ff;
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        if (wasWin) {
+            return new Sound("roulettejackpot");
+        }
+        return new Sound("roulettewheel");
     }
 
     public SlotMachineAction(SlotMachine slots) {
@@ -56,7 +71,7 @@ public class SlotMachineAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        slots.play(gameData, performingClient, bettedAmount, fancyFrame);
+        wasWin = slots.play(gameData, performingClient, bettedAmount, fancyFrame);
     }
 
     @Override
