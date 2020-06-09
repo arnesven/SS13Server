@@ -73,10 +73,10 @@ public class TeleportAction extends Action {
                         target.addTolastTurnInfo("You were teleported to " + teleporter.getMarked().getName());
                         target.moveIntoRoom(teleporter.getMarked());
                         if (teleporter.getMarked() instanceof SpaceRoom) {
-                            performingClient.goToSpace(gameData);
+                            target.goToSpace(gameData);
                         } else {
-                            if (performingClient.isInSpace()) {
-                                performingClient.stopBeingInSpace();
+                            if (target.isInSpace()) {
+                                target.stopBeingInSpace();
                             }
                         }
                     }

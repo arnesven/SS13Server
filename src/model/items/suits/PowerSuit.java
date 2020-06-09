@@ -30,15 +30,6 @@ public class PowerSuit extends FullBodySuit {
         return new PowerSuit();
     }
 
-    @Override
-    public int getEquipmentSlot() {
-        return Equipment.TORSO_SLOT;
-    }
-
-    @Override
-    public boolean blocksSlot(int targetSlot) {
-        return true;
-    }
 
     @Override
     protected Map<Integer, Sprite> getFullBodySprites() {
