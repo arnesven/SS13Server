@@ -6,6 +6,7 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.objects.general.BreakableObject;
+import sounds.Sound;
 import util.MyRandom;
 
 public abstract class BluntWeapon extends Weapon implements BludgeoningWeapon {
@@ -42,5 +43,15 @@ public abstract class BluntWeapon extends Weapon implements BludgeoningWeapon {
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
         return " or whacking somebody in the head.";
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("genhit" + (MyRandom.nextInt(4) + 1));
     }
 }

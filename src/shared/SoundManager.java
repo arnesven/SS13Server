@@ -8,6 +8,9 @@ public class SoundManager {
     public static String getSoundAsBase64(String rest) {
         InputStream is = SoundManager.class.getResourceAsStream("/sound/" + rest + ".mp3");
         try {
+            if (is == null) {
+                System.out.println("Tried getting resource " + rest);
+            }
             byte[] byteArr = is.readAllBytes();
             String result = Base64.getEncoder().encodeToString(byteArr);
             return result;

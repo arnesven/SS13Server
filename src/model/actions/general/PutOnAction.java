@@ -200,7 +200,7 @@ public class PutOnAction extends Action implements QuickAction {
 	}
 
 	public static Sound makeReustleSound() {
-		return new Sound("rustle" + MyRandom.nextInt(5) + 1);
+		return new Sound("rustle" + (MyRandom.nextInt(5) + 1));
 	}
 
 }

@@ -50,9 +50,9 @@ public class ScreamingAction extends Action {
 
     private static Sound makeScreamSound(String gender) {
         if (gender.equals("man")) {
-            return new Sound("malescream_" + MyRandom.nextInt(6)+1);
+            return new Sound("malescream_" + (MyRandom.nextInt(6)+1));
         }
-        return new Sound("femalescream_" + MyRandom.nextInt(5)+1);
+        return new Sound("femalescream_" + (MyRandom.nextInt(5)+1));
 
     }
 
