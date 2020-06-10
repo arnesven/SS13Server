@@ -7,6 +7,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.map.rooms.Room;
+import sounds.Sound;
 import util.Logger;
 
 import java.util.HashSet;
@@ -20,6 +21,19 @@ public class MoveAction extends Action {
     public MoveAction(GameData gameData, Actor actor) {
         super("Move", SensoryLevel.PHYSICAL_ACTIVITY);
         this.gameData = gameData;
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        if (performer.getPosition().getNeighborList().contains(destination)) {
+            return new Sound("slow_walk_floor");
+        }
+        return new Sound("fast_walk_floor");
     }
 
     @Override

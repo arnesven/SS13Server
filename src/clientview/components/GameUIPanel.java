@@ -151,7 +151,6 @@ public class GameUIPanel extends JPanel implements Observer {
                     if (state == 2 || state == 1) { // went to pre-game from non-pregame state
                         pollServerActions();
                         pollServerSummary();
-                        //MusicPlayer.playBackgroundMusic();
                         GameData.getInstance().clearActionList();
                         GameData.getInstance().setSelectedRoom(0);
                         inGameView.getMapPanel().createRooms();
