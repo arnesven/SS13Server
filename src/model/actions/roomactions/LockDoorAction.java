@@ -9,6 +9,7 @@ import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
 import model.items.general.UniversalKeyCard;
 import model.map.doors.ElectricalDoor;
+import sounds.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,5 +69,15 @@ public class LockDoorAction extends Action implements QuickAction {
         List<Player> result = new ArrayList<>();
         result.addAll(gameData.getPlayersAsList());
         return result;
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("door-lock");
     }
 }

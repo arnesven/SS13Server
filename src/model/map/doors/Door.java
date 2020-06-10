@@ -122,6 +122,11 @@ public abstract class Door implements Serializable, SpriteObject {
         if (forWhom.getCharacter() == null) {
             return false;
         }
+
+        if (forWhom.isAI()) {
+            return true;
+        }
+
         Room to = null;
         try {
             to = gameData.getRoomForId(toID);

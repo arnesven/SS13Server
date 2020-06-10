@@ -1,8 +1,10 @@
 package model.npcs.behaviors;
 
 import model.Actor;
+import model.actions.general.Action;
 import model.characters.general.ChimpCharacter;
 import model.characters.general.SnakeCharacter;
+import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
 import model.GameData;
@@ -21,7 +23,7 @@ public class ChimpBehavior implements ActionBehavior {
 	private PickUpIfPossibleBehavior pickUpBehavior =
 			new PickUpIfPossibleBehavior();
 
-	private SpontaneousAct gibberish = new SpontaneousAct(0.5, new SpeechAction("Oooh oooh  ah!"));
+	private SpontaneousAct gibberish = new SpontaneousAct(0.5, new ChimpSpeechAction("Oooh oooh  ah!"));
 
 	@Override
 	public void act(Actor npc, GameData gameData) {
@@ -47,4 +49,19 @@ public class ChimpBehavior implements ActionBehavior {
 		}
 	}
 
+	private class ChimpSpeechAction extends SpeechAction {
+		public ChimpSpeechAction(String s) {
+			super(s);
+		}
+
+		@Override
+		public boolean hasRealSound() {
+			return true;
+		}
+
+		@Override
+		public Sound getRealSound() {
+			return new Sound("chimp");
+		}
+	}
 }

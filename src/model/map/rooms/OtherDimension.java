@@ -3,6 +3,7 @@ package model.map.rooms;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
+import sounds.Sound;
 
 /**
  * Created by erini02 on 19/10/16.
@@ -25,5 +26,10 @@ public class OtherDimension extends RemoteRoom {
     @Override
     protected String getBackgroundStyle() {
         return "Black";
+    }
+
+    @Override
+    protected Sound getSpecificAmbientSound() {
+        return new Sound("ambireebe1");
     }
 }

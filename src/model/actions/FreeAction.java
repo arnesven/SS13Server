@@ -34,6 +34,16 @@ public abstract class FreeAction extends Action {
     @Override
     protected void setArguments(List<String> args, Actor performingClient) {
         doTheFreeAction(args, player, gameData);
+        if (hasRealSound()) {
+            player.getSoundQueue().add(getRealSound());
+            if (this.getSense().sound == SensoryLevel.AudioLevel.SAME_ROOM || this.getSense().sound == SensoryLevel.AudioLevel.VERY_LOUD) {
+                for (Player p : player.getPosition().getClients()) {
+                    if (p != performingClient) {
+                        p.getSoundQueue().add(getRealSound());
+                    }
+                }
+            }
+        }
         //try {
             //gameData.setPlayerReady(gameData.getClidForPlayer(player), false);
         //} catch (NoSuchThingException e) {

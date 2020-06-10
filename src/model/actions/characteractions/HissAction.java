@@ -6,6 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
+import sounds.Sound;
 
 public class HissAction extends Action {
 
@@ -27,5 +28,14 @@ public class HissAction extends Action {
 	protected String getVerb(Actor whosAsking) {
 		return "hissed";
 	}
-	
+
+	@Override
+	public boolean hasRealSound() {
+		return true;
+	}
+
+	@Override
+	public Sound getRealSound() {
+		return new Sound("cat-hissing");
+	}
 }

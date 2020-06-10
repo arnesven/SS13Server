@@ -6,6 +6,7 @@ import model.map.doors.Door;
 import model.objects.consoles.AirLockConsole;
 import model.objects.consoles.FTLControl;
 import model.objects.consoles.ShuttleControl;
+import sounds.Sound;
 
 /**
  * Created by erini02 on 15/12/16.
@@ -18,6 +19,10 @@ public class BridgeRoom extends CommandRoom {
         addObject(new AirLockConsole(this));
         addObject(new FTLControl(this));
         addObject(new ShuttleControl(this, true));
+    }
 
+    @Override
+    public Sound getSpecificAmbientSound() {
+        return new Sound("ambitech");
     }
 }

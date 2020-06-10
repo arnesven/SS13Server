@@ -12,6 +12,7 @@ import model.items.NoSuchThingException;
 import model.items.general.UniversalKeyCard;
 import model.map.doors.ElectricalDoor;
 import model.map.rooms.Room;
+import sounds.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,5 +72,15 @@ public class UnLockDoorAction extends Action implements QuickAction {
         List<Player> result = new ArrayList<>();
         result.addAll(gameData.getPlayersAsList());
         return result;
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("door-unlock");
     }
 }

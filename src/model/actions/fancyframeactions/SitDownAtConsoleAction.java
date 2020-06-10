@@ -10,6 +10,7 @@ import model.actions.general.SensoryLevel;
 import model.fancyframe.ConsoleFancyFrame;
 import model.fancyframe.UsingGameObjectFancyFrameDecorator;
 import model.objects.consoles.Console;
+import sounds.Sound;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ public abstract class SitDownAtConsoleAction extends FreeAction {
 
     public SitDownAtConsoleAction(GameData gameData, Console console, Player p) {
         super("Use " + console.getName(), gameData, p);
+        setSense(new SensoryLevel(SensoryLevel.VisualLevel.CLEARLY_VISIBLE, SensoryLevel.AudioLevel.HEAR_IF_CLOSE,
+                SensoryLevel.OlfactoryLevel.UNSMELLABLE));
         this.console = console;
         this.gameData = gameData;
     }
@@ -46,4 +49,13 @@ public abstract class SitDownAtConsoleAction extends FreeAction {
 
     protected abstract ConsoleFancyFrame getNewFancyFrame(Console console, GameData gameData, Player performingClient);
 
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("terminal_sitdown");
+    }
 }
