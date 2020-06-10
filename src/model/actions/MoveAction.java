@@ -24,19 +24,6 @@ public class MoveAction extends Action {
     }
 
     @Override
-    public boolean hasRealSound() {
-        return true;
-    }
-
-    @Override
-    public Sound getRealSound() {
-        if (performer.getPosition().getNeighborList().contains(destination)) {
-            return new Sound("slow_walk_floor");
-        }
-        return new Sound("fast_walk_floor");
-    }
-
-    @Override
     protected String getVerb(Actor whosAsking) {
         return "moved";
     }

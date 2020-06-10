@@ -1,6 +1,8 @@
 package model;
 
 import model.map.rooms.Room;
+import model.map.rooms.StationRoom;
+import sounds.Sound;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +11,8 @@ import java.util.Map;
  * Created by erini02 on 03/09/16.
  */
 public class MovementData {
+    private static final Sound SLOW_WALK = new Sound("slow_walk_floor");
+    private static final Sound FAST_WALK = new Sound("fast_walk_floor");
     private Map<Actor, Room> positions = new HashMap<>();
 
 
@@ -21,9 +25,14 @@ public class MovementData {
     public void informPlayersOfMovements(GameData gameData) {
         for (Actor a : gameData.getActors()) {
             // a is a player and has not moved this round
-            if (a instanceof Player && a.getPosition() == positions.get(a)) {
-                inform(a, gameData);
+            if (a instanceof Player) {
+                if (a.getPosition() == positions.get(a)) {
+                    inform(a, gameData);
+                } else if (a.getPosition() != positions.get(a) ){
+                    playWalkingSound((Player)a, gameData);
+                }
             }
+
         }
     }
 
@@ -50,6 +59,10 @@ public class MovementData {
 
     private void heLeftTowards(Actor beholder, Actor subject, Room adjacentRoom) {
         beholder.addTolastTurnInfo(subject.getPublicName() + " left towards " + adjacentRoom.getName() + ".");
+        if (beholder instanceof Player && beholder.getPosition() instanceof StationRoom) {
+            playLeftWalkingSound(beholder, subject, adjacentRoom);
+
+        }
     }
 
     private Room findAdjacentRoom(Room a, Room b) throws RoomNotFoundException {
@@ -67,4 +80,27 @@ public class MovementData {
     public Room getLastPosition(Actor a) {
         return positions.get(a);
     }
+
+
+    private void playWalkingSound(Player a, GameData gameData) {
+        if (a.getPosition() instanceof StationRoom && a.isHuman()) {
+            if (a.getPosition().getNeighborList().contains(positions.get(a))) {
+                a.getSoundQueue().add(SLOW_WALK);
+            } else {
+                a.getSoundQueue().add(FAST_WALK);
+            }
+        }
+    }
+
+
+    private void playLeftWalkingSound(Actor beholder, Actor subject, Room adjacentRoom) {
+        if (subject.isHuman()) {
+            if (adjacentRoom == subject.getPosition()) {
+                ((Player) beholder).getSoundQueue().add(SLOW_WALK);
+            } else {
+                ((Player) beholder).getSoundQueue().add(FAST_WALK);
+            }
+        }
+    }
+
 }
