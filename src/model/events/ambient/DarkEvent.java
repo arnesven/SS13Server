@@ -6,10 +6,17 @@ import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.events.Event;
 import model.map.rooms.Room;
+import sounds.Sound;
+import util.MyRandom;
 
 public class DarkEvent extends Event {
 
 	private final static Sprite darkSprite = new Sprite("darksprite", "alert.png", 3, 2, null);
+	private int soundIndex;
+
+	public DarkEvent() {
+		this.soundIndex = MyRandom.nextInt(2)+1;
+	}
 
 	@Override
 	public void apply(GameData gameData) { }
@@ -47,4 +54,15 @@ public class DarkEvent extends Event {
 	public void gotRemovedFromRoom(Room room) {
 		room.getEffects().remove(darkSprite);
 	}
+
+	@Override
+	public boolean hasAmbientSound() {
+		return true;
+	}
+
+	@Override
+	public Sound getAmbientSound() {
+		return new Sound("ambidanger" + soundIndex);
+	}
+
 }

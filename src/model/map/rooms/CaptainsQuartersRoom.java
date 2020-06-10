@@ -14,6 +14,7 @@ import model.objects.decorations.ComfyChair;
 import model.objects.decorations.NiceBed;
 import model.objects.general.PulseRifleDisplayCase;
 import model.objects.general.SlotMachine;
+import sounds.Sound;
 
 /**
  * Created by erini02 on 15/12/16.
@@ -45,5 +46,10 @@ public class CaptainsQuartersRoom extends CommandRoom {
     @Override
     public void doSetup(GameData gameData) {
         super.doSetup(gameData);
+    }
+
+    @Override
+    public Sound getSpecificAmbientSound() {
+        return new Sound("ambidet2");
     }
 }

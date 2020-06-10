@@ -1,3 +1,5 @@
+
+
 package model.map.rooms;
 
 import model.map.doors.Door;
@@ -7,6 +9,7 @@ import model.map.floors.ChapelFloorSet;
 import model.map.floors.FloorSet;
 import model.objects.decorations.ComfyChair;
 import model.objects.general.JunkVendingMachine;
+import sounds.Sound;
 
 public class LoungeRoom extends SupportRoom {
 
@@ -22,5 +25,10 @@ public class LoungeRoom extends SupportRoom {
     @Override
     public FloorSet getFloorSet() {
         return new ChapelFloorSet();
+    }
+
+    @Override
+    public Sound getSpecificAmbientSound() {
+        return new Sound("ambidet1");
     }
 }
