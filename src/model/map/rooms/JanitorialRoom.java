@@ -9,8 +9,12 @@ import model.objects.decorations.TrashBag;
 import model.objects.decorations.WetWarningSign;
 import model.objects.general.JanitorialStorage;
 import model.objects.recycling.RecyclingContainer;
+import sounds.Sound;
+import util.MyRandom;
 
 public class JanitorialRoom extends SupportRoom {
+    private final Sound ambientSound;
+
     public JanitorialRoom(int id, int x, int y, int w, int h, int[] ints, Door[] doors) {
         super(id, "Janitorial", "", x, y, w, h, ints, doors);
         setZ(-1);
@@ -20,7 +24,7 @@ public class JanitorialRoom extends SupportRoom {
         this.addObject(new OldChair(this));
         this.addObject(new RecyclingContainer(this));
         this.addObject(new JanitorialStorage(this));
-
+        this.ambientSound = AirDuctRoom.getSpookyAmbientSound();
     }
 
     @Override
@@ -32,5 +36,10 @@ public class JanitorialRoom extends SupportRoom {
     public void doSetup(GameData gameData) {
         super.doSetup(gameData);
         gameData.addNPC(new RecyclotronNPC(this));
+    }
+
+    @Override
+    public Sound getSpecificAmbientSound() {
+        return ambientSound;
     }
 }

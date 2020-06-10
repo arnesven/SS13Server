@@ -94,8 +94,6 @@ public class LobbyView extends JPanel {
             }
         });
 
-        ClientSoundManager.playSound("zombie", clid);
-
 
     }
 

@@ -16,12 +16,14 @@ import model.npcs.ParasiteNPC;
 import model.objects.VentObject;
 import model.objects.general.AirlockPanel;
 import model.objects.power.Lighting;
+import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
 
 public class AirDuctRoom extends StationRoom {
 
     private static final double VENT_CHANCE = 0.4;
+    private final Sound ambientSound;
     private double MICE_CHANCE = 0.33;
     private double PARASITE_CHANCE = 0.15;
     private double TRASH_CHANCE = 0.4;
@@ -29,6 +31,11 @@ public class AirDuctRoom extends StationRoom {
     public AirDuctRoom(int ID, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
         super(ID, "Air Duct #" + ID, x, y, width, height, neighbors, doors);
         setZ(-1);
+        this.ambientSound = getSpookyAmbientSound();
+    }
+
+    public static Sound getSpookyAmbientSound() {
+        return new Sound("ambimaint" + (MyRandom.nextInt(6)+1));
     }
 
     @Override
@@ -115,5 +122,10 @@ public class AirDuctRoom extends StationRoom {
     @Override
     public Lighting getLighting() {
         return null;
+    }
+
+    @Override
+    public Sound getSpecificAmbientSound() {
+        return ambientSound;
     }
 }

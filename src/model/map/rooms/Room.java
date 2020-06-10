@@ -40,6 +40,7 @@ import model.objects.general.ContainerObject;
 import model.objects.general.GameObject;
 import model.objects.power.LifeSupport;
 import model.objects.power.Lighting;
+import sounds.Sound;
 import util.Logger;
 import util.MyStrings;
 
@@ -808,5 +809,23 @@ public abstract class Room implements ItemHolder, Serializable {
 			doorNotFoundBetweenRooms.printStackTrace();
 		}
 		return false;
+	}
+
+	public final String getAmbientSound() {
+		for (Event e : getEvents()) {
+			if (e.hasAmbientSound()) {
+				return e.getAmbientSound().getSource();
+			}
+		}
+
+		if (getSpecificAmbientSound() == null) {
+			return "nothing";
+		}
+
+		return getSpecificAmbientSound().getSource();
+	}
+
+	protected Sound getSpecificAmbientSound() {
+		return null;
 	}
 }

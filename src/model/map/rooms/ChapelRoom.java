@@ -4,6 +4,7 @@ import model.map.doors.Door;
 import model.map.floors.ChapelFloorSet;
 import model.map.floors.FloorSet;
 import model.objects.Altar;
+import sounds.Sound;
 
 /**
  * Created by erini02 on 15/12/16.
@@ -23,5 +24,10 @@ public class ChapelRoom extends SupportRoom {
     @Override
     protected boolean getsTrashBin() {
         return false;
+    }
+
+    @Override
+    public Sound getSpecificAmbientSound() {
+        return new Sound("ambidet2");
     }
 }

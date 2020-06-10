@@ -69,6 +69,7 @@ public class GameData {
     private ArrayList<ClientExtraEffect> extraEffects = new ArrayList<>();
 	private long timeLimit;
 	private long timeLeft;
+	private String ambientSound = "nothing";
 
 	private GameData() {
 	}
@@ -156,8 +157,13 @@ public class GameData {
 		}
 
 		setNextAction(parts[i++]);
+		setPlayerDataState(Integer.parseInt(parts[i++]));
 
-		setPlayerDataState(Integer.parseInt(parts[i]));
+		if (!parts[i].equals("nothing") && !parts[i].equals(ambientSound)) {
+			this.ambientSound = parts[i];
+			System.out.println("Ambient sound is " + ambientSound);
+			ClientSoundManager.playBackgroundSound(ambientSound, clid);
+		}
 
 		notifyObservers();
 	}

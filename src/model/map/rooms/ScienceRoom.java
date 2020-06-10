@@ -3,6 +3,7 @@ package model.map.rooms;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.ScienceFloorSet;
+import sounds.Sound;
 
 public abstract class ScienceRoom extends StationRoom {
 
@@ -13,5 +14,10 @@ public abstract class ScienceRoom extends StationRoom {
     @Override
     public FloorSet getFloorSet() {
         return new ScienceFloorSet();
+    }
+
+    @Override
+    public Sound getSpecificAmbientSound() {
+        return new Sound("ambinice");
     }
 }

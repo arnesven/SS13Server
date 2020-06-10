@@ -686,6 +686,11 @@ public class GameData implements Serializable {
         	nextAct = getPlayerForClid(clid).getNextAction().getName();
 		}
 
+		String ambientSound = "nothing";
+        if (gameState != GameState.PRE_GAME) {
+        	ambientSound = getPlayerForClid(clid).getAmbientSound();
+		}
+
 		return makeStringFromReadyClients()+ del + getGameState().val + del +
                 getRound() + del + getNoOfRounds() + del + chatMessages.getLastMessageIndex(getPlayerForClid(clid)) + del +
                 getPlayerForClid(clid).getFancyFrame().getState() + del +
@@ -693,7 +698,8 @@ public class GameData implements Serializable {
                 getRoundTimeLimitS() + del + getRoundTimeLeft() + del +
 				getPlayerForClid(clid).getSoundQueue().getCurrentIndex() + del +
 				nextAct + del +
-				getPlayerForClid(clid).getDataState();
+				getPlayerForClid(clid).getDataState() + del +
+				ambientSound;
 	}
 
     private long getRoundTimeLeft() {

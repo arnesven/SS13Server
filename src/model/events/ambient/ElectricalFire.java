@@ -268,6 +268,25 @@ public class ElectricalFire extends OngoingEvent {
     }
 
     @Override
+    public boolean hasAmbientSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getAmbientSound() {
+        return new Sound("fire-burning");
+    }
+
+
+    @Override
+    public void experienceFor(Player p) {
+        if (p.getPosition() != this.getRoom()) {
+            super.experienceFor(p);
+        }
+    }
+
+
+    @Override
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
         List<Action> acts = new ArrayList<>();
 

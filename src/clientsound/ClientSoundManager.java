@@ -14,6 +14,8 @@ public class ClientSoundManager extends SoundManager {
 
     private static Map<String, byte[]> loadedSounds = new HashMap<>();
     private static SoundJLayer effectsSoundQueue;
+    private static String backgroundSound = "nothing";
+    private static SoundJLayer bgSoundLayer;
 
     public static void playSound(String key, String clid) {
         SoundJLayer sjl = new SoundJLayer(getSoundResource(key, clid));
@@ -74,5 +76,27 @@ public class ClientSoundManager extends SoundManager {
             effectsSoundQueue.addToQueue(byteList);
         }
 
+    }
+
+    public static synchronized void playBackgroundSound(String ambientSound, String clid) {
+        if (!backgroundSound.equals(ambientSound)) {
+            if (bgSoundLayer != null) {
+                bgSoundLayer.stop();
+                System.out.println("STOPPING AMBIENT SOUND");
+            }
+            if (!ambientSound.equals("nothing")) {
+                bgSoundLayer = new SoundJLayer(getSoundResource(ambientSound, clid), true);
+                bgSoundLayer.play();
+                System.out.println("STARTING AMBIENT SOUND");
+            }
+            backgroundSound = ambientSound;
+        }
+    }
+
+    public static void stopPlayingBackgroundSound() {
+        if (bgSoundLayer != null) {
+            bgSoundLayer.stop();
+            System.out.println("STOPPING AMBIENT SOUND");
+        }
     }
 }

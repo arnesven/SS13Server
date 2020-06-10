@@ -5,6 +5,7 @@ import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
 import model.objects.power.LifeSupport;
 import model.objects.power.Lighting;
+import sounds.Sound;
 
 /**
  * Created by erini02 on 15/09/17.
@@ -37,5 +38,10 @@ public class SpaceRoom extends Room {
     @Override
     public Lighting getLighting() {
         return null;
+    }
+
+    @Override
+    public Sound getSpecificAmbientSound() {
+        return new Sound("ambiatmos2");
     }
 }

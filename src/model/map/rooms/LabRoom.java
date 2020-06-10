@@ -30,4 +30,6 @@ public class LabRoom extends ScienceRoom {
 	protected String getWallAppearence() {
 		return "light";
 	}
+
+
 }

@@ -10,6 +10,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.map.rooms.Room;
+import sounds.Sound;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -82,6 +83,14 @@ public abstract class Event extends Experienceable implements SpriteObject, Seri
 
     public boolean showSpriteInTopPanel() {
 	    return !showSpriteInRoom();
+    }
+
+    public boolean hasAmbientSound() {
+        return false;
+    }
+
+    public Sound getAmbientSound() {
+	    return null;
     }
 
 

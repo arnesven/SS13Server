@@ -11,6 +11,8 @@ import java.util.List;
 
 public class SoundJLayer extends PlaybackListener implements Runnable
 {
+    private byte[] byteData;
+    private String filePath;
     private InputStream inputStream;
     private List<byte[]> additionalSounds;
     private AdvancedPlayer player;
@@ -22,11 +24,13 @@ public class SoundJLayer extends PlaybackListener implements Runnable
     public SoundJLayer(String filePath, boolean doesRepeat) {
         this.doesRepeat = doesRepeat;
         this.inputStream = getClass().getClassLoader().getResourceAsStream(filePath);
+        this.filePath = filePath;
     }
 
     public SoundJLayer(byte[] byteData, boolean doesRepeat) {
         this.doesRepeat = doesRepeat;
         this.inputStream = new ByteArrayInputStream(byteData);
+        this.byteData = byteData;
     }
 
 
@@ -61,9 +65,9 @@ public class SoundJLayer extends PlaybackListener implements Runnable
 
     public void stop() {
         if (isPlaying) {
+            doesRepeat = false;
             this.player.stop();
             try {
-                doesRepeat = false;
                 playerThread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -91,8 +95,22 @@ public class SoundJLayer extends PlaybackListener implements Runnable
             }
 
             moreToPlay = hasAdditionalSoundsToPlay();
+            if (doesRepeat) {
+                refreshInputStream();
+            }
         } while (doesRepeat || moreToPlay);
         isPlaying = false;
+    }
+
+    private void refreshInputStream() {
+        System.out.println("This is a reapeating sound, playing again");
+        if (filePath != null) {
+            System.out.println("Repeating from file");
+            inputStream = getClass().getClassLoader().getResourceAsStream(filePath);
+        } else {
+            System.out.println("Repeating from byte data");
+            inputStream = new ByteArrayInputStream(byteData);
+        }
     }
 
     private synchronized boolean hasAdditionalSoundsToPlay() {

@@ -811,4 +811,7 @@ public class Player extends Actor implements Target, Serializable {
 		return Action.MAXIMUM_SAVED_AP;
 	}
 
+	public String getAmbientSound() {
+		return getPosition().getAmbientSound();
+	}
 }

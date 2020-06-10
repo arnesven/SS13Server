@@ -5,12 +5,16 @@ import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.objects.ai.SecurityCamera;
 import model.objects.recycling.TrashBin;
+import sounds.Sound;
 import util.MyRandom;
 
 public abstract class StationRoom extends Room {
 
+    private final int ambiIndex;
+
     public StationRoom(int ID, String name, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
         super(ID, name, x, y, width, height, neighbors, doors);
+        ambiIndex = MyRandom.nextInt(13)+1;
     }
 
     @Override
@@ -26,5 +30,10 @@ public abstract class StationRoom extends Room {
 
     protected boolean getsTrashBin() {
         return true;
+    }
+
+    @Override
+    public Sound getSpecificAmbientSound() {
+        return new Sound("ambigen" + ambiIndex);
     }
 }

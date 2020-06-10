@@ -8,6 +8,7 @@ import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
 import model.objects.ai.AITurret;
 import model.objects.consoles.AIConsole;
+import sounds.Sound;
 
 /**
  * Created by erini02 on 15/12/16.
@@ -31,5 +32,10 @@ public class AIRoom extends TechRoom {
     @Override
     public FloorSet getFloorSet() {
         return new AIRoomFloorSet();
+    }
+
+    @Override
+    public Sound getSpecificAmbientSound() {
+        return new Sound("ambimine");
     }
 }
