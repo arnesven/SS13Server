@@ -7,6 +7,7 @@ import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.items.NoSuchThingException;
+import model.items.general.KeyCard;
 import model.items.general.UniversalKeyCard;
 import model.map.doors.ElectricalDoor;
 import sounds.Sound;
@@ -35,7 +36,7 @@ public class LockDoorAction extends Action implements QuickAction {
             return;
         }
 
-        if ((UniversalKeyCard.findKeyCard(performingClient) != null && UniversalKeyCard.findKeyCard(performingClient).canOpenDoor(door)) || performingClient.isAI()) {
+        if (KeyCard.canActorOpenDoorWithKeyCard(performingClient, door) || performingClient.isAI()) {
             performingClient.addTolastTurnInfo("You locked the door");
         } else if (!performingClient.isAI()) {
             performingClient.addTolastTurnInfo("What, the key card was gone? " + failed(gameData, performingClient));

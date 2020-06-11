@@ -11,6 +11,7 @@ import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.fancyframe.SinglePageFancyFrame;
 import model.items.NoSuchThingException;
+import model.items.general.GameItem;
 import model.items.general.KeyCard;
 import model.items.general.UniversalKeyCard;
 import model.map.DockingPoint;
@@ -206,7 +207,7 @@ public class CallEscapeShuttleAction extends Action {
 
 
     public static boolean canCallEscapeShuttle(Actor player) {
-        return player.isAI() || KeyCard.findKeyCard(player) instanceof UniversalKeyCard;
+        return player.isAI() || GameItem.hasAnItemOfClass(player, UniversalKeyCard.class);
     }
 
 }

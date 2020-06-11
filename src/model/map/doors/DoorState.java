@@ -49,9 +49,8 @@ public abstract class DoorState implements Serializable {
         @Override
         protected List<Action> getActions(GameData gameData, Actor forWhom) {
             List<Action> at = new ArrayList<>();
-            KeyCard kc = UniversalKeyCard.findKeyCard(forWhom);
 
-            if (getDoorMechanism().permitsLock() && !door.isBroken() && ((kc != null && kc.canOpenDoor(door)) || forWhom.isAI())) {
+            if (getDoorMechanism().permitsLock() && !door.isBroken() && (KeyCard.canActorOpenDoorWithKeyCard(forWhom, door) || forWhom.isAI())) {
                 at.add(new LockDoorAction(door));
                 at.add(new MoveThroughAndLock(door));
             }
@@ -82,10 +81,9 @@ public abstract class DoorState implements Serializable {
         @Override
         protected List<Action> getActions(GameData gameData, Actor forWhom) {
             List<Action> at = new ArrayList<>();
-            KeyCard kc = UniversalKeyCard.findKeyCard(forWhom);
 
             if (getDoorMechanism().permitsUnlock() &&
-                    ((kc != null && kc.canOpenDoor(door)) || forWhom.isAI())) {
+                    ((KeyCard.canActorOpenDoorWithKeyCard(forWhom, door)) || forWhom.isAI())) {
                 at.add(new UnLockDoorAction(door));
                 at.add(new UnLockAndMoveThroughAction(door));
             }

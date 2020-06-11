@@ -9,6 +9,7 @@ import model.actions.general.SensoryLevel;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
+import model.items.general.KeyCard;
 import model.items.general.UniversalKeyCard;
 import model.map.doors.ElectricalDoor;
 import model.map.rooms.Room;
@@ -38,7 +39,7 @@ public class UnLockDoorAction extends Action implements QuickAction {
         }
 
         boolean isAI = performingClient.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter);
-        if ((UniversalKeyCard.findKeyCard(performingClient) != null && UniversalKeyCard.findKeyCard(performingClient).canOpenDoor(door)) || isAI) {
+        if (KeyCard.canActorOpenDoorWithKeyCard(performingClient, door) || isAI) {
             performingClient.addTolastTurnInfo("You unlocked the door");
         } else if (!isAI) {
             performingClient.addTolastTurnInfo("What, the key card was gone? " + failed(gameData, performingClient));

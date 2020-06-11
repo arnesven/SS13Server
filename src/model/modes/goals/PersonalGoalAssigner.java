@@ -62,6 +62,7 @@ public class  PersonalGoalAssigner implements Serializable {
         jobSpecificGoals.get(new ChaplainCharacter().getBaseName()).add(new MarryXPeople(MyRandom.nextInt(6)));
         jobSpecificGoals.get(new QuarterMasterCharacter().getBaseName()).add(new SellXCratesGoal(MyRandom.nextInt(1)+2));
         jobSpecificGoals.get(new QuarterMasterCharacter().getBaseName()).add(new OrderShipmentsGoal(MyRandom.nextInt(2)+2));
+        jobSpecificGoals.get(new MinerCharacter().getBaseName()).add(new MineXCrystalGoal(MyRandom.nextInt(3)+5));
         // Job goal for Visitor
         return jobSpecificGoals;
     }
