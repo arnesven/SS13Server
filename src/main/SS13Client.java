@@ -132,7 +132,9 @@ public class SS13Client extends JFrame {
         this.setSize(ingameSize);
         this.revalidate();
         this.repaint();
-        playBackgroundMusic(true);
+        if (GameData.getInstance().getState() == 0) {
+            playBackgroundMusic(true);
+        }
     }
 
     private void makeMenuBar() {
@@ -452,8 +454,11 @@ public class SS13Client extends JFrame {
     }
 
     public void stopPlayingBackgroundMusic() {
+        System.out.println("Gonna stop music...");
         if (backgroundMusic != null && backgroundMusic.isPlaying()) {
             backgroundMusic.stop();
+        } else {
+            System.out.println("   either bgm is null, or bgm is not playing...");
         }
     }
 }

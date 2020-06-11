@@ -3,10 +3,8 @@ package clientview.components;
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
-import clientsound.ClientSoundManager;
 import clientview.GameModePanel;
 import main.SS13Client;
-import shared.SoundManager;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

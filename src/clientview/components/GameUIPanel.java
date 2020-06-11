@@ -159,7 +159,6 @@ public class GameUIPanel extends JPanel implements Observer {
                         toggleView();
                         parent.playBackgroundMusic(true);
                     }
-
                 }
 
                this.state = newState;
