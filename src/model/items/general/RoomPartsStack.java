@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by erini02 on 20/11/16.
  */
-public class RoomPartsStack extends ItemStack {
+public class RoomPartsStack extends PartsItemStack {
     public RoomPartsStack(int number) {
         super("Construction Parts", 50.0, 1000, number);
     }

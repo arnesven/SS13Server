@@ -49,4 +49,15 @@ public abstract class Alcohol extends FoodItem {
 	public String getDescription(GameData gameData, Player performingClient) {
 		return "An alcoholic beverage. Ubiquitous on planets and space stations alike.";
 	}
+
+	@Override
+	public Sound getPickUpSound() {
+		return new Sound("drinkglass_pickup");
+	}
+
+	@Override
+	public Sound getDropSound() {
+		return new Sound("drinkglass_drop");
+	}
+
 }

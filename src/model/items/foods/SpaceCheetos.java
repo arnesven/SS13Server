@@ -33,4 +33,14 @@ public class SpaceCheetos extends HealingFood {
     public Sound getRealSound() {
         return super.getCrunchySound();
     }
+
+    @Override
+    public Sound getDropSound() {
+        return new Sound("matchbox_drop");
+    }
+
+    @Override
+    public Sound getPickUpSound() {
+        return new Sound("matchbox_pickup");
+    }
 }

@@ -7,6 +7,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.CraftBombAction;
 import model.items.general.GameItem;
+import sounds.Sound;
 
 import java.util.ArrayList;
 
@@ -38,4 +39,13 @@ public class EmptyContainer extends GameItem {
         return "An empty cannister which used to contain something. Useful for crafting other items.";
     }
 
+    @Override
+    public Sound getDropSound() {
+        return new Sound("cardboardbox_drop");
+    }
+
+    @Override
+    public Sound getPickUpSound() {
+        return new Sound("cardboardbox_pickup");
+    }
 }

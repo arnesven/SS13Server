@@ -12,6 +12,7 @@ import model.fancyframe.ExperimentNotesFancyFrame;
 import model.items.general.GameItem;
 import model.objects.general.GameObject;
 import model.objects.monolith.MonolithExperimentRig;
+import sounds.Sound;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -120,5 +121,15 @@ public class ExperimentNotes extends GameItem {
         protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
             p.setFancyFrame(new ExperimentNotesFancyFrame(p, gameData, ExperimentNotes.this));
         }
+    }
+
+    @Override
+    public Sound getDropSound() {
+        return new Sound("paper_drop");
+    }
+
+    @Override
+    public Sound getPickUpSound() {
+        return new Sound("paper_pickup");
     }
 }

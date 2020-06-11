@@ -10,6 +10,7 @@ import model.PlayerSettings;
 import model.actions.QuickAction;
 import model.items.general.GameItem;
 import model.items.general.HidableItem;
+import sounds.Sound;
 
 public class PickUpAction extends Action implements QuickAction {
 
@@ -22,7 +23,16 @@ public class PickUpAction extends Action implements QuickAction {
 		ap = clientActionPerformer;
 	}
 
-	
+	@Override
+	public boolean hasRealSound() {
+		return true;
+	}
+
+	@Override
+	public Sound getRealSound() {
+		return item.getPickUpSound();
+	}
+
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
 		for (GameItem it : ap.getPosition().getItems()){

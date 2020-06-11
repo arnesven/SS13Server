@@ -120,4 +120,14 @@ public abstract class Chemicals extends FoodItem {
         }
         return super.getExtraDescriptionStats(gameData, performingClient);
     }
+
+    @Override
+    public Sound getPickUpSound() {
+        return new Sound("drinkglass_pickup");
+    }
+
+    @Override
+    public Sound getDropSound() {
+        return new Sound("drinkglass_drop");
+    }
 }

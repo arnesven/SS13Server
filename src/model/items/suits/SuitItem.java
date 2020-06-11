@@ -14,6 +14,7 @@ import model.actions.itemactions.ExchangeWithSuitOnRoomFloorAction;
 import model.actions.itemactions.ShowExamineFancyFrameAction;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
+import sounds.Sound;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -230,5 +231,15 @@ public abstract class SuitItem extends GameItem implements Wearable {
 
     public boolean suitCoversAll() {
         return false;
+    }
+
+    @Override
+    public Sound getPickUpSound() {
+        return new Sound("cloth_pickup");
+    }
+
+    @Override
+    public Sound getDropSound() {
+        return new Sound("cloth_drop");
     }
 }

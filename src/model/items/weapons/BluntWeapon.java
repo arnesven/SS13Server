@@ -54,4 +54,14 @@ public abstract class BluntWeapon extends Weapon implements BludgeoningWeapon {
     public Sound getRealSound() {
         return new Sound("genhit" + (MyRandom.nextInt(4) + 1));
     }
+
+    @Override
+    public Sound getDropSound() {
+        return new Sound("crowbar_drop");
+    }
+
+    @Override
+    public Sound getPickUpSound() {
+        return new Sound("crowbar_pickup");
+    }
 }

@@ -19,6 +19,7 @@ import model.characters.general.GameCharacter;
 import model.items.HandheldItem;
 import model.items.NoSuchThingException;
 import model.map.rooms.Room;
+import sounds.Sound;
 import util.Logger;
 
 /**
@@ -335,5 +336,13 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
 
     public boolean isRecyclable() {
         return true;
+    }
+
+    public Sound getPickUpSound() {
+        return new Sound("toolbelt_pickup");
+    }
+
+    public Sound getDropSound() {
+        return new Sound("toolbelt_drop");
     }
 }

@@ -4,6 +4,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
+import sounds.Sound;
 
 import java.util.ArrayList;
 
@@ -29,5 +30,15 @@ public class PackOfSmokes extends GameItem {
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
         at.add(new SmokeAction());
+    }
+
+    @Override
+    public Sound getDropSound() {
+        return new Sound("matchbox_drop");
+    }
+
+    @Override
+    public Sound getPickUpSound() {
+        return new Sound("matchbox_pickup");
     }
 }

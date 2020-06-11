@@ -6,6 +6,7 @@ import model.GameData;
 import model.Player;
 import model.actions.general.ActionOption;
 import model.items.NoSuchThingException;
+import sounds.Sound;
 
 /**
  * Created by erini02 on 14/11/16.
@@ -111,5 +112,15 @@ public class MoneyStack extends ItemStack {
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
         return "A wad of galactic credits (double dollars). Good for buying stuff, and bribing people.";
+    }
+
+    @Override
+    public Sound getDropSound() {
+        return new Sound("paper_drop");
+    }
+
+    @Override
+    public Sound getPickUpSound() {
+        return new Sound("paper_pickup");
     }
 }

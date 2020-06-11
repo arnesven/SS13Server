@@ -19,7 +19,7 @@ public class SermonAction extends Action implements QuickAction {
 	private Bible bible;
 
 	public SermonAction(Bible bible) {
-		super("Sing Sermon", SensoryLevel.NO_SENSE);
+		super("Sing Sermon", SensoryLevel.SPEECH);
 		this.bible = bible;
 	}
 

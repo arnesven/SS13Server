@@ -68,4 +68,14 @@ public abstract class FoodItem extends GameItem {
 	protected Sound getCrunchySound() {
 		return new Sound("eatfood");
 	}
+
+	@Override
+	public Sound getPickUpSound() {
+		return new Sound("wirecutter_pickup");
+	}
+
+	@Override
+	public Sound getDropSound() {
+		return new Sound("wirecutter_drop");
+	}
 }

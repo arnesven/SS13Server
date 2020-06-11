@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by erini02 on 17/11/16.
  */
-public class ElectronicParts extends GameItem {
+public class ElectronicParts extends PartsGameItem {
     public ElectronicParts() {
         super("Electronics Parts", 1.0, true, 100);
     }

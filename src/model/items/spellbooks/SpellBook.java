@@ -13,6 +13,7 @@ import model.characters.general.GameCharacter;
 import model.characters.general.WizardCharacter;
 import model.events.animation.AnimatedSprite;
 import model.items.general.GameItem;
+import sounds.Sound;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -122,5 +123,13 @@ public abstract class SpellBook extends GameItem {
 
     public boolean isTargetingSpell() {
         return true;
+    }
+
+    public Sound getPickUpSound() {
+        return new Sound("book_pickup");
+    }
+
+    public Sound getDropSound() {
+        return new Sound("book_drop");
     }
 }

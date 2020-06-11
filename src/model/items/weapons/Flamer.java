@@ -19,6 +19,7 @@ import model.items.chemicals.Chemicals;
 import model.items.general.GameItem;
 import model.objects.general.GameObject;
 import model.objects.general.HiveObject;
+import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
 
@@ -121,5 +122,15 @@ public class Flamer extends Weapon {
         AnimatedSprite asp = new AnimatedSprite("flamerfirespray", "laser.png",
                 0, 3, 32, 64, null, 14, false);
         return asp;
+    }
+
+    @Override
+    public Sound getPickUpSound() {
+        return new Sound("weldingtool_pickup");
+    }
+
+    @Override
+    public Sound getDropSound() {
+        return new Sound("weldingtool_drop");
     }
 }

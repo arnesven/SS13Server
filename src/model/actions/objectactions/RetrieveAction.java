@@ -9,6 +9,7 @@ import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.items.general.GameItem;
 import model.objects.general.ContainerObject;
+import sounds.Sound;
 import util.Logger;
 
 import java.util.List;
@@ -17,10 +18,21 @@ public class RetrieveAction extends Action implements QuickAction {
 
     private ContainerObject containerObject;
     private String requestedItem;
+    private GameItem selectedItem;
 
     public RetrieveAction(ContainerObject containerObject, Actor cl) {
         super("Retrieve from " + containerObject.getPublicName(cl), SensoryLevel.PHYSICAL_ACTIVITY);
         this.containerObject = containerObject;
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return  selectedItem.getPickUpSound();
     }
 
     @Override
@@ -45,7 +57,7 @@ public class RetrieveAction extends Action implements QuickAction {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        GameItem selectedItem = null;
+        this.selectedItem = null;
         for (GameItem it : containerObject.getInventory()) {
             if (requestedItem.contains(it.getPublicName(performingClient))) {
                 selectedItem = it;

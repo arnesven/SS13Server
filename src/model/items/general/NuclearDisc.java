@@ -8,6 +8,7 @@ import model.actions.general.SensoryLevel;
 import model.events.Event;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
+import sounds.Sound;
 import util.Logger;
 
 public class NuclearDisc extends GameItem {
@@ -83,5 +84,15 @@ public class NuclearDisc extends GameItem {
         public SensoryLevel getSense() {
             return SensoryLevel.NO_SENSE;
         }
+    }
+
+    @Override
+    public Sound getPickUpSound() {
+        return new Sound("disk_pickup");
+    }
+
+    @Override
+    public Sound getDropSound() {
+        return new Sound("disk_drop");
     }
 }

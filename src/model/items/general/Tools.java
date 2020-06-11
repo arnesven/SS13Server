@@ -17,6 +17,7 @@ import model.items.weapons.BluntWeapon;
 import model.map.rooms.Room;
 import model.objects.general.GameObject;
 import model.objects.general.Repairable;
+import sounds.Sound;
 
 
 public abstract class Tools extends BluntWeapon {
@@ -36,4 +37,14 @@ public abstract class Tools extends BluntWeapon {
 	}
 
 	protected abstract String getToolsDescription(GameData gameData, Player performingClient);
+
+	@Override
+	public Sound getPickUpSound() {
+		return new Sound("toolbox_pickup");
+	}
+
+	@Override
+	public Sound getDropSound() {
+		return new Sound("toolbox_drop");
+	}
 }

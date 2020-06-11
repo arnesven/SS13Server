@@ -3,6 +3,7 @@ package model.items.weapons;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import sounds.Sound;
 
 
 public class AmmoWeapon extends Weapon {
@@ -71,5 +72,15 @@ public class AmmoWeapon extends Weapon {
 	@Override
 	public String getDescription(GameData gameData, Player performingClient) {
 		return "Good for shooting people, or stuff.";
+	}
+
+	@Override
+	public Sound getPickUpSound() {
+		return new Sound("wrench_pickup");
+	}
+
+	@Override
+	public Sound getDropSound() {
+		return new Sound("wrench_drop");
 	}
 }

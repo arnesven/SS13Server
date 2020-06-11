@@ -10,6 +10,7 @@ import model.characters.crew.ArchitectCharacter;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.ItemStack;
+import model.items.general.PartsItemStack;
 import model.items.general.Tools;
 import model.items.tools.CraftingTools;
 
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Created by erini02 on 23/11/16.
  */
-public class DoorPartsStack extends ItemStack {
+public class DoorPartsStack extends PartsItemStack {
     public DoorPartsStack(int i) {
         super("Door Parts", 10.0, 485, i);
     }

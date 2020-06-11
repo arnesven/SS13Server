@@ -10,6 +10,7 @@ import model.Player;
 import model.actions.QuickAction;
 import model.items.general.GameItem;
 import model.items.suits.SuitItem;
+import sounds.Sound;
 
 public class DropAction extends Action implements QuickAction {
 
@@ -25,8 +26,18 @@ public class DropAction extends Action implements QuickAction {
 		ap = clientActionPerformer;
 		
 	}
-	
-	@Override
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return item.getDropSound();
+    }
+
+    @Override
 	protected void execute(GameData gameData, Actor performingClient) {
         if (allItems) {
             dropAllItems(gameData, performingClient);
