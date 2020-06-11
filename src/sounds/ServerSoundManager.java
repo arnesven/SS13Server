@@ -12,9 +12,9 @@ public class ServerSoundManager extends SoundManager {
     private static Map<String, Sound> soundRegister = new HashMap<>();
 
     public static void register(Sound sound) {
-        if (!base64Register.keySet().contains(sound.getSource())) {
-            base64Register.put(sound.getSource(), getSoundAsBase64(sound.getSource()));
-            soundRegister.put(sound.getSource(), sound);
+        if (!base64Register.keySet().contains(sound.getName())) {
+            base64Register.put(sound.getName(), getSoundAsBase64(sound.getSource()));
+            soundRegister.put(sound.getName(), sound);
         }
     }
 

@@ -22,7 +22,7 @@ public abstract class Experienceable implements Serializable {
     public void experienceFromAfarFor(Player p) {
         experienceFar(p);
         if (hasRealSound()) {
-            p.getSoundQueue().add(getRealSound());
+            p.getSoundQueue().add(getRealSound().newWithAdjustedVolume(-20.0f));
         }
     }
 

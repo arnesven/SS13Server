@@ -26,7 +26,7 @@ public class SoundQueue extends ArrayList<Sound> implements Serializable {
     public List<String> getSoundsFrom(int i) {
         List<String> res = new ArrayList<>();
         for ( ; i < this.size(); ++i) {
-            res.add(this.get(i).getSource());
+            res.add(this.get(i).getName());
         }
         return res;
     }

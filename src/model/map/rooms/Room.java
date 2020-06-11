@@ -814,7 +814,7 @@ public abstract class Room implements ItemHolder, Serializable {
 		for (Event e : getEvents()) {
 			if (e.hasAmbientSound()) {
 				Sound amb = e.getAmbientSound();
-				return amb.getSource();
+				return amb.getName();
 			}
 		}
 
@@ -825,7 +825,7 @@ public abstract class Room implements ItemHolder, Serializable {
 		}
 		roomSpecific.setVolume(-10.0f);
 
-		return roomSpecific.getSource();
+		return roomSpecific.getName();
 	}
 
 	protected Sound getSpecificAmbientSound() {
