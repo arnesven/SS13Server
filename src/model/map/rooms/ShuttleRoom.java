@@ -21,6 +21,7 @@ import model.objects.decorations.ShuttleDecoration;
 import model.objects.decorations.ShuttleThruster;
 import model.objects.power.LifeSupport;
 import model.objects.power.Lighting;
+import sounds.Sound;
 import util.HTMLText;
 import util.Logger;
 
@@ -222,5 +223,8 @@ public class ShuttleRoom extends Room {
         }
     }
 
-
+    @Override
+    protected Sound getSpecificAmbientSound() {
+        return new Sound("shipambience");
+    }
 }

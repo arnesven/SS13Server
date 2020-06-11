@@ -12,6 +12,7 @@ import model.map.floors.FloorSet;
 import model.map.floors.NukieFloorSet;
 import model.objects.general.GameObject;
 import model.objects.general.NuclearBomb;
+import sounds.Sound;
 import util.MyRandom;
 
 public class NukieShipRoom extends Room {
@@ -58,6 +59,11 @@ public class NukieShipRoom extends Room {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	protected Sound getSpecificAmbientSound() {
+		return new Sound("shipambience");
 	}
 
 }
