@@ -5,6 +5,7 @@ import model.GameData;
 import model.Target;
 import model.mutations.Mutation;
 import model.mutations.MutationFactory;
+import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
 
@@ -53,4 +54,14 @@ public class RadiationDamage extends DamagerImpl {
             }
         }
     }
+
+	@Override
+	public boolean hasRealSound() {
+		return true;
+	}
+
+	@Override
+	public Sound getRealSound() {
+		return new Sound("radioactivity");
+	}
 }

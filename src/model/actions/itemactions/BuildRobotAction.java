@@ -15,6 +15,7 @@ import model.items.general.RobotParts;
 import model.npcs.robots.RobotNPC;
 import model.npcs.behaviors.DoNothingBehavior;
 import model.npcs.behaviors.MeanderingMovement;
+import sounds.Sound;
 
 import java.util.List;
 
@@ -91,5 +92,15 @@ public class BuildRobotAction extends Action {
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
         this.chosenName = args.get(0);
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("rped");
     }
 }

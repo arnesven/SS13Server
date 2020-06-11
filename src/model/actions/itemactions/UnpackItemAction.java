@@ -8,6 +8,7 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.items.general.GameItem;
 import model.items.general.UnpackableItem;
+import sounds.Sound;
 
 import java.util.List;
 
@@ -51,5 +52,15 @@ public class UnpackItemAction extends Action implements QuickAction {
     @Override
     public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
         return List.of(performer);
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("foodcanopen");
     }
 }

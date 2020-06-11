@@ -4,6 +4,7 @@ import com.sun.syndication.feed.rss.Item;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.FreeAction;
 import model.actions.general.Action;
 import model.actions.general.DoNothingAction;
 import model.actions.general.SensoryLevel;
@@ -14,12 +15,12 @@ import model.items.laws.ObeyHumansAccordingToCrewRankAILaw;
 
 import java.util.List;
 
-public class ShowExamineFancyFrameAction extends Action {
+public class ShowExamineFancyFrameAction extends FreeAction {
     private final GameItem item;
     private final GameData gameData;
 
     public ShowExamineFancyFrameAction(GameData gameData, Player pl, GameItem gameItem) {
-        super("Examine " + gameItem.getPublicName(pl), SensoryLevel.NO_SENSE);
+        super("Examine " + gameItem.getPublicName(pl), gameData, pl);
         this.item = gameItem;
         this.gameData = gameData;
     }
@@ -34,18 +35,11 @@ public class ShowExamineFancyFrameAction extends Action {
         // Should not happen!
     }
 
+
     @Override
-    protected void setArguments(List<String> args, Actor performingClient) {
-        if (performingClient instanceof Player) {
-            ((Player) performingClient).setFancyFrame(getFancyFrame(performingClient));
-            ((Player) performingClient).setNextAction(new DoNothingAction());
-            ((Player) performingClient).refreshClientData();
-            try {
-                gameData.setPlayerReady(gameData.getClidForPlayer((Player)performingClient), false);
-            } catch (NoSuchThingException e) {
-                e.printStackTrace();
-            }
-        }
+    protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
+        p.setFancyFrame(getFancyFrame(p));
+
     }
 
     protected ItemDescriptionFancyFrame getFancyFrame(Actor performingClient) {

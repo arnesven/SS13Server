@@ -5,6 +5,7 @@ import model.GameData;
 import model.Player;
 import model.characters.decorators.ChilledDecorator;
 import model.characters.general.GameCharacter;
+import sounds.Sound;
 
 public abstract class HealingFood extends FoodItem {
 
@@ -17,7 +18,17 @@ public abstract class HealingFood extends FoodItem {
 
     }
 
-	@Override
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("eatfood");
+    }
+
+    @Override
 	protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
         if (eatenBy != maker) {
             eatenBy.getAsTarget().addToHealth(1.0);

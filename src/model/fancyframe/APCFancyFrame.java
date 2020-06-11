@@ -8,6 +8,7 @@ import model.items.general.Tools;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.GameObject;
 import model.objects.power.AreaPowerControl;
+import sounds.Sound;
 import util.HTMLText;
 
 public class APCFancyFrame extends FancyFrame {
@@ -95,6 +96,7 @@ public class APCFancyFrame extends FancyFrame {
         super.handleEvent(gameData, player, event);
         if (event.contains("OPENCLOSE")) {
             apc.setOpen(!apc.isOpen());
+            player.getSoundQueue().add(new Sound("screwdriver"));
             player.refreshClientData();
             if (apc.isOpen()) {
                 gameData.getChat().serverInSay("You unscrewed the display to the APC. Wow! Lots of wires...", player);

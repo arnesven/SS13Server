@@ -44,11 +44,6 @@ public abstract class FreeAction extends Action {
                 }
             }
         }
-        //try {
-            //gameData.setPlayerReady(gameData.getClidForPlayer(player), false);
-        //} catch (NoSuchThingException e) {
-        //    e.printStackTrace();
-        //}
     }
 
     protected abstract void doTheFreeAction(List<String> args, Player p, GameData gameData);

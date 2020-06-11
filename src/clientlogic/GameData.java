@@ -179,7 +179,6 @@ public class GameData {
 		ServerCommunicator.send(GameData.getInstance().getClid() + " FANCYFRAME GET", new MyCallback() {
 			@Override
 			public void onSuccess(String result) {
-				System.out.println("Got fancyframe result: " + result);
 				GameData.getInstance().deconstructFancyFrameData(result);
 			}
 

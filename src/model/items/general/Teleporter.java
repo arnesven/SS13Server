@@ -8,6 +8,7 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.itemactions.TeleportAction;
 import model.map.rooms.Room;
+import sounds.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,16 @@ public class Teleporter extends UplinkItem {
 
             @Override
             public void setArguments(List<String> args, Actor performingClient) { }
+
+            @Override
+            public boolean hasRealSound() {
+                return true;
+            }
+
+            @Override
+            public Sound getRealSound() {
+                return new Sound("terminal_prompt");
+            }
         });
     }
 

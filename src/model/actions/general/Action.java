@@ -255,6 +255,7 @@ public abstract class Action extends Experienceable implements Serializable {
                             gameData.getChat().serverInSay("You spent 1 AP.", p);
                         }
                         if (p.getCharacter().doesPerceive(this)) {
+                            performer = performingClient;
                             experienceFor(p);
                         }
                         p.refreshClientData();

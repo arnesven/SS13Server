@@ -11,6 +11,7 @@ import model.fancyframe.DoorHackingFancyFrame;
 import model.fancyframe.FancyFrame;
 import model.fancyframe.UsingGameObjectFancyFrameDecorator;
 import model.map.doors.ElectricalDoor;
+import sounds.Sound;
 
 import java.util.List;
 
@@ -22,6 +23,17 @@ public class ShowDoorHackingFancyFrameAction extends FreeAction {
         super("Examine Mechanism", gameData, forWhom);
         this.door = electricalDoor;
         this.gameData = gameData;
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("screwdriver");
+
     }
 
     @Override
