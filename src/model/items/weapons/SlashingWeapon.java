@@ -5,6 +5,7 @@ import model.GameData;
 import model.Target;
 import model.actions.itemactions.CutOutBrainAction;
 import model.items.Brain;
+import sounds.Sound;
 import util.MyRandom;
 
 /**
@@ -34,5 +35,15 @@ public abstract class SlashingWeapon extends Weapon implements PhysicalWeapon {
     @Override
     public double getAmpChance() {
         return 0.6;
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("slice");
     }
 }

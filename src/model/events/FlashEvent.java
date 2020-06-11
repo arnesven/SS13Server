@@ -10,6 +10,7 @@ import model.items.suits.SecOffsHelmet;
 import model.items.suits.SuitItem;
 import model.items.suits.SunGlasses;
 import model.map.rooms.Room;
+import sounds.Sound;
 
 public class FlashEvent extends Event {
     private final int roundSet;
@@ -26,6 +27,7 @@ public class FlashEvent extends Event {
     public void apply(GameData gameData) {
         if (gameData.getRound() == roundSet) {
             position.addEffect(flashSprite);
+            position.addToEventsHappened(this);
             for (Actor a : position.getActors()) {
                 SuitItem headGear = a.getCharacter().getEquipment().getEquipmentForSlot(Equipment.HEAD_SLOT);
                 if (headGear instanceof SunGlasses || headGear instanceof SecOffsHelmet) {
@@ -64,5 +66,15 @@ public class FlashEvent extends Event {
     public SensoryLevel getSense() {
         return new SensoryLevel(SensoryLevel.VisualLevel.CLEARLY_VISIBLE,
                 SensoryLevel.AudioLevel.INAUDIBLE, SensoryLevel.OlfactoryLevel.UNSMELLABLE);
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("flash");
     }
 }

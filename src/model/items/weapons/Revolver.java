@@ -7,6 +7,7 @@ import model.GameData;
 import model.Hazard;
 import model.Target;
 import model.events.ambient.HullBreach;
+import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
 
@@ -43,5 +44,15 @@ public class Revolver extends SlugthrowerWeapon implements PiercingWeapon {
             }
         };
 
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("revolver" + (MyRandom.nextInt(1)+1));
     }
 }

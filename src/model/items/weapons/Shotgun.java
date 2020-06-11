@@ -3,6 +3,7 @@ package model.items.weapons;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import sounds.Sound;
 
 public class Shotgun extends SlugthrowerWeapon implements PiercingWeapon {
 
@@ -23,5 +24,15 @@ public class Shotgun extends SlugthrowerWeapon implements PiercingWeapon {
     @Override
     public Sprite getHandHeldSprite() {
         return new Sprite("shotgunhandheld", "items_righthand.png", 8, 23, this);
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("shotgun");
     }
 }

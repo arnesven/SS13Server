@@ -7,6 +7,7 @@ import model.Player;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
+import sounds.Sound;
 
 /**
  * Created by erini02 on 17/09/17.
@@ -40,5 +41,15 @@ public class MiningDrill extends Weapon {
     @Override
     public String getWallDamageText() {
         return "<b>RRRRRRrrrrr!</b>Sounds like someone is drilling through the wall!";
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("drill");
     }
 }

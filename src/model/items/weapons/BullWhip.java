@@ -10,6 +10,7 @@ import model.actions.general.TargetingAction;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.AdventurerCharacter;
 import model.items.general.GameItem;
+import sounds.Sound;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -93,5 +94,15 @@ public class BullWhip extends Weapon {
         protected String getVerb(Actor whosAsking) {
             return "used bull whip to snatch an item from ";
         }
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("whip");
     }
 }
