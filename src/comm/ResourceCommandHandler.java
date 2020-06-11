@@ -23,7 +23,7 @@ public class ResourceCommandHandler extends  AbstractCommandHandler {
             if (rest.contains("SOUND")) {
                 rest = rest.replace(" SOUND ", "");
                 if (rest.length() > 0) {
-                    String str = ServerSoundManager.getBase64String(rest);
+                    String str = ServerSoundManager.getSoundData(rest);
                     oos.writeObject(str);
                     return true;
                 } else {

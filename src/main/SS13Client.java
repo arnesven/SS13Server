@@ -27,7 +27,7 @@ import java.awt.event.KeyEvent;
 
 public class SS13Client extends JFrame {
 
-    public static final String CLIENT_VERSION_STRING = "1.252";
+    public static final String CLIENT_VERSION_STRING = "1.253";
     private final ReturningPlayerPanel retPan;
     public static final Dimension originalSize = new Dimension(960, 960);
     public static final Dimension ingameSize = new Dimension(1200, 960);
@@ -240,6 +240,7 @@ public class SS13Client extends JFrame {
 
         sound.add(soundOn);
         sound.add(soundOff);
+
         return sound;
     }
 

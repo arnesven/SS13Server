@@ -8,14 +8,23 @@ import java.io.Serializable;
 public class Sound implements Serializable {
 
     private final String source;
+    private float volume;
 
     public Sound(String source) {
         this.source = source;
-
+        this.volume = 0.0f;
         ServerSoundManager.register(this);
     }
 
     public String getSource() {
         return source;
+    }
+
+    public void setVolume(float volume) {
+        this.volume = volume;
+    }
+
+    public float getVolume() {
+        return volume;
     }
 }

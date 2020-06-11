@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class ClientSoundManager extends SoundManager {
 
-    private static Map<String, byte[]> loadedSounds = new HashMap<>();
+    private static Map<String, ClientSound> loadedSounds = new HashMap<>();
     private static SoundJLayer effectsSoundQueue;
     private static String backgroundSound = "nothing";
     private static SoundJLayer bgSoundLayer;
@@ -22,7 +22,7 @@ public class ClientSoundManager extends SoundManager {
         sjl.play();
     }
 
-    private static byte[] getSoundResource(String key, String clid) {
+    private static ClientSound getSoundResource(String key, String clid) {
         if (!loadedSounds.keySet().contains(key)) {
             loadFromServer(key, clid);
         }
@@ -33,8 +33,10 @@ public class ClientSoundManager extends SoundManager {
         ServerCommunicator.send(clid + " RESOURCE SOUND " + key, new MyCallback() {
             @Override
             public void onSuccess(String result) {
-                byte[] bytes = SoundManager.decodeAsBase64(result);
-                loadedSounds.put(key, bytes);
+                System.out.println("Got this result: " + result);
+                String parts[] = result.split("<sprt>");
+                byte[] bytes = SoundManager.decodeAsBase64(parts[0]);
+                loadedSounds.put(key, new ClientSound(bytes, Float.parseFloat(parts[1])));
             }
 
             @Override
@@ -45,26 +47,9 @@ public class ClientSoundManager extends SoundManager {
     }
 
 
-    private static void writeToFile(String key) {
-
-        if (!(new File("./loadedsounds").exists())) {
-            new File("./loadedsounds").mkdir();
-        }
-        File f = new File("./loadedsounds/" + key + ".mp3");
-        try {
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(f));
-            bos.write(loadedSounds.get(key));
-            bos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public static void playSoundsInSuccession(String[] split, String clid) {
-        List<byte[]> byteList = new ArrayList<>();
+        List<ClientSound> byteList = new ArrayList<>();
         for (String s : split) {
             System.out.println("Sound to play: " + s);
             byteList.add(getSoundResource(s, clid));
