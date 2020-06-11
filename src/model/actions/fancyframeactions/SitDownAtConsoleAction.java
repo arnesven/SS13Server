@@ -39,7 +39,7 @@ public abstract class SitDownAtConsoleAction extends FreeAction {
                 ConsoleFancyFrame ff = getNewFancyFrame(console, gameData, p);
                 p.setFancyFrame(ff);
                 p.setCharacter(new UsingGameObjectFancyFrameDecorator(p.getCharacter(), ff));
-                p.refreshClientData();
+                //p.refreshClientData();
             } else {
                 gameData.getChat().serverInSay(console.getPublicName(p) +
                         " is occupied right now, try again later.", p);

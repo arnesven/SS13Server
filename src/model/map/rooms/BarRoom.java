@@ -14,6 +14,8 @@ import sounds.Sound;
  * Created by erini02 on 28/04/16.
  */
 public class BarRoom extends SupportRoom {
+    private String tune;
+
     public BarRoom(GameData gameData, int id, int x, int y, int w, int h, int[] ints, Door[] doors) {
         super(id, "Bar", "Bar", x, y, w, h, ints, doors);
         this.addObject(new Refrigerator(this));
@@ -22,10 +24,18 @@ public class BarRoom extends SupportRoom {
         this.addObject(new JukeBox(this));
         RobotNPC bar2d2 = new BAR2D2Robot(this.getID(), this);
         gameData.addNPC(bar2d2);
+        tune = "ambidet1";
     }
 
     @Override
     public Sound getSpecificAmbientSound() {
-        return new Sound("ambidet1");
+        if (!tune.equals("nothing")) {
+            return new Sound(tune);
+        }
+        return null;
+    }
+
+    public void setAmbientSound(String selectedTune) {
+        tune = selectedTune;
     }
 }

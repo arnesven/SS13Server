@@ -18,6 +18,7 @@ import model.map.GameMap;
 import model.map.rooms.AirDuctRoom;
 import model.map.rooms.Room;
 import model.objects.general.GameObject;
+import sounds.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,6 +162,16 @@ public class VentObject extends GameObject {
         }
 
         @Override
+        public boolean hasRealSound() {
+            return true;
+        }
+
+        @Override
+        public Sound getRealSound() {
+            return  new Sound("screwdriver");
+        }
+
+        @Override
         protected String getVerb(Actor whosAsking) {
             return "open the air vent";
         }
@@ -191,6 +202,18 @@ public class VentObject extends GameObject {
             super("Close Air Vent", SensoryLevel.PHYSICAL_ACTIVITY);
             this.vent = ventObject;
         }
+
+
+        @Override
+        public boolean hasRealSound() {
+            return true;
+        }
+
+        @Override
+        public Sound getRealSound() {
+            return  new Sound("screwdriver");
+        }
+
 
         @Override
         protected String getVerb(Actor whosAsking) {

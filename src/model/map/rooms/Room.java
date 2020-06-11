@@ -82,7 +82,6 @@ public abstract class Room implements ItemHolder, Serializable {
 	private Lighting lighting;
 	private String paintingStyle;
 
-
 	public Room(int ID, String name, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
 		this.name = name;
 		this.x = x;
@@ -828,4 +827,5 @@ public abstract class Room implements ItemHolder, Serializable {
 	protected Sound getSpecificAmbientSound() {
 		return null;
 	}
+
 }
