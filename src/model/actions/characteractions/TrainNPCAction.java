@@ -140,4 +140,8 @@ public class TrainNPCAction extends Action {
 	public Sprite getAbilitySprite() {
 		return new Sprite("trainnpcabi", "interface.png", 11, 14, null);
 	}
+
+	public Trainable getTarget() {
+		return target;
+	}
 }

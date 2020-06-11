@@ -39,10 +39,15 @@ public abstract class DidAnActionGoal extends PersonalGoal {
                     Action a = ((Player) getActor()).getNextAction();
                     if (a.getClass().equals(act)) {
                         didTimes += 1;
+                        actionDone(a);
                     }
                 }
             }
         });
+    }
+
+    protected void actionDone(Action a) {
+
     }
 
     @Override

@@ -36,14 +36,17 @@ public class  PersonalGoalAssigner implements Serializable {
         Map<String, Collection<PersonalGoal>> jobSpecificGoals = newEmptyMap();
         jobSpecificGoals.get(new CaptainCharacter().getBaseName()).add(new KeepYourCaptainlyness());
         jobSpecificGoals.get(new CaptainCharacter().getBaseName()).add(new CallEscapeShuttleGoal());
+        jobSpecificGoals.get(new CaptainCharacter().getBaseName()).add(new KeepCrewAliveGoal());
         jobSpecificGoals.get(new HeadOfStaffCharacter().getBaseName()).add(new DoJobChange());
         jobSpecificGoals.get(new HeadOfStaffCharacter().getBaseName()).add(new OrderShipmentsGoal(MyRandom.nextInt(2)+2));
+        jobSpecificGoals.get(new HeadOfStaffCharacter().getBaseName()).add(new KeepCrewAliveGoal());
         jobSpecificGoals.get(new SecurityOfficerCharacter().getBaseName()).add(new BatonABaddieGoal(gameData));
         jobSpecificGoals.get(new SecurityOfficerCharacter().getBaseName()).add(new BrigAnAntagonistGoal(gameData));
         jobSpecificGoals.get(new DetectiveCharacter().getBaseName()).add(new GuessGameModeGoal(MyRandom.nextInt(5)+12));
         jobSpecificGoals.get(new DoctorCharacter().getBaseName()).add(new HealXTimes(MyRandom.nextInt(3)+3));
         jobSpecificGoals.get(new DoctorCharacter().getBaseName()).add(new InjectXTimes(MyRandom.nextInt(2)+2));
         jobSpecificGoals.get(new BiologistCharacter().getBaseName()).add(new PlantXTimesGoal(MyRandom.nextInt(2) + 2));
+        jobSpecificGoals.get(new BiologistCharacter().getBaseName()).add(new TrainXDifferentAnimals(MyRandom.nextInt(3)+2));
         jobSpecificGoals.get(new EngineerCharacter().getBaseName()).add(new KeepPowerOverPct(MyRandom.nextInt(7)*5+50));
         jobSpecificGoals.get(new EngineerCharacter().getBaseName()).add(new AlignSolarArraysGoal(MyRandom.nextInt(2)+1));
         jobSpecificGoals.get(new ScienceOfficerCharacter().getBaseName()).add(new LeaveStationGoal());
