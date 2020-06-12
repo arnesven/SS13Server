@@ -569,7 +569,6 @@ public class Player extends Actor implements Target, Serializable {
 		this.nextMove = 0;
 		this.nextAction = null;
 		this.personalHistory = new ArrayList<>();
-        soundQueue.clear();
  	}
 
 	@Override
