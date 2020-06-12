@@ -11,4 +11,7 @@ public interface SoundSet extends Serializable {
 
     boolean hasFastWalkingSound();
     Sound getFastWalkingSound();
+
+    boolean hasScreamSound();
+    Sound getScreamSound();
 }

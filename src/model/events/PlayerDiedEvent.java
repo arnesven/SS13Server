@@ -4,7 +4,6 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
-import sounds.DeathSound;
 import sounds.Sound;
 
 public class PlayerDiedEvent extends Event {

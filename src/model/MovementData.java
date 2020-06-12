@@ -59,7 +59,6 @@ public class MovementData {
         beholder.addTolastTurnInfo(subject.getPublicName() + " left towards " + adjacentRoom.getName() + ".");
         if (beholder instanceof Player && beholder.getPosition() instanceof StationRoom) {
             playLeftWalkingSound(beholder, subject, adjacentRoom);
-
         }
     }
 
@@ -92,6 +91,7 @@ public class MovementData {
 
 
     private void playLeftWalkingSound(Actor beholder, Actor subject, Room adjacentRoom) {
+        System.out.println("Playing left walking sound");
             if (adjacentRoom == subject.getPosition() && subject.getCharacter().getSoundSet().hasSlowWalkingSound()) {
                 ((Player) beholder).getSoundQueue().add(subject.getCharacter().getSoundSet().getSlowWalkingSound());
             } else if (subject.getCharacter().getSoundSet().hasFastWalkingSound()) {

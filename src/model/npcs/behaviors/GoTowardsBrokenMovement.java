@@ -43,6 +43,8 @@ public class GoTowardsBrokenMovement extends GoTowardsRoomMovement {
             }
         }
 
+        System.out.println("Rooms with broken stuff: " + brokenList.size());
+
 
         return brokenList;
     }

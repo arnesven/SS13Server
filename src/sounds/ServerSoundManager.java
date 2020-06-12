@@ -27,6 +27,10 @@ public class ServerSoundManager extends SoundManager {
     }
 
     public static String getSoundData(String rest) {
-        return getBase64String(rest) + "<sprt>" + soundRegister.get(rest).getVolume();
+        if (soundRegister.containsKey(rest)) {
+            return getBase64String(rest) + "<sprt>" + soundRegister.get(rest).getVolume();
+        }
+        Logger.log(Logger.CRITICAL, "Could not find sound resource for key '" + rest + "'");
+        return "<sprt>0.0";
     }
 }

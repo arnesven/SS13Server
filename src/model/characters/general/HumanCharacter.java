@@ -17,7 +17,7 @@ public abstract class HumanCharacter extends GameCharacter {
 	
 	public HumanCharacter(String name, int startRoom, double speed) {
 		super(name, startRoom, speed);
-		super.setSoundSet(new HumanSoundSet());
+		super.setSoundSet(new HumanSoundSet(this));
 	}
 
 	public String getPublicName() {
@@ -66,7 +66,7 @@ public abstract class HumanCharacter extends GameCharacter {
                 performingClient.getPosition().addObject(new BloodyMess(performingClient.getPosition()));
             }
         }
-        if (weapon.getDamage() > 0.5 && MyRandom.nextDouble() < 1.0) {
+        if (weapon.getDamage() > 0.5 && MyRandom.nextDouble() < 0.5) {
            Action a = new ScreamingAction(getActor());
            a.doTheAction(null, getActor());
         }

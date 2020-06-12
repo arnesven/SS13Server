@@ -1,34 +1,34 @@
 package sounds;
 
-public class DefaultSoundSet implements SoundSet {
+public class RobotSoundSet extends DefaultSoundSet {
     @Override
     public boolean hasDeathSound() {
-        return false;
+        return true;
     }
 
     @Override
     public Sound getDeathSound() {
-        return null;
+        return new Sound("borg_deathsound");
     }
 
     @Override
     public boolean hasSlowWalkingSound() {
-        return false;
+        return true;
     }
 
     @Override
     public Sound getSlowWalkingSound() {
-        return null;
+        return new Sound("slow_walk_robot");
     }
 
     @Override
     public boolean hasFastWalkingSound() {
-        return false;
+        return true;
     }
 
     @Override
     public Sound getFastWalkingSound() {
-        return null;
+        return new Sound("fast_walk_robot");
     }
 
     @Override

@@ -19,12 +19,12 @@ public class ScreamingAction extends Action {
 
     @Override
     public boolean hasRealSound() {
-        return true;
+        return screamer.getCharacter().getSoundSet().hasScreamSound();
     }
 
     @Override
     public Sound getRealSound() {
-        return makeScreamSound(screamer.getCharacter().getGender());
+        return screamer.getCharacter().getSoundSet().getScreamSound();
     }
 
     @Override
@@ -47,14 +47,6 @@ public class ScreamingAction extends Action {
         return "You hear a " + screamer.getCharacter().getGender() + " screaming...";
     }
 
-
-    private static Sound makeScreamSound(String gender) {
-        if (gender.equals("man")) {
-            return new Sound("malescream_" + (MyRandom.nextInt(6)+1));
-        }
-        return new Sound("femalescream_" + (MyRandom.nextInt(5)+1));
-
-    }
 
 
 }

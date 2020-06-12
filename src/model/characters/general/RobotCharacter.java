@@ -21,6 +21,7 @@ import model.items.general.Tools;
 import model.items.tools.RepairTools;
 import model.items.weapons.BluntWeapon;
 import model.items.weapons.Weapon;
+import sounds.RobotSoundSet;
 
 public class RobotCharacter extends GameCharacter {
 
@@ -28,6 +29,7 @@ public class RobotCharacter extends GameCharacter {
         super(string, i, d);
         this.setMaxHealth(4.0);
         this.setHealth(4.0);
+        setSoundSet(new RobotSoundSet());
     }
 
     @Override
