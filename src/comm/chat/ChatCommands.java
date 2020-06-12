@@ -37,10 +37,13 @@ public class ChatCommands {
         list.add(new MugshotChatHandler());
         list.add(new MapsChatHandler());
         list.add(new ChangeMapChatHandler());
-        list.add(new OverRadioSayChatHandler());
-        list.add(new InCharacterSayChatHandler());
         list.add(new HelpChatHandler());
         list.add(new LaughChatHandler());
+        list.add(new FartChatHandler());
+
+
+        list.add(new OverRadioSayChatHandler()); // keep these last.
+        list.add(new InCharacterSayChatHandler());
         return list;
     }
 

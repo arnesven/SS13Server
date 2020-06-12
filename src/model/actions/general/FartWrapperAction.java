@@ -2,6 +2,7 @@ package model.actions.general;
 
 import model.Actor;
 import model.GameData;
+import sounds.FartSound;
 import sounds.Sound;
 
 import java.util.List;
@@ -49,6 +50,6 @@ public class FartWrapperAction extends Action {
 
     @Override
     public Sound getRealSound() {
-        return new Sound("fart");
+        return new FartSound();
     }
 }
