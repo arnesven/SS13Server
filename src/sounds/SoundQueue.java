@@ -43,6 +43,7 @@ public class SoundQueue extends ArrayList<Sound> implements Serializable {
 
     @Override
     public void clear() {
+        super.clear();
         index = -1;
     }
 }

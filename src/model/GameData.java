@@ -962,5 +962,8 @@ public class GameData implements Serializable {
     	gameMode.getBank().setReferences(this);
     	lastTimeCount = System.currentTimeMillis();
     	lastRoundTimeCount = lastTimeCount;
+    	for (Player p : getPlayersAsList()) {
+    		p.getSoundQueue().clear();
+		}
 	}
 }
