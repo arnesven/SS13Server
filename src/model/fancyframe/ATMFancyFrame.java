@@ -11,6 +11,8 @@ import model.items.NoSuchThingException;
 import model.items.general.MoneyStack;
 import model.items.keycard.IdentCardItem;
 import model.objects.general.ATM;
+import sounds.Sound;
+import sounds.TerminalButtonSound;
 import util.HTMLText;
 import util.Logger;
 
@@ -150,6 +152,7 @@ public class ATMFancyFrame extends FancyFrame {
             card.setHolder(null);
             player.getItems().remove(card);
             buildContent(gameData, player);
+            player.getSoundQueue().add(new Sound("terminal_prompt"));
             player.refreshClientData();
         } else if (event.contains("EJECT")) {
             atm.setEjectedCard(true);
@@ -159,6 +162,7 @@ public class ATMFancyFrame extends FancyFrame {
         } else if (event.contains("TAKECARD")) {
             player.getCharacter().giveItem(atm.removeCard(), atm);
             buildContent(gameData, player);
+            player.getSoundQueue().add(new Sound("card_slide"));
             player.refreshClientData();
         } else if (event.contains("TAKEMONEY")) {
             try {
@@ -168,11 +172,13 @@ public class ATMFancyFrame extends FancyFrame {
                 player.getCharacter().giveItem(atm.getMoneyShowing(), atm);
             }
             atm.setMoneyShowing(null);
+            player.getSoundQueue().add(new Sound("paper_pickup"));
             buildContent(gameData, player);
             player.refreshClientData();
         } else if (event.contains("BUTTON")) {
             String rest = event.replace("BUTTON ", "");
             Logger.log("Got button " + rest);
+            player.getSoundQueue().add(new TerminalButtonSound());
             if (atm.getInsertedCard() != null) {
                 if (withdrawScreenShowing) {
                     List<String> args = new ArrayList<>();

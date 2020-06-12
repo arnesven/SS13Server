@@ -10,6 +10,7 @@ import model.items.NoSuchThingException;
 import model.objects.consoles.Console;
 import model.plebOS.ComputerSystemSession;
 import sounds.Sound;
+import sounds.TerminalButtonSound;
 import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
@@ -87,7 +88,7 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
     }
 
     private Sound makeRandomTerminalClick() {
-        return new Sound("terminal_button0" + (MyRandom.nextInt(8)+1));
+        return new TerminalButtonSound();
     }
 
     @Override
