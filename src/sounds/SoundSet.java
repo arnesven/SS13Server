@@ -17,4 +17,7 @@ public interface SoundSet extends Serializable {
 
     boolean hasLaughSound();
     Sound getLaughSound();
+
+    boolean hasAmbientSound();
+    String getAmbientSound();
 }

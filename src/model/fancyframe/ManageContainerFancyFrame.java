@@ -9,6 +9,7 @@ import model.actions.objectactions.RetrieveAction;
 import model.actions.objectactions.StoreItemAction;
 import model.items.general.GameItem;
 import model.objects.general.ContainerObject;
+import sounds.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,14 @@ public class ManageContainerFancyFrame extends ManageItemsFancyFrame {
             multiAction.addAction(super.makeStoreAction(gi, gameData, player, container));
 
         }
-
         return multiAction;
+    }
+
+    @Override
+    public void handleEvent(GameData gameData, Player player, String event) {
+        super.handleEvent(gameData, player, event);
+        if (event.equals("DISMISS")) {
+            player.getSoundQueue().add(new Sound("crate_close"));
+        }
     }
 }

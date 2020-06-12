@@ -812,6 +812,9 @@ public class Player extends Actor implements Target, Serializable {
 	}
 
 	public String getAmbientSound() {
+		if (getCharacter().getSoundSet().hasAmbientSound()) {
+			return getCharacter().getSoundSet().getAmbientSound();
+		}
 		return getPosition().getAmbientSound();
 	}
 }

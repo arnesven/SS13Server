@@ -37,7 +37,6 @@ public class ShowDefuseFancyFrame extends FreeAction {
     protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
         FancyFrame ff = new BombDefusingFancyFrame(p, gameData, bomb);
         p.setFancyFrame(ff);
-        p.refreshClientData();
     }
 
     @Override

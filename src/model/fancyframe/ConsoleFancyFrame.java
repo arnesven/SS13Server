@@ -9,8 +9,10 @@ import model.actions.objectactions.LoginAction;
 import model.items.NoSuchThingException;
 import model.objects.consoles.Console;
 import model.plebOS.ComputerSystemSession;
+import sounds.Sound;
 import util.HTMLText;
 import util.Logger;
+import util.MyRandom;
 
 public abstract class ConsoleFancyFrame extends FancyFrame {
 
@@ -75,11 +77,17 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
                 ComputerSystemSession.getLogin(player).logOut(gameData);
                 player.refreshClientData();
             }
+            player.getSoundQueue().add(new Sound("terminal_leave"));
         } else if (event.contains("LOGIN")) {
             handleLogin(gameData, player, this);
         } else {
             consoleHandleEvent(gameData, player, event);
+            player.getSoundQueue().add(makeRandomTerminalClick());
         }
+    }
+
+    private Sound makeRandomTerminalClick() {
+        return new Sound("terminal_button0" + (MyRandom.nextInt(8)+1));
     }
 
     @Override
@@ -150,4 +158,6 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
         content.append(HTMLText.makeText("white",
                 "<br/><i>(This screen probably makes sense to " + whoItMakesSenseFor + ", but it's all greek to you.)</i>"));
     }
+
+
 }

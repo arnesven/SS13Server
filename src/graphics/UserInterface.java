@@ -3,6 +3,7 @@ package graphics;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
+import sounds.Sound;
 
 public class UserInterface {
 
@@ -26,6 +27,8 @@ public class UserInterface {
         Sprite helmet = new Sprite("helmeteqslot", "interface.png", 14, 12, null);
         Sprite bootseqslot = new Sprite("bootseqslot", "interface.png", 7, 12, null);
 
+        Sound s1 = new Sound("manlaugh2");
+        Sound s2 = new Sound("womanlaugh");
     }
 
 }

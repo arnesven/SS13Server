@@ -3,6 +3,7 @@ package comm;
 import graphics.sprites.PhysicalBody;
 import model.CharacterCreation;
 import model.GameData;
+import sounds.Sound;
 
 import java.awt.*;
 import java.io.IOException;
@@ -43,6 +44,11 @@ public class StyleCommandHandler extends AbstractCommandHandler {
                 } else if (rest.contains("GENDER")) {
                     String stripped = rest.replace("SET GENDER", "");
                     gameData.getPlayerForClid(clid).getStyleBody().setGender(!stripped.contains("WOMAN"));
+                    if (stripped.contains("WOMAN")) {
+                        gameData.getPlayerForClid(clid).getSoundQueue().add(new Sound("womanlaugh"));
+                    } else {
+                        gameData.getPlayerForClid(clid).getSoundQueue().add(new Sound("manlaugh2"));
+                    }
                 }
                 oos.writeObject(gameData.getPlayerForClid(clid).getStylePreviewName());
             } else if (rest.contains("EVENT")) {

@@ -7,6 +7,7 @@ import model.GameData;
 import model.actions.characteractions.TeleBrigAction;
 import model.actions.general.Action;
 import model.actions.general.TargetingAction;
+import sounds.DefaultSoundSet;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class SecuritronCharacter extends RobotCharacter {
 		super("SecuriTRON" + (uid>1?(" #"+uid):""), i, 0.0);
 		this.startRoom = i;
 		uid++;
+		setSoundSet(new DefaultSoundSet());
 	}
 
     @Override

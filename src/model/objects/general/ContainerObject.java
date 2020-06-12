@@ -6,6 +6,7 @@ import java.util.List;
 import model.Actor;
 import model.GameData;
 import model.ItemHolder;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.ManageContainerAction;
 import model.actions.objectactions.RetrieveAction;
@@ -32,8 +33,8 @@ private List<GameItem> inventory = new ArrayList<>();
 		if (inventory.size() > 0 && cl.hasInventory()) {
 			at.add(new RetrieveAction(this, cl));
 		}
-		if (cl instanceof Actor && cl.hasInventory()) {
-			at.add(new ManageContainerAction(gameData, this));
+		if (cl instanceof Player && cl.hasInventory()) {
+			at.add(new ManageContainerAction(gameData, this, (Player)cl));
 		}
 	}
 

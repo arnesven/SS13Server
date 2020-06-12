@@ -50,4 +50,14 @@ public class DefaultSoundSet implements SoundSet {
     public Sound getLaughSound() {
         return null;
     }
+
+    @Override
+    public boolean hasAmbientSound() {
+        return false;
+    }
+
+    @Override
+    public String getAmbientSound() {
+        return null;
+    }
 }

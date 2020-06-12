@@ -3,47 +3,33 @@ package model.actions.objectactions;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.FreeAction;
 import model.actions.general.Action;
 import model.actions.general.DoNothingAction;
 import model.actions.general.SensoryLevel;
 import model.fancyframe.FancyFrame;
 import model.fancyframe.ManageContainerFancyFrame;
 import model.objects.general.ContainerObject;
+import sounds.Sound;
 
 import java.util.List;
 
-public class ManageContainerAction extends Action {
+public class ManageContainerAction extends FreeAction {
     private final GameData gameData;
     private final ContainerObject container;
 
-    public ManageContainerAction(GameData gameData, ContainerObject containerObject) {
-        super("Retrieve/Store " + containerObject.getBaseName(), SensoryLevel.PHYSICAL_ACTIVITY);
+    public ManageContainerAction(GameData gameData, ContainerObject containerObject, Player p) {
+        super("Retrieve/Store " + containerObject.getBaseName(), gameData, p);
         this.gameData = gameData;
         this.container = containerObject;
     }
 
     @Override
-    protected String getVerb(Actor whosAsking) {
-        return "";
+    protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
+        p.getSoundQueue().add(new Sound("crate_open"));
+        FancyFrame ff = new ManageContainerFancyFrame(p, gameData, container);
+        p.setFancyFrame(ff);
     }
 
-    @Override
-    protected void execute(GameData gameData, Actor performingClient) {
-        // Should not be executed
-    }
 
-    @Override
-    protected void setArguments(List<String> args, Actor performingClient) {
-        if (performingClient instanceof Player) {
-            FancyFrame ff = new ManageContainerFancyFrame((Player)performingClient, gameData, container);
-            ((Player)performingClient).setFancyFrame(ff);
-            ((Player) performingClient).setNextAction(new DoNothingAction());
-            ((Player) performingClient).refreshClientData();
-        }
-    }
-
-    @Override
-    public boolean doesSetPlayerReady() {
-        return false;
-    }
 }
