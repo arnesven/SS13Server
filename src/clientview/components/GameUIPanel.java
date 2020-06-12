@@ -4,6 +4,8 @@ import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
 import clientlogic.GameData;
 import clientlogic.Observer;
+import clientsound.ClientSoundManager;
+import clientsound.SoundJLayer;
 import main.SS13Client;
 
 import javax.swing.*;
@@ -158,6 +160,7 @@ public class GameUIPanel extends JPanel implements Observer {
                         oldRound = -1;
                         toggleView();
                         parent.playBackgroundMusic(true);
+                        ClientSoundManager.stopPlayingBackgroundSound();
                     }
                 }
 
