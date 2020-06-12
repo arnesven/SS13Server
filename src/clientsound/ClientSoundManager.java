@@ -33,7 +33,6 @@ public class ClientSoundManager extends SoundManager {
         ServerCommunicator.send(clid + " RESOURCE SOUND " + key, new MyCallback() {
             @Override
             public void onSuccess(String result) {
-                System.out.println("Got this result: " + result);
                 String parts[] = result.split("<sprt>");
                 byte[] bytes = SoundManager.decodeAsBase64(parts[0]);
                 loadedSounds.put(key, new ClientSound(bytes, Float.parseFloat(parts[1])));

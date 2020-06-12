@@ -24,4 +24,13 @@ public class Talking {
         }));
     }
 
+    public static void decorateWithTalk(GameData gameData, Actor performingClient) {
+        performingClient.setCharacter(new TalkingDecorator(performingClient.getCharacter(), false, true));
+        gameData.addEvent(new RemoveInstanceLaterEvent(performingClient, gameData.getRound(), 1, new InstanceChecker() {
+            @Override
+            public boolean checkInstanceOf(GameCharacter ch) {
+                return ch instanceof TalkingDecorator;
+            }
+        }));
+    }
 }

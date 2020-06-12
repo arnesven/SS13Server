@@ -1,10 +1,7 @@
 package model.items.spellbooks;
 
 import graphics.sprites.Sprite;
-import model.Actor;
-import model.GameData;
-import model.Player;
-import model.Target;
+import model.*;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.decorators.CharacterDecorator;
@@ -14,6 +11,8 @@ import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
+import sounds.FartSound;
+import sounds.Sound;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -177,6 +176,21 @@ public class CluwnSpellBook extends SpellBook {
         }
 
         @Override
+        public boolean hasRealSound() {
+            return type == 0 || type == 1;
+        }
+
+        @Override
+        public Sound getRealSound() {
+            if (type == 0) {
+                return new Sound("evil_laugh_" + (MyRandom.nextInt(3) + 1));
+            } else if (type == 1) {
+                return new FartSound();
+            }
+            return null;
+        }
+
+        @Override
         protected String getVerb(Actor whosAsking) {
             if (type == 0) {
                 return "laughed hysterically: \"" + randLaugh + "!!!\"";
@@ -190,7 +204,7 @@ public class CluwnSpellBook extends SpellBook {
         protected void execute(GameData gameData, Actor performingClient) {
             if (type == 0) {
                 performingClient.addTolastTurnInfo("You said: \"" + randFart + "\"");
-                performingClient.setCharacter(new TalkingDecorator(performingClient.getCharacter(), false, true));
+                Talking.decorateWithTalk(gameData, performingClient);
             } else if (type == 1) {
                 performingClient.addTolastTurnInfo("You farted loudly, " + randFart);
                 performingClient.setCharacter(new PoofOfSmokeAnimationDecorator(performingClient.getCharacter(), gameData, true));
