@@ -4,7 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
-import sound.DeathSound;
+import sounds.DeathSound;
 import sounds.Sound;
 
 public class PlayerDiedEvent extends Event {
@@ -17,12 +17,12 @@ public class PlayerDiedEvent extends Event {
 
     @Override
     public boolean hasRealSound() {
-        return whoDied.isHuman();
+        return whoDied.getCharacter().getSoundSet().hasDeathSound();
     }
 
     @Override
     public Sound getRealSound() {
-        return new DeathSound();
+        return whoDied.getCharacter().getSoundSet().getDeathSound();
     }
 
     @Override

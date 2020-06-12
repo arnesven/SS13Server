@@ -10,12 +10,14 @@ import model.events.damage.ScreamingAction;
 import model.items.suits.Equipment;
 import model.items.weapons.*;
 import model.objects.general.BloodyMess;
+import sounds.HumanSoundSet;
 import util.MyRandom;
 
 public abstract class HumanCharacter extends GameCharacter {
 	
 	public HumanCharacter(String name, int startRoom, double speed) {
 		super(name, startRoom, speed);
+		super.setSoundSet(new HumanSoundSet());
 	}
 
 	public String getPublicName() {

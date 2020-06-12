@@ -22,14 +22,15 @@ import model.map.SpacePosition;
 import model.map.rooms.NukieShipRoom;
 import model.map.rooms.SpaceRoom;
 import model.misc.AlongSurfacesEVAStrategy;
-import model.misc.FreeMoveEVAStrategy;
 import model.misc.EVAStrategy;
 import model.modes.OperativesGameMode;
 import model.movepowers.*;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.DoNothingBehavior;
-import sound.DeathSound;
+import sounds.DefaultSoundSet;
+import sounds.HumanSoundSet;
+import sounds.SoundSet;
 import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
@@ -71,6 +72,7 @@ public abstract class GameCharacter implements Serializable {
     private GameItem killerItem;
 	private PhysicalBody physBody;
 	private SpacePosition spacePosition = null;
+	private SoundSet soundSet;
 
 
 	public GameCharacter(String name, int startRoom, double speed) {
@@ -80,6 +82,7 @@ public abstract class GameCharacter implements Serializable {
 		this.equipment = new Equipment(this);
         physBody = new PhysicalBody(MyRandom.randomGender().equals("man"), this);
         killerItem = null;
+        soundSet = new DefaultSoundSet();
 	}
 
 	/**
@@ -792,5 +795,13 @@ public abstract class GameCharacter implements Serializable {
 	public EVAStrategy getDefaultEVAStrategy() {
 		//return new FreeMoveEVAStrategy();
     	return new AlongSurfacesEVAStrategy();
+	}
+
+	public SoundSet getSoundSet() {
+		return soundSet;
+	}
+
+	public void setSoundSet(SoundSet set) {
+    	this.soundSet = set;
 	}
 }

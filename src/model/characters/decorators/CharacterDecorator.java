@@ -25,6 +25,7 @@ import model.misc.EVAStrategy;
 import model.misc.FreeMoveEVAStrategy;
 import model.movepowers.MovePowersHandler;
 import model.npcs.behaviors.ActionBehavior;
+import sounds.SoundSet;
 import util.Logger;
 
 
@@ -545,5 +546,15 @@ public abstract class CharacterDecorator extends GameCharacter {
 
 	public EVAStrategy getDefaultEVAStrategy() {
 		return innerChar.getDefaultEVAStrategy();
+	}
+
+	@Override
+	public SoundSet getSoundSet() {
+		return innerChar.getSoundSet();
+	}
+
+	@Override
+	public void setSoundSet(SoundSet set) {
+		innerChar.setSoundSet(set);
 	}
 }

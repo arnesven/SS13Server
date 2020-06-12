@@ -1,4 +1,4 @@
-package sound;
+package sounds;
 
 import sounds.Sound;
 
