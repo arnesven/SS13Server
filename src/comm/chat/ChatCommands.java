@@ -40,6 +40,7 @@ public class ChatCommands {
         list.add(new OverRadioSayChatHandler());
         list.add(new InCharacterSayChatHandler());
         list.add(new HelpChatHandler());
+        list.add(new LaughChatHandler());
         return list;
     }
 

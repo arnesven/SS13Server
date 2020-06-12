@@ -62,7 +62,18 @@ public class HumanSoundSet extends DefaultSoundSet {
             return new Sound("malescream_" + (MyRandom.nextInt(6)+1));
         }
         return new Sound("femalescream_" + (MyRandom.nextInt(5)+1));
-
     }
 
+    @Override
+    public boolean hasLaughSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getLaughSound() {
+        if (character.getGender().equals("man")) {
+            return new Sound("manlaugh" + (MyRandom.nextInt(2) + 1));
+        }
+        return new Sound("womanlaugh");
+    }
 }

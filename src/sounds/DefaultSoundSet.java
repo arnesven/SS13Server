@@ -40,4 +40,14 @@ public class DefaultSoundSet implements SoundSet {
     public Sound getScreamSound() {
         return null;
     }
+
+    @Override
+    public boolean hasLaughSound() {
+        return false;
+    }
+
+    @Override
+    public Sound getLaughSound() {
+        return null;
+    }
 }

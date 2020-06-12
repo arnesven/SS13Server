@@ -1,5 +1,6 @@
 package model;
 
+import model.actions.general.SpeechAction;
 import model.characters.decorators.InstanceChecker;
 import model.characters.decorators.TalkingDecorator;
 import model.characters.general.GameCharacter;
