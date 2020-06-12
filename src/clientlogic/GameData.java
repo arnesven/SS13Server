@@ -215,15 +215,14 @@ public class GameData {
 			@Override
 			public void onSuccess(String result) {
 				ClientSoundManager.playSoundsInSuccession(result.substring(1,  result.length()-1).split("<list-part>"), clid);
-				GameData.this.setLastSound(serverLastSound);
 			}
 
 			@Override
 			public void onFail() {
 				System.out.println("Failed to send SOUNDGET");
 			}
-
 		});
+		GameData.this.setLastSound(serverLastSound);
 
 	}
 
