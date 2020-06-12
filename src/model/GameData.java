@@ -321,8 +321,8 @@ public class GameData implements Serializable {
 		if (gameState == GameState.PRE_GAME) {
             try {
                 doSetup();
-                allClearReady();
-                gameState = GameState.MOVEMENT;
+				allClearReady();
+				gameState = GameState.MOVEMENT;
             } catch (GameCouldNotBeStartedException gcnbese) {
                 chatMessages.serverSay("Game could not be started! " +gcnbese.getMessage());
                 Logger.log("Game could not be started! " + gcnbese.getMessage() + " gamestate remains at " + gameState.name);
@@ -382,8 +382,7 @@ public class GameData implements Serializable {
 			}
         	allClearReady();
 		}
-        //setAutoReadyTimer();
-		
+
 	}
 
 	private void allClearExtraEffects() {
@@ -469,6 +468,20 @@ public class GameData implements Serializable {
         getChat().serverSay("New game started, mode: " + selectedMode);
 	}
 
+
+	private void unsetup() {
+		Logger.log("Doing unsetup");
+		this.npcs = new ArrayList<>();
+		this.events = new ArrayList<>();
+		this.moveEvents = new ArrayList<>();
+		this.lateActions = new ArrayList<>();
+		cleanChars();
+		gameMode = null;
+		this.round = 0;
+	}
+
+
+
 	private void characterCreationSetup() {
 		for (Player p : players.values()) {
 			p.getCharacterCreation().doAtGameStart(this, p);
@@ -481,12 +494,6 @@ public class GameData implements Serializable {
 		}
 
 	}
-
-
-	private void unsetup() {
-	    cleanChars();
-	    gameMode = null;
-    }
 
 
 
