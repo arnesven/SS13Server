@@ -14,6 +14,7 @@ import model.events.animation.AnimatedSprite;
 import model.events.animation.AnimationEvent;
 import model.items.general.GameItem;
 import model.mutations.InvisibilityDecorator;
+import sounds.Sound;
 
 public class InvisibilitySpellBook extends SpellBook {
     public InvisibilitySpellBook() {
@@ -70,6 +71,11 @@ public class InvisibilitySpellBook extends SpellBook {
             super(invisibilitySpellBook, forWhom);
             this.forWhom = forWhom;
             addTarget(forWhom.getAsTarget());
+        }
+
+        @Override
+        public Sound getRealSound() {
+            return new Sound("bamf");
         }
 
         @Override

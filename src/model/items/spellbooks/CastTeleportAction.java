@@ -8,6 +8,7 @@ import model.items.NoSuchThingException;
 import model.map.Architecture;
 import model.map.doors.Door;
 import model.map.rooms.Room;
+import sounds.Sound;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,6 +25,11 @@ public class CastTeleportAction extends CastSpellAction {
         this.forWhom = forWhom;
         this.gameData = gameData;
         addTarget(forWhom.getAsTarget());
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("bamf");
     }
 
     @Override

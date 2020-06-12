@@ -12,6 +12,7 @@ import model.actions.general.AttackAction;
 import model.characters.decorators.*;
 import model.characters.special.SpectatorCharacter;
 import model.events.PlayerDiedEvent;
+import model.events.damage.ScreamingAction;
 import model.items.BodyPartFactory;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
@@ -150,6 +151,11 @@ public abstract class GameCharacter implements Serializable {
 			weapon.applyAnimation(getActor(), performingClient, gameData);
 
         }
+		if (weapon.getDamage() > 0.5 && MyRandom.nextDouble() < 0.5 && getSoundSet().hasScreamSound()) {
+			Action a = new ScreamingAction(getActor());
+			a.doTheAction(null, getActor());
+		}
+
         String critMess = doCritical(getActor(), weapon, critical);
 
         informAttackerOfAttack(success, performingClient, weapon, frag, critical, critMess);
@@ -300,6 +306,11 @@ public abstract class GameCharacter implements Serializable {
                 if (something == null) {
                     killString = damager.getName();
                 }
+			}
+
+			if (damager.getDamage() > 0.5 && MyRandom.nextDouble() < 0.25 && getSoundSet().hasScreamSound()) {
+				Action a = new ScreamingAction(getActor());
+				a.doTheAction(null, getActor());
 			}
 
 		}

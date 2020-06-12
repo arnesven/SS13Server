@@ -13,6 +13,7 @@ import model.items.foods.Banana;
 import model.items.weapons.Feces;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
+import sounds.ChimpSoundSet;
 
 public class ChimpCharacter extends AnimalCharacter {
 
@@ -21,6 +22,7 @@ public class ChimpCharacter extends AnimalCharacter {
 	public ChimpCharacter(Room r) {
 		super("Chimp", r.getID(), -2.0);
 		this.startRoom = r;
+		setSoundSet(new ChimpSoundSet());
 	}
 
 	@Override

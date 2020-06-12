@@ -120,7 +120,10 @@ public abstract class ConsoleFancyFrame extends FancyFrame {
         }
     }
 
-    protected void consoleHandleInput(GameData gameData, Player player, String data) { }
+    protected void consoleHandleInput(GameData gameData, Player player, String data) {
+        player.getSoundQueue().add(new Sound("terminal_prompt"));
+
+    }
 
     private void handleLogin(GameData gameData, Player player, ConsoleFancyFrame consoleFancyFrame) {
         LoginAction la = new LoginAction(console, player, consoleFancyFrame);

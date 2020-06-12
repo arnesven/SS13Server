@@ -48,13 +48,6 @@ public abstract class HumanCharacter extends GameCharacter {
             }
         }
 
-        if (damager.getDamage() > 0.5 && MyRandom.nextDouble() < 0.25) {
-
-	        Action a = new ScreamingAction(getActor());
-	        a.doTheAction(null, getActor());
-
-        }
-
     }
 
     @Override
@@ -65,10 +58,6 @@ public abstract class HumanCharacter extends GameCharacter {
             if (succ && hp > getHealth()  && MyRandom.nextDouble() < BloodyMess.SPAWN_CHANCE) {
                 performingClient.getPosition().addObject(new BloodyMess(performingClient.getPosition()));
             }
-        }
-        if (weapon.getDamage() > 0.5 && MyRandom.nextDouble() < 0.5) {
-           Action a = new ScreamingAction(getActor());
-           a.doTheAction(null, getActor());
         }
 
         return succ;

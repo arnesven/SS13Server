@@ -215,7 +215,6 @@ public class GameData {
 
 			@Override
 			public void onSuccess(String result) {
-				System.out.println("Got result from SOUNDGET: " + result);
 				GameData.this.setLastSound(serverLastSound);
 				ClientSoundManager.playSoundsInSuccession(result.substring(1,  result.length()-1).split("<list-part>"), clid);
 			}
@@ -225,8 +224,6 @@ public class GameData {
 				System.out.println("Failed to send SOUNDGET");
 			}
 		});
-		System.out.println("After server send soundget");
-
 	}
 
 	private int getLastSound() {

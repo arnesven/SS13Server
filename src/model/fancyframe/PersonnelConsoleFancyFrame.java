@@ -191,6 +191,7 @@ public class PersonnelConsoleFancyFrame extends ConsoleFancyFrame {
 
     @Override
     protected void consoleHandleInput(GameData gameData, Player player, String data) {
+        super.consoleHandleInput(gameData, player, data);
         Scanner scan = new Scanner(data);
         int newWage = -1;
         if (scan.hasNextInt()) {
