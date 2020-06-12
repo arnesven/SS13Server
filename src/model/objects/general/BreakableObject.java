@@ -63,9 +63,9 @@ public abstract class BreakableObject extends GameObject implements Target {
 			success = false;
 		}
 
-		if (performingClient instanceof Player) {
-			((Player)performingClient).getSoundQueue().add(item.getRealSound());
-		}
+		//if (performingClient instanceof Player) {
+		//	((Player)performingClient).getSoundQueue().add(item.getRealSound());
+		//}
 
 
 		return success;

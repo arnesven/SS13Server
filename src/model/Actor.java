@@ -43,15 +43,15 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 
     public boolean beAttackedBy(Actor performingClient, Weapon item, GameData gameData) {
         boolean succ = getCharacter().beAttackedBy(performingClient, item, gameData);
-        if (item.hasRealSound()) {
-            if (this instanceof Player) {
-                ((Player)this).getSoundQueue().add(item.getRealSound());
-            }
-
-            if (performingClient instanceof Player) {
-                ((Player)performingClient).getSoundQueue().add(item.getRealSound());
-            }
-        }
+//        if (item.hasRealSound()) {
+//            if (this instanceof Player) {
+//                ((Player)this).getSoundQueue().add(item.getRealSound());
+//            }
+//
+//            if (performingClient instanceof Player) {
+//                ((Player)performingClient).getSoundQueue().add(item.getRealSound());
+//            }
+//        }
         return succ;
     }
 	

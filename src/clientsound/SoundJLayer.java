@@ -60,9 +60,6 @@ public class SoundJLayer extends PlaybackListener implements Runnable
 
                 this.playerThread = new Thread(this, "AudioPlayerThread");
                 this.playerThread.start();
-                if (currentSound != null && currentSound.getVolume() != 0.0f) {
-                    new Thread(new VolumeChanger(this), "volumechanger").start();
-                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -95,6 +92,7 @@ public class SoundJLayer extends PlaybackListener implements Runnable
                                 device
                         );
                 this.player.setPlayBackListener(this);
+                adjustVolume();
                 this.player.play();
             } catch (javazoom.jl.decoder.JavaLayerException ex) {
                 ex.printStackTrace();
@@ -156,7 +154,14 @@ public class SoundJLayer extends PlaybackListener implements Runnable
         //      System.out.println("playbackEnded()");
     }
 
-    public void setVolume(float gain) throws VolumeChangerException {
+
+    private void adjustVolume() {
+        if (currentSound != null && currentSound.getVolume() != 0.0f) {
+            new Thread(new VolumeChanger(this), "volumechanger").start();
+        }
+    }
+
+    private void setVolume(float gain) throws VolumeChangerException {
         Class<JavaSoundAudioDevice> clazz = JavaSoundAudioDevice.class;
         Field[] fields = clazz.getDeclaredFields();
 

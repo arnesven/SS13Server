@@ -7,14 +7,26 @@ import model.characters.decorators.PinnedDecorator;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
 import model.objects.general.BreakableObject;
+import sounds.Sound;
 
 
 public class AttackAction extends TargetingAction {
-	
+
+	private Weapon weapon;
+
 	public AttackAction(Actor ap) {
 		super("Attack", SensoryLevel.PHYSICAL_ACTIVITY, ap);
 	}
 
+	@Override
+	public boolean hasRealSound() {
+		return weapon != null && weapon.hasRealSound();
+	}
+
+	@Override
+	public Sound getRealSound() {
+		return weapon.getRealSound();
+	}
 
 	@Override
 	public void addClientsItemsToAction(Actor client) {
@@ -34,7 +46,7 @@ public class AttackAction extends TargetingAction {
 		Weapon w = (Weapon)item;
 		if (w.isReadyToUse()) {
             w.doAttack(performingClient, target, gameData);
-
+			this.weapon = w;
 			this.setSense(w.getSensedAs());
             if (target instanceof Actor && !target.isDead()) {
                 checkAttackOfOpportunity(gameData, performingClient, (Actor)target, w);
