@@ -11,6 +11,7 @@ import model.characters.general.ChangelingCharacter;
 import model.characters.general.GameCharacter;
 import model.characters.general.ShamblingAbomination;
 import model.characters.decorators.NoSuchInstanceException;
+import sounds.Sound;
 
 public class ChangeFormAction extends Action {
 
@@ -23,6 +24,16 @@ public class ChangeFormAction extends Action {
 	}
 
 	@Override
+	public boolean hasRealSound() {
+		return selected instanceof ShamblingAbomination;
+	}
+
+	@Override
+	public Sound getRealSound() {
+		return new Sound("ling_roar");
+	}
+
+	@Override
 	protected String getVerb(Actor whosAsking) {
 		return "Changed form";
 	}
@@ -30,6 +41,9 @@ public class ChangeFormAction extends Action {
 	@Override
 	protected void execute(GameData gameData, Actor performingClient) {
 		ling.changeInto(selected);
+		if (selected instanceof ShamblingAbomination) {
+			setSense(SensoryLevel.SCREAM);
+		}
 	}
 	
 	@Override

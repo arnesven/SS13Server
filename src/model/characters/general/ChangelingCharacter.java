@@ -19,6 +19,7 @@ import model.items.weapons.Weapon;
 import model.map.rooms.Room;
 import model.npcs.HumanNPC;
 import model.objects.general.GameObject;
+import sounds.SoundSet;
 import util.Logger;
 
 public class ChangelingCharacter extends GameCharacter {
@@ -354,5 +355,10 @@ public class ChangelingCharacter extends GameCharacter {
     		return "Something";
 		}
 		return getForm().getRadioName();
+	}
+
+	@Override
+	public SoundSet getSoundSet() {
+		return getForm().getSoundSet();
 	}
 }

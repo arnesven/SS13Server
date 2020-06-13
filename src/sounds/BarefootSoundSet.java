@@ -1,6 +1,7 @@
 package sounds;
 
-public class ChimpSoundSet extends BarefootSoundSet {
+public class BarefootSoundSet implements SoundSet {
+
     @Override
     public boolean hasDeathSound() {
         return false;
@@ -38,7 +39,7 @@ public class ChimpSoundSet extends BarefootSoundSet {
 
     @Override
     public Sound getScreamSound() {
-        return new Sound("chimpanzee_scream1");
+        return null;
     }
 
     @Override

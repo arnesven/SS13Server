@@ -28,6 +28,7 @@ import model.map.rooms.Room;
 import model.map.rooms.StationRoom;
 import model.npcs.NPC;
 import model.objects.AlienEggObject;
+import sounds.AlienSoundSet;
 import util.HTMLText;
 import util.MyRandom;
 
@@ -50,6 +51,7 @@ public class AlienCharacter extends GameCharacter {
 
     public AlienCharacter(Room randomStartRoom) {
         super("Alien #" + getRandomUID(), randomStartRoom.getID(), 6.6);
+        setSoundSet(new AlienSoundSet(this));
         this.startRoom = randomStartRoom;
         this.stage = STAGE_EGG;
         setHealth(1.0);
@@ -196,6 +198,8 @@ public class AlienCharacter extends GameCharacter {
     public void setStage(int newStage) {
         this.stage = newStage;
     }
+
+    public int getStage() { return stage; }
 
     @Override
     public void doAtEndOfTurn(GameData gameData) {

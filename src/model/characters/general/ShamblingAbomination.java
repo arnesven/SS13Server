@@ -13,6 +13,8 @@ import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.weapons.ImpalerWeapon;
 import model.items.weapons.Weapon;
+import sounds.BarefootSoundSet;
+import sounds.ShamblingAbominationSoundSet;
 
 public class ShamblingAbomination extends GameCharacter {
 
@@ -22,6 +24,7 @@ public class ShamblingAbomination extends GameCharacter {
 
     public ShamblingAbomination() {
 		super("Shambling Abomination", 0, 21.0);
+		setSoundSet(new ShamblingAbominationSoundSet());
 	}
 
     public void setChangeling(ChangelingCharacter ling) {
