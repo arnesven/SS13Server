@@ -30,8 +30,6 @@ public class CaptainsQuartersRoom extends CommandRoom {
         gameData.addNPC(cat);
         addObject(new ComfyChair(this));
         addObject(new NiceBed(this));
-        //this.setEffect(new Sprite("someeffect", "alert.png", 3, 2, null));
-
     }
 
     @Override
@@ -47,8 +45,6 @@ public class CaptainsQuartersRoom extends CommandRoom {
     @Override
     public void doSetup(GameData gameData) {
         super.doSetup(gameData);
-        gameData.addNPC(new EyeballAlienNPC(this));
-
     }
 
     @Override
