@@ -14,4 +14,9 @@ public class Tentacle extends Weapon {
     public GameItem clone() {
         return new Tentacle();
     }
+
+    @Override
+    public boolean hasMissSound() {
+        return true;
+    }
 }

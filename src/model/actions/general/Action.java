@@ -86,11 +86,13 @@ public abstract class Action extends Experienceable implements Serializable {
             //return "someone FARTED";
 			throw new IllegalStateException("doTheAction was not called before call to getDescription!");
         }
-        String middle = " ";
+
+        String postFix = ".";
         if (actionFailed) {
-		    middle = " tried to ";
+		    postFix = ", but failed.";
         }
-    	return performer.getPublicName() + middle + this.getVerb(whosAsking).toLowerCase() + "";
+
+    	return performer.getPublicName() + this.getVerb(whosAsking).toLowerCase() + postFix;
 	}
 
 	/**

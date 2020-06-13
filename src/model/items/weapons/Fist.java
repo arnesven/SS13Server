@@ -29,4 +29,9 @@ public class Fist extends Weapon implements BludgeoningWeapon {
     public GameItem clone() {
         return new Fist();
     }
+
+    @Override
+    public boolean hasMissSound() {
+        return true;
+    }
 }

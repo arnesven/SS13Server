@@ -8,6 +8,7 @@ import model.actions.general.SensoryLevel;
 import model.map.GameMap;
 import model.map.rooms.Room;
 import model.npcs.NPC;
+import util.Logger;
 
 public class FollowMovementEvent extends Event {
 
@@ -38,6 +39,11 @@ public class FollowMovementEvent extends Event {
 		if (remove) {
 			return;
 		}
+		if (shadowedInRoom == target.getPosition()) {
+			Logger.log("No need to follow, same room still...");
+			return;
+		}
+
 		if (shadowedInRoom == performingClient.getPosition()) {
             if (GameMap.shortestDistance(target.getPosition(), performingClient.getPosition()) <=
                     performingClient.getCharacter().getMovementSteps()) {

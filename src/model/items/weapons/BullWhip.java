@@ -46,7 +46,7 @@ public class BullWhip extends Weapon {
 
 
     @Override
-    public void doAttack(Actor performingClient, Target target, GameData gameData) {
+    public boolean doAttack(Actor performingClient, Target target, GameData gameData) {
         boolean success;
         if (MyRandom.nextDouble() > 0.5 ||
                 performingClient.getCharacter().checkInstance(((GameCharacter ch) -> ch instanceof AdventurerCharacter))) {
@@ -62,6 +62,7 @@ public class BullWhip extends Weapon {
             checkOnlyMissHazard(performingClient, gameData, target);
         }
         checkHazard(performingClient, gameData);
+        return success;
     }
 
 

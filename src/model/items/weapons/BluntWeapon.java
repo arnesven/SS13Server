@@ -19,8 +19,8 @@ public abstract class BluntWeapon extends Weapon implements BludgeoningWeapon {
 	}
 
     @Override
-    public void doAttack(Actor performingClient, Target target, GameData gameData) {
-        super.doAttack(performingClient, target, gameData);
+    public boolean doAttack(Actor performingClient, Target target, GameData gameData) {
+        boolean result = super.doAttack(performingClient, target, gameData);
         double factor = 1.0;
         if (target instanceof BreakableObject) {
             factor = 0.85;
@@ -29,6 +29,7 @@ public abstract class BluntWeapon extends Weapon implements BludgeoningWeapon {
             performingClient.addTolastTurnInfo("The " + this.getPublicName(performingClient) + " was broken.");
             performingClient.getItems().remove(this);
         }
+        return result;
     }
 
     public double getDurability() {
@@ -51,8 +52,8 @@ public abstract class BluntWeapon extends Weapon implements BludgeoningWeapon {
     }
 
     @Override
-    public Sound getRealSound() {
-        return new Sound("genhit" + (MyRandom.nextInt(4) + 1));
+    public boolean hasMissSound() {
+        return true;
     }
 
     @Override
@@ -64,4 +65,5 @@ public abstract class BluntWeapon extends Weapon implements BludgeoningWeapon {
     public Sound getPickUpSound() {
         return new Sound("crowbar_pickup");
     }
+
 }

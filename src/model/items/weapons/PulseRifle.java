@@ -23,12 +23,13 @@ public class PulseRifle extends AmmoWeapon {
 
 
     @Override
-    public void doAttack(Actor performingClient, Target target, GameData gameData) {
-        super.doAttack(performingClient, target, gameData);
+    public boolean doAttack(Actor performingClient, Target target, GameData gameData) {
+        boolean result = super.doAttack(performingClient, target, gameData);
         if ( lastAdditionalAttacksIn != gameData.getRound()) {
             lastAdditionalAttacksIn = gameData.getRound();
             makeAdditionalAttacks(gameData, performingClient, target);
         }
+        return result;
     }
 
     @Override

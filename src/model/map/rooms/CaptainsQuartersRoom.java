@@ -7,6 +7,7 @@ import model.items.general.TimeBomb;
 import model.map.doors.Door;
 import model.map.floors.CaptainsQuartersFloorSet;
 import model.map.floors.FloorSet;
+import model.npcs.EyeballAlienNPC;
 import model.npcs.NPC;
 import model.npcs.PirateNPC;
 import model.npcs.animals.CatNPC;
@@ -46,6 +47,8 @@ public class CaptainsQuartersRoom extends CommandRoom {
     @Override
     public void doSetup(GameData gameData) {
         super.doSetup(gameData);
+        gameData.addNPC(new EyeballAlienNPC(this));
+
     }
 
     @Override

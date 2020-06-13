@@ -13,9 +13,11 @@ import sounds.Sound;
 public class AttackAction extends TargetingAction {
 
 	private Weapon weapon;
+	private boolean attackSuccessful;
 
 	public AttackAction(Actor ap) {
 		super("Attack", SensoryLevel.PHYSICAL_ACTIVITY, ap);
+		attackSuccessful = false;
 	}
 
 	@Override
@@ -25,6 +27,9 @@ public class AttackAction extends TargetingAction {
 
 	@Override
 	public Sound getRealSound() {
+		if (!attackSuccessful && weapon.hasMissSound()) {
+			return weapon.getMissSound();
+		}
 		return weapon.getRealSound();
 	}
 
@@ -45,7 +50,7 @@ public class AttackAction extends TargetingAction {
 			Actor performingClient, Target target, GameItem item) {
 		Weapon w = (Weapon)item;
 		if (w.isReadyToUse()) {
-            w.doAttack(performingClient, target, gameData);
+            this.attackSuccessful = w.doAttack(performingClient, target, gameData);
 			this.weapon = w;
 			this.setSense(w.getSensedAs());
             if (target instanceof Actor && !target.isDead()) {

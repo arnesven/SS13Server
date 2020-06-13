@@ -17,6 +17,7 @@ import model.events.animation.AnimatedSprite;
 import model.items.HandheldItem;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
+import sounds.GeneralWeaponSound;
 import sounds.Sound;
 import util.MyRandom;
 
@@ -174,7 +175,7 @@ public abstract class Weapon extends GameItem implements HandheldItem {
         return attackOfOpportunity;
     }
 
-    public void doAttack(Actor performingClient, Target target, GameData gameData) {
+    public boolean doAttack(Actor performingClient, Target target, GameData gameData) {
         boolean success = target.beAttackedBy(performingClient, this, gameData);
         if (success) {
             usedOnBy(target, performingClient, gameData);
@@ -183,6 +184,7 @@ public abstract class Weapon extends GameItem implements HandheldItem {
         }
         applyExtraEffectIfAble(performingClient, target, gameData);
         checkHazard(performingClient, gameData);
+        return success;
     }
 
     protected void applyExtraEffectIfAble(Actor performingClient, Target target, GameData gameData) {
@@ -226,11 +228,11 @@ public abstract class Weapon extends GameItem implements HandheldItem {
     }
 
     public boolean hasRealSound() {
-        return false;
+        return true;
     }
 
     public Sound getRealSound() {
-        return null;
+        return new GeneralWeaponSound();
     }
 
     public double getAmpChance() {
@@ -260,5 +262,16 @@ public abstract class Weapon extends GameItem implements HandheldItem {
 
     public String getWallDamageText() {
         return "Sounds like somebody is banging on the wall!";
+    }
+
+    public boolean hasMissSound() {
+        return false;
+    }
+
+    public Sound getMissSound() {
+	    if (hasMissSound()) {
+	        return new Sound("punchmiss");
+        }
+        return null;
     }
 }
