@@ -250,7 +250,11 @@ public abstract class Action extends Experienceable implements Serializable {
                     ((Player) performingClient).setActionPoints(((Player) performingClient).getActionPoints() - 1);
                     for (Player p : ((QuickAction) this).getPlayersWhoNeedToBeUpdated(gameData, (Player) performingClient)) {
                         if (p != performingClient) {
-                            gameData.getChat().serverInSay(performingClient.getPublicName(p) + " quickly " + getVerb(p) + ".", p);
+                            String name = performingClient.getPublicName(p);
+                            if (performingClient.getPosition() != p.getPosition()) {
+                                name = "Someone";
+                            }
+                            gameData.getChat().serverInSay(name + " quickly " + getVerb(p) + ".", p);
                         } else {
                             gameData.getChat().serverInSay("You spent 1 AP.", p);
                         }

@@ -154,7 +154,7 @@ public class SoundJLayer extends PlaybackListener implements Runnable
         }
     }
 
-    private void setVolume(float gain) throws VolumeChangerException {
+    private boolean setVolume(float gain) throws VolumeChangerException {
         Class<JavaSoundAudioDevice> clazz = JavaSoundAudioDevice.class;
         Field[] fields = clazz.getDeclaredFields();
 
@@ -170,17 +170,19 @@ public class SoundJLayer extends PlaybackListener implements Runnable
                     }
                     FloatControl volControl = (FloatControl) source.getControl(FloatControl.Type.MASTER_GAIN);
                     if (volControl != null) {
-                //        System.out.println("Max volume is " + volControl.getMaximum());
-                //        System.out.println("Min volume is " + volControl.getMinimum());
                         float newGain = Math.min(Math.max(gain, volControl.getMinimum()), volControl.getMaximum());
+                        if (volControl.getValue() == newGain) {
+                            return false;
+                        }
                         volControl.setValue(newGain);
-                //        System.out.println("Set new gain to: " + newGain);
+                        return true;
                     }
                 }
             }
         } catch (IllegalAccessException ie) {
             ie.printStackTrace();
         }
+        return false;
     }
 
 
@@ -196,8 +198,7 @@ public class SoundJLayer extends PlaybackListener implements Runnable
             boolean volumeSet = false;
             do {
                 try {
-                    soundJLayer.setVolume(currentSound.getVolume());
-                    volumeSet = true;
+                    volumeSet = soundJLayer.setVolume(currentSound.getVolume());
                 } catch (Exception e) {
 
                 }
