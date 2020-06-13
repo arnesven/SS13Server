@@ -6,6 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.MostWantedCriminals;
 import model.Player;
+import model.actions.QuickAction;
 import model.items.NoSuchThingException;
 
 
@@ -24,11 +25,8 @@ public class DoNothingAction extends Action {
 	public void execute(GameData gameData, Actor performingClient) {
 		if (performingClient instanceof Player) {
 			Player player = (Player)performingClient;
-			player.setActionPoints(player.getActionPoints() + 1);
-			gameData.getChat().serverInSay("You saved one Action Point (AP).", player);
-			if (player.getActionPoints() > 1) {
-				gameData.getChat().serverInSay(" You have a total of " + player.getActionPoints() + " AP.", player);
-			}
+			QuickAction.saveActionPoint(gameData, player);
+
 
 		}
     }

@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import comm.chat.ChatMessages;
 import graphics.OverlaySprite;
 import main.SS13Client;
+import model.actions.QuickAction;
 import model.actions.manager.ActionManager;
 import model.actions.objectactions.JumpStationAction;
 import model.characters.GameCharacterLambda;
@@ -583,6 +584,7 @@ public class GameData implements Serializable {
                 		cl.addTolastTurnInfo("Your movement has been blocked! You stayed in your current location.");
                 		cl.setNextMove(cl.getPosition().getID());
                 		Logger.log("Player is now in " + cl.getPosition().getName() + " and next move is " + cl.getNextMove());
+						QuickAction.saveActionPoint(this, cl);
 					}
                 } else {
                     cl.activateMovementPower(cl.getNextMove(), this, moveData);
