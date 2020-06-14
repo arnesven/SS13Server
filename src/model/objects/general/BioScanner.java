@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import graphics.sprites.Sprite;
+import model.actions.objectactions.ActivateBioScannerAction;
+import model.actions.objectactions.WalkUpToElectricalMachineryAction;
+import model.fancyframe.BioScannerFancyFrame;
+import model.fancyframe.FancyFrame;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -17,12 +21,13 @@ import model.items.chemicals.Chemicals;
 
 public class BioScanner extends ElectricalMachinery {
 
-	private boolean loaded;
+    public static final int CAN_BE_USED_EARLIEST_TURN = 10;
+    private Chemicals loadedChem;
 
-	public BioScanner(Room pos) {
-		super("BioScanner", pos);
-		loaded = false;
-	}
+    public BioScanner(Room pos) {
+        super("BioScanner", pos);
+        loadedChem = null;
+    }
 
     @Override
     public Sprite getSprite(Player whosAsking) {
@@ -30,104 +35,72 @@ public class BioScanner extends ElectricalMachinery {
     }
 
     @Override
-	public String getName() {
-		if (!loaded) {
-			return super.getName() + " (off)";
-		}
-		return super.getName();
-	}
-	
-	@Override
-	public void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
-		if (!loaded) {
-	//		if (getChemicals(cl) != null) {
-				at.add(new Action("Turn On BioScanner", SensoryLevel.OPERATE_DEVICE) {
-					
-					@Override
-					public void setArguments(List<String> args, Actor p) {	}
-					
-					@Override
-					protected String getVerb(Actor whosAsking) {
-						return "turned the bioscanner on";
-					}
-					
-					@Override
-					protected void execute(GameData gameData, Actor performingClient) {
-						removeAChemicals(performingClient);
-						loaded = true;
-						performingClient.addTolastTurnInfo("The BioScanner is warming up...");
-					}
-				});
-			//}
-		} else if (5 <=  gameData.getRound()) {
-			
-			at.add(new Action("Activate BioScanner", SensoryLevel.OPERATE_DEVICE) {
-				
-				@Override
-				public void setArguments(List<String> args, Actor p) {}
-				
-				@Override
-				protected String getVerb(Actor whosAsking) {
-					return "activated the BioScanner";
-				}
-				
-				@Override
-				protected void execute(GameData gameData, Actor performingClient) {
-					if (!loaded || isInUse()) {
-						performingClient.addTolastTurnInfo("You failed to activate the BioScanner.");
-						
-					} else {
-						loaded = false;
-						setInUse(true);
-						giveBioScannerOutput(gameData, performingClient);
-						gameData.executeAtEndOfRound(performingClient, this);
-					}
-				}
-				
-				@Override
-				public void lateExecution(GameData gameData,
-						Actor performingClient) {
-					setInUse(false);
-				}
-			});
-		}
-	}
+    public String getName() {
+        if (loadedChem == null) {
+            return super.getName() + " (off)";
+        }
+        return super.getName();
+    }
 
+    @Override
+    public void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 
-	protected void giveBioScannerOutput(GameData gameData, Actor performingClient) {
-		int infected = 0;
-		for (Player p : gameData.getPlayersAsList()) {
-			if (p.isInfected()) {
-				infected++;
-			}
-		}
-		for (NPC npc : gameData.getNPCs()) {
-			if (npc.isInfected()) {
-				infected++;
-			}
-		}
-		int dieroll = MyRandom.nextInt(8);
-		if (dieroll == 0) {
-			infected--;
-		} else if (dieroll == 7) {
-			infected++;
-		}
-		infected = Math.max(infected, 0);
-		performingClient.addTolastTurnInfo("BioScanner; " + infected + " infected crew members detected.");
-	}
+        if (cl instanceof Player) {
+            at.add(new WalkUpToElectricalMachineryAction(gameData, (Player) cl, this) {
+                @Override
+                protected FancyFrame getFancyFrame(GameData gameData, Actor performingClient) {
+                    return new BioScannerFancyFrame(gameData, (Player) cl, BioScanner.this);
+                }
+            });
+        } else if (5 <= gameData.getRound()) {
 
-	protected void removeAChemicals(Actor performingClient) {
-		performingClient.getItems().remove(getChemicals(performingClient));
-	}
+            at.add(new ActivateBioScannerAction(this));
+        }
+    }
 
-	private GameItem getChemicals(Actor cl) {
-		for (GameItem gi : cl.getItems()) {
-			if (gi instanceof Chemicals) {
-				return gi;
-			}
-		}
+    @Override
+    public double getPowerConsumption() {
+        if (loadedChem != null) {
+            return super.getPowerConsumption();
+        }
+        return 0.0;
+    }
 
-		return null;
-	}
+    public void giveBioScannerOutput(GameData gameData, Actor performingClient, BioScannerFancyFrame fancyFrame) {
+        int infected = 0;
+        for (Player p : gameData.getPlayersAsList()) {
+            if (p.isInfected()) {
+                infected++;
+            }
+        }
+        for (NPC npc : gameData.getNPCs()) {
+            if (npc.isInfected()) {
+                infected++;
+            }
+        }
+        int dieroll = MyRandom.nextInt(8);
+        if (dieroll == 0) {
+            infected--;
+        } else if (dieroll == 7) {
+            infected++;
+        }
+        infected = Math.max(infected, 0);
+        if (fancyFrame == null) {
+            performingClient.addTolastTurnInfo("BioScanner; " + infected + " infected crew members detected.");
+        } else {
+            fancyFrame.setResult(infected, gameData, (Player)performingClient);
+        }
+    }
 
+    public Chemicals getLoadedChems() {
+        return loadedChem;
+    }
+
+    public void setLoadedChemicals(Chemicals chems) {
+        loadedChem = chems;
+    }
+
+    public boolean isLoaded() {
+        return loadedChem != null;
+    }
 }
