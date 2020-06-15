@@ -11,12 +11,14 @@ import model.actions.characteractions.HissAction;
 import model.actions.characteractions.MeowingAction;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
+import sounds.CatSoundSet;
 
 
 public class CatCharacter extends AnimalCharacter {
 
 	public CatCharacter() {
 		super("Cat", 20, -5.0);
+		setSoundSet(new CatSoundSet());
 	}
 
     @Override
@@ -25,7 +27,6 @@ public class CatCharacter extends AnimalCharacter {
 			return new Sprite("catdead", "animal.png", 2, 20, 32, 32, getActor());
 		}
 		return new Sprite("cat", "animal.png", 3, 20, 32, 32, getActor());
-
 	}
 
 	@Override

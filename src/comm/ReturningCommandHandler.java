@@ -19,7 +19,7 @@ public class ReturningCommandHandler extends AbstractCommandHandler {
 		if (command.equals("RETURNING")) {
 			Logger.log("This client returning: " + clid);
 			if (gameData.getClientsAsMap().containsKey(clid)) {
-				oos.writeObject(clid);
+				oos.writeObject(clid + ":" + gameData.getPlayerForClid(clid).getSoundQueue().getCurrentIndex());
 			} else {
 				oos.writeObject("ID ERROR");
 			}

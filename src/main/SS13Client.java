@@ -27,7 +27,7 @@ import java.awt.event.KeyEvent;
 
 public class SS13Client extends JFrame {
 
-    public static final String CLIENT_VERSION_STRING = "1.255";
+    public static final String CLIENT_VERSION_STRING = "1.256";
     private final ReturningPlayerPanel retPan;
     public static final Dimension originalSize = new Dimension(960, 960);
     public static final Dimension ingameSize = new Dimension(1200, 960);
@@ -90,8 +90,11 @@ public class SS13Client extends JFrame {
                     JOptionPane.showMessageDialog(SS13Client.this, "Could not connect to server.");
 
                 } else {
-                    GameData.getInstance().setClid(result);
-                    switchToGameUI(result);
+                    String parts[] = result.split(":");
+                    String clid = parts[0];
+                    GameData.getInstance().setClid(clid);
+                    GameData.getInstance().setLastSound(Integer.parseInt(parts[1]));
+                    switchToGameUI(clid);
                     errorShowing = false;
                 }
             }

@@ -230,7 +230,7 @@ public class GameData {
 		return lastSound;
 	}
 
-	protected void setLastSound(int serverLastSound) {
+	public void setLastSound(int serverLastSound) {
 		this.lastSound = serverLastSound;
 	}
 
@@ -953,4 +953,5 @@ public class GameData {
 	public long getTimeLeft() {
 		return timeLeft;
 	}
+
 }
