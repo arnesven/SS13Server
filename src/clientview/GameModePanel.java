@@ -127,7 +127,7 @@ public class GameModePanel extends JPanel implements Observer {
 
 
     private void addModes(String result) {
-        System.out.println("Result is: " + result);
+        //System.out.println("Result is: " + result);
         String[] parts = result.split("<modes-part>");
         noOfRounds = Integer.parseInt(parts[0]);
         roundField.setText(parts[0]);

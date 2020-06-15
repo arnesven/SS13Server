@@ -210,9 +210,7 @@ public class Player extends Actor implements Target, Serializable {
         		movablePlaces.add(r.getID());
 			}
 		}
-//		for (Room r : list) {
-//		    movablePlaces.add(r.getID());
-//        }
+
 
 		if (steps > 0) {
 			int[] neigbors = this.getPosition().getNeighbors();
