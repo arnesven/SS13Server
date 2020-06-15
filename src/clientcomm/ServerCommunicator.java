@@ -21,7 +21,7 @@ public class ServerCommunicator {
 
         //System.out.println("Sending \"" + message + "\"");
         long dt = System.currentTimeMillis();
-        System.out.println("CLIENT: Sending Message " + message);
+        //System.out.println("CLIENT: Sending Message " + message);
         String res = login(message, GameData.getInstance().getHost(), GameData.getInstance().getPort());
 	   //doStatistics(dt);
 

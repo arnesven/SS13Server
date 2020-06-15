@@ -2,6 +2,7 @@ package model.fancyframe;
 
 import graphics.sprites.BlurredCharacter;
 import graphics.sprites.Sprite;
+import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.objectactions.ActivateBioScannerAction;
@@ -10,6 +11,11 @@ import model.items.chemicals.Chemicals;
 import model.items.general.GameItem;
 import model.objects.general.BioScanner;
 import util.HTMLText;
+
+import java.awt.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
 
 public class BioScannerFancyFrame extends FancyFrame {
 
@@ -31,7 +37,7 @@ public class BioScannerFancyFrame extends FancyFrame {
             makeNiceTable(gameData, cl, content,
                     "Station<br/>scanned!<br/>.",
                     HTMLText.makeImage(Sprite.blankSprite()),
-                    makeResult(result));
+                    makeResult(result, gameData));
         } else if (!bioScanner.isLoaded()) {
             if (GameItem.hasAnItemOfClass(cl, Chemicals.class)) {
                 makeNiceTable(gameData, cl, content,
@@ -55,10 +61,26 @@ public class BioScannerFancyFrame extends FancyFrame {
         setData(bioScanner.getName(), false, HTMLText.makeColoredBackground("#293F27", content.toString()));
     }
 
-    private String makeResult(int result) {
+    private String makeResult(int result, GameData gameData) {
         StringBuilder bldr = new StringBuilder();
-        for (int i = 0; i < result; i++) {
-            bldr.append(HTMLText.makeImage(new BlurredCharacter().getSprite(null)));
+
+        List<Sprite> spriteList = new ArrayList<>();
+        List<Actor> humanActors = new ArrayList<>();
+        humanActors.addAll(gameData.getActors());
+        humanActors.removeIf((Actor a) -> !(a.isHuman()));
+        for (int i = 0; i < humanActors.size(); ++i) {
+            Sprite sp = new BlurredCharacter().getSprite(null);
+            if (i < result) {
+                sp.setColor(Color.RED);
+            } else {
+                sp.setColor(Color.GREEN);
+            }
+            spriteList.add(sp);
+        }
+        Collections.shuffle(spriteList);
+
+        for (int i = 0; i < spriteList.size(); i++) {
+            bldr.append(HTMLText.makeImage(spriteList.get(i)));
             if (i % 2 == 1) {
                 bldr.append("<br/>");
             }
@@ -78,7 +100,7 @@ public class BioScannerFancyFrame extends FancyFrame {
         table.append(rightPanel);
         table.append("</td></tr>");
         table.append("<tr></tr>");
-        table.append("<tr><td></td>");
+        table.append("<tr><td>" + HTMLText.makeImage(Sprite.blankSprite())+ "</td>");
         table.append("<td bgcolor=\"black\" style=\"text-align:center\">");
         table.append(loadchems);
         table.append("</td></tr>");
