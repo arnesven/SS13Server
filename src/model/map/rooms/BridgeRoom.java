@@ -3,6 +3,7 @@ package model.map.rooms;
 import model.items.general.FireExtinguisher;
 import model.items.suits.SpaceSuit;
 import model.map.doors.Door;
+import model.objects.BridgeChair;
 import model.objects.consoles.AirLockConsole;
 import model.objects.consoles.FTLControl;
 import model.objects.consoles.ShuttleControl;
@@ -19,6 +20,10 @@ public class BridgeRoom extends CommandRoom {
         addObject(new AirLockConsole(this));
         addObject(new FTLControl(this));
         addObject(new ShuttleControl(this, true));
+        addObject(new BridgeChair("Captain", this));
+        addObject(new BridgeChair("XO", this));
+        addObject(new BridgeChair("Helmsman", this));
+        addObject(new BridgeChair("Navigator", this));
     }
 
     @Override

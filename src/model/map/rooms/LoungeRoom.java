@@ -7,6 +7,7 @@ import model.map.doors.DowngoingStairsDoor;
 import model.map.doors.UpgoingStairsDoor;
 import model.map.floors.ChapelFloorSet;
 import model.map.floors.FloorSet;
+import model.objects.LongSofa;
 import model.objects.decorations.ComfyChair;
 import model.objects.general.JunkVendingMachine;
 import sounds.Sound;
@@ -19,7 +20,8 @@ public class LoungeRoom extends SupportRoom {
         addObject(new DowngoingStairsDoor(this));
         addObject(new JunkVendingMachine(this));
         this.addObject(new ComfyChair(this));
-        this.addObject(new ComfyChair(this));
+        //this.addObject(new ComfyChair(this));
+        this.addObject(new LongSofa(this));
     }
 
     @Override
