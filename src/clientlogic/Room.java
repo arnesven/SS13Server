@@ -45,6 +45,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     private String effectName;
     private MyPopupMenu popupMenu;
+    private SpriteSlotTable spriteSlotTable;
 
     //private Color originalBackgroundColor;
 
@@ -66,6 +67,7 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         this.roomStyle = appearence.split("-")[0];
         this.wallStyle = appearence.split("-")[2];
         this.actionData = actiondata;
+        spriteSlotTable = null;
     }
 
     public static void setAutomaticScaling(boolean b) {
@@ -201,24 +203,25 @@ public class Room extends MouseInteractable implements Comparable<Room> {
 
     public Set<OverlaySprite> drawYourOverlays(Graphics g, int xOffset, int yOffset, int xoffPX, int yoffPX, boolean shadow, int currZ) {
         Set<OverlaySprite> drawn = new HashSet<>();
-        SpriteSlotTable slots = new SpriteSlotTable(this);
-        if (!shadow) {
-            for (OverlaySprite sp : getOverlaySprites()) {
-                if (sp.getRoomid() == this.getID()) {
-                    drawn.add(sp);
-                    drawInOpenSlot(g, sp, slots, xOffset, yOffset, xoffPX, yoffPX, currZ);
-                }
-            }
+
+        ArrayList<OverlaySprite> sprs = getOverlaySprites();
+        if (spriteSlotTable == null) {
+            spriteSlotTable = new SpriteSlotTable(this, sprs);
         }
-        slots.fillTheRest(g, this, xOffset, yOffset, xoffPX, yoffPX, currZ);
+
+        if (!shadow) {
+            spriteSlotTable.drawAll(g, this, xOffset, yOffset, xoffPX, yoffPX, shadow, currZ);
+        }
+
+        drawn.addAll(sprs);
 
         return drawn;
     }
 
-    private void drawInOpenSlot(Graphics g, OverlaySprite sp, SpriteSlotTable slots, int xOffset, int yOffset, int xoffPX, int yoffPX, int currZ) {
-        Pair<Double, Double> slotPos = slots.getSlot(sp);
-        sp.drawYourselfInRoom(g, this, slotPos, xOffset, yOffset, xoffPX, yoffPX, currZ);
-    }
+//    private void drawInOpenSlot(Graphics g, OverlaySprite sp, SpriteSlotTable slots, int xOffset, int yOffset, int xoffPX, int yoffPX, int currZ) {
+//        Pair<Double, Double> slotPos = slots.getSlot(sp);
+//        sp.drawYourselfInRoom(g, this, slotPos, xOffset, yOffset, xoffPX, yoffPX, currZ);
+//    }
 
     public int getScaledHeightPX() {
         return (int) (getHeight() * getYScale());
