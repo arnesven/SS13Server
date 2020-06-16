@@ -354,8 +354,9 @@ public abstract class GameStats {
         String res = "";
         SimulatePower sp = (SimulatePower) gameData.getGameMode().getEvents().get("simulate power");
         for (Double d : sp.getHistory()) {
-            res += String.format("+%.1f", d.doubleValue());
+            res += String.format(",+%.1f", d.doubleValue());
         }
+        res = res.replaceFirst(",", "");
         System.out.println("Power history is: " + res);
         return res;
     }

@@ -327,20 +327,20 @@ public class DonutSS13Builder extends MapBuilder {
         gm.addRoom(vent5, ss13, "port");
 
 
-        SolarPanelRoom spr = new SolarPanelRoom(14323, -3, 2, 0, 5, 1, 22);
+        SolarPanelRoom spr = new SolarPanelRoom(14323, -3, 2, 0, 5, 1, 6);
         gm.addRoom(spr, ss13, "aft");
         gm.addRoom(spr, ss13, "port");
 
 
-        SolarPanelRoom spr2 = new SolarPanelRoom(14324, 12, 1, 1, 1, 7, 38);
+        SolarPanelRoom spr2 = new SolarPanelRoom(14324, 12, 1, 1, 1, 7, 9);
         gm.addRoom(spr2, ss13, "center");
         gm.addRoom(spr2, ss13, "port");
 
-        SolarPanelRoom spr3 = new SolarPanelRoom(14325, 13, 1, 1, 4, 1, 20);
+        SolarPanelRoom spr3 = new SolarPanelRoom(14325, 13, 1, 1, 4, 1, 5);
         gm.addRoom(spr3, ss13, "front");
         gm.addRoom(spr3, ss13, "port");
 
-        SolarPanelRoom spr4 = new SolarPanelRoom(14326, 8, 6, -1, 2, 4, 46);
+        SolarPanelRoom spr4 = new SolarPanelRoom(14326, 8, 6, -1, 2, 4, 11);
         gm.addRoom(spr4, ss13, "starboard");
 
 

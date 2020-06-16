@@ -13,8 +13,8 @@ import java.util.List;
 public class SolarPanel extends GameObject {
 
     private static int panelID = 100;
-    public static final double SKEWED_ALIGNED_KW = 0.238;  // 238 W
-    public static double PERPENDICULAR_ALIGNED_KW = 0.511; // 511 W
+    public static final double SKEWED_ALIGNED_KW = 0.238 * 4;  // 238 W
+    public static double PERPENDICULAR_ALIGNED_KW = 0.511 * 4; // 511 W
     private final int number;
     private int rotation;
     //private static final int[] SPRITE_MAP_ANGLES     = new int[]{2, 0, 4, 7, 5, 1, 3, 6};
