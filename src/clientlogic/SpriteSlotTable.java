@@ -122,7 +122,7 @@ public class SpriteSlotTable {
     private void fillTheRest(Graphics g, Room r, int xOffset, int yOffset, int xoffPX, int yoffPX, int currZ) {
         if (fillerSprite != null) {
             for (Integer i : available.keySet()) {
-                if (available.get(i) != null) {
+                if (available.get(i) == null) {
                     Pair<Double, Double> pos = table.get(i);
                     OverlaySprite copy = fillerSprite.copyYourself();
                     copy.setFrameShift(MyRandom.nextInt(fillerSprite.getFrames()));

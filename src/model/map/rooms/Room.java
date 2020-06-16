@@ -297,6 +297,11 @@ public abstract class Room implements ItemHolder, Serializable {
 		objects.add(gameObject);
 	}
 
+	public void addObject(GameObject gameObject, RelativePositions relPos) {
+		this.addObject(gameObject);
+		gameObject.setPreferredRelativePosition(relPos);
+	}
+
     public void removeObject(GameObject target) {
         objects.remove(target);
     }
