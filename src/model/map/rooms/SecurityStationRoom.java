@@ -25,10 +25,10 @@ import java.util.List;
 public class SecurityStationRoom extends SecurityRoom {
     public SecurityStationRoom(GameData gameData, int id, int x, int y, int w, int h, int[] ints, Door[] doubles, Room releaseRoom) {
         super(id, "Security Station", "SS", x, y, w, h, ints, doubles);
-        addObject(new CrimeRecordsConsole(this, gameData, releaseRoom));
-        addObject(new EvidenceBox(this));
-        addObject(new SecurityCameraConsole(this));
-        addObject(new SecurityStorage(this));
+        addObject(new CrimeRecordsConsole(this, gameData, releaseRoom), RelativePositions.MID_TOP);
+        addObject(new EvidenceBox(this), RelativePositions.UPPER_RIGHT_CORNER);
+        addObject(new SecurityCameraConsole(this), RelativePositions.MID_LEFT);
+        addObject(new SecurityStorage(this), RelativePositions.LOWER_RIGHT_CORNER);
         InnerWindow windowToBrig = new InnerWindow(this);
         windowToBrig.setAbsolutePosition(x + 0.5, y + h);
         addObject(windowToBrig);

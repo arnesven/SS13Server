@@ -8,7 +8,9 @@ import model.characters.decorators.CharacterDecorator;
 import model.characters.decorators.PoofOfSmokeAnimationDecorator;
 import model.characters.decorators.TalkingDecorator;
 import model.characters.general.GameCharacter;
+import model.characters.general.WizardCharacter;
 import model.items.general.GameItem;
+import model.items.suits.WizardsHat;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
 import sounds.FartSound;
@@ -87,6 +89,15 @@ public class CluwnSpellBook extends SpellBook {
     private class CluwnAppearanceDecorator extends CharacterDecorator {
         public CluwnAppearanceDecorator(GameCharacter character, int round) {
             super(character, "Cluwnappearance");
+        }
+
+        @Override
+        public String getPublicName(Actor whosAsking) {
+            if (whosAsking.getInnermostCharacter() instanceof WizardCharacter) {
+                return super.getPublicName(whosAsking) + " (Cluwned)";
+            }
+
+            return "Cluwn";
         }
 
         @Override

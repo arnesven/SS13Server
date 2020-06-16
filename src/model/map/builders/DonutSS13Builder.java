@@ -177,7 +177,7 @@ public class DonutSS13Builder extends MapBuilder {
 
         Room ss = new SecurityStationRoom(gameData, 18, 15,  1, 2, 3, new int[]{16}        ,
                 new Door[]{new SecurityDoor(15.0, 3.5, 18, 16, false) }, portHallFront );
-        ss.addObject(new SolarArrayControl(ss, 14325, gameData));
+        ss.addObject(new SolarArrayControl(ss, 14325, gameData), RelativePositions.UPPER_LEFT_CORNER);
         gm.addRoom(ss, ss13, "front");
         gm.addRoom(ss, ss13, "port");
 
