@@ -76,7 +76,7 @@ public class SpriteSlotTable {
         extended.get(index).add(sp);
         //extended.set(index, extended.get(index)+1);
         Pair<Double, Double> slot = table.get(index);
-        slot.second += 0.1 * oneHalf * extended.get(index).size();
+        //slot.first += 0.1 * oneHalf * extended.get(index).size();
         return slot;
     }
 
@@ -108,7 +108,6 @@ public class SpriteSlotTable {
         for (List<OverlaySprite> list : extended) {
             for (OverlaySprite os : list) {
                 Pair<Double, Double> slot = table.get(index);
-                slot.second += 0.1 * oneHalf * extended.get(index).size();
                 os.drawYourselfInRoom(g, r, slot, xOffset, yOffset, xoffPX, yoffPX, currZ);
             }
             index++;

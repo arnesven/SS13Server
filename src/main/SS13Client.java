@@ -427,6 +427,9 @@ public class SS13Client extends JFrame {
         Room.setYScale(y * MapPanel.getZoom());
         Cookies.setCookie("preferredxscale", x+"");
         Cookies.setCookie("preferredyscale", y+"");
+        for (Room r : GameData.getInstance().getMiniMap()) {
+            r.clearSlotTable();
+        }
     }
 
 

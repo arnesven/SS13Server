@@ -602,6 +602,9 @@ public class Room extends MouseInteractable implements Comparable<Room> {
         setXScale(getXScale());
     }
 
+    public void clearSlotTable() {
+        spriteSlotTable = null;
+    }
 }
 
 
