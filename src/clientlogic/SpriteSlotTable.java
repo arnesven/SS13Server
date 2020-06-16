@@ -48,18 +48,66 @@ public class SpriteSlotTable {
             }
         });
 
-        System.out.println("Assigning slots");
         for (OverlaySprite sp : sprs) {
             if (sp.getRelPos().equals("ANY")) {
                 getHashedSlot(sp);
+            } else if (sp.getRelPos().contains("-of-")) {
+                System.out.println("Found relational sprite! " + sp.getName());
+                getRelationalSlot(sp, sp.getRelPos().split("-of-"));
             } else {
-                System.out.println("Found an overlay sprite with preferred placement " + sp.getName());
                 String[] parts = sp.getRelPos().split(",");
                 Point2D point = new Point2D.Double(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
                 getSlotClosestTo(sp, point);
             }
         }
-        System.out.println("Slot assignment done!");
+    }
+
+    private Pair<Double, Double> getRelationalSlot(OverlaySprite sp, String[] relation) {
+        int index = 0;
+        boolean found = false;
+        for (Map.Entry<Integer, OverlaySprite> entry: available.entrySet()) {
+            OverlaySprite otherSp = entry.getValue();
+            if (otherSp != null) {
+                if (otherSp.getName().equals(relation[1])) {
+                    System.out.println("Found buddy!");
+                    found = true;
+                    break;
+                }
+            }
+            index++;
+        }
+
+        if (!found) {
+            return getHashedSlot(sp);
+        }
+
+        Pair<Double, Double> anchor = table.get(index);
+
+        Point2D diff = getDiffForDirection(relation[0]);
+        return getSlotClosestTo(sp, new Point2D.Double(anchor.first + diff.getX(), anchor.second + diff.getY()));
+
+    }
+
+    private Point2D getDiffForDirection(String s) {
+        if (s.equals("W")) {
+            return new Point2D.Double(-0.1, 0.0);
+        } else if (s.equals("N")) {
+            return new Point2D.Double(0.0, -0.1);
+        } else if (s.equals("E")) {
+            return new Point2D.Double(0.1, 0.0);
+        } else if (s.equals("S")) {
+            return new Point2D.Double(0.0, 0.1);
+        } else if (s.equals("SE")) {
+            return new Point2D.Double(0.1, 0.1);
+        } else if (s.equals("SW")) {
+            return new Point2D.Double(-0.1, 0.1);
+        } else if (s.equals("NW")) {
+            return new Point2D.Double(-0.1, -0.1);
+        } else if (s.equals("NE")) {
+            return new Point2D.Double(0.1, -0.1);
+        }
+
+        throw new IllegalArgumentException("Could not get diff for string " + s);
     }
 
     private Pair<Double, Double> getSlotClosestTo(OverlaySprite sp, Point2D point) {

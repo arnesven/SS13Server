@@ -84,7 +84,7 @@ public interface SpriteObject {
 
     }
 
-    default Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room room) {
+    default RelativePositions getPreferredRelativePosition() {
         return null;
     }
 }

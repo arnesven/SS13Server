@@ -151,10 +151,7 @@ public class GameObject implements SpriteObject, Serializable {
     }
 
     @Override
-    public Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room room) {
-        if (relativePosition != null) {
-            return relativePosition.getPreferredRelativePosition(gameData, forWhom, room);
-        }
-        return null;
+    public RelativePositions getPreferredRelativePosition() {
+        return relativePosition;
     }
 }

@@ -1,7 +1,10 @@
 package model.map.rooms;
 
+import graphics.sprites.SpriteObject;
+import model.Actor;
 import model.GameData;
 import model.Player;
+import model.objects.general.GameObject;
 
 import java.awt.geom.Point2D;
 import java.io.Serializable;
@@ -13,6 +16,8 @@ public abstract class RelativePositions implements Serializable {
     public static final RelativePositions MID_TOP = new MidTop();
 
     public abstract Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room r);
+    public boolean isRelational() { return false; }
+    public String getRelationString(Actor whosAsking) { return ""; }
 
     private static class LowerLeftCorner extends RelativePositions {
         @Override
@@ -39,7 +44,50 @@ public abstract class RelativePositions implements Serializable {
     private static class MidTop extends RelativePositions {
         @Override
         public Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room r) {
-            return  new Point2D.Double(((double)r.getWidth()) / 2.0, 0.0);
+            return new Point2D.Double(((double)r.getWidth()) / 2.0, 0.0);
+        }
+    }
+
+
+    public static abstract class RelationalPosition extends RelativePositions {
+
+        private final SpriteObject related;
+
+        public RelationalPosition(SpriteObject sprobj) {
+            this.related = sprobj;
+        }
+
+        @Override
+        public Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room r) {
+            return new Point2D.Double();
+        }
+
+        @Override
+        public boolean isRelational() {
+            return true;
+        }
+
+        @Override
+        public String getRelationString(Actor whosAsking) {
+            return getRelation() + "-of-" + related.getPublicName(whosAsking);
+        }
+
+        protected abstract String getRelation();
+    }
+
+    public static class WestOf extends RelationalPosition {
+        public WestOf(SpriteObject sprobj) {
+            super(sprobj);
+        }
+
+        @Override
+        public Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room r) {
+            return null;
+        }
+
+        @Override
+        protected String getRelation() {
+            return "W";
         }
     }
 }

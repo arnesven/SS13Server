@@ -4,6 +4,7 @@ import graphics.sprites.Sprite;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.map.rooms.RelativePositions;
 import model.map.rooms.Room;
 import util.Logger;
 
@@ -49,9 +50,16 @@ public class OverlaySprite {
         String preferredRelPos = "ANY";
         if (sprite.getObjectReference() != null) {
             spriteObjName = sprite.getObjectReference().getPublicName(forWhom);
-            Point2D relPos = sprite.getObjectReference().getPreferredRelativePosition(gameData, forWhom, getRoom());
+            RelativePositions relPos = sprite.getObjectReference().getPreferredRelativePosition();
             if (relPos != null) {
-                preferredRelPos = String.format("%1.2f,%1.2f", relPos.getX(), relPos.getY());
+                if (relPos.isRelational()) {
+                    preferredRelPos = relPos.getRelationString(forWhom);
+                } else {
+                    Point2D point = relPos.getPreferredRelativePosition(gameData, forWhom, getRoom());
+                    if (relPos != null) {
+                        preferredRelPos = String.format("%1.2f,%1.2f", point.getX(), point.getY());
+                    }
+                }
             }
         }
 

@@ -18,13 +18,15 @@ public class BridgeRoom extends CommandRoom {
         super(id, "Bridge", "Brdg", x, y, w, h, ints, doubles);
         addItem(new SpaceSuit());
         addItem(new FireExtinguisher());
-        addObject(new FTLControl(this), RelativePositions.MID_RIGHT);
         addObject(new AirLockConsole(this), RelativePositions.MID_RIGHT);
-        addObject(new ShuttleControl(this, true), RelativePositions.MID_RIGHT);
+        GameObject ftl = new FTLControl(this);
+        addObject(ftl, RelativePositions.MID_RIGHT);
+        GameObject shuttle = new ShuttleControl(this, true);
+        addObject(shuttle, RelativePositions.MID_RIGHT);
         addObject(new BridgeChair("Captain", this), RelativePositions.CENTER);
         addObject(new BridgeChair("XO", this), RelativePositions.MID_TOP);
-        addObject(new BridgeChair("Helmsman", this), RelativePositions.MID_RIGHT);
-        addObject(new BridgeChair("Navigator", this), RelativePositions.MID_RIGHT);
+        addObject(new BridgeChair("Helmsman", this), new RelativePositions.WestOf(shuttle));
+        addObject(new BridgeChair("Navigator", this), new RelativePositions.WestOf(ftl));
     }
 
     @Override
