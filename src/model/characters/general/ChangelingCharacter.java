@@ -208,7 +208,8 @@ public class ChangelingCharacter extends GameCharacter {
 				return;
 			}
 		}
-		throw new NoSuchInstanceException("Could not find character to change into.");
+
+		//throw new NoSuchInstanceException("Could not find character to change into.");
 	}
 
 

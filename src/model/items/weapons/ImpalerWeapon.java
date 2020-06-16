@@ -24,7 +24,9 @@ public class ImpalerWeapon extends SlashingWeapon {
     @Override
     protected void usedOnBy(Target target, Actor performingClient, GameData gameData) {
         super.usedOnBy(target, performingClient, gameData);
-        target.getPosition().addToActionsHappened(new ScreamAction());
+        if (target instanceof Actor) {
+            target.getPosition().addToActionsHappened(new ScreamAction());
+        }
     }
 
     @Override

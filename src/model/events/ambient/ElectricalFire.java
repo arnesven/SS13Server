@@ -293,8 +293,10 @@ public class ElectricalFire extends OngoingEvent {
         if (this.getRoom() == forWhom.getPosition()) {
             try {
                 FireExtinguisher fe = GameItem.getItemFromActor(forWhom, new FireExtinguisher());
-                PutOutFireAction putOutFireAction = new PutOutFireAction(fe);
-                acts.add(putOutFireAction);
+                if (fe.getUsesRemaining() > 0) {
+                    PutOutFireAction putOutFireAction = new PutOutFireAction(fe);
+                    acts.add(putOutFireAction);
+                }
             } catch (NoSuchThingException e) {
                 Logger.log("No fire ext found for " + forWhom);
             }

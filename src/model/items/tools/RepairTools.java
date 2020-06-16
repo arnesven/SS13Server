@@ -60,6 +60,11 @@ public class RepairTools extends Tools {
 				}
 			}
 		}
+		for (Actor a : position.getActors()) {
+		    if (a instanceof Repairable) {
+		        return true;
+            }
+        }
 		return false;
 	}
 

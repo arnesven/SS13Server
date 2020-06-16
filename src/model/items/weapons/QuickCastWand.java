@@ -24,6 +24,11 @@ public class QuickCastWand extends WandWeapon {
     }
 
     @Override
+    public GameItem clone() {
+        return new QuickCastWand();
+    }
+
+    @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("quickcastwand", "weapons2.png", 9, 26, this);
     }

@@ -6,7 +6,7 @@ import model.Player;
 import sounds.Sound;
 
 
-public class AmmoWeapon extends Weapon {
+public abstract class AmmoWeapon extends Weapon {
 
 	protected int shots;
 	private int maxshots;
@@ -42,11 +42,11 @@ public class AmmoWeapon extends Weapon {
 		return shots > 0;
 	}
 
-    @Override
-    public AmmoWeapon clone() {
-        return new AmmoWeapon(this.getBaseName(), super.getHitChance(),
-                this.getDamage(), this.makesBang(), this.getWeight(), maxshots, this.getCost());
-    }
+//    @Override
+//    public AmmoWeapon clone() {
+//        return new AmmoWeapon(this.getBaseName(), super.getHitChance(),
+//                this.getDamage(), this.makesBang(), this.getWeight(), maxshots, this.getCost());
+//    }
 
     public int getMaxShots() {
         return maxshots;

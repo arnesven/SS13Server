@@ -2,7 +2,7 @@ package model.items.weapons;
 
 import graphics.sprites.Sprite;
 
-public class WandWeapon extends AmmoWeapon {
+public abstract class WandWeapon extends AmmoWeapon {
     public WandWeapon(String string, double damage) {
         super(string, 0.95, damage, false, 0.5, 8, 1300);
     }

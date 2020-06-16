@@ -21,7 +21,7 @@ public class KeepCrewAliveGoal extends PersonalGoal {
                 }
             }
         }
-        double ratio = ((double)crewCount)/((double)aliveCrewCount);
+        double ratio = ((double)aliveCrewCount) / ((double)crewCount);
 
         return ratio > 0.5;
     }
