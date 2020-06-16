@@ -6,10 +6,9 @@ import util.MyRandom;
 import util.Pair;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.awt.geom.Point2D;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class SpriteSlotTable {
     private final Room room;
@@ -39,14 +38,54 @@ public class SpriteSlotTable {
             }
         }
 
-        for (OverlaySprite sp : overlaySprites) {
-            getSlot(sp);
+
+        ArrayList<OverlaySprite> sprs = new ArrayList<>();
+        sprs.addAll(overlaySprites);
+        Collections.sort(sprs, new Comparator<OverlaySprite>() {
+            @Override
+            public int compare(OverlaySprite a, OverlaySprite b) {
+                return a.getSlotRelPosValue() - b.getSlotRelPosValue();
+            }
+        });
+
+        System.out.println("Assigning slots");
+        for (OverlaySprite sp : sprs) {
+            if (sp.getRelPos().equals("ANY")) {
+                getHashedSlot(sp);
+            } else {
+                System.out.println("Found an overlay sprite with preferred placement " + sp.getName());
+                String[] parts = sp.getRelPos().split(",");
+                Point2D point = new Point2D.Double(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
+                getSlotClosestTo(sp, point);
+            }
+        }
+        System.out.println("Slot assignment done!");
+    }
+
+    private Pair<Double, Double> getSlotClosestTo(OverlaySprite sp, Point2D point) {
+        int index = 0;
+        double closest = Double.MAX_VALUE;
+        Integer best = -1;
+        for (Pair<Double, Double> pos : table) {
+            if (available.get(index) == null) {
+                double distSq = point.distanceSq(pos.first, pos.second);
+                if (distSq < closest) {
+                    closest = distSq;
+                    best = index;
+                }
+            }
+            index++;
         }
 
+        if (best != -1) {
+            available.put(best, sp);
+            return table.get(best);
+        }
+        return getHashedSlot(sp);
     }
 
 
-    private Pair<Double, Double> getSlot(OverlaySprite sp) {
+    private Pair<Double, Double> getHashedSlot(OverlaySprite sp) {
         if (sp.getSprite().contains("fillwholeroom")) {
             this.fillerSprite = sp;
         }
@@ -80,7 +119,7 @@ public class SpriteSlotTable {
         return slot;
     }
 
-    public void fillTheRest(Graphics g, Room r, int xOffset, int yOffset, int xoffPX, int yoffPX, int currZ) {
+    private void fillTheRest(Graphics g, Room r, int xOffset, int yOffset, int xoffPX, int yoffPX, int currZ) {
         if (fillerSprite != null) {
             for (Integer i : available.keySet()) {
                 if (available.get(i) != null) {
@@ -95,7 +134,6 @@ public class SpriteSlotTable {
     }
 
     public void drawAll(Graphics g, Room r, int xOffset, int yOffset, int xoffPX, int yoffPX, boolean shadow, int currZ) {
-
         for (Integer i : available.keySet()) {
             if (available.get(i) != null) {
                 OverlaySprite sp = available.get(i);

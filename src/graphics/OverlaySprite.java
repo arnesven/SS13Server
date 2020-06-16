@@ -7,6 +7,7 @@ import model.actions.general.Action;
 import model.map.rooms.Room;
 import util.Logger;
 
+import java.awt.geom.Point2D;
 import java.util.List;
 
 public class OverlaySprite {
@@ -45,8 +46,13 @@ public class OverlaySprite {
                     forWhom);
         }
         String spriteObjName = "Unknown";
+        String preferredRelPos = "ANY";
         if (sprite.getObjectReference() != null) {
             spriteObjName = sprite.getObjectReference().getPublicName(forWhom);
+            Point2D relPos = sprite.getObjectReference().getPreferredRelativePosition(gameData, forWhom, getRoom());
+            if (relPos != null) {
+                preferredRelPos = String.format("%1.2f,%1.2f", relPos.getX(), relPos.getY());
+            }
         }
 
         int roomid = -1;
@@ -65,7 +71,8 @@ public class OverlaySprite {
                 delim + spriteObjName + delim + actiondata +
                 delim + this.frames +
                 delim + roomid +
-                delim + sprite.isLooping();
+                delim + sprite.isLooping() +
+                delim + preferredRelPos;
     }
 
 

@@ -17,11 +17,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.font.ShapeGraphicAttribute;
+import java.util.Objects;
 
 public class OverlaySprite extends MouseInteractable {
 
     private final String name;
     private final String actionData;
+    private final String relPos;
     private int frames;
     private int currentFrame = 0;
     private boolean looping;
@@ -36,7 +38,7 @@ public class OverlaySprite extends MouseInteractable {
 
 
     public OverlaySprite(String sprite, double x, double y, double z, int width, int height,
-                         String name, String actionData, int frames, int roomid, boolean looping) {
+                         String name, String actionData, int frames, int roomid, boolean looping, String relPos) {
         this.sprite = sprite;
         this.x = x;
         this.y = y;
@@ -48,6 +50,7 @@ public class OverlaySprite extends MouseInteractable {
         this.frames = frames;
         this.looping = looping;
         this.roomid = roomid;
+        this.relPos = relPos;
     }
 
     public void drawYourself(Graphics g, int xOffset, int yOffset, int xOffPx, int yOffPx, int currentZ) {
@@ -164,7 +167,7 @@ public class OverlaySprite extends MouseInteractable {
 
     public OverlaySprite copyYourself() {
         return new OverlaySprite(this.sprite, this.x, this.y, this.z, this.width, this.height,
-                this.name, this.actionData, this.frames, this.roomid, this.looping);
+                this.name, this.actionData, this.frames, this.roomid, this.looping, this.relPos);
     }
 
     public int getZ() {
@@ -173,5 +176,17 @@ public class OverlaySprite extends MouseInteractable {
 
     public String getEffectName() {
         return name+sprite;
+    }
+
+
+    public int getSlotRelPosValue() {
+        if (relPos.equals("ANY")) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public String getRelPos() {
+        return relPos;
     }
 }

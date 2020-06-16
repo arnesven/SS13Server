@@ -1,5 +1,6 @@
 package model.objects.general;
 
+import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,8 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.map.rooms.RelativePositions;
 import model.map.rooms.Room;
-import util.Logger;
 
 public class GameObject implements SpriteObject, Serializable {
 
@@ -24,13 +25,19 @@ public class GameObject implements SpriteObject, Serializable {
     private double absX;
     private double absY;
     private double absZ;
+    private RelativePositions relativePosition;
 
-    public GameObject(String name, Room position) {
+    public GameObject(String name, Room position, RelativePositions relPos) {
         this.uid = uidCounter++;
 		this.name = name;
 		this.position = position;
 		hasAbsolutePosition = false;
+		this.relativePosition = relPos;
 	}
+
+	public GameObject(String name, Room pos) {
+        this(name, pos, null);
+    }
 
 	public String getBaseName() {
 		return name;
@@ -136,5 +143,18 @@ public class GameObject implements SpriteObject, Serializable {
 
     public int getUid() {
         return uid;
+    }
+
+    @Override
+    public void setPreferredRelativePosition(RelativePositions relPos) {
+        this.relativePosition = relPos;
+    }
+
+    @Override
+    public Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room room) {
+        if (relativePosition != null) {
+            return relativePosition.getPreferredRelativePosition(gameData, forWhom, room);
+        }
+        return null;
     }
 }

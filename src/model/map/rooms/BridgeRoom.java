@@ -7,6 +7,7 @@ import model.objects.BridgeChair;
 import model.objects.consoles.AirLockConsole;
 import model.objects.consoles.FTLControl;
 import model.objects.consoles.ShuttleControl;
+import model.objects.general.GameObject;
 import sounds.Sound;
 
 /**
@@ -21,7 +22,9 @@ public class BridgeRoom extends CommandRoom {
         addObject(new FTLControl(this));
         addObject(new ShuttleControl(this, true));
         addObject(new BridgeChair("Captain", this));
-        addObject(new BridgeChair("XO", this));
+        GameObject xoChair = new BridgeChair("XO", this);
+        xoChair.setPreferredRelativePosition(RelativePositions.LOWER_LEFT_CORNER);
+        addObject(xoChair);
         addObject(new BridgeChair("Helmsman", this));
         addObject(new BridgeChair("Navigator", this));
     }

@@ -498,7 +498,8 @@ public class GameData {
                                 strs[6], strs[7],
 								Integer.parseInt(strs[8]),
 								Integer.parseInt(strs[9]),
-								Boolean.parseBoolean(strs[10])));
+								Boolean.parseBoolean(strs[10]),
+								strs[11]));
 		}
 
 	}

@@ -1,13 +1,13 @@
 package graphics.sprites;
 
-import graphics.ClientInfo;
 import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
+import model.map.rooms.RelativePositions;
 import model.map.rooms.Room;
-import model.objects.general.GameObject;
 
+import java.awt.geom.Point2D;
 import java.util.List;
 
 public interface SpriteObject {
@@ -78,5 +78,13 @@ public interface SpriteObject {
 
     default String getEffectIdentifier(Actor whosAsking) {
         return getPublicName(whosAsking) + getSprite(whosAsking).getName();
+    }
+
+    default void setPreferredRelativePosition(RelativePositions lowerLeftCorner) {
+
+    }
+
+    default Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room room) {
+        return null;
     }
 }
