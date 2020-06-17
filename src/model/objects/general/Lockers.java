@@ -10,8 +10,8 @@ import model.modes.GameMode;
 
 public class Lockers extends ContainerObject {
 
-	public Lockers(Room position) {
-		super("Lockers", position);
+	public Lockers(Room position, int number) {
+		super("Lockers #" + number, position);
 		getInventory().add(new MedKit());
 		//add some random outfits.
 		do {

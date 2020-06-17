@@ -11,13 +11,14 @@ import java.io.Serializable;
 
 public abstract class RelativePositions implements Serializable {
     public static final RelativePositions LOWER_LEFT_CORNER = new LowerLeftCorner();
-    public static final RelativePositions MID_RIGHT = new MidRight();
-    public static final RelativePositions CENTER = new Center();
-    public static final RelativePositions MID_TOP = new MidTop();
-    public static final RelativePositions UPPER_RIGHT_CORNER = new UpperRightCorner();
-    public static final RelativePositions MID_LEFT = new MidLeft();
     public static final RelativePositions UPPER_LEFT_CORNER = new UpperLeftCorner();
     public static final RelativePositions LOWER_RIGHT_CORNER = new LowerRightCorner();
+    public static final RelativePositions UPPER_RIGHT_CORNER = new UpperRightCorner();
+    public static final RelativePositions CENTER = new Center();
+    public static final RelativePositions MID_RIGHT = new MidRight();
+    public static final RelativePositions MID_TOP = new MidTop();
+    public static final RelativePositions MID_LEFT = new MidLeft();
+    public static final RelativePositions MID_BOTTOM = new MidBottom();
 
     public abstract Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room r);
     public boolean isRelational() { return false; }
@@ -41,7 +42,7 @@ public abstract class RelativePositions implements Serializable {
 
         @Override
         public Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room r) {
-            return new Point2D.Double(((double)r.getWidth()) / 2.0, ((double)r.getWidth())/ 2.0);
+            return new Point2D.Double(((double)r.getWidth()) / 2.0, ((double)r.getHeight())/ 2.0);
         }
     }
 
@@ -83,6 +84,14 @@ public abstract class RelativePositions implements Serializable {
     }
 
 
+    private static class MidBottom extends RelativePositions {
+        @Override
+        public Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room r) {
+            return new Point2D.Double(((double)r.getWidth()) / 2.0, r.getHeight());
+        }
+    }
+
+
     public static abstract class RelationalPosition extends RelativePositions {
 
         private final SpriteObject related;
@@ -115,15 +124,32 @@ public abstract class RelativePositions implements Serializable {
         }
 
         @Override
-        public Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room r) {
-            return null;
-        }
-
-        @Override
         protected String getRelation() {
             return "W";
         }
     }
 
 
+    public static class NorthOf extends RelationalPosition {
+
+        public NorthOf(SpriteObject sprobj) {
+            super(sprobj);
+        }
+
+        @Override
+        protected String getRelation() {
+            return "N";
+        }
+    }
+
+    public static class EastOf extends RelationalPosition {
+        public EastOf(GameObject pod) {
+            super(pod);
+        }
+
+        @Override
+        protected String getRelation() {
+            return "E";
+        }
+    }
 }

@@ -77,6 +77,11 @@ public class Battery extends ElectricalMachinery implements PowerSupply {
     }
 
     @Override
+    public boolean isPowered() {
+        return super.isPowered() || isCharging;
+    }
+
+    @Override
     public double getEnergy() {
         return this.energy;
     }

@@ -21,6 +21,9 @@ public class SecurityCamera extends ElectricalMachinery {
         setPowerPriority(3);
         this.setMaxHealth(1.0);
         this.setHealth(1.0);
+        if (stationRoom != null) {
+            this.setAbsolutePosition(stationRoom.getX(), stationRoom.getY());
+        }
     }
 
     @Override
@@ -46,9 +49,9 @@ public class SecurityCamera extends ElectricalMachinery {
     @Override
     public Sprite getSprite(Player whosAsking) {
         if (isBroken() || !isPowered()) {
-            return new Sprite("securitycameraoffline", "monitors.png", 68, this);
+            return new Sprite("securitycameraoffline", "seccamera.png", 0, 1, this);
         }
-        return new Sprite("securitycamera", "monitors.png", 4, this);
+        return new Sprite("securitycamera", "seccamera.png", 0, 0, this);
     }
 
 
