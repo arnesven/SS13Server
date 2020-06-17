@@ -131,8 +131,11 @@ public abstract class Door implements Serializable, SpriteObject {
         try {
             to = gameData.getRoomForId(toID);
             Room from = gameData.getRoomForId(fromID);
-            return forWhom.findMoveToAblePositions(gameData).contains(to) || forWhom.findMoveToAblePositions(gameData).contains(from) ||
-                    to == forWhom.getPosition() || from == forWhom.getPosition();
+            //List<Room> nearby = forWhom.getPosition().getNeighborList();
+            //return nearby.contains(to) || nearby.contains(from) ||
+            //        to == forWhom.getPosition() || from == forWhom.getPosition();
+            return       to == forWhom.getPosition() || from == forWhom.getPosition();
+
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }

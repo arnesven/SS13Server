@@ -17,11 +17,11 @@ public class LoungeRoom extends SupportRoom {
     public LoungeRoom(int ID, int x, int y, int width, int height, int[] neighbors, Door[] doors) {
         super(ID, "Lounge", "", x, y, width, height, neighbors, doors);
         setZ(1);
-        addObject(new DowngoingStairsDoor(this));
-        addObject(new JunkVendingMachine(this));
-        this.addObject(new ComfyChair(this));
+        addObject(new DowngoingStairsDoor(this), RelativePositions.CENTER);
+        addObject(new JunkVendingMachine(this), RelativePositions.LOWER_RIGHT_CORNER);
+        this.addObject(new ComfyChair(this), RelativePositions.MID_LEFT);
         //this.addObject(new ComfyChair(this));
-        this.addObject(new LongSofa(this));
+        this.addObject(new LongSofa(this), RelativePositions.MID_TOP);
     }
 
     @Override
