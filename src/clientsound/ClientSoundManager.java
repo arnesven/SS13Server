@@ -30,6 +30,7 @@ public class ClientSoundManager extends SoundManager {
     }
 
     private static void loadFromServer(String key, String clid) {
+        System.out.println("Resources " + key + " isn't loaded, requesting it from server");
         ServerCommunicator.send(clid + " RESOURCE SOUND " + key, new MyCallback() {
             @Override
             public void onSuccess(String result) {
@@ -54,9 +55,11 @@ public class ClientSoundManager extends SoundManager {
             byteList.add(getSoundResource(s, clid));
         }
         if (effectsSoundQueue == null || !effectsSoundQueue.isPlaying()) {
+            System.out.println("No sound effect going on, making new one");
             effectsSoundQueue = new SoundJLayer(byteList);
             effectsSoundQueue.play();
         } else {
+            System.out.println("Already playing something, adding to queue");
             effectsSoundQueue.addToQueue(byteList);
         }
 

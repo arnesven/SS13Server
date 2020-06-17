@@ -127,6 +127,7 @@ public class SpriteSlotTable {
 
         if (best != -1) {
             available.put(best, sp);
+            size++;
             return table.get(best);
         }
         return getHashedSlot(sp);

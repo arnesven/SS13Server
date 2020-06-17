@@ -202,7 +202,7 @@ public class SoundJLayer extends PlaybackListener implements Runnable
                 } catch (Exception e) {
 
                 }
-            } while (!volumeSet);
+            } while (!volumeSet );
             System.out.println("Volume adjuster Finishing");
 
         }
