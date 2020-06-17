@@ -16,11 +16,11 @@ public class KitchenRoom extends SupportRoom {
 
 	public KitchenRoom(GameData gameData, int id, int x, int y, int width, int height, int[] ns, Door[] ds) {
 		super(id, "Kitchen", "Kitch", x, y, width, height, ns, ds);
-		
-		this.addObject(new CookOMatic(this));
-        this.addObject(new Dumbwaiter(this));
-        this.addItem(new FireExtinguisher());
-        this.addObject(new CrateObject(this, new HalfFullFoodShipment(), gameData));
+
+		this.addObject(new Dumbwaiter(this), RelativePositions.LOWER_LEFT_CORNER);
+		this.addObject(new CookOMatic(this), RelativePositions.LOWER_LEFT_CORNER);
+		this.addObject(new CrateObject(this, new HalfFullFoodShipment(), gameData), RelativePositions.CENTER);
+		this.addItem(new FireExtinguisher());
 
 	}
 
