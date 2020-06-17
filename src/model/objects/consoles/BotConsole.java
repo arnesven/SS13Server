@@ -56,7 +56,7 @@ public class BotConsole extends Console {
         bp.add(BotProgram.createHostileProgram(gameData));
         bp.add(new BotProgram("Nurse",
                 new FollowMeBehavior(whosAsking, gameData),
-                new HealOtherBehavior(),
+                new HealOtherBehavior(1.0),
                 new Sprite("nursebot", "robots2.png", 10, 4, null)));
         bp.add(new BotProgram("Bodyguard",
                 new FollowMeBehavior(whosAsking, gameData),

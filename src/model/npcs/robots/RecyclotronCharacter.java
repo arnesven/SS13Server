@@ -4,16 +4,15 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.QuickAction;
+import model.actions.characteractions.TurnOnRobotAction;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.general.RobotCharacter;
 import model.events.animation.AnimatedSprite;
 import model.map.rooms.Room;
 import model.npcs.NPC;
-import model.npcs.behaviors.DoNothingBehavior;
-import model.npcs.behaviors.MeanderingMovement;
-import model.npcs.behaviors.MoveIfNoItemsMovement;
-import model.npcs.behaviors.RecycleItemsOnFloorBehavior;
+import model.npcs.behaviors.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,33 +48,19 @@ public class RecyclotronCharacter extends RobotCharacter {
         }
     }
 
-    private class TurnOnRecyclotronAction extends Action {
-        private final NPC bot;
+    private class TurnOnRecyclotronAction extends TurnOnRobotAction {
+       public TurnOnRecyclotronAction(NPC actor) {
+            super(actor);
+       }
 
-        public TurnOnRecyclotronAction(NPC recyclotronCharacter) {
-            super("Turn on RecycloTRON", SensoryLevel.OPERATE_DEVICE);
-            this.bot = recyclotronCharacter;
+        @Override
+        protected ActionBehavior getActionBehavior() {
+            return new RecycleItemsOnFloorBehavior();
         }
 
         @Override
-        protected String getVerb(Actor whosAsking) {
-            return "turned on the RecycloTRON";
-        }
-
-        @Override
-        protected void execute(GameData gameData, Actor performingClient) {
-            if (bot.getPosition() == performingClient.getPosition()) {
-                bot.setMoveBehavior(new MoveIfNoItemsMovement());
-                bot.setActionBehavior(new RecycleItemsOnFloorBehavior());
-                performingClient.addTolastTurnInfo("You turned the RecycloTRON on.");
-            } else {
-                performingClient.addTolastTurnInfo("Huh? RecycloTRON no longer there? " + failed(gameData, performingClient));
-            }
-        }
-
-        @Override
-        protected void setArguments(List<String> args, Actor performingClient) {
-
+        protected MovementBehavior getNewMovementBehavior() {
+            return new MoveIfNoItemsMovement();
         }
     }
 }
