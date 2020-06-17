@@ -46,4 +46,9 @@ public abstract class SlashingWeapon extends Weapon implements PhysicalWeapon {
     public Sound getRealSound() {
         return new Sound("slice");
     }
+
+    @Override
+    public boolean isMeleeWeapon() {
+        return true;
+    }
 }

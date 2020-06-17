@@ -5,6 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.Target;
 import model.events.animation.AnimatedSprite;
+import model.items.general.GameItem;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -30,6 +31,11 @@ public class PulseRifle extends AmmoWeapon {
             makeAdditionalAttacks(gameData, performingClient, target);
         }
         return result;
+    }
+
+    @Override
+    public GameItem clone() {
+        return new PulseRifle();
     }
 
     @Override

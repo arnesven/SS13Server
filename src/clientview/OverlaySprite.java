@@ -181,6 +181,12 @@ public class OverlaySprite extends MouseInteractable {
 
     public int getSlotRelPosValue() {
         if (relPos.equals("ANY")) {
+            return 4;
+        }
+        if (relPos.contains("random")) {
+            return 3;
+        }
+        if (relPos.contains("P-of")) {
             return 2;
         }
         if (relPos.contains("-of-")) {

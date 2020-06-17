@@ -10,6 +10,8 @@ public class AttackDoorAction extends AttackAction {
         setName("Attack");
     }
 
+
+
     @Override
     public boolean hasSpecialOptions() {
         return true;

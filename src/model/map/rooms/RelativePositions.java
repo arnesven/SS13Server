@@ -4,11 +4,12 @@ import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.objects.ai.AIScreen;
-import model.objects.general.GameObject;
+import model.map.doors.Door;
+import util.MyRandom;
 
 import java.awt.geom.Point2D;
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class RelativePositions implements Serializable {
     public static final RelativePositions LOWER_LEFT_CORNER = new LowerLeftCorner();
@@ -21,8 +22,15 @@ public abstract class RelativePositions implements Serializable {
     public static final RelativePositions MID_LEFT = new MidLeft();
     public static final RelativePositions MID_BOTTOM = new MidBottom();
 
+    public static RelativePositions getRandomAnchorPoint() {
+        return MyRandom.sample(List.of(LOWER_LEFT_CORNER, UPPER_LEFT_CORNER,
+                LOWER_RIGHT_CORNER, UPPER_RIGHT_CORNER, CENTER, MID_TOP,
+                MID_RIGHT, MID_LEFT, MID_BOTTOM));
+    }
+
     public abstract Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room r);
-    public boolean isRelational() { return false; }
+    protected boolean isAnchorPoint() { return true; }
+    public final boolean isRelational() {return !isAnchorPoint(); }
     public String getRelationString(Actor whosAsking) { return ""; }
 
     private static class LowerLeftCorner extends RelativePositions {
@@ -92,6 +100,22 @@ public abstract class RelativePositions implements Serializable {
         }
     }
 
+    public static class Random extends RelativePositions {
+        @Override
+        public Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room r) {
+            return new Point2D.Double();
+        }
+
+        @Override
+        protected boolean isAnchorPoint() {
+            return false;
+        }
+
+        @Override
+        public String getRelationString(Actor whosAsking) {
+            return "random";
+        }
+    }
 
     public static abstract class RelationalPosition extends RelativePositions {
 
@@ -107,8 +131,8 @@ public abstract class RelativePositions implements Serializable {
         }
 
         @Override
-        public boolean isRelational() {
-            return true;
+        protected boolean isAnchorPoint() {
+            return false;
         }
 
         @Override
@@ -144,7 +168,7 @@ public abstract class RelativePositions implements Serializable {
     }
 
     public static class EastOf extends RelationalPosition {
-        public EastOf(GameObject pod) {
+        public EastOf(SpriteObject pod) {
             super(pod);
         }
 
@@ -155,7 +179,7 @@ public abstract class RelativePositions implements Serializable {
     }
 
     public static class SouthOf extends RelationalPosition {
-        public SouthOf(GameObject obj) {
+        public SouthOf(SpriteObject obj) {
             super(obj);
         }
 
@@ -163,6 +187,31 @@ public abstract class RelativePositions implements Serializable {
         @Override
         protected String getRelation() {
             return "S";
+        }
+    }
+
+    public static class InProximityOf extends RelationalPosition {
+        public InProximityOf(SpriteObject usingObject) {
+            super(usingObject);
+        }
+
+        @Override
+        protected String getRelation() {
+            return "P";
+        }
+    }
+
+
+    public static class CloseToDoor extends RelativePositions {
+        private final Door d;
+
+        public CloseToDoor(Door d) {
+            this.d = d;
+        }
+
+        @Override
+        public Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room r) {
+            return new Point2D.Double(d.getX() - r.getX(), d.getY() - r.getY());
         }
     }
 }

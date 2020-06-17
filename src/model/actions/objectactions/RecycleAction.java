@@ -5,6 +5,7 @@ import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
+import model.characters.decorators.InProximityOfTargetOneRoundDecorator;
 import model.events.Event;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
@@ -85,6 +86,7 @@ public class RecycleAction extends Action {
             }
             gameData.addEvent(new ResetTrashcanEvent(trash, gameData.getRound()));
             trash.setLastUsedInRound(gameData.getRound());
+            performingClient.setCharacter(new InProximityOfTargetOneRoundDecorator(performingClient.getCharacter(), trash, gameData.getRound()));
         }
     }
 

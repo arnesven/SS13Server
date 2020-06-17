@@ -16,6 +16,7 @@ import model.items.general.GameItem;
 import model.items.suits.SuitItem;
 import model.items.suits.Wearable;
 import model.items.weapons.Weapon;
+import model.map.rooms.RelativePositions;
 import model.map.rooms.Room;
 import model.objects.general.CrateObject;
 import model.objects.general.GameObject;
@@ -699,4 +700,11 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         return counter;
     }
 
+    @Override
+    public RelativePositions getPreferredRelativePosition() {
+        if (getCharacter() != null) {
+            return getCharacter().getPreferredRelativePosition();
+        }
+        return null;
+    }
 }

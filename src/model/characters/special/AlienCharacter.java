@@ -279,17 +279,13 @@ public class AlienCharacter extends GameCharacter {
 
         @Override
         protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
+            preferredTarget = args.get(0);
             gameData.executeAtEndOfRound(p, this);
             alienChar.tailWhipReady = false;
             gameData.getChat().serverInSay("You are preparing to hit "
                     + preferredTarget + " with your Tail Spike.", p);
         }
 
-        @Override
-        protected void setArguments(List<String> args, Actor performingClient) {
-            preferredTarget = args.get(0);
-            super.setArguments(args, performingClient);
-        }
 
         @Override
         public void lateExecution(GameData gameData, Actor performingClient) {

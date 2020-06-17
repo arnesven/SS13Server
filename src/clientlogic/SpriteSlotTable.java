@@ -48,21 +48,47 @@ public class SpriteSlotTable {
             }
         });
 
+        List<OverlaySprite> leftovers = new ArrayList<>();
         for (OverlaySprite sp : sprs) {
-            if (sp.getRelPos().equals("ANY")) {
-                getHashedSlot(sp);
-            } else if (sp.getRelPos().contains("-of-")) {
-                System.out.println("Found relational sprite! " + sp.getName());
-                getRelationalSlot(sp, sp.getRelPos().split("-of-"));
-            } else {
-                String[] parts = sp.getRelPos().split(",");
-                Point2D point = new Point2D.Double(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
-                getSlotClosestTo(sp, point);
-            }
+            assignSlotForSprite(sp, leftovers, true);
+        }
+
+        for (OverlaySprite sp : leftovers) {
+            assignSlotForSprite(sp, new ArrayList<>(), false);
         }
     }
 
-    private Pair<Double, Double> getRelationalSlot(OverlaySprite sp, String[] relation) {
+    private void assignSlotForSprite(OverlaySprite sp, List<OverlaySprite> leftovers, boolean firstPass) {
+        if (sp.getRelPos().equals("ANY")) {
+            getHashedSlot(sp);
+        } else if (sp.getRelPos().equals("random")) {
+            getRandomSlot(sp);
+        } else if (sp.getRelPos().contains("-of-")) {
+            Pair<Double, Double> result = getRelationalSlot(sp, sp.getRelPos().split("-of-"), firstPass);
+            if (result == null) {
+                leftovers.add(sp);
+            }
+        } else {
+            String[] parts = sp.getRelPos().split(",");
+            Point2D point = new Point2D.Double(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
+            getSlotClosestTo(sp, point);
+        }
+    }
+
+    private Pair<Double, Double> getRandomSlot(OverlaySprite sp) {
+        if (isFull()) {
+            return getHashedSlot(sp);
+        }
+        int index;
+        do {
+            index = MyRandom.nextInt(table.size());
+        } while (available.get(index) != null);
+        size++;
+        available.put(index, sp);
+        return table.get(index);
+    }
+
+    private Pair<Double, Double> getRelationalSlot(OverlaySprite sp, String[] relation, boolean firstPass) {
         int index = 0;
         boolean found = false;
         for (Map.Entry<Integer, OverlaySprite> entry: available.entrySet()) {
@@ -78,6 +104,9 @@ public class SpriteSlotTable {
         }
 
         if (!found) {
+            if (firstPass) {
+                return null;
+            }
             return getHashedSlot(sp);
         }
 
@@ -105,6 +134,8 @@ public class SpriteSlotTable {
             return new Point2D.Double(-0.1, -0.1);
         } else if (s.equals("NE")) {
             return new Point2D.Double(0.1, -0.1);
+        } else if (s.equals("P")) { // proxmitiy off (doesn't matter where)
+            return new Point2D.Double(0, 0);
         }
 
         throw new IllegalArgumentException("Could not get diff for string " + s);

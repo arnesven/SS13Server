@@ -102,4 +102,9 @@ public class StunBaton extends AmmoWeapon {
 	public Sound getRealSound() {
 		return new Sound("stunbaton");
 	}
+
+	@Override
+	public boolean isMeleeWeapon() {
+		return true;
+	}
 }

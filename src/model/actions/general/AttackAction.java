@@ -1,8 +1,10 @@
 package model.actions.general;
 
+import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.Target;
+import model.characters.decorators.InProximityOfTargetOneRoundDecorator;
 import model.characters.decorators.PinnedDecorator;
 import model.items.general.GameItem;
 import model.items.weapons.Weapon;
@@ -56,6 +58,10 @@ public class AttackAction extends TargetingAction {
             if (target instanceof Actor && !target.isDead()) {
                 checkAttackOfOpportunity(gameData, performingClient, (Actor)target, w);
             }
+            if (w.isMeleeWeapon() && target instanceof SpriteObject) {
+            	performingClient.setCharacter(new InProximityOfTargetOneRoundDecorator(performingClient.getCharacter(),
+						(SpriteObject)target, gameData.getRound()));
+			}
 		} else {
 			performingClient.addTolastTurnInfo(w.getPublicName(performingClient) + 
 												" isn't working."); 

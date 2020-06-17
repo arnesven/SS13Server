@@ -8,6 +8,7 @@ import model.actions.objectactions.ActivateBioScannerAction;
 import model.actions.objectactions.WalkUpToElectricalMachineryAction;
 import model.fancyframe.BioScannerFancyFrame;
 import model.fancyframe.FancyFrame;
+import model.fancyframe.UsingGameObjectFancyFrameDecorator;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -50,6 +51,11 @@ public class BioScanner extends ElectricalMachinery {
                 @Override
                 protected FancyFrame getFancyFrame(GameData gameData, Actor performingClient) {
                     return new BioScannerFancyFrame(gameData, (Player) cl, BioScanner.this);
+                }
+
+                @Override
+                protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
+                    super.doTheFreeAction(args, p, gameData);
                 }
             });
         } else if (5 <= gameData.getRound()) {

@@ -32,7 +32,7 @@ public abstract class FreeAction extends Action {
     }
 
     @Override
-    protected void setArguments(List<String> args, Actor performingClient) {
+    protected final void setArguments(List<String> args, Actor performingClient) {
         doTheFreeAction(args, player, gameData);
         if (hasRealSound()) {
             player.getSoundQueue().add(getRealSound());

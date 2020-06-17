@@ -34,4 +34,9 @@ public class Fist extends Weapon implements BludgeoningWeapon {
     public boolean hasMissSound() {
         return true;
     }
+
+    @Override
+    public boolean isMeleeWeapon() {
+        return true;
+    }
 }

@@ -31,16 +31,6 @@ public class StopDraggingAction extends FreeAction {
     }
 
     @Override
-    protected void execute(GameData gameData, Actor performingClient) {
-
-    }
-
-    @Override
-    public void setArguments(List<String> args, Actor performingClient) {
-
-    }
-
-    @Override
     protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
         if (p.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof DraggingDecorator)) {
             p.removeInstance((GameCharacter gc) -> gc instanceof DraggingDecorator);

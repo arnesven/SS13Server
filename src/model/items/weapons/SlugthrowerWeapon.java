@@ -6,7 +6,7 @@ import sounds.Sound;
 
 import java.awt.*;
 
-public class SlugthrowerWeapon extends AmmoWeapon {
+public abstract class SlugthrowerWeapon extends AmmoWeapon {
     public SlugthrowerWeapon(String string, double hitChance, double damage, boolean bang, double weight, int shots, int cost) {
         super(string, hitChance, damage, bang, weight, shots, cost);
     }

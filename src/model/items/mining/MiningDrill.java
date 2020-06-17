@@ -52,4 +52,9 @@ public class MiningDrill extends Weapon {
     public Sound getRealSound() {
         return new Sound("drill");
     }
+
+    @Override
+    public boolean isMeleeWeapon() {
+        return super.isMeleeWeapon();
+    }
 }

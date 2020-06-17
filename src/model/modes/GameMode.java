@@ -23,9 +23,7 @@ import model.items.suits.Rapido;
 import model.map.DockingPoint;
 import model.map.GameMap;
 import model.map.MapLevel;
-import model.map.rooms.DecorativeRoom;
-import model.map.rooms.LateJoiningShuttle;
-import model.map.rooms.NukieShipRoom;
+import model.map.rooms.*;
 import model.misc.ChristmasBooster;
 import model.modes.goals.PersonalGoalAssigner;
 import model.npcs.*;
@@ -40,7 +38,6 @@ import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
 import model.items.general.GameItem;
-import model.map.rooms.Room;
 import util.Pair;
 
 /**
@@ -575,14 +572,14 @@ public abstract class GameMode implements Serializable {
 
 	protected void addStuffToRooms(GameData gameData) {
         Room r = MyRandom.getRandomHallway(gameData);
-        r.addObject(new JunkVendingMachine(r));
+        r.addObject(new JunkVendingMachine(r), RelativePositions.getRandomAnchorPoint());
         Logger.log("Added vending machine in " + r.getName());
 
         Room r2;
         do {
              r2 = MyRandom.getRandomHallway(gameData);
         } while (r == r2);
-        r2.addObject(new ATM(gameData, r2));
+        r2.addObject(new ATM(gameData, r2), RelativePositions.getRandomAnchorPoint());
 
         for (int i = 2; i > 0; i--) {
             r2 = MyRandom.getRandomHallway(gameData);

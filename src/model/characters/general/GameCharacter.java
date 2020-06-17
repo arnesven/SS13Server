@@ -21,6 +21,7 @@ import model.items.weapons.PhysicalWeapon;
 import model.map.GameMap;
 import model.map.SpacePosition;
 import model.map.rooms.NukieShipRoom;
+import model.map.rooms.RelativePositions;
 import model.map.rooms.SpaceRoom;
 import model.misc.AlongSurfacesEVAStrategy;
 import model.misc.EVAStrategy;
@@ -814,5 +815,12 @@ public abstract class GameCharacter implements Serializable {
 
 	public void setSoundSet(SoundSet set) {
     	this.soundSet = set;
+	}
+
+	public RelativePositions getPreferredRelativePosition() {
+    	if (!isDead()) {
+			return new RelativePositions.Random();
+		}
+		return null;
 	}
 }

@@ -32,13 +32,13 @@ public abstract class SitDownAtConsoleAction extends FreeAction {
         if (p.isAI()) {
             ConsoleFancyFrame ff = getNewFancyFrame(console, gameData, p);
             p.setFancyFrame(ff);
-            p.setCharacter(new UsingGameObjectFancyFrameDecorator(p.getCharacter(), ff));
+            p.setCharacter(new UsingGameObjectFancyFrameDecorator(p.getCharacter(), ff, console));
         } else {
             if (console.isFancyFrameVacant()) {
                 console.setFancyFrameOccupied();
                 ConsoleFancyFrame ff = getNewFancyFrame(console, gameData, p);
                 p.setFancyFrame(ff);
-                p.setCharacter(new UsingGameObjectFancyFrameDecorator(p.getCharacter(), ff));
+                p.setCharacter(new UsingGameObjectFancyFrameDecorator(p.getCharacter(), ff, console));
                 //p.refreshClientData();
             } else {
                 gameData.getChat().serverInSay(console.getPublicName(p) +

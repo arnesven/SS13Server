@@ -19,6 +19,7 @@ import model.items.suits.Equipment;
 import model.items.suits.SuitItem;
 import model.items.weapons.Weapon;
 import model.map.SpacePosition;
+import model.map.rooms.RelativePositions;
 import model.map.rooms.RemoteRoom;
 import model.map.rooms.Room;
 import model.misc.EVAStrategy;
@@ -556,5 +557,10 @@ public abstract class CharacterDecorator extends GameCharacter {
 	@Override
 	public void setSoundSet(SoundSet set) {
 		innerChar.setSoundSet(set);
+	}
+
+	@Override
+	public RelativePositions getPreferredRelativePosition() {
+		return innerChar.getPreferredRelativePosition();
 	}
 }

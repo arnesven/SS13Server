@@ -274,4 +274,8 @@ public abstract class Weapon extends GameItem implements HandheldItem {
         }
         return null;
     }
+
+    public boolean isMeleeWeapon() {
+        return false;
+    }
 }

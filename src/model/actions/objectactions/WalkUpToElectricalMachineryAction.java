@@ -8,6 +8,7 @@ import model.actions.general.Action;
 import model.actions.general.DoNothingAction;
 import model.actions.general.SensoryLevel;
 import model.fancyframe.FancyFrame;
+import model.fancyframe.UsingGameObjectFancyFrameDecorator;
 import model.objects.general.ElectricalMachinery;
 
 import java.util.List;
@@ -25,8 +26,9 @@ public abstract class WalkUpToElectricalMachineryAction extends FreeAction {
 
     @Override
     protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
-            p.setFancyFrame(getFancyFrame(gameData, p));
-            p.refreshClientData();
+        FancyFrame ff = getFancyFrame(gameData, p);
+        p.setFancyFrame(ff);
+        p.setCharacter(new UsingGameObjectFancyFrameDecorator(p.getCharacter(), ff, machine));
     }
 
 

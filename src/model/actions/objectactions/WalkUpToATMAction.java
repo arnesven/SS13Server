@@ -24,14 +24,13 @@ public class WalkUpToATMAction extends WalkUpToElectricalMachineryAction {
     }
 
     @Override
-    protected void setArguments(List<String> args, Actor performingClient) {
-        super.setArguments(args, performingClient);
-        if (performingClient instanceof Player && atm.isFancyFrameVacant()) {
+    protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
+        super.doTheFreeAction(args, p, gameData);
+        if (p instanceof Player && atm.isFancyFrameVacant()) {
             atm.setFancyFrameOccupied();
-            performingClient.setCharacter(new UsingGameObjectFancyFrameDecorator(performingClient.getCharacter(), ff));
         } else {
-            gameData.getChat().serverInSay(atm.getPublicName(performingClient) +
-                    " is occupied right now, try again later.", (Player)performingClient);
+            gameData.getChat().serverInSay(atm.getPublicName(p) +
+                    " is occupied right now, try again later.", (Player)p);
         }
     }
 

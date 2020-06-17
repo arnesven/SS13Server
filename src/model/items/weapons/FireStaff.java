@@ -7,12 +7,18 @@ import model.Hazard;
 import model.Player;
 import model.events.ambient.ElectricalFire;
 import model.events.animation.AnimatedSprite;
+import model.items.general.GameItem;
 import util.Logger;
 import util.MyRandom;
 
 public class FireStaff extends StaffWeapon {
     public FireStaff() {
         super("Fire Staff", true);
+    }
+
+    @Override
+    public GameItem clone() {
+        return new FireStaff();
     }
 
     @Override

@@ -37,28 +37,12 @@ public class ShowDoorHackingFancyFrameAction extends FreeAction {
     }
 
     @Override
-    protected String getVerb(Actor whosAsking) {
-        return "fiddled with the door mechanism";
-    }
-
-    @Override
-    protected void execute(GameData gameData, Actor performingClient) {
-
-    }
-
-    @Override
-    protected void setArguments(List<String> args, Actor performingClient) {
-
-    }
-
-    @Override
     protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
         if (door.getDoorMechanism().isFancyFrameVacant()) {
             door.getDoorMechanism().setFancyFrameOccupied();
             FancyFrame ff = new DoorHackingFancyFrame(p, door, gameData);
             p.setFancyFrame(ff);
-            p.setCharacter(new UsingGameObjectFancyFrameDecorator(p.getCharacter(), ff));
-            p.refreshClientData();
+            p.setCharacter(new UsingGameObjectFancyFrameDecorator(p.getCharacter(), ff, door));
         } else {
             gameData.getChat().serverInSay(
                     " The door mechanism is occupied right now, try again later.", p);

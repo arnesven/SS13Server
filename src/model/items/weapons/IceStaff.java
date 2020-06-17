@@ -8,6 +8,7 @@ import model.Target;
 import model.actions.itemactions.CancelAction;
 import model.characters.decorators.SpriteOverlayDecorator;
 import model.characters.general.GameCharacter;
+import model.items.general.GameItem;
 import model.npcs.NPC;
 import model.npcs.behaviors.MeanderingMovement;
 import util.HTMLText;
@@ -20,6 +21,11 @@ public class IceStaff extends StaffWeapon {
     public IceStaff() {
         super("Ice Staff", false);
         setDamage(0.5);
+    }
+
+    @Override
+    public GameItem clone() {
+        return new IceStaff();
     }
 
     @Override

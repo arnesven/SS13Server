@@ -66,4 +66,8 @@ public abstract class BluntWeapon extends Weapon implements BludgeoningWeapon {
         return new Sound("crowbar_pickup");
     }
 
+    @Override
+    public boolean isMeleeWeapon() {
+        return true;
+    }
 }
