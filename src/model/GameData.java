@@ -21,6 +21,7 @@ import model.items.NoSuchThingException;
 import model.map.rooms.DecorativeRoom;
 import model.modes.GameCouldNotBeStartedException;
 import model.modes.SecretGameMode;
+import model.npcs.behaviors.PathFinding;
 import model.objects.general.ContainerObject;
 
 import model.plebOS.ComputerSystem;
@@ -581,10 +582,18 @@ public class GameData implements Serializable {
 						cl.moveIntoRoom(target);
 					} else if (!cl.isDead() && !cl.isAI()){
                 		Logger.log(cl.getName() + " tried moving to " + target.getName() + ", but can't!");
-                		cl.addTolastTurnInfo("Your movement has been blocked! You stayed in your current location.");
-                		cl.setNextMove(cl.getPosition().getID());
-                		Logger.log("Player is now in " + cl.getPosition().getName() + " and next move is " + cl.getNextMove());
-						QuickAction.saveActionPoint(this, cl);
+
+                		Room maybeCloser = PathFinding.findCloserRoomThroughDoors(this, cl, target);
+                		if (maybeCloser != cl.getPosition() && maybeCloser != null) {
+							cl.addTolastTurnInfo("Your movement was partially blocked!");
+							cl.addTolastTurnInfo("You moved to " + maybeCloser.getName() + " instead.");
+							cl.moveIntoRoom(maybeCloser);
+						} else {
+							cl.addTolastTurnInfo("Your movement has been blocked! You stayed in your current location.");
+							cl.setNextMove(cl.getPosition().getID());
+							Logger.log("Player is now in " + cl.getPosition().getName() + " and next move is " + cl.getNextMove());
+							QuickAction.saveActionPoint(this, cl);
+						}
 					}
                 } else {
                     cl.activateMovementPower(cl.getNextMove(), this, moveData);

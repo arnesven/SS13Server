@@ -3,6 +3,10 @@ package model.npcs.behaviors;
 import java.util.*;
 
 import model.Actor;
+import model.GameData;
+import model.Player;
+import model.items.NoSuchThingException;
+import model.map.doors.Door;
 import model.map.rooms.Room;
 import util.Logger;
 
@@ -100,5 +104,58 @@ public class PathFinding {
 		}
 		
 		return result;
+	}
+
+	public static Room findCloserRoomThroughDoors(GameData gameData, Player cl, Room target) {
+		List<Room> candidates = new ArrayList<>();
+		Logger.log("...Looking for suitable candidates to go to");
+
+
+		for (Door d : target.getDoors()) {
+			try {
+				Room to = gameData.getRoomForId(d.getToId());
+				Room from = gameData.getRoomForId(d.getFromId());
+				if (to != target) {
+					candidates.add(to);
+					Logger.log(to.getName() + " is a candidate");
+				}
+				if (from != target) {
+					candidates.add(from);
+					Logger.log(from.getName() + " is a candidate");
+				}
+			} catch (NoSuchThingException e) {
+				e.printStackTrace();
+			}
+		}
+
+
+		Set<Room> moveToTargets = cl.findMoveToAblePositions(gameData);
+		for (Room r : moveToTargets) {
+			for (Door d : r.getDoors()) {
+				try {
+					Room to = gameData.getRoomForId(d.getToId());
+					Room from = gameData.getRoomForId(d.getFromId());
+					if (to == target) {
+						candidates.add(from);
+						Logger.log(from.getName() + " is a candidate");
+					}
+					if (from == target) {
+						candidates.add(to);
+						Logger.log(to.getName() + " is a candidate");
+					}
+				} catch (NoSuchThingException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+
+		for (Room cand : candidates) {
+			if (moveToTargets.contains(cand)) {
+				return cand;
+			}
+		}
+
+		return null;
 	}
 }
