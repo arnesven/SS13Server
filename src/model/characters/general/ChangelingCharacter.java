@@ -10,7 +10,6 @@ import model.Target;
 import model.actions.characteractions.*;
 import model.actions.general.Action;
 import model.characters.decorators.InstanceChecker;
-import model.characters.decorators.NoSuchInstanceException;
 import model.events.damage.Damager;
 import model.items.general.GameItem;
 import model.items.general.TornClothes;
@@ -89,7 +88,7 @@ public class ChangelingCharacter extends GameCharacter {
 			ArrayList<Action> at) {
 		super.addCharacterSpecificActions(gameData, at);
 		
-		if (!isAlien()) {
+		if (!isNonHumanForm()) {
 			addSuck(gameData, at);
 		}
 		
@@ -139,7 +138,7 @@ public class ChangelingCharacter extends GameCharacter {
 		}
 	}
 
-	private boolean isAlien() {
+	private boolean isNonHumanForm() {
 		return getForm() instanceof ParasiteCharacter ||
 				getForm() instanceof ShamblingAbomination;
 	}
@@ -194,7 +193,7 @@ public class ChangelingCharacter extends GameCharacter {
 				transferClothes(gc);
 				this.current = gc;
 
-				if (isAlien()) {
+				if (isNonHumanForm()) {
 					dropAllItems();
 				}
 				if (current instanceof ShamblingAbomination) {
@@ -226,11 +225,18 @@ public class ChangelingCharacter extends GameCharacter {
 
 	@Override
 	public void putOnEquipment(SuitItem eqItem) {
-    	if (!isAlien()) {
-			super.putOnEquipment(eqItem);
+    	if (!isNonHumanForm()) {
+			getForm().putOnEquipment(eqItem);
 		}
 	}
-	
+
+	@Override
+	public void removeEquipment(SuitItem eqItem) {
+    	if (!isNonHumanForm()) {
+			getForm().removeEquipment(eqItem);
+		}
+	}
+
 	@Override
 	public boolean hasInventory() {
 		return getForm().hasInventory();
