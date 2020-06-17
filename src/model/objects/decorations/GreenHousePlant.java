@@ -7,7 +7,7 @@ import model.objects.general.GameObject;
 
 public class GreenHousePlant extends GameObject {
     public GreenHousePlant(Room position) {
-        super("Palm Tree", position);
+        super("Fern", position);
     }
 
     @Override

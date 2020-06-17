@@ -19,10 +19,10 @@ public class GeneratorRoom extends TechRoom {
 	public GeneratorRoom(int ID, int x, int y,
 						 int width, int height, int[] neighbors, Door[] doors, GameData gameData) {
 		super(ID, "Generator"           , "Gen"    , x,  y, width, height, neighbors, doors);
-		this.addObject(new ChemicalDispenser("Storage", 2, this));
-		this.addObject(new GeneratorConsole(this, gameData));
-        this.addObject(new Battery(this, 0, false));
-        this.addObject(new Battery(this, 0, false));
+		this.addObject(new ChemicalDispenser("Storage", 2, this), RelativePositions.MID_TOP);
+		this.addObject(new GeneratorConsole(this, gameData), RelativePositions.CENTER);
+        this.addObject(new Battery(this, 0, false), RelativePositions.LOWER_RIGHT_CORNER);
+        this.addObject(new Battery(this, 0, false), RelativePositions.UPPER_RIGHT_CORNER);
         this.addItem(new RepairTools());
         this.addItem(new CraftingTools());
         this.addItem(new Multimeter());

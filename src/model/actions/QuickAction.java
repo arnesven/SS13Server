@@ -20,4 +20,7 @@ public interface QuickAction {
         }
     }
 
+    default boolean isAvailableAsQuickAction() {
+        return true;
+    }
 }

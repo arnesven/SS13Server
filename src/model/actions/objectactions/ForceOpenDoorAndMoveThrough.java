@@ -25,4 +25,9 @@ public class ForceOpenDoorAndMoveThrough extends ForceOpenDoorAction {
             }
         }
     }
+
+    @Override
+    public boolean isAvailableAsQuickAction() {
+        return false;
+    }
 }

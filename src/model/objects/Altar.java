@@ -8,6 +8,7 @@ import model.actions.general.Action;
 import model.actions.objectactions.MakeRitualSacrifice;
 import model.actions.objectactions.PrayerAction;
 import model.map.rooms.ChapelRoom;
+import model.map.rooms.RelativePositions;
 import model.map.rooms.Room;
 import model.misc.BabyJesus;
 import model.misc.KaliGod;
@@ -38,9 +39,8 @@ public class Altar extends GameObject {
         pedestals = new ArrayList<>();
         pedestals.add(new Pedestals("Left", room));
         pedestals.add(new Pedestals("Right", room));
-        for (Pedestals p : pedestals) {
-            room.addObject(p);
-        }
+        room.addObject(pedestals.get(0), RelativePositions.MID_TOP);
+        room.addObject(pedestals.get(1), RelativePositions.MID_BOTTOM);
 
     }
 

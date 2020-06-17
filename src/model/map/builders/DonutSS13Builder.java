@@ -162,7 +162,7 @@ public class DonutSS13Builder extends MapBuilder {
                 new Door[]{new EngineeringDoor(12.0, 8.0, 448, 13, true)});
         {
             AreaPowerControl apc = new AreaPowerControl(robotics, frontHall);
-            apc.setAbsolutePosition(10, 7);
+            apc.setAbsolutePosition(12, 7);
         }
         gm.addRoom(robotics, ss13, "center");
 

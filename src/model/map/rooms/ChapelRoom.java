@@ -16,7 +16,7 @@ public class ChapelRoom extends SupportRoom {
     public ChapelRoom(int id, int x, int y, int w, int h, int[] ints, Door[] doubles) {
         super(id, "Chapel", "Chap", x, y, w, h, ints, doubles);
         Altar altar = new Altar(this);
-        addObject(altar);
+        addObject(altar, RelativePositions.MID_LEFT);
         soundIndex = MyRandom.nextInt(4)+1;
     }
 

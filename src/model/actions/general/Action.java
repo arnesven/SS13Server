@@ -10,12 +10,8 @@ import model.GameData;
 import model.Player;
 import model.Target;
 import model.actions.QuickAction;
-import model.actions.manager.ActionManager;
 import model.events.Experienceable;
-import util.Logger;
 import util.MyStrings;
-
-import javax.swing.*;
 
 /**
  * @author erini02
@@ -152,7 +148,7 @@ public abstract class Action extends Experienceable implements Serializable {
 
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         String name = getName();
-        if (this instanceof QuickAction) {
+        if (this instanceof QuickAction && ((QuickAction)this).isAvailableAsQuickAction()) {
             setGameData(gameData);
 		    if (whosAsking instanceof Player) {
                 if (((Player) whosAsking).getActionPoints() > 0) {

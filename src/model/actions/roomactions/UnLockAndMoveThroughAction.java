@@ -25,4 +25,9 @@ public class UnLockAndMoveThroughAction extends UnLockDoorAction {
             }
         }
     }
+
+    @Override
+    public boolean isAvailableAsQuickAction() {
+        return false;
+    }
 }

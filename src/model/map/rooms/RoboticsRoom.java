@@ -10,9 +10,9 @@ import model.objects.consoles.BotConsole;
 public class RoboticsRoom extends TechRoom {
     public RoboticsRoom(int id, int x, int y, int w, int h, int[] neigh, Door[] doors) {
         super(id, "Robotics", "", x, y, w, h, neigh, doors);
-        addObject(new BotConsole(this));
-        addObject(new UpgoingStairsDoor(this));
-        addObject(new GlassSecuritronCage(this));
+        addObject(new BotConsole(this), RelativePositions.UPPER_LEFT_CORNER);
+        addObject(new UpgoingStairsDoor(this), RelativePositions.UPPER_RIGHT_CORNER);
+        addObject(new GlassSecuritronCage(this), RelativePositions.MID_BOTTOM);
         addItem(new RepairTools());
         addItem(new Multimeter());
     }

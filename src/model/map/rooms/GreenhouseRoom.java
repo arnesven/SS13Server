@@ -14,6 +14,8 @@ import model.objects.general.SoilPatch;
 import model.objects.general.BioScanner;
 import util.MyRandom;
 
+import java.util.List;
+
 public class GreenhouseRoom extends ScienceRoom {
 
 	public GreenhouseRoom(GameData gameData, int id, int x, int y, int w, int h, int[] ns,
@@ -22,14 +24,16 @@ public class GreenhouseRoom extends ScienceRoom {
 		this.addItem(new FireExtinguisher());
 		this.addItem(new RepairTools());
 		this.addItem(new CraftingTools());
-		this.addObject(new BioScanner(this));
-        this.addObject(new SoilPatch(this));
-		this.addObject(new SeedVendingMachine(this));
+		this.addObject(new BioScanner(this), RelativePositions.MID_LEFT);
+        this.addObject(new SoilPatch(this), RelativePositions.CENTER);
+		this.addObject(new SeedVendingMachine(this), RelativePositions.MID_RIGHT);
 		NPC chimp = new ChimpNPC(this);
         gameData.addNPC(chimp);
 
         for (int i = 0; i < MyRandom.nextInt(10)+5; ++i) {
-        	this.addObject(new GreenHousePlant(this));
+        	RelativePositions relPos = MyRandom.sample(List.of(RelativePositions.UPPER_RIGHT_CORNER,
+					RelativePositions.UPPER_LEFT_CORNER, RelativePositions.LOWER_LEFT_CORNER));
+        	this.addObject(new GreenHousePlant(this), relPos);
 		}
 	}
 

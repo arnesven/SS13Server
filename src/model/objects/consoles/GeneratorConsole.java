@@ -9,6 +9,7 @@ import model.Player;
 import model.actions.fancyframeactions.SitDownAtPowerConsoleAction;
 import model.actions.general.Action;
 import model.actions.objectactions.PowerConsoleAction;
+import model.map.rooms.RelativePositions;
 import model.map.rooms.Room;
 import model.objects.power.PositronGenerator;
 
@@ -20,7 +21,7 @@ public class GeneratorConsole extends Console {
 	public GeneratorConsole(Room r, GameData gameData) {
 		super("Power Console", r);
         powerSource = new PositronGenerator(0.174, r, gameData);
-        r.addObject(powerSource);
+        r.addObject(powerSource, RelativePositions.CENTER);
         setPowerPriority(1);
 	}
 
