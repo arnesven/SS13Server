@@ -2,6 +2,7 @@ package model.actions.characteractions;
 
 import java.util.List;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
@@ -83,4 +84,8 @@ public class ChangeFormAction extends Action {
 		throw new NoSuchInstanceException("Did not find the form being transformed into!");
 	}
 
+	@Override
+	public Sprite getAbilitySprite() {
+		return new Sprite("changeformabi", "weapons2.png", 19, 44, null);
+	}
 }

@@ -2,6 +2,7 @@ package model.actions.characteractions;
 
 import java.util.List;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -78,4 +79,12 @@ public class DevourCorpseAction extends Action implements QuickAction {
 	public List<Player> getPlayersWhoNeedToBeUpdated(GameData gameData, Player performer) {
 		return performer.getPosition().getClients();
 	}
+
+
+	@Override
+	public Sprite getAbilitySprite() {
+		return new Sprite("suckaction", "weapons2.png", 44, 47, null);
+	}
+
+
 }

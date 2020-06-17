@@ -1,5 +1,6 @@
 package model.actions.characteractions;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.characters.general.ChangelingCharacter;
@@ -21,6 +22,11 @@ public class SuctionAndTransformAttackAction extends SuctionAttackAction {
 				a.addTolastTurnInfo(before + " changed into " + changeling.getPublicName() + "!");
 			}
 		}
+	}
+
+	@Override
+	public Sprite getAbilitySprite() {
+		return new Sprite("suckandchangeformabi", "weapons2.png", 20, 44, null);
 	}
 	
 

@@ -51,6 +51,7 @@ public class SuctionAttackAction extends TargetingAction {
 
 	@Override
 	public Sprite getAbilitySprite() {
-		return new Sprite("suckaction", "interface_alien.png", 6, null);
+		return new Sprite("suckaction", "weapons2.png", 43, 47, null);
 	}
+
 }

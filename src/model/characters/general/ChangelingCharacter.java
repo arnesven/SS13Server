@@ -3,6 +3,7 @@ package model.characters.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import graphics.sprites.PhysicalBody;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
@@ -162,8 +163,9 @@ public class ChangelingCharacter extends GameCharacter {
             Logger.log(Logger.INTERESTING, "Already sucked that char!" + other.getCharacter().getBaseName());
 			return;
 		}
+        PhysicalBody pb = other.getCharacter().getPhysicalBody();
 		GameCharacter copy = other.getCharacter().clone();
-		copy.setNakedness(copy.getPhysicalBody());
+		copy.setNakedness(other.getCharacter().getPhysicalBody());
 		copy.getEquipment().removeEverything();
 
 		while (copy.getItems().size() > 0) {
@@ -237,7 +239,12 @@ public class ChangelingCharacter extends GameCharacter {
 		}
 	}
 
-	@Override
+    @Override
+    public PhysicalBody getPhysicalBody() {
+        return getForm().getPhysicalBody();
+    }
+
+    @Override
 	public boolean hasInventory() {
 		return getForm().hasInventory();
 	}
@@ -368,4 +375,9 @@ public class ChangelingCharacter extends GameCharacter {
 	public SoundSet getSoundSet() {
 		return getForm().getSoundSet();
 	}
+
+    @Override
+    public Sprite getNakedSprite() {
+        return getForm().getNakedSprite();
+    }
 }
