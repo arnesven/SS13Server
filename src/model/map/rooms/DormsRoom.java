@@ -25,6 +25,6 @@ public class DormsRoom extends SupportRoom {
         addObject(new BunkBed(this), RelativePositions.LOWER_RIGHT_CORNER);
         addObject(new Lockers(this, 2), RelativePositions.LOWER_RIGHT_CORNER);
         addObject(new PosterObject(this, "idolposter", 0, 3, 0.5));
-        addObject(new PosterObject(this, "lawposter", 7, 4, 2.0));
+        addObject(new PosterObject(this, "lawposter", 7, 4, 2.5));
     }
 }
