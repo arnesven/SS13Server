@@ -184,8 +184,8 @@ public class DonutSS13Builder extends MapBuilder {
         Room gate = new HallwayRoom(19, "Shuttle Gate"        , "Gate"   ,10,  2, 3, 2, new int[]{16, 21, 23, 447, 450},
                 new Door[]{new NormalDoor(10.0, 3.5, 19, 23),
                         new NormalDoor(13.0, 3.5, 19, 16)});
-        gate.addObject(new UpgoingStairsDoor(gate));
-        gate.addObject(new DowngoingStairsDoor(gate));
+        gate.addObject(new UpgoingStairsDoor(gate), RelativePositions.MID_LEFT);
+        gate.addObject(new DowngoingStairsDoor(gate), RelativePositions.CENTER);
         gate.addObject(new ATM(gameData, gate));
         gm.addRoom(gate, ss13, "port");
 

@@ -30,7 +30,7 @@ public abstract class Ammunition extends GameItem {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("ammo", "ammo.png", 5, this);
+        return new Sprite("ammo", "ammo.png", 2, this);
     }
 
     public abstract boolean canBeLoadedIntoGun(AmmoWeapon w);

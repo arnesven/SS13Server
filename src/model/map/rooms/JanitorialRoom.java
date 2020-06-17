@@ -18,7 +18,7 @@ public class JanitorialRoom extends SupportRoom {
     public JanitorialRoom(int id, int x, int y, int w, int h, int[] ints, Door[] doors) {
         super(id, "Janitorial", "", x, y, w, h, ints, doors);
         setZ(-1);
-        this.addObject(new UpgoingStairsDoor(this));
+        this.addObject(new UpgoingStairsDoor(this), RelativePositions.MID_RIGHT);
         this.addObject(new WetWarningSign(this));
         this.addObject(new TrashBag(this));
         this.addObject(new OldChair(this));
