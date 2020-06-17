@@ -16,13 +16,13 @@ public class LabRoom extends ScienceRoom {
 			int width, int height, int[] neighbors, Door[] doors, GameData gameData) {
 		super(ID, "Lab", "Lab", x, y, width, height, neighbors, doors);
 
-		this.addObject(new ChemicalDispenser("Lab Storage", 2, this));
+		this.addObject(new ChemicalDispenser("Lab Storage", 2, this), RelativePositions.LOWER_RIGHT_CORNER);
         GeneticsConsole gc = new GeneticsConsole(this);
-		this.addObject(gc);
-        this.addObject(new TeleportConsole(this));
-        this.addObject(new ChemicalApparatus(this));
-        this.addObject(new CloneOMatic(this, gc));
-        this.addObject(new MonolithExperimentRig(this, gameData));
+		this.addObject(gc, RelativePositions.UPPER_LEFT_CORNER);
+        this.addObject(new TeleportConsole(this), RelativePositions.MID_TOP);
+        this.addObject(new ChemicalApparatus(this), RelativePositions.MID_LEFT);
+        this.addObject(new CloneOMatic(this, gc), RelativePositions.UPPER_LEFT_CORNER);
+        this.addObject(new MonolithExperimentRig(this, gameData), RelativePositions.CENTER);
         this.addItem(new RadiationSuit());
 	}
 

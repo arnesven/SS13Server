@@ -52,6 +52,9 @@ public class CloneOMatic extends ElectricalMachinery {
         if (justStuffed()) {
             return new Sprite("clonerstuffed", "cloning.png", 5, 0, this);
         }
+        if (isBroken()) {
+            return new Sprite("clonerbroken", "cloning.png", 19, 0, this);
+        }
         return new Sprite("cloner", "cloning.png", 0, 0, this);
     }
 
