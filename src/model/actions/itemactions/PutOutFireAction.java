@@ -28,7 +28,7 @@ public class PutOutFireAction extends Action implements QuickAction {
     private FireExtinguisher fireExtinguisher;
 
     public PutOutFireAction(FireExtinguisher fireExtinguisher) {
-        super("Put out fire", new SensoryLevel(SensoryLevel.VisualLevel.CLEARLY_VISIBLE,
+        super("Put out Fire", new SensoryLevel(SensoryLevel.VisualLevel.CLEARLY_VISIBLE,
                 SensoryLevel.AudioLevel.SAME_ROOM,
                 SensoryLevel.OlfactoryLevel.WHIFF));
         this.fireExtinguisher = fireExtinguisher;

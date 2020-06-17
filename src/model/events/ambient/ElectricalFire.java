@@ -4,6 +4,7 @@ import graphics.sprites.Sprite;
 import model.Player;
 import model.actions.MoveAction;
 import model.actions.general.Action;
+import model.actions.itemactions.MoveInAndPutOutFireAction;
 import model.actions.itemactions.PutOutFireAction;
 import model.actions.roomactions.CloseAllFireDoorsActions;
 import model.actions.roomactions.CloseFireDoorAction;
@@ -290,17 +291,20 @@ public class ElectricalFire extends OngoingEvent {
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
         List<Action> acts = new ArrayList<>();
 
-        if (this.getRoom() == forWhom.getPosition()) {
             try {
                 FireExtinguisher fe = GameItem.getItemFromActor(forWhom, new FireExtinguisher());
                 if (fe.getUsesRemaining() > 0) {
-                    PutOutFireAction putOutFireAction = new PutOutFireAction(fe);
-                    acts.add(putOutFireAction);
+                    if (this.getRoom() == forWhom.getPosition()) {
+                        PutOutFireAction putOutFireAction = new PutOutFireAction(fe);
+                        acts.add(putOutFireAction);
+                    } else if (forWhom.findMoveToAblePositions(gameData).contains(this.getRoom())) {
+                        MoveAction mipofa = new MoveInAndPutOutFireAction(gameData, forWhom, fe, this.getRoom());
+                        acts.add(mipofa);
+                    }
                 }
             } catch (NoSuchThingException e) {
                 Logger.log("No fire ext found for " + forWhom);
             }
-        }
 
         return acts;
     }
