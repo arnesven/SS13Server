@@ -4,6 +4,7 @@ import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.objects.ai.AIScreen;
 import model.objects.general.GameObject;
 
 import java.awt.geom.Point2D;
@@ -150,6 +151,18 @@ public abstract class RelativePositions implements Serializable {
         @Override
         protected String getRelation() {
             return "E";
+        }
+    }
+
+    public static class SouthOf extends RelationalPosition {
+        public SouthOf(GameObject obj) {
+            super(obj);
+        }
+
+
+        @Override
+        protected String getRelation() {
+            return "S";
         }
     }
 }

@@ -24,8 +24,16 @@ public abstract class StationRoom extends Room {
             this.addObject(new SecurityCamera(this));
         }
         if (getsTrashBin() && MyRandom.nextDouble() < 0.9) {
-            this.addObject(new TrashBin(this));
+            if (getTrashBinRelativePosition() == null) {
+                this.addObject(new TrashBin(this));
+            } else {
+                this.addObject(new TrashBin(this), getTrashBinRelativePosition());
+            }
         }
+    }
+
+    protected RelativePositions getTrashBinRelativePosition() {
+        return null;
     }
 
     protected boolean getsTrashBin() {

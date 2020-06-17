@@ -15,6 +15,7 @@ import model.characters.decorators.InstanceChecker;
 import model.items.NoSuchThingException;
 import model.npcs.NPC;
 import model.actions.general.SensoryLevel;
+import sounds.Sound;
 import util.Logger;
 
 public class DevourCorpseAction extends Action implements QuickAction {
@@ -29,6 +30,16 @@ public class DevourCorpseAction extends Action implements QuickAction {
 	@Override
 	protected String getVerb(Actor whosAsking) {
 		return "Devoured a husk!";
+	}
+
+	@Override
+	public boolean hasRealSound() {
+		return true;
+	}
+
+	@Override
+	public Sound getRealSound() {
+		return new Sound("eatfood");
 	}
 
 	@Override

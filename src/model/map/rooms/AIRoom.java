@@ -20,9 +20,9 @@ public class AIRoom extends TechRoom {
         super(id, "AI Core", "AI", x, y, w, h, ints, doubles);
         setZ(+1);
         aiCons = new AIConsole(this);
-        addObject(aiCons);
-        addObject(new AITurret(this, aiCons, gameData));
-        addObject(new DowngoingStairsDoor(this));
+        addObject(aiCons, new RelativePositions.SouthOf(aiCons.getScreen()));
+        addObject(new AITurret(this, aiCons, gameData), RelativePositions.MID_TOP);
+        addObject(new DowngoingStairsDoor(this), RelativePositions.UPPER_RIGHT_CORNER);
         if (aiCons.AIIsPlayer()) {
             setFloorSet(new SingleSpriteFloorSet("aifloorplayer", 5, 5));
         }

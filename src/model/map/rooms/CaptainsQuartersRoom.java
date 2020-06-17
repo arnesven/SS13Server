@@ -26,10 +26,10 @@ public class CaptainsQuartersRoom extends CommandRoom {
         NPC cat = new CatNPC(this);
         addItem(new NuclearDisc(gameData, true));
         addItem(new MoneyStack(300));
-        addObject(new PulseRifleDisplayCase(this));
+        addObject(new PulseRifleDisplayCase(this), RelativePositions.CENTER);
         gameData.addNPC(cat);
-        addObject(new ComfyChair(this));
-        addObject(new NiceBed(this));
+        addObject(new ComfyChair(this), RelativePositions.MID_BOTTOM);
+        addObject(new NiceBed(this), RelativePositions.LOWER_RIGHT_CORNER);
     }
 
     @Override

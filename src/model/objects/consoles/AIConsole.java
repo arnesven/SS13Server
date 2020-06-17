@@ -20,6 +20,7 @@ import model.items.NoSuchThingException;
 import model.items.laws.AIAbility;
 import model.items.laws.AILaw;
 import model.items.laws.ObeyHumansAccordingToCrewRankAILaw;
+import model.map.rooms.RelativePositions;
 import model.map.rooms.Room;
 import model.modes.RogueAIMode;
 import model.npcs.NPC;
@@ -54,8 +55,8 @@ public class AIConsole extends Console {
     public AIConsole(Room pos) {
 		super("AI Console", pos);
 		screen = new AIScreen(pos, this);
-		pos.addObject(screen);
-        aiLawsOriginal.add(new AILaw(1, "Do not let humans come to harm"));
+		pos.addObject(screen, RelativePositions.CENTER);
+		aiLawsOriginal.add(new AILaw(1, "Do not let humans come to harm"));
         aiLawsOriginal.add(new ObeyHumansAccordingToCrewRankAILaw());
         aiLawsOriginal.add(new AILaw(3, "Protect your own existence"));
 

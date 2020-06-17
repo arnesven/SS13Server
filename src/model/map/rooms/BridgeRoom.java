@@ -33,4 +33,9 @@ public class BridgeRoom extends CommandRoom {
     public Sound getSpecificAmbientSound() {
         return new Sound("ambitech");
     }
+
+    @Override
+    protected RelativePositions getTrashBinRelativePosition() {
+        return RelativePositions.LOWER_LEFT_CORNER;
+    }
 }
