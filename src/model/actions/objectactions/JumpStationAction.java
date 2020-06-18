@@ -14,6 +14,7 @@ import model.map.rooms.OrbitalPlanetRoom;
 import model.map.rooms.Room;
 import model.objects.consoles.AIConsole;
 import model.objects.consoles.FTLControl;
+import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
 
@@ -64,6 +65,9 @@ public class JumpStationAction extends Action {
         setSwooshBackground(gameData);
         performingClient.addTolastTurnInfo("You FTL-jumped the station!");
         Logger.log("Old coords were: " + oldCoordinates);
+        for (Player p : gameData.getPlayersAsList()) {
+            p.getSoundQueue().add(new Sound("hyperspace_begin"));
+        }
     }
 
 
@@ -144,6 +148,7 @@ public class JumpStationAction extends Action {
                 gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).setBackgroundType(oldBackground);
                 for (Player p : gameData.getPlayersAsList()) {
                     p.refreshClientData();
+                    p.getSoundQueue().add(new Sound("hyperspace_end"));
                 }
             }
         }
