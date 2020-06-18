@@ -1,5 +1,7 @@
 package model.events.damage;
 
+import sounds.Sound;
+
 public class MeteorDamage extends DamagerImpl {
     private final double dmg;
 
@@ -14,7 +16,7 @@ public class MeteorDamage extends DamagerImpl {
 
     @Override
     public String getText() {
-        return "Meteoric Storm";
+        return "You were hit by a severe shock wave!";
     }
 
     @Override
@@ -25,5 +27,15 @@ public class MeteorDamage extends DamagerImpl {
     @Override
     public String getName() {
         return "Meteor blast";
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("meteorimpact");
     }
 }

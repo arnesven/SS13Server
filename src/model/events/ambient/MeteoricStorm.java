@@ -110,7 +110,7 @@ public class MeteoricStorm extends AmbientEvent {
     private void setupStorm(GameData gameData) {
         int side = MyRandom.nextInt(4);
         sideStr = GameMap.getSideString(side);
-        timer = MyRandom.nextInt(3) + 1;
+        timer = MyRandom.nextInt(3) + 2;
         severe = MyRandom.nextBoolean();
 
         String start = " M";
