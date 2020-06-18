@@ -12,10 +12,14 @@ import model.npcs.NPC;
 import model.npcs.behaviors.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DRBOTCharacter extends RobotCharacter {
+    private int extraLook;
+
     public DRBOTCharacter(Integer id) {
         super("DR-BOT", id, -0.5);
+        extraLook = -1;
     }
 
 
@@ -24,7 +28,20 @@ public class DRBOTCharacter extends RobotCharacter {
         if (getActor() instanceof NPC && (((NPC) getActor()).getActionBehavior() instanceof DoNothingBehavior)) {
             return new Sprite("drbotinactive", "aibots.png", 13, getActor());
         }
-        return new Sprite("drbotnormal", "aibots.png", 14, getActor());
+        return makeNormalSprite();
+    }
+
+    private Sprite makeNormalSprite() {
+        List<Sprite> sprs = new ArrayList<>();
+        sprs.add(new Sprite("drbotnormal", "aibots.png", 14, getActor()));
+        String nameStr = "";
+        if (extraLook != -1) {
+            nameStr += "" + extraLook;
+            sprs.add(new Sprite("drbotextra" + extraLook, "aibots.png", extraLook, getActor()));
+        }
+
+        return new Sprite("drbot" + nameStr, "human.png", 0, sprs, getActor());
+
     }
 
     @Override
@@ -40,6 +57,22 @@ public class DRBOTCharacter extends RobotCharacter {
         }
     }
 
+    public void setAntidoteLook() {
+        this.extraLook = 73;
+    }
+
+    public void setAntiFireLook() {
+        this.extraLook = 80;
+    }
+
+    public void setAntiRadLook() {
+        this.extraLook = 74;
+    }
+
+    public void setHealingLook() {
+        this.extraLook = -1;
+    }
+
     private class TurnDrBotOnAction extends TurnOnRobotAction {
 
         public TurnDrBotOnAction(NPC npc) {
@@ -48,12 +81,12 @@ public class DRBOTCharacter extends RobotCharacter {
 
         @Override
         protected ActionBehavior getActionBehavior() {
-            return new HealOtherBehavior(1.5);
+            return new RunDiagnosticsBehavior();
         }
 
         @Override
         protected MovementBehavior getNewMovementBehavior() {
-            return new MeanderingMovement(0.35);
+            return new StayCloseToSickbayMovementBehavior();
         }
     }
 }

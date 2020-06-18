@@ -56,7 +56,7 @@ public class RoomPressureEvent extends Event {
 
     @Override
     public boolean showSpriteInRoom() {
-        return true;
+        return false;
     }
 
     @Override

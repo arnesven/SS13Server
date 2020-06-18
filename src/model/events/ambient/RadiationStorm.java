@@ -1,6 +1,7 @@
 package model.events.ambient;
 
 import graphics.sprites.Sprite;
+import model.events.Event;
 import model.events.damage.RadiationDamage;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
@@ -24,7 +25,7 @@ public class RadiationStorm extends AmbientEvent {
     private static final double occurenceChance = 0.015;
 	private static final Sprite radStormeffect = new Sprite("radiationstormeffect", "alert.png", 5, 1, null);
 
-	@Override
+    @Override
     protected double getStaticProbability() {
         return occurenceChance;
     }
@@ -158,4 +159,15 @@ public class RadiationStorm extends AmbientEvent {
 	public void gotRemovedFromRoom(Room room) {
 		room.getEffects().remove(radStormeffect);
 	}
+
+
+	public static boolean hasEvent(Room position) {
+    	for (Event e : position.getEvents()) {
+    		if (e instanceof RadiationStorm) {
+    			return true;
+			}
+		}
+		return false;
+	}
+
 }
