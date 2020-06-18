@@ -42,6 +42,11 @@ public class WatchAction extends TargetingAction {
 	}
 
 	@Override
+	protected boolean requiresProximityToTarget() {
+		return false;
+	}
+
+	@Override
 	protected String getVerb(Actor whosAsking) {
 		return "watched";
 	}

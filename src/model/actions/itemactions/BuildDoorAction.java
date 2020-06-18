@@ -13,6 +13,7 @@ import model.map.Architecture;
 import model.map.GameMap;
 import model.map.doors.NormalDoor;
 import model.map.rooms.Room;
+import sounds.Sound;
 
 import java.awt.geom.Point2D;
 import java.util.List;
@@ -43,6 +44,17 @@ public class BuildDoorAction extends Action {
         arc = arch.getPossibleNewDoors(performingClient.getPosition());
 
     }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("drillandhammer");
+    }
+
 
     @Override
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {

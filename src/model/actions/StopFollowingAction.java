@@ -36,6 +36,11 @@ public class StopFollowingAction extends TargetingAction implements QuickAction 
         return fd.getWhosBeingFallowed().getAsTarget() == target2;
     }
 
+    @Override
+    protected boolean requiresProximityToTarget() {
+        return false;
+    }
+
     private FollowingDecorator getFollowingDecorator() {
        return getFollowingDecorator(performer);
     }

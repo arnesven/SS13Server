@@ -63,6 +63,11 @@ public class RepairAction extends TargetingAction implements QuickAction {
 	}
 
 	@Override
+	protected boolean requiresProximityToTarget() {
+		return true;
+	}
+
+	@Override
 	protected String getVerb(Actor whosAsking) {
 		return "tinkered with " + target.getName();
 	}

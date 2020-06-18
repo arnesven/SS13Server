@@ -58,4 +58,9 @@ public class PutHandCuffsOnAction extends TargetingAction {
         return super.isViableForThisAction(target2) && target2 instanceof Actor &&
                 ((Actor) target2).getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter);
     }
+
+    @Override
+    protected boolean requiresProximityToTarget() {
+        return true;
+    }
 }

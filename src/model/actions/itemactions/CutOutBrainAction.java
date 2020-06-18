@@ -98,6 +98,11 @@ public class CutOutBrainAction extends TargetingAction {
         return true;
     }
 
+    @Override
+    protected boolean requiresProximityToTarget() {
+        return true;
+    }
+
     private static boolean hasBrainRemoved(Actor t) {
         return t.getCharacter().getPhysicalBody().hasABrain() == false;
     }

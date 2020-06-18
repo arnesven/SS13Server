@@ -59,4 +59,9 @@ public class StuffCorpseIntoClonerAction extends TargetingAction {
         }
         return target2.isDead();
     }
+
+    @Override
+    protected boolean requiresProximityToTarget() {
+        return false;
+    }
 }

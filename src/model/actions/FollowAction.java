@@ -43,6 +43,11 @@ public class FollowAction extends TargetingAction implements QuickAction {
         return !target2.isDead() && !isFollowing(performer, target2) && target2 instanceof Actor;
     }
 
+    @Override
+    protected boolean requiresProximityToTarget() {
+        return false;
+    }
+
     private boolean isFollowing(Actor performer, Target target2) {
         FollowingDecorator fd = StopFollowingAction.getFollowingDecorator(performer);
         if (fd == null) {

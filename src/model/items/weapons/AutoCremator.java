@@ -82,6 +82,11 @@ public class AutoCremator extends Weapon {
         }
 
         @Override
+        protected boolean requiresProximityToTarget() {
+            return false;
+        }
+
+        @Override
         protected String getVerb(Actor whosAsking) {
             return "cremated " + target.getName();
         }

@@ -92,6 +92,11 @@ public class BullWhip extends Weapon {
         }
 
         @Override
+        protected boolean requiresProximityToTarget() {
+            return false;
+        }
+
+        @Override
         protected String getVerb(Actor whosAsking) {
             return "used bull whip to snatch an item from ";
         }

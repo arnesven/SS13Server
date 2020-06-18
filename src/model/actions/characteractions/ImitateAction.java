@@ -63,4 +63,9 @@ public class ImitateAction extends TargetingAction {
     public boolean isViableForThisAction(Target target2) {
         return target2 instanceof Actor;
     }
+
+    @Override
+    protected boolean requiresProximityToTarget() {
+        return false;
+    }
 }

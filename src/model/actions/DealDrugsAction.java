@@ -56,4 +56,9 @@ public class DealDrugsAction extends TargetingAction {
     public boolean isViableForThisAction(Target target2) {
         return target2 instanceof Actor && !target2.isDead() && ((Actor) target2).getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter);
     }
+
+    @Override
+    protected boolean requiresProximityToTarget() {
+        return true;
+    }
 }

@@ -8,6 +8,7 @@ import model.Actor;
 import model.Player;
 import model.GameData;
 import model.Target;
+import model.characters.decorators.InProximityOfTargetOneRoundDecorator;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.npcs.NPC;
@@ -146,8 +147,15 @@ public abstract class TargetingAction extends Action {
 		
 		} else {
 			applyTargetingAction(gameData, performingClient, target, item);
+			if (requiresProximityToTarget() && target instanceof SpriteObject) {
+				performingClient.setCharacter(new InProximityOfTargetOneRoundDecorator(performingClient.getCharacter(),
+						(SpriteObject)target, gameData.getRound()));
+			}
+
 		}
 	}
+
+	protected abstract boolean requiresProximityToTarget();
 
 	protected boolean itemAvailable(Actor performingClient, GameItem it) {
         return performingClient.getItems().contains(it);

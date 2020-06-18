@@ -70,6 +70,11 @@ public class LootAction extends TargetingAction implements QuickAction {
     }
 
     @Override
+    protected boolean requiresProximityToTarget() {
+        return true;
+    }
+
+    @Override
     public String getDescription(Actor whosAsking) {
         if (target == null) {
             return super.getDescription(whosAsking);

@@ -33,6 +33,11 @@ public class FaceHuggingAction extends TargetingAction {
     }
 
     @Override
+    protected boolean requiresProximityToTarget() {
+        return false;
+    }
+
+    @Override
     protected String getVerb(Actor whosAsking) {
         return "facehugged";
     }

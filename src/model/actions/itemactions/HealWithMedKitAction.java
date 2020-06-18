@@ -76,7 +76,12 @@ public class HealWithMedKitAction extends TargetingAction implements QuickAction
 	public boolean isViableForThisAction(Target target2) {
 		return target2.isHealable() && !target2.isDead();
 	}
-	
+
+	@Override
+	protected boolean requiresProximityToTarget() {
+		return true;
+	}
+
 	@Override
 	protected void addMoreTargets(Actor ap) {
 		if (ap.getAsTarget().isHealable() && 

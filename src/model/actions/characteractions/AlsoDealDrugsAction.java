@@ -38,6 +38,11 @@ public class AlsoDealDrugsAction extends TargetingAction {
     }
 
     @Override
+    protected boolean requiresProximityToTarget() {
+        return true;
+    }
+
+    @Override
     public boolean doesSetPlayerReady() {
         return false;
     }

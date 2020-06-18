@@ -52,6 +52,11 @@ public class DismantleAction extends TargetingAction {
     }
 
     @Override
+    protected boolean requiresProximityToTarget() {
+        return false;
+    }
+
+    @Override
     protected String getVerb(Actor whosAsking) {
         return "dismantled the " + removedTarget.getName();
     }

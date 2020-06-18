@@ -46,7 +46,12 @@ public class HuntAction extends TargetingAction {
 	protected void execute(GameData gameData, Actor performingClient) {
 		applyTargetingAction(gameData, performingClient, target, item);
 	}
-	
+
+	@Override
+	protected boolean requiresProximityToTarget() {
+		return false;
+	}
+
 	@Override
 	protected void addMoreTargets(Actor ap) {
 		for (Room r : ap.getPosition().getNeighborList()) {

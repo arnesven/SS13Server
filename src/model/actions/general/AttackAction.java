@@ -48,6 +48,11 @@ public class AttackAction extends TargetingAction {
 	}
 
 	@Override
+	protected boolean requiresProximityToTarget() {
+		return weapon.isMeleeWeapon();
+	}
+
+	@Override
 	protected void applyTargetingAction(GameData gameData,
 			Actor performingClient, Target target, GameItem item) {
 		Weapon w = (Weapon)item;
@@ -58,11 +63,7 @@ public class AttackAction extends TargetingAction {
             if (target instanceof Actor && !target.isDead()) {
                 checkAttackOfOpportunity(gameData, performingClient, (Actor)target, w);
             }
-            if (w.isMeleeWeapon() && target instanceof SpriteObject) {
-            	performingClient.setCharacter(new InProximityOfTargetOneRoundDecorator(performingClient.getCharacter(),
-						(SpriteObject)target, gameData.getRound()));
-			}
-		} else {
+       } else {
 			performingClient.addTolastTurnInfo(w.getPublicName(performingClient) + 
 												" isn't working."); 
 		}

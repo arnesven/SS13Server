@@ -86,8 +86,13 @@ public class InjectionAction extends TargetingAction implements QuickAction {
 	public boolean isViableForThisAction(Target target2) {
 		return Syringe.hasBloodToDraw(target2);
 	}
-	
-	@Override
+
+    @Override
+    protected boolean requiresProximityToTarget() {
+        return true;
+    }
+
+    @Override
 	protected void addMoreTargets(Actor ap) {
 		addTarget(ap.getAsTarget());
 	}

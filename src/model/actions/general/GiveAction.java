@@ -56,6 +56,11 @@ public class GiveAction extends TargetingAction implements QuickAction {
 	}
 
 	@Override
+	protected boolean requiresProximityToTarget() {
+		return true;
+	}
+
+	@Override
 	public void performQuickAction(GameData gameData, Player performer) {
 		execute(gameData, performer);
 	}

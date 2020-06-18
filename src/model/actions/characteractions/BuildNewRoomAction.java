@@ -17,6 +17,7 @@ import model.map.doors.Door;
 import model.map.doors.NormalDoor;
 import model.map.rooms.HallwayRoom;
 import model.map.rooms.Room;
+import sounds.Sound;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -33,6 +34,16 @@ public class BuildNewRoomAction extends Action {
 
     public BuildNewRoomAction() {
         super("Build Room", SensoryLevel.PHYSICAL_ACTIVITY);
+    }
+
+    @Override
+    public boolean hasRealSound() {
+        return true;
+    }
+
+    @Override
+    public Sound getRealSound() {
+        return new Sound("drillandhammer");
     }
 
     @Override

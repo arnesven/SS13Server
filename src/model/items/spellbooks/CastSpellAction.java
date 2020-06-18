@@ -84,4 +84,9 @@ public abstract class CastSpellAction extends TargetingAction {
         performingClient.setCharacter(castingEffectDecorator);
 
     }
+
+    @Override
+    protected boolean requiresProximityToTarget() {
+        return false;
+    }
 }

@@ -35,7 +35,12 @@ public class InfectAction extends TargetingAction {
 	public boolean isViableForThisAction(Target target2) {
 		return canBeInfected(target2);
 	}
-	
+
+	@Override
+	protected boolean requiresProximityToTarget() {
+		return true;
+	}
+
 	public static boolean canBeInfected(Target target2) {
         if (!target2.isTargetable()) {
             return false;

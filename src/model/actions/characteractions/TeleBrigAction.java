@@ -43,6 +43,11 @@ public class TeleBrigAction extends TargetingAction {
     }
 
     @Override
+    protected boolean requiresProximityToTarget() {
+        return false;
+    }
+
+    @Override
     protected String getVerb(Actor whosAsking) {
         return "Telebrigged somone.";
     }

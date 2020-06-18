@@ -43,7 +43,12 @@ public class SuctionAttackAction extends TargetingAction {
 		
 		return ChangelingCharacter.isDetectable(target2);
 	}
-	
+
+	@Override
+	protected boolean requiresProximityToTarget() {
+		return false;
+	}
+
 	@Override
 	protected String getVerb(Actor whosAsking) {
 		return "Sucked the life out of ";
