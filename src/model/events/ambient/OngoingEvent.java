@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.events.Event;
 import model.events.NoPressureEvent;
+import model.map.rooms.DecorativeRoom;
 import util.Logger;
 import util.MyRandom;
 import model.GameData;
@@ -46,13 +47,20 @@ public abstract class OngoingEvent extends AmbientEvent {
 			Room randomRoom;
 			do {
 				Logger.log("Finding a room for a ongoing event..");
-				randomRoom = gameData.getNonHiddenStationRooms().get(MyRandom.nextInt(gameData.getNonHiddenStationRooms().size()));
+				randomRoom = MyRandom.sample(getAffectedRooms(gameData));
 			} while (hasThisEvent(randomRoom));
 			startNewEvent(randomRoom);
 		}
 	}
-	
-	
+
+	private List<Room> getAffectedRooms(GameData gameData) {
+		List<Room> result = new ArrayList<>();
+		result.addAll(gameData.getNonHiddenStationRooms());
+		result.removeIf((Room r) -> r instanceof DecorativeRoom);
+		return result;
+	}
+
+
 	public void startNewEvent(Room randomRoom) {
 		if (!hasThisEvent(randomRoom) && isApplicable(randomRoom)) {
 			OngoingEvent e = this.clone();
@@ -114,7 +122,7 @@ public abstract class OngoingEvent extends AmbientEvent {
 	}
 	
 	private boolean allRoomsBurning(GameData gameData) {
-		for (Room r : gameData.getNonHiddenStationRooms()) {
+		for (Room r : getAffectedRooms(gameData)) {
 			if (!hasThisEvent(r)) {
 				return false;
 			}

@@ -5,20 +5,26 @@ import model.GameData;
 import model.actions.general.Action;
 import model.events.Event;
 import model.events.ambient.ColdEvent;
+import model.events.ambient.PressureManipulator;
 import model.map.rooms.Room;
 import model.objects.general.ElectricalMachinery;
+import util.Logger;
+import util.MyRandom;
 
 import java.util.ArrayList;
 
-public class LifeSupport extends ElectricalMachinery {
+public class LifeSupport extends ElectricalMachinery implements PressureManipulator {
+    private static final double SLOW_PRESSURE_DECREASE = 0.10;
     private final Room room;
     private int lifeSupportLastOnIn;
     private ColdEvent coldEvent;
+    private double lastLoss;
 
     public LifeSupport(Room r) {
         super(r.getName() + " LS", r);
         this.room = r;
         setPowerPriority(1);
+        lastLoss = 0.0;
     }
 
     @Override
@@ -67,5 +73,32 @@ public class LifeSupport extends ElectricalMachinery {
             room.removeEvent(coldEvent);
             gameData.removeEvent(coldEvent);
         }
+    }
+
+    @Override
+    public double handlePressure(Room r, double currentPressure) {
+        double newIncrease = getLastLoss() * (0.45 + (MyRandom.nextDouble() * 0.20));
+        String message = "Life support in " + r.getName() + ", current pressure is " + currentPressure + ", last loss was " + getLastLoss() + ", will do an increase of " + newIncrease;
+        setLastLoss(1.0 - currentPressure);
+        if (isPowered()) {
+            if (currentPressure < 1.0) {
+                Logger.log(message);
+                return currentPressure + newIncrease;
+            }
+            if (currentPressure > 1.5) {
+                return currentPressure - SLOW_PRESSURE_DECREASE;
+            }
+            //Pressure OK for now...
+        }
+
+        return currentPressure;
+    }
+
+    private void setLastLoss(double v) {
+        this.lastLoss = v;
+    }
+
+    private double getLastLoss() {
+        return lastLoss;
     }
 }

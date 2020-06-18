@@ -32,4 +32,9 @@ public class OtherDimension extends RemoteRoom {
     protected Sound getSpecificAmbientSound() {
         return new Sound("ambireebe1");
     }
+
+    @Override
+    public boolean startsWithPressure() {
+        return true;
+    }
 }

@@ -6,6 +6,7 @@ import model.map.floors.SingleSpriteFloorSet;
 import model.objects.power.LifeSupport;
 import model.objects.power.Lighting;
 
+@Deprecated
 public class DummyRoom extends Room {
         public DummyRoom(int id, int x, int y, int w, int h, int[] ints, Door[] doubles) {
         super(id, "Dummy", x, y, w, h, ints, doubles);
@@ -29,6 +30,11 @@ public class DummyRoom extends Room {
     @Override
     public Lighting getLighting() {
         return null;
+    }
+
+    @Override
+    public boolean startsWithPressure() {
+        return false;
     }
 
     @Override

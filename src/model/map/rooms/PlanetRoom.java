@@ -37,4 +37,8 @@ public class PlanetRoom extends Room {
         return null;
     }
 
+    @Override
+    public boolean startsWithPressure() {
+        return true;
+    }
 }

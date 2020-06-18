@@ -6,6 +6,7 @@ import model.actions.general.Action;
 import model.events.*;
 import model.items.NoSuchThingException;
 import model.map.GameMap;
+import model.map.rooms.DecorativeRoom;
 import model.map.rooms.Room;
 import model.objects.power.PositronGenerator;
 import model.objects.general.GameObject;
@@ -84,6 +85,7 @@ public abstract class AmbientEvent extends Event {
                 return gameData.getMap().getRoomsForLevel("asteroid field");
             }
         });
+        events.put("simulate pressure", new PressureSimulation());
     }
 
     private static Event makePowerFluxEvent() {

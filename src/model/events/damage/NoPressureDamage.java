@@ -1,12 +1,11 @@
 package model.events.damage;
 
 import model.Target;
-import model.events.damage.AsphyxiationDamage;
 
 public class NoPressureDamage extends AsphyxiationDamage {
 
 	public NoPressureDamage(Target t) {
-		super(t);
+		super(t, 1.0);
 	}
 
 	@Override

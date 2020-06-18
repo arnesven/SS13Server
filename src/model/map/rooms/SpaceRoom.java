@@ -1,5 +1,6 @@
 package model.map.rooms;
 
+import model.events.ambient.PressureManipulator;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.SingleSpriteFloorSet;
@@ -10,7 +11,7 @@ import sounds.Sound;
 /**
  * Created by erini02 on 15/09/17.
  */
-public class SpaceRoom extends Room {
+public class SpaceRoom extends Room implements PressureManipulator {
     public SpaceRoom(int id, int x, int y, int w, int h) {
         super(id, "Deep Space", x, y, w, h, new int[]{}, new Door[]{});
     }
@@ -43,5 +44,15 @@ public class SpaceRoom extends Room {
     @Override
     public Sound getSpecificAmbientSound() {
         return new Sound("ambiatmos2");
+    }
+
+    @Override
+    public double handlePressure(Room r, double currentPressure) {
+        return 0; // Space rooms set pressure to 0!
+    }
+
+    @Override
+    public boolean startsWithPressure() {
+        return false;
     }
 }

@@ -43,8 +43,8 @@ public class Revolver extends SlugthrowerWeapon implements PiercingWeapon {
                 }
             }
         };
-
     }
+
 
     @Override
     public boolean hasRealSound() {

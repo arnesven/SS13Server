@@ -12,7 +12,7 @@ public abstract class PowerFlux extends AmbientEvent {
 
 	private static final double FLUX_SUSTAIN_FACTOR = 0.5; // maximum sustained power flux is 5% of normal power (per turn)
 	private static final double FLUX_FIXED_FACTOR = 0.10;   // maximum power spike/drain is 10% of normal power
-	private static final double occurranceChance = AmbientEvent.everyNGames(2);
+	private static final double occurranceChance = AmbientEvent.everyNGames(3);
     private boolean sustaining = false;
 	private boolean increasing = false;
 	private double INCREASE_CHANCE = 0.2;

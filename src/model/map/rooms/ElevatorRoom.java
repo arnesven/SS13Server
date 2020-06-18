@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by erini02 on 17/12/16.
  */
-public class ElevatorRoom extends Room {
+public class ElevatorRoom extends StationRoom {
     private final int[] coordinates;
     private final String[] floorNames;
     private List<Room> floors;

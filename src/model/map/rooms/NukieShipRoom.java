@@ -66,4 +66,8 @@ public class NukieShipRoom extends Room {
 		return new Sound("shipambience");
 	}
 
+	@Override
+	public boolean startsWithPressure() {
+		return false;
+	}
 }

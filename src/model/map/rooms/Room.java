@@ -22,6 +22,7 @@ import model.events.ambient.ColdEvent;
 import model.events.ambient.ElectricalFire;
 import model.events.Event;
 import model.events.ambient.HullBreach;
+import model.events.ambient.PressureSimulation;
 import model.events.animation.BigExplosionAnimation;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
@@ -550,12 +551,7 @@ public abstract class Room implements ItemHolder, Serializable {
 	}
 
 	public boolean hasHullBreach() {
-		for (Event e : getEvents()) {
-			if (e instanceof HullBreach) {
-				return true;
-			}
-		}
-		return false;
+		return HullBreach.findHullBreachIn(this) != null;
 	}
 
 	public void addToEventsHappened(Event e) {
@@ -646,8 +642,10 @@ public abstract class Room implements ItemHolder, Serializable {
             }
         }
 
-        this.addEvent(new NoPressureEverEvent(this));
+        //this.addEvent(new NoPressureEverEvent(this));
         this.addEvent(new ColdEvent(this));
+        this.lifeSupport = null;
+        this.lighting = null;
         this.width = 0;
         this.height = 0;
         BigExplosionAnimation aniEvent = new BigExplosionAnimation(gameData, this);
@@ -837,4 +835,22 @@ public abstract class Room implements ItemHolder, Serializable {
 		return null;
 	}
 
+	public List<Room> getNeighborsEvenThroughDoors(GameData gameData) {
+		List<Room> result = new ArrayList<>();
+		for (Room r : gameData.getMap().getAllRoomsOnSameLevel(this)) {
+			for (Door d : r.getDoors()) {
+				if (d.getToId() == getID() || d.getFromId() == getID()) {
+					result.add(r);
+				}
+			}
+		}
+		result.removeIf((Room r) -> r == this);
+		return result;
+	}
+
+	public abstract boolean startsWithPressure();
+
+	public boolean sucksPressureFromNeighbors(GameData gameData) {
+		return false;
+	}
 }

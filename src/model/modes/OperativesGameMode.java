@@ -72,9 +72,9 @@ public class OperativesGameMode extends GameMode {
 		}
 		
 		nukieShip.addObject(new NuclearBomb(nukieShip));
-		Event e = new NoPressureEverEvent(nukieShip);
-		gameData.addEvent(e);
-		nukieShip.addEvent(e);
+		//Event e = new NoPressureEverEvent(nukieShip);
+		//gameData.addEvent(e);
+		//nukieShip.addEvent(e);
 	}
 
 

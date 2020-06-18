@@ -11,6 +11,7 @@ import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
 import model.actions.general.SensoryLevel.VisualLevel;
 import model.actions.itemactions.SealHullBreachAction;
+import model.events.Event;
 import model.events.NoPressureEvent;
 import model.events.animation.AnimatedSprite;
 import model.events.damage.AsphyxiationDamage;
@@ -24,9 +25,10 @@ import util.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HullBreach extends OngoingEvent {
+public class HullBreach extends OngoingEvent implements PressureManipulator {
 
     private static final double occurenceChance = 0.075;
+    private static final double PRESSURE_LOST_PER_TURN = 0.35;
 
     public double getStaticProbability() {
 		return occurenceChance;
@@ -40,9 +42,9 @@ public class HullBreach extends OngoingEvent {
 
 	@Override
 	public String howYouAppear(Actor performingClient) {
-        if (lowPressureInAllAdjacent()) {
-            return new NoPressureEvent(getRoom(), null, false).howYouAppear(performingClient);
-        }
+        //if (lowPressureInAllAdjacent()) {
+        //    return new NoPressureEvent(getRoom(), null, false).howYouAppear(performingClient);
+        //}
 		return "Low Pressure";
 	}
 
@@ -54,10 +56,10 @@ public class HullBreach extends OngoingEvent {
     @Override
 	public void maintain(GameData gameData) {
         if (lowPressureInAllAdjacent()) {
-            new NoPressureEvent(getRoom(), null, false).apply(gameData);
+            //new NoPressureEvent(getRoom(), null, false).apply(gameData);
         } else {
             for (Target t : getRoom().getTargets(gameData)) {
-                t.beExposedTo(null, new AsphyxiationDamage(t), gameData);
+                t.beExposedTo(null, new AsphyxiationDamage(t, 1.0), gameData);
             }
         }
 	}
@@ -70,7 +72,7 @@ public class HullBreach extends OngoingEvent {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (lowPressureInAllAdjacent()) {
-            return new NoPressureEvent(getRoom(), null, false).getSprite(whosAsking);
+            //return new NoPressureEvent(getRoom(), null, false).getSprite(whosAsking);
 
         }
         return new LowPressureEvent(getRoom()).getSprite(whosAsking);
@@ -120,5 +122,21 @@ public class HullBreach extends OngoingEvent {
         }
 
         return acts;
+    }
+
+
+    public static HullBreach findHullBreachIn(Room position) {
+        List<Event> evs = position.getEvents();
+        for (Event e : evs) {
+            if (e instanceof HullBreach) {
+                return ((HullBreach) e);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public double handlePressure(Room r, double currentPressure) {
+        return Math.max(0.0, currentPressure - PRESSURE_LOST_PER_TURN);
     }
 }

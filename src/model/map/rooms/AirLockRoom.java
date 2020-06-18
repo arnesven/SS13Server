@@ -8,6 +8,7 @@ import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.events.NoPressureEvent;
 import model.events.ambient.ColdEvent;
+import model.events.ambient.PressureManipulator;
 import model.items.suits.Equipment;
 import model.items.suits.SpaceSuit;
 import model.map.DockingPoint;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class AirLockRoom extends StationRoom implements DockingPointRoom {
+public class AirLockRoom extends StationRoom implements DockingPointRoom, PressureManipulator {
 
 	private boolean hasPressure;
 	protected Event noPressureEvent = null;
@@ -93,9 +94,9 @@ public class AirLockRoom extends StationRoom implements DockingPointRoom {
 			return;
 		}
 		hasPressure = false;
-		noPressureEvent = new NoPressureEvent(this, performingClient, true);
-		gameData.addEvent(noPressureEvent);
-		addEvent(noPressureEvent);
+		//noPressureEvent = new NoPressureEvent(this, performingClient, true);
+//		gameData.addEvent(noPressureEvent);
+//		addEvent(noPressureEvent);
 
 		coldEvent = new ColdEvent(this);
 		gameData.addEvent(coldEvent);
@@ -170,5 +171,18 @@ public class AirLockRoom extends StationRoom implements DockingPointRoom {
 	@Override
 	protected boolean getsTrashBin() {
 		return false;
+	}
+
+	@Override
+	public boolean sucksPressureFromNeighbors(GameData gameData) {
+		return hasPressure;
+	}
+
+	@Override
+	public double handlePressure(Room r, double currentPressure) {
+		if (!hasPressure) {
+			return 0;
+		}
+		return Math.min(1.0, currentPressure + 0.8);
 	}
 }

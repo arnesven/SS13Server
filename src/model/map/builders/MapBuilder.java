@@ -84,12 +84,12 @@ public abstract class MapBuilder {
 
 
     protected static void addEventsToSpaceRoom(Room space, GameData gameData) {
-        Event noPress = new NoPressureEverEvent(space);
-        space.addEvent(noPress);
+        //Event noPress = new NoPressureEverEvent(space);
+        //space.addEvent(noPress);
         Event cold = new ColdEvent(space);
         space.addEvent(cold);
         gameData.addEvent(cold);
-        gameData.addEvent(noPress);
+        //gameData.addEvent(noPress);
     }
 
     public static Set<String> availableMaps() {

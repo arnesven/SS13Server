@@ -6,6 +6,7 @@ import java.util.List;
 import model.characters.general.GameCharacter;
 import model.items.general.*;
 import model.items.suits.CaptainsOutfit;
+import model.items.weapons.Revolver;
 
 public class CaptainCharacter extends CrewCharacter {
 

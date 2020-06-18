@@ -1,8 +1,8 @@
 package model.map.rooms;
 
 import model.GameData;
+import model.events.ambient.PressureSimulation;
 import model.map.doors.Door;
-import model.map.floors.FloorSet;
 import model.objects.ai.SecurityCamera;
 import model.objects.recycling.TrashBin;
 import sounds.Sound;
@@ -43,5 +43,15 @@ public abstract class StationRoom extends Room {
     @Override
     public Sound getSpecificAmbientSound() {
         return new Sound("ambigen" + ambiIndex);
+    }
+
+    @Override
+    public boolean startsWithPressure() {
+        return true;
+    }
+
+    @Override
+    public boolean sucksPressureFromNeighbors(GameData gameData) {
+        return true;
     }
 }

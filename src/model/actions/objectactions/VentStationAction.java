@@ -19,6 +19,7 @@ import java.util.*;
 /**
  * Created by erini02 on 09/09/17.
  */
+@Deprecated
 public class VentStationAction extends ConsoleAction {
 
     private String selectedPart;
@@ -64,10 +65,10 @@ public class VentStationAction extends ConsoleAction {
 
         for (Room r : affectedRooms) {
             if (!NoPressureEvent.hasNoPressureEvent(r)) {
-                NoPressureEvent npe = new NoPressureEvent(r, performingClient, false);
-                eventMap.put(r, npe);
-                r.addEvent(npe);
-                gameData.addEvent(npe);
+               // NoPressureEvent npe = new NoPressureEvent(r, performingClient, false);
+               // eventMap.put(r, npe);
+                //r.addEvent(npe);
+                //gameData.addEvent(npe);
             }
         }
 

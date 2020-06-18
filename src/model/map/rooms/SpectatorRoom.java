@@ -116,4 +116,9 @@ public class SpectatorRoom extends Room {
     public Lighting getLighting() {
         return null;
     }
+
+    @Override
+    public boolean startsWithPressure() {
+        return true;
+    }
 }

@@ -465,12 +465,12 @@ public class GameMap implements Serializable {
         MapLevel levelObj = createLevel(new EmptySpaceLevel(levelName, "Space"), current[0], current[1], current[2], false);
         Room r = new SpaceRoom(getMaxID()+1, 0, 0, 0,0);
         this.addRoom(r, levelName, "space");
-        Event noPress = new NoPressureEverEvent(r);
-        r.addEvent(noPress);
+        //Event noPress = new NoPressureEverEvent(r);
+        //r.addEvent(noPress);
         Event cold = new ColdEvent(r);
         r.addEvent(cold);
         gameData.addEvent(cold);
-        gameData.addEvent(noPress);
+        //gameData.addEvent(noPress);
         return levelObj;
     }
 

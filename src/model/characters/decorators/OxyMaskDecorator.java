@@ -18,7 +18,7 @@ public class OxyMaskDecorator extends CharacterDecorator {
     @Override
     public void beExposedTo(Actor something, Damager damager) {
         if (damager instanceof NoPressureDamage) {
-            super.beExposedTo(something, new AsphyxiationDamage(getActor().getAsTarget()));
+            super.beExposedTo(something, new AsphyxiationDamage(getActor().getAsTarget(), 1.0));
 
         } else if (damager instanceof AsphyxiationDamage) {
             return;

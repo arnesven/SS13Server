@@ -50,13 +50,7 @@ public class SealHullBreachAction extends Action implements QuickAction {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         if (GameItem.hasAnItem(performingClient, new RepairTools()) || isRobot(performingClient.getCharacter())) {
-            List<Event> evs = performingClient.getPosition().getEvents();
-            for (Event e : evs) {
-                if (e instanceof HullBreach) {
-                    ((HullBreach) e).fix();
-                    break;
-                }
-            }
+            HullBreach.findHullBreachIn(performingClient.getPosition()).fix();
             performingClient.addTolastTurnInfo("You sealed the breach.");
             RepairTools rt = null;
             try {

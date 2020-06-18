@@ -16,6 +16,7 @@ import model.map.rooms.AirLockRoom;
 import model.map.rooms.Room;
 import model.objects.general.AirlockPanel;
 
+@Deprecated
 public class NoPressureEvent extends Event {
 
     private final boolean affectsAdjacent;
@@ -23,7 +24,7 @@ public class NoPressureEvent extends Event {
 	private Actor performingClient;
     private List<LowPressureEvent> adjacentRoomEvents = new ArrayList<>();
 
-    public NoPressureEvent(Room roomRef, Actor performingClient, boolean adjacent) {
+    protected NoPressureEvent(Room roomRef, Actor performingClient, boolean adjacent) {
 		this.roomRef = roomRef;
 		this.performingClient = performingClient;
         this.affectsAdjacent = adjacent;

@@ -5,10 +5,16 @@ import model.objects.general.GameObject;
 
 public class AsphyxiationDamage extends DamagerImpl {
 
+	private final double damage;
 	private Target target;
 
-	public AsphyxiationDamage(Target t) {
+	public AsphyxiationDamage(Target t, double v) {
 		this.target = t;
+		this.damage = v;
+	}
+
+	public AsphyxiationDamage(Target t) {
+		this(t, 0.5);
 	}
 
 	@Override
@@ -23,7 +29,7 @@ public class AsphyxiationDamage extends DamagerImpl {
 
 	@Override
 	public double getDamage() {
-		return 0.5;
+		return damage;
 	}
 
 	@Override

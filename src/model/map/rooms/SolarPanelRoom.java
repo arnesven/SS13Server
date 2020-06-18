@@ -57,8 +57,13 @@ public class SolarPanelRoom extends DecorativeRoom {
     @Override
     public void doSetup(GameData gameData) {
         super.doSetup(gameData);
-        NoPressureEverEvent npe = new NoPressureEverEvent(this);
-        this.addEvent(npe);
-        gameData.addEvent(npe);
+        //NoPressureEverEvent npe = new NoPressureEverEvent(this);
+        //this.addEvent(npe);
+        //gameData.addEvent(npe);
+    }
+
+    @Override
+    public boolean startsWithPressure() {
+        return false;
     }
 }

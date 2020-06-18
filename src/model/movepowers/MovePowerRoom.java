@@ -36,6 +36,11 @@ public class MovePowerRoom extends Room {
         return sprs;
     }
 
+    @Override
+    public boolean startsWithPressure() {
+        return false;
+    }
+
     public Sprite getButtonSprite() {
         return this.movePower.getButtonSprite();
     }

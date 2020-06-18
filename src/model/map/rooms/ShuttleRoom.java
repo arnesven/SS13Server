@@ -227,4 +227,9 @@ public class ShuttleRoom extends Room {
     protected Sound getSpecificAmbientSound() {
         return new Sound("shipambience");
     }
+
+    @Override
+    public boolean startsWithPressure() {
+        return true;
+    }
 }

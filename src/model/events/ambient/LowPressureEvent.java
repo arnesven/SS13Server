@@ -12,6 +12,7 @@ import model.map.rooms.Room;
 /**
  * Created by erini02 on 26/04/16.
  */
+@Deprecated
 public class LowPressureEvent extends Event {
 
     private final Room roomRef;
@@ -25,7 +26,7 @@ public class LowPressureEvent extends Event {
     @Override
     public void apply(GameData gameData) {
         for (Target t : roomRef.getTargets(gameData)) {
-            t.beExposedTo(null, new AsphyxiationDamage(t), gameData);
+            t.beExposedTo(null, new AsphyxiationDamage(t, 1.0), gameData);
         }
     }
 

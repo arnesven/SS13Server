@@ -21,4 +21,9 @@ public class BaseStarRoom extends Room {
     public boolean isPartOfStation() {
         return false;
     }
+
+    @Override
+    public boolean startsWithPressure() {
+        return true;
+    }
 }
