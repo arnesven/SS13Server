@@ -66,10 +66,10 @@ public class RoomPressureEvent extends Event {
 
     @Override
     public SensoryLevel getSense() {
-//        if (simulation.getPressureFor(room) >= THRESHOLD_MEDIUM) {
-//            return new SensoryLevel(SensoryLevel.VisualLevel.INVISIBLE,
-//                    SensoryLevel.AudioLevel.SAME_ROOM, SensoryLevel.OlfactoryLevel.UNSMELLABLE);
-//        }
+        if (simulation.getPressureFor(room) >= THRESHOLD_MEDIUM) {
+            return new SensoryLevel(SensoryLevel.VisualLevel.INVISIBLE,
+                    SensoryLevel.AudioLevel.SAME_ROOM, SensoryLevel.OlfactoryLevel.UNSMELLABLE);
+        }
         return new SensoryLevel(SensoryLevel.VisualLevel.INVISIBLE,
                 SensoryLevel.AudioLevel.VERY_LOUD, SensoryLevel.OlfactoryLevel.UNSMELLABLE);
     }

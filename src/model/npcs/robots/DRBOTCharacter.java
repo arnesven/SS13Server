@@ -28,6 +28,11 @@ public class DRBOTCharacter extends RobotCharacter {
     }
 
     @Override
+    protected Sprite getBrokenSprite(Actor whosAsking) {
+        return new Sprite("drbotbroken", "aibots.png", 61, getActor());
+    }
+
+    @Override
     public void addActionsForActorsInRoom(GameData gameData, Actor otherActor, ArrayList<Action> at) {
         super.addActionsForActorsInRoom(gameData, otherActor, at);
         if (getActor() instanceof NPC && ((NPC) getActor()).getActionBehavior() instanceof DoNothingBehavior) {
