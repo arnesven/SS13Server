@@ -9,14 +9,15 @@ import util.MyRandom;
  * Created by erini02 on 17/09/17.
  */
 public abstract class OreShard extends GameItem {
+    private final int rand;
+
     public OreShard(String string, int cost) {
         super(string, 1.0, false, cost);
+        this.rand = MyRandom.nextInt(3);
     }
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        int rand = MyRandom.nextInt(3);
-
         return new Sprite(getShardTypeName() + "shard" + rand, "shards.png", rand, getSpriteRow(), this);
     }
 

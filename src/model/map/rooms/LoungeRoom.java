@@ -4,10 +4,9 @@ package model.map.rooms;
 
 import model.map.doors.Door;
 import model.map.doors.DowngoingStairsDoor;
-import model.map.doors.UpgoingStairsDoor;
 import model.map.floors.ChapelFloorSet;
 import model.map.floors.FloorSet;
-import model.objects.ClawCraneGame;
+import model.objects.clawcrane.ClawCraneGame;
 import model.objects.LongSofa;
 import model.objects.decorations.ComfyChair;
 import model.objects.general.JunkVendingMachine;

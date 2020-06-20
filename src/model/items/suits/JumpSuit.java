@@ -22,7 +22,7 @@ public class JumpSuit extends TorsoAndShoesSuit {
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
-        return new Sprite("jumpsuit", "uniforms.png", 4, 9, this);
+        return new Sprite("jumpsuit", "uniforms.png", 7, 1, this);
     }
 
     @Override
