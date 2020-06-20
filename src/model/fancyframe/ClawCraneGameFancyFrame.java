@@ -128,6 +128,7 @@ public class ClawCraneGameFancyFrame extends SinglePersonUseMachineFancyFrame {
                 player.setNextAction(a);
                 this.finalizing = true;
             }
+            gameData.getChat().serverInSay("Something is happening with the game...", player);
             readyThePlayer(gameData, player);
             buildContent(player, gameData);
         } else if (event.contains("COINPAID")) {
