@@ -135,5 +135,7 @@ public class FancyFrame implements Serializable {
     }
 
 
-
+    protected int getHeight() {
+        return height;
+    }
 }

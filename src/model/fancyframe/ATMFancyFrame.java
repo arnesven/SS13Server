@@ -19,14 +19,14 @@ import util.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ATMFancyFrame extends FancyFrame {
+public class ATMFancyFrame extends SinglePersonUseMachineFancyFrame {
     private final ATM atm;
     private boolean depositScreenShowing;
     private boolean withdrawScreenShowing;
     private int[] withdrawValues;
 
     public ATMFancyFrame(Player performingClient, GameData gameData, ATM atm) {
-        super(performingClient.getFancyFrame());
+        super(performingClient, atm);
         this.atm = atm;
         withdrawScreenShowing = false;
         depositScreenShowing = false;
@@ -134,12 +134,6 @@ public class ATMFancyFrame extends FancyFrame {
         makeInnerBox(content, string1, string2, string3, HTMLText.makeText("black", "."), buttonsShowing);
     }
 
-
-    @Override
-    protected void beingDisposed() {
-        super.beingDisposed();
-        atm.setFancyFrameVacant();
-    }
 
     @Override
     public void handleEvent(GameData gameData, Player player, String event) {

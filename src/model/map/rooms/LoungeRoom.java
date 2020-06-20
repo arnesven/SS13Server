@@ -7,6 +7,7 @@ import model.map.doors.DowngoingStairsDoor;
 import model.map.doors.UpgoingStairsDoor;
 import model.map.floors.ChapelFloorSet;
 import model.map.floors.FloorSet;
+import model.objects.ClawCraneGame;
 import model.objects.LongSofa;
 import model.objects.decorations.ComfyChair;
 import model.objects.general.JunkVendingMachine;
@@ -22,6 +23,7 @@ public class LoungeRoom extends SupportRoom {
         this.addObject(new ComfyChair(this), RelativePositions.MID_LEFT);
         //this.addObject(new ComfyChair(this));
         this.addObject(new LongSofa(this), RelativePositions.MID_TOP);
+        this.addObject(new ClawCraneGame(this), RelativePositions.UPPER_LEFT_CORNER);
     }
 
     @Override

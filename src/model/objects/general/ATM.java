@@ -6,20 +6,13 @@ import model.Bank;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
-import model.actions.objectactions.AccessAccountAction;
-import model.actions.objectactions.WalkUpToATMAction;
-import model.actions.objectactions.WalkUpToElectricalMachineryAction;
-import model.events.PayWagesEvent;
+import model.actions.objectactions.WalkUpToSinglePersonUseMachineAction;
+import model.fancyframe.ATMFancyFrame;
 import model.fancyframe.FancyFrame;
-import model.fancyframe.SinglePageFancyFrame;
-import model.items.general.GameItem;
-import model.items.general.KeyCard;
 import model.items.general.MoneyStack;
 import model.items.keycard.IdentCardItem;
 import model.map.rooms.Room;
 import model.objects.SinglePersonUseMachine;
-import model.objects.general.ElectricalMachinery;
-import util.Logger;
 
 import java.util.ArrayList;
 
@@ -58,7 +51,12 @@ public class ATM extends SinglePersonUseMachine implements BankUser {
 //            Logger.log(cl.getPublicName() + " DOESN'T HAVE AN ACCOUNT!");
 //        }
         if (cl instanceof Player) {
-            at.add(new WalkUpToATMAction((Player)cl, gameData, ATM.this));
+            at.add(new WalkUpToSinglePersonUseMachineAction((Player)cl, gameData, ATM.this) {
+                @Override
+                protected FancyFrame getFancyFrame(GameData gameData, Actor performingClient) {
+                    return  new ATMFancyFrame((Player)cl, gameData, ATM.this);
+                }
+            });
         }
     }
 
