@@ -3,7 +3,7 @@ package model.fancyframe;
 import graphics.sprites.Sprite;
 import model.GameData;
 import model.Player;
-import model.combat.HarmMartialArtsAttack;
+import model.combat.DefaultUnarmedAttack;
 import model.combat.MartialArtsAttack;
 import model.items.weapons.UnarmedAttack;
 import util.HTMLText;
@@ -14,7 +14,7 @@ public class UnarmedCombatFancyFrame extends FancyFrame {
     private static Sprite grabSprite   = new Sprite("grabsprite", "interface.png", 2, 11, null);
     private static Sprite disarmSprite = new Sprite("disarmsprite", "interface.png", 1, 11, null);
     private final UnarmedAttack unarmedAttack;
-    private MartialArtsAttack selected = new HarmMartialArtsAttack();
+    private MartialArtsAttack selected = new DefaultUnarmedAttack();
     private boolean pushed;
 
     public UnarmedCombatFancyFrame(Player performingClient, UnarmedAttack unarmedAttack) {

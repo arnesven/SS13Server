@@ -16,7 +16,7 @@ public abstract class MartialArtsAttack implements Serializable {
 
     public static MartialArtsAttack factory(String s) {
         if (s.contains("harm")) {
-            return new HarmMartialArtsAttack();
+            return new ImprovedUnarmedAttack();
         } else if (s.contains("grab")) {
             return new GrabMartialArtsAttack();
         } else if (s.contains("disarm")) {

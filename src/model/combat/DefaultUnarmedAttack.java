@@ -5,9 +5,9 @@ import model.GameData;
 import model.Target;
 import model.items.weapons.UnarmedAttack;
 
-public class HarmMartialArtsAttack extends MartialArtsAttack {
-    public HarmMartialArtsAttack() {
-        super("Harm");
+public class DefaultUnarmedAttack extends MartialArtsAttack {
+    public DefaultUnarmedAttack() {
+        super("Default");
     }
 
     @Override

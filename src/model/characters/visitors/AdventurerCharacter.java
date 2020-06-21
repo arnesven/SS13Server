@@ -1,6 +1,7 @@
 package model.characters.visitors;
 
 import model.characters.general.GameCharacter;
+import model.characters.special.MartialArtist;
 import model.items.general.GameItem;
 import model.items.suits.AdventurersHat;
 import model.items.suits.AdventurersOutfit;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Created by erini02 on 18/10/16.
  */
-public class AdventurerCharacter extends VisitorCharacter {
+public class AdventurerCharacter extends VisitorCharacter implements MartialArtist {
     public AdventurerCharacter() {
         super("Adventurer");
         getEquipment().removeEverything();
