@@ -9,4 +9,8 @@ public class StunnedDecorator extends AlterMovement implements DisablingDecorato
         super(character, "Stunned", true, 0);
     }
 
+    @Override
+    public double getCombatBaseDefense() {
+        return 0.5;
+    }
 }

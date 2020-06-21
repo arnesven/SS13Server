@@ -27,7 +27,7 @@ import java.util.List;
 
 public abstract class Weapon extends GameItem implements HandheldItem {
 
-	public static final Weapon FISTS      = new Fist();
+	//public static final Weapon FISTS      = new UnarmedAttack();
     public static final Weapon TENTACLE   = new Tentacle();
     public static final Weapon STEEL_PROD = new SteelProd();
     public static final Weapon TEETH      = new Teeth();
@@ -66,12 +66,9 @@ public abstract class Weapon extends GameItem implements HandheldItem {
         return new Sprite("weapon", "gun.png", 0, this);
     }
 
-    public boolean isAttackSuccessful(boolean reduced) {
-        lastRoll = MyRandom.nextDouble();
-        if (reduced) {
-       		return lastRoll < getHitChance()*0.5;
-		}
-		return lastRoll < getHitChance();
+    public boolean isAttackSuccessful(double modifier) {
+        lastRoll = MyRandom.nextDouble()*modifier;
+        return lastRoll < getHitChance();
 	}
 
 
@@ -80,7 +77,7 @@ public abstract class Weapon extends GameItem implements HandheldItem {
         return lastRoll < getHitChance()*1.25;
     }
 
-	protected double getHitChance() {
+	public double getHitChance() {
 		return hitChance;
 	}
 	

@@ -8,6 +8,7 @@ import model.Player;
 import model.actions.general.Action;
 import model.characters.decorators.LarcenistCharacter;
 import model.characters.decorators.SpaceProtection;
+import model.characters.special.MartialArtist;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.items.general.NuclearDisc;
@@ -24,7 +25,7 @@ import model.objects.general.AirlockPanel;
 import model.objects.general.GameObject;
 import model.objects.general.NuclearBomb;
 
-public class OperativeCharacter extends HumanCharacter {
+public class OperativeCharacter extends HumanCharacter implements MartialArtist {
 
 	private int num;
 

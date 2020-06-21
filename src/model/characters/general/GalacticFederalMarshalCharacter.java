@@ -5,6 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.actions.characteractions.ArrestAndTeleportToPrisonPlanetAction;
 import model.actions.general.Action;
+import model.characters.special.MartialArtist;
 import model.items.general.GameItem;
 import model.items.general.Teleporter;
 import model.items.weapons.Shotgun;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by erini02 on 17/11/16.
  */
-public class GalacticFederalMarshalCharacter extends HumanCharacter {
+public class GalacticFederalMarshalCharacter extends HumanCharacter implements MartialArtist {
     private final int number;
 
     public GalacticFederalMarshalCharacter(int i, int room) {

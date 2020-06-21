@@ -38,8 +38,6 @@ public class ClawCraneGame extends SinglePersonUseMachine {
         this.crane = new ClawCrane();
         this.shaft = new OutShaft(this);
         generateContents();
-        setPowerPriority(0);
-
     }
 
     private void generateContents() {
@@ -151,7 +149,7 @@ public class ClawCraneGame extends SinglePersonUseMachine {
             if (crane.getAimLine().intersects(shaft.getHitbox())) {
                 gameData.getChat().serverInSay("Something fell down into the out shaft!", player);
                 it = crane.getGrabbedPrize().item;
-                player.getCharacter().giveItem(it, null);
+                player.getCharacter().giveItem(it, this);
                 contents.remove(crane.getGrabbedPrize());
                 crane.setGrabbed(null);
                 player.refreshClientData();

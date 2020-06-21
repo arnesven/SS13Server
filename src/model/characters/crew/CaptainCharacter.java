@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.characters.general.GameCharacter;
+import model.characters.special.MartialArtist;
 import model.items.general.*;
 import model.items.suits.CaptainsOutfit;
 import model.items.weapons.Revolver;
 
-public class CaptainCharacter extends CrewCharacter {
+public class CaptainCharacter extends CrewCharacter implements MartialArtist {
 
     public CaptainCharacter() {
         super("Captain", COMMAND_TYPE, 20, 16.0);

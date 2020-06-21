@@ -8,6 +8,7 @@ import model.actions.QuickAction;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.characters.general.GameCharacter;
+import model.characters.special.MartialArtist;
 import model.items.HandCuffs;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
@@ -23,7 +24,7 @@ import sounds.Sound;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SecurityCharacter extends CrewCharacter {
+public abstract class SecurityCharacter extends CrewCharacter implements MartialArtist {
 
     public SecurityCharacter(String name, double speed) {
         super(name, SECURITY_TYPE, 18, speed);

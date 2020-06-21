@@ -7,6 +7,7 @@ import model.actions.general.AttackAction;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.characters.visitors.ClownCharacter;
+import model.items.weapons.UnarmedAttack;
 import model.items.weapons.Weapon;
 
 /**
@@ -46,7 +47,7 @@ public class BeatUpTheClownGoal extends PersonalGoal {
                     Weapon w = (Weapon)(atkAction.getItem());
                     if (atkAction.getTarget() instanceof Actor) {
                         Actor a = (Actor) (atkAction.getTarget());
-                        if (w == Weapon.FISTS && a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof ClownCharacter)) {
+                        if (w instanceof UnarmedAttack && a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof ClownCharacter)) {
                             completed = true;
                         }
                     }

@@ -26,9 +26,9 @@ public abstract class AmmoWeapon extends Weapon {
 	}
 	
 	@Override
-	public boolean isAttackSuccessful(boolean reduced) {
+	public boolean isAttackSuccessful(double modifier) {
 		shots--;
-		return super.isAttackSuccessful(reduced);
+		return super.isAttackSuccessful(modifier);
 	}
 
 	@Override

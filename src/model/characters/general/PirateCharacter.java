@@ -2,6 +2,7 @@ package model.characters.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.characters.special.MartialArtist;
 import model.items.foods.SpaceRum;
 import model.items.general.GameItem;
 import model.items.weapons.*;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Created by erini02 on 26/04/16.
  */
-public class PirateCharacter extends HumanCharacter {
+public class PirateCharacter extends HumanCharacter implements MartialArtist {
     private final int num;
     private final Weapon weapon;
 

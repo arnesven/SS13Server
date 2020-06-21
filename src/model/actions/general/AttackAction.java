@@ -1,25 +1,30 @@
 package model.actions.general;
 
-import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
-import model.characters.decorators.InProximityOfTargetOneRoundDecorator;
 import model.characters.decorators.PinnedDecorator;
+import model.characters.special.MartialArtist;
 import model.items.general.GameItem;
+import model.items.weapons.UnarmedAttack;
 import model.items.weapons.Weapon;
 import model.objects.general.BreakableObject;
 import sounds.Sound;
+
+import java.util.List;
 
 
 public class AttackAction extends TargetingAction {
 
 	private Weapon weapon;
 	private boolean attackSuccessful;
+	private boolean setsReady;
 
 	public AttackAction(Actor ap) {
 		super("Attack", SensoryLevel.PHYSICAL_ACTIVITY, ap);
 		attackSuccessful = false;
+		setsReady = true;
 	}
 
 	@Override
@@ -73,7 +78,6 @@ public class AttackAction extends TargetingAction {
                                           Actor performingClient,
                                           Actor target, Weapon w) {
         if (performingClient.getCharacter().getsAttackOfOpportunity(w)) {
-            //gameData.addMovementEvent(new AttackOfOpportunityEvent(performingClient, target, w));
             performingClient.addTolastTurnInfo("You've got " + target.getPublicName() + " pinned!");
             target.addTolastTurnInfo(performingClient.getPublicName() + " has got you pinned!");
             if (target instanceof Actor) {
@@ -109,6 +113,17 @@ public class AttackAction extends TargetingAction {
 				it == performingClient.getCharacter().getDefaultWeapon();
 	}
 
+	@Override
+	public void setArguments(List<String> args, Actor performingClient) {
+		super.setArguments(args, performingClient);
+		if (item instanceof UnarmedAttack && performingClient instanceof Player && MartialArtist.is(performingClient)) {
+			MartialArtist.showUnarmedCombatFancyFrame((Player)performingClient, (UnarmedAttack)item);
+			setsReady = false;
+		}
+	}
 
-	
+	@Override
+	public boolean doesSetPlayerReady() {
+		return setsReady;
+	}
 }

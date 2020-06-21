@@ -8,6 +8,7 @@ import model.actions.general.Action;
 import model.actions.general.TargetingAction;
 import model.actions.characteractions.InvestigateAction;
 import model.characters.general.GameCharacter;
+import model.characters.special.MartialArtist;
 import model.items.general.GameItem;
 import model.items.general.ZippoLighter;
 import model.items.keycard.SecurityKeyCard;
@@ -16,7 +17,7 @@ import model.items.suits.SunGlasses;
 import model.items.weapons.Revolver;
 
 
-public class DetectiveCharacter extends CrewCharacter {
+public class DetectiveCharacter extends CrewCharacter implements MartialArtist {
 
 	public DetectiveCharacter() {
 		super("Detective", SECURITY_TYPE,12, 13.0);

@@ -35,8 +35,8 @@ public class StunBaton extends AmmoWeapon {
     }
 
     @Override
-	public boolean isAttackSuccessful(boolean reduced) {
-		boolean success = super.isAttackSuccessful(reduced);
+	public boolean isAttackSuccessful(double hitModifier) {
+		boolean success = super.isAttackSuccessful(hitModifier);
 		if (!success) {
 			shots++;
 			// you missed, stun baton gets refunded a shot.

@@ -57,11 +57,11 @@ public class HTMLText {
     }
 
     public static String makeFancyFrameLink(String command, String text) {
-        return "<a href=\"https://EVENT." + command + "\">" + text + "</a>";
+        return "<a href=\"https://EVENT." + command + "\"" + ">" + text + "</a>";
     }
 
     public static String makeGrayButton(boolean isPushed, String command, String buttonText) {
-        return makeFancyFrameLink(command, makeText(isPushed?"white":"black", isPushed?"black":"gray", "Courier", 4, buttonText));
+        return makeFancyFrameLink(command, makeText(isPushed?"white":"black", isPushed?"black":"gray", "Courier", 5, buttonText));
     }
 
     public static String makeBox(String fg, String bg, int widthPct, boolean border, String content) {

@@ -563,4 +563,8 @@ public abstract class CharacterDecorator extends GameCharacter {
 	public RelativePositions getPreferredRelativePosition() {
 		return innerChar.getPreferredRelativePosition();
 	}
+
+	public double getCombatBaseDefense() {
+		return innerChar.getCombatBaseDefense();
+	}
 }

@@ -17,6 +17,7 @@ import model.items.BodyPartFactory;
 import model.items.NoSuchThingException;
 import model.items.foods.FoodItem;
 import model.items.suits.Equipment;
+import model.items.weapons.UnarmedAttack;
 import model.items.weapons.PhysicalWeapon;
 import model.map.GameMap;
 import model.map.SpacePosition;
@@ -31,7 +32,6 @@ import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.DoNothingBehavior;
 import sounds.DefaultSoundSet;
-import sounds.HumanSoundSet;
 import sounds.SoundSet;
 import util.HTMLText;
 import util.Logger;
@@ -75,6 +75,7 @@ public abstract class GameCharacter implements Serializable {
 	private PhysicalBody physBody;
 	private SpacePosition spacePosition = null;
 	private SoundSet soundSet;
+	private Weapon characterFist;
 
 
 	public GameCharacter(String name, int startRoom, double speed) {
@@ -85,6 +86,7 @@ public abstract class GameCharacter implements Serializable {
         physBody = new PhysicalBody(MyRandom.randomGender().equals("man"), this);
         killerItem = null;
         soundSet = new DefaultSoundSet();
+        characterFist = new UnarmedAttack();
 	}
 
 	/**
@@ -260,10 +262,23 @@ public abstract class GameCharacter implements Serializable {
 
 
     public boolean isAttackerSuccessful(Actor performingClient, Weapon weapon) {
-       return  weapon.isAttackSuccessful(isWatching(getActor(), performingClient));
+		double modifier = getCombatBaseDefense();
+		if (isWatching(getActor(), performingClient)) {
+			modifier = 2.0;
+		}
+       return weapon.isAttackSuccessful(modifier);
     }
 
-    public static boolean isWatching(Actor watchingActor, Actor otherActor) {
+	/**
+	 * A value between 0 and 2.0, where 0 means you are completely exposed to attack ( opponent will always crit)
+	 * and 2.0 you are half as likely to be hit as normal.
+	 * @return
+	 */
+	public double getCombatBaseDefense() {
+		return 1.0;
+	}
+
+	public static boolean isWatching(Actor watchingActor, Actor otherActor) {
 		if (watchingActor instanceof Player) {
 			Player watchingPlayer = (Player) watchingActor;
 			if (watchingPlayer.getNextAction() instanceof WatchAction) {
@@ -514,7 +529,7 @@ public abstract class GameCharacter implements Serializable {
 	}
 
 	public Weapon getDefaultWeapon() {
-		return Weapon.FISTS;
+		return characterFist;
 	}
 
 

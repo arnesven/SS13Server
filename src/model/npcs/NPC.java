@@ -52,7 +52,7 @@ public abstract class NPC extends Actor implements Target, Serializable {
 	}
 	
 	public void moveAccordingToBehavior() {
-		if (!isDead()) {
+		if (!isDead() && getCharacter().getMovementSteps() > 0) {
 			moveBehavior.move(this);
 		}
 	}
