@@ -34,7 +34,7 @@ public class BlurredCharacter implements SpriteObject {
 
     public List<Action> getOverlaySpriteActionList(GameData gameData, Room r, Player forWhom) {
         List<Action> result = new ArrayList<>();
-        result.add(new AttemptToFollowAction(belongingTo));
+        result.add(new AttemptToFollowAction(this, belongingTo));
         return result;
     }
 

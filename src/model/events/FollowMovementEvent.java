@@ -7,7 +7,9 @@ import model.Target;
 import model.actions.general.SensoryLevel;
 import model.map.GameMap;
 import model.map.rooms.Room;
+import model.modes.GameMode;
 import model.npcs.NPC;
+import model.npcs.behaviors.PathFinding;
 import util.Logger;
 
 public class FollowMovementEvent extends Event {
@@ -59,7 +61,10 @@ public class FollowMovementEvent extends Event {
                     npc.moveIntoRoom(target.getPosition());
                 }
             } else {
-                performingClient.addTolastTurnInfo("You couldn't follow " + target.getName() + "!");
+            	Room r = PathFinding.findCloserRoom(performingClient, target.getPosition());
+				Player pl = (Player) performingClient;
+				pl.moveIntoRoom(r);
+				performingClient.addTolastTurnInfo("You tried to follow your target, but you must have lost it.");
             }
 		} else {
 			performingClient.addTolastTurnInfo("You stopped following " + target.getName() + ".");

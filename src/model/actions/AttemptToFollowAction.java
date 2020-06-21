@@ -1,10 +1,12 @@
 package model.actions;
 
+import graphics.sprites.BlurredCharacter;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.events.FollowMovementEvent;
+import model.events.FollowMovementEventForOneTurn;
 import util.Logger;
 
 import java.util.List;
@@ -12,8 +14,8 @@ import java.util.List;
 public class AttemptToFollowAction extends Action {
     private final Actor target;
 
-    public AttemptToFollowAction(Actor belongingTo) {
-        super("Attempt to Follow", SensoryLevel.PHYSICAL_ACTIVITY);
+    public AttemptToFollowAction(BlurredCharacter blurChar, Actor belongingTo) {
+        super("Follow " + blurChar.getPublicName(null), SensoryLevel.PHYSICAL_ACTIVITY);
         this.target = belongingTo;
     }
 
@@ -24,7 +26,7 @@ public class AttemptToFollowAction extends Action {
 
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
-        FollowMovementEvent followEvent = new FollowMovementEvent(performingClient.getPosition(), performingClient, target.getAsTarget());
+        FollowMovementEvent followEvent = new FollowMovementEventForOneTurn(performingClient.getPosition(), performingClient, target.getAsTarget());
         gameData.addMovementEvent(followEvent);
     }
 
