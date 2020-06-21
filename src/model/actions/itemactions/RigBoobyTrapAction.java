@@ -23,7 +23,7 @@ public class RigBoobyTrapAction extends Action {
 		super("Rig Booby Trap",
 				SensoryLevel.PHYSICAL_ACTIVITY); 
 		this.bomb = boobyTrapBomb;
-		this.performer = performingClient;
+		super.setPerformer(performingClient);
 	}
 
 
@@ -35,7 +35,7 @@ public class RigBoobyTrapAction extends Action {
 	@Override
 	public ActionOption getOptions(GameData gameData, Actor whosAsking) {
 		ActionOption opt = new ActionOption("Rig Booby Trap");
-		for (GameObject obj : performer.getPosition().getObjects()) {
+		for (GameObject obj : whosAsking.getPosition().getObjects()) {
 			if (obj instanceof ElectricalMachinery) {
 				opt.addOption(new ActionOption(obj.getPublicName(whosAsking)));
 			}
@@ -45,7 +45,7 @@ public class RigBoobyTrapAction extends Action {
 
 	@Override
 	public void setArguments(List<String> args, Actor p) {
-		for (GameObject obj : performer.getPosition().getObjects()) {
+		for (GameObject obj : p.getPosition().getObjects()) {
 			if (obj instanceof ElectricalMachinery) {
 				if (obj.getPublicName(p).equals(args.get(0))) {
 					selectedObject = (ElectricalMachinery)obj;

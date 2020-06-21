@@ -36,7 +36,7 @@ public class PickupAndUseAction extends Action {
         PickUpAction pickup = new PickUpAction(performingClient);
         List<String> args = new ArrayList<>();
         args.add(item.getPublicName(performingClient));
-        pickup.setActionTreeArguments(args, performer);
+        pickup.setActionTreeArguments(args, performingClient);
         pickup.doTheAction(gameData, performingClient);
         if (performingClient.getCharacter().getItems().contains(item)) {
             finalAction.doTheAction(gameData, performingClient);

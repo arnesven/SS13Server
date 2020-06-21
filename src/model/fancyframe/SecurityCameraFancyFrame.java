@@ -111,7 +111,7 @@ public class SecurityCameraFancyFrame extends ConsoleFancyFrame {
             Sprite sp;
             if (roomHasDarkness(r)) {
                 if (obj instanceof Actor) {
-                    sp = new BlurredCharacter().getSprite(player);
+                    sp = new BlurredCharacter(0, null).getSprite(player);
                 } else {
                     sp = Sprite.blankSprite();
                 }

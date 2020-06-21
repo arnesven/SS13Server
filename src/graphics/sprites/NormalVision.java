@@ -90,12 +90,13 @@ public class NormalVision extends OverlaySpriteCollector {
 
     protected void AddStuffForAdjacentRooms(Player player, ArrayList<OverlaySprite> strs, GameData gameData) {
         Room r = player.getPosition();
-        Sprite blurredCharacterSprite = new BlurredCharacter().getSprite(player);
+        //Sprite blurredCharacterSprite = new BlurredCharacter().getSprite(player);
+        int count = 1;
         for (Room r2 : r.getNeighborList()) {
             List<Sprite> sp2 = new ArrayList<>();
             for (Actor a : r2.getActors()) {
                 if (a.getCharacter().isVisibileFromAdjacentRoom() && !a.isDead()) {
-                    sp2.add(blurredCharacterSprite);
+                    sp2.add(new BlurredCharacter(count++, a).getSprite(player));
                 }
             }
             for (GameObject obj : r2.getObjects()) {

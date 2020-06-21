@@ -24,7 +24,7 @@ public class RetrieveAndDropAction extends RetrieveAction {
         DropAction drop = new DropAction(performingClient);
         List<String> args = new ArrayList<>();
         args.add(item.getFullName(performingClient));
-        drop.setActionTreeArguments(args, performer);
+        drop.setActionTreeArguments(args, getPerformer());
         drop.doTheAction(gameData, performingClient);
     }
 }

@@ -27,7 +27,7 @@ public class PickUpAndStoreAction extends PickUpAction {
         StoreItemAction sia = new StoreItemAction(crate, (Player)performingClient);
         List<String> args = new ArrayList<>();
         args.add(item.getFullName(performingClient));
-        sia.setActionTreeArguments(args, performer);
+        sia.setActionTreeArguments(args, performingClient);
         sia.doTheAction(gameData, performingClient);
     }
 }

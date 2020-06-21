@@ -58,7 +58,7 @@ public class ExplosionAction extends Action {
     @Override
     public void doTheAction(GameData gameData, Actor performingClient) {
         execute(gameData, performingClient);
-        this.performer = performingClient;
+        setPerformer(performingClient);
         location.addToActionsHappened(this);
     }
 

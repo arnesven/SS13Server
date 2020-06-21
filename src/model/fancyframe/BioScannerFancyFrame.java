@@ -69,7 +69,7 @@ public class BioScannerFancyFrame extends FancyFrame {
         humanActors.addAll(gameData.getActors());
         humanActors.removeIf((Actor a) -> !(a.isHuman()));
         for (int i = 0; i < humanActors.size(); ++i) {
-            Sprite sp = new BlurredCharacter().getSprite(null);
+            Sprite sp = new BlurredCharacter(0, null).getSprite(null);
             if (i < result) {
                 sp.setColor(Color.RED);
             } else {

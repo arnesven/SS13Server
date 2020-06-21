@@ -31,7 +31,7 @@ public class TrainNPCAction extends Action {
 	
 	public TrainNPCAction(Actor ap, GameData gameData) {
 		super("Train", SensoryLevel.PHYSICAL_ACTIVITY);
-		this.performer = ap;
+		super.setPerformer(ap);
 		addTrainables(ap);
 		addActionBehaviors();
 		addMovementBehaviors(gameData);
@@ -40,7 +40,7 @@ public class TrainNPCAction extends Action {
 	private void addMovementBehaviors(GameData gameData) {
 		movs.put("Run", new MeanderingMovement(0.9));
 		movs.put("Stay", new MeanderingMovement(0.1));
-		movs.put("Follow", new FollowMeBehavior(performer, gameData));
+		movs.put("Follow", new FollowMeBehavior(getPerformer(), gameData));
 
 	}
 

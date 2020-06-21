@@ -25,7 +25,7 @@ public abstract class Action extends Experienceable implements Serializable {
 	private long uid;
 	private String name;
 	private SensoryLevel senses;
-	protected Actor performer;
+	private Actor performer;
     private boolean wasDeadBeforeApplied = false;
     private List<String> savedArgs;
     private boolean actionFailed;
@@ -179,17 +179,10 @@ public abstract class Action extends Experienceable implements Serializable {
         return performer;
     }
 
-   // public void uniquefy(GameData gameData, Actor a) {
-        //Logger.log("   Uniqifying action for " + this.getName());
-        //getOptions(gameData, a).uniquefy();
-    //}
 
-   // public static void uniquefiyList(GameData gameData, List<Action> at, Actor act) {
-        // Logger.log("Uniquifying list for " + act.getBaseName());
-           // for (Action a : at) {
-            //    a.uniquefy(gameData, act);
-           // }
-    //}
+    protected void setPerformer(Actor ap) {
+        this.performer = ap;
+    }
 
     public void setDeadBeforeApplied() {
         this.wasDeadBeforeApplied = true;
@@ -327,4 +320,5 @@ public abstract class Action extends Experienceable implements Serializable {
     public boolean wasPerformedAsQuickAction() {
         return wasPerformedAsQuickAction;
     }
+
 }
