@@ -17,6 +17,7 @@ import model.items.general.ItemStackDepletedException;
 import model.items.general.MoneyStack;
 import model.map.rooms.Room;
 import model.objects.SinglePersonUseMachine;
+import sounds.Sound;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -152,6 +153,7 @@ public class ClawCraneGame extends SinglePersonUseMachine {
                 player.getCharacter().giveItem(it, this);
                 contents.remove(crane.getGrabbedPrize());
                 crane.setGrabbed(null);
+                player.getSoundQueue().add(new Sound("roulettejackpot"));
                 player.refreshClientData();
             } else {
                 gameData.getChat().serverInSay("You dropped it...", player);
