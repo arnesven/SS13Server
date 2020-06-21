@@ -91,6 +91,17 @@ public class ClawCraneGame extends SinglePersonUseMachine {
         Graphics2D g = (Graphics2D) img.getGraphics();
         g.setColor(new Color(204, 255, 255));
         g.fillRect(0, 0, CONTENTS_WIDTH, CONTENTS_HEIGHT);
+        g.setColor(Color.GRAY);
+        g.drawPolyline(new int[]{CONTENTS_WIDTH, CONTENTS_WIDTH-10, CONTENTS_WIDTH-10},
+                new int[]{CONTENTS_HEIGHT, CONTENTS_HEIGHT-30, 0}, 3);
+
+        g.drawPolyline(new int[]{0, 10, 10},
+                new int[]{CONTENTS_HEIGHT, CONTENTS_HEIGHT-30, 0}, 3);
+
+        g.drawPolyline(new int[]{10, CONTENTS_WIDTH-10},
+                new int[]{CONTENTS_HEIGHT-30, CONTENTS_HEIGHT-30}, 2);
+
+
         shaft.drawYousrelf(g);
         for (ClawCranePrize prize : contents) {
             prize.drawYourself(g);
@@ -177,6 +188,7 @@ public class ClawCraneGame extends SinglePersonUseMachine {
             if (m.getAmount() >= 5) {
                 try {
                     m.subtractFrom(5);
+                    player.getSoundQueue().add(new Sound("disk_drop"));
                     gameData.getChat().serverInSay("You put a $$ 5 chip into the machine, *chink*", player);
 
                 } catch (ItemStackDepletedException e) {

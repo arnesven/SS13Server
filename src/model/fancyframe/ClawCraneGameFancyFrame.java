@@ -8,6 +8,7 @@ import model.actions.general.Action;
 import model.items.general.GameItem;
 import model.map.doors.PowerCord;
 import model.objects.clawcrane.ClawCraneGame;
+import sounds.TerminalButtonSound;
 import util.HTMLText;
 import util.MyRandom;
 
@@ -115,14 +116,17 @@ public class ClawCraneGameFancyFrame extends SinglePersonUseMachineFancyFrame {
     public void handleEvent(GameData gameData, Player player, String event) {
         super.handleEvent(gameData, player, event);
         if (event.contains("MLEFT")) {
+            player.getSoundQueue().add(new TerminalButtonSound());
             game.moveLeft(Integer.parseInt(event.replace("MLEFT ", "")));
             readyThePlayer(gameData, player);
             buildContent(player, gameData);
         } else if (event.contains("MRIGHT")) {
+            player.getSoundQueue().add(new TerminalButtonSound());
             game.moveRight(Integer.parseInt(event.replace("MRIGHT ", "")));
             readyThePlayer(gameData, player);
             buildContent(player, gameData);
         } else if (event.contains("GRAB")) {
+            player.getSoundQueue().add(new TerminalButtonSound());
             Action a = game.grabOrDrop(gameData, player, this);
             if (a != null) {
                 player.setNextAction(a);
