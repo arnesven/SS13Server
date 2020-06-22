@@ -29,7 +29,7 @@ public class HallOfFame extends MapSavedToDisk<String, Integer> {
     }
 
     private void updateForThisGame() {
-        Logger.log("---=== POINTS FOR THIS GAME ===---");
+        Map<String, Integer> pts = new HashMap<>();
         for (Map.Entry<String, Player> entry: gameData.getPlayersAsEntrySet()) {
             Integer current = getEntries().get(entry.getKey());
             if (current == null) {
@@ -53,9 +53,14 @@ public class HallOfFame extends MapSavedToDisk<String, Integer> {
                     Logger.log(entry.getKey() + " was awarded " + gainedPoints + ".");
                 }
 
+                pts.put(entry.getKey(), gainedPoints);
                 current = current + gainedPoints;
                 getEntries().put(entry.getKey(), current);
             }
+        }
+        Logger.log("---=== POINTS FOR THIS GAME ===---");
+        for (Map.Entry<String, Integer> entry : pts.entrySet()) {
+            Logger.log(entry.getKey() + "  " + entry.getValue());
         }
     }
 
