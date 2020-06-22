@@ -7,6 +7,8 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.map.rooms.Room;
+import model.npcs.NPC;
+import model.npcs.behaviors.MoveToRoomNextTurn;
 import sounds.Sound;
 import util.Logger;
 
@@ -52,6 +54,8 @@ public class MoveAction extends Action {
             } else {
                 Logger.log(Logger.CRITICAL, "Destination was null!");
             }
+        } else if (performingClient instanceof NPC && destination != null) {
+            ((NPC) performingClient).setMoveBehavior(new MoveToRoomNextTurn(destination, gameData));
         }
     }
 

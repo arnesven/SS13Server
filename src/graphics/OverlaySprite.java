@@ -20,6 +20,7 @@ public class OverlaySprite {
     private final Room room;
     private final Player forWhom;
     private final int frames;
+    private boolean actionsEnabled;
 
     public OverlaySprite(Sprite sp, double x, double y, double z, Room r, Player forWhom, int frames) {
         this.sprite = sp;
@@ -29,6 +30,7 @@ public class OverlaySprite {
         this.room = r;
         this.forWhom = forWhom;
         this.frames = frames;
+        actionsEnabled = true;
     }
 
     public OverlaySprite(Sprite sp, double x, double y, double z, Room r, Player forWhom) {
@@ -41,7 +43,7 @@ public class OverlaySprite {
 
     public String getStringRepresentation(GameData gameData) {
         String actiondata = "NoRef";
-        if (sprite.getObjectReference() != null && forWhom.getsActions()) {
+        if (sprite.getObjectReference() != null && forWhom.getsActions() && actionsEnabled) {
             actiondata = Action.makeActionListStringSpecOptions(gameData,
                     sprite.getObjectReference().getOverlaySpriteActionList(gameData, room, forWhom),
                     forWhom);
@@ -101,5 +103,9 @@ public class OverlaySprite {
 
     public Room getRoom() {
         return room;
+    }
+
+    public void setActionsEnabled(boolean actionsEnabled) {
+        this.actionsEnabled = actionsEnabled;
     }
 }

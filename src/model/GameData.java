@@ -620,9 +620,11 @@ public class GameData implements Serializable {
 	}
 	
 	private void moveAllNPCs() {
-		for (NPC npc : npcs) {
-			Logger.log("Moving NPC " + npc.getName());
-			npc.moveAccordingToBehavior();
+		if (round > 1) {
+			for (NPC npc : npcs) {
+				Logger.log("Moving NPC " + npc.getName());
+				npc.moveAccordingToBehavior();
+			}
 		}
 	}
 

@@ -4,6 +4,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.characters.decorators.GodModeDecorator;
+import model.characters.decorators.NPCCommanderDecorator;
 import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.items.NoSuchThingException;
@@ -54,6 +55,7 @@ public class CreativeGameMode extends GameMode {
     protected void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters, GameData gameData) {
         for (Player p : gameData.getPlayersAsList()) {
             p.setCharacter(new GodModeDecorator(p.getCharacter(), gameData));
+            p.setCharacter(new NPCCommanderDecorator(p.getCharacter()));
         }
     }
 
