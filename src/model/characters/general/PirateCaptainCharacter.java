@@ -1,6 +1,7 @@
 package model.characters.general;
 
 
+import model.characters.special.MartialArtist;
 import model.items.general.GameItem;
 import model.items.general.PirateNuclearDisc;
 
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by erini02 on 11/11/16.
  */
-public class PirateCaptainCharacter extends PirateCharacter {
+public class PirateCaptainCharacter extends PirateCharacter implements MartialArtist {
 
     public PirateCaptainCharacter(int startRoom) {
         super(0, startRoom);

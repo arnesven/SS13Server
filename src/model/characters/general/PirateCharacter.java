@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by erini02 on 26/04/16.
  */
-public class PirateCharacter extends HumanCharacter implements MartialArtist {
+public class PirateCharacter extends HumanCharacter {
     private final int num;
     private final Weapon weapon;
 
