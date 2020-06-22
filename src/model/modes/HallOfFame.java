@@ -29,6 +29,7 @@ public class HallOfFame extends MapSavedToDisk<String, Integer> {
     }
 
     private void updateForThisGame() {
+        Logger.log("---=== POINTS FOR THIS GAME ===---");
         for (Map.Entry<String, Player> entry: gameData.getPlayersAsEntrySet()) {
             Integer current = getEntries().get(entry.getKey());
             if (current == null) {
