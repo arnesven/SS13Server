@@ -1,6 +1,7 @@
 package model.events;
 
 import model.actions.itemactions.ExplosionAction;
+import model.characters.special.MartialArtist;
 import model.events.ambient.AmbientEvent;
 import model.events.animation.BigExplosionAnimation;
 import model.events.damage.ExplosiveDamage;
@@ -28,7 +29,7 @@ public class SpontaneousExplosionEvent extends AmbientEvent {
 		if (MyRandom.nextDouble() >= getProbability()) {
 			return;
 		}
-		Room room = gameData.getNonHiddenStationRooms().get(MyRandom.nextInt(gameData.getNonHiddenStationRooms().size()));
+		Room room = MyRandom.sample(gameData.getStationSpawnRooms());
 		this.explode(room, gameData);
 
 	}

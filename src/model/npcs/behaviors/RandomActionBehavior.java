@@ -35,7 +35,7 @@ public class RandomActionBehavior implements ActionBehavior {
 
     private Action randomAction(List<String> args, GameData gameData, Actor npc) {
 
-        Player pl = new Player(gameData);
+        Player pl = new Player();
         pl.setCharacter(npc.getCharacter());
         List<Action> availableActions = pl.getActionList(gameData);
         Action selected = MyRandom.sample(availableActions);

@@ -29,6 +29,7 @@ import model.items.general.MedKit;
 import model.map.rooms.Room;
 import util.HTMLText;
 import util.Logger;
+import util.MyStrings;
 
 
 /**
@@ -57,7 +58,7 @@ public class Player extends Actor implements Target, Serializable {
 	private int actionPoints;
 
 
-	public Player(GameData gameData) {
+	public Player() {
 		Sprite charPreview = styleBody.getSprite(true, true); // DON'T REMOVE!
 		fancyFrame = new FancyFrame(null);
 		jobChoices.put("Artificial Intelligence", false);
@@ -160,17 +161,6 @@ public class Player extends Actor implements Target, Serializable {
 	 */
 	public int getNextMove() {
 		return this.nextMove;
-	}
-
-	/**
-	 * Gets the info for the player's current room. 
-	 * The room info is a collection of strings which
-	 * tells the player what hidden characters/items/objects
-	 * are in that same room with him/her.
-	 * @return the information as a list of strings.
-	 */
-	public List<String> getRoomInfo(GameData gameData) {
-		return this.getPosition().getInfo(gameData, this);
 	}
 
 	/**
@@ -292,7 +282,16 @@ public class Player extends Actor implements Target, Serializable {
 	}
 
 
-
+	/**
+	 * Gets the info for the player's current room.
+	 * The room info is a collection of strings which
+	 * tells the player what hidden characters/items/objects
+	 * are in that same room with him/her.
+	 * @return the information as a list of strings.
+	 */
+	public List<String> getRoomInfo(GameData gameData) {
+		return this.getPosition().getInfo(gameData, this);
+	}
 
 
 	/**
@@ -560,7 +559,6 @@ public class Player extends Actor implements Target, Serializable {
 		this.addTolastTurnInfo("You were " + HTMLText.makeText("Green", "infected") + " by " + performingClient.getPublicName(this));
 		setFancyFrame(new SinglePageFancyFrame(getFancyFrame(),"Secret Role!", HTMLText.makeColoredBackground("Lime", HTMLText.makeCentered("<br/>You were just infected by " + performingClient.getPublicName() +
 				"!</b><br/>You are now on the " + HTMLText.makeWikiLink("modes/host", "Host") + " team. <br/>Keep the humans from destroying the hive!"))));
-
 	}
 
 	public void prepForNewGame() {
@@ -605,8 +603,6 @@ public class Player extends Actor implements Target, Serializable {
 		return this.getPosition() == performingClient.getPosition();
 		
 	}
-
-
 
 
     public boolean isPassive() {
@@ -813,5 +809,23 @@ public class Player extends Actor implements Target, Serializable {
 			return getCharacter().getSoundSet().getAmbientSound();
 		}
 		return getPosition().getAmbientSound();
+	}
+
+	public String createBasicPlayerData(GameData gameData) {
+		String delim = "<player-data-part>";
+
+		String overlays =  OverlaySprite.join(getOverlayStrings(gameData), gameData);
+		Logger.log("Extra effects are: " + getExtraEffectsAsStrings());
+		String result = getCharacterRealName() +
+				delim + getPosition().getID() +
+				delim + getCurrentHealth() +
+				delim + getWeightString() +
+				delim + MyStrings.join(getEquippedItems(gameData)) +
+				delim + MyStrings.join(getItemsAsFullNameList(gameData)) +
+				delim + MyStrings.join(getRoomInfo(gameData)) +
+				delim + MyStrings.join(getLastTurnInfo()) +
+				delim + overlays +
+				delim + getExtraEffectsAsStrings();
+		return result;
 	}
 }

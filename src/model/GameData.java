@@ -123,6 +123,12 @@ public class GameData implements Serializable {
         Collections.sort(list, Comparator.comparing(Room::getName));
 		return list;
 	}
+
+	public List<Room> getStationSpawnRooms() {
+		List<Room> set = getNonHiddenStationRooms();
+		set.removeIf((Room r) -> r instanceof DecorativeRoom);
+		return set;
+	}
 	
 	
 	/**
@@ -203,10 +209,18 @@ public class GameData implements Serializable {
             throw new IllegalStateException("THAT USER NAME ALREADY TAKEN!");
         }
 
-        Player newPlayer = new Player(this);
+        Player newPlayer = new Player();
         players.put(clid, newPlayer);
         return newPlayer;
     }
+
+	public void replacePlayer(Player capCl, Player newPlayer) {
+		try {
+			players.put(getClidForPlayer(capCl), newPlayer);
+		} catch (NoSuchThingException e) {
+			throw new IllegalStateException("Could not replace a player who did not exist!");
+		}
+	}
 
 
     private String getRandomClid() {
@@ -614,21 +628,8 @@ public class GameData implements Serializable {
 
 
 	private String createBasicPlayerData(Player cl) {
-        String delim = "<player-data-part>";
+		return cl.createBasicPlayerData(this);
 
-        String overlays =  OverlaySprite.join(cl.getOverlayStrings(this), this);
-      	Logger.log("Extra effects are: " + cl.getExtraEffectsAsStrings());
-		String result = cl.getCharacterRealName() + 
-				       delim + cl.getPosition().getID() +
-					   delim + cl.getCurrentHealth() +
-					   delim + cl.getWeightString() +
-					   delim + MyStrings.join(cl.getEquippedItems(this)) +
-					   delim + MyStrings.join(cl.getItemsAsFullNameList(this)) +
-					   delim + MyStrings.join(cl.getRoomInfo(this)) +
-					   delim + MyStrings.join(cl.getLastTurnInfo()) +
-                       delim + overlays +
-				       delim + cl.getExtraEffectsAsStrings();
-		return result;	
 		
 	}
 
@@ -984,4 +985,6 @@ public class GameData implements Serializable {
     		p.getSoundQueue().clear();
 		}
 	}
+
+
 }

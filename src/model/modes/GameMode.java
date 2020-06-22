@@ -354,7 +354,7 @@ public abstract class GameMode implements Serializable {
 		listOfCharacters.addAll(getAllCharacters());
 
 		/// SELECT A CAPTAIN, SS13 MUST ALWAYS HAVE A CAPTAIN
-		capCl = selectCaptain(listOfClients, listOfCharacters);
+		capCl = selectCaptain(listOfClients, listOfCharacters, gameData);
         Logger.log("Captain assigned");
 
         /// ASSIGN AN AI-PLAYER IF ABLE
@@ -401,7 +401,7 @@ public abstract class GameMode implements Serializable {
 
 
     protected Player selectCaptain(ArrayList<Player> clientsRemaining,
-                                   ArrayList<GameCharacter> listOfCharacters) {
+								   ArrayList<GameCharacter> listOfCharacters, GameData gameData) {
 
 		ArrayList<Player> playersWhoSelectedCaptain = new ArrayList<>();
 		for (Player pl : clientsRemaining) {
@@ -427,6 +427,7 @@ public abstract class GameMode implements Serializable {
 			}
 		}
 		listOfCharacters.remove(gc);
+
         return capCl;
     }
 
@@ -516,7 +517,7 @@ public abstract class GameMode implements Serializable {
             e.printStackTrace();
         }
 
-        TARSNPC.addATarsToRandomRoom(gameData);
+        NPC tars = TARSNPC.addATarsToRandomRoom(gameData);
 
         MouseNPC.addAMouseToRandomRoom(gameData);
 
@@ -595,7 +596,7 @@ public abstract class GameMode implements Serializable {
 
 	private void addRandomItemsToRooms(GameData gameData) {
 		while (MyRandom.nextDouble() < 0.5) {
-			Room aRoom = MyRandom.sample(gameData.getNonHiddenStationRooms());
+			Room aRoom = MyRandom.sample(gameData.getStationSpawnRooms());
 			aRoom.addItem(RandomItemManager.getRandomSpawnItem());
 			Logger.log("Added a suprise in " + aRoom.getName());
 		}
@@ -764,7 +765,7 @@ public abstract class GameMode implements Serializable {
 			newPlayer.moveIntoRoom(arrivalRoom);
 		} catch (NoSuchThingException e) {
 			Logger.log(Logger.CRITICAL, "No Shuttle gate to put new player!");
-			newPlayer.moveIntoRoom(MyRandom.sample(gameData.getNonHiddenStationRooms()));
+			newPlayer.moveIntoRoom(MyRandom.sample(gameData.getStationSpawnRooms()));
 		}
 
 		List<GameItem> startingItems = newPlayer.getCharacter().getStartingItems();
@@ -871,9 +872,7 @@ public abstract class GameMode implements Serializable {
 
 	protected Room getRandomStartRoom(GameData gameData) {
 		Room startRoom;
-		List<Room> startingRooms = new ArrayList<>();
-		startingRooms.addAll(gameData.getNonHiddenStationRooms());
-		startingRooms.removeIf((Room r ) -> r instanceof DecorativeRoom);
+		List<Room> startingRooms = gameData.getStationSpawnRooms();
 		do {
 			startRoom = MyRandom.sample(startingRooms);
 		} while (isAStartingRoom(startRoom, gameData) || lockedRoom(startRoom, gameData));

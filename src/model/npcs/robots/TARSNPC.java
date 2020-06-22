@@ -19,13 +19,14 @@ public class TARSNPC extends RobotNPC {
 	}
 
 
-    public static void addATarsToRandomRoom(GameData gameData) {
+    public static NPC addATarsToRandomRoom(GameData gameData) {
         Room TARSRoom;
         do {
-            TARSRoom = MyRandom.sample(gameData.getNonHiddenStationRooms());
+            TARSRoom = MyRandom.sample(gameData.getStationSpawnRooms());
         } while (TARSRoom instanceof NukieShipRoom);
 
         NPC tars = new TARSNPC(TARSRoom);
         gameData.addNPC(tars);
+        return tars;
     }
 }

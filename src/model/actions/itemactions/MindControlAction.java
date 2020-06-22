@@ -69,7 +69,7 @@ public class MindControlAction extends Action {
             pl = (Player)victimOfMindControl;
         } else {
             // It's an NPC, but we simulate it as a player!
-            pl = new Player(gameData);
+            pl = new Player();
             pl.setCharacter(victimOfMindControl.getCharacter());
         }
 

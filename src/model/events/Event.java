@@ -23,7 +23,7 @@ public abstract class Event extends Experienceable implements SpriteObject, Seri
 
 	public abstract String howYouAppear(Actor performingClient);
 
-	public final String addYourselfToRoomInfo(Player whosAsking) {
+	public final String addYourselfToRoomInfo(Actor whosAsking) {
 		return getSprite(whosAsking).getName() + "<img>" + howYouAppear(whosAsking) + "<img>{}";
 	}
 

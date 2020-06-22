@@ -70,7 +70,7 @@ public class HostGameMode extends GameMode {
 		hiveRoom = null;
 		boolean hiveInStartingRoom;
 		do {
-			hiveRoom = gameData.getNonHiddenStationRooms().get(MyRandom.nextInt(gameData.getNonHiddenStationRooms().size()));
+			hiveRoom = MyRandom.sample(gameData.getStationSpawnRooms());
 			hiveInStartingRoom = false;
 			for (Player c : gameData.getPlayersAsList()) {
 				if (c.getPosition().getID() == hiveRoom.getID() && MyRandom.nextDouble() < 0.5) {

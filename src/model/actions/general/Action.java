@@ -205,7 +205,7 @@ public abstract class Action extends Experienceable implements Serializable {
     }
 
 
-    public static String makeActionListStringSpecOptions(GameData gameData, List<Action> list, Player whosAsking) {
+    public static String makeActionListStringSpecOptions(GameData gameData, List<Action> list, Actor whosAsking) {
         String result = "{";
         for (Action a : list) {
             ActionOption opts = a.getOptions(gameData, whosAsking);

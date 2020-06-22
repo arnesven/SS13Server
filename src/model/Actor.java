@@ -154,14 +154,15 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
 	public double getSpeed() {
 		return getCharacter().getSpeed();
 	}
-	
+
+
 
 	/**
 	 * Adds the player's character's public name to the room info.
 	 * @param info the info to be added to.
 	 * @param whosAsking 
 	 */
-	public void addYourselfToRoomInfo(ArrayList<String> info, Player whosAsking) {
+	public void addYourselfToRoomInfo(ArrayList<String> info, Actor whosAsking) {
 		if ( whosAsking == this) {
             info.add(getCharacter().getUnanimatedSprite(whosAsking).getName() + "<img>" + "You" + (getCharacter().isVisible()?"":" (invisible)") + "<img>{}");
         } else if (getCharacter().isVisible()){

@@ -54,10 +54,7 @@ public abstract class OngoingEvent extends AmbientEvent {
 	}
 
 	private List<Room> getAffectedRooms(GameData gameData) {
-		List<Room> result = new ArrayList<>();
-		result.addAll(gameData.getNonHiddenStationRooms());
-		result.removeIf((Room r) -> r instanceof DecorativeRoom);
-		return result;
+		return gameData.getStationSpawnRooms();
 	}
 
 

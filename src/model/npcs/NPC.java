@@ -29,13 +29,17 @@ public abstract class NPC extends Actor implements Target, Serializable {
 	private ActionBehavior actBehavior;
 	private boolean cancel = false;
 	
-	public NPC(GameCharacter chara, MovementBehavior m, ActionBehavior a, Room r) {
+	public NPC(GameCharacter chara, MovementBehavior m, ActionBehavior a, Room r, double startHP, double startMaxHP) {
 		this.setCharacter(chara);
 		moveBehavior = m;
 		actBehavior = a;
-		this.setHealth(1.0);
-		this.setMaxHealth(1.0);
+		this.setHealth(startHP);
+		this.setMaxHealth(startMaxHP);
 		moveIntoRoom(r);
+	}
+
+	public NPC(GameCharacter chara, MovementBehavior m, ActionBehavior a, Room r) {
+		this(chara, m, a, r, 1.0, 1.0);
 	}
 
 

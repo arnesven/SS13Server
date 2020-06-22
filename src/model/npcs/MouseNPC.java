@@ -27,7 +27,7 @@ public class MouseNPC extends AnimalNPC {
     public static void addAMouseToRandomRoom(GameData gameData) {
         Room mouseRoom;
         do {
-            mouseRoom = MyRandom.sample(gameData.getNonHiddenStationRooms());
+            mouseRoom = MyRandom.sample(gameData.getStationSpawnRooms());
         } while (mouseRoom instanceof NukieShipRoom);
 
         NPC mouse = new MouseNPC(mouseRoom);
