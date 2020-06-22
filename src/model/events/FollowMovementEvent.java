@@ -61,9 +61,8 @@ public class FollowMovementEvent extends Event {
                     npc.moveIntoRoom(target.getPosition());
                 }
             } else {
-            	Room r = PathFinding.findCloserRoom(performingClient, target.getPosition());
-				Player pl = (Player) performingClient;
-				pl.moveIntoRoom(r);
+				Room r = PathFinding.findCloserRoom(performingClient, target.getPosition());
+				performingClient.moveIntoRoom(r);
 				performingClient.addTolastTurnInfo("You tried to follow your target, but you must have lost it.");
             }
 		} else {

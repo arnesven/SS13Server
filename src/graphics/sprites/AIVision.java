@@ -4,6 +4,7 @@ import graphics.OverlaySprite;
 import model.GameData;
 import model.Player;
 import model.events.Event;
+import model.map.rooms.DecorativeRoom;
 import model.map.rooms.Room;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class AIVision extends AlsoSeePowerVision {
         allRooms.addAll(player.getCharacter().getVisibleMap(gameData));
 
         for (Room r : allRooms) {
-            if (r != player.getPosition()) {
+            if (r != player.getPosition() && !(r instanceof DecorativeRoom)) {
                 ArrayList<Sprite> sp = new ArrayList<>();
                 addActorsForRoom(sp, player, r);
                 addItemsForRoom(sp, player, r);

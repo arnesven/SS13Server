@@ -30,7 +30,7 @@ public class HealOtherBehavior implements ActionBehavior {
 
         if (healbles.size() > 0) {
             Actor target = MyRandom.sample(healbles);
-            if (target.getMaxHealth() > target.getCharacter().getHealth()) {
+            if (target.getMaxHealth() > target.getCharacter().getHealth() && !target.isDead()) {
                 target.addToHealth(amount);
                 target.addTolastTurnInfo(npc.getPublicName() + " healed you!");
                 for (Actor a : npc.getPosition().getActors()) {

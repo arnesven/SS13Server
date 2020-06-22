@@ -6,6 +6,7 @@ import model.Player;
 import model.actions.StopDraggingAction;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;
+import model.items.NoSuchThingException;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,12 @@ public class DraggingDecorator extends CharacterDecorator {
     @Override
     public void doAfterMovement(GameData gameData) {
         super.doAfterMovement(gameData);
-        draggedActor.moveIntoRoom(getActor().getPosition());
+        try {
+            draggedActor.getPosition().removeActor(draggedActor);
+            getActor().getPosition().addActor(draggedActor);
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
         getActor().addTolastTurnInfo("You dragged " + draggedActor.getPublicName() + " with you.");
         for (Actor a : getActor().getPosition().getActors()) {
             if (a != getActor()) {

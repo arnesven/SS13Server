@@ -25,6 +25,7 @@ public class VendingMachineFancyFrame extends FancyFrame {
         this.vending = vending;
         this.title = title;
         this.bgColor = bgColor;
+        this.setHeight(getHeight() + 50);
         buildContent(performingClient, vending);
     }
 
@@ -56,7 +57,8 @@ public class VendingMachineFancyFrame extends FancyFrame {
             if (col % 3 == 0) {
                 content.append("</tr><tr>");
                 for (GameItem it2: rowList) {
-                    content.append("<td>" + HTMLText.makeText(poweredColor, "$$ " + it2.getCost()) + "</td>");
+                    content.append("<td style=\"text-align:center\">" + HTMLText.makeText(poweredColor, "$$ " + it2.getCost()) + "<br/>" +
+                            HTMLText.makeText(poweredColor, "Serif", 2, it2.getBaseName().replaceAll(" ", "<br/>")) + "</td>");
                 }
                 content.append("</tr><tr>");
                 rowList.clear();
@@ -65,7 +67,8 @@ public class VendingMachineFancyFrame extends FancyFrame {
         if (col % 3 != 0) {
             content.append("</tr><tr>");
             for (GameItem it2: rowList) {
-                content.append("<td>" + HTMLText.makeText(poweredColor, "$$ " + it2.getCost()) + "</td>");
+                content.append("<td style=\"text-align:center\">" + HTMLText.makeText(poweredColor, "$$ " + it2.getCost()) + "<br/>" +
+                        HTMLText.makeText(poweredColor, "Serif", 2, it2.getBaseName().replaceAll(" ", "<br/>")) + "</td>");
             }
             content.append("</tr><tr>");
             rowList.clear();
