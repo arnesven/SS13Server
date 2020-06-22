@@ -59,7 +59,6 @@ public class ShuttleRoom extends Room {
     }
 
     protected void addDecoration(ShuttleDecoration decor) {
-        Logger.log("Added decoration " + decor.getBaseName() + " to room " + getName());
         addObject(decor);
         decorations.add(decor);
     }

@@ -68,11 +68,9 @@ public class RandomItemManager {
         double sum = MyArrays.sum(prevalenceWeights, prevMin, prevMax);
         double offset = MyArrays.sum(prevalenceWeights, 0, prevMin-1);
         double rand = MyRandom.nextDouble()*sum + offset;
-        Logger.log("Spawning a random item... seed is " + rand);
         int rarity = 0;
         for (int i = 0; i < cummulative.length; ++i) {
             if (rand < cummulative[i]) {
-                Logger.log(" which means prevalence " + i);
                 rarity = i;
                 break;
             }
