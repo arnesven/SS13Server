@@ -32,7 +32,7 @@ public class CaptainCharacter extends CrewCharacter implements MartialArtist {
 
     @Override
     public int getStartingMoney() {
-        return 50;
+        return 60;
     }
 
 
