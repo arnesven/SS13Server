@@ -4,7 +4,9 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.MoveAction;
+import model.actions.characteractions.AttackUsingDefaultWeaponAction;
 import model.actions.general.Action;
+import model.actions.general.AttackAction;
 import model.actions.general.DoNothingAction;
 import model.npcs.NPC;
 import util.Logger;
@@ -36,7 +38,7 @@ public class CommandedByBehavior implements ActionBehavior {
         }
         if (act != null) {
             String message = npc.getPublicName(commander) + "'s next action is " + act.getFullName();
-            message = message.replace(",Command " + npc.getBaseName() + " (0 AP)", "");
+            message = message.replace(", Command " + npc.getBaseName() + " (0 AP)", "");
             gameData.getChat().serverInSay(message, commander);
         } else {
             Logger.log(Logger.CRITICAL, "Could not parse action for NPC!");
@@ -54,9 +56,18 @@ public class CommandedByBehavior implements ActionBehavior {
     }
 
     public static List<Action> getActionsFor(GameData gameData, NPC npc) {
-        List<Action> result = new ArrayList<>();
-        result.add(new MoveAction(gameData, npc));
-        return result;
+        List<Action> multiOptionActions = new ArrayList<>();
+        multiOptionActions.add(new MoveAction(gameData, npc));
+        multiOptionActions.add(new AttackUsingDefaultWeaponAction(npc));
+
+
+        List<Action> fresult = new ArrayList<>();
+        for (Action a : multiOptionActions) {
+            if (a.getOptions(gameData, npc).numberOfSuboptions() > 0) {
+                fresult.add(a);
+            }
+        }
+        return fresult;
     }
 
 }
