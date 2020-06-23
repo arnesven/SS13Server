@@ -85,6 +85,12 @@ public abstract class AmbientEvent extends Event {
                 return gameData.getMap().getRoomsForLevel("asteroid field");
             }
         });
+        events.put("new algiers simpower", new SimulatePower() {
+            @Override
+            public Collection<Room> getAffectedRooms(GameData gameData) {
+                return gameData.getMap().getRoomsForLevel("new algiers");
+            }
+        });
         events.put("simulate pressure", new PressureSimulation());
     }
 

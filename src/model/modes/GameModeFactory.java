@@ -35,6 +35,8 @@ public class GameModeFactory {
 			return new WizardGameMode();
 		} else if (selectedMode.toLowerCase().equals("hunt")) {
 			return new HuntGameMode();
+		} else if (selectedMode.toLowerCase().equals("pirates")) {
+			return new PiratesGameMode();
 		} else if (selectedMode.toLowerCase().equals("mixed")) {
 		    Logger.log(Logger.INTERESTING, "Mode is Mixed");
 		    return new MixedGameMode();

@@ -41,7 +41,12 @@ public class NPCCommanderDecorator extends CharacterDecorator {
     @Override
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         super.addCharacterSpecificActions(gameData, at);
-        Action a = new StartCommandingAction(getActor(), commanding);
+        Action a = new StartCommandingAction(getActor(), commanding) {
+            @Override
+            protected boolean canBeCommanded(NPC target2) {
+                return canCommand(target2);
+            }
+        };
         if (a.getOptions(gameData, getActor()).numberOfSuboptions() > 0) {
             at.add(a);
         }
@@ -52,6 +57,10 @@ public class NPCCommanderDecorator extends CharacterDecorator {
                 at.add(new CantCommandNPCAction(npc, gameData, (Player)getActor()));
             }
         }
+    }
+
+    protected boolean canCommand(NPC target2) {
+        return true;
     }
 
     public void addCommandable(NPC target) {

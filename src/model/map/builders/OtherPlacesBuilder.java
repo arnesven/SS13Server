@@ -3,15 +3,11 @@ package model.map.builders;
 import model.GameData;
 import model.map.DockingPoint;
 import model.map.GameMap;
-import model.map.doors.AirLockDoor;
-import model.map.doors.Door;
-import model.map.doors.FullyOpenAirLockDoor;
-import model.map.doors.NormalDoor;
-import model.map.levels.AsteroidField;
-import model.map.levels.EmptySpaceLevel;
-import model.map.levels.PlanetSystem;
-import model.map.levels.SpecialLevel;
+import model.map.MapLevel;
+import model.map.doors.*;
+import model.map.levels.*;
 import model.map.rooms.*;
+import model.objects.consoles.GeneratorConsole;
 import model.objects.general.AirlockPanel;
 import util.MyRandom;
 
@@ -61,6 +57,8 @@ public class OtherPlacesBuilder extends MapBuilder {
         gm.addRoom(exoticPlanet, "exotic planet", "exotic planet");
 
         buildAsteroidField(gameData, gm);
+
+        buildNewAlgiersStation(gameData, gm);
 
 
     }
@@ -158,8 +156,6 @@ public class OtherPlacesBuilder extends MapBuilder {
         GameMap.joinRooms(miningStation, cabin);
     }
 
-
-
     private int[][] fillRandomMatrix() {
         int matrix[][] = new int[FIELD_SIZE][FIELD_SIZE];
         for (int x = 0; x < FIELD_SIZE; ++x) {
@@ -169,4 +165,61 @@ public class OtherPlacesBuilder extends MapBuilder {
         }
         return matrix;
     }
+
+
+    private void buildNewAlgiersStation(GameData gameData, GameMap gm) {
+        MapLevel newAlgiers = new NewAlgiersMapLevel();
+        gm.createLevel(newAlgiers);
+        SpaceRoom space = new SpaceRoom(765, 0, 0, 0, 0);
+        addEventsToSpaceRoom(space, gameData);
+        gm.addRoom(space, newAlgiers.getName(), "space");
+
+        NewAlgiersRoom throneRoom = new ThroneRoom(766, 5, 5, 4, 4, new int[]{767, 768, 776}, new Door[]{});
+        gm.addRoom(throneRoom, newAlgiers.getName(), "space");
+
+        AirLockRoom airLock = new RemoteAirLockRoom(767, 767, 8, 4, 1, 1, new int[]{766},
+                new Door[]{new FullyOpenAirLockDoor(8.5, 5.0, 0.0, 767, 766),
+                new AirLockDoor(8.5, 4.0, 767, 765)});
+        DockingPoint dp = new DockingPoint("New Algiers - 1", "All Traffic", new Point(0, 1), new Point(0, -1), airLock);
+        airLock.addDockingPoint(dp);
+        gm.addRoom(airLock, newAlgiers.getName(), "space");
+
+        Room engineRoom = new NewAlgiersRoom(768, "Engine Room", 7, 7, 2, 2, new int[]{766}, new Door[]{});
+        engineRoom.setZ(-1);
+        engineRoom.addObject(new GeneratorConsole(engineRoom, gameData, 0.08));
+        engineRoom.addObject(new UpgoingStairsDoor(engineRoom), RelativePositions.MID_BOTTOM);
+        StairsObject downStairs = new DowngoingStairsDoor(throneRoom);
+        throneRoom.addObject(downStairs, RelativePositions.MID_BOTTOM);
+        throneRoom.addObject(new UpgoingStairsDoor(throneRoom), new RelativePositions.WestOf(downStairs));
+        gm.addRoom(engineRoom, newAlgiers.getName(), "space");
+
+        gm.addRoom(new NewAlgiersRoom(769, "Some Room #1", 3, 2, 3, 3, new int[]{},
+                        new Door[]{new LockedNewAlgiersDoor(5.5, 5.0, 769, 766)}),
+                newAlgiers.getName(), "space");
+        gm.addRoom(new NewAlgiersRoom(770, "Some Room #2", 3, 5, 2, 2, new int[]{},
+                        new Door[]{new LockedNewAlgiersDoor(5.0, 5.5, 770, 766)}),
+                newAlgiers.getName(), "space");
+        gm.addRoom(new NewAlgiersRoom(771, "Some Room #3", 2, 7, 3, 3, new int[]{},
+                        new Door[]{new LockedNewAlgiersDoor(5.0, 8.5, 771, 766)}),
+                newAlgiers.getName(), "space");
+        gm.addRoom(new NewAlgiersRoom(772, "Some Room #4", 3, 10, 4, 2, new int[]{},
+                        new Door[]{new LockedNewAlgiersDoor(4.5, 10.0, 772, 771)}),
+                newAlgiers.getName(), "space");
+        gm.addRoom(new NewAlgiersRoom(773, "Some Room #5", 7, 9, 1, 2, new int[]{},
+                        new Door[]{new LockedNewAlgiersDoor(7.5, 9.0, 773, 766)}),
+                newAlgiers.getName(), "space");
+        gm.addRoom(new NewAlgiersRoom(774, "Some Room #6", 8, 9, 3, 3, new int[]{},
+                        new Door[]{new LockedNewAlgiersDoor(8.5, 9.0, 774, 766)}),
+                newAlgiers.getName(), "space");
+        gm.addRoom(new NewAlgiersRoom(775, "Some Room #7", 11, 6, 2, 4, new int[]{},
+                        new Door[]{new LockedNewAlgiersDoor(11.0, 9.5, 775, 774)}),
+                newAlgiers.getName(), "space");
+
+        NewAlgiersRoom bedChambers = new EastwoodsChambers(776, 6, 6, 2, 2, new int[]{766},
+                new Door[]{});
+        bedChambers.setZ(1);
+        gm.addRoom(bedChambers, newAlgiers.getName(), "space");
+
+    }
+
 }

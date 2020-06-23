@@ -17,7 +17,7 @@ import util.Logger;
 
 import java.util.Set;
 
-public class StartCommandingAction extends FreeTargetingAction {
+public abstract class StartCommandingAction extends FreeTargetingAction {
     public StartCommandingAction(Actor ap, Set<NPC> alreadyCommanding) {
         super("Start Commanding", SensoryLevel.SPEECH, ap);
         getTargets().removeAll(alreadyCommanding);
@@ -44,8 +44,10 @@ public class StartCommandingAction extends FreeTargetingAction {
 
     @Override
     public boolean isViableForThisAction(Target target2) {
-        return target2 instanceof NPC && !target2.isDead();
+        return target2 instanceof NPC && !target2.isDead() && canBeCommanded((NPC)target2);
     }
+
+    protected abstract boolean canBeCommanded(NPC target2);
 
     @Override
     public Sprite getAbilitySprite() {

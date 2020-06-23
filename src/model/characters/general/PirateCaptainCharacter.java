@@ -1,8 +1,10 @@
 package model.characters.general;
 
 
+import model.Actor;
 import model.characters.special.MartialArtist;
 import model.items.general.GameItem;
+import model.items.general.MoneyStack;
 import model.items.general.PirateNuclearDisc;
 
 import java.util.List;
@@ -20,6 +22,7 @@ public class PirateCaptainCharacter extends PirateCharacter implements MartialAr
     public List<GameItem> getStartingItems() {
         List<GameItem> list = super.getStartingItems();
         list.add(new PirateNuclearDisc());
+        list.add(new MoneyStack(65));
         return list;
     }
 
@@ -33,4 +36,8 @@ public class PirateCaptainCharacter extends PirateCharacter implements MartialAr
         return "Pirate Captain";
     }
 
+    @Override
+    public String getPublicName(Actor whosAsking) {
+        return "Pirate Captain";
+    }
 }

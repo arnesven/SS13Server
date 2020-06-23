@@ -74,7 +74,7 @@ public class SlotMachineFancyFrame extends FancyFrame {
                 MoneyStack actorsMoney = MoneyStack.getActorsMoney(player);
                 actorsDollars = actorsMoney.getAmount();
             } catch (NoSuchThingException e) {
-                e.printStackTrace();
+
             }
             symbols.append("<br/>");
             for (int i = 0; i < slots.getBetSizes().length; i++) {

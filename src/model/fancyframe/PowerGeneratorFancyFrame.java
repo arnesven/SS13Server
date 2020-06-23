@@ -27,7 +27,7 @@ public class PowerGeneratorFancyFrame extends ConsoleFancyFrame {
     public PowerGeneratorFancyFrame(GeneratorConsole console, GameData gameData, Player player) {
         super(player.getFancyFrame(), console, gameData, "#02558c", "white");
         this.console = console;
-        this.powerSim = (SimulatePower)gameData.getGameMode().getEvents().get("simulate power");
+        this.powerSim = console.getPowerSimulation();
         buildContent(gameData, player);
     }
 

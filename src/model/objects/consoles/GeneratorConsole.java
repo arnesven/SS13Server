@@ -18,12 +18,16 @@ public class GeneratorConsole extends Console {
 
     private PositronGenerator powerSource;
 
-	public GeneratorConsole(Room r, GameData gameData) {
+	public GeneratorConsole(Room r, GameData gameData, double normalPowerOutput) {
 		super("Power Console", r);
-        powerSource = new PositronGenerator(0.174, r, gameData);
+        powerSource = new PositronGenerator(normalPowerOutput, r, gameData);
         r.addObject(powerSource, RelativePositions.CENTER);
         setPowerPriority(1);
 	}
+
+    public GeneratorConsole(Room r, GameData gameData) {
+        this( r, gameData, 0.174);
+    }
 
     @Override
     public Sprite getNormalSprite(Player whosAsking) {

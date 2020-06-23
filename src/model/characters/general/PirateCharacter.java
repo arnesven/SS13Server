@@ -28,6 +28,7 @@ public class PirateCharacter extends HumanCharacter {
 
     }
 
+
     @Override
     public boolean isCrew() {
         return false;
