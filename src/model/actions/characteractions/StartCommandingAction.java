@@ -3,7 +3,9 @@ package model.actions.characteractions;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
+import model.actions.FreeTargetingAction;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.general.TargetingAction;
@@ -15,7 +17,7 @@ import util.Logger;
 
 import java.util.Set;
 
-public class StartCommandingAction extends TargetingAction {
+public class StartCommandingAction extends FreeTargetingAction {
     public StartCommandingAction(Actor ap, Set<NPC> alreadyCommanding) {
         super("Start Commanding", SensoryLevel.SPEECH, ap);
         getTargets().removeAll(alreadyCommanding);
@@ -27,6 +29,7 @@ public class StartCommandingAction extends TargetingAction {
             NPCCommanderDecorator command = NPCCommanderDecorator.getDecorator(performingClient.getCharacter());
             command.addCommandable((NPC)target);
         }
+        ((Player)performingClient).refreshClientData();
     }
 
     @Override

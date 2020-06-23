@@ -31,7 +31,7 @@ public class CommanderVision extends NormalVision {
             }
         }
         alsoSeeRooms.remove(player.getPosition());
-        Logger.log("In extra sensory perception for CommanderVision");
+        Logger.log("In extra sensory perception for CommanderVision, commanding size is " + commanding.size());
         for (Room r : alsoSeeRooms) {
             Logger.log("also see " + r.getName());
             removeBlurred(strs, r);
