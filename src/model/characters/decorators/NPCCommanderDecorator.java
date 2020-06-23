@@ -5,6 +5,7 @@ import graphics.sprites.CommanderVision;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.characteractions.CantCommandNPCAction;
 import model.actions.characteractions.CommandNPCAction;
 import model.actions.characteractions.StartCommandingAction;
 import model.actions.general.Action;
@@ -45,7 +46,11 @@ public class NPCCommanderDecorator extends CharacterDecorator {
             at.add(a);
         }
         for (NPC npc : commanding) {
-            at.add(new CommandNPCAction(npc, gameData, (Player)getActor()));
+            if (npc.getsActions()) {
+                at.add(new CommandNPCAction(npc, gameData, (Player) getActor()));
+            } else {
+                at.add(new CantCommandNPCAction(npc, gameData, (Player)getActor()));
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package model.npcs.behaviors;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.LabelAction;
 import model.actions.MoveAction;
 import model.actions.characteractions.AttackUsingDefaultWeaponAction;
 import model.actions.general.Action;
@@ -32,14 +33,18 @@ public class CommandedByBehavior implements ActionBehavior {
                 args = args.subList(1, args.size());
                 a.setActionTreeArguments(args, npc);
                 act = a;
-                ((CommandedByBehavior)npc.getActionBehavior()).setNextAction(a);
+                if (!a.wasPerformedAsQuickAction()) {
+                    ((CommandedByBehavior) npc.getActionBehavior()).setNextAction(a);
+                }
                 break;
             }
         }
         if (act != null) {
-            String message = npc.getPublicName(commander) + "'s next action is " + act.getFullName();
-            message = message.replace(", Command " + npc.getBaseName() + " (0 AP)", "");
-            gameData.getChat().serverInSay(message, commander);
+            if (!act.wasPerformedAsQuickAction()) {
+                String message = npc.getPublicName(commander) + "'s next action is " + act.getFullName();
+                message = message.replace(", Command " + npc.getBaseName() + " (0 AP)", "");
+                gameData.getChat().serverInSay(message, commander);
+            }
         } else {
             Logger.log(Logger.CRITICAL, "Could not parse action for NPC!");
         }
@@ -48,6 +53,7 @@ public class CommandedByBehavior implements ActionBehavior {
     private void setNextAction(Action a) {
         this.nextAction = a;
     }
+    public Action getNextAction() { return this.nextAction; }
 
     @Override
     public void act(Actor npc, GameData gameData) {
@@ -62,6 +68,7 @@ public class CommandedByBehavior implements ActionBehavior {
 
 
         List<Action> fresult = new ArrayList<>();
+        fresult.add(new LabelAction("In " + npc.getPosition().getName()));
         for (Action a : multiOptionActions) {
             if (a.getOptions(gameData, npc).numberOfSuboptions() > 0) {
                 fresult.add(a);

@@ -7,6 +7,7 @@ import model.Player;
 import model.actions.FreeAction;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
+import model.actions.general.DoNothingAction;
 import model.npcs.NPC;
 import model.npcs.behaviors.CommandedByBehavior;
 
@@ -35,14 +36,21 @@ public class CommandNPCAction extends FreeAction {
     @Override
     protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
         CommandedByBehavior.parseAction(args, gameData, npc, p);
+        p.refreshClientData();
     }
 
     @Override
     public Sprite getAbilitySprite() {
-
         List<Sprite> lst = new ArrayList<>();
+        String extra = "";
         lst.add(npc.getCharacter().getUnanimatedSprite(commander));
+        if (npc.getActionBehavior() instanceof CommandedByBehavior) {
+            if (!(((CommandedByBehavior) npc.getActionBehavior()).getNextAction() instanceof DoNothingAction)) {
+                lst.add(new Sprite("greenflag", "interface.png", 0, 17, null));
+                extra = "ready";
+            }
+        }
         lst.add(new Sprite("commandoverlay", "interface.png", 16, 16, null));
-        return new Sprite("commnad"+npc.getBaseName().toLowerCase() + "abi", "human.png", 0, lst, null);
+        return new Sprite("commnad"+lst.get(0).getName() + extra + "abi", "human.png", 0, lst, null);
     }
 }

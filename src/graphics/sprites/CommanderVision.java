@@ -26,12 +26,15 @@ public class CommanderVision extends NormalVision {
 
         Set<Room> alsoSeeRooms = new HashSet<>();
         for (NPC npc : commanding) {
-            alsoSeeRooms.add(npc.getPosition());
+            if (!npc.isDead()) {
+                alsoSeeRooms.add(npc.getPosition());
+            }
         }
         alsoSeeRooms.remove(player.getPosition());
         Logger.log("In extra sensory perception for CommanderVision");
         for (Room r : alsoSeeRooms) {
             Logger.log("also see " + r.getName());
+            removeBlurred(strs, r);
             ArrayList<Sprite> sp = new ArrayList<>();
             addActorsForRoom(sp, player, r);
             addObjectsForRoom(sp, player, r);
@@ -42,6 +45,18 @@ public class CommanderVision extends NormalVision {
             strs.addAll(osprs);
         }
 
+    }
+
+    private void removeBlurred(ArrayList<OverlaySprite> strs, Room r) {
+        List<OverlaySprite> osprs = new ArrayList<>();
+        osprs.addAll(strs);
+        for (OverlaySprite spr: osprs) {
+            if (spr.getRoom() == r) {
+                if (spr.getSprite().getObjectReference() instanceof BlurredCharacter) {
+                    strs.remove(spr);
+                }
+            }
+        }
     }
 
     private void stripFromActionData(List<OverlaySprite> osprs) {
