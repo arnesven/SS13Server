@@ -3,6 +3,8 @@ package model.modes;
 
 import model.GameData;
 import model.Player;
+import model.characters.PleasureBoyCharacter;
+import model.characters.PleasureGirlCharacter;
 import model.characters.decorators.NPCCommanderDecorator;
 import model.characters.decorators.OnTopOfObjectDecorator;
 import model.characters.decorators.PirateCommanderDecorator;
@@ -11,21 +13,19 @@ import model.characters.general.PirateCaptainCharacter;
 import model.characters.general.PirateCharacter;
 import model.characters.general.WizardCharacter;
 import model.fancyframe.SinglePageFancyFrame;
+import model.items.MedPatch;
 import model.items.MissionDetails;
 import model.items.NoSuchThingException;
-import model.items.general.GameItem;
-import model.items.general.PDA;
-import model.items.suits.PirateCaptainOutfit;
-import model.items.suits.WizardsHat;
-import model.items.suits.WizardsRobes;
+import model.items.general.*;
+import model.items.suits.*;
+import model.items.tools.CraftingTools;
+import model.items.tools.RepairTools;
+import model.items.weapons.Crowbar;
 import model.map.DockingPoint;
 import model.map.GameMap;
 import model.map.rooms.*;
 import model.modes.objectives.PirateCaptainTraitorObjective;
-import model.npcs.CommandablePirateNPC;
-import model.npcs.NPC;
-import model.npcs.PirateCaptainNPC;
-import model.npcs.PirateNPC;
+import model.npcs.*;
 import util.HTMLText;
 import util.MyRandom;
 
@@ -72,9 +72,10 @@ public class PiratesGameMode extends TraitorGameMode {
         pirateCaptain = getTraitors().get(0);
         decoy = makeDecoy(pirateCaptain, gameData);
 
-        GameCharacter pirateCapChar = new PirateCaptainCharacter(throneRoom.getID());
+        GameCharacter pirateCapChar = new PirateCaptainCharacter(throneRoom.getID(), false);
         pirateCaptain.setCharacter(pirateCapChar);
-        pirateCaptain.putOnSuit(new PirateCaptainOutfit());
+        pirateCapChar.giveItem(new PirateCaptainOutfit(), null);
+        pirateCaptain.putOnSuit(new BlueRolledDownCoverall());
         pirateCaptain.setCharacter(new OnTopOfObjectDecorator(pirateCaptain.getCharacter(), ((ThroneRoom)throneRoom).getThrone()));
   }
 
@@ -88,9 +89,51 @@ public class PiratesGameMode extends TraitorGameMode {
         getEvents().get("pirate attack").setProbability(0.0);
         dockPirateShip(gameData);
 
-        int num = 0;
-        gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(), "Cpl. Orlov", pirateCaptain));
+        addNewAlgiersNPCs(gameData, pirateCaptain);
 
+
+
+    }
+
+    private void addNewAlgiersNPCs(GameData gameData, Player pirateCaptain) {
+        gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(),
+                "Cpl. Orlov", pirateCaptain, new TanRolledDownCoverall(),
+                new PirateBackStory("A former Nanotrasen miner, recruited by Eastwood during a raid on the Mining Station.", "Pilot"),
+                new GameItem[]{}));
+        gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(),
+                "Pvt. Colovisto", pirateCaptain, new GreenRolledDownCoverall(),
+                new PirateBackStory("A low-life from Pondiataros. Hired by Eastwood as muscle for various jobs.", "Mechanic"),
+                new GameItem[]{new CraftingTools(), new Crowbar()}));
+        gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(),
+                "Sgt. Hernandez", pirateCaptain, new BlueRolledDownCoverall(),
+                new PirateBackStory("An ex-military Nanotrasen official. After a dishonorable discharge, " +
+                        "Eastwood offered Hernandez a permanent position as a Barbie Pirate based out of New Algiers.", "Tough"),
+                new GameItem[]{}));
+        gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(),
+                "Pvt. Yee", pirateCaptain, new GreenRolledDownCoverall(),
+                new PirateBackStory("A former Syndicate operative, trained for black-ops missions. Ruthless and bloodthirsty.", "Mechanic"),
+                new GameItem[]{new CraftingTools(), new Crowbar()}));
+        gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(),
+                "Cpl. Kyoshi", pirateCaptain, new TanRolledDownCoverall(),
+                new PirateBackStory("A former Syndicate spy. After being exposed, Eastwood broke into the penal facility where " +
+                        "Kyoshi was detained and thus recruited another pirate for his gang.", "Medic"),
+                new GameItem[]{new MedKit(), new MedPatch(), new MedPatch()}));
+        gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(),
+                "Sgt. Mendez", pirateCaptain, new BlueRolledDownCoverall(),
+                new PirateBackStory("A demolitions expert trained by the Syndicate to sabotage Nanotrasen facilities. " +
+                        "Joined Eastwood after a visit to New Algiers and seeing how much fun they were having there.", "Plasma"),
+                new GameItem[]{new FragGrenade(), new RemoteBomb()}));
+        gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(),
+                "Pvt. Robertson", pirateCaptain, new GreenRolledDownCoverall(),
+                new PirateBackStory("A Nanotrasen AI technician gone rogue.", "Hacker"),
+                new GameItem[]{new RepairTools(), new Multimeter()}));
+        gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(),
+                "Cpl. Sarma", pirateCaptain, new TanRolledDownCoverall(),
+                new PirateBackStory("A Nanotrasen Pilot who once took a space taxi to the wrong station, and never came back...", "Pilot"),
+                new GameItem[]{}));
+
+        gameData.addNPC(new PleasureNPC(new PleasureBoyCharacter(pirateCaptain.getPosition().getID()), pirateCaptain.getPosition()));
+        gameData.addNPC(new PleasureNPC(new PleasureGirlCharacter(pirateCaptain.getPosition().getID()), pirateCaptain.getPosition()));
     }
 
 
@@ -114,7 +157,7 @@ public class PiratesGameMode extends TraitorGameMode {
 
     @Override
     public String getModeDescription() {
-        return "A notorious pirate lord has made a deal with a traitor on SS13 and is coming to make sure the deal" +
+        return "A notorious pirate lord has made a deal with a traitor on SS13 and is coming to make sure the deal " +
                 "goes down solid. The crew must battle these rowdy boozers before they turn the station to scrap. ";
     }
 

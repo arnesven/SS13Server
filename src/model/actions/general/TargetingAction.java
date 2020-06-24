@@ -125,17 +125,21 @@ public abstract class TargetingAction extends Action {
 			if (performer == t) {
 				root.addOption("Yourself");
 			} else {
-				ActionOption opt;
-				if (t instanceof Actor) {
-					opt = new ActionOption(((Actor) t).getPublicName(whosAsking));
-				} else {
-					opt = new ActionOption(t.getName());
-				}
+				ActionOption opt = new ActionOption(getTargetName(t, whosAsking));
+
 				opt.addAll(optlist);
 				root.addOption(opt);
 			}
 		}
 		return root;
+	}
+
+	protected String getTargetName(Target t, Actor whosAsking) {
+		if (t instanceof Actor) {
+			return ((Actor) t).getPublicName(whosAsking);
+		} else {
+			return t.getName();
+		}
 	}
 
 	@Override
@@ -208,8 +212,7 @@ public abstract class TargetingAction extends Action {
 
 	protected Target findTarget(String name, Actor whosAsking) throws NoSuchThingException {
 		for (Target c : targets) {
-			if (name.contains(c.getName()) || c.getName().contains(name) ||
-					(c instanceof Actor && ((Actor) c).getPublicName(whosAsking).contains(name))) {
+			if (name.contains(c.getName()) || c.getName().contains(name) || getTargetName(c, whosAsking).contains(name)) {
 				if (isViableForThisAction(c)) {
 					return c;
 				}

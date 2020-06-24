@@ -437,6 +437,7 @@ public class Player extends Actor implements Target, Serializable {
 			if (a.getOptions(gameData, this).getName().equals(args.get(0))) {
 				Logger.log("Ability action found! " + a.getName());
 				List<String> newArgs = args.subList(1, args.size());
+				a.setGameData(gameData);
 				a.setInventoryArguments(newArgs, this);
 				setNextAction(a);
 				break;

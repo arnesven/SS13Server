@@ -18,14 +18,18 @@ import java.util.List;
 public class PirateCharacter extends HumanCharacter {
     private final int num;
     private final Weapon weapon;
+    private boolean isSuitedUp;
 
-    public PirateCharacter(int num, int startRoom) {
+    public PirateCharacter(int num, int startRoom, boolean isSuitedUp) {
         super("Pirate #"+num, startRoom, 7.5);
-
+        this.isSuitedUp = isSuitedUp;
         this.weapon = MyRandom.getRandomPirateWeapon();
         this.num = num;
         Logger.log("Spawning pirate #"+num + " with " + weapon.getBaseName());
+    }
 
+    public PirateCharacter(int num, int startRoom) {
+        this(num, startRoom, true);
     }
 
 
@@ -53,7 +57,9 @@ public class PirateCharacter extends HumanCharacter {
     public Sprite getSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
         list.add(super.getSprite(whosAsking));
-        list.add(weapon.getHandHeldSprite());
+        if (isSuitedUp) {
+            list.add(weapon.getHandHeldSprite());
+        }
         return new Sprite(super.getSprite(whosAsking).getName() + "holding" + weapon.getBaseName(),
                 "human.png", 0, list, getActor());
     }

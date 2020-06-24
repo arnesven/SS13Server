@@ -7,6 +7,7 @@ import model.characters.general.GameCharacter;
 import model.characters.special.MartialArtist;
 import model.items.general.*;
 import model.items.suits.CaptainsOutfit;
+import model.items.suits.Mankini;
 import model.items.weapons.Revolver;
 
 public class CaptainCharacter extends CrewCharacter implements MartialArtist {
@@ -21,6 +22,7 @@ public class CaptainCharacter extends CrewCharacter implements MartialArtist {
     public List<GameItem> getCrewSpecificItems() {
         ArrayList<GameItem> list = new ArrayList<GameItem>();
         list.add(new UniversalKeyCard());
+        list.add(new Mankini());
 
         return list;
     }

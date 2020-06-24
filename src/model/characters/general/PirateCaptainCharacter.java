@@ -15,11 +15,14 @@ import java.util.List;
  */
 public class PirateCaptainCharacter extends PirateCharacter implements MartialArtist {
 
+    public PirateCaptainCharacter(int startRoom, boolean isSuitedUp) {
+        super(0, startRoom, isSuitedUp);
+    }
     public PirateCaptainCharacter(int startRoom) {
-        super(0, startRoom);
+        this(startRoom, true);
     }
 
-    @Override
+        @Override
     public List<GameItem> getStartingItems() {
         List<GameItem> list = super.getStartingItems();
         list.add(new PirateNuclearDisc());

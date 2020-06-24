@@ -25,6 +25,7 @@ public class PhysicalBody implements SpriteObject, Serializable {
     private static List<Sprite> hairSprites = collectHairSprites();
     private static List<Sprite> facialHairSprites = collectFacialHairSprites();
     private final GameCharacter belongingTo;
+    private boolean withUnderwear;
     private boolean hasABrain;
     //private static List<Sprite> nakedSprites = nakedSpriteList();
 
@@ -52,6 +53,7 @@ public class PhysicalBody implements SpriteObject, Serializable {
         }
         this.hasABrain = true;
         this.belongingTo = belong;
+        this.withUnderwear = true;
     }
 
     public PhysicalBody(boolean gender, GameCharacter belongingTo) {
@@ -173,14 +175,24 @@ public class PhysicalBody implements SpriteObject, Serializable {
 
         if (gender) {
             nameString += "mantorso";
-            list.add(bodyPartSprites.get("man torso"));
+            if (withUnderwear) {
+                list.add(bodyPartSprites.get("man torso"));
+            } else {
+                list.add(bodyPartSprites.get("man torso no undies"));
+                nameString += "noundie";
+            }
             if (hasBodyParts.get("head")) {
                 list.add(bodyPartSprites.get("man head"));
                 nameString += "hd";
             }
         } else {
             nameString += "womantorso";
-            list.add(bodyPartSprites.get("woman torso"));
+            if (withUnderwear) {
+                list.add(bodyPartSprites.get("woman torso"));
+            } else {
+                list.add(bodyPartSprites.get("woman torso no undies"));
+                nameString += "noundie";
+            }
             if (hasBodyParts.get("head")) {
                 list.add(bodyPartSprites.get("woman head"));
                 nameString += "hd";
@@ -267,6 +279,8 @@ public class PhysicalBody implements SpriteObject, Serializable {
         bodyPartSprites.put("right arm", new Sprite("nakedrightarm", "body_parts.png", 3, 1, null));
         bodyPartSprites.put("man torso", new Sprite("nakedmantorso", "body_parts.png", 1, 1, null));
         bodyPartSprites.put("woman torso", new Sprite("nakedwomantorso", "body_parts.png", 6, 1, null));
+        bodyPartSprites.put("man torso no undies", new Sprite("nakedmantorsonound", "body_parts.png", 1, 2, null));
+        bodyPartSprites.put("woman torso no undies", new Sprite("nakedwomantorsonound", "body_parts.png", 6, 2, null));
         bodyPartSprites.put("left leg", new Sprite("nakedleftleg", "body_parts.png", 4, 1, null));
         bodyPartSprites.put("right leg", new Sprite("nakedrightleg", "body_parts.png", 5, 1, null));
         return bodyPartSprites;
@@ -345,4 +359,7 @@ public class PhysicalBody implements SpriteObject, Serializable {
         return gender;
     }
 
+    public void setWithUnderwear(boolean b) {
+        withUnderwear = b;
+    }
 }

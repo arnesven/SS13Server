@@ -13,6 +13,7 @@ import model.actions.general.TargetingAction;
 import model.characters.decorators.NPCCommanderDecorator;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
+import model.npcs.CommandableNPC;
 import model.npcs.NPC;
 import util.Logger;
 
@@ -47,6 +48,14 @@ public abstract class StartCommandingAction extends FreeTargetingAction {
         ActionOption opts = super.getOptions(gameData, whosAsking);
         opts.getSuboptions().add(0, new ActionOption("CP Remaining: " + cpRemain));
         return opts;
+    }
+
+    @Override
+    protected String getTargetName(Target t, Actor whosAsking) {
+        if (t instanceof CommandableNPC) {
+            return super.getTargetName(t, whosAsking) + " (" + ((CommandableNPC) t).getCommandPointCost() + " CP)";
+        }
+        return super.getTargetName(t, whosAsking);
     }
 
     @Override
