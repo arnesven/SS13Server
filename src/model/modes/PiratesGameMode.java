@@ -138,6 +138,13 @@ public class PiratesGameMode extends TraitorGameMode {
         } else {
             gameData.addNPC(new CommandableGeishaNPC(pirateCaptain.getPosition()));
         }
+
+        try {
+            Room eastWoodsQuarters = gameData.getRoom("Eastwood's Chambers");
+            gameData.addNPC(new EastwoodsPetNPC(eastWoodsQuarters));
+        } catch (NoSuchThingException e) {
+            e.printStackTrace();
+        }
     }
 
 
