@@ -6,7 +6,7 @@ import model.npcs.PirateNPC;
 
 public class PirateCommanderDecorator extends NPCCommanderDecorator {
     public PirateCommanderDecorator(GameCharacter character) {
-        super(character);
+        super(character, 1000);
     }
 
     @Override

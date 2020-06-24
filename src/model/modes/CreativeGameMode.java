@@ -55,7 +55,7 @@ public class CreativeGameMode extends GameMode {
     protected void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters, GameData gameData) {
         for (Player p : gameData.getPlayersAsList()) {
             p.setCharacter(new GodModeDecorator(p.getCharacter(), gameData));
-            p.setCharacter(new NPCCommanderDecorator(p.getCharacter()));
+            p.setCharacter(new NPCCommanderDecorator(p.getCharacter(), 9999));
         }
     }
 

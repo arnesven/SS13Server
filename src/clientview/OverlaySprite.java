@@ -186,7 +186,7 @@ public class OverlaySprite extends MouseInteractable {
         if (relPos.contains("random")) {
             return 3;
         }
-        if (relPos.contains("P-of")) {
+        if (relPos.contains("P-of") || relPos.contains("O-of")) {
             return 2;
         }
         if (relPos.contains("-of-")) {

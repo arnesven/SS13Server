@@ -6,6 +6,7 @@ import model.characters.special.MartialArtist;
 import model.items.general.GameItem;
 import model.items.general.MoneyStack;
 import model.items.general.PirateNuclearDisc;
+import model.map.rooms.RelativePositions;
 
 import java.util.List;
 
@@ -39,5 +40,10 @@ public class PirateCaptainCharacter extends PirateCharacter implements MartialAr
     @Override
     public String getPublicName(Actor whosAsking) {
         return "Pirate Captain";
+    }
+
+    @Override
+    public RelativePositions getPreferredRelativePosition() {
+        return super.getPreferredRelativePosition();
     }
 }

@@ -21,7 +21,7 @@ public class PirateShipRoom extends ShuttleRoom {
     public PirateShipRoom(GameData gameData) {
         super(gameData.getMap().getMaxID()+1, "Pirate Ship",
                 0, 0, 3, 1, new int[]{},
-                new Door[]{}, 6);
+                new Door[]{}, 0);
         this.addItem(new SpaceRum());
 
 

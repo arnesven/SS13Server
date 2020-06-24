@@ -13,6 +13,5 @@ public class PirateNPC extends AbstractPirateNPC {
         super(room, new PirateCharacter(num, room.getID()), targetRoom);
         putOnSuit(new PirateOutfit(num));
         putOnSuit(new OxygenMask());
-
     }
 }

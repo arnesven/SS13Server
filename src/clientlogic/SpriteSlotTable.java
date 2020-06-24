@@ -112,9 +112,11 @@ public class SpriteSlotTable {
 
         Pair<Double, Double> anchor = table.get(index);
 
+        if (relation[0].equals("O")) {
+            return getExtendedSlots(index, sp);
+        }
         Point2D diff = getDiffForDirection(relation[0]);
         return getSlotClosestTo(sp, new Point2D.Double(anchor.first + diff.getX(), anchor.second + diff.getY()));
-
     }
 
     private Point2D getDiffForDirection(String s) {
@@ -134,7 +136,7 @@ public class SpriteSlotTable {
             return new Point2D.Double(-0.1, -0.1);
         } else if (s.equals("NE")) {
             return new Point2D.Double(0.1, -0.1);
-        } else if (s.equals("P")) { // proxmitiy off (doesn't matter where)
+        } else if (s.equals("P")) { // proxmitiy of (doesn't matter where)
             return new Point2D.Double(0, 0);
         }
 

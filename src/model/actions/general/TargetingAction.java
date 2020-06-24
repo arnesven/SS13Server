@@ -125,7 +125,12 @@ public abstract class TargetingAction extends Action {
 			if (performer == t) {
 				root.addOption("Yourself");
 			} else {
-				ActionOption opt = new ActionOption(t.getName());
+				ActionOption opt;
+				if (t instanceof Actor) {
+					opt = new ActionOption(((Actor) t).getPublicName(whosAsking));
+				} else {
+					opt = new ActionOption(t.getName());
+				}
 				opt.addAll(optlist);
 				root.addOption(opt);
 			}
@@ -164,7 +169,7 @@ public abstract class TargetingAction extends Action {
 	@Override
 	public void setArguments(List<String> args, Actor performingClient) {
         try {
-            this.target = findTarget(args.get(0));
+            this.target = findTarget(args.get(0), performingClient);
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "What, target wasn't there?");
             return;
@@ -201,9 +206,10 @@ public abstract class TargetingAction extends Action {
 		throw new NoSuchThingException("Did not find object for this targeting action.");
 	}
 
-	protected Target findTarget(String name) throws NoSuchThingException {
+	protected Target findTarget(String name, Actor whosAsking) throws NoSuchThingException {
 		for (Target c : targets) {
-			if (name.contains(c.getName()) || c.getName().contains(name)) {
+			if (name.contains(c.getName()) || c.getName().contains(name) ||
+					(c instanceof Actor && ((Actor) c).getPublicName(whosAsking).contains(name))) {
 				if (isViableForThisAction(c)) {
 					return c;
 				}

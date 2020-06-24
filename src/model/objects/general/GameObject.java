@@ -146,8 +146,8 @@ public class GameObject implements SpriteObject, Serializable {
     }
 
     @Override
-    public void setPreferredRelativePosition(RelativePositions relPos) {
-        this.relativePosition = relPos;
+    public void setPreferredRelativePosition(RelativePositions relpos) {
+        this.relativePosition = relpos;
     }
 
     @Override

@@ -536,7 +536,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
         if (r == forWhom.getPosition()) {
             if (forWhom.getsActions() && forWhom.getCharacter().getsTargetingActions()) {
                 AttackAction atk = new AttackAction(forWhom);
-                if (atk.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+                if (atk.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
                     atk.stripAllTargetsBut(this.getAsTarget());
                     atk.addClientsItemsToAction(forWhom);
                     list.add(atk);
@@ -552,14 +552,14 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
                     simpleTargetingActions.add(new ShowLootingFancyFrame(forWhom, gameData, this));
                 }
                 for (TargetingAction ta : simpleTargetingActions) {
-                    if (ta.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+                    if (ta.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
                         ta.stripAllTargetsBut(this.getAsTarget());
                         list.add(ta);
                     }
                 }
 
                 GiveAction give = new GiveAction(forWhom);
-                if (give.isAmongOptions(gameData, forWhom, this.getPublicName()) && forWhom.hasInventory()) {
+                if (give.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom)) && forWhom.hasInventory()) {
                     give.stripAllTargetsBut(this.getAsTarget());
                     give.addClientsItemsToAction(forWhom);
                     list.add(give);
@@ -569,7 +569,7 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
                 forWhom.getCharacter().addCharacterSpecificActions(gameData, tmpList);
                 for (Action a : tmpList) {
                     if (a.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
-                        if (a.isAmongOptions(gameData, forWhom, this.getPublicName())) {
+                        if (a.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
                             list.add(a);
                         }
                     }

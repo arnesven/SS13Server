@@ -5,6 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.map.doors.Door;
+import model.objects.general.GameObject;
 import util.MyRandom;
 
 import java.awt.geom.Point2D;
@@ -212,6 +213,17 @@ public abstract class RelativePositions implements Serializable {
         @Override
         public Point2D getPreferredRelativePosition(GameData gameData, Player forWhom, Room r) {
             return new Point2D.Double(d.getX() - r.getX(), d.getY() - r.getY());
+        }
+    }
+
+    public static class OnTopOf extends RelationalPosition {
+        public OnTopOf(SpriteObject sprobj) {
+            super(sprobj);
+        }
+
+        @Override
+        protected String getRelation() {
+            return "O";
         }
     }
 }

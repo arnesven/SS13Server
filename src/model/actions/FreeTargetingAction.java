@@ -24,7 +24,7 @@ public abstract class FreeTargetingAction extends TargetingAction {
     }
 
     @Override
-    public final void setArguments(List<String> args, Actor performingClient) {
+    public void setArguments(List<String> args, Actor performingClient) {
         super.setArguments(args, performingClient);
         applyTargetingAction(getGameData(), performingClient, getTarget(), getItem());
 

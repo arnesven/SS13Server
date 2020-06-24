@@ -9,6 +9,8 @@ import model.objects.general.SlotMachine;
 import sounds.Sound;
 
 public class ThroneRoom extends NewAlgiersRoom {
+    private final ComfyChair comfy;
+
     public ThroneRoom(int i, int i1, int i2, int i3, int i4, int[] ints, Door[] doors) {
         super(i, "Throne Room", i1, i2, i3, i4, ints, doors);
         addObject(new SlotMachine(this), RelativePositions.MID_LEFT);
@@ -17,7 +19,7 @@ public class ThroneRoom extends NewAlgiersRoom {
         addObject(new JukeBox(this), RelativePositions.MID_RIGHT);
         LongVerticalTable tab = new LongVerticalTable(this);
         addObject(tab, RelativePositions.CENTER);
-        GameObject comfy = new ComfyChair(this);
+        this.comfy = new ComfyChair(this);
         addObject(comfy, new RelativePositions.NorthOf(tab));
         addObject(new LongSofa(this), RelativePositions.MID_TOP);
         GameObject chair = new RightChair(this);
@@ -33,4 +35,7 @@ public class ThroneRoom extends NewAlgiersRoom {
 
     }
 
+    public GameObject getThrone() {
+        return comfy;
+    }
 }

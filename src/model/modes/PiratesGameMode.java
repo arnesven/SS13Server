@@ -4,6 +4,7 @@ package model.modes;
 import model.GameData;
 import model.Player;
 import model.characters.decorators.NPCCommanderDecorator;
+import model.characters.decorators.OnTopOfObjectDecorator;
 import model.characters.decorators.PirateCommanderDecorator;
 import model.characters.general.GameCharacter;
 import model.characters.general.PirateCaptainCharacter;
@@ -21,7 +22,10 @@ import model.map.DockingPoint;
 import model.map.GameMap;
 import model.map.rooms.*;
 import model.modes.objectives.PirateCaptainTraitorObjective;
+import model.npcs.CommandablePirateNPC;
 import model.npcs.NPC;
+import model.npcs.PirateCaptainNPC;
+import model.npcs.PirateNPC;
 import util.HTMLText;
 import util.MyRandom;
 
@@ -71,6 +75,7 @@ public class PiratesGameMode extends TraitorGameMode {
         GameCharacter pirateCapChar = new PirateCaptainCharacter(throneRoom.getID());
         pirateCaptain.setCharacter(pirateCapChar);
         pirateCaptain.putOnSuit(new PirateCaptainOutfit());
+        pirateCaptain.setCharacter(new OnTopOfObjectDecorator(pirateCaptain.getCharacter(), ((ThroneRoom)throneRoom).getThrone()));
   }
 
     @Override
@@ -82,6 +87,10 @@ public class PiratesGameMode extends TraitorGameMode {
         pirateCaptain.setCharacter(new PirateCommanderDecorator(pirateCaptain.getCharacter()));
         getEvents().get("pirate attack").setProbability(0.0);
         dockPirateShip(gameData);
+
+        int num = 0;
+        gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(), "Cpl. Orlov", pirateCaptain));
+
     }
 
 

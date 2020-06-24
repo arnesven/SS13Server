@@ -50,11 +50,6 @@ public class PirateCharacter extends HumanCharacter {
     }
 
     @Override
-    public int getMovementSteps() {
-        return 1;
-    }
-
-    @Override
     public Sprite getSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
         list.add(super.getSprite(whosAsking));

@@ -136,7 +136,7 @@ public class LootAction extends TargetingAction implements QuickAction {
     @Override
     public void setArguments(List<String> args, Actor performingClient) {
         try {
-            this.target = findTarget(args.get(0));
+            this.target = findTarget(args.get(0), performingClient);
         } catch (NoSuchThingException e) {
             Logger.log(Logger.CRITICAL, "What, target wasn't there?");
             return;

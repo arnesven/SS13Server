@@ -80,7 +80,7 @@ public interface SpriteObject {
         return getPublicName(whosAsking) + getSprite(whosAsking).getName();
     }
 
-    default void setPreferredRelativePosition(RelativePositions lowerLeftCorner) {
+    default void setPreferredRelativePosition(RelativePositions relpos) {
 
     }
 

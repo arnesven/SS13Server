@@ -10,6 +10,8 @@ import model.actions.characteractions.CommandNPCAction;
 import model.actions.characteractions.StartCommandingAction;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;
+import model.npcs.CommandableNPC;
+import model.npcs.CommandablePirateNPC;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.CommandedByBehavior;
@@ -22,11 +24,13 @@ import java.util.Set;
 
 public class NPCCommanderDecorator extends CharacterDecorator {
 
+    private int cpRemaining;
     private Set<NPC> commanding;
 
-    public NPCCommanderDecorator(GameCharacter character) {
+    public NPCCommanderDecorator(GameCharacter character, int initialCp) {
         super(character, "NPCCommander");
         commanding = new HashSet<>();
+        this.cpRemaining = initialCp;
     }
 
     public static NPCCommanderDecorator getDecorator(GameCharacter gc) {
@@ -41,13 +45,13 @@ public class NPCCommanderDecorator extends CharacterDecorator {
     @Override
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         super.addCharacterSpecificActions(gameData, at);
-        Action a = new StartCommandingAction(getActor(), commanding) {
+        Action a = new StartCommandingAction(getActor(), commanding, cpRemaining) {
             @Override
             protected boolean canBeCommanded(NPC target2) {
                 return canCommand(target2);
             }
         };
-        if (a.getOptions(gameData, getActor()).numberOfSuboptions() > 0) {
+        if (a.getOptions(gameData, getActor()).numberOfSuboptions() > 1) {
             at.add(a);
         }
         for (NPC npc : commanding) {
@@ -63,11 +67,18 @@ public class NPCCommanderDecorator extends CharacterDecorator {
         return true;
     }
 
-    public void addCommandable(NPC target) {
+    public boolean addCommandable(NPC target) {
+        if (target instanceof CommandableNPC) {
+            if (((CommandableNPC) target).getCommandPointCost() > cpRemaining) {
+                return false;
+            }
+            cpRemaining -= ((CommandableNPC) target).getCommandPointCost();
+        }
         this.commanding.add(target);
         ActionBehavior cmd = new CommandedByBehavior();
         target.setActionBehavior(cmd);
         target.setMoveBehavior(new MeanderingMovement(0.0));
+        return true;
     }
 
     @Override
