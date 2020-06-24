@@ -133,7 +133,11 @@ public class PiratesGameMode extends TraitorGameMode {
                 new GameItem[]{}));
 
         gameData.addNPC(new PleasureNPC(new PleasureBoyCharacter(pirateCaptain.getPosition().getID()), pirateCaptain.getPosition()));
-        gameData.addNPC(new PleasureNPC(new PleasureGirlCharacter(pirateCaptain.getPosition().getID()), pirateCaptain.getPosition()));
+        if (MyRandom.nextDouble() < 0.5) {
+            gameData.addNPC(new PleasureNPC(new PleasureGirlCharacter(pirateCaptain.getPosition().getID()), pirateCaptain.getPosition()));
+        } else {
+            gameData.addNPC(new CommandableGeishaNPC(pirateCaptain.getPosition()));
+        }
     }
 
 
