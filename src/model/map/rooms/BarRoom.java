@@ -14,7 +14,7 @@ import sounds.Sound;
 /**
  * Created by erini02 on 28/04/16.
  */
-public class BarRoom extends SupportRoom {
+public class BarRoom extends SupportRoom implements JukeBoxRoom {
     private String tune;
 
     public BarRoom(GameData gameData, int id, int x, int y, int w, int h, int[] ints, Door[] doors) {

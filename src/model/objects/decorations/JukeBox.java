@@ -9,6 +9,7 @@ import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
 import model.map.rooms.BarRoom;
+import model.map.rooms.JukeBoxRoom;
 import model.map.rooms.Room;
 import model.objects.general.GameObject;
 
@@ -84,8 +85,8 @@ public class JukeBox extends GameObject {
 
         @Override
         protected void execute(GameData gameData, Actor performingClient) {
-            if (JukeBox.this.getPosition() instanceof BarRoom) {
-                ((BarRoom)JukeBox.this.getPosition()).setAmbientSound(selectedTune);
+            if (JukeBox.this.getPosition() instanceof JukeBoxRoom) {
+                ((JukeBoxRoom)JukeBox.this.getPosition()).setAmbientSound(selectedTune);
             }
         }
 
