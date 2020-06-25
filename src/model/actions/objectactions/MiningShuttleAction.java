@@ -9,7 +9,7 @@ import model.map.DockingPoint;
 import model.map.GameMap;
 import model.map.rooms.Room;
 import model.map.rooms.MiningShuttle;
-import model.objects.consoles.ShuttleControl;
+import model.objects.consoles.MiningShuttleControl;
 import util.Logger;
 
 import java.util.List;
@@ -19,14 +19,14 @@ import java.util.List;
  */
 public class MiningShuttleAction extends ConsoleAction {
 
-    private final ShuttleControl shuttleControl;
+    private final MiningShuttleControl shuttleControl;
     private final GameData gameData;
     private MiningShuttle shuttle;
     private Room cargoBay;
     private Room miningStation;
     private DockingPoint selectedDockingPoint;
 
-    public MiningShuttleAction(GameData gameData, ShuttleControl shuttleControl) {
+    public MiningShuttleAction(GameData gameData, MiningShuttleControl shuttleControl) {
         super("Move Mining Shuttle", SensoryLevel.OPERATE_DEVICE);
         this.shuttleControl = shuttleControl;
         this.gameData = gameData;

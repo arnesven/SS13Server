@@ -2,31 +2,22 @@ package model.actions.objectactions;
 
 import model.Actor;
 import model.GameData;
-import model.Player;
 import model.actions.general.Action;
 import model.actions.general.ActionOption;
 import model.actions.general.SensoryLevel;
-import model.characters.decorators.*;
-import model.characters.general.GameCharacter;
 import model.events.Event;
-import model.fancyframe.SinglePageFancyFrame;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
-import model.items.general.KeyCard;
 import model.items.general.UniversalKeyCard;
 import model.map.DockingPoint;
 import model.map.GameMap;
 import model.map.rooms.EscapeShuttle;
 import model.map.rooms.Room;
-import model.map.rooms.ShuttleRoom;
 import model.map.rooms.StationRoom;
 import model.npcs.NPC;
-import model.npcs.behaviors.DoNothingBehavior;
 import model.npcs.behaviors.GoTowardsEscapeShuttle;
-import model.npcs.behaviors.StayBehavior;
 import model.objects.consoles.AIConsole;
-import model.objects.consoles.ShuttleControl;
-import util.HTMLText;
+import model.objects.consoles.MiningShuttleControl;
 import util.MyRandom;
 
 import java.util.ArrayList;
@@ -34,11 +25,11 @@ import java.util.List;
 
 public class CallEscapeShuttleAction extends Action {
     private static final int SHUTTLE_AUTO_LEAVE_ROUNDS = 4;
-    private final ShuttleControl console;
+    private final MiningShuttleControl console;
     private final GameData gameData;
     private String preferredDockingPoint;
 
-    public CallEscapeShuttleAction(GameData gameData, ShuttleControl console) {
+    public CallEscapeShuttleAction(GameData gameData, MiningShuttleControl console) {
         super("Call Escape Shuttle", SensoryLevel.OPERATE_DEVICE);
         this.console = console;
         this.gameData = gameData;

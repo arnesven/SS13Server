@@ -15,40 +15,32 @@ import model.map.rooms.Room;
 import model.objects.general.GameObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by erini02 on 17/09/17.
  */
-public class ShuttleControl extends Console {
+public class MiningShuttleControl extends ShuttleControlConsole {
     private final boolean hasAdvanced;
-    private Door oldDoor = null;
 
-    public ShuttleControl(Room room, boolean hasAdvanced) {
+    public MiningShuttleControl(Room room, boolean hasAdvanced) {
         super("Shuttle Control", room);
         this.hasAdvanced = hasAdvanced;
     }
 
     @Override
-    protected void addConsoleActions(GameData gameData, Actor cl, ArrayList<Action> at) {
+    protected List<Action> getNormalActions(GameData gameData, Actor cl) {
+        List<Action> at = new ArrayList<>();
         at.add(new MiningShuttleAction(gameData, this));
         if (CallEscapeShuttleAction.canCallEscapeShuttle(cl)) {
             at.add(new CallEscapeShuttleAction(gameData, this));
         }
-        if (cl instanceof Player) {
-            at.add(new SitDownAtShuttleConsoleAction(gameData, this, (Player)cl, hasAdvanced));
-        }
+        return at;
     }
 
     @Override
-    public Sprite getNormalSprite(Player whosAsking) {
-        return new Sprite("shuttlecontrol", "computer2.png", 0, 23, this);
-    }
+    protected Action getSitDownAction(GameData gameData, ShuttleControlConsole shuttleControlConsole, Player cl) {
+        return new SitDownAtShuttleConsoleAction(gameData, this, (Player)cl, hasAdvanced);
 
-    public void setOldDoor(Door oldDoor) {
-        this.oldDoor = oldDoor;
-    }
-
-    public Door getOldDoor() {
-        return oldDoor;
     }
 }

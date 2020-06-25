@@ -5,28 +5,26 @@ import model.Player;
 import model.actions.objectactions.CallEscapeShuttleAction;
 import model.actions.objectactions.MiningShuttleAction;
 import model.items.NoSuchThingException;
-import model.items.general.KeyCard;
-import model.items.general.UniversalKeyCard;
 import model.map.DockingPoint;
 import model.map.GameMap;
 import model.map.rooms.EscapeShuttle;
 import model.map.rooms.MiningShuttle;
 import model.map.rooms.ShuttleRoom;
-import model.objects.consoles.ShuttleControl;
+import model.objects.consoles.MiningShuttleControl;
 import util.HTMLText;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
-    private final ShuttleControl console;
+    private final MiningShuttleControl console;
     private final boolean hasAdvanced;
     private boolean showingAdvanced;
     private DockingPoint preferredDockingPoint;
     private String playerPrefers = null;
     private boolean hasCalled;
 
-    public ShuttleControlFancyFrame(ShuttleControl console, GameData gameData, Player performingClient, boolean hasAdvanced) {
+    public ShuttleControlFancyFrame(MiningShuttleControl console, GameData gameData, Player performingClient, boolean hasAdvanced) {
         super(performingClient.getFancyFrame(), console, gameData, "#ca9f21", "black");
         this.console = console;
         this.hasAdvanced = hasAdvanced;

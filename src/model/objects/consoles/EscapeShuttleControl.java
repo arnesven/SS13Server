@@ -8,14 +8,12 @@ import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.fancyframe.ConsoleFancyFrame;
 import model.map.rooms.EscapeShuttle;
-import model.objects.general.GameObject;
-import org.w3c.dom.html.HTMLTableElement;
 import util.HTMLText;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EscapeShuttleControl extends ShuttleControl {
+public class EscapeShuttleControl extends MiningShuttleControl {
     private final EscapeShuttle shuttle;
 
     public EscapeShuttleControl(EscapeShuttle escapeShuttle) {
