@@ -8,7 +8,9 @@ import model.actions.fancyframeactions.SitDownAtPowerConsoleAction;
 import model.actions.general.Action;
 import model.actions.objectactions.CallEscapeShuttleAction;
 import model.actions.objectactions.MiningShuttleAction;
+import model.actions.objectactions.MoveShuttleAction;
 import model.actions.objectactions.SitDownAtShuttleConsoleAction;
+import model.map.GameMap;
 import model.map.doors.Door;
 import model.map.rooms.BridgeRoom;
 import model.map.rooms.Room;
@@ -24,7 +26,7 @@ public class MiningShuttleControl extends ShuttleControlConsole {
     private final boolean hasAdvanced;
 
     public MiningShuttleControl(Room room, boolean hasAdvanced) {
-        super("Shuttle Control", room);
+        super("Shuttle Control", room, "Mining Shuttle", GameMap.STATION_LEVEL_NAME, "asteroid field");
         this.hasAdvanced = hasAdvanced;
     }
 
@@ -42,5 +44,10 @@ public class MiningShuttleControl extends ShuttleControlConsole {
     protected Action getSitDownAction(GameData gameData, ShuttleControlConsole shuttleControlConsole, Player cl) {
         return new SitDownAtShuttleConsoleAction(gameData, this, (Player)cl, hasAdvanced);
 
+    }
+
+    @Override
+    public MoveShuttleAction getCorrespondingAction(GameData gameData, Player player) {
+        return new MiningShuttleAction(gameData, this);
     }
 }

@@ -4,6 +4,7 @@ import model.GameData;
 import model.Player;
 import model.actions.objectactions.CallEscapeShuttleAction;
 import model.actions.objectactions.MiningShuttleAction;
+import model.actions.objectactions.MoveShuttleAction;
 import model.items.NoSuchThingException;
 import model.map.DockingPoint;
 import model.map.GameMap;
@@ -11,20 +12,22 @@ import model.map.rooms.EscapeShuttle;
 import model.map.rooms.MiningShuttle;
 import model.map.rooms.ShuttleRoom;
 import model.objects.consoles.MiningShuttleControl;
+import model.objects.consoles.ShuttleControlConsole;
 import util.HTMLText;
+import util.MyStrings;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
-    private final MiningShuttleControl console;
+    private final ShuttleControlConsole console;
     private final boolean hasAdvanced;
     private boolean showingAdvanced;
     private DockingPoint preferredDockingPoint;
     private String playerPrefers = null;
     private boolean hasCalled;
 
-    public ShuttleControlFancyFrame(MiningShuttleControl console, GameData gameData, Player performingClient, boolean hasAdvanced) {
+    public ShuttleControlFancyFrame(ShuttleControlConsole console, GameData gameData, Player performingClient, boolean hasAdvanced) {
         super(performingClient.getFancyFrame(), console, gameData, "#ca9f21", "black");
         this.console = console;
         this.hasAdvanced = hasAdvanced;
@@ -86,32 +89,32 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
     }
 
     private void showMiningShuttleView(GameData gameData, Player player, StringBuilder content) {
-        MiningShuttle shuttle = null;
+        ShuttleRoom shuttle = null;
         String docked = "Unknown location!";
         String destination = "Unknown location!";
         try {
-            shuttle = (MiningShuttle) gameData.getMap().getRoom("Mining Shuttle");
+            shuttle = (ShuttleRoom) gameData.getMap().getRoom(console.getShuttleName());
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
 
         try {
             List<DockingPoint> otherDockingPoints = new ArrayList<>();
-            if (gameData.getMap().getLevelForRoom(shuttle).getName().equals("asteroid field")) {
-                docked = "Asteroid Field (" + shuttle.getDockingPointRoom().getName() + ")";
+            if (gameData.getMap().getLevelForRoom(shuttle).getName().equals(console.getLevelB())) {
+                docked = MyStrings.capitalize(console.getLevelB()) + " (" + shuttle.getDockingPointRoom().getName() + ")";
                 preferredDockingPoint = findPreferredSS13DockingPoint(gameData, otherDockingPoints, shuttle, "Cargo");
                 if (preferredDockingPoint == null) {
-                    destination = HTMLText.makeText("Yellow", "No available docking points at SS13!");
+                    destination = HTMLText.makeText("Yellow", "No available docking points at " + console.getLevelA() + "!");
                 } else {
-                    destination = "SS13 (" + preferredDockingPoint.getName() + ")";
+                    destination = console.getLevelA() + " (" + preferredDockingPoint.getName() + ")";
                 }
-            } else if (gameData.getMap().getLevelForRoom(shuttle).getName().equals(GameMap.STATION_LEVEL_NAME)) {
-                docked = "SS13 (docked at " + shuttle.getDockingPointRoom().getName() + ")";
+            } else if (gameData.getMap().getLevelForRoom(shuttle).getName().equals(console.getLevelA())) {
+                docked = MyStrings.capitalize(console.getLevelA()) + " (docked at " + shuttle.getDockingPointRoom().getName() + ")";
                 preferredDockingPoint = findPreferredAsteroidDockingPoint(gameData, otherDockingPoints, shuttle);
                 if (preferredDockingPoint == null) {
-                    destination = HTMLText.makeText("Yellow", "No available docking points at Mining Station!");
+                    destination = HTMLText.makeText("Yellow", "No available docking points at " + console.getLevelB() + "!");
                 } else {
-                    destination = "Asteroid Field (" + preferredDockingPoint.getName() + ")";
+                    destination = console.getLevelB() + " (" + preferredDockingPoint.getName() + ")";
                 }
             }
 
@@ -125,7 +128,7 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
                 content.append("<b>Next stop: </b>" +
                         HTMLText.makeCentered(destination) +
                         HTMLText.makeCentered(HTMLText.makeFancyFrameLink("MOVE " + preferredDockingPoint.getName(),
-                                "[Move Mining Shuttle]")));
+                                "[Move " + console.getShuttleName() + "]")));
             }
 
             makeOtherDockingPointsTable(otherDockingPoints, content);
@@ -143,9 +146,9 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
         }
     }
 
-    private DockingPoint findPreferredAsteroidDockingPoint(GameData gameData, List<DockingPoint> otherDockingPoints, MiningShuttle shuttle) {
+    private DockingPoint findPreferredAsteroidDockingPoint(GameData gameData, List<DockingPoint> otherDockingPoints, ShuttleRoom shuttle) {
         DockingPoint pref = null;
-        for (DockingPoint dp : gameData.getMap().getLevel("asteroid field").getDockingPoints()) {
+        for (DockingPoint dp : gameData.getMap().getLevel(console.getLevelB()).getDockingPoints()) {
             if (dp.getName().equals(playerPrefers)) {
                 pref = dp;
             } else if (dp.isVacant() && shuttle.canDockAt(gameData, dp)) {
@@ -163,7 +166,7 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
     private DockingPoint findPreferredSS13DockingPoint(GameData gameData, List<DockingPoint> otherDockingPoints,
                                                        ShuttleRoom shuttleRoom, String preferredName) {
         DockingPoint pref = null;
-        for (DockingPoint dp : gameData.getMap().getLevel(GameMap.STATION_LEVEL_NAME).getDockingPoints()) {
+        for (DockingPoint dp : gameData.getMap().getLevel(console.getLevelA()).getDockingPoints()) {
             if (dp.getName().equals(playerPrefers)) {
                 pref = dp;
             } else {
@@ -191,7 +194,7 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
     @Override
     protected void consoleHandleEvent(GameData gameData, Player player, String event) {
         if (event.contains("MOVE")) {
-            MiningShuttleAction msa = new MiningShuttleAction(gameData, console);
+            MoveShuttleAction msa = console.getCorrespondingAction(gameData, player);
             List<String> args = new ArrayList<>();
             args.add(event.replace("MOVE ", ""));
             msa.setActionTreeArguments(args, player);
@@ -205,7 +208,7 @@ public class ShuttleControlFancyFrame extends ConsoleFancyFrame {
             showingAdvanced = !showingAdvanced;
             buildContent(gameData, player);
         } else if (event.contains("CALL")) {
-            CallEscapeShuttleAction ceasa = new CallEscapeShuttleAction(gameData, console);
+            CallEscapeShuttleAction ceasa = new CallEscapeShuttleAction(gameData, (MiningShuttleControl) console);
             List<String> args = new ArrayList<>();
             args.add(event.replace("CALL ", ""));
             ceasa.setActionTreeArguments(args, player);

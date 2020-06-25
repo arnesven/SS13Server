@@ -11,6 +11,7 @@ import model.map.rooms.MiningShuttle;
 import model.map.rooms.Room;
 import model.map.rooms.ShuttleRoom;
 import model.objects.consoles.MiningShuttleControl;
+import model.objects.consoles.ShuttleControlConsole;
 import util.Logger;
 
 import java.util.List;
@@ -19,23 +20,21 @@ public abstract class MoveShuttleAction extends ConsoleAction {
     private final ShuttleRoom shuttle;
     private final String levelA;
     private final String levelB;
-    private final MiningShuttleControl shuttleControl;
+    private final ShuttleControlConsole shuttleControl;
     private final GameData gameData;
-    private Room miningStation;
     private DockingPoint selectedDockingPoint;
 
 
-    public MoveShuttleAction(String name, SensoryLevel senses, GameData gameData, MiningShuttleControl shuttleControl,
-                             String shuttleName, String levelA, String levelB) {
-        super(name, senses);
-        this.levelA = levelA;
-        this.levelB = levelB;
+    public MoveShuttleAction(String name, GameData gameData, ShuttleControlConsole shuttleControl) {
+        super(name, SensoryLevel.OPERATE_DEVICE);
+        this.levelA = shuttleControl.getLevelA();
+        this.levelB = shuttleControl.getLevelB();
         this.gameData = gameData;
         this.shuttleControl = shuttleControl;
         try {
-            this.shuttle = (ShuttleRoom)gameData.getRoom(shuttleName);
+            this.shuttle = (ShuttleRoom)gameData.getRoom(shuttleControl.getShuttleName());
         } catch (NoSuchThingException e) {
-            throw new IllegalStateException("Could not find shuttle " + shuttleName);
+            throw new IllegalStateException("Could not find shuttle " + shuttleControl.getShuttleName());
         }
     }
 

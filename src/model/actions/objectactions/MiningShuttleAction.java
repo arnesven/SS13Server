@@ -20,8 +20,7 @@ import java.util.List;
 public class MiningShuttleAction extends MoveShuttleAction {
 
     public MiningShuttleAction(GameData gameData, MiningShuttleControl shuttleControl) {
-        super("Move Mining Shuttle", SensoryLevel.OPERATE_DEVICE, gameData, shuttleControl,
-                "Mining Shuttle", GameMap.STATION_LEVEL_NAME, "asteroid field");
+        super("Move Mining Shuttle", gameData, shuttleControl);
     }
 
 }

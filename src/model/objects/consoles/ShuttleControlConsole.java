@@ -7,7 +7,9 @@ import model.Player;
 import model.actions.general.Action;
 import model.actions.objectactions.CallEscapeShuttleAction;
 import model.actions.objectactions.MiningShuttleAction;
+import model.actions.objectactions.MoveShuttleAction;
 import model.actions.objectactions.SitDownAtShuttleConsoleAction;
+import model.map.GameMap;
 import model.map.rooms.Room;
 
 import java.util.ArrayList;
@@ -16,8 +18,15 @@ import java.util.List;
 
 public abstract class ShuttleControlConsole extends Console {
 
-    public ShuttleControlConsole(String name, Room r) {
+    private final String levelA;
+    private final String levelB;
+    private String shuttleName;
+
+    public ShuttleControlConsole(String name, Room r, String shuttleName, String levelA, String levelB) {
         super(name, r);
+        this.shuttleName = shuttleName;
+        this.levelA = levelA;
+        this.levelB = levelB;
     }
 
     @Override
@@ -36,5 +45,19 @@ public abstract class ShuttleControlConsole extends Console {
     @Override
     public Sprite getNormalSprite(Player whosAsking) {
         return new Sprite("shuttlecontrol", "computer2.png", 0, 23, this);
+    }
+
+    public abstract MoveShuttleAction getCorrespondingAction(GameData gameData, Player player);
+
+    public String getLevelA() {
+        return levelA;
+    }
+
+    public String getLevelB() {
+        return levelB;
+    }
+
+    public String getShuttleName() {
+        return shuttleName;
     }
 }

@@ -11,6 +11,7 @@ import model.map.DockingPoint;
 import model.map.doors.Door;
 import model.map.floors.FloorSet;
 import model.map.floors.NukieFloorSet;
+import model.objects.consoles.PirateShipControls;
 import util.MyRandom;
 
 /**
@@ -40,6 +41,8 @@ public class PirateShipRoom extends ShuttleRoom {
         if (MyRandom.nextDouble() < 0.1) {
             this.addItem(new LaserSword());
         }
+
+        this.addObject(new PirateShipControls(this));
 
     }
 
