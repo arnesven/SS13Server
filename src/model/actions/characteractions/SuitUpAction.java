@@ -61,24 +61,28 @@ public class SuitUpAction extends Action implements QuickAction {
 
 
         if (torso != null && torso.canBeWornBy(performingClient)) {
+            performingClient.getItems().remove(torso);
             performingClient.putOnSuit(torso);
         } else {
             Logger.log("Torso can't be worn");
         }
 
         if (torsoAndShoes != null && torsoAndShoes.canBeWornBy(performingClient)) {
+            performingClient.getItems().remove(torsoAndShoes);
             performingClient.putOnSuit(torsoAndShoes);
         } else {
             Logger.log("Torso and shoes can't be worn");
         }
 
         if (headGear!= null && headGear.canBeWornBy(performingClient)) {
+            performingClient.getItems().remove(headGear);
             performingClient.putOnSuit(headGear);
         } else {
             Logger.log("headgear can't be worn");
         }
 
         if (fbs != null && fbs.canBeWornBy(performingClient)) {
+            performingClient.getItems().remove(fbs);
             performingClient.putOnSuit(fbs);
         } else {
             Logger.log("full body suit can't be worn");

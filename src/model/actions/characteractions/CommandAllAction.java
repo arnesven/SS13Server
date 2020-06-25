@@ -1,5 +1,6 @@
 package model.actions.characteractions;
 
+import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -40,5 +41,11 @@ public class CommandAllAction extends FreeAction {
                 }
             }
         }
+        p.refreshClientData();
+    }
+
+    @Override
+    public Sprite getAbilitySprite() {
+        return new Sprite("commandallabi", "weapons2.png", 45, 47, null);
     }
 }
