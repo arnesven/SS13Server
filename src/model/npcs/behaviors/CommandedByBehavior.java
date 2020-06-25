@@ -67,6 +67,7 @@ public class CommandedByBehavior implements ActionBehavior {
         multiOptionActions.add(new AttackUsingDefaultWeaponAction(npc));
 
 
+
         List<Action> fresult = new ArrayList<>();
         fresult.add(new LabelAction("In " + npc.getPosition().getName()));
         for (Action a : multiOptionActions) {
@@ -74,6 +75,14 @@ public class CommandedByBehavior implements ActionBehavior {
                 fresult.add(a);
             }
         }
+
+        ArrayList<Action> charActions = new ArrayList<>();
+        npc.getCharacter().addCharacterSpecificActions(gameData, charActions);
+        Logger.log("In getActionFor, charAction size is " + charActions.size());
+        for (Action a : charActions) {
+            fresult.add(a);
+        }
+
         return fresult;
     }
 
