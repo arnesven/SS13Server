@@ -8,7 +8,7 @@ import model.items.suits.Mankini;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PleasureBoyCharacter extends HumanCharacter {
+public class PleasureBoyCharacter extends PleasureCharacter {
     public PleasureBoyCharacter(int startRoom) {
         super("Pleasure Boy", startRoom, 0.25);
         getPhysicalBody().setGender(true);

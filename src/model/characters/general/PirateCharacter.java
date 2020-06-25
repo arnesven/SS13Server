@@ -3,12 +3,14 @@ package model.characters.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.actions.characteractions.MoveTowardsPirateShipAction;
 import model.actions.characteractions.SuitUpAction;
 import model.actions.general.Action;
 import model.characters.special.MartialArtist;
 import model.items.foods.SpaceRum;
 import model.items.general.GameItem;
 import model.items.weapons.*;
+import model.npcs.NPC;
 import util.Logger;
 import util.MyRandom;
 
@@ -75,5 +77,8 @@ public class PirateCharacter extends HumanCharacter {
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         super.addCharacterSpecificActions(gameData, at);
         at.add(new SuitUpAction());
+        if (getActor() instanceof NPC) {
+            at.add(new MoveTowardsPirateShipAction());
+        }
     }
 }

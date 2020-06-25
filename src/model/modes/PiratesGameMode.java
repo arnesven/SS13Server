@@ -197,6 +197,7 @@ public class PiratesGameMode extends TraitorGameMode {
 
     private void dockPirateShip(GameData gameData) {
         PirateShipRoom pirateShip = new PirateShipRoom(gameData);
+        pirateShip.getItems().clear();
         List<DockingPoint> dockingPoints = new ArrayList<>();
         for (DockingPoint dp : gameData.getMap().getLevel("new algiers").getDockingPoints()) {
             if (pirateShip.canDockAt(gameData, dp)) {

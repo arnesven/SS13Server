@@ -26,6 +26,7 @@ public class CommandAllAction extends FreeAction {
         ActionOption opts = super.getOptions(gameData, whosAsking);
 
         opts.addOption("Suit Up");
+        opts.addOption("Move Towards Pirate Ship");
 
         return opts;
     }
@@ -34,13 +35,13 @@ public class CommandAllAction extends FreeAction {
 
     @Override
     protected void doTheFreeAction(List<String> args, Player p, GameData gameData) {
-        if (args.get(0).equals("Suit Up")) {
+        //if (args.get(0).equals("Suit Up")) {
             for (NPC npc : commanding) {
                 if (npc.getActionBehavior() instanceof CommandedByBehavior) {
                     CommandedByBehavior.parseAction(args, gameData, npc, p);
                 }
             }
-        }
+        //}
         p.refreshClientData();
     }
 

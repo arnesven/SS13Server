@@ -193,25 +193,25 @@ public class OtherPlacesBuilder extends MapBuilder {
         throneRoom.addObject(new UpgoingStairsDoor(throneRoom), new RelativePositions.WestOf(downStairs));
         gm.addRoom(engineRoom, newAlgiers.getName(), "space");
 
-        gm.addRoom(new NewAlgiersRoom(769, "Some Room #1", 3, 2, 3, 3, new int[]{},
+        gm.addRoom(new NewAlgiersRoom(769, "New Algiers Dorms", 3, 2, 3, 3, new int[]{},
                         new Door[]{new LockedNewAlgiersDoor(5.5, 5.0, 769, 766)}),
                 newAlgiers.getName(), "space");
-        gm.addRoom(new NewAlgiersRoom(770, "Some Room #2", 3, 5, 2, 2, new int[]{},
+        gm.addRoom(new NewAlgiersRoom(770, "New Algiers Sickbay", 3, 5, 2, 2, new int[]{},
                         new Door[]{new LockedNewAlgiersDoor(5.0, 5.5, 770, 766)}),
                 newAlgiers.getName(), "space");
-        gm.addRoom(new NewAlgiersRoom(771, "Some Room #3", 2, 7, 3, 3, new int[]{},
+        gm.addRoom(new NewAlgiersRoom(771, "New Algiers Cargo Bay", 2, 7, 3, 3, new int[]{},
                         new Door[]{new LockedNewAlgiersDoor(5.0, 8.5, 771, 766)}),
                 newAlgiers.getName(), "space");
-        gm.addRoom(new NewAlgiersRoom(772, "Some Room #4", 3, 10, 4, 2, new int[]{},
+        gm.addRoom(new NewAlgiersRoom(772, "New Algiers Dorms", 3, 10, 4, 2, new int[]{},
                         new Door[]{new LockedNewAlgiersDoor(4.5, 10.0, 772, 771)}),
                 newAlgiers.getName(), "space");
-        gm.addRoom(new NewAlgiersRoom(773, "Some Room #5", 7, 9, 1, 2, new int[]{},
+        gm.addRoom(new NewAlgiersRoom(773, "New Algiers Store Room", 7, 9, 1, 2, new int[]{},
                         new Door[]{new LockedNewAlgiersDoor(7.5, 9.0, 773, 766)}),
                 newAlgiers.getName(), "space");
-        gm.addRoom(new NewAlgiersRoom(774, "Some Room #6", 8, 9, 3, 3, new int[]{},
+        gm.addRoom(new NewAlgiersRoom(774, "New Algiers Kitchen", 8, 9, 3, 3, new int[]{},
                         new Door[]{new LockedNewAlgiersDoor(8.5, 9.0, 774, 766)}),
                 newAlgiers.getName(), "space");
-        gm.addRoom(new NewAlgiersRoom(775, "Some Room #7", 11, 6, 2, 4, new int[]{},
+        gm.addRoom(new NewAlgiersRoom(775, "New Algiers Bridge", 11, 6, 2, 4, new int[]{},
                         new Door[]{new LockedNewAlgiersDoor(11.0, 9.5, 775, 774)}),
                 newAlgiers.getName(), "space");
 

@@ -9,7 +9,7 @@ import model.items.suits.Mankini;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PleasureGirlCharacter extends HumanCharacter {
+public class PleasureGirlCharacter extends PleasureCharacter {
     public PleasureGirlCharacter(Integer id) {
         super("Pleasure Girl", id, 0.25);
         getPhysicalBody().setGender(false);

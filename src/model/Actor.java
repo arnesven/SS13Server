@@ -570,6 +570,9 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
                 for (Action a : tmpList) {
                     if (a.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
                         if (a.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+                            if (a instanceof TargetingAction) {
+                                ((TargetingAction) a).stripAllTargetsBut(this.getAsTarget());
+                            }
                             list.add(a);
                         }
                     }
@@ -581,12 +584,14 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
                     forWhom.getCharacter().addCharacterSpecificActions(gameData, (ArrayList<Action>) list);
                 }
 
-//                for (Actor other : getPosition().getActors()) {
-//                    if (other != this) {
-//                        other.getCharacter().addActionsForActorsInRoom(gameData, forWhom, (ArrayList<Action>) list);
-//                    }
-//                }
-                getCharacter().addActionsForActorsInRoom(gameData, forWhom, (ArrayList<Action>) list);
+                ArrayList<Action> extraList = new ArrayList<>();
+                getCharacter().addActionsForActorsInRoom(gameData, forWhom, extraList);
+                for (Action a : extraList) {
+                    if (a instanceof TargetingAction) {
+                        ((TargetingAction) a).stripAllTargetsBut(this.getAsTarget());
+                    }
+                    list.add(a);
+                }
                 //for (drop.getOptions(gameData, watchAction).)
             }
         }
