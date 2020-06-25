@@ -22,7 +22,6 @@ public class CaptainCharacter extends CrewCharacter implements MartialArtist {
     public List<GameItem> getCrewSpecificItems() {
         ArrayList<GameItem> list = new ArrayList<GameItem>();
         list.add(new UniversalKeyCard());
-        list.add(new Mankini());
 
         return list;
     }
