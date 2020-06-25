@@ -2,16 +2,15 @@ package model.characters.decorators;
 
 import graphics.OverlaySprite;
 import graphics.sprites.CommanderVision;
-import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.characteractions.CantCommandNPCAction;
+import model.actions.characteractions.CommandAllAction;
 import model.actions.characteractions.CommandNPCAction;
 import model.actions.characteractions.StartCommandingAction;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;
 import model.npcs.CommandableNPC;
-import model.npcs.CommandablePirateNPC;
 import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.CommandedByBehavior;
@@ -53,6 +52,9 @@ public class NPCCommanderDecorator extends CharacterDecorator {
         };
         if (a.getOptions(gameData, getActor()).numberOfSuboptions() > 1) {
             at.add(a);
+        }
+        if (commanding.size() > 0) {
+            at.add(new CommandAllAction(commanding, gameData, (Player)getActor()));
         }
         for (NPC npc : commanding) {
             if (npc.getsActions()) {

@@ -2,6 +2,9 @@ package model.characters.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.actions.characteractions.SuitUpAction;
+import model.actions.general.Action;
 import model.characters.special.MartialArtist;
 import model.items.foods.SpaceRum;
 import model.items.general.GameItem;
@@ -62,5 +65,15 @@ public class PirateCharacter extends HumanCharacter {
         }
         return new Sprite(super.getSprite(whosAsking).getName() + "holding" + weapon.getBaseName(),
                 "human.png", 0, list, getActor());
+    }
+
+    public void setSuitedUp(boolean b) {
+        this.isSuitedUp = b;
+    }
+
+    @Override
+    public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
+        super.addCharacterSpecificActions(gameData, at);
+        at.add(new SuitUpAction());
     }
 }

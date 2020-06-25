@@ -27,7 +27,7 @@ public class EastwoodsPetNPC extends NPC implements CommandableNPC {
 
     @Override
     public int getCommandPointCost() {
-        return 50;
+        return 100;
     }
 
     @Override
