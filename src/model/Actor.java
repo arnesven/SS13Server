@@ -579,9 +579,9 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
                 }
 
                 if (this == forWhom) {
-                    DropAction drop = new OverlayDropAction(forWhom);
-                    list.add(drop);
-                    forWhom.getCharacter().addCharacterSpecificActions(gameData, (ArrayList<Action>) list);
+                //    DropAction drop = new OverlayDropAction(forWhom);
+                //    list.add(drop);
+                //    forWhom.getCharacter().addCharacterSpecificActions(gameData, (ArrayList<Action>) list);
                 }
 
                 ArrayList<Action> extraList = new ArrayList<>();

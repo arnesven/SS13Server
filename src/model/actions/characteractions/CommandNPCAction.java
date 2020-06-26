@@ -17,17 +17,19 @@ import java.util.List;
 public class CommandNPCAction extends FreeAction {
     private final NPC npc;
     private final Player commander;
+    private final List<Action> actions;
 
     public CommandNPCAction(NPC npc, GameData gameData, Player p) {
         super("Command " + npc.getPublicName(p), gameData, p);
         this.npc = npc;
         this.commander = p;
+        this.actions = CommandedByBehavior.getActionsFor(gameData, npc);
     }
 
     @Override
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption opts = super.getOptions(gameData, whosAsking);
-        for (Action a : CommandedByBehavior.getActionsFor(gameData, npc)) {
+        for (Action a : actions) {
             opts.addOption(a.getOptions(gameData, npc));
         }
         return opts;

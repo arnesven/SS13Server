@@ -23,7 +23,7 @@ public class RoomWalls implements Serializable {
         new RightBadShuttleWallSet("badshuttleright");
         new UpBadShuttleWallSet("badshuttleup");
         new LeftBadShuttleWallSet("badshuttleleft");
-        new DownBadShuttleWallSet("downshuttleleft");
+        new DownBadShuttleWallSet("downshuttledown");
 
     }
 

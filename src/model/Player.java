@@ -748,6 +748,7 @@ public class Player extends Actor implements Target, Serializable {
     }
 
 	public void refreshClientData() {
+		Logger.log("PLAYER REFRESHED, " + getBaseName());
 		this.dataState++;
 	}
 

@@ -15,6 +15,7 @@ import model.npcs.NPC;
 import model.npcs.behaviors.ActionBehavior;
 import model.npcs.behaviors.CommandedByBehavior;
 import model.npcs.behaviors.MeanderingMovement;
+import util.Logger;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -44,6 +45,7 @@ public class NPCCommanderDecorator extends CharacterDecorator {
     @Override
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         super.addCharacterSpecificActions(gameData, at);
+        Logger.log("addCharSpecificActions called for " + getActor().getPublicName(getActor()));
         Action a = new StartCommandingAction(getActor(), commanding, cpRemaining) {
             @Override
             protected boolean canBeCommanded(NPC target2) {

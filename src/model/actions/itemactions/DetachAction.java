@@ -111,11 +111,6 @@ public class DetachAction extends TargetingAction {
             super.doAfterMovement(gameData);
             if (getActor() instanceof Player) {
                 ((Player) getActor()).setNextAction(new ContinueDetachingAction());
-                try {
-                    gameData.setPlayerReady(gameData.getClidForPlayer((Player)getActor()), true);
-                } catch (NoSuchThingException e) {
-                    e.printStackTrace();
-                }
             } else if (getActor() instanceof CommandableNPC) {
                 NPC npc = (NPC)getActor();
                 ((CommandedByBehavior)npc.getActionBehavior()).setNextAction(new ContinueDetachingAction());
