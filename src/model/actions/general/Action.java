@@ -88,7 +88,7 @@ public abstract class Action extends Experienceable implements Serializable {
 		    postFix = ", but failed";
         }
 
-    	return performer.getPublicName() + " " + this.getVerb(whosAsking).toLowerCase() + postFix;
+    	return performer.getPublicName(whosAsking) + " " + this.getVerb(whosAsking).toLowerCase() + postFix;
 	}
 
 	/**

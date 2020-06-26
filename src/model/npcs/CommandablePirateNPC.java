@@ -13,6 +13,8 @@ import model.items.foods.SpaceRum;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
 import model.items.suits.RolledDownCoverall;
+import model.items.tools.Blowtorch;
+import model.items.weapons.LaserSword;
 import model.map.rooms.Room;
 import model.map.rooms.SpaceRoom;
 import model.modes.PirateBackStory;
@@ -88,6 +90,13 @@ public class CommandablePirateNPC extends PirateNPC implements CommandableNPC {
                     obj.addSpecificActionsFor(gameData, npc, acts);
                 }
             }
+        }
+        if (pbs.getSkills().contains("Mechanic")) {
+           for (GameItem it : npc.getItems()) {
+               if (it instanceof Blowtorch || it instanceof LaserSword) {
+                   it.addYourActions(gameData, acts, npc);
+               }
+           }
         }
 
         return acts;

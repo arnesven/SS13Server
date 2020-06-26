@@ -39,7 +39,7 @@ public class PirateCaptainTraitorObjective implements TraitorObjective {
     @Override
     public String getText() {
         return "Detach the Monolith from its rig (in " + locatable.getPosition().getName() + ") and bring it back to your pirate stronghold (New Algiers). " +
-                "(Detaching objects requires Blow Torch or Laser Sword).";
+                "(Detaching objects requires Blow Torch or Laser Sword and Mechanic skill).";
     }
 
     @Override
