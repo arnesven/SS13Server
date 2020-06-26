@@ -6,9 +6,7 @@ import model.Player;
 import model.actions.LabelAction;
 import model.actions.MoveAction;
 import model.actions.characteractions.AttackUsingDefaultWeaponAction;
-import model.actions.general.Action;
-import model.actions.general.AttackAction;
-import model.actions.general.DoNothingAction;
+import model.actions.general.*;
 import model.npcs.CommandableNPC;
 import model.npcs.NPC;
 import util.Logger;
@@ -66,7 +64,8 @@ public class CommandedByBehavior implements ActionBehavior {
         List<Action> multiOptionActions = new ArrayList<>();
         multiOptionActions.add(new MoveAction(gameData, npc));
         multiOptionActions.add(new AttackUsingDefaultWeaponAction(npc));
-
+        multiOptionActions.add(new PickUpAction(npc));
+        multiOptionActions.add(new DropAction(npc));
 
 
         List<Action> fresult = new ArrayList<>();
