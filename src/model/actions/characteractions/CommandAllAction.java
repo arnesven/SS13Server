@@ -25,6 +25,7 @@ public class CommandAllAction extends FreeAction {
     public ActionOption getOptions(GameData gameData, Actor whosAsking) {
         ActionOption opts = super.getOptions(gameData, whosAsking);
 
+        opts.addOption("Follow Captain");
         opts.addOption("Suit Up");
         opts.addOption("Move Towards Pirate Ship");
 

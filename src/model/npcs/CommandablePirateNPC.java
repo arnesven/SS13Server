@@ -146,5 +146,7 @@ public class CommandablePirateNPC extends PirateNPC implements CommandableNPC {
         return str.toString();
     }
 
-
+    public Player getPirateCaptain() {
+        return pirateCap;
+    }
 }

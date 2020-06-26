@@ -3,6 +3,7 @@ package model.characters.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.actions.characteractions.FollowCaptainAction;
 import model.actions.characteractions.MoveTowardsPirateShipAction;
 import model.actions.characteractions.SuitUpAction;
 import model.actions.general.Action;
@@ -10,7 +11,9 @@ import model.characters.special.MartialArtist;
 import model.items.foods.SpaceRum;
 import model.items.general.GameItem;
 import model.items.weapons.*;
+import model.npcs.CommandablePirateNPC;
 import model.npcs.NPC;
+import model.npcs.behaviors.MeanderingMovement;
 import util.Logger;
 import util.MyRandom;
 
@@ -79,6 +82,9 @@ public class PirateCharacter extends HumanCharacter {
         at.add(new SuitUpAction());
         if (getActor() instanceof NPC && !getPosition().getName().equals("Pirate Ship")) {
             at.add(new MoveTowardsPirateShipAction());
+        }
+        if (getActor() instanceof CommandablePirateNPC && ((NPC) getActor()).getMovementBehavior() instanceof MeanderingMovement) {
+            at.add(new FollowCaptainAction(((CommandablePirateNPC) getActor()).getPirateCaptain()));
         }
     }
 }
