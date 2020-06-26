@@ -2,6 +2,7 @@ package model.actions.general;
 
 import model.Actor;
 import model.GameData;
+import model.actions.itemactions.ShowExamineFancyFrameAction;
 import model.items.general.GameItem;
 import model.items.general.HidableItem;
 import util.Logger;
@@ -84,7 +85,6 @@ public class PickupAndUseAction extends Action {
         ActionOption opts = super.getOptions(gameData, whosAsking);
 
         Set<String> set = new HashSet<>();
-        ArrayList<Action> itActions = new ArrayList<>();
         for (GameItem it : whosAsking.getPosition().getItems()) {
             if (it instanceof HidableItem && ((HidableItem) it).isHidden()) {
                 continue;
@@ -95,7 +95,13 @@ public class PickupAndUseAction extends Action {
                 it.addYourActions(gameData, tmp, whosAsking);
 
                 for (Action a : tmp) {
-                    thisItemOptions.addOption(a.getOptions(gameData, whosAsking));
+                    if (a instanceof TargetingAction) {
+                        if (a.getOptions(gameData, whosAsking).numberOfSuboptions() > 0) {
+                            thisItemOptions.addOption(a.getOptions(gameData, whosAsking));
+                        }
+                    } else if (!(a instanceof ShowExamineFancyFrameAction)) {
+                        thisItemOptions.addOption(a.getOptions(gameData, whosAsking));
+                    }
                 }
                 if (thisItemOptions.numberOfSuboptions() > 0) {
                     opts.addOption(thisItemOptions);

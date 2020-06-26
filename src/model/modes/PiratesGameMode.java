@@ -5,24 +5,19 @@ import model.GameData;
 import model.Player;
 import model.characters.PleasureBoyCharacter;
 import model.characters.PleasureGirlCharacter;
-import model.characters.decorators.NPCCommanderDecorator;
 import model.characters.decorators.OnTopOfObjectDecorator;
 import model.characters.decorators.PirateCommanderDecorator;
 import model.characters.general.GameCharacter;
 import model.characters.general.PirateCaptainCharacter;
-import model.characters.general.PirateCharacter;
-import model.characters.general.WizardCharacter;
 import model.fancyframe.SinglePageFancyFrame;
 import model.items.MedPatch;
-import model.items.MissionDetails;
 import model.items.NoSuchThingException;
 import model.items.general.*;
 import model.items.suits.*;
-import model.items.tools.CraftingTools;
+import model.items.tools.Blowtorch;
 import model.items.tools.RepairTools;
 import model.items.weapons.Crowbar;
 import model.map.DockingPoint;
-import model.map.GameMap;
 import model.map.rooms.*;
 import model.modes.objectives.PirateCaptainTraitorObjective;
 import model.npcs.*;
@@ -103,7 +98,7 @@ public class PiratesGameMode extends TraitorGameMode {
         gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(),
                 "Pvt. Colovisto", pirateCaptain, new GreenRolledDownCoverall(),
                 new PirateBackStory("A low-life from Pondiataros. Hired by Eastwood as muscle for various jobs.", "Mechanic"),
-                new GameItem[]{new CraftingTools(), new Crowbar()}));
+                new GameItem[]{new Blowtorch(), new Crowbar()}));
         gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(),
                 "Sgt. Hernandez", pirateCaptain, new BlueRolledDownCoverall(),
                 new PirateBackStory("An ex-military Nanotrasen official. After a dishonorable discharge, " +
@@ -112,7 +107,7 @@ public class PiratesGameMode extends TraitorGameMode {
         gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(),
                 "Pvt. Yee", pirateCaptain, new GreenRolledDownCoverall(),
                 new PirateBackStory("A former Syndicate operative, trained for black-ops missions. Ruthless and bloodthirsty.", "Mechanic"),
-                new GameItem[]{new CraftingTools(), new Crowbar()}));
+                new GameItem[]{new Blowtorch(), new Crowbar()}));
         gameData.addNPC(new CommandablePirateNPC(pirateCaptain.getPosition(),
                 "Cpl. Kyoshi", pirateCaptain, new TanRolledDownCoverall(),
                 new PirateBackStory("A former Syndicate spy. After being exposed, Eastwood broke into the penal facility where " +

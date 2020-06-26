@@ -51,7 +51,7 @@ public class CommandedByBehavior implements ActionBehavior {
         }
     }
 
-    private void setNextAction(Action a) {
+    public void setNextAction(Action a) {
         this.nextAction = a;
     }
     public Action getNextAction() { return this.nextAction; }

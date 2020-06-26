@@ -35,6 +35,11 @@ public abstract class CosmicMonolith extends GameItem {
         return sprs;
     }
 
+    @Override
+    public String getPublicName(Actor whosAsking) {
+        return "Cosmic Monolith";
+    }
+
     public static CosmicMonolith getRandomMonolith(GameData gameData) {
         return MyRandom.sample(getAllTypes(gameData));
     }

@@ -17,13 +17,14 @@ import model.items.general.GameItem;
 import model.items.general.Multimeter;
 import model.items.weapons.Weapon;
 import model.map.rooms.Room;
+import model.objects.DetachableObject;
 import model.objects.general.BreakableObject;
 import model.objects.general.PowerConsumer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonolithExperimentRig extends BreakableObject implements PowerConsumer {
+public class MonolithExperimentRig extends BreakableObject implements PowerConsumer, DetachableObject {
     private final CosmicMonolith monolith;
     private boolean monolithRemoved;
     private boolean isClosed;
@@ -200,6 +201,22 @@ public class MonolithExperimentRig extends BreakableObject implements PowerConsu
 
     public boolean wasReportSent() {
         return reportSent;
+    }
+
+    @Override
+    public void detachYourself(GameData gameData, Actor performer) {
+        this.monolithRemoved = true;
+        this.getPosition().addItem(getCosmicMonolith());
+    }
+
+    @Override
+    public String getDetachingDescription() {
+        return "The Cosmic Monolith came loose and fell on the floor!";
+    }
+
+    @Override
+    public int getDetatchTimeRounds() {
+        return 1;
     }
 
 

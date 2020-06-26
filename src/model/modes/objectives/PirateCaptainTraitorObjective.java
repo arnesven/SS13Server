@@ -1,11 +1,9 @@
 package model.modes.objectives;
 
 import model.GameData;
-import model.items.CosmicMonolith;
 import model.items.NoSuchThingException;
 import model.items.general.Locatable;
 import model.map.levels.NewAlgiersMapLevel;
-import model.objects.general.GameObject;
 import model.objects.monolith.MonolithExperimentRig;
 
 
@@ -41,7 +39,7 @@ public class PirateCaptainTraitorObjective implements TraitorObjective {
     @Override
     public String getText() {
         return "Detach the Monolith from its rig (in " + locatable.getPosition().getName() + ") and bring it back to your pirate stronghold (New Algiers). " +
-                "(Detaching objects requires Crafting Tools).";
+                "(Detaching objects requires Blow Torch or Laser Sword).";
     }
 
     @Override

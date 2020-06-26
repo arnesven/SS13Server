@@ -4,9 +4,13 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.general.Action;
+import model.actions.itemactions.DetachAction;
 import model.items.TraitorItem;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
+
+import java.util.ArrayList;
 
 /**
  * Created by erini02 on 26/04/16.
@@ -50,5 +54,11 @@ public class LaserSword extends SlashingWeapon implements TraitorItem {
     @Override
     public String getWallDamageText() {
         return "A part of the wall is starting to glow faintly...";
+    }
+
+    @Override
+    public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
+        super.addYourActions(gameData, at, cl);
+        at.add(new DetachAction(cl));
     }
 }
