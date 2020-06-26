@@ -34,6 +34,7 @@ public class MonolithExperimentRig extends BreakableObject implements PowerConsu
     public MonolithExperimentRig(Room labRoom, GameData gameData) {
         super("Monolith Experiment Rig", 3.0, labRoom);
         this.monolith = CosmicMonolith.getRandomMonolith(gameData);
+        this.monolith.setPosition(labRoom);
         monolith.setPosition(labRoom);
         this.isClosed = true;
         this.console = new MonolithExperimentsConsole(labRoom, this);
