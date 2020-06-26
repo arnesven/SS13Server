@@ -104,7 +104,8 @@ public class SuitUpAction extends Action implements QuickAction {
 
     @Override
     public Sprite getAbilitySprite() {
-        return new Sprite("securityoffsuitupabi", "interface_retro.png", 1, null);
+        return new Sprite("securityoffsuitupabi", "interface.png",
+                2,   17, null);
     }
 
     @Override

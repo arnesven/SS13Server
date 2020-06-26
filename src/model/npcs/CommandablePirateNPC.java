@@ -18,7 +18,10 @@ import model.map.rooms.SpaceRoom;
 import model.modes.PirateBackStory;
 import model.npcs.behaviors.DoNothingBehavior;
 import model.npcs.behaviors.MeanderingMovement;
+import model.objects.consoles.ShuttleControlConsole;
+import model.objects.general.GameObject;
 import util.HTMLText;
+import util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +77,20 @@ public class CommandablePirateNPC extends PirateNPC implements CommandableNPC {
             sum += it.getCost();
         }
         return commandPointsBase + (sum / 5);
+    }
+
+    @Override
+    public List<Action> getExtraActionsFor(GameData gameData, NPC npc) {
+        ArrayList<Action> acts = new ArrayList<>();
+        if (pbs.getSkills().contains("Pilot")) {
+            for (GameObject obj : npc.getPosition().getObjects()) {
+                if (obj instanceof ShuttleControlConsole) {
+                    obj.addSpecificActionsFor(gameData, npc, acts);
+                }
+            }
+        }
+
+        return acts;
     }
 
     private class ReadBackstoryActionGiver extends CharacterDecorator {

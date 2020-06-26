@@ -12,6 +12,7 @@ import model.map.rooms.Room;
 import model.objects.SinglePersonUseMachine;
 import model.objects.general.ElectricalMachinery;
 import model.objects.general.RemotelyOperateable;
+import util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,19 +62,13 @@ public abstract class Console extends SinglePersonUseMachine implements Remotely
     @Override
     protected final void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
         this.gameData = gameData;
-        if (cl.getCharacter().isCrew() && cl instanceof Player && !PlebOSCommandHandler.isLoggedIn((Player)cl)) {
-            if (!isBroken() && isPowered() && loggedInAt==null) {
-                //at.add(new LoginAction(this, cl, consoleFancyFrame));
-            }
-        }
-
         ArrayList<Action> consoleActions = new ArrayList<>();
         addConsoleActions(gameData, cl, consoleActions);
         if (!hasSitDownAction(consoleActions)) {
             if (cl instanceof Player) {
                 consoleActions.add(new GeneralSitDownAtConsoleAction(gameData, this, (Player)cl));
-                at.addAll(consoleActions);
             }
+            at.addAll(consoleActions);
         } else {
             //if (cl.isAI()) {
             //    consoleActions.removeIf((Action a) -> a instanceof SitDownAtConsoleAction);

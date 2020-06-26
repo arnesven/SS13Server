@@ -9,6 +9,7 @@ import model.actions.characteractions.AttackUsingDefaultWeaponAction;
 import model.actions.general.Action;
 import model.actions.general.AttackAction;
 import model.actions.general.DoNothingAction;
+import model.npcs.CommandableNPC;
 import model.npcs.NPC;
 import util.Logger;
 
@@ -72,6 +73,12 @@ public class CommandedByBehavior implements ActionBehavior {
         fresult.add(new LabelAction("In " + npc.getPosition().getName()));
         for (Action a : multiOptionActions) {
             if (a.getOptions(gameData, npc).numberOfSuboptions() > 0) {
+                fresult.add(a);
+            }
+        }
+
+        if (npc instanceof CommandableNPC) {
+            for (Action a : ((CommandableNPC) npc).getExtraActionsFor(gameData, npc)) {
                 fresult.add(a);
             }
         }

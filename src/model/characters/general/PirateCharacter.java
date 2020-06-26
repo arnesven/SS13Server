@@ -77,7 +77,7 @@ public class PirateCharacter extends HumanCharacter {
     public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
         super.addCharacterSpecificActions(gameData, at);
         at.add(new SuitUpAction());
-        if (getActor() instanceof NPC) {
+        if (getActor() instanceof NPC && !getPosition().getName().equals("Pirate Ship")) {
             at.add(new MoveTowardsPirateShipAction());
         }
     }

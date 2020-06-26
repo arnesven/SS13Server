@@ -10,6 +10,7 @@ import model.characters.visitors.GeishaCharacter;
 import model.map.rooms.Room;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommandableGeishaNPC extends HumanNPC implements CommandableNPC {
     public CommandableGeishaNPC(Room position) {
@@ -20,6 +21,11 @@ public class CommandableGeishaNPC extends HumanNPC implements CommandableNPC {
     @Override
     public int getCommandPointCost() {
         return 10;
+    }
+
+    @Override
+    public List<Action> getExtraActionsFor(GameData gameData, NPC npc) {
+        return new ArrayList<>();
     }
 
     private class AlsoMoveTowardsPirateShipActionDecorator extends CharacterDecorator {

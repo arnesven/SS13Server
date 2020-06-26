@@ -19,7 +19,7 @@ public class CommandNPCAction extends FreeAction {
     private final Player commander;
 
     public CommandNPCAction(NPC npc, GameData gameData, Player p) {
-        super("Command " + npc.getBaseName(), gameData, p);
+        super("Command " + npc.getPublicName(p), gameData, p);
         this.npc = npc;
         this.commander = p;
     }
