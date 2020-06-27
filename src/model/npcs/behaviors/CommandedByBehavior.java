@@ -7,6 +7,7 @@ import model.actions.LabelAction;
 import model.actions.MoveAction;
 import model.actions.characteractions.AttackUsingDefaultWeaponAction;
 import model.actions.general.*;
+import model.actions.objectactions.ForceOpenDoorAction;
 import model.actions.roomactions.AttackDoorAction;
 import model.actions.roomactions.OpenAndMoveThroughFireDoorAction;
 import model.npcs.CommandableNPC;
@@ -121,7 +122,7 @@ public class CommandedByBehavior implements ActionBehavior {
         for (Action a : doorActions.getActions()) {
             if (a instanceof ActionGroup) {
                 for (Action a2 : ((ActionGroup) a).getActions()) {
-                    if (a2 instanceof OpenAndMoveThroughFireDoorAction || a2 instanceof AttackDoorAction) {
+                    if (a2 instanceof OpenAndMoveThroughFireDoorAction || a2 instanceof AttackDoorAction || a2 instanceof ForceOpenDoorAction) {
                         acts.add(a);
                     }
                 }
