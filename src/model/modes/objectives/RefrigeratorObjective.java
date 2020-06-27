@@ -3,29 +3,27 @@ package model.modes.objectives;
 import model.GameData;
 import model.items.NoSuchThingException;
 import model.items.general.Locatable;
-import model.objects.monolith.MonolithExperimentRig;
+import model.objects.general.Refrigerator;
 
-public class MonolithObjective extends PirateCaptainTraitorObjective {
+public class RefrigeratorObjective extends PirateCaptainTraitorObjective {
     private Locatable locatable;
 
-    public MonolithObjective(GameData gameData) {
+    public RefrigeratorObjective(GameData gameData) {
         super(gameData);
         try {
-            MonolithExperimentRig rig = gameData.findObjectOfType(MonolithExperimentRig.class);
-            this.locatable = rig.getCosmicMonolith();
+            this.locatable = gameData.findObjectOfType(Refrigerator.class);
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
     }
 
+    @Override
     public Locatable getLocatable() {
         return locatable;
     }
 
     @Override
     protected String thingToDetach() {
-        return "Monolith from its rig";
+        return "Refrigerator";
     }
-
-
 }

@@ -27,6 +27,8 @@ public abstract class PirateCaptainTraitorObjective implements TraitorObjective 
     public static PirateCaptainTraitorObjective makeRandomObjective(GameData gameData) {
         if (MyRandom.nextDouble() < 0.5) {
             return new MonolithObjective(gameData);
+        } else if (MyRandom.nextDouble() < 0.75) {
+            return new RefrigeratorObjective(gameData);
         }
         return new BioscannerObjective(gameData);
     }
@@ -40,4 +42,13 @@ public abstract class PirateCaptainTraitorObjective implements TraitorObjective 
             return false;
         }
     }
+
+    @Override
+    public String getText() {
+        return "Detach the " + thingToDetach() + " in the " + getLocatable().getPosition().getName() +
+                ", then bring it back to your pirate stronghold (New Algiers). " +
+                DETACH_INFO;
+    }
+
+    protected abstract String thingToDetach();
 }

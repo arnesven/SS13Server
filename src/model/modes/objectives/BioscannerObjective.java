@@ -18,14 +18,14 @@ public class BioscannerObjective extends PirateCaptainTraitorObjective {
     }
 
     @Override
+    protected String thingToDetach() {
+        return "Bioscanner";
+    }
+
+    @Override
     public Locatable getLocatable() {
         return locatable;
     }
 
-    @Override
-    public String getText() {
-        return "Detach the Bioscanner in the " + locatable.getPosition().getName() +
-                ", then bring it back to your pirate stronghold (New Algiers). " +
-                DETACH_INFO;
-    }
+
 }

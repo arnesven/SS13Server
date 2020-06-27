@@ -12,6 +12,7 @@ import model.characters.general.GameCharacter;
 import model.items.foods.Beer;
 import model.items.foods.Vodka;
 import model.items.foods.Wine;
+import model.items.general.Locatable;
 import model.map.rooms.Room;
 import model.objects.general.DispenserObject;
 
@@ -20,16 +21,16 @@ import java.util.ArrayList;
 /**
  * Created by erini02 on 15/11/16.
  */
-public class Refrigerator extends DispenserObject {
+public class Refrigerator extends DispenserObject implements Locatable {
     public Refrigerator(Room pos) {
         super("Refrigerator", pos);
-        for (int i = 4; i > 0; i--) {
+        for (int i = 10; i > 0; i--) {
             addItem(new Vodka());
         }
-        for (int i = 5; i > 0; --i) {
+        for (int i = 10; i > 0; --i) {
             addItem(new Beer());
         }
-        for (int i = 5; i > 0; --i) {
+        for (int i = 10; i > 0; --i) {
             addItem(new Wine());
         }
 
