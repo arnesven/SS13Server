@@ -106,18 +106,7 @@ public class CommandablePirateNPC extends PirateNPC implements CommandableNPC {
             }
         }
 
-        ActionGroup doorActions = npc.getPosition().getDoorsActionGroup(gameData, npc);
-        Logger.log("in get extra actions for, door actions " + doorActions.getActions().size());
-        for (Action a : doorActions.getActions()) {
-            if (a instanceof ActionGroup) {
-                for (Action a2 : ((ActionGroup) a).getActions()) {
-                    Logger.log("   action is " + a.getName());
-                    if (a2 instanceof OpenAndMoveThroughFireDoorAction) {
-                        acts.add(a);
-                    }
-                }
-            }
-        }
+
 
         return acts;
     }

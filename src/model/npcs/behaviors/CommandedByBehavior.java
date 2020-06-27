@@ -7,6 +7,8 @@ import model.actions.LabelAction;
 import model.actions.MoveAction;
 import model.actions.characteractions.AttackUsingDefaultWeaponAction;
 import model.actions.general.*;
+import model.actions.roomactions.AttackDoorAction;
+import model.actions.roomactions.OpenAndMoveThroughFireDoorAction;
 import model.npcs.CommandableNPC;
 import model.npcs.NPC;
 import util.Logger;
@@ -80,8 +82,10 @@ public class CommandedByBehavior implements ActionBehavior {
         List<Action> multiOptionActions = new ArrayList<>();
         multiOptionActions.add(new MoveAction(gameData, npc));
         multiOptionActions.add(new AttackUsingDefaultWeaponAction(npc));
-        multiOptionActions.add(new PickUpAction(npc));
-        multiOptionActions.add(new DropAction(npc));
+        if (npc.hasInventory()) {
+            multiOptionActions.add(new PickUpAction(npc));
+            multiOptionActions.add(new DropAction(npc));
+        }
 
 
         List<Action> fresult = new ArrayList<>();
@@ -97,14 +101,32 @@ public class CommandedByBehavior implements ActionBehavior {
             }
         }
 
+        if (npc.isHuman()) {
+            addFireDoorActions(gameData, npc, fresult);
+        }
+
         ArrayList<Action> charActions = new ArrayList<>();
         npc.getCharacter().addCharacterSpecificActions(gameData, charActions);
-        Logger.log("In getActionFor, " + npc.getName() + " charAction size is " + charActions.size());
         for (Action a : charActions) {
             fresult.add(a);
         }
 
+        fresult.add(0, new LabelAction("In " + npc.getPosition().getName()));
+
         return fresult;
+    }
+
+    private static void addFireDoorActions(GameData gameData, NPC npc, List<Action> acts) {
+        ActionGroup doorActions = npc.getPosition().getDoorsActionGroup(gameData, npc);
+        for (Action a : doorActions.getActions()) {
+            if (a instanceof ActionGroup) {
+                for (Action a2 : ((ActionGroup) a).getActions()) {
+                    if (a2 instanceof OpenAndMoveThroughFireDoorAction || a2 instanceof AttackDoorAction) {
+                        acts.add(a);
+                    }
+                }
+            }
+        }
     }
 
 }
