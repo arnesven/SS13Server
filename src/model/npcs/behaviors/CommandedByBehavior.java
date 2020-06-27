@@ -28,14 +28,30 @@ public class CommandedByBehavior implements ActionBehavior {
         Action act = null;
         for (Action a : acts) {
             Logger.log("Action is " + a.getName());
-            if (a.getOptions(gameData, npc).getName().equals(args.get(0))) {
-                args = args.subList(1, args.size());
-                a.setActionTreeArguments(args, npc);
-                act = a;
-                if (!a.wasPerformedAsQuickAction()) {
-                    ((CommandedByBehavior) npc.getActionBehavior()).setNextAction(a);
+            if (a instanceof ActionGroup) {
+                List<String> newArgs = args.subList(1, args.size());
+                for (Action a2: ((ActionGroup) a).getActions()) {
+                    if (a2.getOptions(gameData, npc).getName().equals(newArgs.get(0))) {
+                        newArgs = newArgs.subList(1, newArgs.size());
+                        a2.setActionTreeArguments(newArgs, npc);
+                        act = a2;
+                        if (!a2.wasPerformedAsQuickAction()) {
+                            ((CommandedByBehavior) npc.getActionBehavior()).setNextAction(a2);
+                        }
+                        break;
+                    }
                 }
-                break;
+
+            } else {
+                if (a.getOptions(gameData, npc).getName().equals(args.get(0))) {
+                    args = args.subList(1, args.size());
+                    a.setActionTreeArguments(args, npc);
+                    act = a;
+                    if (!a.wasPerformedAsQuickAction()) {
+                        ((CommandedByBehavior) npc.getActionBehavior()).setNextAction(a);
+                    }
+                    break;
+                }
             }
         }
         if (act != null) {

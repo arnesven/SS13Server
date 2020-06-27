@@ -384,25 +384,29 @@ public abstract class Room implements ItemHolder, Serializable {
             a.getCharacter().addActionsForActorsInRoom(gameData, client, at);
         }
 
-        ActionGroup doorsAG = new ActionGroup("Doors");
-	    for (Door d : doors) {
-    	    doorsAG.addAll(d.getNearbyDoorActions(gameData, client));
+        ActionGroup doorsAG = getDoorsActionGroup(gameData, client);
+		if (doorsAG.getOptions(gameData, client).numberOfSuboptions() > 0) {
+            at.add(doorsAG);
         }
+	}
+
+	public ActionGroup getDoorsActionGroup(GameData gameData, Actor client) {
+		ActionGroup ag = new ActionGroup("Doors");
+		for (Door d : doors) {
+			ag.addAll(d.getNearbyDoorActions(gameData, client));
+		}
 		try {
 			for (Room r : gameData.getMap().getRoomsForLevel(gameData.getMap().getLevelForRoom(this).getName())) {
 				for (Door d : r.getDoors()) {
 					if (d.getToId() == getID() || client.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter)) {
-						doorsAG.addAll(d.getNearbyDoorActions(gameData, client));
+						ag.addAll(d.getNearbyDoorActions(gameData, client));
 					}
 				}
 			}
 		} catch (NoSuchThingException e) {
 			e.printStackTrace();
 		}
-		if (doorsAG.getOptions(gameData, client).numberOfSuboptions() > 0) {
-            at.add(doorsAG);
-        }
-
+		return ag;
 	}
 
 	public void setMap(GameMap gameMap) {

@@ -5,7 +5,9 @@ import model.GameData;
 import model.Player;
 import model.actions.FreeAction;
 import model.actions.general.Action;
+import model.actions.general.ActionGroup;
 import model.actions.itemactions.ShowExamineFancyFrameAction;
+import model.actions.roomactions.OpenAndMoveThroughFireDoorAction;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.fancyframe.SinglePageFancyFrame;
@@ -100,6 +102,19 @@ public class CommandablePirateNPC extends PirateNPC implements CommandableNPC {
            } else if (pbs.getSkills().contains("Medic")) {
                 if (it instanceof MedKit) {
                     it.addYourActions(gameData, acts, npc);
+                }
+            }
+        }
+
+        ActionGroup doorActions = npc.getPosition().getDoorsActionGroup(gameData, npc);
+        Logger.log("in get extra actions for, door actions " + doorActions.getActions().size());
+        for (Action a : doorActions.getActions()) {
+            if (a instanceof ActionGroup) {
+                for (Action a2 : ((ActionGroup) a).getActions()) {
+                    Logger.log("   action is " + a.getName());
+                    if (a2 instanceof OpenAndMoveThroughFireDoorAction) {
+                        acts.add(a);
+                    }
                 }
             }
         }
