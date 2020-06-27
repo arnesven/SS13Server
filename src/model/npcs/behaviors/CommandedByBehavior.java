@@ -28,35 +28,9 @@ public class CommandedByBehavior implements ActionBehavior {
     public static void parseAction(List<String> args, GameData gameData, NPC npc, Player commander) {
         List<Action> acts = getActionsFor(gameData, npc);
         Logger.log("NPC-Parsing for " + args);
-        Action act = null;
-        for (Action a : acts) {
-            Logger.log("Action is " + a.getName());
-            if (a instanceof ActionGroup) {
-                List<String> newArgs = args.subList(1, args.size());
-                for (Action a2: ((ActionGroup) a).getActions()) {
-                    if (a2.getOptions(gameData, npc).getName().equals(newArgs.get(0))) {
-                        newArgs = newArgs.subList(1, newArgs.size());
-                        a2.setActionTreeArguments(newArgs, npc);
-                        act = a2;
-                        if (!a2.wasPerformedAsQuickAction()) {
-                            ((CommandedByBehavior) npc.getActionBehavior()).setNextAction(a2);
-                        }
-                        break;
-                    }
-                }
 
-            } else {
-                if (a.getOptions(gameData, npc).getName().equals(args.get(0))) {
-                    args = args.subList(1, args.size());
-                    a.setActionTreeArguments(args, npc);
-                    act = a;
-                    if (!a.wasPerformedAsQuickAction()) {
-                        ((CommandedByBehavior) npc.getActionBehavior()).setNextAction(a);
-                    }
-                    break;
-                }
-            }
-        }
+        Action act = recursiveParse(args, gameData, npc, commander, acts);
+
         if (act != null) {
             if (!act.wasPerformedAsQuickAction()) {
                 String message = npc.getPublicName(commander) + "'s next action is " + act.getFullName();
@@ -66,6 +40,25 @@ public class CommandedByBehavior implements ActionBehavior {
         } else {
             Logger.log(Logger.CRITICAL, "Could not parse action for NPC!");
         }
+    }
+
+    private static Action recursiveParse(List<String> args, GameData gameData, NPC npc, Player commander, List<Action> acts) {
+        for (Action a : acts) {
+            if (a.getOptions(gameData, npc).getName().equals(args.get(0))) {
+                if (a instanceof ActionGroup) {
+                    return recursiveParse(args.subList(1, args.size()), gameData, npc, commander, ((ActionGroup) a).getActions());
+                } else {
+                    args = args.subList(1, args.size());
+                    a.setActionTreeArguments(args, npc);
+                    if (!a.wasPerformedAsQuickAction()) {
+                        ((CommandedByBehavior) npc.getActionBehavior()).setNextAction(a);
+                    }
+                    return a;
+                }
+            }
+        }
+
+        return null;
     }
 
     public void setNextAction(Action a) {
@@ -119,15 +112,16 @@ public class CommandedByBehavior implements ActionBehavior {
 
     private static void addFireDoorActions(GameData gameData, NPC npc, List<Action> acts) {
         ActionGroup doorActions = npc.getPosition().getDoorsActionGroup(gameData, npc);
-        for (Action a : doorActions.getActions()) {
-            if (a instanceof ActionGroup) {
-                for (Action a2 : ((ActionGroup) a).getActions()) {
-                    if (a2 instanceof OpenAndMoveThroughFireDoorAction || a2 instanceof AttackDoorAction || a2 instanceof ForceOpenDoorAction) {
-                        acts.add(a);
-                    }
-                }
-            }
-        }
+        acts.add(doorActions);
+//        for (Action a : doorActions.getActions()) {
+//            if (a instanceof ActionGroup) {
+//                for (Action a2 : ((ActionGroup) a).getActions()) {
+//                    if (a2 instanceof OpenAndMoveThroughFireDoorAction || a2 instanceof AttackDoorAction || a2 instanceof ForceOpenDoorAction) {
+//                        acts.add(a);
+//                    }
+//                }
+//            }
+//        }
     }
 
 }
