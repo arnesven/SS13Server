@@ -37,10 +37,10 @@ public class ChimpBehavior implements ActionBehavior {
 		
 		double d = MyRandom.nextDouble();
 		Logger.log("chimp random = " + d);
-		if (d < 0.2) {
+		if (d < 0.3) {
 			gibberish.act(npc, gameData);
 			Logger.log("Chimp said ooo");
-		} else if (d < 0.70) {
+		} else if (d < 0.85) {
 			giveBehavior.act(npc, gameData);
 			Logger.log("Chimp gave something");
 		} else {

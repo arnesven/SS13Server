@@ -9,6 +9,9 @@ import model.actions.objectactions.WalkUpToElectricalMachineryAction;
 import model.fancyframe.BioScannerFancyFrame;
 import model.fancyframe.FancyFrame;
 import model.fancyframe.UsingGameObjectFancyFrameDecorator;
+import model.items.general.Locatable;
+import model.objects.DetachableObject;
+import model.objects.DraggableObject;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -20,7 +23,7 @@ import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.items.chemicals.Chemicals;
 
-public class BioScanner extends ElectricalMachinery {
+public class BioScanner extends DetachableElectricalMachinery implements Locatable {
 
     public static final int CAN_BE_USED_EARLIEST_TURN = 10;
     private Chemicals loadedChem;
@@ -31,7 +34,7 @@ public class BioScanner extends ElectricalMachinery {
     }
 
     @Override
-    public Sprite getSprite(Player whosAsking) {
+    public Sprite getNormalSprite(Player whosAsking) {
         return new Sprite("bioscanner", "cryogenic.png", 104, this);
     }
 
@@ -41,6 +44,18 @@ public class BioScanner extends ElectricalMachinery {
             return super.getName() + " (off)";
         }
         return super.getName();
+    }
+
+
+    @Override
+    public String getDetachingDescription() {
+        return "The " + getName() + " came loose from the floor!";
+    }
+
+
+    @Override
+    public int getDetachTimeRounds() {
+        return 0;
     }
 
     @Override
@@ -109,4 +124,5 @@ public class BioScanner extends ElectricalMachinery {
     public boolean isLoaded() {
         return loadedChem != null;
     }
+
 }

@@ -76,10 +76,7 @@ public class PiratesGameMode extends TraitorGameMode {
 
     @Override
     protected void setUpOtherStuff(GameData gameData) {
-        //wizard.getCharacter().giveItem(new MissionDetails(this), null);
-        //assignTraitorObjectivesAndGivePDAs(gameData); // TODO, modify this so specific traitor objectives are given
-        getObjectives().put(pirateCaptain, new PirateCaptainTraitorObjective(gameData));
-        //wizard.getItems().removeIf((GameItem it) -> it instanceof PDA);
+        getObjectives().put(pirateCaptain, PirateCaptainTraitorObjective.makeRandomObjective(gameData));
         pirateCaptain.setCharacter(new PirateCommanderDecorator(pirateCaptain.getCharacter()));
         getEvents().get("pirate attack").setProbability(0.0);
         dockPirateShip(gameData);

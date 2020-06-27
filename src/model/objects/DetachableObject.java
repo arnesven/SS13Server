@@ -10,5 +10,5 @@ public interface DetachableObject {
 
     String getDetachingDescription();
 
-    int getDetatchTimeRounds();
+    int getDetachTimeRounds();
 }

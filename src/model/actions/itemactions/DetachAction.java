@@ -10,7 +10,6 @@ import model.actions.general.TargetingAction;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.events.Event;
-import model.items.NoSuchThingException;
 import model.items.general.GameItem;
 import model.npcs.CommandableNPC;
 import model.npcs.NPC;
@@ -60,7 +59,7 @@ public class DetachAction extends TargetingAction {
 
         @Override
         public void apply(GameData gameData) {
-            if (gameData.getRound() == roundSet + target.getDetatchTimeRounds()) {
+            if (gameData.getRound() == roundSet + target.getDetachTimeRounds()) {
                 performer.addTolastTurnInfo("You finished detaching the " + target.getName() + ". " +
                         target.getDetachingDescription());
                 target.detachYourself(gameData, performer);
@@ -87,7 +86,7 @@ public class DetachAction extends TargetingAction {
 
         @Override
         public boolean shouldBeRemoved(GameData gameData) {
-            return gameData.getRound() == roundSet + target.getDetatchTimeRounds();
+            return gameData.getRound() == roundSet + target.getDetachTimeRounds();
         }
     }
 

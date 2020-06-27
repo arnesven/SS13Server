@@ -215,7 +215,7 @@ public class MonolithExperimentRig extends BreakableObject implements PowerConsu
     }
 
     @Override
-    public int getDetatchTimeRounds() {
+    public int getDetachTimeRounds() {
         return 1;
     }
 
