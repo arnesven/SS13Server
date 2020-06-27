@@ -565,18 +565,18 @@ public abstract class Actor  implements ItemHolder, SpriteObject, Serializable {
                     list.add(give);
                 }
 
-                ArrayList<Action> tmpList = new ArrayList<>();
-                forWhom.getCharacter().addCharacterSpecificActions(gameData, tmpList);
-                for (Action a : tmpList) {
-                    if (a.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
-                        if (a.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
-                            if (a instanceof TargetingAction) {
-                                ((TargetingAction) a).stripAllTargetsBut(this.getAsTarget());
-                            }
-                            list.add(a);
-                        }
-                    }
-                }
+//                ArrayList<Action> tmpList = new ArrayList<>();
+//                forWhom.getCharacter().addCharacterSpecificActions(gameData, tmpList); // TODO: This is a REAL problem when there are many actors in the room!
+//                for (Action a : tmpList) {
+//                    if (a.getOptions(gameData, forWhom).numberOfSuboptions() > 0) {
+//                        if (a.isAmongOptions(gameData, forWhom, this.getPublicName(forWhom))) {
+//                            if (a instanceof TargetingAction) {
+//                                ((TargetingAction) a).stripAllTargetsBut(this.getAsTarget());
+//                            }
+//                            list.add(a);
+//                        }
+//                    }
+//                }
 
                 if (this == forWhom) {
                 //    DropAction drop = new OverlayDropAction(forWhom);

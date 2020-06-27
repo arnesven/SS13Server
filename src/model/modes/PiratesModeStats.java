@@ -14,8 +14,10 @@ public class PiratesModeStats extends TraitorModeStats {
 
     @Override
     protected String getModeSpecificStatus(Actor value) {
-        if (getTraitorMode().getTraitors().contains(value)) {
+        if (piratesGameMode.getPirateCaptain() == value) {
             return "<span style='background-color: orange; color: white'>Pirate</span>";
+        } else if (getTraitorMode().getTraitors().contains(value)) {
+            return "<span style='background-color: #FF2222'>Traitor</span>";
         }
         return "";
     }
@@ -23,8 +25,10 @@ public class PiratesModeStats extends TraitorModeStats {
     @Override
     protected String getExtraDeadInfo(Actor value) {
         String traitor = "";
-        if (getTraitorMode().getTraitors().contains(value)) {
+        if (piratesGameMode.getPirateCaptain() == value) {
             traitor = " (Pirate)";
+        } else if (getTraitorMode().getTraitors().contains(value)) {
+            traitor = " (Traitor)";
         }
         return traitor;
     }
@@ -39,6 +43,6 @@ public class PiratesModeStats extends TraitorModeStats {
 
     @Override
     protected String getTraitorTeamName() {
-        return "Pirate";
+        return "Pirate Team";
     }
 }

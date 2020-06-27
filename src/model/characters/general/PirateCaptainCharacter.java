@@ -30,20 +30,12 @@ public class PirateCaptainCharacter extends PirateCharacter implements MartialAr
         return list;
     }
 
+
     @Override
-    public String getFullName() {
+    public String getBaseName() {
         return "Pirate Captain";
     }
 
-    @Override
-    public String getPublicName() {
-        return "Pirate Captain";
-    }
-
-    @Override
-    public String getPublicName(Actor whosAsking) {
-        return "Pirate Captain";
-    }
 
     @Override
     public RelativePositions getPreferredRelativePosition() {

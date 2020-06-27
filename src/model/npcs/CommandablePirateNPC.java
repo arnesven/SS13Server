@@ -12,6 +12,7 @@ import model.fancyframe.SinglePageFancyFrame;
 import model.items.foods.SpaceRum;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
+import model.items.general.MedKit;
 import model.items.suits.RolledDownCoverall;
 import model.items.tools.Blowtorch;
 import model.items.weapons.LaserSword;
@@ -91,12 +92,16 @@ public class CommandablePirateNPC extends PirateNPC implements CommandableNPC {
                 }
             }
         }
-        if (pbs.getSkills().contains("Mechanic")) {
-           for (GameItem it : npc.getItems()) {
+        for (GameItem it : npc.getItems()) {
+            if (pbs.getSkills().contains("Mechanic")) {
                if (it instanceof Blowtorch || it instanceof LaserSword) {
                    it.addYourActions(gameData, acts, npc);
                }
-           }
+           } else if (pbs.getSkills().contains("Medic")) {
+                if (it instanceof MedKit) {
+                    it.addYourActions(gameData, acts, npc);
+                }
+            }
         }
 
         return acts;
