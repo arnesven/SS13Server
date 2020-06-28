@@ -25,9 +25,9 @@ public abstract class PirateCaptainTraitorObjective implements TraitorObjective 
 
 
     public static PirateCaptainTraitorObjective makeRandomObjective(GameData gameData) {
-        if (MyRandom.nextDouble() < 0.5) {
+        if (MyRandom.nextDouble() < 0.1) {
             return new MonolithObjective(gameData);
-        } else if (MyRandom.nextDouble() < 0.75) {
+        } else if (MyRandom.nextDouble() < 0.95) {
             return new RefrigeratorObjective(gameData);
         }
         return new BioscannerObjective(gameData);
@@ -46,8 +46,12 @@ public abstract class PirateCaptainTraitorObjective implements TraitorObjective 
     @Override
     public String getText() {
         return "Detach the " + thingToDetach() + " in the " + getLocatable().getPosition().getName() +
-                ", then bring it back to your pirate stronghold (New Algiers). " +
+                ", then bring " + thingToBringBack() + " back to your pirate stronghold (New Algiers). " +
                 DETACH_INFO;
+    }
+
+    protected String thingToBringBack() {
+        return "it";
     }
 
     protected abstract String thingToDetach();

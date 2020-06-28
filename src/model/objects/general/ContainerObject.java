@@ -13,23 +13,21 @@ import model.actions.objectactions.RetrieveAction;
 import model.items.general.GameItem;
 import model.map.rooms.Room;
 
-public class ContainerObject extends GameObject implements ItemHolder {
+public class ContainerObject extends BreakableObject implements ItemHolder {
 
 private List<GameItem> inventory = new ArrayList<>();
 	
 	public ContainerObject(String name, Room position) {
-		super(name, position);
+		super(name, 2.0, position);
 	}
 	
 	public List<GameItem> getInventory() {
 		return inventory;
 	}
-	
-	
+
+
 	@Override
-	public void addSpecificActionsFor(GameData gameData, Actor cl,
-                                      ArrayList<Action> at) {
-		super.addSpecificActionsFor(gameData, cl, at);
+	protected void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 		if (inventory.size() > 0 && cl.hasInventory()) {
 			at.add(new RetrieveAction(this, cl));
 		}
@@ -39,7 +37,7 @@ private List<GameItem> inventory = new ArrayList<>();
 	}
 
 
-    public boolean accessibleTo(Actor ap) {
+	public boolean accessibleTo(Actor ap) {
         return true;
     }
 

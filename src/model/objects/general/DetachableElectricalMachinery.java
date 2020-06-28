@@ -38,6 +38,11 @@ public abstract class DetachableElectricalMachinery extends ElectricalMachinery 
     }
 
     @Override
+    public int getDetachTimeRounds() {
+        return 1;
+    }
+
+    @Override
     public boolean canBeDragged() {
         return isDetached;
     }
@@ -59,4 +64,10 @@ public abstract class DetachableElectricalMachinery extends ElectricalMachinery 
             at.add(drag);
         }
     }
+
+    @Override
+    public String getDetachingDescription() {
+        return "The " + getName() + " came loose from the floor!";
+    }
+
 }

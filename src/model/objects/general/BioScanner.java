@@ -48,17 +48,6 @@ public class BioScanner extends DetachableElectricalMachinery implements Locatab
 
 
     @Override
-    public String getDetachingDescription() {
-        return "The " + getName() + " came loose from the floor!";
-    }
-
-
-    @Override
-    public int getDetachTimeRounds() {
-        return 0;
-    }
-
-    @Override
     public void addActions(GameData gameData, Actor cl, ArrayList<Action> at) {
 
         if (cl instanceof Player) {

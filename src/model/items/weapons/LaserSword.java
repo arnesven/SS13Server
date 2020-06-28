@@ -59,6 +59,9 @@ public class LaserSword extends SlashingWeapon implements TraitorItem {
     @Override
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
-        at.add(new DetachAction(cl));
+        Action a = new DetachAction(cl);
+        if (a.getOptions(gameData, cl).numberOfSuboptions() > 0) {
+            at.add(a);
+        }
     }
 }
