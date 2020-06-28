@@ -5,12 +5,13 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.items.general.GameItem;
+import model.modes.TraitorGameMode;
 import model.modes.WizardGameMode;
 
 public class MissionDetails extends GameItem {
-    private final WizardGameMode wizGameMode;
+    private final TraitorGameMode wizGameMode;
 
-    public MissionDetails(WizardGameMode wizardGameMode) {
+    public MissionDetails(TraitorGameMode wizardGameMode) {
         super("Mission Details", 0.001, false, 0);
         this.wizGameMode = wizardGameMode;
     }
@@ -27,6 +28,6 @@ public class MissionDetails extends GameItem {
 
     @Override
     public String getDescription(GameData gameData, Player performingClient) {
-        return "Your objective is: " + wizGameMode.getObjectives().get(wizGameMode.getWizard()).getText();
+        return "Your objective is: " + wizGameMode.getObjectives().get(performingClient).getText();
     }
 }

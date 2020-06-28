@@ -22,7 +22,12 @@ public class PirateCaptainCharacter extends PirateCharacter implements MartialAr
         this(startRoom, true);
     }
 
-        @Override
+    public static String getAntagonistDescription() {
+        return "The Arch Rival of SS13's captain. This infamous pirate lord/bodybuilder/porn star has gather a throng" +
+                " of vicious, ruthless marauders on a remote station called New Algiers.";
+    }
+
+    @Override
     public List<GameItem> getStartingItems() {
         List<GameItem> list = super.getStartingItems();
         list.add(new PirateNuclearDisc());

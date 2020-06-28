@@ -11,7 +11,9 @@ import model.characters.general.GameCharacter;
 import model.characters.general.PirateCaptainCharacter;
 import model.fancyframe.SinglePageFancyFrame;
 import model.items.MedPatch;
+import model.items.MissionDetails;
 import model.items.NoSuchThingException;
+import model.items.foods.SpaceRum;
 import model.items.general.*;
 import model.items.suits.*;
 import model.items.tools.Blowtorch;
@@ -44,17 +46,11 @@ public class PiratesGameMode extends TraitorGameMode {
     @Override
     protected int getNoOfTraitors(GameData gameData) {
         return 1;
-    } // TODO: change to 2
+    }
 
     @Override
     protected void assignOtherRoles(ArrayList<GameCharacter> listOfCharacters, GameData gameData) {
         super.assignOtherRoles(listOfCharacters, gameData);
-
-        // TODO: Make New Algiers Station
-        //ShuttleRoom wizarddinghy = new WizardDinghyRoom(gameData);
-        //Integer[] randLevel = MyRandom.sample(gameData.getMap().getJumpableToLevels());
-        //String wizLevel = gameData.getMap().getLevelForCoordinates(randLevel, gameData);
-        //gameData.getMap().addRoom(wizarddinghy, wizLevel, "space");
 
         Room throneRoom = null;
         try {
@@ -77,12 +73,14 @@ public class PiratesGameMode extends TraitorGameMode {
     @Override
     protected void setUpOtherStuff(GameData gameData) {
         getObjectives().put(pirateCaptain, PirateCaptainTraitorObjective.makeRandomObjective(gameData));
+        pirateCaptain.getCharacter().giveItem(new MissionDetails(this), null);
         pirateCaptain.setCharacter(new PirateCommanderDecorator(pirateCaptain.getCharacter()));
         getEvents().get("pirate attack").setProbability(0.0);
         dockPirateShip(gameData);
 
         addNewAlgiersNPCs(gameData, pirateCaptain);
 
+        pirateCaptain.getItems().removeIf((GameItem it) -> it instanceof SpaceRum);
 
 
     }
@@ -147,10 +145,11 @@ public class PiratesGameMode extends TraitorGameMode {
 
     public void setAntagonistFancyFrame(Player c) {
         c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Secret Role!",
-                HTMLText.makeColoredBackground("orange", HTMLText.makeCentered("<br/><br/><b>" +
+                HTMLText.makeColoredBackground("orange", HTMLText.makeCentered("<b>" +
                         HTMLText.makeText("black", PIRATE_CAPTAIN_START_STRING) + "</b><br/>" + //
-                        HTMLText.makeText("black", "Your decoy is: " + decoy.getPublicName(c) + "<br/>") +
-                        getObjectiveText(c) + "<br/>" + "<i>You can see your objective again by using your Mission Details.</i>"))));
+                        HTMLText.makeText("black", "Assemble your team by commanding them.") + "</b>" + //
+                        HTMLText.makeText("black", " Your decoy on SS13 is: " + decoy.getPublicName(c) + "<br/><br/>") +
+                        getObjectiveText(c) + "<br/>" + "<br/><i>You can see your objective again by using your Mission Details.</i>"))));
     }
 
     @Override

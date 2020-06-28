@@ -99,8 +99,15 @@ public class Refrigerator extends DispenserObject implements Locatable, Draggabl
             descr = "The refrigerator came lose from the floor!";
         } else {
             descr = "The refrigerator broke! All its content spilled out on the floor.";
-            dropAllItemsOnFloor();
+            this.setHealth(0.0);
+            thisJustBroke(gameData);
         }
+    }
+
+    @Override
+    public void thisJustBroke(GameData gameData) {
+        super.thisJustBroke(gameData);
+        dropAllItemsOnFloor();
     }
 
     private void dropAllItemsOnFloor() {

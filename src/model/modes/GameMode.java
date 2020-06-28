@@ -47,7 +47,9 @@ import util.Pair;
 public abstract class GameMode implements Serializable {
 
 
-	private static String[] knownModes = { "Traitor", "Host", "Operatives", "Changeling", "Rogue AI", "Armageddon", "Mutiny", "Wizard", "Hunt", "Pirates", "Mixed", "Secret", "Creative"};
+	private static String[] knownModes = { "Traitor", "Host",   "Operatives", "Changeling", "Rogue AI", "Armageddon",
+										   "Mutiny",  "Wizard", "Hunt",       "Pirates",    "Mixed",    "Secret",
+			                               "Creative" };
 	private Bank bank;
 	private Map<String,Event> events = new HashMap<>();
 	protected ArrayList<NPC> allParasites = new ArrayList<NPC>();
@@ -621,7 +623,7 @@ public abstract class GameMode implements Serializable {
 	}
 
 	public static List<String> availableAntagonists() {
-		return List.of("Traitor", "Host", "Operative", "Changeling", "Rogue AI", "Wizard", "Alien");
+		return List.of("Traitor", "Host", "Operative", "Changeling", "Rogue AI", "Wizard", "Alien", "Pirate Captain");
 	}
 
 
@@ -634,6 +636,7 @@ public abstract class GameMode implements Serializable {
 		map.put("Rogue AI", AICharacter.getAntagonistDescription());
 		map.put("Wizard", WizardCharacter.getAntagonistDescription());
 		map.put("Alien", AlienCharacter.getAntagonistDescription());
+		map.put("Pirate Captain", PirateCaptainCharacter.getAntagonistDescription());
 		return map.get(gc);
 	}
 

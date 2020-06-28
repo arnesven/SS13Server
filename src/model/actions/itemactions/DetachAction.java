@@ -60,9 +60,9 @@ public class DetachAction extends TargetingAction {
         @Override
         public void apply(GameData gameData) {
             if (gameData.getRound() == roundSet + target.getDetachTimeRounds()) {
+                target.detachYourself(gameData, performer);
                 performer.addTolastTurnInfo("You finished detaching the " + target.getName() + ". " +
                         target.getDetachingDescription());
-                target.detachYourself(gameData, performer);
                 for (Actor a : performer.getPosition().getActors()) {
                     if (a != performer) {
                         a.addTolastTurnInfo(performer.getPublicName(a) + " finished detaching " +

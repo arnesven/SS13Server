@@ -46,7 +46,11 @@ public class PhysicalBody implements SpriteObject, Serializable {
         this.hairColor = color;
         this.hairNum = hairNum;
         this.facialHairColor =  facialHairColor;
-        this.facialHairNum = facialHairNum;
+        if (!gender && MyRandom.nextDouble() < 0.1) {
+            this.facialHairNum = facialHairNum;
+        } else {
+            this.facialHairNum = 0;
+        }
         hasBodyParts = new HashMap<>();
         for (String part : BodyPart.getAllParts()) {
             hasBodyParts.put(part, true);
