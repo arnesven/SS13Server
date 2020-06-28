@@ -26,12 +26,14 @@ public abstract class PirateCaptainTraitorObjective implements TraitorObjective 
 
 
     public static PirateCaptainTraitorObjective makeRandomObjective(GameData gameData) {
-        if (MyRandom.nextDouble() < 0.002) {
+        if (MyRandom.nextDouble() < 0.2) {
             return new MonolithObjective(gameData);
-        } else if (MyRandom.nextDouble() < 0.004) {
+        } else if (MyRandom.nextDouble() < 0.4) {
             return new RefrigeratorObjective(gameData);
-        } else if (MyRandom.nextDouble() < 6) {
+        } else if (MyRandom.nextDouble() < 0.6) {
             return new CaptainsChairObjective(gameData);
+        } else if (MyRandom.nextDouble() < 0.8) {
+            return new PositronGeneratorObjective(gameData);
         }
         return new BioscannerObjective(gameData);
     }

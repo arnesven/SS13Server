@@ -4,13 +4,17 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.DragAction;
 import model.actions.general.Action;
 import model.actions.itemactions.BoostGeneratorAction;
 import model.events.SpontaneousExplosionEvent;
 import model.items.chemicals.GeneratorStartedFluid;
 import model.items.general.GameItem;
+import model.items.general.Locatable;
 import model.map.doors.Door;
 import model.map.rooms.Room;
+import model.objects.DetachableObject;
+import model.objects.DraggableObject;
 import model.objects.consoles.GeneratorConsole;
 import model.objects.general.PowerConsumer;
 import model.objects.general.BreakableObject;
@@ -26,7 +30,8 @@ import java.util.*;
 /**
  * Created by erini02 on 26/11/16.
  */
-public class PositronGenerator extends BreakableObject implements Repairable, PowerSupply {
+public class PositronGenerator extends BreakableObject
+        implements Repairable, PowerSupply, DetachableObject, DraggableObject, Locatable {
 
 
 
@@ -37,6 +42,7 @@ public class PositronGenerator extends BreakableObject implements Repairable, Po
 
     private double level;
     private double dlevel = 0.0;
+    private boolean isDetached;
 
     public double getStartingPower() {
         return startingPower;
@@ -46,6 +52,7 @@ public class PositronGenerator extends BreakableObject implements Repairable, Po
         super("Positron Generator", 5, r);
         this.startingPower = normal_output;
         level = startingPower;
+        isDetached = false;
 
     }
 
@@ -187,5 +194,33 @@ public class PositronGenerator extends BreakableObject implements Repairable, Po
     }
 
 
+    @Override
+    public void detachYourself(GameData gameData, Actor performer) {
+        isDetached = true;
+        setPreferredRelativePosition(null);
+    }
 
+    @Override
+    public String getDetachingDescription() {
+        return "The Positron Generator came loose from the floor!";
+    }
+
+    @Override
+    public int getDetachTimeRounds() {
+        return 1;
+    }
+
+    @Override
+    public boolean canBeDragged() {
+        return isDetached;
+    }
+
+    @Override
+    public void addSpecificActionsFor(GameData gameData, Actor cl, ArrayList<Action> at) {
+        super.addSpecificActionsFor(gameData, cl, at);
+        if (canBeDragged()) {
+            DragAction drag = new DragAction(cl);
+            at.add(drag);
+        }
+    }
 }
