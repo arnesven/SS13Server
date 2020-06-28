@@ -3,6 +3,7 @@ package model.modes.objectives;
 import model.GameData;
 import model.items.NoSuchThingException;
 import model.map.levels.NewAlgiersMapLevel;
+import util.Logger;
 import util.MyRandom;
 
 public abstract class PirateCaptainTraitorObjective implements TraitorObjective {
@@ -25,10 +26,12 @@ public abstract class PirateCaptainTraitorObjective implements TraitorObjective 
 
 
     public static PirateCaptainTraitorObjective makeRandomObjective(GameData gameData) {
-        if (MyRandom.nextDouble() < 0.1) {
+        if (MyRandom.nextDouble() < 0.002) {
             return new MonolithObjective(gameData);
-        } else if (MyRandom.nextDouble() < 0.95) {
+        } else if (MyRandom.nextDouble() < 0.004) {
             return new RefrigeratorObjective(gameData);
+        } else if (MyRandom.nextDouble() < 6) {
+            return new CaptainsChairObjective(gameData);
         }
         return new BioscannerObjective(gameData);
     }
@@ -36,6 +39,7 @@ public abstract class PirateCaptainTraitorObjective implements TraitorObjective 
     @Override
     public boolean isCompleted(GameData gameData) {
         try {
+            Logger.log("Captain's chair position: " + getLocatable().getPosition().getName());
             return gameData.getMap().getLevelForRoom(getLocatable().getPosition()).getName().equals(NewAlgiersMapLevel.LEVEL_NAME);
         } catch (NoSuchThingException e) {
             e.printStackTrace();

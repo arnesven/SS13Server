@@ -508,6 +508,11 @@ public abstract class Room implements ItemHolder, Serializable {
 		result.addAll(players);
         result.addAll(npcs);
         result.addAll(getBreakableObjects(gameData));
+        for (GameObject obj : getObjects()) {
+        	if (obj instanceof Target && !result.contains(obj)) {
+        		result.add((Target) obj);
+			}
+		}
 		return result;
 	}
 

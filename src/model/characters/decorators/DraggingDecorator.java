@@ -1,5 +1,6 @@
 package model.characters.decorators;
 
+import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -8,6 +9,7 @@ import model.actions.StopDraggingAction;
 import model.actions.general.Action;
 import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
+import model.map.rooms.RelativePositions;
 import model.objects.general.GameObject;
 
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class DraggingDecorator extends CharacterDecorator {
             } else if (draggedTarget instanceof GameObject) {
                 draggedTarget.getPosition().removeObject((GameObject)draggedTarget);
                 getActor().getPosition().addObject((GameObject)draggedTarget);
+                ((GameObject) draggedTarget).setPosition(getActor().getPosition());
             }
         } catch (NoSuchThingException e) {
             e.printStackTrace();
@@ -74,5 +77,13 @@ public class DraggingDecorator extends CharacterDecorator {
             }
         }
         return false;
+    }
+
+    @Override
+    public RelativePositions getPreferredRelativePosition() {
+        if (draggedTarget instanceof SpriteObject) {
+            return new RelativePositions.InProximityOf((SpriteObject) draggedTarget);
+        }
+        return super.getPreferredRelativePosition();
     }
 }
