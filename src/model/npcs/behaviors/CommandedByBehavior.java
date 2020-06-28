@@ -3,6 +3,7 @@ package model.npcs.behaviors;
 import model.Actor;
 import model.GameData;
 import model.Player;
+import model.actions.DragAction;
 import model.actions.LabelAction;
 import model.actions.MoveAction;
 import model.actions.characteractions.AttackUsingDefaultWeaponAction;
@@ -12,6 +13,7 @@ import model.actions.roomactions.AttackDoorAction;
 import model.actions.roomactions.OpenAndMoveThroughFireDoorAction;
 import model.npcs.CommandableNPC;
 import model.npcs.NPC;
+import model.objects.general.GameObject;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -97,6 +99,7 @@ public class CommandedByBehavior implements ActionBehavior {
 
         if (npc.isHuman()) {
             addFireDoorActions(gameData, npc, fresult);
+            addDragAction(gameData, npc, fresult);
         }
 
         ArrayList<Action> charActions = new ArrayList<>();
@@ -108,6 +111,19 @@ public class CommandedByBehavior implements ActionBehavior {
         fresult.add(0, new LabelAction("In " + npc.getPosition().getName()));
 
         return fresult;
+    }
+
+    private static void addDragAction(GameData gameData, NPC npc, List<Action> fresult) {
+        ArrayList<Action> acts = new ArrayList<>();
+        for (GameObject obj : npc.getPosition().getObjects()) {
+            obj.addSpecificActionsFor(gameData, npc, acts);
+        }
+
+        for (Action a : acts) {
+            if (a instanceof DragAction) {
+                fresult.add(a);
+            }
+        }
     }
 
     private static void addFireDoorActions(GameData gameData, NPC npc, List<Action> acts) {
