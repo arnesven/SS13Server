@@ -9,6 +9,7 @@ import model.characters.decorators.OnTopOfObjectDecorator;
 import model.characters.decorators.PirateCommanderDecorator;
 import model.characters.general.GameCharacter;
 import model.characters.general.PirateCaptainCharacter;
+import model.events.AICheckingForPiratesComingEvent;
 import model.fancyframe.SinglePageFancyFrame;
 import model.items.MedPatch;
 import model.items.MissionDetails;
@@ -76,12 +77,12 @@ public class PiratesGameMode extends TraitorGameMode {
         pirateCaptain.getCharacter().giveItem(new MissionDetails(this), null);
         pirateCaptain.setCharacter(new PirateCommanderDecorator(pirateCaptain.getCharacter()));
         getEvents().get("pirate attack").setProbability(0.0);
-        dockPirateShip(gameData);
+        PirateShipRoom psr = dockPirateShip(gameData);
 
         addNewAlgiersNPCs(gameData, pirateCaptain);
 
         pirateCaptain.getItems().removeIf((GameItem it) -> it instanceof SpaceRum);
-
+        gameData.addEvent(new AICheckingForPiratesComingEvent(psr));
 
     }
 
@@ -186,7 +187,7 @@ public class PiratesGameMode extends TraitorGameMode {
     }
 
 
-    private void dockPirateShip(GameData gameData) {
+    private PirateShipRoom dockPirateShip(GameData gameData) {
         PirateShipRoom pirateShip = new PirateShipRoom(gameData);
         pirateShip.getItems().clear();
         List<DockingPoint> dockingPoints = new ArrayList<>();
@@ -197,6 +198,7 @@ public class PiratesGameMode extends TraitorGameMode {
         }
         gameData.getMap().addRoom(pirateShip, "new algiers", "space");
         pirateShip.dockYourself(gameData, MyRandom.sample(dockingPoints));
+        return pirateShip;
     }
 
 }

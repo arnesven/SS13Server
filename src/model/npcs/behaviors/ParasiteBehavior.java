@@ -28,8 +28,7 @@ public class ParasiteBehavior implements ActionBehavior {
     private final AttackAllActorsButNotTheseClasses attackBehavior;
 
     public ParasiteBehavior() {
-        this.attackBehavior = new AttackAllActorsButNotTheseClasses(List.of(ParasiteCharacter.class, ChangelingCharacter.class,
-                AlienCharacter.class, AnimalCharacter.class));
+        this.attackBehavior = new ParasiteAttackBehavior();
     }
 
     @Override

@@ -6,12 +6,17 @@ import model.Target;
 import model.actions.general.Action;
 import model.actions.general.AttackAction;
 import model.items.general.GameItem;
+import model.items.weapons.Weapon;
 import model.npcs.NPC;
 
 public class AttackUsingDefaultWeaponAction extends AttackAction {
     public AttackUsingDefaultWeaponAction(NPC npc) {
         super(npc);
-        addWithWhat(npc.getCharacter().getDefaultWeapon());
+        Weapon w = getWeapon(npc);
+        addWithWhat(w);
+        if (w != npc.getCharacter().getDefaultWeapon()) {
+            addWithWhat(npc.getCharacter().getDefaultWeapon());
+        }
     }
 
     @Override
@@ -20,4 +25,16 @@ public class AttackUsingDefaultWeaponAction extends AttackAction {
         super.applyTargetingAction(gameData, performingClient, target, item);
         performingClient.getItems().remove(performingClient.getCharacter().getDefaultWeapon());
     }
+
+    private Weapon getWeapon(Actor npc) {
+        for (GameItem it : npc.getItems()) {
+            if (it instanceof Weapon) {
+                if (((Weapon)it).isReadyToUse()) {
+                    return (Weapon)it;
+                }
+            }
+        }
+        return npc.getCharacter().getDefaultWeapon();
+    }
+
 }

@@ -94,7 +94,7 @@ public class Refrigerator extends DispenserObject implements Locatable, Draggabl
 
     @Override
     public void detachYourself(GameData gameData, Actor performer) {
-        if (MyRandom.nextDouble() < 0.01) { // TODO change to 0.5
+        if (MyRandom.nextDouble() < 0.5) {
             isDetached = true;
             descr = "The refrigerator came lose from the floor!";
         } else {

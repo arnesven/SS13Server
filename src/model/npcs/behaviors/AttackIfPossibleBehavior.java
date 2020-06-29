@@ -65,7 +65,6 @@ public abstract class AttackIfPossibleBehavior implements ActionBehavior {
 				}
 			}
 		}
-
 		return npc.getCharacter().getDefaultWeapon();
 	}
 

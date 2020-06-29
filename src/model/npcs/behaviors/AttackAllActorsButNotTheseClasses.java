@@ -32,16 +32,25 @@ public class AttackAllActorsButNotTheseClasses extends AttackIfPossibleBehavior 
         for (Target t : atk.getTargets()) {
             if (t instanceof Actor) {
                 Actor targetAsActor = (Actor)t;
-                for (Class<? extends GameCharacter> cls : classes) {
-                    if (targetAsActor.getCharacter().checkInstance((GameCharacter gc) -> cls.isAssignableFrom(gc.getClass()))) {
-                        Logger.log(npc.getBaseName() + " is avoiding to attack " + targetAsActor.getBaseName());
-                        targets.remove(t);
-                    }
+                if (shouldAvoidTarget(targetAsActor)) {
+                    targets.remove(t);
                 }
+
+
+
             } else {
                 targets.remove(t);
             }
         }
         return targets;
+    }
+
+    protected boolean shouldAvoidTarget(Actor targetAsActor) {
+        for (Class<? extends GameCharacter> cls : classes) {
+            if (targetAsActor.getCharacter().checkInstance((GameCharacter gc) -> cls.isAssignableFrom(gc.getClass()))) {
+                return true;
+            }
+        }
+        return false;
     }
 }
