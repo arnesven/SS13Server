@@ -279,6 +279,11 @@ public abstract class Action extends Experienceable implements Serializable {
 	    maybePerformQuickAction(performer);
     }
 
+    public void setActionTreeArgumentsNoQuick(List<String> args, Actor performer) {
+        saveArgs(args);
+        setArguments(args, performer);
+    }
+
     public boolean isAmongOptions(GameData gameData, Actor whosAsking, String publicName) {
         for (ActionOption opts : getOptions(gameData, whosAsking).getSuboptions()) {
             if (opts.getName().contains(publicName)) {

@@ -274,7 +274,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
         DropAction da = new DropAction(player);
         List<String> args = new ArrayList<>();
         args.add(it.getFullName(player));
-        da.setActionTreeArguments(args, player);
+        da.setActionTreeArgumentsNoQuick(args, player);
         return da;
     }
 
@@ -288,7 +288,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
         RecycleAction ra = new RecycleAction(bin);
         List<String> args = new ArrayList<>();
         args.add(gi.getFullName(player));
-        ra.setActionTreeArguments(args, player);
+        ra.setActionTreeArgumentsNoQuick(args, player);
         return ra;
     }
 
@@ -297,7 +297,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
         PickUpAction pua = new PickUpAction(player);
         List<String> args = new ArrayList<>();
         args.add(it.getPublicName(player));
-        pua.setActionTreeArguments(args, player);
+        pua.setActionTreeArgumentsNoQuick(args, player);
         return pua;
     }
 
@@ -305,7 +305,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
         StoreItemAction sia = new StoreItemAction(container, player);
         List<String> args = new ArrayList<>();
         args.add(gi.getFullName(player));
-        sia.setActionTreeArguments(args, player);
+        sia.setActionTreeArgumentsNoQuick(args, player);
         return sia;
     }
 
@@ -313,7 +313,7 @@ public abstract class ManageItemsFancyFrame extends FancyFrame {
         RetrieveAction ra = new RetrieveAction(container, player);
         List<String> args = new ArrayList<>();
         args.add(gi.getPublicName(player));
-        ra.setActionTreeArguments(args, player);
+        ra.setActionTreeArgumentsNoQuick(args, player);
         return ra;
 
     }
