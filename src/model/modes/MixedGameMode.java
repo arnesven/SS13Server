@@ -5,10 +5,12 @@ import model.GameData;
 import model.Player;
 import model.characters.decorators.HostCharacter;
 import model.characters.general.GameCharacter;
+import model.modes.objectives.TraitorObjective;
 import util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MixedGameMode extends OperativesGameMode {
 
@@ -96,8 +98,11 @@ public class MixedGameMode extends OperativesGameMode {
                 return;
             }
         }
-
         super.addAntagonistStartingMessage(c);
+    }
+
+    public void setAntagonistFancyFrame(Player c) {
+        addAntagonistStartingMessage(c);
     }
 
     protected GameOver getGameResult(GameData gameData) {
@@ -142,5 +147,13 @@ public class MixedGameMode extends OperativesGameMode {
     @Override
     public String getModeDescription() {
         return "A mixture between several other game modes. Needless to say, it won't be a great day for the crew...";
+    }
+
+    public List<Player> getTraitors() {
+        return traitors.getTraitors();
+    }
+
+    public Map<Player, TraitorObjective> getTraitorObjectives() {
+        return traitors.getObjectives();
     }
 }

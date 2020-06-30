@@ -8,12 +8,15 @@ import model.items.TraitorItem;
 import model.items.general.GameItem;
 import model.items.general.PDA;
 import model.modes.GameMode;
+import model.modes.MixedGameMode;
 import model.modes.TraitorGameMode;
+import model.modes.objectives.TraitorObjective;
 import util.HTMLText;
 
 import javax.swing.text.html.HTML;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class PDAOrderFancyFrame extends FancyFrame {
     private final PDA pda;
@@ -51,21 +54,28 @@ public class PDAOrderFancyFrame extends FancyFrame {
                 content.append("<br/>" + "<i>" + HTMLText.makeText("Yellow", "serif", 2, it.getDescription(gameData, p)) + "</i><br/>");
             }
         } else if (otherInfo) {
+            List<Player> traitors = null;
+            Map<Player, TraitorObjective> objectives = null;
             if (gameData.getGameMode() instanceof TraitorGameMode) {
                 TraitorGameMode traitorMode = (TraitorGameMode) gameData.getGameMode();
-
-                if (traitorMode.getTraitors().size() > 1) {
+                traitors = traitorMode.getTraitors();
+                objectives = traitorMode.getObjectives();
+            } else if (gameData.getGameMode() instanceof MixedGameMode) {
+                traitors = ((MixedGameMode) gameData.getGameMode()).getTraitors();
+                objectives = ((MixedGameMode) gameData.getGameMode()).getTraitorObjectives();
+            }
+                if (traitors != null && objectives != null && traitors.size() > 1) {
                     String others = "The hidden traitors are;<br/>";
-                    for (Player p2 : traitorMode.getTraitors()) {
+                    for (Player p2 : traitors) {
                         if (p != p2) {
-                            others += p2.getBaseName() + " (obj; \"" + traitorMode.getObjectives().get(p2).getText() + "\")" +  "<br/>";
+                            others += p2.getBaseName() + " (obj; \"" + objectives.get(p2).getText() + "\")" +  "<br/>";
                         }
                     }
                     content.append(others);
                 } else {
                     content.append("You are the only traitor.");
                 }
-            }
+
         } else {
             content.append(HTMLText.makeFancyFrameLink("OBJECTIVE", "# Show Objective") + "<br/>");
             content.append(HTMLText.makeFancyFrameLink("GOORDER", "# Order Items") + "<br/>");
@@ -96,6 +106,8 @@ public class PDAOrderFancyFrame extends FancyFrame {
             if (gameData.getGameMode() instanceof TraitorGameMode) {
                 TraitorGameMode traitorMode = (TraitorGameMode)gameData.getGameMode();
                 traitorMode.setAntagonistFancyFrame(player);
+            } else if (gameData.getGameMode() instanceof MixedGameMode) {
+                ((MixedGameMode) gameData.getGameMode()).setAntagonistFancyFrame(player);
             }
         } else if (event.contains("OINFO")) {
             otherInfo = true;
