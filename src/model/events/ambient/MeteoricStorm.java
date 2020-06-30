@@ -37,7 +37,7 @@ public class MeteoricStorm extends AmbientEvent {
 
     @Override
     protected double getStaticProbability() {
-        return AmbientEvent.everyNGames(4);
+        return AmbientEvent.everyNGames(6);
     }
 
     @Override

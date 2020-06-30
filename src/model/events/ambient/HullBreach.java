@@ -27,7 +27,7 @@ import java.util.List;
 
 public class HullBreach extends OngoingEvent implements PressureManipulator {
 
-    private static final double occurenceChance = 0.075;
+    private static final double occurenceChance = 0.065;
     private static final double PRESSURE_LOST_PER_TURN = 0.35;
 
     public double getStaticProbability() {

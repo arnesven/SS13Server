@@ -27,7 +27,7 @@ import java.util.List;
  * Created by erini02 on 26/04/16.
  */
 public class PirateAttackEvent extends AmbientEvent {
-    private static final double occurranceChance = AmbientEvent.everyNGames(5);
+    private static final double occurranceChance = AmbientEvent.everyNGames(7);
     private static final double CHANCE_OF_PIRATE_CAPTAIN = 0.5;
     private boolean hasHappened = false;
     private int pirateNum = 1;

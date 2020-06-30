@@ -12,7 +12,7 @@ import util.MyRandom;
  */
 public class CorruptAIEvent extends AmbientEvent {
     private boolean hasHappened = false;
-    private static double occurranceChance = AmbientEvent.everyNGames(5);
+    private static double occurranceChance = AmbientEvent.everyNGames(8);
 
     @Override
     public void apply(GameData gameData) {
