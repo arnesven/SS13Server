@@ -43,7 +43,9 @@ public class PressureSimulation extends Event {
             }
         }
 
+        printTable(gameData);
         runManipulators(gameData);
+        printTable(gameData);
         adjustForNearbyRooms(gameData);
         printTable(gameData);
         affectActors(gameData);
@@ -54,10 +56,9 @@ public class PressureSimulation extends Event {
     protected void runManipulators(GameData gameData) {
         for (Room r : getAffectedRooms(gameData)) {
 
-
             double currentPressure = roomPressures.get(r);
 
-            for (PressureManipulator ps : getPressureSinksFor(r)) {
+            for (PressureManipulator ps : getPressureSinksFor(gameData, r)) {
                 currentPressure = ps.handlePressure(r, currentPressure);
             }
 
@@ -91,7 +92,7 @@ public class PressureSimulation extends Event {
     }
 
 
-    protected Collection<PressureManipulator> getPressureSinksFor(Room r) {
+    protected Collection<PressureManipulator> getPressureSinksFor(GameData gameData, Room r) {
         List<PressureManipulator> result = new ArrayList<>();
         if (r.hasHullBreach()) {
             result.add(HullBreach.findHullBreachIn(r));
@@ -102,7 +103,7 @@ public class PressureSimulation extends Event {
         }
 
         for (Room neigh : r.getNeighborList()) {
-            if (neigh instanceof PressureManipulator) {
+            if (neigh instanceof PressureManipulator && r.sucksPressureFromNeighbors(gameData)) {
                 result.add((PressureManipulator) neigh);
             }
         }

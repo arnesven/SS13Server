@@ -12,6 +12,7 @@ import model.map.floors.FloorSet;
 import model.map.floors.NukieFloorSet;
 import model.objects.general.GameObject;
 import model.objects.general.NuclearBomb;
+import model.objects.power.LifeSupport;
 import sounds.Sound;
 import util.MyRandom;
 
@@ -25,6 +26,11 @@ public class NukieShipRoom extends Room {
 	@Override
     public FloorSet getFloorSet() {
 		return new NukieFloorSet();
+	}
+
+	@Override
+	protected String getPaintingStyle() {
+		return "WallsNoWindows";
 	}
 
 	@Override
@@ -69,5 +75,10 @@ public class NukieShipRoom extends Room {
 	@Override
 	public boolean startsWithPressure() {
 		return false;
+	}
+
+	@Override
+	public LifeSupport getLifeSupport() {
+		return null;
 	}
 }

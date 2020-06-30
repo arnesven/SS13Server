@@ -80,4 +80,9 @@ public class Asteroid extends PlanetRoom {
 
         return destination;
     }
+
+    @Override
+    public boolean startsWithPressure() {
+        return false;
+    }
 }
