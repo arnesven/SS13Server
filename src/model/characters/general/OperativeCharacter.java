@@ -24,6 +24,7 @@ import model.map.rooms.Room;
 import model.objects.general.AirlockPanel;
 import model.objects.general.GameObject;
 import model.objects.general.NuclearBomb;
+import util.Logger;
 
 public class OperativeCharacter extends HumanCharacter implements MartialArtist {
 
@@ -127,20 +128,30 @@ public class OperativeCharacter extends HumanCharacter implements MartialArtist 
 	@Override
 	public void doAfterMovement(GameData gameData) {
 		super.doAfterMovement(gameData);
-		if (!isDead() && getPosition() instanceof NukieShipRoom && !getActor().getCharacter().checkInstance((GameCharacter gc) -> gc instanceof SpaceProtection)) {
-			try {
-				Room r = gameData.getRoom("Deep Space");
-				getActor().moveIntoRoom(r);
-				getActor().addTolastTurnInfo("You jumped out into space without a space suit!");
-			} catch (NoSuchThingException e) {
-				e.printStackTrace();
-			}
-		} else if (getPosition() instanceof NukieShipRoom && isBombRoom(getPosition())) {
+		doNukieCheck(gameData);
+	}
+
+	@Override
+	public void doAfterActions(GameData gameData) {
+		super.doAfterActions(gameData);
+		doNukieCheck(gameData);
+	}
+
+	@Override
+	public void doAtEndOfTurn(GameData gameData) {
+		super.doAtEndOfTurn(gameData);
+		doNukieCheck(gameData);
+	}
+
+	private void doNukieCheck(GameData gameData) {
+		Logger.log("Nuclear operative check: " + getPublicName());
+		if (getPosition() instanceof NukieShipRoom && isBombRoom(getPosition())) {
+			Logger.log("... on nukie ship...");
 			if (NukieShipRoom.hasTheDisk(getActor()) != null) {
+				Logger.log("... .... with disk! activating nuke!...");
 				((NukieShipRoom)(getPosition())).activateNuke(gameData, (Player)getActor());
 			}
 		}
-
 	}
 
 	private boolean isBombRoom(Room position) {

@@ -1,18 +1,13 @@
 package graphics.sprites;
 
-import graphics.ClientInfo;
 import graphics.OverlaySprite;
-import model.Actor;
 import model.GameData;
 import model.Player;
 import model.actions.general.Action;
-import model.actions.general.SensoryLevel;
-import model.items.NoSuchThingException;
 import model.map.SpacePosition;
 import model.map.rooms.Room;
 import model.misc.EVAStrategy;
 import model.objects.general.GameObject;
-import util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,36 +92,4 @@ public class SpaceVision extends NormalVision {
         }
     }
 
-    private static class MoveToSpaceTargetAction extends Action {
-
-
-        private final double x;
-        private final double y;
-        private final double z;
-
-        public MoveToSpaceTargetAction(double x, double y, double z) {
-            super("Move to (x=" + x + " y=" + y + " z=" + z + ")", SensoryLevel.NO_SENSE);
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-
-        @Override
-        protected String getVerb(Actor whosAsking) {
-            return "moved";
-        }
-
-        @Override
-        protected void execute(GameData gameData, Actor performingClient) {
-            performingClient.getCharacter().getSpacePosition().setX(x);
-            performingClient.getCharacter().getSpacePosition().setY(y);
-            performingClient.getCharacter().getSpacePosition().setZ(z);
-            performingClient.addTolastTurnInfo("You moved through space. (to " + x + " " + y + " " + z + ")");
-        }
-
-        @Override
-        protected void setArguments(List<String> args, Actor performingClient) {
-
-        }
-    }
 }

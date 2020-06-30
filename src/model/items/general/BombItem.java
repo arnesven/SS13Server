@@ -156,7 +156,9 @@ public class BombItem extends HidableItem implements ExplodableItem, TraitorItem
 			}
 		}
 
-		for (Object o : bombRoom.getObjects()) {
+		List<GameObject> objs = new ArrayList<>();
+        objs.addAll(bombRoom.getObjects());
+		for (Object o : objs) {
 			if (o instanceof Target) {
 				((Target)o).beExposedTo(performingClient, 
 						new ExplosiveDamage(getExplosiveDamage(), this), gameData);

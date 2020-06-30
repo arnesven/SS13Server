@@ -8,6 +8,7 @@ import model.characters.general.GameCharacter;
 import model.items.NoSuchThingException;
 import model.map.SpacePosition;
 import model.map.rooms.Room;
+import util.Logger;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -39,6 +40,7 @@ public class InSpaceCharacterDecorator extends CharacterDecorator {
     public void doAfterMovement(GameData gameData) {
         super.doAfterMovement(gameData);
         Room r = findBestApproxRoom(gameData);
+        Logger.log("Best approx room for " + getPublicName() + ": " + r.getName());
         getActor().moveIntoRoom(r);
     }
 

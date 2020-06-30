@@ -27,6 +27,7 @@ public class OperativeSpaceSuit extends JetPackSpaceSuit {
 
     @Override
 	public void beingPutOn(Actor actionPerformer) {
+	    super.beingPutOn(actionPerformer);
 		actionPerformer.setCharacter(new OperativeSpaceProtection(actionPerformer.getCharacter()));
 	}
 }

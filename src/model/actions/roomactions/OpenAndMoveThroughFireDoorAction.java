@@ -24,19 +24,7 @@ public class OpenAndMoveThroughFireDoorAction extends OpenFireDoorAction {
     @Override
     protected void execute(GameData gameData, Actor performingClient) {
         super.execute(gameData, performingClient);
-        try {
-            int destinationRoom = fireDoor.getToId();
-            Room to = gameData.getRoomForId(fireDoor.getToId());
-            if (to == performingClient.getPosition()) {
-                destinationRoom = fireDoor.getFromId();
-            }
-            MoveAction ma = new MoveAction(gameData, performingClient);
-            List<String> args = new ArrayList<>();
-            args.add(gameData.getRoomForId(destinationRoom).getName());
-            ma.setArguments(args, performingClient);
-            ma.doTheAction(gameData, performingClient);
-        } catch (NoSuchThingException e) {
-            e.printStackTrace();
-        }
+        MoveAction ma = fireDoor.makeMoveThroughDoorAction(gameData, performingClient);
+        ma.doTheAction(gameData, performingClient);
     }
 }

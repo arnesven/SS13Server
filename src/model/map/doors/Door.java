@@ -6,6 +6,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.Target;
+import model.actions.MoveAction;
 import model.actions.general.Action;
 import model.actions.general.ActionGroup;
 import model.characters.general.AICharacter;
@@ -221,4 +222,21 @@ public abstract class Door implements Serializable, SpriteObject {
         return new AnimatedSprite("openingfiredoorani", sps, 7, false);
     }
 
+    public MoveAction makeMoveThroughDoorAction(GameData gameData, Actor performingClient) {
+        try {
+            int destinationRoom = getToId();
+            Room to = gameData.getRoomForId(getToId());
+            if (to == performingClient.getPosition()) {
+                destinationRoom = getFromId();
+            }
+            MoveAction ma = new MoveAction(gameData, performingClient);
+            List<String> args = new ArrayList<>();
+            args.add(gameData.getRoomForId(destinationRoom).getName());
+            ma.setArguments(args, performingClient);
+            return ma;
+        } catch (NoSuchThingException nste) {
+            nste.printStackTrace();
+        }
+        return null;
+    }
 }
