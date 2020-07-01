@@ -110,4 +110,7 @@ public class RoomPressureEvent extends Event {
         }
     }
 
+    public PressureSimulation getPressureSimulation() {
+        return simulation;
+    }
 }

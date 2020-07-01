@@ -13,6 +13,7 @@ import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
 import model.events.Event;
 import model.events.NoPressureEvent;
+import model.events.RoomPressureEvent;
 import model.events.animation.AnimatedSprite;
 import model.events.damage.FireDamage;
 import model.items.NoSuchThingException;
@@ -88,151 +89,15 @@ public class ElectricalFire extends OngoingEvent {
 	protected void maintain(GameData gameData) {
         Logger.log("Maintaining fire in " + getRoom().getName());
         affectActors(gameData);
-
-        boolean anyAroundHasFire = false;
-		for (Room neighbor : getRoom().getNeighborList()) {
-			if (MyRandom.nextDouble() < getSpreadChance()) {
-				Logger.log(Logger.INTERESTING,
-                        "  Fire spread to " + neighbor.getName() + "!");
-				startNewEvent(neighbor);
-			}
-            if (neighbor.hasFire()) {
-                anyAroundHasFire = true;
-            }
-		}
-
-        if (!anyAroundHasFire) {
-		    if (MyRandom.nextDouble() < getBurnoutChance()) {
-                this.setShouldBeRemoved(true);
-                if (!isRaging) {
-                    getRoom().addObject(new BurnMark(getRoom()));
-                }
-            }
+        boolean anyAroundHasFire = checkForSpread();
+        boolean burntOut = checkForBurnout(anyAroundHasFire);
+        if (!burntOut) {
+            checkForRaging();
+            checkForAIIntervention(gameData);
         }
-        
-        if (!isRaging && MyRandom.nextDouble() < RAGING_CHANCE) {
-		    isRaging = true;
-		   getRoom().setFloorSet(new BurntFloorSet(getRoom().getFloorSet()));
-        }
-        
-        checkForAIIntervention(gameData);
-		
 		getRoom().addToEventsHappened(this);
 	}
 
-    private void checkForAIIntervention(GameData gameData) {
-        if (!aiIntervened) {
-            try {
-                AIConsole cons = gameData.findObjectOfType(AIConsole.class);
-                if (cons.AIIsPlayer()) {
-                    cons.informOnStation("Warning! Severe fire in " + getRoom().getName(), gameData);
-                    aiIntervened = true;
-                } else {
-                    if (MyRandom.nextDouble() < AI_INTERVENTION_CHANCE && isRaging) {
-                        if ((cons.isCorrupt() && !noHumansInRoom()) || (!cons.isCorrupt() && noHumansInRoom())) {
-                            cons.informOnStation("Warning! Severe fire in " + getRoom().getName() +
-                                    ". Please keep out until fire is contained.", gameData);
-                            for (ElectricalDoor d : CloseAllFireDoorsActions.findDoors(gameData, getRoom())) {
-                                d.shutFireDoor(gameData);
-                            }
-                            aiIntervened = true;
-                        }
-                    }
-
-                }
-
-            } catch (NoSuchThingException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private boolean noHumansInRoom() {
-        for (Actor a : getRoom().getActors()) {
-            if (a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private double getBurnoutChance() {
-        double isRagingModifier = 0.25;
-        if (roomHasNoPressure()) {
-            return BURNOUT_CHANCE * 10.0 * isRagingModifier;
-        }
-        if (getRoom().hasHullBreach() || roomHasLowPressure()) {
-            return BURNOUT_CHANCE * 3.0 * isRagingModifier;
-        }
-        if (isRaging) {
-            return BURNOUT_CHANCE * isRagingModifier;
-        }
-        return BURNOUT_CHANCE;
-    }
-
-    private boolean roomHasNoPressure() {
-        for (Event e : getRoom().getEvents()) {
-            if (e instanceof NoPressureEvent) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean roomHasLowPressure() {
-        for (Event e : getRoom().getEvents()) {
-            if (e instanceof LowPressureEvent) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private double getSpreadChance() {
-        if (isRaging) {
-            return SPREAD_CHANCE * 1.25;
-        }
-        return SPREAD_CHANCE * 0.75;
-    }
-
-    private void affectActors(GameData gameData) {
-        for (Target t : getRoom().getTargets(gameData)) {
-            if (t instanceof Actor) {
-                Actor targetAsActor = (Actor)t;
-                if (! targetAsActor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnFireCharacterDecorator)) {
-                    if (MyRandom.nextDouble() < getIgniteChance(targetAsActor)) {
-                        targetAsActor.setCharacter(new OnFireCharacterDecorator(targetAsActor.getCharacter()));
-                    } else {
-                        if (MyRandom.nextDouble() < getDamageChance(targetAsActor)) {
-                            t.beExposedTo(null, new FireDamage(), gameData);
-                        }
-                    }
-                } else {
-                    // Do nothing, burn decorator will damage actor this round.
-                }
-            } else {
-                t.beExposedTo(null, new FireDamage(), gameData);
-            }
-        }
-    }
-
-    private double getDamageChance(Actor targetAsActor) {
-        if (targetAsActor instanceof Player) {
-            if (((Player) targetAsActor).getNextAction() instanceof MoveAction) { // Moved this round.
-                if (isRaging) {
-                    return 0.75;
-                } else {
-                    return 0.25;
-                }
-            }
-        }
-
-        return 1.0;
-    }
-
-    private double getIgniteChance(Actor targetAsActor) {
-        return IGNITE_CHANCE;
-    }
 
 
     @Override
@@ -327,4 +192,155 @@ public class ElectricalFire extends OngoingEvent {
     public void gotAddedToRoom(Room room) {
         room.addEffect(Sprite.blankSprite());
     }
+
+    private boolean checkForSpread() {
+        boolean result = false;
+        for (Room neighbor : getRoom().getNeighborList()) {
+            if (MyRandom.nextDouble() < getSpreadChance()) {
+                Logger.log(Logger.INTERESTING,
+                        "  Fire spread to " + neighbor.getName() + "!");
+                startNewEvent(neighbor);
+            }
+            if (neighbor.hasFire()) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    private void checkForAIIntervention(GameData gameData) {
+        if (!aiIntervened) {
+            try {
+                AIConsole cons = gameData.findObjectOfType(AIConsole.class);
+                if (cons.AIIsPlayer()) {
+                    cons.informOnStation("Warning! Severe fire in " + getRoom().getName(), gameData);
+                    aiIntervened = true;
+                } else {
+                    if (MyRandom.nextDouble() < AI_INTERVENTION_CHANCE && isRaging) {
+                        if ((cons.isCorrupt() && !noHumansInRoom()) || (!cons.isCorrupt() && noHumansInRoom())) {
+                            cons.informOnStation("Warning! Severe fire in " + getRoom().getName() +
+                                    ". Please keep out until fire is contained.", gameData);
+                            for (ElectricalDoor d : CloseAllFireDoorsActions.findDoors(gameData, getRoom())) {
+                                d.shutFireDoor(gameData);
+                            }
+                            aiIntervened = true;
+                        }
+                    }
+
+                }
+
+            } catch (NoSuchThingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private boolean noHumansInRoom() {
+        for (Actor a : getRoom().getActors()) {
+            if (a.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof HumanCharacter)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private double getBurnoutChance() {
+        double isRagingModifier = 0.25;
+        if (roomHasNoPressure()) {
+            return BURNOUT_CHANCE * 10.0 * isRagingModifier;
+        }
+        if (getRoom().hasHullBreach() || roomHasLowPressure()) {
+            return BURNOUT_CHANCE * 3.0 * isRagingModifier;
+        }
+        if (isRaging) {
+            return BURNOUT_CHANCE * isRagingModifier;
+        }
+        return BURNOUT_CHANCE;
+    }
+
+    private boolean roomHasLowPressure() {
+        return getPressureEvent().getPressureSimulation().getPressureFor(getRoom()) < 0.75;
+    }
+
+    private boolean roomHasNoPressure() {
+        return getPressureEvent().getPressureSimulation().getPressureFor(getRoom()) < 0.02;
+    }
+
+    private RoomPressureEvent getPressureEvent() {
+        for (Event e : getRoom().getEvents()) {
+            if (e instanceof RoomPressureEvent) {
+                return (RoomPressureEvent) e;
+            }
+        }
+        return null;
+    }
+
+
+    private double getSpreadChance() {
+        if (isRaging) {
+            return SPREAD_CHANCE * 1.25;
+        }
+        return SPREAD_CHANCE * 0.75;
+    }
+
+    private void affectActors(GameData gameData) {
+        for (Target t : getRoom().getTargets(gameData)) {
+            if (t instanceof Actor) {
+                Actor targetAsActor = (Actor)t;
+                if (! targetAsActor.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof OnFireCharacterDecorator)) {
+                    if (MyRandom.nextDouble() < getIgniteChance(targetAsActor)) {
+                        targetAsActor.setCharacter(new OnFireCharacterDecorator(targetAsActor.getCharacter()));
+                    } else {
+                        if (MyRandom.nextDouble() < getDamageChance(targetAsActor)) {
+                            t.beExposedTo(null, new FireDamage(), gameData);
+                        }
+                    }
+                } else {
+                    // Do nothing, burn decorator will damage actor this round.
+                }
+            } else {
+                t.beExposedTo(null, new FireDamage(), gameData);
+            }
+        }
+    }
+
+    private double getDamageChance(Actor targetAsActor) {
+        if (targetAsActor instanceof Player) {
+            if (((Player) targetAsActor).getNextAction() instanceof MoveAction) { // Moved this round.
+                if (isRaging) {
+                    return 0.75;
+                } else {
+                    return 0.25;
+                }
+            }
+        }
+
+        return 1.0;
+    }
+
+    private double getIgniteChance(Actor targetAsActor) {
+        return IGNITE_CHANCE;
+    }
+
+
+    private boolean checkForBurnout(boolean anyAroundHasFire) {
+        if (!anyAroundHasFire) {
+            if (MyRandom.nextDouble() < getBurnoutChance()) {
+                this.setShouldBeRemoved(true);
+                if (!isRaging) {
+                    getRoom().addObject(new BurnMark(getRoom()));
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void checkForRaging() {
+        if (!isRaging && MyRandom.nextDouble() < RAGING_CHANCE) {
+            isRaging = true;
+            getRoom().setFloorSet(new BurntFloorSet(getRoom().getFloorSet()));
+        }
+    }
+
 }
