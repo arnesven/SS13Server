@@ -113,4 +113,13 @@ public class RoomPressureEvent extends Event {
     public PressureSimulation getPressureSimulation() {
         return simulation;
     }
+
+    public static RoomPressureEvent getPressureEventForRoom(Room r) {
+        for (Event e : r.getEvents()) {
+            if (e instanceof RoomPressureEvent) {
+                return (RoomPressureEvent) e;
+            }
+        }
+        return null;
+    }
 }

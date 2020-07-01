@@ -7,25 +7,20 @@ import model.actions.general.Action;
 import model.actions.itemactions.MoveInAndPutOutFireAction;
 import model.actions.itemactions.PutOutFireAction;
 import model.actions.roomactions.CloseAllFireDoorsActions;
-import model.actions.roomactions.CloseFireDoorAction;
 import model.characters.decorators.OnFireCharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.characters.general.HumanCharacter;
 import model.events.Event;
-import model.events.NoPressureEvent;
 import model.events.RoomPressureEvent;
 import model.events.animation.AnimatedSprite;
 import model.events.damage.FireDamage;
 import model.items.NoSuchThingException;
 import model.items.general.FireExtinguisher;
 import model.items.general.GameItem;
-import model.map.doors.Door;
 import model.map.doors.ElectricalDoor;
 import model.map.floors.BurntFloorSet;
 import model.objects.consoles.AIConsole;
 import model.objects.decorations.BurnMark;
-import model.objects.general.ElectricalMachinery;
-import model.objects.general.GameObject;
 import sounds.Sound;
 import util.Logger;
 import util.MyRandom;
@@ -46,6 +41,7 @@ public class ElectricalFire extends OngoingEvent {
     private static final double IGNITE_CHANCE = 0.05;
     private static final double RAGING_CHANCE = 0.15;
     private static final double AI_INTERVENTION_CHANCE = 0.25;
+    private static final double SMOKE_CHANCE_IN_ROOM_PER_TURN = 0.2;
 
     private boolean isRaging;
     private boolean aiIntervened = false;
@@ -93,19 +89,27 @@ public class ElectricalFire extends OngoingEvent {
         boolean burntOut = checkForBurnout(anyAroundHasFire);
         if (!burntOut) {
             checkForRaging();
+            maybeMakeSmoke(gameData);
             checkForAIIntervention(gameData);
         }
 		getRoom().addToEventsHappened(this);
 	}
 
-
+    private void maybeMakeSmoke(GameData gameData) {
+        if (!SmokeEvent.roomAlreadyHasSmoke(getRoom()) && !roomHasLowPressure()) {
+            if (MyRandom.nextDouble() < SMOKE_CHANCE_IN_ROOM_PER_TURN * (isRaging?2.0:1.0)) {
+                SmokeEvent ev = new SmokeEvent(this);
+                gameData.addEvent(ev);
+                getRoom().addEvent(ev);
+            }
+        }
+    }
 
     @Override
     public Sprite getSprite(Actor whosAsking) {
         if (isRaging) {
             return new AnimatedSprite("electricalfirefillwholeroom", "fire.png", 5, 8, 32, 32, this, 10, true);
         }
-
         return new AnimatedSprite("electricalfire", "fire.png", 5, 8, 32, 32, this, 10, true);
     }
 
@@ -266,15 +270,6 @@ public class ElectricalFire extends OngoingEvent {
         return getPressureEvent().getPressureSimulation().getPressureFor(getRoom()) < 0.02;
     }
 
-    private RoomPressureEvent getPressureEvent() {
-        for (Event e : getRoom().getEvents()) {
-            if (e instanceof RoomPressureEvent) {
-                return (RoomPressureEvent) e;
-            }
-        }
-        return null;
-    }
-
 
     private double getSpreadChance() {
         if (isRaging) {
@@ -326,10 +321,7 @@ public class ElectricalFire extends OngoingEvent {
     private boolean checkForBurnout(boolean anyAroundHasFire) {
         if (!anyAroundHasFire) {
             if (MyRandom.nextDouble() < getBurnoutChance()) {
-                this.setShouldBeRemoved(true);
-                if (!isRaging) {
-                    getRoom().addObject(new BurnMark(getRoom()));
-                }
+                this.fix();
                 return true;
             }
         }

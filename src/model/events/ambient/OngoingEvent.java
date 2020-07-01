@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.events.Event;
 import model.events.NoPressureEvent;
+import model.events.RoomPressureEvent;
 import model.map.rooms.DecorativeRoom;
 import util.Logger;
 import util.MyRandom;
@@ -70,12 +71,7 @@ public abstract class OngoingEvent extends AmbientEvent {
 	}
 	
 	private boolean isApplicable(Room randomRoom) {
-		for (Event e : randomRoom.getEvents()) {
-			if (e instanceof NoPressureEvent) {
-				return false;
-			}
-		}
-		return true;
+		return RoomPressureEvent.getPressureEventForRoom(randomRoom).getPressureSimulation().getPressureFor(randomRoom) >= 0.01;
 	}
 	
 	private void handleAllMaintainables(GameData gameData) {
@@ -136,5 +132,17 @@ public abstract class OngoingEvent extends AmbientEvent {
 	public void setShouldBeRemoved(boolean b) {
 		shouldBeRemoved = b;
 	}
-	
+
+	protected RoomPressureEvent getPressureEvent() {
+		for (Event e : getRoom().getEvents()) {
+			if (e instanceof RoomPressureEvent) {
+				return (RoomPressureEvent) e;
+			}
+		}
+		return null;
+	}
+
+	public boolean isFixed() {
+		return isFixed;
+	}
 }
