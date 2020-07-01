@@ -5,6 +5,7 @@ import model.characters.general.GameCharacter;
 import model.events.damage.AsphyxiationDamage;
 import model.events.damage.Damager;
 import model.events.damage.NoPressureDamage;
+import model.events.damage.SmokeInhalationDamage;
 
 /**
  * Created by erini02 on 30/04/16.
@@ -20,7 +21,7 @@ public class OxyMaskDecorator extends CharacterDecorator {
         if (damager instanceof NoPressureDamage) {
             super.beExposedTo(something, new AsphyxiationDamage(getActor().getAsTarget(), 1.0));
 
-        } else if (damager instanceof AsphyxiationDamage) {
+        } else if (damager instanceof AsphyxiationDamage || damager instanceof SmokeInhalationDamage) {
             return;
         } else {
             super.beExposedTo(something, damager);

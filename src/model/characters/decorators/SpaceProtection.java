@@ -5,6 +5,7 @@ import model.events.damage.AsphyxiationDamage;
 import model.events.damage.ColdDamage;
 import model.characters.general.GameCharacter;
 import model.events.damage.Damager;
+import model.events.damage.SmokeInhalationDamage;
 
 public class SpaceProtection extends CharacterDecorator {
 
@@ -22,7 +23,7 @@ public class SpaceProtection extends CharacterDecorator {
     @Override
 	public void beExposedTo(Actor something, Damager damager) {
 		if (damager instanceof AsphyxiationDamage ||
-				damager instanceof ColdDamage) {
+				damager instanceof ColdDamage || damager instanceof SmokeInhalationDamage) {
 			return;
 		}
 		super.beExposedTo(something, damager);

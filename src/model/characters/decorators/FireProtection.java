@@ -5,6 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.characters.general.GameCharacter;
 import model.events.damage.Damager;
+import model.events.damage.SmokeInhalationDamage;
 import model.items.weapons.Flamer;
 import model.items.weapons.Weapon;
 
@@ -49,6 +50,10 @@ public class FireProtection extends CharacterDecorator {
 	public void beExposedTo(Actor something, Damager damager) {
 		if (damager.getName().equals("fire")) {
 			this.getActor().addTolastTurnInfo("Fire is raging around you.");
+			return;
+		}
+
+		if (damager instanceof SmokeInhalationDamage) {
 			return;
 		}
 		super.beExposedTo(something, damager);
