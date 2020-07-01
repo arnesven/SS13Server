@@ -9,10 +9,13 @@ import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
 import model.items.general.LightItem;
 
-public class DarknessShroudDecorator extends CharacterDecorator {
+public class DegradedVisionDecorator extends CharacterDecorator {
 
-	public DarknessShroudDecorator(GameCharacter inner) {
+	private final String description;
+
+	public DegradedVisionDecorator(GameCharacter inner, String description) {
 		super(inner, "Darkness");
+		this.description = description;
 	}
 
 
@@ -21,7 +24,7 @@ public class DarknessShroudDecorator extends CharacterDecorator {
         if (GameItem.hasAnItem(whosAsking, LightItem.class)) {
             super.getWatchString(whosAsking);
         }
-		return "It's too dark to see!";
+		return description;
 	}
 	
 	@Override

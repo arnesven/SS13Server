@@ -3,14 +3,14 @@ package model.objects.power;
 import model.Actor;
 import model.GameData;
 import model.actions.general.Action;
-import model.characters.decorators.DarknessShroudDecorator;
+import model.characters.decorators.DarknessDegradedVisionDecorator;
+import model.characters.decorators.DegradedVisionDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
 import model.events.Event;
 import model.events.ambient.DarkEvent;
 import model.map.rooms.Room;
 import model.objects.general.ElectricalMachinery;
-import model.objects.general.PowerConsumer;
 
 import java.util.ArrayList;
 
@@ -73,7 +73,7 @@ public class Lighting extends ElectricalMachinery {
 
     private void addDarkness(Actor a) {
         if (!isDarkened(a)) {
-            a.setCharacter(new DarknessShroudDecorator(a.getCharacter()));
+            a.setCharacter(new DarknessDegradedVisionDecorator(a.getCharacter()));
         }
     }
 
@@ -81,7 +81,7 @@ public class Lighting extends ElectricalMachinery {
         InstanceChecker check = new InstanceChecker(){
             @Override
             public boolean checkInstanceOf(GameCharacter ch) {
-                return ch instanceof DarknessShroudDecorator;
+                return ch instanceof DarknessDegradedVisionDecorator;
             }
         };
 
@@ -94,7 +94,7 @@ public class Lighting extends ElectricalMachinery {
 
                 @Override
                 public boolean checkInstanceOf(GameCharacter ch) {
-                    return ch instanceof DarknessShroudDecorator;
+                    return ch instanceof DarknessDegradedVisionDecorator;
                 }
             });
         }

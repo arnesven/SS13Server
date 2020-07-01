@@ -6,8 +6,9 @@ import java.util.Set;
 import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
+import model.characters.decorators.DarknessDegradedVisionDecorator;
 import model.characters.general.GameCharacter;
-import model.characters.decorators.DarknessShroudDecorator;
+import model.characters.decorators.DegradedVisionDecorator;
 import model.characters.decorators.InstanceChecker;
 import model.events.Event;
 import model.map.rooms.Room;
@@ -64,7 +65,7 @@ public class DarknessEvent extends Event {
 
 	private void addDarkness(Actor a) {
 		if (!isDarkened(a)) {
-			a.setCharacter(new DarknessShroudDecorator(a.getCharacter()));			
+			a.setCharacter(new DarknessDegradedVisionDecorator(a.getCharacter()));
 		}
 	}
 	
@@ -72,7 +73,7 @@ public class DarknessEvent extends Event {
 		InstanceChecker check = new InstanceChecker(){
 			@Override
 			public boolean checkInstanceOf(GameCharacter ch) {
-				return ch instanceof DarknessShroudDecorator;
+				return ch instanceof DegradedVisionDecorator;
 			}	
 		};
 		
@@ -85,7 +86,7 @@ public class DarknessEvent extends Event {
 				
 				@Override
 				public boolean checkInstanceOf(GameCharacter ch) {
-					return ch instanceof DarknessShroudDecorator;
+					return ch instanceof DegradedVisionDecorator;
 				}
 			});
 		}
