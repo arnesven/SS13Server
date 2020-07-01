@@ -8,15 +8,22 @@ import model.GameData;
 import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.ConsumeAction;
+import model.characters.decorators.PoisonedDecorator;
+import model.characters.general.GameCharacter;
 import model.events.Experienceable;
+import model.events.damage.PoisonDamage;
 import model.items.general.GameItem;
 import sounds.Sound;
+import util.MyRandom;
 
 public abstract class FoodItem extends GameItem {
 
 
+	private double poisonChance;
+
 	public FoodItem(String string, double weight, int cost) {
 		super(string, weight, true, cost);
+		poisonChance = 0.0;
 	}
 
 
@@ -44,11 +51,19 @@ public abstract class FoodItem extends GameItem {
         } else if (eatenBy.getPosition().getItems().contains(this)) {
             eatenBy.getPosition().getItems().remove(this);
         }
-		triggerSpecificReaction(eatenBy, gameData);
+   		triggerSpecificReaction(eatenBy, gameData);
+		checkForPoisoning(eatenBy, gameData);
+	}
+
+	protected void checkForPoisoning(Actor eatenBy, GameData gameData) {
+		if (MyRandom.nextDouble() < poisonChance &&
+				!eatenBy.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof PoisonedDecorator)) {
+			eatenBy.addTolastTurnInfo("Wait... something doesn't taste quit right... You've been poisoned by the " + getPublicName(eatenBy) + "!");
+		}
 	}
 
 
-    public boolean canBeCooked(GameData gameData, Actor performingClient) {
+	public boolean canBeCooked(GameData gameData, Actor performingClient) {
 	    return true;
     }
 
@@ -77,5 +92,10 @@ public abstract class FoodItem extends GameItem {
 	@Override
 	public Sound getDropSound() {
 		return new Sound("wirecutter_drop");
+	}
+
+	@Override
+	public void exposeToRadiation(GameData gameData) {
+		poisonChance += 0.01;
 	}
 }

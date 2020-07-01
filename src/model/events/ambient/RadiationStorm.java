@@ -1,11 +1,14 @@
 package model.events.ambient;
 
 import graphics.sprites.Sprite;
+import model.Target;
 import model.events.Event;
 import model.events.damage.RadiationDamage;
 import model.items.NoSuchThingException;
+import model.items.foods.FoodItem;
 import model.map.GameMap;
 import model.objects.consoles.AIConsole;
+import model.objects.general.GameObject;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -16,6 +19,9 @@ import model.map.rooms.Room;
 import model.npcs.NPC;
 import model.npcs.behaviors.AvoidRadiationMovement;
 import model.npcs.behaviors.MeanderingHumanMovement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RadiationStorm extends AmbientEvent {
 
@@ -56,11 +62,23 @@ public class RadiationStorm extends AmbientEvent {
 
 	private void maintainStorm(GameData gameData) {
 		roundsLeft--;
+		List<GameItem> itemsToRadiate = new ArrayList<>();
 		for (Room r : gameData.getMap().getArea("ss13", GameMap.getSideString(side))) {
 			hurtActorsInRoom(r, this.damage, gameData);
+			itemsToRadiate.addAll(r.getItems());
+			for (Actor a : r.getActors()) {
+				itemsToRadiate.addAll(a.getItems());
+			}
+			for (GameObject obj : r.getBreakableObjects(gameData)) {
+				itemsToRadiate.addAll(((Target)obj).getItems());
+			}
 		}
+
+		for (GameItem it : itemsToRadiate) {
+			it.exposeToRadiation(gameData);
+		}
+
 		this.damage = randomDamage();
-		
 	}
 
 

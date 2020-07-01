@@ -345,4 +345,8 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
     public Sound getDropSound() {
         return new Sound("toolbelt_drop");
     }
+
+    public void exposeToRadiation(GameData gameData) {
+
+    }
 }
