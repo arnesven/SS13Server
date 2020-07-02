@@ -4,7 +4,6 @@ import clientlogic.GameData;
 import clientlogic.Room;
 import clientview.components.MapPanel;
 import clientview.OverlaySprite;
-import model.items.general.GameItem;
 
 import java.awt.*;
 import java.util.*;
@@ -52,20 +51,23 @@ public class StationDrawingStrategy extends DrawingStrategy {
 
         Set<OverlaySprite> drawnSprites = new HashSet<>();
         List<Room> roomList = getRoomsToDraw();
-        drawRooms(g, roomList, drawnSprites, xOffset, yOffset, getXTrans(), inventoryPanelHeight() + getYTrans());
+        int xOffPx = super.calculateXOffsetPx();
+        int yOffPx = super.calculateYOffsetPx();
+
+        drawRooms(g, roomList, drawnSprites, xOffset, yOffset, xOffPx, yOffPx);
 
         // Draw overlay sprites which did not belong to any drawn rooms.
         for (OverlaySprite sp : GameData.getInstance().getOverlaySprites()) {
             if (!drawnSprites.contains(sp)) {
                 if (GameData.getInstance().getCurrentZ() + MapPanel.getZTranslation() == sp.getZ()) {
-                    sp.drawYourself(g, xOffset, yOffset, getXTrans(), inventoryPanelHeight() + getYTrans(), GameData.getInstance().getCurrentZ());
+                    sp.drawYourself(g, xOffset, yOffset, xOffPx, yOffPx, GameData.getInstance().getCurrentZ());
                 }
             }
         }
 
         if (!GameData.getInstance().playerIsInSpace()) {
             for (Room r : roomList) {
-                r.drawFrameIfSelected(g, xOffset, yOffset, getXTrans(), inventoryPanelHeight() + getYTrans(),
+                r.drawFrameIfSelected(g, xOffset, yOffset, xOffPx, yOffPx,
                         GameData.getInstance().getCurrentPos() == r.getID());
             }
         }

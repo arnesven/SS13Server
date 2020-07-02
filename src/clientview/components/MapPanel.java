@@ -110,6 +110,7 @@ public class MapPanel extends JPanel implements Observer {
         if (automaticBackground) {
             checkBackgroundStrategy();
         }
+        drawingStrategy.applyCameraPanEffect();
         drawingStrategy.paint(g);
         for (ClientExtraEffect ee : GameData.getInstance().getExtraEffects()) {
             ee.drawYourself(g);

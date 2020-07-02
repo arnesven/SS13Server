@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 
+import graphics.StationShakeExtraEffect;
 import graphics.sprites.Sprite;
 import model.*;
 import model.actions.AttackWallAction;
@@ -669,6 +670,9 @@ public abstract class Room implements ItemHolder, Serializable {
         }
 
         this.paintingStyle = "DontPaint";
+        for (Player p : gameData.getPlayersAsList()) {
+        	p.addExtraEffect(new StationShakeExtraEffect());
+		}
 	}
 
 

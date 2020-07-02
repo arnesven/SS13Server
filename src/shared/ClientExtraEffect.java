@@ -42,6 +42,14 @@ public class ClientExtraEffect {
 
         fromOp = null;
         toOp = null;
+
+        findBuddy();
+
+
+    }
+
+    protected void findBuddy() {
+
         for (OverlaySprite osp : GameData.getInstance().getOverlaySprites()) {
             if (osp.getEffectName().equals(fromOverlayName)) {
                 fromOp = osp;
@@ -70,8 +78,8 @@ public class ClientExtraEffect {
             return;
         }
 
-
     }
+
 
     public void drawYourself(Graphics g) {
         if (fromOp == null || toOp == null) {
@@ -124,5 +132,18 @@ public class ClientExtraEffect {
         } else if (currentFrame < frames-1) {
             currentFrame++;
         }
+    }
+
+
+    public static ClientExtraEffect makeExtraEffect(String ee) {
+        if (ee.startsWith("stationshake")) {
+            return new StationShakeEffect();
+        }
+        String[] data = ee.split("<eepart>");
+        return new ClientExtraEffect(data[0], data[1], data[2],
+                Integer.parseInt(data[3]),
+                Integer.parseInt(data[4]),
+                Integer.parseInt(data[5]),
+                Boolean.parseBoolean(data[6]));
     }
 }

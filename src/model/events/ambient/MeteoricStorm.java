@@ -1,7 +1,9 @@
 package model.events.ambient;
 
+import graphics.StationShakeExtraEffect;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.SensoryLevel;
 import model.events.damage.MeteorDamage;
 import model.events.damage.PhysicalDamage;
@@ -88,6 +90,9 @@ public class MeteoricStorm extends AmbientEvent {
                 }
 
                 doDamageOnPeople(gameData, r, 1.5);
+                for (Player p : gameData.getPlayersAsList()) {
+                    p.addExtraEffect(new StationShakeExtraEffect());
+                }
             }
         }
     }
@@ -110,7 +115,7 @@ public class MeteoricStorm extends AmbientEvent {
     private void setupStorm(GameData gameData) {
         int side = MyRandom.nextInt(4);
         sideStr = GameMap.getSideString(side);
-        timer = MyRandom.nextInt(3) + 2;
+        timer = MyRandom.nextInt(3) + 3;
         severe = MyRandom.nextBoolean();
 
         String start = " M";

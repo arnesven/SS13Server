@@ -454,12 +454,7 @@ public class GameData {
 		extraEffects.clear();
 		String[] ees = part.split("<ee>");
 		for (String ee : ees) {
-			String[] data = ee.split("<eepart>");
-			extraEffects.add(new ClientExtraEffect(data[0], data[1], data[2],
-					Integer.parseInt(data[3]),
-					Integer.parseInt(data[4]),
-					Integer.parseInt(data[5]),
-					Boolean.parseBoolean(data[6])));
+			extraEffects.add(ClientExtraEffect.makeExtraEffect(ee));
 		}
 	}
 

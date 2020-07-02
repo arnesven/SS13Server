@@ -1,18 +1,25 @@
 package clientview.strategies;
 
+import clientlogic.GameData;
 import clientlogic.Room;
+import clientview.animation.AnimationHandler;
 import clientview.components.MapPanel;
+import graphics.ExtraEffect;
+import shared.ClientExtraEffect;
 
 import java.awt.*;
 
 public abstract class DrawingStrategy {
     private final MapPanel mapPanel;
     private BackgroundDrawingStrategy bgStrategy;
-
+    private int extraXOffset;
+    private int extraYOffset;
 
     public DrawingStrategy(MapPanel mapPanel, BackgroundDrawingStrategy bgStrat) {
         this.mapPanel = mapPanel;
         this.bgStrategy = bgStrat;
+        extraXOffset = 0;
+        extraYOffset = 0;
     }
 
     public abstract void paint(Graphics g);
@@ -65,4 +72,27 @@ public abstract class DrawingStrategy {
     }
 
 
+    protected int calculateXOffsetPx() {
+        return getXTrans() + extraXOffset;
+    }
+
+    protected int calculateYOffsetPx() {
+        return inventoryPanelHeight() + getYTrans() + extraYOffset;
+    }
+
+    public void setExtraXOffset(int i) {
+        extraXOffset = i;
+    }
+
+    public void setExtraYOffset(int i) {
+        extraYOffset = i;
+    }
+
+    public void applyCameraPanEffect() {
+        for (ClientExtraEffect ee : GameData.getInstance().getExtraEffects()) {
+            if (ee instanceof CameraPanEffect) {
+                ((CameraPanEffect) ee).applyYourself(this);
+            }
+        }
+    }
 }
