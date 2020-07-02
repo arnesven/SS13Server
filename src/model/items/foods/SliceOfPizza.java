@@ -5,7 +5,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 
-public class SliceOfPizza extends HealingFood {
+public class SliceOfPizza extends JunkHealingFood {
     public SliceOfPizza(Actor maker) {
         super("Slice of Pizza", 0.1, maker, 5);
     }

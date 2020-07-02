@@ -4,7 +4,7 @@ import graphics.sprites.Sprite;
 import model.Actor;
 import sounds.Sound;
 
-public class SpaceCheetos extends HealingFood {
+public class SpaceCheetos extends JunkHealingFood {
     public SpaceCheetos(Actor maker) {
         super("Space Cheetos", 0.2, maker, 6);
     }

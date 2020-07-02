@@ -11,7 +11,7 @@ import model.objects.consoles.AIConsole;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pizza extends HealingFood {
+public class Pizza extends JunkHealingFood {
     public Pizza(Actor maker) {
         super("Pizza", 0.6, maker, 25);
     }

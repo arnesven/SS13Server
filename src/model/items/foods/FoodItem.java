@@ -98,4 +98,8 @@ public abstract class FoodItem extends GameItem {
 	public void exposeToRadiation(GameData gameData) {
 		poisonChance += 0.01;
 	}
+
+	public void setPoisonChance(double poisonChance) {
+		this.poisonChance = poisonChance;
+	}
 }

@@ -8,7 +8,7 @@ import model.Player;
 /**
  * Created by erini02 on 01/05/16.
  */
-public class Doughnut extends HealingFood {
+public class Doughnut extends JunkHealingFood {
     public Doughnut(Actor maker) {
         super("Doughnut", 0.1, maker, 5);
     }

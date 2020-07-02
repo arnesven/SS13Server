@@ -7,7 +7,7 @@ import model.events.damage.RadiationDamage;
 import sounds.Sound;
 import util.MyRandom;
 
-public class NukaCola extends HealingFood {
+public class NukaCola extends JunkHealingFood {
 
     private double RAD_DAMAGE_CHANCE = 0.25;
 

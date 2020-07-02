@@ -6,7 +6,7 @@ import model.Actor;
 /**
  * Created by erini02 on 01/05/16.
  */
-public class SpaceBurger extends HealingFood {
+public class SpaceBurger extends JunkHealingFood {
     public SpaceBurger(Actor maker) {
         super("Space Burger", 0.4, maker, 30);
     }
