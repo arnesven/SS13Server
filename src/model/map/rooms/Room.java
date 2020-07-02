@@ -670,9 +670,7 @@ public abstract class Room implements ItemHolder, Serializable {
         }
 
         this.paintingStyle = "DontPaint";
-        for (Player p : gameData.getPlayersAsList()) {
-        	p.addExtraEffect(new StationShakeExtraEffect());
-		}
+		StationShakeExtraEffect.shakeForAllPlayers(gameData);
 	}
 
 

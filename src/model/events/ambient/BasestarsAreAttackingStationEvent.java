@@ -1,5 +1,6 @@
 package model.events.ambient;
 
+import graphics.StationShakeExtraEffect;
 import model.Actor;
 import model.GameData;
 import model.actions.general.SensoryLevel;
@@ -71,6 +72,8 @@ public class BasestarsAreAttackingStationEvent extends AmbientEvent {
         } catch (NoSuchThingException e) {
             e.printStackTrace();
         }
+
+        StationShakeExtraEffect.shakeForAllPlayers(gameData);
 
     }
 

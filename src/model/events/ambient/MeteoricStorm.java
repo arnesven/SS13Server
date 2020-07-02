@@ -15,6 +15,7 @@ import model.npcs.behaviors.MeanderingAvoidingMovement;
 import model.objects.consoles.AIConsole;
 import model.objects.mining.RockFactory;
 import model.objects.mining.RockObject;
+import shared.StationShakeEffect;
 import util.Logger;
 import util.MyRandom;
 
@@ -90,9 +91,7 @@ public class MeteoricStorm extends AmbientEvent {
                 }
 
                 doDamageOnPeople(gameData, r, 1.5);
-                for (Player p : gameData.getPlayersAsList()) {
-                    p.addExtraEffect(new StationShakeExtraEffect());
-                }
+                StationShakeExtraEffect.shakeForAllPlayers(gameData);
             }
         }
     }
