@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class MiniMapDrawingArea extends JComponent {
 
-    private ArrayList<MiniMapRoome> hitBoxes = new ArrayList<>();
+    private ArrayList<MiniMapRoom> hitBoxes = new ArrayList<>();
 
     public MiniMapDrawingArea() {
 
@@ -24,7 +24,7 @@ public class MiniMapDrawingArea extends JComponent {
 
             @Override
             public void mouseMoved(MouseEvent e) {
-                for (MiniMapRoome mr : hitBoxes) {
+                for (MiniMapRoom mr : hitBoxes) {
 
                     mr.isHoveredOver(e, null);
                 }
@@ -64,7 +64,7 @@ public class MiniMapDrawingArea extends JComponent {
                         (int) (r.getWidth() * xscale), (int) (r.getHeight() * yscale));
                 g.setColor(Color.DARK_GRAY);
                 g.drawRect(finalX, finalY, (int) (r.getWidth() * xscale), (int) (r.getHeight() * yscale));
-                hitBoxes.add(new MiniMapRoome(r, finalX, finalY, (int) (r.getWidth() * xscale), (int) (r.getHeight() * yscale)));
+                hitBoxes.add(new MiniMapRoom(r, finalX, finalY, (int) (r.getWidth() * xscale), (int) (r.getHeight() * yscale)));
             }
         }
        // g.setColor(Color.YELLOW);
@@ -73,18 +73,18 @@ public class MiniMapDrawingArea extends JComponent {
     }
 
 
-    private class MiniMapRoome extends MouseInteractable {
+    private class MiniMapRoom extends MouseInteractable {
 
         private final Room room;
 
-        public MiniMapRoome(Room r, int x, int y, int w, int h) {
+        public MiniMapRoom(Room r, int x, int y, int w, int h) {
             room = r;
-            this.setHitBox(x, y, w, h);
+            this.setHitBox(x, y, r.getZPos(), w, h);
         }
 
         @Override
         protected void doOnClick(MouseEvent e) {
-
+            //System.out.println("Clicked on " + room.getName());
         }
 
         @Override
