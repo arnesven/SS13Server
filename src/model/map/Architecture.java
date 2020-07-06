@@ -1,5 +1,6 @@
 package model.map;
 
+import model.Player;
 import model.map.doors.Door;
 import model.map.rooms.DecorativeRoom;
 import model.map.rooms.DummyRoom;
@@ -40,6 +41,7 @@ public class Architecture {
 
         fillInActualRooms(map, zLevel);
     }
+
 
     private void fillInActualRooms(GameMap map, int z) {
         for (Room r : allRooms) {
@@ -252,8 +254,7 @@ public class Architecture {
         throw new DoorNotFoundBetweenRooms();
     }
 
-    public boolean joinRoomsWithDoor(Room a, Room b, Door newDoor) {
-        Point2D pos = getPossibleNewDoors(a).get(b);
+    public boolean joinRoomsWithDoor(Room a, Room b, Door newDoor, Point2D pos) {
         if (pos == null) {
             Logger.log(Logger.CRITICAL, "No place to connect rooms " + a.getName() + " and " + b.getName() + " with a door!");
             return false;
@@ -263,6 +264,11 @@ public class Architecture {
             map.joinRooms(a, b);
             return true;
         }
+    }
+
+    public boolean joinRoomsWithDoor(Room a, Room b, Door newDoor) {
+        Point2D pos = getPossibleNewDoors(a).get(b);
+        return joinRoomsWithDoor(a, b, newDoor, pos);
     }
 
     public List<Room> getRoomsWithin(Rectangle area) {
@@ -300,6 +306,29 @@ public class Architecture {
         }
         return false;
     }
+
+    public static Point2D adjacentWallPoint(Room room, Player forWhom) {
+        if (room.getZ() != ((int)forWhom.getCharacter().getSpacePosition().getZ())) {
+            return null;
+        }
+        Set<Point2D> points = getPerimiterPointsForRoom(room);
+        double playerX = forWhom.getCharacter().getSpacePosition().getX();
+        double playerY = forWhom.getCharacter().getSpacePosition().getY();
+        for (Point2D p : points) {
+            for (double dy = -0.5; dy <= 0.5; dy += 0.5) {
+                for (double dx = -0.5; dx <= 0.5; dx += 0.5) {
+                    if (dx == 0.0 || dy == 0.0) {
+                        if (playerX + dx == p.getX() && playerY + dy == p.getY()) {
+                            return p;
+                        }
+                    }
+                }
+            }
+
+        }
+        return null;
+    }
+
 
 
     public boolean isAdjacentToRoom(double xDouble, double yDouble) {

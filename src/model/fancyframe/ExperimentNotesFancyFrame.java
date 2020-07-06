@@ -19,7 +19,7 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
     public ExperimentNotesFancyFrame(Player p, GameData gameData, ExperimentNotes notes) {
         super(p.getFancyFrame());
         this.notes = notes;
-
+        setWidth(getWidth()+50);
         buildContent(p, gameData);
     }
 
@@ -52,9 +52,9 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
                     content.append("<strike>" + ca.getBaseName() + "</strike>");
                 } else {
                     content.append(HTMLText.makeFancyFrameLink("SCRATCH " + ca.getBaseName(),
-                                    HTMLText.makeText("blue", "sans", 5, "✎📁")) + " " + ca.getBaseName());
+                                    HTMLText.makeText("blue", "sans", 2, "[scratch]📁")) + " " + ca.getBaseName());
                 }
-                content.append(" " + HTMLText.makeFancyFrameLink("GOTOPAGE " + index, HTMLText.makeText("blue", "sans", 5, "☛")) + "<br/>");
+                content.append(" " + HTMLText.makeFancyFrameLink("GOTOPAGE " + index, HTMLText.makeText("blue", "sans", 2, "[goto]")) + "<br/>");
                 index++;
             }
         } else if (page == 0) {
@@ -136,10 +136,11 @@ public class ExperimentNotesFancyFrame extends FancyFrame {
                             "<br/><br/>You have submitted your report on the Monolith to Central Command.<br/><br/>" +
                             "It is now pending peer review.<br/><br/><i>(Crew points will be rewarded at the end" +
                             " of the game if the conclusion was correct.)</i>"))));
-        } else {
-            return;
         }
-        readyThePlayer(gameData, player);
+
+        if (!event.contains("SCRATCH")) {
+            readyThePlayer(gameData, player);
+        }
     }
 
     private void addPageSound(Player player) {

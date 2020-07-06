@@ -27,7 +27,10 @@ public class RetrieveAction extends Action implements QuickAction {
 
     @Override
     public boolean hasRealSound() {
-        return true;
+        if (selectedItem != null) {
+            return true;
+        }
+        return false;
     }
 
     @Override

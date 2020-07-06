@@ -3,6 +3,9 @@ package model.characters.crew;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.GameData;
+import model.actions.characteractions.MarriageAction;
+import model.actions.general.Action;
 import model.characters.general.GameCharacter;
 import model.characters.special.MartialArtist;
 import model.items.general.*;
@@ -44,4 +47,12 @@ public class CaptainCharacter extends CrewCharacter implements MartialArtist {
                         " Don't forget to guard the nuclear disk!", "Parent, Demotion").makeString();
     }
 
+    @Override
+    public void addCharacterSpecificActions(GameData gameData, ArrayList<Action> at) {
+        super.addCharacterSpecificActions(gameData, at);
+        Action a = new MarriageAction();
+        if (a.getOptions(gameData, getActor()).numberOfSuboptions() > 0) {
+            at.add(a);
+        }
+    }
 }

@@ -24,11 +24,6 @@ public class CaptainsDaughter extends VisitorCharacter {
     }
 
     @Override
-    public List<GameItem> getStartingItems() {
-        return new ArrayList<>();
-    }
-
-    @Override
     public GameCharacter clone() {
         return new CaptainsDaughter();
     }

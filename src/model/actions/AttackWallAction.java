@@ -70,11 +70,16 @@ public class AttackWallAction extends Action {
         for (Actor a : targetRoom.getActors()) {
             a.addTolastTurnInfo(weapon.getWallDamageText());
         }
-        boolean broken = targetRoom.damageWall(gameData, performingClient.getPosition(), weapon.doWallDamage(gameData, performingClient));
+
+        dealDamageToRooms(gameData, performingClient, targetRoom, weapon);
+    }
+
+    protected void dealDamageToRooms(GameData gameData, Actor performingClient, Room targetRoom, Weapon weapon) {
+        boolean broken = targetRoom.damageWallFromRoom(gameData, performingClient.getPosition(), weapon.doWallDamage(gameData, performingClient));
         if (broken) {
             performingClient.addTolastTurnInfo("You broke through the wall!");
         } else {
-            performingClient.getPosition().damageWall(gameData, targetRoom, weapon.doWallDamage(gameData, performingClient));
+            performingClient.getPosition().damageWallFromRoom(gameData, targetRoom, weapon.doWallDamage(gameData, performingClient));
         }
     }
 

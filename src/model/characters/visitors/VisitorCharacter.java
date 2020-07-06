@@ -9,6 +9,7 @@ import model.items.general.GameItem;
 import model.items.general.MoneyStack;
 import model.items.keycard.VisitorsBadge;
 import model.map.rooms.ArmoryRoom;
+import model.map.rooms.BrigRoom;
 import model.map.rooms.NukieShipRoom;
 import model.map.rooms.Room;
 import util.MyRandom;
@@ -50,7 +51,7 @@ public abstract class VisitorCharacter extends CrewCharacter {
         Room room;
         do {
             room = MyRandom.sample(gameData.getStationSpawnRooms());
-        } while (room instanceof NukieShipRoom || room instanceof ArmoryRoom);
+        } while (room instanceof NukieShipRoom || room instanceof ArmoryRoom || room instanceof BrigRoom);
 
         return room;
     }

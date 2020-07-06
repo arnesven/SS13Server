@@ -80,16 +80,18 @@ public class RoomPressureEvent extends Event {
     }
 
     public static void exposeTargetToPressure(Double press, Target t, GameData gameData) {
-        if (press >= THRESHOLD_HIGH) {
-            // Nothing, it's OK...
-        } else if (press >= THRESHOLD_MEDIUM) {
-            // Nothing, it's kind of OK...
-        } else if (press >= THRESHOLD_LOW) {
-            t.beExposedTo(null, new AsphyxiationDamage(t, 1.0), gameData);
-        } else if (press >= THRESHOLD_VERY_LOW) {
-            t.beExposedTo(null, new AsphyxiationDamage(t, 1.0), gameData);
-        } else {
-            t.beExposedTo(null, new NoPressureDamage(t), gameData);
+        if (!t.isDead()) {
+            if (press >= THRESHOLD_HIGH) {
+                // Nothing, it's OK...
+            } else if (press >= THRESHOLD_MEDIUM) {
+                // Nothing, it's kind of OK...
+            } else if (press >= THRESHOLD_LOW) {
+                t.beExposedTo(null, new AsphyxiationDamage(t, 0.5), gameData);
+            } else if (press >= THRESHOLD_VERY_LOW) {
+                t.beExposedTo(null, new AsphyxiationDamage(t, 1.0), gameData);
+            } else {
+                t.beExposedTo(null, new NoPressureDamage(t), gameData);
+            }
         }
     }
 

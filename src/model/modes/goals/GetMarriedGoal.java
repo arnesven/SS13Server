@@ -15,4 +15,5 @@ public class GetMarriedGoal extends PersonalGoal {
     public boolean isCompleted(GameData gameData) {
         return getBelongsTo().getCharacter().checkInstance((GameCharacter gc)-> gc instanceof MarriageAction.MarriedDecorator);
     }
+
 }

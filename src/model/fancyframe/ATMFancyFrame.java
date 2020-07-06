@@ -142,12 +142,14 @@ public class ATMFancyFrame extends SinglePersonUseMachineFancyFrame {
             leaveFancyFrame(gameData, player);
         } else if (event.contains("INSERT")) {
             IdentCardItem card = IdentCardItem.findIdentCard(player);
-            atm.insertCard(card);
-            card.setHolder(null);
-            player.getItems().remove(card);
-            buildContent(gameData, player);
-            player.getSoundQueue().add(new Sound("terminal_prompt"));
-            player.refreshClientData();
+            if (card != null) {
+                atm.insertCard(card);
+                card.setHolder(null);
+                player.getItems().remove(card);
+                buildContent(gameData, player);
+                player.getSoundQueue().add(new Sound("terminal_prompt"));
+                player.refreshClientData();
+            }
         } else if (event.contains("EJECT")) {
             atm.setEjectedCard(true);
             this.depositScreenShowing = false;

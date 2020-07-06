@@ -13,19 +13,19 @@ import model.actions.general.ActionGroup;
 import model.actions.general.SearchAction;
 import model.actions.general.SensoryLevel.AudioLevel;
 import model.actions.general.SensoryLevel.OlfactoryLevel;
+import model.actions.roomactions.AttackWallFromSpaceAction;
 import model.actions.roomactions.CloseAllFireDoorsActions;
 import model.actions.roomactions.MoveToSpecificRoomAction;
 import model.actions.roomactions.OpenAllFireDoorsAction;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
-import model.events.NoPressureEverEvent;
 import model.events.ambient.ColdEvent;
 import model.events.ambient.ElectricalFire;
 import model.events.Event;
 import model.events.ambient.HullBreach;
-import model.events.ambient.PressureSimulation;
 import model.events.animation.BigExplosionAnimation;
 import model.items.NoSuchThingException;
+import model.items.foods.SpaceRum;
 import model.items.general.GameItem;
 import model.items.general.RoomPartsStack;
 import model.map.Architecture;
@@ -67,6 +67,7 @@ public abstract class Room implements ItemHolder, Serializable {
 	private List<Event> eventsHappened = new ArrayList<>();
 	private FloorSet floorSprite;
 	private Map<Room, Double> wallDamage;
+	private Map<Point2D, Double> spaceDamage;
 
 	/**
 	 * These fields are purely for the GUI.
@@ -99,6 +100,7 @@ public abstract class Room implements ItemHolder, Serializable {
         lighting = new Lighting(this);
 		this.paintingStyle = "WallsAndWindows";
 		wallDamage = new HashMap<>();
+		spaceDamage = new HashMap<>();
 	}
 
 
@@ -129,40 +131,55 @@ public abstract class Room implements ItemHolder, Serializable {
 	public List<Action> getActionData(GameData gameData, Player forWhom) {
 		List<Action> at = new ArrayList<>();
 		if (forWhom.getCharacter() != null && forWhom.getCharacter().getsActions() && forWhom.getCharacter().getsRoomActions()) {
-			boolean isAI = forWhom.getCharacter().checkInstance((GameCharacter gc) -> gc instanceof AICharacter);
-			if (forWhom.findMoveToAblePositions(gameData).contains(this) && !isAI && !forWhom.isFloatingInSpace()) {
+			if (forWhom.findMoveToAblePositions(gameData).contains(this) && !forWhom.isAI() && !forWhom.isInSpace()) {
 				if (forWhom.getVisibleMap(gameData).contains(this)) {
 					at.add(new MoveToSpecificRoomAction(gameData, forWhom, this));
 				}
 			}
 
-			if (forWhom.getPosition() == this && !isAI && forWhom.hasInventory()) {
+			if (forWhom.getPosition() == this && !forWhom.isAI() && forWhom.hasInventory()) {
 				at.add(new SearchAction());
 			}
 
-			if (Architecture.shareAWall(forWhom.getPosition(), this) && paintingStyle.contains("Walls")) {
-				try {
-					Architecture.getPossibleNewDoorBetween(forWhom.getPosition(), this);
-					at.add(new AttackWallAction(this));
-				} catch (Architecture.DoorNotFoundBetweenRooms doorNotFoundBetweenRooms) {
-
-				}
+			if (paintingStyle.contains("Walls")) {
+				addAttackWallActions(at, gameData, forWhom);
 			}
 
-			if (isAI) {
-			    CloseAllFireDoorsActions cafda = new CloseAllFireDoorsActions(gameData, forWhom, this);
-			    if (cafda.getNoOfDoors() > 0) {
-                    at.add(cafda);
-                }
-                OpenAllFireDoorsAction oafda = new OpenAllFireDoorsAction(gameData, forWhom, this);
-			    if (oafda.getNoOfDoors() > 0) {
-			        at.add(oafda);
-                }
+			if (forWhom.isAI()) {
+				addAIFireDoorActions(at, gameData, forWhom);
 			}
 			at.addAll(getSpecificRoomActions(gameData, forWhom, at));
 
 		}
 		return at;
+	}
+
+	private void addAttackWallActions(List<Action> at, GameData gameData, Player forWhom) {
+		if (Architecture.shareAWall(forWhom.getPosition(), this)) {
+			try {
+				Architecture.getPossibleNewDoorBetween(forWhom.getPosition(), this);
+				at.add(new AttackWallAction(this));
+			} catch (Architecture.DoorNotFoundBetweenRooms doorNotFoundBetweenRooms) {
+
+			}
+		}
+		if (forWhom.isInSpace() && forWhom.getPosition() instanceof SpaceRoom) {
+			Point2D p = Architecture.adjacentWallPoint(this, forWhom);
+			if (p != null) {
+				at.add(new AttackWallFromSpaceAction(this, p));
+			}
+		}
+	}
+
+	private void addAIFireDoorActions(List<Action> at, GameData gameData, Player forWhom) {
+		CloseAllFireDoorsActions cafda = new CloseAllFireDoorsActions(gameData, forWhom, this);
+		if (cafda.getNoOfDoors() > 0) {
+			at.add(cafda);
+		}
+		OpenAllFireDoorsAction oafda = new OpenAllFireDoorsAction(gameData, forWhom, this);
+		if (oafda.getNoOfDoors() > 0) {
+			at.add(oafda);
+		}
 	}
 
 	protected List<Action> getSpecificRoomActions(GameData gameData, Player forWhom, List<Action> at) {
@@ -761,7 +778,34 @@ public abstract class Room implements ItemHolder, Serializable {
 		return false;
 	}
 
-	public boolean damageWall(GameData gameData, Room fromPosition, double v) {
+	public boolean damageWallFromSpace(GameData gameData, Point2D position, double v, Room spaceRoom) {
+		boolean broken = false;
+		Double d = spaceDamage.get(position);
+		if (d == null) {
+			d = 0.0;
+		}
+		d += v;
+		if (d >= WALL_MAX_HP) {
+			Architecture arch = null;
+			try {
+				arch = new Architecture(gameData.getMap(), gameData.getMap().getLevelForRoom(this).getName(), getZ());
+				arch.joinRoomsWithDoor(this, spaceRoom, new HoleInTheWallDoor(0.0, 0.0, this.getID(), spaceRoom.getID()), position);
+				spaceRoom.removeCrack(position);
+				this.removeCrack(position);
+				broken = true;
+			} catch (NoSuchThingException e) {
+				e.printStackTrace();
+			}
+		} else {
+			if (!alreadyHasCrackDecoration(position)) {
+				addObject(new CrackedWallDecoration(spaceRoom, position.getX(), position.getY()));
+			}
+		}
+		spaceDamage.put(position, d);
+		return broken;
+	}
+
+	public boolean damageWallFromRoom(GameData gameData, Room fromPosition, double v) {
 		boolean broken = false;
 		Double d = wallDamage.get(fromPosition);
 		if (d == null) {
@@ -808,16 +852,24 @@ public abstract class Room implements ItemHolder, Serializable {
 		objects.removeAll(objsToRemove);
 	}
 
+
+	private boolean alreadyHasCrackDecoration(Point2D point) {
+		for (GameObject objs : getObjects()) {
+			if (objs instanceof CrackedWallDecoration) {
+				if (objs.getAbsoluteX() == point.getX() && objs.getAbsoluteY() == point.getY()) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+
 	private boolean alreadyHasCrackDecoration(Room position) {
 		try {
 			Point2D point = Architecture.getPossibleNewDoorBetween(position, this);
-			for (GameObject objs : getObjects()) {
-				if (objs instanceof CrackedWallDecoration) {
-					if (objs.getAbsoluteX() == point.getX() && objs.getAbsoluteY() == point.getY()) {
-						return true;
-					}
-				}
-			}
+			return alreadyHasCrackDecoration(point);
 		} catch (Architecture.DoorNotFoundBetweenRooms doorNotFoundBetweenRooms) {
 			doorNotFoundBetweenRooms.printStackTrace();
 		}
