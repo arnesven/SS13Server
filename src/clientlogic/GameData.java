@@ -2,7 +2,6 @@ package clientlogic;
 
 import clientcomm.MyCallback;
 import clientcomm.ServerCommunicator;
-import clientlogic.sounds.MusicPlayer;
 import clientsound.ClientSoundManager;
 import clientview.*;
 import clientview.components.*;
