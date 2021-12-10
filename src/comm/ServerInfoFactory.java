@@ -51,7 +51,7 @@ public class ServerInfoFactory {
         URL feedUrl;
         SyndFeed feed = null;
         try {
-            feedUrl = new URL("https://gitlab.ida.liu.se/erini02/ss13/commits/master.atom");
+            feedUrl = new URL("https://github.com/arnesven/SS13Server/commits/master.atom");
             feed = input.build(new XmlReader(feedUrl));
 
             List<SyndEntry> entries =  feed.getEntries();
@@ -86,8 +86,6 @@ public class ServerInfoFactory {
         }
 
         return "No RSS info found...";
-
-
     }
 
     public String getInfoHTML() {

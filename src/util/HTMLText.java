@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
  * Created by erini02 on 13/11/16.
  */
 public class HTMLText {
-    public static String wikiURL = "https://gitlab.ida.liu.se/erini02/ss13/wikis";
+    public static String wikiURL = "https://github.com/arnesven/SS13Server/wiki";
 
     public static String makeText(String color, String s) {
         return "<font color=\"" + color + "\">" + s + "</font>";

@@ -27,7 +27,7 @@ import java.awt.event.KeyEvent;
 
 public class SS13Client extends JFrame {
 
-    public static final String CLIENT_VERSION_STRING = "1.261";
+    public static final String CLIENT_VERSION_STRING = "1.262";
     private final ReturningPlayerPanel retPan;
     public static final Dimension originalSize = new Dimension(960, 960);
     public static final Dimension ingameSize = new Dimension(1200, 960);
@@ -185,8 +185,9 @@ public class SS13Client extends JFrame {
                         if (Cookies.getCookie("last_user_name") != null) {
                             GameData.getInstance().setHost("localhost");
                             GameData.getInstance().setPort(snsd.getPort());
+                            System.out.println("Waiting five seconds for server to start.");
                             try {
-                                Thread.sleep(2000);
+                                Thread.sleep(5000);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }

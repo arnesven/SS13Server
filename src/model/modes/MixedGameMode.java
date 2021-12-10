@@ -141,7 +141,7 @@ public class MixedGameMode extends OperativesGameMode {
 
     @Override
     protected String getImageURL() {
-        return "https://www.netonnet.se/GetFile/ProductImagePrimary/hem-hushall/koksmaskiner-koksredskap/blender/hamilton-beach-multiblend-blender(1003351)_317639_3_Normal_Extra.jpg";
+        return "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Mixing_and_mastering.jpg/800px-Mixing_and_mastering.jpg";
     }
 
     @Override

@@ -25,7 +25,7 @@ public class LimitedOxyMaskDecorator extends OxyMaskDecorator {
         }
         if (uses == 0) {
             oxyMask.removeYourself(getActor().getCharacter().getEquipment());
-            something.addTolastTurnInfo("The " + oxyMask.getBaseName() + " ran out of oxygen. You removed it.");
+            getActor().addTolastTurnInfo("The " + oxyMask.getBaseName() + " ran out of oxygen. You removed it.");
         }
 
     }
