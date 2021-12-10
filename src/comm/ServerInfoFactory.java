@@ -93,7 +93,7 @@ public class ServerInfoFactory {
                 "<center><img src=\"https://wiki.ss13.ru/images/7/76/Animus-logo.png\"></center>"+
                 "<h2>'" + name + "' running on " + machineName +":"+port + "</h2>"+
                 "<p>We hope you'll have a productive and safe shift! Remember, the galactic security threat level is orange.<br/> If you see any suspicious activity, notify your commanding officer immediately!</p>" + "" +
-                "<p>Check out the elaborate " + HTMLText.makeWikiLink("", "wiki") + "</p>"+
+                "<p>Check out the elaborate " + HTMLText.makeWikiLinkNew("", "wiki") + "</p>"+
                 makeNiceFeed();
     }
 }
