@@ -74,8 +74,6 @@ public class RadiationStorm extends AmbientEvent {
 				List<GameItem> items = ((Target)obj).getItems();
 				if (items != null) {
 					itemsToRadiate.addAll(items);
-				} else {
-					Logger.log(((Target) obj).getName() + "'s items was null!");
 				}
 			}
 		}
