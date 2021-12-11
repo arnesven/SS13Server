@@ -9,6 +9,7 @@ import model.items.foods.FoodItem;
 import model.map.GameMap;
 import model.objects.consoles.AIConsole;
 import model.objects.general.GameObject;
+import util.Logger;
 import util.MyRandom;
 import model.Actor;
 import model.GameData;
@@ -70,7 +71,12 @@ public class RadiationStorm extends AmbientEvent {
 				itemsToRadiate.addAll(a.getItems());
 			}
 			for (GameObject obj : r.getBreakableObjects(gameData)) {
-				itemsToRadiate.addAll(((Target)obj).getItems());
+				List<GameItem> items = ((Target)obj).getItems();
+				if (items != null) {
+					itemsToRadiate.addAll(items);
+				} else {
+					Logger.log(((Target) obj).getName() + "'s items was null!");
+				}
 			}
 		}
 
