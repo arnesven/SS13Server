@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.List;
 
@@ -70,18 +71,18 @@ public class MyRandom {
 	public static String getRandomLineFromFile(String filename) throws FileNotFoundException {
 		int lines = 0;
 		String line = "";
-		for (Scanner scanner = new Scanner(new File(filename)) ; 
-				scanner.hasNext(); scanner.nextLine() ) {
-			lines++;
-		}
-		Logger.log("file hade " + lines + " lines");
-		Scanner scanner = new Scanner(new File(filename));
-		int j = MyRandom.nextInt(lines) + 1;
-		for (int i = 0; i < j ; ++i) {
-			line = scanner.nextLine();
-		}
-		scanner.close();
-		return line;
+        for (Scanner scanner = new Scanner(MyRandom.class.getResourceAsStream("/" + filename.replace("resources/", "")));
+             scanner.hasNext(); scanner.nextLine()) {
+            lines++;
+        }
+        Logger.log("file hade " + lines + " lines");
+        Scanner scanner =  new Scanner(MyRandom.class.getResourceAsStream("/" + filename.replace("resources/", "")));
+        int j = MyRandom.nextInt(lines) + 1;
+        for (int i = 0; i < j; ++i) {
+            line = scanner.nextLine();
+        }
+        scanner.close();
+        return line;
 	}
 
 	public static String randomGender() {
