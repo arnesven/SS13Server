@@ -59,7 +59,7 @@ public class RogueAIMode extends GameMode {
 
     @Override
     public void setStartingLastTurnInfo() {
-        String message = HTMLText.makeText("red", "You are a " + HTMLText.makeWikiLink("modes/rogueAI", "Rogue AI")) +
+        String message = HTMLText.makeText("red", "You are a " + HTMLText.makeWikiLinkNew("modes#rogue-ai", "Rogue AI")) +
                 ". Kill or incapacitate the crew before they can shut you down! "
                 +"Your decoy is " + decoy.getBaseName() +
                 " (in " + decoy.getPosition().getName() + ")";

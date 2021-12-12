@@ -44,6 +44,7 @@ public class SuitUpAction extends Action implements QuickAction {
         TorsoAndShoesSuit torsoAndShoes = null;
         TorsoSuit torso = null;
         HeadGear headGear = null;
+        GlovesItem gloves = null;
         for (GameItem it : performingClient.getItems()) {
             if (it instanceof TorsoAndShoesSuit) {
                 torsoAndShoes = (TorsoAndShoesSuit)it;
@@ -56,6 +57,8 @@ public class SuitUpAction extends Action implements QuickAction {
                 Logger.log("Found headgear!");
             } else if (it instanceof FullBodySuit) {
                 fbs = (FullBodySuit)it;
+            } else if (it instanceof GlovesItem) {
+                gloves = (GlovesItem)it;
             }
         }
 
@@ -86,6 +89,13 @@ public class SuitUpAction extends Action implements QuickAction {
             performingClient.putOnSuit(fbs);
         } else {
             Logger.log("full body suit can't be worn");
+        }
+
+        if (gloves != null && gloves.canBeWornBy(performingClient)) {
+            performingClient.getItems().remove(gloves);
+            performingClient.putOnSuit(gloves);
+        } else {
+            Logger.log("gloves can't be worn");
         }
 
         performingClient.addTolastTurnInfo("Ready for action!");

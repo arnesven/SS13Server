@@ -3,6 +3,7 @@ package model.objects.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.characters.decorators.PoisonedDecorator;
 import model.characters.general.GameCharacter;
 import model.items.foods.FoodItem;
@@ -41,4 +42,9 @@ public class Antidote extends FoodItem {
         }
 
     }
+
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A cure for various poisons. Should be ingested.";
+    }
+
 }

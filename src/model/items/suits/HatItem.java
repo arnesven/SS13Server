@@ -2,7 +2,7 @@ package model.items.suits;
 
 import model.Actor;
 
-public abstract class HatItem extends SuitItem {
+public abstract class HatItem extends HeadGear {
     public HatItem(String string, double weight, int cost) {
         super(string, weight, cost);
     }

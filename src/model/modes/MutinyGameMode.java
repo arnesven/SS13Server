@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class MutinyGameMode extends GameMode {
 
-    private static final String MUTINEER_MESSAGE = "You are a " +  HTMLText.makeLink(HTMLText.wikiURL + "/modes/mutiny", "<b>mutineer</b>") + "! Take over the station by killing the Captain. Everybody is in on the mutiny except for the Head of Staff and the Captain's Daughter.";
+    private static final String MUTINEER_MESSAGE = "You are a " +  HTMLText.makeWikiLinkNew("modes#mutiny", "<b>mutineer</b>") + "! Take over the station by killing the Captain. Everybody is in on the mutiny except for the Head of Staff and the Captain's Daughter.";
     private List<Actor> mutineers = new ArrayList<>();
 
     @Override

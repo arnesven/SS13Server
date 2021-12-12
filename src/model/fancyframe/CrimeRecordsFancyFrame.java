@@ -138,7 +138,7 @@ public class CrimeRecordsFancyFrame extends ConsoleFancyFrame {
         } else {
             boolean succ = console.addExtraBaddieByName(data, gameData);
             if (!succ) {
-                errorMessage = "ERROR! No person \"" + data + "\" found on station.";
+                errorMessage = "ERROR! Input is not a valid crime and sentence length.";
             }
             concreteRebuild(gameData, player);
         }

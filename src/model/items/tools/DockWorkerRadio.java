@@ -1,6 +1,7 @@
 package model.items.tools;
 
 import model.GameData;
+import model.Player;
 import model.actions.characteractions.ProgramDockWorkerBotAction;
 import model.actions.general.Action;
 import model.actions.general.DoNothingAction;
@@ -53,4 +54,10 @@ public class DockWorkerRadio extends Radio {
     public GameItem clone() {
         return new DockWorkerRadio();
     }
+
+
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "An electronic device for remotely operating dockworker bots.";
+    }
+
 }
