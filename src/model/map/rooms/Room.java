@@ -68,6 +68,7 @@ public abstract class Room implements ItemHolder, Serializable {
 	private FloorSet floorSprite;
 	private Map<Room, Double> wallDamage;
 	private Map<Point2D, Double> spaceDamage;
+	private boolean isDestroyed = false;
 
 	/**
 	 * These fields are purely for the GUI.
@@ -675,6 +676,7 @@ public abstract class Room implements ItemHolder, Serializable {
         this.lighting = null;
         this.width = 0;
         this.height = 0;
+        this.isDestroyed = true;
         BigExplosionAnimation aniEvent = new BigExplosionAnimation(gameData, this);
         aniEvent.setAbsolutePosition(getX(), getY(), getZ());
         //this.addEvent(new DarkEvent());
@@ -915,5 +917,9 @@ public abstract class Room implements ItemHolder, Serializable {
 
 	public boolean sucksPressureFromNeighbors(GameData gameData) {
 		return false;
+	}
+
+	public boolean isDestroyed() {
+		return isDestroyed;
 	}
 }

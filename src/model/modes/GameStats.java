@@ -75,7 +75,7 @@ public abstract class GameStats {
 	public String toString() {
 		return "<h3>Game is over!</h3>" + getTopContent() +
 				"<table>" +
-				"<tr><td> Mode: </td><td>" + HTMLText.makeWikiLink("modes/" + getMode().toLowerCase(), getMode()) + "</td></tr>" +
+				"<tr><td> Mode: </td><td>" + HTMLText.makeWikiLink("modes#" + getMode().toLowerCase().replace(" ", "-"), getMode()) + "</td></tr>" +
 				"<tr><td> Players: </td><td>" + gameData.getPlayersAsList().size() + "</td></tr>" + 
 				"<tr><td> Rounds: </td><td>" + gameData.getRound() + "</td></tr>" +
 				"<tr><td> Outcome: </td><td>" + getOutcome() + "</td></tr>" +

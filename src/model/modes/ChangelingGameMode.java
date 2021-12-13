@@ -158,7 +158,7 @@ public class ChangelingGameMode extends GameMode {
 
     @Override
 	public void setStartingLastTurnInfo() {
-		ling.addTolastTurnInfo("You are a " + HTMLText.makeLink(HTMLText.wikiURL + "/modes/changeling", "changeling!") + " " +
+		ling.addTolastTurnInfo("You are a " + HTMLText.makeWikiLink("modes#changeling", "changeling!") + " " +
 				LING_START_STRING + decoyString());
 	}
 
@@ -171,7 +171,7 @@ public class ChangelingGameMode extends GameMode {
 		//c.addTolastTurnInfo(HTMLText.makeText("purple", "verdana", 3,
 		c.setFancyFrame(new SinglePageFancyFrame(c.getFancyFrame(), "Secret Role!",  HTMLText.makeColoredBackground("purple",
 				HTMLText.makeCentered(HTMLText.makeText("Aqua",
-				"<br/><b>You are a " + HTMLText.makeLink(HTMLText.wikiURL + "/changelingmode", "changeling!</b><br/><br/>") +
+				"<br/><b>You are a " + HTMLText.makeWikiLink("modes#changeling", "changeling!</b><br/><br/>") +
 						HTMLText.makeImage(ling.getSprite(null)) + "<br/>" +
 				"Use your suction attack to absorb the essence of other creatures. When you feel strong enough, transform into your Ultimate Form. You must kill all the crew to win!" + decoyString())))));
     }

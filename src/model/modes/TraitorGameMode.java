@@ -43,7 +43,7 @@ public class TraitorGameMode extends ScoredGameMode {
 	private final List<GameItem> stealableItems;
     private List<Player> traitors = new ArrayList<>();
 	private HashMap<Player, TraitorObjective> objectives = new HashMap<>();
-	private String TRAITOR_START_STRING = "You are a " + HTMLText.makeWikiLinkNew("modes#traitor", "traitor") + "!";
+	private String TRAITOR_START_STRING = "You are a " + HTMLText.makeWikiLink("modes#traitor", "traitor") + "!";
 	private String CREW_START_STRING = "There are traitors on the station. Find them and stop them before they ruin everything!";
 
     public  TraitorGameMode() {
@@ -214,7 +214,7 @@ public class TraitorGameMode extends ScoredGameMode {
 	}
 
 	protected String getObjectiveText(Player traitor) {
-		return HTMLText.makeWikiLinkNew("modes#" + getName().toLowerCase(), "Objective") + "; \"" +
+		return HTMLText.makeWikiLink("modes#" + getName().toLowerCase(), "Objective") + "; \"" +
                 objectives.get(traitor).getText() + "\"";
 	}
 

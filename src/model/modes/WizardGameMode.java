@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class WizardGameMode extends TraitorGameMode {
 
-    private static final String WIZARD_START_STRING = "You are a " + HTMLText.makeWikiLink("modes/wizard", "Wizard") + "!";
+    private static final String WIZARD_START_STRING = "You are a " + HTMLText.makeWikiLink("modes#wizard", "Wizard") + "!";
 
     private Player wizard;
     private NPC decoy;

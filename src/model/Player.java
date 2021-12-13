@@ -16,7 +16,6 @@ import model.fancyframe.SinglePageFancyFrame;
 import model.items.suits.SuitItem;
 import model.map.rooms.DecorativeRoom;
 import model.movepowers.MovePowerRoom;
-import sounds.Sound;
 import sounds.SoundQueue;
 import model.actions.general.Action;
 import model.actions.general.ActionGroup;
@@ -559,7 +558,7 @@ public class Player extends Actor implements Target, Serializable {
 		this.setCharacter(new InfectedCharacter(this.getCharacter(), performingClient));
 		this.addTolastTurnInfo("You were " + HTMLText.makeText("Green", "infected") + " by " + performingClient.getPublicName(this));
 		setFancyFrame(new SinglePageFancyFrame(getFancyFrame(),"Secret Role!", HTMLText.makeColoredBackground("Lime", HTMLText.makeCentered("<br/>You were just infected by " + performingClient.getPublicName() +
-				"!</b><br/>You are now on the " + HTMLText.makeWikiLink("modes/host", "Host") + " team. <br/>Keep the humans from destroying the hive!"))));
+				"!</b><br/>You are now on the " + HTMLText.makeWikiLink("modes#host", "Host") + " team. <br/>Keep the humans from destroying the hive!"))));
 	}
 
 	public void prepForNewGame() {

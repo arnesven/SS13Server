@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class PiratesGameMode extends TraitorGameMode {
 
-    private static final String PIRATE_CAPTAIN_START_STRING = "You are a " + HTMLText.makeWikiLink("modes/pirates", "Pirate Captain") + "!";;
+    private static final String PIRATE_CAPTAIN_START_STRING = "You are a " + HTMLText.makeWikiLink("modes#pirates", "Pirate Captain") + "!";;
     private Player pirateCaptain;
     private NPC decoy;
 

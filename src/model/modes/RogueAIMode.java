@@ -3,7 +3,6 @@ package model.modes;
 import model.Actor;
 import model.GameData;
 import model.Player;
-import model.characters.crew.CaptainCharacter;
 import model.characters.general.AICharacter;
 import model.characters.general.GameCharacter;
 import model.fancyframe.SinglePageFancyFrame;
@@ -12,7 +11,6 @@ import model.items.laws.AILaw;
 import model.npcs.HumanNPC;
 import model.npcs.NPC;
 import model.objects.consoles.AIConsole;
-import model.objects.general.BreakableObject;
 import util.HTMLText;
 import util.Logger;
 import util.MyRandom;
@@ -59,7 +57,7 @@ public class RogueAIMode extends GameMode {
 
     @Override
     public void setStartingLastTurnInfo() {
-        String message = HTMLText.makeText("red", "You are a " + HTMLText.makeWikiLinkNew("modes#rogue-ai", "Rogue AI")) +
+        String message = HTMLText.makeText("red", "You are a " + HTMLText.makeWikiLink("modes#rogue-ai", "Rogue AI")) +
                 ". Kill or incapacitate the crew before they can shut you down! "
                 +"Your decoy is " + decoy.getBaseName() +
                 " (in " + decoy.getPosition().getName() + ")";
@@ -69,7 +67,7 @@ public class RogueAIMode extends GameMode {
 
     @Override
     protected void addAntagonistStartingMessage(Player c) {
-        String message = HTMLText.makeText("red", "You are a " + HTMLText.makeWikiLink("modes/rogueAI", "Rogue AI")) +
+        String message = HTMLText.makeText("red", "You are a " + HTMLText.makeWikiLink("modes#rogue-ai", "Rogue AI")) +
                 ". Kill or incapacitate the crew before they can shut you down! "
                 +"Your decoy is " + decoy.getBaseName() +
                 " (in " + decoy.getPosition().getName() + ")";

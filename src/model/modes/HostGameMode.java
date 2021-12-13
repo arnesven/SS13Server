@@ -90,7 +90,7 @@ public class HostGameMode extends GameMode {
 
 
 	private void addHostStartingMessage(Player cl) {
-		hiveString = "The " + HTMLText.makeWikiLinkNew("modes#host", "hive") + " is in " + hiveRoom.getName() + ".";
+		hiveString = "The " + HTMLText.makeWikiLink("modes#host", "hive") + " is in " + hiveRoom.getName() + ".";
 		cl.setFancyFrame(new SinglePageFancyFrame(cl.getFancyFrame(), "Secret Role!" ,  HTMLText.makeColoredBackground("Lime", HTMLText.makeCentered(
 				"<br/><br/><b>You are the host!</b><br/>" + " (Only you know this, so keep it a secret.)<br/><br/>" +
 						HTMLText.makeImage(hive.getSprite(null)) + "<br/>" +

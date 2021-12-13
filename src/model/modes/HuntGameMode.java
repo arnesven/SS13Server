@@ -206,7 +206,7 @@ public class HuntGameMode extends ScoredGameMode {
     @Override
     public void setStartingLastTurnInfo() {
             for (Player p : originalAliens) {
-                p.addTolastTurnInfo("You are an " + HTMLText.makeLink(HTMLText.wikiURL + "/modes/hunt", "alien") +
+                p.addTolastTurnInfo("You are an " + HTMLText.makeWikiLink("modes#hunt", "alien") +
                         ". Kill humans, lay eggs and wreak havoc on the station! " +
                         "When players die, they will come back to life as an alien if there are eggs available." +
                         "Your decoy is " + decoys.get(p).getBaseName() +
@@ -217,7 +217,7 @@ public class HuntGameMode extends ScoredGameMode {
     @Override
     protected void addAntagonistStartingMessage(Player c) {
         StringBuilder data = new StringBuilder( HTMLText.makeCentered(HTMLText.makeText("White", "<br/><b>You are an " +
-                HTMLText.makeLink(HTMLText.wikiURL + "/modes/hunt", "alien") + "!</b><br/>") +
+                HTMLText.makeWikiLink("modes#hunt", "alien") + "!</b><br/>") +
                 HTMLText.makeImage(new Sprite("alienfficon", "alien2.png", 0, 19, 64, 32, null)) + "<br/>" +
                 HTMLText.makeText("White", "Kill humans, lay eggs and wreak havoc on the station! " +
                         "When players die, they will come back to life as an alien if there are eggs available.<br/>" +
@@ -265,7 +265,7 @@ public class HuntGameMode extends ScoredGameMode {
 
     public FancyFrame getRespawnedFancyFrame(Player c) {
         StringBuilder data = new StringBuilder( HTMLText.makeCentered(HTMLText.makeText("White", "<br/><b>You are an " +
-                HTMLText.makeLink(HTMLText.wikiURL + "/modes/hunt", "alien") + "!</b><br/>") +
+                HTMLText.makeWikiLink("modes#hunt", "alien") + "!</b><br/>") +
                 HTMLText.makeImage(new Sprite("alienfficon", "alien2.png", 0, 19, 64, 32, null)) + "<br/>" +
                 HTMLText.makeText("White", "Kill humans, lay eggs and wreak havoc on the station! " +
                         "When players die, they will come back to life as an alien if there are eggs available.<br/>")));

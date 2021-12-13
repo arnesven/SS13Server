@@ -1,6 +1,5 @@
 package model.modes;
 
-import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
 import model.Player;
@@ -11,7 +10,6 @@ import model.characters.visitors.CaptainsDaughter;
 import model.fancyframe.SinglePageFancyFrame;
 import model.npcs.NPC;
 import util.HTMLText;
-import util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +21,7 @@ import java.util.Map;
  */
 public class MutinyGameMode extends GameMode {
 
-    private static final String MUTINEER_MESSAGE = "You are a " +  HTMLText.makeWikiLinkNew("modes#mutiny", "<b>mutineer</b>") + "! Take over the station by killing the Captain. Everybody is in on the mutiny except for the Head of Staff and the Captain's Daughter.";
+    private static final String MUTINEER_MESSAGE = "You are a " +  HTMLText.makeWikiLink("modes#mutiny", "<b>mutineer</b>") + "! Take over the station by killing the Captain. Everybody is in on the mutiny except for the Head of Staff and the Captain's Daughter.";
     private List<Actor> mutineers = new ArrayList<>();
 
     @Override

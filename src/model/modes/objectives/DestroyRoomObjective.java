@@ -38,6 +38,6 @@ public class DestroyRoomObjective implements TraitorObjective {
 
     @Override
     public boolean isCompleted(GameData gameData) {
-        return !gameData.getAllRooms().contains(targetRoom);
+        return targetRoom.isDestroyed();
     }
 }

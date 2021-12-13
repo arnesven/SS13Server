@@ -165,7 +165,7 @@ public class OperativesGameMode extends GameMode {
 	@Override
 	public void setStartingLastTurnInfo() {
 		for (Player p : operatives) {
-            p.addTolastTurnInfo("You are an " + HTMLText.makeLink(HTMLText.wikiURL + "/modes/operatives", "operative") +
+            p.addTolastTurnInfo("You are an " + HTMLText.makeWikiLink("modes#operatives", "operative") +
                                 ". Infiltrate the station and find the nuclear disk. " +
                                 "Then leave the station through an airlock. " +
                                 "Your decoy is " + decoys.get(p).getBaseName() +
@@ -184,7 +184,7 @@ public class OperativesGameMode extends GameMode {
 		}
 
 		StringBuilder data = new StringBuilder( HTMLText.makeCentered(HTMLText.makeText("White", "<br/><b>You are a nuclear " +
-                            HTMLText.makeLink(HTMLText.wikiURL + "/modes/operatives", "operative") + "!</b><br/>") +
+                            HTMLText.makeWikiLink("modes#operatives", "operative") + "!</b><br/>") +
 							HTMLText.makeImage(new NuclearBomb(null).getSprite(null)) + "<br/>" +
 							HTMLText.makeText("Black", "Infiltrate the station and find the nuclear disk. " +
 							"Then leave the station through an airlock.<br/>" +
