@@ -9,6 +9,7 @@ import model.Actor;
 import model.GameData;
 import model.Player;
 import model.fancyframe.ConsoleFancyFrame;
+import model.objects.clawcrane.ClawCraneGame;
 import model.objects.consoles.Console;
 import util.Logger;
 import util.MyRandom;
@@ -21,6 +22,7 @@ import java.util.List;
 public class ComputerSystem implements Serializable {
 
     private final Directory fileSystemRoot;
+    private KlondikeCommand klondike = new KlondikeCommand();
 
     public ComputerSystem() {
         fileSystemRoot = new Directory("/", null);
@@ -44,7 +46,10 @@ public class ComputerSystem implements Serializable {
         Directory etc = new Directory("etc", fileSystemRoot);
         fileSystemRoot.add(etc);
 
+        Directory games = new Directory("games", fileSystemRoot);
+        fileSystemRoot.add(games);
 
+        games.add(new PlebosFile("klondike", true, klondike));
 
     }
 
@@ -90,5 +95,9 @@ public class ComputerSystem implements Serializable {
             }
         }
         etc.add(pwdfile);
+    }
+
+    public KlondikeCommand getKlondikeGame() {
+        return klondike;
     }
 }
