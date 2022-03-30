@@ -1,6 +1,7 @@
 package model.plebOS.klondike;
 
 import graphics.sprites.Sprite;
+import model.plebOS.KlondikeCommand;
 
 import java.awt.*;
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class KlondikeDeck implements Serializable {
     public KlondikeDeck(int marginX, int marginY) {
         this.xoff = marginX;
         this.yoff = marginY;
-        this.hitBox = new Rectangle(marginX+21, marginY+13, 24, 34);
+        this.hitBox = new Rectangle(marginX+21, marginY+15, 24, 34);
         int column = 7;
         int row = 3;
         int suit = 0;
@@ -60,8 +61,6 @@ public class KlondikeDeck implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        g.setColor(Color.PINK);
-        g.drawRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);
     }
 
     public KlondikeCard pop() {
@@ -70,7 +69,26 @@ public class KlondikeDeck implements Serializable {
         return c;
     }
 
-    public boolean isClicked(int x, int y) {
+    private boolean isClicked(int x, int y) {
         return hitBox.contains(new Point(x, y));
+    }
+
+    public boolean handleClick(KlondikeCommand klondikeCommand, int x, int y) {
+        if (isClicked(x, y)) {
+            if (cards.isEmpty()) {
+                klondikeCommand.getDrawPile().flipAll();
+                cards.addAll(klondikeCommand.getDrawPile());
+                klondikeCommand.getDrawPile().clear();
+            } else {
+                for (int i = 0; i < 3 && !cards.isEmpty(); ++i) {
+                    KlondikeCard c = pop();
+                    c.flip();
+                    klondikeCommand.getDrawPile().add(c);
+                }
+            }
+            klondikeCommand.unselectCard();
+            return true;
+        }
+        return false;
     }
 }

@@ -51,4 +51,37 @@ public class KlondikeCard implements Serializable {
         }
 
     }
+
+    public boolean isRevealed() {
+        return revealed;
+    }
+
+    public boolean isLessAndOppositeSuit(KlondikeCard other) {
+        if (other == null) {
+            return getValue() == 13;
+        }
+        return oppositeSuit(other.getSuit()) && other.getValue() == value + 1;
+    }
+
+    public boolean isMoreAndIsSameSuit(KlondikeCard other) {
+        if (other == null) {
+            return getValue() == 1;
+        }
+        return other.getSuit().equals(suit) && other.getValue() == value - 1;
+    }
+
+    private String getSuit() {
+        return suit;
+    }
+
+    private boolean oppositeSuit(String otherSuit) {
+        if (suit.equals("h") || suit.equals("d")) {
+            return otherSuit.equals("c") || otherSuit.equals("s");
+        }
+        return otherSuit.equals("h") || otherSuit.equals("d");
+    }
+
+    private int getValue() {
+        return value;
+    }
 }

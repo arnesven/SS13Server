@@ -7,11 +7,13 @@ import model.fancyframe.KlondikeFancyFrame;
 import model.plebOS.klondike.KlondikeCard;
 import model.plebOS.klondike.KlondikeDeck;
 import model.plebOS.klondike.KlondikePile;
+import model.plebOS.klondike.PlayableKlondikePile;
 import util.Logger;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class KlondikeCommand extends PlebOSCommandHandler {
@@ -25,15 +27,15 @@ public class KlondikeCommand extends PlebOSCommandHandler {
 
     private KlondikeDeck deck = new KlondikeDeck(MARGIN_X, MARGIN_Y);
     private KlondikePile drawPile = new KlondikePile(false, COLUMN_WIDTH + MARGIN_X, MARGIN_Y);
-    private List<KlondikePile> playStacks = new ArrayList<>();
-    private List<KlondikePile> suitStacks = new ArrayList<>();
+    private List<PlayableKlondikePile> playStacks = new ArrayList<>();
+    private List<PlayableKlondikePile> suitStacks = new ArrayList<>();
     private KlondikeCard selectedCard;
     private Rectangle selectedBox;
 
     public KlondikeCommand() {
         super("klondike");
         for (int i = 0; i < 7; i++) {
-            playStacks.add(new KlondikePile(true, MARGIN_X + i*COLUMN_WIDTH, PLAYSTACKS_Y_OFFSET));
+            playStacks.add(new PlayableKlondikePile(true, MARGIN_X + i*COLUMN_WIDTH, PLAYSTACKS_Y_OFFSET));
             for (int j = 0; j < i; j++) {
                 playStacks.get(i).add(deck.pop());
             }
@@ -42,7 +44,7 @@ public class KlondikeCommand extends PlebOSCommandHandler {
             playStacks.get(i).add(c);
         }
         for (int i = 0; i < 4; i++) {
-            suitStacks.add(new KlondikePile(false, MARGIN_X + (3+i) * COLUMN_WIDTH, MARGIN_Y));
+            suitStacks.add(new PlayableKlondikePile(false, MARGIN_X + (3+i) * COLUMN_WIDTH, MARGIN_Y));
         }
 
     }
@@ -62,58 +64,91 @@ public class KlondikeCommand extends PlebOSCommandHandler {
         g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         deck.drawYourself(g);
         drawPile.drawYourself(g);
-        for (KlondikePile playStack : playStacks) {
+        for (KlondikePile playStack : getAllStacks()) {
             playStack.drawYourself(g);
         }
-        for (KlondikePile suitStack : suitStacks) {
-            suitStack.drawYourself(g);
-        }
-        if (selectedCard != null) {
-            g.setColor(new Color(10, 100, 255));
+        if (gameIsWon()) {
+            g.setColor(new Color(255, 255, 100));
+            g.setFont(new Font("Courier", Font.BOLD, 20));
+            g.drawString("CONGRATULATIONS!", 50, 70);
+            g.drawString("YOU WIN!", 100, 90);
+        } else if (selectedCard != null) {
+            g.setColor(new Color(155, 225, 255));
             g.drawRect(selectedBox.x, selectedBox.y, selectedBox.width, selectedBox.height);
-            Logger.log("KLONDIKE: Drawing selected card!");
-        } else {
-            Logger.log("KLONDIKE: Selected card was null");
         }
         return img;
     }
 
-    public void handleClick(int x, int y) {
-        if (deck.isClicked(x, y)) {
-            Logger.log("KLONDIKE: Deck clicked");
-            unselectCard();
-            return;
-        } else if (drawPile.isClicked(x, y)) {
-            Logger.log("KLONDIKE: Draw Pile clicked");
-            selectCard(drawPile.top(), drawPile.getHitBox());
-            return;
-        }
-        for (KlondikePile stack : playStacks) {
-            if (stack.isClicked(x, y)) {
-                int i = playStacks.indexOf(stack);
-                KlondikeCard card = stack.top();
-                Logger.log("KLONDIKE: Playstack " + i + "clicked, selecting " + card.getName());
-                selectCard(card, stack.getHitBox());
-                return;
+    private boolean gameIsWon() {
+        for (KlondikePile p : suitStacks) {
+            if (p.size() != 13) {
+                return false;
             }
         }
-        for (KlondikePile stack : suitStacks) {
-            if (stack.isClicked(x, y)) {
-                int i = suitStacks.indexOf(stack);
-                Logger.log("KLONDIKE: Suitstack " + i + "clicked");
+        return true;
+    }
+
+    public void handleClick(int x, int y) {
+        if (gameIsWon()) {
+            return;
+        }
+        if (deck.handleClick(this, x, y)) {
+            return;
+        }
+
+        if (drawPile.handleClick(this, x, y)) {
+            return;
+        }
+
+        for (KlondikePile stack : getAllStacks()) {
+            if (stack.handleClick(this, x, y)) {
                 return;
             }
         }
         unselectCard();
     }
 
-    private void unselectCard() {
-        selectedCard = null;
-        selectedBox = null;
+    private List<PlayableKlondikePile> getAllStacks() {
+        List<PlayableKlondikePile> allStacks = new ArrayList<>();
+        allStacks.addAll(playStacks);
+        allStacks.addAll(suitStacks);
+        return allStacks;
     }
 
-    private void selectCard(KlondikeCard top, Rectangle hitBox) {
-        selectedCard = top;
-        selectedBox = hitBox;
+    public void unselectCard() {
+        selectedCard = null;
+        selectedBox = null;
+        Logger.log("KLONDIKE: Card unselected.");
+    }
+
+    public void selectCard(KlondikeCard top, Rectangle hitBox) {
+        if (top == null) {
+            unselectCard();
+        } else {
+            Logger.log("KLONDIKE: " + top.getName() + " selected.");
+            selectedCard = top;
+            selectedBox = hitBox;
+        }
+    }
+
+    public KlondikePile getDrawPile() {
+        return drawPile;
+    }
+
+    public KlondikeCard getSelectedCard() {
+        return selectedCard;
+    }
+
+    public void removeCard(KlondikeCard selected) {
+        if (selected == drawPile.top()) {
+            drawPile.pop();
+            return;
+        }
+        for (KlondikePile p : getAllStacks()) {
+            if (selected == p.top()) {
+                p.pop();
+                return;
+            }
+        }
     }
 }
