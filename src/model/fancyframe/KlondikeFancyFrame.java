@@ -25,5 +25,6 @@ public class KlondikeFancyFrame extends FancyFrame {
 
     public void handleClick(GameData gameData, Player player, int x, int y) {
         gameData.getComputerSystem().getKlondikeGame().handleClick(x, y);
+        buildContent(player, gameData);
     }
 }

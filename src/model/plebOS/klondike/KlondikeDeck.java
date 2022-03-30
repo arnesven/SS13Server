@@ -19,7 +19,7 @@ public class KlondikeDeck implements Serializable {
     public KlondikeDeck(int marginX, int marginY) {
         this.xoff = marginX;
         this.yoff = marginY;
-        this.hitBox = new Rectangle(marginX+19, marginY+11, 26, 36);
+        this.hitBox = new Rectangle(marginX+21, marginY+13, 24, 34);
         int column = 7;
         int row = 3;
         int suit = 0;

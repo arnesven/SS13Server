@@ -19,7 +19,6 @@ public class KlondikeCard implements Serializable {
         this.suit = suit;
         this.sprite = new Sprite("kcard" + value + suit, "playing_cards.png", spriteColumn, spriteRow, null);
         this.revealed = false;
-        Logger.log("KLONDIKE: Making card " + getName());
     }
 
     public String getName() {

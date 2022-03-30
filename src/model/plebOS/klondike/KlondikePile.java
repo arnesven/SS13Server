@@ -37,11 +37,26 @@ public class KlondikePile extends ArrayList<KlondikeCard> {
         g.drawRect(r.x, r.y, r.width, r.height);
     }
 
-    private Rectangle getHitBox() {
-        return new Rectangle(xpos + 19, ypos + 3+this.size()*ROW_HEIGHT, 26, 36);
+    public Rectangle getHitBox() {
+        int size = this.size();
+        if (size == 0) {
+            size = 1;
+        }
+        if (revelead) {
+            return new Rectangle(xpos + 21, ypos + 5 + size * ROW_HEIGHT, 24, 34);
+        }
+        return new Rectangle(xpos + 21, ypos + 5 + 1 * ROW_HEIGHT, 24, 34);
     }
 
     public boolean isClicked(int x, int y) {
         return getHitBox().contains(new Point(x, y));
     }
+
+    public KlondikeCard top() {
+        if (isEmpty()) {
+            return null;
+        }
+        return this.get(this.size()-1);
+    }
+
 }

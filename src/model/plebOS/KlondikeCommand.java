@@ -27,6 +27,8 @@ public class KlondikeCommand extends PlebOSCommandHandler {
     private KlondikePile drawPile = new KlondikePile(false, COLUMN_WIDTH + MARGIN_X, MARGIN_Y);
     private List<KlondikePile> playStacks = new ArrayList<>();
     private List<KlondikePile> suitStacks = new ArrayList<>();
+    private KlondikeCard selectedCard;
+    private Rectangle selectedBox;
 
     public KlondikeCommand() {
         super("klondike");
@@ -66,20 +68,52 @@ public class KlondikeCommand extends PlebOSCommandHandler {
         for (KlondikePile suitStack : suitStacks) {
             suitStack.drawYourself(g);
         }
+        if (selectedCard != null) {
+            g.setColor(new Color(10, 100, 255));
+            g.drawRect(selectedBox.x, selectedBox.y, selectedBox.width, selectedBox.height);
+            Logger.log("KLONDIKE: Drawing selected card!");
+        } else {
+            Logger.log("KLONDIKE: Selected card was null");
+        }
         return img;
     }
 
     public void handleClick(int x, int y) {
         if (deck.isClicked(x, y)) {
             Logger.log("KLONDIKE: Deck clicked");
+            unselectCard();
+            return;
         } else if (drawPile.isClicked(x, y)) {
             Logger.log("KLONDIKE: Draw Pile clicked");
+            selectCard(drawPile.top(), drawPile.getHitBox());
+            return;
         }
         for (KlondikePile stack : playStacks) {
             if (stack.isClicked(x, y)) {
                 int i = playStacks.indexOf(stack);
-                Logger.log("KLONDIKE: Playstack " + i + "clicked");
+                KlondikeCard card = stack.top();
+                Logger.log("KLONDIKE: Playstack " + i + "clicked, selecting " + card.getName());
+                selectCard(card, stack.getHitBox());
+                return;
             }
         }
+        for (KlondikePile stack : suitStacks) {
+            if (stack.isClicked(x, y)) {
+                int i = suitStacks.indexOf(stack);
+                Logger.log("KLONDIKE: Suitstack " + i + "clicked");
+                return;
+            }
+        }
+        unselectCard();
+    }
+
+    private void unselectCard() {
+        selectedCard = null;
+        selectedBox = null;
+    }
+
+    private void selectCard(KlondikeCard top, Rectangle hitBox) {
+        selectedCard = top;
+        selectedBox = hitBox;
     }
 }
