@@ -22,6 +22,7 @@ public class LongKlondikePile extends PlayableKlondikePile {
             if (cardIndex >= 0) {
                 if (top() != null && top() == this.get(cardIndex) && !top().isRevealed()) {
                     top().flip();
+                    return true;
                 }
                 Rectangle hitBox = getHitBox(cardIndex);
                 hitBox.height += (this.size() - cardIndex - 1) * ROW_HEIGHT;

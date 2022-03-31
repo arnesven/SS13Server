@@ -54,6 +54,9 @@ public class KlondikeDeck implements Serializable {
 
     public void drawYourself(Graphics2D g) {
         if (cards.isEmpty()) {
+            g.setColor(new Color(0, 80, 0));
+            Rectangle r = hitBox;
+            g.drawRect(r.x, r.y, r.width, r.height);
             return;
         }
         try {
