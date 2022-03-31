@@ -19,7 +19,7 @@ public class KlondikeFancyFrame extends FancyFrame {
     private void buildContent(Player performingClient, GameData gameData) {
         StringBuilder content = new StringBuilder();
         KlondikeCommand klondike = gameData.getComputerSystem().getKlondikeGame();
-        content.append(HTMLText.makeCentered(HTMLText.makeImage(klondike.makeImageFromContents())));
+        content.append(HTMLText.makeImage(klondike.makeImageFromContents()));
         setData("Klondike", false, HTMLText.makeColoredBackground("black", content.toString()));
     }
 

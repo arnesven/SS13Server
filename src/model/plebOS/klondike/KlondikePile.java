@@ -12,8 +12,8 @@ public class KlondikePile extends ArrayList<KlondikeCard> {
     private final int xpos;
     private final int ypos;
 
-    public KlondikePile(boolean revealed, int xpos, int ypos) {
-        this.revelead = revealed;
+    public KlondikePile(boolean drawLong, int xpos, int ypos) {
+        this.revelead = drawLong;
         this.xpos = xpos;
         this.ypos = ypos;
     }
@@ -33,15 +33,15 @@ public class KlondikePile extends ArrayList<KlondikeCard> {
         }
     }
 
-    public Rectangle getHitBox() {
-        int size = this.size();
-        if (size == 0) {
-            size = 1;
-        }
+    protected Rectangle getHitBox(int cardIndex) {
         if (revelead) {
-            return new Rectangle(xpos + 21, ypos + 7 + size * ROW_HEIGHT, 24, 34);
+            return new Rectangle(xpos + 21, ypos + 7 + (cardIndex+1) * ROW_HEIGHT, 24, 34);
         }
         return new Rectangle(xpos + 21, ypos + 7 + ROW_HEIGHT, 24, 34);
+    }
+
+    protected Rectangle getHitBox() {
+        return getHitBox(this.size()-1);
     }
 
     protected boolean isClicked(int x, int y) {
@@ -72,16 +72,9 @@ public class KlondikePile extends ArrayList<KlondikeCard> {
 
     public boolean handleClick(KlondikeCommand klondikeCommand, int x, int y) {
         if (isClicked(x, y)) {
-            if (top() != null && !top().isRevealed()) {
-                top().flip();
-            }
             klondikeCommand.selectCard(top(), getHitBox());
             return true;
         }
         return false;
-    }
-
-    protected boolean isRevealed() {
-        return revelead;
     }
 }
