@@ -269,7 +269,7 @@ public class HostGameMode extends GameMode {
 
 	@Override
 	protected String getImageURL() {
-		return "https://image.invaluable.com/housePhotos/profilesinhistory/87/589387/H3257-L96344145.jpg";
+		return "https://www.ida.liu.se/~erini02/ss13/host.gif";
 	}
 
 
