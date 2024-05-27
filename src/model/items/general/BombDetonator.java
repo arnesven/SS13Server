@@ -6,6 +6,7 @@ import java.util.List;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.general.SensoryLevel.*;
@@ -62,4 +63,9 @@ public class BombDetonator extends GameItem {
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("bombdetonator", "device.png", 16, this);
     }
+
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "An electronic device which can remotely detonate explosives.";
+	}
 }

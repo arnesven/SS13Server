@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 public class WizardsHat extends HatItem {
     public WizardsHat() {
@@ -31,5 +33,10 @@ public class WizardsHat extends HatItem {
     @Override
     public void beingTakenOff(Actor actionPerformer) {
 
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A point blue hat made of common felt cloth.";
     }
 }

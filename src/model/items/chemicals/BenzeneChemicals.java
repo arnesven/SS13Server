@@ -1,5 +1,7 @@
 package model.items.chemicals;
 
+import model.GameData;
+import model.Player;
 import model.items.foods.FoodItem;
 import model.items.general.GameItem;
 import model.objects.general.Antidote;
@@ -15,6 +17,11 @@ public class BenzeneChemicals extends Chemicals {
     @Override
     public Chemicals clone() {
         return new BenzeneChemicals();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A liquid with an aromatic scent.";
     }
 
     @Override

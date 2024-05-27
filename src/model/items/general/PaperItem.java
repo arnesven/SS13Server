@@ -2,6 +2,8 @@ package model.items.general;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 public class PaperItem extends GameItem {
     public PaperItem() {
@@ -16,5 +18,10 @@ public class PaperItem extends GameItem {
     @Override
     public GameItem clone() {
         return new PaperItem();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A blank sheet. Good for writing on, or making paper airplanes.";
     }
 }

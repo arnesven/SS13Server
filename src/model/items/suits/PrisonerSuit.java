@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.InstanceChecker;
 import util.Logger;
@@ -18,6 +20,11 @@ public class PrisonerSuit extends TorsoSuit {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("prisonersuit", "uniforms.png", 2, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Clothing meant to be worn by an inmate.";
     }
 
     @Override

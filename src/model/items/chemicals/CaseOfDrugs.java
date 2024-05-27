@@ -3,6 +3,7 @@ package model.items.chemicals;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.DealDrugsAction;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
@@ -21,6 +22,11 @@ public class CaseOfDrugs extends GameItem {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("caseofdrugs", "storage2.png", 6, 2, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A case of suspicious looking medical compounds.";
     }
 
     @Override

@@ -1,5 +1,7 @@
 package model.items.weapons;
 
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 
 /**
@@ -13,6 +15,11 @@ public class Tentacle extends Weapon {
     @Override
     public GameItem clone() {
         return new Tentacle();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "";
     }
 
     @Override

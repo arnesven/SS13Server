@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.decorators.*;
 import model.characters.general.GameCharacter;
 
@@ -31,6 +33,11 @@ public class PirateCaptainOutfit extends FullBodySuit {
         Sprite spr = new Sprite("piratecaptainsarmorworn", "suit.png", 60, this);
         spr.addToOver(getFullBodySprites().get(Equipment.HEAD_SLOT));
         return spr;
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Attire befitting a pirate captain. It looks quite bulky.";
     }
 
     @Override

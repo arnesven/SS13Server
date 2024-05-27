@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.objects.general.SoilPatch;
@@ -32,6 +33,11 @@ public class BagOfSoil extends GameItem {
     public void addYourActions(GameData gameData, ArrayList<Action> at, Actor cl) {
         super.addYourActions(gameData, at, cl);
         at.add(new SpreadSoilAction());
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A sack of dirt. A good base for planting something in.";
     }
 
     private class SpreadSoilAction extends Action {

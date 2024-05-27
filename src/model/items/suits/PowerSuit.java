@@ -133,6 +133,11 @@ public class PowerSuit extends FullBodySuit {
     }
 
     @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A mechanical suit which gives the wearer immense strength.";
+    }
+
+    @Override
     public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
         return "A large mechanical suit which lets the pilot to lift heavy loads. Also protects the pilot a little from harm.";
     }

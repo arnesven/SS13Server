@@ -326,9 +326,7 @@ public abstract class GameItem implements Locatable, SpriteObject, Serializable 
         return 0;
     }
 
-    public String getDescription(GameData gameData, Player performingClient) {
-        return "<i>Description Needed!</i>";
-    }
+    public abstract String getDescription(GameData gameData, Player performingClient);
 
     public String getExtraDescriptionStats(GameData gameData, Player performingClient) {
         return "";

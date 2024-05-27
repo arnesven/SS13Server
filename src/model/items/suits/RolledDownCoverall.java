@@ -3,6 +3,8 @@ package model.items.suits;
 import graphics.sprites.RegularBlackShoesSprite;
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +18,11 @@ public abstract class RolledDownCoverall extends TorsoAndShoesSuit {
     public Sprite getWornSprite(Actor whosAsking) {
         return OutFit.makeOutfit("rolleddowncoverall"+getSpriteCol()+""+getSpriteRow(),
                 "uniform2.png", getSpriteCol(), getSpriteRow(), this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Coveralls which can be rolled down with ease.";
     }
 
     protected abstract int getSpriteCol();

@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +38,11 @@ public class WizardsOutfit extends HeadShoesAndTorsoSuit {
     @Override
     public SuitItem clone() {
         return new WizardsOutfit();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "An outfit worn by a wizard, or somebody pretending to be.";
     }
 
     @Override

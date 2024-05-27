@@ -2,6 +2,7 @@ package model.items.weapons;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.combat.DefaultUnarmedAttack;
 import model.combat.MartialArtsAttack;
@@ -18,6 +19,11 @@ public class UnarmedAttack extends Weapon implements BludgeoningWeapon {
     public UnarmedAttack() {
         super("Unarmed Attack", 0.5, 0.5, false, 0.0, true, 0);
         attackType = new DefaultUnarmedAttack();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "";
     }
 
     @Override

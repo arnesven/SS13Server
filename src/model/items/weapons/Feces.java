@@ -1,5 +1,7 @@
 package model.items.weapons;
 
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 
 /**
@@ -10,6 +12,11 @@ public class Feces extends Weapon {
 
     public Feces() {
         super("Feces", 1.0, 0.0, false, 0.0, 0);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A piece of excrement.";
     }
 
     @Override

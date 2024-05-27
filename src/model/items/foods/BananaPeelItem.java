@@ -2,6 +2,8 @@ package model.items.foods;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 
 public class BananaPeelItem extends GameItem {
@@ -11,6 +13,11 @@ public class BananaPeelItem extends GameItem {
 
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("banana", "items.png", 63, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "The peel of a banana. Slippery.";
     }
 
     @Override

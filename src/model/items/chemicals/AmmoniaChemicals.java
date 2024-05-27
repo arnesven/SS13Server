@@ -1,5 +1,7 @@
 package model.items.chemicals;
 
+import model.GameData;
+import model.Player;
 import model.items.foods.FoodItem;
 import model.items.general.GameItem;
 import model.items.general.PoisonSyringe;
@@ -16,6 +18,11 @@ public class AmmoniaChemicals extends Chemicals {
     @Override
     public Chemicals clone() {
         return new AmmoniaChemicals();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A clear liquid with a powerful smell.";
     }
 
     @Override

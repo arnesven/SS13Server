@@ -3,6 +3,8 @@ package model.items.suits;
 import graphics.sprites.RegularBlackShoesSprite;
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +22,11 @@ public class MarshalOutfit extends TorsoAndShoesSuit {
     @Override
     public SuitItem clone() {
         return new MarshalOutfit();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "An outfit worn by officers of the GFPD.";
     }
 
     @Override

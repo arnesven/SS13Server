@@ -3,6 +3,7 @@ package model.items.foods;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.AlterStrength;
 import model.characters.decorators.InstanceChecker;
@@ -24,7 +25,12 @@ public class SpinachSoup extends HealingFood {
         return new Sprite("spinachsoup", "food.png", 19, 3, this);
     }
 
-    @Override
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "A nice hot soup.";
+	}
+
+	@Override
 	protected void triggerSpecificReaction(Actor eatenBy, GameData gameData) {
 		eatenBy.addTolastTurnInfo("You feel stronger.");
 		eatenBy.setCharacter(new AlterStrength(eatenBy.getCharacter(), 

@@ -2,6 +2,8 @@ package model.items.foods;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 /**
  * Created by erini02 on 01/05/16.
@@ -14,6 +16,11 @@ public class SpaceBurger extends JunkHealingFood {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("spaceburger", "food.png", 2, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A slightly revolting, albeit filling, fast food meal.";
     }
 
     @Override

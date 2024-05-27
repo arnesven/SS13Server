@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 public class Bikini extends TorsoSuit {
     public Bikini() {
@@ -16,6 +18,11 @@ public class Bikini extends TorsoSuit {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("bikini", "uniforms.png", 1, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A provocative female garment.";
     }
 
     @Override

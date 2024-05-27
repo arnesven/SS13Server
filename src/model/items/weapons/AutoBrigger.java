@@ -3,6 +3,7 @@ package model.items.weapons;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.items.NoSuchThingException;
 import model.items.general.GameItem;
@@ -37,6 +38,11 @@ public class AutoBrigger extends Weapon {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("autobrigger", "items.png", 26, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A weapon that does no damage, but instead instantly teleports the target to SS13's brig.";
     }
 
 

@@ -2,6 +2,7 @@ package model.items.weapons;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.events.animation.AnimatedSprite;
 import model.items.NoSuchThingException;
@@ -18,6 +19,11 @@ public class FlyingCredit extends Weapon implements PiercingWeapon {
     @Override
     public GameItem clone() {
         return new FlyingCredit();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "";
     }
 
     @Override

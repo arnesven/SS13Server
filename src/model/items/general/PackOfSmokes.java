@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import sounds.Sound;
 
@@ -40,5 +41,14 @@ public class PackOfSmokes extends GameItem {
     @Override
     public Sound getPickUpSound() {
         return new Sound("matchbox_pickup");
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A pack of Nanotrasen standard issue cigarettes. On the front is the following text in bold:<br/>" +
+                "<i><center>Health Warning:<br/><br/>" +
+                "Smoking these cigarettes will make babies cry, bring you bad luck and degrade the value of your stocks." +
+                " It may also affect your health negatively." +
+                "</center></i>";
     }
 }

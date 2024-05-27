@@ -1,5 +1,7 @@
 package model.items.weapons;
 
+import model.GameData;
+import model.Player;
 import model.events.animation.AnimatedSprite;
 import model.items.general.GameItem;
 
@@ -16,6 +18,11 @@ public class ElectricShocks extends Weapon {
     @Override
     public GameItem clone() {
         return new ElectricShocks();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "";
     }
 
 

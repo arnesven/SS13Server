@@ -3,6 +3,7 @@ package model.items.laws;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.items.general.GameItem;
 
@@ -44,5 +45,10 @@ public abstract class AIAbility extends GameItem {
     @Override
     public boolean isRecyclable() {
         return false;
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "";
     }
 }

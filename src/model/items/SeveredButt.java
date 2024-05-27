@@ -2,6 +2,8 @@ package model.items;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.decorators.CharacterDecorator;
 import model.characters.general.GameCharacter;
 import model.items.general.GameItem;
@@ -24,6 +26,11 @@ public class SeveredButt extends BodyPart implements Wearable  {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("severedbutt", "body_parts.png", 4, 0, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A person's severed buttocks.";
     }
 
     @Override

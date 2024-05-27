@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 public class Mankini extends TorsoSuit {
     public Mankini() {
@@ -21,6 +23,11 @@ public class Mankini extends TorsoSuit {
     @Override
     public SuitItem clone() {
         return new Mankini();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A provocative male garment.";
     }
 
     @Override

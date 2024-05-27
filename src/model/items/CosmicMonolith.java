@@ -4,6 +4,7 @@ import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 import model.objects.monolith.*;
 import util.Logger;
@@ -38,6 +39,11 @@ public abstract class CosmicMonolith extends GameItem {
     @Override
     public String getPublicName(Actor whosAsking) {
         return "Cosmic Monolith";
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A strange object from space. What could it be?";
     }
 
     public static CosmicMonolith getRandomMonolith(GameData gameData) {

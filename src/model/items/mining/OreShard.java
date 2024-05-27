@@ -2,6 +2,8 @@ package model.items.mining;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 import util.MyRandom;
 
@@ -26,5 +28,10 @@ public abstract class OreShard extends GameItem {
     protected abstract int getSpriteRow();
 
     public abstract int getCharge();
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "An ore shard of type " + getShardTypeName() + ".<br/>Charges: " + getCharge() + ".";
+    }
 
 }

@@ -3,6 +3,8 @@ package model.items.suits;
 import graphics.sprites.RegularBlackShoesSprite;
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +27,11 @@ public class MerchantSuit extends TorsoAndShoesSuit {
     @Override
     public void beingPutOn(Actor actionPerformer) {
 
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Clothing worn by a merchant.";
     }
 
     @Override

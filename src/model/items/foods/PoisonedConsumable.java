@@ -3,6 +3,7 @@ package model.items.foods;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.characters.decorators.PoisonedDecorator;
 import model.items.general.GameItem;
 
@@ -23,6 +24,11 @@ public class PoisonedConsumable extends FoodItem {
         poisonSprite = new Sprite(innerItem.getSprite(maker), "poisoned");
         poisonSprite.setColor(Color.GREEN);
 
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return innerItem.getDescription(gameData, performingClient);
     }
 
     @Override

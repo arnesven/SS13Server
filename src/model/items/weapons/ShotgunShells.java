@@ -1,5 +1,7 @@
 package model.items.weapons;
 
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 
 /**
@@ -23,5 +25,10 @@ public class ShotgunShells extends Ammunition {
     @Override
     public GameItem clone() {
         return new ShotgunShells();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Ammunition for a shotgun.";
     }
 }

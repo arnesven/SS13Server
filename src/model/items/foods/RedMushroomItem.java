@@ -3,6 +3,7 @@ package model.items.foods;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.characters.decorators.PoisonedDecorator;
 
 public class RedMushroomItem extends MushroomItem {
@@ -23,6 +24,11 @@ public class RedMushroomItem extends MushroomItem {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("redmushroomitem", "harvest.png", 5, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A reddish cap fungus.";
     }
 
     @Override

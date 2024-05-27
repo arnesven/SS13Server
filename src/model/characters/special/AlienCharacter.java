@@ -318,5 +318,10 @@ public class AlienCharacter extends GameCharacter {
         public GameItem clone() {
             return new TailSpike();
         }
+
+        @Override
+        public String getDescription(GameData gameData, Player performingClient) {
+            return "";
+        }
     }
 }

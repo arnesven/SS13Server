@@ -2,6 +2,8 @@ package model.items.laws;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.items.suits.Equipment;
 import model.items.suits.SuitItem;
 import model.items.suits.TorsoSuit;
@@ -52,5 +54,10 @@ public class AISuit extends SuitItem {
     @Override
     public boolean permitsOver() {
         return false;
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "";
     }
 }

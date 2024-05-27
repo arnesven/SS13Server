@@ -3,6 +3,8 @@ package model.items.suits;
 import graphics.sprites.RegularBlackShoesSprite;
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +27,12 @@ public class JumpSuit extends TorsoAndShoesSuit {
         return new Sprite("jumpsuit", "uniforms.png", 7, 1, this);
     }
 
-    @Override
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "A suit which is designed to be worn underneath another suit.";
+	}
+
+	@Override
     protected Sprite getWornSprite(Actor whosAsking) {
         List<Sprite> list = new ArrayList<>();
         list.add(new RegularBlackShoesSprite());

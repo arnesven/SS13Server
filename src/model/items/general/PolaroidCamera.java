@@ -34,6 +34,11 @@ public class PolaroidCamera extends GameItem {
     }
 
     @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A camera which instantly ejects a paper copy of the picture taken.";
+    }
+
+    @Override
     public GameItem clone() {
         return new PolaroidCamera();
     }

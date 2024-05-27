@@ -4,6 +4,8 @@ import graphics.sprites.RegularBlackShoesSprite;
 import graphics.sprites.Sprite;
 import graphics.sprites.SpriteObject;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.crew.*;
 import model.characters.decorators.DisguisedAs;
 import model.characters.decorators.InstanceChecker;
@@ -24,6 +26,10 @@ public class OutFit extends TorsoAndShoesSuit {
 		this.type = chara;
 	}
 
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Some clothing.";
+    }
 
     @Override
     public int getEquipmentSlot() {

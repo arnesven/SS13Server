@@ -3,6 +3,7 @@ package model.items.foods;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.events.BananaPeelEvent;
 
 public class Banana extends HealingFood {
@@ -22,7 +23,12 @@ public class Banana extends HealingFood {
         return new Sprite("banana", "items.png", 62, this);
     }
 
-    @Override
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "A scrumptious yellow fruit.";
+	}
+
+	@Override
 	public Banana clone() {
 		return new Banana(getMaker());
 	}

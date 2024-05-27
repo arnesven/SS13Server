@@ -79,6 +79,11 @@ public class PDA extends UplinkItem {
         return new Sprite("PDA", "pda.png", 24, this);
     }
 
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "A electronic device known to be used by Syndicate recruits.";
+	}
+
 	public TraitorGameMode getTraitorMode() {
 		return traitorMode;
 	}

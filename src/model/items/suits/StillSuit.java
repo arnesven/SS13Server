@@ -3,6 +3,8 @@ package model.items.suits;
 import graphics.sprites.RegularBlackShoesSprite;
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +24,11 @@ public class StillSuit extends HeadShoesAndTorsoSuit {
     public Sprite getSprite(Actor whosAsking) {
 
         return new Sprite("stillsuit", "suits.png", 18, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A special suit that recycles all the perspiration from the wearer into a drinking container.";
     }
 
     @Override

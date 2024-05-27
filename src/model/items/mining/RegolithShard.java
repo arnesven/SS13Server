@@ -1,5 +1,7 @@
 package model.items.mining;
 
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 
 /**

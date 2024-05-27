@@ -34,6 +34,11 @@ public class ImpalerWeapon extends SlashingWeapon {
         return new ImpalerWeapon();
     }
 
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "";
+    }
+
     private class ScreamAction extends Action {
         public ScreamAction() {
             super("Scream", new SensoryLevel(SensoryLevel.VisualLevel.INVISIBLE,

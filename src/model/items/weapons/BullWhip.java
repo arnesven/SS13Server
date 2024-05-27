@@ -3,6 +3,7 @@ package model.items.weapons;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
@@ -26,6 +27,11 @@ public class BullWhip extends Weapon {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("bullwhip", "weapons2.png", 27, 29, 32, 32, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Useful for keeping cattle, taming lions, or swinging between buildings.";
     }
 
     @Override

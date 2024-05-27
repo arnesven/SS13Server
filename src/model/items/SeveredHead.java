@@ -2,6 +2,8 @@ package model.items;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 
 public class SeveredHead extends BodyPart {
@@ -17,6 +19,11 @@ public class SeveredHead extends BodyPart {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("severedhead", "body_parts.png", 5, 0, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A person's severed head.";
     }
 
     @Override

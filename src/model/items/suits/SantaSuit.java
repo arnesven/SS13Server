@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.decorators.NameChangeDecorator;
 import model.characters.general.GameCharacter;
 
@@ -34,6 +36,11 @@ public class SantaSuit extends TorsoAndHatSuit {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("santassuit", "uniforms.png", 5, 5, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A red and white suit designed to ward against the frigid cold of the north pole.";
     }
 
     @Override

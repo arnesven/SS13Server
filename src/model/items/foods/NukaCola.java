@@ -3,6 +3,7 @@ package model.items.foods;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.events.damage.RadiationDamage;
 import sounds.Sound;
 import util.MyRandom;
@@ -23,6 +24,11 @@ public class NukaCola extends JunkHealingFood {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("nukacolacan", "drinks.png", 10, 8, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A slightly irradiated carbonated soda beverage.";
     }
 
     @Override

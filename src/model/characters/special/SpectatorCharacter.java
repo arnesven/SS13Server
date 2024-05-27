@@ -121,6 +121,11 @@ public class SpectatorCharacter extends GhostCharacter {
         }
 
         @Override
+        public String getDescription(GameData gameData, Player performingClient) {
+            return "";
+        }
+
+        @Override
         public void beingPutOn(Actor actionPerformer) {
 
         }
@@ -147,6 +152,11 @@ public class SpectatorCharacter extends GhostCharacter {
         @Override
         public Sprite getSprite(Actor whosAsking) {
             return sprite;
+        }
+
+        @Override
+        public String getDescription(GameData gameData, Player performingClient) {
+            return "";
         }
 
         @Override

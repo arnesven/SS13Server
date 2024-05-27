@@ -2,6 +2,8 @@ package model.items.foods;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import sounds.Sound;
 
 public class SpaceCheetos extends JunkHealingFood {
@@ -17,6 +19,11 @@ public class SpaceCheetos extends JunkHealingFood {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("spacecheetosbag", "food.png", 9, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A salty, spicy and crunchy snack. Ubiquitous across the galaxy.";
     }
 
     @Override

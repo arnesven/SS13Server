@@ -3,6 +3,7 @@ package model.items.foods;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.characters.general.ChimpCharacter;
 import model.events.damage.FireDamage;
@@ -22,6 +23,11 @@ public class GrilledMonkeyDeluxe extends HealingFood {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("grilledmonkeydeluxe", "food.png", 17, 15, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A high-end dish, which requires a particular ingredient.";
     }
 
     @Override

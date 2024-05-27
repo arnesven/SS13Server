@@ -2,6 +2,8 @@ package model.items;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 
 /**
@@ -27,6 +29,11 @@ public class Brain extends GameItem {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new  Sprite("brain", "surgery.png", 2, 1, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A squishy human brain.";
     }
 
     @Override

@@ -202,4 +202,9 @@ public abstract class PowerCord extends GameItem {
                 Color.MAGENTA, "PURPLE", Color.CYAN, "CYAN", Color.BLUE, "BLUE", Color.WHITE, "WHITE",
                 Color.YELLOW, "YELLOW", Color.PINK, "PINK", Color.DARK_GRAY, "BLACK");
     }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "An electrical cord for conveying power.";
+    }
 }

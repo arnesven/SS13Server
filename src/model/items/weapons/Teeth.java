@@ -1,5 +1,7 @@
 package model.items.weapons;
 
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 
 /**
@@ -13,5 +15,10 @@ public class Teeth extends Weapon implements PiercingWeapon {
     @Override
     public GameItem clone() {
         return new Teeth();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A set of teeth.";
     }
 }

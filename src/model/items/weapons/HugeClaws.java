@@ -1,5 +1,7 @@
 package model.items.weapons;
 
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 
 public class HugeClaws extends SlashingWeapon {
@@ -10,5 +12,10 @@ public class HugeClaws extends SlashingWeapon {
     @Override
     public GameItem clone() {
         return new HugeClaws();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Some huge claws. They look sharp.";
     }
 }

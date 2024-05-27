@@ -2,6 +2,8 @@ package model.items.foods;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 
 /**
@@ -28,5 +30,10 @@ public class Tomato extends HealingFood {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("tomatosmall", "harvest.png", 1, 2, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A juicy red <s>vegetable</s> fruit.";
     }
 }

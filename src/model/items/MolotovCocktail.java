@@ -2,6 +2,7 @@ package model.items;
 
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.Target;
 import model.events.ambient.ElectricalFire;
 import model.events.damage.Damager;
@@ -76,5 +77,10 @@ public class MolotovCocktail extends GameItem implements Damager, ExplodableItem
     @Override
     public GameItem clone() {
         return new MolotovCocktail(inner);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "An incendiary throwing device used by <s>crazy</s> russians.";
     }
 }

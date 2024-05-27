@@ -1,5 +1,7 @@
 package model.items.chemicals;
 
+import model.GameData;
+import model.Player;
 import model.items.foods.FoodItem;
 import model.items.general.GameItem;
 
@@ -14,6 +16,11 @@ public class EthanolChemicals extends Chemicals {
     @Override
     public Chemicals clone() {
         return new EthanolChemicals();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Common alcohol, albeit very concentrated.";
     }
 
     @Override

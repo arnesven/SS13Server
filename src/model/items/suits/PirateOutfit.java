@@ -3,6 +3,8 @@ package model.items.suits;
 import graphics.sprites.RegularBlackShoesSprite;
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.decorators.DisguisedAs;
 import model.characters.decorators.InstanceChecker;
 import model.characters.general.GameCharacter;
@@ -19,6 +21,11 @@ public class PirateOutfit extends TorsoAndShoesSuit {
     public PirateOutfit(int num) {
         super("Pirate Outfit", 1.0, 20);
         this.num = num;
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Clothing suitable for a pirate. Smells of sweat, rum and depression.";
     }
 
     @Override

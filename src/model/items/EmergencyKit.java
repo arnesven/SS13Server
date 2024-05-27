@@ -3,6 +3,7 @@ package model.items;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.UnpackItemAction;
 import model.items.chemicals.IodinePill;
@@ -30,6 +31,11 @@ public class EmergencyKit extends UnpackableItem {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("emergencykit", "storage.png", 83, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Open in case of emergency! Contents: Wrench, Med-Patch, Oxygen Mask and Iodine Pill.";
     }
 
     @Override

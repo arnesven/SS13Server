@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 public class WizardsRobes extends SuitItem {
     public WizardsRobes() {
@@ -46,5 +48,10 @@ public class WizardsRobes extends SuitItem {
     @Override
     public boolean permitsOver() {
         return false;
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A blue robe made of common felt cloth.";
     }
 }

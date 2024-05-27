@@ -3,6 +3,7 @@ package model.items;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.itemactions.UnpackItemAction;
 import model.items.general.GameItem;
@@ -27,6 +28,11 @@ public class CapsulePrize extends UnpackableItem {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("capsuleprize" + look, "arcade.png", look, 5, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A plastic bauble with something inside.";
     }
 
     @Override

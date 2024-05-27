@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 import model.characters.general.GameCharacter;
 import model.characters.decorators.FancyClothesDecorator;
 import model.characters.decorators.InstanceChecker;
@@ -19,7 +21,12 @@ public class FancyClothes extends TorsoSuit {
         return new Sprite("fancyclothes", "uniforms.png", 0, 6, this);
     }
 
-    @Override
+	@Override
+	public String getDescription(GameData gameData, Player performingClient) {
+		return "A very pretty garment, for formal occasions.";
+	}
+
+	@Override
     protected Sprite getWornSprite(Actor whosAsking) {
         return new Sprite("fancyclothesworn", "uniform2.png", 7, 23, this);
     }

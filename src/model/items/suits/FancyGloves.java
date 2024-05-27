@@ -2,6 +2,8 @@ package model.items.suits;
 
 import graphics.sprites.Sprite;
 import model.Actor;
+import model.GameData;
+import model.Player;
 
 public class FancyGloves extends GlovesItem {
     public FancyGloves() {
@@ -11,6 +13,11 @@ public class FancyGloves extends GlovesItem {
     @Override
     public Sprite getSprite(Actor whosAsking) {
         return new Sprite("fancygloves", "gloves.png", 1, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "Some nice clothing.";
     }
 
     @Override

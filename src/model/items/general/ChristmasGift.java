@@ -3,6 +3,7 @@ package model.items.general;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.actions.general.SensoryLevel;
 import model.actions.itemactions.UnpackItemAction;
@@ -28,6 +29,11 @@ public class ChristmasGift extends UnpackableItem {
             return new Sprite("chrustmasgiftmedium", "items.png", 5, this);
         }
         return new Sprite("chrustmasgiftbif", "items.png", 6, this);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A wrapped present. What could be inside?";
     }
 
     @Override

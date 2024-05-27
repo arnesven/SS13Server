@@ -3,6 +3,7 @@ package model.items.laws;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.actions.general.Action;
 import model.items.general.GameItem;
 
@@ -33,6 +34,11 @@ public class AILaw extends GameItem {
     @Override
     public List<Action> getInventoryActions(GameData gameData, Actor forWhom) {
         return new ArrayList<>();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "";
     }
 
     @Override

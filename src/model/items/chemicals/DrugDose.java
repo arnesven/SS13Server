@@ -3,6 +3,7 @@ package model.items.chemicals;
 import graphics.sprites.Sprite;
 import model.Actor;
 import model.GameData;
+import model.Player;
 import model.characters.crew.CrewCharacter;
 import model.characters.decorators.AlterMovement;
 import model.characters.decorators.CharacterDecorator;
@@ -50,6 +51,11 @@ public class DrugDose extends Chemicals {
     @Override
     public Chemicals clone() {
         return new DrugDose(madeBy);
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "A fun pill. Will it give you a rush or mellow you out?";
     }
 
     @Override

@@ -1,5 +1,7 @@
 package model.items.weapons;
 
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 
 /**
@@ -13,5 +15,10 @@ public class BearClaws extends SlashingWeapon {
     @Override
     public GameItem clone() {
         return new BearClaws();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "This is not the edible kind.";
     }
 }

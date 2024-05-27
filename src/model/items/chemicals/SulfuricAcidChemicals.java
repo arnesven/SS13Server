@@ -1,5 +1,7 @@
 package model.items.chemicals;
 
+import model.GameData;
+import model.Player;
 import model.items.foods.FoodItem;
 import model.items.general.GameItem;
 import model.items.general.PoisonSyringe;
@@ -15,6 +17,11 @@ public class SulfuricAcidChemicals extends Chemicals {
     @Override
     public Chemicals clone() {
         return new SulfuricAcidChemicals();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "An abrasive liquid which destroys anything it is poured on.";
     }
 
     @Override

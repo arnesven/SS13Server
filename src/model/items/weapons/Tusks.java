@@ -1,5 +1,7 @@
 package model.items.weapons;
 
+import model.GameData;
+import model.Player;
 import model.items.general.GameItem;
 
 public class Tusks extends Weapon implements PiercingWeapon {
@@ -10,5 +12,10 @@ public class Tusks extends Weapon implements PiercingWeapon {
     @Override
     public GameItem clone() {
         return new Tusks();
+    }
+
+    @Override
+    public String getDescription(GameData gameData, Player performingClient) {
+        return "";
     }
 }
